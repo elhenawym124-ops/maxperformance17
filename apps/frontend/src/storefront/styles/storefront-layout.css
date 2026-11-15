@@ -154,3 +154,20 @@
 .sf-pdp-3col [data-storefront-section] {
   display: contents;
 }
+
+/* Strip native select dropdown arrow cleanly when rendering a custom chevron */
+.storefront-shell .sf-quick-order-select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+}
+
+.storefront-shell .sf-quick-order-select::-ms-expand {
+  display: none !important;
+}
+
+.storefront-shell .sf-quick-order-select::picker-icon {
+  display: none !important;
+  content: "" !important;
+}

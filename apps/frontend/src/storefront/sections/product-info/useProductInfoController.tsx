@@ -222,6 +222,13 @@ export const useProductInfoController = ({
     );
   });
   const hasEmbeddedPdpCheckout = Boolean(embeddedPdpCheckoutSection);
+  const embeddedPdpCheckoutSettings =
+    embeddedPdpCheckoutSection &&
+    typeof embeddedPdpCheckoutSection !== 'string' &&
+    embeddedPdpCheckoutSection.settings &&
+    typeof embeddedPdpCheckoutSection.settings === 'object'
+      ? (embeddedPdpCheckoutSection.settings as Record<string, unknown>)
+      : undefined;
 
   const isKhemetLuxeTheme = isKhemetLuxeThemeId(theme.id);
   const isKhemetLuxeV2Theme = theme.id === 'khemet-luxe-v2';
@@ -339,6 +346,9 @@ export const useProductInfoController = ({
       <PdpQuickOrderPanel
         product={enrichedProductForQuickOrder}
         sectionSettings={{
+          ...(isMarketplaceAvenueTheme && embeddedPdpCheckoutSettings
+            ? embeddedPdpCheckoutSettings
+            : {}),
           placement: 'inline-buybox',
           surfaceMode: 'merged-buybox',
           formVariant: isMarketplaceAvenueTheme ? 'marketplace-bazaar' : undefined,

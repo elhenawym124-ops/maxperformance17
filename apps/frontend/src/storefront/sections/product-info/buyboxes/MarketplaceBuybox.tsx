@@ -296,32 +296,30 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
           {externalOnlyProduct ? (
             <div className="pt-2">{renderExternalPurchaseCta('card')}</div>
           ) : (
-            <div className="space-y-3 pt-1">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="space-y-2.5 pt-1">
+              <div className="flex items-center gap-2.5">
                 <QuantitySelector
                   value={quantity}
                   onChange={setQuantity}
-                  className="rounded-full h-12 bg-card border border-border shrink-0"
+                  className="rounded-full h-11 bg-card border border-border shrink-0"
                 />
-                <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
-                  <button
-                    type="button"
-                    onClick={handleAddToCart}
-                    disabled={ctrl.isStrictlyOutOfStock}
-                    className="flex-1 w-full !bg-[#eb485b] hover:!bg-[#d93a4d] disabled:opacity-50 !text-white font-bold rounded-full py-3.5 px-6 shadow-sm transition-all text-sm flex items-center justify-center gap-2 cursor-pointer border-0"
-                  >
-                    {addToCartText}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleBuyNow}
-                    disabled={ctrl.isStrictlyOutOfStock}
-                    className="flex-1 w-full !bg-[#fdeef0] hover:!bg-[#fbdde1] disabled:opacity-50 !text-[#eb485b] font-bold rounded-full py-3.5 px-6 border border-[#fbdde1] transition-all text-sm flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    {buyNowText}
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={handleAddToCart}
+                  disabled={ctrl.isStrictlyOutOfStock}
+                  className="flex-1 min-w-0 h-11 !bg-[#eb485b] hover:!bg-[#d93a4d] disabled:opacity-50 !text-white font-bold rounded-full px-4 shadow-sm transition-all text-sm flex items-center justify-center gap-2 cursor-pointer border-0 whitespace-nowrap"
+                >
+                  {addToCartText}
+                </button>
               </div>
+              <button
+                type="button"
+                onClick={handleBuyNow}
+                disabled={ctrl.isStrictlyOutOfStock}
+                className="w-full h-11 !bg-[#fdeef0] hover:!bg-[#fbdde1] disabled:opacity-50 !text-[#eb485b] font-bold rounded-full px-5 border border-[#fbdde1] transition-all text-sm flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+              >
+                {buyNowText}
+              </button>
               {showExternalAffiliateCta ? renderExternalPurchaseCta('block') : null}
             </div>
           )}
@@ -406,6 +404,7 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
             subtitle={guaranteesSubtitle}
             items={guaranteeItems.length ? guaranteeItems : undefined}
             variant={guaranteeStyle}
+            className="[&>div.flex]:grid [&>div.flex]:grid-cols-2 [&>div.flex]:gap-2 [&>div.flex>div]:rounded-xl [&>div.flex>div]:justify-start [&>div.flex>div:last-child:nth-child(odd)]:col-span-2"
           />
         </div>
       </section>
@@ -415,7 +414,7 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
           Header "Shipping & Delivery" -> Courier Rows -> Warranty/Returns
          ======================================================== */}
       <aside className="min-w-0 w-full space-y-5">
-        <div className="rounded-[20px] border border-border/80 bg-card/60 p-6 space-y-5 shadow-sm">
+        <div className="rounded-[20px] border border-border/80 bg-card/60 p-4 sm:p-6 space-y-4 sm:space-y-5 shadow-sm">
           <h2 className="text-lg font-bold text-foreground tracking-tight">
             {shippingRailTitle}
           </h2>
@@ -445,7 +444,7 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
                       <div className="min-w-0">
                         <p className="font-bold text-foreground text-[13px]">{label}</p>
                         {note ? (
-                          <p className="text-muted-foreground text-[11px] mt-0.5 leading-snug">{note}</p>
+                          <p className="text-muted-foreground text-[11px] mt-0.5 leading-snug text-pretty">{note}</p>
                         ) : null}
                       </div>
                     </div>
@@ -462,14 +461,14 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
 
               {/* Warranty Row */}
               {shippingWarranty ? (
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex items-center justify-between gap-2 text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
                     <div className="h-7 w-7 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 text-emerald-600 dark:text-emerald-400">
                       <ShieldCheck className="h-4 w-4" />
                     </div>
-                    <span className="font-bold text-foreground text-[12px]">{shippingWarranty}</span>
+                    <span className="font-bold text-foreground text-[12px] leading-snug">{shippingWarranty}</span>
                   </div>
-                  <span className="text-[11px] font-medium text-muted-foreground hover:underline cursor-pointer">
+                  <span className="text-[11px] font-medium text-muted-foreground hover:underline cursor-pointer shrink-0 whitespace-nowrap">
                     {moreDetailsLabel}
                   </span>
                 </div>
@@ -477,14 +476,14 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
 
               {/* Free Returns Row */}
               {shippingReturns ? (
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex items-center justify-between gap-2 text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
                     <div className="h-7 w-7 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 text-blue-600 dark:text-blue-400">
                       <RotateCcw className="h-4 w-4" />
                     </div>
-                    <span className="font-bold text-foreground text-[12px]">{shippingReturns}</span>
+                    <span className="font-bold text-foreground text-[12px] leading-snug">{shippingReturns}</span>
                   </div>
-                  <span className="text-[11px] font-medium text-muted-foreground hover:underline cursor-pointer">
+                  <span className="text-[11px] font-medium text-muted-foreground hover:underline cursor-pointer shrink-0 whitespace-nowrap">
                     {moreDetailsLabel}
                   </span>
                 </div>

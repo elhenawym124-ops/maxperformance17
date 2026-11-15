@@ -111,6 +111,8 @@ const StickyAddToCartHost: React.FC = () => {
   const [isBuyBoxVisible, setIsBuyBoxVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isGalleryZoomOpen, setIsGalleryZoomOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hasScrolledPastIntro, setHasScrolledPastIntro] = useState(false);
   const isCartOpen = useCartStore((state) => state.isOpen);
   const selectionReady = usePdpSelectionStore(
     (state) =>
@@ -260,18 +262,39 @@ const StickyAddToCartHost: React.FC = () => {
       setIsGalleryZoomOpen(Boolean(customEvent.detail?.open));
     };
 
+    const handleMobileMenuState = (event: Event) => {
+      const customEvent = event as CustomEvent<{ open?: boolean }>;
+      setIsMobileMenuOpen(Boolean(customEvent.detail?.open));
+    };
+
+    const handleScroll = () => {
+      setHasScrolledPastIntro(window.scrollY > 180);
+    };
+
+    handleScroll();
+
     window.addEventListener(
       "storefront:pdp-gallery-zoom-open",
       handleZoomState as EventListener,
     );
+    window.addEventListener(
+      "storefront:mobile-menu-open",
+      handleMobileMenuState as EventListener,
+    );
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener(
         "storefront:pdp-gallery-zoom-open",
         handleZoomState as EventListener,
       );
+      window.removeEventListener(
+        "storefront:mobile-menu-open",
+        handleMobileMenuState as EventListener,
+      );
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [productId]);
 
   useEffect(() => {
     if (!stickyEnabled || !productId) {
@@ -393,7 +416,9 @@ const StickyAddToCartHost: React.FC = () => {
     !product ||
     isCartOpen ||
     isGalleryZoomOpen ||
+    isMobileMenuOpen ||
     isBuyBoxVisible ||
+    (isMarketplaceAvenue && !hasScrolledPastIntro) ||
     (productPageCheckoutEnabled && !isBiteRushPreview && !isKhemetLuxe && !isMarketplaceAvenue)
   ) {
     return null;

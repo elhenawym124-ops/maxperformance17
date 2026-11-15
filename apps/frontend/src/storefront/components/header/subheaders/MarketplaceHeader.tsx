@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { StorefrontHomeLink } from "../storefrontHeaderHelpers";
 import { StorefrontSearchOverlay } from "./StorefrontSearchOverlay";
@@ -166,8 +167,15 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen, setMobileMenuOpen]);
 
-  // Lock body scroll while mobile menu is open
+  // Lock body scroll and notify overlays (e.g., sticky buy bar) while mobile menu is open
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("storefront:mobile-menu-open", {
+          detail: { open: Boolean(mobileMenuOpen) },
+        }),
+      );
+    }
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -175,6 +183,13 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
     }
     return () => {
       document.body.style.overflow = "";
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(
+          new CustomEvent("storefront:mobile-menu-open", {
+            detail: { open: false },
+          }),
+        );
+      }
     };
   }, [mobileMenuOpen]);
 
@@ -326,10 +341,10 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
 
         {/* band 3 — categories + nav (WoodMart Marketplace 2 style) */}
         <div className="w-full bg-[#e14a5c] text-white">
-          <div className="container mx-auto flex h-[46px] md:h-[51px] items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 md:px-6 max-w-full overflow-hidden">
+          <div className="container mx-auto flex h-[46px] md:h-[51px] items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 md:px-6 max-w-full overflow-hidden xl:overflow-visible">
             {/* Scrollable Categories Strip */}
             <div
-              className="flex-1 min-w-0 w-full overflow-x-auto py-1 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:overflow-visible"
+              className="flex-1 min-w-0 w-full overflow-x-auto py-1 pe-3 xl:pe-0 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:overflow-visible"
               style={{
                 WebkitOverflowScrolling: "touch",
                 touchAction: "pan-x pan-y",
@@ -341,7 +356,7 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
                 }
               }}
             >
-              <div className="flex w-max min-w-full items-center gap-3 sm:gap-4 lg:gap-5 xl:gap-6">
+              <div className="flex w-max min-w-full xl:w-auto xl:min-w-0 items-center gap-3 sm:gap-3.5 lg:gap-4 2xl:gap-5 text-[13px] xl:text-[13.5px]">
                 {categories.map((dropdown, idx) => {
                   const items = (dropdown.items || []).filter(
                     (item) => Boolean(item?.label && item?.to),
@@ -354,7 +369,10 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
                      items.some((item) => isCategoryUrlMatch(item.to, currentCategory, dbCategories)))
                   );
                   return (
-                    <div key={`${dropdown.slug || label}-${idx}`} className="group relative shrink-0 flex-none">
+                    <div
+                      key={`${dropdown.slug || label}-${idx}`}
+                      className={`group relative shrink-0 flex-none ${idx >= 5 ? "xl:hidden 2xl:block" : ""}`}
+                    >
                       <Link
                         to={dropdown.to || items[0]?.to || "/collections"}
                         className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap py-1.5 transition-colors ${
@@ -392,7 +410,7 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
                   );
                 })}
                 {/* Clean More menu for overflow categories & static pages */}
-                {(allDropdownCategories.length > 6 || (navLinks && navLinks.length > 0)) ? (
+                {(allDropdownCategories.length > 5 || (navLinks && navLinks.length > 0)) ? (
                   <div className="relative shrink-0 flex-none hidden md:block">
                     <button
                       type="button"
@@ -495,28 +513,31 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen ? (
-          <>
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 z-[99] bg-black/60 backdrop-blur-[2px] transition-opacity md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-hidden="true"
-            />
+        {/* Mobile Navigation Drawer rendered inside portal after header */}
+      </header>
 
-            {/* Slide-in Drawer */}
-            <aside
-              className={`fixed inset-y-0 ${
-                isRtl ? "right-0 border-l" : "left-0 border-r"
-              } z-[100] flex w-full max-w-[320px] flex-col bg-white text-slate-800 shadow-2xl md:hidden animate-in ${
-                isRtl ? "slide-in-from-right" : "slide-in-from-left"
-              } duration-200`}
-              role="dialog"
-              aria-modal="true"
-              aria-label={isRtl ? "قائمة التصفح" : "Navigation menu"}
-              dir={headerDir}
-            >
+      {mobileMenuOpen && typeof document !== "undefined"
+        ? createPortal(
+            <>
+              {/* Backdrop */}
+              <div
+                className="fixed inset-0 z-[99] bg-black/60 backdrop-blur-[2px] transition-opacity md:hidden"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-hidden="true"
+              />
+
+              {/* Slide-in Drawer */}
+              <aside
+                className={`fixed inset-y-0 ${
+                  isRtl ? "right-0 border-l" : "left-0 border-r"
+                } z-[100] flex w-full max-w-[320px] flex-col bg-white text-slate-800 shadow-2xl md:hidden animate-in ${
+                  isRtl ? "slide-in-from-right" : "slide-in-from-left"
+                } duration-200`}
+                role="dialog"
+                aria-modal="true"
+                aria-label={isRtl ? "قائمة التصفح" : "Navigation menu"}
+                dir={headerDir}
+              >
               {/* Drawer Top Bar */}
               <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-white/10 bg-[#0d0625] px-4 text-white">
                 <StorefrontHomeLink
@@ -748,9 +769,10 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({ controller
                 ) : null}
               </div>
             </aside>
-          </>
-        ) : null}
-      </header>
+          </>,
+          document.body,
+        )
+      : null}
 
       <StorefrontSearchOverlay
         searchOpen={searchOpen}

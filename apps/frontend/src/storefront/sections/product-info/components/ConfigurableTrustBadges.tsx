@@ -6,17 +6,20 @@ export const ConfigurableTrustBadges = ({
   subtitle,
   items,
   variant = 'strip',
+  className,
 }: {
   title?: string;
   subtitle?: string;
   items?: string[];
   variant?: 'strip' | 'grid' | 'minimal';
+  className?: string;
 }) => (
   <TrustedBadgePanel
     title={title}
     subtitle={subtitle}
     items={items}
     variant={variant}
+    className={className}
   />
 );
 

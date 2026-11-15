@@ -1,5 +1,5 @@
 import React from 'react';
-import { Car, FileText } from 'lucide-react';
+import { Car, ChevronDown, FileText } from 'lucide-react';
 import QuantitySelector from '../../components/QuantitySelector';
 import { EGYPT_GOVERNORATES } from '../../../constants/egyptGovernorates';
 import type { PdpQuickOrderController } from './usePdpQuickOrderController';
@@ -159,7 +159,13 @@ export const QuickOrderFields: React.FC<{
                 name="governorate"
                 value={ctrl.normalizedGovValue}
                 onChange={ctrl.handleFieldChange}
-                className={`${ctrl.resolvedInputClassName} appearance-none pe-10`}
+                className={`${ctrl.resolvedInputClassName} sf-quick-order-select appearance-none bg-none pe-10`}
+                style={{
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  MozAppearance: 'none',
+                  backgroundImage: 'none',
+                }}
                 autoComplete="address-level1"
               >
                 <option value="">
@@ -171,9 +177,10 @@ export const QuickOrderFields: React.FC<{
                   </option>
                 ))}
               </select>
-              <span className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-muted-foreground">
-                ▼
-              </span>
+              <ChevronDown
+                className="pointer-events-none absolute end-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                aria-hidden="true"
+              />
             </div>
           </label>
         ) : null}

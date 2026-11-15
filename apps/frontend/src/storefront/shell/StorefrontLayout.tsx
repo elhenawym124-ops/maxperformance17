@@ -156,6 +156,16 @@ export const StorefrontLayout: React.FC<StorefrontLayoutProps> = (props) => {
         <StorefrontFooter isMinimal={isMinimal} globalFooter={globalFooter} />
       ) : null}
 
+      {!showMobileBottomNav &&
+        !isProductImageLandingPage &&
+        !isFastlyTheme &&
+        !isGracefulTheme &&
+        canRenderConversionHosts &&
+        routePageKey === 'pdp' &&
+        Boolean(theme?.id?.includes('marketplace-avenue')) && (
+          <div className="h-[76px]" aria-hidden="true" />
+        )}
+
       {!isProductImageLandingPage && theme.id !== 'intruder-nft' && (
         <DeferredCartDrawerHost />
       )}

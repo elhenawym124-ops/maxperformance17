@@ -11,6 +11,7 @@ export interface StandardGalleryProps {
   prefersArabicCopy?: boolean;
   compactMobile?: boolean;
   flushMobile?: boolean;
+  thumbnailsBottom?: boolean;
   overlayActions?: React.ReactNode;
   showMobileImageCount?: boolean;
   overlayMobileDots?: boolean;
@@ -27,6 +28,7 @@ export const StandardGallery: React.FC<StandardGalleryProps> = ({
   prefersArabicCopy,
   compactMobile = false,
   flushMobile = false,
+  thumbnailsBottom = false,
   overlayActions = null,
   showMobileImageCount = true,
   overlayMobileDots = false,
@@ -59,11 +61,13 @@ export const StandardGallery: React.FC<StandardGalleryProps> = ({
     <div
       className={
         hasMultipleImages
-          ? compactMobile
-            ? flushMobile
-              ? 'flex flex-col gap-2 lg:flex-row'
-              : 'flex flex-col gap-3 lg:flex-row'
-            : 'flex flex-col-reverse gap-4 lg:flex-row'
+          ? thumbnailsBottom
+            ? 'flex flex-col gap-3'
+            : compactMobile
+              ? flushMobile
+                ? 'flex flex-col gap-2 lg:flex-row'
+                : 'flex flex-col gap-3 lg:flex-row'
+              : 'flex flex-col-reverse gap-4 lg:flex-row'
           : 'block'
       }
     >
@@ -71,9 +75,11 @@ export const StandardGallery: React.FC<StandardGalleryProps> = ({
       {hasMultipleImages ? (
         <div
           className={
-            compactMobile
-              ? 'hidden gap-2 overflow-x-auto pb-2 lg:flex lg:flex-col lg:overflow-visible lg:pb-0'
-              : 'flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0'
+            thumbnailsBottom
+              ? 'order-2 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+              : compactMobile
+                ? 'hidden gap-2 overflow-x-auto pb-2 lg:flex lg:flex-col lg:overflow-visible lg:pb-0'
+                : 'flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0'
           }
         >
           {images.map((img: string, i: number) => (
@@ -81,7 +87,9 @@ export const StandardGallery: React.FC<StandardGalleryProps> = ({
               key={i}
               onClick={() => setActiveIndex(i)}
               className={`
-                h-16 w-16 shrink-0 overflow-hidden rounded-[var(--radius)] border-2 transition-all duration-200 lg:h-20 lg:w-20
+                shrink-0 overflow-hidden rounded-[var(--radius)] border-2 transition-all duration-200 ${
+                  thumbnailsBottom ? 'h-14 w-14 sm:h-16 sm:w-16' : 'h-16 w-16 lg:h-20 lg:w-20'
+                }
                 ${
                   activeIndex === i
                     ? 'border-ring ring-1 ring-ring'
@@ -113,12 +121,14 @@ export const StandardGallery: React.FC<StandardGalleryProps> = ({
 
       {/* Main Image */}
       <div
-        className={`relative flex-1 overflow-hidden group touch-pan-y ${
-          compactMobile
-            ? flushMobile
-              ? 'aspect-[1/1.04] rounded-none bg-transparent sm:aspect-[4/5] sm:rounded-[1.25rem] sm:bg-white lg:aspect-[4/5] lg:rounded-[var(--radius)]'
-              : 'aspect-[5/4] rounded-[1.4rem] bg-white sm:aspect-[4/5] lg:aspect-[4/5] lg:rounded-[var(--radius)]'
-            : 'aspect-square rounded-[var(--radius)] bg-muted lg:aspect-[4/5]'
+        className={`relative ${thumbnailsBottom ? 'order-1 w-full' : 'flex-1'} overflow-hidden group touch-pan-y ${
+          thumbnailsBottom
+            ? 'aspect-[4/3] sm:aspect-square rounded-[var(--radius)] bg-muted'
+            : compactMobile
+              ? flushMobile
+                ? 'aspect-[1/1.04] rounded-none bg-transparent sm:aspect-[4/5] sm:rounded-[1.25rem] sm:bg-white lg:aspect-[4/5] lg:rounded-[var(--radius)]'
+                : 'aspect-[5/4] rounded-[1.4rem] bg-white sm:aspect-[4/5] lg:aspect-[4/5] lg:rounded-[var(--radius)]'
+              : 'aspect-square rounded-[var(--radius)] bg-muted lg:aspect-[4/5]'
         }`}
         onClick={(event) => {
           if (typeof onOpenZoom !== 'function') {
@@ -249,7 +259,7 @@ export const StandardGallery: React.FC<StandardGalleryProps> = ({
       </div>
 
       {/* Mobile dot indicators */}
-      {images.length > 1 && !overlayMobileDots && (
+      {images.length > 1 && !overlayMobileDots && !thumbnailsBottom && (
         <div
           className={`flex justify-center md:hidden ${flushMobile ? 'pt-1' : 'pt-2'}`}
         >

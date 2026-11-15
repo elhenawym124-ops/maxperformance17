@@ -47,6 +47,9 @@ export const useProductGalleryController = (
   const isZenOrganic = theme.id === 'zen-organic';
   const isMenShoesEg = theme.id === 'men-shoes-eg';
   const isWomenFashionEg = theme.id === 'women-fashion-eg';
+  const isMarketplaceAvenue = Boolean(
+    theme?.id && theme.id.includes('marketplace-avenue'),
+  );
   const prefersArabicCopy = theme.direction === 'rtl';
   const variant = normalizeProductGalleryVariant(section?.variant);
   const isGracefulGallery = theme.id === 'soft-graceful';
@@ -396,6 +399,7 @@ export const useProductGalleryController = (
     variant,
     isZenOrganic,
     isMenShoesEg,
+    isMarketplaceAvenue,
     isGracefulGallery,
     prefersArabicCopy,
     activeIndex,
