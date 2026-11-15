@@ -28,6 +28,13 @@ export interface PageExplanationsProps {
   variant?: "icon" | "block";
 }
 
+const isTestEnv = typeof process !== "undefined" && process.env.NODE_ENV === "test";
+const explanationsCache = new Map<string, { data: Explanation[]; timestamp: number }>();
+
+export const clearExplanationsCache = () => {
+  explanationsCache.clear();
+};
+
 const PageExplanations: React.FC<PageExplanationsProps> = ({
   className = "",
   variant = "icon",
@@ -41,13 +48,26 @@ const PageExplanations: React.FC<PageExplanationsProps> = ({
   const fetchExplanations = useCallback(async () => {
     try {
       const route = location.pathname;
+      if (!isTestEnv) {
+        const cached = explanationsCache.get(route);
+        if (cached && Date.now() - cached.timestamp < 120_000) {
+          setExplanations(cached.data);
+          return;
+        }
+      }
       const res = await apiClient.get(
         `/app-explanations/by-route?route=${encodeURIComponent(route)}`
       );
       const data = res.data as any;
       if (data?.success && Array.isArray(data.explanations)) {
+        if (!isTestEnv) {
+          explanationsCache.set(route, { data: data.explanations, timestamp: Date.now() });
+        }
         setExplanations(data.explanations);
       } else {
+        if (!isTestEnv) {
+          explanationsCache.set(route, { data: [], timestamp: Date.now() });
+        }
         setExplanations([]);
       }
     } catch {

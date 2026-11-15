@@ -14,6 +14,7 @@ export interface LoadHistoryResult {
 export function useCopilotCloudSessions(
   companyId?: string | null,
   targetInitialSessionId?: string | null,
+  enabled: boolean = true,
 ) {
   const [sessions, setSessions] = useState<CopilotSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string>(targetInitialSessionId || '');
@@ -69,8 +70,10 @@ export function useCopilotCloudSessions(
   }, [companyId]);
 
   useEffect(() => {
-    fetchSessions();
-  }, [fetchSessions]);
+    if (enabled) {
+      fetchSessions();
+    }
+  }, [enabled, fetchSessions]);
 
   const createNewCloudSession = useCallback(async (title?: string) => {
     try {

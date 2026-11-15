@@ -5,6 +5,7 @@ import viteCompression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve, dirname } from 'path';
 import fs from 'fs';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -497,15 +498,18 @@ export default defineConfig(({ mode }) => {
             urls.map((f) => `'/${f}'`).join(',') +
             '].forEach(function(u){var l=document.createElement("link");l.rel="modulepreload";l.crossOrigin="";l.href=u;h.appendChild(l);});})();';
 
-          bundle['assets/app-shell-preload.js'] = {
+          const preloadHash = crypto.createHash('sha256').update(preloadCode).digest('hex').slice(0, 8);
+          const preloadFileName = `assets/app-shell-preload-${preloadHash}.js`;
+
+          bundle[preloadFileName] = {
             type: 'asset',
-            fileName: 'assets/app-shell-preload.js',
-            name: 'app-shell-preload.js',
+            fileName: preloadFileName,
+            name: `app-shell-preload-${preloadHash}.js`,
             source: preloadCode,
             needsCodeReference: false,
           } as any;
 
-          return html.replace('</head>', '<script src="/assets/app-shell-preload.js"></script></head>');
+          return html.replace('</head>', `<script src="/${preloadFileName}"></script></head>`);
         },
       },
     ].filter(Boolean),

@@ -37,7 +37,9 @@ export const CompanyProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { user, isAuthenticated } = useAuth();
-  const [company, setCompany] = useState<Company | null>(null);
+  const [company, setCompany] = useState<Company | null>(() => {
+    return (user?.company as Company) || null;
+  });
   const [isCompanyLoading, setIsCompanyLoading] = useState(false);
   const [companyError, setCompanyError] = useState<string | null>(null);
 
@@ -65,7 +67,13 @@ export const CompanyProvider: React.FC<{ children: ReactNode }> = ({
       );
 
       if (response.data && response.data.success) {
-        setCompany(response.data.data);
+        setCompany((prev) => {
+          const next = response.data.data;
+          if (prev && JSON.stringify(prev) === JSON.stringify(next)) {
+            return prev;
+          }
+          return next;
+        });
       } else {
         throw new Error(response.data?.message || "فشل في تحميل بيانات الشركة");
       }

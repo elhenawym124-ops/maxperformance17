@@ -345,6 +345,27 @@ const resolveLocalUploadFilePath = (targetUrl) => {
   return null;
 };
 
+const isInternalUploadUrl = (targetUrl) => {
+  if (typeof targetUrl !== "string" || !targetUrl.trim()) return false;
+  const raw = targetUrl.trim();
+  if (raw.startsWith("/uploads/") || raw.startsWith("uploads/")) return true;
+  try {
+    const parsed = new URL(raw);
+    const host = parsed.hostname.toLowerCase();
+    const isMaxpDomain =
+      host === "maxp.online" ||
+      host.endsWith(".maxp.online") ||
+      host === "localhost" ||
+      host === "127.0.0.1";
+    if (isMaxpDomain && parsed.pathname.includes("/uploads/")) {
+      return true;
+    }
+  } catch {
+    // not a valid URL
+  }
+  return false;
+};
+
 const sendBufferWithRange = (req, res, buffer, contentType, statusCode = 200) => {
   res.setHeader("Accept-Ranges", "bytes");
   res.setHeader("Content-Type", contentType);
@@ -1727,6 +1748,14 @@ const proxyImage = async (req, res) => {
           localFilePath,
           transformOptions,
         );
+      }
+
+      // If the target is an internal /uploads/ URL on maxp.online but does not exist on disk,
+      // never fetch remotely against ourselves through Cloudflare (avoids 2-4s self-loop stall).
+      if (isInternalUploadUrl(candidateUrl)) {
+        lastFailureStatus = 404;
+        lastFailureText = "Local upload asset not found on disk";
+        continue;
       }
 
       if (transformOptions?.shouldTransform && !messageId) {

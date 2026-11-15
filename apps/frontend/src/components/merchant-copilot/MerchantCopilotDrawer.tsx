@@ -24,6 +24,13 @@ export const MerchantCopilotDrawer: React.FC<MerchantCopilotDrawerProps> = ({
   initialSessionId,
   onClose,
 }) => {
+  const [hasEverOpened, setHasEverOpened] = useState(isOpen);
+  useEffect(() => {
+    if (isOpen && !hasEverOpened) {
+      setHasEverOpened(true);
+    }
+  }, [isOpen, hasEverOpened]);
+
   const { context, quickPrompts } = useExecutiveContext();
   const {
     sessions,
@@ -36,7 +43,7 @@ export const MerchantCopilotDrawer: React.FC<MerchantCopilotDrawerProps> = ({
     loadSessionHistory,
     rewindActiveSession,
     fetchSessions,
-  } = useCopilotCloudSessions(context.companyId, initialSessionId);
+  } = useCopilotCloudSessions(context.companyId, initialSessionId, hasEverOpened);
 
   const {
     specialists,
@@ -46,6 +53,7 @@ export const MerchantCopilotDrawer: React.FC<MerchantCopilotDrawerProps> = ({
   } = useCopilotSpecialists({
     companyId: context.companyId,
     pathname: context.pathname,
+    enabled: hasEverOpened,
   });
 
   const [showSessionsList, setShowSessionsList] = useState(false);
@@ -91,9 +99,9 @@ export const MerchantCopilotDrawer: React.FC<MerchantCopilotDrawerProps> = ({
     }
   }, [isOpen, showSessionsList, messages, sessionError]);
 
-  // Load history when active session changes
+  // Load history when active session changes (only after drawer has been opened)
   useEffect(() => {
-    if (!activeSessionId) {
+    if (!hasEverOpened || !activeSessionId) {
       setMessages([]);
       setSessionError(null);
       return;
@@ -133,7 +141,7 @@ export const MerchantCopilotDrawer: React.FC<MerchantCopilotDrawerProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [activeSessionId, loadSessionHistory]);
+  }, [activeSessionId, hasEverOpened, loadSessionHistory]);
 
   // Handle action approvals
   const handleDecision = useCallback(

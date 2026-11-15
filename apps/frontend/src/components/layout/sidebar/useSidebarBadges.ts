@@ -5,6 +5,30 @@ import { socketService } from "../../../services/socketService";
 
 const REFRESH_INTERVAL_MS = 30000;
 
+let cachedOrdersCountPromise: Promise<number> | null = null;
+let lastOrdersCountTime = 0;
+let lastOrdersCountValue = 0;
+
+export async function getSharedNewOrdersCount(apiCaller: () => Promise<number>): Promise<number> {
+  const now = Date.now();
+  if (cachedOrdersCountPromise) {
+    return cachedOrdersCountPromise;
+  }
+  if (now - lastOrdersCountTime < 5000) {
+    return lastOrdersCountValue;
+  }
+  cachedOrdersCountPromise = apiCaller()
+    .then((count) => {
+      lastOrdersCountValue = count;
+      lastOrdersCountTime = Date.now();
+      return count;
+    })
+    .finally(() => {
+      cachedOrdersCountPromise = null;
+    });
+  return cachedOrdersCountPromise;
+}
+
 export const ORDER_CORE_APPS = [
   "order-core",
   "store",
@@ -68,20 +92,23 @@ export function useSidebarBadges(): SidebarBadges {
     }
 
     try {
-      const response = await companyAwareApi.get<any>("orders-v2/simple/new-count", {
-        timeout: 5000,
+      const count = await getSharedNewOrdersCount(async () => {
+        const response = await companyAwareApi.get<any>("orders-v2/simple/new-count", {
+          timeout: 5000,
+        });
+        if (response.data?.success && response.data?.data) {
+          return response.data.data.count || 0;
+        }
+        return 0;
       });
 
-      if (response.data?.success && response.data?.data) {
-        const count = response.data.data.count || 0;
-        setNewOrders(
-          count > 0 ? (count > 99 ? "99+" : String(count)) : undefined,
-        );
-      }
+      setNewOrders(
+        count > 0 ? (count > 99 ? "99+" : String(count)) : undefined,
+      );
     } catch (error) {
       // silent fail
     }
-  }, [isAuthenticated, user, activeApps]);
+  }, [isAuthenticated, user?.id, user?.companyId, user?.role, activeApps]);
 
   const fetchUnreadTickets = useCallback(async () => {
     if (!user || !isAuthenticated) return;
@@ -110,7 +137,7 @@ export function useSidebarBadges(): SidebarBadges {
     } catch {
       // silent fail if turbo not configured or company has no shipping app
     }
-  }, [isAuthenticated, user, activeApps]);
+  }, [isAuthenticated, user?.id, user?.companyId, user?.role, activeApps]);
 
   useEffect(() => {
     fetchNewOrders();

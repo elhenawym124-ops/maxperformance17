@@ -2130,7 +2130,9 @@ const AppContent = () => {
   }, []);
 
   useEffect(() => {
-    // تأجيل جلب صفحات الهبوط لوقت الخمول حتى لا تنافس طلبات الإقلاع الحرجة
+    // Only fetch dynamic LP page slugs when visiting a landing page route (/lp/*)
+    if (!pathname.startsWith('/lp')) return;
+
     let cancelled = false;
     const loadLpPages = () => {
       if (cancelled) return;
@@ -2163,7 +2165,7 @@ const AppContent = () => {
       cancelled = true;
       window.clearTimeout(fallbackTimer);
     };
-  }, []);
+  }, [pathname]);
 
   // Remember the last app page per user+company so they can resume it after login.
   useEffect(() => {

@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { CopilotHeader } from '../CopilotHeader';
 import type { SpecialistAgent } from '../specialists';
 
-jest.mock('../../services/apiClient', () => ({
+jest.mock('../../../services/apiClient', () => ({
   apiClient: {
     get: jest.fn().mockResolvedValue({ data: { approvals: [], count: 0 } }),
   },

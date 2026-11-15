@@ -136,6 +136,23 @@ const isExplicitAuthFailureResponse = async (res: Response): Promise<boolean> =>
   }
 };
 
+const hasValidInitialSession = (cachedUser: User | null): boolean => {
+  if (!cachedUser) return false;
+  try {
+    const token = tokenManager.getAccessToken();
+    if (!token) return false;
+    const parts = token.split('.');
+    if (parts.length !== 3) return false;
+    const payload = JSON.parse(atob(parts[1]));
+    if (payload?.exp && payload.exp <= Math.floor(Date.now() / 1000)) {
+      return false; // Token expired
+    }
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Initialize user from localStorage to prevent redirect "blips" on refresh
   const [user, setUser] = useState<User | null>(() => {
@@ -147,7 +164,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return null;
     }
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(() => !hasValidInitialSession(user));
   const [isSwitchingCompany, setIsSwitchingCompany] = useState(false);
   const authStateVersionRef = useRef(0);
   const isDev = import.meta.env.DEV || import.meta.env.MODE === 'development';
@@ -455,7 +472,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           const isNowAuthenticated = !!finalUser;
           debugLog('🔍 [AuthProvider] Auth check complete. Authenticated:', isNowAuthenticated);
 
-          setUser(finalUser || null);
+          setUser((prevUser) => {
+            const nextUser = finalUser || null;
+            if (!prevUser && !nextUser) return null;
+            if (prevUser && nextUser && JSON.stringify(prevUser) === JSON.stringify(nextUser)) {
+              return prevUser;
+            }
+            return nextUser;
+          });
           setIsLoading(false);
         }
       }

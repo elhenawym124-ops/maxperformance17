@@ -443,6 +443,27 @@ export const storefrontSettingsService = {
     };
   },
 
+  seedPublicSettings: (settings: StorefrontSettings) => {
+    if (!settings) return;
+    const cacheKey = resolvePublicSettingsCacheKey(settings.companyId || undefined);
+    const hostKey =
+      typeof window !== "undefined" && window.location?.hostname
+        ? `host:${window.location.hostname.toLowerCase()}`
+        : "";
+    const expiresAt = Date.now() + PUBLIC_SETTINGS_CACHE_TTL_MS;
+    const result = { success: true, data: settings };
+    cachedPublicStorefrontSettings.set(cacheKey, { value: result, expiresAt });
+    if (settings.companyId) {
+      cachedPublicStorefrontSettings.set(`company:${settings.companyId}`, {
+        value: result,
+        expiresAt,
+      });
+    }
+    if (hostKey) {
+      cachedPublicStorefrontSettings.set(hostKey, { value: result, expiresAt });
+    }
+  },
+
   getPublicSettings: async (
     companyId?: string,
     forceRefresh = false,

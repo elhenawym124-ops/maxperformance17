@@ -259,7 +259,22 @@ export const fetchStorefrontSettings = async (
         };
       }
 
-      return applyPreviewTheme(data, previewThemeId, previewSource);
+      if (data?.storefrontSettings) {
+        storefrontSettingsService.seedPublicSettings(data.storefrontSettings);
+      }
+
+      const finalSettings = applyPreviewTheme(data, previewThemeId, previewSource);
+      if (!previewThemeId && typeof window !== 'undefined') {
+        try {
+          window.localStorage.setItem(
+            `sf_settings_cache_v2_${getStorefrontScope()}`,
+            JSON.stringify(finalSettings),
+          );
+        } catch {
+          // ignore storage failures
+        }
+      }
+      return finalSettings;
     }
 
     if (publicSettingsRes?.success && publicSettingsRes.data) {
@@ -330,6 +345,16 @@ export const useStorefrontSettings = (
       previewSource,
     ),
     queryFn: () => fetchStorefrontSettings(previewThemeId, previewSource),
+    placeholderData: () => {
+      if (previewThemeId) return undefined;
+      if (typeof window === 'undefined') return undefined;
+      try {
+        const cached = window.localStorage.getItem(`sf_settings_cache_v2_${storefrontScope}`);
+        return cached ? (JSON.parse(cached) as StorefrontSettings) : undefined;
+      } catch {
+        return undefined;
+      }
+    },
     enabled: options.enabled ?? true,
     staleTime: 5 * 60 * 1000, // was Infinity — 5min so store updates appear without hard refresh (deploy purges via version check)
     gcTime: 60 * 60 * 1000, // Keep in cache for 1 hour

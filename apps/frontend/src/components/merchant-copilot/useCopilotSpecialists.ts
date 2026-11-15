@@ -5,11 +5,13 @@ import { SPECIALIST_AGENTS, SpecialistAgent } from './specialists';
 interface UseCopilotSpecialistsProps {
   companyId?: string | null;
   pathname?: string;
+  enabled?: boolean;
 }
 
 export function useCopilotSpecialists({
   companyId,
   pathname = '',
+  enabled = true,
 }: UseCopilotSpecialistsProps) {
   const [specialists, setSpecialists] = useState<SpecialistAgent[]>(SPECIALIST_AGENTS);
   const userHasExplicitlySelectedRef = useRef(false);
@@ -27,7 +29,7 @@ export function useCopilotSpecialists({
 
   // Background sync: Fetch dynamic specialists and company-specific default from server
   useEffect(() => {
-    if (!companyId) return;
+    if (!enabled || !companyId) return;
     let isMounted = true;
 
     (async () => {
@@ -80,7 +82,7 @@ export function useCopilotSpecialists({
     return () => {
       isMounted = false;
     };
-  }, [companyId]);
+  }, [companyId, enabled]);
 
   // Contextual page awareness (informational telemetry badge, never hijacking the active agent)
   const contextReason = useMemo(() => {
