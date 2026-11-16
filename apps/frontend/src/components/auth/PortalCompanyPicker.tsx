@@ -75,9 +75,9 @@ export const PortalCompanyPicker: React.FC<PortalCompanyPickerProps> = ({
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60",
                 isAuthDark
                   ? cn(
-                      "border-[var(--auth-input-border,rgba(255,255,255,0.14))] bg-[var(--auth-input-bg,rgba(255,255,255,0.04))] text-[var(--auth-text-main,#f5f0f0)] hover:border-[var(--auth-accent,#b81a1a)] hover:bg-white/[0.08]",
+                      "border-[var(--auth-input-border,rgba(148,163,184,0.22))] bg-[var(--auth-input-bg,rgba(255,255,255,0.04))] text-[var(--auth-text-main,#f8fafc)] hover:border-[var(--auth-accent,#2563eb)] hover:bg-white/[0.08]",
                       isSelected &&
-                        "border-[var(--auth-accent,#b81a1a)] bg-white/[0.1]",
+                        "border-[var(--auth-accent,#2563eb)] bg-white/[0.1]",
                     )
                   : cn(
                       "border-border bg-card text-foreground hover:border-primary/50 hover:bg-muted/50",
