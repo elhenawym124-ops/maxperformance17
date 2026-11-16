@@ -67,7 +67,7 @@ async function syncConversionSuiteWithPromotionSettings(p, companyId, { freeShip
       });
       console.log(`✅ [PROMOTION-SETTINGS] Synced conversion-suite for company ${companyId}: freeShippingBar=${appSettings.modules.freeShippingBar}, threshold=${appSettings.thresholds.freeShippingAmount}`);
     } else {
-      const app = await p.app.findUnique({ where: { slug: 'conversion-suite' } });
+      const app = await (p.marketplaceApp || p.marketplace_app || p.app).findUnique({ where: { slug: 'conversion-suite' } });
       if (app) {
         await p.companyApp.create({
           data: {

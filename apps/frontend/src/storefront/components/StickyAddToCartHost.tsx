@@ -13,7 +13,6 @@ import { trackStorefrontAppUsage } from "../utils/appUsageTracking";
 import { parseProductMetadata } from "../utils/productMetadata";
 import { STOREFRONT_BUYBOX_ID } from "../utils/pdpCheckout";
 import { getStorefrontProductRouteKey } from "../utils/paths";
-import { isProductPageCheckoutEnabledForProduct } from "../../utils/productPageCheckout";
 import { usePdpSelectionStore } from "../store/usePdpSelectionStore";
 import { useCartStore } from "../store/useCartStore";
 
@@ -165,8 +164,6 @@ const StickyAddToCartHost: React.FC = () => {
   const commerceCopy =
     asRecord(commerceAdvancedSettings["copy"]);
   const stickyEnabled = conversionEnabled && Boolean(modules["stickyAddToCart"]);
-  const productPageCheckoutEnabled =
-    isProductPageCheckoutEnabledForProduct(product, settings);
   const stickyStyle = normalizeStickyStyle(ui["stickyStyle"]);
   const hasVariants = Boolean(product?.productVariants?.length || product?.variants?.length);
   const isBiteRushPreview = searchParams.get("previewTheme") === "restaurant-demo";
@@ -418,8 +415,7 @@ const StickyAddToCartHost: React.FC = () => {
     isGalleryZoomOpen ||
     isMobileMenuOpen ||
     isBuyBoxVisible ||
-    (isMarketplaceAvenue && !hasScrolledPastIntro) ||
-    (productPageCheckoutEnabled && !isBiteRushPreview && !isKhemetLuxe && !isMarketplaceAvenue)
+    (isMarketplaceAvenue && !hasScrolledPastIntro)
   ) {
     return null;
   }

@@ -67,10 +67,28 @@ const detectCountryByIP = async (): Promise<string | null> => {
   }
 };
 
+const safeLocalStorage = {
+  getItem: (key: string): string | null => {
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return window.localStorage.getItem(key);
+      }
+    } catch {}
+    return null;
+  },
+  setItem: (key: string, value: string): void => {
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        window.localStorage.setItem(key, value);
+      }
+    } catch {}
+  },
+};
+
 // دالة لتحديد اللغة بناءً على الدولة
 const getLanguageByCountry = async (): Promise<string> => {
   // أولاً، تحقق من اللغة المحفوظة في localStorage
-  const savedLanguage = localStorage.getItem("language");
+  const savedLanguage = safeLocalStorage.getItem("language");
   if (savedLanguage) {
     return savedLanguage;
   }
@@ -98,15 +116,15 @@ const getUrlLanguage = (): string | null => {
 
 const urlLanguage = getUrlLanguage();
 if (urlLanguage) {
-  localStorage.setItem("language", urlLanguage);
+  safeLocalStorage.setItem("language", urlLanguage);
 }
 
-const savedLanguage = urlLanguage || localStorage.getItem("language");
+const savedLanguage = urlLanguage || safeLocalStorage.getItem("language");
 const initialLanguage = savedLanguage || "ar";
 
 // Ensure localStorage is set BEFORE detector runs so it never falls through to navigator.language
-localStorage.setItem("language", initialLanguage);
-localStorage.setItem("i18nextLng", initialLanguage);
+safeLocalStorage.setItem("language", initialLanguage);
+safeLocalStorage.setItem("i18nextLng", initialLanguage);
 
 // تهيئة i18n متزامنة أولية (لضمان جاهزية الترجمات عند التحميل الأول)
 i18n
@@ -136,8 +154,10 @@ if (initialLanguage === "en") {
 }
 
 // تطبيق اتجاه النص
-document.documentElement.dir = initialLanguage === "ar" ? "rtl" : "ltr";
-document.documentElement.lang = initialLanguage;
+if (typeof document !== "undefined" && document.documentElement) {
+  document.documentElement.dir = initialLanguage === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = initialLanguage;
+}
 
 // إذا لم تكن هناك لغة محفوظة، اكتشف الدولة بعد ما الصفحة تبقى interactive
 // (مش في الـ import time عشان متعملش block للـ first paint)
@@ -150,8 +170,8 @@ if (!savedLanguage) {
             await loadEnglishTranslations();
           }
           await i18n.changeLanguage(detectedLanguage);
-          localStorage.setItem("language", detectedLanguage);
-          localStorage.setItem("i18nextLng", detectedLanguage);
+          safeLocalStorage.setItem("language", detectedLanguage);
+          safeLocalStorage.setItem("i18nextLng", detectedLanguage);
           document.documentElement.dir = detectedLanguage === "ar" ? "rtl" : "ltr";
           document.documentElement.lang = detectedLanguage;
         })();
@@ -176,8 +196,8 @@ export const changeLanguage = async (language: string) => {
     await loadEnglishTranslations();
   }
   await i18n.changeLanguage(language);
-  localStorage.setItem("language", language);
-  localStorage.setItem("i18nextLng", language);
+  safeLocalStorage.setItem("language", language);
+  safeLocalStorage.setItem("i18nextLng", language);
   document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
   document.documentElement.lang = language;
   // إعادة تحميل الصفحة لتطبيق التغييرات على جميع المكونات

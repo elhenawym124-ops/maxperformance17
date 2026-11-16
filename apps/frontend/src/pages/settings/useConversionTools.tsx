@@ -164,6 +164,60 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
     void loadManagedApps();
   }, [isAuthLoading, loadManagedApps]);
 
+  const ensureAppOperational = useCallback(
+    async (
+      appSlug: ManagedMarketplaceAppSlug,
+    ): Promise<{ app: CompanyMarketplaceApp | null; errorMessage?: string }> => {
+      const current = managedApps[appSlug]?.app;
+      if (current && isAppOperational(current)) {
+        return { app: current };
+      }
+
+      let installErrorMessage: string | undefined;
+      try {
+        await apiClient.post(`/marketplace/apps/${appSlug}/install`, {});
+      } catch (installErr: any) {
+        console.warn("Auto-install attempt result:", installErr);
+        installErrorMessage =
+          installErr?.response?.data?.message || installErr?.message;
+      }
+
+      try {
+        const response = (await apiClient.get("/my-apps", { _skipErrorToast: true })) as {
+          data?: { data?: unknown };
+        };
+        const installedApps = Array.isArray(response?.data?.data)
+          ? (response.data.data as CompanyMarketplaceApp[])
+          : [];
+        const matchedApp = installedApps.find((entry) => entry?.app?.slug === appSlug) || null;
+        if (matchedApp && isAppOperational(matchedApp)) {
+          const normalizedSettings = normalizeMarketplaceAppSettings(
+            appSlug,
+            matchedApp.settings || {},
+          );
+          setManagedApps((prev) => ({
+            ...prev,
+            [appSlug]: {
+              app: matchedApp,
+              settings: normalizedSettings,
+            },
+          }));
+          return { app: matchedApp };
+        } else if (matchedApp && !isAppOperational(matchedApp)) {
+          return {
+            app: null,
+            errorMessage: t("storeConversionSettings.appDisabledError"),
+          };
+        }
+      } catch (fetchErr) {
+        console.error("Error refreshing my-apps after install:", fetchErr);
+      }
+
+      return { app: null, errorMessage: installErrorMessage };
+    },
+    [managedApps, t],
+  );
+
   const getAppStatusLabel = useCallback(
     (app: CompanyMarketplaceApp | null) => {
       if (!app) {
@@ -178,25 +232,12 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
   );
 
   const getToolAvailability = useCallback(
-    (tool: StoreConversionToolConfig): ToolAvailability => {
-      const appState = managedApps[tool.appSlug];
-      if (!appState?.app) {
-        return {
-          available: false,
-          note: t("storeConversionSettings.requiresApp", { app: STORE_CONVERSION_APP_LABELS[tool.appSlug] }) || "",
-        };
-      }
-
-      if (!isAppOperational(appState.app)) {
-        return {
-          available: false,
-          note: t("storeConversionSettings.appDisabled", { app: STORE_CONVERSION_APP_LABELS[tool.appSlug] }),
-        };
-      }
-
+    (_tool: StoreConversionToolConfig): ToolAvailability => {
+      // Conversion tools are always available to activate and configure.
+      // When enabled, the parent marketplace app is automatically installed in the background if not present.
       return { available: true, note: "" };
     },
-    [managedApps, t],
+    [],
   );
 
   const getToolEnabled = useCallback(
@@ -215,22 +256,32 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
 
   const handleToolToggle = useCallback(
     async (tool: StoreConversionToolConfig, nextValue: boolean) => {
-      const appState = managedApps[tool.appSlug];
-      if (!appState?.app) {
-        toast.error(t("storeConversionSettings.needsAppError", { app: STORE_CONVERSION_APP_LABELS[tool.appSlug] }));
-        return;
+      let targetApp = managedApps[tool.appSlug]?.app || null;
+
+      if (!targetApp || !isAppOperational(targetApp)) {
+        if (!nextValue) {
+          return;
+        }
+        setSavingToolKey(tool.key);
+        const { app: operationalApp, errorMessage } = await ensureAppOperational(tool.appSlug);
+        if (!operationalApp) {
+          setSavingToolKey(null);
+          toast.error(errorMessage || t("storeConversionSettings.saveFailed"));
+          return;
+        }
+        targetApp = operationalApp;
       }
 
-      if (!isAppOperational(appState.app)) {
-        toast.error(t("storeConversionSettings.appDisabledError"));
-        return;
-      }
+      const currentSettings = normalizeMarketplaceAppSettings(
+        tool.appSlug,
+        targetApp.settings || managedApps[tool.appSlug]?.settings || {},
+      );
 
       const writePaths = nextValue
         ? tool.writePathsOn || tool.readPaths
         : tool.writePathsOff || tool.readPaths;
 
-      let nextSettings = appState.settings;
+      let nextSettings = currentSettings;
       writePaths.forEach((path) => {
         nextSettings = setDeepValue(nextSettings, path.split("."), nextValue);
       });
@@ -244,13 +295,13 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
       setManagedApps((currentState) => ({
         ...currentState,
         [tool.appSlug]: {
-          app: appState.app,
+          app: targetApp,
           settings: normalizedSettings,
         },
       }));
 
       try {
-        await apiClient.put(`/my-apps/${appState.app.id}/settings`, {
+        await apiClient.put(`/my-apps/${targetApp.id}/settings`, {
           settings: normalizedSettings,
         });
         setLastSavedAt(Date.now());
@@ -262,7 +313,7 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
         setSavingToolKey(null);
       }
     },
-    [loadManagedApps, managedApps, t],
+    [ensureAppOperational, loadManagedApps, managedApps, t],
   );
 
   const handleToolFieldSave = useCallback(
@@ -271,18 +322,26 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
       field: StoreConversionToolFieldConfig,
       rawValue: string,
     ) => {
-      const appState = managedApps[tool.appSlug];
-      if (!appState?.app) {
-        toast.error(t("storeConversionSettings.needsAppError", { app: STORE_CONVERSION_APP_LABELS[tool.appSlug] }));
-        return;
+      let targetApp = managedApps[tool.appSlug]?.app || null;
+
+      if (!targetApp || !isAppOperational(targetApp)) {
+        const savingKey = `${tool.key}:${field.key}`;
+        setSavingToolKey(savingKey);
+        const { app: operationalApp, errorMessage } = await ensureAppOperational(tool.appSlug);
+        if (!operationalApp) {
+          setSavingToolKey(null);
+          toast.error(errorMessage || t("storeConversionSettings.saveFieldFailed"));
+          return;
+        }
+        targetApp = operationalApp;
       }
 
-      if (!isAppOperational(appState.app)) {
-        toast.error(t("storeConversionSettings.appDisabledError"));
-        return;
-      }
+      const currentSettings = normalizeMarketplaceAppSettings(
+        tool.appSlug,
+        targetApp.settings || managedApps[tool.appSlug]?.settings || {},
+      );
 
-      const currentValue = getDeepValue(appState.settings, field.path.split("."));
+      const currentValue = getDeepValue(currentSettings, field.path.split("."));
       let nextValue: unknown;
 
       if (field.type === "number") {
@@ -303,7 +362,7 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
       }
 
       const nextSettings = setDeepValue(
-        appState.settings,
+        currentSettings,
         field.path.split("."),
         nextValue,
       );
@@ -317,13 +376,13 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
       setManagedApps((currentState) => ({
         ...currentState,
         [tool.appSlug]: {
-          app: appState.app,
+          app: targetApp,
           settings: normalizedSettings,
         },
       }));
 
       try {
-        await apiClient.put(`/my-apps/${appState.app.id}/settings`, {
+        await apiClient.put(`/my-apps/${targetApp.id}/settings`, {
           settings: normalizedSettings,
         });
         setLastSavedAt(Date.now());
@@ -335,7 +394,7 @@ export function useConversionTools(appSlugs: ManagedMarketplaceAppSlug[]) {
         setSavingToolKey(null);
       }
     },
-    [loadManagedApps, managedApps, t],
+    [ensureAppOperational, loadManagedApps, managedApps, t],
   );
 
   return {
