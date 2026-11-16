@@ -25,6 +25,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
   enableSubjects = false,
   customers,
   customerResults,
+  branches = [],
   onCustomerSearch,
   onClose,
   onSave,
