@@ -48,6 +48,7 @@ export const DYNAMIC_THEME_REGISTRY: Record<string, ThemeLoaderFn> = {
   "district-market": () => import("./district-market.json"),
   "menswear-prime": () => import("./menswear-prime.json"),
   "cairo-stride": () => import("./cairo-stride.json"),
+  "kwrsat-2026": () => import("./kwrsat-2026.json"),
   "kwrsat": () => import("./kwrsat.json"),
   "closet-os": () => import("./closet-os.json"),
   "hayah-modest-eg": () => import("./hayah-modest-eg.json"),

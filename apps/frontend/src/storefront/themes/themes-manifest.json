@@ -1,7 +1,38 @@
 [
   {
+    "id": "kwrsat-2026",
+    "name": "كورسات 2026",
+    "description": "قالب منصة كورسات 2026 النخبوي بمحرك موشن كامل 60 FPS وجزيئات كانفاس تفاعلية وبطاقات 3D مائلة وتمرير نصي لا نهائي وسكرول ناعم مع Lenis.",
+    "category": "digital",
+    "categoryMeta": {
+      "primary": {
+        "id": "digital",
+        "label": "رقمي وإبداعي"
+      },
+      "secondary": {
+        "id": "courses-digital",
+        "label": "كورسات ومسارات برمجية 2026"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "142 71% 45%",
+      "220 20% 14%",
+      "199 89% 48%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 7,
+      "shopSections": 5,
+      "checkoutSections": 3,
+      "pdpSections": 6,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
     "id": "kwrsat",
-    "name": "كورسات",
+    "name": "كورسات 2026",
     "description": "قالب تعليمي نخبوي للكورسات والمسارات البرمجية والذكاء الاصطناعي مع هيرو 3D تفاعلي وجزيئات كانفاس وسكرول 60 FPS من ultimate-animation.",
     "category": "digital",
     "categoryMeta": {
@@ -10,8 +41,8 @@
         "label": "رقمي وإبداعي"
       },
       "secondary": {
-        "id": "courses",
-        "label": "كورسات وتعليم"
+        "id": "courses-digital",
+        "label": "كورسات ومسارات برمجية 2026"
       }
     },
     "direction": "rtl",

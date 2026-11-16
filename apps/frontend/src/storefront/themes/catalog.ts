@@ -762,6 +762,18 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "online-supermarket",
     "سوبرماركت أونلاين",
   ),
+  "kwrsat-2026": createThemeCategoryMeta(
+    "digital",
+    "رقمي وإبداعي",
+    "courses-digital",
+    "كورسات ومسارات برمجية 2026",
+  ),
+  kwrsat: createThemeCategoryMeta(
+    "digital",
+    "رقمي وإبداعي",
+    "courses-digital",
+    "كورسات ومسارات برمجية 2026",
+  ),
   "skill-lab": createThemeCategoryMeta(
     "digital",
     "رقمي وإبداعي",
@@ -1063,6 +1075,10 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "ثيم دافئ بألوان أرضية لمنصات الحرف اليدوية مع قصص الحرفيين وقطع محدودة الإنتاج.",
   "fresh-cart":
     "قالب سوبرماركت أونلاين يسرّع الطلبات اليومية: أقسام مفهومة، باقات جاهزة، وعروض تتحرك بسرعة.",
+  "kwrsat-2026":
+    "قالب كورسات 2026 النخبوي: تصميم سينمائي فائق السرعة بمحرك موشن 60 FPS وجزيئات كانفاس تفاعلية وبطاقات مشاريع ستاكينج وباقات اشتراك ديناميكية.",
+  kwrsat:
+    "قالب كورسات 2026 النخبوي: تصميم سينمائي فائق السرعة بمحرك موشن 60 FPS وجزيئات كانفاس تفاعلية وبطاقات مشاريع ستاكينج وباقات اشتراك ديناميكية.",
   "skill-lab":
     "قالب كورسات ومنتجات رقمية يبيع المسارات الجاهزة والشهادات والعروض من أول شاشة وبأسلوب واضح ومباشر.",
   "academy-little-coders":
@@ -1239,6 +1255,8 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
   "turbo-parts": "/assets/themes/elessi-garage-fit/engine-bay.jpg",
   crafted: "/assets/themes/aura-chic/artisan.png",
   "fresh-cart": "/assets/themes/elessi-harvest-fold/hero-market.jpg",
+  "kwrsat-2026": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+  kwrsat: "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
   "skill-lab": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
   "academy-little-coders": "/assets/themes/academy-little-coders/preview.png",
   "junior-ai-lab": "/assets/themes/junior-ai-lab/preview.png",

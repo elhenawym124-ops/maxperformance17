@@ -79,6 +79,7 @@ import craftedData from "./crafted.json";
 import freshCartData from "./fresh-cart.json";
 import skillLabData from "./skill-lab.json";
 import kwrsatData from "./kwrsat.json";
+import kwrsat2026Data from "./kwrsat-2026.json";
 import baladiMarketEgData from "./baladi-market-eg.json";
 import nileEleganceEgData from "./nile-elegance-eg.json";
 import primeButcherLuxeData from "./prime-butcher-luxe.json";
@@ -770,6 +771,7 @@ export const STOREFRONT_THEME_PRESETS: Record<string, StorefrontTheme> = {
   crafted: asStorefrontTheme(craftedData),
   "fresh-cart": asStorefrontTheme(freshCartData),
   "skill-lab": asStorefrontTheme(skillLabData),
+  "kwrsat-2026": asStorefrontTheme(kwrsat2026Data),
   kwrsat: asStorefrontTheme(kwrsatData),
   "baladi-market-eg": asStorefrontTheme(baladiMarketEgData),
   "nile-elegance-eg": asStorefrontTheme(nileEleganceEgData),
