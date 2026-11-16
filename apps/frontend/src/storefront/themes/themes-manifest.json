@@ -4123,6 +4123,254 @@
     }
   },
   {
+    "id": "tpl-037-bilateral-contrast-electronics",
+    "name": "Bilateral — إلكترونيات",
+    "description": "قالب إلكترونيات على محورين متساويين: هيرو نصّين متطابقين، فئات قرار تقنية، شبكة أجهزة، مقارنة مواصفات، وشريط مميزات رفيع. أبيض سائد وأسود حاد وعنصر لوني واحد — مبني لمتجر بيبيع بالمقارنة.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "tech-store",
+        "label": "متجر تقنية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "220 16% 12%",
+      "220 12% 94%",
+      "214 92% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-037-bilateral-contrast-electronics/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-038-lean-panel-electronics",
+    "name": "Lean Panel — إلكترونيات",
+    "description": "قالب إلكترونيات خفيف بمنطق الأساس البسيط: هيرو صورة واحدة في النص، فئات سريعة، شبكة أجهزة، شريط مميزات، وآراء مختصرة. أقل سكشنز ممكنة وأسرع فتح — مناسب لمتجر صغير أو بيبدأ.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "tech-store",
+        "label": "متجر تقنية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "210 12% 20%",
+      "210 10% 93%",
+      "158 62% 38%"
+    ],
+    "previewImage": "/assets/themes/tpl-038-lean-panel-electronics/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-039-souq-counter-electronics",
+    "name": "Souq Counter — إلكترونيات",
+    "description": "قالب إلكترونيات موبايل-أولًا بمنطق السوق المحلي: هيرو سريع، فئات مربعات، شبكة أجهزة، شريط أسود للعروض، ومزايا الدفع عند الاستلام. مبني لحملات السوشيال والطلب من الموبايل.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "tech-store",
+        "label": "متجر تقنية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "24 92% 50%",
+      "24 40% 92%",
+      "210 86% 46%"
+    ],
+    "previewImage": "/assets/themes/tpl-039-souq-counter-electronics/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-040-circuit-atelier-electronics",
+    "name": "Circuit Atelier — إلكترونيات",
+    "description": "قالب إلكترونيات أصلي بمنطق الورشة: هيرو قاعدة عرض، شبكة أجهزة بأسعار، قصة عن اختبار البطارية، شبكة منتجات، آراء تحريرية، وشريط يوميات. هوية بصرية خاصة مبنية على القياس مش على الوعد.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "tech-store",
+        "label": "متجر تقنية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "240 14% 12%",
+      "240 10% 93%",
+      "265 72% 56%"
+    ],
+    "previewImage": "/assets/themes/tpl-040-circuit-atelier-electronics/preview.png",
+    "pageStats": {
+      "homeSections": 11,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 25
+    }
+  },
+  {
+    "id": "tpl-041-chroma-drop-mobiles",
+    "name": "Chroma Drop — موبايلات",
+    "description": "قالب موبايلات بألوان حيوية ونزلات أسبوعية: هيرو لوحة نزول، فئات كبسولات، شبكة منتجات، موزايك لوكات بالألوان، ومزايا المتجر. حركة خفيفة عند التمرير مع احترام prefers-reduced-motion.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "mobile-store",
+        "label": "موبايلات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "338 86% 52%",
+      "338 40% 95%",
+      "195 92% 44%"
+    ],
+    "previewImage": "/assets/themes/tpl-041-chroma-drop-mobiles/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-042-depot-grid-mobiles",
+    "name": "Depot Grid — موبايلات",
+    "description": "قالب موبايلات بمنطق المخزن المتعدد: هيرو شريط قيادة، فئات ماركت بلاطات، شبكة منتجات كثيفة، شريط مميزات المتجر، ودليل شراء. مبني لمتجر بيجمع أكتر من مورّد وأكتر من نوع.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "mobile-store",
+        "label": "موبايلات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "222 58% 24%",
+      "222 24% 92%",
+      "18 88% 55%"
+    ],
+    "previewImage": "/assets/themes/tpl-042-depot-grid-mobiles/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-043-gilded-boutique-mobiles",
+    "name": "Gilded Mobile — موبايلات",
+    "description": "قالب موبايلات راقي بمنطق الإصدار المحدود: هيرو هادئ، فئات أعمدة معرض، موزايك لوكات، قصة حرفية، وآراء بصوت العملاء. أخضر غامق وذهبي وحدود رقيقة — مناسب للهدايا والإصدارات المحدودة.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "mobile-store",
+        "label": "موبايلات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "168 32% 22%",
+      "168 18% 91%",
+      "40 62% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-043-gilded-boutique-mobiles/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-044-orbit-motion-mobiles",
+    "name": "Orbit Motion — موبايلات",
+    "description": "قالب موبايلات أصلي بمنطق الحركة الخفيفة: هيرو نيون، شبكة تقنية، فئات تحريرية، موزايك لوكات، وآراء. انتقالات ناعمة عند التمرير مع احترام prefers-reduced-motion.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "mobile-store",
+        "label": "موبايلات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "205 34% 14%",
+      "205 20% 92%",
+      "285 84% 60%"
+    ],
+    "previewImage": "/assets/themes/tpl-044-orbit-motion-mobiles/preview.png",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
     "id": "turbo-parts",
     "name": "Turbo Parts",
     "description": "قالب قطع غيار يختصر القرار: بحث بالموديل، باقات صيانة، وضمان واضح يطمن العميل قبل الشراء.",

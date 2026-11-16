@@ -1,0 +1,448 @@
+{
+  "id": "tpl-040-circuit-atelier-electronics",
+  "name": "Circuit Atelier — إلكترونيات",
+  "description": "قالب إلكترونيات أصلي بمنطق الورشة: هيرو قاعدة عرض، شبكة أجهزة بأسعار، قصة عن اختبار البطارية، شبكة منتجات، آراء تحريرية، وشريط يوميات. هوية بصرية خاصة مبنية على القياس مش على الوعد.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "240 14% 12%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "240 10% 93%",
+      "secondaryForeground": "240 16% 12%",
+      "accent": "265 72% 56%",
+      "accentForeground": "0 0% 100%",
+      "background": "0 0% 100%",
+      "foreground": "240 18% 10%",
+      "muted": "240 8% 96%",
+      "mutedForeground": "240 6% 44%",
+      "border": "240 10% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "240 18% 10%",
+      "ring": "265 72% 56%"
+    },
+    "typography": {
+      "headingFont": "Noto Kufi Arabic, Cairo, sans-serif",
+      "bodyFont": "IBM Plex Sans Arabic, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1.1rem",
+      "buttonRadius": "0.6rem"
+    },
+    "productCard": {
+      "borderRadius": "1.1rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | CIRCUIT ATELIER",
+    "description": "قالب إلكترونيات أصلي بمنطق الورشة: هيرو قاعدة عرض، شبكة أجهزة بأسعار، قصة عن اختبار البطارية، شبكة منتجات، آراء تحريرية، وشريط يوميات. هوية بصرية خاصة مبنية على القياس مش على الوعد."
+  },
+  "preview": {
+    "colors": [
+      "240 14% 12%",
+      "265 72% 56%",
+      "0 0% 100%"
+    ],
+    "imageUrl": "/assets/themes/tpl-040-circuit-atelier-electronics/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "CIRCUIT ATELIER",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "3 ساعات اختبار لكل جهاز · تقرير مكتوب على صفحة المنتج",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "التقارير",
+        "to": "/collections"
+      },
+      {
+        "label": "لابتوب",
+        "to": "/shop?category=laptop"
+      },
+      {
+        "label": "صوت",
+        "to": "/shop?category=audio"
+      },
+      {
+        "label": "الورشة",
+        "to": "/shop"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "CIRCUIT ATELIER — قالب إلكترونيات أصلي بمنطق الورشة.",
+    "copyrightText": "© 2026 CIRCUIT ATELIER",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "التقارير",
+            "to": "/collections"
+          },
+          {
+            "label": "لابتوب",
+            "to": "/shop?category=laptop"
+          },
+          {
+            "label": "صوت",
+            "to": "/shop?category=audio"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "cinematic-plinth",
+          "settings": {
+            "eyebrow": "ورشة الدواير",
+            "title": "بنفكّ الجهاز قبل ما نوصّفه",
+            "subtitle": "كل جهاز بنفتحه ونقيسه: بطارية تحت حمل حقيقي، حرارة بعد ساعة، ووقت شحن من 0 لـ 50% — والأرقام على الكارت.",
+            "ctaText": "شوف التقارير",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "stepper",
+          "settings": {
+            "title": "اختار ستاك جهازك",
+            "subtitle": "المناسبة ← المزاج",
+            "ctaText": "شوف الستاك",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "شغل"
+              },
+              {
+                "label": "جيمنج"
+              },
+              {
+                "label": "سفر"
+              }
+            ],
+            "moods": [
+              {
+                "label": "أداء"
+              },
+              {
+                "label": "وزن خفيف"
+              }
+            ],
+            "looks": [
+              {
+                "title": "ستاب الشغل",
+                "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800",
+                "occasions": [
+                  "شغل"
+                ],
+                "moods": [
+                  "أداء"
+                ]
+              },
+              {
+                "title": "ستاب الجيمنج",
+                "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=800",
+                "occasions": [
+                  "جيمنج"
+                ],
+                "moods": [
+                  "أداء"
+                ]
+              },
+              {
+                "title": "ستاب السفر",
+                "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&q=80&w=800",
+                "occasions": [
+                  "سفر"
+                ],
+                "moods": [
+                  "وزن خفيف"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry"
+        },
+        {
+          "type": "featured-collections",
+          "variant": "tech-decision-lanes",
+          "settings": {
+            "title": "مختبرات الأجهزة",
+            "subtitle": "مقارنة مبنية على قياس"
+          }
+        },
+        {
+          "type": "tech-grid",
+          "settings": {
+            "title": "أجهزة الأسبوع",
+            "subtitle": "مختارة من اللي بيتباع فعلًا",
+            "viewAllText": "شوف كل الأجهزة",
+            "itemCtaText": "أضف للسلة",
+            "items": [
+              {
+                "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800",
+                "title": "لابتوب شغل ثقيل",
+                "price": "34,900 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800",
+                "title": "ساعة رياضية",
+                "price": "8,400 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=800",
+                "title": "هيدست جيمنج",
+                "price": "5,100 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&q=80&w=800",
+                "title": "محطة شحن 3 منافذ",
+                "price": "1,450 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الأجهزة المعروضة"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "عروض الأسبوع",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "تقرير مجاني",
+                "title": "3 ساعات اختبار",
+                "subtitle": "مع كل جهاز فوق 10 آلاف",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "مرفق"
+              },
+              {
+                "label": "ضمان سنة",
+                "title": "إصلاح أو استبدال",
+                "subtitle": "الشحن علينا في الحالتين",
+                "link": "/contact",
+                "ctaText": "اعرف أكتر",
+                "stat": "12 شهر"
+              },
+              {
+                "label": "خصم تبادل",
+                "title": "جهازك القديم",
+                "subtitle": "بنقيّمه ونخصم من الجديد",
+                "link": "/shop",
+                "ctaText": "اعرف أكتر",
+                "stat": "حتى 20%"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "editorial",
+          "settings": {
+            "title": "أرقام ومراجعات"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "title": "من الورشة",
+            "subtitle": "3 حاجات بنقيسها قبل ما نقبل الجهاز في المتجر"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "تقرير جهاز كل أسبوع",
+            "subtitle": "جهاز واحد، 3 ساعات قياس، ونتيجة مكتوبة."
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "decision-deck"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "neon-showcase"
+        },
+        {
+          "type": "product-info",
+          "variant": "bento-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "boutique-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

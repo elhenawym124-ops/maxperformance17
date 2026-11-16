@@ -1,0 +1,358 @@
+{
+  "id": "tpl-039-souq-counter-electronics",
+  "name": "Souq Counter — إلكترونيات",
+  "description": "قالب إلكترونيات موبايل-أولًا بمنطق السوق المحلي: هيرو سريع، فئات مربعات، شبكة أجهزة، شريط أسود للعروض، ومزايا الدفع عند الاستلام. مبني لحملات السوشيال والطلب من الموبايل.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "24 92% 50%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "24 40% 92%",
+      "secondaryForeground": "24 80% 20%",
+      "accent": "210 86% 46%",
+      "accentForeground": "0 0% 100%",
+      "background": "30 30% 98%",
+      "foreground": "220 20% 14%",
+      "muted": "24 22% 94%",
+      "mutedForeground": "220 10% 42%",
+      "border": "24 18% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "220 20% 14%",
+      "ring": "24 92% 50%"
+    },
+    "typography": {
+      "headingFont": "Tajawal, Cairo, sans-serif",
+      "bodyFont": "Tajawal, Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.8rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "0.8rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SOUQ COUNTER",
+    "description": "قالب إلكترونيات موبايل-أولًا بمنطق السوق المحلي: هيرو سريع، فئات مربعات، شبكة أجهزة، شريط أسود للعروض، ومزايا الدفع عند الاستلام. مبني لحملات السوشيال والطلب من الموبايل."
+  },
+  "preview": {
+    "colors": [
+      "24 92% 50%",
+      "210 86% 46%",
+      "30 30% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-039-souq-counter-electronics/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "SOUQ COUNTER",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "دفع عند الاستلام · شحن 2-4 يوم · ضمان محلي سنة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "أجهزة",
+        "to": "/shop"
+      },
+      {
+        "label": "موبايلات",
+        "to": "/shop?category=phones"
+      },
+      {
+        "label": "لابتوب",
+        "to": "/shop?category=laptop"
+      },
+      {
+        "label": "عروض",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "SOUQ COUNTER — قالب إلكترونيات موبايل-أولًا بمنطق السوق المحلي.",
+    "copyrightText": "© 2026 SOUQ COUNTER",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "أجهزة",
+            "to": "/shop"
+          },
+          {
+            "label": "موبايلات",
+            "to": "/shop?category=phones"
+          },
+          {
+            "label": "لابتوب",
+            "to": "/shop?category=laptop"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "easyorders-black-bar",
+          "settings": {
+            "badge": "عرض الأسبوع",
+            "message": "خصم 10% على أول طلب — الشحن علينا",
+            "saleLabel": "خصومات يومية",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "speed-banner",
+          "settings": {
+            "eyebrow": "دفع عند الاستلام",
+            "title": "جهازك يصلك وتدفع وقتها",
+            "subtitle": "تلفون جديد أو لابتوب — بنشحه لباب البيت في 2-4 يوم، وتدفع لما تشوف الكرتونة وتفتحها.",
+            "ctaText": "اطلب على واتساب",
+            "ctaLink": "/contact",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "retail-category-tiles",
+          "settings": {
+            "title": "اللي بيتطلب أكتر",
+            "subtitle": "أجهزة بضمان محلي"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الأجهزة المعروضة"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "صور من عند العميل",
+            "title": "عملاء بيستلموا",
+            "subtitle": "صور من عند العميل",
+            "handle": "qa.lab",
+            "images": [
+              "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=800"
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "لوكات اليوم",
+            "subtitle": "الملحقات على أجهزة حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800",
+                "title": "موبايل + جراب"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800",
+                "title": "لابتوب للشغل"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+                "title": "سماعة سفر"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+                "title": "ملحقات الشحن"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تجارب العملاء"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "standard"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

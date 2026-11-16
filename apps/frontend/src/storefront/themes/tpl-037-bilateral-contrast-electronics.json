@@ -1,0 +1,379 @@
+{
+  "id": "tpl-037-bilateral-contrast-electronics",
+  "name": "Bilateral — إلكترونيات",
+  "description": "قالب إلكترونيات على محورين متساويين: هيرو نصّين متطابقين، فئات قرار تقنية، شبكة أجهزة، مقارنة مواصفات، وشريط مميزات رفيع. أبيض سائد وأسود حاد وعنصر لوني واحد — مبني لمتجر بيبيع بالمقارنة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "220 16% 12%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "220 12% 94%",
+      "secondaryForeground": "220 18% 14%",
+      "accent": "214 92% 50%",
+      "accentForeground": "0 0% 100%",
+      "background": "0 0% 99%",
+      "foreground": "220 18% 11%",
+      "muted": "220 12% 95%",
+      "mutedForeground": "220 9% 42%",
+      "border": "220 12% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "220 18% 11%",
+      "ring": "214 92% 50%"
+    },
+    "typography": {
+      "headingFont": "IBM Plex Sans Arabic, sans-serif",
+      "bodyFont": "IBM Plex Sans Arabic, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.25rem",
+      "buttonRadius": "0.25rem"
+    },
+    "productCard": {
+      "borderRadius": "0.25rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | BILATERAL",
+    "description": "قالب إلكترونيات على محورين متساويين: هيرو نصّين متطابقين، فئات قرار تقنية، شبكة أجهزة، مقارنة مواصفات، وشريط مميزات رفيع. أبيض سائد وأسود حاد وعنصر لوني واحد — مبني لمتجر بيبيع بالمقارنة."
+  },
+  "preview": {
+    "colors": [
+      "220 16% 12%",
+      "214 92% 50%",
+      "0 0% 99%"
+    ],
+    "imageUrl": "/assets/themes/tpl-037-bilateral-contrast-electronics/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "BILATERAL",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "مقارنة على 2 أجهزة في نفس الصفحة · شحن 2-4 يوم",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الأجهزة",
+        "to": "/shop"
+      },
+      {
+        "label": "لابتوب",
+        "to": "/shop?category=laptop"
+      },
+      {
+        "label": "شاشات",
+        "to": "/shop?category=displays"
+      },
+      {
+        "label": "سماعات",
+        "to": "/shop?category=audio"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "BILATERAL — قالب إلكترونيات على محورين متساويين.",
+    "copyrightText": "© 2026 BILATERAL",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الأجهزة",
+            "to": "/shop"
+          },
+          {
+            "label": "لابتوب",
+            "to": "/shop?category=laptop"
+          },
+          {
+            "label": "شاشات",
+            "to": "/shop?category=displays"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل 2-4 يوم",
+            "message": "كل جهاز بشهادة ضمان سنة — والاستبدال خلال 14 يوم",
+            "saleLabel": "خصومات يومية",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "split-panel",
+          "settings": {
+            "eyebrow": "محورين متساويين",
+            "title": "كل جهاز على محوره",
+            "subtitle": "لابتوبات وشاشات وسماعات — كل واحد معروض جنب بديله، بسعر ومواصفة، ومن غير كلام زيادة.",
+            "ctaText": "اتفرج على الأجهزة",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "tech-decision-lanes",
+          "settings": {
+            "title": "اختار القسم",
+            "subtitle": "لابتوب · شاشة · سماعة · ملحقات"
+          }
+        },
+        {
+          "type": "tech-grid",
+          "settings": {
+            "title": "أجهزة الأسبوع",
+            "subtitle": "مختارة من اللي بيتباع فعلًا",
+            "viewAllText": "شوف كل الأجهزة",
+            "itemCtaText": "أضف للسلة",
+            "items": [
+              {
+                "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800",
+                "title": "لابتوب أوفيس 14″",
+                "price": "27,900 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&q=80&w=800",
+                "title": "كاميرا ميرورلس",
+                "price": "41,500 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+                "title": "سماعة أوفر-إير",
+                "price": "6,750 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
+                "title": "كيبورد ميكانيكي",
+                "price": "3,200 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الأجهزة المعروضة"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "لوكات اليوم",
+            "subtitle": "الملحقات على أجهزة حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800",
+                "title": "ستاب أوفيس"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+                "title": "سماعة سفر"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&q=80&w=800",
+                "title": "كاميرا"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
+                "title": "سِت مكتب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "command-proof",
+          "settings": {
+            "title": "قالوا عن الأجهزة"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "نشرة الأسعار",
+            "subtitle": "سعر السوق بينزل — بنبلّغك أول ما ينزل."
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "spec-console"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "command-stage"
+        },
+        {
+          "type": "product-info",
+          "variant": "specs-grid"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "command-alternatives"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "command-cart",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "command-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "id": "tpl-041-chroma-drop-mobiles",
+  "name": "Chroma Drop — موبايلات",
+  "description": "قالب موبايلات بألوان حيوية ونزلات أسبوعية: هيرو لوحة نزول، فئات كبسولات، شبكة منتجات، موزايك لوكات بالألوان، ومزايا المتجر. حركة خفيفة عند التمرير مع احترام prefers-reduced-motion.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "338 86% 52%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "338 40% 95%",
+      "secondaryForeground": "338 70% 24%",
+      "accent": "195 92% 44%",
+      "accentForeground": "0 0% 100%",
+      "background": "48 100% 98%",
+      "foreground": "330 30% 12%",
+      "muted": "338 30% 95%",
+      "mutedForeground": "330 12% 40%",
+      "border": "338 28% 90%",
+      "card": "0 0% 100%",
+      "cardForeground": "330 30% 12%",
+      "ring": "338 86% 52%"
+    },
+    "typography": {
+      "headingFont": "Changa, Cairo, sans-serif",
+      "bodyFont": "Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1.4rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1.4rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | CHROMA DROP",
+    "description": "قالب موبايلات بألوان حيوية ونزلات أسبوعية: هيرو لوحة نزول، فئات كبسولات، شبكة منتجات، موزايك لوكات بالألوان، ومزايا المتجر. حركة خفيفة عند التمرير مع احترام prefers-reduced-motion."
+  },
+  "preview": {
+    "colors": [
+      "338 86% 52%",
+      "195 92% 44%",
+      "48 100% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-041-chroma-drop-mobiles/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "CHROMA DROP",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "نزلة كل خميس · دفعة محدودة · شحن 2-4 يوم",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "النزلة",
+        "to": "/shop?sort=new"
+      },
+      {
+        "label": "جرابات",
+        "to": "/shop?category=cases"
+      },
+      {
+        "label": "شواحن",
+        "to": "/shop?category=chargers"
+      },
+      {
+        "label": "سماعات",
+        "to": "/shop?category=audio"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "CHROMA DROP — قالب موبايلات بألوان حيوية ونزلات أسبوعية.",
+    "copyrightText": "© 2026 CHROMA DROP",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "النزلة",
+            "to": "/shop?sort=new"
+          },
+          {
+            "label": "جرابات",
+            "to": "/shop?category=cases"
+          },
+          {
+            "label": "شواحن",
+            "to": "/shop?category=chargers"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "نزلة محدودة",
+            "message": "كل خميس 8 مساءً — الكمية بتخلص في نفس اليوم",
+            "saleLabel": "خصومات يومية",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "drop-board",
+          "settings": {
+            "eyebrow": "نزلة الأسبوع",
+            "title": "ألوان جديدة للجيب",
+            "subtitle": "جرابات وإكسسوارات بألوان الموسم — دفعة محدودة، ومصوّرة على 3 موبايلات مختلفة عشان تشوف اللون الحقيقي.",
+            "ctaText": "شوف النزلة",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "catalog-pills",
+          "settings": {
+            "title": "حسب اللون",
+            "subtitle": "كحلي · مرجاني · ليموني · بنفسجي"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الملحقات المعروضة"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "لوكات اليوم",
+            "subtitle": "الملحقات على أجهزة حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+                "title": "جرابات الموسم"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=800",
+                "title": "شواحن سريعة"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+                "title": "سماعات جيب"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+                "title": "لون النزلة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "آراء سريعة"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "store-advantages-pastel",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "نزلة كل خميس",
+            "subtitle": "اللون الجديد قبل ما يخلص، وسعره وقت النزول."
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "soft-sort-bar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "stacked"
+        },
+        {
+          "type": "product-info",
+          "variant": "gear-loadout"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "playful"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "playful-basket",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "minimal"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

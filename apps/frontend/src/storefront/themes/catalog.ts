@@ -245,6 +245,54 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "skincare",
     "عناية بالبشرة",
   ),
+  "tpl-037-bilateral-contrast-electronics": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "tech-store",
+    "متجر تقنية",
+  ),
+  "tpl-038-lean-panel-electronics": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "tech-store",
+    "متجر تقنية",
+  ),
+  "tpl-039-souq-counter-electronics": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "tech-store",
+    "متجر تقنية",
+  ),
+  "tpl-040-circuit-atelier-electronics": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "tech-store",
+    "متجر تقنية",
+  ),
+  "tpl-041-chroma-drop-mobiles": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "mobile-store",
+    "موبايلات",
+  ),
+  "tpl-042-depot-grid-mobiles": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "mobile-store",
+    "موبايلات",
+  ),
+  "tpl-043-gilded-boutique-mobiles": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "mobile-store",
+    "موبايلات",
+  ),
+  "tpl-044-orbit-motion-mobiles": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "mobile-store",
+    "موبايلات",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -841,6 +889,22 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب عناية بالبشرة بمنطق الروتين والدفع عند الاستلام: هيرو نباتي، مخطّط روتين بخطوات، فئات دوائر، باقة منتجين، وآراء بشارات ثقة. مبني لحملات السوشيال والطلب المباشر.",
   "tpl-036-skincare-atelier-origin":
     "قالب عناية بالبشرة أصلي بمنطق الأتيليه: هيرو بانر رشيق، موزاييك صور، ريل فئات مناسبات، قصة تحريرية عن تركيبة السيرم، وآراء بصوت العميلات. هوية بصرية خاصة.",
+  "tpl-037-bilateral-contrast-electronics":
+    "قالب إلكترونيات على محورين متساويين: هيرو نصّين متطابقين، فئات قرار تقنية، شبكة أجهزة، مقارنة مواصفات، وشريط مميزات رفيع. أبيض سائد وأسود حاد وعنصر لوني واحد — مبني لمتجر بيبيع بالمقارنة.",
+  "tpl-038-lean-panel-electronics":
+    "قالب إلكترونيات خفيف بمنطق الأساس البسيط: هيرو صورة واحدة في النص، فئات سريعة، شبكة أجهزة، شريط مميزات، وآراء مختصرة. أقل سكشنز ممكنة وأسرع فتح — مناسب لمتجر صغير أو بيبدأ.",
+  "tpl-039-souq-counter-electronics":
+    "قالب إلكترونيات موبايل-أولًا بمنطق السوق المحلي: هيرو سريع، فئات مربعات، شبكة أجهزة، شريط أسود للعروض، ومزايا الدفع عند الاستلام. مبني لحملات السوشيال والطلب من الموبايل.",
+  "tpl-040-circuit-atelier-electronics":
+    "قالب إلكترونيات أصلي بمنطق الورشة: هيرو قاعدة عرض، شبكة أجهزة بأسعار، قصة عن اختبار البطارية، شبكة منتجات، آراء تحريرية، وشريط يوميات. هوية بصرية خاصة مبنية على القياس مش على الوعد.",
+  "tpl-041-chroma-drop-mobiles":
+    "قالب موبايلات بألوان حيوية ونزلات أسبوعية: هيرو لوحة نزول، فئات كبسولات، شبكة منتجات، موزايك لوكات بالألوان، ومزايا المتجر. حركة خفيفة عند التمرير مع احترام prefers-reduced-motion.",
+  "tpl-042-depot-grid-mobiles":
+    "قالب موبايلات بمنطق المخزن المتعدد: هيرو شريط قيادة، فئات ماركت بلاطات، شبكة منتجات كثيفة، شريط مميزات المتجر، ودليل شراء. مبني لمتجر بيجمع أكتر من مورّد وأكتر من نوع.",
+  "tpl-043-gilded-boutique-mobiles":
+    "قالب موبايلات راقي بمنطق الإصدار المحدود: هيرو هادئ، فئات أعمدة معرض، موزايك لوكات، قصة حرفية، وآراء بصوت العملاء. أخضر غامق وذهبي وحدود رقيقة — مناسب للهدايا والإصدارات المحدودة.",
+  "tpl-044-orbit-motion-mobiles":
+    "قالب موبايلات أصلي بمنطق الحركة الخفيفة: هيرو نيون، شبكة تقنية، فئات تحريرية، موزايك لوكات، وآراء. انتقالات ناعمة عند التمرير مع احترام prefers-reduced-motion.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1054,6 +1118,22 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-035-skincare-ritual-cod/preview.png",
   "tpl-036-skincare-atelier-origin":
     "/assets/themes/tpl-036-skincare-atelier-origin/preview.png",
+  "tpl-037-bilateral-contrast-electronics":
+    "/assets/themes/tpl-037-bilateral-contrast-electronics/preview.png",
+  "tpl-038-lean-panel-electronics":
+    "/assets/themes/tpl-038-lean-panel-electronics/preview.png",
+  "tpl-039-souq-counter-electronics":
+    "/assets/themes/tpl-039-souq-counter-electronics/preview.png",
+  "tpl-040-circuit-atelier-electronics":
+    "/assets/themes/tpl-040-circuit-atelier-electronics/preview.png",
+  "tpl-041-chroma-drop-mobiles":
+    "/assets/themes/tpl-041-chroma-drop-mobiles/preview.png",
+  "tpl-042-depot-grid-mobiles":
+    "/assets/themes/tpl-042-depot-grid-mobiles/preview.png",
+  "tpl-043-gilded-boutique-mobiles":
+    "/assets/themes/tpl-043-gilded-boutique-mobiles/preview.png",
+  "tpl-044-orbit-motion-mobiles":
+    "/assets/themes/tpl-044-orbit-motion-mobiles/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

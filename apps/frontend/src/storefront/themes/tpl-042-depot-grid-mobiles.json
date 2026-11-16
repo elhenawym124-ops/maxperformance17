@@ -1,0 +1,374 @@
+{
+  "id": "tpl-042-depot-grid-mobiles",
+  "name": "Depot Grid — موبايلات",
+  "description": "قالب موبايلات بمنطق المخزن المتعدد: هيرو شريط قيادة، فئات ماركت بلاطات، شبكة منتجات كثيفة، شريط مميزات المتجر، ودليل شراء. مبني لمتجر بيجمع أكتر من مورّد وأكتر من نوع.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "222 58% 24%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "222 24% 92%",
+      "secondaryForeground": "222 58% 18%",
+      "accent": "18 88% 55%",
+      "accentForeground": "0 0% 100%",
+      "background": "0 0% 100%",
+      "foreground": "222 30% 12%",
+      "muted": "222 18% 96%",
+      "mutedForeground": "222 10% 44%",
+      "border": "222 18% 89%",
+      "card": "0 0% 100%",
+      "cardForeground": "222 30% 12%",
+      "ring": "18 88% 55%"
+    },
+    "typography": {
+      "headingFont": "Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.5rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.5rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | DEPOT GRID",
+    "description": "قالب موبايلات بمنطق المخزن المتعدد: هيرو شريط قيادة، فئات ماركت بلاطات، شبكة منتجات كثيفة، شريط مميزات المتجر، ودليل شراء. مبني لمتجر بيجمع أكتر من مورّد وأكتر من نوع."
+  },
+  "preview": {
+    "colors": [
+      "222 58% 24%",
+      "18 88% 55%",
+      "0 0% 100%"
+    ],
+    "imageUrl": "/assets/themes/tpl-042-depot-grid-mobiles/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "DEPOT GRID",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "12 مورّد · ضمان سنة · استبدال 14 يوم",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الأقسام",
+        "to": "/collections"
+      },
+      {
+        "label": "موبايلات",
+        "to": "/shop?category=phones"
+      },
+      {
+        "label": "لابتوب",
+        "to": "/shop?category=laptop"
+      },
+      {
+        "label": "إكسسوارات",
+        "to": "/shop?category=accessories"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "DEPOT GRID — قالب موبايلات بمنطق المخزن المتعدد.",
+    "copyrightText": "© 2026 DEPOT GRID",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الأقسام",
+            "to": "/collections"
+          },
+          {
+            "label": "موبايلات",
+            "to": "/shop?category=phones"
+          },
+          {
+            "label": "لابتوب",
+            "to": "/shop?category=laptop"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "ضمان سنة",
+            "message": "كل جهاز بضمان سنة من المورّد — والاستبدال من عندنا",
+            "saleLabel": "خصومات يومية",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "retail-command",
+          "settings": {
+            "eyebrow": "متجر متعدد",
+            "title": "كل الأجهزة تحت سقف واحد",
+            "subtitle": "موبايلات، لابتوبات، سماعات، وملحقات — من 12 مورّد، بضمان سنة، ومقارنة سعر في نفس الصفحة.",
+            "ctaText": "اتفرج على الأقسام",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "marketplace-tiles",
+          "settings": {
+            "title": "الأقسام",
+            "subtitle": "12 مورّد · 4 أقسام رئيسية"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "category-promo",
+          "settings": {
+            "badge": "عروض الأسبوع",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "موبايلات",
+                "title": "من 4,900 ج.م",
+                "subtitle": "أكتر من 40 موديل",
+                "link": "/shop?category=phones",
+                "ctaText": "اعرف أكتر",
+                "stat": "4 أقسام"
+              },
+              {
+                "label": "لابتوب",
+                "title": "من 18,900 ج.م",
+                "subtitle": "شغل ودراسة وجيمنج",
+                "link": "/shop?category=laptop",
+                "ctaText": "اعرف أكتر",
+                "stat": "خصم"
+              },
+              {
+                "label": "إكسسوارات",
+                "title": "من 250 ج.م",
+                "subtitle": "جرابات وشواحن وكابلات",
+                "link": "/shop?category=accessories",
+                "ctaText": "اعرف أكتر",
+                "stat": "جديد"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الملحقات المعروضة"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "marketplace-utility-strip",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "marquee",
+          "settings": {
+            "badge": "صور العملاء",
+            "title": "من المتجر",
+            "subtitle": "صور العملاء",
+            "handle": "qa.lab",
+            "images": [
+              "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&q=80&w=800"
+            ]
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "title": "دليل الشراء",
+            "subtitle": "موبايل جديد ولا مستعمل بحالة الزيرو؟ 4 أسئلة قبل القرار"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "",
+            "subtitle": ""
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "boutique-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "masonry"
+        },
+        {
+          "type": "product-info",
+          "variant": "command-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "list"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "id": "tpl-044-orbit-motion-mobiles",
+  "name": "Orbit Motion — موبايلات",
+  "description": "قالب موبايلات أصلي بمنطق الحركة الخفيفة: هيرو نيون، شبكة تقنية، فئات تحريرية، موزايك لوكات، وآراء. انتقالات ناعمة عند التمرير مع احترام prefers-reduced-motion — نفس التجربة من غير حركة لو الجهاز بيطلب كده.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "205 34% 14%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "205 20% 92%",
+      "secondaryForeground": "205 34% 12%",
+      "accent": "285 84% 60%",
+      "accentForeground": "0 0% 100%",
+      "background": "210 24% 98%",
+      "foreground": "210 26% 12%",
+      "muted": "210 16% 95%",
+      "mutedForeground": "210 8% 42%",
+      "border": "210 16% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "210 26% 12%",
+      "ring": "285 84% 60%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, Cairo, sans-serif",
+      "bodyFont": "Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | ORBIT MOTION",
+    "description": "قالب موبايلات أصلي بمنطق الحركة الخفيفة: هيرو نيون، شبكة تقنية، فئات تحريرية، موزايك لوكات، وآراء. انتقالات ناعمة عند التمرير مع احترام prefers-reduced-motion — نفس التجربة من غير حركة لو الجهاز بيطلب كده."
+  },
+  "preview": {
+    "colors": [
+      "205 34% 14%",
+      "285 84% 60%",
+      "210 24% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-044-orbit-motion-mobiles/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "ORBIT MOTION",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "تصميم بيحترم إعدادات جهازك · شحن 2-4 يوم",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "التجربة",
+        "to": "/shop"
+      },
+      {
+        "label": "إكسسوارات",
+        "to": "/shop?category=accessories"
+      },
+      {
+        "label": "شواحن",
+        "to": "/shop?category=chargers"
+      },
+      {
+        "label": "قارن",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "ORBIT MOTION — قالب موبايلات أصلي بمنطق الحركة الخفيفة.",
+    "copyrightText": "© 2026 ORBIT MOTION",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "التجربة",
+            "to": "/shop"
+          },
+          {
+            "label": "إكسسوارات",
+            "to": "/shop?category=accessories"
+          },
+          {
+            "label": "شواحن",
+            "to": "/shop?category=chargers"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "neon-dark",
+          "settings": {
+            "eyebrow": "حركة خفيفة",
+            "title": "الصفحة بتتحرك… بالراحة",
+            "subtitle": "انتقالات ناعمة عند التمرير، واحترام كامل لـ prefers-reduced-motion — نفس التجربة من غير حركة لو الجهاز بيطلب كده.",
+            "ctaText": "شوف التجربة",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "اختار ستاك جهازك",
+            "subtitle": "المناسبة ← المزاج",
+            "ctaText": "شوف الستاك",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "شغل"
+              },
+              {
+                "label": "سفر"
+              },
+              {
+                "label": "بيت"
+              }
+            ],
+            "moods": [
+              {
+                "label": "هادئ"
+              },
+              {
+                "label": "حركة"
+              }
+            ],
+            "looks": [
+              {
+                "title": "ستاب المكتب",
+                "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&q=80&w=800",
+                "occasions": [
+                  "شغل",
+                  "بيت"
+                ],
+                "moods": [
+                  "هادئ"
+                ]
+              },
+              {
+                "title": "ستاب السفر",
+                "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+                "occasions": [
+                  "سفر"
+                ],
+                "moods": [
+                  "حركة"
+                ]
+              },
+              {
+                "title": "ستاب الجيمنج",
+                "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=800",
+                "occasions": [
+                  "بيت"
+                ],
+                "moods": [
+                  "حركة"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "لوكات اليوم",
+            "subtitle": "الملحقات على أجهزة حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=800",
+                "title": "ستاند مكتب"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+                "title": "كابل مضفّر"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+                "title": "جراب شفاف"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=800",
+                "title": "سيت جيمنج"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "editorial-categories",
+          "settings": {
+            "title": "قارن بسرعة",
+            "subtitle": "3 أجهزة جنب بعض"
+          }
+        },
+        {
+          "type": "tech-grid",
+          "settings": {
+            "title": "أجهزة الأسبوع",
+            "subtitle": "مختارة من اللي بيتباع فعلًا",
+            "viewAllText": "شوف كل الأجهزة",
+            "itemCtaText": "أضف للسلة",
+            "items": [
+              {
+                "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&q=80&w=800",
+                "title": "كيبورد بلوتوث",
+                "price": "2,850 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+                "title": "شاحن 65W",
+                "price": "1,190 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+                "title": "سماعة لاسلكية",
+                "price": "4,300 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800",
+                "title": "ساعة + باند",
+                "price": "7,600 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الملحقات المعروضة"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "عروض الأسبوع",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "شاحن 65W",
+                "title": "أسرع من الأصلي",
+                "subtitle": "بيفضل 40% أطول",
+                "link": "/shop?category=chargers",
+                "ctaText": "اعرف أكتر",
+                "stat": "3 منافذ"
+              },
+              {
+                "label": "جراب مرن",
+                "title": "بيمتص الصدمات",
+                "subtitle": "14 يوم استبدال",
+                "link": "/shop?category=accessories",
+                "ctaText": "اعرف أكتر",
+                "stat": "-20%"
+              },
+              {
+                "label": "ساعة + باند",
+                "title": "قراءة أوضح",
+                "subtitle": "شاشة AMOLED",
+                "link": "/shop",
+                "ctaText": "اعرف أكتر",
+                "stat": "جديد"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "command-proof",
+          "settings": {
+            "title": "تجربة المستخدمين"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "رسالة واحدة كل شهر",
+            "subtitle": "مفيش إزعاج — التحديثات والملحقات الجديدة بس."
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "spec-console"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "atelier-editorial-stage"
+        },
+        {
+          "type": "product-info",
+          "variant": "marketplace-bazaar"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "minimal"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "command-cart",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,362 @@
+{
+  "id": "tpl-038-lean-panel-electronics",
+  "name": "Lean Panel — إلكترونيات",
+  "description": "قالب إلكترونيات خفيف بمنطق الأساس البسيط: هيرو صورة واحدة في النص، فئات سريعة، شبكة أجهزة، شريط مميزات، وآراء مختصرة. أقل سكشنز ممكنة وأسرع فتح — مناسب لمتجر صغير أو بيبدأ.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "210 12% 20%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "210 10% 93%",
+      "secondaryForeground": "210 14% 18%",
+      "accent": "158 62% 38%",
+      "accentForeground": "0 0% 100%",
+      "background": "0 0% 100%",
+      "foreground": "210 16% 12%",
+      "muted": "210 10% 96%",
+      "mutedForeground": "210 7% 45%",
+      "border": "210 12% 89%",
+      "card": "0 0% 100%",
+      "cardForeground": "210 16% 12%",
+      "ring": "158 62% 38%"
+    },
+    "typography": {
+      "headingFont": "Cairo, sans-serif",
+      "bodyFont": "Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.4rem",
+      "buttonRadius": "0.4rem"
+    },
+    "productCard": {
+      "borderRadius": "0.4rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | LEAN PANEL",
+    "description": "قالب إلكترونيات خفيف بمنطق الأساس البسيط: هيرو صورة واحدة في النص، فئات سريعة، شبكة أجهزة، شريط مميزات، وآراء مختصرة. أقل سكشنز ممكنة وأسرع فتح — مناسب لمتجر صغير أو بيبدأ."
+  },
+  "preview": {
+    "colors": [
+      "210 12% 20%",
+      "158 62% 38%",
+      "0 0% 100%"
+    ],
+    "imageUrl": "/assets/themes/tpl-038-lean-panel-electronics/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "LEAN PANEL",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل 3-5 يوم لكل المحافظات",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المتجر",
+        "to": "/shop"
+      },
+      {
+        "label": "عروض",
+        "to": "/collections"
+      },
+      {
+        "label": "جديد",
+        "to": "/shop?sort=new"
+      },
+      {
+        "label": "المساعدة",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "LEAN PANEL — قالب إلكترونيات خفيف بمنطق الأساس البسيط.",
+    "copyrightText": "© 2026 LEAN PANEL",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المتجر",
+            "to": "/shop"
+          },
+          {
+            "label": "عروض",
+            "to": "/collections"
+          },
+          {
+            "label": "جديد",
+            "to": "/shop?sort=new"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل مجاني",
+            "message": "توصيل مجاني فوق 3000 ج.م — لكل المحافظات",
+            "saleLabel": "خصومات يومية",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "centered",
+          "settings": {
+            "eyebrow": "نسخة خفيفة",
+            "title": "أساس بسيط بيفتح بسرعة",
+            "subtitle": "صفحة واحدة نظيفة: الأجهزة، سعرها، وتفاصيل الشحن — من غير سلايدرز تقيلة ولا بلوكات ملهاش لازمة.",
+            "ctaText": "ابدأ التسوّق",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "الأقسام",
+            "subtitle": "كل اللي محتاجه في مكان واحد"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "عروض الأسبوع",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "باقة الشهر",
+                "title": "لابتوب + جراب",
+                "subtitle": "وفّر 900 ج.م على الباقة",
+                "link": "/shop",
+                "ctaText": "اعرف أكتر",
+                "stat": "-15%"
+              },
+              {
+                "label": "سماعة + شاحن",
+                "title": "سعرين في سطر",
+                "subtitle": "كل واحد بسعره لوحده",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "2×1"
+              },
+              {
+                "label": "ملحقات المكتب",
+                "title": "كاتب وكابل وستاند",
+                "subtitle": "كل حاجة تحت 900 ج.م",
+                "link": "/shop?category=accessories",
+                "ctaText": "اعرف أكتر",
+                "stat": "خصم"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الأجهزة المعروضة"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "trust-strip",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "تابعنا على إنستجرام",
+            "title": "صور من العملاء",
+            "subtitle": "تابعنا على إنستجرام",
+            "handle": "qa.lab",
+            "images": [
+              "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=800"
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "تابع نزول الجديد",
+            "subtitle": "رسالة واحدة كل أسبوعين — من غير إعلانات."
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

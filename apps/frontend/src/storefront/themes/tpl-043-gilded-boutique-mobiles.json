@@ -1,0 +1,363 @@
+{
+  "id": "tpl-043-gilded-boutique-mobiles",
+  "name": "Gilded Mobile — موبايلات",
+  "description": "قالب موبايلات راقي بمنطق الإصدار المحدود: هيرو هادئ، فئات أعمدة معرض، موزايك لوكات، قصة حرفية، وآراء بصوت العملاء. أخضر غامق وذهبي وحدود رقيقة — مناسب للهدايا والإصدارات المحدودة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "168 32% 22%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "168 18% 91%",
+      "secondaryForeground": "168 34% 16%",
+      "accent": "40 62% 50%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 40% 98%",
+      "foreground": "168 26% 12%",
+      "muted": "40 22% 94%",
+      "mutedForeground": "168 10% 42%",
+      "border": "40 18% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "168 26% 12%",
+      "ring": "40 62% 50%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.2rem",
+      "buttonRadius": "0.2rem"
+    },
+    "productCard": {
+      "borderRadius": "0.2rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | GILDED MOBILE",
+    "description": "قالب موبايلات راقي بمنطق الإصدار المحدود: هيرو هادئ، فئات أعمدة معرض، موزايك لوكات، قصة حرفية، وآراء بصوت العملاء. أخضر غامق وذهبي وحدود رقيقة — مناسب للهدايا والإصدارات المحدودة."
+  },
+  "preview": {
+    "colors": [
+      "168 32% 22%",
+      "40 62% 50%",
+      "40 40% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-043-gilded-boutique-mobiles/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "GILDED MOBILE",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "تغليف هدية مجاني · شحن 2-4 يوم",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الإصدارات",
+        "to": "/collections"
+      },
+      {
+        "label": "جرابات",
+        "to": "/shop?category=cases"
+      },
+      {
+        "label": "سلاسل",
+        "to": "/shop?category=chains"
+      },
+      {
+        "label": "هدايا",
+        "to": "/shop?gift=1"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "GILDED MOBILE — قالب موبايلات راقي بمنطق الإصدار المحدود.",
+    "copyrightText": "© 2026 GILDED MOBILE",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الإصدارات",
+            "to": "/collections"
+          },
+          {
+            "label": "جرابات",
+            "to": "/shop?category=cases"
+          },
+          {
+            "label": "سلاسل",
+            "to": "/shop?category=chains"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon"
+        },
+        {
+          "type": "hero-banner",
+          "variant": "luxury-minimal",
+          "settings": {
+            "eyebrow": "إصدار محدود",
+            "title": "موبايل يستاهل إيدك",
+            "subtitle": "إكسسوارات مطلية ومصنوعة بحرفية — كل قطعة برقم إصدار، وتغليف هدية جاهز من غير زيادة سعر.",
+            "ctaText": "شوف الإصدارات",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "gallery-columns",
+          "settings": {
+            "title": "الإصدارات",
+            "subtitle": "أرقام محدودة · تشطيب يدوي"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "لوكات اليوم",
+            "subtitle": "الملحقات على أجهزة حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800",
+                "title": "إصدار ذهبي"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+                "title": "جراب مطلي"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=800",
+                "title": "سلسلة موبايل"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800",
+                "title": "ساعة + سلسلة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "الملحقات المعروضة"
+          }
+        },
+        {
+          "type": "story-parallax",
+          "variant": "standard",
+          "settings": {
+            "eyebrow": "قصتنا",
+            "title": "رقم إصدار على كل قطعة",
+            "subtitle": "بنصنع 200 قطعة في الدفعة، وكل واحدة بتتسجّل برقمها — عشان تعرف إنت من أنهي دفعة.",
+            "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=2000",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "voice-notes",
+          "settings": {
+            "title": "كلام العملاء"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "شحن · ضمان · استبدال — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "تابعنا على إنستجرام",
+            "title": "من العملاء",
+            "subtitle": "تابعنا على إنستجرام",
+            "handle": "qa.lab",
+            "images": [
+              "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800"
+            ]
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero"
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "graceful-bar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "mirror-carousel"
+        },
+        {
+          "type": "product-info",
+          "variant": "utility-rail"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "glass"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأجهزة والملحقات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "boutique-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقارنة أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}
