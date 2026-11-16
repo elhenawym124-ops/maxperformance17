@@ -117,6 +117,27 @@ export const DYNAMIC_THEME_REGISTRY: Record<string, ThemeLoaderFn> = {
   "tpl-026-paper-fragrance-perfume": () => import("./tpl-026-paper-fragrance-perfume.json"),
   "tpl-027-attar-market-perfume": () => import("./tpl-027-attar-market-perfume.json"),
   "tpl-028-ritual-apothecary-perfume": () => import("./tpl-028-ritual-apothecary-perfume.json"),
+  // Batches 013-024, 029-036 (120-template plan)
+  "tpl-013-modest-warehouse-atelier": () => import("./tpl-013-modest-warehouse-atelier.json"),
+  "tpl-014-modest-porto-editorial": () => import("./tpl-014-modest-porto-editorial.json"),
+  "tpl-015-modest-souq-cod": () => import("./tpl-015-modest-souq-cod.json"),
+  "tpl-016-modest-veil-story": () => import("./tpl-016-modest-veil-story.json"),
+  "tpl-017-shoes-impulse-grid": () => import("./tpl-017-shoes-impulse-grid.json"),
+  "tpl-018-shoes-kadence-clean": () => import("./tpl-018-shoes-kadence-clean.json"),
+  "tpl-019-shoes-cairo-cod": () => import("./tpl-019-shoes-cairo-cod.json"),
+  "tpl-020-shoes-sole-atelier": () => import("./tpl-020-shoes-sole-atelier.json"),
+  "tpl-021-bags-motion-rail": () => import("./tpl-021-bags-motion-rail.json"),
+  "tpl-022-bags-blocksy-mosaic": () => import("./tpl-022-bags-blocksy-mosaic.json"),
+  "tpl-023-bags-souq-bazaar": () => import("./tpl-023-bags-souq-bazaar.json"),
+  "tpl-024-bags-maison-story": () => import("./tpl-024-bags-maison-story.json"),
+  "tpl-029-beauty-expanse-editorial": () => import("./tpl-029-beauty-expanse-editorial.json"),
+  "tpl-030-beauty-neve-light": () => import("./tpl-030-beauty-neve-light.json"),
+  "tpl-031-beauty-ritual-cod": () => import("./tpl-031-beauty-ritual-cod.json"),
+  "tpl-032-beauty-glow-lab": () => import("./tpl-032-beauty-glow-lab.json"),
+  "tpl-033-skincare-derme-editorial": () => import("./tpl-033-skincare-derme-editorial.json"),
+  "tpl-034-skincare-pure-neve": () => import("./tpl-034-skincare-pure-neve.json"),
+  "tpl-035-skincare-ritual-cod": () => import("./tpl-035-skincare-ritual-cod.json"),
+  "tpl-036-skincare-atelier-origin": () => import("./tpl-036-skincare-atelier-origin.json"),
 };
 
 const THEME_CACHE = new Map<string, StorefrontTheme>();

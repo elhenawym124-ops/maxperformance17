@@ -153,8 +153,8 @@
             "ctaLink": "/shop",
             "secondaryCtaText": "كل المنتجات",
             "secondaryCtaLink": "/shop",
-            "backgroundImage": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=2000",
-            "panelImage": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=2000"
+            "backgroundImage": "/assets/themes/tpl-017-shoes-impulse-grid/preview.png",
+            "panelImage": "/assets/themes/tpl-017-shoes-impulse-grid/preview.png"
           }
         },
         {

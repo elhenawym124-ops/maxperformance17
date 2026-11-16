@@ -153,8 +153,8 @@
             "ctaLink": "/shop",
             "secondaryCtaText": "اعرفي نوع بشرتك",
             "secondaryCtaLink": "/shop",
-            "backgroundImage": "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=2000",
-            "panelImage": "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&q=80&w=2000"
+            "backgroundImage": "/assets/themes/tpl-033-skincare-derme-editorial/preview.png",
+            "panelImage": "/assets/themes/tpl-033-skincare-derme-editorial/preview.png"
           }
         },
         {

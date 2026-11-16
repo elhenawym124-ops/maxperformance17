@@ -153,8 +153,8 @@
             "ctaLink": "/collections",
             "secondaryCtaText": "كل المنتجات",
             "secondaryCtaLink": "/shop",
-            "backgroundImage": "https://images.unsplash.com/photo-1631541909061-71e349d1f2df?auto=format&fit=crop&q=80&w=2000",
-            "panelImage": "https://images.unsplash.com/photo-1631541909061-71e349d1f2df?auto=format&fit=crop&q=80&w=2000"
+            "backgroundImage": "/assets/themes/tpl-016-modest-veil-story/preview.png",
+            "panelImage": "/assets/themes/tpl-016-modest-veil-story/preview.png"
           }
         },
         {

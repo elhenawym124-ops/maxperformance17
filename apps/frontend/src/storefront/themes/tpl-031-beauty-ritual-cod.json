@@ -153,8 +153,8 @@
             "ctaLink": "/collections",
             "secondaryCtaText": "كل المنتجات",
             "secondaryCtaLink": "/shop",
-            "backgroundImage": "https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&q=80&w=2000",
-            "panelImage": "https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&q=80&w=2000"
+            "backgroundImage": "/assets/themes/tpl-031-beauty-ritual-cod/preview.png",
+            "panelImage": "/assets/themes/tpl-031-beauty-ritual-cod/preview.png"
           }
         },
         {

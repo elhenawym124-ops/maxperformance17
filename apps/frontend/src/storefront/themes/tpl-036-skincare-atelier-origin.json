@@ -153,8 +153,8 @@
             "ctaLink": "/shop",
             "secondaryCtaText": "قصة الأتيليه",
             "secondaryCtaLink": "/shop",
-            "backgroundImage": "https://images.unsplash.com/photo-1631730359585-38a4935cbec4?auto=format&fit=crop&q=80&w=2000",
-            "panelImage": "https://images.unsplash.com/photo-1631730359585-38a4935cbec4?auto=format&fit=crop&q=80&w=2000"
+            "backgroundImage": "/assets/themes/tpl-036-skincare-atelier-origin/preview.png",
+            "panelImage": "/assets/themes/tpl-036-skincare-atelier-origin/preview.png"
           }
         },
         {
