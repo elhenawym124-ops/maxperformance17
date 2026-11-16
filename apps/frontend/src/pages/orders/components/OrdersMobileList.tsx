@@ -60,7 +60,7 @@ export const OrdersMobileList: React.FC<OrdersMobileListProps> = ({
   onClearFilters,
 }) => {
   return (
-    <div className="mb-6 lg:hidden pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))]">
+    <div className="mb-2 lg:hidden">
       {loading ? (
         <OrdersSkeleton variant="mobile" />
       ) : orders.length === 0 ? (
