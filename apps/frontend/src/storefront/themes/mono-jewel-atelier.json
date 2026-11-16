@@ -75,10 +75,6 @@
         "to": "/shop?collection=autumn"
       },
       {
-        "label": "المدوّنة",
-        "to": "/collections"
-      },
-      {
         "label": "كلمنا",
         "to": "/contact"
       }
@@ -287,8 +283,9 @@
         },
         {
           "type": "product-grid",
+          "variant": "boutique-shelf",
           "settings": {
-            "title": "كل القطع",
+            "title": "قطع المتجر",
             "limit": 12
           }
         }
@@ -362,7 +359,7 @@
           "settings": {
             "badge": "المجموعات",
             "title": "إصدارات الأتيليه",
-            "subtitle": "خريف، أساسيات، وهدايا — كل مجموعة بقطعهتها المحدودة.",
+            "subtitle": "خريف، أساسيات، وهدايا — كل مجموعة بقطعها المحدودة.",
             "columns": 4
           }
         },
