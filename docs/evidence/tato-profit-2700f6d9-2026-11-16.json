@@ -1,0 +1,725 @@
+{
+ "task": "2700f6d9-b20c-48db-a8ed-7dab9e111432",
+ "title": "تقرير أرباح متجر TATO من الطلبات المسلَّمة",
+ "company": {
+  "name": "TATO",
+  "slug": "tato",
+  "id": "cmtk4862e0sq6judiubpvklni"
+ },
+ "confirmed_at": "2026-11-16T16:00:00+02:00",
+ "period": {
+  "start": "2026-09-09",
+  "end": "2026-09-24"
+ },
+ "screens": {
+  "profit_analytics": {
+   "url": "https://maxp.online/analytics/orders/profit",
+   "gross_profit": 4067,
+   "net_profit": 3577,
+   "margin_pct": 88.0,
+   "cogs": 0,
+   "shipping": 490,
+   "orders_in_range": 7,
+   "categories": [
+    {
+     "name": "احذيه حريمي",
+     "profit": 3078,
+     "margin": 100.0
+    },
+    {
+     "name": "غير مصنف",
+     "profit": 499,
+     "margin": 100.0
+    }
+   ]
+  },
+  "profit_loss": {
+   "url": "https://maxp.online/reports/profit-loss",
+   "revenue": 4636,
+   "cogs": 0,
+   "gross_profit": 4636,
+   "margin_pct": 100.0,
+   "shipping": 560,
+   "orders_in_range": 8
+  },
+  "status_analysis": {
+   "url": "https://maxp.online/analytics/orders/status-analysis",
+   "total_orders": 82,
+   "delivered": 8,
+   "delivery_rate_pct": 9.8
+  },
+  "products": {
+   "url": "https://maxp.online/products",
+   "active_products": 7,
+   "with_cost": 3,
+   "without_cost": 4
+  }
+ },
+ "reference_from_card": {
+  "orders": 6,
+  "total_egp": 3477,
+  "shipping_egp": 420
+ },
+ "reconciliation": {
+  "added_after_card": [
+   {
+    "order": "ORD-302329-778",
+    "total": 590,
+    "delivered_at": "2026-09-30T10:06:31Z"
+   },
+   {
+    "order": "ORD-365645-592",
+    "total": 569,
+    "delivered_at": "2026-09-30T10:06:30Z"
+   }
+  ],
+  "card_created_at": "2026-09-30T08:53:11.830Z",
+  "math": "3477 + 590 + 569 = 4636",
+  "profit_screen_excludes": {
+   "order": "ORD-991115-454",
+   "total": 569,
+   "created_at": "2026-09-24T03:53:11Z",
+   "reason": "end date parsed as 2026-09-24T00:00Z (midnight) not end-of-day"
+  }
+ },
+ "orders_delivered": [
+  {
+   "number": "ORD-627639-756",
+   "id": "ORD-627639-756",
+   "createdAt": "2026-09-09T17:07:07.719Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 590,
+   "subtotal": 520,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Luma",
+     "qty": 1,
+     "price": 520,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-302329-778",
+   "id": "ORD-302329-778",
+   "createdAt": "2026-09-16T19:01:42.390Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 590,
+   "subtotal": 520,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Luma",
+     "qty": 1,
+     "price": 520,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-441093-340",
+   "id": "ORD-441093-340",
+   "createdAt": "2026-09-17T09:30:41.292Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 590,
+   "subtotal": 520,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Luma",
+     "qty": 1,
+     "price": 520,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-965633-732",
+   "id": "ORD-965633-732",
+   "createdAt": "2026-09-17T12:09:25.745Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 569,
+   "subtotal": 499,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Nova",
+     "qty": 1,
+     "price": 499,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-365645-592",
+   "id": "ORD-365645-592",
+   "createdAt": "2026-09-17T23:39:25.732Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 569,
+   "subtotal": 499,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Nova",
+     "qty": 1,
+     "price": 499,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-503379-311",
+   "id": "ORD-503379-311",
+   "createdAt": "2026-09-18T17:45:03.865Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 569,
+   "subtotal": 499,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Nova",
+     "qty": 1,
+     "price": 499,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-917077-096",
+   "id": "ORD-917077-096",
+   "createdAt": "2026-09-18T20:55:17.168Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 590,
+   "subtotal": 520,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Luma",
+     "qty": 1,
+     "price": 520,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  },
+  {
+   "number": "ORD-991115-454",
+   "id": "ORD-991115-454",
+   "createdAt": "2026-09-24T03:53:11.194Z",
+   "deliveredAt": null,
+   "status": "delivered",
+   "total": 569,
+   "subtotal": 499,
+   "shipping": 70,
+   "items": [
+    {
+     "name": "Nova",
+     "qty": 1,
+     "price": 499,
+     "cost": null,
+     "basePrice": null,
+     "merchantPrice": null
+    }
+   ]
+  }
+ ],
+ "orders_delivered_history": [
+  {
+   "order": "ORD-627639-756",
+   "createdAt": "2026-09-09T17:07:07.719Z",
+   "total": 590,
+   "shipping": 70,
+   "deliveredAt": "2026-09-28T13:03:34.370Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-503379-311",
+   "createdAt": "2026-09-18T17:45:03.865Z",
+   "total": 569,
+   "shipping": 70,
+   "deliveredAt": "2026-09-28T13:03:35.093Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-991115-454",
+   "createdAt": "2026-09-24T03:53:11.194Z",
+   "total": 569,
+   "shipping": 70,
+   "deliveredAt": "2026-09-29T10:13:17.069Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-965633-732",
+   "createdAt": "2026-09-17T12:09:25.745Z",
+   "total": 569,
+   "shipping": 70,
+   "deliveredAt": "2026-09-29T10:13:17.509Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-441093-340",
+   "createdAt": "2026-09-17T09:30:41.292Z",
+   "total": 590,
+   "shipping": 70,
+   "deliveredAt": "2026-09-29T10:13:17.911Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-917077-096",
+   "createdAt": "2026-09-18T20:55:17.168Z",
+   "total": 590,
+   "shipping": 70,
+   "deliveredAt": "2026-09-29T10:13:18.021Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-365645-592",
+   "createdAt": "2026-09-17T23:39:25.732Z",
+   "total": 569,
+   "shipping": 70,
+   "deliveredAt": "2026-09-30T10:06:30.444Z",
+   "by": "Turbo Sync"
+  },
+  {
+   "order": "ORD-302329-778",
+   "createdAt": "2026-09-16T19:01:42.390Z",
+   "total": 590,
+   "shipping": 70,
+   "deliveredAt": "2026-09-30T10:06:31.507Z",
+   "by": "Turbo Sync"
+  }
+ ],
+ "products": [
+  {
+   "name": "Nova",
+   "price": 499,
+   "cost": null,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": "كبل",
+   "variants": [
+    [
+     "اسود - 37",
+     null,
+     499
+    ],
+    [
+     "اسود - 38",
+     null,
+     499
+    ],
+    [
+     "اسود - 39",
+     null,
+     499
+    ],
+    [
+     "اسود - 40",
+     null,
+     499
+    ],
+    [
+     "اسود - 41",
+     null,
+     499
+    ],
+    [
+     "بيج - 37",
+     null,
+     499
+    ],
+    [
+     "بيج - 38",
+     null,
+     499
+    ],
+    [
+     "بيج - 39",
+     null,
+     499
+    ],
+    [
+     "بيج - 40",
+     null,
+     499
+    ],
+    [
+     "بيج - 41",
+     null,
+     499
+    ],
+    [
+     "بني - 37",
+     null,
+     499
+    ],
+    [
+     "بني - 38",
+     null,
+     499
+    ],
+    [
+     "بني - 39",
+     null,
+     499
+    ],
+    [
+     "بني - 40",
+     null,
+     499
+    ],
+    [
+     "بني - 41",
+     null,
+     499
+    ]
+   ]
+  },
+  {
+   "name": "Luma",
+   "price": 570,
+   "cost": null,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": "كوتش",
+   "variants": [
+    [
+     "ابيض - 37",
+     null,
+     570
+    ],
+    [
+     "ابيض - 38",
+     null,
+     570
+    ],
+    [
+     "ابيض - 39",
+     null,
+     570
+    ],
+    [
+     "ابيض - 40",
+     null,
+     570
+    ],
+    [
+     "ابيض - 41",
+     null,
+     570
+    ],
+    [
+     "بيج - 37",
+     null,
+     570
+    ],
+    [
+     "بيج - 38",
+     null,
+     570
+    ],
+    [
+     "بيج - 39",
+     null,
+     570
+    ],
+    [
+     "بيج - 40",
+     null,
+     570
+    ],
+    [
+     "بيج - 41",
+     null,
+     570
+    ],
+    [
+     "أزرق جينز - 37",
+     null,
+     570
+    ],
+    [
+     "أزرق جينز - 38",
+     null,
+     570
+    ],
+    [
+     "أزرق جينز - 39",
+     null,
+     570
+    ],
+    [
+     "أزرق جينز - 40",
+     null,
+     570
+    ],
+    [
+     "أزرق جينز - 41",
+     null,
+     570
+    ],
+    [
+     "اسود - 37",
+     null,
+     570
+    ],
+    [
+     "اسود - 38",
+     null,
+     570
+    ],
+    [
+     "اسود - 39",
+     null,
+     570
+    ],
+    [
+     "اسود - 40",
+     null,
+     570
+    ],
+    [
+     "اسود - 41",
+     null,
+     570
+    ]
+   ]
+  },
+  {
+   "name": "Luna",
+   "price": 499,
+   "cost": null,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": null,
+   "variants": [
+    [
+     "اسود - 37",
+     null,
+     499
+    ],
+    [
+     "اسود - 38",
+     null,
+     499
+    ],
+    [
+     "اسود - 39",
+     null,
+     499
+    ],
+    [
+     "اسود - 40",
+     null,
+     499
+    ],
+    [
+     "اسود - 41",
+     null,
+     499
+    ],
+    [
+     "بيج - 37",
+     null,
+     499
+    ],
+    [
+     "بيج - 38",
+     null,
+     499
+    ],
+    [
+     "بيج - 39",
+     null,
+     499
+    ],
+    [
+     "بيج - 40",
+     null,
+     499
+    ],
+    [
+     "بيج - 41",
+     null,
+     499
+    ],
+    [
+     "اوف وايت - 37",
+     null,
+     499
+    ],
+    [
+     "اوف وايت - 38",
+     null,
+     499
+    ],
+    [
+     "اوف وايت - 39",
+     null,
+     499
+    ],
+    [
+     "اوف وايت - 40",
+     null,
+     499
+    ],
+    [
+     "اوف وايت - 41",
+     null,
+     499
+    ]
+   ]
+  },
+  {
+   "name": "Cozy Bag",
+   "price": 420,
+   "cost": 120,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": "2",
+   "variants": [
+    [
+     "اسود",
+     120,
+     420
+    ],
+    [
+     "ابيض",
+     120,
+     420
+    ],
+    [
+     "لافندر",
+     120,
+     420
+    ]
+   ]
+  },
+  {
+   "name": "Twilly",
+   "price": 499,
+   "cost": 180,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": "4",
+   "variants": [
+    [
+     "بيج في ابيض",
+     180,
+     499
+    ],
+    [
+     "بيج في اسود",
+     180,
+     499
+    ],
+    [
+     "بيج في بيبي بلو",
+     180,
+     499
+    ]
+   ]
+  },
+  {
+   "name": "Ruby Bag",
+   "price": 499,
+   "cost": 180,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": "3",
+   "variants": [
+    [
+     "بيج في بيبي بلو",
+     180,
+     499
+    ],
+    [
+     "بيج في اورنج",
+     180,
+     499
+    ],
+    [
+     "بيج في اسود",
+     180,
+     499
+    ]
+   ]
+  },
+  {
+   "name": "Raffia",
+   "price": 499,
+   "cost": null,
+   "costPrice": null,
+   "purchasePrice": null,
+   "sku": "5",
+   "variants": [
+    [
+     "بيج في اسود",
+     null,
+     499
+    ],
+    [
+     "بيج في بيبي بلو",
+     null,
+     499
+    ],
+    [
+     "بيج في بينك",
+     null,
+     499
+    ]
+   ]
+  }
+ ],
+ "screenshots": {
+  "g2-2700f6d9-orders-delivered.png": {
+   "sha256": "dc0c16464b6c262bd8100537c0e2cbfe4c802e1392f4c7cd4499e00f45f3c4b1",
+   "bytes": 190976
+  },
+  "g2-2700f6d9-pl-report.png": {
+   "sha256": "fdd19ecf368fe7af19a0d64aa3f4bec678264d676562814748cb27cbdb343ed2",
+   "bytes": 99585
+  },
+  "g2-2700f6d9-product-luma-edit.png": {
+   "sha256": "085ebc6954da20ea7a69033313cf47c35e0a7aab3e86cdfe9f11d2a402b5f9e1",
+   "bytes": 103402
+  },
+  "g2-2700f6d9-products-list.png": {
+   "sha256": "a01badc62281d2b6db1c850d60c890b40535740c5c259384544b9ae09abe2f7e",
+   "bytes": 181854
+  },
+  "g2-2700f6d9-profit-analytics.png": {
+   "sha256": "aaeed73c9bfef7264d088b55191b277853f8176671b660677853f16dfd19e3ce",
+   "bytes": 112148
+  },
+  "g2-2700f6d9-status-analysis.png": {
+   "sha256": "04da99faac288ec6cd0dbb66d4c747861228cd772cece54d2190261b65e43fcf",
+   "bytes": 120482
+  },
+  "g2-2700f6d9-store-analytics-profit.png": {
+   "sha256": "7b11b1d5f633f750aeef2af015ac94716ed50da9d20951c68186f4ad777c40a1",
+   "bytes": 131695
+  }
+ }
+}
