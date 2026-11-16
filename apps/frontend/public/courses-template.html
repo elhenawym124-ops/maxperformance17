@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أكاديمية النخبة البرمجية | Master Modern Tech & Motion</title>
+  
+  <!-- Fonts: Cairo & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Core Animation Stack via CDN (Lenis + GSAP + ScrollTrigger) -->
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              accent: '#38bdf8',
+              surface: '#0B0F17',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Smooth Scrollbar reset for Lenis */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    body {
+      background-color: #07090E;
+      color: #E2E8F0;
+      overflow-x: hidden;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    /* Ambient background grid */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Gradient orbs */
+    .glow-orb-1 {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-orb-2 {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(34, 197, 94, 0.04) 60%, transparent 70%);
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Card 3D tilt styles */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease;
+      will-change: transform;
+    }
+    .tilt-content {
+      transform: translateZ(28px);
+    }
+
+    /* Custom Glass Panel */
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="selection:bg-emerald-500/20 selection:text-emerald-400">
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="glow-orb-1 top-0 left-1/4"></div>
+  <div class="glow-orb-2 top-[35%] right-[-10%]"></div>
+  <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+  <canvas id="particle-canvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full opacity-90"></canvas>
+
+  <!-- Header / Navbar -->
+  <header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8" id="navbar">
+    <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-5 py-3 flex items-center justify-between shadow-2xl">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 p-[1px] flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <div class="w-full h-full bg-[#0B0F17] rounded-[11px] flex items-center justify-center">
+            <i data-lucide="terminal" class="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform"></i>
+          </div>
+        </div>
+        <div class="leading-none">
+          <span class="text-lg font-black tracking-tight text-white block">كوديكس<span class="text-emerald-400">.</span>أكاديمي</span>
+          <span class="text-[10px] text-slate-400 font-medium">هندسة البرمجيات والذكاء الاصطناعي</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+        <a href="#features" class="hover:text-emerald-400 transition-colors">المسارات</a>
+        <a href="#curriculum" class="hover:text-emerald-400 transition-colors">المنهج الدراسي</a>
+        <a href="#instructor" class="hover:text-emerald-400 transition-colors">المدربون</a>
+        <a href="#pricing" class="hover:text-emerald-400 transition-colors">الأسعار والاشتراك</a>
+        <a href="#faq" class="hover:text-emerald-400 transition-colors">الأسئلة الشائعة</a>
+      </nav>
+
+      <!-- Action Button (Magnetic) -->
+      <div class="flex items-center gap-3">
+        <a href="#pricing" class="magnetic-btn relative group overflow-hidden px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+          <span>سجل في الدفعة القادمة</span>
+          <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-32 pb-24">
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div class="max-w-5xl mx-auto text-center">
+        <!-- Floating Batch Badge -->
+        <div class="hero-reveal inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold mb-8 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>التسجيل متاح الآن لدفعة 2026 — مقاعد محدودة للإشراف المباشر</span>
+        </div>
+
+        <!-- Main Title with Split Stagger Animation -->
+        <h1 class="hero-title text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.15] mb-6">
+          اصنع برمجيات <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400">فائقة الأداء</span> وادخل سوق النخبة
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="hero-reveal text-base sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
+          مسارات هندسية عملية تنقلك من مرحلة المطور التقليدي إلى بناء أنظمة معقدة، وكلاء ذكاء اصطناعي تفاعليين، وتجارب موشن عالية الجودة تنافس عالمياً.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="hero-reveal flex flex-wrap items-center justify-center gap-4 mb-16">
+          <a href="#features" class="magnetic-btn px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-base shadow-xl shadow-emerald-500/25 transition-all flex items-center gap-2 cursor-pointer">
+            <span>استكشف المسارات التعليمية</span>
+            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+          </a>
+          <a href="#curriculum" class="magnetic-btn px-7 py-4 rounded-xl glass-panel hover:bg-slate-800/80 text-white font-bold text-base transition-all flex items-center gap-2.5 border border-slate-700 cursor-pointer">
+            <i data-lucide="play-circle" class="w-5 h-5 text-emerald-400"></i>
+            <span>جولة سريعة في المنصة</span>
+          </a>
+        </div>
+
+        <!-- Interactive Hero Cockpit Showcase (Parallax Layer) -->
+        <div class="hero-mockup relative max-w-4xl mx-auto rounded-2xl glass-panel p-2 sm:p-3 shadow-2xl border border-white/10">
+          <div class="bg-[#0B0F17] rounded-xl overflow-hidden border border-slate-800 p-4 sm:p-6 text-right">
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              </div>
+              <span class="text-xs font-mono text-slate-400">production-system-v2.ts • 60 FPS Engine</span>
+              <span class="text-xs px-2.5 py-1 rounded bg-emerald-950/80 text-emerald-400 font-bold border border-emerald-800/50">Live Sandbox</span>
+            </div>
+
+            <!-- Cockpit Inner Bento -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+              <!-- Code view -->
+              <div class="md:col-span-2 bg-[#06080D] p-4 rounded-lg font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed border border-slate-900">
+                <div class="text-slate-500">// Real-time Agent Dispatcher with Lenis + GSAP</div>
+                <div><span class="text-purple-400">import</span> { AgentSwarm, MotionKernel } <span class="text-purple-400">from</span> <span class="text-emerald-400">'@codex/core'</span>;</div>
+                <div class="mt-2"><span class="text-blue-400">const</span> kernel = <span class="text-purple-400">new</span> <span class="text-amber-300">MotionKernel</span>({ fps: <span class="text-rose-400">60</span>, gpuAccelerated: <span class="text-teal-400">true</span> });</div>
+                <div><span class="text-blue-400">const</span> pipeline = <span class="text-purple-400">await</span> AgentSwarm.<span class="text-amber-300">orchestrate</span>({ concurrency: <span class="text-rose-400">4</span> });</div>
+                <div class="text-emerald-400 mt-2">✓ Verified Zero Blast-Radius across 14 modules</div>
+                <div class="text-sky-400">✓ 60 FPS Hardware Sync active</div>
+              </div>
+
+              <!-- Student Live Pulse Widget -->
+              <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-800 flex flex-col justify-between text-right">
+                <div>
+                  <span class="text-xs text-slate-400 font-medium block mb-1">المشروع الحالي للمتدرب:</span>
+                  <span class="text-sm font-bold text-white block">سيرفر Realtime مع Redis و WebSockets</span>
+                </div>
+                <div class="space-y-2 my-3">
+                  <div class="flex justify-between text-xs text-slate-400">
+                    <span class="font-mono text-emerald-400">84%</span>
+                    <span>نسبة الإنجاز</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="w-[84%] h-full bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+                  </div>
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-1.5 justify-end">
+                  <span>تم اعتماد الكود من المدرب</span>
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Metrics / Social Proof Counters -->
+    <section class="py-16 border-y border-white/5 bg-slate-950/40 relative">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div class="stat-box">
+            <span class="text-3xl sm:text-5xl font-black text-white font-mono counter" data-target="4200">0</span>
+            <span class="text-3xl sm:text-5xl font-black text-emerald-400">+</span>
+            <p class="text-xs sm:text-sm text-slate-400 font-medium mt-2">مهندس وخريج تم تدريبهم</p>
+          </div>
+          <div class="stat-box">
+            <span class="text-3xl sm:text-5xl font-black text-white font-mono counter" data-target="96">0</span>
+            <span class="text-3xl sm:text-5xl font-black text-emerald-400">%</span>
+            <p class="text-xs sm:text-sm text-slate-400 font-medium mt-2">نسبة التوظيف والترقية</p>
+          </div>
+          <div class="stat-box">
+            <span class="text-3xl sm:text-5xl font-black text-white font-mono counter" data-target="38">0</span>
+            <span class="text-3xl sm:text-5xl font-black text-emerald-400">+</span>
+            <p class="text-xs sm:text-sm text-slate-400 font-medium mt-2">مشروع عملي Production-Ready</p>
+          </div>
+          <div class="stat-box">
+            <span class="text-3xl sm:text-5xl font-black text-white font-mono">4.96</span>
+            <span class="text-xl font-bold text-amber-400">★</span>
+            <p class="text-xs sm:text-sm text-slate-400 font-medium mt-2">متوسط تقييم الطلاب</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tracks & Courses (Bento Grid with 3D Tilt) -->
+    <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase mb-3 block">مسارات تخصصية دقيقة</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">اختر مسارك الاحترافي لعام 2026</h2>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+          تم تصميم كل مسار بالتعاون مع كبار مهندسي الشركات العالمية لنضمن أن كل سطر كود تكتبه يحل مشكلة حقيقية في بيئات الإنتاج.
+        </p>
+      </div>
+
+      <!-- Course Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="tilt-card glass-panel rounded-2xl p-6 sm:p-7 relative border border-white/10 hover:border-emerald-500/50 flex flex-col justify-between group">
+          <div class="tilt-content">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">متقدم</span>
+              <span class="text-xs text-slate-400">12 أسبوع • 48 ساعة</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">هندسة النظم والتطبيقات الفائقة (Full-Stack Systems)</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+              بناء بنية Microservices، قواعد بيانات PostgreSQL مع Multi-Tenancy، تفرقة الكاش بريديس، وأتمتة الـ CI/CD بدون توقف للخدمة.
+            </p>
+            <div class="space-y-2 mb-6 border-t border-slate-800 pt-4 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Node.js / Express & NestJS معماريات ضخمة</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Zero-Downtime Deployment & Docker</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Multi-Tenant Isolation Architecture</span>
+              </div>
+            </div>
+          </div>
+          <div class="tilt-content pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-slate-400 block">رسوم المسار</span>
+              <span class="text-lg font-black text-white font-mono">199 <span class="text-xs font-sans text-emerald-400">دولار</span></span>
+            </div>
+            <a href="#pricing" class="magnetic-btn px-4 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 text-xs font-bold transition-all">
+              تفاصيل المسار
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 (Featured) -->
+        <div class="tilt-card glass-panel rounded-2xl p-6 sm:p-7 relative border-2 border-emerald-500/60 shadow-2xl shadow-emerald-950/50 flex flex-col justify-between group bg-gradient-to-b from-slate-900/90 to-[#0c131f]">
+          <div class="absolute -top-3 right-6 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-md">
+            الأكثر طلباً عالمياً
+          </div>
+          <div class="tilt-content">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-sky-950 text-sky-400 border border-sky-800">تخصصي نخبوي</span>
+              <span class="text-xs text-slate-400">10 أسابيع • 40 ساعة</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">هندسة وكلاء الذكاء الاصطناعي (AI Autonomous Agents)</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+              بناء وتدريب شبكات الوكلاء المتوازية (Multi-Agent Swarms)، بروتوكولات MCP، استدعاء الأدوات المنضبط (Function Calling)، وذاكرة ثلاثية المستويات.
+            </p>
+            <div class="space-y-2 mb-6 border-t border-slate-800 pt-4 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Microsoft Agent Framework & LangGraph</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Model Context Protocol (MCP) Servers</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>3-Tier Contextual Long-Term Memory</span>
+              </div>
+            </div>
+          </div>
+          <div class="tilt-content pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-slate-400 block">رسوم المسار</span>
+              <span class="text-lg font-black text-white font-mono">249 <span class="text-xs font-sans text-emerald-400">دولار</span></span>
+            </div>
+            <a href="#pricing" class="magnetic-btn px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 hover:bg-emerald-400 text-xs font-extrabold transition-all shadow-md shadow-emerald-500/20">
+              انضم للدفعة الحالية
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tilt-card glass-panel rounded-2xl p-6 sm:p-7 relative border border-white/10 hover:border-emerald-500/50 flex flex-col justify-between group">
+          <div class="tilt-content">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-purple-950 text-purple-400 border border-purple-800">موشن وهندسة واجهات</span>
+              <span class="text-xs text-slate-400">8 أسابيع • 32 ساعة</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">حركات الويب الفائقة والموشن (GSAP & Three.js Masterclass)</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+              نفس مهارات هذا القالب: بناء واجهات Awwwards، مزامنة Lenis مع ScrollTrigger، شيدرز GLSL السائلة، وتحقيق 60 FPS ثابت.
+            </p>
+            <div class="space-y-2 mb-6 border-t border-slate-800 pt-4 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>GSAP ScrollTrigger & Timeline Sequencing</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Three.js / React Three Fiber Shaders</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Lenis Smooth Scroll & Magnetic Interactions</span>
+              </div>
+            </div>
+          </div>
+          <div class="tilt-content pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-slate-400 block">رسوم المسار</span>
+              <span class="text-lg font-black text-white font-mono">189 <span class="text-xs font-sans text-emerald-400">دولار</span></span>
+            </div>
+            <a href="#pricing" class="magnetic-btn px-4 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 text-xs font-bold transition-all">
+              تفاصيل المسار
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Curriculum Accordion -->
+    <section id="curriculum" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase mb-2 block">المنهج العملي الكامل</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mb-3">ماذا ستتعلم خطوة بخطوة؟</h2>
+        <p class="text-slate-400 text-sm">مقسم إلى موديولات متدرجة تنتهي بمشروع حقيقي يتم نشره على خوادم الإنتاج.</p>
+      </div>
+
+      <div class="space-y-3" id="accordion-container">
+        <!-- Module 1 -->
+        <div class="accordion-item glass-panel rounded-xl border border-white/5 overflow-hidden transition-all duration-300">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-right hover:bg-white/[0.02] cursor-pointer">
+            <div class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono text-sm font-bold flex items-center justify-center shrink-0">01</span>
+              <div>
+                <h4 class="text-base font-bold text-white">الأساس المعماري وهندسة البنية التحتية</h4>
+                <span class="text-xs text-slate-400">3 أسابيع • 12 درس تطبيقي</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out px-6 text-sm text-slate-400 border-t border-transparent">
+            <div class="py-4 space-y-2.5 text-xs sm:text-sm">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>تصميم وتوثيق الـ Clean Architecture في مشاريع المؤسسات الضخمة.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>فصل البيانات والأمان (Zero Blast-Radius) وقواعد عزل التعديلات.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>مشروع عملي 1: بناء منصة API معتمدة على Redis Cluster ومعدلات استهلاك آمنة.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="accordion-item glass-panel rounded-xl border border-white/5 overflow-hidden transition-all duration-300">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-right hover:bg-white/[0.02] cursor-pointer">
+            <div class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono text-sm font-bold flex items-center justify-center shrink-0">02</span>
+              <div>
+                <h4 class="text-base font-bold text-white">محركات الذكاء الاصطناعي وتنسيق الوكلاء (Autonomous Swarms)</h4>
+                <span class="text-xs text-slate-400">4 أسابيع • 16 درس تطبيقي</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out px-6 text-sm text-slate-400 border-t border-transparent">
+            <div class="py-4 space-y-2.5 text-xs sm:text-sm">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>هندسة بروتوكول MCP وخوادم FastMCP لتزويد النماذج بأدوات حية.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>نظام التنسيق المتوازي ومشاركة مساحات العمل والتفويض بين الوكلاء.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>مشروع عملي 2: روبوت ميديا باير ومحلل تسويقي ذاتي القيادة.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="accordion-item glass-panel rounded-xl border border-white/5 overflow-hidden transition-all duration-300">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-right hover:bg-white/[0.02] cursor-pointer">
+            <div class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono text-sm font-bold flex items-center justify-center shrink-0">03</span>
+              <div>
+                <h4 class="text-base font-bold text-white">الواجهات التفاعلية العالمية والموشن الاحترافي (60 FPS)</h4>
+                <span class="text-xs text-slate-400">3 أسابيع • 14 درس تطبيقي</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out px-6 text-sm text-slate-400 border-t border-transparent">
+            <div class="py-4 space-y-2.5 text-xs sm:text-sm">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>دمج GSAP و Lenis بدون استنزاف البطارية أو سقوط إطارات.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>بناء كروت Bento ثلاثية الأبعاد والتفاعل الديناميكي مع الماوس واللمس.</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>مشروع عملي 3: بورتفوليو سينمائي متكامل حائز على تقييمات دولية.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section with Switcher -->
+    <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase mb-2 block">استثمارك في مستقبلك</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">خطط شفافة بدون اشتراكات مخفية</h2>
+        <p class="text-slate-400 text-sm sm:text-base">استرجع قيمة استثمارك بالكامل خلال 14 يوماً إذا لم تجد الدورة مطابقة لتوقعاتك.</p>
+        
+        <!-- Billing toggle -->
+        <div class="inline-flex items-center gap-3 p-1.5 rounded-xl glass-panel mt-8 border border-white/10">
+          <button id="toggle-monthly" class="px-5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950">
+            اشتراك فصلي
+          </button>
+          <button id="toggle-lifetime" class="px-5 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5">
+            <span>وصول مدى الحياة (Lifetime)</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 font-bold border border-emerald-800">توفير 40%</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Tier 1: Pro Track -->
+        <div class="glass-panel rounded-2xl p-8 border border-white/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">المسار الواحد (Track Pass)</h3>
+              <span class="text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300">للمهتمين بتخصص معين</span>
+            </div>
+            <p class="text-slate-400 text-xs sm:text-sm mb-6">احصل على مسار كامل من اختيارك مع مراجعة المشاريع والشهادة.</p>
+            <div class="flex items-baseline gap-2 mb-8">
+              <span class="text-4xl font-black text-white font-mono price-val" data-monthly="199" data-lifetime="299">$199</span>
+              <span class="text-xs text-slate-400">دفعة واحدة للمسار</span>
+            </div>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-300 border-t border-slate-800 pt-6">
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>وصول كامل لكافة دروس ومشاريع مسار واحد</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>مراجعة كود فردية لجميع مشاريعك من المدرب</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>انضمام لمجتمع المطورين الخاص بالمسار</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>شهادة مهنية موثقة قابلة للتحقق على LinkedIn</span>
+              </li>
+            </ul>
+          </div>
+          <button class="magnetic-btn w-full mt-8 py-3.5 rounded-xl border border-slate-700 hover:border-emerald-500 text-white font-bold text-sm transition-all text-center">
+            اختر المسار وسجل الآن
+          </button>
+        </div>
+
+        <!-- Tier 2: All Access (Featured) -->
+        <div class="glass-panel rounded-2xl p-8 border-2 border-emerald-500/80 shadow-2xl shadow-emerald-950/60 flex flex-col justify-between relative bg-gradient-to-b from-slate-900/95 to-[#0b121c]">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-slate-950 px-4 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider">
+            الباقة المتكاملة الموصى بها
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-white">العضوية الكاملة (All-Access Pass)</h3>
+              <span class="text-xs px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 font-bold border border-emerald-800">شامل كل شيء</span>
+            </div>
+            <p class="text-slate-400 text-xs sm:text-sm mb-6">وصول فوري لجميع المسارات الحالية والمستقبلية مع جلسات إرشاد 1-on-1.</p>
+            <div class="flex items-baseline gap-2 mb-8">
+              <span class="text-4xl font-black text-white font-mono price-val" data-monthly="349" data-lifetime="499">$349</span>
+              <span class="text-xs text-slate-400">لكل المسارات والميزات</span>
+            </div>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-300 border-t border-slate-800 pt-6">
+              <li class="flex items-center gap-2.5 font-semibold text-white">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                <span>وصول كامل لكافة المسارات الثلاثة ومكتبة الأكواد</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                <span>جلستان إرشاد فردي مباشر (1-on-1) لمراجعة مسارك الوظيفي</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                <span>تحديثات مستمرة وتحديثات المسارات الجديدة مجاناً</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                <span>قوالب جاهزة ومكتبات برمجية تجارية قابلة لإعادة البيع</span>
+              </li>
+            </ul>
+          </div>
+          <button class="magnetic-btn w-full mt-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm transition-all shadow-lg shadow-emerald-500/30 text-center">
+            ابدأ العضوية الكاملة الآن
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">الأسئلة الشائعة</h2>
+        <p class="text-slate-400 text-xs sm:text-sm">إجابات سريعة على أهم استفسارات المهندسين والطلاب.</p>
+      </div>
+
+      <div class="space-y-3">
+        <div class="glass-panel p-5 rounded-xl border border-white/5">
+          <h4 class="text-sm sm:text-base font-bold text-white mb-2">هل أحتاج لخبرة سابقة للالتحاق بالمسارات؟</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            يُفضل معرفة أساسيات JavaScript و Git. أما المفاهيم المتقدمة للأنظمة الموزعة وهندسة الوكلاء والموشن، فسيتم بناؤها معك من الصفر وصولاً للاحتراف.
+          </p>
+        </div>
+
+        <div class="glass-panel p-5 rounded-xl border border-white/5">
+          <h4 class="text-sm sm:text-base font-bold text-white mb-2">كيف يتم التأكد من تشغيل الحركات بسلاسة 60fps على الهواتف الضعيفة؟</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            نعتمد في هذا القالب والمسار على محرك Lenis مع تعطيل الـ Smooth Scroll على الهواتف القديمة تلقائياً وتفعيل تسريع العتاد (Hardware Acceleration) عبر `transform3d`، مما يمنع سقوط الإطارات تماماً.
+          </p>
+        </div>
+
+        <div class="glass-panel p-5 rounded-xl border border-white/5">
+          <h4 class="text-sm sm:text-base font-bold text-white mb-2">هل المحتوى مسجل أم محاضرات مباشرة؟</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            المحتوى عبارة عن مزيج يجمع بين فيديوهات ومشاريع كود مسجلة بأعلى جودة ومحدثة باستمرار، بالإضافة إلى ورش عمل حية أسبوعية مع المدرب ومجتمع ديسكورد للإجابة الفورية.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-12 px-4 sm:px-8 bg-black/60 relative z-10 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <span class="text-base font-black text-white">كوديكس<span class="text-emerald-400">.</span>أكاديمي</span>
+        <span>• جميع الحقوق محفوظة 2026</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:text-emerald-400 transition-colors">الرئيسية</a>
+        <a href="#features" class="hover:text-emerald-400 transition-colors">المسارات</a>
+        <a href="#pricing" class="hover:text-emerald-400 transition-colors">الأسعار</a>
+        <a href="#navbar" class="text-emerald-400 hover:underline flex items-center gap-1">
+          <span>الرجوع للأعلى</span>
+          <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script: Lenis + GSAP + Custom Motion Engine -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 1. Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    // Synchronize Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // 2. GSAP Entrance Revelations
+    window.addEventListener('DOMContentLoaded', () => {
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Title Stagger Entrance
+      gsap.from(".hero-title", {
+        y: 40,
+        opacity: 0,
+        duration: 1.1,
+        ease: "power3.out"
+      });
+
+      gsap.from(".hero-reveal", {
+        y: 30,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.15,
+        ease: "power2.out",
+        delay: 0.2
+      });
+
+      gsap.from(".hero-mockup", {
+        y: 60,
+        opacity: 0,
+        scale: 0.95,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 0.4
+      });
+
+      // Stats Counter Animation on Scroll
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach((counter) => {
+        const target = +counter.getAttribute('data-target');
+        ScrollTrigger.create({
+          trigger: counter,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            gsap.to(counter, {
+              innerHTML: target,
+              duration: 2,
+              snap: { innerHTML: 1 },
+              ease: "power2.out"
+            });
+          }
+        });
+      });
+
+      // Course Cards Scroll Reveal
+      gsap.from(".tilt-card", {
+        scrollTrigger: {
+          trigger: "#features",
+          start: "top 75%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.18,
+        ease: "power3.out"
+      });
+
+      // 3. 3D Tilt Effect on Cards (Physics driven)
+      const tiltCards = document.querySelectorAll('.tilt-card');
+      tiltCards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+
+      // 4. Magnetic Buttons Effect
+      const magneticBtns = document.querySelectorAll('.magnetic-btn');
+      magneticBtns.forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, {
+            x: x * 0.35,
+            y: y * 0.35,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.4)"
+          });
+        });
+      });
+
+      // 5. Accordion Logic
+      const accordionItems = document.querySelectorAll('.accordion-item');
+      accordionItems.forEach((item) => {
+        const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+        const icon = item.querySelector('.accordion-icon');
+
+        header.addEventListener('click', () => {
+          const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+          // Close all others
+          accordionItems.forEach((other) => {
+            other.querySelector('.accordion-content').style.maxHeight = '0px';
+            other.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+          });
+
+          if (!isOpen) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      // 6. Pricing Toggle Logic
+      const btnMonthly = document.getElementById('toggle-monthly');
+      const btnLifetime = document.getElementById('toggle-lifetime');
+      const priceVals = document.querySelectorAll('.price-val');
+
+      btnMonthly.addEventListener('click', () => {
+        btnMonthly.className = 'px-5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950';
+        btnLifetime.className = 'px-5 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5';
+        priceVals.forEach((val) => {
+          val.textContent = '$' + val.getAttribute('data-monthly');
+        });
+      });
+
+      btnLifetime.addEventListener('click', () => {
+        btnLifetime.className = 'px-5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1.5';
+        btnMonthly.className = 'px-5 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all';
+        priceVals.forEach((val) => {
+          val.textContent = '$' + val.getAttribute('data-lifetime');
+        });
+      });
+      // 7. Interactive Particle Network (ultimate-animation-skill-pack)
+      const pCanvas = document.getElementById('particle-canvas');
+      if (pCanvas) {
+        const pCtx = pCanvas.getContext('2d');
+        let pWidth = (pCanvas.width = window.innerWidth);
+        let pHeight = (pCanvas.height = window.innerHeight);
+
+        window.addEventListener('resize', () => {
+          pWidth = pCanvas.width = window.innerWidth;
+          pHeight = pCanvas.height = window.innerHeight;
+        });
+
+        const pCount = Math.min(Math.floor((pWidth * pHeight) / 12000), 80);
+        const pColors = ['#22c55e', '#38bdf8', '#a855f7', '#4ade80'];
+        const particles = [];
+
+        for (let i = 0; i < pCount; i++) {
+          particles.push({
+            x: Math.random() * pWidth,
+            y: Math.random() * pHeight,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8,
+            radius: Math.random() * 2.2 + 1.2,
+            color: pColors[Math.floor(Math.random() * pColors.length)],
+            baseAlpha: Math.random() * 0.6 + 0.35,
+          });
+        }
+
+        const pMouse = { x: -1000, y: -1000, radius: 150 };
+        window.addEventListener('mousemove', (e) => {
+          pMouse.x = e.clientX;
+          pMouse.y = e.clientY;
+        });
+        document.addEventListener('mouseleave', () => {
+          pMouse.x = -1000;
+          pMouse.y = -1000;
+        });
+
+        function renderParticles() {
+          pCtx.clearRect(0, 0, pWidth, pHeight);
+
+          for (let i = 0; i < particles.length; i++) {
+            const p1 = particles[i];
+            p1.x += p1.vx;
+            p1.y += p1.vy;
+
+            if (p1.x < 0 || p1.x > pWidth) p1.vx *= -1;
+            if (p1.y < 0 || p1.y > pHeight) p1.vy *= -1;
+
+            const dxMouse = pMouse.x - p1.x;
+            const dyMouse = pMouse.y - p1.y;
+            const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            if (distMouse < pMouse.radius) {
+              const force = (pMouse.radius - distMouse) / pMouse.radius;
+              p1.x -= (dxMouse / distMouse) * force * 3.5;
+              p1.y -= (dyMouse / distMouse) * force * 3.5;
+            }
+
+            pCtx.beginPath();
+            pCtx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+            pCtx.fillStyle = p1.color;
+            pCtx.globalAlpha = p1.baseAlpha;
+            pCtx.shadowBlur = 12;
+            pCtx.shadowColor = p1.color;
+            pCtx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p1.x - p2.x;
+              const dy = p1.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+
+              if (dist < 115) {
+                pCtx.beginPath();
+                pCtx.moveTo(p1.x, p1.y);
+                pCtx.lineTo(p2.x, p2.y);
+                pCtx.strokeStyle = p1.color;
+                pCtx.globalAlpha = (1 - dist / 115) * 0.25;
+                pCtx.lineWidth = 0.85;
+                pCtx.stroke();
+              }
+            }
+          }
+
+          pCtx.shadowBlur = 0;
+          pCtx.globalAlpha = 1;
+          requestAnimationFrame(renderParticles);
+        }
+
+        renderParticles();
+      }
+    });
+  </script>
+</body>
+</html>
