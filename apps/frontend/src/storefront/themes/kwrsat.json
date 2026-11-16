@@ -1,0 +1,186 @@
+{
+  "id": "kwrsat",
+  "name": "كورسات",
+  "tokens": {
+    "colors": {
+      "primary": "142 71% 45%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "220 20% 14%",
+      "secondaryForeground": "142 70% 85%",
+      "accent": "199 89% 48%",
+      "accentForeground": "0 0% 100%",
+      "background": "222 47% 4%",
+      "foreground": "210 40% 96%",
+      "muted": "217 33% 12%",
+      "mutedForeground": "215 20% 65%",
+      "border": "217 33% 17%",
+      "card": "222 47% 7%",
+      "cardForeground": "210 40% 98%",
+      "ring": "142 71% 45%"
+    },
+    "typography": {
+      "headingFont": "\"Cairo\", \"Space Grotesk\", sans-serif",
+      "bodyFont": "\"Cairo\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "0.75rem"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 12px 36px -16px rgba(34, 197, 94, 0.15)",
+      "hoverShadow": "0 20px 52px -20px rgba(34, 197, 94, 0.3)",
+      "badgeRadius": "0.5rem",
+      "buttonRadius": "0.75rem",
+      "surfaceOpacity": "0.95"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | كورسات",
+    "description": "منصة كورسات ومسارات هندسية متقدمة في البرمجة وهندسة الذكاء الاصطناعي والموشن باللغة العربية مع شهادات معتمدة."
+  },
+  "header": {
+    "brandName": "كورسات 🎓",
+    "showSearch": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "المسارات", "to": "/shop" },
+      { "label": "الكورسات", "to": "/collections" },
+      { "label": "العروض", "to": "/sale" }
+    ]
+  },
+  "footer": {
+    "description": "كورسات — منصة تعليمية رائدة في هندسة البرمجيات والذكاء الاصطناعي والموشن فائق الأداء.",
+    "copyrightText": "© 2026 كورسات. جميع الحقوق محفوظة.",
+    "socialLinks": { "facebook": "https://facebook.com", "instagram": "https://instagram.com", "whatsapp": "https://wa.me/201000000000" },
+    "navigation": [
+      { "title": "تصفح", "links": [{ "label": "كل المسارات", "to": "/shop" }, { "label": "الكورسات", "to": "/collections" }, { "label": "باقات الاشتراك", "to": "/sale" }] },
+      { "title": "الدعم", "links": [{ "label": "الأسئلة الشائعة", "to": "/shipping" }, { "label": "الاسترجاع", "to": "/returns" }, { "label": "تواصل معنا", "to": "/contact" }] }
+    ],
+    "legalLinks": [{ "label": "الخصوصية", "to": "/privacy" }, { "label": "الشروط", "to": "/terms" }]
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "promo-strip",
+          "settings": {
+            "badge": "⚡ دفعة 2026",
+            "message": "التسجيل مفتوح الآن في مسارات هندسة البرمجيات والذكاء الاصطناعي — إشراف ومراجعة كود مباشرة.",
+            "saleLabel": "خصم الدفعة الأولى",
+            "shippingLabel": "وصول فوري",
+            "returnLabel": "ضمان 14 يوم",
+            "ctaText": "احجز مقعدك",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "skill-lab-motion",
+          "settings": {
+            "eyebrow": "منصة كورسات النخبوية • مسارات 2026 المتقدمة",
+            "title": "ابنِ أنظمة عالمية الأداء وتجاوز الحدود التقليدية",
+            "subtitle": "مسارات مكثفة لنقلك من مرحلة المطور التقليدي إلى بناء أنظمة Microservices معقدة، وكلاء ذكاء اصطناعي ذاتية القيادة، وتجارب موشن 60 FPS بمستوى Awwwards.",
+            "ctaText": "استكشف المسارات واشترك الآن",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "مشاهدة المنهج والمشاريع",
+            "secondaryCtaLink": "/collections"
+          }
+        },
+        {
+          "type": "features-bar",
+          "settings": {
+            "title": "لماذا منصة كورسات؟",
+            "subtitle": "تعليم حقيقي يوصلك لنتيجة عملية مباشرة وسوق العمل.",
+            "items": [
+              { "icon": "target", "title": "محتوى عملي معماري", "description": "بناء أنظمة متكاملة قابلة للنشر في بيئات الإنتاج." },
+              { "icon": "shield", "title": "شهادة مهنية معتمدة", "description": "شهادات موثقة مع كود تحقق ومشاريع حقيقية على GitHub." },
+              { "icon": "grid", "title": "مراجعة كود فردية", "description": "ملاحظات تفصيلية على كل Pull Request من كبار المهندسين." },
+              { "icon": "search", "title": "وصول فوري ومدى الحياة", "description": "ادخل الكورس في أي وقت مع تحديثات مستمرة بدون انتهاء." }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "المسارات التخصصية الأكثر طلباً",
+            "subtitle": "مسارات متدرجة من الأساس المعماري حتى مستوى النخبة.",
+            "limit": 4,
+            "ctaText": "استعرض كل المسارات",
+            "ctaLink": "/collections",
+            "collections": [
+              { "title": "هندسة النظم والتطبيقات الفائقة 💻", "subtitle": "Node.js, PostgreSQL, Multi-Tenancy, Redis Cluster, Docker.", "link": "/shop" },
+              { "title": "هندسة وكلاء الذكاء الاصطناعي 🤖", "subtitle": "Multi-Agent Swarms, FastMCP, Function Calling, Tier-3 Memory.", "link": "/collections" },
+              { "title": "حركات الويب والموشن السينمائي ✨", "subtitle": "GSAP 3, Lenis Scroll, Canvas Particles, 3D Tilt Cards.", "link": "/shop" },
+              { "title": "معمارية المشاريع الضخمة 📊", "subtitle": "Zero Blast-Radius, CI/CD, Microservices, Security Auditing.", "link": "/sale" }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "settings": {
+            "badge": "باقات الاشتراك",
+            "title": "استثمر في مستقبلك بأفضل قيمة",
+            "subtitle": "وفر أكثر من 40% عند الاشتراك في الباقة المتكاملة أو وصول مدى الحياة.",
+            "cards": [
+              { "label": "الأكثر طلباً", "title": "العضوية الكاملة (All-Access)", "subtitle": "وصول لجميع المسارات الحالية والمستقبلية مع جلستي إرشاد 1-on-1.", "ctaText": "اشترك الآن", "link": "/collections", "tone": "primary", "stat": "349$" },
+              { "label": "تخصصي", "title": "مسار منفرد (Single Track)", "subtitle": "مسار تخصصي كامل مع مراجعة المشاريع والمجتمع الخاص.", "ctaText": "اختر مسارك", "link": "/shop", "tone": "accent", "stat": "199$" },
+              { "label": "ضمان كامل", "title": "ضمان استرجاع 14 يوم", "subtitle": "استرجع قيمة استثمارك 100% بدون أي تعقيد إن لم تعجبك التجربة.", "ctaText": "اعرف المزيد", "link": "/returns", "tone": "slate", "stat": "14 يوم" }
+            ]
+          }
+        },
+        {
+          "type": "featured-products",
+          "variant": "glass-card",
+          "settings": { "title": "الكورسات والمسارات المتاحة 🔥", "limit": 8 }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "نشرة كوديكس الهندسية",
+            "subtitle": "مقالات أسبوعية معمقة في هندسة البرمجيات والذكاء الاصطناعي + كوبونات حصرية.",
+            "buttonText": "انضم الآن",
+            "placeholder": "أدخل بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "layoutHint": "commerce-3col",
+      "sections": [
+        { "type": "hero-banner", "variant": "skill-lab-motion", "settings": { "eyebrow": "المسارات والكورسات", "title": "تصفح كل المسارات والبرامج التدريبية", "subtitle": "ابحث بالمجال أو المستوى التقني أو المهارة المطلوبة.", "ctaText": "ابدأ التصفح", "ctaLink": "/shop" } },
+        { "type": "shop-command-bar", "settings": { "title": "ابحث عن مسارك", "searchPlaceholder": "ابحث (مثال: وكلاء الذكاء الاصطناعي أو موشن)", "allCategoriesLabel": "كل التخصصات", "resultsLabel": "مسار", "clearButtonText": "مسح الفلاتر", "chipLimit": 6 } },
+        "filters-sidebar",
+        { "type": "product-grid", "variant": "glass-card", "settings": { "title": "كل الكورسات والمسارات", "limit": 12 } },
+        { "type": "newsletter", "variant": "minimal", "settings": { "title": "لا تفوتك التحديثات البرمجية", "subtitle": "تنبيهات بالمسارات وورش العمل الحية الجديدة.", "buttonText": "اشترك", "placeholder": "بريدك" } }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        { "type": "product-gallery", "variant": "grid" },
+        { "type": "product-info", "variant": "bento-specs", "settings": { "descriptionTitle": "عن الكورس والمنهج", "shippingTitle": "طريقة الوصول", "shippingText": "وصول فوري لكافة الدروس والمستودعات البرمجية بعد التأكيد مباشرة. وصول مدى الحياة.", "guaranteesTitle": "ضمانات منصة كورسات", "guaranteeStyle": "grid", "guaranteeItems": "وصول فوري ومدى الحياة|ادخل في أي وقت ومن أي جهاز.\nشهادة إتمام معتمدة|شهادة موثقة قابلة للتحقق ومشاريع واقعية.\nضمان استرجاع 14 يوم|استرجع استثمارك كاملاً بدون شروط." } },
+        { "type": "conversion-stack", "variant": "balanced" },
+        { "type": "bought-together", "variant": "compact", "settings": { "title": "مسارات متكاملة", "subtitle": "احصل على هذا المسار مع مسارات مكملة بخصم إضافي.", "limit": 3 } },
+        { "type": "related-products", "variant": "compact", "settings": { "title": "مسارات أخرى قد تهمك", "limit": 4 } },
+        { "type": "reviews", "variant": "compact", "settings": { "title": "آراء وتجارب المتدربين", "listTitle": "أحدث التقييمات", "verifiedLabel": "مهندس معتمد", "reviewLimit": 4 } }
+      ]
+    },
+    "cart": {
+      "sections": [
+        { "type": "cart-items", "variant": "compact", "settings": { "title": "سلة المسارات 🎓", "continueShoppingText": "أضف مساراً آخر" } },
+        { "type": "order-summary", "variant": "highlighted", "settings": { "title": "ملخص الطلب", "checkoutButtonText": "إتمام التسجيل والاشتراك", "secureCheckoutText": "دفع مشفر وآمن 100%", "showTrustRow": true } }
+      ]
+    },
+    "checkout": {
+      "sections": [
+        { "type": "promo-strip", "settings": { "badge": "تسجيل آمن 🎓", "message": "ضمان استرجاع 14 يوماً + وصول فوري ومدى الحياة + شهادة معتمدة.", "saleLabel": "ضمان 14 يوم", "shippingLabel": "وصول فوري" } },
+        { "type": "checkout-form", "variant": "split", "settings": { "contactTitle": "بياناتك الشخصية", "shippingTitle": "بيانات الحساب والوصول" } },
+        { "type": "payment", "variant": "cards", "settings": { "title": "طريقة الدفع", "confirmOrderText": "تأكيد الاشتراك وبدء التعلم فوراً", "codLabel": "فودافون كاش / إنستاباي", "cardLabel": "بطاقة بنكية (فيزا / ماستركارد)", "walletLabel": "محفظة إلكترونية" } }
+      ]
+    }
+  }
+}

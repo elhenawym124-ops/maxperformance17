@@ -1,5 +1,36 @@
 [
   {
+    "id": "kwrsat",
+    "name": "كورسات",
+    "description": "قالب تعليمي نخبوي للكورسات والمسارات البرمجية والذكاء الاصطناعي مع هيرو 3D تفاعلي وجزيئات كانفاس وسكرول 60 FPS من ultimate-animation.",
+    "category": "digital",
+    "categoryMeta": {
+      "primary": {
+        "id": "digital",
+        "label": "رقمي وإبداعي"
+      },
+      "secondary": {
+        "id": "courses",
+        "label": "كورسات وتعليم"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "142 71% 45%",
+      "220 20% 14%",
+      "199 89% 48%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 7,
+      "shopSections": 5,
+      "checkoutSections": 3,
+      "pdpSections": 6,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
     "id": "modern-minimal",
     "name": "Modern Minimal",
     "description": "بوتيك أحذية حريمي هادئ يوازن بين إبراز المقاسات، وضوح المقارنة، ومسارات شراء أسرع للسنيكرز والكعب والصنادل.",

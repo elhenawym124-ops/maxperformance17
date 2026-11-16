@@ -78,6 +78,7 @@ import turboPartsData from "./turbo-parts.json";
 import craftedData from "./crafted.json";
 import freshCartData from "./fresh-cart.json";
 import skillLabData from "./skill-lab.json";
+import kwrsatData from "./kwrsat.json";
 import baladiMarketEgData from "./baladi-market-eg.json";
 import nileEleganceEgData from "./nile-elegance-eg.json";
 import primeButcherLuxeData from "./prime-butcher-luxe.json";
@@ -769,6 +770,7 @@ export const STOREFRONT_THEME_PRESETS: Record<string, StorefrontTheme> = {
   crafted: asStorefrontTheme(craftedData),
   "fresh-cart": asStorefrontTheme(freshCartData),
   "skill-lab": asStorefrontTheme(skillLabData),
+  kwrsat: asStorefrontTheme(kwrsatData),
   "baladi-market-eg": asStorefrontTheme(baladiMarketEgData),
   "nile-elegance-eg": asStorefrontTheme(nileEleganceEgData),
   "prime-butcher-luxe": asStorefrontTheme(primeButcherLuxeData),
