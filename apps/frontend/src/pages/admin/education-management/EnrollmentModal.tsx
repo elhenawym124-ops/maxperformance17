@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { X, Plus, AlertTriangle, Loader2 } from "lucide-react";
+import { X, Plus, AlertTriangle, Loader2, Percent, Calendar, Check } from "lucide-react";
 import type {
   EducationEnrollment,
   EducationStudent,
@@ -11,6 +11,11 @@ import type {
 import { MODAL_CLS, INPUT_CLS } from "./types";
 import { DateInput } from "../../../components/ui/DateInput";
 import { api, getAuthHeaders } from "./api";
+import {
+  computeDiscountAndFinal,
+  DISCOUNT_TYPES,
+  calculateInstallmentSchedule,
+} from "./educationSharedHelpers";
 
 export interface EnrollmentModalProps {
   enrollment?: Partial<EducationEnrollment> | null;
@@ -49,6 +54,22 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
         ? "COMPLETED"
         : enrollment?.paymentStatus || "PENDING",
   });
+
+  const [discountType, setDiscountType] = useState<"NONE" | "SIBLINGS" | "SEASONAL" | "CUSTOM">(
+    (enrollment?.discountType as any) || "NONE"
+  );
+  const [discountValue, setDiscountValue] = useState<number | "">(
+    enrollment?.discountAmount ? Number(enrollment.discountAmount) : ""
+  );
+  const [paymentMethod, setPaymentMethod] = useState<"CASH" | "INSTALLMENTS">(
+    enrollment?.paymentMethod || "CASH"
+  );
+  const [installmentCount, setInstallmentCount] = useState<2 | 3>(
+    enrollment?.installmentCount === 3 ? 3 : 2
+  );
+  const [installments, setInstallments] = useState<
+    Array<{ installmentNumber: number; amount: number; dueDate: string; status: string }>
+  >((enrollment?.installments as any) || []);
 
   const [localStudents, setLocalStudents] = useState<EducationStudent[]>(students);
   useEffect(() => {
@@ -122,6 +143,40 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
   };
 
   const selectedPackage = packages.find((p) => p.id === form.packageId);
+  const basePrice = selectedPackage?.price || 0;
+
+  const financial = useMemo(() => {
+    const rawDisc = typeof discountValue === "number" ? discountValue : 0;
+    return computeDiscountAndFinal(basePrice, discountType, rawDisc);
+  }, [basePrice, discountType, discountValue]);
+
+  useEffect(() => {
+    if (paymentMethod === "INSTALLMENTS" && financial.finalAmount > 0) {
+      if (!enrollment?.id || installments.length === 0) {
+        const schedule = calculateInstallmentSchedule(financial.finalAmount, installmentCount);
+        setInstallments(
+          schedule.map((s) => ({
+            installmentNumber: s.installmentNumber,
+            amount: s.amount,
+            dueDate: s.dueDate,
+            status: "PENDING",
+          }))
+        );
+        setForm((prev) => ({ ...prev, amountPaid: schedule[0]?.amount || 0 }));
+      }
+    } else if (paymentMethod === "CASH") {
+      setInstallments([]);
+      if (!enrollment?.id) {
+        setForm((prev) => ({ ...prev, amountPaid: financial.finalAmount }));
+      }
+    }
+  }, [paymentMethod, installmentCount, financial.finalAmount]);
+
+  const handleDueDateChange = (index: number, newDate: string) => {
+    setInstallments((prev) =>
+      prev.map((inst, i) => (i === index ? { ...inst, dueDate: newDate } : inst))
+    );
+  };
   const matchingTeachers = selectedPackage?.subjectId
     ? teachers.filter((t) =>
         t.subjectRates?.some(
@@ -376,36 +431,188 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             )}
           </div>
 
-          {/* Amount & Status */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-foreground">
-                {t("education.enrollments.amountPaid", isEn ? "Amount Paid (EGP)" : "المبلغ المدفوع (ج.م)")}
-              </label>
-              <input
-                type="number"
-                min={0}
-                className={INPUT_CLS}
-                value={form.amountPaid}
-                onChange={(e) =>
-                  setForm({ ...form, amountPaid: Number(e.target.value) })
-                }
-              />
+          {/* Discounts System */}
+          <div className="space-y-2 p-3 rounded-xl border border-border/70 bg-muted/20">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+              <Percent className="w-3.5 h-3.5 text-primary" />
+              <span>{isEn ? "Discounts & Promotions" : "نظام الخصومات والعروض"}</span>
             </div>
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-foreground">
-                {t("education.enrollments.paymentStatus", isEn ? "Payment Status" : "حالة السداد")}
-              </label>
-              <select
-                className={INPUT_CLS}
-                value={form.paymentStatus}
-                onChange={(e) =>
-                  setForm({ ...form, paymentStatus: e.target.value })
-                }
-              >
-                <option value="PENDING">{t("education.enrollments.statusPending", isEn ? "Pending" : "معلق")}</option>
-                <option value="COMPLETED">{t("education.enrollments.statusPaid", isEn ? "Paid" : "مدفوع")}</option>
-              </select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="space-y-1">
+                <label className="text-[11px] text-muted-foreground">{isEn ? "Discount Type" : "نوع الخصم"}</label>
+                <select
+                  className={INPUT_CLS}
+                  value={discountType}
+                  onChange={(e) => setDiscountType(e.target.value as any)}
+                >
+                  {DISCOUNT_TYPES.map((d) => (
+                    <option key={d.value} value={d.value}>
+                      {isEn ? d.labelEn : d.labelAr}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[11px] text-muted-foreground">
+                  {discountType === "SIBLINGS" || discountType === "SEASONAL"
+                    ? isEn
+                      ? "Discount %"
+                      : "نسبة الخصم (%)"
+                    : isEn
+                    ? "Discount (EGP)"
+                    : "قيمة الخصم (ج.م)"}
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  disabled={discountType === "NONE"}
+                  className={INPUT_CLS}
+                  placeholder={discountType === "NONE" ? "-" : "0"}
+                  value={discountValue}
+                  onChange={(e) => setDiscountValue(e.target.value ? Number(e.target.value) : "")}
+                />
+              </div>
+            </div>
+
+            {basePrice > 0 && (
+              <div className="flex items-center justify-between p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs mt-1">
+                <span className="text-muted-foreground">{isEn ? "Final Payable:" : "المبلغ النهائي بعد الخصم:"}</span>
+                <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                  {financial.finalAmount.toLocaleString()} ج.م
+                  {financial.discountAmount > 0 && (
+                    <span className="text-[10px] text-muted-foreground font-normal mr-1.5">
+                      (خصم: {financial.discountAmount.toLocaleString()} ج.م)
+                    </span>
+                  )}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Payment Method & Installments */}
+          <div className="space-y-2.5 p-3 rounded-xl border border-border/70 bg-muted/20">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                <Calendar className="w-3.5 h-3.5 text-primary" />
+                <span>{isEn ? "Payment Plan" : "نظام الدفع والأقساط"}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("CASH")}
+                  className={`px-2.5 py-0.5 rounded-lg text-xs font-semibold transition-all ${
+                    paymentMethod === "CASH"
+                      ? "bg-primary text-primary-foreground shadow-xs"
+                      : "bg-muted text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {isEn ? "Cash" : "كاش"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("INSTALLMENTS")}
+                  className={`px-2.5 py-0.5 rounded-lg text-xs font-semibold transition-all ${
+                    paymentMethod === "INSTALLMENTS"
+                      ? "bg-primary text-primary-foreground shadow-xs"
+                      : "bg-muted text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {isEn ? "Installments" : "أقساط مجدولة"}
+                </button>
+              </div>
+            </div>
+
+            {paymentMethod === "INSTALLMENTS" ? (
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="text-muted-foreground">{isEn ? "Installment Count:" : "عدد الأقساط:"}</span>
+                  <button
+                    type="button"
+                    onClick={() => setInstallmentCount(2)}
+                    className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${
+                      installmentCount === 2
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {isEn ? "2 Installments" : "قسطين"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setInstallmentCount(3)}
+                    className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${
+                      installmentCount === 3
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {isEn ? "3 Installments" : "3 أقساط"}
+                  </button>
+                </div>
+
+                {/* Installments Table */}
+                <div className="space-y-1.5">
+                  {installments.map((inst, idx) => (
+                    <div
+                      key={inst.installmentNumber}
+                      className="flex items-center justify-between gap-2 p-2 rounded-lg bg-background border border-border text-xs"
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-4 h-4 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-[10px]">
+                          {inst.installmentNumber}
+                        </span>
+                        <span className="font-semibold">{isEn ? `Inst ${inst.installmentNumber}` : `القسط ${inst.installmentNumber}`}:</span>
+                        <span className="font-bold text-primary font-mono">{inst.amount.toLocaleString()} ج.م</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] text-muted-foreground">{isEn ? "Due:" : "الموعد:"}</span>
+                        <input
+                          type="date"
+                          value={inst.dueDate}
+                          onChange={(e) => handleDueDateChange(idx, e.target.value)}
+                          className="bg-card border border-input rounded-md px-1.5 py-0.5 text-xs font-mono"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {/* Amount & Status */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-foreground">
+                  {paymentMethod === "INSTALLMENTS"
+                    ? isEn ? "Paid Now (1st Installment)" : "المبلغ المدفوع الآن (مقدماً)"
+                    : t("education.enrollments.amountPaid", isEn ? "Amount Paid (EGP)" : "المبلغ المدفوع (ج.م)")}
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  className={INPUT_CLS}
+                  value={form.amountPaid}
+                  onChange={(e) =>
+                    setForm({ ...form, amountPaid: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-foreground">
+                  {t("education.enrollments.paymentStatus", isEn ? "Payment Status" : "حالة السداد")}
+                </label>
+                <select
+                  className={INPUT_CLS}
+                  value={form.paymentStatus}
+                  onChange={(e) =>
+                    setForm({ ...form, paymentStatus: e.target.value })
+                  }
+                >
+                  <option value="PENDING">{t("education.enrollments.statusPending", isEn ? "Pending" : "معلق")}</option>
+                  <option value="COMPLETED">{t("education.enrollments.statusPaid", isEn ? "Paid" : "مدفوع")}</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -448,6 +655,12 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               onClick={() =>
                 onSave({
                   ...form,
+                  paymentMethod,
+                  installmentCount: paymentMethod === "INSTALLMENTS" ? installmentCount : 1,
+                  installments: paymentMethod === "INSTALLMENTS" ? installments : undefined,
+                  discountType,
+                  discountAmount: financial.discountAmount,
+                  finalAmount: financial.finalAmount,
                   teacherId: form.teacherId || null,
                   expiresAt: form.expiresAt ? form.expiresAt : null,
                 })

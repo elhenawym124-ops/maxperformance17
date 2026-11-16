@@ -11,5 +11,6 @@ router.get('/:id', verifyToken.authenticateToken, controller.getById);
 router.post('/', verifyToken.authenticateToken, controller.create);
 router.put('/:id', verifyToken.authenticateToken, controller.update);
 router.delete('/:id', verifyToken.authenticateToken, controller.remove);
+router.post('/:id/installments/:installmentNumber/pay', verifyToken.authenticateToken, controller.payInstallment);
 
 module.exports = router;

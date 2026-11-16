@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Pencil, Trash2, AlertTriangle } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertTriangle, CreditCard, CheckCircle2, Calendar, Percent, X, Check } from "lucide-react";
+import { toast } from "sonner";
+import { api, getAuthHeaders } from "./api";
 import type {
   EducationEnrollment,
   EducationStudent,
@@ -25,6 +27,7 @@ export interface EducationEnrollmentsTabProps {
   handleSaveEnrollment: (d: Partial<EducationEnrollment>) => Promise<void>;
   handleDeleteEnrollment: (id: string) => Promise<void>;
   handleSaveStudent?: (d: Partial<EducationStudent>) => Promise<EducationStudent | null>;
+  onRefresh?: () => void;
 }
 
 export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = ({
@@ -39,9 +42,46 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
   handleSaveEnrollment,
   handleDeleteEnrollment,
   handleSaveStudent,
+  onRefresh,
 }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
+
+  const [selectedEnrollmentForInstallments, setSelectedEnrollmentForInstallments] =
+    useState<EducationEnrollment | null>(null);
+  const [payingInstallment, setPayingInstallment] = useState(false);
+
+  const handlePayInstallment = async (enrollmentId: string, installmentNumber: number) => {
+    try {
+      setPayingInstallment(true);
+      const res = await fetch(api(`enrollments/${enrollmentId}/installments/${installmentNumber}/pay`), {
+        method: "POST",
+        headers: getAuthHeaders(),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(isEn ? `Installment #${installmentNumber} marked as paid!` : `تم تحصيل القسط رقم ${installmentNumber} بنجاح!`);
+        if (selectedEnrollmentForInstallments) {
+          const updated = {
+            ...selectedEnrollmentForInstallments,
+            installments: selectedEnrollmentForInstallments.installments?.map((inst) =>
+              inst.installmentNumber === installmentNumber
+                ? { ...inst, status: "PAID" as const, paidAt: new Date().toISOString() }
+                : inst
+            ),
+          };
+          setSelectedEnrollmentForInstallments(updated);
+        }
+        onRefresh?.();
+      } else {
+        toast.error(data.error || (isEn ? "Failed to pay installment" : "فشل تحصيل القسط"));
+      }
+    } catch (err: any) {
+      toast.error(err.message || (isEn ? "Error" : "حدث خطأ أثناء تحصيل القسط"));
+    } finally {
+      setPayingInstallment(false);
+    }
+  };
 
   return (
     <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
@@ -303,7 +343,46 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                         CELL_CLS + " font-mono tabular-nums text-foreground"
                       }
                     >
-                      {e.amountPaid || 0} {isEn ? "EGP" : "ج.م"}
+                      <div className="font-bold">
+                        {e.amountPaid || 0} {isEn ? "EGP" : "ج.م"}
+                        {e.finalAmount && e.finalAmount !== e.amountPaid ? (
+                          <span className="text-[10px] text-muted-foreground block font-normal">
+                            {isEn ? "of " : "من "} {e.finalAmount} {isEn ? "EGP" : "ج.م"}
+                          </span>
+                        ) : null}
+                      </div>
+                      {e.paymentMethod === "INSTALLMENTS" || (e.installments && e.installments.length > 0) ? (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedEnrollmentForInstallments(e)}
+                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 mt-1 cursor-pointer transition-colors"
+                        >
+                          <CreditCard className="w-3 h-3" />
+                          <span>
+                            {isEn
+                              ? `Installments (${e.installments?.length || e.installmentCount || 2})`
+                              : `أقساط (${e.installments?.length || e.installmentCount || 2})`}
+                          </span>
+                        </button>
+                      ) : null}
+                      {e.discountType && e.discountType !== "NONE" && (
+                        <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-0.5 mt-0.5">
+                          <Percent className="w-2.5 h-2.5" />
+                          <span>
+                            {e.discountType === "SIBLINGS"
+                              ? isEn
+                                ? "Sibling Disc"
+                                : "خصم أخوات"
+                              : e.discountType === "SEASONAL"
+                              ? isEn
+                                ? "Seasonal Disc"
+                                : "خصم مواسم"
+                              : isEn
+                              ? "Custom Disc"
+                              : "خصم مخصص"}
+                          </span>
+                        </div>
+                      )}
                     </td>
                     <td className={CELL_CLS}>
                       <span
@@ -400,6 +479,127 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
           onSave={handleSaveEnrollment}
           onAddNewStudent={handleSaveStudent}
         />
+      )}
+
+      {selectedEnrollmentForInstallments && (
+        <div
+          className="fixed inset-0 bg-background/80 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4"
+          onClick={() => setSelectedEnrollmentForInstallments(null)}
+          dir={isEn ? "ltr" : "rtl"}
+        >
+          <div
+            className="bg-card border border-border rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-border/80">
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                  <CreditCard className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">
+                    {isEn ? "Installment Schedule & Payments" : "جدول الأقساط وتحصيل الدفعات"}
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground">
+                    {selectedEnrollmentForInstallments.student?.firstName} {selectedEnrollmentForInstallments.student?.lastName} - {selectedEnrollmentForInstallments.package?.name}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedEnrollmentForInstallments(null)}
+                className="p-1 rounded-lg text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-3 rounded-xl bg-muted/40 border border-border/60 text-xs">
+              <div>
+                <span className="text-[10px] text-muted-foreground block">{isEn ? "Total Amount:" : "المبلغ الإجمالي:"}</span>
+                <span className="font-bold text-foreground font-mono">
+                  {selectedEnrollmentForInstallments.finalAmount || selectedEnrollmentForInstallments.amountPaid} ج.م
+                </span>
+              </div>
+              <div>
+                <span className="text-[10px] text-muted-foreground block">{isEn ? "Total Paid:" : "إجمالي المدفوع:"}</span>
+                <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                  {selectedEnrollmentForInstallments.amountPaid || 0} ج.م
+                </span>
+              </div>
+              <div>
+                <span className="text-[10px] text-muted-foreground block">{isEn ? "Remaining:" : "المتبقي:"}</span>
+                <span className="font-bold text-amber-600 dark:text-amber-400 font-mono">
+                  {Math.max(0, (selectedEnrollmentForInstallments.finalAmount || selectedEnrollmentForInstallments.amountPaid || 0) - (selectedEnrollmentForInstallments.amountPaid || 0))} ج.م
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {(selectedEnrollmentForInstallments.installments || []).map((inst) => {
+                const isPaid = inst.status === "PAID";
+                return (
+                  <div
+                    key={inst.installmentNumber}
+                    className="p-3 rounded-xl border border-border/80 bg-background flex items-center justify-between gap-3 text-xs"
+                  >
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-[10px]">
+                          {inst.installmentNumber}
+                        </span>
+                        <span className="font-bold text-foreground">
+                          {isEn ? `Installment #${inst.installmentNumber}` : `القسط رقم ${inst.installmentNumber}`}
+                        </span>
+                        <span className="font-bold font-mono text-primary">
+                          {inst.amount.toLocaleString()} ج.م
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        <span>{isEn ? "Due Date:" : "تاريخ الاستحقاق:"} {inst.dueDate || "-"}</span>
+                        {isPaid && inst.paidAt && (
+                          <span className="text-[10px] text-emerald-600 mr-1.5">
+                            ({isEn ? "Paid on " : "سُدد في "} {inst.paidAt.split("T")[0]})
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      {isPaid ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>{isEn ? "Paid" : "مدفوع"}</span>
+                        </span>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled={payingInstallment}
+                          onClick={() => handlePayInstallment(selectedEnrollmentForInstallments.id, inst.installmentNumber)}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all shadow-xs"
+                        >
+                          <Check className="w-3.5 h-3.5" />
+                          <span>{isEn ? "Collect Now" : "تحصيل القسط"}</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-end pt-2 border-t border-border/80">
+              <button
+                type="button"
+                onClick={() => setSelectedEnrollmentForInstallments(null)}
+                className="px-4 py-1.5 rounded-xl text-xs font-semibold bg-muted hover:bg-muted/80 text-foreground"
+              >
+                {isEn ? "Close" : "إغلاق"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

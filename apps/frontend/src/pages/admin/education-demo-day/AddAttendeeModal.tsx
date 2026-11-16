@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { X, UserPlus, Check, AlertCircle } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { X, UserPlus, Check, AlertCircle, Building2, Sparkles, GraduationCap } from "lucide-react";
+import { getLevelsForAge } from "../education-management/educationSharedHelpers";
 
 interface AddAttendeeModalProps {
   isOpen: boolean;
   onClose: () => void;
   onRegister: (data: any) => Promise<void>;
   demoDayTitle: string;
+  branches?: Array<{ id: string; name: string; city?: string }>;
   isEn?: boolean;
 }
 
@@ -14,6 +16,7 @@ export function AddAttendeeModal({
   onClose,
   onRegister,
   demoDayTitle,
+  branches = [],
   isEn = false,
 }: AddAttendeeModalProps) {
   const [studentName, setStudentName] = useState("");
@@ -22,10 +25,15 @@ export function AddAttendeeModal({
   const [phone2, setPhone2] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState<number | "">("");
+  const [branchId, setBranchId] = useState<string>("");
   const [grade, setGrade] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const suggestedLevels = useMemo(() => {
+    return getLevelsForAge(typeof age === "number" ? age : undefined);
+  }, [age]);
 
   if (!isOpen) return null;
 
@@ -46,6 +54,7 @@ export function AddAttendeeModal({
         phone2: phone2.trim() || null,
         email: email.trim() || null,
         age: age ? Number(age) : null,
+        branchId: branchId || null,
         grade: grade.trim() || null,
         notes: notes.trim() || null,
       });
@@ -93,6 +102,16 @@ export function AddAttendeeModal({
               <span>{error}</span>
             </div>
           )}
+
+          {/* Auto Student Creation Hint */}
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary">
+            <Sparkles className="w-4 h-4 shrink-0" />
+            <span>
+              {isEn
+                ? "This attendee will automatically be enrolled in the official Students Directory with a unique student code."
+                : "سيتم إدراج الطالب تلقائياً في قائمة الطلاب الرسمية وتخصيص كود فريد له مع إمكانية التحويل المباشر."}
+            </span>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
@@ -154,10 +173,35 @@ export function AddAttendeeModal({
             </div>
           </div>
 
+          {/* Branch & Age (with age bracket & levels) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-xs font-medium text-foreground">
-                {isEn ? "Age" : "السن"}
+              <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-primary" />
+                {isEn ? "Branch Attendance" : "تسجيل الحضور على فرع"}
+              </label>
+              <select
+                value={branchId}
+                onChange={(e) => setBranchId(e.target.value)}
+                className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
+              >
+                <option value="">{isEn ? "-- Select Branch --" : "-- اختر الفرع للحضور --"}</option>
+                {branches.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.name} {b.city ? `(${b.city})` : ""}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-foreground flex items-center justify-between">
+                <span>{isEn ? "Age (Years)" : "السن (سنوات)"}</span>
+                {typeof age === "number" && (
+                  <span className="text-[10px] text-primary font-semibold">
+                    {age < 7 ? "براعم (4-6)" : age < 10 ? "أشبال (7-9)" : age < 14 ? "يافعين (10-13)" : "شباب (14-18)"}
+                  </span>
+                )}
               </label>
               <input
                 type="number"
@@ -165,11 +209,33 @@ export function AddAttendeeModal({
                 max="80"
                 value={age}
                 onChange={(e) => setAge(e.target.value ? Number(e.target.value) : "")}
-                placeholder={isEn ? "e.g. 12" : "مثال: 12"}
+                placeholder={isEn ? "e.g. 10" : "مثال: 10"}
                 className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none font-mono tabular-nums"
               />
             </div>
+          </div>
 
+          {/* Age Linked Level Preview */}
+          {suggestedLevels.length > 0 && (
+            <div className="p-2.5 rounded-xl bg-muted/40 border border-border/70 space-y-1">
+              <span className="text-[11px] font-semibold text-foreground flex items-center gap-1">
+                <GraduationCap className="w-3.5 h-3.5 text-primary" />
+                {isEn ? "Suggested Age-Linked Levels:" : "المستويات المقترحة لهذا السن:"}
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {suggestedLevels.map((lvl) => (
+                  <span
+                    key={lvl.id}
+                    className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-background border border-border text-foreground"
+                  >
+                    {lvl.name} ({lvl.code})
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">
                 {isEn ? "Grade / School Level" : "المرحلة الدراسية"}
@@ -182,20 +248,20 @@ export function AddAttendeeModal({
                 className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
               />
             </div>
-          </div>
 
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-foreground">
-              {isEn ? "Email Address (Optional)" : "البريد الإلكتروني (اختياري)"}
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@gmail.com"
-              dir="ltr"
-              className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
-            />
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-foreground">
+                {isEn ? "Email Address (Optional)" : "البريد الإلكتروني (اختياري)"}
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@gmail.com"
+                dir="ltr"
+                className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
+              />
+            </div>
           </div>
 
           <div className="space-y-1">
@@ -206,7 +272,7 @@ export function AddAttendeeModal({
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder={isEn ? "e.g. Came via Facebook Ad, interested in Robotics" : "مثال: قادم من إعلان فيسبوك، مهتم بمسار الروبوتيكس"}
+              placeholder={isEn ? "e.g. Came via Facebook Ad, interested in Robotics" : "مثال: قادم من إعلان فيسبوك، مهتم بمسار البرمجة"}
               className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
             />
           </div>
@@ -233,7 +299,7 @@ export function AddAttendeeModal({
             ) : (
               <Check className="w-3.5 h-3.5" />
             )}
-            {isEn ? "Confirm Registration" : "تأكيد التسجيل"}
+            {isEn ? "Confirm Registration" : "تأكيد التسجيل وإدراج الطالب"}
           </button>
         </div>
       </div>

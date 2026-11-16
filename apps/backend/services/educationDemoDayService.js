@@ -53,7 +53,23 @@ const STATEMENTS = [
 
   `ALTER TABLE "education_demo_days" ADD COLUMN IF NOT EXISTS "branchId" TEXT;`,
   `ALTER TABLE "education_demo_days" ADD COLUMN IF NOT EXISTS "classroomId" TEXT;`,
-  `ALTER TABLE "education_demo_days" ADD COLUMN IF NOT EXISTS "googleMapsUrl" TEXT;`
+  `ALTER TABLE "education_demo_days" ADD COLUMN IF NOT EXISTS "googleMapsUrl" TEXT;`,
+  `ALTER TABLE "education_demo_attendees" ADD COLUMN IF NOT EXISTS "branchId" TEXT;`,
+  `ALTER TABLE "education_students" ADD COLUMN IF NOT EXISTS "age" INTEGER;`,
+  `ALTER TABLE "education_students" ADD COLUMN IF NOT EXISTS "branchId" TEXT;`,
+  `ALTER TABLE "education_students" ADD COLUMN IF NOT EXISTS "username" TEXT;`,
+  `ALTER TABLE "education_students" ADD COLUMN IF NOT EXISTS "plainPassword" TEXT;`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "paymentMethod" TEXT DEFAULT 'CASH';`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "installmentCount" INTEGER DEFAULT 1;`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "installments" JSONB DEFAULT '[]'::jsonb;`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "discountType" TEXT DEFAULT 'NONE';`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "discountAmount" DOUBLE PRECISION DEFAULT 0;`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "finalAmount" DOUBLE PRECISION;`,
+  `ALTER TABLE "education_enrollments" ADD COLUMN IF NOT EXISTS "branchId" TEXT;`,
+  `ALTER TABLE "education_packages" ADD COLUMN IF NOT EXISTS "packageType" TEXT DEFAULT 'GROUP';`,
+  `ALTER TABLE "education_packages" ADD COLUMN IF NOT EXISTS "scheduleSlots" JSONB DEFAULT '[]'::jsonb;`,
+  `ALTER TABLE "education_packages" ADD COLUMN IF NOT EXISTS "timetable" JSONB DEFAULT '[]'::jsonb;`,
+  `ALTER TABLE "education_sessions" ADD COLUMN IF NOT EXISTS "sessionType" TEXT DEFAULT 'PRIVATE';`
 ];
 
 async function ensureTablesExist(prisma) {

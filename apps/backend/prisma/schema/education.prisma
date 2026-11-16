@@ -31,6 +31,9 @@ model EducationPackage {
   levelNumber     Int?     /// ترتيب المستوى داخل المسار (1..15) — يسمح بمعرفة الليفل التالي
   ageFrom         Int?     /// أقل سن مناسب للمستوى
   ageTo           Int?     /// أكبر سن مناسب للمستوى
+  packageType     String?  @default("GROUP") /// GROUP, PRIVATE
+  scheduleSlots   Json?    @default("[]")
+  timetable       Json?    @default("[]")
   isActive        Boolean  @default(true)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -59,6 +62,10 @@ model EducationStudent {
   grade      String?    /// Educational level (e.g. "Grade 5", "Beginner")
   subjects   Json?      @default("[]")
   currentLevel Int?     /// المستوى الحالي في المسار (1..15) — يتحدث عند إتمام المستوى
+  age        Int?
+  branchId   String?
+  username   String?
+  plainPassword String?
   notes      String?
   isActive   Boolean    @default(true)
   createdAt  DateTime   @default(now())
@@ -177,6 +184,13 @@ model EducationEnrollment {
   totalHours      Float         /// Total hours from package
   amountPaid      Float
   paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethod   String?       @default("CASH")
+  installmentCount Int?         @default(1)
+  installments    Json?         @default("[]")
+  discountType    String?       @default("NONE")
+  discountAmount  Float?        @default(0)
+  finalAmount     Float?
+  branchId        String?
   enrollmentDate  DateTime      @default(now())
   expiresAt       DateTime?
   isActive        Boolean       @default(true)
@@ -208,6 +222,7 @@ model EducationSession {
   plannedDuration Int                     /// Planned minutes
   actualDuration  Int?                    /// Actual minutes (teacher confirms after session)
   status          EducationSessionStatus  @default(SCHEDULED)
+  sessionType     String?                 @default("PRIVATE") /// PRIVATE, GROUP
   topic           String?
   notes           String?
   createdAt       DateTime                @default(now())
@@ -243,11 +258,14 @@ model EducationGroup {
   teacherRateType  String    @default("PERCENTAGE")
   teacherRateValue Float     @default(50)
   scheduleDays     Json      @default("[]")
+  scheduleSlots    Json?     @default("[]")
   startTime        String?   @default("17:00")
   endTime          String?   @default("18:30")
   room             String?
   branchId         String?
   classroomId      String?
+  ageFrom          Int?
+  ageTo            Int?
   status           String    @default("OPEN")
   startDate        DateTime?
   endDate          DateTime?
@@ -354,6 +372,7 @@ model EducationDemoAttendee {
   email              String?
   age                Int?
   grade              String?
+  branchId           String?
   attendanceStatus   String   @default("REGISTERED")
   conversionStatus   String   @default("PENDING")
   convertedStudentId String?

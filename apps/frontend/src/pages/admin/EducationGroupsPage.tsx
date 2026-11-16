@@ -56,6 +56,13 @@ const api = (path: string) => {
   return url.toString();
 };
 
+export interface GroupScheduleSlot {
+  dayOfWeek: string;
+  startTime: string;
+  endTime: string;
+  room?: string;
+}
+
 export interface EducationGroup {
   id: string;
   name: string;
@@ -66,6 +73,9 @@ export interface EducationGroup {
   teacherName?: string | null;
   teacherPhone?: string | null;
   level?: string | null;
+  branchId?: string | null;
+  ageFrom?: number | null;
+  ageTo?: number | null;
   capacity: number;
   totalMembers: number;
   activeMembers: number;
@@ -75,6 +85,7 @@ export interface EducationGroup {
   teacherRateType?: "PERCENTAGE" | "FIXED_PER_SESSION" | "PER_STUDENT";
   teacherRateValue?: number;
   scheduleDays: string[];
+  scheduleSlots?: GroupScheduleSlot[];
   startTime?: string | null;
   endTime?: string | null;
   room?: string | null;
@@ -160,6 +171,7 @@ export default function EducationGroupsPage({
   const [groups, setGroups] = useState<EducationGroup[]>([]);
   const [subjects, setSubjects] = useState<{ id: string; name: string }[]>([]);
   const [teachers, setTeachers] = useState<{ id: string; name: string }[]>([]);
+  const [branches, setBranches] = useState<{ id: string; name: string }[]>([]);
   const [allStudents, setAllStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -230,11 +242,12 @@ export default function EducationGroupsPage({
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [grpRes, subjRes, teachRes, stuRes] = await Promise.allSettled([
+      const [grpRes, subjRes, teachRes, stuRes, brRes] = await Promise.allSettled([
         fetch(api("groups"), { headers: getAuthHeaders() }).then((r) => r.json()),
         fetch(api("subjects"), { headers: getAuthHeaders() }).then((r) => r.json()),
         fetch(api("teachers"), { headers: getAuthHeaders() }).then((r) => r.json()),
         fetch(api("students"), { headers: getAuthHeaders() }).then((r) => r.json()),
+        fetch(api("branches"), { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => ({ data: [] })),
       ]);
 
       if (grpRes.status === "fulfilled" && grpRes.value?.success) {
@@ -248,6 +261,9 @@ export default function EducationGroupsPage({
       }
       if (stuRes.status === "fulfilled" && stuRes.value?.success) {
         setAllStudents(stuRes.value.data || []);
+      }
+      if (brRes.status === "fulfilled" && brRes.value?.success) {
+        setBranches(brRes.value.data || []);
       }
     } catch (err: any) {
       console.error("Error fetching education groups:", err);
@@ -367,6 +383,43 @@ export default function EducationGroupsPage({
     } catch (err: any) {
       toast.error(isEn ? "Error while deleting" : "حدث خطأ أثناء الحذف");
     }
+  };
+
+  const handleStartNewGroup = () => {
+    setEditingGroup({
+      name: "",
+      code: `GRP-${101 + groups.length}`,
+      capacity: 15,
+      feeType: "MONTHLY",
+      feeAmount: 0,
+      teacherRateType: "PERCENTAGE",
+      teacherRateValue: 0,
+      scheduleDays: ["SATURDAY", "TUESDAY"],
+      scheduleSlots: [
+        { dayOfWeek: "SATURDAY", startTime: "17:00", endTime: "18:30", room: "" },
+        { dayOfWeek: "TUESDAY", startTime: "17:00", endTime: "18:30", room: "" },
+      ],
+      startTime: "17:00",
+      endTime: "18:30",
+      status: "OPEN",
+    });
+    setGroupModalOpen(true);
+  };
+
+  const handleStartEditGroup = (g: EducationGroup) => {
+    const slots = g.scheduleSlots && g.scheduleSlots.length > 0
+      ? g.scheduleSlots
+      : (g.scheduleDays || ["SATURDAY"]).map((d) => ({
+          dayOfWeek: d,
+          startTime: g.startTime || "17:00",
+          endTime: g.endTime || "18:30",
+          room: g.room || "",
+        }));
+    setEditingGroup({
+      ...g,
+      scheduleSlots: slots,
+    });
+    setGroupModalOpen(true);
   };
 
   const handleEnrollStudent = async (e: React.FormEvent) => {
@@ -587,22 +640,7 @@ export default function EducationGroupsPage({
 
           <button
             type="button"
-            onClick={() => {
-              setEditingGroup({
-                name: "",
-                code: `GRP-${101 + groups.length}`,
-                capacity: 15,
-                feeType: "MONTHLY",
-                feeAmount: 0,
-                teacherRateType: "PERCENTAGE",
-                teacherRateValue: 0,
-                scheduleDays: ["SATURDAY", "TUESDAY"],
-                startTime: "17:00",
-                endTime: "18:30",
-                status: "OPEN",
-              });
-              setGroupModalOpen(true);
-            }}
+            onClick={handleStartNewGroup}
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-xs sm:text-sm font-semibold rounded-xl hover:bg-primary/90 shadow-md shadow-primary/20 transition-all"
           >
             <Plus className="w-4 h-4" />
@@ -766,22 +804,7 @@ export default function EducationGroupsPage({
           </div>
           <button
             type="button"
-            onClick={() => {
-              setEditingGroup({
-                name: "",
-                code: `GRP-${101 + groups.length}`,
-                capacity: 15,
-                feeType: "MONTHLY",
-                feeAmount: 0,
-                teacherRateType: "PERCENTAGE",
-                teacherRateValue: 0,
-                scheduleDays: ["SATURDAY", "TUESDAY"],
-                startTime: "17:00",
-                endTime: "18:30",
-                status: "OPEN",
-              });
-              setGroupModalOpen(true);
-            }}
+            onClick={handleStartNewGroup}
             className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold rounded-xl hover:bg-primary/90"
           >
             <Plus className="w-4 h-4" />
@@ -830,10 +853,7 @@ export default function EducationGroupsPage({
                     <div className="flex items-center gap-1">
                       <button
                         type="button"
-                        onClick={() => {
-                          setEditingGroup(group);
-                          setGroupModalOpen(true);
-                        }}
+                        onClick={() => handleStartEditGroup(group)}
                         className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
                         aria-label={t("education.common.edit", isEn ? "Edit Group" : "تعديل المجموعة")} title={t("education.common.edit", isEn ? "Edit Group" : "تعديل المجموعة")}
                       >
@@ -872,29 +892,51 @@ export default function EducationGroupsPage({
 
                 {/* Schedule & Days */}
                 <div className="bg-muted/40 rounded-xl p-3 space-y-2 text-xs">
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="inline-flex items-center gap-1 font-medium text-foreground">
-                      <Calendar className="w-3.5 h-3.5 text-primary" />
-                      {t("education.groups.daysLabel", isEn ? "Days:" : "الأيام:")}
-                    </span>
-                    <span className="font-semibold text-foreground">
-                      {Array.isArray(group.scheduleDays) && group.scheduleDays.length > 0
-                        ? group.scheduleDays
-                            .map((d) => weekDays.find((wd) => wd.id === d)?.label || d)
-                            .join(" • ")
-                        : (isEn ? "Not set" : "لم يتم تحديد الأيام")}
-                    </span>
-                  </div>
+                  {group.scheduleSlots && group.scheduleSlots.length > 0 ? (
+                    <div className="space-y-1.5">
+                      <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-primary" />
+                        {isEn ? "Schedule Timings:" : "مواعيد وتوقيتات الحصص:"}
+                      </span>
+                      {group.scheduleSlots.map((slot, sIdx) => (
+                        <div key={sIdx} className="flex items-center justify-between text-[11px] border-b border-border/40 pb-1 last:border-0 last:pb-0">
+                          <span className="font-semibold text-foreground flex items-center gap-1">
+                            <Calendar className="w-3 h-3 text-primary/70" />
+                            {weekDays.find((wd) => wd.id === slot.dayOfWeek)?.label || slot.dayOfWeek}
+                          </span>
+                          <span className="font-mono text-foreground font-semibold" dir="ltr">
+                            {slot.startTime} - {slot.endTime}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-between text-muted-foreground">
+                        <span className="inline-flex items-center gap-1 font-medium text-foreground">
+                          <Calendar className="w-3.5 h-3.5 text-primary" />
+                          {t("education.groups.daysLabel", isEn ? "Days:" : "الأيام:")}
+                        </span>
+                        <span className="font-semibold text-foreground">
+                          {Array.isArray(group.scheduleDays) && group.scheduleDays.length > 0
+                            ? group.scheduleDays
+                                .map((d) => weekDays.find((wd) => wd.id === d)?.label || d)
+                                .join(" • ")
+                            : (isEn ? "Not set" : "لم يتم تحديد الأيام")}
+                        </span>
+                      </div>
 
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="inline-flex items-center gap-1 font-medium text-foreground">
-                      <Clock className="w-3.5 h-3.5 text-primary" />
-                      {t("education.groups.timeLabel", isEn ? "Time:" : "الموعد:")}
-                    </span>
-                    <span className="font-mono text-foreground font-semibold" dir="ltr">
-                      {group.startTime || "17:00"} - {group.endTime || "18:30"}
-                    </span>
-                  </div>
+                      <div className="flex items-center justify-between text-muted-foreground">
+                        <span className="inline-flex items-center gap-1 font-medium text-foreground">
+                          <Clock className="w-3.5 h-3.5 text-primary" />
+                          {t("education.groups.timeLabel", isEn ? "Time:" : "الموعد:")}
+                        </span>
+                        <span className="font-mono text-foreground font-semibold" dir="ltr">
+                          {group.startTime || "17:00"} - {group.endTime || "18:30"}
+                        </span>
+                      </div>
+                    </>
+                  )}
 
                   {group.room && (
                     <div className="flex items-center justify-between text-muted-foreground">
@@ -987,14 +1029,31 @@ export default function EducationGroupsPage({
                     {enableSubjects && <td className="py-3 px-4 font-medium text-foreground">{g.subjectName || "—"}</td>}
                     <td className="py-3 px-4 text-muted-foreground">{g.teacherName || (isEn ? "Unassigned" : "غير معين")}</td>
                     <td className="py-3 px-4">
-                      <div className="text-foreground">
-                        {Array.isArray(g.scheduleDays)
-                          ? g.scheduleDays.map((d) => weekDays.find((wd) => wd.id === d)?.label || d).join(" • ")
-                          : "—"}
-                      </div>
-                      <div className="text-[11px] text-muted-foreground font-mono" dir="ltr">
-                        {g.startTime} - {g.endTime}
-                      </div>
+                      {g.scheduleSlots && g.scheduleSlots.length > 0 ? (
+                        <div className="space-y-0.5">
+                          {g.scheduleSlots.map((slot, idx) => (
+                            <div key={idx} className="flex items-center gap-1.5 text-[11px]">
+                              <span className="font-semibold text-foreground">
+                                {weekDays.find((wd) => wd.id === slot.dayOfWeek)?.label || slot.dayOfWeek}:
+                              </span>
+                              <span className="font-mono text-muted-foreground font-medium" dir="ltr">
+                                {slot.startTime} - {slot.endTime}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <>
+                          <div className="text-foreground">
+                            {Array.isArray(g.scheduleDays)
+                              ? g.scheduleDays.map((d) => weekDays.find((wd) => wd.id === d)?.label || d).join(" • ")
+                              : "—"}
+                          </div>
+                          <div className="text-[11px] text-muted-foreground font-mono" dir="ltr">
+                            {g.startTime} - {g.endTime}
+                          </div>
+                        </>
+                      )}
                     </td>
                     <td className="py-3 px-4">
                       <span className="font-semibold text-foreground">
@@ -1029,10 +1088,7 @@ export default function EducationGroupsPage({
                         </button>
                         <button
                           type="button"
-                          onClick={() => {
-                            setEditingGroup(g);
-                            setGroupModalOpen(true);
-                          }}
+                          onClick={() => handleStartEditGroup(g)}
                           className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg"
                         >
                           <Edit className="w-3.5 h-3.5" />
@@ -1553,64 +1609,213 @@ export default function EducationGroupsPage({
                     className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
                   />
                 </div>
-              </div>
-
-              {/* Days selection */}
-              <div className="space-y-1.5 pt-2 border-t border-border/80">
-                <label className="font-semibold text-foreground block">
-                  {t("education.groups.fieldFixedDays", isEn ? "Weekly Fixed Schedule Days *" : "الأيام الثابتة أسبوعياً *")}
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {weekDays.map((day) => {
-                    const isSelected = editingGroup.scheduleDays?.includes(day.id);
-                    return (
-                      <button
-                        type="button"
-                        key={day.id}
-                        onClick={() => {
-                          const current = editingGroup.scheduleDays || [];
-                          const updated = isSelected
-                            ? current.filter((d) => d !== day.id)
-                            : [...current, day.id];
-                          setEditingGroup({ ...editingGroup, scheduleDays: updated });
-                        }}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
-                          isSelected
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-muted/50 border-border text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        {day.label}
-                      </button>
-                    );
-                  })}
+                <div className="space-y-1">
+                  <label className="font-semibold text-foreground">
+                    {t("education.groups.fieldBranch", isEn ? "Educational Branch" : "الفرع التعليمي")}
+                  </label>
+                  <select
+                    value={editingGroup.branchId || ""}
+                    onChange={(e) => setEditingGroup({ ...editingGroup, branchId: e.target.value || null })}
+                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
+                  >
+                    <option value="">{isEn ? "-- Select Branch (Optional) --" : "-- اختر الفرع (اختياري) --"}</option>
+                    {branches.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
-              {/* Times */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="font-semibold text-foreground">
-                    {t("education.groups.fieldStartTime", isEn ? "Start Time" : "وقت البدء")}
+              {/* Multi-Slot Schedule Builder */}
+              <div className="space-y-3 pt-3 border-t border-border/80">
+                <div className="flex items-center justify-between">
+                  <label className="font-bold text-foreground flex items-center gap-1.5 text-xs">
+                    <Calendar className="w-4 h-4 text-primary" />
+                    <span>{isEn ? "Weekly Schedule Slots (Multi-day & Multi-timing)" : "مواعيد وتوقيتات المجموعة (أكثر من يوم وتوقيت أسبوعياً)"} *</span>
                   </label>
-                  <input
-                    type="time"
-                    value={editingGroup.startTime || "17:00"}
-                    onChange={(e) => setEditingGroup({ ...editingGroup, startTime: e.target.value })}
-                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cur = editingGroup.scheduleSlots || [];
+                      const next = [...cur, { dayOfWeek: "MONDAY", startTime: "17:00", endTime: "18:30", room: "" }];
+                      setEditingGroup({
+                        ...editingGroup,
+                        scheduleSlots: next,
+                        scheduleDays: [...new Set(next.map((s) => s.dayOfWeek))],
+                        startTime: next[0]?.startTime || "17:00",
+                        endTime: next[0]?.endTime || "18:30",
+                      });
+                    }}
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>{isEn ? "Add Day & Time" : "إضافة موعد آخر"}</span>
+                  </button>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="font-semibold text-foreground">
-                    {t("education.groups.fieldEndTime", isEn ? "End Time" : "وقت الانتهاء")}
-                  </label>
-                  <input
-                    type="time"
-                    value={editingGroup.endTime || "18:30"}
-                    onChange={(e) => setEditingGroup({ ...editingGroup, endTime: e.target.value })}
-                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
-                  />
+                {/* Quick Presets */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-[10px] text-muted-foreground">{isEn ? "Presets:" : "نماذج سريعة:"}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const slots = [
+                        { dayOfWeek: "SATURDAY", startTime: "17:00", endTime: "18:30", room: "" },
+                        { dayOfWeek: "TUESDAY", startTime: "17:00", endTime: "18:30", room: "" },
+                      ];
+                      setEditingGroup({
+                        ...editingGroup,
+                        scheduleSlots: slots,
+                        scheduleDays: ["SATURDAY", "TUESDAY"],
+                        startTime: "17:00",
+                        endTime: "18:30",
+                      });
+                    }}
+                    className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-muted hover:bg-muted/80 text-foreground border border-border"
+                  >
+                    {isEn ? "Sat & Tue (17:00)" : "سبت وثلاثاء (17:00)"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const slots = [
+                        { dayOfWeek: "SUNDAY", startTime: "18:00", endTime: "19:30", room: "" },
+                        { dayOfWeek: "WEDNESDAY", startTime: "18:00", endTime: "19:30", room: "" },
+                      ];
+                      setEditingGroup({
+                        ...editingGroup,
+                        scheduleSlots: slots,
+                        scheduleDays: ["SUNDAY", "WEDNESDAY"],
+                        startTime: "18:00",
+                        endTime: "19:30",
+                      });
+                    }}
+                    className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-muted hover:bg-muted/80 text-foreground border border-border"
+                  >
+                    {isEn ? "Sun & Wed (18:00)" : "أحد وأربعاء (18:00)"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const slots = [
+                        { dayOfWeek: "FRIDAY", startTime: "14:00", endTime: "16:00", room: "" },
+                        { dayOfWeek: "SATURDAY", startTime: "11:00", endTime: "13:00", room: "" },
+                      ];
+                      setEditingGroup({
+                        ...editingGroup,
+                        scheduleSlots: slots,
+                        scheduleDays: ["FRIDAY", "SATURDAY"],
+                        startTime: "14:00",
+                        endTime: "16:00",
+                      });
+                    }}
+                    className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-muted hover:bg-muted/80 text-foreground border border-border"
+                  >
+                    {isEn ? "Fri & Sat Weekend (Different Times)" : "جمعة وسبت (توقيتات مختلفة)"}
+                  </button>
+                </div>
+
+                {/* Slots Rows */}
+                <div className="space-y-2">
+                  {(editingGroup.scheduleSlots && editingGroup.scheduleSlots.length > 0
+                    ? editingGroup.scheduleSlots
+                    : [
+                        { dayOfWeek: "SATURDAY", startTime: "17:00", endTime: "18:30", room: "" },
+                        { dayOfWeek: "TUESDAY", startTime: "17:00", endTime: "18:30", room: "" },
+                      ]
+                  ).map((slot, sIdx, allSlots) => (
+                    <div
+                      key={sIdx}
+                      className="p-2.5 rounded-xl bg-muted/30 border border-border/80 flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
+                    >
+                      {/* Day Select */}
+                      <div className="w-full sm:w-36">
+                        <select
+                          value={slot.dayOfWeek}
+                          onChange={(e) => {
+                            const updated = allSlots.map((s, i) =>
+                              i === sIdx ? { ...s, dayOfWeek: e.target.value } : s
+                            );
+                            setEditingGroup({
+                              ...editingGroup,
+                              scheduleSlots: updated,
+                              scheduleDays: [...new Set(updated.map((s) => s.dayOfWeek))],
+                            });
+                          }}
+                          className="w-full bg-background border border-input rounded-lg px-2 py-1.5 text-xs text-foreground focus:ring-1 focus:ring-primary font-semibold"
+                        >
+                          {weekDays.map((wd) => (
+                            <option key={wd.id} value={wd.id}>
+                              {wd.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Start Time */}
+                      <div className="flex items-center gap-1 flex-1">
+                        <span className="text-[10px] text-muted-foreground shrink-0">{isEn ? "From:" : "من:"}</span>
+                        <input
+                          type="time"
+                          value={slot.startTime}
+                          onChange={(e) => {
+                            const updated = allSlots.map((s, i) =>
+                              i === sIdx ? { ...s, startTime: e.target.value } : s
+                            );
+                            setEditingGroup({
+                              ...editingGroup,
+                              scheduleSlots: updated,
+                              startTime: updated[0]?.startTime || "17:00",
+                            });
+                          }}
+                          className="w-full bg-background border border-input rounded-lg px-2 py-1 text-xs text-foreground font-mono focus:ring-1 focus:ring-primary"
+                        />
+                      </div>
+
+                      {/* End Time */}
+                      <div className="flex items-center gap-1 flex-1">
+                        <span className="text-[10px] text-muted-foreground shrink-0">{isEn ? "To:" : "إلى:"}</span>
+                        <input
+                          type="time"
+                          value={slot.endTime}
+                          onChange={(e) => {
+                            const updated = allSlots.map((s, i) =>
+                              i === sIdx ? { ...s, endTime: e.target.value } : s
+                            );
+                            setEditingGroup({
+                              ...editingGroup,
+                              scheduleSlots: updated,
+                              endTime: updated[0]?.endTime || "18:30",
+                            });
+                          }}
+                          className="w-full bg-background border border-input rounded-lg px-2 py-1 text-xs text-foreground font-mono focus:ring-1 focus:ring-primary"
+                        />
+                      </div>
+
+                      {/* Delete Slot */}
+                      {allSlots.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = allSlots.filter((_, i) => i !== sIdx);
+                            setEditingGroup({
+                              ...editingGroup,
+                              scheduleSlots: updated,
+                              scheduleDays: [...new Set(updated.map((s) => s.dayOfWeek))],
+                              startTime: updated[0]?.startTime || "17:00",
+                              endTime: updated[0]?.endTime || "18:30",
+                            });
+                          }}
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-lg hover:bg-muted self-end sm:self-center"
+                          title={isEn ? "Remove slot" : "حذف الموعد"}
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 

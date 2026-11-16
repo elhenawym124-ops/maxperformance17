@@ -20,9 +20,10 @@ const getAll = async (req, res) => {
     const companyId = resolveCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    const { subjectId } = req.query;
+    const { subjectId, packageType } = req.query;
     const where = { companyId };
     if (subjectId) where.subjectId = subjectId;
+    if (packageType) where.packageType = packageType;
 
     const data = await getSharedPrismaClient().educationPackage.findMany({
       where,
@@ -41,7 +42,7 @@ const create = async (req, res) => {
     const companyId = resolveCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    let { subjectId, name, description, hoursCount, sessionDuration, price, levelNumber, ageFrom, ageTo } = req.body;
+    let { subjectId, name, description, hoursCount, sessionDuration, price, levelNumber, ageFrom, ageTo, packageType, scheduleSlots, timetable } = req.body;
     if (!name || !name.trim()) return res.status(400).json({ success: false, error: 'اسم الباقة مطلوب' });
     if (!hoursCount || hoursCount <= 0) return res.status(400).json({ success: false, error: 'عدد الساعات يجب أن يكون أكبر من صفر' });
 
@@ -74,11 +75,25 @@ const create = async (req, res) => {
       }
     }
 
+    const safeScheduleSlots = Array.isArray(scheduleSlots) ? scheduleSlots : (typeof scheduleSlots === 'string' ? JSON.parse(scheduleSlots || '[]') : []);
+    const safeTimetable = timetable ? (typeof timetable === 'string' ? JSON.parse(timetable) : timetable) : [];
+
     const data = await prisma.educationPackage.create({
-      data: { companyId, subjectId, name: name.trim(), description, hoursCount, sessionDuration, price,
+      data: {
+        companyId,
+        subjectId,
+        name: name.trim(),
+        description,
+        hoursCount: Number(hoursCount),
+        sessionDuration: sessionDuration ? Number(sessionDuration) : 60,
+        price: Number(price) || 0,
         levelNumber: levelNumber ? Number(levelNumber) : null,
         ageFrom: ageFrom ? Number(ageFrom) : null,
-        ageTo: ageTo ? Number(ageTo) : null },
+        ageTo: ageTo ? Number(ageTo) : null,
+        packageType: packageType || 'GROUP',
+        scheduleSlots: safeScheduleSlots,
+        timetable: safeTimetable
+      },
       include: { subject: { select: { id: true, name: true } } }
     });
 
@@ -106,7 +121,7 @@ const update = async (req, res) => {
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;
-    const { subjectId, name, description, hoursCount, sessionDuration, price, isActive, levelNumber, ageFrom, ageTo } = req.body;
+    const { subjectId, name, description, hoursCount, sessionDuration, price, isActive, levelNumber, ageFrom, ageTo, packageType, scheduleSlots, timetable } = req.body;
 
     const existing = await getSharedPrismaClient().educationPackage.findFirst({ where: { id, companyId } });
     if (!existing) return res.status(404).json({ success: false, error: 'الباقة غير موجودة' });
@@ -120,6 +135,14 @@ const update = async (req, res) => {
       }
     }
 
+    const safeScheduleSlots = scheduleSlots !== undefined
+      ? (Array.isArray(scheduleSlots) ? scheduleSlots : (typeof scheduleSlots === 'string' ? JSON.parse(scheduleSlots || '[]') : []))
+      : undefined;
+
+    const safeTimetable = timetable !== undefined
+      ? (timetable ? (typeof timetable === 'string' ? JSON.parse(timetable) : timetable) : [])
+      : undefined;
+
     const data = await getSharedPrismaClient().educationPackage.update({
       where: { id },
       data: {
@@ -128,6 +151,9 @@ const update = async (req, res) => {
         ...(levelNumber !== undefined ? { levelNumber: levelNumber === null ? null : Number(levelNumber) } : {}),
         ...(ageFrom !== undefined ? { ageFrom: ageFrom === null ? null : Number(ageFrom) } : {}),
         ...(ageTo !== undefined ? { ageTo: ageTo === null ? null : Number(ageTo) } : {}),
+        ...(packageType !== undefined ? { packageType } : {}),
+        ...(safeScheduleSlots !== undefined ? { scheduleSlots: safeScheduleSlots } : {}),
+        ...(safeTimetable !== undefined ? { timetable: safeTimetable } : {}),
       },
       include: { subject: { select: { id: true, name: true } } }
     });

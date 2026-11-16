@@ -168,20 +168,26 @@ export const fetchAttributionAnalytics = async (period: string = "all"): Promise
   return data.data;
 };
 
-export const fetchEducationLookup = async (): Promise<{ subjects: any[]; teachers: any[]; packages: any[] }> => {
+export const fetchEducationLookup = async (): Promise<{ subjects: any[]; teachers: any[]; packages: any[]; groups: any[]; branches: any[] }> => {
   const cid = getCompanyId();
   const q = cid ? `?companyId=${cid}` : "";
-  const [subRes, teachRes, pkgRes] = await Promise.all([
-    fetch(buildApiUrl(`education/subjects${q}`), { headers: getAuthHeaders() }),
-    fetch(buildApiUrl(`education/teachers${q}`), { headers: getAuthHeaders() }),
-    fetch(buildApiUrl(`education/packages${q}`), { headers: getAuthHeaders() }),
+  const [subRes, teachRes, pkgRes, grpRes, brRes] = await Promise.all([
+    fetch(buildApiUrl(`education/subjects${q}`), { headers: getAuthHeaders() }).catch(() => ({ json: async () => ({ data: [] }) })),
+    fetch(buildApiUrl(`education/teachers${q}`), { headers: getAuthHeaders() }).catch(() => ({ json: async () => ({ data: [] }) })),
+    fetch(buildApiUrl(`education/packages${q}`), { headers: getAuthHeaders() }).catch(() => ({ json: async () => ({ data: [] }) })),
+    fetch(buildApiUrl(`education/groups${q}`), { headers: getAuthHeaders() }).catch(() => ({ json: async () => ({ data: [] }) })),
+    fetch(buildApiUrl(`education/branches${q}`), { headers: getAuthHeaders() }).catch(() => ({ json: async () => ({ data: [] }) })),
   ]);
   const subData = await subRes.json();
   const teachData = await teachRes.json();
   const pkgData = await pkgRes.json();
+  const grpData = await grpRes.json();
+  const brData = await brRes.json();
   return {
     subjects: subData.data || [],
     teachers: teachData.data || [],
     packages: pkgData.data || [],
+    groups: grpData.data || [],
+    branches: brData.data || [],
   };
 };

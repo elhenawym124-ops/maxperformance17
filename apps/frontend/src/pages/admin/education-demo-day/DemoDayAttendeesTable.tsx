@@ -12,7 +12,8 @@ import { DemoDayAttendee } from "./types";
 
 interface DemoDayAttendeesTableProps {
   attendees: DemoDayAttendee[];
-  onUpdateStatus: (attendeeId: string, update: { attendanceStatus?: string; conversionStatus?: string; notes?: string }) => Promise<void>;
+  branches?: Array<{ id: string; name: string }>;
+  onUpdateStatus: (attendeeId: string, update: { attendanceStatus?: string; conversionStatus?: string; notes?: string; branchId?: string }) => Promise<void>;
   onConvertLead: (attendee: DemoDayAttendee) => void;
   onDeleteAttendee: (attendeeId: string) => Promise<void>;
   isEn?: boolean;
@@ -47,6 +48,7 @@ function cleanNotes(notes?: string | null) {
 
 export function DemoDayAttendeesTable({
   attendees,
+  branches = [],
   onUpdateStatus,
   onConvertLead,
   onDeleteAttendee,
@@ -150,6 +152,7 @@ export function DemoDayAttendeesTable({
                 <th className="py-3 px-3.5 whitespace-nowrap">{isEn ? "Student / Guardian" : "الطالب / ولي الأمر"}</th>
                 <th className="py-3 px-3.5 whitespace-nowrap">{isEn ? "Phone & WhatsApp" : "الهاتف والواتساب"}</th>
                 <th className="py-3 px-3.5 whitespace-nowrap">{isEn ? "Age / Grade" : "السن والمرحلة"}</th>
+                <th className="py-3 px-3.5 whitespace-nowrap">{isEn ? "Branch" : "فرع الحضور"}</th>
                 <th className="py-3 px-3.5 whitespace-nowrap">{isEn ? "Attendance" : "حالة الحضور"}</th>
                 <th className="py-3 px-3.5 whitespace-nowrap">{isEn ? "Lead Status" : "حالة العميل المحتمل"}</th>
                 <th className="py-3 px-3.5 text-center whitespace-nowrap">{isEn ? "Actions" : "الإجراءات"}</th>
@@ -202,11 +205,29 @@ export function DemoDayAttendeesTable({
                     </td>
                     <td className="py-3 px-3.5 text-muted-foreground">
                       <div>{att.grade || "-"}</div>
-                      {att.age && (
-                        <div className="text-[10px] tabular-nums">
-                          {att.age} {isEn ? "yrs" : "سنة"}
+                      {att.age ? (
+                        <div className="text-[10px] tabular-nums font-medium text-foreground">
+                          {att.age} {isEn ? "yrs" : "سنة"}{" "}
+                          <span className="text-[9px] text-primary">
+                            {att.age < 7 ? "(براعم)" : att.age < 10 ? "(أشبال)" : att.age < 14 ? "(يافعين)" : "(شباب)"}
+                          </span>
                         </div>
-                      )}
+                      ) : null}
+                    </td>
+                    <td className="py-3 px-3.5">
+                      <select
+                        value={att.branchId || ""}
+                        onChange={(e) => onUpdateStatus(att.id, { branchId: e.target.value })}
+                        aria-label={isEn ? `Branch for ${att.studentName}` : `فرع حضور ${att.studentName}`}
+                        className="text-[11px] font-medium px-2 py-1 rounded-lg border border-border/80 bg-background text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+                      >
+                        <option value="">{isEn ? "-- No branch --" : "-- فرع الحضور --"}</option>
+                        {branches.map((b) => (
+                          <option key={b.id} value={b.id}>
+                            {b.name}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                     <td className="py-3 px-3.5">
                       <select

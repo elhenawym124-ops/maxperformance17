@@ -132,7 +132,7 @@ const create = async (req, res) => {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    let { customerId, firstName, lastName, phone, phone2, address, gender, grade, subjects, notes, guardianName, guardianPhone, guardianPhone2, guardianEmail, guardianPassword, isSelfGuardian, currentLevel, code } = req.body;
+    let { customerId, firstName, lastName, phone, phone2, address, gender, grade, subjects, notes, guardianName, guardianPhone, guardianPhone2, guardianEmail, guardianPassword, isSelfGuardian, currentLevel, code, age, branchId, autoGenerateCredentials } = req.body;
     if (!firstName || !firstName.trim()) return res.status(400).json({ success: false, error: 'اسم الطالب مطلوب' });
 
     let safeCode = (code && typeof code === 'string' && code.trim()) ? code.trim().toUpperCase() : null;
@@ -146,6 +146,12 @@ const create = async (req, res) => {
     } else {
       safeCode = await generateUniqueStudentCode(companyId, getSharedPrismaClient());
     }
+
+    const { generateUserCredentials } = require('../services/educationAgeLevelService');
+    const autoCreds = (autoGenerateCredentials || !guardianPassword)
+      ? generateUserCredentials(firstName, phone || guardianPhone, safeCode)
+      : null;
+    const effectivePassword = guardianPassword ? guardianPassword.trim() : (autoCreds?.password || null);
 
     const safeLastName = (lastName && typeof lastName === 'string' && lastName.trim()) ? lastName.trim() : '';
     const safeGender = normalizeGender(gender);
@@ -181,8 +187,8 @@ const create = async (req, res) => {
       }
     }
 
-    const safeHashedPassword = (guardianPassword && typeof guardianPassword === 'string' && guardianPassword.trim())
-      ? await hashPassword(guardianPassword.trim())
+    const safeHashedPassword = effectivePassword
+      ? await hashPassword(effectivePassword)
       : null;
 
     if (!customerId) {
@@ -278,6 +284,10 @@ const create = async (req, res) => {
         grade: safeGrade,
         subjects: safeSubjects,
         currentLevel: currentLevel ? Number(currentLevel) : null,
+        age: age ? Number(age) : null,
+        branchId: branchId || null,
+        username: autoCreds?.username || null,
+        plainPassword: autoCreds?.password || null,
         notes: safeNotes
       },
       include: { customer: { select: { id: true, firstName: true, lastName: true, phone: true, phone2: true, email: true } } }
@@ -301,7 +311,7 @@ const create = async (req, res) => {
       req,
     }).catch(e => console.error('[StudentAudit]', e.message));
 
-    res.json({ success: true, data });
+    res.json({ success: true, data: { ...data, credentials: autoCreds } });
   } catch (error) {
     console.error('Error creating student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء الطالب' });

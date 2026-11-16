@@ -28,6 +28,9 @@ export interface EducationPackage {
   hoursCount: number;
   sessionDuration: number;
   price: number;
+  packageType?: "GROUP" | "PRIVATE";
+  scheduleSlots?: Array<{ dayOfWeek: string; startTime: string; endTime: string }>;
+  timetable?: Array<{ dayOfWeek: string; time: string; subject?: string; room?: string }>;
   isActive: boolean;
   subject?: { id: string; name: string };
 }
@@ -68,21 +71,38 @@ export interface EducationTeacher {
   }[];
 }
 
+export interface EnrollmentInstallmentItem {
+  installmentNumber: number;
+  amount: number;
+  dueDate: string;
+  status: "PENDING" | "PAID";
+  paidAt?: string | null;
+  notes?: string | null;
+}
+
 export interface EducationEnrollment {
   id: string;
   studentId: string;
   packageId: string;
   teacherId: string | null;
+  branchId?: string | null;
   totalHours: number;
   remainingHours: number;
   amountPaid: number;
   paymentStatus: string;
+  paymentMethod?: "CASH" | "INSTALLMENTS";
+  installmentCount?: number;
+  installments?: EnrollmentInstallmentItem[];
+  discountType?: "NONE" | "SIBLINGS" | "SEASONAL" | "CUSTOM";
+  discountAmount?: number;
+  finalAmount?: number;
   enrollmentDate: string;
   expiresAt?: string;
   isActive: boolean;
   student?: { id: string; code?: string; firstName: string; lastName?: string };
-  package?: { id: string; name: string; subject?: { id: string; name: string } };
+  package?: { id: string; name: string; price?: number; subject?: { id: string; name: string } };
   teacher?: { id: string; name: string };
+  branch?: { id: string; name: string };
 }
 
 export interface EducationSession {
@@ -91,6 +111,7 @@ export interface EducationSession {
   studentId: string;
   teacherId: string;
   subjectId: string;
+  sessionType?: "PRIVATE" | "GROUP";
   scheduledAt: string;
   plannedDuration: number;
   actualDuration?: number;

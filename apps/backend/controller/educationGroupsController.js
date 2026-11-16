@@ -90,14 +90,25 @@ const getAll = async (req, res) => {
 
     const rawGroups = await prisma.$queryRawUnsafe(query, ...params);
 
-    const groups = rawGroups.map(g => ({
-      ...g,
-      totalMembers: Number(g.totalMembers || 0),
-      activeMembers: Number(g.activeMembers || 0),
-      waitingMembers: Number(g.waitingMembers || 0),
-      scheduleDays: typeof g.scheduleDays === 'string' ? JSON.parse(g.scheduleDays) : (g.scheduleDays || []),
-      isFull: Number(g.activeMembers || 0) >= (g.capacity || 15)
-    }));
+    const groups = rawGroups.map(g => {
+      let parsedDays = typeof g.scheduleDays === 'string' ? JSON.parse(g.scheduleDays) : (g.scheduleDays || []);
+      let parsedSlots = [];
+      try {
+        parsedSlots = typeof g.scheduleSlots === 'string' ? JSON.parse(g.scheduleSlots) : (g.scheduleSlots || []);
+      } catch (_) { parsedSlots = []; }
+      if (!parsedSlots.length && Array.isArray(parsedDays) && parsedDays.length) {
+        parsedSlots = parsedDays.map(d => ({ day: d, startTime: g.startTime || '17:00', endTime: g.endTime || '18:30' }));
+      }
+      return {
+        ...g,
+        totalMembers: Number(g.totalMembers || 0),
+        activeMembers: Number(g.activeMembers || 0),
+        waitingMembers: Number(g.waitingMembers || 0),
+        scheduleDays: parsedDays,
+        scheduleSlots: parsedSlots,
+        isFull: Number(g.activeMembers || 0) >= (g.capacity || 15)
+      };
+    });
 
     return res.json({ success: true, data: groups });
   } catch (err) {
@@ -209,6 +220,7 @@ const create = async (req, res) => {
       teacherRateType,
       teacherRateValue,
       scheduleDays,
+      scheduleSlots,
       startTime,
       endTime,
       room,
@@ -217,7 +229,9 @@ const create = async (req, res) => {
       endDate,
       notes,
       branchId,
-      classroomId
+      classroomId,
+      ageFrom,
+      ageTo
     } = req.body;
 
     if (!name || !name.trim()) {
@@ -265,19 +279,36 @@ const create = async (req, res) => {
     }
 
     const id = generateGroupId();
-    const daysJson = JSON.stringify(Array.isArray(scheduleDays) ? scheduleDays : []);
+    let safeSlots = [];
+    if (Array.isArray(scheduleSlots)) {
+      safeSlots = scheduleSlots;
+    } else if (typeof scheduleSlots === 'string' && scheduleSlots.trim()) {
+      try { safeSlots = JSON.parse(scheduleSlots); } catch (_) { safeSlots = []; }
+    }
+    if (!safeSlots.length && Array.isArray(scheduleDays) && scheduleDays.length) {
+      safeSlots = scheduleDays.map(day => ({
+        day,
+        startTime: startTime || '17:00',
+        endTime: endTime || '18:30'
+      }));
+    }
+    const derivedDays = safeSlots.length ? [...new Set(safeSlots.map(s => s.day).filter(Boolean))] : (Array.isArray(scheduleDays) ? scheduleDays : []);
+    const daysJson = JSON.stringify(derivedDays);
+    const slotsJson = JSON.stringify(safeSlots);
+    const primaryStartTime = safeSlots[0]?.startTime || startTime || '17:00';
+    const primaryEndTime = safeSlots[0]?.endTime || endTime || '18:30';
 
     await prisma.$executeRawUnsafe(`
       INSERT INTO "education_groups" (
         "id", "companyId", "name", "code", "subjectId", "teacherId", "level",
         "capacity", "feeType", "feeAmount", "teacherRateType", "teacherRateValue",
-        "scheduleDays", "startTime", "endTime", "room", "status",
-        "startDate", "endDate", "notes", "branchId", "classroomId", "createdAt", "updatedAt"
+        "scheduleDays", "scheduleSlots", "startTime", "endTime", "room", "status",
+        "startDate", "endDate", "notes", "branchId", "classroomId", "ageFrom", "ageTo", "createdAt", "updatedAt"
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7,
         $8, $9, $10, $11, $12,
-        $13::jsonb, $14, $15, $16, $17,
-        $18, $19, $20, $21, $22, NOW(), NOW()
+        $13::jsonb, $14::jsonb, $15, $16, $17, $18,
+        $19, $20, $21, $22, $23, $24, $25, NOW(), NOW()
       )
     `,
       id,
@@ -293,15 +324,18 @@ const create = async (req, res) => {
       teacherRateType || 'PERCENTAGE',
       teacherRateValue ? parseFloat(teacherRateValue) : 50,
       daysJson,
-      startTime || '17:00',
-      endTime || '18:30',
+      slotsJson,
+      primaryStartTime,
+      primaryEndTime,
       room || null,
       status || 'OPEN',
       startDate ? new Date(startDate) : null,
       endDate ? new Date(endDate) : null,
       notes || null,
       branchId ? String(branchId).trim() : null,
-      classroomId ? String(classroomId).trim() : null
+      classroomId ? String(classroomId).trim() : null,
+      ageFrom ? parseInt(ageFrom, 10) : null,
+      ageTo ? parseInt(ageTo, 10) : null
     );
 
     return res.json({ success: true, data: { id, branchId: branchId || null, classroomId: classroomId || null, message: 'تم إنشاء المجموعة بنجاح' } });
@@ -332,6 +366,7 @@ const update = async (req, res) => {
       teacherRateType,
       teacherRateValue,
       scheduleDays,
+      scheduleSlots,
       startTime,
       endTime,
       room,
@@ -340,10 +375,29 @@ const update = async (req, res) => {
       endDate,
       notes,
       branchId,
-      classroomId
+      classroomId,
+      ageFrom,
+      ageTo
     } = req.body;
 
-    const daysJson = JSON.stringify(Array.isArray(scheduleDays) ? scheduleDays : []);
+    let safeSlots = [];
+    if (Array.isArray(scheduleSlots)) {
+      safeSlots = scheduleSlots;
+    } else if (typeof scheduleSlots === 'string' && scheduleSlots.trim()) {
+      try { safeSlots = JSON.parse(scheduleSlots); } catch (_) { safeSlots = []; }
+    }
+    if (!safeSlots.length && Array.isArray(scheduleDays) && scheduleDays.length) {
+      safeSlots = scheduleDays.map(day => ({
+        day,
+        startTime: startTime || '17:00',
+        endTime: endTime || '18:30'
+      }));
+    }
+    const derivedDays = safeSlots.length ? [...new Set(safeSlots.map(s => s.day).filter(Boolean))] : (Array.isArray(scheduleDays) ? scheduleDays : []);
+    const daysJson = JSON.stringify(derivedDays);
+    const slotsJson = JSON.stringify(safeSlots);
+    const primaryStartTime = safeSlots[0]?.startTime || startTime || null;
+    const primaryEndTime = safeSlots[0]?.endTime || endTime || null;
 
     if (subjectId) {
       const validSubject = await prisma.educationSubject.findFirst({
@@ -377,15 +431,20 @@ const update = async (req, res) => {
         "teacherRateType" = COALESCE($9, "teacherRateType"),
         "teacherRateValue" = COALESCE($10, "teacherRateValue"),
         "scheduleDays" = $11::jsonb,
-        "startTime" = COALESCE($12, "startTime"),
-        "endTime" = COALESCE($13, "endTime"),
-        "room" = $14,
-        "status" = COALESCE($15, "status"),
-        "startDate" = $16,
-        "endDate" = $17,
-        "notes" = $18,
+        "scheduleSlots" = $12::jsonb,
+        "startTime" = COALESCE($13, "startTime"),
+        "endTime" = COALESCE($14, "endTime"),
+        "room" = $15,
+        "status" = COALESCE($16, "status"),
+        "startDate" = $17,
+        "endDate" = $18,
+        "notes" = $19,
+        "branchId" = COALESCE($20, "branchId"),
+        "classroomId" = COALESCE($21, "classroomId"),
+        "ageFrom" = COALESCE($22, "ageFrom"),
+        "ageTo" = COALESCE($23, "ageTo"),
         "updatedAt" = NOW()
-      WHERE "id" = $19 AND "companyId" = $20
+      WHERE "id" = $24 AND "companyId" = $25
     `,
       name ? name.trim() : null,
       code ? code.trim() : null,
@@ -398,13 +457,18 @@ const update = async (req, res) => {
       teacherRateType || null,
       teacherRateValue !== undefined ? parseFloat(teacherRateValue) : null,
       daysJson,
-      startTime || null,
-      endTime || null,
+      slotsJson,
+      primaryStartTime,
+      primaryEndTime,
       room || null,
       status || null,
       startDate ? new Date(startDate) : null,
       endDate ? new Date(endDate) : null,
       notes || null,
+      branchId ? String(branchId).trim() : null,
+      classroomId ? String(classroomId).trim() : null,
+      ageFrom ? parseInt(ageFrom, 10) : null,
+      ageTo ? parseInt(ageTo, 10) : null,
       id,
       companyId
     );

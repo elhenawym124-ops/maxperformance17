@@ -12,6 +12,8 @@ router.use(verifyToken.authenticateToken);
 
 // Attribution Analytics (MUST be before /:id)
 router.get('/analytics/attribution', controller.getAttributionAnalytics);
+router.get('/config/age-levels', controller.getAgeLevels);
+router.post('/credentials/generate', controller.generateCredentialsEndpoint);
 
 // Events CRUD
 router.get('/', controller.getAllDemoDays);

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Calendar, User, Users } from "lucide-react";
 import type { EducationPackage, EducationSubject } from "./types";
 import { PackageModal } from "./PackageModal";
 
@@ -32,16 +32,61 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
-  const filtered = packages.filter(
-    (p) => (!enableSubjects || !packageSubjectFilter ? true : p.subjectId === packageSubjectFilter)
-  );
+  const [typeFilter, setTypeFilter] = useState<"ALL" | "GROUP" | "PRIVATE">("ALL");
+
+  const filtered = packages.filter((p) => {
+    if (enableSubjects && packageSubjectFilter && p.subjectId !== packageSubjectFilter) return false;
+    if (typeFilter !== "ALL" && p.packageType !== typeFilter) return false;
+    return true;
+  });
 
   return (
     <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <h2 className="text-base font-bold text-foreground">
-          {t("education.packages.title", isEn ? "Session Packages Management" : "إدارة باقات الحصص")}
-        </h2>
+        <div className="space-y-1">
+          <h2 className="text-base font-bold text-foreground">
+            {t("education.packages.title", isEn ? "Session Packages & Private Lessons Management" : "إدارة باقات الحصص ونظام الحصص البرايفت")}
+          </h2>
+          {/* Type Filter Tabs */}
+          <div className="flex items-center gap-1.5 pt-1">
+            <button
+              type="button"
+              onClick={() => setTypeFilter("ALL")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                typeFilter === "ALL"
+                  ? "bg-primary text-primary-foreground shadow-xs"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {isEn ? "All Packages" : "كل الباقات"} ({packages.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setTypeFilter("PRIVATE")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all ${
+                typeFilter === "PRIVATE"
+                  ? "bg-purple-600 text-white shadow-xs"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <User className="w-3 h-3" />
+              <span>{isEn ? "Private (1-on-1)" : "حصص برايفت خاصة"} ({packages.filter((p) => p.packageType === "PRIVATE").length})</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setTypeFilter("GROUP")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all ${
+                typeFilter === "GROUP"
+                  ? "bg-blue-600 text-white shadow-xs"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Users className="w-3 h-3" />
+              <span>{isEn ? "Groups" : "مجموعات"} ({packages.filter((p) => p.packageType !== "PRIVATE").length})</span>
+            </button>
+          </div>
+        </div>
+
         <div className="flex items-center gap-2 w-full sm:w-auto">
           {enableSubjects && (
             <select
@@ -74,51 +119,84 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
         {filtered.map((p) => (
           <div
             key={p.id}
-            className={`bg-card border border-border/80 rounded-xl p-3.5 sm:p-4 shadow-xs space-y-3 transition-all hover:border-primary/40 ${
+            className={`bg-card border border-border/80 rounded-xl p-3.5 sm:p-4 shadow-xs space-y-3 transition-all hover:border-primary/40 flex flex-col justify-between ${
               !p.isActive ? "opacity-60 bg-muted/20" : ""
             }`}
           >
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <h3 className="font-semibold text-sm text-foreground">
-                  {p.name}
-                </h3>
-                {enableSubjects && p.subject?.name && (
-                  <p className="text-xs text-muted-foreground">
-                    {p.subject.name}
-                  </p>
-                )}
+            <div className="space-y-2.5">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <h3 className="font-semibold text-sm text-foreground">
+                      {p.name}
+                    </h3>
+                    {p.packageType === "PRIVATE" ? (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                        <User className="w-2.5 h-2.5" />
+                        <span>Private</span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                        <Users className="w-2.5 h-2.5" />
+                        <span>Group</span>
+                      </span>
+                    )}
+                  </div>
+                  {enableSubjects && p.subject?.name && (
+                    <p className="text-xs text-muted-foreground">
+                      {p.subject.name}
+                    </p>
+                  )}
+                </div>
+                <span
+                  className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
+                    p.isActive
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                      : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                  }`}
+                >
+                  {p.isActive
+                    ? t("education.statuses.ACTIVE", isEn ? "Active" : "نشط")
+                    : t("education.statuses.INACTIVE", isEn ? "Inactive" : "معطل")}
+                </span>
               </div>
-              <span
-                className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
-                  p.isActive
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
-                }`}
-              >
-                {p.isActive
-                  ? t("education.statuses.ACTIVE", isEn ? "Active" : "نشط")
-                  : t("education.statuses.INACTIVE", isEn ? "Inactive" : "معطل")}
-              </span>
-            </div>
 
-            <div className="flex flex-wrap gap-1.5 text-xs">
-              <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md tabular-nums">
-                {t("education.packages.hours", { count: p.hoursCount, defaultValue: isEn ? `${p.hoursCount} hours` : `${p.hoursCount} ساعة` })}
-              </span>
-              <span className="bg-muted/60 text-muted-foreground px-2 py-0.5 rounded-md tabular-nums">
-                {t("education.packages.duration", { count: p.sessionDuration, defaultValue: isEn ? `${p.sessionDuration} min/session` : `${p.sessionDuration} دقيقة/حصة` })}
-              </span>
-              <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md tabular-nums font-semibold">
-                {t("education.packages.priceWithCurrency", { price: p.price, defaultValue: isEn ? `${p.price} EGP` : `${p.price} ج.م` })}
-              </span>
-            </div>
+              <div className="flex flex-wrap gap-1.5 text-xs">
+                <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md tabular-nums font-medium">
+                  {t("education.packages.hours", { count: p.hoursCount, defaultValue: isEn ? `${p.hoursCount} hours` : `${p.hoursCount} ساعة` })}
+                </span>
+                <span className="bg-muted/60 text-muted-foreground px-2 py-0.5 rounded-md tabular-nums">
+                  {t("education.packages.duration", { count: p.sessionDuration, defaultValue: isEn ? `${p.sessionDuration} min/session` : `${p.sessionDuration} دقيقة/حصة` })}
+                </span>
+                <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md tabular-nums font-semibold">
+                  {t("education.packages.priceWithCurrency", { price: p.price, defaultValue: isEn ? `${p.price} EGP` : `${p.price} ج.م` })}
+                </span>
+              </div>
 
-            {p.description && (
-              <p className="text-xs text-muted-foreground line-clamp-2">
-                {p.description}
-              </p>
-            )}
+              {/* Package Timetable / Schedule Preview */}
+              {p.scheduleSlots && p.scheduleSlots.length > 0 && (
+                <div className="p-2.5 rounded-lg bg-muted/30 border border-border/60 space-y-1">
+                  <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1">
+                    <Calendar className="w-3 h-3 text-primary" />
+                    <span>{isEn ? "Package Timetable:" : "جدول مواعيد الباقة:"}</span>
+                  </span>
+                  <div className="space-y-0.5">
+                    {p.scheduleSlots.map((slot, sIdx) => (
+                      <div key={sIdx} className="flex items-center justify-between text-[11px]">
+                        <span className="text-foreground font-medium">{slot.dayOfWeek}</span>
+                        <span className="font-mono text-muted-foreground text-[10px]">{slot.startTime} - {slot.endTime}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {p.description && (
+                <p className="text-xs text-muted-foreground line-clamp-2">
+                  {p.description}
+                </p>
+              )}
+            </div>
 
             <div className="flex items-center gap-2 pt-3 border-t border-border/60">
               <button

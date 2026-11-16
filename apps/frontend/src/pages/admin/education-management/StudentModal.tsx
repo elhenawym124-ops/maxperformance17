@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { X, Search, User, Loader2, Mail, Lock, BookOpen, Plus, Check, Phone, MapPin, Hash } from "lucide-react";
+import { X, Search, User, Loader2, Mail, Lock, BookOpen, Plus, Check, Phone, MapPin, Hash, Sparkles, Copy, Building2, Calendar } from "lucide-react";
 import type { EducationStudent, Customer, EducationSubject } from "./types";
 import { MODAL_CLS, INPUT_CLS } from "./types";
+import { getLevelsForAge, generateAutoCredentials } from "./educationSharedHelpers";
+import { api, getAuthHeaders } from "./api";
 
 export interface StudentModalProps {
   student?: Partial<EducationStudent> | null;
@@ -11,6 +13,7 @@ export interface StudentModalProps {
   enableSubjects?: boolean;
   customers: Customer[];
   customerResults: Customer[];
+  branches?: { id: string; name: string }[];
   onCustomerSearch: (q: string) => void;
   onClose: () => void;
   onSave: (d: Partial<EducationStudent>) => Promise<EducationStudent | null | void>;
@@ -40,12 +43,51 @@ export const StudentModal: React.FC<StudentModalProps> = ({
     code: (student as any)?.code || "",
     phone2: (student as any)?.phone2 || "",
     address: (student as any)?.address || "",
+    age: (student as any)?.age ?? "",
+    branchId: (student as any)?.branchId || "",
     gender: student?.gender
       ? String(student.gender).toUpperCase() === "FEMALE"
         ? "FEMALE"
         : "MALE"
       : "MALE",
   });
+
+  const [availableBranches, setAvailableBranches] = useState<{ id: string; name: string }[]>(branches || []);
+  useEffect(() => {
+    if (branches && branches.length > 0) {
+      setAvailableBranches(branches);
+    } else {
+      fetch(api("branches?status=ACTIVE"), { headers: getAuthHeaders() })
+        .then(r => r.json())
+        .then(d => {
+          if (d.success && Array.isArray(d.data)) setAvailableBranches(d.data);
+        })
+        .catch(() => {});
+    }
+  }, [branches]);
+
+  const [generatedCredentials, setGeneratedCredentials] = useState<{ username: string; password: string } | null>(null);
+
+  const handleAutoGenerateCredentials = () => {
+    const creds = generateAutoCredentials(form.firstName, form.phone, form.code);
+    setGeneratedCredentials(creds);
+    setGuardianPassword(creds.password);
+    if (!guardianEmail) {
+      setGuardianEmail(`${creds.username}@student.maxp.online`);
+    }
+    toast.success(isEn ? "Username & Password auto-generated successfully!" : "تم توليد اسم المستخدم وكلمة المرور تلقائياً!");
+  };
+
+  const handleCopyCredentials = () => {
+    const userToCopy = guardianEmail || generatedCredentials?.username || form.code;
+    const passToCopy = guardianPassword || generatedCredentials?.password;
+    if (!passToCopy) return;
+    const text = `${isEn ? "Username" : "اسم المستخدم"}: ${userToCopy}\n${isEn ? "Password" : "كلمة المرور"}: ${passToCopy}`;
+    navigator.clipboard.writeText(text);
+    toast.success(isEn ? "Credentials copied to clipboard!" : "تم نسخ بيانات الدخول إلى الحافظة!");
+  };
+
+  const ageLevelsData = getLevelsForAge(form.age);
 
   const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>(() => {
     if (!student?.subjects) return [];
@@ -184,6 +226,9 @@ export const StudentModal: React.FC<StudentModalProps> = ({
         address: form.address ? form.address.trim() : "",
         gender: form.gender ? (String(form.gender).toUpperCase() === "FEMALE" ? "FEMALE" : "MALE") : "MALE",
         subjects: selectedSubjectIds,
+        age: form.age !== "" && form.age !== undefined && form.age !== null ? Number(form.age) : undefined,
+        branchId: form.branchId || undefined,
+        autoGenerateCredentials: !!generatedCredentials,
         ...(guardianEmail.trim() ? { guardianEmail: guardianEmail.trim() } : {}),
         ...(guardianPassword.trim() ? { guardianPassword: guardianPassword.trim() } : {}),
         ...(guardianPhone2.trim() ? { guardianPhone2: guardianPhone2.trim() } : {}),
@@ -334,8 +379,28 @@ export const StudentModal: React.FC<StudentModalProps> = ({
             </div>
           </div>
 
-          {/* Gender & Grade */}
-          <div className="grid grid-cols-2 gap-2.5">
+          {/* Age, Gender & Branch */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-foreground flex items-center justify-between">
+                <span>{isEn ? "Age (Years)" : "السن (بالسنوات)"}</span>
+                {ageLevelsData.bracket && (
+                  <span className="text-[10px] text-primary font-medium">
+                    {ageLevelsData.bracket.label}
+                  </span>
+                )}
+              </label>
+              <input
+                type="number"
+                min={3}
+                max={99}
+                className={INPUT_CLS}
+                value={form.age ?? ""}
+                onChange={(e) => setForm({ ...form, age: e.target.value })}
+                placeholder={isEn ? "e.g. 8" : "مثال: 8"}
+                aria-label={isEn ? "Student Age" : "سن الطالب"}
+              />
+            </div>
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">
                 {t("education.students.gender", isEn ? "Gender" : "الجنس")}
@@ -351,14 +416,58 @@ export const StudentModal: React.FC<StudentModalProps> = ({
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-medium text-foreground">
-                {t("education.students.grade", isEn ? "Grade / Level" : "المرحلة / الصف")}
+              <label className="text-xs font-medium text-foreground flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-primary" />
+                <span>{isEn ? "Branch" : "الفرع التعليمي"}</span>
               </label>
+              <select
+                className={INPUT_CLS}
+                value={form.branchId || ""}
+                onChange={(e) => setForm({ ...form, branchId: e.target.value })}
+                aria-label={isEn ? "Assigned Branch" : "الفرع التعليمي"}
+              >
+                <option value="">{isEn ? "-- Select Branch (Optional) --" : "-- اختر الفرع (اختياري) --"}</option>
+                {availableBranches.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Level & Age-Linked Presets */}
+          <div className="space-y-1.5 p-2.5 rounded-xl bg-primary/5 border border-primary/20">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                <span>{isEn ? "Educational Level & Stage" : "المستوى الدراسي والمرحلة (مرتبط بالسن)"}</span>
+              </label>
+              {ageLevelsData.bracket && (
+                <span className="text-[11px] text-primary font-medium px-2 py-0.5 rounded-full bg-primary/10">
+                  {ageLevelsData.bracket.label}
+                </span>
+              )}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <select
+                className={INPUT_CLS}
+                value={form.grade || ""}
+                onChange={(e) => setForm({ ...form, grade: e.target.value })}
+                aria-label={isEn ? "Educational Level" : "المستوى الدراسي"}
+              >
+                <option value="">{isEn ? "-- Select Level for Age --" : "-- اختر المستوى المناسب للسن --"}</option>
+                {ageLevelsData.levels.map((lvl) => (
+                  <option key={lvl.id} value={lvl.name}>
+                    {lvl.name} {lvl.ageRange ? `(${lvl.ageRange})` : ""}
+                  </option>
+                ))}
+              </select>
               <input
                 className={INPUT_CLS}
                 value={form.grade || ""}
                 onChange={(e) => setForm({ ...form, grade: e.target.value })}
-                placeholder={t("education.students.gradePlaceholder", isEn ? "e.g. Grade 7 / Middle School" : "مثال: الصف الأول الإعدادي")}
+                placeholder={isEn ? "Or enter custom level name..." : "أو اكتب اسم المستوى يدوياً..."}
                 aria-label={t("education.students.grade", isEn ? "Grade / Level" : "المرحلة / الصف")}
               />
             </div>
@@ -648,44 +757,90 @@ export const StudentModal: React.FC<StudentModalProps> = ({
             />
           </div>
 
-          {/* Parent Portal Access Section */}
-          <div className="p-3 rounded-xl bg-muted/20 space-y-2.5">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
-              <Lock className="w-3.5 h-3.5 text-primary" />
-              <span>{t("education.students.parentPortalTitle", isEn ? "Parent Portal Login Credentials (/parent)" : "بيانات دخول بوابة ولي الأمر (/parent)")}</span>
+          {/* User Account & Credentials Section (Auto-generation) */}
+          <div className="p-3.5 rounded-xl bg-muted/20 border border-border/80 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                <Lock className="w-3.5 h-3.5 text-primary" />
+                <span>{isEn ? "User Account & Student Login Credentials" : "بيانات حساب الطالب وبوابة ولي الأمر"}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={handleAutoGenerateCredentials}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-xs"
+                >
+                  <Sparkles className="w-3 h-3" />
+                  <span>{isEn ? "Auto-Generate Credentials" : "توليد تلقائي لليوزرنيم والباسوورد"}</span>
+                </button>
+                {(guardianPassword || generatedCredentials) && (
+                  <button
+                    type="button"
+                    onClick={handleCopyCredentials}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium border border-border rounded-lg hover:bg-muted text-foreground transition-colors"
+                  >
+                    <Copy className="w-3 h-3" />
+                    <span>{isEn ? "Copy" : "نسخ"}</span>
+                  </button>
+                )}
+              </div>
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <div className="space-y-1">
                 <label className="text-[11px] font-medium text-foreground flex items-center gap-1">
                   <Mail className="w-3 h-3 text-muted-foreground" />
-                  {t("education.students.parentEmail", isEn ? "Email Address (Username)" : "البريد الإلكتروني (اسم المستخدم)")}
+                  {t("education.students.parentEmail", isEn ? "Username / Email" : "اسم المستخدم / البريد الإلكتروني")}
                 </label>
                 <input
-                  type="email"
-                  className={INPUT_CLS}
-                  placeholder="parent@example.com"
+                  type="text"
+                  className={INPUT_CLS + " font-mono text-xs"}
+                  placeholder={form.code ? `${form.code.toLowerCase()}@student.maxp.online` : "stu_username"}
                   value={guardianEmail}
                   onChange={(e) => setGuardianEmail(e.target.value)}
                   dir="ltr"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-foreground flex items-center gap-1">
-                  <Lock className="w-3 h-3 text-muted-foreground" />
-                  {student?.id
-                    ? t("education.students.parentPasswordEdit", isEn ? "New Password (optional)" : "كلمة المرور الجديدة (اختياري)")
-                    : t("education.students.parentPassword", isEn ? "Password for Parent Portal" : "كلمة المرور لبوابة ولي الأمر")}
+                <label className="text-[11px] font-medium text-foreground flex items-center justify-between">
+                  <span className="flex items-center gap-1">
+                    <Lock className="w-3 h-3 text-muted-foreground" />
+                    <span>{t("education.students.parentPassword", isEn ? "Password" : "كلمة المرور")}</span>
+                  </span>
+                  {guardianPassword && (
+                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-medium">
+                      {isEn ? "Active" : "جاهزة"}
+                    </span>
+                  )}
                 </label>
                 <input
-                  type="password"
-                  className={INPUT_CLS}
-                  placeholder="••••••••"
+                  type="text"
+                  className={INPUT_CLS + " font-mono text-xs"}
+                  placeholder="Edu@XXXX99"
                   value={guardianPassword}
                   onChange={(e) => setGuardianPassword(e.target.value)}
                   dir="ltr"
                 />
               </div>
             </div>
+
+            {generatedCredentials && (
+              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <div className="font-semibold">{isEn ? "Generated Login Credentials:" : "بيانات الدخول المولدة للطالب:"}</div>
+                  <div className="font-mono text-[11px]">
+                    {guardianEmail || generatedCredentials.username} | {guardianPassword || generatedCredentials.password}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCopyCredentials}
+                  className="px-2 py-1 rounded bg-emerald-600 text-white text-[11px] font-medium hover:bg-emerald-700"
+                >
+                  {isEn ? "Copy" : "نسخ البيانات"}
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex justify-end gap-2.5 pt-3 border-t border-border/80">

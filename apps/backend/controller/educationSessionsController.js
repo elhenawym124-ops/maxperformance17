@@ -8,13 +8,14 @@ const getAll = async (req, res) => {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    const { studentId, teacherId, subjectId, enrollmentId, status, from, to } = req.query;
+    const { studentId, teacherId, subjectId, enrollmentId, status, from, to, sessionType } = req.query;
     const where = { companyId };
     if (studentId) where.studentId = studentId;
     if (teacherId) where.teacherId = teacherId;
     if (subjectId) where.subjectId = subjectId;
     if (enrollmentId) where.enrollmentId = enrollmentId;
     if (status) where.status = status;
+    if (sessionType) where.sessionType = sessionType;
     if (from || to) {
       where.scheduledAt = {};
       if (from) where.scheduledAt.gte = new Date(from);
@@ -147,7 +148,8 @@ const create = async (req, res) => {
         scheduledAt: new Date(scheduledAt),
         plannedDuration: Number(plannedDuration) || 60,
         topic: topic ? String(topic).trim() : null,
-        notes: notes ? String(notes).trim() : null
+        notes: notes ? String(notes).trim() : null,
+        sessionType: req.body.sessionType || 'PRIVATE'
       },
       include: {
         student: { select: { id: true, code: true, firstName: true, lastName: true } },

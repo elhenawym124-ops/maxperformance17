@@ -56,6 +56,8 @@ export default function EducationDemoDayPage() {
   const [subjects, setSubjects] = useState<{ id: string; name: string }[]>([]);
   const [teachers, setTeachers] = useState<{ id: string; name: string }[]>([]);
   const [packages, setPackages] = useState<{ id: string; name: string; price: number; hoursCount: number }[]>([]);
+  const [groups, setGroups] = useState<any[]>([]);
+  const [branches, setBranches] = useState<any[]>([]);
 
   // Modals state
   const [eventModalOpen, setEventModalOpen] = useState<boolean>(false);
@@ -98,12 +100,14 @@ export default function EducationDemoDayPage() {
     try {
       const [eventsData, lookups] = await Promise.all([
         fetchDemoDays({ status: statusFilter, search: debouncedSearch }),
-        fetchEducationLookup().catch(() => ({ subjects: [], teachers: [], packages: [] })),
+        fetchEducationLookup().catch(() => ({ subjects: [], teachers: [], packages: [], groups: [], branches: [] })),
       ]);
       setEvents(eventsData);
       setSubjects(lookups.subjects || []);
       setTeachers(lookups.teachers || []);
       setPackages(lookups.packages || []);
+      setGroups(lookups.groups || []);
+      setBranches(lookups.branches || []);
 
       if (eventsData.length) {
         setSelectedEventId((prev) => prev ?? eventsData[0].id);
@@ -477,6 +481,7 @@ export default function EducationDemoDayPage() {
           {/* Attendees Table */}
           <DemoDayAttendeesTable
             attendees={selectedEventDetail?.attendees || []}
+            branches={branches}
             onUpdateStatus={handleUpdateAttendeeStatus}
             onConvertLead={(att) => {
               setTargetAttendeeForConvert(att);
@@ -504,6 +509,7 @@ export default function EducationDemoDayPage() {
         onClose={() => setAddAttendeeModalOpen(false)}
         onRegister={handleRegisterAttendee}
         demoDayTitle={targetEventForAttendee?.title || selectedEventDetail?.title || ""}
+        branches={branches}
         isEn={isEn}
       />
 
@@ -514,6 +520,8 @@ export default function EducationDemoDayPage() {
         attendee={targetAttendeeForConvert}
         packages={packages}
         teachers={teachers}
+        groups={groups}
+        branches={branches}
         isEn={isEn}
       />
     </div>

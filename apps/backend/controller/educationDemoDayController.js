@@ -147,9 +147,17 @@ const getDemoDayById = async (req, res) => {
       SELECT 
         a.*,
         c."leadStage",
-        c."leadPriority"
+        c."leadPriority",
+        COALESCE(b.name, d_b.name) AS "branchName",
+        COALESCE(b.city, d_b.city) AS "branchCity",
+        COALESCE(b.address, d_b.address) AS "branchAddress",
+        stu.code AS "studentCode"
       FROM "education_demo_attendees" a
       LEFT JOIN "customers" c ON c.id = a."customerId"
+      LEFT JOIN "education_demo_days" d ON d.id = a."demoDayId"
+      LEFT JOIN "branches" b ON b.id = a."branchId"
+      LEFT JOIN "branches" d_b ON d_b.id = d."branchId"
+      LEFT JOIN "education_students" stu ON stu.id = a."convertedStudentId"
       WHERE a."demoDayId" = $1 AND a."companyId" = $2
       ORDER BY a."createdAt" DESC
     `, id, companyId);
@@ -394,14 +402,14 @@ const deleteDemoDay = async (req, res) => {
   }
 };
 
-// 6. Register Attendee (creates or links Customer as CRM Lead)
+// 6. Register Attendee (creates or links Customer as CRM Lead + Auto registers Student in Students List)
 const registerAttendee = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id: demoDayId } = req.params;
-    const { studentName, guardianName, phone, phone2, email, age, grade, notes, leadSource, campaignName, adId: inputAdId, postId: inputPostId } = req.body;
+    const { studentName, guardianName, phone, phone2, email, age, grade, notes, branchId: inputBranchId, leadSource, campaignName, adId: inputAdId, postId: inputPostId } = req.body;
 
     if (!studentName || !phone) {
       return res.status(400).json({ success: false, error: 'اسم الطالب ورقم الهاتف مطلوبان' });
@@ -410,6 +418,21 @@ const registerAttendee = async (req, res) => {
     const cleanPhone = String(phone).replace(/[^\d+]/g, '').trim();
     const prisma = getSharedPrismaClient();
     await ensureTablesExist(prisma);
+
+    // Resolve branch (input or demo day's branch)
+    let resolvedBranchId = inputBranchId ? String(inputBranchId).trim() : null;
+    let demoDay = null;
+    try {
+      const demoDays = await prisma.$queryRawUnsafe(`
+        SELECT * FROM "education_demo_days" WHERE id = $1 AND "companyId" = $2
+      `, demoDayId, companyId);
+      if (demoDays.length > 0) {
+        demoDay = demoDays[0];
+        if (!resolvedBranchId && demoDay.branchId) {
+          resolvedBranchId = demoDay.branchId;
+        }
+      }
+    } catch (_) {}
 
     // Find or create Customer (CRM Lead)
     let customer = await prisma.customer.findFirst({
@@ -449,6 +472,21 @@ const registerAttendee = async (req, res) => {
 
     if (!source) source = customer?.leadSource || 'OTHER';
 
+    // Auto-generate credentials for student/parent
+    const { generateUserCredentials } = require('../services/educationAgeLevelService');
+    const creds = generateUserCredentials(studentName, cleanPhone);
+
+    const hashPassword = async (pwd) => {
+      try {
+        const bcrypt = require('bcryptjs');
+        return await bcrypt.hash(pwd, 10);
+      } catch {
+        const crypto = require('crypto');
+        return crypto.createHash('sha256').update(pwd).digest('hex');
+      }
+    };
+    const hashedPassword = creds.password ? await hashPassword(creds.password) : null;
+
     if (!customer) {
       customer = await prisma.customer.create({
         data: {
@@ -458,41 +496,78 @@ const registerAttendee = async (req, res) => {
           phone: cleanPhone,
           phone2: phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
           email: email ? String(email).trim() : null,
+          password: hashedPassword,
           status: 'LEAD',
           leadStage: 'NEW_LEAD',
           leadSource: ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'OTHER'].includes(source) ? source : 'OTHER',
           notes: `سجل لحضور الديمو داي: ${notes || ''}`
         }
       });
+    } else if (hashedPassword && !customer.password) {
+      await prisma.customer.update({
+        where: { id: customer.id },
+        data: { password: hashedPassword }
+      }).catch(() => {});
     }
 
     // Attach structured attribution tag to notes
     const attrTag = `[ATTR: ${JSON.stringify({ source, campaign: campaign || 'حملة عامة', adId, postId })}]`;
     const finalNotes = notes ? `${notes} ${attrTag}` : attrTag;
 
+    // Requirement 1: Auto-register student in EducationStudent list
+    let student = await prisma.educationStudent.findFirst({
+      where: {
+        companyId,
+        OR: [
+          { phone: cleanPhone },
+          { customerId: customer.id, firstName: studentName.trim() }
+        ]
+      }
+    });
+
+    if (!student) {
+      const count = await prisma.educationStudent.count({ where: { companyId } });
+      const safeCode = `STU-${1001 + count}`;
+      student = await prisma.educationStudent.create({
+        data: {
+          companyId,
+          customerId: customer.id,
+          code: safeCode,
+          firstName: studentName.trim(),
+          lastName: guardianName ? guardianName.trim() : '',
+          phone: cleanPhone,
+          phone2: phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
+          grade: grade || null,
+          age: age ? parseInt(age, 10) : null,
+          branchId: resolvedBranchId,
+          username: creds.username,
+          plainPassword: creds.password,
+          notes: `مسجل تلقائياً عبر الديمو داي: ${notes || ''}`
+        }
+      });
+    }
+
     const attendeeId = generateAttendeeId();
     await prisma.$executeRawUnsafe(`
       INSERT INTO "education_demo_attendees" (
         "id", "companyId", "demoDayId", "customerId", "studentName", "guardianName",
         "phone", "phone2", "email", "age", "grade", "attendanceStatus",
-        "conversionStatus", "notes", "createdAt", "updatedAt"
+        "conversionStatus", "convertedStudentId", "branchId", "notes", "createdAt", "updatedAt"
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, NOW(), NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, $13, $14, NOW(), NOW()
       )
     `, attendeeId, companyId, demoDayId, customer.id, studentName.trim(), guardianName ? guardianName.trim() : null,
        cleanPhone, phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
-       email ? String(email).trim() : null, age ? parseInt(age, 10) : null, grade || null, finalNotes);
+       email ? String(email).trim() : null, age ? parseInt(age, 10) : null, grade || null,
+       student.id, resolvedBranchId, finalNotes);
 
     // Auto-send WhatsApp Confirmation Notification
     try {
-      const demoDays = await prisma.$queryRawUnsafe(`
-        SELECT * FROM "education_demo_days" WHERE id = $1 AND "companyId" = $2
-      `, demoDayId, companyId);
-      if (demoDays.length > 0) {
+      if (demoDay) {
         const educationNotificationService = require('../services/educationNotificationService');
         educationNotificationService.notifyDemoDayRegistered({
           companyId,
-          demoDay: demoDays[0],
+          demoDay,
           attendee: {
             id: attendeeId,
             studentName: studentName.trim(),
@@ -519,7 +594,11 @@ const registerAttendee = async (req, res) => {
       data: {
         id: attendeeId,
         studentName,
-        customerId: customer.id
+        studentId: student.id,
+        studentCode: student.code,
+        customerId: customer.id,
+        branchId: resolvedBranchId,
+        credentials: creds
       }
     });
   } catch (error) {
@@ -528,14 +607,14 @@ const registerAttendee = async (req, res) => {
   }
 };
 
-// 7. Update Attendee Status (Attendance, Conversion, Notes)
+// 7. Update Attendee Status (Attendance, Conversion, Branch, Notes)
 const updateAttendeeStatus = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { attendeeId } = req.params;
-    const { attendanceStatus, conversionStatus, notes } = req.body;
+    const { attendanceStatus, conversionStatus, notes, branchId } = req.body;
 
     const prisma = getSharedPrismaClient();
     await ensureTablesExist(prisma);
@@ -546,9 +625,10 @@ const updateAttendeeStatus = async (req, res) => {
         "attendanceStatus" = COALESCE($1, "attendanceStatus"),
         "conversionStatus" = COALESCE($2, "conversionStatus"),
         "notes" = COALESCE($3, "notes"),
+        "branchId" = COALESCE($4, "branchId"),
         "updatedAt" = NOW()
-      WHERE "id" = $4 AND "companyId" = $5
-    `, attendanceStatus || null, conversionStatus || null, notes || null, attendeeId, companyId);
+      WHERE "id" = $5 AND "companyId" = $6
+    `, attendanceStatus || null, conversionStatus || null, notes || null, branchId || null, attendeeId, companyId);
 
     await logEducationEvent({
       companyId,
@@ -556,7 +636,7 @@ const updateAttendeeStatus = async (req, res) => {
       action: 'UPDATE_DEMO_ATTENDEE',
       entityType: 'DEMO_DAY',
       entityId: attendeeId,
-      details: { attendanceStatus, conversionStatus }
+      details: { attendanceStatus, conversionStatus, branchId }
     });
 
     res.json({ success: true, message: 'تم تحديث حالة الحاضر بنجاح' });
@@ -566,14 +646,28 @@ const updateAttendeeStatus = async (req, res) => {
   }
 };
 
-// 8. Convert Lead to Enrolled Student
+// 8. Convert Lead to Enrolled Student (With Group, Level, Branch, Payment Plan, Discounts, and Credentials)
 const convertAttendeeToStudent = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { attendeeId } = req.params;
-    const { packageId, teacherId, amountPaid } = req.body;
+    const {
+      packageId,
+      teacherId,
+      amountPaid,
+      groupId,
+      level,
+      branchId,
+      paymentMethod,
+      installmentCount,
+      installments,
+      discountType,
+      discountAmount,
+      finalAmount,
+      autoGenerateCredentials
+    } = req.body;
 
     const prisma = getSharedPrismaClient();
     await ensureTablesExist(prisma);
@@ -610,27 +704,86 @@ const convertAttendeeToStudent = async (req, res) => {
       }).catch(() => {});
     }
 
-    // Create EducationStudent
-    const student = await prisma.educationStudent.create({
-      data: {
-        companyId,
-        customerId,
-        firstName: attendee.studentName,
-        lastName: attendee.guardianName || '',
-        phone: attendee.phone,
-        phone2: attendee.phone2,
-        grade: attendee.grade,
-        notes: `طالب محول من ديمو داي`
-      }
-    });
+    // Find or create EducationStudent
+    let student = null;
+    if (attendee.convertedStudentId) {
+      student = await prisma.educationStudent.findFirst({
+        where: { id: attendee.convertedStudentId, companyId }
+      });
+    }
 
-    // Optional package enrollment
+    if (!student) {
+      const count = await prisma.educationStudent.count({ where: { companyId } });
+      const safeCode = `STU-${1001 + count}`;
+      student = await prisma.educationStudent.create({
+        data: {
+          companyId,
+          customerId,
+          code: safeCode,
+          firstName: attendee.studentName,
+          lastName: attendee.guardianName || '',
+          phone: attendee.phone,
+          phone2: attendee.phone2,
+          grade: level || attendee.grade || null,
+          age: attendee.age || null,
+          branchId: branchId || attendee.branchId || null,
+          notes: `طالب محول من ديمو داي`
+        }
+      });
+    } else {
+      // Update student grade/level and branch
+      const updateData = {};
+      if (level) updateData.grade = level;
+      if (branchId) updateData.branchId = branchId;
+      if (Object.keys(updateData).length > 0) {
+        student = await prisma.educationStudent.update({
+          where: { id: student.id },
+          data: updateData
+        }).catch(() => student);
+      }
+    }
+
+    // Enroll into Group if groupId is provided
+    let groupMember = null;
+    if (groupId) {
+      const existingMember = await prisma.$queryRawUnsafe(`
+        SELECT * FROM "education_group_members" WHERE "groupId" = $1 AND "studentId" = $2 AND "companyId" = $3
+      `, groupId, student.id, companyId);
+
+      if (!existingMember.length) {
+        const crypto = require('crypto');
+        const memberId = `egm_${crypto.randomBytes(8).toString('hex')}`;
+        await prisma.$executeRawUnsafe(`
+          INSERT INTO "education_group_members" (
+            "id", "companyId", "groupId", "studentId", "status", "joinedAt",
+            "paymentStatus", "amountPaid", "notes", "createdAt", "updatedAt"
+          ) VALUES (
+            $1, $2, $3, $4, 'ACTIVE', NOW(), $5, $6, $7, NOW(), NOW()
+          )
+        `, memberId, companyId, groupId, student.id,
+           (parseFloat(amountPaid) || 0) > 0 ? 'PAID' : 'PENDING',
+           parseFloat(amountPaid) || 0,
+           'محول من الديمو داي'
+        );
+        groupMember = { id: memberId, groupId, studentId: student.id };
+      }
+    }
+
+    // Optional package enrollment with Installments & Discounts
     let enrollment = null;
     if (packageId) {
       const pkg = await prisma.educationPackage.findFirst({
         where: { id: packageId, companyId }
       });
       if (pkg) {
+        const safeInstallments = installments
+          ? (typeof installments === 'string' ? installments : JSON.stringify(installments))
+          : '[]';
+
+        const safeFinalAmount = finalAmount !== undefined
+          ? parseFloat(finalAmount)
+          : (parseFloat(amountPaid) || pkg.price);
+
         enrollment = await prisma.educationEnrollment.create({
           data: {
             companyId,
@@ -640,10 +793,43 @@ const convertAttendeeToStudent = async (req, res) => {
             totalHours: pkg.hoursCount,
             remainingHours: pkg.hoursCount,
             amountPaid: parseFloat(amountPaid) || 0,
-            paymentStatus: (parseFloat(amountPaid) || 0) >= pkg.price ? 'PAID' : 'PARTIAL'
+            paymentStatus: (parseFloat(amountPaid) || 0) >= safeFinalAmount ? 'COMPLETED' : ((parseFloat(amountPaid) || 0) > 0 ? 'PARTIALLY_PAID' : 'PENDING'),
+            paymentMethod: paymentMethod || 'CASH',
+            installmentCount: installmentCount ? parseInt(installmentCount, 10) : 1,
+            installments: typeof safeInstallments === 'string' ? JSON.parse(safeInstallments) : safeInstallments,
+            discountType: discountType || 'NONE',
+            discountAmount: discountAmount ? parseFloat(discountAmount) : 0,
+            finalAmount: safeFinalAmount,
+            branchId: branchId || null
           }
         });
       }
+    }
+
+    // Credentials generation
+    let credentials = null;
+    if (autoGenerateCredentials !== false) {
+      const { generateUserCredentials } = require('../services/educationAgeLevelService');
+      credentials = generateUserCredentials(attendee.studentName, attendee.phone, student.code);
+      try {
+        const hashPassword = async (pwd) => {
+          try {
+            const bcrypt = require('bcryptjs');
+            return await bcrypt.hash(pwd, 10);
+          } catch {
+            const crypto = require('crypto');
+            return crypto.createHash('sha256').update(pwd).digest('hex');
+          }
+        };
+        const hashed = await hashPassword(credentials.password);
+        await prisma.customer.update({
+          where: { id: customerId },
+          data: { password: hashed }
+        }).catch(() => {});
+        await prisma.$executeRawUnsafe(`
+          UPDATE "education_students" SET "username" = $1, "plainPassword" = $2 WHERE "id" = $3
+        `, credentials.username, credentials.password, student.id).catch(() => {});
+      } catch (_) {}
     }
 
     // Update attendee record
@@ -654,9 +840,10 @@ const convertAttendeeToStudent = async (req, res) => {
         "conversionStatus" = 'CONVERTED',
         "convertedStudentId" = $1,
         "customerId" = $2,
+        "branchId" = COALESCE($3, "branchId"),
         "updatedAt" = NOW()
-      WHERE "id" = $3
-    `, student.id, customerId, attendeeId);
+      WHERE "id" = $4
+    `, student.id, customerId, branchId || null, attendeeId);
 
     await logEducationEvent({
       companyId,
@@ -665,7 +852,7 @@ const convertAttendeeToStudent = async (req, res) => {
       entityType: 'DEMO_DAY',
       entityId: attendeeId,
       targetName: attendee.studentName,
-      details: { studentId: student.id, enrollmentId: enrollment?.id }
+      details: { studentId: student.id, enrollmentId: enrollment?.id, groupId, branchId, level }
     });
 
     res.json({
@@ -673,7 +860,9 @@ const convertAttendeeToStudent = async (req, res) => {
       message: 'تم تحويل العميل المحتمل إلى طالب بنجاح',
       data: {
         student,
-        enrollment
+        groupMember,
+        enrollment,
+        credentials
       }
     });
   } catch (error) {
@@ -1058,6 +1247,32 @@ const broadcastReminder = async (req, res) => {
   }
 };
 
+// 12. Get age-to-levels configuration
+const getAgeLevels = async (req, res) => {
+  try {
+    const { age } = req.query;
+    const { getLevelsForAge } = require('../services/educationAgeLevelService');
+    const result = getLevelsForAge(age);
+    res.json({ success: true, data: result });
+  } catch (err) {
+    console.error('Error in getAgeLevels:', err);
+    res.status(500).json({ success: false, error: 'فشل جلب قائمة المستويات' });
+  }
+};
+
+// 13. Generate auto credentials
+const generateCredentialsEndpoint = async (req, res) => {
+  try {
+    const { studentName, phone, code } = req.body || {};
+    const { generateUserCredentials } = require('../services/educationAgeLevelService');
+    const creds = generateUserCredentials(studentName, phone, code);
+    res.json({ success: true, data: creds });
+  } catch (err) {
+    console.error('Error in generateCredentialsEndpoint:', err);
+    res.status(500).json({ success: false, error: 'فشل توليد بيانات الدخول' });
+  }
+};
+
 module.exports = {
   getAllDemoDays,
   getDemoDayById,
@@ -1071,5 +1286,7 @@ module.exports = {
   getPublicDemoDay,
   registerPublicAttendee,
   getAttributionAnalytics,
-  broadcastReminder
+  broadcastReminder,
+  getAgeLevels,
+  generateCredentialsEndpoint
 };

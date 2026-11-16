@@ -68,7 +68,21 @@ const create = async (req, res) => {
     const companyId = req.user?.companyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    const { studentId, packageId, teacherId, amountPaid, paymentStatus, expiresAt } = req.body;
+    const {
+      studentId,
+      packageId,
+      teacherId,
+      amountPaid,
+      paymentStatus,
+      expiresAt,
+      paymentMethod,
+      installmentCount,
+      installments,
+      discountType,
+      discountAmount,
+      finalAmount,
+      branchId
+    } = req.body;
     if (!studentId) return res.status(400).json({ success: false, error: 'الطالب مطلوب' });
     if (!packageId) return res.status(400).json({ success: false, error: 'الباقة مطلوبة' });
 
@@ -98,7 +112,21 @@ const create = async (req, res) => {
     const parsedExpiresAt = (expiresAt && !isNaN(new Date(expiresAt).getTime()))
       ? new Date(expiresAt)
       : null;
-    const safePaymentStatus = normalizePaymentStatus(paymentStatus, 'PENDING');
+
+    let safeInstallments = [];
+    if (Array.isArray(installments)) {
+      safeInstallments = installments;
+    } else if (typeof installments === 'string' && installments.trim()) {
+      try { safeInstallments = JSON.parse(installments); } catch (_) { safeInstallments = []; }
+    }
+
+    const safeFinalAmount = finalAmount !== undefined
+      ? parseFloat(finalAmount)
+      : (parseFloat(amountPaid) || pkg.price);
+
+    const safePaymentStatus = paymentStatus
+      ? normalizePaymentStatus(paymentStatus, 'PENDING')
+      : (Number(amountPaid) >= safeFinalAmount ? 'COMPLETED' : (Number(amountPaid) > 0 ? 'PARTIALLY_PAID' : 'PENDING'));
 
     const data = await getSharedPrismaClient().educationEnrollment.create({
       data: {
@@ -110,7 +138,14 @@ const create = async (req, res) => {
         remainingHours: Number(pkg.hoursCount) || 0,
         amountPaid: Number(amountPaid) || 0,
         paymentStatus: safePaymentStatus,
-        expiresAt: parsedExpiresAt
+        expiresAt: parsedExpiresAt,
+        paymentMethod: paymentMethod || 'CASH',
+        installmentCount: installmentCount ? parseInt(installmentCount, 10) : 1,
+        installments: safeInstallments,
+        discountType: discountType || 'NONE',
+        discountAmount: discountAmount ? parseFloat(discountAmount) : 0,
+        finalAmount: safeFinalAmount,
+        branchId: branchId || null
       },
       include: {
         student: { select: { id: true, code: true, firstName: true, lastName: true } },
@@ -263,4 +298,67 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove };
+const payInstallment = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id, installmentNumber } = req.params;
+    const num = parseInt(installmentNumber, 10);
+    const prisma = getSharedPrismaClient();
+
+    const enrollment = await prisma.educationEnrollment.findFirst({
+      where: { id, companyId },
+      include: { package: true, student: true }
+    });
+    if (!enrollment) return res.status(404).json({ success: false, error: 'التسجيل غير موجود' });
+
+    let currentInstallments = [];
+    try {
+      currentInstallments = Array.isArray(enrollment.installments)
+        ? enrollment.installments
+        : JSON.parse(enrollment.installments || '[]');
+    } catch (_) { currentInstallments = []; }
+
+    let target = currentInstallments.find(i => Number(i.installmentNumber) === num);
+    if (!target) {
+      return res.status(404).json({ success: false, error: 'القسط غير موجود' });
+    }
+
+    target.status = 'PAID';
+    target.paidAt = new Date().toISOString();
+
+    const newAmountPaid = currentInstallments
+      .filter(i => i.status === 'PAID')
+      .reduce((sum, i) => sum + (Number(i.amount) || 0), 0);
+
+    const targetTotal = enrollment.finalAmount || enrollment.package?.price || 0;
+    const isFullyPaid = newAmountPaid >= targetTotal;
+    const newStatus = isFullyPaid ? 'COMPLETED' : 'PARTIALLY_PAID';
+
+    const updated = await prisma.educationEnrollment.update({
+      where: { id },
+      data: {
+        installments: currentInstallments,
+        amountPaid: newAmountPaid,
+        paymentStatus: newStatus
+      },
+      include: {
+        student: { select: { id: true, code: true, firstName: true, lastName: true } },
+        package: { include: { subject: { select: { id: true, name: true } } } },
+        teacher: { select: { id: true, name: true } }
+      }
+    });
+
+    res.json({
+      success: true,
+      message: `تم سداد القسط رقم ${num} بمبلغ ${target.amount} ج.م بنجاح`,
+      data: updated
+    });
+  } catch (error) {
+    console.error('Error paying installment:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ أثناء تحصيل القسط' });
+  }
+};
+
+module.exports = { getAll, getById, create, update, remove, payInstallment };

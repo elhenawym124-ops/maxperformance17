@@ -59,7 +59,10 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
+  const [sessionTypeFilter, setSessionTypeFilter] = React.useState<"ALL" | "PRIVATE" | "GROUP">("ALL");
+
   const filtered = sessions.filter((s) => {
+    if (sessionTypeFilter !== "ALL" && (s.sessionType || "GROUP") !== sessionTypeFilter) return false;
     if (sessionFilters.status && s.status !== sessionFilters.status)
       return false;
     if (sessionFilters.teacherId && s.teacherId !== sessionFilters.teacherId)
@@ -76,9 +79,46 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   return (
     <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-        <h2 className="text-base font-bold text-foreground">
-          {t("education.sessions.title", isEn ? "Sessions & Schedule Management" : "إدارة الحصص والجداول")}
-        </h2>
+        <div className="space-y-1">
+          <h2 className="text-base font-bold text-foreground">
+            {t("education.sessions.title", isEn ? "Sessions & Schedule Management" : "إدارة الحصص وجداول البرايفت")}
+          </h2>
+          <div className="flex items-center gap-1.5 pt-0.5">
+            <button
+              type="button"
+              onClick={() => setSessionTypeFilter("ALL")}
+              className={`px-2 py-0.5 rounded-lg text-xs font-semibold transition-all ${
+                sessionTypeFilter === "ALL"
+                  ? "bg-primary text-primary-foreground shadow-xs"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {isEn ? "All Sessions" : "كل الحصص"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setSessionTypeFilter("PRIVATE")}
+              className={`px-2 py-0.5 rounded-lg text-xs font-semibold transition-all ${
+                sessionTypeFilter === "PRIVATE"
+                  ? "bg-purple-600 text-white shadow-xs"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {isEn ? "Private (1-on-1)" : "حصص برايفت خاصة"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setSessionTypeFilter("GROUP")}
+              className={`px-2 py-0.5 rounded-lg text-xs font-semibold transition-all ${
+                sessionTypeFilter === "GROUP"
+                  ? "bg-blue-600 text-white shadow-xs"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {isEn ? "Group Sessions" : "حصص مجموعات"}
+            </button>
+          </div>
+        </div>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 w-full lg:w-auto items-stretch sm:items-center">
           <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
             <select
@@ -160,6 +200,11 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                   {s.student?.code && (
                     <span className="font-mono text-[10px] text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20 shrink-0" dir="ltr">
                       #{s.student.code}
+                    </span>
+                  )}
+                  {s.sessionType === "PRIVATE" && (
+                    <span className="font-mono text-[9px] text-purple-600 dark:text-purple-400 bg-purple-500/10 px-1 py-0.5 rounded border border-purple-500/20 shrink-0">
+                      Private 1-on-1
                     </span>
                   )}
                 </div>
@@ -283,6 +328,11 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                       {s.student?.code && (
                         <span className="font-mono text-[10px] text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20" dir="ltr">
                           #{s.student.code}
+                        </span>
+                      )}
+                      {s.sessionType === "PRIVATE" && (
+                        <span className="font-mono text-[9px] text-purple-600 dark:text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded border border-purple-500/20" dir="ltr">
+                          Private 1-on-1
                         </span>
                       )}
                     </div>

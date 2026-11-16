@@ -61,6 +61,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
     ...session,
     enrollmentId: session?.enrollmentId || "",
     teacherId: initialTeacherId,
+    sessionType: (session?.sessionType as "PRIVATE" | "GROUP") || ((initialEnrollment?.package as any)?.packageType === "GROUP" ? "GROUP" : "PRIVATE"),
     scheduledAt: getDefaultScheduledAt(),
     plannedDuration: session?.plannedDuration || 60,
     topic: session?.topic || "",
@@ -168,6 +169,37 @@ export const SessionModal: React.FC<SessionModalProps> = ({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-3.5">
+          {/* Session Type (Private vs Group) */}
+          <div className="space-y-1.5 p-2.5 rounded-xl bg-muted/40 border border-border/70">
+            <label className="text-xs font-semibold text-foreground block">
+              {isEn ? "Session Type" : "نظام الحصة"} *
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, sessionType: "PRIVATE" })}
+                className={`p-2 rounded-lg text-xs font-bold transition-all border ${
+                  form.sessionType === "PRIVATE"
+                    ? "bg-purple-600 text-white border-purple-600 shadow-xs"
+                    : "bg-card border-border text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {isEn ? "Private (1-on-1)" : "حصة فردية خاصة (Private)"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, sessionType: "GROUP" })}
+                className={`p-2 rounded-lg text-xs font-bold transition-all border ${
+                  form.sessionType === "GROUP"
+                    ? "bg-primary text-primary-foreground border-primary shadow-xs"
+                    : "bg-card border-border text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {isEn ? "Group Session" : "حصة مجموعة دراسية"}
+              </button>
+            </div>
+          </div>
+
           {!isEdit && (
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">

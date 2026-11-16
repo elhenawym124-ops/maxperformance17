@@ -281,6 +281,7 @@ export default function EducationManagementPage() {
               handleSaveEnrollment={handleSaveEnrollment}
               handleDeleteEnrollment={handleDeleteEnrollment}
               handleSaveStudent={handleSaveStudent}
+              onRefresh={fetchAll}
             />
           )}
           {activeTab === "sessions" && (

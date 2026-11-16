@@ -41,6 +41,10 @@ export interface DemoDayAttendee {
   email?: string | null;
   age?: number | null;
   grade?: string | null;
+  branchId?: string | null;
+  branchName?: string | null;
+  branch?: { id: string; name: string } | null;
+  studentCode?: string | null;
   attendanceStatus: "REGISTERED" | "ATTENDED" | "ABSENT" | "CANCELLED";
   conversionStatus: "PENDING" | "CONVERTED" | "NOT_INTERESTED" | "FOLLOW_UP";
   convertedStudentId?: string | null;
