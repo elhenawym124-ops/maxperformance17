@@ -17,6 +17,7 @@ enum PermissionDomain {
   AI
   INVENTORY
   COURIER_FLEET
+  EDUCATION
 
   @@map("permission_domains")
 }

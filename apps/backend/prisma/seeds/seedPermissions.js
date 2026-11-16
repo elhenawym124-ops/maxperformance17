@@ -367,6 +367,21 @@ const PERMISSIONS = [
   { key: 'products.cost.view', name: 'عرض أسعار التكلفة للمنتجات', domain: 'PRODUCTS' },
   { key: 'orders.profit.view', name: 'عرض صافي أرباح وهوامش الطلبات', domain: 'ORDERS' },
   { key: 'analytics.financial.view', name: 'عرض إجمالي الإيرادات والأرباح بالتحليلات', domain: 'FINANCE' },
+
+  // Education System (الأكاديميات والأنظمة التعليمية)
+  { key: 'education.view', name: 'عرض النظام التعليمي ولوحة الإحصائيات', domain: 'EDUCATION' },
+  { key: 'education.students.view', name: 'عرض بيانات وسجلات الطلاب', domain: 'EDUCATION' },
+  { key: 'education.students.manage', name: 'إضافة وتعديل وحذف الطلاب وأولياء الأمور', domain: 'EDUCATION' },
+  { key: 'education.groups.view', name: 'عرض المجموعات والمواعيد الدراسية', domain: 'EDUCATION' },
+  { key: 'education.groups.manage', name: 'إدارة وتسكين المجموعات ونقل الطلاب', domain: 'EDUCATION' },
+  { key: 'education.sessions.manage', name: 'تسجيل الحصص والغياب والحضور', domain: 'EDUCATION' },
+  { key: 'education.packages.manage', name: 'إدارة الباقات والخطط السعرية والاشتراكات', domain: 'EDUCATION' },
+  { key: 'education.financials.view', name: 'عرض إيرادات المجموعات وتسويات المعلمين', domain: 'EDUCATION' },
+  { key: 'education.financials.manage', name: 'تسجيل الدفعات والأقساط والخصومات وتوريد المعلمين', domain: 'EDUCATION' },
+  { key: 'education.teachers.manage', name: 'إدارة وتسكين المعلمين وجداول الأوقات', domain: 'EDUCATION' },
+  { key: 'education.demoday.manage', name: 'إدارة فعاليات الديمو داي وتسجيل الحضور وتحويل الليدز', domain: 'EDUCATION' },
+  { key: 'education.reports.view', name: 'عرض تقارير التعليم وتحليلات الحملات والأداء', domain: 'EDUCATION' },
+  { key: 'education.settings.manage', name: 'إدارة إعدادات النظام التعليمي وتخصيص التابات', domain: 'EDUCATION' },
 ];
 
 const ALL_PERMISSION_KEYS = PERMISSIONS.map(p => p.key);
@@ -421,6 +436,10 @@ const BUILT_IN_ROLES = {
       'whatsapp.reply', 'whatsapp.broadcast', 'whatsapp.groups.manage',
       'whatsapp.chats.manage', 'whatsapp.contacts.manage', 'whatsapp.labels.manage',
       'whatsapp.analytics.view', 'whatsapp.quick-replies.manage',
+      'education.view', 'education.students.view', 'education.students.manage',
+      'education.groups.view', 'education.groups.manage', 'education.sessions.manage',
+      'education.packages.manage', 'education.teachers.manage', 'education.demoday.manage',
+      'education.reports.view',
     ],
   },
   AGENT: {
@@ -444,6 +463,8 @@ const BUILT_IN_ROLES = {
       'inventory.view',
       'whatsapp.reply',
       'whatsapp.quick-replies.manage',
+      'education.view', 'education.students.view', 'education.groups.view',
+      'education.sessions.manage',
     ],
   },
   AFFILIATE: {
