@@ -280,5 +280,18 @@ describe('permissionService', () => {
     it('returns false when permission is not in the list', () => {
       expect(permissionService.hasPermission(['orders.view'], 'products.delete')).toBe(false);
     });
+
+    it('resolves canonical permission aliases correctly', () => {
+      expect(permissionService.hasPermission(['bulkOrders.view'], 'orders.bulk.view')).toBe(true);
+      expect(permissionService.hasPermission(['settings.manage'], 'settings.view')).toBe(false);
+      expect(permissionService.hasPermission(['settings.read'], 'settings.view')).toBe(true);
+      expect(permissionService.hasPermission(['orders.bulk.export'], 'orders.export')).toBe(true);
+      expect(permissionService.hasPermission(['marketing.broadcast'], 'whatsapp.broadcast')).toBe(true);
+    });
+
+    it('supports array of permission keys (ANY logic)', () => {
+      expect(permissionService.hasPermission(['orders.view'], ['orders.export', 'orders.view'])).toBe(true);
+      expect(permissionService.hasPermission(['orders.view'], ['orders.export', 'orders.delete'])).toBe(false);
+    });
   });
 });

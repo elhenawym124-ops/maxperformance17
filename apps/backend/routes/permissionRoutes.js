@@ -8,11 +8,11 @@ router.get('/', verifyToken.authenticateToken, verifyToken.requireCompanyAccess,
 
 // ── Company Roles ───────────────────────────────────────────
 router.get('/companies/:companyId/roles', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, permissionController.listRoles);
-router.post('/companies/:companyId/roles', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), permissionController.createRole);
-router.put('/companies/:companyId/roles/:roleId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), permissionController.updateRole);
-router.delete('/companies/:companyId/roles/:roleId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), permissionController.deleteRole);
+router.post('/companies/:companyId/roles', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'roles.manage'), permissionController.createRole);
+router.put('/companies/:companyId/roles/:roleId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'roles.manage'), permissionController.updateRole);
+router.delete('/companies/:companyId/roles/:roleId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'roles.manage'), permissionController.deleteRole);
 
 // ── User Role Assignment ────────────────────────────────────
-router.put('/companies/:companyId/users/:userId/role', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), permissionController.setUserRole);
+router.put('/companies/:companyId/users/:userId/role', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], ['roles.assign', 'roles.manage']), permissionController.setUserRole);
 
 module.exports = router;

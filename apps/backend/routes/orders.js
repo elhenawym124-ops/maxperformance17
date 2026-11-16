@@ -5486,7 +5486,7 @@ router.get('/simple/stats', verifyToken.authenticateToken, async (req, res) => {
 });
 
 // تحديث حالة الطلب البسيط
-router.post('/simple/:orderNumber/status', verifyToken.authenticateToken, async (req, res) => {
+router.post('/simple/:orderNumber/status', verifyToken.authenticateToken, requireDbPermission('orders.status.change'), async (req, res) => {
   try {
     const { orderNumber } = req.params;
     const { status, notes } = req.body;
@@ -8685,7 +8685,7 @@ router.get('/simple/:orderNumber', verifyToken.authenticateToken, async (req, re
 });
 
 // Export Orders
-router.get('/export', verifyToken.authenticateToken, async (req, res) => {
+router.get('/export', verifyToken.authenticateToken, requireDbPermission('orders.export'), async (req, res) => {
   try {
     const {
       requestedCompanies,
@@ -9165,7 +9165,7 @@ router.post('/:orderNumber/confirm', verifyToken.authenticateToken, async (req, 
 });
 
 // إلغاء الطلب
-router.post('/:orderNumber/cancel', verifyToken.authenticateToken, async (req, res) => {
+router.post('/:orderNumber/cancel', verifyToken.authenticateToken, requireDbPermission('orders.status.change'), async (req, res) => {
   try {
     const { orderNumber } = req.params;
     const { reason } = req.body;
@@ -9774,7 +9774,7 @@ router.post('/bulk/status/by-filters', verifyToken.authenticateToken, async (req
 });
 
 // Bulk Delete
-router.post('/bulk/delete', verifyToken.authenticateToken, verifyToken.requireRole(['OWNER', 'COMPANY_ADMIN', 'MANAGER']), async (req, res) => {
+router.post('/bulk/delete', verifyToken.authenticateToken, verifyToken.requireRole(['OWNER', 'COMPANY_ADMIN', 'MANAGER'], ['orders.delete', 'orders.bulk.delete']), async (req, res) => {
   try {
     const { orderIds, permanent = false } = req.body;
     const shouldPermanentlyDelete = permanent === true || permanent === 'true';

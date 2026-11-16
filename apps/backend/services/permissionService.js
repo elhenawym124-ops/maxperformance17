@@ -1,5 +1,50 @@
 const { getSharedPrismaClient } = require('./sharedDatabase');
 
+// ── In-Memory Permission Cache (60s TTL) with Instant Invalidation ──
+const PERMISSION_CACHE_TTL_MS = 60 * 1000;
+const _userPermissionCache = new Map();
+
+const clearUserPermissionCache = (userId, companyId) => {
+  if (userId && companyId) {
+    _userPermissionCache.delete(`${userId}:${companyId}`);
+  } else if (userId) {
+    for (const key of _userPermissionCache.keys()) {
+      if (key.startsWith(`${userId}:`)) _userPermissionCache.delete(key);
+    }
+  } else if (companyId) {
+    for (const key of _userPermissionCache.keys()) {
+      if (key.endsWith(`:${companyId}`)) _userPermissionCache.delete(key);
+    }
+  } else {
+    _userPermissionCache.clear();
+  }
+};
+
+const PERMISSION_ALIASES = {
+  // Bulk orders aliases
+  'orders.bulk.view': ['bulkOrders.view', 'orders.view'],
+  'orders.bulk.create': ['bulkOrders.create', 'orders.create'],
+  'orders.bulk.edit': ['bulkOrders.edit', 'orders.edit'],
+  'orders.bulk.delete': ['bulkOrders.delete', 'orders.delete'],
+  'orders.bulk.export': ['bulkOrders.export', 'orders.export'],
+  'bulkOrders.view': ['orders.bulk.view', 'orders.view'],
+  'bulkOrders.create': ['orders.bulk.create', 'orders.create'],
+  'bulkOrders.edit': ['orders.bulk.edit', 'orders.edit'],
+  'bulkOrders.delete': ['orders.bulk.delete', 'orders.delete'],
+  'bulkOrders.export': ['orders.bulk.export', 'orders.export'],
+  // Settings aliases
+  'settings.view': ['settings.read'],
+  'settings.read': ['settings.view'],
+  'settings.whatsapp': ['settings.whatsapp.manage', 'whatsapp.settings'],
+  'settings.whatsapp.manage': ['settings.whatsapp', 'whatsapp.settings'],
+  'whatsapp.settings': ['settings.whatsapp.manage', 'settings.whatsapp'],
+  // Broadcast aliases
+  'whatsapp.broadcast': ['marketing.broadcast'],
+  'marketing.broadcast': ['whatsapp.broadcast'],
+  // Export aliases
+  'orders.export': ['orders.bulk.export', 'bulkOrders.export'],
+};
+
 const logAction = async (action, actorId, companyId, details) => {
   try {
     await getSharedPrismaClient().activityLog.create({
@@ -155,6 +200,8 @@ const updateCustomRole = async (companyId, roleId, { name, description, permissi
     metadata: { oldName: role.name, newName: name, permissionKeys, permissionCount: permissions.length },
   });
 
+  clearUserPermissionCache(null, companyId);
+
   return updated;
 };
 
@@ -166,6 +213,8 @@ const deleteCustomRole = async (companyId, roleId, actorId) => {
 
   const roleName = role.name;
   await getSharedPrismaClient().role.delete({ where: { id: roleId } });
+
+  clearUserPermissionCache(null, companyId);
 
   await logAction('role.delete', actorId, companyId, {
     description: `حذف دور: ${roleName}`,
@@ -206,6 +255,8 @@ const setUserRole = async (userId, companyId, roleId, actorId) => {
     data: ucData,
   });
 
+  clearUserPermissionCache(userId, companyId);
+
   await logAction('role.assign', actorId, companyId, {
     description: `تعيين دور "${role.name}" لمستخدم`,
     targetType: 'user',
@@ -217,6 +268,26 @@ const setUserRole = async (userId, companyId, roleId, actorId) => {
 
 const getUserPermissions = async (userId, companyId) => {
   if (!userId) return [];
+
+  // Check cache first (disabled in test environment so mock state changes are immediate)
+  const isTestEnv = process.env.NODE_ENV === 'test';
+  const cacheKey = `${userId}:${companyId || '__all__'}`;
+  if (!isTestEnv) {
+    const cached = _userPermissionCache.get(cacheKey);
+    if (cached && Date.now() < cached.expiresAt) {
+      return cached.permissions;
+    }
+  }
+
+  const cacheAndReturn = (perms) => {
+    if (!isTestEnv && Array.isArray(perms)) {
+      _userPermissionCache.set(cacheKey, {
+        permissions: perms,
+        expiresAt: Date.now() + PERMISSION_CACHE_TTL_MS,
+      });
+    }
+    return perms;
+  };
   const prisma = getSharedPrismaClient();
 
   // If no companyId is provided (e.g. platform SUPER_ADMIN), resolve platform permissions safely
@@ -228,7 +299,7 @@ const getUserPermissions = async (userId, companyId) => {
       });
       if (user?.role === 'SUPER_ADMIN') {
         const allPermissions = await prisma.permission.findMany({ select: { key: true } });
-        return allPermissions.map(p => p.key);
+        return cacheAndReturn(allPermissions.map(p => p.key));
       }
     } catch {}
     return [];
@@ -241,7 +312,7 @@ const getUserPermissions = async (userId, companyId) => {
       select: { role: true, companyId: true },
     });
     if (userRoleRecord?.role === 'SHIPPING_CLIENT') {
-      return ['client-portal.view', 'shipping-client.access'];
+      return cacheAndReturn(['client-portal.view', 'shipping-client.access']);
     }
   } catch {}
 
@@ -266,7 +337,7 @@ const getUserPermissions = async (userId, companyId) => {
       });
       if (user && user.companyId === companyId) {
         if (user.role === 'SHIPPING_CLIENT') {
-          return ['client-portal.view', 'shipping-client.access'];
+          return cacheAndReturn(['client-portal.view', 'shipping-client.access']);
         }
         const roleKey = user.role === 'OWNER' ? 'OWNER' : (user.role || 'AGENT');
         const dbRole = await prisma.role.findFirst({
@@ -295,7 +366,7 @@ const getUserPermissions = async (userId, companyId) => {
         }).catch(() => null);
 
         if (dbRole?.permissions?.length) {
-          return dbRole.permissions.map(rp => rp.permission.key);
+          return cacheAndReturn(dbRole.permissions.map(rp => rp.permission.key));
         }
       }
     } catch (e) {
@@ -306,7 +377,7 @@ const getUserPermissions = async (userId, companyId) => {
 
   if (userCompany.roleRef) {
     const perms = userCompany.roleRef.permissions.map(rp => rp.permission.key);
-    if (perms.length > 0) return perms;
+    if (perms.length > 0) return cacheAndReturn(perms);
     // ponytail: roleRef exists but is empty (auto-created without permissions).
     // Fall through to lazy fix below so we attempt to resolve from role enum.
   }
@@ -352,7 +423,7 @@ const getUserPermissions = async (userId, companyId) => {
           where: { userId_companyId: { userId, companyId } },
           data: { roleId: resolvedRole.id },
         });
-        return resolvedRole.permissions.map(rp => rp.permission.key);
+        return cacheAndReturn(resolvedRole.permissions.map(rp => rp.permission.key));
       }
     } catch (e) {
       console.warn('[PERMISSIONS] Auto-fix roleId failed:', e.message);
@@ -363,7 +434,13 @@ const getUserPermissions = async (userId, companyId) => {
 };
 
 const hasPermission = (permissions, permissionKey) => {
-  return permissions.includes(permissionKey);
+  if (!Array.isArray(permissions)) return false;
+  if (Array.isArray(permissionKey)) {
+    return permissionKey.some(k => hasPermission(permissions, k));
+  }
+  if (permissions.includes(permissionKey)) return true;
+  const aliases = PERMISSION_ALIASES[permissionKey] || [];
+  return aliases.some(alias => permissions.includes(alias));
 };
 
 module.exports = {
@@ -376,4 +453,6 @@ module.exports = {
   setUserRole,
   getUserPermissions,
   hasPermission,
+  clearUserPermissionCache,
+  PERMISSION_ALIASES,
 };

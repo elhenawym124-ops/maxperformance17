@@ -361,10 +361,23 @@ const normalizeRole = (role) => {
 };
 
 /**
- * Check if a role has a specific permission
+ * Check if a role or user has a specific permission
  */
-const hasPermission = (role, permission) => {
-  const normalizedRole = normalizeRole(role);
+const hasPermission = (roleOrUser, permission) => {
+  // If given a user object with permissions array:
+  if (roleOrUser && typeof roleOrUser === 'object') {
+    const userPerms = roleOrUser.userPermissions || roleOrUser.permissions;
+    if (Array.isArray(userPerms)) {
+      return permissionService.hasPermission(userPerms, permission);
+    }
+    roleOrUser = roleOrUser.role;
+  }
+
+  if (!roleOrUser) return false;
+  const rawRole = typeof roleOrUser === 'string' ? roleOrUser.trim().toUpperCase() : roleOrUser;
+  if (rawRole === 'SUPER_ADMIN' || rawRole === 'OWNER') return true;
+
+  const normalizedRole = normalizeRole(roleOrUser);
   const allowedRoles = PERMISSIONS[permission];
   if (!allowedRoles) return false;
   return allowedRoles.includes(normalizedRole);
@@ -386,14 +399,14 @@ const requirePermission = (permission) => {
     if (userRole === 'SUPER_ADMIN') return next();
 
     // AI_SERVICE: shared service-token identity (no DB user record).
-    if (userRole === 'AI_SERVICE') return next();
+    if (userRole === 'AI_SERVICE' || req.user.service === true) return next();
 
     // Company OWNER has unrestricted access
     if (userRole === 'OWNER') return next();
 
-    // DB-based permissions only (loaded by authenticateToken / requireCompanyAccess)
+    // DB-based permissions with canonical alias matching
     const permissions = req.user.userPermissions;
-    if (!permissions || !Array.isArray(permissions) || !permissions.includes(permission)) {
+    if (!permissions || !Array.isArray(permissions) || !permissionService.hasPermission(permissions, permission)) {
       return res.status(403).json({
         error: 'Insufficient permissions',
         code: 'INSUFFICIENT_PERMISSIONS',
@@ -408,9 +421,9 @@ const requirePermission = (permission) => {
 
 /**
  * Middleware — requires a permission using DB-based roles
- * Loads user permissions from DB on each request (no cache)
+ * Loads user permissions with caching & preloaded session support
  */
-const requireDbPermission = (permissionKey) => {
+const requireDbPermission = (permissionKeyOrKeys) => {
   const middleware = async (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({ error: 'Authentication required' });
@@ -419,7 +432,6 @@ const requireDbPermission = (permissionKey) => {
     if (req.user.role === 'SUPER_ADMIN') return next();
 
     // AI_SERVICE: shared service-token identity (no DB user record).
-    // Trust the service token; the secret itself is the gate.
     if (req.user.role === 'AI_SERVICE' || req.user.service === true) return next();
 
     // Company OWNER has unrestricted access to company resources
@@ -431,12 +443,18 @@ const requireDbPermission = (permissionKey) => {
     }
 
     try {
-      const permissions = await permissionService.getUserPermissions(req.user.id, companyId);
-      if (!permissions.includes(permissionKey)) {
+      // Fast-path: check req.user.userPermissions if already loaded
+      let permissions = req.user.userPermissions;
+      if (!permissions || !Array.isArray(permissions)) {
+        permissions = await permissionService.getUserPermissions(req.user.id, companyId);
+        req.user.userPermissions = permissions;
+      }
+
+      if (!permissionService.hasPermission(permissions, permissionKeyOrKeys)) {
         return res.status(403).json({
           error: 'Insufficient permissions',
           code: 'INSUFFICIENT_PERMISSIONS',
-          requiredPermission: permissionKey,
+          requiredPermission: permissionKeyOrKeys,
         });
       }
       next();
@@ -447,9 +465,11 @@ const requireDbPermission = (permissionKey) => {
   };
   // Capability-manifest metadata: recovered by /api/v1/internal/capabilities
   // via route-stack reflection (see routes/internalCapabilitiesRoutes.js).
-  middleware._maxpMeta = { permissionKey };
+  middleware._maxpMeta = { permissionKey: permissionKeyOrKeys };
   return middleware;
 };
+
+const requireAnyDbPermission = requireDbPermission;
 
 /**
  * Middleware factory — requires a minimum role level
@@ -568,6 +588,7 @@ const requireOfficeDevice = (req, res, next) => {
 module.exports = {
   requirePermission,
   requireDbPermission,
+  requireAnyDbPermission,
   requireMinRole,
   requireOfficeDevice,
   hasPermission,

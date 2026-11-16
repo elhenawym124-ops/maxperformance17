@@ -6,94 +6,23 @@ const {
   executeWithRetry,
 } = require('../services/sharedDatabase');
 const { getJwtSecret, isMissingAuthSecretError } = require('./jwtSecret');
+const permissionService = require('../services/permissionService');
+
 /**
  * Load user permissions from the new Role-based permission system
- * Falls back gracefully if the Permission table doesn't exist yet
+ * Uses permissionService with built-in caching and auto-healing
  */
 const loadUserPermissions = async (userId, companyId) => {
   if (!userId || !companyId) return [];
   try {
-    const prisma = await getSharedPrismaClientAsync();
-    const userCompany = await prisma.userCompany.findUnique({
-      where: { userId_companyId: { userId, companyId } },
-      select: {
-        role: true,
-        roleId: true,
-        roleRef: {
-          include: {
-            permissions: {
-              include: { permission: true },
-            },
-          },
-        },
-      },
-    });
-    if (userCompany?.roleRef?.permissions) {
-      return userCompany.roleRef.permissions.map(rp => rp.permission.key);
-    }
-    // ponytail: auto-fix missing roleId — lazy resolution
-    if (userCompany?.roleId || userCompany?.role) {
-      let resolvedRole = null;
-
-      // Priority 1: try by roleId (handles custom + built-in)
-      if (userCompany.roleId) {
-        resolvedRole = await prisma.role.findUnique({
-          where: { id: userCompany.roleId },
-          include: { permissions: { include: { permission: true } } },
-        });
-      }
-
-      // Priority 2: try built-in role by legacy enum
-      if (!resolvedRole && userCompany.role) {
-        resolvedRole = await prisma.role.findFirst({
-          where: {
-            key: userCompany.role,
-            isBuiltIn: true,
-            OR: [
-              { companyId: '__system__' },
-              { companyId: null },
-            ],
-          },
-          include: { permissions: { include: { permission: true } } },
-        });
-      }
-
-      // Priority 3: try custom role by key + companyId
-      if (!resolvedRole && userCompany.role) {
-        resolvedRole = await prisma.role.findFirst({
-          where: { key: userCompany.role, companyId, isBuiltIn: false },
-          include: { permissions: { include: { permission: true } } },
-        });
-      }
-
-      if (resolvedRole) {
-        await prisma.userCompany.update({
-          where: { userId_companyId: { userId, companyId } },
-          data: { roleId: resolvedRole.id },
-        });
-        // Re-fetch with roleRef now populated
-        const refixed = await prisma.userCompany.findUnique({
-          where: { userId_companyId: { userId, companyId } },
-          select: {
-            roleRef: {
-              include: {
-                permissions: { include: { permission: true } },
-              },
-            },
-          },
-        });
-        if (refixed?.roleRef?.permissions) {
-          return refixed.roleRef.permissions.map(rp => rp.permission.key);
-        }
-      }
-    }
+    return await permissionService.getUserPermissions(userId, companyId);
   } catch (e) {
     // Table might not exist yet (pre-migration)
     if (process.env.NODE_ENV === 'development') {
       console.debug('[PERMISSIONS] Permission table not available, skipping:', e.message?.substring(0, 100));
     }
+    return [];
   }
-  return [];
 };
 
 const isDatabaseAvailabilityError = (error) => {
@@ -815,8 +744,8 @@ const requireCompanyAccess = async (req, res, next) => {
   }
 };
 
-// Role-based access control
-const requireRole = (allowedRoles) => {
+// Role-based access control with custom role permission fallback
+const requireRole = (allowedRoles, fallbackPermission) => {
   return (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({
@@ -830,15 +759,28 @@ const requireRole = (allowedRoles) => {
       return next();
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
-      return res.status(403).json({
-        success: false,
-        message: 'ليس لديك صلاحية لهذا الإجراء'
-      });
+    // 1. Direct role match
+    if (Array.isArray(allowedRoles) && allowedRoles.includes(req.user.role)) {
+      return next();
     }
-    next();
+
+    // 2. Custom role permission fallback (allows custom roles with explicit permissions to pass)
+    if (fallbackPermission) {
+      const userPerms = req.user.userPermissions || [];
+      if (permissionService.hasPermission(userPerms, fallbackPermission)) {
+        return next();
+      }
+    }
+
+    return res.status(403).json({
+      success: false,
+      message: 'ليس لديك صلاحية لهذا الإجراء',
+      code: 'INSUFFICIENT_PERMISSIONS'
+    });
   };
 };
+
+const requireRoleOrPermission = requireRole;
 
 // Super Admin access control middleware
 const requireSuperAdmin = (req, res, next) => {
@@ -907,6 +849,7 @@ authenticateToken.authenticateToken = authenticateToken;
 authenticateToken.verifyToken = authenticateToken;
 authenticateToken.requireSuperAdmin = requireSuperAdmin;
 authenticateToken.requireRole = requireRole;
+authenticateToken.requireRoleOrPermission = requireRoleOrPermission;
 authenticateToken.requireCompanyAccess = requireCompanyAccess;
 authenticateToken.optionalAuth = optionalAuth;
 authenticateToken.requireOfficeDevice = requireOfficeDevice;

@@ -26,18 +26,18 @@ router.get('/whatsapp-notify/preview-audience', verifyToken.authenticateToken, r
 router.get('/whatsapp-notify/preview-birthday-audience', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.previewBirthdayAudience);
 
 // Smart bulk send (filter-based - NEW)
-router.post('/whatsapp-notify/smart-send', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.sendSmartBulkNotification);
-router.post('/whatsapp-notify/smart-send-birthday', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.sendBirthdayBulkNotification);
+router.post('/whatsapp-notify/smart-send', verifyToken.authenticateToken, requireDbPermission(['whatsapp.broadcast', 'marketing.broadcast', 'customers.edit']), customerWhatsAppController.sendSmartBulkNotification);
+router.post('/whatsapp-notify/smart-send-birthday', verifyToken.authenticateToken, requireDbPermission(['whatsapp.broadcast', 'marketing.broadcast', 'customers.edit']), customerWhatsAppController.sendBirthdayBulkNotification);
 
 // 🎂 Birthday Automation & Tracking Endpoints
-router.get('/whatsapp-notify/birthday-analytics', verifyToken.authenticateToken, customerWhatsAppController.getBirthdayAnalyticsReports);
-router.get('/whatsapp-notify/birthday-automation/settings', verifyToken.authenticateToken, customerWhatsAppController.getBirthdayAutomationSettings);
-router.post('/whatsapp-notify/birthday-automation/settings', verifyToken.authenticateToken, customerWhatsAppController.saveBirthdayAutomationSettings);
-router.get('/whatsapp-notify/birthday-automation/today', verifyToken.authenticateToken, customerWhatsAppController.getTodayBirthdayTrack);
-router.get('/whatsapp-notify/birthday-automation/upcoming', verifyToken.authenticateToken, customerWhatsAppController.getUpcomingBirthdaysTrack);
-router.get('/whatsapp-notify/birthday-automation/missing', verifyToken.authenticateToken, customerWhatsAppController.getMissingBirthdaysTrack);
+router.get('/whatsapp-notify/birthday-analytics', verifyToken.authenticateToken, requireDbPermission(['reports.view', 'customers.view']), customerWhatsAppController.getBirthdayAnalyticsReports);
+router.get('/whatsapp-notify/birthday-automation/settings', verifyToken.authenticateToken, requireDbPermission(['settings.view', 'customers.view']), customerWhatsAppController.getBirthdayAutomationSettings);
+router.post('/whatsapp-notify/birthday-automation/settings', verifyToken.authenticateToken, requireDbPermission(['settings.manage', 'customers.edit']), customerWhatsAppController.saveBirthdayAutomationSettings);
+router.get('/whatsapp-notify/birthday-automation/today', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.getTodayBirthdayTrack);
+router.get('/whatsapp-notify/birthday-automation/upcoming', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.getUpcomingBirthdaysTrack);
+router.get('/whatsapp-notify/birthday-automation/missing', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.getMissingBirthdaysTrack);
 // (محذوف: stub مكرر كان بيرجع occasions:[] دايمًا ويمنع الوصول للـ controller الحقيقي)
-router.post('/whatsapp-notify/birthday-automation/send-test', verifyToken.authenticateToken, customerWhatsAppController.sendTestBirthdayMessage);
+router.post('/whatsapp-notify/birthday-automation/send-test', verifyToken.authenticateToken, requireDbPermission(['whatsapp.broadcast', 'marketing.broadcast', 'customers.edit']), customerWhatsAppController.sendTestBirthdayMessage);
 
 
 
@@ -76,7 +76,7 @@ router.get('/search', verifyToken.authenticateToken, requireDbPermission('custom
 
 // 🔍 بحث سريع بالرقم (لصفحات الطلب اليدوي والطلب السريع) — لازم قبل /:customerId
 router.get('/by-phone/:phone', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerController.getCustomerLookupByPhone);
-router.get('/export', verifyToken.authenticateToken, requireDbPermission('customers.view'), checkAppAccess('crm-basic'), customerController.exportCustomers); // ✅ تصدير CSV/JSON
+router.get('/export', verifyToken.authenticateToken, requireDbPermission('customers.export'), checkAppAccess('crm-basic'), customerController.exportCustomers); // ✅ تصدير CSV/JSON
 
 router.post('/import', verifyToken.authenticateToken, requireDbPermission('customers.create'), checkAppAccess('crm-basic'), customerController.importCustomersFromCSV); // 📥 Import customers
 

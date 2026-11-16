@@ -22,28 +22,28 @@ const validateCompanyId = (req, res, next) => {
 
 // Apply caching to frequently accessed company routes
 router.get('/current', verifyToken.authenticateToken, cacheMiddleware(120000), companiesController.getCurrentCompany); // 2 minutes cache
-router.put('/current/date-format', verifyToken.authenticateToken, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.updateCompanyDateFormat);
+router.put('/current/date-format', verifyToken.authenticateToken, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'settings.manage'), companiesController.updateCompanyDateFormat);
 router.get('/1', companiesController.REMOVEDDangerousFallbackEndpoint);
 router.get('/:id/usage', validateCompanyId, cacheMiddleware(60000), companiesController.companyUsageEndpoint); // 1 minute cache
 router.get('/1/usage-mock', companiesController.mockEndpoint);
 router.get('/usage-safe', cacheMiddleware(60000), companiesController.safeUsageEndpoint); // 1 minute cache
 router.get('/:id/info', validateCompanyId, verifyToken.authenticateToken, cacheMiddleware(120000), companiesController.getCompanyInfoEndpoint); // 2 minutes cache
-router.put('/:companyId/currency', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.updateCompanyCurrency);
+router.put('/:companyId/currency', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'settings.manage'), companiesController.updateCompanyCurrency);
 ////////////////////////////////////////////////////////////
 router.get('/', verifyToken.authenticateToken, verifyToken.requireSuperAdmin, companiesController.getAllCompanies);
 router.get('/:id', validateCompanyId, verifyToken.authenticateToken, companiesController.getCompanyDetails);
 // ✅ RESTRICTED: Only SUPER_ADMIN can create companies directly
 // Regular users get one company created during registration
 router.post('/', verifyToken.authenticateToken, verifyToken.requireSuperAdmin, companiesController.createNewCompany);
-router.put('/:companyId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.updateCompany);
+router.put('/:companyId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'settings.manage'), companiesController.updateCompany);
 router.delete('/:id', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireSuperAdmin, companiesController.deleteCompany);
 // ==================== COMPANY USERS MANAGEMENT ====================
-router.get('/:companyId/users', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, companiesController.getCompanyUsers);
-router.get('/:companyId/users/statistics', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, companiesController.getUsersStatistics);
-router.get('/:companyId/users/:userId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, companiesController.getSingleUser);
-router.post('/:companyId/users', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.createnewUserForCompany);
-router.put('/:companyId/users/:userId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.updateUser);
-router.delete('/:companyId/users/:userId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.deleteUser);
+router.get('/:companyId/users', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['OWNER', 'COMPANY_ADMIN', 'MANAGER'], ['users.view', 'orders.assign', 'customers.edit']), companiesController.getCompanyUsers);
+router.get('/:companyId/users/statistics', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['OWNER', 'COMPANY_ADMIN', 'MANAGER'], 'users.view'), companiesController.getUsersStatistics);
+router.get('/:companyId/users/:userId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['OWNER', 'COMPANY_ADMIN', 'MANAGER'], 'users.view'), companiesController.getSingleUser);
+router.post('/:companyId/users', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'users.manage'), companiesController.createnewUserForCompany);
+router.put('/:companyId/users/:userId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'users.manage'), companiesController.updateUser);
+router.delete('/:companyId/users/:userId', validateCompanyId, verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], 'users.manage'), companiesController.deleteUser);
 
 // ==================== USER PROFILE ====================
 router.put('/profile/me', verifyToken.authenticateToken, companiesController.updateMyProfile);
@@ -58,11 +58,11 @@ router.post('/:companyId/transfer-ownership', verifyToken.authenticateToken, ver
 
 // ==================== USER INVITATIONS ROUTES ====================
 router.get('/:companyId/invitations', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, companiesController.getCompanyInvitations);
-router.post('/:companyId/invitations', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.sendUserInvitation);
+router.post('/:companyId/invitations', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], ['users.invite', 'users.manage']), companiesController.sendUserInvitation);
 
 router.delete('/:companyId/invitations/:invitationId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, companiesController.cancelInvitation);
 
-router.post('/:companyId/invitations/:invitationId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER']), companiesController.resendInvitation);
+router.post('/:companyId/invitations/:invitationId', verifyToken.authenticateToken, verifyToken.requireCompanyAccess, verifyToken.requireRole(['COMPANY_ADMIN', 'OWNER'], ['users.invite', 'users.manage']), companiesController.resendInvitation);
 
 
 router.get('/frontend-safe/:id/usage', companiesController.FrontendSpecificSafeEndpoint);
