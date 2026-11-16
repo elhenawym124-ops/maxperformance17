@@ -5,20 +5,20 @@
   "direction": "rtl",
   "tokens": {
     "colors": {
-      "primary": "0 0% 13%",
+      "primary": "0 0% 13.33%",
       "primaryForeground": "0 0% 100%",
-      "secondary": "0 0% 96%",
-      "secondaryForeground": "0 0% 13%",
-      "accent": "0 0% 90%",
-      "accentForeground": "0 0% 13%",
+      "secondary": "0 0% 95.69%",
+      "secondaryForeground": "0 0% 13.33%",
+      "accent": "0 0% 89.8%",
+      "accentForeground": "0 0% 13.33%",
       "background": "0 0% 100%",
-      "foreground": "0 0% 13%",
-      "muted": "0 0% 96%",
-      "mutedForeground": "0 0% 47%",
-      "border": "0 0% 90%",
+      "foreground": "0 0% 13.33%",
+      "muted": "0 0% 95.69%",
+      "mutedForeground": "0 0% 46.67%",
+      "border": "0 0% 89.8%",
       "card": "0 0% 100%",
-      "cardForeground": "0 0% 13%",
-      "ring": "0 0% 13%"
+      "cardForeground": "0 0% 13.33%",
+      "ring": "0 0% 13.33%"
     },
     "typography": {
       "headingFont": "\"IBM Plex Sans Arabic\", Jost, sans-serif",
