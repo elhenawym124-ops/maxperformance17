@@ -15,6 +15,7 @@ import { isCapacitorNative } from "./config/environment";
 import { telephonyClientService } from "./services/telephonyService";
 import { recoverFromChunkLoadError } from "./utils/chunkLoadRecovery";
 import RouteSeoManager from "./components/seo/RouteSeoManager";
+import { applyNativeSafeArea } from "./utils/nativeSafeArea";
 // fallback for old deployed bundles that reference undefined getStatusText
 // (injected as inline script in index.html instead to avoid tree-shaking)
 
@@ -2190,6 +2191,10 @@ const AppContent = () => {
   useEffect(() => {
     let removeBackListener: (() => void) | undefined;
     const win = window as any;
+
+    if (typeof win !== "undefined" && win.Capacitor?.isNativePlatform?.()) {
+      void applyNativeSafeArea();
+    }
 
     if (typeof win !== "undefined" && win.Capacitor?.isNativePlatform?.() && win.Capacitor?.Plugins?.App) {
       try {

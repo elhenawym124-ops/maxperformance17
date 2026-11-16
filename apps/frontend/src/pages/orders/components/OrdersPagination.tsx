@@ -43,7 +43,7 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
 
   if (variant === "mobile") {
     return (
-      <div className="mt-2.5 mb-24 rounded-xl border border-border/70 bg-card/95 p-2 shadow-xs backdrop-blur-md lg:hidden relative z-20">
+      <div className="mt-2.5 mb-4 rounded-xl border border-border/70 bg-card/95 p-2 shadow-xs backdrop-blur-md lg:hidden relative z-20">
         {isJumping ? (
           <form onSubmit={handleJumpSubmit} className="flex items-center justify-between gap-2">
             <button

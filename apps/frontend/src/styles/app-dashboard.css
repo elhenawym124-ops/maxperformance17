@@ -67,7 +67,7 @@
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
-  padding-top: calc(0.5rem + env(safe-area-inset-top, 0px));
+  padding-top: calc(0.5rem + max(env(safe-area-inset-top, 0px), var(--app-safe-top, 0px)));
   padding-bottom: 0.5rem;
   padding-inline: 0.75rem;
   border-bottom: 1px solid var(--color-border);
@@ -306,7 +306,7 @@
 /* Reserve space for the fixed bottom nav on mobile so content doesn't hide under it. */
 @media (max-width: 1023px) {
   .app-shell-content {
-    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(4rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
   }
 
   .app-shell-root--no-bottom-nav .app-shell-content,
@@ -326,7 +326,7 @@
   .app-shell-root:has(.agent-studio-root) .app-shell-content,
   .app-shell-root:has(.orders-page-root) .app-shell-content,
   .app-shell-root:has([data-orders-page]) .app-shell-content {
-    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)) !important;
   }
 }
 
@@ -415,6 +415,12 @@
   overflow: hidden !important;
 }
 
+@media (max-width: 1023px) {
+  .orders-page-root {
+    padding-bottom: calc(4rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
+  }
+}
+
 /* The WhatsApp inbox is a full-height list+conversation workspace. The bottom
    nav is now visible on the conversations LIST (see helpers.isChatRoute), so
    reserve space for it on mobile — but only while no conversation is open.
@@ -425,7 +431,7 @@
       > .motion-safe\:animate-fade-in
         > .whatsapp-workspace-root:not([data-chat-active="true"])
     ) {
-    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(4rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px))) !important;
   }
 }
 
@@ -472,8 +478,8 @@
 }
 
 #app-shell-mobile-drawer .app-shell-sidebar {
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-top: max(env(safe-area-inset-top, 0px), var(--app-safe-top, 0px));
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px));
 }
 
 .app-card-enter {
@@ -510,7 +516,7 @@ body.app-shell-mobile-open {
   z-index: 40;
   background: var(--color-background, #ffffff);
   border-top: 1px solid var(--color-border, #e5e7eb);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px));
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
@@ -631,7 +637,7 @@ body.app-shell-mobile-open {
 
 @supports (padding: max(0px)) {
   .admin-bottom-nav {
-    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+    padding-bottom: max(0.5rem, max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
   }
 }
 

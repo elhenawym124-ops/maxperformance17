@@ -1292,7 +1292,7 @@ select {
     padding: 10px;
     display: flex;
     gap: 10px;
-    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px));
     /* Support for devices with notch */
     width: 100%;
   }
@@ -3911,7 +3911,7 @@ select {
     align-items: center;
     justify-content: space-between;
     gap: clamp(0.35rem, 1.8vw, 0.65rem);
-    padding-top: calc(0.45rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(0.45rem + max(env(safe-area-inset-top, 0px), var(--app-safe-top, 0px)));
     padding-bottom: 0.45rem;
     padding-inline: clamp(0.45rem, 2vw, 0.75rem);
   }
@@ -4562,7 +4562,7 @@ select {
 @media (max-width: 1023px) {
   /* الحفاظ على مساحة شريط التنقل السفلي على الموبايل تحت الكابينة المثبتة */
   .app-shell-content:has(.workspace-cockpit) {
-    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(4rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
   }
 }
 
@@ -5642,7 +5642,7 @@ select {
     box-shadow: 0 -10px 24px -18px rgba(7, 17, 32, 0.24);
     flex-shrink: 0 !important;
     margin-top: auto !important;
-    padding-bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(0.35rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px))) !important;
   }
 
   [data-theme="business-os-enterprise"] .business-inbox-tab {
@@ -5816,7 +5816,7 @@ select {
     .business-chat-composer--facebook
     .business-chat-composer-form {
     gap: 0.375rem;
-    padding: 0.45rem 0.5rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.45rem 0.5rem calc(0.45rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
     align-items: flex-end;
   }
 
@@ -5848,7 +5848,7 @@ select {
     .business-chat-composer--facebook
     .business-chat-composer-form {
     gap: 0.375rem;
-    padding: 0.45rem 0.5rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.45rem 0.5rem calc(0.45rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
     align-items: flex-end;
   }
 
