@@ -254,7 +254,7 @@ const ClassicSidebar: React.FC<ClassicSidebarProps> = ({
                                 {item.label}
                               </NavLink>
                               {item.children ? (
-                                <div className="ms-8 mt-1.5 space-y-0.5 pl-3 border-s border-gray-200/60 dark:border-gray-700/40 bg-gray-50/50 dark:bg-gray-800/30 rounded-r-lg">
+                                <div className="ms-8 mt-1.5 space-y-0.5 ps-3 border-s border-border/60 bg-muted/30 rounded-e-lg">
                                   {item.children
                                     .filter((c) => !c.hidden)
                                     .map((child) => (
@@ -476,7 +476,7 @@ const ClassicSidebar: React.FC<ClassicSidebarProps> = ({
                             {item.label}
                           </NavLink>
                           {!isCollapsed && item.children ? (
-                            <div className="ms-10 mt-1.5 space-y-0.5 pl-3 border-s border-gray-200/60 dark:border-gray-700/40 bg-gray-50/50 dark:bg-gray-800/30 rounded-r-lg">
+                            <div className="ms-10 mt-1.5 space-y-0.5 ps-3 border-s border-border/60 bg-muted/30 rounded-e-lg">
                               {item.children
                                 .filter((c) => !c.hidden)
                                 .map((child) => {

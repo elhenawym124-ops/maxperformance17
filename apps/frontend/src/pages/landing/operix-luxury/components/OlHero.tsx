@@ -19,14 +19,14 @@ export const OlHero: React.FC = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Top Eyebrow Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#013735]/15 shadow-sm text-xs font-semibold text-[#013735] mb-8">
-          <span className="w-2 h-2 rounded-full bg-[#22c790] animate-ping" />
+          <span className="w-2 h-2 rounded-full bg-[#22c790] shadow-[0_0_8px_rgba(34,199,144,0.6)]" />
           <span className="font-bold text-[#013735]">MaxP Business OS 3.0</span>
           <span className="text-[#013735]/30">•</span>
           <span className="text-[#025956]">نظام تشغيل التجارة لعلامتك التجارية</span>
         </div>
 
         {/* Dynamic 3D Flip Headline (Exact Operix Typography & Underline Mechanics) */}
-        <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold text-[#013735] tracking-tight leading-[1.3] sm:leading-[1.22] max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold text-[#013735] tracking-tight leading-[1.3] sm:leading-[1.22] max-w-5xl mx-auto">
           نظامك الشامل{" "}
           <span className="ol-flip-container inline-block text-[#013735]">
             {FLIP_WORDS.map((w, idx) => (
@@ -58,7 +58,7 @@ export const OlHero: React.FC = () => {
         {/* CTAs */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
-            to="/register"
+            to="/auth/register"
             className="ol-btn-hero text-base !py-3.5 !px-8 shadow-xl shadow-[#013735]/15"
           >
             <span>ابدأ تجربتك المجانية الآن</span>

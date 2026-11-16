@@ -81,7 +81,7 @@ const HorizontalNav: React.FC<HorizontalNavProps> = ({
               : icon}
           </span>
           <span className="business-horizontal-link-text">{children}</span>
-          <ExternalLink className="size-3 text-muted-foreground mr-auto" />
+          <ExternalLink className="size-3 text-muted-foreground ms-auto" />
           {badge ? (
             <span className="business-sidebar-badge font-mono tabular-nums">{badge}</span>
           ) : null}
@@ -115,7 +115,7 @@ const HorizontalNav: React.FC<HorizontalNavProps> = ({
     <nav className="app-header-theme business-horizontal-nav horizontal-nav" data-nav="horizontal" ref={navRef}>
       <div className="container mx-auto px-4">
         <div className="flex items-center h-16 overflow-x-auto no-scrollbar gap-2">
-          <div className="shrink-0 ml-4 flex items-center">
+          <div className="shrink-0 me-4 flex items-center">
             <div className="business-brand-glyph business-brand-glyph--small font-mono font-bold">
               {user?.company?.name?.charAt(0) || "M"}
             </div>

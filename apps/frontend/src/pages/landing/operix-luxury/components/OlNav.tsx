@@ -60,7 +60,7 @@ export const OlNav: React.FC<OlNavProps> = ({
         {/* Action Buttons */}
         <div className="flex items-center gap-3">
           <Link
-            to="/login"
+            to="/auth/login"
             onMouseEnter={onPreloadAuth}
             className="px-4 py-2 rounded-xl text-sm font-bold text-[#013735] hover:text-[#025956] transition-colors"
           >

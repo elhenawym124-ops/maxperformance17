@@ -92,7 +92,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-full min-w-[11rem] items-center justify-between gap-2 rounded-[calc(var(--theme-radius)+6px)] border border-[color:var(--shell-control-border)] bg-[var(--shell-control-bg)] py-2 pr-3 pl-3.5 text-sm text-[color:var(--color-foreground)] whitespace-nowrap shadow-[var(--shell-control-shadow)] transition-[background,border-color,box-shadow,transform] outline-none select-none hover:border-[color:var(--shell-overlay-border)] hover:bg-[var(--shell-control-hover)] focus-visible:border-[color:var(--color-primary)] focus-visible:ring-4 focus-visible:ring-[color:var(--shell-focus-ring)] disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-4 aria-invalid:ring-destructive/20 data-placeholder:text-[color:var(--color-muted-foreground)] data-[size=default]:h-11 data-[size=sm]:h-9 data-[size=sm]:rounded-[calc(var(--theme-radius)+2px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "flex w-full min-w-[11rem] items-center justify-between gap-2 rounded-lg border border-[color:var(--shell-control-border)] bg-[var(--shell-control-bg)] py-2 pe-3 ps-3 text-sm text-[color:var(--color-foreground)] whitespace-nowrap shadow-[var(--shell-control-shadow)] transition-[background,border-color,box-shadow,transform] outline-none select-none hover:border-[color:var(--shell-overlay-border)] hover:bg-[var(--shell-control-hover)] focus-visible:border-[color:var(--color-primary)] focus-visible:ring-3 focus-visible:ring-[color:var(--shell-focus-ring)] disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-[color:var(--color-muted-foreground)] data-[size=default]:h-9 data-[size=sm]:h-8 data-[size=sm]:rounded-md *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -285,7 +285,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-[calc(var(--theme-radius)+2px)] border border-transparent py-2 pr-9 pl-3 text-sm outline-hidden select-none focus:border-[color:var(--shell-overlay-border)] focus:bg-[color:var(--shell-control-hover)] focus:text-[color:var(--shell-overlay-foreground)] not-data-[variant=destructive]:focus:**:text-[color:var(--shell-overlay-foreground)] data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "relative flex w-full cursor-default items-center gap-2 rounded-md border border-transparent py-1.5 pe-3 ps-8 text-sm outline-hidden select-none focus:border-[color:var(--shell-overlay-border)] focus:bg-[color:var(--shell-control-hover)] focus:text-[color:var(--shell-overlay-foreground)] not-data-[variant=destructive]:focus:**:text-[color:var(--shell-overlay-foreground)] data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
       {...props}
@@ -295,10 +295,10 @@ function SelectItem({
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
         render={
-          <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
+          <span className="pointer-events-none absolute start-2 flex size-4 items-center justify-center text-primary" />
         }
       >
-        <CheckIcon className="pointer-events-none" />
+        <CheckIcon className="pointer-events-none size-4" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );

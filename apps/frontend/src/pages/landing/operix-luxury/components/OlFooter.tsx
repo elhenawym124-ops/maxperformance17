@@ -30,7 +30,7 @@ export const OlFooter: React.FC = () => {
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
-                to="/register"
+                to="/auth/register"
                 className="ol-btn-mint px-9 py-4 rounded-xl text-base font-bold inline-flex items-center gap-2.5 shadow-lg"
               >
                 <span>ابدأ الآن مجاناً</span>
@@ -100,7 +100,7 @@ export const OlFooter: React.FC = () => {
             <ul className="space-y-2.5 text-zinc-400 text-sm">
               <li><a href="#pricing" className="hover:text-white transition-colors">الأسعار</a></li>
               <li><a href="#faq" className="hover:text-white transition-colors">الأسئلة الشائعة</a></li>
-              <li><Link to="/about" className="hover:text-white transition-colors">عن MaxP</Link></li>
+              <li><a href="#why-maxp" className="hover:text-white transition-colors">عن MaxP</a></li>
               <li><Link to="/privacy" className="hover:text-white transition-colors">الخصوصية والشروط</Link></li>
             </ul>
           </div>

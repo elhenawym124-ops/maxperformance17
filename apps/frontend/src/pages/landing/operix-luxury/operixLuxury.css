@@ -503,6 +503,101 @@
   transform: translateY(-2px);
 }
 
+.ol-btn-mint {
+  background: var(--op-mint);
+  color: var(--op-green-dark);
+  border: 1px solid rgba(0, 38, 36, 0.15);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ol-btn-mint:hover {
+  background: #5effc8;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -4px rgba(63, 255, 186, 0.45);
+}
+
+.ol-btn-mint:active {
+  transform: scale(0.98);
+}
+
+.ol-btn-primary {
+  background: var(--op-green);
+  color: #ffffff;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ol-btn-primary:hover {
+  background: var(--op-green-light);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -4px rgba(1, 55, 53, 0.3);
+}
+
+.ol-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.ol-btn-ghost {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--op-green);
+  border: 1px solid rgba(1, 55, 53, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ol-btn-ghost:hover {
+  background: #ffffff;
+  border-color: rgba(1, 55, 53, 0.25);
+  color: var(--op-green-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(1, 55, 53, 0.08);
+}
+
+.ol-btn-ghost:active {
+  transform: scale(0.98);
+}
+
+.ol-card {
+  background: var(--op-neutral-100);
+  border: 1px solid rgba(1, 55, 53, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(1, 55, 53, 0.04);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ol-card:hover {
+  box-shadow: 0 12px 32px rgba(1, 55, 53, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ol-marquee-track,
+  .ol-comet > span::before,
+  .ol-float-plate-tl,
+  .ol-float-plate-br,
+  .ol-flip-word.active,
+  .animate-ping,
+  .animate-pulse {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 .ol-marquee-track {
   display: flex;
   gap: 24px;

@@ -25,7 +25,7 @@ export const OperixLuxuryLanding: React.FC = () => {
   }, []);
 
   const preloadAuth = () => {
-    import("../../auth/Login").catch(() => {});
+    import("../../auth/ModernLogin").catch(() => {});
   };
 
   const preloadRegister = () => {
@@ -77,10 +77,13 @@ export const OperixLuxuryLanding: React.FC = () => {
         {/* 7. Real Merchant Stories & Verified Case Studies */}
         <OlTestimonials />
 
-        {/* 8. Comprehensive Merchant FAQ */}
+        {/* 8. Merchant Pricing Plans */}
+        <OlPricing />
+
+        {/* 9. Comprehensive Merchant FAQ */}
         <OlFaq />
 
-        {/* 9. Pre-Footer Action Banner & Footer */}
+        {/* 10. Pre-Footer Action Banner & Footer */}
         <OlFooter />
       </main>
 

@@ -204,6 +204,7 @@ const CustomerRegister: React.FC = () => {
               id="password"
               name="password"
               type="password"
+              autoComplete="new-password"
               value={password}
               onChange={(event) => {
                 setPassword(event.target.value);

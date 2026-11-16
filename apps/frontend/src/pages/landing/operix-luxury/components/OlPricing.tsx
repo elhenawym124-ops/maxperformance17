@@ -93,7 +93,7 @@ export const OlPricing: React.FC = () => {
             </div>
 
             <Link
-              to="/register"
+              to="/auth/register"
               className="mt-8 ol-btn-ghost w-full py-3 rounded-xl text-center font-bold text-xs"
             >
               ابدأ مجاناً 14 يوم
@@ -147,7 +147,7 @@ export const OlPricing: React.FC = () => {
             </div>
 
             <Link
-              to="/register"
+              to="/auth/register"
               className="mt-8 ol-btn-primary w-full py-3.5 rounded-xl text-center font-bold text-xs shadow-md"
             >
               ابدأ تجربتك الآن مجاناً

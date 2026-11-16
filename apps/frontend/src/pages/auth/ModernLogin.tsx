@@ -115,9 +115,9 @@ const ModernLogin: React.FC = () => {
         visualTitle="نحن نؤمّن بياناتك"
         visualDescription="تشفير عالي المستوى وأمان فائق لضمان سلامة بيانات شركتك في كل مرة تسجل فيها الدخول."
       >
-        <div className="elite-form-content" style={{ textAlign: 'center', padding: '3rem 0' }}>
-          <LoadingSpinner size="lg" color="indigo" />
-          <p style={{ marginTop: '1.5rem', color: '#64748b' }}>ثوانٍ قليلة ويتم توجيهك تلقائيًا.</p>
+        <div className="elite-form-content text-center py-12">
+          <LoadingSpinner size="lg" color="primary" />
+          <p className="mt-6 text-sm text-[color:var(--auth-text-muted)]">ثوانٍ قليلة ويتم توجيهك تلقائيًا.</p>
         </div>
       </AuthSurface>
     );
@@ -171,11 +171,11 @@ const ModernLogin: React.FC = () => {
         </div>
 
         <div className="elite-input-group">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-            <Link to="/auth/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--auth-accent-dark)', fontWeight: '600', textDecoration: 'none' }}>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="password" className="elite-label !mb-0">كلمة المرور</label>
+            <Link to="/auth/forgot-password" className="text-sm font-semibold text-[color:var(--auth-accent-text)] hover:underline">
               نسيت كلمة المرور؟
             </Link>
-            <label htmlFor="password" className="elite-label" style={{ marginBottom: 0 }}>كلمة المرور</label>
           </div>
           <div className="elite-input-wrapper">
             <input
@@ -201,17 +201,17 @@ const ModernLogin: React.FC = () => {
           </div>
         </div>
 
-        <div className="elite-form-link-row" style={{ justifyContent: 'flex-end', marginBottom: '1.5rem', border: 'none', padding: 0 }}>
-          <label htmlFor="remember-me" className="business-auth-checkbox" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', color: '#64748b' }}>
-            <span>تذكرني</span>
+        <div className="flex items-center justify-start mb-6">
+          <label htmlFor="remember-me" className="inline-flex items-center gap-2 cursor-pointer text-sm text-[color:var(--auth-text-muted)] select-none">
             <input
               id="remember-me"
               name="rememberMe"
               type="checkbox"
               checked={formData.rememberMe}
               onChange={handleChange}
-              style={{ width: '1rem', height: '1rem', borderRadius: '4px' }}
+              className="size-4 rounded border-border accent-[var(--auth-accent)] cursor-pointer"
             />
+            <span>تذكرني</span>
           </label>
         </div>
 

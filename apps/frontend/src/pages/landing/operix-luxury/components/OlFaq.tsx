@@ -51,10 +51,10 @@ export const OlFaq: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#013735]/6 text-[#013735] text-xs font-semibold mb-4">
-            <span>عندك أسئلة؟ عندنا الإجابات!</span>
+            <span>الأسئلة الأكثر شيوعاً</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#013735] tracking-tight leading-tight">
-            عندك أسئلة؟ عندنا الإجابات!
+            إجابات واضحة لكل ما يهمك قبل البدء
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#4e6362] font-normal">
             كل ما تحتاج معرفته عن MaxP — من الإعداد وحتى توسيع عمليات تجارتك.

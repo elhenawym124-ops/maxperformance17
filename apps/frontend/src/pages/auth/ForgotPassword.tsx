@@ -46,8 +46,8 @@ const ForgotPassword: React.FC = () => {
           <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
             <Mail size={40} />
           </div>
-          <h3 className="text-2xl font-bold text-slate-900 mb-2">تحقق من بريدك</h3>
-          <p className="text-slate-500 mb-8">لقد أرسلنا رابط الاستعادة إلى {email}. يرجى التحقق من صندوق الوارد والرسائل المهملة.</p>
+          <h3 className="text-2xl font-bold text-white mb-2">تحقق من بريدك</h3>
+          <p className="text-zinc-300 mb-8">لقد أرسلنا رابط الاستعادة إلى {email}. يرجى التحقق من صندوق الوارد والرسائل المهملة.</p>
           <Link to="/auth/login" className="elite-submit-button">العودة للدخول</Link>
         </div>
       ) : (
@@ -80,7 +80,7 @@ const ForgotPassword: React.FC = () => {
               ) : (
                 <>
                   <span>إرسال رابط الاستعادة</span>
-                  <ArrowRight size={18} />
+                  <ArrowRight size={18} className="rtl:rotate-180" />
                 </>
               )}
             </button>

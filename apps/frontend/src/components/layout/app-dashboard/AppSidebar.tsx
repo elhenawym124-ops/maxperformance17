@@ -128,7 +128,7 @@ const AppSidebarInner: React.FC<AppSidebarProps> = ({
     <aside
       aria-label={String(t('appDashboard.appNavigation', { appName }))}
       className={cn(
-        "app-shell-sidebar select-none border-l rtl:border-r rtl:border-l-0 border-border/60 bg-card text-foreground",
+        "app-shell-sidebar select-none border-e border-border/60 bg-card text-foreground",
         isCollapsed && "app-shell-sidebar--collapsed",
       )}
     >

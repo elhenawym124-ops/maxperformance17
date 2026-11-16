@@ -195,7 +195,12 @@
   outline-offset: 2px;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Modern Baseline + WebKit Fallback */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }

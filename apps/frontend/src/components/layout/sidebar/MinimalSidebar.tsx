@@ -336,7 +336,7 @@ const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
   }, []);
 
   return (
-    <div className="flex flex-col w-20 h-full bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800 py-4 shadow-xl z-30">
+    <div className="flex flex-col w-20 h-full bg-white dark:bg-gray-900 border-e border-gray-200 dark:border-gray-800 py-4 shadow-xl z-30">
       {/* Company Logo */}
       <Link to="/company-dashboard" className="flex items-center justify-center mb-6 no-underline" onMouseEnter={() => prefetch("/company-dashboard")}>
         <CompanyLogo
@@ -449,7 +449,7 @@ const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
                       className: `h-6 w-6 ${isActive ? "scale-110" : "group-hover:scale-110"} transition-transform`,
                     })}
                   {isActive && (
-                    <div className="absolute ltr:right-0 rtl:left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 rounded-l-full" />
+                    <div className="absolute end-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 rounded-s-full" />
                   )}
                 </button>
               </div>
@@ -482,7 +482,7 @@ const MinimalSidebar: React.FC<MinimalSidebarProps> = ({
                     {item.label}
                   </NavLink>
                   {item.children && (
-                    <div className="mr-8 mt-0.5 space-y-0.5 border-r border-gray-100 dark:border-gray-700/50 pr-1">
+                    <div className="ms-8 mt-0.5 space-y-0.5 border-s border-gray-100 dark:border-gray-700/50 ps-2">
                       {item.children.filter(c => !c.hidden).map((child) => {
                         const isChildActive = isSidebarPathActive(currentPath, child.to);
                         return (

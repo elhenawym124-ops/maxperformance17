@@ -1,3 +1,6 @@
+/**
+ * @deprecated Use Radix-based `@/components/ui/tabs` instead for consistent enterprise design tokens and accessibility.
+ */
 import React from "react";
 import { cn } from "@/lib/utils";
 
