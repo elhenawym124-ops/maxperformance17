@@ -3,24 +3,25 @@ const router = express.Router();
 const controller = require('../controller/educationGroupsController');
 const verifyToken = require('../utils/verifyToken');
 const requireEducationAppInstalled = require('../middleware/requireEducationAppInstalled');
+const { requireDbPermission } = require('../middleware/rbacMiddleware');
 
 router.use(verifyToken.authenticateToken, requireEducationAppInstalled);
 
-router.get('/', verifyToken.authenticateToken, controller.getAll);
-router.get('/:id', verifyToken.authenticateToken, controller.getById);
-router.post('/', verifyToken.authenticateToken, controller.create);
-router.put('/:id', verifyToken.authenticateToken, controller.update);
-router.delete('/:id', verifyToken.authenticateToken, controller.remove);
+router.get('/', requireDbPermission(['education.view', 'education.groups.view']), controller.getAll);
+router.get('/:id', requireDbPermission(['education.view', 'education.groups.view']), controller.getById);
+router.post('/', requireDbPermission('education.groups.manage'), controller.create);
+router.put('/:id', requireDbPermission('education.groups.manage'), controller.update);
+router.delete('/:id', requireDbPermission('education.groups.manage'), controller.remove);
 
 // Members
-router.post('/:id/members', verifyToken.authenticateToken, controller.addMember);
-router.delete('/:id/members/:studentId', verifyToken.authenticateToken, controller.removeMember);
-router.post('/:id/transfer-member', verifyToken.authenticateToken, controller.transferMember);
+router.post('/:id/members', requireDbPermission('education.groups.manage'), controller.addMember);
+router.delete('/:id/members/:studentId', requireDbPermission('education.groups.manage'), controller.removeMember);
+router.post('/:id/transfer-member', requireDbPermission('education.groups.manage'), controller.transferMember);
 
 // Sessions & Bulk Attendance
-router.post('/:id/sessions', verifyToken.authenticateToken, controller.recordSession);
+router.post('/:id/sessions', requireDbPermission('education.sessions.manage'), controller.recordSession);
 
 // Financials & Teacher Settlement
-router.get('/:id/financials', verifyToken.authenticateToken, controller.getFinancials);
+router.get('/:id/financials', requireDbPermission('education.financials.view'), controller.getFinancials);
 
 module.exports = router;

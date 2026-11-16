@@ -172,6 +172,7 @@ export const APP_REGISTRY: AppDefinition[] = [
     bgGradient: 'from-pink-500 to-pink-600',
     sectionIds: ['products'],
     category: 'sales',
+    requiredApps: STORE_DEPENDENT_APPS,
     route: '/products',
   },
   {

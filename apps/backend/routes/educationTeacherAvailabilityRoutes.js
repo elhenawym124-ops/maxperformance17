@@ -3,10 +3,11 @@ const router = express.Router();
 const controller = require('../controller/educationTeacherAvailabilityController');
 const verifyToken = require('../utils/verifyToken');
 const requireEducationAppInstalled = require('../middleware/requireEducationAppInstalled');
+const { requireDbPermission } = require('../middleware/rbacMiddleware');
 
 router.use(verifyToken.authenticateToken, requireEducationAppInstalled);
 
-router.get('/', verifyToken.authenticateToken, controller.getAll);
-router.put('/', verifyToken.authenticateToken, controller.save);
+router.get('/', requireDbPermission(['education.view', 'education.teachers.manage']), controller.getAll);
+router.put('/', requireDbPermission('education.teachers.manage'), controller.save);
 
 module.exports = router;

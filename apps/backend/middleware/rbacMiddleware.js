@@ -325,6 +325,21 @@ const PERMISSIONS = {
   'products.cost.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
   'orders.profit.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
   'analytics.financial.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+
+  // Education System
+  'education.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER', 'MODERATOR'],
+  'education.students.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER', 'MODERATOR'],
+  'education.students.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+  'education.groups.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER', 'MODERATOR'],
+  'education.groups.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+  'education.sessions.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER', 'MODERATOR'],
+  'education.packages.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+  'education.financials.view': ['SUPER_ADMIN', 'COMPANY_ADMIN'],
+  'education.financials.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN'],
+  'education.teachers.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+  'education.demoday.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+  'education.reports.view': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
+  'education.settings.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN'],
 };
 
 const {

@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyToken = require('../utils/verifyToken');
 const controller = require('../controller/educationNotificationController');
 const requireEducationAppInstalled = require('../middleware/requireEducationAppInstalled');
+const { requireDbPermission } = require('../middleware/rbacMiddleware');
 
 router.use(verifyToken.authenticateToken, requireEducationAppInstalled);
 
@@ -16,14 +17,14 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/funnel', controller.getFunnel);
-router.get('/logs', controller.getLogs);
-router.post('/test', controller.sendTest);
-router.get('/schedule', controller.getSchedule);
-router.put('/schedule', controller.updateSchedule);
-router.get('/flows', controller.getFlows);
-router.put('/flows', controller.saveFlows);
-router.put('/flows/:id', controller.updateFlow);
-router.patch('/flows/:id/toggle', controller.toggleFlow);
+router.get('/funnel', requireDbPermission(['education.view', 'education.reports.view']), controller.getFunnel);
+router.get('/logs', requireDbPermission(['education.view', 'education.reports.view']), controller.getLogs);
+router.post('/test', requireDbPermission(['education.settings.manage', 'settings.manage']), controller.sendTest);
+router.get('/schedule', requireDbPermission(['education.view', 'education.settings.manage', 'settings.manage']), controller.getSchedule);
+router.put('/schedule', requireDbPermission(['education.settings.manage', 'settings.manage']), controller.updateSchedule);
+router.get('/flows', requireDbPermission(['education.view', 'education.settings.manage', 'settings.manage']), controller.getFlows);
+router.put('/flows', requireDbPermission(['education.settings.manage', 'settings.manage']), controller.saveFlows);
+router.put('/flows/:id', requireDbPermission(['education.settings.manage', 'settings.manage']), controller.updateFlow);
+router.patch('/flows/:id/toggle', requireDbPermission(['education.settings.manage', 'settings.manage']), controller.toggleFlow);
 
 module.exports = router;

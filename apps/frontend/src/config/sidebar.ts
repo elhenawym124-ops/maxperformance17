@@ -260,22 +260,22 @@ interface EducationTabDef {
 }
 
 const EDUCATION_TAB_DEFS: EducationTabDef[] = [
-    { id: 'dashboard', to: '/admin/education/dashboard', itemId: 'education-dashboard', icon: BarChart3, i18nKey: 'sidebar.educationDashboard' },
-    { id: 'branches', to: '/admin/education/branches', itemId: 'education-branches', icon: Building2, i18nKey: 'sidebar.educationBranches', defaultFallbackAr: 'الفروع والقاعات' },
-    { id: 'subjects', to: '/admin/education/subjects', itemId: 'education-subjects', icon: BookOpen, i18nKey: 'sidebar.educationSubjects', defaultHidden: true },
-    { id: 'packages', to: '/admin/education/packages', itemId: 'education-packages', icon: Gift, i18nKey: 'sidebar.educationPackages' },
-    { id: 'groups', to: '/admin/education/groups', itemId: 'education-groups', icon: Users, i18nKey: 'sidebar.educationGroups', defaultFallbackAr: 'المجموعات الدراسية (الجروبات)' },
-    { id: 'students', to: '/admin/education/students', itemId: 'education-students', icon: Users, i18nKey: 'sidebar.educationStudents' },
-    { id: 'teachers', to: '/admin/education/teachers', itemId: 'education-teachers', icon: GraduationCap, i18nKey: 'sidebar.educationTeachers' },
-    { id: 'enrollments', to: '/admin/education/enrollments', itemId: 'education-enrollments', icon: Layers, i18nKey: 'sidebar.educationEnrollments' },
-    { id: 'teacher-schedule', to: '/admin/education/teacher-schedule', itemId: 'education-teacher-schedule', icon: CalendarDays, i18nKey: 'sidebar.educationTeacherSchedule' },
-    { id: 'teacher-payments', to: '/admin/education/teacher-payments', itemId: 'education-teacher-payments', icon: DollarSign, i18nKey: 'sidebar.educationTeacherPayments' },
-    { id: 'sessions', to: '/admin/education/sessions', itemId: 'education-sessions', icon: Clock, i18nKey: 'sidebar.educationSessions' },
-    { id: 'calendar', to: '/admin/education/calendar', itemId: 'education-calendar', icon: CalendarDays, i18nKey: 'sidebar.educationCalendar' },
-    { id: 'demo-day', to: '/admin/education/demo-day', itemId: 'education-demo-day', icon: Presentation, i18nKey: 'sidebar.educationDemoDay', defaultFallbackAr: 'الديمو داي', defaultHidden: true },
-    { id: 'flows', to: '/admin/education/flows', itemId: 'education-flows', icon: GitBranch, i18nKey: 'sidebar.educationFlows', defaultFallbackAr: 'مسارات الرسايل والأتمتة' },
-    { id: 'funnel', to: '/admin/education/funnel', itemId: 'education-funnel', icon: Megaphone, i18nKey: 'sidebar.educationFunnel' },
-    { id: 'reports', to: '/admin/education/reports', itemId: 'education-reports', icon: BarChart3, i18nKey: 'sidebar.educationReports', defaultFallbackAr: 'التقارير وتحليل الحملات' },
+    { id: 'dashboard', to: '/admin/education/dashboard', itemId: 'education-dashboard', icon: BarChart3, i18nKey: 'sidebar.educationDashboard', requiredPermissions: ['education.view'] },
+    { id: 'branches', to: '/admin/education/branches', itemId: 'education-branches', icon: Building2, i18nKey: 'sidebar.educationBranches', defaultFallbackAr: 'الفروع والقاعات', requiredPermissions: ['education.view', 'education.groups.view'] },
+    { id: 'subjects', to: '/admin/education/subjects', itemId: 'education-subjects', icon: BookOpen, i18nKey: 'sidebar.educationSubjects', defaultHidden: true, requiredPermissions: ['education.view', 'education.packages.manage'] },
+    { id: 'packages', to: '/admin/education/packages', itemId: 'education-packages', icon: Gift, i18nKey: 'sidebar.educationPackages', requiredPermissions: ['education.view', 'education.packages.manage'] },
+    { id: 'groups', to: '/admin/education/groups', itemId: 'education-groups', icon: Users, i18nKey: 'sidebar.educationGroups', defaultFallbackAr: 'المجموعات الدراسية (الجروبات)', requiredPermissions: ['education.view', 'education.groups.view'] },
+    { id: 'students', to: '/admin/education/students', itemId: 'education-students', icon: Users, i18nKey: 'sidebar.educationStudents', requiredPermissions: ['education.view', 'education.students.view'] },
+    { id: 'teachers', to: '/admin/education/teachers', itemId: 'education-teachers', icon: GraduationCap, i18nKey: 'sidebar.educationTeachers', requiredPermissions: ['education.view', 'education.teachers.manage'] },
+    { id: 'enrollments', to: '/admin/education/enrollments', itemId: 'education-enrollments', icon: Layers, i18nKey: 'sidebar.educationEnrollments', requiredPermissions: ['education.view', 'education.financials.view', 'education.students.view'] },
+    { id: 'teacher-schedule', to: '/admin/education/teacher-schedule', itemId: 'education-teacher-schedule', icon: CalendarDays, i18nKey: 'sidebar.educationTeacherSchedule', requiredPermissions: ['education.view', 'education.teachers.manage'] },
+    { id: 'teacher-payments', to: '/admin/education/teacher-payments', itemId: 'education-teacher-payments', icon: DollarSign, i18nKey: 'sidebar.educationTeacherPayments', requiredPermissions: ['education.financials.view'] },
+    { id: 'sessions', to: '/admin/education/sessions', itemId: 'education-sessions', icon: Clock, i18nKey: 'sidebar.educationSessions', requiredPermissions: ['education.view', 'education.sessions.manage'] },
+    { id: 'calendar', to: '/admin/education/calendar', itemId: 'education-calendar', icon: CalendarDays, i18nKey: 'sidebar.educationCalendar', requiredPermissions: ['education.view'] },
+    { id: 'demo-day', to: '/admin/education/demo-day', itemId: 'education-demo-day', icon: Presentation, i18nKey: 'sidebar.educationDemoDay', defaultFallbackAr: 'الديمو داي', defaultHidden: true, requiredPermissions: ['education.view', 'education.demoday.manage'] },
+    { id: 'flows', to: '/admin/education/flows', itemId: 'education-flows', icon: GitBranch, i18nKey: 'sidebar.educationFlows', defaultFallbackAr: 'مسارات الرسايل والأتمتة', requiredPermissions: ['education.view', 'settings.manage', 'education.settings.manage'] },
+    { id: 'funnel', to: '/admin/education/funnel', itemId: 'education-funnel', icon: Megaphone, i18nKey: 'sidebar.educationFunnel', requiredPermissions: ['education.view', 'education.reports.view'] },
+    { id: 'reports', to: '/admin/education/reports', itemId: 'education-reports', icon: BarChart3, i18nKey: 'sidebar.educationReports', defaultFallbackAr: 'التقارير وتحليل الحملات', requiredPermissions: ['education.view', 'education.reports.view'] },
     {
         id: 'settings',
         to: '/admin/education/settings',
@@ -294,6 +294,7 @@ const EDUCATION_TAB_DEFS: EducationTabDef[] = [
         icon: History,
         i18nKey: 'sidebar.educationLogs',
         defaultFallbackAr: 'سجلات النظام التعليمي',
+        locked: true,
         requiredRoles: ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER'],
         requiredPermissions: ['settings.manage', 'education.settings.manage'],
     },
@@ -780,6 +781,7 @@ export const getSidebarConfig = (
     const hasMultipleCompanies = (user?.companies?.length ?? 0) > 1;
     const canManageTaskIntegrations = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER'].includes(user?.role || '');
     const isRadiologyManager = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER'].includes(user?.role || '');
+    const isEducationOnlyCompany = isAppInstalled('education-app') && !isAnyAppActive(['store-pro', 'ecommerce-pro']);
 
     if (user?.role === 'MERCHANT') {
         return [
@@ -1202,7 +1204,7 @@ export const getSidebarConfig = (
                 { to: '/orders/status-templates', icon: FileText, label: t('sidebar.orderStatusTemplates'), requiredPermissions: ['orders.whatsapp-notifications.view'], hidden: !isAppActive('whatsapp-business') },
             ],
             // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
-            hidden: user?.role === 'AFFILIATE' || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'order-core', 'cafe-restaurant-pro']))
+            hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'order-core', 'cafe-restaurant-pro']))
         },
 
         // 3️⃣.2 أسطول المناديب والتوصيل الداخلي (قسم مستقل شامل معزول تماماً)
@@ -1298,7 +1300,7 @@ export const getSidebarConfig = (
                 { to: '/analytics/orders/status-movement', icon: GitBranch, label: t('sidebar.orderMovement') },
             ],
             // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics'])
+            hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || !isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics'])
         },
 
         // 4️⃣ المنتجات
@@ -1316,7 +1318,7 @@ export const getSidebarConfig = (
                     label: isEn ? 'AI Product & Inventory Studio' : 'مركز المنتجات والمخزون الذكي (AI Studio)',
                 },
             ],
-            hidden: user?.role === 'AFFILIATE' || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'inventory-pro', 'cafe-restaurant-pro']))
+            hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'inventory-pro', 'cafe-restaurant-pro']))
         },
 
         // 4️⃣.0 المدونة والـ SEO (Blog & Affiliate) — mens-grooming-pro compatible
@@ -1388,7 +1390,7 @@ export const getSidebarConfig = (
                 { to: '/settings/store-payment-offers', icon: BadgePercent, label: t('sidebar.paymentOffers') },
             ],
             // 🔒 متاح للمالك والأدمن فقط لتغيير تصميم المتجر
-            hidden: user?.role === 'AFFILIATE' || (!isStoreActive() && !isAppActive('conversion-suite'))
+            hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAppActive('conversion-suite'))
         },
 
         // 4️⃣.2 العملاء
