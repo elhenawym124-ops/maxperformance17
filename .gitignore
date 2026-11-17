@@ -295,6 +295,8 @@ frontend/public/uploads/
 !.agents/skills/tailwind-css-patterns/**
 !.agents/skills/cross-agent-coordination/
 !.agents/skills/cross-agent-coordination/**
+!.agents/skills/maxp-tasks-manager/
+!.agents/skills/maxp-tasks-manager/**
 
 # Python bytecode cache (never commit)
 __pycache__/
@@ -503,6 +505,8 @@ dogfood-output/
 *firebase-service-account*.json
 *service-account*.json
 serviceAccountKey.json
+.key.json
+*.key.json
 
 # Scratch & temporary workspace files
 scratch/
