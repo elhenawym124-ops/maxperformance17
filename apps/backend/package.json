@@ -101,7 +101,7 @@
     "html-pdf-node": "^1.0.8",
     "iconv-lite": "^0.7.2",
     "input": "^1.0.1",
-    "ioredis": "^5.8.2",
+    "ioredis": "^6.0.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "libphonenumber-js": "^1.13.10",
