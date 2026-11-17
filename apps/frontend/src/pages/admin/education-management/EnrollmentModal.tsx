@@ -7,13 +7,14 @@ import type {
   EducationPackage,
   EducationTeacher,
   EducationSubject,
+  EducationCustomDiscount,
 } from "./types";
 import { MODAL_CLS, INPUT_CLS } from "./types";
 import { DateInput } from "../../../components/ui/DateInput";
-import { api, getAuthHeaders } from "./api";
+import { api, getAuthHeaders, fetchJson } from "./api";
 import {
   computeDiscountAndFinal,
-  DISCOUNT_TYPES,
+  DEFAULT_EDUCATION_DISCOUNTS,
   calculateInstallmentSchedule,
 } from "./educationSharedHelpers";
 
@@ -24,6 +25,7 @@ export interface EnrollmentModalProps {
   teachers: EducationTeacher[];
   subjects: EducationSubject[];
   enableSubjects?: boolean;
+  customDiscounts?: EducationCustomDiscount[];
   onClose: () => void;
   onSave: (d: Partial<EducationEnrollment>) => Promise<void>;
   onAddNewStudent?: (d: Partial<EducationStudent>) => Promise<EducationStudent | null>;
@@ -35,12 +37,36 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
   packages,
   teachers,
   enableSubjects = false,
+  customDiscounts: initialCustomDiscounts,
   onClose,
   onSave,
   onAddNewStudent,
 }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
+
+  const [activeDiscounts, setActiveDiscounts] = useState<EducationCustomDiscount[]>(
+    initialCustomDiscounts || []
+  );
+
+  useEffect(() => {
+    if (initialCustomDiscounts && initialCustomDiscounts.length > 0) {
+      setActiveDiscounts(initialCustomDiscounts);
+    } else {
+      // Fetch dynamic discounts from education settings if not passed
+      fetchJson(api("settings/discounts"))
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            setActiveDiscounts(data);
+          } else {
+            setActiveDiscounts(DEFAULT_EDUCATION_DISCOUNTS);
+          }
+        })
+        .catch(() => {
+          setActiveDiscounts(DEFAULT_EDUCATION_DISCOUNTS);
+        });
+    }
+  }, [initialCustomDiscounts]);
 
   const [form, setForm] = useState({
     studentId: "",
@@ -55,9 +81,11 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
         : enrollment?.paymentStatus || "PENDING",
   });
 
-  const [discountType, setDiscountType] = useState<"NONE" | "SIBLINGS" | "SEASONAL" | "CUSTOM">(
-    (enrollment?.discountType as any) || "NONE"
+  const [discountType, setDiscountType] = useState<string>(
+    enrollment?.discountType || "NONE"
   );
+  const [promoCodeInput, setPromoCodeInput] = useState<string>("");
+  const [promoMessage, setPromoMessage] = useState<{ text: string; isError: boolean } | null>(null);
   const [discountValue, setDiscountValue] = useState<number | "">(
     enrollment?.discountAmount ? Number(enrollment.discountAmount) : ""
   );
@@ -145,10 +173,56 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
   const selectedPackage = packages.find((p) => p.id === form.packageId);
   const basePrice = selectedPackage?.price || 0;
 
+  const selectedStudent = localStudents.find((s) => s.id === form.studentId);
+  const studentSiblingCount = useMemo(() => {
+    if (!selectedStudent?.customerId) return 1;
+    return localStudents.filter((s) => s.customerId === selectedStudent.customerId).length;
+  }, [localStudents, selectedStudent]);
+
   const financial = useMemo(() => {
     const rawDisc = typeof discountValue === "number" ? discountValue : 0;
-    return computeDiscountAndFinal(basePrice, discountType, rawDisc);
-  }, [basePrice, discountType, discountValue]);
+    return computeDiscountAndFinal(basePrice, discountType, rawDisc, activeDiscounts);
+  }, [basePrice, discountType, discountValue, activeDiscounts]);
+
+  const handleDiscountTypeChange = (newType: string) => {
+    setDiscountType(newType);
+    setPromoMessage(null);
+    if (newType === "NONE") {
+      setDiscountValue("");
+    } else if (newType === "CUSTOM") {
+      setDiscountValue(typeof discountValue === "number" ? discountValue : 0);
+    } else {
+      const matched = activeDiscounts.find((d) => d.id === newType);
+      if (matched) {
+        if (matched.type === "PERCENTAGE") {
+          const rate = Math.min(100, Math.max(0, Number(matched.value) || 0)) / 100;
+          setDiscountValue(Math.round(basePrice * rate));
+        } else {
+          setDiscountValue(Math.min(basePrice, Number(matched.value) || 0));
+        }
+      }
+    }
+  };
+
+  const handleApplyPromoCode = () => {
+    if (!promoCodeInput.trim()) return;
+    const clean = promoCodeInput.trim().toUpperCase();
+    const matched = activeDiscounts.find(
+      (d) => d && d.code && d.code.toUpperCase() === clean && d.isActive !== false
+    );
+    if (matched) {
+      handleDiscountTypeChange(matched.id);
+      setPromoMessage({
+        text: isEn ? `Promo code applied: ${matched.nameEn || matched.nameAr}` : `تم تطبيق كود الخصم: ${matched.nameAr}`,
+        isError: false,
+      });
+    } else {
+      setPromoMessage({
+        text: isEn ? "Invalid or inactive promo code" : "كود الخصم غير صحيح أو غير مفعّل",
+        isError: true,
+      });
+    }
+  };
 
   useEffect(() => {
     if (paymentMethod === "INSTALLMENTS" && financial.finalAmount > 0) {
@@ -433,46 +507,88 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
 
           {/* Discounts System */}
           <div className="space-y-2 p-3 rounded-xl border border-border/70 bg-muted/20">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
-              <Percent className="w-3.5 h-3.5 text-primary" />
-              <span>{isEn ? "Discounts & Promotions" : "نظام الخصومات والعروض"}</span>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                <Percent className="w-3.5 h-3.5 text-primary" />
+                <span>{isEn ? "Discounts & Promotions" : "نظام الخصومات والعروض"}</span>
+              </div>
+              {studentSiblingCount > 1 && (
+                <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span>{isEn ? `Student has ${studentSiblingCount - 1} sibling(s)` : `طالب له ${studentSiblingCount - 1} إخوة مسجلين`}</span>
+                </span>
+              )}
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <div className="space-y-1">
-                <label className="text-[11px] text-muted-foreground">{isEn ? "Discount Type" : "نوع الخصم"}</label>
+                <label className="text-[11px] text-muted-foreground">{isEn ? "Discount Policy / Type" : "نوع وسياسة الخصم"}</label>
                 <select
                   className={INPUT_CLS}
                   value={discountType}
-                  onChange={(e) => setDiscountType(e.target.value as any)}
+                  onChange={(e) => handleDiscountTypeChange(e.target.value)}
                 >
-                  {DISCOUNT_TYPES.map((d) => (
-                    <option key={d.value} value={d.value}>
-                      {isEn ? d.labelEn : d.labelAr}
-                    </option>
-                  ))}
+                  <option value="NONE">{isEn ? "No Discount" : "بدون خصم"}</option>
+                  {activeDiscounts
+                    .filter((d) => d && d.isActive !== false)
+                    .map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {isEn ? d.nameEn || d.nameAr : d.nameAr} (
+                        {d.type === "PERCENTAGE" ? `${d.value}%` : `${d.value} ${isEn ? "EGP" : "ج.م"}`})
+                        {d.code ? ` - [${d.code}]` : ""}
+                      </option>
+                    ))}
+                  <option value="CUSTOM">{isEn ? "Custom Manual Discount (EGP)" : "خصم مخصص يدوي (ج.م)"}</option>
                 </select>
               </div>
 
               <div className="space-y-1">
                 <label className="text-[11px] text-muted-foreground">
-                  {discountType === "SIBLINGS" || discountType === "SEASONAL"
+                  {discountType === "CUSTOM"
                     ? isEn
-                      ? "Discount %"
-                      : "نسبة الخصم (%)"
+                      ? "Custom Discount (EGP)"
+                      : "قيمة الخصم اليدوي (ج.م)"
                     : isEn
-                    ? "Discount (EGP)"
-                    : "قيمة الخصم (ج.م)"}
+                    ? "Applied Discount Value"
+                    : "قيمة الخصم المطبق (ج.م)"}
                 </label>
                 <input
                   type="number"
                   min={0}
-                  disabled={discountType === "NONE"}
+                  max={basePrice}
+                  disabled={discountType === "NONE" || discountType !== "CUSTOM"}
                   className={INPUT_CLS}
                   placeholder={discountType === "NONE" ? "-" : "0"}
                   value={discountValue}
                   onChange={(e) => setDiscountValue(e.target.value ? Number(e.target.value) : "")}
                 />
               </div>
+            </div>
+
+            {/* Optional Promo Code lookup */}
+            <div className="pt-1 flex items-center gap-2">
+              <input
+                type="text"
+                placeholder={isEn ? "Enter promo code (e.g. EARLY10)" : "كود الخصم الترويجي (مثال: EARLY10)"}
+                value={promoCodeInput}
+                onChange={(e) => setPromoCodeInput(e.target.value.toUpperCase())}
+                className={INPUT_CLS + " max-w-[240px] uppercase font-mono text-[11px]"}
+              />
+              <button
+                type="button"
+                onClick={handleApplyPromoCode}
+                className="px-2.5 py-1.5 rounded-lg border border-border bg-background hover:bg-muted text-xs font-semibold text-foreground transition-all active:scale-[0.98] shrink-0"
+              >
+                {isEn ? "Apply Code" : "تطبيق الكود"}
+              </button>
+              {promoMessage && (
+                <span
+                  className={`text-[11px] font-semibold truncate ${
+                    promoMessage.isError ? "text-red-500" : "text-emerald-600 dark:text-emerald-400"
+                  }`}
+                >
+                  {promoMessage.text}
+                </span>
+              )}
             </div>
 
             {basePrice > 0 && (

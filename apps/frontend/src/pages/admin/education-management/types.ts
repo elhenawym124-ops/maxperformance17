@@ -93,7 +93,7 @@ export interface EducationEnrollment {
   paymentMethod?: "CASH" | "INSTALLMENTS";
   installmentCount?: number;
   installments?: EnrollmentInstallmentItem[];
-  discountType?: "NONE" | "SIBLINGS" | "SEASONAL" | "CUSTOM";
+  discountType?: string;
   discountAmount?: number;
   finalAmount?: number;
   enrollmentDate: string;
@@ -257,6 +257,18 @@ export interface EducationTabConfig {
   iconName: string;
 }
 
+export interface EducationCustomDiscount {
+  id: string;
+  nameAr: string;
+  nameEn?: string;
+  type: "PERCENTAGE" | "FIXED";
+  value: number;
+  code?: string;
+  minSiblings?: number;
+  isActive: boolean;
+  description?: string;
+}
+
 export interface EducationSettingsData {
   systemTitle: string;
   systemTitleEn: string;
@@ -268,4 +280,5 @@ export interface EducationSettingsData {
   publicCode?: string | null;
   customDomain?: string | null;
   tabs: EducationTabConfig[];
+  customDiscounts?: EducationCustomDiscount[];
 }

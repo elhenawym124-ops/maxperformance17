@@ -147,7 +147,7 @@ const create = async (req, res) => {
       safeCode = await generateUniqueStudentCode(companyId, getSharedPrismaClient());
     }
 
-    const { generateUserCredentials } = require('../services/educationAgeLevelService');
+    const { generateUserCredentials, generateGuardianDefaultEmail } = require('../services/educationAgeLevelService');
     const autoCreds = (autoGenerateCredentials || !guardianPassword)
       ? generateUserCredentials(firstName, phone || guardianPhone, safeCode)
       : null;
@@ -174,10 +174,25 @@ const create = async (req, res) => {
     }
     const safeGrade = (grade && typeof grade === 'string' && grade.trim()) ? grade.trim() : null;
     const safeNotes = (notes && typeof notes === 'string' && notes.trim()) ? notes.trim() : null;
-    const safeGuardianEmail = (guardianEmail && typeof guardianEmail === 'string' && guardianEmail.trim())
+    let safeGuardianEmail = (guardianEmail && typeof guardianEmail === 'string' && guardianEmail.trim())
       ? guardianEmail.trim().toLowerCase()
       : null;
-    if (safeGuardianEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeGuardianEmail)) {
+
+    const effParentPhone = (guardianPhone && typeof guardianPhone === 'string' && guardianPhone.trim())
+      ? guardianPhone.trim()
+      : (safePhone || null);
+    const effParentName = (guardianName && typeof guardianName === 'string' && guardianName.trim())
+      ? guardianName.trim()
+      : firstName;
+
+    // توليد بريد إلكتروني افتراضي صحيح ومعتمد لولي الأمر إذا لم يُدخل بريداً أو كان القالب منقوصاً مثل @student.maxp.online
+    if (!safeGuardianEmail || safeGuardianEmail.startsWith('@') || safeGuardianEmail.endsWith('@student.maxp.online')) {
+      safeGuardianEmail = generateGuardianDefaultEmail({
+        phone: effParentPhone,
+        name: effParentName,
+        code: safeCode
+      });
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeGuardianEmail)) {
       return res.status(400).json({ success: false, error: 'صيغة البريد الإلكتروني لولي الأمر غير صحيحة' });
     }
 
@@ -311,7 +326,7 @@ const create = async (req, res) => {
       req,
     }).catch(e => console.error('[StudentAudit]', e.message));
 
-    res.json({ success: true, data: { ...data, credentials: autoCreds } });
+    res.json({ success: true, data: { ...data, credentials: { ...(autoCreds || {}), email: safeGuardianEmail } } });
   } catch (error) {
     console.error('Error creating student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء الطالب' });
@@ -358,7 +373,12 @@ const update = async (req, res) => {
         custUpdate.phone2 = (guardianPhone2 && typeof guardianPhone2 === 'string' && guardianPhone2.trim()) ? guardianPhone2.trim() : null;
       }
       if (guardianEmail !== undefined && typeof guardianEmail === 'string' && guardianEmail.trim()) {
-        const trimmedEmail = guardianEmail.trim().toLowerCase();
+        let trimmedEmail = guardianEmail.trim().toLowerCase();
+        if (trimmedEmail.startsWith('@') || trimmedEmail.endsWith('@student.maxp.online')) {
+          const { generateGuardianDefaultEmail } = require('../services/educationAgeLevelService');
+          const cust = await getSharedPrismaClient().customer.findFirst({ where: { id: targetCustomerId }, select: { phone: true, firstName: true } });
+          trimmedEmail = generateGuardianDefaultEmail({ phone: cust?.phone, name: cust?.firstName, code: existing.code });
+        }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
           return res.status(400).json({ success: false, error: 'صيغة البريد الإلكتروني لولي الأمر غير صحيحة' });
         }

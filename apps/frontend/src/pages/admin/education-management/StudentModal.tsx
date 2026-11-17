@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { X, Search, User, Loader2, Mail, Lock, BookOpen, Plus, Check, Phone, MapPin, Hash, Sparkles, Copy, Building2, Calendar } from "lucide-react";
 import type { EducationStudent, Customer, EducationSubject } from "./types";
 import { MODAL_CLS, INPUT_CLS } from "./types";
-import { getLevelsForAge, generateAutoCredentials } from "./educationSharedHelpers";
+import { getLevelsForAge, generateAutoCredentials, generateGuardianDefaultEmail } from "./educationSharedHelpers";
 import { api, getAuthHeaders } from "./api";
 
 export interface StudentModalProps {
@@ -70,20 +70,31 @@ export const StudentModal: React.FC<StudentModalProps> = ({
   const [generatedCredentials, setGeneratedCredentials] = useState<{ username: string; password: string } | null>(null);
 
   const handleAutoGenerateCredentials = () => {
-    const creds = generateAutoCredentials(form.firstName, form.phone, form.code);
+    const effPhone = isSelfGuardian
+      ? form.phone?.trim()
+      : (isManualGuardian ? manualGuardian.phone?.trim() : ((selectedCustomer as any)?.phone?.trim() || form.phone?.trim() || ""));
+    const effName = isSelfGuardian
+      ? form.firstName?.trim()
+      : (isManualGuardian ? manualGuardian.name?.trim() : ((selectedCustomer ? `${selectedCustomer.firstName || ""}` : "") || form.firstName?.trim() || ""));
+
+    const creds = generateAutoCredentials(form.firstName, form.phone || effPhone, form.code);
     setGeneratedCredentials(creds);
     setGuardianPassword(creds.password);
-    if (!guardianEmail) {
-      setGuardianEmail(`${creds.username}@student.maxp.online`);
-    }
-    toast.success(isEn ? "Username & Password auto-generated successfully!" : "تم توليد اسم المستخدم وكلمة المرور تلقائياً!");
+
+    const defaultEmail = generateGuardianDefaultEmail({
+      phone: effPhone,
+      name: effName,
+      code: form.code,
+    });
+    setGuardianEmail(defaultEmail);
+    toast.success(isEn ? "Username, Password & Guardian Email auto-generated!" : "تم توليد اسم المستخدم، كلمة المرور وبريد ولي الأمر تلقائياً!");
   };
 
   const handleCopyCredentials = () => {
     const userToCopy = guardianEmail || generatedCredentials?.username || form.code;
     const passToCopy = guardianPassword || generatedCredentials?.password;
     if (!passToCopy) return;
-    const text = `${isEn ? "Username" : "اسم المستخدم"}: ${userToCopy}\n${isEn ? "Password" : "كلمة المرور"}: ${passToCopy}`;
+    const text = `${isEn ? "Guardian Email" : "بريد ولي الأمر"}: ${userToCopy}\n${isEn ? "Password" : "كلمة المرور"}: ${passToCopy}`;
     navigator.clipboard.writeText(text);
     toast.success(isEn ? "Credentials copied to clipboard!" : "تم نسخ بيانات الدخول إلى الحافظة!");
   };
@@ -217,6 +228,19 @@ export const StudentModal: React.FC<StudentModalProps> = ({
     }
     setSaving(true);
     try {
+      const effPhone = isSelfGuardian
+        ? form.phone?.trim()
+        : (isManualGuardian ? manualGuardian.phone?.trim() : ((selectedCustomer as any)?.phone?.trim() || form.phone?.trim() || ""));
+      const effName = isSelfGuardian
+        ? form.firstName?.trim()
+        : (isManualGuardian ? manualGuardian.name?.trim() : ((selectedCustomer ? `${selectedCustomer.firstName || ""}` : "") || form.firstName?.trim() || ""));
+
+      const trimmedGuardianEmail = guardianEmail.trim();
+      const isCleanEmailValid = trimmedGuardianEmail && !trimmedGuardianEmail.startsWith("@") && trimmedGuardianEmail.includes("@") && !trimmedGuardianEmail.endsWith("@student.maxp.online");
+      const finalGuardianEmail = isCleanEmailValid
+        ? trimmedGuardianEmail
+        : generateGuardianDefaultEmail({ phone: effPhone, name: effName, code: form.code });
+
       const payload: any = {
         ...form,
         code: form.code ? form.code.trim() : "",
@@ -230,7 +254,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
         age: form.age !== "" && form.age !== undefined && form.age !== null ? Number(form.age) : undefined,
         branchId: form.branchId || undefined,
         autoGenerateCredentials: !!generatedCredentials,
-        ...(guardianEmail.trim() ? { guardianEmail: guardianEmail.trim() } : {}),
+        guardianEmail: finalGuardianEmail,
         ...(guardianPassword.trim() ? { guardianPassword: guardianPassword.trim() } : {}),
         ...(guardianPhone2.trim() ? { guardianPhone2: guardianPhone2.trim() } : {}),
       };
@@ -796,7 +820,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
                 <input
                   type="text"
                   className={INPUT_CLS + " font-mono text-xs"}
-                  placeholder={form.code ? `${form.code.toLowerCase()}@student.maxp.online` : "stu_username"}
+                  placeholder={form.code ? `parent.${form.code.toLowerCase()}@maxp.online` : "parent.010XXXXXXXX@maxp.online"}
                   value={guardianEmail}
                   onChange={(e) => setGuardianEmail(e.target.value)}
                   dir="ltr"
@@ -828,7 +852,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
             {generatedCredentials && (
               <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <div className="font-semibold">{isEn ? "Generated Login Credentials:" : "بيانات الدخول المولدة للطالب:"}</div>
+                  <div className="font-semibold">{isEn ? "Generated Login Credentials for Guardian:" : "بيانات الدخول المعتمدة لولي الأمر:"}</div>
                   <div className="font-mono text-[11px]">
                     {guardianEmail || generatedCredentials.username} | {guardianPassword || generatedCredentials.password}
                   </div>

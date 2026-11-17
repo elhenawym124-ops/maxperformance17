@@ -15,6 +15,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { PortalInviteAndPushCard } from "./PortalInviteAndPushCard";
+import { EducationDiscountsSection } from "./EducationDiscountsSection";
 import { Switch } from "../../../components/ui/switch";
 import ConfirmDialog from "../../../components/common/ConfirmDialog";
 import { PRESETS } from "./educationSettingsPresets";
@@ -242,7 +243,18 @@ export function EducationSettingsTab({ onSaved, onDirtyChange }: EducationSettin
               </div>
             </section>
 
-            {/* 4. System title */}
+            {/* 5. Custom Dynamic Discounts & Offers */}
+            <EducationDiscountsSection
+              discounts={c.customDiscounts}
+              onAdd={c.handleAddDiscount}
+              onUpdate={c.handleUpdateDiscount}
+              onDelete={c.handleDeleteDiscount}
+              onToggle={c.handleToggleDiscount}
+              saving={c.anySaving}
+              isEn={isEn}
+            />
+
+            {/* 6. System title */}
             <section className="p-4 sm:p-5 border-b border-border/60 space-y-3">
               <SectionHeader icon={Type}>
                 {t("education.settingsTab.systemNameTitle", isEn ? "Main System Title" : "المسمى الرئيسي للنظام")}

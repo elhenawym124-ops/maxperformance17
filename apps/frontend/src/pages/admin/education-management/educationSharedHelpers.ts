@@ -127,25 +127,32 @@ export function generateAutoCredentials(
   phone = "",
   code = ""
 ): { username: string; password: string } {
+  const cleanCode = String(code || "").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
+  let username = "";
+  if (cleanCode.length >= 2) {
+    username = cleanCode;
+  }
+
   let clean = "";
   if (studentName) {
-    clean = studentName
+    clean = String(studentName)
       .trim()
       .split(/\s+/)[0]
-      .replace(/[^\w\d]/g, "")
+      .replace(/[^a-zA-Z0-9]/g, "")
       .toLowerCase();
   }
 
+  const digits = String(phone || "").replace(/\D/g, "");
   const rnd = Math.floor(1000 + Math.random() * 9000);
-  let username = "";
-  if (code && code.trim()) {
-    username = code.trim().toLowerCase().replace(/[^\w\d_-]/g, "");
-  } else if (clean) {
-    username = `stu_${clean}_${rnd}`;
-  } else if (phone && phone.length >= 4) {
-    username = `stu_${phone.slice(-4)}_${rnd}`;
-  } else {
-    username = `stu_${rnd}`;
+
+  if (!username) {
+    if (clean && clean.length >= 2) {
+      username = `stu_${clean}_${rnd}`;
+    } else if (digits.length >= 4) {
+      username = `stu_${digits.slice(-4)}_${rnd}`;
+    } else {
+      username = `stu_${rnd}`;
+    }
   }
 
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -156,6 +163,45 @@ export function generateAutoCredentials(
   const password = `Edu@${token}${Math.floor(10 + Math.random() * 90)}`;
 
   return { username, password };
+}
+
+/**
+ * توليد بريد إلكتروني افتراضي صحيح ومعتمد لولي الأمر
+ * يضمن عدم وجود أي إيميل منقوص مثل @student.maxp.online
+ */
+export function generateGuardianDefaultEmail({
+  phone = "",
+  name = "",
+  code = "",
+}: {
+  phone?: string;
+  name?: string;
+  code?: string;
+} = {}): string {
+  const digits = String(phone || "").replace(/\D/g, "");
+  if (digits.length >= 7) {
+    return `parent.${digits}@maxp.online`;
+  }
+
+  const cleanCode = String(code || "").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
+  if (cleanCode.length >= 2) {
+    return `parent.${cleanCode}@maxp.online`;
+  }
+
+  let cleanName = "";
+  if (name) {
+    cleanName = String(name)
+      .trim()
+      .split(/\s+/)[0]
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toLowerCase();
+  }
+  const rnd = Math.floor(10000 + Math.random() * 90000);
+  if (cleanName && cleanName.length >= 2) {
+    return `parent.${cleanName}_${rnd}@maxp.online`;
+  }
+
+  return `parent.p${rnd}@maxp.online`;
 }
 
 export interface InstallmentPlan {
@@ -242,6 +288,40 @@ export function calculateInstallmentSchedule(
   return plans;
 }
 
+import type { EducationCustomDiscount } from "./types";
+
+export const DEFAULT_EDUCATION_DISCOUNTS: EducationCustomDiscount[] = [
+  {
+    id: "disc_sibling",
+    nameAr: "خصم الأخوات (15%)",
+    nameEn: "Sibling Discount (15%)",
+    type: "PERCENTAGE",
+    value: 15,
+    minSiblings: 2,
+    isActive: true,
+    description: "خصم تلقائي عند تسجيل أكثر من طالب لنفس ولي الأمر",
+  },
+  {
+    id: "disc_seasonal",
+    nameAr: "عرض ترويجي / مواسم (20%)",
+    nameEn: "Seasonal Promo (20%)",
+    type: "PERCENTAGE",
+    value: 20,
+    code: "SEASON20",
+    isActive: true,
+    description: "خصم العروض والمواسم الدراسية",
+  },
+  {
+    id: "disc_cash",
+    nameAr: "خصم الدفع النقدي الفوري",
+    nameEn: "Full Cash Payment",
+    type: "FIXED",
+    value: 100,
+    isActive: false,
+    description: "خصم ثابت عند سداد كامل الاشتراك كاش",
+  },
+];
+
 export const DISCOUNT_TYPES = [
   { id: "NONE", labelAr: "بدون خصم", labelEn: "No Discount" },
   { id: "SIBLING", labelAr: "خصم أخوات (15%)", labelEn: "Sibling Discount (15%)", defaultPercent: 15 },
@@ -252,14 +332,33 @@ export const DISCOUNT_TYPES = [
 export function computeDiscountAndFinal(
   price: number,
   discountType: string,
-  customAmount?: number
+  customAmount?: number,
+  customDiscounts?: EducationCustomDiscount[]
 ): { discountAmount: number; finalAmount: number } {
   const base = Math.max(0, Number(price) || 0);
   if (!discountType || discountType === "NONE") {
     return { discountAmount: 0, finalAmount: base };
   }
 
-  if (discountType === "SIBLING") {
+  // Check custom dynamic discounts first
+  if (Array.isArray(customDiscounts) && customDiscounts.length > 0) {
+    const matched = customDiscounts.find((d) => d && d.id === discountType);
+    if (matched) {
+      let disc = 0;
+      if (customAmount !== undefined && customAmount > 0) {
+        disc = Math.min(base, Number(customAmount));
+      } else if (matched.type === "PERCENTAGE") {
+        const rate = Math.min(100, Math.max(0, Number(matched.value) || 0)) / 100;
+        disc = Math.round(base * rate);
+      } else if (matched.type === "FIXED") {
+        disc = Math.min(base, Math.round(Number(matched.value) || 0));
+      }
+      return { discountAmount: disc, finalAmount: Math.max(0, base - disc) };
+    }
+  }
+
+  // Legacy fallback types
+  if (discountType === "SIBLING" || discountType === "SIBLINGS") {
     const disc = customAmount !== undefined && customAmount > 0 ? customAmount : Math.round(base * 0.15);
     return { discountAmount: disc, finalAmount: Math.max(0, base - disc) };
   }
@@ -270,7 +369,7 @@ export function computeDiscountAndFinal(
   }
 
   if (discountType === "CUSTOM") {
-    const disc = Math.max(0, Number(customAmount) || 0);
+    const disc = Math.min(base, Math.max(0, Number(customAmount) || 0));
     return { discountAmount: disc, finalAmount: Math.max(0, base - disc) };
   }
 

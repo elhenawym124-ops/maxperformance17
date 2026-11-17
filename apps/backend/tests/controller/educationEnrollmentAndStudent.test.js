@@ -484,4 +484,75 @@ describe('Education Enrollment & Student Controllers', () => {
     assert.strictEqual(jsonResult.success, false);
     assert.match(jsonResult.error, /كلمة مرور/);
   });
+
+  it('student create auto-generates valid guardian default email (parent.PHONE@maxp.online) when guardianEmail is omitted', async () => {
+    mockPrisma.customer.findFirst = async () => null;
+    mockPrisma.educationStudent.findFirst = async () => null;
+    let capturedCustomerData = null;
+    mockPrisma.customer.create = async ({ data }) => {
+      capturedCustomerData = data;
+      return { id: 'cust-email-1', ...data };
+    };
+    mockPrisma.educationStudent.create = async ({ data }) => ({ id: 'stu-email-1', ...data });
+
+    const req = {
+      user: { companyId: 'comp-1' },
+      body: {
+        firstName: 'يوسف',
+        phone: '01012345678',
+        guardianName: 'أحمد محمود',
+        guardianPhone: '01012345678',
+      },
+    };
+
+    let jsonResult = null;
+    const res = {
+      status: () => res,
+      json: (data) => {
+        jsonResult = data;
+      },
+    };
+
+    await studentController.create(req, res);
+
+    assert.strictEqual(jsonResult.success, true);
+    assert.strictEqual(capturedCustomerData.email, 'parent.01012345678@maxp.online');
+    assert.strictEqual(jsonResult.data.credentials.email, 'parent.01012345678@maxp.online');
+  });
+
+  it('student create replaces malformed truncated placeholder @student.maxp.online with proper default guardian email', async () => {
+    mockPrisma.customer.findFirst = async () => null;
+    mockPrisma.educationStudent.findFirst = async () => null;
+    let capturedCustomerData = null;
+    mockPrisma.customer.create = async ({ data }) => {
+      capturedCustomerData = data;
+      return { id: 'cust-email-2', ...data };
+    };
+    mockPrisma.educationStudent.create = async ({ data }) => ({ id: 'stu-email-2', ...data });
+
+    const req = {
+      user: { companyId: 'comp-1' },
+      body: {
+        firstName: 'كريم',
+        code: 'STU-99',
+        guardianName: 'محمود',
+        guardianPhone: '01234567890',
+        guardianEmail: '@student.maxp.online', // Truncated placeholder from UI
+      },
+    };
+
+    let jsonResult = null;
+    const res = {
+      status: () => res,
+      json: (data) => {
+        jsonResult = data;
+      },
+    };
+
+    await studentController.create(req, res);
+
+    assert.strictEqual(jsonResult.success, true);
+    assert.strictEqual(capturedCustomerData.email, 'parent.01234567890@maxp.online');
+    assert.strictEqual(jsonResult.data.credentials.email, 'parent.01234567890@maxp.online');
+  });
 });

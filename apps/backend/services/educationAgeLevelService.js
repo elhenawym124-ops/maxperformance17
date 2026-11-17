@@ -79,25 +79,32 @@ function getLevelsForAge(age) {
 }
 
 function generateUserCredentials(studentName = '', phone = '', code = '') {
+  const cleanCode = String(code || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+  let username = '';
+  if (cleanCode.length >= 2) {
+    username = cleanCode;
+  }
+
   let cleanName = '';
   if (studentName) {
-    cleanName = studentName
+    cleanName = String(studentName)
       .trim()
       .split(/\s+/)[0]
-      .replace(/[^\w\d]/g, '')
+      .replace(/[^a-zA-Z0-9]/g, '')
       .toLowerCase();
   }
 
+  const digits = String(phone || '').replace(/\D/g, '');
   const randSuffix = Math.floor(1000 + Math.random() * 9000);
-  let username = '';
-  if (code && code.trim()) {
-    username = code.trim().toLowerCase().replace(/[^\w\d_-]/g, '');
-  } else if (cleanName) {
-    username = `stu_${cleanName}_${randSuffix}`;
-  } else if (phone && phone.length >= 4) {
-    username = `stu_${phone.slice(-4)}_${randSuffix}`;
-  } else {
-    username = `stu_${randSuffix}`;
+
+  if (!username) {
+    if (cleanName && cleanName.length >= 2) {
+      username = `stu_${cleanName}_${randSuffix}`;
+    } else if (digits.length >= 4) {
+      username = `stu_${digits.slice(-4)}_${randSuffix}`;
+    } else {
+      username = `stu_${randSuffix}`;
+    }
   }
 
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -110,8 +117,40 @@ function generateUserCredentials(studentName = '', phone = '', code = '') {
   return { username, password };
 }
 
+/**
+ * توليد بريد إلكتروني افتراضي صحيح ومعتمد لولي الأمر
+ * يمنع تماماً أي إيميل منقوص مثل @student.maxp.online
+ */
+function generateGuardianDefaultEmail({ phone = '', name = '', code = '' } = {}) {
+  const digits = String(phone || '').replace(/\D/g, '');
+  if (digits.length >= 7) {
+    return `parent.${digits}@maxp.online`;
+  }
+
+  const cleanCode = String(code || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+  if (cleanCode.length >= 2) {
+    return `parent.${cleanCode}@maxp.online`;
+  }
+
+  let cleanName = '';
+  if (name) {
+    cleanName = String(name)
+      .trim()
+      .split(/\s+/)[0]
+      .replace(/[^a-zA-Z0-9]/g, '')
+      .toLowerCase();
+  }
+  const rnd = Math.floor(10000 + Math.random() * 90000);
+  if (cleanName && cleanName.length >= 2) {
+    return `parent.${cleanName}_${rnd}@maxp.online`;
+  }
+
+  return `parent.p${rnd}@maxp.online`;
+}
+
 module.exports = {
   AGE_BRACKETS,
   getLevelsForAge,
-  generateUserCredentials
+  generateUserCredentials,
+  generateGuardianDefaultEmail
 };

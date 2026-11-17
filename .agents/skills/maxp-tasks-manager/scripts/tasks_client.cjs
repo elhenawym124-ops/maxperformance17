@@ -58,20 +58,32 @@ async function request(pathname, options = {}, overrideKey = null) {
     ...(options.headers || {})
   };
 
-  const response = await fetch(url, {
-    ...options,
-    headers
-  });
+  let lastError = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers
+      });
 
-  const text = await response.text();
-  let json = null;
-  try {
-    json = JSON.parse(text);
-  } catch (_e) {
-    json = { raw: text };
+      const text = await response.text();
+      let json = null;
+      try {
+        json = JSON.parse(text);
+      } catch (_e) {
+        json = { raw: text };
+      }
+
+      return { status: response.status, ok: response.ok, data: json };
+    } catch (err) {
+      lastError = err;
+      if (attempt < 3) {
+        await new Promise((r) => setTimeout(r, 1000 * attempt));
+      }
+    }
   }
 
-  return { status: response.status, ok: response.ok, data: json };
+  throw lastError;
 }
 
 async function main() {

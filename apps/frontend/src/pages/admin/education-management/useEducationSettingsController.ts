@@ -4,8 +4,9 @@ import { useTranslation } from "react-i18next";
 import { api, fetchJson } from "./api";
 import { useSidebarSettings } from "../../../contexts/SidebarSettingsContext";
 import { PRESETS } from "./educationSettingsPresets";
+import { DEFAULT_EDUCATION_DISCOUNTS } from "./educationSharedHelpers";
 import type { EducationMode } from "./EducationModeSelector";
-import type { EducationTabConfig, EducationSettingsData } from "./types";
+import type { EducationTabConfig, EducationSettingsData, EducationCustomDiscount } from "./types";
 
 /**
  * Controller for the education settings screen: state, legacy-parity payload
@@ -29,15 +30,17 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
   const [publicCode, setPublicCode] = useState<string | null>(null);
   const [customDomain, setCustomDomain] = useState<string | null>(null);
   const [tabs, setTabs] = useState<EducationTabConfig[]>([]);
+  const [customDiscounts, setCustomDiscounts] = useState<EducationCustomDiscount[]>([]);
   const [initialData, setInitialData] = useState<EducationSettingsData | null>(null);
   const [savedSnap, setSavedSnap] = useState<string | null>(null);
 
   const [savingMode, setSavingMode] = useState<EducationMode | null>(null);
   const [savingPushFirst, setSavingPushFirst] = useState<boolean>(false);
   const [savingDemoDay, setSavingDemoDay] = useState<boolean>(false);
+  const [savingDiscounts, setSavingDiscounts] = useState<boolean>(false);
   const [pendingMode, setPendingMode] = useState<EducationMode | null>(null);
 
-  const anySaving = saving || savingMode !== null || savingPushFirst || savingDemoDay;
+  const anySaving = saving || savingMode !== null || savingPushFirst || savingDemoDay || savingDiscounts;
 
   const snapshotOf = (title: string, titleEn: string, tabsList: EducationTabConfig[]) =>
     JSON.stringify([title, titleEn, tabsList.map((tb) => [tb.id, tb.labelAr, tb.labelEn, tb.visible, tb.order])]);
@@ -60,6 +63,11 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
     setPublicCode(data.publicCode ?? null);
     setCustomDomain(data.customDomain ?? null);
     setTabs(data.tabs || []);
+    setCustomDiscounts(
+      Array.isArray(data.customDiscounts) && data.customDiscounts.length > 0
+        ? data.customDiscounts
+        : DEFAULT_EDUCATION_DISCOUNTS,
+    );
     setInitialData(data);
     setSavedSnap(snapshotOf(data.systemTitle || "", data.systemTitleEn || "", data.tabs || []));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,6 +112,7 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
       educationMode: mode,
       enableSubjects: subjects,
       pushFirstSaveWhatsApp: o.pushFirstSaveWhatsApp ?? pushFirstSaveWhatsApp,
+      customDiscounts,
       tabs: source.map((tb, idx) => {
         const id = tb.id.toLowerCase();
         return {
@@ -176,6 +185,7 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
         publicCode,
         customDomain,
         tabs: payload.tabs as EducationTabConfig[],
+        customDiscounts,
       });
     } catch (err: any) {
       toast.error(err.message || (isEn ? "Failed to apply mode change" : "فشل تطبيق وحفظ نمط النظام"));
@@ -227,6 +237,7 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
         publicCode,
         customDomain,
         tabs: payload.tabs as EducationTabConfig[],
+        customDiscounts,
       });
     } catch (err: any) {
       setPushFirstSaveWhatsApp(prev);
@@ -273,6 +284,7 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
         publicCode,
         customDomain,
         tabs: payload.tabs as EducationTabConfig[],
+        customDiscounts,
       });
     } catch (err: any) {
       setEnableDemoDay(prev);
@@ -380,11 +392,97 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
         publicCode,
         customDomain,
         tabs: payload.tabs as EducationTabConfig[],
+        customDiscounts,
       });
     } catch (err: any) {
       toast.error(err.message || (isEn ? "Failed to save education settings" : "فشل حفظ إعدادات النظام التعليمي"));
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleAddDiscount = async (disc: Omit<EducationCustomDiscount, "id">) => {
+    const newId = `disc_${Date.now()}`;
+    const newDiscount: EducationCustomDiscount = { ...disc, id: newId };
+    const updated = [...customDiscounts, newDiscount];
+    setCustomDiscounts(updated);
+    setSavingDiscounts(true);
+    try {
+      await fetchJson(api("settings/discounts"), {
+        method: "PUT",
+        body: JSON.stringify({ discounts: updated }),
+      });
+      toast.success(isEn ? "Custom discount added successfully" : "تمت إضافة الخصم المخصص بنجاح");
+    } catch (err: any) {
+      toast.error(err.message || (isEn ? "Failed to save discount" : "فشل حفظ الخصم المخصص"));
+      setCustomDiscounts(customDiscounts);
+    } finally {
+      setSavingDiscounts(false);
+    }
+  };
+
+  const handleUpdateDiscount = async (id: string, patch: Partial<EducationCustomDiscount>) => {
+    const updated = customDiscounts.map((d) => (d.id === id ? { ...d, ...patch } : d));
+    setCustomDiscounts(updated);
+    setSavingDiscounts(true);
+    try {
+      await fetchJson(api("settings/discounts"), {
+        method: "PUT",
+        body: JSON.stringify({ discounts: updated }),
+      });
+      toast.success(isEn ? "Discount updated successfully" : "تم تحديث الخصم بنجاح");
+    } catch (err: any) {
+      toast.error(err.message || (isEn ? "Failed to update discount" : "فشل تحديث الخصم"));
+      setCustomDiscounts(customDiscounts);
+    } finally {
+      setSavingDiscounts(false);
+    }
+  };
+
+  const handleDeleteDiscount = async (id: string) => {
+    const updated = customDiscounts.filter((d) => d.id !== id);
+    setCustomDiscounts(updated);
+    setSavingDiscounts(true);
+    try {
+      await fetchJson(api("settings/discounts"), {
+        method: "PUT",
+        body: JSON.stringify({ discounts: updated }),
+      });
+      toast.success(isEn ? "Discount deleted successfully" : "تم حذف الخصم بنجاح");
+    } catch (err: any) {
+      toast.error(err.message || (isEn ? "Failed to delete discount" : "فشل حذف الخصم"));
+      setCustomDiscounts(customDiscounts);
+    } finally {
+      setSavingDiscounts(false);
+    }
+  };
+
+  const handleToggleDiscount = async (id: string, active?: boolean) => {
+    const target = customDiscounts.find((d) => d.id === id);
+    if (!target) return;
+    const nextVal = active !== undefined ? active : !target.isActive;
+    const updated = customDiscounts.map((d) => (d.id === id ? { ...d, isActive: nextVal } : d));
+    setCustomDiscounts(updated);
+    setSavingDiscounts(true);
+    try {
+      await fetchJson(api(`settings/discounts/${id}/toggle`), {
+        method: "PATCH",
+        body: JSON.stringify({ isActive: nextVal }),
+      });
+      toast.success(
+        nextVal
+          ? isEn
+            ? "Discount activated"
+            : "تم تفعيل الخصم"
+          : isEn
+          ? "Discount deactivated"
+          : "تم تعطيل الخصم",
+      );
+    } catch (err: any) {
+      toast.error(err.message || (isEn ? "Failed to toggle discount" : "فشل تحديث حالة الخصم"));
+      setCustomDiscounts(customDiscounts);
+    } finally {
+      setSavingDiscounts(false);
     }
   };
 
@@ -437,18 +535,25 @@ export function useEducationSettingsController(onSaved?: (newSettings: Education
     publicCode,
     customDomain,
     tabs,
+    customDiscounts,
+    savingDiscounts,
     visibleCount,
     isDirty,
     pendingMode,
     // setters
     setSystemTitle,
     setSystemTitleEn,
+    setCustomDiscounts,
     // handlers
     handleModeChange,
     confirmPendingMode,
     setPendingMode,
     handleTogglePushFirst,
     handleToggleDemoDay,
+    handleAddDiscount,
+    handleUpdateDiscount,
+    handleDeleteDiscount,
+    handleToggleDiscount,
     applyPreset,
     moveTab,
     moveTabTo,

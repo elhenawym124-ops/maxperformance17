@@ -47,6 +47,26 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
+  const getDiscountLabel = (type?: string) => {
+    if (!type || type === "NONE") return null;
+    if (type === "SIBLINGS" || type === "SIBLING" || type === "disc_sibling") {
+      return isEn ? "Sibling Disc" : "خصم أخوات";
+    }
+    if (type === "SEASONAL" || type === "disc_seasonal") {
+      return isEn ? "Seasonal Disc" : "خصم مواسم";
+    }
+    if (type === "disc_early_bird") {
+      return isEn ? "Early Bird" : "حجز مبكر";
+    }
+    if (type === "disc_cash" || type === "disc_cash_full") {
+      return isEn ? "Cash Disc" : "خصم كاش";
+    }
+    if (type === "CUSTOM") {
+      return isEn ? "Custom Disc" : "خصم مخصص";
+    }
+    return type;
+  };
+
   const [selectedEnrollmentForInstallments, setSelectedEnrollmentForInstallments] =
     useState<EducationEnrollment | null>(null);
   const [payingInstallment, setPayingInstallment] = useState(false);
@@ -368,19 +388,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                       {e.discountType && e.discountType !== "NONE" && (
                         <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-0.5 mt-0.5">
                           <Percent className="w-2.5 h-2.5" />
-                          <span>
-                            {e.discountType === "SIBLINGS"
-                              ? isEn
-                                ? "Sibling Disc"
-                                : "خصم أخوات"
-                              : e.discountType === "SEASONAL"
-                              ? isEn
-                                ? "Seasonal Disc"
-                                : "خصم مواسم"
-                              : isEn
-                              ? "Custom Disc"
-                              : "خصم مخصص"}
-                          </span>
+                          <span>{getDiscountLabel(e.discountType)}</span>
                         </div>
                       )}
                     </td>
