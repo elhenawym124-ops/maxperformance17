@@ -339,8 +339,8 @@ def cmd_guard(args):
         write_lock(root, lk)
 
     url = (run_git(root, ["remote", "get-url", "origin"]).stdout or "").strip()
-    if url and "maxp-platform-16" not in url:
-        print(f"WARNING: origin = {url} (expected .../mokhtarelhenawy01254/maxp-platform-16)")
+    if url and "maxperformance17" not in url:
+        print(f"WARNING: origin = {url} (expected .../elhenawym124-ops/maxperformance17)")
 
     attempts = max(1, int(getattr(args, "attempts", PUSH_ATTEMPTS)))
     for attempt in range(1, attempts + 1):

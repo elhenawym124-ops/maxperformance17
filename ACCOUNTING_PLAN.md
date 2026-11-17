@@ -2,7 +2,7 @@
 
 > **الوثيقة:** وثيقة التصميم الفني والمعماري لمنتج المحاسبة والقيد المزدوج.  
 > **المرجع:** `C:\maxp-knowledge\_reports\2026-10-14-two-products-master-plan.md` و `2026-10-14-agy-accounting-wave1-ticket.md`.  
-> **الجهة:** Antigravity (المشروع: `maxp-platform-16` · الريبو الرسمي: `mokhtarelhenawy01254/maxp-platform-16`).  
+> **الجهة:** Antigravity (المشروع: `maxperformance17` · الريبو الرسمي: `elhenawym124-ops/maxperformance17`).  
 > **التاريخ:** 2026-10-14.  
 > **الحالة:** معتمد للتنفيذ البرمجي للدفعة 1 (الأساس الخلفي + وثائق التصميم).
 
