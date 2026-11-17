@@ -1,5 +1,7 @@
 const { getSharedPrismaClient } = require('./sharedDatabase');
 const socketService = require('./socketService');
+const { getEffectiveShiftForDate } = require('./hr/shiftAssignmentResolver');
+const { combineDateAndTime, getDateStringInTimezone } = require('../utils/dateUtils');
 
 class ShiftService {
   constructor() {
@@ -448,6 +450,50 @@ class ShiftService {
 
     const totalOvertimeSec = allTodayOvertime.reduce((acc, curr) => acc + (curr.durationSec || 0), 0);
 
+    let tz = 'Africa/Cairo';
+    try {
+      if (db.company && typeof db.company.findUnique === 'function') {
+        const company = await db.company.findUnique({
+          where: { id: companyId },
+          select: { timezone: true },
+        });
+        if (company && company.timezone) {
+          tz = company.timezone;
+        }
+      }
+    } catch (_tzErr) {
+      tz = 'Africa/Cairo';
+    }
+
+    let scheduledShift = null;
+    let scheduledEndAt = null;
+
+    try {
+      const effectiveShift = await getEffectiveShiftForDate(db, companyId, userId, now, tz);
+      if (effectiveShift && effectiveShift.startTime && effectiveShift.endTime) {
+        scheduledShift = {
+          id: effectiveShift.id,
+          name: effectiveShift.name,
+          startTime: effectiveShift.startTime,
+          endTime: effectiveShift.endTime,
+        };
+
+        const isNightShift = effectiveShift.endTime <= effectiveShift.startTime;
+        let targetEndDate = now;
+        if (isNightShift) {
+          const todayStr = getDateStringInTimezone(now, tz);
+          const [y, m, d] = todayStr.split('-').map(Number);
+          targetEndDate = new Date(Date.UTC(y, m - 1, d + 1, 12, 0, 0));
+        }
+        const endAtDate = combineDateAndTime(targetEndDate, effectiveShift.endTime, tz);
+        scheduledEndAt = endAtDate ? endAtDate.toISOString() : null;
+      }
+    } catch (shiftErr) {
+      console.warn('[ShiftService] Failed to resolve scheduled shift:', shiftErr.message);
+      scheduledShift = null;
+      scheduledEndAt = null;
+    }
+
     return {
       date: today.toISOString().slice(0, 10),
       regularShiftOpen: Boolean(attendance && !attendance.checkOut),
@@ -459,6 +505,9 @@ class ShiftService {
       activeOvertime: activeOvertime || null,
       isOvertimeActive: Boolean(activeOvertime),
       todayOvertimeMinutes: Math.round(totalOvertimeSec / 60),
+      scheduledShift,
+      scheduledEndAt,
+      timezone: tz,
     };
   }
 
