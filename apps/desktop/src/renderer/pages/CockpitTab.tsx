@@ -19,6 +19,7 @@ import {
   LogOut,
   Moon,
 } from 'lucide-react';
+import { OvertimeModal } from '../components/OvertimeModal';
 
 interface CockpitTabProps {
   trackerState: any;
@@ -244,8 +245,23 @@ export const CockpitTab: React.FC<CockpitTabProps> = ({
   const currentUrl = trackerState?.currentUrl;
   const isPaused = trackerState?.isPaused ?? false;
   const isTracking = trackerState?.isTracking ?? false;
+  const isShiftLocked = Boolean(trackerState?.shiftLocked);
+  const lockScheduledEndAt = trackerState?.scheduledEndAt;
+  const shouldShowLockOverlay = isShiftLocked && trackerState?.deviceType !== 'OFFICE';
   const shiftEnded = isToday ? (trackerState?.shiftEnded ?? false) : Boolean(effectiveSummary?.shift_ended_at);
   const shiftEndedAt = isToday ? trackerState?.shiftEndedAt : effectiveSummary?.shift_ended_at;
+
+  const [showOvertimeModal, setShowOvertimeModal] = useState(false);
+
+  const confirmStartOvertime = async (data: { reason: string; taskSummary?: string }) => {
+    try {
+      if ((window as any).electronAPI?.startOvertime) {
+        await (window as any).electronAPI.startOvertime(data);
+      }
+    } catch (err) {
+      console.error('Failed to start overtime from CockpitTab:', err);
+    }
+  };
 
   useEffect(() => {
     if (!isToday || !isTracking || shiftEnded) return;
@@ -460,7 +476,7 @@ export const CockpitTab: React.FC<CockpitTabProps> = ({
             </div>
           </div>
         </div>
-      ) : shiftEnded ? (
+      ) : (isShiftLocked || shiftEnded) ? (
         <div style={styles.shiftEndedBanner}>
           <div style={styles.shiftEndedIconBox}>
             <CheckCircle2 size={18} color="var(--accent-green)" />
@@ -468,26 +484,42 @@ export const CockpitTab: React.FC<CockpitTabProps> = ({
           <div style={{ flex: 1 }}>
             <div style={styles.bannerTitleRow}>
               <span style={styles.shiftEndedTitle}>
-                تم إنهاء وردية عمل اليوم وتسجيل الانصراف بنجاح
-                {shiftEndedAt && ` (${formatClockTime(shiftEndedAt)})`}
+                {isShiftLocked
+                  ? `انتهى الشيفت — تم إغلاق وردية العمل${lockScheduledEndAt ? ` (موعد القفل: ${formatClockTime(lockScheduledEndAt)})` : ''}`
+                  : `تم إنهاء وردية عمل اليوم وتسجيل الانصراف بنجاح${shiftEndedAt ? ` (${formatClockTime(shiftEndedAt)})` : ''}`}
               </span>
-              <span style={styles.shiftEndedChip}>الوردية مغلقة</span>
+              <span style={styles.shiftEndedChip}>
+                {isShiftLocked ? 'انتهى الشيفت' : 'الوردية مغلقة'}
+              </span>
             </div>
             <div style={styles.shiftEndedSubtext}>
-              تم توثيق ساعات الوردية بالكامل في السحابة المركزية. إجمالي العمل الفعلي: {formatTime(activeSeconds)}.
+              {isShiftLocked
+                ? 'الشغل الجديد مقفول لحد بداية وردية جديدة.'
+                : `تم توثيق ساعات الوردية بالكامل في السحابة المركزية. إجمالي العمل الفعلي: ${formatTime(activeSeconds)}.`}
             </div>
           </div>
-          {onStartShift && (
+          {isShiftLocked ? (
             <button
-              onClick={onStartShift}
-              style={styles.startNewShiftBtn}
-              title="بدء وردية جديدة أو عمل إضافي"
-              onMouseDown={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(0.97)'; }}
-              onMouseUp={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; }}
+              onClick={() => setShowOvertimeModal(true)}
+              style={styles.overtimeBtn}
+              title="طلب بدء وردية عمل إضافية"
             >
-              <Play size={13} fill="var(--text-inverse)" color="var(--text-inverse)" />
-              <span>بدء وردية جديدة</span>
+              <Play size={13} fill="currentColor" color="currentColor" />
+              <span>طلب وقت إضافي (Overtime)</span>
             </button>
+          ) : (
+            onStartShift && (
+              <button
+                onClick={onStartShift}
+                style={styles.startNewShiftBtn}
+                title="بدء وردية جديدة أو عمل إضافي"
+                onMouseDown={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(0.97)'; }}
+                onMouseUp={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; }}
+              >
+                <Play size={13} fill="var(--text-inverse)" color="var(--text-inverse)" />
+                <span>بدء وردية جديدة</span>
+              </button>
+            )
           )}
         </div>
       ) : isPaused ? (
@@ -668,6 +700,49 @@ export const CockpitTab: React.FC<CockpitTabProps> = ({
           </div>
         </div>
       )}
+
+      {shouldShowLockOverlay && (
+        <div style={styles.shiftLockOverlay}>
+          <div style={styles.shiftLockCard}>
+            <div style={styles.shiftLockIconBox}>
+              <Moon size={40} color="var(--accent-orange, #f59e0b)" />
+            </div>
+            <h2 style={styles.shiftLockTitle}>انتهى الشيفت — تم قفل التطبيق تلقائيًا</h2>
+            <div style={styles.shiftLockTimeBadge}>
+              <Clock size={16} color="var(--accent-orange, #f59e0b)" />
+              <span>
+                {lockScheduledEndAt
+                  ? `ساعة القفل: ${formatClockTime(lockScheduledEndAt)}`
+                  : 'تم الوصول لموعد نهاية الوردية'}
+              </span>
+            </div>
+            <p style={styles.shiftLockNotice}>
+              الشغل الجديد مقفول لحد بداية وردية جديدة.
+            </p>
+            <p style={styles.shiftLockSubNotice}>
+              تم حفظ وتوثيق جميع أنشطتك وساعات عملك حتى نهاية الوردية بأمان ودون فقدان أي بيانات.
+            </p>
+            <div style={styles.shiftLockActions}>
+              <button
+                onClick={() => setShowOvertimeModal(true)}
+                style={styles.shiftLockOvertimeButton}
+                title="بدء وردية عمل إضافية معتمدة"
+              >
+                <Play size={15} fill="#ffffff" color="#ffffff" />
+                <span>طلب وقت إضافي (Overtime)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Overtime Modal */}
+      <OvertimeModal
+        isOpen={showOvertimeModal}
+        onClose={() => setShowOvertimeModal(false)}
+        onConfirm={confirmStartOvertime}
+        deviceType={trackerState?.deviceType || 'PERSONAL'}
+      />
     </div>
   );
 };
@@ -1095,6 +1170,107 @@ const styles: Record<string, React.CSSProperties> = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+  },
+  shiftLockOverlay: {
+    position: 'fixed' as const,
+    inset: 0,
+    backgroundColor: 'rgba(15, 23, 42, 0.94)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999999,
+    padding: 24,
+    direction: 'rtl' as const,
+  },
+  shiftLockCard: {
+    backgroundColor: 'var(--bg-surface, #1e293b)',
+    borderRadius: 18,
+    border: '1px solid var(--border-color, #334155)',
+    padding: '40px 32px',
+    maxWidth: 480,
+    width: '100%',
+    textAlign: 'center' as const,
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.65)',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+  },
+  shiftLockIconBox: {
+    width: 72,
+    height: 72,
+    borderRadius: '50%',
+    backgroundColor: 'rgba(245, 158, 11, 0.12)',
+    border: '1px solid rgba(245, 158, 11, 0.25)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  shiftLockTitle: {
+    fontSize: 20,
+    fontWeight: 700,
+    color: 'var(--text-primary, #f8fafc)',
+    margin: '0 0 12px 0',
+  },
+  shiftLockTimeBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '6px 14px',
+    backgroundColor: 'rgba(245, 158, 11, 0.12)',
+    border: '1px solid rgba(245, 158, 11, 0.3)',
+    borderRadius: 20,
+    color: 'var(--accent-orange, #f59e0b)',
+    fontSize: 14,
+    fontWeight: 600,
+    marginBottom: 16,
+  },
+  shiftLockNotice: {
+    fontSize: 15,
+    fontWeight: 600,
+    color: 'var(--text-primary, #f1f5f9)',
+    margin: '0 0 8px 0',
+  },
+  shiftLockSubNotice: {
+    fontSize: 13,
+    lineHeight: 1.6,
+    color: 'var(--text-secondary, #94a3b8)',
+    margin: '0 0 24px 0',
+  },
+  shiftLockActions: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  shiftLockOvertimeButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    padding: '12px 28px',
+    backgroundColor: 'var(--accent-primary, #3b82f6)',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: 10,
+    fontSize: 14,
+    fontWeight: 600,
+    cursor: 'pointer',
+    boxShadow: '0 4px 14px rgba(59, 130, 246, 0.4)',
+  },
+  overtimeBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    padding: '8px 14px',
+    backgroundColor: 'var(--accent-orange, #f59e0b)',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: 8,
+    fontSize: 12,
+    fontWeight: 600,
+    cursor: 'pointer',
   },
 };
 

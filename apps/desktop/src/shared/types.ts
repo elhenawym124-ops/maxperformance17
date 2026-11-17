@@ -78,6 +78,9 @@ export interface TrackerState {
   /** تأكيد الاستئناف من السيرفر (Task 1d9f6982) */
   resumeConfirmed?: boolean;
   resumeWarning?: string | null;
+  shiftLocked?: boolean;
+  shiftLockReason?: string | null;
+  scheduledEndAt?: string | null;
 }
 
 

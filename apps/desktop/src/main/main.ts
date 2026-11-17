@@ -10,6 +10,7 @@ import { localDb, getLocalDateString } from '../db/localDb';
 import { apiClient } from '../shared/api';
 import { IPC_CHANNELS } from '../shared/types';
 import { resolveResumeState } from '../shared/resumeConfirmation';
+import { computeShiftLock, ShiftLockResult } from '../shared/shiftLock';
 import { autoUpdater } from 'electron-updater';
 import axios from 'axios';
 
@@ -65,6 +66,10 @@ let remindedForThisIdleEpisode = false;
 // ── Shift & Day Lifecycle State ───────────────────────────────
 let shiftEnded = false;
 let shiftEndedAt: string | null = null;
+let shiftLocked = false;
+let shiftLockReason: string | null = null;
+let scheduledEndAt: string | null = null;
+let isOvertimeActive = false;
 let isOvertime = false;
 let activeOvertimeSession: { id: string; startedAt: string; reason: string; taskSummary?: string | null } | null = null;
 let systemSuspendedAt: number | null = null;
@@ -233,6 +238,12 @@ app.whenReady().then(async () => {
     setInterval(processOfflinePunchesQueue, 30_000);
   }, 4_000);
 
+  // Start periodic shift lock & schedule evaluation (every 60s)
+  setInterval(async () => {
+    await refreshScheduledShift();
+    evaluateShiftLock();
+  }, 60_000);
+
   // Check if user is already logged in
   const savedToken = loadAuthToken();
   const savedServer = store.get('serverUrl') as string | undefined;
@@ -248,6 +259,9 @@ app.whenReady().then(async () => {
       } else {
         console.log('[Main] Device is PERSONAL — auto clock-in skipped.');
       }
+      refreshScheduledShift().then(() => {
+        evaluateShiftLock();
+      });
     });
 
     // Pre-flight session validation: update user profile if still valid, but NEVER auto-logout
@@ -748,6 +762,7 @@ function registerIpcHandlers(): void {
       isOvertime = false;
       activeOvertimeSession = null;
       localDb.markShiftEnded(today, shiftEndedAt);
+      evaluateShiftLock();
 
       // 2. Pause trackers to freeze live counters
       isTracking = false;
@@ -820,6 +835,7 @@ function registerIpcHandlers(): void {
           taskSummary: res.session.taskSummary,
         };
         shiftEnded = false; // allow tracking
+        evaluateShiftLock();
         await startTracking();
         updateTrayMenu();
         sendStateToRenderer();
@@ -841,6 +857,7 @@ function registerIpcHandlers(): void {
       activeOvertimeSession = null;
       shiftEnded = true;
       shiftEndedAt = new Date().toISOString();
+      evaluateShiftLock();
       activityTracker.stop();
       windowTracker.stop();
       isTracking = false;
@@ -858,10 +875,16 @@ function registerIpcHandlers(): void {
     try {
       const res = await apiClient.getTodayShiftStatus();
       if (res.success && res.status) {
-        if (res.status.isOvertimeActive && res.status.activeOvertime) {
-          isOvertime = true;
-          activeOvertimeSession = res.status.activeOvertime;
+        if (res.status.scheduledEndAt !== undefined) {
+          scheduledEndAt = res.status.scheduledEndAt;
         }
+        if (res.status.isOvertimeActive !== undefined) {
+          isOvertime = Boolean(res.status.isOvertimeActive);
+          if (res.status.activeOvertime) {
+            activeOvertimeSession = res.status.activeOvertime;
+          }
+        }
+        evaluateShiftLock();
       }
       return res;
     } catch (err: any) {
@@ -869,11 +892,31 @@ function registerIpcHandlers(): void {
     }
   });
 
+  ipcMain.handle('tracker:shift-lock', async () => {
+    evaluateShiftLock();
+    return {
+      shiftLocked,
+      shiftLockReason,
+      scheduledEndAt,
+      locked: shiftLocked,
+      reason: shiftLockReason,
+      deviceType: currentDeviceType,
+    };
+  });
+
   ipcMain.handle('tracker:start-shift', async () => {
     try {
+      evaluateShiftLock();
+      if (shiftLocked && !(isOvertime || isOvertimeActive)) {
+        return {
+          success: false,
+          error: 'انتهت وردية العمل المحددة لهذا اليوم على هذا الجهاز الشخصي. الشغل الجديد مقفول لحد بداية وردية جديدة أو طلب وردية إضافية.',
+        };
+      }
       console.log('[Main] Starting new shift...');
       shiftEnded = false;
       shiftEndedAt = null;
+      evaluateShiftLock();
       sessionStartedAt = new Date().toISOString();
       await startTracking();
       try {
@@ -1916,6 +1959,60 @@ function registerIpcHandlers(): void {
 
 // ── Utilities ─────────────────────────────────────────────────
 
+function evaluateShiftLock(): boolean {
+  const effectiveOvertime = isOvertimeActive || isOvertime;
+  const result = computeShiftLock({
+    deviceType: currentDeviceType,
+    nowIso: new Date().toISOString(),
+    scheduledEndAtIso: scheduledEndAt,
+    isOvertimeActive: effectiveOvertime,
+    manualShiftEnded: shiftEnded,
+  });
+
+  const wasLocked = shiftLocked;
+  shiftLocked = result.locked;
+  shiftLockReason = result.reason;
+
+  if (!wasLocked && shiftLocked) {
+    console.log('[Main] Shift lock triggered! Reason:', shiftLockReason);
+    try {
+      syncEngine.flushAndCaptureNow();
+    } catch (err: any) {
+      console.warn('[Main] Error flushing on shift lock:', err?.message);
+    }
+    isTracking = false;
+    activityTracker.stop();
+    windowTracker.stop();
+    stopIdleReminder();
+    sendStateToRenderer();
+  } else if (wasLocked && !shiftLocked) {
+    console.log('[Main] Shift lock released. Reason:', shiftLockReason);
+    sendStateToRenderer();
+  }
+
+  return shiftLocked;
+}
+
+async function refreshScheduledShift(): Promise<void> {
+  try {
+    const res = await apiClient.getTodayShiftStatus();
+    if (res?.success && res?.status) {
+      if (res.status.scheduledEndAt !== undefined) {
+        scheduledEndAt = res.status.scheduledEndAt;
+      }
+      if (res.status.isOvertimeActive !== undefined) {
+        isOvertimeActive = Boolean(res.status.isOvertimeActive);
+        isOvertime = isOvertimeActive;
+        if (res.status.activeOvertime) {
+          activeOvertimeSession = res.status.activeOvertime;
+        }
+      }
+    }
+  } catch (err: any) {
+    console.warn('[Main] refreshScheduledShift error:', err?.message);
+  }
+}
+
 function sendStateToRenderer(): void {
   if (!mainWindow || mainWindow.isDestroyed()) return;
   const today = getLocalDateString();
@@ -1941,6 +2038,9 @@ function sendStateToRenderer(): void {
     // تأكيد الاستئناف من السيرفر (Task 1d9f6982)
     resumeConfirmed,
     resumeWarning,
+    shiftLocked,
+    shiftLockReason,
+    scheduledEndAt,
   });
 }
 
@@ -1961,11 +2061,15 @@ function registerPowerMonitorHooks(): void {
     powerMonitor.on('resume', () => {
       console.log('[PowerMonitor] System resume detected — re-evaluating session duration');
       handleSystemResume('resume');
+      evaluateShiftLock();
+      refreshScheduledShift().then(() => evaluateShiftLock());
     });
 
     powerMonitor.on('unlock-screen', () => {
       console.log('[PowerMonitor] Screen unlock detected');
       handleSystemResume('unlock-screen');
+      evaluateShiftLock();
+      refreshScheduledShift().then(() => evaluateShiftLock());
     });
   } catch (err: any) {
     console.warn('[PowerMonitor] Could not register power monitor hooks:', err?.message);
