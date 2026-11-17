@@ -968,6 +968,11 @@ const registerPublicAttendee = async (req, res) => {
       return res.status(400).json({ success: false, error: 'اسم الطالب ورقم الهاتف مطلوبان' });
     }
 
+    const cleanPhone = String(phone).replace(/[^\d+]/g, '').trim();
+    if (!cleanPhone || cleanPhone.length < 8) {
+      return res.status(400).json({ success: false, error: 'رقم الهاتف غير صالح' });
+    }
+
     const prisma = getSharedPrismaClient();
     await ensureTablesExist(prisma);
 
@@ -986,11 +991,25 @@ const registerPublicAttendee = async (req, res) => {
     const counts = await prisma.$queryRawUnsafe(`
       SELECT COUNT(*) AS total FROM "education_demo_attendees" WHERE "demoDayId" = $1
     `, demoDayId);
-    if (parseInt(counts[0]?.total || 0, 10) >= event.capacity) {
+    const registeredCount = parseInt(counts[0]?.total || 0, 10);
+    if (registeredCount >= event.capacity) {
       return res.status(400).json({ success: false, error: 'عذراً، اكتملت السعة القصوى لهذه الجلسة' });
     }
 
-    const cleanPhone = String(phone).replace(/[^\d+]/g, '').trim();
+    // Guard against duplicate registration (same phone in same demo session)
+    const existingAttendees = await prisma.$queryRawUnsafe(`
+      SELECT "id" FROM "education_demo_attendees"
+      WHERE "demoDayId" = $1 AND ("phone" = $2 OR "phone2" = $2)
+      LIMIT 1
+    `, demoDayId, cleanPhone);
+
+    if (existingAttendees && existingAttendees.length > 0) {
+      return res.status(409).json({
+        success: false,
+        error: 'رقم الهاتف مسجل بالفعل في هذه الجلسة التجريبية',
+        data: { existingAttendeeId: existingAttendees[0].id }
+      });
+    }
 
     // Attribution for public attendee (e.g. utm_source, utm_campaign, adId)
     const source = req.body.leadSource || req.body.utmSource || req.body.utm_source || 'WEBSITE';
@@ -999,6 +1018,21 @@ const registerPublicAttendee = async (req, res) => {
     const postId = req.body.postId || null;
     const attrTag = `[ATTR: ${JSON.stringify({ source, campaign, adId, postId })}]`;
     const finalNotes = notes ? `${notes} ${attrTag}` : attrTag;
+
+    // Auto-generate credentials for student/parent
+    const { generateUserCredentials } = require('../services/educationAgeLevelService');
+    const creds = generateUserCredentials(studentName.trim(), cleanPhone);
+
+    const hashPassword = async (pwd) => {
+      try {
+        const bcrypt = require('bcryptjs');
+        return await bcrypt.hash(pwd, 10);
+      } catch {
+        const crypto = require('crypto');
+        return crypto.createHash('sha256').update(pwd).digest('hex');
+      }
+    };
+    const hashedPassword = creds.password ? await hashPassword(creds.password) : null;
 
     // CRM Lead
     let customer = await prisma.customer.findFirst({
@@ -1017,12 +1051,74 @@ const registerPublicAttendee = async (req, res) => {
           phone: cleanPhone,
           phone2: phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
           email: email ? String(email).trim() : null,
+          password: hashedPassword,
           status: 'LEAD',
           leadStage: 'NEW_LEAD',
           leadSource: ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'OTHER'].includes(source) ? source : 'WEBSITE',
           notes: `تسجيل ذاتي عبر رابط الديمو داي: ${event.title}`
         }
       });
+    } else {
+      const custUpdate = {};
+      if (hashedPassword && !customer.password) custUpdate.password = hashedPassword;
+      if (email && !customer.email) custUpdate.email = String(email).trim();
+      if (phone2 && !customer.phone2) custUpdate.phone2 = String(phone2).replace(/[^\d+]/g, '').trim();
+      if (Object.keys(custUpdate).length > 0) {
+        customer = await prisma.customer.update({
+          where: { id: customer.id },
+          data: custUpdate
+        }).catch(() => customer);
+      }
+    }
+
+    // Student Profile (education_students)
+    let student = await prisma.educationStudent.findFirst({
+      where: {
+        companyId,
+        OR: [
+          { phone: cleanPhone },
+          { customerId: customer.id, firstName: studentName.trim() }
+        ]
+      }
+    });
+
+    const resolvedBranchId = event.branchId || null;
+
+    if (!student) {
+      const count = await prisma.educationStudent.count({ where: { companyId } }).catch(() => 0);
+      const safeCode = `STU-${1001 + count}`;
+      student = await prisma.educationStudent.create({
+        data: {
+          companyId,
+          customerId: customer.id,
+          code: safeCode,
+          firstName: studentName.trim(),
+          lastName: guardianName ? guardianName.trim() : '',
+          phone: cleanPhone,
+          phone2: phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
+          grade: grade ? String(grade).trim() : null,
+          age: age ? parseInt(age, 10) : null,
+          branchId: resolvedBranchId,
+          username: creds.username,
+          plainPassword: creds.password,
+          notes: `مسجل ذاتياً عبر الديمو داي: ${event.title}`
+        }
+      });
+    } else {
+      const studentUpdate = {};
+      if (age && !student.age) studentUpdate.age = parseInt(age, 10);
+      if (grade && !student.grade) studentUpdate.grade = String(grade).trim();
+      if (resolvedBranchId && !student.branchId) studentUpdate.branchId = resolvedBranchId;
+      if (creds.username && !student.username) studentUpdate.username = creds.username;
+      if (creds.password && !student.plainPassword) studentUpdate.plainPassword = creds.password;
+      if (phone2 && !student.phone2) studentUpdate.phone2 = String(phone2).replace(/[^\d+]/g, '').trim();
+
+      if (Object.keys(studentUpdate).length > 0) {
+        student = await prisma.educationStudent.update({
+          where: { id: student.id },
+          data: studentUpdate
+        }).catch(() => student);
+      }
     }
 
     const attendeeId = generateAttendeeId();
@@ -1030,13 +1126,14 @@ const registerPublicAttendee = async (req, res) => {
       INSERT INTO "education_demo_attendees" (
         "id", "companyId", "demoDayId", "customerId", "studentName", "guardianName",
         "phone", "phone2", "email", "age", "grade", "attendanceStatus",
-        "conversionStatus", "notes", "createdAt", "updatedAt"
+        "conversionStatus", "convertedStudentId", "branchId", "notes", "createdAt", "updatedAt"
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, NOW(), NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, $13, $14, NOW(), NOW()
       )
     `, attendeeId, companyId, demoDayId, customer.id, studentName.trim(), guardianName ? guardianName.trim() : null,
        cleanPhone, phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
-       email ? String(email).trim() : null, age ? parseInt(age, 10) : null, grade || null, finalNotes);
+       email ? String(email).trim() : null, age ? parseInt(age, 10) : null, grade ? String(grade).trim() : null,
+       student.id, resolvedBranchId, finalNotes);
 
     // Auto WhatsApp confirmation for public registrant
     try {
@@ -1055,13 +1152,41 @@ const registerPublicAttendee = async (req, res) => {
       }).catch((e) => console.warn('[DemoDayWhatsApp] Public registration notification error:', e.message));
     } catch (_) {}
 
+    await logEducationEvent({
+      companyId,
+      req,
+      action: 'REGISTER_DEMO_ATTENDEE',
+      entityType: 'DEMO_DAY',
+      entityId: attendeeId,
+      targetName: studentName.trim(),
+      details: {
+        source: 'PUBLIC_FORM',
+        studentId: student.id,
+        studentCode: student.code,
+        phone: cleanPhone
+      }
+    }).catch(() => {});
+
+    // Recalculate spots left
+    const countsAfter = await prisma.$queryRawUnsafe(`
+      SELECT COUNT(*) AS total FROM "education_demo_attendees" WHERE "demoDayId" = $1
+    `, demoDayId);
+    const newTotal = parseInt(countsAfter[0]?.total || 0, 10);
+    const spotsLeft = Math.max(0, event.capacity - newTotal);
+
     res.status(201).json({
       success: true,
       message: 'تم تأكيد تسجيلك في اليوم التجريبي بنجاح',
       data: {
         id: attendeeId,
         title: event.title,
-        scheduledAt: event.scheduledAt
+        scheduledAt: event.scheduledAt,
+        studentId: student.id,
+        studentCode: student.code,
+        customerId: customer.id,
+        registeredCount: newTotal,
+        spotsLeft,
+        capacity: event.capacity
       }
     });
   } catch (error) {
