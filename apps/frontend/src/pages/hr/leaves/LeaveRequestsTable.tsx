@@ -70,7 +70,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
             <p>{t("employee.leaves.noLeaveRequests")}</p>
           </div>
         ) : (
-          <Table>
+          <div className="w-full overflow-x-auto">
+            <Table className="min-w-[700px]">
             <TableHeader>
               <TableRow>
                 {!isMyLeaves && (
@@ -229,6 +230,7 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
               })}
             </TableBody>
           </Table>
+          </div>
         )}
       </CardContent>
 

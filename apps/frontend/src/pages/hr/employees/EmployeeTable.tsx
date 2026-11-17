@@ -58,7 +58,8 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({
             secondaryIcon={Upload}
           />
         ) : (
-          <Table>
+          <div className="w-full overflow-x-auto">
+            <Table className="min-w-[800px]">
             <TableHeader>
               <TableRow>
                 <TableHead className="text-right">
@@ -104,6 +105,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({
               ))}
             </TableBody>
           </Table>
+          </div>
         )}
       </CardContent>
 

@@ -113,24 +113,24 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
       )}
 
       {/* Footer actions */}
-      <div className="flex items-center justify-end gap-1.5 pt-1 border-t border-gray-100/60 dark:border-gray-800/60">
+      <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100/60 dark:border-gray-800/60">
         {request.status === "PENDING" && !isMyPermissions && (
           <>
             <Button
               size="sm"
-              className="h-8 px-2.5 text-xs bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center gap-1"
+              className="h-9 min-h-[38px] px-3 text-xs bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center gap-1.5 cursor-pointer shadow-xs"
               onClick={() => onApprove(request.id)}
             >
-              <Check className="h-3.5 w-3.5" />
+              <Check className="h-4 w-4" />
               <span>{t("employee.permissions.approve")}</span>
             </Button>
             <Button
               size="sm"
               variant="destructive"
-              className="h-8 px-2.5 text-xs rounded-lg flex items-center gap-1"
+              className="h-9 min-h-[38px] px-3 text-xs rounded-lg flex items-center gap-1.5 cursor-pointer shadow-xs"
               onClick={() => onRejectClick(request)}
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="h-4 w-4" />
               <span>{t("employee.permissions.reject")}</span>
             </Button>
           </>
@@ -138,21 +138,21 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
         <Button
           size="sm"
           variant="outline"
-          className="h-8 px-2.5 text-xs text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg flex items-center gap-1"
+          className="h-9 min-h-[38px] px-3 text-xs text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg flex items-center gap-1.5 cursor-pointer"
           onClick={() => onDetailsClick(request)}
         >
-          <Eye className="h-3.5 w-3.5" />
+          <Eye className="h-4 w-4" />
           <span>{t("employee.permissions.detailsButton", "تفاصيل")}</span>
         </Button>
         {(!isMyPermissions || request.status === "PENDING") && (
           <Button
             size="sm"
             variant="ghost"
-            className="h-8 w-8 p-0 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 rounded-lg"
+            className="h-9 w-9 min-h-[38px] min-w-[38px] p-0 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 rounded-lg cursor-pointer"
             onClick={() => onDeleteClick(request)}
             title={t("employee.permissions.delete")}
           >
-            <Trash2 className="h-3.5 w-3.5" />
+            <Trash2 className="h-4 w-4" />
           </Button>
         )}
       </div>

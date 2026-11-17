@@ -15,7 +15,8 @@ import { TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const HRReportsTabsList: React.FC = () => {
   return (
-    <TabsList className="flex flex-wrap h-auto gap-2 bg-transparent border-none">
+    <div className="w-full overflow-x-auto pb-2 no-scrollbar">
+      <TabsList className="inline-flex flex-nowrap w-max gap-2 bg-transparent border-none p-0.5">
       <TabsTrigger
         value="attendance"
         className="flex items-center gap-2 border data-[state=active]:bg-primary data-[state=active]:text-white"
@@ -94,5 +95,6 @@ export const HRReportsTabsList: React.FC = () => {
         تقارير الموظفين
       </TabsTrigger>
     </TabsList>
+    </div>
   );
 };

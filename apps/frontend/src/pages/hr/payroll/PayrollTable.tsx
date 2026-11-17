@@ -85,7 +85,8 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
             onOpenGenerateDialog={onOpenGenerateDialog}
           />
         ) : (
-          <Table>
+          <div className="w-full overflow-x-auto">
+            <Table className="min-w-[760px]">
             <TableHeader>
               <TableRow>
                 {!isMyPayroll && (
@@ -241,6 +242,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
               })}
             </TableBody>
           </Table>
+          </div>
         )}
       </CardContent>
 
