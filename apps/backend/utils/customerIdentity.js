@@ -76,11 +76,23 @@ async function createCustomerByPhone(prisma, { companyId, phone, data = {} }) {
       return await prisma.customer.create({ data: createData });
     } catch (err) {
       if (err?.code === 'P2002') {
-        const fallbackWhere = { companyId };
-        if (data.facebookId) fallbackWhere.facebookId = data.facebookId;
-        if (data.whatsappId) fallbackWhere.whatsappId = data.whatsappId;
-        const existing = await prisma.customer.findFirst({ where: fallbackWhere });
-        if (existing) return existing;
+        const effectivePhone = phone || data.phone;
+        const phoneWhere = effectivePhone ? buildPhoneWhere(effectivePhone, companyId) : null;
+        let fallbackWhere = null;
+        if (phoneWhere) {
+          fallbackWhere = phoneWhere;
+        } else if (data.email) {
+          fallbackWhere = { companyId, email: data.email };
+        } else if (data.facebookId) {
+          fallbackWhere = { companyId, facebookId: data.facebookId };
+        } else if (data.whatsappId) {
+          fallbackWhere = { companyId, whatsappId: data.whatsappId };
+        }
+
+        if (fallbackWhere) {
+          const existing = await prisma.customer.findFirst({ where: fallbackWhere });
+          if (existing) return existing;
+        }
       }
       throw err;
     }

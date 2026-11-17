@@ -76,59 +76,53 @@ async function getCustomerFirstOrderInfo(prisma, companyId, { phone, email, cust
     ? String(phone).replace(/\D/g, '').slice(-10)
     : null;
 
-  const orConditions = [];
-  if (cleanPhone && cleanPhone.length >= 8) {
-    orConditions.push({ customerPhone: { contains: cleanPhone } });
-    orConditions.push({ guestPhone: { contains: cleanPhone } });
-  }
-  if (email && String(email).includes('@')) {
-    const cleanEmail = String(email).trim().toLowerCase();
-    orConditions.push({ customerEmail: cleanEmail });
-    orConditions.push({ guestEmail: cleanEmail });
-  }
+  let regularWhere = null;
+  let guestWhere = null;
+
   if (customerId) {
-    orConditions.push({ customerId });
+    regularWhere = { companyId, customerId };
+    if (cleanPhone && cleanPhone.length >= 8) {
+      guestWhere = { companyId, guestPhone: { contains: cleanPhone } };
+    }
+  } else if (cleanPhone && cleanPhone.length >= 8) {
+    regularWhere = { companyId, customerPhone: { contains: cleanPhone } };
+    guestWhere = { companyId, guestPhone: { contains: cleanPhone } };
+  } else if (email && String(email).includes('@')) {
+    const cleanEmail = String(email).trim().toLowerCase();
+    regularWhere = { companyId, customerEmail: cleanEmail };
+    guestWhere = { companyId, guestEmail: cleanEmail };
   }
 
-  if (orConditions.length === 0) {
+  if (!regularWhere && !guestWhere) {
     return { isFirstOrder: true, firstOrderNumber: null, firstOrderAt: null, totalOrdersCount: 0 };
   }
 
   try {
     const [regularOrders, guestOrders] = await Promise.all([
-      prisma.order.findMany({
-        where: {
-          companyId,
-          OR: orConditions.map((c) => ({
-            customerPhone: c.customerPhone,
-            customerEmail: c.customerEmail,
-            customerId: c.customerId,
-          })).filter((c) => Object.values(c).some(Boolean)),
-        },
-        select: {
-          id: true,
-          orderNumber: true,
-          createdAt: true,
-          status: true,
-        },
-        orderBy: { createdAt: 'asc' },
-      }),
-      prisma.guestOrder.findMany({
-        where: {
-          companyId,
-          OR: orConditions.map((c) => ({
-            guestPhone: c.guestPhone,
-            guestEmail: c.guestEmail,
-          })).filter((c) => Object.values(c).some(Boolean)),
-        },
-        select: {
-          id: true,
-          orderNumber: true,
-          createdAt: true,
-          status: true,
-        },
-        orderBy: { createdAt: 'asc' },
-      }),
+      regularWhere
+        ? prisma.order.findMany({
+            where: regularWhere,
+            select: {
+              id: true,
+              orderNumber: true,
+              createdAt: true,
+              status: true,
+            },
+            orderBy: { createdAt: 'asc' },
+          })
+        : Promise.resolve([]),
+      guestWhere
+        ? prisma.guestOrder.findMany({
+            where: guestWhere,
+            select: {
+              id: true,
+              orderNumber: true,
+              createdAt: true,
+              status: true,
+            },
+            orderBy: { createdAt: 'asc' },
+          })
+        : Promise.resolve([]),
     ]);
 
     const orderNumberMap = new Map();
@@ -292,57 +286,57 @@ async function getCustomerOrderHistory(prisma, companyId, {
     }
 
     const matchedBy = [];
-    const regularOrConditions = [];
+    let regularWhere = null;
     const guestOrConditions = [];
 
     // Phone matching (main phone + alternative phone)
     const phoneCandidates = [resolvedPhone, alternativePhone].filter(Boolean);
     const checkedPhoneDigits = new Set();
+    const phoneConditions = [];
 
     for (const rawP of phoneCandidates) {
       const digits = extractPhoneDigits(rawP);
       if (!digits || checkedPhoneDigits.has(digits)) continue;
       checkedPhoneDigits.add(digits);
-      matchedBy.push('phone');
 
       // Exact raw match
-      regularOrConditions.push({ customerPhone: rawP });
+      phoneConditions.push({ customerPhone: rawP });
       guestOrConditions.push({ guestPhone: rawP });
 
       // Match last 9 or 10 digits
       if (digits.length >= 9) {
         const slice9 = digits.slice(-9);
-        regularOrConditions.push({ customerPhone: { contains: slice9 } });
+        phoneConditions.push({ customerPhone: { contains: slice9 } });
         guestOrConditions.push({ guestPhone: { contains: slice9 } });
       }
     }
 
-    // Email matching
-    if (resolvedEmail && String(resolvedEmail).includes('@')) {
+    // CustomerId matching takes strict precedence for regular orders to prevent shared-email pollution
+    if (customerId) {
+      matchedBy.push('customerId');
+      regularWhere = { companyId, customerId };
+      if (phoneConditions.length > 0) {
+        matchedBy.push('phone');
+      }
+    } else if (phoneConditions.length > 0) {
+      matchedBy.push('phone');
+      regularWhere = { companyId, OR: phoneConditions };
+    } else if (resolvedEmail && String(resolvedEmail).includes('@')) {
       const cleanEmail = String(resolvedEmail).trim().toLowerCase();
       matchedBy.push('email');
-      regularOrConditions.push({ customerEmail: cleanEmail });
+      regularWhere = { companyId, customerEmail: cleanEmail };
       guestOrConditions.push({ guestEmail: cleanEmail });
     }
 
-    // CustomerId matching
-    if (customerId) {
-      matchedBy.push('customerId');
-      regularOrConditions.push({ customerId });
-    }
-
-    if (regularOrConditions.length === 0 && guestOrConditions.length === 0) {
+    if (!regularWhere && guestOrConditions.length === 0) {
       return emptyResult;
     }
 
     // Query both regular and guest orders in parallel
     const [regularOrders, guestOrders] = await Promise.all([
-      regularOrConditions.length > 0
+      regularWhere
         ? prisma.order.findMany({
-            where: {
-              companyId,
-              OR: regularOrConditions,
-            },
+            where: regularWhere,
             select: {
               id: true,
               orderNumber: true,

@@ -147,4 +147,61 @@ describe('utils/ipGeoLookup & sessionDetailsHelper', () => {
     assert.strictEqual(history.stats.returnedCount, 0);
     assert.strictEqual(history.stats.deliverySuccessRate, 100);
   });
+
+  test('getCustomerOrderHistory strictly scopes by customerId and companyId to prevent shared email pollution (Task 791436c4)', async () => {
+    const { getCustomerOrderHistory } = require('../../utils/sessionDetailsHelper');
+    const companyId = 'company-swan';
+    const targetCustomerId = 'cust-noha-105102';
+
+    let queriedWhere = null;
+    const mockPrisma = {
+      customer: {
+        findFirst: async ({ where }) => ({
+          id: where.id,
+          phone: '01153770958',
+          phoneNormalized: '+201153770958',
+          email: 'loliali5555555555@gmail.com',
+          firstName: 'نهى',
+          lastName: 'سامي محمد',
+        }),
+      },
+      order: {
+        findMany: async ({ where }) => {
+          queriedWhere = where;
+          // Return only order 105102 for this customerId
+          if (where.customerId === targetCustomerId) {
+            return [
+              {
+                id: 'ord-105102',
+                orderNumber: '105102',
+                createdAt: new Date('2026-07-16'),
+                status: 'CANCELLED',
+                total: 2360,
+                orderItems: [],
+              },
+            ];
+          }
+          return [];
+        },
+      },
+      guestOrder: { findMany: async () => [] },
+    };
+
+    const history = await getCustomerOrderHistory(mockPrisma, companyId, {
+      customerId: targetCustomerId,
+      phone: '01153770958',
+      email: 'loliali5555555555@gmail.com', // Shared store email
+      currentOrderNumber: '105102',
+    });
+
+    // Ensure the query only checked this customerId and companyId
+    assert.strictEqual(queriedWhere.companyId, companyId);
+    assert.strictEqual(queriedWhere.customerId, targetCustomerId);
+    assert.strictEqual(queriedWhere.customerEmail, undefined);
+
+    // Expected outcome: 1 order, 0 delivered
+    assert.strictEqual(history.stats.totalOrders, 1);
+    assert.strictEqual(history.stats.deliveredCount, 0);
+    assert.strictEqual(history.stats.cancelledCount, 1);
+  });
 });

@@ -108,6 +108,9 @@ async function importOrdersBatchOptimized(prisma, companyId, orders, options = {
         });
     });
 
+    const phoneList = Array.from(phones);
+    const canonicalPhones = phoneList.map(p => toCanonicalE164(p)).filter(Boolean);
+
     // 2. Pre-fetch everything in parallel
     const [existingOrders, existingCustomers, existingProducts, existingVariants] = await Promise.all([
         prisma.order.findMany({
@@ -123,7 +126,8 @@ async function importOrdersBatchOptimized(prisma, companyId, orders, options = {
             where: {
                 companyId, OR: [
                     { email: { in: Array.from(emails) } },
-                    { phone: { in: Array.from(phones) } }
+                    { phone: { in: phoneList } },
+                    ...(canonicalPhones.length > 0 ? [{ phoneNormalized: { in: canonicalPhones } }] : [])
                 ]
             }
         }),
@@ -133,7 +137,8 @@ async function importOrdersBatchOptimized(prisma, companyId, orders, options = {
                     { sku: { in: Array.from(skus) } },
                     { wooCommerceId: { in: Array.from(productWooIds) } }
                 ]
-            }
+            },
+            include: { product: true }
         }),
         prisma.productVariant.findMany({
             where: {
@@ -158,8 +163,11 @@ async function importOrdersBatchOptimized(prisma, companyId, orders, options = {
     });
 
     existingCustomers.forEach(c => {
-        if (c.email) lookups.customers.set(`EMAIL-${c.email.toLowerCase().trim()}`, c.id);
-        if (c.phone) lookups.customers.set(`PHONE-${c.phone.trim()}`, c.id);
+        const canonical = c.phoneNormalized || toCanonicalE164(c.phone);
+        const entry = { id: c.id, phone: c.phone, phoneNormalized: canonical };
+        if (canonical) lookups.customers.set(`PHONE-${canonical}`, entry);
+        if (c.phone) lookups.customers.set(`PHONE-${c.phone.trim()}`, entry);
+        if (c.email) lookups.customers.set(`EMAIL-${c.email.toLowerCase().trim()}`, entry);
     });
 
     existingProducts.forEach(p => {
@@ -227,18 +235,47 @@ async function createNewOrderOptimized(prisma, companyId, orderData, statusMappi
     const billing = orderData.billing || {};
     const email = (orderData.customerEmail || billing.email || '').trim().toLowerCase();
     const phone = (orderData.customerPhone || billing.phone || '').trim();
+    const canonicalPhone = toCanonicalE164(phone);
 
     // 1. Find or create customer
-    let customerId = (email && email.length > 3) ? lookups.customers.get(`EMAIL-${email}`) : null;
-    if (!customerId && phone && phone.length > 5) {
-        customerId = lookups.customers.get(`PHONE-${phone}`);
+    // البحث بالتليفون بالـ canonical أولاً
+    let customerEntry = null;
+    if (canonicalPhone) {
+        customerEntry = lookups.customers.get(`PHONE-${canonicalPhone}`);
+    } else if (phone && phone.length > 5) {
+        customerEntry = lookups.customers.get(`PHONE-${phone}`);
     }
+
+    // البحث بالإيميل بعد التليفون وبعد شرط «مالوش تليفون أو نفس التليفون»
+    if (!customerEntry && email && email.length > 3) {
+        const emailEntry = lookups.customers.get(`EMAIL-${email}`);
+        if (emailEntry) {
+            const entryCanonical = (typeof emailEntry === 'object')
+                ? (emailEntry.phoneNormalized || toCanonicalE164(emailEntry.phone))
+                : null;
+            const entryPhone = (typeof emailEntry === 'object') ? emailEntry.phone : null;
+
+            if (!canonicalPhone) {
+                if (!entryPhone || !entryCanonical) {
+                    customerEntry = emailEntry;
+                }
+            } else {
+                if (entryCanonical && entryCanonical === canonicalPhone) {
+                    customerEntry = emailEntry;
+                }
+            }
+        }
+    }
+
+    let customerId = customerEntry ? (typeof customerEntry === 'object' ? customerEntry.id : customerEntry) : null;
 
     if (!customerId) {
         customerId = await findOrCreateCustomer(prisma, companyId, orderData);
         // Add to lookup for subsequent orders in the SAME batch
-        if (email && email.length > 3) lookups.customers.set(`EMAIL-${email}`, customerId);
-        if (phone && phone.length > 5) lookups.customers.set(`PHONE-${phone}`, customerId);
+        const newEntry = { id: customerId, phone, phoneNormalized: canonicalPhone };
+        if (canonicalPhone) lookups.customers.set(`PHONE-${canonicalPhone}`, newEntry);
+        else if (phone && phone.length > 5) lookups.customers.set(`PHONE-${phone}`, newEntry);
+        if (email && email.length > 3) lookups.customers.set(`EMAIL-${email}`, newEntry);
     }
 
     // 2. Map and Create
@@ -433,11 +470,36 @@ async function findOrCreateCustomer(prisma, companyId, orderData) {
     const fullName = orderData.customerName || `${billing.first_name || ''} ${billing.last_name || ''}`.trim();
     const nameParts = (fullName || 'عميل WooCommerce').split(' ');
 
+    const canonicalPhone = toCanonicalE164(phone);
     let customer = null;
-    if (email) customer = await prisma.customer.findFirst({ where: { companyId, email } });
-    if (!customer && phone) customer = await findCustomerByPhone(prisma, phone, companyId);
-    if (customer) return customer.id;
 
+    // 1 & 2. لو فيه تليفون صالح -> ابحث بالتليفون أولاً؛ لو لقى عميل -> رجّعه وخلاص
+    if (canonicalPhone) {
+        customer = await findCustomerByPhone(prisma, phone, companyId);
+        if (customer) return customer.id;
+    }
+
+    // 3. لو مالقتش بالتليفون ومفيش تليفون صالح وساعتها بس -> دوّر بالإيميل
+    // بشرط إن العميل اللي رجع ماعندوش تليفون (!customer.phone) أو تليفونه المطبَّع = نفس التليفون.
+    // لو عنده تليفون مختلف -> متّعيدوش (ده عميل تاني) وكمّل لإنشاء عميل جديد.
+    if (!customer && email) {
+        if (!canonicalPhone) {
+            const candidate = await prisma.customer.findFirst({ where: { companyId, email } });
+            if (candidate) {
+                const candidateCanonical = toCanonicalE164(candidate.phone);
+                if (!candidate.phone || !candidateCanonical) {
+                    return candidate.id;
+                }
+            }
+        } else {
+            const candidate = await prisma.customer.findFirst({ where: { companyId, email } });
+            if (candidate && candidate.phone && toCanonicalE164(candidate.phone) === canonicalPhone) {
+                return candidate.id;
+            }
+        }
+    }
+
+    // 4. الإنشاء بـ safeCreateCustomer مع phoneNormalized
     const newCustomer = await safeCreateCustomer(
       prisma,
       {
@@ -447,12 +509,12 @@ async function findOrCreateCustomer(prisma, companyId, orderData) {
           lastName: nameParts.slice(1).join(' ') || 'WooCommerce',
           email,
           phone,
-          phoneNormalized: toCanonicalE164(phone),
+          phoneNormalized: canonicalPhone,
           notes: 'مستورد من WooCommerce',
           status: 'ACTIVE'
         }
       },
-      phone ? buildPhoneWhere(phone, companyId) : (email ? { companyId, email } : null)
+      canonicalPhone ? buildPhoneWhere(phone, companyId) : (email ? { companyId, email } : null)
     );
     return newCustomer.id;
 }
@@ -573,5 +635,7 @@ function mapPaymentMethod(wooMethod) {
 module.exports = {
     importSingleOrder,
     importOrdersBatchOptimized,
-    mapWooOrderToLocalModel
+    mapWooOrderToLocalModel,
+    findOrCreateCustomer,
+    createNewOrderOptimized
 };
