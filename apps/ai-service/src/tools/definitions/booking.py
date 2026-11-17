@@ -91,11 +91,11 @@ def _format_booking_slots(result: dict) -> str:
     return line
 
 def _format_booking_reserve(result: dict) -> str:
+    if result.get("needs_gender") or result.get("needs_branch") or result.get("needs_service"):
+        return result.get("message", "") or result.get("error", "")
     err = result.get("error", "")
     if err:
         return f"تعذر الحجز: {err}"
-    if result.get("needs_gender"):
-        return result.get("message", "")
     appt = result.get("appointment") or result
     parts = [
         f"تم حجز موعد لـ {result.get('patient', '')}",

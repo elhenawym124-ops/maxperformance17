@@ -136,23 +136,38 @@ async def reserve_appointment(
     date_str = appointment_date.strip() if appointment_date else ""
     time_str = appointment_time.strip() if appointment_time else ""
 
-    # 1. Find branch — search by name if provided, else pick first with genderDays, else first
+    # 1. Find branch — search by name if provided, else check if company has single or multiple branches
     branches = await client.get_booking_branches(company_id)
     if not branches:
-        return {"error": "لا يوجد فروع متاحة"}
-    
+        return {"success": False, "error": "لا توجد فروع متاحة للحجز حالياً."}
+
     branch = None
+    avail_branch_names = [b.get("name") for b in branches if b.get("name")]
     if branch_name:
-        branch_lower = branch_name.strip().lower().replace("ة", "ه")
+        branch_clean = branch_name.strip().lower().replace("ة", "ه").replace("أ", "ا").replace("إ", "ا").replace("آ", "ا")
         for b in branches:
-            b_name = (b.get("name") or "").lower().replace("ة", "ه")
-            if branch_lower in b_name or b_name in branch_lower:
+            b_name = (b.get("name") or "").lower().replace("ة", "ه").replace("أ", "ا").replace("إ", "ا").replace("آ", "ا")
+            if branch_clean in b_name or b_name in branch_clean:
                 branch = b
                 break
-    
-    if not branch:
-        branch = next((b for b in branches if b.get("genderDays")), branches[0])
-        
+        if not branch:
+            return {
+                "success": False,
+                "needs_branch": True,
+                "error": f"الفرع '{branch_name}' غير مسجل. الفروع المتاحة هي: {', '.join(avail_branch_names)}",
+                "message": f"عذراً، فرع '{branch_name}' غير مسجل لدينا. الفروع المتاحة: {', '.join(avail_branch_names)}. تحب تحجز في أي فرع منهم؟"
+            }
+    elif len(branches) == 1:
+        branch = branches[0]
+    else:
+        # Multiple branches and no branch specified: Ask customer for branch!
+        return {
+            "success": False,
+            "needs_branch": True,
+            "error": "يرجى تحديد الفرع المطلوب للحجز.",
+            "message": f"لدينا أكثر من فرع. يرجى تحديد الفرع المطلوب: ({', '.join(avail_branch_names)})."
+        }
+
     branch_id = branch.get("id", "")
     branch_name = branch.get("name", "")
 
@@ -160,16 +175,52 @@ async def reserve_appointment(
     services = await client.get_booking_services(company_id)
     active_services = [s for s in services if s.get("isActive")]
     if not active_services:
-        return {"error": "لا توجد خدمات متاحة"}
+        return {"success": False, "error": "لا توجد خدمات متاحة للحجز حالياً."}
+    
     matched_svc = None
     if service_name:
-        svc_lower = service_name.strip().lower().replace("ة", "ه")
+        svc_clean = service_name.strip().lower().replace("ة", "ه").replace("أ", "ا").replace("إ", "ا").replace("آ", "ا")
         for s in active_services:
-            s_name = (s.get("name") or "").lower().replace("ة", "ه")
-            if svc_lower in s_name or s_name in svc_lower:
-                matched_svc = s; break
+            s_name = (s.get("name") or "").lower().replace("ة", "ه").replace("أ", "ا").replace("إ", "ا").replace("آ", "ا")
+            if svc_clean in s_name or s_name in svc_clean:
+                matched_svc = s
+                break
+    
     if not matched_svc:
-        matched_svc = active_services[0]  # fallback
+        avail_svc_names = [s.get("name") for s in active_services if s.get("name")]
+        not_found_msg = f"الخدمة '{service_name}' غير متوفرة." if service_name else "يرجى تحديد الخدمة المطلوبة."
+        return {
+            "success": False,
+            "needs_service": True,
+            "error": f"{not_found_msg} الخدمات المتاحة هي: {', '.join(avail_svc_names)}",
+            "message": f"{not_found_msg} تحب تحجز أي خدمة من الخدمات المتاحة؟ ({', '.join(avail_svc_names)})"
+        }
+
+    # 2.5 Verify service is offered in the selected branch
+    branch_services = matched_svc.get("branchServices") or []
+    if branch_services:
+        is_in_branch = any(
+            (bs.get("branchId") == branch_id or bs.get("branch", {}).get("id") == branch_id)
+            for bs in branch_services
+            if bs.get("isActive") is not False
+        )
+        if not is_in_branch:
+            offering_branches = []
+            for bs in branch_services:
+                b_offered_name = bs.get("branch", {}).get("name")
+                if not b_offered_name:
+                    b_match = next((b for b in branches if b.get("id") == bs.get("branchId")), None)
+                    if b_match:
+                        b_offered_name = b_match.get("name")
+                if b_offered_name and b_offered_name not in offering_branches:
+                    offering_branches.append(b_offered_name)
+            offer_str = f" الفروع المتاحة لهذه الخدمة: {', '.join(offering_branches)}." if offering_branches else ""
+            return {
+                "success": False,
+                "error": f"خدمة '{matched_svc.get('name')}' غير متاحة في فرع '{branch_name}'.{offer_str}",
+                "message": f"عذراً، خدمة '{matched_svc.get('name')}' غير متاحة في فرع '{branch_name}'.{offer_str} تحب تحجز في فرع آخر أو تختار خدمة ثانية؟"
+            }
+
     service_id = matched_svc.get("id", "")
     service_label = matched_svc.get("name", "")
 
@@ -247,11 +298,12 @@ async def reserve_appointment(
         result = await client.create_booking_appointment(company_id, data, agent_name=agent_name)
     except Exception as e:
         err = str(e)
-        if "محجوز بالفعل" in err:
-            return {"error": f"الوقت {time_str} في {date_str} محجوز بالفعل. اختر وقت أو يوم آخر.", "date": date_str, "time": time_str}
-        return {"error": f"تعذر الحجز: {err}"}
+        if "محجوز بالفعل" in err or "متعارض" in err:
+            return {"success": False, "error": f"الوقت {time_str} في {date_str} محجوز بالفعل. اختر وقت أو يوم آخر.", "date": date_str, "time": time_str}
+        return {"success": False, "error": f"تعذر الحجز: {err}"}
 
     return {
+        "success": True,
         "appointment": result,
         "branch": branch_name,
         "service": service_label,

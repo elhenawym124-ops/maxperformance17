@@ -4,11 +4,12 @@ from src.skills.base import Skill
 
 class BookingReserveInput(BaseModel):
     service_name: str = Field(description="Service or doctor name to book")
-    appointment_date: str = Field(description="Appointment date")
-    appointment_time: str = Field(description="Appointment time")
+    appointment_date: str = Field(description="Appointment date (YYYY-MM-DD)")
+    appointment_time: str = Field(description="Appointment time (HH:MM)")
     patient_name: str = Field(description="Patient full name")
     patient_phone: str = Field(description="Patient phone number")
-    gender: str = Field(description="ذكر or أنثى")
+    branch_name: str = Field(default="", description="Branch name where customer wants to book")
+    gender: str = Field(default="", description="ذكر or أنثى")
     company_id: str = Field(default="", description="")
 
 async def reserve_booking(params: BookingReserveInput) -> dict:
@@ -19,6 +20,7 @@ async def reserve_booking(params: BookingReserveInput) -> dict:
         patient_phone=params.patient_phone,
         gender=params.gender,
         service_name=params.service_name,
+        branch_name=params.branch_name,
         appointment_date=params.appointment_date,
         appointment_time=params.appointment_time,
     )

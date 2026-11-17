@@ -137,7 +137,11 @@ async def _execute_one_tool(ctx: PipelineContext, registry: Any, tc: dict) -> di
         validated = tool.input_model(**arguments)
         result = await tool.func(validated)
         tool_status = "success"
-        if isinstance(result, dict) and (result.get("success") is False or result.get("status") in ("DELEGATION_FAILED", "failed", "error")):
+        if isinstance(result, dict) and (
+            result.get("success") is False
+            or bool(result.get("error"))
+            or result.get("status") in ("DELEGATION_FAILED", "failed", "error")
+        ):
             tool_status = "failed"
         return {"tool": func_name, "status": tool_status, "result": result}
     except ValidationError as e:
