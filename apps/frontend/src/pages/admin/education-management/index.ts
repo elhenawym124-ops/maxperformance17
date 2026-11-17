@@ -11,6 +11,8 @@ export * from "./EducationDashboardTab";
 export * from "./EducationSubjectsTab";
 export * from "./EducationPackagesTab";
 export * from "./EducationStudentsTab";
+export * from "./EducationStudentsTable";
+export * from "./EducationStudentsCards";
 export * from "./EducationTeachersTab";
 export * from "./EducationEnrollmentsTab";
 export * from "./EducationSessionsTab";

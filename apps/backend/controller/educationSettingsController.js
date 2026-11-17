@@ -2,6 +2,7 @@ const sharedDatabase = require('../services/sharedDatabase');
 const permissionService = require('../services/permissionService');
 const { logEducationEvent } = require('../services/educationAuditService');
 const { isLegacyDefaultLabel, invalidateTeacherLabelCache } = require('../services/educationLabelService');
+const { DEFAULT_EDUCATION_DISCOUNTS } = require('../utils/educationPricing');
 
 const DEFAULT_EDUCATION_TABS = [
   {
@@ -227,6 +228,40 @@ const sanitize = (str) => {
   return str.replace(/<[^>]*>?/gm, '').trim();
 };
 
+const sanitizeDiscountItem = (d, index) => {
+  if (!d || typeof d !== 'object') return null;
+  const nameAr = typeof d.nameAr === 'string' ? sanitize(d.nameAr).slice(0, 60) : '';
+  if (!nameAr) return null;
+  const nameEn = typeof d.nameEn === 'string' ? sanitize(d.nameEn).slice(0, 60) : '';
+  const type = d.type === 'FIXED' ? 'FIXED' : 'PERCENTAGE';
+  const rawVal = Number(d.value);
+  const value = Number.isFinite(rawVal) && rawVal >= 0
+    ? (type === 'PERCENTAGE' ? Math.min(100, Math.round((rawVal + Number.EPSILON) * 100) / 100) : Math.round((rawVal + Number.EPSILON) * 100) / 100)
+    : 0;
+  const code = typeof d.code === 'string' && d.code.trim() ? sanitize(d.code).toUpperCase().slice(0, 30) : undefined;
+  const minSiblings = Number(d.minSiblings) > 1 ? parseInt(d.minSiblings, 10) : undefined;
+  const isActive = d.isActive !== false;
+  const description = typeof d.description === 'string' ? sanitize(d.description).slice(0, 200) : undefined;
+  const id = typeof d.id === 'string' && d.id.trim() ? sanitize(d.id.trim()) : `disc_${Date.now()}_${index}`;
+
+  return {
+    id,
+    nameAr,
+    ...(nameEn ? { nameEn } : {}),
+    type,
+    value,
+    ...(code ? { code } : {}),
+    ...(minSiblings ? { minSiblings } : {}),
+    isActive,
+    ...(description ? { description } : {}),
+  };
+};
+
+const sanitizeDiscounts = (list) => {
+  if (!Array.isArray(list)) return [];
+  return list.map(sanitizeDiscountItem).filter(Boolean);
+};
+
 const DISALLOWED_ROLES = new Set(['SHIPPING_CLIENT', 'STUDENT', 'CUSTOMER', 'COURIER']);
 
 const resolveCompanyId = (req) => {
@@ -436,6 +471,10 @@ const getSettings = async (req, res) => {
       t.order = i;
     });
 
+    const customDiscounts = Array.isArray(savedEducation.customDiscounts) && savedEducation.customDiscounts.length > 0
+      ? savedEducation.customDiscounts
+      : DEFAULT_EDUCATION_DISCOUNTS;
+
     res.json({
       success: true,
       data: {
@@ -449,7 +488,8 @@ const getSettings = async (req, res) => {
         publicCode: company.publicCode || null,
         companyName: company.name || null,
         customDomain: company.customDomain || null,
-        tabs: mergedTabs
+        tabs: mergedTabs,
+        customDiscounts
       }
     });
   } catch (error) {
@@ -471,7 +511,7 @@ const updateSettings = async (req, res) => {
 
     if (!companyId) return res.status(403).json({ success: false, error: 'معرف الشركة مطلوب' });
 
-    const { systemTitle, systemTitleEn, tabs, educationMode, enableSubjects, enableDemoDay, pushFirstSaveWhatsApp } = req.body || {};
+    const { systemTitle, systemTitleEn, tabs, educationMode, enableSubjects, enableDemoDay, pushFirstSaveWhatsApp, customDiscounts } = req.body || {};
 
     let hasIncomingTitle = false;
     let parsedIncomingTitle = "النظام التعليمي";
@@ -662,7 +702,12 @@ const updateSettings = async (req, res) => {
       t.order = idx;
     });
 
-    // 1. Save educationSettings
+    // 1. Resolve custom dynamic discounts
+    const resolvedCustomDiscounts = customDiscounts !== undefined
+      ? sanitizeDiscounts(customDiscounts)
+      : (existingEdu.customDiscounts || DEFAULT_EDUCATION_DISCOUNTS);
+
+    // 2. Save educationSettings
     currentSettings.educationSettings = {
       systemTitle: sanitizedTitle,
       systemTitleEn: sanitizedTitleEn,
@@ -670,7 +715,8 @@ const updateSettings = async (req, res) => {
       enableSubjects: resolvedEnableSubjects,
       enableDemoDay: resolvedEnableDemoDay,
       pushFirstSaveWhatsApp: resolvedPushFirstSaveWhatsApp,
-      tabs: validatedTabs
+      tabs: validatedTabs,
+      customDiscounts: resolvedCustomDiscounts
     };
 
     // 2. Synchronize into company.settings.sidebarSettings (supporting both array and { sections, items } shapes)
@@ -782,7 +828,8 @@ const updateSettings = async (req, res) => {
         enableSubjects: resolvedEnableSubjects,
         enableDemoDay: resolvedEnableDemoDay,
         pushFirstSaveWhatsApp: resolvedPushFirstSaveWhatsApp,
-        tabs: validatedTabs
+        tabs: validatedTabs,
+        customDiscounts: resolvedCustomDiscounts
       },
       message: 'تم حفظ إعدادات النظام التعليمي بنجاح'
     });
@@ -792,9 +839,193 @@ const updateSettings = async (req, res) => {
   }
 };
 
+/**
+ * جلب الخصومات المخصصة للشركة التعليمية
+ */
+const getDiscounts = async (req, res) => {
+  try {
+    const companyId = resolveCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = sharedDatabase.getSharedPrismaClient();
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+      select: { settings: true }
+    });
+
+    if (!company) {
+      return res.status(404).json({ success: false, error: 'الشركة غير موجودة' });
+    }
+
+    let parsedSettings = {};
+    try {
+      parsedSettings = company.settings ? JSON.parse(company.settings) : {};
+    } catch {
+      parsedSettings = {};
+    }
+
+    const savedEducation = parsedSettings.educationSettings || {};
+    const discounts = Array.isArray(savedEducation.customDiscounts) && savedEducation.customDiscounts.length > 0
+      ? savedEducation.customDiscounts
+      : DEFAULT_EDUCATION_DISCOUNTS;
+
+    res.json({ success: true, data: discounts });
+  } catch (error) {
+    console.error('Error fetching education discounts:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ أثناء جلب الخصومات المخصصة', details: error.message });
+  }
+};
+
+/**
+ * تحديث قائمة الخصومات المخصصة للشركة التعليمية
+ */
+const updateDiscounts = async (req, res) => {
+  try {
+    const companyId = req._educationSettingsCompanyId || resolveCompanyId(req);
+    if (!req._educationSettingsAuthorized) {
+      const allowed = companyId ? await hasEducationSettingsManagePermission(req, companyId) : false;
+      if (!allowed) {
+        await logForbiddenAttempt(req, companyId);
+        return res.status(403).json(FORBIDDEN_RESPONSE);
+      }
+    }
+
+    if (!companyId) return res.status(403).json({ success: false, error: 'معرف الشركة مطلوب' });
+
+    const { discounts } = req.body || {};
+    if (!Array.isArray(discounts)) {
+      return res.status(400).json({ success: false, message: 'قائمة الخصومات مطلوبة كمصفوفة' });
+    }
+
+    const sanitized = sanitizeDiscounts(discounts);
+
+    const prisma = sharedDatabase.getSharedPrismaClient();
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+      select: { settings: true }
+    });
+
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
+    }
+
+    let currentSettings = {};
+    try {
+      currentSettings = company.settings ? JSON.parse(company.settings) : {};
+    } catch {
+      currentSettings = {};
+    }
+
+    if (!currentSettings.educationSettings) {
+      currentSettings.educationSettings = {};
+    }
+
+    const beforeDiscounts = currentSettings.educationSettings.customDiscounts || [];
+    currentSettings.educationSettings.customDiscounts = sanitized;
+
+    await prisma.company.update({
+      where: { id: companyId },
+      data: { settings: JSON.stringify(currentSettings) }
+    });
+
+    await logEducationEvent({
+      companyId,
+      req,
+      action: 'UPDATE_EDUCATION_DISCOUNTS',
+      entityType: 'SETTINGS',
+      entityId: companyId,
+      details: { before: beforeDiscounts, after: sanitized }
+    });
+
+    res.json({
+      success: true,
+      data: sanitized,
+      message: 'تم حفظ الخصومات المخصصة بنجاح'
+    });
+  } catch (error) {
+    console.error('Error updating education discounts:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ أثناء حفظ الخصومات', details: error.message });
+  }
+};
+
+/**
+ * تبديل حالة تفعيل/تعطيل خصم مخصص محدد
+ */
+const toggleDiscount = async (req, res) => {
+  try {
+    const companyId = req._educationSettingsCompanyId || resolveCompanyId(req);
+    if (!req._educationSettingsAuthorized) {
+      const allowed = companyId ? await hasEducationSettingsManagePermission(req, companyId) : false;
+      if (!allowed) {
+        await logForbiddenAttempt(req, companyId);
+        return res.status(403).json(FORBIDDEN_RESPONSE);
+      }
+    }
+
+    if (!companyId) return res.status(403).json({ success: false, error: 'معرف الشركة مطلوب' });
+
+    const { id } = req.params;
+    const { isActive } = req.body || {};
+
+    const prisma = sharedDatabase.getSharedPrismaClient();
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+      select: { settings: true }
+    });
+
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
+    }
+
+    let currentSettings = {};
+    try {
+      currentSettings = company.settings ? JSON.parse(company.settings) : {};
+    } catch {
+      currentSettings = {};
+    }
+
+    if (!currentSettings.educationSettings) {
+      currentSettings.educationSettings = {};
+    }
+
+    let discounts = Array.isArray(currentSettings.educationSettings.customDiscounts) && currentSettings.educationSettings.customDiscounts.length > 0
+      ? [...currentSettings.educationSettings.customDiscounts]
+      : [...DEFAULT_EDUCATION_DISCOUNTS];
+
+    const idx = discounts.findIndex((d) => String(d.id) === String(id));
+    if (idx === -1) {
+      return res.status(404).json({ success: false, message: 'الخصم المحدد غير موجود' });
+    }
+
+    discounts[idx] = {
+      ...discounts[idx],
+      isActive: isActive !== undefined ? Boolean(isActive) : !discounts[idx].isActive
+    };
+
+    currentSettings.educationSettings.customDiscounts = discounts;
+
+    await prisma.company.update({
+      where: { id: companyId },
+      data: { settings: JSON.stringify(currentSettings) }
+    });
+
+    res.json({
+      success: true,
+      data: discounts[idx],
+      message: 'تم تحديث حالة الخصم بنجاح'
+    });
+  } catch (error) {
+    console.error('Error toggling education discount:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ أثناء تبديل حالة الخصم', details: error.message });
+  }
+};
+
 module.exports = {
   DEFAULT_EDUCATION_TABS,
   requireSettingsManage,
   getSettings,
-  updateSettings
+  updateSettings,
+  getDiscounts,
+  updateDiscounts,
+  toggleDiscount
 };

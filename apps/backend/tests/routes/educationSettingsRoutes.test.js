@@ -163,4 +163,98 @@ describe('educationSettingsController tests', () => {
     const result = res.json.mock.calls[0][0];
     expect(result.success).toBe(false);
   });
+
+  test('getDiscounts returns default education discounts when none are saved', async () => {
+    const req = {
+      user: { id: 'user-1', role: 'OWNER', companyId: 'comp-123' }
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    };
+
+    await controller.getDiscounts(req, res);
+
+    expect(res.json).toHaveBeenCalled();
+    const result = res.json.mock.calls[0][0];
+    expect(result.success).toBe(true);
+    expect(Array.isArray(result.data)).toBe(true);
+    expect(result.data.length).toBeGreaterThanOrEqual(1);
+    expect(result.data[0]).toHaveProperty('id');
+    expect(result.data[0]).toHaveProperty('nameAr');
+    expect(result.data[0]).toHaveProperty('type');
+  });
+
+  test('updateDiscounts saves custom dynamic discounts successfully', async () => {
+    const customList = [
+      {
+        id: 'disc_vip',
+        nameAr: 'خصم الطلاب المتفوقين',
+        nameEn: 'Top Students Discount',
+        type: 'PERCENTAGE',
+        value: 30,
+        code: 'VIP30',
+        isActive: true,
+        description: 'خصم سنوي خاص'
+      },
+      {
+        id: 'disc_fixed_50',
+        nameAr: 'خصم كاش 50 ج.م',
+        type: 'FIXED',
+        value: 50,
+        isActive: true
+      }
+    ];
+
+    const req = {
+      user: { id: 'user-1', role: 'OWNER', companyId: 'comp-123' },
+      body: { discounts: customList }
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    };
+
+    await controller.updateDiscounts(req, res);
+
+    expect(res.json).toHaveBeenCalled();
+    const result = res.json.mock.calls[0][0];
+    expect(result.success).toBe(true);
+    expect(result.data.length).toBe(2);
+    expect(result.data[0].id).toBe('disc_vip');
+    expect(result.data[0].value).toBe(30);
+
+    const saved = JSON.parse(mockCompany.settings);
+    expect(saved.educationSettings.customDiscounts).toEqual(result.data);
+  });
+
+  test('toggleDiscount toggles active state of a custom discount', async () => {
+    mockCompany.settings = JSON.stringify({
+      educationSettings: {
+        customDiscounts: [
+          { id: 'disc_test', nameAr: 'خصم تجريبي', type: 'PERCENTAGE', value: 10, isActive: true }
+        ]
+      }
+    });
+
+    const req = {
+      user: { id: 'user-1', role: 'OWNER', companyId: 'comp-123' },
+      params: { id: 'disc_test' },
+      body: { isActive: false }
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    };
+
+    await controller.toggleDiscount(req, res);
+
+    expect(res.json).toHaveBeenCalled();
+    const result = res.json.mock.calls[0][0];
+    expect(result.success).toBe(true);
+    expect(result.data.isActive).toBe(false);
+
+    const saved = JSON.parse(mockCompany.settings);
+    expect(saved.educationSettings.customDiscounts[0].isActive).toBe(false);
+  });
 });

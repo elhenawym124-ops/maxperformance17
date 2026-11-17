@@ -7,4 +7,9 @@ const requireEducationAppInstalled = require('../middleware/requireEducationAppI
 router.get('/', verifyToken.authenticateToken, requireEducationAppInstalled, controller.getSettings);
 router.put('/', verifyToken.authenticateToken, requireEducationAppInstalled, controller.requireSettingsManage, controller.updateSettings);
 
+// Dynamic Custom Discounts endpoints
+router.get('/discounts', verifyToken.authenticateToken, requireEducationAppInstalled, controller.getDiscounts);
+router.put('/discounts', verifyToken.authenticateToken, requireEducationAppInstalled, controller.requireSettingsManage, controller.updateDiscounts);
+router.patch('/discounts/:id/toggle', verifyToken.authenticateToken, requireEducationAppInstalled, controller.requireSettingsManage, controller.toggleDiscount);
+
 module.exports = router;

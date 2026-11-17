@@ -1,8 +1,13 @@
 /**
- * تسعير باقات وحدة التعليم — خصم الأخوات 10%
- * (سياسة العميل: أي أخ/أخت إضافي لنفس ولي الأمر)
+ * تسعير باقات وحدة التعليم — خصم الأخوات 10% والخصومات الديناميكية المخصصة
  */
-const { SIBLING_DISCOUNT_RATE, computePackagePrice, round2 } = require('../../utils/educationPricing');
+const {
+  SIBLING_DISCOUNT_RATE,
+  DEFAULT_EDUCATION_DISCOUNTS,
+  computeDynamicDiscount,
+  computePackagePrice,
+  round2,
+} = require('../../utils/educationPricing');
 
 describe('educationPricing — sibling discount', () => {
   test('discount rate is exactly 10%', () => {
@@ -43,5 +48,110 @@ describe('educationPricing — sibling discount', () => {
     expect(computePackagePrice({ basePrice: undefined, siblingCount: 2 }).finalPrice).toBe(0);
     expect(computePackagePrice({ basePrice: 900, siblingCount: undefined }).finalPrice).toBe(900);
     expect(round2('900.005')).toBe(900.01);
+  });
+});
+
+describe('educationPricing — dynamic custom discounts', () => {
+  test('computes percentage discount accurately', () => {
+    const discount = {
+      id: 'custom_1',
+      nameAr: 'خصم المتفوقين',
+      type: 'PERCENTAGE',
+      value: 25,
+      isActive: true,
+    };
+    const res = computeDynamicDiscount({ basePrice: 1000, discount });
+    expect(res.discountAmount).toBe(250);
+    expect(res.finalPrice).toBe(750);
+    expect(res.reason).toBe('خصم المتفوقين');
+    expect(res.applies).toBe(true);
+  });
+
+  test('computes fixed amount discount accurately', () => {
+    const discount = {
+      id: 'custom_fixed',
+      nameAr: 'خصم 150 ج.م كاش',
+      type: 'FIXED',
+      value: 150,
+      isActive: true,
+    };
+    const res = computeDynamicDiscount({ basePrice: 800, discount });
+    expect(res.discountAmount).toBe(150);
+    expect(res.finalPrice).toBe(650);
+    expect(res.applies).toBe(true);
+  });
+
+  test('fixed discount cannot exceed base price (clamps to 0)', () => {
+    const discount = {
+      id: 'huge_discount',
+      nameAr: 'خصم كبير',
+      type: 'FIXED',
+      value: 1500,
+      isActive: true,
+    };
+    const res = computeDynamicDiscount({ basePrice: 500, discount });
+    expect(res.discountAmount).toBe(500);
+    expect(res.finalPrice).toBe(0);
+  });
+
+  test('respects minSiblings condition', () => {
+    const discount = {
+      id: 'sibling_disc_custom',
+      nameAr: 'خصم عائلي',
+      type: 'PERCENTAGE',
+      value: 20,
+      minSiblings: 3,
+      isActive: true,
+    };
+    // 2 siblings: does not meet minSiblings 3
+    const res1 = computeDynamicDiscount({ basePrice: 1000, discount, siblingCount: 2 });
+    expect(res1.applies).toBe(false);
+    expect(res1.discountAmount).toBe(0);
+    expect(res1.finalPrice).toBe(1000);
+
+    // 3 siblings: meets condition
+    const res2 = computeDynamicDiscount({ basePrice: 1000, discount, siblingCount: 3 });
+    expect(res2.applies).toBe(true);
+    expect(res2.discountAmount).toBe(200);
+    expect(res2.finalPrice).toBe(800);
+  });
+
+  test('applies customDiscounts via computePackagePrice with selectedDiscountId', () => {
+    const customDiscounts = [
+      { id: 'd1', nameAr: 'خصم 15%', type: 'PERCENTAGE', value: 15, isActive: true },
+      { id: 'd2', nameAr: 'خصم 50 ج.م', type: 'FIXED', value: 50, isActive: true },
+    ];
+    const res = computePackagePrice({
+      basePrice: 600,
+      customDiscounts,
+      selectedDiscountId: 'd1',
+    });
+    expect(res.discountAmount).toBe(90);
+    expect(res.finalPrice).toBe(510);
+    expect(res.reason).toBe('خصم 15%');
+  });
+
+  test('applies promoCode matching from customDiscounts', () => {
+    const customDiscounts = [
+      { id: 'd1', nameAr: 'عرض الصيف', code: 'SUMMER2026', type: 'PERCENTAGE', value: 30, isActive: true },
+    ];
+    const res = computePackagePrice({
+      basePrice: 1000,
+      customDiscounts,
+      promoCode: 'summer2026', // case-insensitive
+    });
+    expect(res.discountAmount).toBe(300);
+    expect(res.finalPrice).toBe(700);
+    expect(res.reason).toBe('عرض الصيف');
+  });
+
+  test('supports direct customDiscountAmount override', () => {
+    const res = computePackagePrice({
+      basePrice: 1000,
+      customDiscountAmount: 175,
+    });
+    expect(res.discountAmount).toBe(175);
+    expect(res.finalPrice).toBe(825);
+    expect(res.reason).toBe('خصم يدوي مخصص');
   });
 });
