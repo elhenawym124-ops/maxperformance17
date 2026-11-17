@@ -241,6 +241,8 @@ export default function EducationManagementPage() {
             <EducationStudentsTab
               students={students}
               subjects={subjects}
+              packages={packages}
+              teachers={teachers}
               enableSubjects={enableSubjects}
               customers={customers}
               customerResults={customerResults}
@@ -281,7 +283,6 @@ export default function EducationManagementPage() {
               handleSaveEnrollment={handleSaveEnrollment}
               handleDeleteEnrollment={handleDeleteEnrollment}
               handleSaveStudent={handleSaveStudent}
-              onRefresh={fetchAll}
             />
           )}
           {activeTab === "sessions" && (

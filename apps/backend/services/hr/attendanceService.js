@@ -707,10 +707,14 @@ class AttendanceService {
       )
     );
 
+    const hasBranchIpAllowlist = Boolean(
+      effectiveSettings?.branchIpAllowlist &&
+      String(effectiveSettings.branchIpAllowlist).trim().length > 0
+    );
     const branchIpMatch = Boolean(
-      effectiveSettings.branchNetworkEnabled &&
+      (effectiveSettings?.branchNetworkEnabled || hasBranchIpAllowlist) &&
       clientIp &&
-      ipMatchesAllowlist(clientIp, effectiveSettings.branchIpAllowlist),
+      ipMatchesAllowlist(clientIp, effectiveSettings?.branchIpAllowlist),
     );
 
     if (branchIpMatch || branchSsidMatch) {
@@ -4299,32 +4303,65 @@ class AttendanceService {
         where: { companyId, userId: attempt.userId },
       });
 
+      const isCheckOutAction = attempt.action === "CHECK_OUT";
+
       if (attendance) {
-        if (!attendance.checkIn) {
+        if (isCheckOutAction) {
+          const checkInDate = attendance.checkIn ? new Date(attendance.checkIn) : null;
+          let workHours = attendance.workHours;
+          if (checkInDate && punchTime.getTime() > checkInDate.getTime()) {
+            workHours = Math.round(((punchTime.getTime() - checkInDate.getTime()) / 3600000) * 100) / 100;
+          }
+          attendance = await this.prisma.attendance.update({
+            where: { id: attendance.id },
+            data: {
+              checkOut: punchTime,
+              checkOutMethod: "resolved_missing_punch",
+              workHours: workHours !== undefined ? workHours : undefined,
+              status: "PRESENT",
+              employeeRelId: empRecord?.id || undefined,
+            },
+          });
+        } else {
           attendance = await this.prisma.attendance.update({
             where: { id: attendance.id },
             data: {
               checkIn: punchTime,
               checkInMethod: "resolved_missing_punch",
               status: "PRESENT",
+              lateMinutes: 0,
               employeeRelId: empRecord?.id || undefined,
             },
           });
         }
       } else {
+        const createData = isCheckOutAction
+          ? {
+              id: uuidv4(),
+              companyId,
+              userId: attempt.userId,
+              employeeRelId: empRecord?.id || null,
+              date: attempt.attendanceDate,
+              checkOut: punchTime,
+              checkOutMethod: "resolved_missing_punch",
+              workMode: attempt.workMode || "OFFICE",
+              status: "PRESENT",
+            }
+          : {
+              id: uuidv4(),
+              companyId,
+              userId: attempt.userId,
+              employeeRelId: empRecord?.id || null,
+              date: attempt.attendanceDate,
+              checkIn: punchTime,
+              checkInMethod: "resolved_missing_punch",
+              workMode: attempt.workMode || "OFFICE",
+              status: "PRESENT",
+              lateMinutes: 0,
+            };
+
         attendance = await this.prisma.attendance.create({
-          data: {
-            id: uuidv4(),
-            companyId,
-            userId: attempt.userId,
-            employeeRelId: empRecord?.id || null,
-            date: attempt.attendanceDate,
-            checkIn: punchTime,
-            checkInMethod: "resolved_missing_punch",
-            workMode: attempt.workMode || "OFFICE",
-            status: "PRESENT",
-            lateMinutes: 0,
-          },
+          data: createData,
         });
       }
 
@@ -4333,6 +4370,7 @@ class AttendanceService {
         where: { id: attempt.id },
         data: {
           attendanceId: attendance.id,
+          result: "RESOLVED",
           reason: updatedReason,
         },
       });

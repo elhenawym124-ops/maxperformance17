@@ -1,269 +1,306 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Phone,
-  Eye,
-  Pencil,
-  Trash2,
-  BookOpen,
-  MapPin,
-  MessageCircle,
-} from "lucide-react";
+import { Eye, Pencil, Trash2, BookOpen, MapPin, ArrowUp, ArrowDown } from "lucide-react";
 import type { EducationStudent, EducationSubject } from "./types";
 
-interface EducationStudentsTableProps {
+export interface EducationStudentsTableProps {
   students: EducationStudent[];
   subjects: EducationSubject[];
   enableSubjects?: boolean;
-  onEditStudent: (student: EducationStudent) => void;
-  onToggleStudent: (id: string, current: boolean) => Promise<void>;
-  onDeleteStudent: (id: string) => Promise<void>;
+  sortBy: string;
+  sortDir: "asc" | "desc";
+  onSort: (column: string) => void;
+  onEdit: (student: EducationStudent) => void;
+  onToggleStatus: (id: string, current: boolean) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 }
 
 export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
   students,
   subjects,
   enableSubjects = false,
-  onEditStudent,
-  onToggleStudent,
-  onDeleteStudent,
+  sortBy,
+  sortDir,
+  onSort,
+  onEdit,
+  onToggleStatus,
+  onDelete,
 }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
-  const getWhatsAppLink = (phone?: string) => {
-    if (!phone) return null;
-    let clean = phone.replace(/[^0-9]/g, "");
-    if (clean.startsWith("01")) clean = "2" + clean;
-    return `https://wa.me/${clean}`;
+  const renderSortIcon = (column: string) => {
+    if (sortBy !== column) return null;
+    return sortDir === "asc" ? (
+      <ArrowUp className="w-3 h-3 text-primary inline ms-1 shrink-0" />
+    ) : (
+      <ArrowDown className="w-3 h-3 text-primary inline ms-1 shrink-0" />
+    );
   };
 
   return (
-    <div className="bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs">
+    <div className="hidden sm:block bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs" dir={isEn ? "ltr" : "rtl"}>
       <div className="overflow-x-auto">
-        <table className="w-full text-right text-xs text-foreground">
-          <thead className="bg-muted/40 border-b border-border/80 text-muted-foreground font-semibold">
-            <tr>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap"># {t("education.students.code", isEn ? "Code" : "الكود")}</th>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.name", isEn ? "Student Name" : "اسم الطالب")}</th>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.grade", isEn ? "Grade" : "الصف الدراسي")}</th>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.phone", isEn ? "Phone" : "الهاتف")}</th>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.guardianTitle", isEn ? "Guardian" : "ولي الأمر")}</th>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.address", isEn ? "Address" : "العنوان")}</th>
+        <table className="w-full text-xs text-start border-collapse">
+          <thead>
+            <tr className="bg-muted/40 border-b border-border text-muted-foreground font-semibold">
+              {/* Student Name & Code */}
+              <th
+                onClick={() => onSort("name")}
+                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors"
+              >
+                <span>{isEn ? "Student / Code" : "الطالب / الكود"}</span>
+                {renderSortIcon("name")}
+              </th>
+
+              {/* Grade */}
+              <th
+                onClick={() => onSort("grade")}
+                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors"
+              >
+                <span>{isEn ? "Grade" : "الصف الدراسي"}</span>
+                {renderSortIcon("grade")}
+              </th>
+
+              {/* Student Phone */}
+              <th className="py-3 px-3.5 text-start">
+                <span>{isEn ? "Phone" : "هاتف الطالب"}</span>
+              </th>
+
+              {/* Guardian */}
+              <th className="py-3 px-3.5 text-start">
+                <span>{isEn ? "Guardian" : "ولي الأمر"}</span>
+              </th>
+
+              {/* Address */}
+              <th className="py-3 px-3.5 text-start">
+                <span>{isEn ? "Address" : "العنوان"}</span>
+              </th>
+
+              {/* Subjects / Packages */}
               {enableSubjects && (
-                <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.subjects", isEn ? "Subjects" : "المواد")}</th>
+                <th className="py-3 px-3.5 text-start">
+                  <span>{isEn ? "Subjects" : "المواد"}</span>
+                </th>
               )}
-              <th className="p-3 sm:p-3.5 whitespace-nowrap">{t("education.students.status", isEn ? "Status" : "الحالة")}</th>
-              <th className="p-3 sm:p-3.5 whitespace-nowrap text-center">{t("education.actions.title", isEn ? "Actions" : "إجراءات")}</th>
+
+              {/* Status */}
+              <th
+                onClick={() => onSort("status")}
+                className="py-3 px-3.5 text-center cursor-pointer hover:text-foreground select-none transition-colors"
+              >
+                <span>{isEn ? "Status" : "الحالة"}</span>
+                {renderSortIcon("status")}
+              </th>
+
+              {/* Actions */}
+              <th className="py-3 px-3.5 text-end">
+                <span>{isEn ? "Actions" : "الإجراءات"}</span>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/60">
-            {students.map((s) => {
-              const waLink = getWhatsAppLink(s.phone || s.customer?.phone);
-              return (
-                <tr
-                  key={s.id}
-                  className={`hover:bg-muted/30 transition-colors ${
-                    !s.isActive ? "opacity-60 bg-muted/10" : ""
-                  }`}
-                >
-                  {/* Code */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap">
-                    {s.code ? (
-                      <span
-                        className="font-mono text-[11px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20 shrink-0 inline-block"
-                        dir="ltr"
+            {students.map((s) => (
+              <tr
+                key={s.id}
+                className={`hover:bg-muted/30 transition-colors ${
+                  !s.isActive ? "opacity-65 bg-muted/10" : ""
+                }`}
+              >
+                {/* 1. Student Name & Code */}
+                <td className="py-2.5 px-3.5 align-middle">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary font-bold text-xs flex items-center justify-center shrink-0 border border-primary/20">
+                      {s.firstName?.[0] || "ط"}
+                    </div>
+                    <div className="min-w-0">
+                      <Link
+                        to={`/admin/education/student/${s.id}`}
+                        className="font-semibold text-foreground hover:text-primary transition-colors truncate block text-xs"
                       >
-                        #{s.code}
-                      </span>
-                    ) : (
-                      <span className="text-muted-foreground/60">—</span>
-                    )}
-                  </td>
-
-                  {/* Student Name */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap font-medium text-foreground">
-                    <Link
-                      to={`/admin/education/student/${s.id}`}
-                      className="hover:text-primary transition-colors hover:underline inline-flex items-center gap-1.5"
-                    >
-                      <span className="font-semibold">{s.firstName} {s.lastName || ""}</span>
-                    </Link>
-                  </td>
-
-                  {/* Grade */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap text-muted-foreground">
-                    {s.grade || (isEn ? "Not specified" : "غير محدد")}
-                  </td>
-
-                  {/* Phone */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap font-mono tabular-nums">
-                    <div className="flex items-center gap-1.5">
-                      <Phone className="w-3 h-3 text-primary shrink-0" />
-                      <span>{s.phone || "—"}</span>
-                      {s.phone2 && (
-                        <span className="text-[10px] text-primary/90 font-sans bg-primary/10 px-1 py-0.2 rounded border border-primary/20">
-                          {isEn ? "Alt: " : "إضافي: "}{s.phone2}
-                        </span>
-                      )}
-                      {waLink && (
-                        <a
-                          href={waLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 p-1 rounded hover:bg-emerald-500/10 transition-colors"
-                          title={isEn ? "WhatsApp chat" : "محادثة واتساب"}
-                          aria-label={isEn ? "WhatsApp chat" : "محادثة واتساب"}
+                        {s.firstName} {s.lastName || ""}
+                      </Link>
+                      {s.code && (
+                        <span
+                          className="font-mono text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20 inline-block mt-0.5"
+                          dir="ltr"
                         >
-                          <MessageCircle className="w-3.5 h-3.5" />
-                        </a>
+                          #{s.code}
+                        </span>
                       )}
                     </div>
-                  </td>
+                  </div>
+                </td>
 
-                  {/* Guardian */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap">
-                    {s.customer ? (
-                      <div>
-                        <span className="font-medium text-foreground">
-                          {s.customer.firstName} {s.customer.lastName || ""}
-                        </span>
-                        {s.customer.phone && (
-                          <div className="text-[11px] font-mono text-muted-foreground flex items-center gap-1">
-                            <span>{s.customer.phone}</span>
-                            {(s.customer as any).phone2 && (
-                              <span className="text-primary font-normal text-[10px]">
-                                | {(s.customer as any).phone2}
-                              </span>
-                            )}
-                          </div>
+                {/* 2. Grade */}
+                <td className="py-2.5 px-3.5 align-middle text-muted-foreground font-medium">
+                  {s.grade || (isEn ? "Not specified" : "غير محدد")}
+                </td>
+
+                {/* 3. Student Phone */}
+                <td className="py-2.5 px-3.5 align-middle">
+                  <div className="font-mono text-[11px] text-muted-foreground flex flex-col gap-0.5" dir="ltr">
+                    {s.phone ? (
+                      <span className="text-foreground">{s.phone}</span>
+                    ) : (
+                      <span>—</span>
+                    )}
+                    {s.phone2 && (
+                      <span className="text-[10px] text-primary/80">
+                        {isEn ? "Alt: " : "إضافي: "}
+                        {s.phone2}
+                      </span>
+                    )}
+                  </div>
+                </td>
+
+                {/* 4. Guardian */}
+                <td className="py-2.5 px-3.5 align-middle">
+                  {s.customer ? (
+                    <div className="space-y-0.5">
+                      <div className="font-medium text-foreground truncate max-w-[140px]">
+                        {s.customer.firstName} {s.customer.lastName || ""}
+                      </div>
+                      {s.customer.phone && (
+                        <div className="font-mono text-[11px] text-muted-foreground" dir="ltr">
+                          {s.customer.phone}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
+                </td>
+
+                {/* 5. Address */}
+                <td className="py-2.5 px-3.5 align-middle text-muted-foreground max-w-[150px] truncate" title={s.address || ""}>
+                  {s.address ? (
+                    <div className="flex items-center gap-1 truncate">
+                      <MapPin className="w-3 h-3 text-muted-foreground shrink-0" />
+                      <span className="truncate">{s.address}</span>
+                    </div>
+                  ) : (
+                    "—"
+                  )}
+                </td>
+
+                {/* 6. Subjects */}
+                {enableSubjects && (
+                  <td className="py-2.5 px-3.5 align-middle">
+                    {(s as any).subjects && Array.isArray((s as any).subjects) && (s as any).subjects.length > 0 ? (
+                      <div className="flex flex-wrap gap-1 max-w-[160px]">
+                        {(s as any).subjects.slice(0, 2).map((sub: any, idx: number) => {
+                          const subName =
+                            typeof sub === "string"
+                              ? subjects.find((x) => x.id === sub)?.name || sub
+                              : sub.name || sub.id;
+                          return (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary border border-primary/20"
+                            >
+                              <BookOpen className="w-2.5 h-2.5 shrink-0" />
+                              <span className="truncate max-w-[60px]">{subName}</span>
+                            </span>
+                          );
+                        })}
+                        {(s as any).subjects.length > 2 && (
+                          <span className="text-[10px] text-muted-foreground self-center">
+                            +{(s as any).subjects.length - 2}
+                          </span>
                         )}
                       </div>
                     ) : (
-                      <span className="text-muted-foreground/60">—</span>
+                      <span className="text-muted-foreground">—</span>
                     )}
                   </td>
+                )}
 
-                  {/* Address */}
-                  <td className="p-3 sm:p-3.5 max-w-[180px] truncate text-muted-foreground" title={s.address || ""}>
-                    {s.address ? (
-                      <div className="flex items-center gap-1 truncate">
-                        <MapPin className="w-3 h-3 text-primary shrink-0" />
-                        <span className="truncate">{s.address}</span>
-                      </div>
-                    ) : (
-                      <span className="text-muted-foreground/60">—</span>
-                    )}
-                  </td>
+                {/* 7. Status */}
+                <td className="py-2.5 px-3.5 align-middle text-center">
+                  <span
+                    className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                      s.isActive
+                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                        : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                    }`}
+                  >
+                    {s.isActive
+                      ? t("education.statuses.ACTIVE", isEn ? "Active" : "نشط")
+                      : t("education.statuses.INACTIVE", isEn ? "Inactive" : "معطل")}
+                  </span>
+                </td>
 
-                  {/* Subjects */}
-                  {enableSubjects && (
-                    <td className="p-3 sm:p-3.5 whitespace-nowrap">
-                      {(s as any).subjects && Array.isArray((s as any).subjects) && (s as any).subjects.length > 0 ? (
-                        <div className="flex flex-wrap gap-1 max-w-[200px]">
-                          {(s as any).subjects.map((sub: any, idx: number) => {
-                            const subName =
-                              typeof sub === "string"
-                                ? subjects.find((x) => x.id === sub)?.name || sub
-                                : sub.name || sub.id;
-                            return (
-                              <span
-                                key={idx}
-                                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary border border-primary/20"
-                              >
-                                <BookOpen className="w-2.5 h-2.5" />
-                                {subName}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <span className="text-muted-foreground/60">—</span>
-                      )}
-                    </td>
-                  )}
+                {/* 8. Actions */}
+                <td className="py-2.5 px-3.5 align-middle text-end">
+                  <div className="flex items-center justify-end gap-1.5">
+                    {/* View Profile */}
+                    <Link
+                      to={`/admin/education/student/${s.id}`}
+                      className="p-1.5 bg-muted/60 text-foreground hover:bg-muted hover:text-primary rounded-lg transition-colors"
+                      title={t("education.actions.view", isEn ? "View Profile" : "عرض ملف الطالب")}
+                      aria-label={t("education.actions.view", isEn ? "View Profile" : "عرض ملف الطالب")}
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                    </Link>
 
-                  {/* Status */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap">
-                    <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                    {/* Edit Student */}
+                    <button
+                      type="button"
+                      onClick={() => onEdit(s)}
+                      className="p-1.5 bg-muted/60 text-foreground hover:bg-muted hover:text-primary rounded-lg transition-colors"
+                      title={t("education.actions.edit", isEn ? "Edit" : "تعديل")}
+                      aria-label={t("education.actions.edit", isEn ? "Edit" : "تعديل")}
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                    </button>
+
+                    {/* Toggle Status */}
+                    <button
+                      type="button"
+                      onClick={() => onToggleStatus(s.id, s.isActive)}
+                      className={`px-2 py-1 text-[11px] font-medium rounded-lg transition-colors ${
                         s.isActive
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                          : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                          ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
+                          : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
                       }`}
+                      title={s.isActive ? (isEn ? "Deactivate" : "تعطيل") : (isEn ? "Activate" : "تفعيل")}
+                      aria-label={s.isActive ? (isEn ? "Deactivate" : "تعطيل") : (isEn ? "Activate" : "تفعيل")}
                     >
                       {s.isActive
-                        ? t("education.statuses.ACTIVE", isEn ? "Active" : "نشط")
-                        : t("education.statuses.INACTIVE", isEn ? "Inactive" : "معطل")}
-                    </span>
-                  </td>
+                        ? t("education.actions.deactivate", isEn ? "Deactivate" : "تعطيل")
+                        : t("education.actions.activate", isEn ? "Activate" : "تفعيل")}
+                    </button>
 
-                  {/* Actions */}
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Link
-                        to={`/admin/education/student/${s.id}`}
-                        className="p-1.5 text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted rounded-lg transition-colors"
-                        title={t("education.actions.view", isEn ? "View" : "عرض")}
-                        aria-label={t("education.actions.view", isEn ? "View" : "عرض")}
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => onEditStudent(s)}
-                        className="p-1.5 text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted rounded-lg transition-colors"
-                        title={t("education.actions.edit", isEn ? "Edit" : "تعديل")}
-                        aria-label={t("education.actions.edit", isEn ? "Edit" : "تعديل")}
-                      >
-                        <Pencil className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onToggleStudent(s.id, s.isActive)}
-                        className={`p-1.5 text-xs rounded-lg transition-colors ${
-                          s.isActive
-                            ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                            : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
-                        }`}
-                        title={
-                          s.isActive
-                            ? t("education.actions.deactivate", isEn ? "Deactivate" : "تعطيل")
-                            : t("education.actions.activate", isEn ? "Activate" : "تفعيل")
-                        }
-                        aria-label={
-                          s.isActive
-                            ? t("education.actions.deactivate", isEn ? "Deactivate" : "تعطيل")
-                            : t("education.actions.activate", isEn ? "Activate" : "تفعيل")
-                        }
-                      >
-                        {s.isActive
-                          ? t("education.actions.deactivate", isEn ? "Deactivate" : "تعطيل")
-                          : t("education.actions.activate", isEn ? "Activate" : "تفعيل")}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onDeleteStudent(s.id)}
-                        className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
-                        title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
-                        aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")}
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+                    {/* Delete */}
+                    <button
+                      type="button"
+                      onClick={() => onDelete(s.id)}
+                      className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                      title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
+                      aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+
+            {students.length === 0 && (
+              <tr>
+                <td
+                  colSpan={enableSubjects ? 8 : 7}
+                  className="py-12 text-center text-xs text-muted-foreground"
+                >
+                  {t("education.students.empty", isEn ? "No enrolled students found" : "لا يوجد طلاب مطابقين للبحث")}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
-      {students.length === 0 && (
-        <div className="py-12 text-center text-xs text-muted-foreground">
-          {t("education.students.empty", isEn ? "No enrolled students" : "لا يوجد طلاب مسجلين")}
-        </div>
-      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * audit-bundles-dry-run.js — Task 621f2800
+ * audit-bundles-dry-run.js — Task 621f2800 / Task 2f9d3804
  *
  * يعرض حالة نظام الباقات قبل أي تنضيف. **لا بيكتب ولا بيحذف أي حاجة.**
  *
@@ -16,15 +16,26 @@
  *   --query-timeout-ms=10000  مهلة الاستعلام الواحد + statement_timeout (افتراضي 10000ms)
  *   --lock-timeout-ms=3000    مهلة انتظار الأقفال lock_timeout (افتراضي 3000ms)
  *   --connect-timeout-ms=10000 مهلة فتح الاتصال بقاعدة البيانات (افتراضي 10000ms)
+ *   --connection-limit=3      حد اتصالات Prisma (افتراضي 2 للمباشر، 3 لـ PgBouncer)
  *   --quiet                   إخفاء سطور التقدّم على stderr في وضع --json
  *
  * ملاحظة معمارية:
- *   السكربت بيتصل بـ PrismaClient خفيف مباشرة (connection_limit=1) بدل sharedDatabase.js
+ *   السكربت بيتصل بـ PrismaClient خفيف مباشرة بدل sharedDatabase.js
  *   لتجنب فتح socket لـ Redis (ioredis) أو pool كبير عبر PgBouncer أو تلويث stdout،
- *   وبيقفل الاتصال صراحةً في finally عشان يخرج فورًا بعد انتهاء الاستعلامات.
+ *   وبيقفل الاتصال صراحةً في finally وبيخرج فورًا (process.exit) بعد انتهاء الاستعلامات.
  *
  * أي فشل في أي استعلام أو انتهاء مهلة = خروج بكود 1 مع رسالة واضحة (fail-closed).
  */
+
+// 🛡️ حماية من التعليق على process.stdin عند التشغيل بدون tty أو مع </dev/null
+if (process.stdin && typeof process.stdin.pause === 'function') {
+  try {
+    process.stdin.pause();
+    if (typeof process.stdin.unref === 'function') {
+      process.stdin.unref();
+    }
+  } catch (_) {}
+}
 
 const fs = require('fs');
 const path = require('path');
@@ -74,6 +85,10 @@ function parseOptions(argv = [], env = process.env) {
       ? parsePositiveInt(env.AUDIT_TIMEOUT_MS, 'AUDIT_TIMEOUT_MS')
       : DEFAULT_OPTIONS.totalTimeoutMs,
   };
+
+  if (env.AUDIT_CONNECTION_LIMIT) {
+    options.connectionLimit = parsePositiveInt(env.AUDIT_CONNECTION_LIMIT, 'AUDIT_CONNECTION_LIMIT');
+  }
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
@@ -129,6 +144,11 @@ function parseOptions(argv = [], env = process.env) {
       options.connectTimeoutMs = parsePositiveInt(connVal, '--connect-timeout-ms');
       continue;
     }
+    const connLimitVal = readFlagValue('--connection-limit');
+    if (connLimitVal !== null) {
+      options.connectionLimit = parsePositiveInt(connLimitVal, '--connection-limit');
+      continue;
+    }
 
     throw new Error(`خيار غير معروف: ${arg}`);
   }
@@ -154,10 +174,12 @@ function extractLandingBundleSlugs(backendRoot = BACKEND_ROOT) {
 
 function resolveDatabaseTarget(env = process.env) {
   if (env.POSTGRES_URL) {
-    return { url: env.POSTGRES_URL, usingPgBouncer: false, source: 'POSTGRES_URL' };
+    const isBouncer = env.POSTGRES_URL.includes(':6432') || env.POSTGRES_URL.includes('pgbouncer=true');
+    return { url: env.POSTGRES_URL, usingPgBouncer: isBouncer, source: 'POSTGRES_URL' };
   }
   if (env.DATABASE_URL) {
-    return { url: env.DATABASE_URL, usingPgBouncer: false, source: 'DATABASE_URL' };
+    const isBouncer = env.DATABASE_URL.includes(':6432') || env.DATABASE_URL.includes('pgbouncer=true');
+    return { url: env.DATABASE_URL, usingPgBouncer: isBouncer, source: 'DATABASE_URL' };
   }
   if (env.PG_BOUNCER_URL) {
     return { url: env.PG_BOUNCER_URL, usingPgBouncer: true, source: 'PG_BOUNCER_URL' };
@@ -165,15 +187,43 @@ function resolveDatabaseTarget(env = process.env) {
   return { url: null, usingPgBouncer: false, source: null };
 }
 
-function buildConnectionUrl(rawUrl, { usingPgBouncer = false, connectTimeoutMs = 10000, pgBouncerPrepared = false } = {}) {
+function buildConnectionUrl(
+  rawUrl,
+  {
+    usingPgBouncer = false,
+    connectTimeoutMs = 10000,
+    pgBouncerPrepared = false,
+    connectionLimit = null,
+    lockTimeoutMs = null,
+    queryTimeoutMs = null,
+  } = {}
+) {
   const parsed = new URL(rawUrl);
   const timeoutSeconds = String(Math.max(1, Math.ceil(connectTimeoutMs / 1000)));
-  parsed.searchParams.set('connection_limit', '1');
+
+  const effectiveLimit = connectionLimit !== null && connectionLimit !== undefined
+    ? String(connectionLimit)
+    : (usingPgBouncer ? '3' : '1');
+
+  parsed.searchParams.set('connection_limit', effectiveLimit);
   parsed.searchParams.set('connect_timeout', timeoutSeconds);
   parsed.searchParams.set('pool_timeout', timeoutSeconds);
   if (usingPgBouncer && !pgBouncerPrepared) {
     parsed.searchParams.set('pgbouncer', 'true');
   }
+
+  // إضافة خيارات GUC لمستوى الجلسة في PostgreSQL عند تحديدها
+  if (lockTimeoutMs || queryTimeoutMs) {
+    const pgOpts = [];
+    if (queryTimeoutMs) pgOpts.push(`-c statement_timeout=${queryTimeoutMs}ms`);
+    if (lockTimeoutMs) pgOpts.push(`-c lock_timeout=${lockTimeoutMs}ms`);
+    pgOpts.push('-c default_transaction_read_only=on');
+    const existingOptions = parsed.searchParams.get('options') || '';
+    if (!existingOptions.includes('statement_timeout')) {
+      parsed.searchParams.set('options', existingOptions ? `${existingOptions} ${pgOpts.join(' ')}` : pgOpts.join(' '));
+    }
+  }
+
   return parsed.toString();
 }
 
@@ -206,9 +256,6 @@ function withTimeout(promise, timeoutMs, label) {
       err.code = 'AUDIT_TIMEOUT';
       reject(err);
     }, timeoutMs);
-    if (typeof timer.unref === 'function') {
-      timer.unref();
-    }
   });
 
   return Promise.race([promise, timeoutPromise]).finally(() => {
@@ -255,6 +302,31 @@ function createEmitter(options, stdout, stderr, onTerminalOutput) {
         );
       }
     },
+    onConnecting(meta) {
+      if (options.ndjson) {
+        emitNdjson({ event: 'connecting', ...meta });
+      } else {
+        emitProgress(`[audit] جاري فتح الاتصال بقاعدة البيانات (${meta.source || 'default'})...`);
+      }
+    },
+    onConnected(meta) {
+      if (options.ndjson) {
+        emitNdjson({ event: 'connected', ...meta });
+      } else {
+        emitProgress(`[audit] تم فتح الاتصال بقاعدة البيانات بنجاح (${meta.durationMs}ms)`);
+      }
+    },
+    onStepStart(step, label) {
+      if (options.ndjson) {
+        emitNdjson({ event: 'step_start', step, label });
+      } else if (options.json) {
+        if (!options.quiet) {
+          writeLine(stderr, `[audit] بدء ${step}...`);
+        }
+      } else {
+        writeLine(stdout, `[audit] بدء فحص ${step}...`);
+      }
+    },
     onStep(step, durationMs, lines, data) {
       if (options.ndjson) {
         emitNdjson({ event: 'step', step, durationMs, data });
@@ -280,7 +352,7 @@ function createEmitter(options, stdout, stderr, onTerminalOutput) {
       }
       const { verdict, timingsMs } = report;
       emitProgress(
-        `النتيجة: missing=${verdict.bundlesReferencedButMissing} · orphan=${verdict.orphanBundles} · safeToClean=${verdict.safeToCleanCount} · blockedByActive=${verdict.blockedByActiveSubscriptions}`
+        `النتيجة: missing=${verdict.bundlesReferencedButMissing} · orphan=${verdict.orphanBundles} · safeToClean=${verdict.safeToCleanCount} · blockedByActiveSubscriptions=${verdict.blockedByActiveSubscriptions}`
       );
       emitProgress(`مفيش أي كتابة أو حذف في السكربت ده. (اكتمل في ${timingsMs.totalMs}ms)`);
     },
@@ -318,10 +390,14 @@ async function createConnectedPrisma(options, backendRoot = BACKEND_ROOT, env = 
   }
 
   const effectiveConnectTimeoutMs = Math.max(1, Math.min(options.connectTimeoutMs, connectBudgetMs));
+  const effectiveConnectionLimit = options.connectionLimit || (target.usingPgBouncer ? 3 : 2);
   const connectionUrl = buildConnectionUrl(target.url, {
     usingPgBouncer: target.usingPgBouncer,
     connectTimeoutMs: effectiveConnectTimeoutMs,
     pgBouncerPrepared: env.PG_BOUNCER_PREPARED === '1',
+    connectionLimit: effectiveConnectionLimit,
+    lockTimeoutMs: options.lockTimeoutMs,
+    queryTimeoutMs: options.queryTimeoutMs,
   });
 
   const PrismaClient = loadPrismaConstructor(backendRoot);
@@ -385,6 +461,8 @@ async function runAudit(deps = {}) {
     const effectiveLockTimeoutMs = Math.max(1, Math.min(options.lockTimeoutMs, effectiveQueryTimeoutMs));
     const t0 = Date.now();
 
+    emitter.onStepStart(label, label);
+
     const execute = async () => {
       if (typeof prisma.$transaction === 'function') {
         return prisma.$transaction(
@@ -437,10 +515,13 @@ async function runAudit(deps = {}) {
         err.code = 'AUDIT_TIMEOUT';
         throw err;
       }
+      const target = resolveDatabaseTarget(env);
+      emitter.onConnecting({ source: target.source || 'database' });
       const connectStart = Date.now();
       const connected = await createConnectedPrisma(options, backendRoot, env, leftForConnect);
       prisma = connected.prisma;
       report.timingsMs.connectMs = Date.now() - connectStart;
+      emitter.onConnected({ source: connected.source, durationMs: report.timingsMs.connectMs });
     }
 
     // 1) الباقات
@@ -570,6 +651,7 @@ async function runAudit(deps = {}) {
     );
 
     // 5) لكل باقة: كام شركة نشطة بتستخدم أي تطبيق من تطبيقاتها
+    emitter.onStepStart('bundle_safety', 'تحليل أمان الباقات');
     const safetyStart = Date.now();
     report.bundleSafety = computeBundleSafety({
       bundles,
@@ -670,29 +752,38 @@ function printHelp() {
   --query-timeout-ms=<ms>      مهلة الاستعلام الواحد (افتراضي ${DEFAULT_OPTIONS.queryTimeoutMs})
   --lock-timeout-ms=<ms>       مهلة انتظار الأقفال lock_timeout (افتراضي ${DEFAULT_OPTIONS.lockTimeoutMs})
   --connect-timeout-ms=<ms>    مهلة فتح الاتصال (افتراضي ${DEFAULT_OPTIONS.connectTimeoutMs})
+  --connection-limit=<num>     حد اتصالات Prisma (افتراضي 2 للمباشر، 3 لـ PgBouncer)
   -h, --help                   عرض هذه المساعدة`);
 }
 
 async function main() {
+  // 🛡️ Prevent hanging on stdin in non-interactive/no-tty execution (e.g. </dev/null or automated runner)
+  if (process.stdin && typeof process.stdin.pause === 'function') {
+    try {
+      process.stdin.pause();
+      if (typeof process.stdin.unref === 'function') {
+        process.stdin.unref();
+      }
+    } catch (_) {}
+  }
+
   let options;
   try {
     options = parseOptions(process.argv.slice(2), process.env);
   } catch (err) {
     console.error(`❌ ${err.message}`);
-    process.exitCode = 1;
-    return;
+    process.exit(1);
   }
 
   if (options.help) {
     printHelp();
-    process.exitCode = 0;
-    return;
+    process.exit(0);
   }
 
   let emittedTerminal = false;
   let watchdog = null;
   if (options.totalTimeoutMs > 0) {
-    // حارس نهائي: unref عشان ما يمنعش الخروج الطبيعي، وبيقتل العملية لو حصل تعليق غير متوقع
+    // حارس نهائي: يضمن عدم بقاء العملية معلقة في أي ظرف
     watchdog = setTimeout(() => {
       const msg = `تجاوزت المهلة الإجمالية القصوى للسكربت (${options.totalTimeoutMs}ms) — إيقاف فوري`;
       if (!emittedTerminal) {
@@ -705,10 +796,7 @@ async function main() {
       }
       process.stderr.write(`❌ ${msg}\n`);
       process.exit(1);
-    }, options.totalTimeoutMs + 2500);
-    if (typeof watchdog.unref === 'function') {
-      watchdog.unref();
-    }
+    }, options.totalTimeoutMs + 1000);
   }
 
   let result = null;
@@ -720,21 +808,23 @@ async function main() {
       },
     });
     process.exitCode = result.exitCode;
+  } catch (fatalErr) {
+    process.stderr.write(`❌ خطأ غير متوقع: ${fatalErr && fatalErr.message ? fatalErr.message : fatalErr}\n`);
+    process.exitCode = 1;
   } finally {
     if (watchdog) {
       clearTimeout(watchdog);
     }
   }
 
-  if (result && result.needsForceExit) {
-    process.exit(result.exitCode);
-  }
+  // خروج فوري لتفريغ أي اتصالات أو sockets لمحرك Prisma في الخلفية
+  process.exit(result ? result.exitCode : (process.exitCode || 0));
 }
 
 if (require.main === module) {
   main().catch((err) => {
     console.error('audit-bundles-dry-run failed:', err && err.message ? err.message : err);
-    process.exitCode = 1;
+    process.exit(1);
   });
 }
 
