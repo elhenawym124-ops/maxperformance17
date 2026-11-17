@@ -1,67 +1,5 @@
 [
   {
-    "id": "kwrsat-2026",
-    "name": "كورسات 2026",
-    "description": "قالب منصة كورسات 2026 النخبوي بمحرك موشن كامل 60 FPS وجزيئات كانفاس تفاعلية وبطاقات 3D مائلة وتمرير نصي لا نهائي وسكرول ناعم مع Lenis.",
-    "category": "digital",
-    "categoryMeta": {
-      "primary": {
-        "id": "digital",
-        "label": "رقمي وإبداعي"
-      },
-      "secondary": {
-        "id": "courses-digital",
-        "label": "كورسات ومسارات برمجية 2026"
-      }
-    },
-    "direction": "rtl",
-    "previewColors": [
-      "142 71% 45%",
-      "220 20% 14%",
-      "199 89% 48%"
-    ],
-    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
-    "pageStats": {
-      "homeSections": 7,
-      "shopSections": 5,
-      "checkoutSections": 3,
-      "pdpSections": 6,
-      "cartSections": 2,
-      "totalSections": 23
-    }
-  },
-  {
-    "id": "kwrsat",
-    "name": "كورسات 2026",
-    "description": "قالب تعليمي نخبوي للكورسات والمسارات البرمجية والذكاء الاصطناعي مع هيرو 3D تفاعلي وجزيئات كانفاس وسكرول 60 FPS من ultimate-animation.",
-    "category": "digital",
-    "categoryMeta": {
-      "primary": {
-        "id": "digital",
-        "label": "رقمي وإبداعي"
-      },
-      "secondary": {
-        "id": "courses-digital",
-        "label": "كورسات ومسارات برمجية 2026"
-      }
-    },
-    "direction": "rtl",
-    "previewColors": [
-      "142 71% 45%",
-      "220 20% 14%",
-      "199 89% 48%"
-    ],
-    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
-    "pageStats": {
-      "homeSections": 7,
-      "shopSections": 5,
-      "checkoutSections": 3,
-      "pdpSections": 6,
-      "cartSections": 2,
-      "totalSections": 23
-    }
-  },
-  {
     "id": "modern-minimal",
     "name": "Modern Minimal",
     "description": "بوتيك أحذية حريمي هادئ يوازن بين إبراز المقاسات، وضوح المقارنة، ومسارات شراء أسرع للسنيكرز والكعب والصنادل.",
@@ -1767,6 +1705,68 @@
     }
   },
   {
+    "id": "kwrsat",
+    "name": "كورسات 2026",
+    "description": "قالب كورسات 2026 النخبوي: تصميم سينمائي فائق السرعة بمحرك موشن 60 FPS وجزيئات كانفاس تفاعلية وبطاقات مشاريع ستاكينج وباقات اشتراك ديناميكية.",
+    "category": "digital",
+    "categoryMeta": {
+      "primary": {
+        "id": "digital",
+        "label": "رقمي وإبداعي"
+      },
+      "secondary": {
+        "id": "courses-digital",
+        "label": "كورسات ومسارات برمجية 2026"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "142 71% 45%",
+      "220 20% 14%",
+      "199 89% 48%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 7,
+      "shopSections": 5,
+      "checkoutSections": 3,
+      "pdpSections": 6,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "kwrsat-2026",
+    "name": "كورسات 2026",
+    "description": "قالب كورسات 2026 النخبوي: تصميم سينمائي فائق السرعة بمحرك موشن 60 FPS وجزيئات كانفاس تفاعلية وبطاقات مشاريع ستاكينج وباقات اشتراك ديناميكية.",
+    "category": "digital",
+    "categoryMeta": {
+      "primary": {
+        "id": "digital",
+        "label": "رقمي وإبداعي"
+      },
+      "secondary": {
+        "id": "courses-digital",
+        "label": "كورسات ومسارات برمجية 2026"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "142 71% 45%",
+      "220 20% 14%",
+      "199 89% 48%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 7,
+      "shopSections": 5,
+      "checkoutSections": 3,
+      "pdpSections": 6,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
     "id": "layali-edit-eg",
     "name": "ليالي إيديت",
     "description": "قالب مناسبات يختصر الحيرة: ابدئي من نوع المناسبة وشوفي لوكات جاهزة بعروض وإكسسوارات تكمل الطلب.",
@@ -2434,9 +2434,9 @@
     },
     "direction": "rtl",
     "previewColors": [
-      "0 0% 13%",
-      "0 0% 96%",
-      "0 0% 90%"
+      "0 0% 13.33%",
+      "0 0% 95.69%",
+      "0 0% 89.8%"
     ],
     "previewImage": "/assets/themes/mono-jewel-atelier/preview.png",
     "pageStats": {
@@ -4430,6 +4430,130 @@
       "pdpSections": 7,
       "cartSections": 2,
       "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-045-brightstage-gaming",
+    "name": "Brightstage — كمبيوتر وجيمنج",
+    "description": "قالب كمبيوتر وجيمنج على منطق القالب الأساسي النظيف: بانر صورة كبير بنص في وسط الصورة، صف مجموعات كبسولات، شبكة منتجات واسعة، عروض فئات، وشريط ثقة رفيع. أبيض بالكامل والجهاز هو البطل — مبني لمتجر بيبيع بالصورة والمواصفة.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "gaming-store",
+        "label": "كمبيوتر وجيمنج"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "222 24% 12%",
+      "220 14% 95%",
+      "205 100% 48%"
+    ],
+    "previewImage": "/assets/themes/tpl-045-brightstage-gaming/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-046-forgebox-gaming",
+    "name": "Forgebox — كمبيوتر وجيمنج",
+    "description": "قالب كمبيوتر وجيمنج بمنطق بلوكات صفحة الهبوط: شريط عرض، بانر أوامر، بطاقات أقسام، حملة عروض مكدّسة، شبكة منتجات، شريط خدمة، وUGC. كحلي غامق وبرتقالي حاد — مناسب لمتجر بيجمع البيع مع الحملات.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "gaming-store",
+        "label": "كمبيوتر وجيمنج"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "222 47% 18%",
+      "210 24% 94%",
+      "22 96% 52%"
+    ],
+    "previewImage": "/assets/themes/tpl-046-forgebox-gaming/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-047-nocturne-gaming",
+    "name": "Nocturne — كمبيوتر وجيمنج",
+    "description": "قالب كمبيوتر وجيمنج غامق بمنطق الفخامة الهادية: هيرو داكن بعنصر نيون واحد، شبكة أجهزة مختارة، فئات بلاطات ماركت، موزاييك بنتو، وآراء. أسود ومريدي وبنفسجي — مناسب لمتجر بيبيع أجهزة غالية بالذوق.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "gaming-store",
+        "label": "كمبيوتر وجيمنج"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "258 40% 12%",
+      "252 22% 18%",
+      "262 84% 66%"
+    ],
+    "previewImage": "/assets/themes/tpl-047-nocturne-gaming/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-048-loadout-arena-gaming",
+    "name": "Loadout Arena — كمبيوتر وجيمنج",
+    "description": "قالب كمبيوتر وجيمنج أصلي بمنطق اللود-أوت: هيرو مسرح داكن، مخطّط اختيار حسب اللعبة والميزانية، شبكة أجهزة، عروض كومبو، وموزاييك. جرافيت وسمائي وفوشيا — مبني لمتجر بيبيع السيت-أب الكامل بسعر واحد.",
+    "category": "electronics",
+    "categoryMeta": {
+      "primary": {
+        "id": "electronics",
+        "label": "إلكترونيات"
+      },
+      "secondary": {
+        "id": "gaming-store",
+        "label": "كمبيوتر وجيمنج"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "195 90% 46%",
+      "210 28% 16%",
+      "322 88% 58%"
+    ],
+    "previewImage": "/assets/themes/tpl-048-loadout-arena-gaming/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
     }
   },
   {

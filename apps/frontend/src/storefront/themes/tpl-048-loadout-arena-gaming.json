@@ -1,0 +1,463 @@
+{
+  "id": "tpl-048-loadout-arena-gaming",
+  "name": "Loadout Arena — كمبيوتر وجيمنج",
+  "description": "قالب جيمنج أصلي بمنطق اللود-أوت: هيرو مسرح داكن، مخطط اختيار حسب اللعبة والميزانية، شبكة أجهزة، عروض كومبو، وموزاييك. جرافيت وسمائي وفوشيا — مبني لمتجر بيبيع بالسيت-أب الكامل.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "195 90% 46%",
+      "primaryForeground": "210 40% 6%",
+      "secondary": "210 28% 16%",
+      "secondaryForeground": "190 30% 92%",
+      "accent": "322 88% 58%",
+      "accentForeground": "210 40% 6%",
+      "background": "210 30% 6%",
+      "foreground": "190 25% 96%",
+      "muted": "210 24% 11%",
+      "mutedForeground": "200 12% 62%",
+      "border": "205 20% 18%",
+      "card": "210 26% 9%",
+      "cardForeground": "190 25% 96%",
+      "ring": "195 90% 50%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, sans-serif",
+      "bodyFont": "Alexandria, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.15rem",
+      "buttonRadius": "0.15rem"
+    },
+    "productCard": {
+      "borderRadius": "0.15rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | LOADOUT ARENA",
+    "description": "قالب جيمنج أصلي بمنطق اللود-أوت: هيرو مسرح داكن، مخطط اختيار حسب اللعبة والميزانية، شبكة أجهزة، عروض كومبو، وموزاييك. جرافيت وسمائي وفوشيا — مبني لمتجر بيبيع بالسيت-أب الكامل."
+  },
+  "preview": {
+    "colors": [
+      "195 90% 46%",
+      "322 88% 58%",
+      "210 30% 6%"
+    ],
+    "imageUrl": "/assets/themes/tpl-048-loadout-arena-gaming/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "LOADOUT ARENA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "سيت جاهز للمقارنة · تجميع واختبار 24 ساعة قبل الشحن",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "اللود-أوت",
+        "to": "/shop"
+      },
+      {
+        "label": "حسب اللعبة",
+        "to": "/collections"
+      },
+      {
+        "label": "شاشات",
+        "to": "/shop?category=displays"
+      },
+      {
+        "label": "ملحقات",
+        "to": "/shop?category=peripherals"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "LOADOUT ARENA — قالب جيمنج أصلي بمنطق اللود-أوت.",
+    "copyrightText": "© 2026 LOADOUT ARENA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "اللود-أوت",
+            "to": "/shop"
+          },
+          {
+            "label": "حسب اللعبة",
+            "to": "/collections"
+          },
+          {
+            "label": "شاشات",
+            "to": "/shop?category=displays"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "سيت جاهز",
+            "message": "كل لود-أوت بيتجمّع ويختبر 24 ساعة قبل الشحن",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "cinematic-plinth",
+          "settings": {
+            "eyebrow": "لود-أوت كامل",
+            "title": "جهّز لود-أوتك قبل الجيم",
+            "subtitle": "اختار اللعبة والميزانية، وإحنا نركّب السيت: كرت، معالج، شاشة، وكيبورد — بسعر واحد نهائي.",
+            "ctaText": "جهّز اللود-أوت",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "اختار لود-أوتك",
+            "subtitle": "اللعبة ← الميزانية",
+            "ctaText": "شوف السيت",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "FPS"
+              },
+              {
+                "label": "MOBA"
+              },
+              {
+                "label": "RPG"
+              },
+              {
+                "label": "سيموليشين"
+              }
+            ],
+            "moods": [
+              {
+                "label": "اقتصادي"
+              },
+              {
+                "label": "متوسط"
+              },
+              {
+                "label": "أقصى أداء"
+              }
+            ],
+            "looks": [
+              {
+                "title": "لود-أوت FPS",
+                "subtitle": "165 فريم ثابت",
+                "price": "31,500 ج.م",
+                "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800"
+              },
+              {
+                "title": "لود-أوت MOBA",
+                "subtitle": "سيت مكتب كامل",
+                "price": "18,900 ج.م",
+                "image": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=800"
+              },
+              {
+                "title": "لود-أوت RPG",
+                "subtitle": "شاشة عريضة وصوت",
+                "price": "42,700 ج.م",
+                "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=800"
+              }
+            ]
+          }
+        },
+        {
+          "type": "tech-grid",
+          "settings": {
+            "title": "أجهزة الأسبوع",
+            "subtitle": "مختارة من اللي بيتباع فعلًا",
+            "viewAllText": "شوف كل الأجهزة",
+            "itemCtaText": "أضف للسلة",
+            "items": [
+              {
+                "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800",
+                "title": "لود-أوت FPS",
+                "price": "31,500 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=800",
+                "title": "لود-أوت MOBA",
+                "price": "18,900 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=800",
+                "title": "لود-أوت RPG",
+                "price": "42,700 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=800",
+                "title": "كيبورد سريع",
+                "price": "2,300 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "combo-deals",
+          "settings": {
+            "badge": "كومبوهات",
+            "title": "سيتات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "كومبو 1",
+                "title": "سيت المكتب",
+                "subtitle": "كيبورد + ماوس + باد",
+                "link": "/shop?category=peripherals",
+                "ctaText": "اعرف أكتر",
+                "stat": "-30%"
+              },
+              {
+                "label": "كومبو 2",
+                "title": "تجميعة + شاشة",
+                "subtitle": "سعر واحد نهائي",
+                "link": "/shop?category=builds",
+                "ctaText": "اعرف أكتر",
+                "stat": "وفّر 3,000"
+              },
+              {
+                "label": "كومبو 3",
+                "title": "لود-أوت كامل",
+                "subtitle": "جهاز + كرسي + هيدست",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "بالتقسيط"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "أجهزة معروضة",
+            "subtitle": "مختارة من اللي بيتباع فعلًا"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "من جوه السيت-أب",
+            "subtitle": "قطع على مكاتب حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=800",
+                "title": "كيبورد"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&q=80&w=800",
+                "title": "هيدست"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=800",
+                "title": "كرسي"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&q=80&w=800",
+                "title": "مكتب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "تجميع · اختبار · ضمان — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "قائمة اللود-أوت",
+            "subtitle": "بنبعتلك سيت جاهز لكل لعبة جديدة تنزل — مرة في الشهر.",
+            "ctaText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الأجهزة والملحقات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "command-stage"
+        },
+        {
+          "type": "product-info",
+          "variant": "gear-loadout"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "luxury"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة اللود-أوت",
+            "subtitle": "راجع القطع قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن التوافق أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

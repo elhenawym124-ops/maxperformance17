@@ -1,0 +1,375 @@
+{
+  "id": "tpl-046-forgebox-gaming",
+  "name": "Forgebox — كمبيوتر وجيمنج",
+  "description": "قالب جيمنج بمنطق بلوكات صفحة الهبوط: شريط عرض، بانر أوامر، بطاقات أقسام، حملة عروض مكدّسة، شبكة منتجات، وشريط خدمة. كحلي غامق وبرتقالي حاد — مناسب لمتجر بيجمع بين البيع والحملات.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "222 47% 18%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "210 24% 94%",
+      "secondaryForeground": "222 47% 20%",
+      "accent": "22 96% 52%",
+      "accentForeground": "0 0% 100%",
+      "background": "210 30% 98%",
+      "foreground": "222 40% 14%",
+      "muted": "214 24% 95%",
+      "mutedForeground": "216 12% 42%",
+      "border": "214 20% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "222 40% 14%",
+      "ring": "22 96% 52%"
+    },
+    "typography": {
+      "headingFont": "Changa, Cairo, sans-serif",
+      "bodyFont": "Changa, Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.6rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "0.6rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | FORGEBOX",
+    "description": "قالب جيمنج بمنطق بلوكات صفحة الهبوط: شريط عرض، بانر أوامر، بطاقات أقسام، حملة عروض مكدّسة، شبكة منتجات، وشريط خدمة. كحلي غامق وبرتقالي حاد — مناسب لمتجر بيجمع بين البيع والحملات."
+  },
+  "preview": {
+    "colors": [
+      "222 47% 18%",
+      "22 96% 52%",
+      "210 30% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-046-forgebox-gaming/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "FORGEBOX",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "شحن مجاني فوق 5,000 ج.م · تركيب وتجميع مجاني داخل القاهرة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المتجر",
+        "to": "/shop"
+      },
+      {
+        "label": "التجميعات",
+        "to": "/collections"
+      },
+      {
+        "label": "عروض الحملة",
+        "to": "/collections?tag=campaign"
+      },
+      {
+        "label": "الضمان",
+        "to": "/contact"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "FORGEBOX — قالب جيمنج بمنطق بلوكات صفحة الهبوط.",
+    "copyrightText": "© 2026 FORGEBOX",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المتجر",
+            "to": "/shop"
+          },
+          {
+            "label": "التجميعات",
+            "to": "/collections"
+          },
+          {
+            "label": "عروض الحملة",
+            "to": "/collections?tag=campaign"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم 20%",
+            "message": "على كل تجميعة كاملة — العرض ساري لحد آخر الأسبوع",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "retail-command",
+          "settings": {
+            "eyebrow": "عرض الأسبوع",
+            "title": "تجميعة الأسبوع بخصم 20%",
+            "subtitle": "جهاز كامل بكيس إضاءة وشاشة 165Hz — السعر النهائي مكتوب، والضمان سنة على كل قطعة.",
+            "ctaText": "شوف التجميعة",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "retail-category-tiles",
+          "settings": {
+            "title": "أقسام المتجر",
+            "subtitle": "تجميعات · قطع · ملحقات · شاشات"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "campaign-stack",
+          "settings": {
+            "badge": "كومبوهات",
+            "title": "سيتات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "حملة 1",
+                "title": "تجميعة 1080p",
+                "subtitle": "تشتغل على كل الألعاب الحالية",
+                "link": "/shop",
+                "ctaText": "اعرف أكتر",
+                "stat": "12,900"
+              },
+              {
+                "label": "حملة 2",
+                "title": "تجميعة 1440p",
+                "subtitle": "165 فريم مع شاشة عالية التحديث",
+                "link": "/shop?category=builds",
+                "ctaText": "اعرف أكتر",
+                "stat": "28,400"
+              },
+              {
+                "label": "Bundle",
+                "title": "طقم مكتب كامل",
+                "subtitle": "كيبورد + ماوس + هيدست",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "-25%"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "أجهزة معروضة",
+            "subtitle": "مختارة من اللي بيتباع فعلًا"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "تجميع · اختبار · ضمان — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "صوّر تجميعتك ووسمنا",
+            "title": "من جوه صالة اللعب",
+            "subtitle": "صوّر تجميعتك ووسمنا",
+            "handle": "forgebox.eg",
+            "images": [
+              "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&q=80&w=800",
+              "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=800"
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض الحملة على الواتساب",
+            "subtitle": "خصم إضافي 5% لأول 50 مشترك في كل حملة.",
+            "ctaText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الأجهزة والملحقات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "stacked"
+        },
+        {
+          "type": "product-info",
+          "variant": "standard"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "list"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة اللود-أوت",
+            "subtitle": "راجع القطع قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن التوافق أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

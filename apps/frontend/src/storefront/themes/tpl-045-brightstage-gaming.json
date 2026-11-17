@@ -1,0 +1,364 @@
+{
+  "id": "tpl-045-brightstage-gaming",
+  "name": "Brightstage — كمبيوتر وجيمنج",
+  "description": "قالب جيمنج على منطق القالب الأساسي النظيف: بانر صورة كبير بنص في النص، صف مجموعات، شبكة منتجات واسعة، وشريط ثقة رفيع. أبيض بالكامل والجهاز هو البطل — مناسب لمتجر بيبيع بالصورة والمواصفة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "222 24% 12%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "220 14% 95%",
+      "secondaryForeground": "222 24% 14%",
+      "accent": "205 100% 48%",
+      "accentForeground": "0 0% 100%",
+      "background": "0 0% 100%",
+      "foreground": "222 22% 11%",
+      "muted": "220 14% 96%",
+      "mutedForeground": "220 9% 44%",
+      "border": "220 13% 89%",
+      "card": "0 0% 100%",
+      "cardForeground": "222 22% 11%",
+      "ring": "205 100% 48%"
+    },
+    "typography": {
+      "headingFont": "Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.25rem",
+      "buttonRadius": "0.25rem"
+    },
+    "productCard": {
+      "borderRadius": "0.25rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | BRIGHTSTAGE",
+    "description": "قالب جيمنج على منطق القالب الأساسي النظيف: بانر صورة كبير بنص في النص، صف مجموعات، شبكة منتجات واسعة، وشريط ثقة رفيع. أبيض بالكامل والجهاز هو البطل — مناسب لمتجر بيبيع بالصورة والمواصفة."
+  },
+  "preview": {
+    "colors": [
+      "222 24% 12%",
+      "205 100% 48%",
+      "0 0% 100%"
+    ],
+    "imageUrl": "/assets/themes/tpl-045-brightstage-gaming/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "BRIGHTSTAGE",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "تجميع مجاني مع كل طلب فوق 20,000 ج.م · ضمان سنة على كل قطعة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "التجميعات",
+        "to": "/collections"
+      },
+      {
+        "label": "كرت شاشة",
+        "to": "/shop?category=gpu"
+      },
+      {
+        "label": "لابتوب",
+        "to": "/shop?category=laptop"
+      },
+      {
+        "label": "كيبورد وماوس",
+        "to": "/shop?category=peripherals"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "BRIGHTSTAGE — قالب جيمنج على منطق القالب الأساسي النظيف.",
+    "copyrightText": "© 2026 BRIGHTSTAGE",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "التجميعات",
+            "to": "/collections"
+          },
+          {
+            "label": "كرت شاشة",
+            "to": "/shop?category=gpu"
+          },
+          {
+            "label": "لابتوب",
+            "to": "/shop?category=laptop"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "تجميع مجاني",
+            "message": "بنركّب الجهاز ونختبره 24 ساعة قبل الشحن — والضمان سنة كاملة",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال سهل"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "dawn-image-banner",
+          "settings": {
+            "eyebrow": "موسم التجميعات",
+            "title": "ابنِ جهازك صورة بصورة",
+            "subtitle": "كرت شاشة، معالج، رام، وكيس — كل قطعة بصورة كبيرة وسعرها جنبها، والقرار بياخد دقيقة.",
+            "ctaText": "ابدأ التجميعة",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "catalog-pills",
+          "settings": {
+            "title": "اختار القطعة",
+            "subtitle": "كرت شاشة · معالج · رام · كيس · ملحقات"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "أجهزة معروضة",
+            "subtitle": "مختارة من اللي بيتباع فعلًا"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "category-promo",
+          "settings": {
+            "badge": "كومبوهات",
+            "title": "سيتات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "كل الفئات",
+                "title": "تجميعة كاملة",
+                "subtitle": "جهاز جاهز يشتغل من أول مرة",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "من 18,900"
+              },
+              {
+                "label": "ترقية",
+                "title": "كرت شاشة جديد",
+                "subtitle": "استبدال مع تركيب مجاني",
+                "link": "/shop?category=gpu",
+                "ctaText": "اعرف أكتر",
+                "stat": "-20%"
+              },
+              {
+                "label": "ملحقات",
+                "title": "كيبورد وماوس وهيدست",
+                "subtitle": "كل حاجة تحت 2,500 ج.م",
+                "link": "/shop?category=peripherals",
+                "ctaText": "اعرف أكتر",
+                "stat": "خصم"
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "تجميع · اختبار · ضمان — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات المجمّعين"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "نزول قطع جديدة",
+            "subtitle": "رسالة واحدة لما تنزل قطعة تستاهل — من غير سبام.",
+            "ctaText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الأجهزة والملحقات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة اللود-أوت",
+            "subtitle": "راجع القطع قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن التوافق أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

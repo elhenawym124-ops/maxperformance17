@@ -1,0 +1,377 @@
+{
+  "id": "tpl-047-nocturne-gaming",
+  "name": "Nocturne — كمبيوتر وجيمنج",
+  "description": "قالب جيمنج غامق بمنطق الفخامة الهادية: هيرو داكن بعنصر نيون واحد، شبكة أجهزة مختارة، فئات بلاطات، موزاييك صور، ومراجعات. أسود ومريدي وبنفسجي — مناسب لمتجر بتبيع أجهزة غالية بالذوق.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "258 40% 12%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "252 22% 18%",
+      "secondaryForeground": "250 30% 92%",
+      "accent": "262 84% 66%",
+      "accentForeground": "250 40% 8%",
+      "background": "246 24% 7%",
+      "foreground": "250 24% 96%",
+      "muted": "248 18% 13%",
+      "mutedForeground": "248 12% 68%",
+      "border": "248 16% 22%",
+      "card": "246 22% 10%",
+      "cardForeground": "250 24% 96%",
+      "ring": "262 84% 66%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, sans-serif",
+      "bodyFont": "Readex Pro, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | NOCTURNE",
+    "description": "قالب جيمنج غامق بمنطق الفخامة الهادية: هيرو داكن بعنصر نيون واحد، شبكة أجهزة مختارة، فئات بلاطات، موزاييك صور، ومراجعات. أسود ومريدي وبنفسجي — مناسب لمتجر بتبيع أجهزة غالية بالذوق."
+  },
+  "preview": {
+    "colors": [
+      "258 40% 12%",
+      "262 84% 66%",
+      "246 24% 7%"
+    ],
+    "imageUrl": "/assets/themes/tpl-047-nocturne-gaming/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "NOCTURNE",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "تركيب مجاني · توصيل 2-3 يوم لكل المحافظات",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الإصدارات",
+        "to": "/collections"
+      },
+      {
+        "label": "تجميعات",
+        "to": "/shop?category=builds"
+      },
+      {
+        "label": "شاشات",
+        "to": "/shop?category=displays"
+      },
+      {
+        "label": "إكسسوار",
+        "to": "/shop?category=peripherals"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "NOCTURNE — قالب جيمنج غامق بمنطق الفخامة الهادية.",
+    "copyrightText": "© 2026 NOCTURNE",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الإصدارات",
+            "to": "/collections"
+          },
+          {
+            "label": "تجميعات",
+            "to": "/shop?category=builds"
+          },
+          {
+            "label": "شاشات",
+            "to": "/shop?category=displays"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/shipping"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/returns"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/privacy"
+      },
+      {
+        "label": "الشروط",
+        "to": "/terms"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "neon-dark",
+          "settings": {
+            "eyebrow": "إصدار محدود",
+            "title": "جهاز يبان في الضلمة",
+            "subtitle": "تجميعات بإضاءة مضبوطة وكيس زجاج — الصورة بتقول كل حاجة والسعر مكتوب من غير مفاوضة.",
+            "ctaText": "شوف الإصدارات",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?auto=format&fit=crop&q=80&w=2000",
+            "panelImage": "https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?auto=format&fit=crop&q=80&w=2000"
+          }
+        },
+        {
+          "type": "tech-grid",
+          "settings": {
+            "title": "أجهزة الأسبوع",
+            "subtitle": "مختارة من اللي بيتباع فعلًا",
+            "viewAllText": "شوف كل الأجهزة",
+            "itemCtaText": "أضف للسلة",
+            "items": [
+              {
+                "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800",
+                "title": "تجميعة Nocturne Pro",
+                "price": "52,000 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=800",
+                "title": "شاشة 165Hz منحنية",
+                "price": "13,800 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=800",
+                "title": "كيبورد ميكانيكي",
+                "price": "2,400 ج.م"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&q=80&w=800",
+                "title": "هيدست لاسلكي",
+                "price": "4,100 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "marketplace-tiles",
+          "settings": {
+            "title": "الفئات",
+            "subtitle": "تجميعات · شاشات · ملحقات · كراسي"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "من جوه السيت-أب",
+            "subtitle": "قطع على مكاتب حقيقية",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800",
+                "title": "تجميعة ليلية"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=800",
+                "title": "كيبورد نيون"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&q=80&w=800",
+                "title": "ركن اللعب"
+              },
+              {
+                "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=800",
+                "title": "شاشة عريضة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "أجهزة معروضة",
+            "subtitle": "مختارة من اللي بيتباع فعلًا"
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "كلام أصحاب الأجهزة"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه مننا",
+            "subtitle": "تجميع · اختبار · ضمان — مكتوبين قبل ما تشتري"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "إصدارات نادرة",
+            "subtitle": "بنبلّغك قبل نزول الإصدار بأسبوع — قائمة قصيرة.",
+            "ctaText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الأجهزة والملحقات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "neon-showcase"
+        },
+        {
+          "type": "product-info",
+          "variant": "command-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "command-alternatives"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة اللود-أوت",
+            "subtitle": "راجع القطع قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل المنتجات"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن التوافق أو الضمان — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

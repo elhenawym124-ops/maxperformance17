@@ -293,6 +293,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "mobile-store",
     "موبايلات",
   ),
+  "tpl-045-brightstage-gaming": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "gaming-store",
+    "كمبيوتر وجيمنج",
+  ),
+  "tpl-046-forgebox-gaming": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "gaming-store",
+    "كمبيوتر وجيمنج",
+  ),
+  "tpl-047-nocturne-gaming": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "gaming-store",
+    "كمبيوتر وجيمنج",
+  ),
+  "tpl-048-loadout-arena-gaming": createThemeCategoryMeta(
+    "electronics",
+    "إلكترونيات",
+    "gaming-store",
+    "كمبيوتر وجيمنج",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -917,6 +941,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب موبايلات راقي بمنطق الإصدار المحدود: هيرو هادئ، فئات أعمدة معرض، موزايك لوكات، قصة حرفية، وآراء بصوت العملاء. أخضر غامق وذهبي وحدود رقيقة — مناسب للهدايا والإصدارات المحدودة.",
   "tpl-044-orbit-motion-mobiles":
     "قالب موبايلات أصلي بمنطق الحركة الخفيفة: هيرو نيون، شبكة تقنية، فئات تحريرية، موزايك لوكات، وآراء. انتقالات ناعمة عند التمرير مع احترام prefers-reduced-motion.",
+  "tpl-045-brightstage-gaming":
+    "قالب كمبيوتر وجيمنج على منطق القالب الأساسي النظيف: بانر صورة كبير بنص في وسط الصورة، صف مجموعات كبسولات، شبكة منتجات واسعة، عروض فئات، وشريط ثقة رفيع. أبيض بالكامل والجهاز هو البطل — مبني لمتجر بيبيع بالصورة والمواصفة.",
+  "tpl-046-forgebox-gaming":
+    "قالب كمبيوتر وجيمنج بمنطق بلوكات صفحة الهبوط: شريط عرض، بانر أوامر، بطاقات أقسام، حملة عروض مكدّسة، شبكة منتجات، شريط خدمة، وUGC. كحلي غامق وبرتقالي حاد — مناسب لمتجر بيجمع البيع مع الحملات.",
+  "tpl-047-nocturne-gaming":
+    "قالب كمبيوتر وجيمنج غامق بمنطق الفخامة الهادية: هيرو داكن بعنصر نيون واحد، شبكة أجهزة مختارة، فئات بلاطات ماركت، موزاييك بنتو، وآراء. أسود ومريدي وبنفسجي — مناسب لمتجر بيبيع أجهزة غالية بالذوق.",
+  "tpl-048-loadout-arena-gaming":
+    "قالب كمبيوتر وجيمنج أصلي بمنطق اللود-أوت: هيرو مسرح داكن، مخطّط اختيار حسب اللعبة والميزانية، شبكة أجهزة، عروض كومبو، وموزاييك. جرافيت وسمائي وفوشيا — مبني لمتجر بيبيع السيت-أب الكامل بسعر واحد.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1150,6 +1182,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-043-gilded-boutique-mobiles/preview.png",
   "tpl-044-orbit-motion-mobiles":
     "/assets/themes/tpl-044-orbit-motion-mobiles/preview.png",
+  "tpl-045-brightstage-gaming":
+    "/assets/themes/tpl-045-brightstage-gaming/preview.png",
+  "tpl-046-forgebox-gaming":
+    "/assets/themes/tpl-046-forgebox-gaming/preview.png",
+  "tpl-047-nocturne-gaming":
+    "/assets/themes/tpl-047-nocturne-gaming/preview.png",
+  "tpl-048-loadout-arena-gaming":
+    "/assets/themes/tpl-048-loadout-arena-gaming/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":
