@@ -912,22 +912,24 @@ const updateCompany = async (req, res) => {
     }
 
     // Check if customDomain is being changed and already exists
+    let sanitizedCustomDomain = customDomain;
     if (
       customDomain !== undefined &&
       customDomain !== existingCompany.customDomain
     ) {
       if (customDomain) {
-        // Sanitize: Remove protocol and www. prefix
-        customDomain = customDomain
+        // Sanitize: Remove protocol, whitespace, and www. prefix
+        sanitizedCustomDomain = String(customDomain)
+          .trim()
           .toLowerCase()
-          .replace(/^https?:\/\//, "")
-          .replace(/^www\./, "")
+          .replace(/^https?:\/\//i, "")
+          .replace(/^www\./i, "")
           .split("/")[0];
 
         // Validate domain format (basic validation)
         const domainRegex =
           /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
-        if (!domainRegex.test(customDomain)) {
+        if (!domainRegex.test(sanitizedCustomDomain)) {
           return res.status(400).json({
             success: false,
             message:
@@ -938,7 +940,7 @@ const updateCompany = async (req, res) => {
         // Check if domain already exists
         const domainExists = await getSharedPrismaClient().company.findFirst({
           where: {
-            customDomain,
+            customDomain: sanitizedCustomDomain,
             id: { not: id },
           },
         });
@@ -949,6 +951,8 @@ const updateCompany = async (req, res) => {
             message: "هذا الدومين مستخدم بالفعل من قبل شركة أخرى",
           });
         }
+      } else {
+        sanitizedCustomDomain = null;
       }
     }
 
@@ -997,7 +1001,7 @@ const updateCompany = async (req, res) => {
         ...(isActive !== undefined && { isActive }),
         ...(sidebarLayout && { sidebarLayout }),
         ...(customDomain !== undefined && {
-          customDomain: customDomain || null,
+          customDomain: sanitizedCustomDomain || null,
         }),
         ...(slug !== undefined && { slug: slug || null }),
         ...(timezone && { timezone }),
