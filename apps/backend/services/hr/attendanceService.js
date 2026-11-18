@@ -698,22 +698,20 @@ class AttendanceService {
 
     // 4) التحقق من شبكة الفرع (IP عام للفرع أو SSID واي فاي) كبديل للنطاق الجغرافي
     // الكمبيوترات المكتبية لا تمتلك شريحة GPS، وتعتمد على شبكة الفرع كبديل موثوق
+    const isBranchNetworkEnabled = effectiveSettings?.branchNetworkEnabled === true;
+
     const clientSsid = String(data.wifiSsid || data.networkSsid || context.wifiSsid || "").trim();
     const branchSsidMatch = Boolean(
+      isBranchNetworkEnabled &&
       clientSsid &&
       (
-        (effectiveSettings.branchWifiSsid && clientSsid.toLowerCase() === String(effectiveSettings.branchWifiSsid).toLowerCase().trim()) ||
-        (effectiveSettings.branchNetworkLabel && clientSsid.toLowerCase() === String(effectiveSettings.branchNetworkLabel).toLowerCase().trim())
+        (effectiveSettings?.branchWifiSsid && clientSsid.toLowerCase() === String(effectiveSettings.branchWifiSsid).toLowerCase().trim()) ||
+        (effectiveSettings?.branchNetworkLabel && clientSsid.toLowerCase() === String(effectiveSettings.branchNetworkLabel).toLowerCase().trim())
       )
     );
 
-    const hasBranchIpAllowlist = Boolean(
-      effectiveSettings?.branchIpAllowlist &&
-      String(effectiveSettings.branchIpAllowlist).trim().length > 0
-    );
     const branchIpMatch = Boolean(
-      effectiveSettings?.branchNetworkEnabled === true &&
-      hasBranchIpAllowlist &&
+      isBranchNetworkEnabled &&
       clientIp &&
       ipMatchesAllowlist(clientIp, effectiveSettings?.branchIpAllowlist),
     );
