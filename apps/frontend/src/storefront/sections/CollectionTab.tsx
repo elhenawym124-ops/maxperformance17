@@ -156,7 +156,10 @@ const CollectionTab: React.FC<CollectionTabProps> = ({ section, settings }) => {
               </button>
             ))}
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div
+            className={`grid gap-5 max-md:grid-cols-[var(--mobile-columns)] ${Number(settings?.mobileColumns) === 1 ? 'max-md:!grid-cols-1' : 'max-md:!grid-cols-2'}`}
+            style={{ ...gridStyle, gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+          >
             {resolvedTabs.map((tab, index) => {
               const internalLink = buildStorefrontPath(
                 location.pathname,
