@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { supportsAppSettings, APP_SETTINGS_SLUGS } from "./config/appSettingsSupport";
 import { useAuth } from "./hooks/useAuthSimple";
 import tokenManager from "./utils/tokenManager";
-import { shouldBootstrapStorefront } from "./bootstrap/requestTarget";
+import { shouldBootstrapStorefront, isCustomDomain } from "./bootstrap/requestTarget";
 import {
   shouldRedirectAffiliateToDashboard,
   shouldRedirectMerchantToPortal,
@@ -2253,6 +2253,8 @@ const AppContent = () => {
   if (!isLocalhost) {
     if (hostname.endsWith(".localhost")) {
       tenantSubdomain = hostname.replace(".localhost", "");
+    } else if (isCustomDomain(hostname)) {
+      tenantSubdomain = hostname;
     } else {
       const parts = hostname.split(".");
       const firstPart = parts[0] ?? null;

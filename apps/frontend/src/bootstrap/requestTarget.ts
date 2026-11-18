@@ -11,6 +11,14 @@ const RESERVED_PLATFORM_SUBDOMAINS = new Set([
   "mail",
 ]);
 
+const PLATFORM_BASE_DOMAINS = [
+  "maxp.online",
+  "mokhtarelhenawy.online",
+  "localhost",
+  "127.0.0.1",
+  "lvh.me",
+];
+
 const normalizeHostname = (hostname: string): string =>
   String(hostname || "").trim().toLowerCase();
 
@@ -27,6 +35,19 @@ const ADMIN_PRODUCT_PATH_PATTERN =
   /\/products\/(?:new|trash|reviews|import-|settings\/upsell)/;
 const ADMIN_PRODUCT_EDIT_PATTERN = /\/products\/[^/]+\/edit$/;
 const IPV4_HOSTNAME_PATTERN = /^\d+(?:\.\d+){3}$/;
+
+export const isCustomDomain = (hostnameInput: string): boolean => {
+  const hostname = normalizeHostname(hostnameInput);
+  if (!hostname || IPV4_HOSTNAME_PATTERN.test(hostname)) {
+    return false;
+  }
+
+  const isPlatform = PLATFORM_BASE_DOMAINS.some(
+    (base) => hostname === base || hostname.endsWith(`.${base}`),
+  );
+
+  return !isPlatform;
+};
 
 export const shouldBootstrapStorefront = (
   hostnameInput: string,
@@ -89,6 +110,12 @@ export const shouldBootstrapStorefront = (
   }
 
   if (hostname.endsWith(".localhost")) {
+    return true;
+  }
+
+  // Any verified custom domain (e.g. hawazin.shop, www.hawazin.shop) is dedicated
+  // entirely to the merchant's customer-facing storefront.
+  if (isCustomDomain(hostname)) {
     return true;
   }
 

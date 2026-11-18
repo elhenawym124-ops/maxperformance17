@@ -94,4 +94,14 @@ describe("shouldBootstrapStorefront", () => {
       false,
     );
   });
+
+  test("correctly recognizes custom domains as tenant storefronts", () => {
+    expect(shouldBootstrapStorefront("hawazin.shop", "/")).toBe(true);
+    expect(shouldBootstrapStorefront("www.hawazin.shop", "/")).toBe(true);
+    expect(shouldBootstrapStorefront("hawazin.shop", "/shop")).toBe(true);
+    expect(shouldBootstrapStorefront("hawazin.shop", "/product/p123")).toBe(true);
+    expect(shouldBootstrapStorefront("maxp.online", "/")).toBe(false);
+    expect(shouldBootstrapStorefront("app.maxp.online", "/")).toBe(false);
+    expect(shouldBootstrapStorefront("admin.maxp.online", "/")).toBe(false);
+  });
 });
