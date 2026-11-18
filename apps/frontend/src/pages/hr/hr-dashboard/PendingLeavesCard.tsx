@@ -47,7 +47,7 @@ export const PendingLeavesCard: React.FC<PendingLeavesCardProps> = ({
           <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" />
         </Button>
       </CardHeader>
-      <CardContent className="p-5 sm:p-6">
+      <CardContent className="p-3.5 sm:p-6">
         {pendingLeaves.length === 0 ? (
           <div className="text-center py-10 flex flex-col items-center">
             <div className="w-12 h-12 bg-muted/40 rounded-xl flex items-center justify-center mb-3">
