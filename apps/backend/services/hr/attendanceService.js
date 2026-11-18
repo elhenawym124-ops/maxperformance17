@@ -712,7 +712,8 @@ class AttendanceService {
       String(effectiveSettings.branchIpAllowlist).trim().length > 0
     );
     const branchIpMatch = Boolean(
-      (effectiveSettings?.branchNetworkEnabled || hasBranchIpAllowlist) &&
+      effectiveSettings?.branchNetworkEnabled === true &&
+      hasBranchIpAllowlist &&
       clientIp &&
       ipMatchesAllowlist(clientIp, effectiveSettings?.branchIpAllowlist),
     );
@@ -4370,7 +4371,7 @@ class AttendanceService {
         where: { id: attempt.id },
         data: {
           attendanceId: attendance.id,
-          result: "RESOLVED",
+          result: "SUCCESS",
           reason: updatedReason,
         },
       });

@@ -210,6 +210,31 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
     return sortedStudents.slice(start, start + pageSize);
   }, [sortedStudents, effectivePage, pageSize]);
 
+  // Multi-Selection State for Bulk Actions & Table Checkboxes
+  const [selectedIds, setSelectedIds] = React.useState<Set<string>>(new Set());
+
+  const handleToggleSelectAll = useCallback(() => {
+    setSelectedIds((prev) => {
+      const allSelected = paginatedStudents.length > 0 && paginatedStudents.every((s) => prev.has(s.id));
+      if (allSelected) {
+        return new Set();
+      }
+      return new Set(paginatedStudents.map((s) => s.id));
+    });
+  }, [paginatedStudents]);
+
+  const handleToggleSelect = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
   // 5. CSV Export with UTF-8 BOM
   const handleExportCsv = useCallback(() => {
     const headers = [
@@ -279,7 +304,10 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
         enableSubjects={enableSubjects}
         sortBy={filterState.sortBy}
         sortDir={filterState.sortDir}
+        selectedIds={selectedIds}
         onSort={handleSortHeader}
+        onSelectAll={handleToggleSelectAll}
+        onSelectStudent={handleToggleSelect}
         onEdit={(student) => setStudentModal(student)}
         onToggleStatus={handleToggleStudent}
         onDelete={handleDeleteStudent}
