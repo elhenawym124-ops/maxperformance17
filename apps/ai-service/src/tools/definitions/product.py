@@ -228,9 +228,9 @@ async def product_search(input_data: ProductSearchInput) -> dict[str, Any]:
         )
         cat_products = catalog.get("products", [])
         if cat_products:
-            return {"results": cat_products, "count": catalog.get("count", len(cat_products)), "listAll": True, "searchType": "catalog"}
+            return {"results": cat_products, "count": catalog.get("count", len(cat_products)), "listAll": True, "searchType": "catalog", "_source_name": "product_search (public.products)"}
 
-    return {"results": products, "count": result.get("count", 0), "listAll": input_data.list_all, "searchType": "text"}
+    return {"results": products, "count": result.get("count", 0), "listAll": input_data.list_all, "searchType": "text", "_source_name": "product_search (public.products)"}
 
 
 async def product_create(input_data: ProductCreateInput) -> dict[str, Any]:

@@ -383,6 +383,20 @@ class ContextAssembler:
             if _db_rules:
                 base_prompt += f"\n\n<rules>\n{_db_rules}\n</rules>"
 
+        # Mandatory Data Authority Hierarchy & Transaction Numeric Grounding
+        base_prompt += """
+
+<data_authority_hierarchy>
+قاعدة سلطة البيانات الإلزامية:
+1. أرقام المعاملات والحقائق التجارية الحية (سعر المنتج، تكلفة الشحن، مدة الاسترجاع، نسبة الخصم، الحد الأدنى للطلب، كمية المخزون، حالة الطلب، رصيد العميل، العمولة):
+   - تؤخذ حصراً ومطلقاً من نتائج الأدوات وبيانات النظام الحية (Live System Data / Tool Results).
+   - أي رقم مكتوب في مهارة (Company Skill) أو تعليمات سابقة أو ذاكرة يخالف نتيجة الأداة الحية يُهمل تماماً ولا يُعتد به. الأداة تكسب دائماً في الأرقام.
+2. السياسات العامة والنبرة والأسلوب:
+   - تؤخذ من نصوص المهارات والسياسات التي حددتها الشركة، ما لم تلغها الأداة بنتيجة حية.
+3. الرد النهائي للعميل:
+   - يجب ذكر رقم واحد فقط للبند المعني (ممنوع منعاً باتاً ذكر رقمين مختلفين لنفس البند أو ذكر رقم مركب أو المقارنة بين رقمين أمام العميل).
+</data_authority_hierarchy>"""
+
         # Inject company-level custom instructions / prompt from public.ai_settings
         if ctx.company_id and ctx.session:
             try:

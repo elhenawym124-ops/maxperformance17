@@ -221,6 +221,7 @@ async def order_lookup(input_data: OrderLookupInput) -> dict[str, Any]:
         "paymentMethod": str(order.get("paymentMethod") or ""),
         "total": str(order.get("total", 0)),
         "shippingCost": str(order.get("shipping", 0)),
+        "_source_name": f"order_lookup (public.orders: {order.get('orderNumber') or order['id']})",
         "customer": customer_name,
         "phone": customer_phone,
         "governorate": order.get("governorate") or "",

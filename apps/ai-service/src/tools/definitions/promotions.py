@@ -383,6 +383,7 @@ async def coupon_validate(input_data: CouponValidateInput) -> dict[str, Any]:
                 "finalAmount": str(data.get("finalAmount", 0)),
                 "type": data.get("coupon", {}).get("type", ""),
                 "value": str(data.get("coupon", {}).get("value", 0)),
+                "_source_name": f"coupon_validate (public.coupons: {data.get('coupon', {}).get('code', input_data.code)})",
             }
         return {"valid": False, "error": result.get("error", "الكوبون غير صالح")}
     except Exception as e:

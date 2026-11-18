@@ -21,6 +21,7 @@ import { SkillRowCard } from "./agent-skills/SkillRowCard";
 import { SkillInspectorDrawer } from "./agent-skills/SkillInspectorDrawer";
 import { AssignSkillModal } from "./agent-skills/AssignSkillModal";
 import { CreateSkillModal } from "./agent-skills/CreateSkillModal";
+import { AgentDataConflictsBanner, AgentDataConflictItem } from "./agent-skills/AgentDataConflictsBanner";
 
 const cq = (path: string, companyId?: string) =>
   companyId
@@ -73,6 +74,7 @@ export default function AgentSkillsPage({
   const [skills, setSkills] = useState<SkillDefinition[]>([]);
   const [tools, setTools] = useState<ToolDefinition[]>([]);
   const [agents, setAgents] = useState<AgentDefinition[]>([]);
+  const [conflicts, setConflicts] = useState<AgentDataConflictItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -107,7 +109,7 @@ export default function AgentSkillsPage({
     setLoading(true);
     setError(null);
     try {
-      const [sd, td, ad] = await Promise.all([
+      const [sd, td, ad, cfl] = await Promise.all([
         apiRequest<{ success: true; skills: SkillDefinition[] }>(
           "agent/skills",
           effectiveCompanyId
@@ -122,11 +124,16 @@ export default function AgentSkillsPage({
               effectiveCompanyId
             ).catch(() => ({ success: true as const, agents: [] }))
           : { success: true as const, agents: [] as AgentDefinition[] },
+        apiRequest<{ success: true; conflicts: AgentDataConflictItem[] }>(
+          "agent/conflicts",
+          effectiveCompanyId
+        ).catch(() => ({ success: true as const, conflicts: [] })),
       ]);
 
       setSkills(sd.skills || []);
       setTools(td.tools || []);
       setAgents(ad.agents || []);
+      setConflicts(cfl.conflicts || []);
     } catch (err: any) {
       setError(err.message || t("common.loadError"));
     } finally {
@@ -396,6 +403,13 @@ export default function AgentSkillsPage({
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
+
+      {/* Agent Data Conflicts Banner & Resolution Actions */}
+      <AgentDataConflictsBanner
+        conflicts={conflicts}
+        companyId={effectiveCompanyId}
+        onResolved={loadAll}
+      />
 
       {/* 2. Main High-Density Skills List (Image 1 Style) with Clear Installed vs Uninstalled Sections */}
       {loading ? (

@@ -827,6 +827,26 @@ async def process_with_skills(ctx: PipelineContext) -> PipelineContext:
                 else:
                     break
 
+            # Conflict Detection hook: Compare written skills/prompt against live tool data
+            if executed and ctx.company_id:
+                try:
+                    from src.services.conflict_detector import extract_live_values_from_tools, detect_and_record_conflicts
+                    live_vals = extract_live_values_from_tools(executed)
+                    if live_vals:
+                        # Extract skill text and prompt text
+                        written_corpus = f"{ctx.system_prompt or ''}\n{getattr(ctx, 'raw_system_prompt', '') or ''}"
+                        await detect_and_record_conflicts(
+                            company_id=ctx.company_id,
+                            surface="skill",
+                            source_row_id=getattr(ctx, "active_skill_id", None) or "company_skill",
+                            written_text=written_corpus,
+                            live_values=live_vals,
+                            conversation_id=ctx.conversation_id,
+                            session=ctx.session,
+                        )
+                except Exception as cfl_err:
+                    logger.warning("skills_pipeline_conflict_check_failed", error=str(cfl_err))
+
             if not final_response.text:
                 logger.warning("skills_pipeline_followup_empty_retrying")
                 text_messages = _strip_tool_messages(followup_messages, executed)

@@ -241,6 +241,7 @@ async def shipping_rates(input_data: ShippingRatesInput) -> dict[str, Any]:
         "price": str(zone["price"]),
         "deliveryTime": zone["deliveryTime"],
         "isFlat": True,
+        "_source_name": f"shipping_zones ({zone.get('name') or governorate})",
     }
 
 

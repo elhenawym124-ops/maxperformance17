@@ -1227,6 +1227,19 @@ async def validate_reply(ctx: PipelineContext) -> PipelineContext:
                 return ctx
             reply = _strip_internal_tags(corrected)
 
+    # Enforce Requirement 8: Single authoritative number in customer reply
+    if ctx.final_reply and ctx.executed_tools:
+        try:
+            from src.services.conflict_detector import extract_live_values_from_tools
+            from src.services.single_number_enforcer import enforce_single_authoritative_number
+            live_map = extract_live_values_from_tools(ctx.executed_tools)
+            if live_map:
+                ctx.final_reply = enforce_single_authoritative_number(ctx.final_reply, live_map)
+                if ctx.llm_response:
+                    ctx.llm_response = enforce_single_authoritative_number(ctx.llm_response, live_map)
+        except Exception as enforce_err:
+            logger.warning("single_number_enforcer_failed", error=str(enforce_err))
+
     # 3. Context Metrics
     try:
         metrics = compute_context_metrics(

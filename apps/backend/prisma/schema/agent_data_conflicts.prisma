@@ -1,0 +1,21 @@
+model AgentDataConflict {
+  id              String    @id @default(cuid())
+  companyId       String
+  surface         String    // 'skill', 'memory_fact', 'knowledge_base', 'system_prompt', 'merchant_save'
+  sourceRowId     String?
+  conflictKey     String    // 'product_price', 'shipping_cost', 'return_window_days', 'discount_pct', 'min_order', 'stock_qty'
+  writtenValue    String
+  liveValue       String
+  liveSource      String
+  conversationId  String?
+  status          String    @default("OPEN") // 'OPEN', 'RESOLVED_CORRECTED', 'RESOLVED_DATA_CONFIRMED', 'RESOLVED_IGNORED'
+  resolvedBy      String?
+  resolvedAt      DateTime?
+  resolutionNotes String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([companyId, surface, sourceRowId, conflictKey, status], name: "unique_open_conflict_per_source_key")
+  @@index([companyId, status])
+  @@map("agent_data_conflicts")
+}

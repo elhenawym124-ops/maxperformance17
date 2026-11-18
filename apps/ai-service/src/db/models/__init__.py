@@ -7,6 +7,7 @@ from src.db.models.guardrail import AgentGuardrailRule
 from src.db.models.ai_setting import AiSetting
 from src.db.models.approval import Approval
 from src.db.models.checkpoint import Checkpoint
+from src.db.models.conflict import AgentDataConflict
 from src.db.models.faq import FAQ
 from src.db.models.knowledge_question import KnowledgeQuestion
 from src.db.models.policy import Policy
@@ -25,6 +26,7 @@ __all__ = [
     "AgentToolCatalog",
     "AgentDepartment",
     "AgentTemplate",
+    "AgentDataConflict",
     "AgentGuardrailRule",
     "AiAgentRun",
     "AiAgentTask",

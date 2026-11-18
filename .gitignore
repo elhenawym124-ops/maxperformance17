@@ -297,6 +297,8 @@ frontend/public/uploads/
 !.agents/skills/cross-agent-coordination/**
 !.agents/skills/maxp-tasks-manager/
 !.agents/skills/maxp-tasks-manager/**
+!.agents/skills/modern-web-guidance/
+!.agents/skills/modern-web-guidance/**
 
 # Python bytecode cache (never commit)
 __pycache__/
@@ -546,3 +548,13 @@ apps/backend/login.json
 
 # OBS-1 — build metadata runtime artifact
 apps/backend/build-info.json
+
+# AI Agent Workspaces, Tool Artifacts & Marketing Media
+.hermes/
+.taste-skill/
+.minimax/
+.freebuff/
+screenshots/
+deliverables/
+fb-carousel/
+
