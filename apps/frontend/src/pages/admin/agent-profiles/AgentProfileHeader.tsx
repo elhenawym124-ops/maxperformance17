@@ -10,6 +10,7 @@ import {
   Archive,
   Loader2,
   FlaskConical,
+  MessageSquare,
   GraduationCap,
   GitFork,
   ChevronDown,
@@ -356,11 +357,11 @@ export default function AgentProfileHeader({
             size="sm"
             variant="ghost"
             className="h-8 text-xs px-2 sm:px-2.5 text-muted-foreground hover:text-foreground shrink-0"
-            onClick={() => navigate(`/admin/ai-hub?tab=sandbox&agent=${encodeURIComponent(agentId)}`)}
-            title={t("agentProfiles.header.sandbox", "تجربة متقدمة في الساندبوكس")}
+            onClick={() => navigate("/admin/agent-chat")}
+            title={t("agentProfiles.header.chat", "محادثة الوكيل")}
           >
-            <FlaskConical className="size-3.5 ml-1 text-primary shrink-0" />
-            <span className="hidden sm:inline">{t("agentProfiles.header.sandbox", "الساندبوكس")}</span>
+            <MessageSquare className="size-3.5 ml-1 text-primary shrink-0" />
+            <span className="hidden sm:inline">{t("agentProfiles.header.chat", "محادثة")}</span>
           </Button>
 
           <Button

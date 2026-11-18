@@ -366,8 +366,8 @@ export default function AgentSkillsPage({
     loadAll();
   };
 
-  const handleTestSandbox = (skill: SkillDefinition) => {
-    navigate(`/admin/ai-hub?tab=sandbox&skill=${encodeURIComponent(skill.id)}`);
+  const handleTestSandbox = (_skill: SkillDefinition) => {
+    navigate("/admin/agent-chat");
   };
 
   return (

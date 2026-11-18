@@ -9410,7 +9410,7 @@ const AppContent = () => {
                 />
                 <Route
                   path="/admin/ai-agent-sandbox"
-                  element={<Navigate to="/admin/ai-hub?tab=sandbox" replace />}
+                  element={<Navigate to="/admin/agent-chat" replace />}
                 />
                 <Route
                   path="/admin/ai-agents"

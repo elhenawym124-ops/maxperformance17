@@ -153,7 +153,7 @@ const AiInboxLanding: React.FC = () => {
       });
       const data = await res.json();
       if (data.success) {
-        navigate("/admin/ai-hub?tab=sandbox");
+        navigate("/admin/agent-chat");
       } else {
         alert(data.message || i18n.t("AiInboxLanding.msg_8228"));
         setSubscribing(false);
@@ -183,7 +183,7 @@ const AiInboxLanding: React.FC = () => {
       if (data.success && data.data?.sessionUrl) {
         window.location.href = data.data.sessionUrl;
       } else if (data.success && data.data?.walletPaid) {
-        navigate("/admin/ai-hub?tab=sandbox");
+        navigate("/admin/agent-chat");
       } else {
         alert(data.message || i18n.t("AiInboxLanding.failed_create_0a24"));
         setSubscribing(false);

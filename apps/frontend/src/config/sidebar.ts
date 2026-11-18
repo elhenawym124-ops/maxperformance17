@@ -1061,7 +1061,6 @@ export const getSidebarConfig = (
                 { to: '/advertising/creative-studio', icon: Palette, label: isEn ? 'AI Creative Studio' : 'استوديو التصاميم الذكي' },
                 { to: '/admin/ai-catalog', icon: ShoppingBag, label: t('sidebar.aiCatalog') },
                 { to: '/admin/ai-knowledge-questions', icon: Lightbulb, label: t('sidebar.aiKnowledgeQuestions') },
-                { to: '/admin/ai-hub?tab=sandbox', icon: FlaskConical, label: t('sidebar.aiAgentSandbox') },
                 { to: '/admin/ai-hub?tab=train', icon: GraduationCap, label: t('sidebar.agentTraining') },
                 { to: '/admin/ai-hub?tab=widget', icon: Globe, label: t('sidebar.webChatWidget') },
                 { to: '/admin/faqs', icon: HelpCircle, label: t('sidebar.faqs') },

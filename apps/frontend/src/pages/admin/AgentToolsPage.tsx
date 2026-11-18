@@ -292,7 +292,7 @@ export default function AgentToolsPage({ companyId }: { companyId?: string } = {
                     onInspect={(t) => setInspectTool(t)}
                     onToggle={handleToggle}
                     onAssign={(t) => setAssignToolName(t.name)}
-                    onTestSandbox={(t) => navigate(`/admin/ai-hub?tab=sandbox&tool=${t.name}`)}
+                    onTestSandbox={() => navigate("/admin/agent-chat")}
                   />
                 ))}
               </div>
@@ -322,7 +322,7 @@ export default function AgentToolsPage({ companyId }: { companyId?: string } = {
                     onInspect={(t) => setInspectTool(t)}
                     onToggle={handleToggle}
                     onAssign={(t) => setAssignToolName(t.name)}
-                    onTestSandbox={(t) => navigate(`/admin/ai-hub?tab=sandbox&tool=${t.name}`)}
+                    onTestSandbox={() => navigate("/admin/agent-chat")}
                   />
                 ))}
               </div>
@@ -339,7 +339,7 @@ export default function AgentToolsPage({ companyId }: { companyId?: string } = {
               onInspect={(t) => setInspectTool(t)}
               onToggle={handleToggle}
               onAssign={(t) => setAssignToolName(t.name)}
-              onTestSandbox={(t) => navigate(`/admin/ai-hub?tab=sandbox&tool=${t.name}`)}
+              onTestSandbox={() => navigate("/admin/agent-chat")}
             />
           ))}
         </div>
@@ -355,7 +355,7 @@ export default function AgentToolsPage({ companyId }: { companyId?: string } = {
         onAssignAgents={(t) => setAssignToolName(t.name)}
         onTestSandbox={(t) => {
           setInspectTool(null);
-          navigate(`/admin/ai-hub?tab=sandbox&tool=${t.name}`);
+          navigate("/admin/agent-chat");
         }}
       />
 
