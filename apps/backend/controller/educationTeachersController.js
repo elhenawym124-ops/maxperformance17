@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 const getAll = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const data = await getSharedPrismaClient().educationTeacher.findMany({
@@ -26,7 +26,7 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;
@@ -48,7 +48,7 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { name, phone, email, password, employeeId, bio, qualifications, avatarUrl, subjectRates } = req.body;
@@ -99,7 +99,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;
@@ -147,7 +147,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;

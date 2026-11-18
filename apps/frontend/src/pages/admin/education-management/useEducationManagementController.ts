@@ -25,7 +25,7 @@ export function useEducationManagementController() {
     TABS.map((t) => t.id).includes(urlTab as TabId) ? urlTab : "dashboard"
   ) as TabId;
   const setActiveTab = (tab: TabId) =>
-    navigate(`/admin/education/${tab === "dashboard" ? "" : tab}`);
+    navigate(`/admin/education/${tab === "dashboard" ? "dashboard" : tab}`);
 
   const [subjects, setSubjects] = useState<EducationSubject[]>([]);
   const [packages, setPackages] = useState<EducationPackage[]>([]);
@@ -88,7 +88,8 @@ export function useEducationManagementController() {
 
   const fetchStudents = async () => {
     try {
-      setStudents(await fetchJson(api("students")));
+      const data = await fetchJson(api("students?all=true"));
+      setStudents(Array.isArray(data) ? data : (data?.items || []));
     } catch (e: any) {
       throw e;
     }
@@ -128,7 +129,7 @@ export function useEducationManagementController() {
     setLoading(true);
     setError(null);
     try {
-      await Promise.all([
+      const results = await Promise.allSettled([
         fetchSubjects(),
         fetchPackages(),
         fetchStudents(),
@@ -136,16 +137,21 @@ export function useEducationManagementController() {
         fetchEnrollments(),
         fetchSessions(),
       ]);
+
+      const rejected = results.filter(
+        (r): r is PromiseRejectedResult => r.status === "rejected"
+      );
+
+      // Only show error if ALL parallel endpoints failed (e.g. 401 Unauthorized or 403 App Access Denied)
+      if (rejected.length === results.length) {
+        setError(rejected[0].reason?.message || "فشل تحميل البيانات");
+      }
     } catch (e: any) {
       setError(e.message || "فشل تحميل البيانات");
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchAll();
-  }, []);
 
   useEffect(() => {
     if (activeTab === "dashboard") {
@@ -411,21 +417,26 @@ export function useEducationManagementController() {
   };
 
   // Stats
-  const today = new Date().toISOString().split("T")[0];
+  const todayStr = useMemo(() => {
+    const d = new Date();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }, []);
+
   const stats = useMemo(
     () => ({
-      totalSubjects: subjects.filter((s) => s.isActive).length,
-      totalPackages: packages.filter((p) => p.isActive).length,
-      totalStudents: students.filter((s) => s.isActive).length,
-      totalTeachers: teachers.filter((t) => t.isActive).length,
-      activeEnrollments: enrollments.filter((e) => e.remainingHours > 0).length,
-      sessionsToday: sessions.filter((s) =>
-        s.scheduledAt?.startsWith(today)
+      totalSubjects: (subjects || []).filter((s) => s.isActive).length,
+      totalPackages: (packages || []).filter((p) => p.isActive).length,
+      totalStudents: (students || []).filter((s) => s.isActive).length,
+      totalTeachers: (teachers || []).filter((t) => t.isActive).length,
+      activeEnrollments: (enrollments || []).filter((e) => (e.remainingHours ?? 0) > 0).length,
+      sessionsToday: (sessions || []).filter((s) =>
+        s.scheduledAt?.startsWith(todayStr)
       ).length,
-      totalSessions: sessions.filter((s) => s.status === "CONFIRMED").length,
-      scheduledSessions: sessions.filter((s) => s.status === "SCHEDULED").length,
+      totalSessions: (sessions || []).filter((s) => s.status === "CONFIRMED").length,
+      scheduledSessions: (sessions || []).filter((s) => s.status === "SCHEDULED").length,
     }),
-    [subjects, packages, students, teachers, enrollments, sessions, today]
+    [subjects, packages, students, teachers, enrollments, sessions, todayStr]
   );
 
   return {
