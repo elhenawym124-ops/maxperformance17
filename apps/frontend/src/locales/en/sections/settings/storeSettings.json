@@ -7,6 +7,7 @@
   "tabPromotion": "Free Delivery Settings",
   "tabCheckout": "Checkout Settings",
   "tabPayment": "Payment Gateways",
+  "tabSeo": "Search Engine Optimization (SEO)",
   "shippingClassFeesTitle": "Shipping Class Fees",
   "shippingClassFeesDesc": "Set the surcharge by product category and calculation method.",
   "calculationMethod": "Calculation Method",

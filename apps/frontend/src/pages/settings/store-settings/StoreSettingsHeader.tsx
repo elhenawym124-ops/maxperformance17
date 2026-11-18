@@ -5,6 +5,7 @@ import {
   GiftIcon,
   DocumentTextIcon,
   CreditCardIcon,
+  GlobeAltIcon,
 } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 import { StoreSettingsTab } from "./types";
@@ -33,6 +34,7 @@ export const StoreSettingsHeader: React.FC<StoreSettingsHeaderProps> = ({
     { id: "payment", label: t("storeSettings.tabPayment"), icon: CreditCardIcon },
     { id: "footer", label: t("storeSettings.tabFooter"), icon: DocumentTextIcon },
     { id: "promotion", label: t("storeSettings.tabPromotion"), icon: GiftIcon },
+    { id: "seo", label: t("storeSettings.tabSeo", "تحسين محركات البحث (SEO)"), icon: GlobeAltIcon },
   ];
 
   return (

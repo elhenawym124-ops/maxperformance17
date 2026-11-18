@@ -11,3 +11,4 @@ export * from "./StoreKashierCredentialsCard";
 export * from "./StorePaymentGatewaySection";
 export * from "./StoreWalletPaymentSection";
 export * from "./StorePaymentTab";
+export * from "./StoreSeoTab";

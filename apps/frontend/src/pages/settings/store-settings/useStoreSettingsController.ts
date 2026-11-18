@@ -87,6 +87,7 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
   const [newShippingClassKey, setNewShippingClassKey] = useState("");
 
   // Checkout tab processing
+  const [company, setCompany] = useState<Record<string, unknown> | null>(null);
   const [processingCheckoutTab, setProcessingCheckoutTab] = useState(false);
   const checkoutSettingsEnabled = activeTab === "checkout" && isAuthenticated && Boolean(user?.companyId);
 
@@ -158,6 +159,10 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
       if (storefrontRes.status === "fulfilled") {
         const nextStorefrontSettings = (storefrontRes.value.data || {}) as StorefrontSettings;
         setStorefrontSettings(nextStorefrontSettings);
+      }
+
+      if (settingsRes.status === "fulfilled") {
+        setCompany(settingsRes.value?.data?.data || null);
       }
 
       const companySettings =
@@ -838,11 +843,61 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
     }));
   };
 
+  const handleSaveSeoSettings = async (seoData: {
+    title: string;
+    description: string;
+    keywords: string;
+    ogImage: string;
+    googleSiteVerification: string;
+    facebookDomainVerification: string;
+  }) => {
+    try {
+      setLoading(true);
+      const currentTokens = (storefrontSettings?.designTokens || {}) as Record<string, any>;
+      const nextDesignTokens = {
+        ...currentTokens,
+        seo: {
+          ...(currentTokens.seo || {}),
+          title: seoData.title,
+          description: seoData.description,
+          keywords: seoData.keywords,
+          ogImage: seoData.ogImage,
+          googleSiteVerification: seoData.googleSiteVerification,
+          facebookDomainVerification: seoData.facebookDomainVerification,
+        },
+      };
+
+      const updatePayload: Record<string, any> = {
+        themeId: resolveStorefrontThemeId(storefrontSettings),
+        designTokens: nextDesignTokens,
+        storeName: seoData.title || storefrontSettings?.storeName,
+        description: seoData.description || storefrontSettings?.description,
+      };
+
+      if (seoData.googleSiteVerification) {
+        updatePayload.googleSiteVerification = seoData.googleSiteVerification;
+      }
+      if (seoData.facebookDomainVerification) {
+        updatePayload.facebookDomainVerification = seoData.facebookDomainVerification;
+      }
+
+      const storefrontResponse = await storefrontSettingsService.updateSettings(updatePayload);
+      setStorefrontSettings(storefrontResponse.data);
+      await loadData();
+    } catch (error) {
+      console.error("Error saving SEO settings:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     t,
     navigate,
     activeTab,
     handleTabChange,
+    company,
     branches,
     shippingZones,
     canonicalGovernorates,
@@ -899,6 +954,7 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
     handleToggleWishlist,
     handleToggleComparison,
     handleChangeStorefrontSocialLinks,
+    handleSaveSeoSettings,
   };
 }
 

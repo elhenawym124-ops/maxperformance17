@@ -258,6 +258,37 @@
        when the shell-preload decision is made. Runs at body-end originally,
        which was too late for that check and swapped the loader style late. -->
   <script src="/js/storefront-detection.js"></script>
+
+  <!-- Structured Data: Organization & WebSite (Strictly compliant, zero fake reviews) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://maxp.online/#organization",
+        "name": "MaxP",
+        "url": "https://maxp.online",
+        "logo": "https://maxp.online/og-cover.png",
+        "description": "منصة متكاملة لإدارة التواصل والتجارة الإلكترونية للشركات والتجار."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://maxp.online/#website",
+        "url": "https://maxp.online",
+        "name": "MaxP",
+        "publisher": {
+          "@id": "https://maxp.online/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://maxp.online/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -285,7 +316,12 @@
   -->
 
   <!-- React app root -->
-  <div id="root"></div>
+  <div id="root">
+    <div class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0" aria-hidden="true">
+      <h1>MaxP — منصة إدارة التواصل والتجارة الإلكترونية</h1>
+      <p>المنصة المتكاملة للشركات والتجار: إدارة المحادثات، أعوان الذكاء الاصطناعي، المتاجر الرقمية السريعة، وتأكيد طلبات الدفع عند الاستلام.</p>
+    </div>
+  </div>
 
   <!--
     Non-critical font loading removed.
