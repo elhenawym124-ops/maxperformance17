@@ -317,6 +317,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "gaming-store",
     "كمبيوتر وجيمنج",
   ),
+  "tpl-049-oakline-furniture": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "furniture-decor",
+    "أثاث وديكور",
+  ),
+  "tpl-050-marlin-furniture": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "furniture-decor",
+    "أثاث وديكور",
+  ),
+  "tpl-051-sadou-furniture": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "furniture-decor",
+    "أثاث وديكور",
+  ),
+  "tpl-052-riwaq-furniture": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "furniture-decor",
+    "أثاث وديكور",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -949,6 +973,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب كمبيوتر وجيمنج غامق بمنطق الفخامة الهادية: هيرو داكن بعنصر نيون واحد، شبكة أجهزة مختارة، فئات بلاطات ماركت، موزاييك بنتو، وآراء. أسود ومريدي وبنفسجي — مناسب لمتجر بيبيع أجهزة غالية بالذوق.",
   "tpl-048-loadout-arena-gaming":
     "قالب كمبيوتر وجيمنج أصلي بمنطق اللود-أوت: هيرو مسرح داكن، مخطّط اختيار حسب اللعبة والميزانية، شبكة أجهزة، عروض كومبو، وموزاييك. جرافيت وسمائي وفوشيا — مبني لمتجر بيبيع السيت-أب الكامل بسعر واحد.",
+  "tpl-049-oakline-furniture":
+    "قالب أثاث وديكور على منطق Horizon: بانر صورة واحدة كبيرة، فئات تحريرية، شبكة منتجات واسعة، موزايك بنتو لغرف كاملة، وآراء بعد التركيب. أبيض دافئ وخشب البلوط — مبني لمتجر أثاث بيبيع الغرفة مش القطعة.",
+  "tpl-050-marlin-furniture":
+    "قالب أثاث وديكور بمنطق الأقسام المتعددة: شريط عرض، هيرو قيادة، فئات سريعة، عروض أقسام، شبكة منتجات، شريط خدمة، وUGC. أخضر بترولي ونحاسي — مناسب لمتجر أثاث بيغطي المعيشة والنوم والسفرة والأوفيس.",
+  "tpl-051-sadou-furniture":
+    "قالب أثاث وديكور دافئ بمنطق المجلس: هيرو تحريري كريمي، موزايك غرف، فئات أعمدة معرض، قصة حرفة، وآراء تحريرية. كريمي وبنّي وإسبريسو — مناسب لمتجر أثاث بيجمع التراث والحداثة.",
+  "tpl-052-riwaq-furniture":
+    "قالب أثاث أصلي بمنطق الغرفة الكاملة: هيرو بانر مقسوم، مخطّط اختيار حسب الغرفة والميزانية، موزايك بنتو، باقات غرف، وآراء. فحمي ورمل ونحاس — مبني لمتجر بيبيع الغرفة جاهزة مش قطعة قطعة.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1190,6 +1222,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-047-nocturne-gaming/preview.png",
   "tpl-048-loadout-arena-gaming":
     "/assets/themes/tpl-048-loadout-arena-gaming/preview.png",
+  "tpl-049-oakline-furniture":
+    "/assets/themes/tpl-049-oakline-furniture/preview.png",
+  "tpl-050-marlin-furniture":
+    "/assets/themes/tpl-050-marlin-furniture/preview.png",
+  "tpl-051-sadou-furniture":
+    "/assets/themes/tpl-051-sadou-furniture/preview.png",
+  "tpl-052-riwaq-furniture":
+    "/assets/themes/tpl-052-riwaq-furniture/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":
