@@ -175,12 +175,12 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                   {errorInfo.actionUrl && (
                     <a
                       href={errorInfo.actionUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={errorInfo.actionUrl.startsWith('http') ? '_blank' : undefined}
+                      rel={errorInfo.actionUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="inline-flex items-center gap-1.5 rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-semibold text-primary shadow-xs transition-colors hover:bg-muted shrink-0"
                     >
-                      <span>فتح في Meta</span>
-                      <ExternalLink className="size-3.5" />
+                      <span>{errorInfo.actionText || (errorInfo.actionUrl.startsWith('http') ? 'فتح في Meta' : 'الانتقال')}</span>
+                      {errorInfo.actionUrl.startsWith('http') && <ExternalLink className="size-3.5" />}
                     </a>
                   )}
                 </div>

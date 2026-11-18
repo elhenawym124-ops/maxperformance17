@@ -715,6 +715,12 @@ async function getSessions(req, res) {
                     data: { isDefault: true }
                 });
                 sessions[0].isDefault = true;
+                // Sync whatsAppNotificationSettings to default session
+                await getSharedPrismaClient().whatsAppNotificationSettings.upsert({
+                    where: { companyId },
+                    update: { defaultSessionId: sessions[0].id },
+                    create: { id: require('crypto').randomUUID(), companyId, defaultSessionId: sessions[0].id }
+                }).catch(() => {});
             } catch (err) {
                 console.warn('Could not auto-set single session isDefault:', err.message);
             }
@@ -1145,6 +1151,12 @@ async function updateSession(req, res) {
                 where: { companyId, isDefault: true },
                 data: { isDefault: false }
             });
+            // Sync defaultSessionId in notification settings
+            await getSharedPrismaClient().whatsAppNotificationSettings.upsert({
+                where: { companyId },
+                update: { defaultSessionId: id },
+                create: { id: require('crypto').randomUUID(), companyId, defaultSessionId: id }
+            }).catch(() => {});
         }
 
         let updatedMetadata = undefined;
