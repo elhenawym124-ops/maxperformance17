@@ -14,6 +14,7 @@
     "cap:build:android": "npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives",
     "lint:components": "node scripts/check-undeclared-components.cjs",
+    "lint:imports": "node scripts/check-unresolved-imports.cjs",
     "lint:oxlint": "oxlint --config .oxlintrc.json src",
     "lint:fast": "oxlint --config .oxlintrc.json src && node scripts/check-undeclared-components.cjs",
     "test": "jest --config jest.config.cjs --runInBand",
