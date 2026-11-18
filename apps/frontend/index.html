@@ -33,6 +33,45 @@
   <meta name="twitter:description" content="منصة متكاملة لإدارة المحادثات، الذكاء الاصطناعي، والمتاجر الرقمية في مكان واحد." />
   <meta name="twitter:image" content="https://maxp.online/og-cover.png" />
 
+  <!-- Structured Data (JSON-LD) for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://maxp.online/#organization",
+        "name": "MaxP",
+        "url": "https://maxp.online",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://maxp.online/og-cover.png",
+          "width": 1200,
+          "height": 630
+        },
+        "description": "منصة متكاملة لإدارة المحادثات، الذكاء الاصطناعي، والمتاجر الرقمية في مكان واحد.",
+        "sameAs": [
+          "https://twitter.com/maxponline"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://maxp.online/#website",
+        "url": "https://maxp.online",
+        "name": "MaxP",
+        "publisher": {
+          "@id": "https://maxp.online/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://maxp.online/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Browser chrome theme color -->
   <meta name="theme-color" content="#2F6BFF" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#071120" media="(prefers-color-scheme: dark)" />
@@ -233,6 +272,7 @@
 
   <noscript>
     <div style="background:#f9fafb;color:#111827;padding:40px;text-align:center;font-family:UI,sans-serif">
+      <h1>MaxP — منصة إدارة التواصل والتجارة الإلكترونية والذكاء الاصطناعي</h1>
       <h2>تم تعطيل JavaScript</h2>
       <p>للاستفادة من كل مميزات منصة MaxP، يُرجى تفعيل JavaScript في المتصفح.</p>
       <p>يمكنك تصفح المحتوى الأساسي، ولكن بعض الميزات قد لا تعمل.</p>
