@@ -949,6 +949,39 @@ async function inspectMetaSession(req, res) {
             }
         }
 
+        // 3. Fetch token permissions
+        try {
+            const permRes = await axios.get(graphBase + '/me/permissions', {
+                params: { access_token: accessToken },
+                timeout: 10000
+            });
+            report.permissions = permRes.data?.data;
+        } catch (err) {
+            report.permissionsError = err.response?.data?.error || { message: err.message };
+        }
+
+        // 4. Fetch token debug info / me
+        try {
+            const meRes = await axios.get(graphBase + '/me', {
+                params: { access_token: accessToken, fields: 'id,name' },
+                timeout: 10000
+            });
+            report.me = meRes.data;
+        } catch (err) {
+            report.meError = err.response?.data?.error || { message: err.message };
+        }
+
+        // 5. Try inspecting Businesses associated with the token
+        try {
+            const bizRes = await axios.get(graphBase + '/me/businesses', {
+                params: { access_token: accessToken, fields: 'id,name,verification_status' },
+                timeout: 10000
+            });
+            report.businesses = bizRes.data?.data;
+        } catch (err) {
+            report.businessesError = err.response?.data?.error || { message: err.message };
+        }
+
         return res.json({ success: true, report });
     } catch (error) {
         console.error('❌ Error inspecting Meta session:', error);
