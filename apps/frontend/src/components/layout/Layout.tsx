@@ -262,7 +262,15 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
     location.pathname.startsWith("/super-admin/ai-chat") ||
     location.pathname.startsWith("/tickets");
   const urlLayoutParam = new URLSearchParams(location.search).get("layout") as SidebarLayoutType | null;
-  const resolvedUserLayout = urlLayoutParam || userLayout || (user?.company?.sidebarLayout as SidebarLayoutType);
+  if (urlLayoutParam && typeof window !== "undefined") {
+    try {
+      sessionStorage.setItem("maxp_session_layout", urlLayoutParam);
+    } catch {
+      // storage unavailable
+    }
+  }
+  const sessionLayout = typeof window !== "undefined" ? (sessionStorage.getItem("maxp_session_layout") as SidebarLayoutType | null) : null;
+  const resolvedUserLayout = urlLayoutParam || sessionLayout || userLayout || (user?.company?.sidebarLayout as SidebarLayoutType);
   const baseLayout: SidebarLayoutType = resolvedUserLayout || "classic";
   // Strict NAV-1 Law: On desktop (screen >= 1024px, i.e. !isMobile), never render HorizontalNav
   // or a duplicate horizontal destinations bar. If layout is 'horizontal', treat as 'classic' on desktop.

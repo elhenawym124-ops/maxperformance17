@@ -33,6 +33,7 @@ import {
 import { apiClient } from "../../services/apiClient";
 import { useSidebarSettings } from "../../contexts/SidebarSettingsContext";
 import { EducationSettingsTab } from "../admin/education-management";
+import { SidebarLayoutPicker } from "./sidebar-settings/SidebarLayoutPicker";
 
 export interface SidebarConfigItem {
   key: string;
@@ -252,7 +253,7 @@ const renderItemIcon = (iconName: string) => {
 };
 
 const SidebarSettings: React.FC = () => {
-  const { refreshSettings } = useSidebarSettings();
+  const { refreshSettings, userLayout, setUserLayout } = useSidebarSettings();
   const [items, setItems] = useState<SidebarConfigItem[]>(DEFAULT_SIDEBAR_ITEMS);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -471,6 +472,9 @@ const SidebarSettings: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Sidebar Layout Picker */}
+      <SidebarLayoutPicker userLayout={userLayout} onSelectLayout={setUserLayout} />
 
       {/* Navigation Switcher: General Sidebar vs Education Sections */}
       <div className="flex items-center gap-3 border-b border-gray-200 dark:border-gray-800 mt-6">

@@ -79,8 +79,13 @@ export function useOrdersUrlSync({
       }
     });
 
+    const currentLayout = searchParams.get("layout");
+    if (currentLayout) {
+      params.layout = currentLayout;
+    }
+
     setSearchParams(params, { replace: true });
-  }, [filters, page, limit, setSearchParams]);
+  }, [filters, page, limit, searchParams, setSearchParams]);
 
   // Persist current filters, page, and limit state in localStorage
   useEffect(() => {

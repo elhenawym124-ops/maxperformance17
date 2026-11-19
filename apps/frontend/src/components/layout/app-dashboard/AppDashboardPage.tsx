@@ -502,12 +502,14 @@ const buildAppFromSection = (
     sectionIds: [section.id],
     category,
     displayName:
+      exactMetadata?.displayName || (
       section.title === 'إعدادات وتخصيص السكاشن' || section.title === 'Sections & System Settings'
         ? (section.id === 'settings' ? t('sidebar.settingsSection') : 'إعدادات النظام')
-        : section.title,
-    displayDescription: exactMetadata?.descriptionKey
-      ? t(exactMetadata.descriptionKey)
-      : t('appDashboard.toolsCount', { count: visibleItemCount }),
+        : section.title),
+    displayDescription: exactMetadata?.displayDescription
+      || (exactMetadata?.descriptionKey && t(exactMetadata.descriptionKey) !== exactMetadata.descriptionKey
+          ? t(exactMetadata.descriptionKey)
+          : t('appDashboard.toolsCount', { count: visibleItemCount })),
     route: metadata?.route || (section.id === 'products' ? '/products' : section.id === 'inventory' ? '/inventory' : undefined),
   };
 };

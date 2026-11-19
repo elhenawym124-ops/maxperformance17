@@ -346,6 +346,8 @@ export const APP_REGISTRY: AppDefinition[] = [
     id: 'agent-reports',
     nameKey: 'sidebar.agentReports',
     descriptionKey: 'sidebar.agentReports',
+    displayName: 'تقارير أداء ومتابعة الوكلاء',
+    displayDescription: 'تحليل دقيق لأداء موظفي خدمة العملاء والمبيعات وسرعة الرد والتحويلات',
     icon: DocumentTextIcon,
     color: 'emerald',
     bgGradient: 'from-emerald-500 to-emerald-600',
