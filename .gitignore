@@ -299,6 +299,10 @@ frontend/public/uploads/
 !.agents/skills/maxp-tasks-manager/**
 !.agents/skills/modern-web-guidance/
 !.agents/skills/modern-web-guidance/**
+!.agents/skills/caveman/
+!.agents/skills/caveman/**
+!.agents/skills/ponytail/
+!.agents/skills/ponytail/**
 
 # Python bytecode cache (never commit)
 __pycache__/
