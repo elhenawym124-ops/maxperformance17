@@ -24,6 +24,10 @@ export default function EducationManagementPage() {
     subjects,
     packages,
     students,
+    studentsTotal,
+    studentsTotalPages,
+    studentsLoading,
+    fetchStudents,
     teachers,
     enrollments,
     sessions,
@@ -240,6 +244,10 @@ export default function EducationManagementPage() {
           {activeTab === "students" && (
             <EducationStudentsTab
               students={students}
+              studentsTotal={studentsTotal}
+              studentsTotalPages={studentsTotalPages}
+              studentsLoading={studentsLoading}
+              onStudentsQuery={fetchStudents}
               subjects={subjects}
               packages={packages}
               teachers={teachers}

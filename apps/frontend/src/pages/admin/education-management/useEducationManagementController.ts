@@ -13,6 +13,25 @@ import type {
 import { TABS } from "./types";
 import { api, searchCustomersApi, fetchJson, getAuthHeaders } from "./api";
 
+export interface StudentsQuery {
+  search?: string;
+  isActive?: boolean | string;
+  grade?: string;
+  level?: number | string;
+  subject?: string;
+  packageId?: string;
+  groupId?: string;
+  teacherId?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  paymentState?: string;
+  page?: number;
+  pageSize?: number;
+  sortBy?: string;
+  sortDir?: "asc" | "desc";
+  all?: boolean | string;
+}
+
 export function useEducationManagementController() {
   const location = useLocation();
   const { "*": path } = useParams();
@@ -30,6 +49,9 @@ export function useEducationManagementController() {
   const [subjects, setSubjects] = useState<EducationSubject[]>([]);
   const [packages, setPackages] = useState<EducationPackage[]>([]);
   const [students, setStudents] = useState<EducationStudent[]>([]);
+  const [studentsTotal, setStudentsTotal] = useState<number>(0);
+  const [studentsTotalPages, setStudentsTotalPages] = useState<number>(1);
+  const [studentsLoading, setStudentsLoading] = useState<boolean>(false);
   const [teachers, setTeachers] = useState<EducationTeacher[]>([]);
   const [enrollments, setEnrollments] = useState<EducationEnrollment[]>([]);
   const [sessions, setSessions] = useState<EducationSession[]>([]);
@@ -86,12 +108,56 @@ export function useEducationManagementController() {
     }
   };
 
-  const fetchStudents = async () => {
+  const fetchStudents = async (query?: StudentsQuery) => {
+    setStudentsLoading(true);
     try {
-      const data = await fetchJson(api("students?all=true"));
-      setStudents(Array.isArray(data) ? data : (data?.items || []));
+      const params = new URLSearchParams();
+      if (query) {
+        if (query.search && query.search.trim()) params.append("search", query.search.trim());
+        if (query.isActive !== undefined && query.isActive !== "" && query.isActive !== "all") {
+          params.append("isActive", String(query.isActive));
+        }
+        if (query.grade && query.grade !== "all") params.append("grade", query.grade);
+        if (query.level !== undefined && query.level !== "" && query.level !== "all") {
+          params.append("level", String(query.level));
+        }
+        if (query.subject && query.subject !== "all") params.append("subject", query.subject);
+        if (query.packageId && query.packageId !== "all") params.append("packageId", query.packageId);
+        if (query.groupId && query.groupId !== "all") params.append("groupId", query.groupId);
+        if (query.teacherId && query.teacherId !== "all") params.append("teacherId", query.teacherId);
+        if (query.dateFrom) params.append("dateFrom", query.dateFrom);
+        if (query.dateTo) params.append("dateTo", query.dateTo);
+        if (query.paymentState && query.paymentState !== "all") params.append("paymentState", query.paymentState);
+        if (query.page) params.append("page", String(query.page));
+        if (query.pageSize) params.append("pageSize", String(query.pageSize));
+        if (query.sortBy) params.append("sortBy", query.sortBy);
+        if (query.sortDir) params.append("sortDir", query.sortDir);
+        if (query.all) params.append("all", String(query.all));
+      } else {
+        // Default call without query (other tabs / initial load compat): fetch 100 items
+        params.append("pageSize", "100");
+      }
+
+      const queryString = params.toString();
+      const endpoint = queryString ? `students?${queryString}` : "students";
+      const res = await fetch(api(endpoint), { headers: getAuthHeaders() });
+      const data = await res.json();
+      if (!data.success) {
+        throw new Error(data.error || "فشل جلب الطلاب");
+      }
+
+      const items: EducationStudent[] = Array.isArray(data?.data) ? data.data : (data?.items || []);
+      const total = data?.total !== undefined ? Number(data.total) : items.length;
+      const totalPages = data?.totalPages !== undefined ? Number(data.totalPages) : Math.max(1, Math.ceil(total / (query?.pageSize || 20)));
+
+      setStudents(items);
+      setStudentsTotal(total);
+      setStudentsTotalPages(totalPages);
+      return data;
     } catch (e: any) {
       throw e;
+    } finally {
+      setStudentsLoading(false);
     }
   };
 
@@ -445,6 +511,15 @@ export function useEducationManagementController() {
     subjects,
     packages,
     students,
+    studentsTotal,
+    studentsTotalPages,
+    studentsLoading,
+    studentsMeta: {
+      total: studentsTotal,
+      totalPages: studentsTotalPages,
+      loading: studentsLoading,
+    },
+    fetchStudents,
     teachers,
     enrollments,
     sessions,

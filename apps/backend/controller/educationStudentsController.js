@@ -16,6 +16,7 @@ const hashPassword = async (pwd) => {
 
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const { logEducationEvent } = require('../services/educationAuditService');
+const { buildStudentsWhere } = require('../utils/educationStudentsQuery');
 
 const normalizeGender = (g) => {
   if (!g) return null;
@@ -69,87 +70,28 @@ const getAll = async (req, res) => {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    const {
-      customerId,
-      search,
-      status,
-      grade,
-      paymentStatus,
-      packageId,
-      teacherId,
-      startDate,
-      endDate,
-      sortBy = 'createdAt',
-      sortOrder = 'desc',
-      page: queryPage,
-      pageSize: queryPageSize,
-      limit: queryLimit,
-      all
-    } = req.query;
+    const prisma = getSharedPrismaClient();
 
-    const where = { companyId };
-    if (customerId) where.customerId = customerId;
-
-    // Search query
-    if (search && typeof search === 'string' && search.trim()) {
-      const q = search.trim();
-      const codeQ = q.startsWith('#') ? q.slice(1).trim() : q;
-      where.OR = [
-        { code: { contains: codeQ, mode: 'insensitive' } },
-        { firstName: { contains: q, mode: 'insensitive' } },
-        { lastName: { contains: q, mode: 'insensitive' } },
-        { phone: { contains: q } },
-        { phone2: { contains: q } },
-        { customer: { firstName: { contains: q, mode: 'insensitive' } } },
-        { customer: { lastName: { contains: q, mode: 'insensitive' } } },
-        { customer: { phone: { contains: q } } }
-      ];
+    // Group filter two-step: if groupId provided, resolve active member studentIds first
+    let groupStudentIds = null;
+    if (req.query.groupId && req.query.groupId !== 'all') {
+      const members = await prisma.educationGroupMember.findMany({
+        where: {
+          companyId,
+          groupId: String(req.query.groupId).trim(),
+          status: 'ACTIVE'
+        },
+        select: { studentId: true }
+      });
+      groupStudentIds = members.map(m => m.studentId);
     }
 
-    // Status filter (active/inactive)
-    if (status !== undefined && status !== null && status !== '' && status !== 'all') {
-      const isAct = String(status).toLowerCase() === 'active' || String(status) === 'true';
-      where.isActive = isAct;
+    const queryWithGroup = { ...req.query };
+    if (groupStudentIds !== null) {
+      queryWithGroup.__groupStudentIds = groupStudentIds;
     }
 
-    // Grade filter
-    if (grade && typeof grade === 'string' && grade.trim() && grade !== 'all') {
-      where.grade = { equals: grade.trim(), mode: 'insensitive' };
-    }
-
-    // Enrollment-related filters
-    const enrollmentWhere = { isActive: true };
-    let hasEnrollmentFilter = false;
-
-    if (packageId && packageId !== 'all') {
-      enrollmentWhere.packageId = packageId;
-      hasEnrollmentFilter = true;
-    }
-    if (teacherId && teacherId !== 'all') {
-      enrollmentWhere.teacherId = teacherId;
-      hasEnrollmentFilter = true;
-    }
-    if (paymentStatus && paymentStatus !== 'all') {
-      enrollmentWhere.paymentStatus = String(paymentStatus).toUpperCase();
-      hasEnrollmentFilter = true;
-    }
-
-    if (hasEnrollmentFilter) {
-      where.enrollments = { some: enrollmentWhere };
-    }
-
-    // Date range filter
-    if (startDate || endDate) {
-      where.createdAt = {};
-      if (startDate) where.createdAt.gte = new Date(startDate);
-      if (endDate) where.createdAt.lte = new Date(endDate);
-    }
-
-    // Sorting
-    const allowedSortFields = ['firstName', 'lastName', 'createdAt', 'updatedAt', 'code', 'grade'];
-    const validSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'createdAt';
-    const validSortOrder = String(sortOrder).toLowerCase() === 'asc' ? 'asc' : 'desc';
-    const orderBy = { [validSortBy]: validSortOrder };
+    const { where, page, pageSize, sortBy, sortDir } = buildStudentsWhere(queryWithGroup, companyId);
 
     const includeRelations = {
       customer: { select: { id: true, firstName: true, lastName: true, phone: true, phone2: true, email: true } },
@@ -164,10 +106,96 @@ const getAll = async (req, res) => {
       }
     };
 
-    const prisma = getSharedPrismaClient();
+    // Check if remaining sort is requested (special two-step path)
+    if (sortBy === 'remaining') {
+      const filteredStudents = await prisma.educationStudent.findMany({
+        where,
+        select: { id: true }
+      });
+      const total = filteredStudents.length;
 
-    // Check if unpaginated mode is explicitly requested (e.g. for small dropdowns or exports)
-    if (all === 'true') {
+      if (total === 0) {
+        return res.json({
+          success: true,
+          data: [],
+          items: [],
+          total: 0,
+          page,
+          pageSize,
+          totalPages: 0
+        });
+      }
+
+      const allIds = filteredStudents.map(s => s.id);
+
+      // Parameterized raw query over active enrollments
+      const remainingRows = await prisma.$queryRawUnsafe(
+        `SELECT e."studentId",
+                COALESCE(SUM(COALESCE(e."finalAmount", p."price", 0) - COALESCE(e."amountPaid", 0)), 0) AS "remaining"
+         FROM "education_enrollments" e
+         LEFT JOIN "education_packages" p ON p."id" = e."packageId"
+         WHERE e."companyId" = $1
+           AND e."isActive" = true
+           AND e."studentId" = ANY($2::text[])
+         GROUP BY e."studentId"`,
+        companyId,
+        allIds
+      );
+
+      const remainingMap = new Map();
+      for (const id of allIds) {
+        remainingMap.set(id, 0);
+      }
+      for (const row of (remainingRows || [])) {
+        remainingMap.set(row.studentId, Number(row.remaining) || 0);
+      }
+
+      const factor = sortDir === 'asc' ? 1 : -1;
+      allIds.sort((a, b) => {
+        const diff = (remainingMap.get(a) - remainingMap.get(b)) * factor;
+        if (diff !== 0) return diff;
+        return a.localeCompare(b);
+      });
+
+      // If unpaginated (all=true)
+      if (req.query.all === 'true') {
+        const fullRows = await prisma.educationStudent.findMany({
+          where: { id: { in: allIds }, companyId },
+          include: includeRelations
+        });
+        const rowMap = new Map(fullRows.map(r => [r.id, r]));
+        const ordered = allIds.map(id => rowMap.get(id)).filter(Boolean);
+        return res.json({ success: true, data: ordered, items: ordered, total: ordered.length });
+      }
+
+      const start = (page - 1) * pageSize;
+      const pageIds = allIds.slice(start, start + pageSize);
+
+      let items = [];
+      if (pageIds.length > 0) {
+        const fetched = await prisma.educationStudent.findMany({
+          where: { id: { in: pageIds }, companyId },
+          include: includeRelations
+        });
+        const rowMap = new Map(fetched.map(r => [r.id, r]));
+        items = pageIds.map(id => rowMap.get(id)).filter(Boolean);
+      }
+
+      return res.json({
+        success: true,
+        data: items,
+        items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize)
+      });
+    }
+
+    // Standard sorting
+    const orderBy = { [sortBy]: sortDir };
+
+    if (req.query.all === 'true') {
       const data = await prisma.educationStudent.findMany({
         where,
         include: includeRelations,
@@ -175,9 +203,6 @@ const getAll = async (req, res) => {
       });
       return res.json({ success: true, data, items: data, total: data.length });
     }
-
-    const page = Math.max(1, parseInt(queryPage) || 1);
-    const pageSize = Math.max(1, Math.min(parseInt(queryPageSize || queryLimit) || 20, 100));
 
     const [total, items] = await Promise.all([
       prisma.educationStudent.count({ where }),
@@ -192,7 +217,7 @@ const getAll = async (req, res) => {
 
     res.json({
       success: true,
-      data: items, // Backward compatibility for callers expecting res.data as array
+      data: items,
       items,
       total,
       page,
@@ -615,4 +640,94 @@ const searchGuardians = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove, searchGuardians };
+const bulkStatus = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { ids, isActive } = req.body || {};
+    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 200) {
+      return res.status(400).json({ success: false, error: 'قائمة المعرفات غير صالحة (الحد الأقصى 200)' });
+    }
+    if (typeof isActive !== 'boolean') {
+      return res.status(400).json({ success: false, error: 'حالة التفعيل غير صالحة' });
+    }
+
+    const prisma = getSharedPrismaClient();
+    const result = await prisma.educationStudent.updateMany({
+      where: { id: { in: ids }, companyId },
+      data: { isActive }
+    });
+
+    res.json({ success: true, count: result.count });
+  } catch (error) {
+    console.error('Error in bulkStatus:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في تحديث الحالة الجماعي' });
+  }
+};
+
+const bulkAddToGroup = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { ids, groupId } = req.body || {};
+    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 200) {
+      return res.status(400).json({ success: false, error: 'قائمة المعرفات غير صالحة (الحد الأقصى 200)' });
+    }
+    if (!groupId || typeof groupId !== 'string') {
+      return res.status(400).json({ success: false, error: 'معرف المجموعة مطلوب' });
+    }
+
+    const prisma = getSharedPrismaClient();
+    // Group must belong to the same company
+    const group = await prisma.educationGroup.findFirst({
+      where: { id: groupId.trim(), companyId }
+    });
+    if (!group) {
+      return res.status(404).json({ success: false, error: 'المجموعة غير موجودة في هذه الشركة' });
+    }
+
+    // Verify which students belong to the company
+    const validStudents = await prisma.educationStudent.findMany({
+      where: { id: { in: ids }, companyId },
+      select: { id: true }
+    });
+    const validStudentIds = validStudents.map(s => s.id);
+    if (validStudentIds.length === 0) {
+      return res.json({ success: true, count: 0 });
+    }
+
+    const data = validStudentIds.map(studentId => ({
+      id: `egm_${crypto.randomBytes(8).toString('hex')}`,
+      companyId,
+      groupId: group.id,
+      studentId,
+      status: 'ACTIVE',
+      joinedAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }));
+
+    const result = await prisma.educationGroupMember.createMany({
+      data,
+      skipDuplicates: true
+    });
+
+    res.json({ success: true, count: result.count });
+  } catch (error) {
+    console.error('Error in bulkAddToGroup:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في إضافة الطلاب للمجموعة' });
+  }
+};
+
+module.exports = {
+  getAll,
+  getById,
+  create,
+  update,
+  remove,
+  searchGuardians,
+  bulkStatus,
+  bulkAddToGroup
+};
