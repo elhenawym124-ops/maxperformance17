@@ -120,10 +120,12 @@ jobs:
 
       - name: Install Chromium (visual gate)
         if: steps.changed.outputs.files != ''
-        working-directory: ./apps/frontend
         run: |
-          # apt mirrors on hosted runners can be briefly unreachable; retry, then
-          # fall back to a browser-only install (ubuntu-24.04 images ship the libs).
+          # The visual gate runs `node scripts/storefront-visual-gate.mjs` from the
+          # repo root, so it resolves playwright from the root node_modules (1.62.x).
+          # Installing under apps/frontend (1.60.x) downloads a different browser
+          # build and the gate then fails with "Executable doesn't exist".
+          # Install here, at the root, so installer and runner use the same version.
           for i in 1 2 3; do
             if npx playwright install --with-deps chromium; then
               echo "chromium installed with system deps (attempt $i)"
