@@ -11,6 +11,7 @@ import { DigitalCommandHeader } from "./subheaders/DigitalCommandHeader";
 import { VelaFashionHeader } from "./subheaders/VelaFashionHeader";
 import { StandardStorefrontHeader } from "./subheaders/StandardStorefrontHeader";
 import { MarketplaceHeader } from "./subheaders/MarketplaceHeader";
+import { WarehouseMegaHeader } from "./subheaders/WarehouseMegaHeader";
 import {
   StorefrontHomeLink,
   resolveStorefrontDocumentLanguage,
@@ -26,7 +27,12 @@ import type { StorefrontHeaderProps } from "./storefrontHeaderTypes";
  */
 export const StorefrontHeader: React.FC<StorefrontHeaderProps> = (props) => {
   const controller = useStorefrontHeaderController(props);
-  const { isMinimal, isGracefulTheme, isMensGroomingPro, isRedlineAutoHeader, isKhemetLuxe, isKhemetUnifiedHeaderPath, isButcherAtelierHeader, isLegacyDefaultOldHeader, isPcHub, isDigitalCommandHeader, isVelaFashionHeader, isMarketplaceBazaarHeader } = controller;
+  const { isMinimal, isGracefulTheme, isMensGroomingPro, isRedlineAutoHeader, isKhemetLuxe, isKhemetUnifiedHeaderPath, isButcherAtelierHeader, isLegacyDefaultOldHeader, isPcHub, isDigitalCommandHeader, isVelaFashionHeader, isMarketplaceBazaarHeader, isWarehouseMegaHeader } = controller;
+
+  // 0. Warehouse Mega-Search Header (Shopify Warehouse for wholesale / abayas)
+  if (isWarehouseMegaHeader && !isMinimal) {
+    return <WarehouseMegaHeader controller={controller} />;
+  }
 
   // 0. Department-store marketplace header (navy utility + search + red category bar)
   if (isMarketplaceBazaarHeader && !isMinimal) {

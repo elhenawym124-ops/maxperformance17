@@ -507,8 +507,6 @@ dogfood-output/
 *firebase-service-account*.json
 *service-account*.json
 serviceAccountKey.json
-.key.json
-*.key.json
 
 # Scratch & temporary workspace files
 scratch/

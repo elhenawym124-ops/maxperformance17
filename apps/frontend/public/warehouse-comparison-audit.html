@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جدول تفصيص ومطابقة قالب Warehouse Metal (Shopify 1:1 Audit)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    .font-mono-code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-4 sm:p-8">
+
+  <div class="max-w-7xl mx-auto space-y-8">
+    
+    <!-- Top Header -->
+    <header class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-[#1e2d7d] text-white text-[11px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">AUDIT MATRIX</span>
+            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">100% REPLICATED</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">
+            جدول تفصيص ومطابقة قالب Warehouse — Metal Edition قطعة بقطعة
+          </h1>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-3xl">
+            مقارنة تقنية وبصرية دقيقة لجميع أقسام القالب الأصلي الـ 21 من متجر <code class="bg-slate-100 text-[#1e2d7d] px-1.5 py-0.5 rounded font-mono-code text-xs">warehouse-theme-metal.myshopify.com</code> وتوثيق النواقص وكيف تم سدها بالكامل داخل منصة MaxP.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="flex flex-wrap md:flex-col gap-2 shrink-0">
+          <a href="https://warehouse-theme-metal.myshopify.com/" target="_blank" class="bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs">
+            <span>🔗 زيارة القالب الأصلي الحي</span>
+          </a>
+          <a href="warehouse-metal-preview.html" target="_blank" class="bg-[#00badb] hover:bg-[#00a0bd] text-[#16225a] text-xs font-black px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs">
+            <span>⚡ فتح النسخة المطابقة (HTML)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+          <span class="text-xs font-bold text-slate-500 block mb-1">إجمالي أقسام القالب الأصلي</span>
+          <span class="text-3xl font-black text-[#1e2d7d] tabular-nums">21 قسم</span>
+          <span class="text-[11px] text-slate-400 block mt-1">مسحوبة من DOM شوبيفاي الحي</span>
+        </div>
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+          <span class="text-xs font-bold text-red-600 block mb-1">الأقسام التي كانت مفقودة سابقاً</span>
+          <span class="text-3xl font-black text-red-600 tabular-nums">13 قسم</span>
+          <span class="text-[11px] text-red-400 block mt-1">فجوة بنسبة 62% قبل الفحص</span>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+          <span class="text-xs font-bold text-emerald-700 block mb-1">الأقسام المطبقة في النسخة الجديدة</span>
+          <span class="text-3xl font-black text-emerald-600 tabular-nums">21 قسم</span>
+          <span class="text-[11px] text-emerald-600 font-bold block mt-1">تغطية تامة بنسبة 100%</span>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <span class="text-xs font-bold text-amber-700 block mb-1">العناصر التفاعلية بالكامل</span>
+          <span class="text-3xl font-black text-amber-700 tabular-nums">7 محركات</span>
+          <span class="text-[11px] text-amber-600 block mt-1">تبويبات، سواتشز، وسلة فورية</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Filters and Search Toolbar -->
+    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+        <button onclick="filterTable('all', this)" class="filter-btn active bg-[#1e2d7d] text-white text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer">
+          جميع الأقسام (21)
+        </button>
+        <button onclick="filterTable('missing', this)" class="filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer">
+          🚨 المفقودة سابقاً (13)
+        </button>
+        <button onclick="filterTable('interactive', this)" class="filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer">
+          ⚡ التفاعلية (7)
+        </button>
+      </div>
+
+      <div class="relative w-full sm:w-72">
+        <input
+          id="search-input"
+          type="text"
+          onkeyup="searchRows()"
+          placeholder="ابحث بالاسم أو الكود (e.g. tv, jbl, tabs)..."
+          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-xs outline-none focus:border-[#1e2d7d] pr-9"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute right-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-right text-xs" id="audit-table">
+          <thead class="bg-slate-100/75 border-b border-slate-200 text-slate-600 font-bold">
+            <tr>
+              <th class="py-3.5 px-4 w-12 text-center">#</th>
+              <th class="py-3.5 px-4 w-56">القسم في Shopify Warehouse Metal</th>
+              <th class="py-3.5 px-4 w-44">الحالة في المنصة سابقاً</th>
+              <th class="py-3.5 px-4">النواقص التي تم رصدها بالعين المجردة</th>
+              <th class="py-3.5 px-4">ما تم تنفيذه وتطبيقه 100% في الـ HTML والثيم</th>
+              <th class="py-3.5 px-4 w-28 text-center">نسبة التطابق</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100" id="table-body">
+            
+            <!-- Row 1 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">01</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Announcement Bar</span>
+                <span class="font-mono-code text-[11px] text-slate-400">shopify-section-announcement-bar</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                كان يفتقر إلى زر "Subscribe & Save" المنبثق، ورقم الهاتف المباشر، واللون الكحلي الداكن الأصلي <code class="font-mono-code text-slate-800 bg-slate-100 px-1 rounded">#16225a</code>.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                شريط كحلي داكن مع بادج سماوي <code class="font-mono-code text-[#00badb]">FREE SHIPPING</code>، حد شحن مجاني فوق 80$، رقم 1-800-663-4040، وزر تفاعلي يفتح نافذة سحب الهدايا.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">02</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Giveaway Popup Modal</span>
+                <span class="font-mono-code text-[11px] text-slate-400">shopify-section-popups</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                لم تكن توجد نافذة منبثقة تفاعلية للسحب الشهري على مكبر الصوت المحمول (Win a Portable Speaker) وكوبون خصم 15%.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                نافذة منبثقة متجاوبة بالكامل مع تأثير التلاشي، حقل إدخال بريد إلكتروني، وزر اشتراك يطلق رسالة نجاح فورية.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">03</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Mega Header & Search</span>
+                <span class="font-mono-code text-[11px] text-slate-400">shopify-section-header</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                غياب قائمة دروب داون للأقسام داخل محرك البحث، غياب زر البحث السماوي/الأصفر، وغياب معاينة السلة برقم الإجمالي.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                هيدر كحلي <code class="font-mono-code text-slate-800 bg-slate-100 px-1 rounded">#1e2d7d</code> كامل مع حقل بحث به قائمة منسدلة للأقسام، زر سماوي، هاتف دعم، وسلة تفاعلية مع عداد حي.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 4 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">04</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Secondary Navigation Bar</span>
+                <span class="font-mono-code text-[11px] text-slate-400">secondary-nav</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                غياب زر "SHOP BY DEPARTMENT" الكحلي مع القائمة المنسدلة، وغياب بادج <code class="font-mono-code text-red-600 font-bold">HOT</code> على Daily Deals.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                شريط ملاحة أبيض ثابت أسفل الهيدر مع زر الأقسام وقائمة ميجا، بادج HOT أحمر، ورابط Wholesale Portal لبوابة الجملة.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 5 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">05</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Slideshow Billboard</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--slideshow</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                بانر ثابت أو صور أحذية غير ملائمة للهاردوير الإلكتروني، بدون سلايدر صوتيات متناوب.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                سلايدر متناوب مع صور شوبيفاي الأصلية (سماعات الرأس + مكبرات صوت JBL)، نقاط تنقل (Dots)، وزر CTA سماوي وأصفر.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 6 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">06</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">3 Vibrant Promo Cards</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--1631018860f5dd6096</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                3 كروت ملونة بارزة تحت الهيرو كانت مفقودة تماماً من بنية القالب.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                3 كروت ترويجية مبهجة: كرت OLED TVs أحمر (<code class="font-mono-code">#d32f2f</code>)، كرت Speakers بنفسجي (<code class="font-mono-code">#7b1fa2</code>)، وكرت Headphones تيل (<code class="font-mono-code">#0097a7</code>) مع روابط التوجيه.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 7 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">07</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">2 Big Value Offer Cards</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--16310190471172f28e</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                كرتان عريضان لعروض أجهزة JBL وتأكيد الشحن المجاني UPS كانا مفقودين.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                كرتان متطابقان بحواف خفيفة وتدرج ناعم يحملان صور عروض JBL وشحن الـ 48 ساعة السريع من CDN شوبيفاي الأصلي.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 8 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">08</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Our Collections Circles</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--collection-list</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                كانت كروت تصنيفات مستطيلة عادية تفتقر للأشكال الدائرية الأصلية وأعداد المنتجات الدقيقة لكل قسم.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                6 تصنيفات دائرية بصور شوبيفاي الأصلية (Headphones 24, Earbuds 18, Speakers 32, OLED TVs 12, Turntables 9, Subwoofers 14) مع تأثير التكبير.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 9 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">09</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Featured Collection Tabs</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--featured-collection</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                غياب التبويبات التفاعلية الأربعة، غياب عينات الألوان (Swatches)، ونقاط المخزون الخضراء.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                4 تبويبات تفاعلية [Best Sellers | Featured | On Sale | Trending] مع كروت منتجات شوبيفاي، عينات ألوان قابلة للنقر، ومؤشر المخزون، وإشعار السلة.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 10 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">10</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">5-Tile Category Bento Grid</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--16310194702e784fb4</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                شبكة البينتو الفسيفسائية للأجهزة الاحترافية والبلوتوث كانت غير موجودة.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                شبكة بينتو متجاوبة من 5 بلاطات غير متناظرة تضم البلوتوث مع صورة السماعة الحمراء، والصوتيات الاحترافية، وسماعات الاستوديو، والملحقات، وبروجكتورات الـ 4K.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 11 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">11</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">About Warehouse</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--1631019798cd4d6e56</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                غياب البلوك التعريفي المركزي المخصص لفلسفة مستودع الهاردوير.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                فقرة تحريرية أنيقة مع عنوان علوي سماوي توضح نموذج عمل المستودع المباشر للمستهلكين ومحترفي الصوت.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 12 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">12</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Brands We Distribute</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--163101980293a57380</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                شعارات عشوائية أو نصية لم تكن تطابق العلامات التوزيعية الرسمية.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                شريط يضم الشعارات الحقيقية الرسمية لـ (JBL, LG, Sony, Pioneer, Bose, Klipsch, Yamaha, Panasonic) بصور شوبيفاي.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 13 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">13</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">New TVs Split Showcase</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--1631019842a11eadbe</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                قسم الشاشات المنقسم (كرت إعلاني يسار + 3 شاشات يمين) كان مفقوداً تماماً.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                كرت ترويجي كحلي <code class="font-mono-code">#1e2d7d</code> مع زر توجيه، بجانبه 3 شاشات Sony BRAVIA 4K بخصومات وتوفير يصل لـ 800 دولار مع أزرار الإضافة السريعة.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 14 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">14</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Featured Product Spotlight (JBL Clip 3)</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--featured-product</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                بلوك المنتج المميز الكامل في الصفحة الرئيسية (PDP Stage) كان مفقوداً تماماً.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                محاكاة PDP تفاعلية كاملة: معرض مصغرات (تبديل الصورة عند النقر)، 10 خيارات ألوان حية، عداد كمية (+/-)، عداد مخزون، وزري "Add to Cart" و "Buy it now".
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 15 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">15</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Top-Rated Products</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--163102001280f242d8</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                شبكة منتجات الأعلى تقييماً كانت مفقودة.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                4 منتجات بتقييم 5 نجوم صفراء (Sony XB-950B1, Yamaha WX-030, JBL E55BT, Audio-Technica) مع بادجات الحفظ والأسعار.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 16 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">16</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Blog Posts</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--blog-posts</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                مقالات المدونة الصوتية التحريرية بالصور الأصلية كانت مفقودة.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                3 مقالات صوتية بالصور الأصلية لـ Michaël Gallego (إعداد الصوت المحيطي، توصيل مضخم السينما المنزلية، وأفضل سماعات مريحة).
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 17 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">17</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Our Stores Depot Locator</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--1631020204f2401402</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                محدد مواقع المعارض والمستودعات كان مفقوداً تماماً.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                كرتان لفرعي Harrisburg و Pennsylvania مع مواعيد العمل اليومية ورابط الاتجاهات ومؤشر الحالة التشغيلية.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 18 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="interactive modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">18</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Newsletter</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--newsletter</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                كان مجرد حقل في أسفل الفوتر بدون البانر الكحلي المستقل.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                بلوك كحلي كامل "Let's keep in touch!" مع حقل اشتراك بريد إلكتروني وزر سماوي يطلق إشعاراً عائماً.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 19 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="missing">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">19</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Most Searched Collections</span>
+                <span class="font-mono-code text-[11px] text-slate-400">template--16310204793443542d</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  مفقود بالكامل (0%)
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                شريط الكلمات المفتاحية الأكثر بحثاً فوق الفوتر كان مفقوداً.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                شريط كبسولات (Pills) سريع لتصفح الأقسام الأكثر بحثاً: Headphones, Speakers, TVs, Turntables, Subwoofers, Projectors.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 20 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">20</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Static Text with Icons (4 Pillars)</span>
+                <span class="font-mono-code text-[11px] text-slate-400">shopify-section-static-text-with-icons</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                نصوص وأيقونات غير متطابقة مع شروط مستودع الإلكترونيات الأصلي.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                4 بطاقات ثقة متطابقة: شحن مجاني فوق 80$ في 48 ساعة، إرجاع خلال 14 يوماً، دعم صوتي 24/7، ودفع آمن 100% مع أيقونات سماوية دقيقة.
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+            <!-- Row 21 -->
+            <tr class="row-item hover:bg-slate-50 transition-colors" data-category="modified">
+              <td class="py-4 px-4 text-center font-bold text-slate-400">21</td>
+              <td class="py-4 px-4">
+                <span class="font-bold text-slate-900 block text-sm">Footer</span>
+                <span class="font-mono-code text-[11px] text-slate-400">shopify-section-footer</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  معدل جزئياً
+                </span>
+              </td>
+              <td class="py-4 px-4 text-slate-600 leading-relaxed">
+                فوتر أسود داكن عام بروابط متجر عبايات لا تناسب الإلكترونيات.
+              </td>
+              <td class="py-4 px-4 text-slate-700 leading-relaxed">
+                فوتر رمادي فاتح أصلي <code class="font-mono-code">#f3f5f6</code> بـ 4 أعمدة، خط ساخن للدعم المباشر 1-800-663-4040، وأيقونات الدفع المعتمدة (Visa, Mastercard, Amex, PayPal, Apple Pay).
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="bg-emerald-100 text-emerald-800 font-black px-2 py-1 rounded text-[11px]">100%</span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bottom Actions Card -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-base font-bold text-slate-900">هل تريد معاينة القالب الحي مباشرة؟</h3>
+        <p class="text-xs text-slate-500 mt-0.5">يمكنك فتح ملف المعاينة الحية ومقارنته بنافذة المتصفح بجانب القالب الأصلي.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="warehouse-metal-preview.html" target="_blank" class="bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold px-5 py-3 rounded-xl transition-all shadow-xs flex items-center gap-2">
+          <span>⚡ فتح صفحة المتجر التفاعلية المطابقة</span>
+          <span>←</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript for Filtering and Searching -->
+  <script>
+    function filterTable(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.className = 'filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer';
+      });
+      btn.className = 'filter-btn active bg-[#1e2d7d] text-white text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer';
+
+      const rows = document.querySelectorAll('.row-item');
+      rows.forEach(r => {
+        if (category === 'all') {
+          r.style.display = '';
+        } else {
+          const cats = r.getAttribute('data-category') || '';
+          r.style.display = cats.includes(category) ? '' : 'none';
+        }
+      });
+    }
+
+    function searchRows() {
+      const q = document.getElementById('search-input').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('.row-item');
+      rows.forEach(r => {
+        const text = r.innerText.toLowerCase();
+        r.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>

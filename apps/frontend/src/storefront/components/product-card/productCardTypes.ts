@@ -25,7 +25,8 @@ export type ProductCardVariant =
   | 'pedal-frame'
   | 'signal-rack'
   | 'marketplace-row'
-  | 'marketplace-tile';
+  | 'marketplace-tile'
+  | 'warehouse-wholesale';
 
 export interface ProductCardProps {
   product: Product;

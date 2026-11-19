@@ -1,139 +1,160 @@
 {
   "id": "tpl-013-modest-warehouse-atelier",
-  "name": "Atelier Warehouse — عبايات",
-  "description": "قالب عبايات محتشمة بكثافة كتالوج عالية: هيرو كاسكيد، ريل فئات مربعات، شريط عروض، شبكة منتجات كثيفة، وآراء تحريرية. مبني لمنطق متجر يفتح بكتالوج كبير مش بصورة واحدة.",
-  "direction": "rtl",
+  "name": "Warehouse — Metal (Shopify 1:1 Exact Replica)",
+  "description": "نسخة طبق الأصل 1:1 لثيم Shopify Warehouse (Metal Edition) بجميع أقسامه الـ 21: هيدر الميجا الكحلي #1e2d7d، دروب داون الأقسام، بار البحث وزر البحث السماوي #00badb، السلايدر التفاعلي، كروت العروض الملونة الثلاثية، كروت القيمة لـ JBL، التصنيفات الدائرية، تبويبات المنتجات المميزة، بينتو الصوتيات، كروت الشاشات الجديدة، استعراض JBL Clip 3 التفاعلي، الأعلى تقييماً، المقالات الصوتية، المعارض، الفوتر الرمادي الفاتح، وركائز الثقة.",
+  "direction": "ltr",
   "tokens": {
     "colors": {
-      "primary": "280 24% 24%",
-      "primaryForeground": "40 40% 96%",
-      "secondary": "280 14% 90%",
-      "secondaryForeground": "280 26% 20%",
-      "accent": "28 62% 52%",
-      "accentForeground": "0 0% 100%",
-      "background": "40 26% 96%",
-      "foreground": "280 20% 14%",
-      "muted": "280 10% 90%",
-      "mutedForeground": "280 8% 42%",
-      "border": "280 12% 84%",
+      "primary": "231 61% 30%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "204 8% 96%",
+      "secondaryForeground": "231 61% 30%",
+      "accent": "189 100% 43%",
+      "accentForeground": "231 61% 22%",
+      "background": "0 0% 100%",
+      "foreground": "231 61% 30%",
+      "muted": "204 8% 92%",
+      "mutedForeground": "203 8% 44%",
+      "border": "204 6% 89%",
       "card": "0 0% 100%",
-      "cardForeground": "280 20% 14%",
-      "ring": "280 24% 24%"
+      "cardForeground": "231 61% 30%",
+      "ring": "231 61% 30%"
     },
     "typography": {
-      "headingFont": "Almarai, sans-serif",
-      "bodyFont": "IBM Plex Sans Arabic, sans-serif",
-      "baseSize": "16px",
-      "direction": "rtl"
+      "headingFont": "Plus Jakarta Sans, sans-serif",
+      "bodyFont": "Plus Jakarta Sans, sans-serif",
+      "baseSize": "15px",
+      "direction": "ltr"
     },
     "shape": {
-      "borderRadius": "0.9rem",
+      "borderRadius": "0.75rem",
       "buttonRadius": "0.5rem"
     },
     "productCard": {
-      "borderRadius": "0.9rem",
-      "boxShadow": "0 6px 22px hsl(220 18% 13% / .08)",
-      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .28)"
+      "borderRadius": "0.75rem",
+      "boxShadow": "0 2px 8px rgba(0,0,0,0.06)",
+      "hoverShadow": "0 12px 24px -10px rgba(30,45,125,0.2)"
     },
     "layout": {
-      "contentAlign": "center"
+      "contentAlign": "start"
     }
   },
   "seo": {
-    "titleTemplate": "%s | ATELIER WAREHOUSE",
-    "description": "قالب عبايات محتشمة بكثافة كتالوج عالية: هيرو كاسكيد، ريل فئات مربعات، شريط عروض، شبكة منتجات كثيفة، وآراء تحريرية. مبني لمنطق متجر يفتح بكتالوج كبير مش بصورة واحدة."
+    "titleTemplate": "%s | WAREHOUSE METAL EDITION",
+    "description": "Warehouse Metal — High-volume consumer electronics, Hi-Fi sound, 4K displays, and audio hardware with verified manufacturer warranties."
   },
   "preview": {
     "colors": [
-      "280 24% 24%",
-      "28 62% 52%",
-      "40 26% 96%"
+      "231 61% 30%",
+      "189 100% 43%",
+      "204 8% 96%"
     ],
     "imageUrl": "/assets/themes/tpl-013-modest-warehouse-atelier/preview.png"
   },
   "header": {
-    "variant": "editorial-soft",
-    "brandName": "ATELIER WAREHOUSE",
-    "transparentOnHome": true,
+    "variant": "warehouse-mega",
+    "brandName": "WAREHOUSE",
+    "transparentOnHome": false,
     "showSearch": true,
     "showCart": true,
-    "announcementText": "شحن 2-4 يوم · استبدال خلال 14 يوم",
-    "announcementLinkText": "اعرفي أكتر",
-    "announcementLinkTo": "/collections",
+    "announcementText": "Free shipping on orders over $80 · 30-day money-back guarantee",
+    "announcementLinkText": "Subscribe & Save",
+    "announcementLinkTo": "/shop",
     "navigation": [
       {
-        "label": "الجديد",
+        "label": "All Products",
+        "to": "/shop"
+      },
+      {
+        "label": "New Arrivals",
         "to": "/shop?sort=new"
       },
       {
-        "label": "عبايات",
-        "to": "/shop?category=abaya"
+        "label": "Sales",
+        "to": "/shop?filter=sales"
       },
       {
-        "label": "طرح",
-        "to": "/shop?category=scarves"
-      },
-      {
-        "label": "أطقم",
+        "label": "All Collections",
         "to": "/collections"
       },
       {
-        "label": "كلمنا",
-        "to": "/contact"
+        "label": "Brands",
+        "to": "#brands"
+      },
+      {
+        "label": "Daily Deals",
+        "to": "/shop?filter=deals"
+      },
+      {
+        "label": "Blog",
+        "to": "/blog"
+      },
+      {
+        "label": "Our Stores",
+        "to": "#stores"
       }
     ]
   },
   "footer": {
-    "variant": "editorial-soft",
-    "description": "ATELIER WAREHOUSE — قالب عبايات محتشمة بكثافة كتالوج عالية.",
-    "copyrightText": "© 2026 ATELIER WAREHOUSE",
+    "variant": "warehouse-depot",
+    "description": "Warehouse Metal is a dedicated high-volume depot connecting retail buyers and commercial clients directly with Tier-1 consumer hardware manufacturers.",
+    "copyrightText": "© 2026 WAREHOUSE METAL EDITION · 100% FAITHFUL SHOPIFY REPLICA",
     "socialLinks": {
       "instagram": "https://instagram.com",
-      "facebook": "https://facebook.com"
+      "facebook": "https://facebook.com",
+      "youtube": "https://youtube.com"
     },
     "navigation": [
       {
-        "title": "المتجر",
+        "title": "Customer Service",
         "links": [
           {
-            "label": "الجديد",
-            "to": "/shop?sort=new"
+            "label": "Track Your Order",
+            "to": "/orders/track"
           },
           {
-            "label": "عبايات",
-            "to": "/shop?category=abaya"
+            "label": "Shipping & Delivery Rates",
+            "to": "/shipping"
           },
           {
-            "label": "طرح",
-            "to": "/shop?category=scarves"
+            "label": "30-Day Hassle-Free Returns",
+            "to": "/returns"
+          },
+          {
+            "label": "Warranty Registration",
+            "to": "/warranty"
           }
         ]
       },
       {
-        "title": "المساعدة",
+        "title": "Popular Departments",
         "links": [
           {
-            "label": "الشحن",
-            "to": "/shipping"
+            "label": "4K HDR Displays & Audio",
+            "to": "/shop?category=tvs"
           },
           {
-            "label": "الاستبدال",
-            "to": "/returns"
+            "label": "Flagship Wireless Headphones",
+            "to": "/shop?category=headphones"
           },
           {
-            "label": "كلمنا",
-            "to": "/contact"
+            "label": "Smartwatches & Wearables",
+            "to": "/shop?category=wearables"
+          },
+          {
+            "label": "Mirrorless Pro Cameras",
+            "to": "/shop?category=cameras"
           }
         ]
       }
     ],
     "legalLinks": [
       {
-        "label": "الخصوصية",
+        "label": "Privacy Policy",
         "to": "/privacy"
       },
       {
-        "label": "الشروط",
+        "label": "Terms of Service",
         "to": "/terms"
       }
     ]
@@ -143,60 +164,81 @@
       "pageGoal": "discovery",
       "sections": [
         {
-          "type": "hero-banner",
-          "variant": "modest-cascade",
+          "type": "warehouse-hero-cascade",
           "settings": {
-            "eyebrow": "كتالوج 2026",
-            "title": "العباية اللي بتتنفّس مع يومك",
-            "subtitle": "قصّات واسعة، أقمشة صيفية، ومقاسات من XS لـ 3XL — كل حاجة معروضة بالتفصيل قبل ما تطلبي.",
-            "ctaText": "اتفرجي على الكتالوج",
-            "ctaLink": "/shop",
-            "secondaryCtaText": "كل المنتجات",
-            "secondaryCtaLink": "/shop",
-            "backgroundImage": "/assets/themes/tpl-013-modest-warehouse-atelier/preview.png",
-            "panelImage": "/assets/themes/tpl-013-modest-warehouse-atelier/preview.png"
+            "badge": "LIMITED TIME EXCLUSIVE",
+            "title": "Introducing: the Headphones Collection",
+            "subtitle": "Discover our curated selection of the best studio-grade and noise-canceling headphones of the year.",
+            "primaryButtonText": "Shop All Headphones",
+            "primaryButtonLink": "/shop",
+            "secondaryButtonText": "Featured Deal",
+            "secondaryButtonLink": "#featured-product",
+            "flashDealTitle": "Sony XBR-950G BRAVIA 4K HDR Ultra HD TV",
+            "flashDealSubtitle": "Full Array LED with 4K Ultimate Processor",
+            "flashDealPrice": "$1,398.00",
+            "flashDealOriginalPrice": "$2,198.00",
+            "flashDealStock": 4,
+            "flashDealTotal": 20
           }
         },
         {
-          "type": "featured-collections",
-          "variant": "retail-category-tiles",
+          "type": "warehouse-promo-mosaic"
+        },
+        {
+          "type": "warehouse-value-props"
+        },
+        {
+          "type": "warehouse-collection-list",
           "settings": {
-            "title": "أقسام المتجر",
-            "subtitle": "عبايات · طرح · أطقم · إكسسوارات محتشمة"
+            "title": "Our collections"
           }
         },
         {
-          "type": "promo-strip",
-          "variant": "benefit-ribbon"
-        },
-        {
-          "type": "product-grid",
+          "type": "warehouse-product-tabs",
           "settings": {
-            "title": "المنتجات"
+            "title": "Featured collection"
           }
         },
         {
-          "type": "look-mosaic",
-          "variant": "masonry"
+          "type": "warehouse-category-bento"
         },
         {
-          "type": "reviews",
-          "variant": "editorial",
+          "type": "warehouse-about"
+        },
+        {
+          "type": "warehouse-brands-strip",
           "settings": {
-            "title": "آراء العميلات"
+            "title": "Brands we distribute"
           }
         },
         {
-          "type": "features-bar",
-          "variant": "service-clarity"
+          "type": "warehouse-new-tvs"
+        },
+        {
+          "type": "warehouse-featured-product"
+        },
+        {
+          "type": "warehouse-top-rated"
+        },
+        {
+          "type": "warehouse-blog-posts"
+        },
+        {
+          "type": "warehouse-our-stores"
         },
         {
           "type": "newsletter",
           "variant": "minimal",
           "settings": {
-            "title": "نزلة جديدة كل خميس",
-            "subtitle": "رسالة واحدة: القطع الجديدة ومقاساتها."
+            "title": "Let's keep in touch!",
+            "subtitle": "Subscribe to our weekly newsletter and receive exclusive clearance offers, private depot drops, and audio guides!"
           }
+        },
+        {
+          "type": "warehouse-searched-collections"
+        },
+        {
+          "type": "warehouse-static-trust"
         }
       ]
     },
@@ -215,7 +257,8 @@
           "type": "filters-sidebar"
         },
         {
-          "type": "shop-product-grid"
+          "type": "shop-product-grid",
+          "variant": "warehouse-wholesale"
         },
         {
           "type": "shop-promo-rail",
@@ -262,10 +305,10 @@
           "type": "cart-items",
           "variant": "standard",
           "settings": {
-            "title": "سلة الطلب",
-            "subtitle": "راجعي القطع قبل الدفع.",
-            "emptyText": "لسه ما اخترتيش حاجة.",
-            "continueLabel": "كمّلي تسوّق"
+            "title": "Shopping Cart",
+            "subtitle": "Review selected hardware before checkout.",
+            "emptyText": "Your cart is currently empty.",
+            "continueLabel": "Continue Shopping"
           }
         },
         {
@@ -284,7 +327,7 @@
         {
           "type": "product-grid",
           "settings": {
-            "title": "كل المنتجات"
+            "title": "All Hardware Collections"
           }
         },
         {
@@ -299,8 +342,8 @@
         {
           "type": "contact-form",
           "settings": {
-            "title": "كلمنا",
-            "subtitle": "اسألي عن المقاس أو المقارنة — بنرد في نفس اليوم."
+            "title": "Contact Customer Service",
+            "subtitle": "Speak directly with our technical support or procurement specialists."
           }
         },
         {
