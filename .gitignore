@@ -237,8 +237,6 @@ frontend/public/uploads/
 !.agents/skills/composition-patterns/**
 !.agents/skills/react-view-transitions/
 !.agents/skills/react-view-transitions/**
-!.agents/skills/webapp-testing/
-!.agents/skills/webapp-testing/**
 !.agents/skills/mcp-builder/
 !.agents/skills/mcp-builder/**
 !.agents/skills/xlsx/
@@ -265,8 +263,6 @@ frontend/public/uploads/
 !.agents/skills/vite-patterns/**
 !.agents/skills/docker-patterns/
 !.agents/skills/docker-patterns/**
-!.agents/skills/verification-loop/
-!.agents/skills/verification-loop/**
 !.agents/skills/tailwind-css-patterns/
 !.agents/skills/tailwind-css-patterns/**
 !.agents/skills/cross-agent-coordination/

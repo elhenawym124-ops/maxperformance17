@@ -33,17 +33,21 @@ Automatically triggered upon completing **ANY** task, feature implementation, bu
 > [!IMPORTANT]
 > نفس الـ workspace يشتغل عليه أكثر من إيجينت (Antigravity + Hermes + غيرهم)، وأجهزة أخرى ترفع إلى `origin` في نفس الوقت. قبل أي `git commit` / `git push`:
 
-0. لو التاسك لسه محصلش claim: `python scripts/agent-coord/coord.py claim --agent antigravity --task "<ملخص التاسك>"`
+0. لو التاسك لسه محصلش claim:
+   ```bash
+   node scripts/agent-coord/coord.cjs claim --agent <your-agent-name> --task "<ملخص التاسك>" --scope "<files>"
+   ```
    - لو مرفوض → فيه إيجينت آخر شغال — **قف وابلغ المستخدم** (ممنوع العمل بالتوازي على نفس الشجرة).
+   - للمهام الطويلة (>60 دقيقة): قم بتجديد القفل عبر `node scripts/agent-coord/coord.cjs heartbeat --agent <your-agent-name>`.
 1. ارفع حصريًا عبر البوابة (fetch + pull --rebase + push مع إعادة محاولة تلقائية):
    ```bash
-   python scripts/agent-coord/coord.py guard --agent antigravity --push
+   node scripts/agent-coord/coord.cjs guard --agent <your-agent-name> --push
    ```
 2. بعد نجاح الرفع، حرّر القفل وسجّل الإنجاز:
    ```bash
-   python scripts/agent-coord/coord.py release --agent antigravity --commit <hash> --note "<ملخص>"
+   node scripts/agent-coord/coord.cjs release --agent <your-agent-name> --commit <hash> --note "<ملخص>"
    ```
-3. لو البوابة رفضت أو فشل الـ rebase → أوقف وابلغ المستخدم. **force push ممنوع نهائيًا** (انظر أسفل).
+3. لو البوابة رفضت أو فشل الـ rebase → أوقف وابلغ المستخدم. **force push والرفع المباشر بدون guard ممنوعان نهائيًا**.
 
 التفاصيل الكاملة: `docs/agent-coordination.md` — الحالة: `~/.agent-coordination/`.
 
@@ -71,26 +75,23 @@ Automatically triggered upon completing **ANY** task, feature implementation, bu
    git commit -m "<descriptive message identifying the task changes>"
    ```
 
-4. **Push to Remote (عبر بوابة التنسيق):**
-   Push commits through the coordination guard (fetch + pull --rebase + push بأمان):
+4. **Push to Remote (عبر بوابة التنسيق الحصرية):**
+   Push commits exclusively through the coordination guard (fetch + pull --rebase + push بأمان):
    ```bash
-   python scripts/agent-coord/coord.py guard --agent antigravity --push
+   node scripts/agent-coord/coord.cjs guard --agent <your-agent-name> --push
    ```
 
    > [!CAUTION]
-   > ## 🚫 ABSOLUTE BAN: `git push --force` & `git push --force-with-lease`
-   > **NEVER use force push under ANY circumstances. This is a permanent, non-negotiable rule.**
+   > ## 🚫 ABSOLUTE BAN: Direct `git push` & `git push --force`
+   > **NEVER use direct git push or force push under ANY circumstances. All pushes must pass through `coord.cjs guard`.**
+   > - `git push origin main` (direct push) → **BANNED**
    > - `git push --force` → **BANNED**
    > - `git push --force-with-lease` → **BANNED**
    > - `git push -f` → **BANNED**
    >
-   > Force pushing rewrites remote history, destroys teammates' work, and corrupts the repository.
-   > If a push is rejected due to a non-fast-forward conflict, the correct fix is:
-   > ```bash
-   > git pull --rebase origin main   # rebase local commits on top of remote
-   > git push origin main            # then push normally — NO force flag
-   > ```
-   > If you ever feel tempted to force push, **STOP and ask the user first.**
+   > Direct pushing bypasses coordination locks and corrupts concurrent agent workflows. Force pushing destroys teammates' work.
+   > The guard automatically executes `git pull --rebase` and safe push.
+   > If the guard rejects the push, **STOP and ask the user first.**
 
 5. **Report to User:**
    Provide the commit message, commit hash, and confirmation that updates were pushed to `https://github.com/elhenawym124-ops/maxperformance17`.
