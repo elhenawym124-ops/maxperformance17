@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MaxP — ميثاق الهوية البصرية ونظام التصميم التشغيلي (Petrol & Persimmon Law)</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root {
+      /* Base Canvas */
+      --paper: #f4f6f5;
+      --surface: #ffffff;
+      --subtle: #fafbfb;
+      --hover: #edf2f0;
+      
+      /* Typography Inks */
+      --ink: #0a1e1d;
+      --muted: #48605e;
+      --faint: #788e8c;
+      
+      /* Structural Hairline Dividers */
+      --line: #d8e2df;
+      --line-soft: #e7eeec;
+      
+      /* Primary Brand / Operational Ink: Petrol */
+      --petrol: #013735;
+      --petrol-hover: #014744;
+      --petrol-tint: #e6f1ef;
+      --petrol-tint-2: #d4e7e4;
+      --on-petrol: #ffffff;
+      
+      /* Action / Momentum Accent: Warm Persimmon */
+      --accent: #e2603f;
+      --accent-ink: #b83d1c;
+      --accent-tint: #fef0eb;
+      --accent-line: #f8cfc3;
+      --on-accent: #ffffff;
+      
+      /* Telemetry & Operational Signals */
+      --signal-green: #0f8a5f;
+      --signal-green-tint: #eaf6f1;
+      --signal-amber: #b26a00;
+      --signal-amber-tint: #fef5e7;
+      --signal-red: #c92a2a;
+      --signal-red-tint: #fdf2f2;
+      
+      /* Elevation & Radii */
+      --shadow-sm: 0 1px 2px rgba(1,55,53,0.04);
+      --shadow-chassis: 0 1px 2px rgba(1,55,53,0.04), 0 16px 36px -12px rgba(1,55,53,0.10);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      
+      /* Typography Stacks */
+      --font-arabic: "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Dark Mode (High-Performance Operational Night) */
+    :root[data-theme="dark"] {
+      --paper: #081110;
+      --surface: #0e1a19;
+      --subtle: #0b1514;
+      --hover: #142422;
+      
+      --ink: #e3edea;
+      --muted: #95aba8;
+      --faint: #637b79;
+      
+      --line: #1c2e2c;
+      --line-soft: #162423;
+      
+      --petrol: #3ec8b7;
+      --petrol-hover: #50d9c8;
+      --petrol-tint: #112d2a;
+      --petrol-tint-2: #163d39;
+      --on-petrol: #04211f;
+      
+      --accent: #ff8a68;
+      --accent-ink: #ffab92;
+      --accent-tint: #2a1510;
+      --accent-line: #52271d;
+      --on-accent: #1e0904;
+      
+      --signal-green: #45c28e;
+      --signal-green-tint: #102e23;
+      --signal-amber: #e5a447;
+      --signal-amber-tint: #302008;
+      --signal-red: #ff6b6b;
+      --signal-red-tint: #361414;
+      
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-chassis: 0 16px 36px -12px rgba(0,0,0,0.65);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-arabic);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+    a { text-decoration: none; color: inherit; }
+    svg.lucide { width: 18px; height: 18px; stroke-width: 1.8; vertical-align: middle; }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    
+    /* Layout Chassis */
+    .top-shell {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      height: 56px;
+      padding: 0 max(20px, env(safe-area-inset-left));
+    }
+    .shell-in {
+      max-width: 1240px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--petrol);
+      color: var(--on-petrol);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      position: relative;
+    }
+    .brand-icon::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--surface);
+    }
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      font-weight: 600;
+    }
+
+    .shell-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-toggle-theme {
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      transition: all 0.16s var(--ease);
+    }
+    .btn-toggle-theme:hover { background: var(--hover); color: var(--ink); }
+    .btn-toggle-theme:active { transform: scale(0.97); }
+
+    /* Page Container */
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Hero Banner */
+    .hero-manifesto {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-manifesto::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--petrol), var(--accent));
+    }
+    .manifesto-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-ink);
+      background: var(--accent-tint);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      border: 1px solid var(--accent-line);
+    }
+    .hero-manifesto h1 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      text-wrap: balance;
+    }
+    .hero-en-sub {
+      display: block;
+      font-size: 18px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      margin-top: 4px;
+      direction: ltr;
+      text-align: right;
+    }
+    .hero-manifesto p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      text-wrap: pretty;
+      max-width: 620px;
+    }
+    .hero-manifesto .rule-box {
+      background: var(--subtle);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
+    }
+    .rule-item i {
+      color: var(--petrol);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .rule-item strong { color: var(--ink); }
+
+    /* Section Headers */
+    .section-head {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+    .section-head h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-head span.desc {
+      font-size: 12px;
+      color: var(--faint);
+      font-family: var(--font-mono);
+    }
+
+    /* Color Swatch Grid */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .swatch-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.16s var(--ease), box-shadow 0.16s;
+      cursor: pointer;
+    }
+    .swatch-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-chassis);
+      border-color: var(--petrol);
+    }
+    .swatch-color {
+      height: 90px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px 14px;
+    }
+    .swatch-role-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.35);
+      color: #ffffff;
+      backdrop-filter: blur(4px);
+    }
+    .swatch-details {
+      padding: 14px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .swatch-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      direction: ltr;
+      text-align: right;
+    }
+    .swatch-token {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--petrol);
+      background: var(--subtle);
+      border: 1px solid var(--line-soft);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .swatch-token i { width: 12px; height: 12px; color: var(--faint); }
+
+    /* Bento Comparison Chassis: Approved vs Banned */
+    .audit-chassis {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .audit-col {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .audit-col.approved {
+      border-color: var(--petrol-tint-2);
+      border-top: 4px solid var(--petrol);
+    }
+    .audit-col.banned {
+      border-color: var(--accent-line);
+      border-top: 4px solid var(--accent);
+    }
+    .audit-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .audit-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .approved .audit-badge { background: var(--petrol-tint); color: var(--petrol); }
+    .banned .audit-badge { background: var(--accent-tint); color: var(--accent-ink); }
+    .audit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .audit-entry {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .audit-entry i { flex-shrink: 0; margin-top: 2px; }
+    .approved .audit-entry i { color: var(--signal-green); }
+    .banned .audit-entry i { color: var(--accent); }
+    .audit-entry strong { color: var(--ink); display: block; margin-bottom: 2px; }
+    .audit-entry span { color: var(--muted); font-size: 12px; }
+
+    /* Typography Showcase */
+    .type-specimen {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .type-box {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .type-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line-soft);
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .type-sample-arabic {
+      font-family: var(--font-arabic);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .type-sample-mono {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--petrol);
+      letter-spacing: -0.01em;
+    }
+    .type-rule-pill {
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Live Interactive UI Components Deck */
+    .components-deck {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .comp-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-petrol {
+      background: var(--petrol);
+      color: var(--on-petrol);
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.14s var(--ease);
+    }
+    .btn-petrol:hover { background: var(--petrol-hover); }
+    .btn-petrol:active { transform: scale(0.97); }
+
+    .btn-persimmon {
+      background: var(--accent);
+      color: var(--on-accent);
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.14s var(--ease);
+    }
+    .btn-persimmon:hover { opacity: 0.92; }
+    .btn-persimmon:active { transform: scale(0.97); }
+
+    .btn-subtle {
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.14s var(--ease);
+    }
+    .btn-subtle:hover { background: var(--hover); }
+    .btn-subtle:active { transform: scale(0.97); }
+
+    .tag-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tag-pill.live { background: var(--signal-green-tint); color: var(--signal-green); }
+    .tag-pill.warn { background: var(--signal-amber-tint); color: var(--signal-amber); }
+    .tag-pill.danger { background: var(--signal-red-tint); color: var(--signal-red); }
+    .tag-pill.neutral { background: var(--subtle); border: 1px solid var(--line); color: var(--muted); }
+
+    /* Telemetry Table Specimen */
+    .telemetry-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+    .telemetry-table th {
+      background: var(--subtle);
+      text-align: right;
+      padding: 10px 14px;
+      font-weight: 600;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+    }
+    .telemetry-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink);
+    }
+    .telemetry-table tr:last-child td { border-bottom: none; }
+    .telemetry-table tr:hover td { background: var(--hover); }
+
+    /* Toast Notification for Copy */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--petrol);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.24s var(--ease);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--faint);
+      font-family: var(--font-mono);
+    }
+
+    /* Mobile Responsive (MOB-015) */
+    @media (max-width: 860px) {
+      .hero-manifesto { grid-template-columns: 1fr; padding: 24px 20px; }
+      .audit-chassis { grid-template-columns: 1fr; }
+      .type-specimen { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      main { padding: 16px 14px 60px; gap: 28px; }
+      .hero-manifesto h1 { font-size: 22px; }
+      .comp-row { flex-direction: column; align-items: stretch; }
+      .btn-petrol, .btn-persimmon, .btn-subtle { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-shell">
+    <div class="shell-in">
+      <div class="brand-wrap">
+        <div class="brand-icon">MP</div>
+        <div class="brand-title">
+          <span>MaxP Identity System</span>
+          <span class="brand-badge">CONSTITUTION V2.6</span>
+        </div>
+      </div>
+      <div class="shell-actions">
+        <button id="themeToggle" class="btn-toggle-theme" title="تبديل الوضع">
+          <i data-lucide="moon"></i>
+          <span id="themeLabel">الوضع الليلي التشغيلي</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero Manifesto Banner -->
+    <section class="hero-manifesto">
+      <div>
+        <div class="manifesto-kicker">
+          <i data-lucide="shield-check"></i>
+          <span>الدستور البصري المعتمد لبيئة العمل (<bdi>AGENTS.md</bdi> سكشن 2)</span>
+        </div>
+        <h1>
+          قانون البترول والبرسيمون
+          <span class="hero-en-sub">The Petrol &amp; Persimmon Law</span>
+        </h1>
+        <p>
+          منصة <strong>MaxP</strong> هي نظام تشغيل تجاري وسحابي للمؤسسات والتجار في العالم العربي وليست شاشة مطورين أو لوحة طرفية سوداء. 
+          يقوم نظام التصميم على سطح تشغيلي موحد، فواصل شعرية رفيعة، ألوان حبر معتمدة، وأرقام جدولية مقروءة بوضوح.
+        </p>
+      </div>
+      <div class="rule-box">
+        <div class="rule-item">
+          <i data-lucide="check-circle-2"></i>
+          <div><strong>Tokens أولاً:</strong> استخدام التوكنز الرسمية فقط، ويحظر كتابة قيم Hex خام مبعثرة داخل المكونات.</div>
+        </div>
+        <div class="rule-item">
+          <i data-lucide="check-circle-2"></i>
+          <div><strong>السطح المستمر (<bdi>Single-Surface</bdi>):</strong> حظر الجزر العائمة والرمادي الباهت، والاعتماد على فواصل الخطوط الشعرية.</div>
+        </div>
+        <div class="rule-item">
+          <i data-lucide="check-circle-2"></i>
+          <div><strong>عربي أولاً (<bdi>RTL</bdi>):</strong> خصائص منطقية حصراً (<bdi>ms- / me-</bdi>)، وأرقام بمونو أحادي العرض.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Color Palette Section -->
+    <section>
+      <div class="section-head">
+        <h2><i data-lucide="palette"></i> لوحة الألوان التشغيلية المعتمدة <span dir="ltr">(Design Tokens)</span></h2>
+        <span class="desc">اضغط على أي كارت لنسخ كود الـ HEX أو الـ Token</span>
+      </div>
+      <div class="palette-grid">
+
+        <!-- Petrol Primary -->
+        <div class="swatch-card" onclick="copyToken('--petrol', '#013735')">
+          <div class="swatch-color" style="background:#013735; color:#fff;">
+            <span class="swatch-role-tag">PRIMARY INK</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Deep Petrol</span>
+              <span class="swatch-hex">#013735</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--petrol)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Petrol Hover -->
+        <div class="swatch-card" onclick="copyToken('--petrol-hover', '#014744')">
+          <div class="swatch-color" style="background:#014744; color:#fff;">
+            <span class="swatch-role-tag">HOVER STATE</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Petrol Hover</span>
+              <span class="swatch-hex">#014744</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--petrol-hover)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Petrol Tint -->
+        <div class="swatch-card" onclick="copyToken('--petrol-tint', '#e6f1ef')">
+          <div class="swatch-color" style="background:#e6f1ef; color:#013735;">
+            <span class="swatch-role-tag" style="background:rgba(1,55,53,0.12); color:#013735;">TINT / BADGE</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Petrol Tint</span>
+              <span class="swatch-hex">#e6f1ef</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--petrol-tint)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Persimmon Accent -->
+        <div class="swatch-card" onclick="copyToken('--accent', '#e2603f')">
+          <div class="swatch-color" style="background:#e2603f; color:#fff;">
+            <span class="swatch-role-tag">ACTION / ACCENT</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Warm Persimmon</span>
+              <span class="swatch-hex">#e2603f</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--accent)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Persimmon Tint -->
+        <div class="swatch-card" onclick="copyToken('--accent-tint', '#fef0eb')">
+          <div class="swatch-color" style="background:#fef0eb; color:#b83d1c;">
+            <span class="swatch-role-tag" style="background:rgba(226,96,63,0.15); color:#b83d1c;">ALERT TINT</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Persimmon Tint</span>
+              <span class="swatch-hex">#fef0eb</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--accent-tint)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paper Canvas -->
+        <div class="swatch-card" onclick="copyToken('--paper', '#f4f6f5')">
+          <div class="swatch-color" style="background:#f4f6f5; color:#0a1e1d; border-bottom:1px solid #d8e2df;">
+            <span class="swatch-role-tag" style="background:rgba(0,0,0,0.1); color:#0a1e1d;">BASE CANVAS</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Warm Paper</span>
+              <span class="swatch-hex">#f4f6f5</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--paper)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hairline Border -->
+        <div class="swatch-card" onclick="copyToken('--line', '#d8e2df')">
+          <div class="swatch-color" style="background:#d8e2df; color:#0a1e1d;">
+            <span class="swatch-role-tag" style="background:rgba(0,0,0,0.1); color:#0a1e1d;">HAIRLINE LINE</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Hairline Border</span>
+              <span class="swatch-hex">#d8e2df</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--line)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal Green -->
+        <div class="swatch-card" onclick="copyToken('--signal-green', '#0f8a5f')">
+          <div class="swatch-color" style="background:#0f8a5f; color:#fff;">
+            <span class="swatch-role-tag">LIVE TELEMETRY</span>
+          </div>
+          <div class="swatch-details">
+            <div class="swatch-name">
+              <span>Signal Mint</span>
+              <span class="swatch-hex">#0f8a5f</span>
+            </div>
+            <div class="swatch-token">
+              <code>var(--signal-green)</code>
+              <i data-lucide="copy"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Typography Specimen Section -->
+    <section>
+      <div class="section-head">
+        <h2><i data-lucide="type"></i> قانون الخطوط والتايبوغرافي <span dir="ltr">(Typography Law)</span></h2>
+        <span class="desc">عربي بـ IBM Plex Sans Arabic · وأرقام بـ IBM Plex Mono أحادي العرض</span>
+      </div>
+      <div class="type-specimen">
+        <div class="type-box">
+          <div class="type-tag">
+            <span>الخط الأساسي للنصوص العربية (UI &amp; Body)</span>
+            <code>IBM Plex Sans Arabic (400, 600, 700)</code>
+          </div>
+          <div class="type-sample-arabic">
+            منظومة ماكس بي: ذكاء اصطناعي، تجارة إلكترونية، وإدارة سحابية متقدمة لعمليات التجار.
+          </div>
+          <div class="type-rule-pill">
+            <i data-lucide="info"></i>
+            <span>ممنوع نهائياً تطبيق الخط الأحادي (font-mono) على الكلمات أو النصوص العربية.</span>
+          </div>
+          <div class="type-rule-pill">
+            <i data-lucide="info"></i>
+            <span>توازن الأسطر: استخدام <code>text-wrap: balance</code> للعناوين و <code>pretty</code> للفقرات.</span>
+          </div>
+        </div>
+
+        <div class="type-box">
+          <div class="type-tag">
+            <span>خط الأرقام والمسارات والـ Telemetry</span>
+            <code>IBM Plex Mono + tabular-nums</code>
+          </div>
+          <div class="type-sample-mono" dir="ltr">
+            48,650 EGP · 142 ORDERS · P95 240ms · 94.2%
+          </div>
+          <div class="type-rule-pill">
+            <i data-lucide="check"></i>
+            <span>أرقام متساوية العرض لمنع اهتزاز الجداول عند تحديث الإحصائيات الحية.</span>
+          </div>
+          <div class="type-rule-pill">
+            <i data-lucide="check"></i>
+            <span>المسارات البرمجية والاختصارات: <code>/orders/analytics</code> · <code>Ctrl+K</code>.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Approved vs Banned Comparison (The 12 Slop Flags) -->
+    <section>
+      <div class="section-head">
+        <h2><i data-lucide="scale"></i> معايير الجودة وممنوعات الـ AI Slop الاثنا عشر</h2>
+        <span class="desc">المقارنة الدستورية بين النمط المعتمد والممارسات المحظورة</span>
+      </div>
+      <div class="audit-chassis">
+
+        <!-- Approved Column -->
+        <div class="audit-col approved">
+          <div class="audit-header">
+            <span class="audit-badge">المعايير المعتمدة في كود MAXP</span>
+            <span style="font-weight:700;">Linear-Caliber Enterprise OS</span>
+          </div>
+          <div class="audit-list">
+            <div class="audit-entry">
+              <i data-lucide="check-circle-2"></i>
+              <div>
+                <strong>السطح الواحد المستمر (Single-Surface Chassis):</strong>
+                <span>تقسيم الشاشات بفواصل شعرية رفيعة <code>border-line</code> بدلاً من الكروت المعزولة.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="check-circle-2"></i>
+              <div>
+                <strong>ألوان الأعمال الواضحة (Petrol &amp; Persimmon):</strong>
+                <span>ألوان هادئة ومريحة للعين في ساعات العمل الطويلة مع تمييز دقيق للحركات الحرجة.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="check-circle-2"></i>
+              <div>
+                <strong>الهندسة غير المتماثلة (Bento Operations Deck):</strong>
+                <span>شاشات حية تعرض البيانات بأحجام هرمية حسب الأهمية التشغيلية وليس 30 كارت متماثل.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="check-circle-2"></i>
+              <div>
+                <strong>التفاعل الحركي الفوري (Spring Micro-Haptics):</strong>
+                <span>استجابة نقر فيزيائية <code>:active scale(0.97)</code> واختصارات لوحة مفاتيح سريعة.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="check-circle-2"></i>
+              <div>
+                <strong>الموبايل الصارم (MOB-015):</strong>
+                <span>استغلال 85%+ من عرض الشاشة (390px) وحظر الكروت المتداخلة Box-in-Box نهائياً.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banned Column -->
+        <div class="audit-col banned">
+          <div class="audit-header">
+            <span class="audit-badge">الممنوعات المحظورة قطيعاً (BANNED FLAGS)</span>
+            <span style="font-weight:700;">12 AI Slop Traps</span>
+          </div>
+          <div class="audit-list">
+            <div class="audit-entry">
+              <i data-lucide="x-circle"></i>
+              <div>
+                <strong>حظر شبكات البنفسجي والسايان (Purple/Cyan Dark Mesh):</strong>
+                <span>منع خلفيات الـ AI المبتذلة والمنتشرة في قوالب الدارك مود الوهمية.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="x-circle"></i>
+              <div>
+                <strong>حظر كروت الكوكيز المستنسخة (Cookie-Cutter Cards):</strong>
+                <span>منع تكرار عشرات الكروت المتطابقة الصامتة التي تسبب العمى البصري للتاجر.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="x-circle"></i>
+              <div>
+                <strong>حظر فوضى الإيموجي في العناوين التشغيلية:</strong>
+                <span>حظر وضع (🤖🚀⚡🔥) في رؤوس الشاشات ولوحات التحكم كبديل للأيقونات المتجهة.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="x-circle"></i>
+              <div>
+                <strong>حظر التوهج والبلور الزائد (Glassmorphism Spam):</strong>
+                <span>منع الحدود المتوهجة (Glowing borders) وبلورات الزجاج التي تثقل الأداء وتشتت التركيز.</span>
+              </div>
+            </div>
+            <div class="audit-entry">
+              <i data-lucide="x-circle"></i>
+              <div>
+                <strong>حظر الشاشات المبرمجة لنفسها (Marketing Fluff in OS):</strong>
+                <span>منع كتابة فقرات تسويقية وشروح إنشائية تحت كل زر وكارت في شاشات التشغيل اليومية.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Live Interactive UI Components Specimen -->
+    <section>
+      <div class="section-head">
+        <h2><i data-lucide="layers"></i> مكونات الواجهة التشغيلية الحية (Live Component Specimens)</h2>
+        <span class="desc">أزرار، شارات، وجداول مبنية بالتوكنز المعتمدة حصراً</span>
+      </div>
+      <div class="components-deck">
+        
+        <!-- Buttons Row -->
+        <div class="comp-row">
+          <button class="btn-petrol">
+            <i data-lucide="box"></i>
+            <span>معالجة 142 طلباً معلقاً</span>
+          </button>
+          <button class="btn-persimmon">
+            <i data-lucide="zap"></i>
+            <span>تأكيد فوري عبر واتساب</span>
+          </button>
+          <button class="btn-subtle">
+            <i data-lucide="file-spreadsheet"></i>
+            <span>تصدير البوليصات</span>
+          </button>
+        </div>
+
+        <!-- Badges Row -->
+        <div class="comp-row">
+          <span class="tag-pill live">
+            <span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
+            ONLINE · META CLOUD API
+          </span>
+          <span class="tag-pill warn">
+            <span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
+            3 نواقص في المخزون
+          </span>
+          <span class="tag-pill danger">
+            <span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
+            فشل سداد بوليصة #4812
+          </span>
+          <span class="tag-pill neutral">
+            <i data-lucide="shield"></i>
+            SUPER ADMIN (ROOT)
+          </span>
+        </div>
+
+        <!-- Live Telemetry Data Table -->
+        <table class="telemetry-table mono">
+          <thead>
+            <tr>
+              <th>المعرف</th>
+              <th>العملية التشغيلية</th>
+              <th>الحالة</th>
+              <th>القيمة المالية</th>
+              <th>وقت التنفيذ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#TRX-8419</td>
+              <td>تأكيد عنوان طلبية متجر سوان (القاهرة)</td>
+              <td><span class="tag-pill live">منجز آلياً</span></td>
+              <td>1,420 EGP</td>
+              <td>12ms</td>
+            </tr>
+            <tr>
+              <td>#TRX-8420</td>
+              <td>إصدار بوليصة شحن سريعة (Bosta Express)</td>
+              <td><span class="tag-pill live">قيد التوزيع</span></td>
+              <td>850 EGP</td>
+              <td>45ms</td>
+            </tr>
+            <tr>
+              <td>#TRX-8421</td>
+              <td>تنبيه نقص استوك منتج (قميص كتان بيج)</td>
+              <td><span class="tag-pill warn">مخزون منخفض (2)</span></td>
+              <td>—</td>
+              <td>08:14:22</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+
+    <!-- Context Evolution Note: Why the old purple theme was replaced -->
+    <section style="background:var(--subtle); border:1px solid var(--line); border-radius:var(--radius-lg); padding:24px;">
+      <h3 style="font-size:15px; margin-bottom:8px; color:var(--ink); display:flex; align-items:center; gap:8px;">
+        <i data-lucide="history"></i>
+        <span>سياق التطور: لماذا تم استبدال ثيم البنفسجي والذهب القديم؟</span>
+      </h3>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7;">
+        الصفحة السابقة <code>maxp-new-identity-page.html</code> كانت تجربة لاندنج بيج قديمة اعتمدت على البنفسجي <code>#9F59FF</code> والذهب <code>#F5D48A</code> مع توهج ليلي كثيف.
+        أثبتت المراجعة التشغيلية الموثقة في <code>DAY-NIGHT-IDENTITY.md</code> أن هذا المفهوم حصل على تقييم <strong>5/10 فقط</strong> كبيئة عمل يومية لأنه يسبب إجهاداً بصرياً ويخل بقواعد مكافحة الابتذال (Anti-Slop Restrained Rule).
+        لذلك اعتمد الدستور رسمياً هوية <strong>Petrol &amp; Persimmon</strong> كلغة وحيدة لكافة شاشات المنصة.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Sticky Notification Toast -->
+  <div id="copyToast" class="toast">
+    <i data-lucide="check"></i>
+    <span id="toastMsg">تم نسخ الكود بنجاح</span>
+  </div>
+
+  <footer>
+    MAXP OPERATIONAL IDENTITY SYSTEM · PETROL &amp; PERSIMMON LAW · STRICT COMPLIANCE REQUIRED ACROSS ALL REPOSITORIES
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Theme Toggle Functionality
+    const themeBtn = document.getElementById("themeToggle");
+    const themeLabel = document.getElementById("themeLabel");
+    const root = document.documentElement;
+
+    themeBtn.addEventListener("click", () => {
+      const isDark = root.getAttribute("data-theme") === "dark";
+      if (isDark) {
+        root.removeAttribute("data-theme");
+        themeLabel.textContent = "الوضع الليلي التشغيلي";
+      } else {
+        root.setAttribute("data-theme", "dark");
+        themeLabel.textContent = "الوضع النهاري التشغيلي";
+      }
+      lucide.createIcons();
+    });
+
+    // Copy to Clipboard with Toast
+    const toast = document.getElementById("copyToast");
+    const toastMsg = document.getElementById("toastMsg");
+    let toastTimeout = null;
+
+    function copyToken(token, hex) {
+      const text = `${token}: ${hex};`;
+      navigator.clipboard.writeText(text).then(() => {
+        toastMsg.textContent = `تم نسخ ${token} (${hex})`;
+        toast.classList.add("show");
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2200);
+      });
+    }
+  </script>
+</body>
+</html>

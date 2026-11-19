@@ -20,6 +20,11 @@ export function SidebarLayoutPicker({
     desc: string;
   }> = [
     {
+      id: "polaris",
+      label: "Shopify Polaris (الموصى به - أحدث قالب)",
+      desc: "نمط شوبيفاي بولاريس فائق السرعة، فواصل شعرية وتصفية سريعة للأعمال",
+    },
+    {
       id: "classic",
       label: t("sidebar.sidebarLayoutClassic"),
       desc: t("sidebar.sidebarLayoutClassicDesc"),

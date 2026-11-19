@@ -7,6 +7,7 @@ import ThreeTierSidebar from "./ThreeTierSidebar";
 import HorizontalNav from "./HorizontalNav";
 import FloatingSidebar from "./FloatingSidebar";
 import MinimalSidebar from "./MinimalSidebar";
+import PolarisSidebar from "./PolarisSidebar";
 
 interface SidebarLayoutFactoryProps {
   layout: SidebarLayoutType;
@@ -36,6 +37,8 @@ const SidebarLayoutFactory: React.FC<SidebarLayoutFactoryProps> = (props) => {
       return <MinimalSidebar {...props} />;
     case "app-dashboard":
       return props.mobileMode ? <ThreeTierSidebar {...props} /> : null;
+    case "polaris":
+      return <PolarisSidebar {...props} />;
     case "classic":
     default:
       return <ClassicSidebar {...props} />;

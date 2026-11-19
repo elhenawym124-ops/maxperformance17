@@ -5,7 +5,8 @@ export type SidebarLayoutType =
   | "horizontal"
   | "floating"
   | "minimal"
-  | "app-dashboard";
+  | "app-dashboard"
+  | "polaris";
 
 export interface SidebarItem {
   to: string;

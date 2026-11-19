@@ -147,6 +147,26 @@ html *::after {
 
 /* CSS Variables for theming */
 :root {
+  /* MaxP Constitutional Design Tokens (Petrol & Persimmon Law) */
+  --petrol: #013735;
+  --petrol-hover: #014744;
+  --petrol-tint: #e6f1ef;
+  --petrol-tint-2: #d4e7e4;
+  --on-petrol: #ffffff;
+
+  --accent: #e2603f;
+  --accent-hover: #cb5334;
+  --accent-tint: #fef0eb;
+  --accent-ink: #b83d1c;
+  --on-accent: #ffffff;
+
+  --p-canvas: #f4f6f5;
+  --p-surface: #ffffff;
+  --p-subtle: #fafbfb;
+  --p-hover: #edf2f0;
+  --p-border: #d8e2df;
+  --p-border-subdued: #e7eeec;
+
   --color-primary: oklch(0.581 0.229 263.9);
   --color-primary-foreground: oklch(1.000 0.000 0.0);
   --color-secondary: oklch(0.754 0.123 196.2);
@@ -532,6 +552,26 @@ html *::after {
 }
 
 .dark {
+  /* MaxP Constitutional Dark Mode Tokens */
+  --petrol: #3ec8b7;
+  --petrol-hover: #50d9c8;
+  --petrol-tint: #112d2a;
+  --petrol-tint-2: #163d39;
+  --on-petrol: #04211f;
+
+  --accent: #ff8a68;
+  --accent-hover: #ffa185;
+  --accent-tint: #2a1510;
+  --accent-ink: #ffab92;
+  --on-accent: #1e0904;
+
+  --p-canvas: #081110;
+  --p-surface: #0e1a19;
+  --p-subtle: #0b1514;
+  --p-hover: #142422;
+  --p-border: #1c2e2c;
+  --p-border-subdued: #162423;
+
   --color-background: oklch(0.177 0.035 257.7);
   --color-foreground: oklch(0.965 0.017 259.4);
   --color-muted: oklch(0.221 0.042 257.8);

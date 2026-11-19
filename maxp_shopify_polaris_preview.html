@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MaxP — نمط شوبيفاي بولاريس التشغيلي (Shopify Polaris Prototype)</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root {
+      /* Shopify Polaris Standard Palette tuned to MaxP Petrol & Persimmon */
+      --p-surface: #ffffff;
+      --p-subtle: #fafbfb;
+      --p-canvas: #f1f2f4;
+      --p-hover: #f1f5f4;
+      --p-pressed: #e5ecea;
+      
+      --p-ink: #1a1a1a;
+      --p-ink-subdued: #5c5f62;
+      --p-ink-faint: #8c9196;
+      
+      --p-border: #d2d5d8;
+      --p-border-subdued: #e1e3e5;
+      
+      /* MaxP Constitutional Brand Inks */
+      --petrol: #013735;
+      --petrol-hover: #014744;
+      --petrol-tint: #e6f1ef;
+      --on-petrol: #ffffff;
+      
+      --accent: #e2603f;
+      --accent-hover: #cb5334;
+      --accent-tint: #fef0eb;
+      --accent-ink: #b83d1c;
+      --on-accent: #ffffff;
+      
+      /* Status Inks (Polaris Standard) */
+      --badge-success-bg: #eaf6f1;
+      --badge-success-ink: #0f8a5f;
+      --badge-warning-bg: #fdf5e8;
+      --badge-warning-ink: #995c00;
+      --badge-critical-bg: #fdf2f2;
+      --badge-critical-ink: #c92a2a;
+      --badge-info-bg: #eef3ff;
+      --badge-info-ink: #2b5cdb;
+      
+      --sidebar-w: 240px;
+      --topbar-h: 52px;
+      
+      --font: "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Dark Mode (High-Performance Night Operations) */
+    :root[data-theme="dark"] {
+      --p-surface: #111a19;
+      --p-subtle: #0d1413;
+      --p-canvas: #070c0b;
+      --p-hover: #172422;
+      --p-pressed: #1e302e;
+      
+      --p-ink: #e6edea;
+      --p-ink-subdued: #99aba7;
+      --p-ink-faint: #637774;
+      
+      --p-border: #233532;
+      --p-border-subdued: #192725;
+      
+      --petrol: #3ec8b7;
+      --petrol-hover: #52d9c8;
+      --petrol-tint: #112d2a;
+      --on-petrol: #04211f;
+      
+      --accent: #ff8a68;
+      --accent-hover: #ffa185;
+      --accent-tint: #2a1510;
+      --accent-ink: #ffab92;
+      --on-accent: #1e0904;
+      
+      --badge-success-bg: #102d23;
+      --badge-success-ink: #45c28e;
+      --badge-warning-bg: #2e2008;
+      --badge-warning-ink: #e5a447;
+      --badge-critical-bg: #361414;
+      --badge-critical-ink: #ff6b6b;
+      --badge-info-bg: #111f3d;
+      --badge-info-ink: #709bf7;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--p-canvas);
+      color: var(--p-ink);
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+    a { text-decoration: none; color: inherit; }
+    svg.lucide { width: 16px; height: 16px; stroke-width: 1.8; vertical-align: middle; }
+    .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+    /* App Shell Grid */
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: var(--topbar-h) 1fr;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ═══════════ TOP OMNIBAR ═══════════ */
+    .topbar {
+      grid-column: 1 / -1;
+      height: var(--topbar-h);
+      background: var(--p-surface);
+      border-bottom: 1px solid var(--p-border-subdued);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 40;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: var(--sidebar-w);
+    }
+    .store-brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.14s;
+      cursor: pointer;
+    }
+    .store-brand-pill:hover { background: var(--p-hover); }
+    .store-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--petrol);
+      color: var(--on-petrol);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-family: var(--mono);
+      font-size: 12px;
+      position: relative;
+    }
+    .store-logo::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 1.5px solid var(--p-surface);
+    }
+    .store-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .store-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--p-ink);
+    }
+    .store-sub {
+      font-size: 10px;
+      color: var(--p-ink-subdued);
+      font-family: var(--mono);
+    }
+
+    /* Omni Search Input */
+    .topbar-center {
+      flex: 1;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+    .search-box input {
+      width: 100%;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--p-border-subdued);
+      background: var(--p-subtle);
+      color: var(--p-ink);
+      font-family: inherit;
+      font-size: 12.5px;
+      padding: 0 32px 0 60px;
+      transition: all 0.16s var(--ease);
+    }
+    .search-box input:focus {
+      outline: none;
+      background: var(--p-surface);
+      border-color: var(--petrol);
+      box-shadow: 0 0 0 2px var(--petrol-tint);
+    }
+    .search-ico {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      color: var(--p-ink-faint);
+      pointer-events: none;
+    }
+    .search-kbd {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--p-ink-faint);
+      background: var(--p-surface);
+      border: 1px solid var(--p-border-subdued);
+      border-radius: 4px;
+      padding: 1px 4px;
+    }
+
+    /* Topbar Left Actions */
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-topbar {
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--p-ink-subdued);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.14s;
+    }
+    .btn-topbar:hover { background: var(--p-hover); color: var(--p-ink); }
+    .btn-topbar.icon-only { width: 32px; padding: 0; justify-content: center; position: relative; }
+    .badge-dot {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .avatar-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 4px 2px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .avatar-pill:hover { background: var(--p-hover); }
+    .avatar-img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 11px;
+      font-family: var(--mono);
+    }
+
+    /* ═══════════ POLARIS SIDEBAR ═══════════ */
+    .sidebar {
+      background: var(--p-surface);
+      border-left: 1px solid var(--p-border-subdued);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+      padding: 10px 8px;
+    }
+    .nav-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 16px;
+    }
+    .nav-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--p-ink-faint);
+      padding: 6px 10px 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: var(--p-ink-subdued);
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: all 0.12s;
+      cursor: pointer;
+    }
+    .nav-link:hover {
+      background: var(--p-hover);
+      color: var(--p-ink);
+    }
+    .nav-link.active {
+      background: var(--p-hover);
+      color: var(--petrol);
+      font-weight: 700;
+    }
+    .nav-link-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: var(--p-border-subdued);
+      color: var(--p-ink-subdued);
+    }
+    .nav-link.active .nav-count {
+      background: var(--petrol);
+      color: var(--on-petrol);
+    }
+    .nav-count.alert {
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    /* Sidebar Role Toggle Banner */
+    .role-switcher-card {
+      background: var(--p-subtle);
+      border: 1px solid var(--p-border-subdued);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .role-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--p-ink-subdued);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .role-pill-btn {
+      width: 100%;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--petrol);
+      color: var(--on-petrol);
+      font-size: 11.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.14s;
+    }
+    .role-pill-btn:hover { background: var(--petrol-hover); }
+
+    /* ═══════════ MAIN CONTENT WORKSPACE ═══════════ */
+    .main-workspace {
+      background: var(--p-canvas);
+      overflow-y: auto;
+      padding: 24px 32px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Standard Polaris Page Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .page-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--p-ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .page-meta {
+      font-size: 12px;
+      color: var(--p-ink-subdued);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .page-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-secondary {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
+      background: var(--p-surface);
+      border: 1px solid var(--p-border);
+      color: var(--p-ink);
+      font-size: 12.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+      transition: all 0.12s;
+    }
+    .btn-secondary:hover { background: var(--p-hover); }
+    .btn-secondary:active { transform: scale(0.98); }
+    
+    .btn-primary {
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: 12.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+      transition: all 0.12s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    /* Polaris Metrics Row */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .metric-card {
+      background: var(--p-surface);
+      border: 1px solid var(--p-border-subdued);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    }
+    .metric-label {
+      font-size: 11.5px;
+      color: var(--p-ink-subdued);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .metric-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--p-ink);
+      font-family: var(--mono);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .metric-delta {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .delta-up { color: var(--badge-success-ink); }
+    .delta-down { color: var(--badge-critical-ink); }
+
+    /* Polaris Card / Surface Container */
+    .polaris-card {
+      background: var(--p-surface);
+      border: 1px solid var(--p-border-subdued);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    }
+    
+    /* Tabs & Filter Bar */
+    .tabs-bar {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--p-border-subdued);
+      padding: 0 8px;
+      background: var(--p-surface);
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 10px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--p-ink-subdued);
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.12s;
+    }
+    .tab-btn:hover { color: var(--p-ink); }
+    .tab-btn.active {
+      color: var(--petrol);
+    }
+    .tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 2px;
+      background: var(--petrol);
+    }
+    .tab-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 1px 5px;
+      border-radius: 999px;
+      background: var(--p-canvas);
+      margin-inline-start: 6px;
+    }
+    .tab-btn.active .tab-count {
+      background: var(--petrol-tint);
+      color: var(--petrol);
+    }
+
+    /* Filter Sub-Bar */
+    .filter-subbar {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--p-subtle);
+      border-bottom: 1px solid var(--p-border-subdued);
+    }
+    .filter-search-wrap {
+      flex: 1;
+      max-width: 360px;
+      position: relative;
+    }
+    .filter-search-wrap input {
+      width: 100%;
+      height: 30px;
+      border-radius: 6px;
+      border: 1px solid var(--p-border);
+      background: var(--p-surface);
+      color: var(--p-ink);
+      font-size: 12px;
+      padding: 0 28px 0 10px;
+    }
+    .filter-search-wrap i {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      color: var(--p-ink-faint);
+    }
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pill-filter {
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 6px;
+      border: 1px solid var(--p-border);
+      background: var(--p-surface);
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--p-ink-subdued);
+    }
+    .pill-filter:hover { background: var(--p-hover); color: var(--p-ink); }
+
+    /* Polaris Resource Table */
+    .polaris-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .polaris-table th {
+      background: var(--p-subtle);
+      text-align: right;
+      padding: 9px 14px;
+      font-weight: 600;
+      color: var(--p-ink-subdued);
+      border-bottom: 1px solid var(--p-border-subdued);
+      font-size: 11.5px;
+      white-space: nowrap;
+    }
+    .polaris-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--p-border-subdued);
+      color: var(--p-ink);
+      vertical-align: middle;
+    }
+    .polaris-table tr:last-child td { border-bottom: none; }
+    .polaris-table tbody tr {
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+    .polaris-table tbody tr:hover td {
+      background: var(--p-hover);
+    }
+    
+    .chk-col { width: 34px; padding-inline-start: 14px; }
+    input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      border-radius: 4px;
+      accent-color: var(--petrol);
+      cursor: pointer;
+    }
+
+    /* Polaris Badges */
+    .polaris-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .polaris-badge.success { background: var(--badge-success-bg); color: var(--badge-success-ink); }
+    .polaris-badge.warning { background: var(--badge-warning-bg); color: var(--badge-warning-ink); }
+    .polaris-badge.critical { background: var(--badge-critical-bg); color: var(--badge-critical-ink); }
+    .polaris-badge.info { background: var(--badge-info-bg); color: var(--badge-info-ink); }
+    .polaris-badge.subdued { background: var(--p-canvas); color: var(--p-ink-subdued); border: 1px solid var(--p-border-subdued); }
+
+    /* Order Row Elements */
+    .order-id {
+      font-family: var(--mono);
+      font-weight: 700;
+      color: var(--petrol);
+    }
+    .customer-cell {
+      display: flex;
+      flex-direction: column;
+    }
+    .cust-name { font-weight: 600; color: var(--p-ink); }
+    .cust-phone { font-size: 11px; color: var(--p-ink-faint); font-family: var(--mono); }
+    
+    .price-cell {
+      font-family: var(--mono);
+      font-weight: 700;
+      direction: ltr;
+      text-align: right;
+    }
+
+    /* Super Admin View (Toggled dynamically) */
+    .view-container { display: none; }
+    .view-container.active { display: flex; flex-direction: column; gap: 20px; }
+
+    /* Mobile Responsive (MOB-015) */
+    @media (max-width: 900px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .metrics-row { grid-template-columns: 1fr 1fr; }
+      .topbar-right { width: auto; }
+      .main-workspace { padding: 16px; }
+    }
+    @media (max-width: 600px) {
+      .metrics-row { grid-template-columns: 1fr; }
+      .topbar-center { display: none; }
+      .filter-subbar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- ═══════════ TOP OMNIBAR ═══════════ -->
+    <header class="topbar">
+      <!-- Store Switcher (Right in RTL) -->
+      <div class="topbar-right">
+        <div class="store-brand-pill" id="storeSelector" title="تبديل المتجر أو الفرع">
+          <div class="store-logo">MP</div>
+          <div class="store-details">
+            <span class="store-name" id="viewBrandName">متجر سوان للتجارة</span>
+            <span class="store-sub" id="viewSubName">swan.maxp.online ▾</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Omni Search Box -->
+      <div class="topbar-center">
+        <div class="search-box">
+          <i data-lucide="search" class="search-ico"></i>
+          <input type="search" placeholder="ابحث في الطلبات، المنتجات، العملاء، أو الوكلاء..." id="globalSearch">
+          <span class="search-kbd">Ctrl K</span>
+        </div>
+      </div>
+
+      <!-- Left Utility Actions -->
+      <div class="topbar-left">
+        <a href="#" class="btn-topbar" title="معاينة المتجر المباشر">
+          <span>المتجر</span>
+          <i data-lucide="external-link"></i>
+        </a>
+        <button class="btn-topbar icon-only" title="التنبيهات">
+          <i data-lucide="bell"></i>
+          <span class="badge-dot"></span>
+        </button>
+        <button class="btn-topbar icon-only" id="themeBtn" title="تبديل المظهر">
+          <i data-lucide="moon"></i>
+        </button>
+        <div class="avatar-pill">
+          <div class="avatar-img">SA</div>
+          <span style="font-weight:600; font-size:12px;">مختار الهواري</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════ POLARIS SIDEBAR ═══════════ -->
+    <aside class="sidebar">
+      <div>
+        
+        <!-- Merchant Navigation Group -->
+        <div class="nav-group" id="merchantNav">
+          <div class="nav-link" onclick="switchTab('dashboard')">
+            <div class="nav-link-left">
+              <i data-lucide="home"></i>
+              <span>الرئيسية</span>
+            </div>
+          </div>
+          <div class="nav-link active" onclick="switchTab('orders')">
+            <div class="nav-link-left">
+              <i data-lucide="inbox"></i>
+              <span>الطلبات</span>
+            </div>
+            <span class="nav-count">142</span>
+          </div>
+          <div class="nav-link" onclick="switchTab('products')">
+            <div class="nav-link-left">
+              <i data-lucide="package"></i>
+              <span>المنتجات</span>
+            </div>
+            <span class="nav-count alert">3</span>
+          </div>
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="users"></i>
+              <span>العملاء</span>
+            </div>
+            <span class="nav-count">4.8k</span>
+          </div>
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="line-chart"></i>
+              <span>التحليلات والمبيعات</span>
+            </div>
+          </div>
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="badge-percent"></i>
+              <span>التسويق والحملات</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Channels & Automations -->
+        <div class="nav-group">
+          <div class="nav-group-title">قنوات البيع والذكاء الاصطناعي</div>
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="store"></i>
+              <span>المتجر الإلكتروني</span>
+            </div>
+            <span class="polaris-badge success" style="font-size:9px;">متصل</span>
+          </div>
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="message-circle"></i>
+              <span>صندوق قنوات الواتساب</span>
+            </div>
+            <span class="nav-count">12</span>
+          </div>
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="bot"></i>
+              <span>منظومة الوكلاء الذاتية</span>
+            </div>
+            <span class="polaris-badge success" style="font-size:9px;">3 نشط</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Pinned Section: Settings & Super Admin Toggle -->
+      <div>
+        <div class="nav-group" style="margin-bottom:8px;">
+          <div class="nav-link">
+            <div class="nav-link-left">
+              <i data-lucide="settings"></i>
+              <span>الإعدادات والربط</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode Toggle Card (Merchant vs Super Admin) -->
+        <div class="role-switcher-card">
+          <div class="role-title">
+            <span>وضع المعاينة الحالي:</span>
+            <span id="roleLabel" class="polaris-badge success">داشبورد التاجر</span>
+          </div>
+          <button class="role-pill-btn" onclick="toggleRoleView()">
+            <i data-lucide="refresh-cw"></i>
+            <span id="roleBtnText">التحويل لـ Super Admin</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════ MAIN CONTENT WORKSPACE ═══════════ -->
+    <main class="main-workspace">
+
+      <!-- ─── VIEW 1: MERCHANT ORDERS WORKSPACE (Default) ─── -->
+      <div id="merchantView" class="view-container active">
+        
+        <!-- Standard Shopify Page Header -->
+        <div class="page-header">
+          <div class="page-title-wrap">
+            <h1 class="page-title">
+              <span>إدارة الطلبات والشحن</span>
+              <span class="polaris-badge success">مباشر · 142 طلباً اليوم</span>
+            </h1>
+            <div class="page-meta">
+              <span>آخر مزامنة عبر الـ Webhook منذ دقيقة واحدة</span>
+              <span>·</span>
+              <span>شركاء الشحن: بوسطة (Bosta) و مايلرز (Mylerz)</span>
+            </div>
+          </div>
+          <div class="page-actions">
+            <button class="btn-secondary">
+              <i data-lucide="download"></i>
+              <span>تصدير CSV</span>
+            </button>
+            <button class="btn-secondary">
+              <i data-lucide="printer"></i>
+              <span>طباعة البوالص المجمعة</span>
+            </button>
+            <button class="btn-primary">
+              <i data-lucide="plus"></i>
+              <span>إنشاء طلب يدوي</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Polaris 4-Metric Operations Row -->
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>إجمالي مبيعات اليوم</span>
+              <i data-lucide="dollar-sign"></i>
+            </div>
+            <div class="metric-value">
+              <span>48,650</span>
+              <span style="font-size:12px; font-weight:600; color:var(--p-ink-subdued);">EGP</span>
+              <span class="metric-delta delta-up"><i data-lucide="trending-up"></i> 14.2%</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>الطلبات الجارية للتجهيز</span>
+              <i data-lucide="shopping-cart"></i>
+            </div>
+            <div class="metric-value">
+              <span>142</span>
+              <span class="metric-delta delta-up"><i data-lucide="trending-up"></i> +28 طلب</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>نسبة تأكيد الوكيل الآلي</span>
+              <i data-lucide="bot"></i>
+            </div>
+            <div class="metric-value">
+              <span>94.2%</span>
+              <span class="metric-delta delta-up"><i data-lucide="check"></i> ممتاز</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>متوسط سلة المشتريات</span>
+              <i data-lucide="receipt"></i>
+            </div>
+            <div class="metric-value">
+              <span>342.6</span>
+              <span style="font-size:12px; font-weight:600; color:var(--p-ink-subdued);">EGP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polaris Main Orders Table Surface -->
+        <div class="polaris-card">
+          
+          <!-- Segment Tabs -->
+          <div class="tabs-bar">
+            <button class="tab-btn active">الكل <span class="tab-count">142</span></button>
+            <button class="tab-btn">بانتظار التأكيد <span class="tab-count">18</span></button>
+            <button class="tab-btn">قيد التجهيز <span class="tab-count">44</span></button>
+            <button class="tab-btn">مع مندوب الشحن <span class="tab-count">68</span></button>
+            <button class="tab-btn">تم التسليم <span class="tab-count">12</span></button>
+          </div>
+
+          <!-- Filters Row -->
+          <div class="filter-subbar">
+            <div class="filter-search-wrap">
+              <i data-lucide="search"></i>
+              <input type="text" placeholder="تصفية برقم الطلب، اسم العميل، أو المحافظة...">
+            </div>
+            <div class="filter-pills">
+              <button class="pill-filter">
+                <span>حالة الدفع</span>
+                <i data-lucide="chevron-down"></i>
+              </button>
+              <button class="pill-filter">
+                <span>شركة الشحن</span>
+                <i data-lucide="chevron-down"></i>
+              </button>
+              <button class="pill-filter">
+                <span>المحافظة</span>
+                <i data-lucide="chevron-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Data Table -->
+          <table class="polaris-table">
+            <thead>
+              <tr>
+                <th class="chk-col"><input type="checkbox"></th>
+                <th>رقم الطلب</th>
+                <th>العميل والمحافظة</th>
+                <th>حالة الدفع</th>
+                <th>حالة الشحن والتجهيز</th>
+                <th>شركة الشحن</th>
+                <th>تأكيد الوكيل</th>
+                <th>الإجمالي</th>
+                <th>التاريخ والوقت</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="chk-col"><input type="checkbox"></td>
+                <td><span class="order-id">#SW-8419</span></td>
+                <td>
+                  <div class="customer-cell">
+                    <span class="cust-name">أحمد عبد الله المنشاوي</span>
+                    <span class="cust-phone">01092837461 · القاهرة (المعادي)</span>
+                  </div>
+                </td>
+                <td><span class="polaris-badge success">مدفوع فيزا</span></td>
+                <td><span class="polaris-badge warning">قيد التجهيز بالمخزن</span></td>
+                <td><span class="polaris-badge subdued">Bosta Express</span></td>
+                <td><span class="polaris-badge success"><i data-lucide="check"></i> مؤكد آلياً</span></td>
+                <td class="price-cell">1,450.00 EGP</td>
+                <td class="mono" style="color:var(--p-ink-faint); font-size:11px;">10:24 ص</td>
+              </tr>
+              <tr>
+                <td class="chk-col"><input type="checkbox"></td>
+                <td><span class="order-id">#SW-8418</span></td>
+                <td>
+                  <div class="customer-cell">
+                    <span class="cust-name">سارة محمد الحازمي</span>
+                    <span class="cust-phone">01123948572 · الجيزة (الدقي)</span>
+                  </div>
+                </td>
+                <td><span class="polaris-badge subdued">الدفع عند الاستلام</span></td>
+                <td><span class="polaris-badge info">مع مندوب الشحن</span></td>
+                <td><span class="polaris-badge subdued">Mylerz</span></td>
+                <td><span class="polaris-badge success"><i data-lucide="check"></i> مؤكد آلياً</span></td>
+                <td class="price-cell">890.00 EGP</td>
+                <td class="mono" style="color:var(--p-ink-faint); font-size:11px;">09:58 ص</td>
+              </tr>
+              <tr>
+                <td class="chk-col"><input type="checkbox"></td>
+                <td><span class="order-id">#SW-8417</span></td>
+                <td>
+                  <div class="customer-cell">
+                    <span class="cust-name">محمود إبراهيم الشناوي</span>
+                    <span class="cust-phone">01283746192 · الإسكندرية (سموحة)</span>
+                  </div>
+                </td>
+                <td><span class="polaris-badge success">فودافون كاش</span></td>
+                <td><span class="polaris-badge warning">بانتظار طباعة البوليصة</span></td>
+                <td><span class="polaris-badge subdued">Bosta Express</span></td>
+                <td><span class="polaris-badge warning">جاري التواصل</span></td>
+                <td class="price-cell">2,120.00 EGP</td>
+                <td class="mono" style="color:var(--p-ink-faint); font-size:11px;">09:41 ص</td>
+              </tr>
+              <tr>
+                <td class="chk-col"><input type="checkbox"></td>
+                <td><span class="order-id">#SW-8416</span></td>
+                <td>
+                  <div class="customer-cell">
+                    <span class="cust-name">هند عبد الرحمن القاسم</span>
+                    <span class="cust-phone">01019283745 · المنصورة</span>
+                  </div>
+                </td>
+                <td><span class="polaris-badge critical">فشل عملية الدفع</span></td>
+                <td><span class="polaris-badge critical">معلق للمراجعة</span></td>
+                <td><span class="polaris-badge subdued">—</span></td>
+                <td><span class="polaris-badge critical">استرداد سلة سريعة</span></td>
+                <td class="price-cell">620.00 EGP</td>
+                <td class="mono" style="color:var(--p-ink-faint); font-size:11px;">09:12 ص</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+      <!-- ─── VIEW 2: SUPER ADMIN WORKSPACE (Multi-Tenant & System Cockpit) ─── -->
+      <div id="superAdminView" class="view-container">
+        
+        <div class="page-header">
+          <div class="page-title-wrap">
+            <h1 class="page-title">
+              <span>لوحة القيادة العليا (Super Admin Platform Cockpit)</span>
+              <span class="polaris-badge info">ROOT / CENTRAL ORCHESTRATION</span>
+            </h1>
+            <div class="page-meta">
+              <span>إدارة كافة الشركات والمتاجر المشتركة، خوادم الباك إند، ومفاتيح الذكاء الاصطناعي</span>
+            </div>
+          </div>
+          <div class="page-actions">
+            <button class="btn-secondary">
+              <i data-lucide="server"></i>
+              <span>فحص صحة السيرفرات (Health Check)</span>
+            </button>
+            <button class="btn-primary">
+              <i data-lucide="user-plus"></i>
+              <span>إنشاء شركة / متجر جديد</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Super Admin Metrics -->
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-label">إجمالي الشركات النشطة (Tenants)</div>
+            <div class="metric-value">38 <span class="metric-delta delta-up">+4 هذا الشهر</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">وكلاء الـ AI الشغالين في الخلفية</div>
+            <div class="metric-value">114 <span class="metric-delta delta-up">Zero Errors</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">رصيد مفاتيح الذكاء (public.ai_keys)</div>
+            <div class="metric-value">8 نشط <span class="metric-delta delta-up">Healthy</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">معدل الاستجابة P95 للـ APIs</div>
+            <div class="metric-value">18ms <span class="metric-delta delta-up">Optimal</span></div>
+          </div>
+        </div>
+
+        <!-- Tenant Management Table -->
+        <div class="polaris-card">
+          <div class="tabs-bar">
+            <button class="tab-btn active">المتاجر والشركات المشتركة <span class="tab-count">38</span></button>
+            <button class="tab-btn">سجلات التزامن والـ Webhooks</button>
+            <button class="tab-btn">مفاتيح الـ AI والأمان</button>
+          </div>
+          <table class="polaris-table">
+            <thead>
+              <tr>
+                <th>المعرف</th>
+                <th>اسم المؤسسة / المتجر</th>
+                <th>الدومين</th>
+                <th>الخطة الحالية</th>
+                <th>عدد الطلبات اليومية</th>
+                <th>استهلاك الـ AI</th>
+                <th>حالة الاشتراك</th>
+                <th>الإجراء</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">#TNT-001</td>
+                <td><strong>مؤسسة سوان للتجارة</strong></td>
+                <td class="mono" style="direction:ltr; text-align:right;">swan.maxp.online</td>
+                <td><span class="polaris-badge success">Enterprise Plan</span></td>
+                <td class="mono">1,820 طلب</td>
+                <td class="mono">42k Tokens</td>
+                <td><span class="polaris-badge success">مفعل</span></td>
+                <td><button class="btn-secondary" style="height:26px; font-size:11px;" onclick="switchToSwan()">دخول كتاجر</button></td>
+              </tr>
+              <tr>
+                <td class="mono">#TNT-002</td>
+                <td><strong>براند كازان للملابس</strong></td>
+                <td class="mono" style="direction:ltr; text-align:right;">kazan.maxp.online</td>
+                <td><span class="polaris-badge info">Growth Plan</span></td>
+                <td class="mono">640 طلب</td>
+                <td class="mono">18k Tokens</td>
+                <td><span class="polaris-badge success">مفعل</span></td>
+                <td><button class="btn-secondary" style="height:26px; font-size:11px;">دخول كتاجر</button></td>
+              </tr>
+              <tr>
+                <td class="mono">#TNT-003</td>
+                <td><strong>رويال شوز للأحذية</strong></td>
+                <td class="mono" style="direction:ltr; text-align:right;">royal.maxp.online</td>
+                <td><span class="polaris-badge subdued">Starter</span></td>
+                <td class="mono">190 طلب</td>
+                <td class="mono">6k Tokens</td>
+                <td><span class="polaris-badge warning">بانتظار التجديد</span></td>
+                <td><button class="btn-secondary" style="height:26px; font-size:11px;">دخول كتاجر</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    let currentRole = "merchant"; // "merchant" | "admin"
+
+    function toggleRoleView() {
+      if (currentRole === "merchant") {
+        currentRole = "admin";
+        document.getElementById("merchantView").classList.remove("active");
+        document.getElementById("superAdminView").classList.add("active");
+        
+        document.getElementById("roleLabel").textContent = "سوبر أدمن (Root)";
+        document.getElementById("roleLabel").className = "polaris-badge info";
+        document.getElementById("roleBtnText").textContent = "التحويل لداشبورد التاجر";
+        
+        document.getElementById("viewBrandName").textContent = "MaxP Central Admin";
+        document.getElementById("viewSubName").textContent = "admin.maxp.online ▾";
+      } else {
+        currentRole = "merchant";
+        document.getElementById("superAdminView").classList.remove("active");
+        document.getElementById("merchantView").classList.add("active");
+        
+        document.getElementById("roleLabel").textContent = "داشبورد التاجر";
+        document.getElementById("roleLabel").className = "polaris-badge success";
+        document.getElementById("roleBtnText").textContent = "التحويل لـ Super Admin";
+        
+        document.getElementById("viewBrandName").textContent = "متجر سوان للتجارة";
+        document.getElementById("viewSubName").textContent = "swan.maxp.online ▾";
+      }
+      lucide.createIcons();
+    }
+
+    function switchToSwan() {
+      if (currentRole === "admin") {
+        toggleRoleView();
+      }
+    }
+
+    // Theme Toggle
+    const themeBtn = document.getElementById("themeBtn");
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      if (isDark) {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+      lucide.createIcons();
+    });
+
+    // Sub Tabs toggle inside tables
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const parent = btn.parentElement;
+        parent.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+
+    // Keyboard shortcut Ctrl+K
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        document.getElementById("globalSearch").focus();
+      }
+    });
+  </script>
+</body>
+</html>

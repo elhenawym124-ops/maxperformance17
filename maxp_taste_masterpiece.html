@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MaxP Launchpad — Elite Taste Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --paper: #f4f6f5;
+      --surface: #ffffff;
+      --subtle: #fafbfb;
+      --hover: #edf2f0;
+      --ink: #0a1e1d;
+      --muted: #48605e;
+      --faint: #788e8c;
+      --line: #d8e2df;
+      --line-soft: #e7eeec;
+      
+      --petrol: #013735;
+      --petrol-hover: #014744;
+      --petrol-tint: #e6f1ef;
+      --petrol-tint-2: #d4e7e4;
+      --on-petrol: #ffffff;
+      
+      --accent: #e2603f;
+      --accent-ink: #b83d1c;
+      --accent-tint: #fef0eb;
+      --accent-line: #f8cfc3;
+      --on-accent: #ffffff;
+
+      --signal-green: #0f8a5f;
+      --signal-green-tint: #eaf6f1;
+      --signal-amber: #b26a00;
+      --signal-amber-tint: #fef5e7;
+
+      --shadow-sm: 0 1px 2px rgba(1,55,53,0.04);
+      --shadow-chassis: 0 1px 2px rgba(1,55,53,0.04), 0 16px 36px -12px rgba(1,55,53,0.12);
+      --font: "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #081110;
+        --surface: #0e1a19;
+        --subtle: #0b1514;
+        --hover: #142422;
+        --ink: #e3edea;
+        --muted: #95aba8;
+        --faint: #637b79;
+        --line: #1c2e2c;
+        --line-soft: #162423;
+        --petrol: #3ec8b7;
+        --petrol-hover: #50d9c8;
+        --petrol-tint: #112d2a;
+        --petrol-tint-2: #163d39;
+        --on-petrol: #04211f;
+        --accent: #ff8a68;
+        --accent-ink: #ffab92;
+        --accent-tint: #2a1510;
+        --accent-line: #52271d;
+        --signal-green: #45c28e;
+        --signal-green-tint: #102e23;
+        --signal-amber: #e5a447;
+        --signal-amber-tint: #302008;
+        --shadow-chassis: 0 16px 36px -12px rgba(0,0,0,0.6);
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --paper: #081110;
+      --surface: #0e1a19;
+      --subtle: #0b1514;
+      --hover: #142422;
+      --ink: #e3edea;
+      --muted: #95aba8;
+      --faint: #637b79;
+      --line: #1c2e2c;
+      --line-soft: #162423;
+      --petrol: #3ec8b7;
+      --petrol-hover: #50d9c8;
+      --petrol-tint: #112d2a;
+      --petrol-tint-2: #163d39;
+      --on-petrol: #04211f;
+      --accent: #ff8a68;
+      --accent-ink: #ffab92;
+      --accent-tint: #2a1510;
+      --accent-line: #52271d;
+      --signal-green: #45c28e;
+      --signal-green-tint: #102e23;
+      --signal-amber: #e5a447;
+      --signal-amber-tint: #302008;
+      --shadow-chassis: 0 16px 36px -12px rgba(0,0,0,0.6);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+    a { text-decoration: none; color: inherit; }
+    svg.lucide { width: 18px; height: 18px; stroke-width: 1.8; }
+    .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+    /* Top Shell Bar */
+    .bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      height: 52px;
+      padding: 0 max(16px, env(safe-area-inset-left));
+    }
+    .bar-in {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      width: 100%;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--petrol);
+      color: var(--on-petrol);
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      position: relative;
+    }
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 1.5px solid var(--surface);
+    }
+    .tenant-badge {
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tenant-badge .pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--signal-green);
+    }
+    .spacer { flex: 1; }
+
+    .btn-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      position: relative;
+      transition: background 0.14s, transform 0.14s var(--ease);
+    }
+    .btn-icon:hover { background: var(--hover); color: var(--ink); }
+    .btn-icon:active { transform: scale(0.96); }
+    .dot-badge {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      height: 16px;
+      min-width: 16px;
+      padding: 0 4px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid var(--surface);
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 4px 3px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .user-pill b { font-size: 12px; font-weight: 600; line-height: 1.2; }
+    .user-pill small { font-size: 10px; color: var(--faint); font-family: var(--mono); }
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--mono);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    /* Command Spotlight Bar */
+    .command-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      min-width: 0;
+      width: 100%;
+    }
+    .command-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 440px;
+    }
+    .command-input-wrap input {
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13px;
+      padding: 0 38px 0 64px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.16s, box-shadow 0.16s;
+    }
+    .command-input-wrap input:focus-visible {
+      outline: none;
+      border-color: var(--petrol);
+      box-shadow: 0 0 0 3px var(--petrol-tint);
+    }
+    .command-input-wrap .s-ico {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      color: var(--faint);
+      pointer-events: none;
+    }
+    kbd {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 5px;
+      line-height: 16px;
+      direction: ltr;
+      display: inline-block;
+    }
+    .command-input-wrap kbd {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+    }
+
+    /* Live Operational Hero Deck (Bento Spotlight) */
+    .spotlight-deck {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr;
+      gap: 12px;
+    }
+    .spotlight-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.16s, box-shadow 0.16s;
+    }
+    .spotlight-card:hover {
+      border-color: var(--petrol);
+      box-shadow: var(--shadow-chassis);
+    }
+    .spotlight-card.primary {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--petrol-tint) 100%);
+      border-color: var(--petrol-tint-2);
+    }
+    .spotlight-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .spotlight-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--petrol);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spotlight-value {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .spotlight-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .spotlight-actions {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-t: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-quick {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--petrol);
+      color: var(--on-petrol);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.14s, transform 0.14s var(--ease);
+    }
+    .btn-quick:active { transform: scale(0.97); }
+
+    /* Main Hub Category Tabs (Compact Rail) */
+    .hubs-rail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+      min-width: 0;
+      max-width: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+    .rail-item {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.16s var(--ease);
+    }
+    .rail-item:hover { background: var(--hover); color: var(--ink); }
+    .rail-item.active {
+      background: var(--petrol);
+      border-color: var(--petrol);
+      color: var(--on-petrol);
+    }
+    .rail-item .badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.06);
+    }
+    .rail-item.active .badge {
+      background: rgba(255,255,255,0.2);
+      color: var(--on-petrol);
+    }
+
+    /* Asymmetric Section Grid */
+    .section-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .domain-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .domain-header {
+      padding: 12px 18px;
+      background: var(--subtle);
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .domain-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .domain-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+    }
+    .domain-icon svg { width: 14px; height: 14px; }
+    .domain-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    /* Bento Apps Grid */
+    .bento-apps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line-soft);
+      padding: 1px;
+    }
+    .bento-cell {
+      background: var(--surface);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      min-height: 56px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.14s, transform 0.14s var(--ease);
+    }
+    .bento-cell:hover {
+      background: var(--hover);
+      z-index: 2;
+    }
+    .bento-cell:active { transform: scale(0.985); }
+    .bento-cell:focus-visible { outline: 2px solid var(--accent); z-index: 3; }
+
+    .cell-ico {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--subtle);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+      flex: none;
+      transition: background 0.14s, color 0.14s, border-color 0.14s;
+    }
+    .bento-cell:hover .cell-ico {
+      background: var(--accent-tint);
+      color: var(--accent-ink);
+      border-color: var(--accent-line);
+    }
+    .cell-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .cell-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .cell-name {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cell-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 4px;
+      flex: none;
+    }
+    .cell-tag.success { background: var(--signal-green-tint); color: var(--signal-green); }
+    .cell-tag.warning { background: var(--signal-amber-tint); color: var(--signal-amber); }
+    .cell-tag.neutral { background: var(--subtle); color: var(--faint); border: 1px solid var(--line); }
+
+    .cell-desc {
+      font-size: 11px;
+      color: var(--faint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
+    }
+    .cell-route {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--faint);
+      direction: ltr;
+      text-align: right;
+    }
+
+    /* Footer Telemetry & Shortcuts */
+    .foot-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 4px;
+      font-size: 11px;
+      color: var(--faint);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .keys-guide { display: flex; gap: 14px; }
+    .keys-guide span { display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Responsive (MOB-015 Compliance) */
+    @media (max-width: 1024px) {
+      .spotlight-deck { grid-template-columns: 1fr 1fr; }
+      .bento-apps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 768px) {
+      .spotlight-deck { grid-template-columns: 1fr; }
+      .bento-apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .crumb, .tenant-badge { display: none; }
+      .command-bar { flex-direction: column; align-items: stretch; }
+      .command-input-wrap { max-width: 100%; }
+      .user-pill div { display: none; }
+      .user-pill { padding: 3px; }
+      .keys-guide { display: none; }
+    }
+    @media (max-width: 640px) {
+      .bento-apps { grid-template-columns: minmax(0, 1fr) !important; }
+      .brand span:not(.brand-mark) { font-size: 13px; }
+      main { padding: 12px 10px 32px; }
+      .spotlight-value { font-size: 22px; }
+      .spotlight-card { padding: 12px; }
+      .foot-status { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="bar">
+    <div class="bar-in">
+      <div class="brand">
+        <span class="brand-mark">MP</span>
+        <span>MaxP Launchpad</span>
+        <span class="crumb">/ مركز العمليات</span>
+      </div>
+      <div class="tenant-badge">
+        <span class="pulse"></span>
+        <span>مؤسسة سوان للتجارة</span>
+        <span style="opacity:0.4">|</span>
+        <span>الرياض &amp; القاهرة</span>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn-icon" aria-label="الإشعارات" title="التنبيهات">
+        <i data-lucide="bell"></i>
+        <span class="dot-badge">19</span>
+      </button>
+      <button class="btn-icon" aria-label="تبديل المظهر" id="themeBtn" title="الوضع الليلي">
+        <i data-lucide="moon"></i>
+      </button>
+      <div class="user-pill">
+        <div><b>Super Admin</b><small class="mono">ROOT PRIVILEGES</small></div>
+        <span class="avatar">SA</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Top Command Deck: Search & Fast Filter -->
+    <div class="command-bar">
+      <div class="command-input-wrap">
+        <span class="s-ico"><i data-lucide="search"></i></span>
+        <input id="spotSearch" type="search" placeholder="ابحث في التطبيقات، الوكلاء، أو المسارات..." autocomplete="off">
+        <kbd>Ctrl K</kbd>
+      </div>
+
+      <!-- Quick Operational Category Rail -->
+      <nav class="hubs-rail" id="hubsRail">
+        <button class="rail-item active" data-cat="all">
+          <span>الكل</span>
+          <span class="badge">31</span>
+        </button>
+        <button class="rail-item" data-cat="commerce">
+          <span>التجارة والمبيعات</span>
+          <span class="badge">8</span>
+        </button>
+        <button class="rail-item" data-cat="inbox">
+          <span>المحادثات والقنوات</span>
+          <span class="badge">6</span>
+        </button>
+        <button class="rail-item" data-cat="growth">
+          <span>الذكاء الاصطناعي</span>
+          <span class="badge">5</span>
+        </button>
+        <button class="rail-item" data-cat="finance">
+          <span>المالية والتشغيل</span>
+          <span class="badge">5</span>
+        </button>
+        <button class="rail-item" data-cat="platform">
+          <span>إدارة المنصة</span>
+          <span class="badge">7</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Live Operational Hero Deck (Bento Spotlight) -->
+    <section class="spotlight-deck" id="spotlightDeck">
+      
+      <!-- Spotlight 1: Commerce Engine -->
+      <div class="spotlight-card primary">
+        <div>
+          <div class="spotlight-top">
+            <span class="spotlight-tag">
+              <i data-lucide="shopping-bag" style="width:14px;height:14px"></i>
+              غرفة عمليات التجارة والشحن
+            </span>
+            <span class="mono" style="font-size:11px;color:var(--signal-green);font-weight:600">LIVE FEED</span>
+          </div>
+          <div class="spotlight-value mono">
+            <span>142</span>
+            <span style="font-size:14px;color:var(--muted);font-weight:500">طلباً معلقاً للتجهيز</span>
+          </div>
+          <div class="spotlight-sub">إجمالي إيرادات اليوم: <bdi class="mono font-bold text-ink">48,650 EGP</bdi> · معدل الإرجاع <bdi class="mono font-bold text-ink">2.4%</bdi></div>
+        </div>
+        <div class="spotlight-actions">
+          <span class="mono" style="font-size:11px;color:var(--faint)">Bosta: 84 | Mylerz: 58</span>
+          <a class="btn-quick" href="/orders" onclick="event.preventDefault();">
+            <span>معالجة الطلبات</span>
+            <i data-lucide="arrow-left" style="width:14px;height:14px"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Spotlight 2: Multi-Agent Swarm -->
+      <div class="spotlight-card">
+        <div>
+          <div class="spotlight-top">
+            <span class="spotlight-tag">
+              <i data-lucide="bot" style="width:14px;height:14px"></i>
+              منظومة الوكلاء الذاتية
+            </span>
+            <span class="cell-tag success">3 RUNNING</span>
+          </div>
+          <div class="spotlight-value mono">
+            <span>94.2%</span>
+            <span style="font-size:14px;color:var(--muted);font-weight:500">دقة تأكيد العناوين</span>
+          </div>
+          <div class="spotlight-sub">آخر نشاط: تم تأكيد طلب <bdi class="mono font-bold">#4819</bdi> آلياً عبر واتساب</div>
+        </div>
+        <div class="spotlight-actions">
+          <span class="mono" style="font-size:11px;color:var(--faint)">Agentic Hub v2.1</span>
+          <a class="btn-quick" href="/agents" style="background:var(--subtle);color:var(--ink);border:1px solid var(--line)" onclick="event.preventDefault();">
+            <span>سجل الوكلاء</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Spotlight 3: Messaging Engine -->
+      <div class="spotlight-card">
+        <div>
+          <div class="spotlight-top">
+            <span class="spotlight-tag">
+              <i data-lucide="messages-square" style="width:14px;height:14px"></i>
+              صندوق القنوات الموحد
+            </span>
+            <span class="cell-tag success">ONLINE</span>
+          </div>
+          <div class="spotlight-value mono">
+            <span>0</span>
+            <span style="font-size:14px;color:var(--muted);font-weight:500">محادثات متأخرة</span>
+          </div>
+          <div class="spotlight-sub">Meta Cloud API: سحابي متصل بنجاح</div>
+        </div>
+        <div class="spotlight-actions">
+          <span class="mono" style="font-size:11px;color:var(--faint)">WhatsApp · Messenger</span>
+          <a class="btn-quick" href="/inbox" style="background:var(--subtle);color:var(--ink);border:1px solid var(--line)" onclick="event.preventDefault();">
+            <span>فتح الوارد</span>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Main Categorized Domain Blocks -->
+    <div class="section-deck" id="sectionsDeck">
+
+      <!-- Domain 1: التجارة والطلبات -->
+      <div class="domain-block" data-category="commerce">
+        <div class="domain-header">
+          <div class="domain-title">
+            <span class="domain-icon"><i data-lucide="shopping-bag"></i></span>
+            <span>التجارة، الكتالوج والمخزون</span>
+          </div>
+          <span class="domain-meta">8 تطبيقات تشغيلية</span>
+        </div>
+        <div class="bento-apps">
+          <div class="bento-cell" data-name="إدارة الطلبات الشحن" data-path="/orders">
+            <div class="cell-ico"><i data-lucide="clipboard-list"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">إدارة الطلبات والشحن</span>
+                <span class="cell-tag success">142 اليوم</span>
+              </div>
+              <span class="cell-desc">معالجة الفواتير وحالات التوصيل</span>
+              <span class="cell-route"><bdi>/orders</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="المنتجات والتسعير" data-path="/products">
+            <div class="cell-ico"><i data-lucide="package"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">المنتجات والتسعير</span>
+                <span class="cell-tag neutral">1,240 صنف</span>
+              </div>
+              <span class="cell-desc">الكتالوج والمتغيرات وعروض الكميات</span>
+              <span class="cell-route"><bdi>/products</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="المخزون والمستودعات" data-path="/inventory">
+            <div class="cell-ico"><i data-lucide="warehouse"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">المخزون والجرد</span>
+                <span class="cell-tag warning">3 نواقص</span>
+              </div>
+              <span class="cell-desc">تنبيهات انخفاض الاستوك والمطابقة</span>
+              <span class="cell-route"><bdi>/inventory</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="واجهة المتجر والدومين" data-path="/store">
+            <div class="cell-ico"><i data-lucide="store"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">واجهة المتجر والدومين</span>
+                <span class="cell-tag success">ONLINE</span>
+              </div>
+              <span class="cell-desc">تخصيص الهوية، الثيمات وشهادة SSL</span>
+              <span class="cell-route"><bdi>/store</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="شركات الشحن والبوالص" data-path="/shipping">
+            <div class="cell-ico"><i data-lucide="truck"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">الشحن والبوالص</span>
+                <span class="cell-tag neutral">Bosta/Mylerz</span>
+              </div>
+              <span class="cell-desc">إصدار البوالص وتتبع مندوبي التوصيل</span>
+              <span class="cell-route"><bdi>/shipping</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="قاعدة بيانات العملاء" data-path="/customers">
+            <div class="cell-ico"><i data-lucide="users"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">سجل العملاء والولاء</span>
+                <span class="cell-tag neutral">4.8k عميل</span>
+              </div>
+              <span class="cell-desc">تاريخ الشراء وتقسيم شرائح المشترين</span>
+              <span class="cell-route"><bdi>/customers</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="الأفلييت والتسويق بالعمولة" data-path="/affiliate">
+            <div class="cell-ico"><i data-lucide="network"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">الأفلييت وشبكة المسوقين</span>
+                <span class="cell-tag neutral">18 مسوق</span>
+              </div>
+              <span class="cell-desc">روابط الإحالة وحساب العمولات</span>
+              <span class="cell-route"><bdi>/affiliate</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="تحليلات الطلبات والسلات" data-path="/orders/analytics">
+            <div class="cell-ico"><i data-lucide="chart-column"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">تحليلات المبيعات والسلات</span>
+                <span class="cell-tag success">↑ 18%</span>
+              </div>
+              <span class="cell-desc">معدلات التحويل والسلات المتروكة</span>
+              <span class="cell-route"><bdi>/orders/analytics</bdi></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain 2: المحادثات والقنوات -->
+      <div class="domain-block" data-category="inbox">
+        <div class="domain-header">
+          <div class="domain-title">
+            <span class="domain-icon"><i data-lucide="messages-square"></i></span>
+            <span>المحادثات، قنوات التواصل والأتمتة</span>
+          </div>
+          <span class="domain-meta">6 تطبيقات</span>
+        </div>
+        <div class="bento-apps">
+          <div class="bento-cell" data-name="صندوق الوارد الموحد" data-path="/inbox">
+            <div class="cell-ico"><i data-lucide="inbox"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">صندوق الوارد الموحد</span>
+                <span class="cell-tag success">0 متأخر</span>
+              </div>
+              <span class="cell-desc">تجميع كل المحادثات في نافذة واحدة</span>
+              <span class="cell-route"><bdi>/inbox</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="واتساب للأعمال" data-path="/whatsapp">
+            <div class="cell-ico"><i data-lucide="message-circle"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">واتساب كلاود API</span>
+                <span class="cell-tag success">متصل 🟢</span>
+              </div>
+              <span class="cell-desc">القوالب الرسمية ورسائل تأكيد الطلب</span>
+              <span class="cell-route"><bdi>/whatsapp</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="فيسبوك ماسنجر" data-path="/facebook">
+            <div class="cell-ico"><i data-lucide="facebook"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">فيسبوك ماسنجر</span>
+                <span class="cell-tag neutral">2 صفحات</span>
+              </div>
+              <span class="cell-desc">الرد الفوري على تعليقات البوستات</span>
+              <span class="cell-route"><bdi>/facebook</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="إنستجرام دايركت" data-path="/instagram">
+            <div class="cell-ico"><i data-lucide="instagram"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">إنستجرام دايركت</span>
+                <span class="cell-tag neutral">نشط</span>
+              </div>
+              <span class="cell-desc">مراسلات الريلز والقصص وتأكيد الشراء</span>
+              <span class="cell-route"><bdi>/instagram</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="تليجرام بوت" data-path="/telegram">
+            <div class="cell-ico"><i data-lucide="send"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">تليجرام الإشعارات</span>
+                <span class="cell-tag neutral">Bot OK</span>
+              </div>
+              <span class="cell-desc">تنبيهات فورية للمدراء بالطلبات الجديدة</span>
+              <span class="cell-route"><bdi>/telegram</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="أتمتة المحادثات والردود" data-path="/automation">
+            <div class="cell-ico"><i data-lucide="workflow"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">أتمتة المحادثات والشات بوت</span>
+                <span class="cell-tag neutral">18 سيناريو</span>
+              </div>
+              <span class="cell-desc">بناء مسارات الرد التفاعلي بالسحب والإفلات</span>
+              <span class="cell-route"><bdi>/automation</bdi></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain 3: الذكاء الاصطناعي والنمو -->
+      <div class="domain-block" data-category="growth">
+        <div class="domain-header">
+          <div class="domain-title">
+            <span class="domain-icon"><i data-lucide="brain-circuit"></i></span>
+            <span>الذكاء الاصطناعي، الوكلاء والتسويق</span>
+          </div>
+          <span class="domain-meta">5 تطبيقات</span>
+        </div>
+        <div class="bento-apps">
+          <div class="bento-cell" data-name="فريق الوكلاء الذاتية" data-path="/agents">
+            <div class="cell-ico"><i data-lucide="bot"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">منظومة الوكلاء الذاتية</span>
+                <span class="cell-tag success">3 نشطين</span>
+              </div>
+              <span class="cell-desc">وكيل المبيعات، تأكيد العناوين، واسترداد السلات</span>
+              <span class="cell-route"><bdi>/agents</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="رادار المنافسين والسوق" data-path="/competitors">
+            <div class="cell-ico"><i data-lucide="trending-up"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">رادار المنافسين والتريند</span>
+                <span class="cell-tag success">LIVE</span>
+              </div>
+              <span class="cell-desc">مراقبة أسعار السوق والزوايا الإعلانية الرابحة</span>
+              <span class="cell-route"><bdi>/competitors</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="التسويق والإعلانات" data-path="/marketing">
+            <div class="cell-ico"><i data-lucide="megaphone"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">التسويق وتتبع الحملات</span>
+                <span class="cell-tag neutral">Pixel OK</span>
+              </div>
+              <span class="cell-desc">حسابات الـ ROAS والربط مع TikTok وميتا</span>
+              <span class="cell-route"><bdi>/marketing</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="تقارير أداء الوكلاء" data-path="/agents/reports">
+            <div class="cell-ico"><i data-lucide="file-chart-column"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">تقارير أداء الوكلاء</span>
+                <span class="cell-tag success">94% دقة</span>
+              </div>
+              <span class="cell-desc">إحصائيات إغلاق المبيعات وسرعة الردود</span>
+              <span class="cell-route"><bdi>/agents/reports</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="استوديو الذكاء الاصطناعي" data-path="/ai">
+            <div class="cell-ico"><i data-lucide="brain"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">استوديو صناعة المحتوى</span>
+                <span class="cell-tag neutral">Gemini/Veo</span>
+              </div>
+              <span class="cell-desc">توليد نصوص الإعلانات ووصف المنتجات</span>
+              <span class="cell-route"><bdi>/ai</bdi></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain 4: المالية والتشغيل -->
+      <div class="domain-block" data-category="finance">
+        <div class="domain-header">
+          <div class="domain-title">
+            <span class="domain-icon"><i data-lucide="landmark"></i></span>
+            <span>المالية، الخزينة وإدارة الفروع</span>
+          </div>
+          <span class="domain-meta">5 تطبيقات</span>
+        </div>
+        <div class="bento-apps">
+          <div class="bento-cell" data-name="الخزينة والتدفقات النقدية" data-path="/treasury">
+            <div class="cell-ico"><i data-lucide="landmark"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">الخزينة والتدفقات النقدية</span>
+                <span class="cell-tag success">EGP TABULAR</span>
+              </div>
+              <span class="cell-desc">تحصيلات شركات الشحن ومطابقة الحسابات البنكية</span>
+              <span class="cell-route"><bdi>/treasury</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="إدارة الشركات والفروع" data-path="/my-companies">
+            <div class="cell-ico"><i data-lucide="building"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">إدارة الشركات والفروع</span>
+                <span class="cell-tag neutral">3 فروع</span>
+              </div>
+              <span class="cell-desc">عزل البيانات وصلاحيات مسؤولي الفروع</span>
+              <span class="cell-route"><bdi>/my-companies</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="سجل المهام والمتابعة" data-path="/tasks">
+            <div class="cell-ico"><i data-lucide="square-check-big"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">سجل المهام التشغيلية</span>
+                <span class="cell-tag warning">5 معلقة</span>
+              </div>
+              <span class="cell-desc">توزيع المهام اليومية على فريق العمل</span>
+              <span class="cell-route"><bdi>/tasks</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="لوحة العمليات التنفيذية" data-path="/dashboard">
+            <div class="cell-ico"><i data-lucide="layout-dashboard"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">لوحة العمليات التنفيذية</span>
+                <span class="cell-tag neutral">SUMMARY</span>
+              </div>
+              <span class="cell-desc">الملخص اليومي لمؤشرات الأداء الكلية</span>
+              <span class="cell-route"><bdi>/dashboard</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="أكاديمية ماكس بي" data-path="/academy">
+            <div class="cell-ico"><i data-lucide="graduation-cap"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">أكاديمية التشغيل والتدريب</span>
+                <span class="cell-tag neutral">PRO</span>
+              </div>
+              <span class="cell-desc">أدلة تدريب الموظفين واستراتيجيات النمو</span>
+              <span class="cell-route"><bdi>/academy</bdi></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain 5: إدارة المنصة والأمان -->
+      <div class="domain-block" data-category="platform">
+        <div class="domain-header">
+          <div class="domain-title">
+            <span class="domain-icon"><i data-lucide="shield-check"></i></span>
+            <span>إدارة المنصة، الأمان والاشتراكات</span>
+          </div>
+          <span class="domain-meta">7 تطبيقات</span>
+        </div>
+        <div class="bento-apps">
+          <div class="bento-cell" data-name="الاشتراكات والفوترة" data-path="/admin/billing">
+            <div class="cell-ico"><i data-lucide="receipt-text"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">الاشتراكات والفوترة</span>
+                <span class="cell-tag success">Enterprise</span>
+              </div>
+              <span class="cell-desc">تجديد الحصص الشهرية وفواتير الاستخدام</span>
+              <span class="cell-route"><bdi>/admin/billing</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="الشركات والمشتركين" data-path="/admin/companies">
+            <div class="cell-ico"><i data-lucide="building-2"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">إدارة الكيانات والمشتركين</span>
+                <span class="cell-tag neutral">ISOLATED</span>
+              </div>
+              <span class="cell-desc">إدارة الصلاحيات والمستخدمين النشطين</span>
+              <span class="cell-route"><bdi>/admin/companies</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="إدارة النظام والخوادم" data-path="/admin/system">
+            <div class="cell-ico"><i data-lucide="server-cog"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">صحة النظام والسيرفرات</span>
+                <span class="cell-tag success">HEALTHY</span>
+              </div>
+              <span class="cell-desc">مراقبة الذاكرة، الكاش وعمليات الخلفية</span>
+              <span class="cell-route"><bdi>/admin/system</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="سجلات الأمان والتطوير" data-path="/admin/dev">
+            <div class="cell-ico"><i data-lucide="wrench"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">سجلات الأمان والـ Audit</span>
+                <span class="cell-tag neutral">LOGS OK</span>
+              </div>
+              <span class="cell-desc">مفاتيح الربط وسجل حركات المدراء</span>
+              <span class="cell-route"><bdi>/admin/dev</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="متجر تطبيقات ماكس بي" data-path="/marketplace">
+            <div class="cell-ico"><i data-lucide="layout-grid"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">متجر الإضافات والتطبيقات</span>
+                <span class="cell-tag neutral">STORE</span>
+              </div>
+              <span class="cell-desc">تصفح وتثبيت ميزات جديدة للمتجر</span>
+              <span class="cell-route"><bdi>/marketplace</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="إضافات ومكونات المتجر" data-path="/admin/addons">
+            <div class="cell-ico"><i data-lucide="puzzle"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">مكونات وثيمات المتجر</span>
+                <span class="cell-tag neutral">8 مفعل</span>
+              </div>
+              <span class="cell-desc">إدارة البلوكات التفاعلية والصفحات</span>
+              <span class="cell-route"><bdi>/admin/addons</bdi></span>
+            </div>
+          </div>
+
+          <div class="bento-cell" data-name="الإعدادات العامة" data-path="/settings">
+            <div class="cell-ico"><i data-lucide="settings"></i></div>
+            <div class="cell-body">
+              <div class="cell-top">
+                <span class="cell-name">الإعدادات وتفضيلات النظام</span>
+                <span class="cell-tag neutral">v2.6</span>
+              </div>
+              <span class="cell-desc">إعدادات الحساب واللغة والنسخ الاحتياطي</span>
+              <span class="cell-route"><bdi>/settings</bdi></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Keyboard Navigation Footer -->
+    <footer class="foot-status mono">
+      <div class="keys-guide">
+        <span><kbd>Ctrl K</kbd> بحث مباشر</span>
+        <span><kbd>1</kbd>–<kbd>5</kbd> تصفية الأقسام</span>
+        <span><kbd>Esc</kbd> مسح البحث</span>
+      </div>
+      <div>
+        <span>MAXP OS · SINGLE-SURFACE CHASSIS · HIGH-END EDITION</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    const searchInput = document.getElementById("spotSearch");
+    const domainBlocks = document.querySelectorAll(".domain-block");
+    const bentoCells = document.querySelectorAll(".bento-cell");
+    const railItems = document.querySelectorAll(".rail-item");
+    const spotlightDeck = document.getElementById("spotlightDeck");
+
+    // Arabic normalization
+    const norm = s => s.toLowerCase().replace(/[أإآ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه");
+
+    // Live Spotlight Search
+    searchInput.addEventListener("input", (e) => {
+      const q = norm(e.target.value.trim());
+
+      // If user is searching, hide spotlight deck to focus on search results
+      spotlightDeck.style.display = q ? "none" : "grid";
+
+      domainBlocks.forEach(block => {
+        let blockHasMatch = false;
+        block.querySelectorAll(".bento-cell").forEach(cell => {
+          const name = norm(cell.getAttribute("data-name") || "");
+          const desc = norm(cell.querySelector(".cell-desc") ? cell.querySelector(".cell-desc").textContent : "");
+          const path = cell.getAttribute("data-path") || "";
+          const match = name.includes(q) || desc.includes(q) || path.includes(q);
+
+          cell.style.display = match ? "flex" : "none";
+          if (match) blockHasMatch = true;
+        });
+
+        block.style.display = blockHasMatch ? "block" : "none";
+      });
+    });
+
+    // Category Rail Filter
+    railItems.forEach((btn, idx) => {
+      btn.addEventListener("click", () => {
+        railItems.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const targetCat = btn.getAttribute("data-cat");
+
+        domainBlocks.forEach(block => {
+          if (targetCat === "all" || block.getAttribute("data-category") === targetCat) {
+            block.style.display = "block";
+            block.querySelectorAll(".bento-cell").forEach(c => c.style.display = "flex");
+          } else {
+            block.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Keyboard Shortcuts
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInput.focus();
+        return;
+      }
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        searchInput.dispatchEvent(new Event("input"));
+        searchInput.blur();
+        return;
+      }
+      if (document.activeElement === searchInput) return;
+
+      const num = parseInt(e.key, 10);
+      if (num >= 1 && num <= 5) {
+        railItems[num].click();
+      } else if (e.key === "0") {
+        railItems[0].click(); // All
+      }
+    });
+
+    // Theme Switcher
+    document.getElementById("themeBtn").addEventListener("click", () => {
+      const root = document.documentElement;
+      const cur = root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      root.dataset.theme = cur === "dark" ? "light" : "dark";
+    });
+
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
