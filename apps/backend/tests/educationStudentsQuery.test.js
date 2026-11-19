@@ -297,3 +297,62 @@ test('buildStudentsWhere: adversarial edge cases (lone #, %, empty grade, invert
   const resLevel0 = buildStudentsWhere({ level: 0 }, c);
   assert.equal(resLevel0.where.currentLevel, undefined);
 });
+
+test('schema verification: includeRelations fields exist in prisma schema (regression guard for totalHours/hoursCount)', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+
+  const schemaPath = path.resolve(__dirname, '../prisma/schema/education.prisma');
+  assert.ok(fs.existsSync(schemaPath), 'education.prisma must exist');
+
+  const schemaContent = fs.readFileSync(schemaPath, 'utf8');
+
+  // Helper to extract field names from a model block in schema
+  const extractModelFields = (modelName) => {
+    const regex = new RegExp(`model\\s+${modelName}\\s+\\{([^}]+)\\}`, 'm');
+    const match = schemaContent.match(regex);
+    assert.ok(match, `Model ${modelName} must be present in education.prisma`);
+    const lines = match[1].split('\n');
+    const fields = new Set();
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (!line || line.startsWith('//') || line.startsWith('@@')) continue;
+      const fieldName = line.split(/\s+/)[0];
+      if (fieldName) fields.add(fieldName);
+    }
+    return fields;
+  };
+
+  const packageFields = extractModelFields('EducationPackage');
+  const enrollmentFields = extractModelFields('EducationEnrollment');
+  const teacherFields = extractModelFields('EducationTeacher');
+  const groupMemberFields = extractModelFields('EducationGroupMember');
+
+  // 1. Critical guard: EducationPackage MUST have hoursCount and MUST NOT have totalHours
+  assert.ok(packageFields.has('hoursCount'), 'EducationPackage must have hoursCount');
+  assert.ok(!packageFields.has('totalHours'), 'EducationPackage does NOT have totalHours (hoursCount is the correct column)');
+
+  // Verify all fields selected on package in includeRelations
+  const packageSelected = ['id', 'name', 'price', 'hoursCount'];
+  for (const f of packageSelected) {
+    assert.ok(packageFields.has(f), `EducationPackage must have field '${f}'`);
+  }
+
+  // 2. Verify fields selected on teacher in includeRelations
+  const teacherSelected = ['id', 'name'];
+  for (const f of teacherSelected) {
+    assert.ok(teacherFields.has(f), `EducationTeacher must have field '${f}'`);
+  }
+
+  // 3. Verify enrollment fields used in query and relations
+  const enrollmentExpected = ['id', 'companyId', 'studentId', 'packageId', 'teacherId', 'totalHours', 'amountPaid', 'finalAmount', 'paymentStatus', 'isActive'];
+  for (const f of enrollmentExpected) {
+    assert.ok(enrollmentFields.has(f), `EducationEnrollment must have field '${f}'`);
+  }
+
+  // 4. Verify EducationGroupMember fields
+  const groupMemberExpected = ['id', 'companyId', 'groupId', 'studentId', 'status'];
+  for (const f of groupMemberExpected) {
+    assert.ok(groupMemberFields.has(f), `EducationGroupMember must have field '${f}'`);
+  }
+});
