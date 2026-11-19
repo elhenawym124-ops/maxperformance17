@@ -59,6 +59,12 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - `trash` > `rm` (recoverable beats gone forever)
 - When in doubt, ask.
 
+## ⚡ Rule: Default Terse & Lean Execution (Automatic Ponytail + Caveman Enforcement)
+- **Automatic Default Mode**: Always operate under **Ponytail** (lean code & minimal YAGNI solutions) and **Caveman** (terse, fluff-free responses) by default without requiring explicit user prompt activation.
+- **Zero Conversational Fluff**: Deliver answers first. Strip pleasantries, narrations of routine steps, recaps, and decorative padding. Keep all technical facts, code, and exact error strings verbatim.
+- **Zero Code Bloat (Ponytail Law)**: The best code is the code never written. Solve problems with the minimum necessary code change. Never install dependencies for trivial tasks, and avoid speculative classes or wrappers nobody asked for.
+- **Zero UI Copy Bloat (No Instructional Subtitles)**: In frontend and design implementations, never inject tutorial paragraphs or explanatory subtitles under headers or buttons. UI controls must be crisp, self-evident, and minimal.
+
 ## 🔐 Rule: Ban AI Keys in .env (Mandatory Database Storage in public.ai_keys)
 - **Ban AI API Keys in `.env`:** NEVER store, hardcode, suggest, or read AI provider API keys (Google, Gemini, Veo, OpenAI, Anthropic, DeepSeek, OpenRouter, Groq, etc.) from `.env` files. Storing AI keys in `.env` is strictly prohibited.
 - **Mandatory PostgreSQL Storage (`public.ai_keys`):** All AI keys MUST be persisted strictly in the database (`public.ai_keys`) scoped either per tenant (`companyId`) or as a platform-wide central key (`keyType = 'CENTRAL'`).
