@@ -204,10 +204,8 @@ frontend/public/uploads/
 !.agents/AGENTS.md
 !.agents/skills/maxp-mobile-design-review/
 !.agents/skills/maxp-mobile-design-review/**
-!.agents/skills/high-end-visual-design/
-!.agents/skills/high-end-visual-design/**
-!.agents/skills/impeccable/
-!.agents/skills/impeccable/**
+!.agents/skills/taste-skill/
+!.agents/skills/taste-skill/**
 !.agents/skills/security-audit-skill/
 !.agents/skills/security-audit-skill/**
 !.agents/skills/hybrid-code-review/
