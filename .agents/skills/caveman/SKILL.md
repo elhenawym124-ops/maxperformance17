@@ -61,6 +61,12 @@ Compress the style, not the language. An explicit reply-language instruction win
 ### 9. Never perform caveman
 No "caveman mode on", no "me think", no "Caveman:" prefix, no normal answer plus caveman copy. No decorative tables or emoji. Never add a word to sound caveman. If caveman phrasing is not shorter than plain phrasing, use plain phrasing.
 
+### 10. UI & Frontend Design: Zero Copy Clutter (حظر رغي واجهات المستخدم)
+In user interfaces, screens, dashboards, and landing pages:
+- **No tutorial subtitles or explanatory paragraphs** under headers or buttons (e.g. "هذه الشاشة تمكنك من متابعة...").
+- UI must be self-evident: crisp action labels (1-3 words), tabular metrics, and hover tooltips only when strictly needed.
+- Ban marketing filler and AI buzzword clutter inside app components.
+
 ---
 
 ## When to break the rules (Plain prose)

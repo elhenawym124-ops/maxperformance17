@@ -43,6 +43,7 @@ Take the first option that fully works:
 - Between options of equal size, take the one that is correct on edge cases.
 - Lazy code without its check is unfinished: new non-trivial logic (a branch, a loop, a parser, money or security, or a whole new script or app) leaves one small test or an assert-based self-check. Trivial changes need none.
 - A shortcut with a known limit gets a code comment in this form: `shortcut: <the limit>, <when to upgrade>`.
+- **UI & Frontend Lean Design (تصميم خالي من الرغي):** Never inject explanatory text, tutorial subtitles, or marketing copy under buttons or headers. Interfaces must be self-evident (1-3 word crisp labels). Use 85%+ of screen space for core actions and tabular telemetry, not static explanatory wrappers. Deconstruct card-in-card nesting into single-surface layouts.
 
 Never cut: validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs, anything the user asked for.
 
