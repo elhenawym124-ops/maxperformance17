@@ -58,6 +58,7 @@ export function useEducationManagementController() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const lastStudentsQueryRef = useRef<StudentsQuery | undefined>(undefined);
 
   // Modals
   const [subjectModal, setSubjectModal] = useState<
@@ -111,28 +112,32 @@ export function useEducationManagementController() {
   const fetchStudents = async (query?: StudentsQuery) => {
     setStudentsLoading(true);
     try {
+      if (query !== undefined) {
+        lastStudentsQueryRef.current = query;
+      }
+      const activeQuery = query || lastStudentsQueryRef.current;
       const params = new URLSearchParams();
-      if (query) {
-        if (query.search && query.search.trim()) params.append("search", query.search.trim());
-        if (query.isActive !== undefined && query.isActive !== "" && query.isActive !== "all") {
-          params.append("isActive", String(query.isActive));
+      if (activeQuery) {
+        if (activeQuery.search && activeQuery.search.trim()) params.append("search", activeQuery.search.trim());
+        if (activeQuery.isActive !== undefined && activeQuery.isActive !== "" && activeQuery.isActive !== "all") {
+          params.append("isActive", String(activeQuery.isActive));
         }
-        if (query.grade && query.grade !== "all") params.append("grade", query.grade);
-        if (query.level !== undefined && query.level !== "" && query.level !== "all") {
-          params.append("level", String(query.level));
+        if (activeQuery.grade && activeQuery.grade !== "all") params.append("grade", activeQuery.grade);
+        if (activeQuery.level !== undefined && activeQuery.level !== "" && activeQuery.level !== "all") {
+          params.append("level", String(activeQuery.level));
         }
-        if (query.subject && query.subject !== "all") params.append("subject", query.subject);
-        if (query.packageId && query.packageId !== "all") params.append("packageId", query.packageId);
-        if (query.groupId && query.groupId !== "all") params.append("groupId", query.groupId);
-        if (query.teacherId && query.teacherId !== "all") params.append("teacherId", query.teacherId);
-        if (query.dateFrom) params.append("dateFrom", query.dateFrom);
-        if (query.dateTo) params.append("dateTo", query.dateTo);
-        if (query.paymentState && query.paymentState !== "all") params.append("paymentState", query.paymentState);
-        if (query.page) params.append("page", String(query.page));
-        if (query.pageSize) params.append("pageSize", String(query.pageSize));
-        if (query.sortBy) params.append("sortBy", query.sortBy);
-        if (query.sortDir) params.append("sortDir", query.sortDir);
-        if (query.all) params.append("all", String(query.all));
+        if (activeQuery.subject && activeQuery.subject !== "all") params.append("subject", activeQuery.subject);
+        if (activeQuery.packageId && activeQuery.packageId !== "all") params.append("packageId", activeQuery.packageId);
+        if (activeQuery.groupId && activeQuery.groupId !== "all") params.append("groupId", activeQuery.groupId);
+        if (activeQuery.teacherId && activeQuery.teacherId !== "all") params.append("teacherId", activeQuery.teacherId);
+        if (activeQuery.dateFrom) params.append("dateFrom", activeQuery.dateFrom);
+        if (activeQuery.dateTo) params.append("dateTo", activeQuery.dateTo);
+        if (activeQuery.paymentState && activeQuery.paymentState !== "all") params.append("paymentState", activeQuery.paymentState);
+        if (activeQuery.page) params.append("page", String(activeQuery.page));
+        if (activeQuery.pageSize) params.append("pageSize", String(activeQuery.pageSize));
+        if (activeQuery.sortBy) params.append("sortBy", activeQuery.sortBy);
+        if (activeQuery.sortDir) params.append("sortDir", activeQuery.sortDir);
+        if (activeQuery.all) params.append("all", String(activeQuery.all));
       } else {
         // Default call without query (other tabs / initial load compat): fetch 100 items
         params.append("pageSize", "100");
@@ -229,8 +234,7 @@ export function useEducationManagementController() {
       setLoading(true);
       fetchPackages().finally(() => setLoading(false));
     } else if (activeTab === "students") {
-      setLoading(true);
-      fetchStudents().finally(() => setLoading(false));
+      setLoading(false);
     } else if (activeTab === "teachers") {
       setLoading(true);
       fetchTeachers().finally(() => setLoading(false));

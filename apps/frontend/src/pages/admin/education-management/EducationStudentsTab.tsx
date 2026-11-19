@@ -182,6 +182,12 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
     const query = buildCurrentQuery();
     const queryKey = JSON.stringify(query);
 
+    if (!lastQueryKeyRef.current) {
+      lastQueryKeyRef.current = queryKey;
+      onStudentsQuery(query);
+      return;
+    }
+
     const timer = setTimeout(() => {
       if (queryKey !== lastQueryKeyRef.current) {
         lastQueryKeyRef.current = queryKey;
