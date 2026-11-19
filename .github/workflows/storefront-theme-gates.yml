@@ -36,7 +36,7 @@ concurrency:
 jobs:
   gates:
     name: Theme schema · sections · budget
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright does not support chromium on ubuntu 26.04 (was ubuntu-latest)
     timeout-minutes: 25
     steps:
       - name: Checkout code

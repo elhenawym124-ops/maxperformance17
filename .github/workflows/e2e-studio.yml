@@ -13,7 +13,7 @@ concurrency:
 jobs:
   e2e-studio:
     name: Storefront Studio Editor E2E & Smoke Suite
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright does not support chromium on ubuntu 26.04 (was ubuntu-latest)
     # Hard isolation: continue-on-error ensures this workflow NEVER blocks production deploy
     continue-on-error: true
 
