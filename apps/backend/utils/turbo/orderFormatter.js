@@ -159,7 +159,37 @@ function formatOrderForTurbo(order, customer, items) {
     parsedMetadata = order.metadata;
   }
 
-  const requestType = order.requestType || parsedMetadata.requestType || order.orderType || order.type || null;
+  const rawReqType = String(order.requestType || parsedMetadata.requestType || order.orderType || order.type || '').trim().toLowerCase();
+
+  // 🛡️ Multi-layer exchange resolution:
+  const isExchange = rawReqType === 'exchange' ||
+    rawReqType === 'exchanged' ||
+    String(order.orderType || '').toUpperCase() === 'EXCHANGE' ||
+    Boolean(order.isExchange) ||
+    Boolean(parsedMetadata.isExchange) ||
+    Boolean(order.originalOrderId) ||
+    Boolean(parsedMetadata.originalOrderId) ||
+    Boolean(order.originalOrderNumber) ||
+    Boolean(parsedMetadata.originalOrderNumber);
+
+  const isReturn = !isExchange && (
+    rawReqType === 'return' ||
+    rawReqType === 'returned' ||
+    String(order.orderType || '').toUpperCase() === 'RETURN' ||
+    String(order.status || '').toUpperCase() === 'RETURNED'
+  );
+
+  const isPartial = !isExchange && !isReturn && (
+    rawReqType === 'partial_delivery' ||
+    rawReqType === 'partial' ||
+    rawReqType === 'تسليم جزئي'
+  );
+
+  let finalRequestType = 'delivery';
+  if (isExchange) finalRequestType = 'exchange';
+  else if (isReturn) finalRequestType = 'return';
+  else if (isPartial) finalRequestType = 'partial_delivery';
+
   const cleanedNotes = cleanShippingNotes(order.notes || '', undefined, resolvedPhone2);
 
   return {
@@ -190,14 +220,24 @@ function formatOrderForTurbo(order, customer, items) {
     turboShipmentStatus: order.turboShipmentStatus || null,
     returnAmount: (() => {
       const metaRetAmt = parsedMetadata.returnAmount || order.returnAmount || null;
-      if (metaRetAmt) return parseFloat(metaRetAmt);
-      if (requestType === 'return' || order.orderType === 'RETURN') return totalValue;
-      return shippingFee;
+      if (metaRetAmt !== undefined && metaRetAmt !== null && metaRetAmt !== '') return parseFloat(metaRetAmt);
+      if (isExchange) return 0;
+      if (isReturn) return totalValue;
+      if (isPartial) return shippingFee;
+      return 0;
     })(),
-    returnSummary: order.returnSummary || null,
-    requestType: requestType,
-    orderType: order.orderType || order.type || requestType || null,
-    isOrder: order.isOrder !== undefined ? order.isOrder : null,
+    returnSummary: (() => {
+      if (order.returnSummary) return order.returnSummary;
+      if (parsedMetadata.returnSummary) return parsedMetadata.returnSummary;
+      if (isExchange) return 'طلب استبدال';
+      if (isReturn) return formattedItems.length > 0 ? formattedItems.map(i => `[${i.quantity || 1} ${i.productName}]`).join(' - ') : (cleanedNotes || `طلب #${order.orderNumber}`);
+      if (isPartial) return 'تسليم جزئي';
+      return 'لا يوجد مرتجع';
+    })(),
+    requestType: finalRequestType,
+    orderType: isExchange ? 'EXCHANGE' : (isReturn ? 'RETURN' : (isPartial ? 'PARTIAL_DELIVERY' : 'DELIVERY')),
+    isExchange: isExchange,
+    isOrder: order.isOrder !== undefined ? order.isOrder : (isExchange ? 1 : (isReturn ? 2 : (isPartial ? 1 : 0))),
     canOpen: order.canOpen !== undefined ? order.canOpen : true,
     actualShippingCost: null
   };

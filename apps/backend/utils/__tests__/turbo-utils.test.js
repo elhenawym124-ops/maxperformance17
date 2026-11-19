@@ -407,6 +407,91 @@ describe('orderFormatter', () => {
       const result = formatOrderForTurbo(order, {}, null);
       expect(result.items).toEqual([]);
     });
+
+    test('formats exchange order with requestType=exchange: isOrder=1, returnAmount=0, returnSummary=طلب استبدال', () => {
+      const order = {
+        id: 'order-ex-1',
+        orderNumber: 'ORD-EX-001',
+        customerName: 'سعيد',
+        customerPhone: '01000000000',
+        shippingAddress: 'شارع الهرم',
+        city: 'Giza',
+        total: 550,
+        shipping: 50,
+        requestType: 'exchange'
+      };
+
+      const result = formatOrderForTurbo(order, null, [{ name: 'قميص', quantity: 1, price: 500 }]);
+      expect(result.requestType).toBe('exchange');
+      expect(result.orderType).toBe('EXCHANGE');
+      expect(result.isExchange).toBe(true);
+      expect(result.isOrder).toBe(1);
+      expect(result.returnAmount).toBe(0);
+      expect(result.returnSummary).toBe('طلب استبدال');
+    });
+
+    test('infers exchange order when originalOrderId is present in metadata', () => {
+      const order = {
+        id: 'order-ex-2',
+        orderNumber: 'ORD-EX-002',
+        customerName: 'فاطمة',
+        customerPhone: '01000000000',
+        shippingAddress: 'شارع المعز',
+        city: 'Cairo',
+        total: 700,
+        shipping: 60,
+        metadata: JSON.stringify({ originalOrderId: 'orig-123' })
+      };
+
+      const result = formatOrderForTurbo(order, null, [{ name: 'فستان', quantity: 1, price: 640 }]);
+      expect(result.requestType).toBe('exchange');
+      expect(result.isExchange).toBe(true);
+      expect(result.isOrder).toBe(1);
+      expect(result.returnAmount).toBe(0);
+      expect(result.returnSummary).toBe('طلب استبدال');
+    });
+
+    test('formats return order with requestType=return: isOrder=2, returnAmount=totalValue', () => {
+      const order = {
+        id: 'order-ret-1',
+        orderNumber: 'ORD-RET-001',
+        customerName: 'ياسر',
+        customerPhone: '01000000000',
+        shippingAddress: 'شارع رمسيس',
+        city: 'Cairo',
+        total: 350,
+        shipping: 40,
+        requestType: 'return'
+      };
+
+      const result = formatOrderForTurbo(order, null, [{ name: 'بنطلون', quantity: 1, price: 310 }]);
+      expect(result.requestType).toBe('return');
+      expect(result.orderType).toBe('RETURN');
+      expect(result.isOrder).toBe(2);
+      expect(result.returnAmount).toBe(350);
+      expect(result.returnSummary).toContain('بنطلون');
+    });
+
+    test('formats standard delivery order: isOrder=0, returnAmount=0, returnSummary=لا يوجد مرتجع', () => {
+      const order = {
+        id: 'order-std-1',
+        orderNumber: 'ORD-STD-001',
+        customerName: 'وائل',
+        customerPhone: '01000000000',
+        shippingAddress: 'شارع فيصل',
+        city: 'Giza',
+        total: 200,
+        shipping: 30,
+        requestType: 'delivery'
+      };
+
+      const result = formatOrderForTurbo(order, null, [{ name: 'كاب', quantity: 1, price: 170 }]);
+      expect(result.requestType).toBe('delivery');
+      expect(result.orderType).toBe('DELIVERY');
+      expect(result.isOrder).toBe(0);
+      expect(result.returnAmount).toBe(0);
+      expect(result.returnSummary).toBe('لا يوجد مرتجع');
+    });
   });
 });
 

@@ -341,6 +341,7 @@ model Order {
   sourceType              String?                   @default("ai_conversation")
   extractionTimestamp     DateTime?
   metadata                String?
+  requestType             String?                   @default("delivery")
   billingHoldAt           DateTime?
   billingHoldAmount       Decimal?                  @db.Decimal(10, 2)
   companyId               String
@@ -440,6 +441,7 @@ model Order {
   @@index([wooCommerceId])
   @@index([companyId, customStatusCode])
   @@index([storeId])
+  @@index([requestType])
   @@map("orders")
 }
 

@@ -34,8 +34,8 @@ const createShipment = async (req, res) => {
 
     if (!turboEnabled || !turboApiKey) return res.status(400).json({ success: false, error: 'Turbo is not enabled or API key is not configured' });
 
-    // 🛡️ منع شحن الطلبات المكررة، الملغاة، أو المرتجعة
-    const invalidStatuses = ['DUPLICATE_ORDER', 'CANCELLED', 'RETURNED', 'REFUNDED', 'TRASH', 'LOST'];
+    // 🛡️ منع شحن الطلبات المكررة، الملغاة، المرتجعة، أو المستبدلة (الأصلية)
+    const invalidStatuses = ['DUPLICATE_ORDER', 'CANCELLED', 'RETURNED', 'REFUNDED', 'TRASH', 'LOST', 'EXCHANGED'];
     if (invalidStatuses.includes(String(order.status || '').toUpperCase())) {
       return res.status(400).json({
         success: false,
@@ -254,7 +254,7 @@ const bulkCreateShipments = async (req, res) => {
       } catch (_) {}
     }
 
-    const invalidShippingStatuses = ['DUPLICATE_ORDER', 'CANCELLED', 'RETURNED', 'REFUNDED', 'TRASH', 'LOST'];
+    const invalidShippingStatuses = ['DUPLICATE_ORDER', 'CANCELLED', 'RETURNED', 'REFUNDED', 'TRASH', 'LOST', 'EXCHANGED'];
 
     const regularOrders = await safeQuery(() => prisma.order.findMany({
       where: {

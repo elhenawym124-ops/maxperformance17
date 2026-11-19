@@ -1579,32 +1579,47 @@ class EnhancedOrderService {
       easyWarehouseMode: data.easyWarehouseMode,
 
       // metadata
-      metadata: JSON.stringify({
-        conversationId: data.conversationId,
-        source: data.source,
-        requestType: data.requestType || 'delivery',
-        returnAmount: data.returnAmount || null,
-        ...(data.originalOrderId ? { originalOrderId: data.originalOrderId } : {}),
-        ...(data.originalOrderNumber ? { originalOrderNumber: data.originalOrderNumber } : {}),
-        ...(data.autoDiscountVoucherId && { autoDiscountVoucherId: data.autoDiscountVoucherId }),
-        ...(data.autoDiscountApplied && { autoDiscountApplied: data.autoDiscountApplied }),
-        ...(attribution && { attribution }),
-        originalData: {
-          productName: data.productName,
-          productColor: data.productColor,
-          productSize: data.productSize
-        },
-        aiExtraction: {
-          confidence: data.confidence,
-          extractionMethod: data.extractionMethod,
-          validation: data.validation
-        },
-        timestamps: {
-          extracted: new Date(),
-          created: new Date()
-        },
-        ...(data.duplicateInfo ? { duplicate: data.duplicateInfo } : {})
-      }),
+      metadata: (() => {
+        let incomingMeta = {};
+        if (typeof data.metadata === 'string') {
+          try { incomingMeta = JSON.parse(data.metadata) || {}; } catch (_) {}
+        } else if (data.metadata && typeof data.metadata === 'object') {
+          incomingMeta = data.metadata;
+        }
+        const effectiveRequestType = data.requestType || incomingMeta.requestType || 'delivery';
+        const isExchangeFlag = effectiveRequestType === 'exchange' || Boolean(data.originalOrderId) || Boolean(data.originalOrderNumber);
+        return JSON.stringify({
+          ...incomingMeta,
+          conversationId: data.conversationId,
+          source: data.source,
+          requestType: effectiveRequestType,
+          isExchange: isExchangeFlag,
+          returnAmount: data.returnAmount || incomingMeta.returnAmount || null,
+          ...(data.originalOrderId ? { originalOrderId: data.originalOrderId } : {}),
+          ...(data.originalOrderNumber ? { originalOrderNumber: data.originalOrderNumber } : {}),
+          ...(data.autoDiscountVoucherId && { autoDiscountVoucherId: data.autoDiscountVoucherId }),
+          ...(data.autoDiscountApplied && { autoDiscountApplied: data.autoDiscountApplied }),
+          ...(attribution && { attribution }),
+          originalData: {
+            productName: data.productName,
+            productColor: data.productColor,
+            productSize: data.productSize
+          },
+          aiExtraction: {
+            confidence: data.confidence,
+            extractionMethod: data.extractionMethod,
+            validation: data.validation
+          },
+          timestamps: {
+            extracted: new Date(),
+            created: new Date()
+          },
+          ...(data.duplicateInfo ? { duplicate: data.duplicateInfo } : {})
+        });
+      })(),
+
+      // Request type persisted directly with order
+      requestType: data.requestType || 'delivery',
 
       // Scheduled Order Fields
       ...(data.isScheduled && {
@@ -1809,16 +1824,36 @@ class EnhancedOrderService {
         total: cleanOrderData.total
       });
 
-      const order = await this.safeQuery(() =>
-        this.getPrisma().order.create({
-          data: cleanOrderData,
-          include: {
-            customer: true,
-            conversation: true,
-            orderItems: true
-          }
-        })
-      );
+      let order = null;
+      try {
+        order = await this.safeQuery(() =>
+          this.getPrisma().order.create({
+            data: cleanOrderData,
+            include: {
+              customer: true,
+              conversation: true,
+              orderItems: true
+            }
+          })
+        );
+      } catch (createErr) {
+        if (createErr.message && createErr.message.includes('requestType') && cleanOrderData.requestType) {
+          console.warn('⚠️ [DB-SAVE] requestType column not yet in DB schema, falling back to metadata storage:', createErr.message);
+          const { requestType: _dropped, ...fallbackData } = cleanOrderData;
+          order = await this.safeQuery(() =>
+            this.getPrisma().order.create({
+              data: fallbackData,
+              include: {
+                customer: true,
+                conversation: true,
+                orderItems: true
+              }
+            })
+          );
+        } else {
+          throw createErr;
+        }
+      }
 
       console.log('💸 [DB-SAVE] التكاليف بعد الحفظ:', {
         subtotal: order.subtotal,

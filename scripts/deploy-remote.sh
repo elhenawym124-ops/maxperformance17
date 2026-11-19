@@ -815,6 +815,10 @@ if [ "$NEED_DB_PUSH" = "true" ]; then
     echo "🛡️ Deduplicating monitor activity logs and applying P0 schema fixes before db push..."
     "$PRISMA_BIN" db execute --file prisma/migrations/20261005_monitor_p0_deduplication/migration.sql --schema=prisma/schema
   fi
+  if [ -f "prisma/migrations/20261119_add_order_request_type/migration.sql" ]; then
+    echo "🛡️ Ensuring requestType column exists on orders before db push..."
+    "$PRISMA_BIN" db execute --file prisma/migrations/20261119_add_order_request_type/migration.sql --schema=prisma/schema || echo "⚠️ Pre-push migration warning (continuing...)"
+  fi
   echo "🚀 Pushing schema to PostgreSQL..."
   timeout 600 "$PRISMA_BIN" db push --schema=prisma/schema --skip-generate --accept-data-loss || {
       echo "❌ Database synchronization failed"
