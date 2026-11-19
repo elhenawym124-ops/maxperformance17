@@ -3590,6 +3590,13 @@ class OrderService {
         return { success: false, reason: 'ORDER_NOT_FOUND' };
       }
 
+      // 🛡️ Guard: Never ship original EXCHANGED orders or cancelled/duplicate orders
+      const orderStatusUpper = String(order.status || '').toUpperCase();
+      if (['EXCHANGED', 'CANCELLED', 'DUPLICATE_ORDER', 'RETURNED', 'REFUNDED', 'TRASH', 'LOST'].includes(orderStatusUpper)) {
+        console.log(`ℹ️ [TURBO-AUTO] Skipping shipment creation for ${order.orderNumber}: status is ${orderStatusUpper}`);
+        return { skipped: true, reason: 'INVALID_STATUS', status: orderStatusUpper };
+      }
+
       // Idempotency: skip if already has Turbo shipment or tracking code
       const existingTracking = order.turboTrackingNumber || (order.shipments || []).find(s => s.trackingNumber)?.trackingNumber;
       if (order.turboShipmentId || existingTracking) {

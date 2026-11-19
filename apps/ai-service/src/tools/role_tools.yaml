@@ -37,6 +37,8 @@ roles:
     - knowledge_search
     - knowledge_ask_merchant
     - support_ticket_link
+    - web_search
+    - web_fetch
     - help_guide
     - manage_todo
     - delegate_task
@@ -323,6 +325,8 @@ roles:
     - facebook_reply
 
   COMPETITOR:
+    - web_search
+    - web_fetch
     - competitor_search
     - competitor_get_products
     - competitor_price_compare

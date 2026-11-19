@@ -467,7 +467,7 @@ model Order {
   sourceType             String?                   @default("ai_conversation")
   extractionTimestamp    DateTime?
   metadata               String?                   @db.Text
-  requestType            String?
+  requestType            String?                   @default("delivery")
   companyId              String
   createdAt              DateTime                  @default(now())
   updatedAt              DateTime                  @updatedAt

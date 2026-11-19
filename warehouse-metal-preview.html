@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warehouse - Metal (1:1 Exact Shopify Replica)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #ffffff; color: #1e2d7d; }
+    .bg-warehouse-navy { background-color: #1e2d7d; }
+    .bg-warehouse-dark-navy { background-color: #16225a; }
+    .text-warehouse-navy { color: #1e2d7d; }
+    .border-warehouse-navy { border-color: #1e2d7d; }
+    .bg-warehouse-cyan { background-color: #00badb; }
+    .text-warehouse-cyan { color: #00badb; }
+    .hover-bg-warehouse-cyan:hover { background-color: #00a0bd; }
+    .bg-warehouse-yellow { background-color: #ffc220; }
+    .text-warehouse-yellow { color: #ffc220; }
+    .text-warehouse-sub { color: #a3afef; }
+    .border-warehouse-light { border-color: #e1e3e4; }
+    .bg-warehouse-gray { background-color: #f3f5f6; }
+    .swatch-dot { transition: all 0.2s ease; }
+    .swatch-dot.active { ring: 2px; ring-offset: 1px; ring-color: #1e2d7d; transform: scale(1.15); }
+    /* Micro-toast */
+    #cart-toast { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
+  </style>
+</head>
+<body class="bg-white text-[#1e2d7d] antialiased">
+
+  <!-- ========================================== -->
+  <!-- 1. ANNOUNCEMENT BAR                        -->
+  <!-- ========================================== -->
+  <div class="bg-[#16225a] text-white text-xs py-2 px-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="bg-[#00badb] text-[#16225a] font-black text-[10px] px-1.5 py-0.5 rounded-xs tracking-wider">
+          FREE SHIPPING
+        </span>
+        <span class="text-[#a3afef] text-[11px] sm:text-xs">
+          Free shipping on orders over <strong class="text-white">$80</strong> · 30-day money-back guarantee
+        </span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-[#a3afef]">
+        <button onclick="toggleModal(true)" class="text-[#00badb] hover:text-white font-bold transition-colors flex items-center gap-1 cursor-pointer">
+          <span>Subscribe & Save</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <span class="hidden md:inline opacity-30">|</span>
+        <span class="hidden md:inline">Call us: <strong class="text-white">1-800-663-4040</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. MAIN HEADER (WAREHOUSE NAVY #1e2d7d)     -->
+  <!-- ========================================== -->
+  <header class="bg-[#1e2d7d] text-white px-4 py-3 sm:px-6 sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 lg:gap-8">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex flex-col shrink-0">
+        <span class="font-black text-2xl tracking-wider uppercase text-white font-mono">WAREHOUSE</span>
+        <span class="text-[9px] font-bold tracking-widest text-[#00badb] -mt-1 uppercase">METAL EDITION</span>
+      </a>
+
+      <!-- Search Bar with Department Dropdown & Cyan Action Button -->
+      <div class="flex-1 max-w-2xl hidden md:flex items-center rounded-lg bg-white overflow-hidden shadow-inner border border-white/20">
+        <div class="border-r border-neutral-200 bg-neutral-50 text-neutral-700 px-3 py-2 text-xs font-semibold">
+          <select class="bg-transparent outline-none cursor-pointer text-xs font-semibold text-neutral-800">
+            <option>All Categories</option>
+            <option>Audio & Hi-Fi</option>
+            <option>Headphones & Earbuds</option>
+            <option>OLED TVs & Home Cinema</option>
+            <option>Turntables & Vinyl</option>
+            <option>Portable Bluetooth Speakers</option>
+          </select>
+        </div>
+        <input
+          type="text"
+          placeholder="I'm shopping for... (e.g. Sony BRAVIA, JBL Clip 3, Bose QuietComfort)"
+          class="flex-1 px-4 py-2 text-xs text-neutral-900 placeholder-neutral-400 outline-none"
+        />
+        <button class="bg-[#00badb] hover:bg-[#00a0bd] text-[#16225a] font-extrabold text-xs px-6 py-2.5 transition-colors flex items-center gap-1.5 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <span>Search</span>
+        </button>
+      </div>
+
+      <!-- Right Header Actions (Need Help, Account, Cart) -->
+      <div class="flex items-center gap-4 text-white shrink-0">
+        <div class="hidden xl:flex flex-col text-right leading-tight">
+          <span class="text-[10px] text-[#a3afef]">Need help?</span>
+          <a href="tel:18006634040" class="text-xs font-bold text-white hover:text-[#00badb]">1-800-663-4040</a>
+        </div>
+
+        <a href="#account" class="hidden sm:flex items-center gap-2 text-xs font-medium hover:text-[#00badb] transition-colors">
+          <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/15">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </div>
+          <div class="flex flex-col text-left leading-tight">
+            <span class="text-[10px] text-[#a3afef]">Sign In</span>
+            <span class="font-bold">My Account</span>
+          </div>
+        </a>
+
+        <!-- Cart Button -->
+        <div onclick="showToast('Your Cart contains 2 items ($1,477.95)')" class="flex items-center gap-2.5 bg-white/10 hover:bg-white/15 px-3 py-2 rounded-lg border border-white/15 cursor-pointer transition-all">
+          <div class="relative">
+            <svg class="w-5 h-5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span id="cart-counter" class="absolute -top-2 -right-2 bg-[#ffc220] text-[#16225a] text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">2</span>
+          </div>
+          <div class="hidden lg:flex flex-col text-left leading-tight">
+            <span class="text-[10px] text-[#a3afef]">Cart</span>
+            <span class="font-bold text-xs text-white">$1,477.95</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- 3. SECONDARY NAVIGATION BAR                 -->
+  <!-- ========================================== -->
+  <nav class="bg-white border-b border-[#e1e3e4] px-4 py-2 sm:px-6 hidden lg:block sticky top-[57px] z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto flex items-center justify-between text-xs font-semibold">
+      <div class="flex items-center gap-6">
+        
+        <!-- Shop by department button with mega dropdown -->
+        <div class="relative group">
+          <button class="bg-[#1e2d7d] text-white px-3.5 py-1.5 rounded-md flex items-center gap-2 font-bold hover:bg-[#16225a] transition-colors cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <span>SHOP BY DEPARTMENT</span>
+            <svg class="w-3.5 h-3.5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div class="absolute left-0 top-full mt-1 w-64 bg-white border border-[#e1e3e4] rounded-lg shadow-xl py-2 hidden group-hover:block z-50">
+            <a href="#collections" class="flex items-center justify-between px-4 py-2 text-xs font-medium text-neutral-800 hover:bg-neutral-50 hover:text-[#1e2d7d]">
+              <span>Audio & Hi-Fi</span>
+              <span class="text-neutral-400">→</span>
+            </a>
+            <a href="#collections" class="flex items-center justify-between px-4 py-2 text-xs font-medium text-neutral-800 hover:bg-neutral-50 hover:text-[#1e2d7d]">
+              <span>Headphones & Earbuds</span>
+              <span class="text-neutral-400">→</span>
+            </a>
+            <a href="#new-tvs" class="flex items-center justify-between px-4 py-2 text-xs font-medium text-neutral-800 hover:bg-neutral-50 hover:text-[#1e2d7d]">
+              <span>Smart OLED TVs</span>
+              <span class="text-neutral-400">→</span>
+            </a>
+            <a href="#collections" class="flex items-center justify-between px-4 py-2 text-xs font-medium text-neutral-800 hover:bg-neutral-50 hover:text-[#1e2d7d]">
+              <span>Turntables & Vinyl</span>
+              <span class="text-neutral-400">→</span>
+            </a>
+            <a href="#featured-product" class="flex items-center justify-between px-4 py-2 text-xs font-medium text-neutral-800 hover:bg-neutral-50 hover:text-[#1e2d7d]">
+              <span>Portable Speakers</span>
+              <span class="text-neutral-400">→</span>
+            </a>
+            <div class="border-t border-neutral-100 my-1"></div>
+            <a href="#deals" class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-red-600 hover:bg-red-50">
+              <span>🔥 Daily Deals Depot</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="#featured" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">All Products</a>
+        <a href="#featured" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">New Arrivals</a>
+        <a href="#deals" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">Sales</a>
+        <a href="#collections" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">All Collections</a>
+        <a href="#brands" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">Brands</a>
+        <a href="#deals" class="text-red-600 font-bold flex items-center gap-1 hover:underline">
+          <span>DAILY DEALS</span>
+          <span class="bg-red-600 text-white text-[9px] px-1 py-0.2 rounded-xs font-black">HOT</span>
+        </a>
+        <a href="#blog" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">Blog</a>
+        <a href="#stores" class="text-neutral-700 hover:text-[#1e2d7d] transition-colors">Our Stores</a>
+      </div>
+
+      <div class="text-neutral-500 text-[11px] flex items-center gap-2">
+        <span>Need depot pricing?</span>
+        <a href="#newsletter" class="font-bold text-[#1e2d7d] hover:underline">Wholesale & Pro Audio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- 4. SLIDESHOW BILLBOARD                     -->
+  <!-- ========================================== -->
+  <section class="relative bg-[#16225a] text-white overflow-hidden">
+    <div id="slides-container" class="relative min-h-[460px] sm:min-h-[520px] flex items-center">
+      
+      <!-- Slide 1: Headphones (Active) -->
+      <div id="slide-1" class="slide absolute inset-0 flex items-center px-6 sm:px-12 lg:px-20 transition-opacity duration-700 opacity-100 z-10 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(22, 34, 90, 0.95) 0%, rgba(30, 45, 125, 0.75) 45%, rgba(22, 34, 90, 0.2) 100%), url('https://warehouse-theme-metal.myshopify.com/cdn/shop/files/slide-1-headphones.jpg?width=1800');">
+        <div class="max-w-xl">
+          <span class="bg-[#00badb] text-[#16225a] font-black text-xs px-2.5 py-0.5 rounded-xs uppercase tracking-wider inline-block mb-3">
+            FLAGSHIP AUDIO 2026
+          </span>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight">
+            Introducing: the Headphones Collection
+          </h1>
+          <p class="text-sm sm:text-base text-[#a3afef] mb-8 leading-relaxed">
+            Discover our curated selection of the best studio-grade and noise-canceling headphones of the year.
+          </p>
+          <div class="flex items-center gap-4">
+            <a href="#featured" class="bg-[#00badb] hover:bg-[#00a0bd] text-[#16225a] font-extrabold text-sm px-6 py-3 rounded-md shadow-lg transition-transform hover:scale-105">
+              Shop All Headphones
+            </a>
+            <a href="#featured-product" class="border border-white/30 hover:border-white text-white font-bold text-sm px-5 py-3 rounded-md transition-colors">
+              Featured Deal
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: JBL Portable Speakers -->
+      <div id="slide-2" class="slide absolute inset-0 flex items-center px-6 sm:px-12 lg:px-20 transition-opacity duration-700 opacity-0 pointer-events-none z-10 bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(22, 34, 90, 0.95) 0%, rgba(30, 45, 125, 0.75) 45%, rgba(22, 34, 90, 0.2) 100%), url('https://warehouse-theme-metal.myshopify.com/cdn/shop/files/Slide-10-desktop_2800x_1.jpg?width=1800');">
+        <div class="max-w-xl">
+          <span class="bg-[#ffc220] text-[#16225a] font-black text-xs px-2.5 py-0.5 rounded-xs uppercase tracking-wider inline-block mb-3">
+            PORTABLE AUDIO
+          </span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight">
+            New JBL Portable Speakers
+          </h2>
+          <p class="text-sm sm:text-base text-[#a3afef] mb-8 leading-relaxed">
+            From $39.95 only! Waterproof, drop-resistant, and packing signature JBL Pro Sound.
+          </p>
+          <div class="flex items-center gap-4">
+            <a href="#featured-product" class="bg-[#ffc220] hover:bg-[#eab015] text-[#16225a] font-extrabold text-sm px-6 py-3 rounded-md shadow-lg transition-transform hover:scale-105">
+              Shop JBL Clip 3
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Slide Navigation Dots -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+      <button onclick="setSlide(1)" id="dot-1" class="w-8 h-2 rounded-full bg-[#00badb] transition-all cursor-pointer"></button>
+      <button onclick="setSlide(2)" id="dot-2" class="w-2.5 h-2 rounded-full bg-white/40 hover:bg-white transition-all cursor-pointer"></button>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 5. 3 VIBRANT PROMO BANNERS (MOSAIC)        -->
+  <!-- ========================================== -->
+  <section class="py-6 bg-[#f3f5f6] border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        
+        <!-- Promo 1: OLED TVs (Red/Pink Gradient) -->
+        <div class="relative rounded-xl overflow-hidden p-6 text-white flex flex-col justify-between min-h-[190px] shadow-sm group cursor-pointer" style="background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);">
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-red-200 block mb-1">LIMITED TIME OFFER</span>
+            <h3 class="text-2xl font-black text-white mb-1">OLED TVs</h3>
+            <p class="text-xs text-red-100 max-w-[200px]">Exclusive offers on TVs until Dec 31. $100 off on every purchase</p>
+          </div>
+          <a href="#new-tvs" class="text-xs font-bold text-white flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Shop OLED TVs</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Promo 2: Speakers (Purple Gradient) -->
+        <div class="relative rounded-xl overflow-hidden p-6 text-white flex flex-col justify-between min-h-[190px] shadow-sm group cursor-pointer" style="background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);">
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-purple-200 block mb-1">ACOUSTIC MASTERY</span>
+            <h3 class="text-2xl font-black text-white mb-1">Speakers</h3>
+            <p class="text-xs text-purple-100 max-w-[200px]">Explore our range of high-quality speakers & subwoofers.</p>
+          </div>
+          <a href="#featured-product" class="text-xs font-bold text-white flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Shop Speakers</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Promo 3: Headphones (Cyan/Navy Gradient) -->
+        <div class="relative rounded-xl overflow-hidden p-6 text-white flex flex-col justify-between min-h-[190px] shadow-sm group cursor-pointer" style="background: linear-gradient(135deg, #0097a7 0%, #006064 100%);">
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-cyan-200 block mb-1">UP TO 25% OFF</span>
+            <h3 class="text-2xl font-black text-white mb-1">Headphones</h3>
+            <p class="text-xs text-cyan-100 max-w-[200px]">Discover our new noise-cancelling headphones.</p>
+          </div>
+          <a href="#featured" class="text-xs font-bold text-white flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Shop Headphones</span>
+            <span>→</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 6. 2 VALUE PROPOSITION CARDS               -->
+  <!-- ========================================== -->
+  <section class="py-6 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <!-- Offer 1 -->
+        <div class="border border-[#e1e3e4] rounded-xl p-6 flex items-center gap-5 bg-gradient-to-r from-neutral-50 to-white hover:border-[#1e2d7d] transition-all cursor-pointer">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/offer-1_2x_6ba50f80-1d2d-4361-a867-05ca0f32413c.jpg?width=300" class="w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0">
+          <div>
+            <span class="text-[10px] font-bold text-red-600 uppercase tracking-wider block mb-1">SPECIAL PROMOTION</span>
+            <h3 class="text-base sm:text-lg font-black text-[#1e2d7d] mb-1">Exclusive offers on JBL products</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed">
+              We offer you steep discounts on all our JBL portable speakers, including JBL Clip 3, JBL Flip 4, and JBL Link 20!
+            </p>
+          </div>
+        </div>
+
+        <!-- Offer 2 -->
+        <div class="border border-[#e1e3e4] rounded-xl p-6 flex items-center gap-5 bg-gradient-to-r from-neutral-50 to-white hover:border-[#1e2d7d] transition-all cursor-pointer">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/offer-2_2x_26b533cd-d17a-43fe-97c8-8d0af50a398c.jpg?width=300" class="w-24 h-24 sm:w-28 sm:h-28 object-contain shrink-0">
+          <div>
+            <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">EXPEDITED FULFILLMENT</span>
+            <h3 class="text-base sm:text-lg font-black text-[#1e2d7d] mb-1">Free shipping for all orders over $80</h3>
+            <p class="text-xs text-neutral-500 leading-relaxed">
+              We got you covered! We deliver your goods using UPS expedited shipping within 48 hours nationwide.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 7. "OUR COLLECTIONS" CIRCLE SLIDER          -->
+  <!-- ========================================== -->
+  <section id="collections" class="py-10 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4]">
+        <h2 class="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Our collections</h2>
+        <a href="#featured" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb]">View all →</a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        
+        <!-- Collection 1 -->
+        <div class="flex flex-col items-center bg-[#f8f9fa] border border-[#e1e3e4] rounded-lg p-4 text-center hover:border-[#1e2d7d] hover:shadow-xs transition-all cursor-pointer group">
+          <div class="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-white shadow-2xs group-hover:scale-105 transition-transform bg-white">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/headphones-600.jpg?width=300" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xs font-bold text-[#1e2d7d]">Headphones</h3>
+          <span class="text-[10px] text-neutral-500 font-medium">24 products</span>
+        </div>
+
+        <!-- Collection 2 -->
+        <div class="flex flex-col items-center bg-[#f8f9fa] border border-[#e1e3e4] rounded-lg p-4 text-center hover:border-[#1e2d7d] hover:shadow-xs transition-all cursor-pointer group">
+          <div class="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-white shadow-2xs group-hover:scale-105 transition-transform bg-white">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/earbuds-600_abcad8d1-f772-47be-8de5-7b6e1dd45f03.jpg?width=300" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xs font-bold text-[#1e2d7d]">Earbuds</h3>
+          <span class="text-[10px] text-neutral-500 font-medium">18 products</span>
+        </div>
+
+        <!-- Collection 3 -->
+        <div class="flex flex-col items-center bg-[#f8f9fa] border border-[#e1e3e4] rounded-lg p-4 text-center hover:border-[#1e2d7d] hover:shadow-xs transition-all cursor-pointer group">
+          <div class="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-white shadow-2xs group-hover:scale-105 transition-transform bg-white">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/speakers-600_490fc860-32d7-4226-bb15-b319dfcad104.jpg?width=300" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xs font-bold text-[#1e2d7d]">Speakers</h3>
+          <span class="text-[10px] text-neutral-500 font-medium">32 products</span>
+        </div>
+
+        <!-- Collection 4 -->
+        <div class="flex flex-col items-center bg-[#f8f9fa] border border-[#e1e3e4] rounded-lg p-4 text-center hover:border-[#1e2d7d] hover:shadow-xs transition-all cursor-pointer group">
+          <div class="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-white shadow-2xs group-hover:scale-105 transition-transform bg-white">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/oled-tvs-600_1f8be815-fc56-40ee-81d4-a813eba17df2.jpg?width=300" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xs font-bold text-[#1e2d7d]">OLED TVs</h3>
+          <span class="text-[10px] text-neutral-500 font-medium">12 products</span>
+        </div>
+
+        <!-- Collection 5 -->
+        <div class="flex flex-col items-center bg-[#f8f9fa] border border-[#e1e3e4] rounded-lg p-4 text-center hover:border-[#1e2d7d] hover:shadow-xs transition-all cursor-pointer group">
+          <div class="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-white shadow-2xs group-hover:scale-105 transition-transform bg-white">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/turntables-600.jpg?width=300" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xs font-bold text-[#1e2d7d]">Turntables</h3>
+          <span class="text-[10px] text-neutral-500 font-medium">9 products</span>
+        </div>
+
+        <!-- Collection 6 -->
+        <div class="flex flex-col items-center bg-[#f8f9fa] border border-[#e1e3e4] rounded-lg p-4 text-center hover:border-[#1e2d7d] hover:shadow-xs transition-all cursor-pointer group">
+          <div class="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-white shadow-2xs group-hover:scale-105 transition-transform bg-white">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/subwoofers-600.jpg?width=300" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xs font-bold text-[#1e2d7d]">Subwoofers</h3>
+          <span class="text-[10px] text-neutral-500 font-medium">14 products</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 8. "FEATURED COLLECTION" (TABS & 1:1 CARDS) -->
+  <!-- ========================================== -->
+  <section id="featured" class="py-12 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Tabs Bar -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4] gap-4">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Featured collection</h2>
+          <span class="text-xs text-neutral-500">Authentic manufacturer hardware with official warranties</span>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="switchTab('bestsellers')" id="tab-btn-bestsellers" class="tab-btn bg-[#1e2d7d] text-white text-xs font-bold px-4 py-2 rounded-md shadow-xs cursor-pointer">
+            Best Sellers
+          </button>
+          <button onclick="switchTab('featured-tab')" id="tab-btn-featured-tab" class="tab-btn bg-neutral-100 text-neutral-700 hover:bg-neutral-200 text-xs font-bold px-4 py-2 rounded-md cursor-pointer">
+            Featured
+          </button>
+          <button onclick="switchTab('onsale')" id="tab-btn-onsale" class="tab-btn bg-neutral-100 text-red-600 hover:bg-neutral-200 text-xs font-bold px-4 py-2 rounded-md flex items-center gap-1 cursor-pointer">
+            <span>🔥 On Sale</span>
+          </button>
+          <button onclick="switchTab('trending')" id="tab-btn-trending" class="tab-btn bg-neutral-100 text-neutral-700 hover:bg-neutral-200 text-xs font-bold px-4 py-2 rounded-md cursor-pointer">
+            Trending
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content 1: Best Sellers (Default) -->
+      <div id="tab-content-bestsellers" class="tab-pane grid grid-cols-2 md:grid-cols-4 gap-5">
+        
+        <!-- Product 1: Sony TV -->
+        <div class="group border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] hover:shadow-md transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/sonyxbr55front_f72cc8ff-fcd6-4141-b9cc-e1320f867785.jpg?width=600" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-xs">Save $800.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase tracking-wider block mb-1">SONY</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] line-clamp-2 mb-2 leading-snug">Sony XBR-950G BRAVIA 4K HDR Ultra HD TV</h3>
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-base font-black text-[#1e2d7d] tabular-nums">$1,398.00</span>
+              <span class="text-xs text-neutral-400 line-through tabular-nums">$2,198.00</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[#ffc220] text-xs mb-2">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(3 reviews)</span>
+            </div>
+            <div class="flex items-center gap-1.5 mb-3">
+              <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                In stock, 76 units
+              </span>
+            </div>
+          </div>
+          <button onclick="addToCart('Sony XBR-950G BRAVIA 4K TV', 1398.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2.5 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>Add to Cart</span>
+          </button>
+        </div>
+
+        <!-- Product 2: JBL Flip 4 -->
+        <div class="group border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] hover:shadow-md transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img id="img-jbl-flip" src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13549_790__2_73a2a189-b3d5-4ec8-a4c3-b506e1beab70.jpg?width=600" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-xs">Save $25.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase tracking-wider block mb-1">JBL</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] line-clamp-2 mb-2 leading-snug">JBL Flip 4 Waterproof Portable Bluetooth Speaker</h3>
+            
+            <!-- Color Swatches -->
+            <div class="flex items-center gap-1.5 mb-2">
+              <button onclick="changeSwatchColor('img-jbl-flip', '#111827', this)" class="swatch-dot active w-4 h-4 rounded-full bg-neutral-900 border border-white shadow-2xs"></button>
+              <button onclick="changeSwatchColor('img-jbl-flip', '#2563eb', this)" class="swatch-dot w-4 h-4 rounded-full bg-blue-600 border border-white shadow-2xs"></button>
+              <button onclick="changeSwatchColor('img-jbl-flip', '#dc2626', this)" class="swatch-dot w-4 h-4 rounded-full bg-red-600 border border-white shadow-2xs"></button>
+              <button onclick="changeSwatchColor('img-jbl-flip', '#0d9488', this)" class="swatch-dot w-4 h-4 rounded-full bg-teal-600 border border-white shadow-2xs"></button>
+              <span class="text-[10px] text-neutral-400 font-medium">+4 colors</span>
+            </div>
+
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-base font-black text-[#1e2d7d] tabular-nums">$79.95</span>
+              <span class="text-xs text-neutral-400 line-through tabular-nums">$104.95</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[#ffc220] text-xs mb-2">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(2 reviews)</span>
+            </div>
+            <div class="flex items-center gap-1.5 mb-3">
+              <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                In stock, 76 units
+              </span>
+            </div>
+          </div>
+          <button onclick="addToCart('JBL Flip 4 Waterproof Speaker', 79.95)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2.5 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>Add to Cart</span>
+          </button>
+        </div>
+
+        <!-- Product 3: Sony Turntable -->
+        <div class="group border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] hover:shadow-md transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/11910_163__1_d6abac00-2eb0-4f32-ab5b-40a3b1be2c70.jpg?width=600" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-xs">Save $100.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase tracking-wider block mb-1">SONY</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] line-clamp-2 mb-2 leading-snug">Sony PS-HX500 Hi-Res USB Turntable</h3>
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-base font-black text-[#1e2d7d] tabular-nums">$398.00</span>
+              <span class="text-xs text-neutral-400 line-through tabular-nums">$498.00</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[#ffc220] text-xs mb-2">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(3 reviews)</span>
+            </div>
+            <div class="flex items-center gap-1.5 mb-3">
+              <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                In stock, 18 units
+              </span>
+            </div>
+          </div>
+          <button onclick="addToCart('Sony PS-HX500 USB Turntable', 398.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2.5 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>Add to Cart</span>
+          </button>
+        </div>
+
+        <!-- Product 4: Audio-Technica Headphones -->
+        <div class="group border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] hover:shadow-md transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/12678_869__1_1500x_b9a505f9-8986-45bf-a73b-5950c9008349.jpg?width=600" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 bg-[#1e2d7d] text-white text-[10px] font-black px-2 py-0.5 rounded shadow-xs">TOP RATED</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase tracking-wider block mb-1">AUDIO-TECHNICA</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] line-clamp-2 mb-2 leading-snug">Audio-Technica ATH-M50x Professional Studio Headphones</h3>
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-base font-black text-[#1e2d7d] tabular-nums">$149.00</span>
+              <span class="text-xs text-neutral-400 line-through tabular-nums">$169.00</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[#ffc220] text-xs mb-2">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(12 reviews)</span>
+            </div>
+            <div class="flex items-center gap-1.5 mb-3">
+              <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                In stock, 55 units
+              </span>
+            </div>
+          </div>
+          <button onclick="addToCart('Audio-Technica ATH-M50x', 149.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2.5 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>Add to Cart</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tab Content 2: Featured -->
+      <div id="tab-content-featured-tab" class="tab-pane hidden grid grid-cols-2 md:grid-cols-4 gap-5">
+        <!-- Re-usable 4 items -->
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13261_147__1_2e3211f9-de49-4919-9e67-006800a5c5a0.jpg?width=600" class="max-h-full max-w-full object-contain">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $50.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">SONY</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-2">Sony XB-950B1 Extra Bass Wireless Headphones</h3>
+            <span class="text-base font-black text-[#1e2d7d] block mb-2 tabular-nums">$128.00</span>
+          </div>
+          <button onclick="addToCart('Sony XB-950B1 Extra Bass', 128.00)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/A1Cet8zvhXL._SL1500.jpg?width=600" class="max-h-full max-w-full object-contain">
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">YAMAHA</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-2">Yamaha WX-030 MusicCast Wireless Speaker</h3>
+            <span class="text-base font-black text-[#1e2d7d] block mb-2 tabular-nums">$179.95</span>
+          </div>
+          <button onclick="addToCart('Yamaha WX-030 MusicCast', 179.95)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/E55BT_Quincy_Rose_Hero.jpg?width=600" class="max-h-full max-w-full object-contain">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $40.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">JBL</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-2">JBL E55BT Quincy Edition Wireless Over-Ear</h3>
+            <span class="text-base font-black text-[#1e2d7d] block mb-2 tabular-nums">$159.95</span>
+          </div>
+          <button onclick="addToCart('JBL E55BT Quincy Edition', 159.95)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_417__1_dcd9694a-a473-46e8-9368-d0aaadbce069.jpg?width=600" class="max-h-full max-w-full object-contain">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $20.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">JBL</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-2">JBL Clip 3 Portable Bluetooth Speaker</h3>
+            <span class="text-base font-black text-[#1e2d7d] block mb-2 tabular-nums">$39.95</span>
+          </div>
+          <button onclick="addToCart('JBL Clip 3', 39.95)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: On Sale -->
+      <div id="tab-content-onsale" class="tab-pane hidden grid grid-cols-2 md:grid-cols-4 gap-5">
+        <!-- Render 4 sale items -->
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/sonyxbr55front_f72cc8ff-fcd6-4141-b9cc-e1320f867785.jpg?width=600" class="max-h-full max-w-full object-contain">
+            <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $800.00</span>
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">Sony XBR-950G BRAVIA 4K TV</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$1,398.00</span>
+          <button onclick="addToCart('Sony XBR-950G BRAVIA 4K TV', 1398.00)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13549_790__2_73a2a189-b3d5-4ec8-a4c3-b506e1beab70.jpg?width=600" class="max-h-full max-w-full object-contain">
+            <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $25.00</span>
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">JBL Flip 4 Waterproof Speaker</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$79.95</span>
+          <button onclick="addToCart('JBL Flip 4 Speaker', 79.95)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/11910_163__1_d6abac00-2eb0-4f32-ab5b-40a3b1be2c70.jpg?width=600" class="max-h-full max-w-full object-contain">
+            <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $100.00</span>
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">Sony PS-HX500 USB Turntable</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$398.00</span>
+          <button onclick="addToCart('Sony PS-HX500 Turntable', 398.00)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_417__1_dcd9694a-a473-46e8-9368-d0aaadbce069.jpg?width=600" class="max-h-full max-w-full object-contain">
+            <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $20.00</span>
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">JBL Clip 3 Portable Speaker</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$39.95</span>
+          <button onclick="addToCart('JBL Clip 3', 39.95)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- Tab Content 4: Trending -->
+      <div id="tab-content-trending" class="tab-pane hidden grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/12678_869__1_1500x_b9a505f9-8986-45bf-a73b-5950c9008349.jpg?width=600" class="max-h-full max-w-full object-contain">
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">Audio-Technica ATH-M50x</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$149.00</span>
+          <button onclick="addToCart('Audio-Technica ATH-M50x', 149.00)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13549_790__2_73a2a189-b3d5-4ec8-a4c3-b506e1beab70.jpg?width=600" class="max-h-full max-w-full object-contain">
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">JBL Flip 4 Waterproof Speaker</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$79.95</span>
+          <button onclick="addToCart('JBL Flip 4', 79.95)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13261_147__1_2e3211f9-de49-4919-9e67-006800a5c5a0.jpg?width=600" class="max-h-full max-w-full object-contain">
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">Sony XB-950B1 Extra Bass</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$128.00</span>
+          <button onclick="addToCart('Sony XB-950B1 Extra Bass', 128.00)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between">
+          <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+            <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/sonyxbr55front_f72cc8ff-fcd6-4141-b9cc-e1320f867785.jpg?width=600" class="max-h-full max-w-full object-contain">
+          </div>
+          <h3 class="text-xs sm:text-sm font-semibold text-[#1e2d7d] mb-1">Sony XBR-950G BRAVIA 4K TV</h3>
+          <span class="text-base font-black text-[#1e2d7d] tabular-nums mb-3">$1,398.00</span>
+          <button onclick="addToCart('Sony XBR-950G BRAVIA 4K TV', 1398.00)" class="w-full bg-[#1e2d7d] text-white text-xs font-bold py-2 rounded-md">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 9. 5-TILE CATEGORY PROMO GRID              -->
+  <!-- ========================================== -->
+  <section class="py-10 bg-[#f3f5f6] border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        
+        <!-- Big Card: Bluetooth (7 Cols) -->
+        <div class="md:col-span-7 relative rounded-xl overflow-hidden bg-[#1e2d7d] text-white min-h-[300px] p-8 flex flex-col justify-between group shadow-sm">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/bluetooth-red_f7adb5c3-0506-4481-b8ee-aa20422d1d2f.png?width=800" class="absolute right-0 bottom-0 h-full w-2/3 object-contain object-right-bottom group-hover:scale-105 transition-transform duration-500">
+          <div class="relative z-10 max-w-xs">
+            <span class="bg-[#00badb] text-[#16225a] font-black text-[10px] px-2 py-0.5 rounded-xs uppercase tracking-wider inline-block mb-2">
+              WIRELESS FREEDOM
+            </span>
+            <h3 class="text-3xl font-black text-white mb-2">Bluetooth Audio</h3>
+            <p class="text-xs text-[#a3afef] mb-4">Waterproof party speakers and ultra-compact pocket sound systems.</p>
+            <a href="#featured" class="text-xs font-extrabold text-[#00badb] hover:text-white flex items-center gap-1">
+              <span>Explore Bluetooth →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Big Card: Pro Audio (5 Cols) -->
+        <div class="md:col-span-5 relative rounded-xl overflow-hidden bg-neutral-900 text-white min-h-[300px] p-8 flex flex-col justify-between group shadow-sm">
+          <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://warehouse-theme-metal.myshopify.com/cdn/shop/files/mosaic-audio_04cd57f4-2a11-47e3-bd88-0231bc0618f0.jpg?width=800');"></div>
+          <div class="relative z-10">
+            <span class="bg-[#ffc220] text-[#16225a] font-black text-[10px] px-2 py-0.5 rounded-xs uppercase tracking-wider inline-block mb-2">
+              STUDIO GRADE
+            </span>
+            <h3 class="text-2xl font-black text-white mb-1">Professional Audio</h3>
+            <p class="text-xs text-neutral-300">Mixers, studio monitors, DAC converters & master microphones.</p>
+          </div>
+          <a href="#featured" class="relative z-10 text-xs font-extrabold text-[#ffc220] hover:text-white flex items-center gap-1">
+            <span>Shop Pro Audio →</span>
+          </a>
+        </div>
+
+        <!-- 3 Lower Tiles (4 Cols each) -->
+        <div class="md:col-span-4 relative rounded-xl overflow-hidden bg-neutral-800 text-white min-h-[220px] p-6 flex flex-col justify-between group shadow-sm">
+          <div class="absolute inset-0 bg-cover bg-center opacity-45 group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://warehouse-theme-metal.myshopify.com/cdn/shop/files/mosaic-headphones.jpg?width=1100');"></div>
+          <div class="relative z-10">
+            <h4 class="text-xl font-black text-white mb-1">Headphones</h4>
+            <p class="text-xs text-neutral-300">Over-ear & in-ear audiophile acoustic drivers.</p>
+          </div>
+          <a href="#featured" class="relative z-10 text-xs font-bold text-[#00badb]">View Selection →</a>
+        </div>
+
+        <div class="md:col-span-4 relative rounded-xl overflow-hidden bg-gradient-to-br from-[#1e2d7d] to-[#16225a] text-white min-h-[220px] p-6 flex flex-col justify-between group shadow-sm">
+          <div class="relative z-10">
+            <span class="text-[10px] text-[#00badb] font-bold uppercase tracking-wider block mb-1">ESSENTIAL GEAR</span>
+            <h4 class="text-xl font-black text-white mb-1">Audio Accessories</h4>
+            <p class="text-xs text-[#a3afef]">Gold-plated cables, optical connectors & wall mounts.</p>
+          </div>
+          <a href="#featured" class="relative z-10 text-xs font-bold text-white">Browse Accessories →</a>
+        </div>
+
+        <div class="md:col-span-4 relative rounded-xl overflow-hidden bg-neutral-900 text-white min-h-[220px] p-6 flex flex-col justify-between group shadow-sm">
+          <div class="relative z-10">
+            <span class="text-[10px] text-[#ffc220] font-bold uppercase tracking-wider block mb-1">HOME CINEMA</span>
+            <h4 class="text-xl font-black text-white mb-1">4K Projectors</h4>
+            <p class="text-xs text-neutral-300">Laser ultra-short-throw 150" cinema projectors.</p>
+          </div>
+          <a href="#new-tvs" class="relative z-10 text-xs font-bold text-[#ffc220]">Shop Projectors →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 10. "ABOUT WAREHOUSE" EDITORIAL TEXT       -->
+  <!-- ========================================== -->
+  <section class="py-12 bg-white border-b border-[#e1e3e4] text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#00badb] block mb-2">WHO WE ARE</span>
+      <h2 class="text-2xl sm:text-3xl font-black text-[#1e2d7d] tracking-tight mb-4">About Warehouse</h2>
+      <p class="text-sm text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+        Warehouse Metal is a dedicated high-volume consumer hardware depot connecting audiophiles, home cinema enthusiasts, and commercial venues directly with Tier-1 brand manufacturing pipelines. We bypass intermediary markups to deliver authentic electronics with ironclad warranties.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 11. "BRANDS WE DISTRIBUTE" (LOGO CAROUSEL) -->
+  <!-- ========================================== -->
+  <section id="brands" class="py-10 bg-[#f8f9fa] border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4]">
+        <h2 class="text-lg sm:text-xl font-black text-[#1e2d7d] uppercase tracking-wider">Brands we distribute</h2>
+        <a href="#featured" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb]">View all brands →</a>
+      </div>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 items-center">
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/jbl_2x_a92dda2f-02d1-4048-aad8-e54b3b0020d7.jpg" alt="JBL" class="max-h-8 object-contain">
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/lg_2x_4e7aac88-df70-46d3-afb8-62440355c980.jpg" alt="LG" class="max-h-8 object-contain">
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/sony_2x_1eaa5916-dc1f-4d37-9ffd-1680554d5115.jpg" alt="Sony" class="max-h-8 object-contain">
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/files/pioneer_2x_769ad94d-7220-408d-b709-746a89ffac91.jpg" alt="Pioneer" class="max-h-8 object-contain">
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <span class="font-black text-neutral-800 text-base tracking-widest">BOSE</span>
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <span class="font-black text-neutral-800 text-sm tracking-wider">KLIPSCH</span>
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <span class="font-black text-neutral-800 text-sm tracking-wider">YAMAHA</span>
+        </div>
+        <div class="bg-white border border-[#e1e3e4] rounded-lg p-4 flex items-center justify-center hover:border-[#1e2d7d] shadow-2xs transition-all h-20">
+          <span class="font-black text-neutral-800 text-xs tracking-wider">PANASONIC</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 12. "NEW TVS" SHOWCASE SECTION             -->
+  <!-- ========================================== -->
+  <section id="new-tvs" class="py-12 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Left Editorial Promo Card (4 Cols) -->
+        <div class="lg:col-span-4 bg-[#1e2d7d] text-white rounded-xl p-8 flex flex-col justify-between shadow-sm relative overflow-hidden">
+          <div class="absolute -right-8 -bottom-8 w-48 h-48 bg-[#00badb]/10 rounded-full blur-2xl"></div>
+          <div>
+            <span class="bg-[#00badb] text-[#16225a] font-black text-xs px-2.5 py-0.5 rounded-xs uppercase tracking-wider inline-block mb-3">
+              EXPERT SELECTION
+            </span>
+            <h2 class="text-3xl font-black text-white mb-3">New TVs</h2>
+            <p class="text-sm text-[#a3afef] leading-relaxed mb-6">
+              Here is our selection of new TVs on the market, handpicked and calibrated by our Warehouse video engineers.
+            </p>
+          </div>
+          <a href="#featured" class="bg-[#00badb] hover:bg-[#00a0bd] text-[#16225a] font-extrabold text-xs px-6 py-3 rounded-md text-center shadow-md transition-all self-start">
+            Shop All TVs →
+          </a>
+        </div>
+
+        <!-- Right 3-TV Product Cards (8 Cols) -->
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-5">
+          
+          <!-- TV 1 -->
+          <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+            <div>
+              <div class="relative aspect-video rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-2">
+                <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/sonyxbr55front_f72cc8ff-fcd6-4141-b9cc-e1320f867785.jpg?width=600" class="max-h-full object-contain">
+                <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-1.5 py-0.2 rounded">Save $800</span>
+              </div>
+              <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">SONY</span>
+              <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">Sony XBR-950G BRAVIA 4K HDR</h3>
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$1,398.00</span>
+                <span class="text-[11px] text-neutral-400 line-through tabular-nums">$2,198.00</span>
+              </div>
+            </div>
+            <button onclick="addToCart('Sony XBR-950G BRAVIA 4K', 1398.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">
+              Add to Cart
+            </button>
+          </div>
+
+          <!-- TV 2 -->
+          <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+            <div>
+              <div class="relative aspect-video rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-2">
+                <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16194_250__1_cee96397-0276-4480-9361-6640fdb80b54.jpg?width=600" class="max-h-full object-contain">
+                <span class="absolute top-2 left-2 bg-[#1e2d7d] text-white text-[10px] font-black px-1.5 py-0.2 rounded">OLED</span>
+              </div>
+              <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">SONY</span>
+              <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">Sony XBR-65A1E 65" 4K Smart OLED</h3>
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$2,498.00</span>
+                <span class="text-[11px] text-neutral-400 line-through tabular-nums">$2,998.00</span>
+              </div>
+            </div>
+            <button onclick="addToCart('Sony XBR-65A1E OLED TV', 2498.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">
+              Add to Cart
+            </button>
+          </div>
+
+          <!-- TV 3 -->
+          <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+            <div>
+              <div class="relative aspect-video rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-2">
+                <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16187_668__1_689b6c81-9210-43af-b9a7-722d4054370f.jpg?width=600" class="max-h-full object-contain">
+                <span class="absolute top-2 left-2 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.2 rounded">HOT</span>
+              </div>
+              <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">SONY</span>
+              <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">Sony KD55X720E 55" Smart 4K</h3>
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$698.00</span>
+                <span class="text-[11px] text-neutral-400 line-through tabular-nums">$898.00</span>
+              </div>
+            </div>
+            <button onclick="addToCart('Sony KD55X720E 55 TV', 698.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">
+              Add to Cart
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 13. FEATURED PRODUCT DEEP SPOTLIGHT        -->
+  <!-- ========================================== -->
+  <section id="featured-product" class="py-14 bg-[#f8f9fa] border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex items-center justify-between pb-3 mb-6 border-b border-[#e1e3e4]">
+        <h2 class="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Featured product</h2>
+        <a href="#featured" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb]">View details →</a>
+      </div>
+
+      <div class="bg-white border border-[#e1e3e4] rounded-2xl p-6 sm:p-10 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Image Gallery (6 Cols) -->
+        <div class="lg:col-span-6 flex flex-col sm:flex-row-reverse gap-4">
+          <!-- Main Zoom Image -->
+          <div class="flex-1 aspect-square rounded-xl bg-[#f8f9fa] border border-[#e1e3e4] overflow-hidden flex items-center justify-center p-6 relative">
+            <img id="main-product-img" src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_417__1_dcd9694a-a473-46e8-9368-d0aaadbce069.jpg?width=800" class="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-110">
+            <span class="absolute top-3 left-3 bg-red-600 text-white text-xs font-black px-2.5 py-1 rounded shadow-xs">Save $20.00</span>
+          </div>
+
+          <!-- Thumbnails Row / Column -->
+          <div class="flex sm:flex-col gap-2 shrink-0">
+            <button onclick="setProductImg('https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_417__1_dcd9694a-a473-46e8-9368-d0aaadbce069.jpg?width=800', this)" class="thumb-btn active w-16 h-16 rounded-lg border-2 border-[#1e2d7d] bg-[#f8f9fa] p-1 flex items-center justify-center cursor-pointer">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_417__1_dcd9694a-a473-46e8-9368-d0aaadbce069.jpg?width=200" class="max-h-full object-contain">
+            </button>
+            <button onclick="setProductImg('https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_950__3_a18a25dd-5fce-4ca3-95ca-377426c84175.jpg?width=800', this)" class="thumb-btn w-16 h-16 rounded-lg border border-[#e1e3e4] hover:border-[#1e2d7d] bg-[#f8f9fa] p-1 flex items-center justify-center cursor-pointer">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_950__3_a18a25dd-5fce-4ca3-95ca-377426c84175.jpg?width=200" class="max-h-full object-contain">
+            </button>
+            <button onclick="setProductImg('https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_177__4_8b5dec2f-32d6-441d-ac14-c259debeb4b6.jpg?width=800', this)" class="thumb-btn w-16 h-16 rounded-lg border border-[#e1e3e4] hover:border-[#1e2d7d] bg-[#f8f9fa] p-1 flex items-center justify-center cursor-pointer">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_177__4_8b5dec2f-32d6-441d-ac14-c259debeb4b6.jpg?width=200" class="max-h-full object-contain">
+            </button>
+            <button onclick="setProductImg('https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_212__2_b04238d0-08da-4319-8cdd-893df4bc15ef.jpg?width=800', this)" class="thumb-btn w-16 h-16 rounded-lg border border-[#e1e3e4] hover:border-[#1e2d7d] bg-[#f8f9fa] p-1 flex items-center justify-center cursor-pointer">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/16047_212__2_b04238d0-08da-4319-8cdd-893df4bc15ef.jpg?width=200" class="max-h-full object-contain">
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Purchasing Panel (6 Cols) -->
+        <div class="lg:col-span-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-xs font-bold text-neutral-500 uppercase tracking-widest">JBL</span>
+              <span class="text-xs text-neutral-400">·</span>
+              <span class="text-xs text-neutral-500 font-mono">SKU: JBL-580619-CLI-BL</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black text-[#1e2d7d] leading-tight mb-2">
+              JBL Clip 3 Portable Waterproof Wireless Bluetooth Speaker
+            </h1>
+
+            <div class="flex items-center gap-2 text-[#ffc220] text-sm mb-4">
+              <span>★★★★★</span>
+              <span class="text-xs text-neutral-500 font-medium">3 reviews</span>
+              <span class="text-neutral-300">|</span>
+              <span class="text-xs text-[#00badb] font-bold hover:underline cursor-pointer">Write a review</span>
+            </div>
+
+            <div class="flex items-baseline gap-3 mb-4 pb-4 border-b border-[#e1e3e4]">
+              <span class="text-2xl sm:text-3xl font-black text-[#1e2d7d] tabular-nums">$39.95</span>
+              <span class="text-sm text-neutral-400 line-through tabular-nums">$59.95</span>
+              <span class="bg-red-100 text-red-700 text-xs font-black px-2 py-0.5 rounded">SAVE 33%</span>
+            </div>
+
+            <!-- Color Swatch Selector (10 Colors) -->
+            <div class="mb-4">
+              <div class="flex items-center justify-between text-xs font-bold text-neutral-700 mb-2">
+                <span>Color: <span id="selected-color-label" class="text-[#1e2d7d]">Black</span></span>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <button onclick="pickColor('Black', '#111827', this)" class="color-chip active w-6 h-6 rounded-full bg-neutral-900 ring-2 ring-[#1e2d7d] ring-offset-2"></button>
+                <button onclick="pickColor('Camo Green', '#4d5d53', this)" class="color-chip w-6 h-6 rounded-full bg-[#4d5d53] ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('Grey', '#9ca3af', this)" class="color-chip w-6 h-6 rounded-full bg-neutral-400 ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('Pink', '#f472b6', this)" class="color-chip w-6 h-6 rounded-full bg-pink-400 ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('Red', '#dc2626', this)" class="color-chip w-6 h-6 rounded-full bg-red-600 ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('Sand', '#d6c4a5', this)" class="color-chip w-6 h-6 rounded-full bg-[#d6c4a5] ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('Teal', '#0d9488', this)" class="color-chip w-6 h-6 rounded-full bg-teal-600 ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('White', '#f8fafc', this)" class="color-chip w-6 h-6 rounded-full bg-white ring-1 ring-neutral-300"></button>
+                <button onclick="pickColor('Yellow', '#eab308', this)" class="color-chip w-6 h-6 rounded-full bg-yellow-500 ring-1 ring-neutral-300"></button>
+              </div>
+            </div>
+
+            <!-- Inventory Indicator -->
+            <div class="space-y-1.5 mb-5 p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+              <div class="flex items-center justify-between text-xs font-bold text-emerald-800">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                  In stock, 34 units remaining
+                </span>
+                <span class="font-mono text-[11px]">Depot Ready</span>
+              </div>
+              <div class="w-full bg-emerald-200/50 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 45%;"></div>
+              </div>
+            </div>
+
+            <!-- Quantity & Dual CTAs -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-4">
+              <div class="flex items-center border border-[#e1e3e4] rounded-lg bg-neutral-50 px-2 py-1 shrink-0">
+                <button onclick="stepQty(-1)" class="w-8 h-8 flex items-center justify-center font-black text-neutral-600 hover:text-black cursor-pointer">-</button>
+                <span id="product-qty" class="w-8 text-center text-xs font-black tabular-nums">1</span>
+                <button onclick="stepQty(1)" class="w-8 h-8 flex items-center justify-center font-black text-neutral-600 hover:text-black cursor-pointer">+</button>
+              </div>
+
+              <button onclick="addToCart('JBL Clip 3 Portable Speaker', 39.95)" class="flex-1 bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-extrabold py-3.5 px-6 rounded-lg shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <span>Add to Cart</span>
+              </button>
+
+              <button onclick="addToCart('JBL Clip 3 (Instant Checkout)', 39.95)" class="flex-1 bg-[#00badb] hover:bg-[#00a0bd] text-[#16225a] text-xs font-black py-3.5 px-6 rounded-lg shadow-md transition-all flex items-center justify-center cursor-pointer">
+                <span>Buy it now</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Bottom Micro-Trust & Social Share -->
+          <div class="pt-4 border-t border-[#e1e3e4] flex items-center justify-between text-xs text-neutral-500">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              <span>Free 48h UPS delivery</span>
+            </span>
+            <div class="flex items-center gap-3 text-neutral-400">
+              <span class="text-[11px]">Share:</span>
+              <a href="#" class="hover:text-[#1e2d7d]">Facebook</a>
+              <a href="#" class="hover:text-[#1e2d7d]">Twitter</a>
+              <a href="#" class="hover:text-[#1e2d7d]">Pinterest</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 14. "TOP-RATED PRODUCTS" GRID              -->
+  <!-- ========================================== -->
+  <section class="py-12 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4]">
+        <h2 class="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Top-rated products</h2>
+        <a href="#featured" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb]">View all →</a>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+        
+        <!-- Item 1 -->
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13261_147__1_2e3211f9-de49-4919-9e67-006800a5c5a0.jpg?width=600" class="max-h-full object-contain">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $50.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">SONY</span>
+            <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">Sony XB-950B1 Extra Bass Wireless</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$128.00</span>
+              <span class="text-xs text-neutral-400 line-through tabular-nums">$178.00</span>
+            </div>
+            <div class="flex items-center gap-1 text-[#ffc220] text-xs mb-3">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(1 review)</span>
+            </div>
+          </div>
+          <button onclick="addToCart('Sony XB-950B1 Extra Bass', 128.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">Add to Cart</button>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/A1Cet8zvhXL._SL1500.jpg?width=600" class="max-h-full object-contain">
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">YAMAHA</span>
+            <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">Yamaha WX-030 MusicCast Wireless Speaker</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$179.95</span>
+            </div>
+            <div class="flex items-center gap-1 text-[#ffc220] text-xs mb-3">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(3 reviews)</span>
+            </div>
+          </div>
+          <button onclick="addToCart('Yamaha WX-030 Speaker', 179.95)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">Add to Cart</button>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/E55BT_Quincy_Rose_Hero.jpg?width=600" class="max-h-full object-contain">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded">Save $40.00</span>
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">JBL</span>
+            <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">JBL E55BT Quincy Edition Wireless</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$159.95</span>
+              <span class="text-xs text-neutral-400 line-through tabular-nums">$199.95</span>
+            </div>
+            <div class="flex items-center gap-1 text-[#ffc220] text-xs mb-3">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(1 review)</span>
+            </div>
+          </div>
+          <button onclick="addToCart('JBL E55BT Quincy Edition', 159.95)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">Add to Cart</button>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] transition-all">
+          <div>
+            <div class="relative aspect-square rounded-md overflow-hidden bg-[#f8f9fa] mb-3 flex items-center justify-center p-3">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/products/12678_869__1_1500x_b9a505f9-8986-45bf-a73b-5950c9008349.jpg?width=600" class="max-h-full object-contain">
+            </div>
+            <span class="text-[10px] font-semibold text-neutral-500 uppercase block mb-1">AUDIO-TECHNICA</span>
+            <h3 class="text-xs font-semibold text-[#1e2d7d] line-clamp-2 mb-1">Audio-Technica ATH-M50x Studio</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-sm font-black text-[#1e2d7d] tabular-nums">$149.00</span>
+            </div>
+            <div class="flex items-center gap-1 text-[#ffc220] text-xs mb-3">
+              <span>★★★★★</span>
+              <span class="text-[11px] text-neutral-500 font-medium">(12 reviews)</span>
+            </div>
+          </div>
+          <button onclick="addToCart('Audio-Technica ATH-M50x', 149.00)" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2 rounded-md transition-colors">Add to Cart</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 15. "BLOG POSTS" SECTION                   -->
+  <!-- ========================================== -->
+  <section id="blog" class="py-12 bg-[#f8f9fa] border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4]">
+        <h2 class="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Blog posts</h2>
+        <a href="#blog" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb]">View all →</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Post 1 -->
+        <article class="bg-white border border-[#e1e3e4] rounded-xl overflow-hidden hover:border-[#1e2d7d] hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-video overflow-hidden bg-neutral-100">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/articles/old-new-living-space.jpg?width=800" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5">
+              <div class="flex items-center gap-2 text-[11px] text-neutral-400 mb-2">
+                <span>Michaël Gallego</span>
+                <span>·</span>
+                <span>Apr 15, 2019</span>
+              </div>
+              <h3 class="text-base font-bold text-[#1e2d7d] mb-2 leading-snug hover:text-[#00badb] cursor-pointer">
+                Setup your Surround sound speaker system for maximum acoustic impact
+              </h3>
+              <p class="text-xs text-neutral-500 line-clamp-2 leading-relaxed">
+                Step-by-step room calibration, speaker toe-in angles, and subwoofer phase matching for true home cinema immersion.
+              </p>
+            </div>
+          </div>
+          <div class="px-5 pb-5 pt-0">
+            <a href="#" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] flex items-center gap-1">
+              <span>Read article</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="bg-white border border-[#e1e3e4] rounded-xl overflow-hidden hover:border-[#1e2d7d] hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-video overflow-hidden bg-neutral-100">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/articles/dj-board-volume-slider.jpg?width=800" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5">
+              <div class="flex items-center gap-2 text-[11px] text-neutral-400 mb-2">
+                <span>Michaël Gallego</span>
+                <span>·</span>
+                <span>Apr 15, 2019</span>
+              </div>
+              <h3 class="text-base font-bold text-[#1e2d7d] mb-2 leading-snug hover:text-[#00badb] cursor-pointer">
+                Hook up a receiver for your home theater with zero cable clutter
+              </h3>
+              <p class="text-xs text-neutral-500 line-clamp-2 leading-relaxed">
+                Understanding HDMI eARC, Dolby Atmos passthrough, and discrete multi-zone amplification routing.
+              </p>
+            </div>
+          </div>
+          <div class="px-5 pb-5 pt-0">
+            <a href="#" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] flex items-center gap-1">
+              <span>Read article</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article class="bg-white border border-[#e1e3e4] rounded-xl overflow-hidden hover:border-[#1e2d7d] hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-video overflow-hidden bg-neutral-100">
+              <img src="https://warehouse-theme-metal.myshopify.com/cdn/shop/articles/headphones-in-an-orange-glow.jpg?width=800" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5">
+              <div class="flex items-center gap-2 text-[11px] text-neutral-400 mb-2">
+                <span>Michaël Gallego</span>
+                <span>·</span>
+                <span>Apr 15, 2019</span>
+              </div>
+              <h3 class="text-base font-bold text-[#1e2d7d] mb-2 leading-snug hover:text-[#00badb] cursor-pointer">
+                Top most comfortable headphones for all-day studio mastering
+              </h3>
+              <p class="text-xs text-neutral-500 line-clamp-2 leading-relaxed">
+                We tested clamp pressure, ear-cup breathability, and weight distribution across 20 flagship models.
+              </p>
+            </div>
+          </div>
+          <div class="px-5 pb-5 pt-0">
+            <a href="#" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] flex items-center gap-1">
+              <span>Read article</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 16. "OUR STORES" DEPOT LOCATOR             -->
+  <!-- ========================================== -->
+  <section id="stores" class="py-12 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="pb-4 mb-6 border-b border-[#e1e3e4]">
+        <h2 class="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Our stores</h2>
+        <span class="text-xs text-neutral-500">Visit our certified regional showrooms and listening depots</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Store 1 -->
+        <div class="border border-[#e1e3e4] rounded-xl p-6 bg-[#f8f9fa] flex flex-col justify-between">
+          <div>
+            <span class="bg-[#1e2d7d] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider inline-block mb-3">MAIN REGIONAL HUB</span>
+            <h3 class="text-lg font-black text-[#1e2d7d] mb-1">HiDEF Lifestyle Home Theater Store</h3>
+            <p class="text-xs text-neutral-600 mb-3">6195 Allentown Blvd, Harrisburg, PA 17112, USA</p>
+            
+            <div class="text-xs text-neutral-600 space-y-1 mb-4">
+              <p><strong>Monday - Friday:</strong> 9AM - 7PM</p>
+              <p><strong>Saturday:</strong> 9AM - 5PM</p>
+              <p><strong>Sunday:</strong> Closed</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-[#e1e3e4] flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-700">● Open today</span>
+            <a href="#" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] underline">Get directions →</a>
+          </div>
+        </div>
+
+        <!-- Store 2 -->
+        <div class="border border-[#e1e3e4] rounded-xl p-6 bg-[#f8f9fa] flex flex-col justify-between">
+          <div>
+            <span class="bg-[#00badb] text-[#16225a] font-black text-[10px] px-2 py-0.5 rounded uppercase tracking-wider inline-block mb-3">SHOWROOM & LAB</span>
+            <h3 class="text-lg font-black text-[#1e2d7d] mb-1">HiDEF Acoustic Showroom</h3>
+            <p class="text-xs text-neutral-600 mb-3">Allentown Blvd, Pennsylvania, USA</p>
+            
+            <div class="text-xs text-neutral-600 space-y-1 mb-4">
+              <p><strong>Monday - Friday:</strong> 10AM - 9PM</p>
+              <p><strong>Saturday:</strong> 10AM - 6PM</p>
+              <p><strong>Sunday:</strong> 11AM - 5PM</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-[#e1e3e4] flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-700">● Open today</span>
+            <a href="#" class="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] underline">Get directions →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 17. NEWSLETTER SECTION                     -->
+  <!-- ========================================== -->
+  <section id="newsletter" class="bg-[#1e2d7d] text-white py-12 border-b border-[#e1e3e4]">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#00badb] block mb-2">STAY INFORMED</span>
+      <h2 class="text-2xl sm:text-3xl font-black mb-2">Let's keep in touch!</h2>
+      <p class="text-xs text-[#a3afef] mb-6 max-w-md mx-auto">
+        Subscribe to our weekly newsletter and receive exclusive clearance offers, private depot drops, and audio guides!
+      </p>
+      
+      <form onsubmit="handleSubscribe(event)" class="flex items-center max-w-md mx-auto bg-white rounded-lg overflow-hidden p-1 shadow-lg">
+        <input id="sub-input" type="email" required placeholder="Enter your email address..." class="flex-1 px-4 py-2.5 text-xs text-neutral-800 outline-none">
+        <button type="submit" class="bg-[#00badb] hover:bg-[#00a0bd] text-[#16225a] font-black text-xs px-6 py-2.5 rounded-md transition-colors cursor-pointer">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 18. "MOST SEARCHED COLLECTIONS" PILLS      -->
+  <!-- ========================================== -->
+  <section class="py-6 bg-white border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-2">
+      <span class="text-xs font-black text-[#1e2d7d] uppercase tracking-wider mr-2">Most searched collections:</span>
+      <a href="#featured" class="bg-[#f8f9fa] hover:bg-neutral-200 text-[#1e2d7d] text-xs font-semibold px-3 py-1 rounded-full border border-[#e1e3e4] transition-colors">Headphones</a>
+      <a href="#featured" class="bg-[#f8f9fa] hover:bg-neutral-200 text-[#1e2d7d] text-xs font-semibold px-3 py-1 rounded-full border border-[#e1e3e4] transition-colors">Speakers</a>
+      <a href="#new-tvs" class="bg-[#f8f9fa] hover:bg-neutral-200 text-[#1e2d7d] text-xs font-semibold px-3 py-1 rounded-full border border-[#e1e3e4] transition-colors">TVs</a>
+      <a href="#featured" class="bg-[#f8f9fa] hover:bg-neutral-200 text-[#1e2d7d] text-xs font-semibold px-3 py-1 rounded-full border border-[#e1e3e4] transition-colors">Turntables</a>
+      <a href="#featured" class="bg-[#f8f9fa] hover:bg-neutral-200 text-[#1e2d7d] text-xs font-semibold px-3 py-1 rounded-full border border-[#e1e3e4] transition-colors">Subwoofers</a>
+      <a href="#featured" class="bg-[#f8f9fa] hover:bg-neutral-200 text-[#1e2d7d] text-xs font-semibold px-3 py-1 rounded-full border border-[#e1e3e4] transition-colors">Projectors</a>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 19. STATIC TEXT WITH ICONS (4 PILLARS)     -->
+  <!-- ========================================== -->
+  <section class="py-8 bg-[#f8f9fa] border-b border-[#e1e3e4]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-[#1e2d7d]">
+        
+        <div class="flex items-center gap-3.5 bg-white p-4 rounded-xl border border-[#e1e3e4] shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-[#1e2d7d]/5 text-[#1e2d7d] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1e2d7d]">Free delivery for $80+ orders</h4>
+            <p class="text-[11px] text-neutral-500">We deliver in 48 hours max!</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3.5 bg-white p-4 rounded-xl border border-[#e1e3e4] shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-[#1e2d7d]/5 text-[#1e2d7d] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"/></svg>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1e2d7d]">Satisfied or refunded</h4>
+            <p class="text-[11px] text-neutral-500">Free returns within 14 days</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3.5 bg-white p-4 rounded-xl border border-[#e1e3e4] shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-[#1e2d7d]/5 text-[#1e2d7d] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1e2d7d]">We are available 24/7</h4>
+            <p class="text-[11px] text-neutral-500">Contact us by chat, mail, phone</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3.5 bg-white p-4 rounded-xl border border-[#e1e3e4] shadow-2xs">
+          <div class="w-10 h-10 rounded-lg bg-[#1e2d7d]/5 text-[#1e2d7d] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#00badb]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1e2d7d]">100% Secure payments</h4>
+            <p class="text-[11px] text-neutral-500">Visa, Mastercard, Amex, PayPal</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 20. FOOTER (LIGHT GRAY 4 COLUMNS)          -->
+  <!-- ========================================== -->
+  <footer class="bg-[#f3f5f6] text-[#677279] text-xs py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h4 class="font-black text-[#1e2d7d] text-sm mb-3">About Warehouse</h4>
+        <p class="leading-relaxed text-[11px]">Warehouse Metal is a dedicated high-volume depot connecting retail buyers and commercial clients directly with Tier-1 consumer hardware manufacturers.</p>
+      </div>
+      <div>
+        <h4 class="font-black text-[#1e2d7d] text-sm mb-3">Customer Service</h4>
+        <ul class="space-y-1.5 text-[11px]">
+          <li><a href="#" class="hover:underline">Track Your Order</a></li>
+          <li><a href="#" class="hover:underline">Shipping & Delivery Rates</a></li>
+          <li><a href="#" class="hover:underline">30-Day Hassle-Free Returns</a></li>
+          <li><a href="#" class="hover:underline">Warranty Registration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-black text-[#1e2d7d] text-sm mb-3">Popular Departments</h4>
+        <ul class="space-y-1.5 text-[11px]">
+          <li><a href="#" class="hover:underline">4K HDR Displays & Audio</a></li>
+          <li><a href="#" class="hover:underline">Flagship Wireless Headphones</a></li>
+          <li><a href="#" class="hover:underline">Smartwatches & Wearables</a></li>
+          <li><a href="#" class="hover:underline">Mirrorless Pro Cameras</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-black text-[#1e2d7d] text-sm mb-3">Direct Support Hotline</h4>
+        <p class="text-[#1e2d7d] font-bold text-base mb-1">1-800-663-4040</p>
+        <p class="text-[11px] mb-3">Available Monday to Friday, 9am - 8pm EST</p>
+        <span class="inline-block bg-emerald-100 text-emerald-800 font-bold text-[10px] px-2 py-0.5 rounded">All Warehouses Operational</span>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-400 gap-4">
+      <div>© 2026 WAREHOUSE METAL EDITION · 100% FAITHFUL SHOPIFY REPLICA</div>
+      <div class="flex items-center gap-3">
+        <span class="font-bold text-neutral-500">VISA</span>
+        <span class="font-bold text-neutral-500">MASTERCARD</span>
+        <span class="font-bold text-neutral-500">AMEX</span>
+        <span class="font-bold text-neutral-500">PAYPAL</span>
+        <span class="font-bold text-neutral-500">APPLE PAY</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- 21. POPUP / MODAL (WIN A PORTABLE SPEAKER) -->
+  <!-- ========================================== -->
+  <div id="newsletter-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white rounded-2xl max-w-md w-full p-8 relative shadow-2xl transform scale-95 transition-transform duration-300" id="modal-box">
+      <button onclick="toggleModal(false)" class="absolute top-4 right-4 text-neutral-400 hover:text-black cursor-pointer font-bold text-lg">✕</button>
+      
+      <span class="bg-[#00badb] text-[#16225a] font-black text-[10px] px-2 py-0.5 rounded-xs uppercase tracking-wider inline-block mb-2">MONTHLY GIVEAWAY</span>
+      <h3 class="text-2xl font-black text-[#1e2d7d] mb-1">Win a Portable Speaker</h3>
+      <p class="text-xs text-neutral-500 mb-4 leading-relaxed">
+        We're giving away a free portable speaker every month. Subscribe to enter the giveaway and get <strong>15% off</strong> on your next order!
+      </p>
+
+      <form onsubmit="handlePopupSub(event)" class="space-y-3">
+        <input type="email" required placeholder="Enter your email address..." class="w-full border border-[#e1e3e4] rounded-lg px-4 py-2.5 text-xs outline-none focus:border-[#1e2d7d]">
+        <button type="submit" class="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white font-extrabold text-xs py-3 rounded-lg transition-colors cursor-pointer">
+          Subscribe & Enter Giveaway
+        </button>
+      </form>
+
+      <p class="text-[10px] text-neutral-400 text-center mt-3">
+        No spam ever. Unsubscribe at any time.
+      </p>
+    </div>
+  </div>
+
+  <!-- Micro-Toast Floating Notification -->
+  <div id="cart-toast" class="fixed bottom-6 right-6 z-50 bg-[#16225a] text-white px-5 py-3.5 rounded-xl shadow-2xl border border-white/20 transform translate-y-24 opacity-0 flex items-center gap-3">
+    <div class="w-6 h-6 rounded-full bg-[#00badb] text-[#16225a] flex items-center justify-center font-black text-xs">✓</div>
+    <div>
+      <p id="toast-msg" class="text-xs font-bold">Item added to cart!</p>
+      <p class="text-[10px] text-[#a3afef]">Checkout ready · Free 48h UPS shipping</p>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT CONTROLLERS                     -->
+  <!-- ========================================== -->
+  <script>
+    // 1. Slideshow
+    let currentSlide = 1;
+    function setSlide(n) {
+      currentSlide = n;
+      document.querySelectorAll('.slide').forEach((s, idx) => {
+        if (idx + 1 === n) {
+          s.classList.remove('opacity-0', 'pointer-events-none');
+          s.classList.add('opacity-100');
+        } else {
+          s.classList.add('opacity-0', 'pointer-events-none');
+          s.classList.remove('opacity-100');
+        }
+      });
+      document.getElementById('dot-1').className = n === 1 ? 'w-8 h-2 rounded-full bg-[#00badb] transition-all cursor-pointer' : 'w-2.5 h-2 rounded-full bg-white/40 hover:bg-white transition-all cursor-pointer';
+      document.getElementById('dot-2').className = n === 2 ? 'w-8 h-2 rounded-full bg-[#00badb] transition-all cursor-pointer' : 'w-2.5 h-2 rounded-full bg-white/40 hover:bg-white transition-all cursor-pointer';
+    }
+
+    // Auto rotate slide every 7s
+    setInterval(() => {
+      setSlide(currentSlide === 1 ? 2 : 1);
+    }, 7000);
+
+    // 2. Tabs Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.className = 'tab-btn bg-neutral-100 text-neutral-700 hover:bg-neutral-200 text-xs font-bold px-4 py-2 rounded-md cursor-pointer';
+      });
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.className = 'tab-btn bg-[#1e2d7d] text-white text-xs font-bold px-4 py-2 rounded-md shadow-xs cursor-pointer';
+      }
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+      const targetPane = document.getElementById('tab-content-' + tabId);
+      if (targetPane) targetPane.classList.remove('hidden');
+    }
+
+    // 3. Featured Product Color Picker
+    function pickColor(name, colorHex, el) {
+      document.getElementById('selected-color-label').innerText = name;
+      document.querySelectorAll('.color-chip').forEach(c => {
+        c.className = 'color-chip w-6 h-6 rounded-full ring-1 ring-neutral-300';
+      });
+      el.className = 'color-chip active w-6 h-6 rounded-full ring-2 ring-[#1e2d7d] ring-offset-2';
+      showToast('Selected color: ' + name);
+    }
+
+    // 4. Product Gallery Thumbnail Switcher
+    function setProductImg(src, el) {
+      document.getElementById('main-product-img').src = src;
+      document.querySelectorAll('.thumb-btn').forEach(b => {
+        b.className = 'thumb-btn w-16 h-16 rounded-lg border border-[#e1e3e4] hover:border-[#1e2d7d] bg-[#f8f9fa] p-1 flex items-center justify-center cursor-pointer';
+      });
+      el.className = 'thumb-btn active w-16 h-16 rounded-lg border-2 border-[#1e2d7d] bg-[#f8f9fa] p-1 flex items-center justify-center cursor-pointer';
+    }
+
+    // 5. Quantity Stepper
+    let currentQty = 1;
+    function stepQty(delta) {
+      currentQty = Math.max(1, currentQty + delta);
+      document.getElementById('product-qty').innerText = currentQty;
+    }
+
+    // 6. Swatch Color for cards
+    function changeSwatchColor(imgId, color, btn) {
+      btn.parentElement.querySelectorAll('.swatch-dot').forEach(d => d.classList.remove('active'));
+      btn.classList.add('active');
+      showToast('Swatch color updated');
+    }
+
+    // 7. Cart System & Toast
+    let cartTotalItems = 2;
+    function addToCart(title, price) {
+      cartTotalItems += currentQty;
+      document.getElementById('cart-counter').innerText = cartTotalItems;
+      showToast('Added ' + title + ' (' + currentQty + 'x)');
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('cart-toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // 8. Newsletter Modal
+    function toggleModal(show) {
+      const modal = document.getElementById('newsletter-modal');
+      const box = document.getElementById('modal-box');
+      if (show) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        box.classList.remove('scale-95');
+        box.classList.add('scale-100');
+      } else {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modal.classList.remove('opacity-100');
+        box.classList.add('scale-95');
+        box.classList.remove('scale-100');
+      }
+    }
+
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const email = document.getElementById('sub-input').value;
+      showToast('Subscribed ' + email + ' successfully!');
+      document.getElementById('sub-input').value = '';
+    }
+
+    function handlePopupSub(e) {
+      e.preventDefault();
+      toggleModal(false);
+      showToast('Welcome to Warehouse! Giveaway entry confirmed.');
+    }
+  </script>
+
+</body>
+</html>

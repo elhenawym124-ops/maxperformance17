@@ -355,7 +355,6 @@ test('schema verification: includeRelations fields exist in prisma schema (regre
   for (const f of groupMemberExpected) {
     assert.ok(groupMemberFields.has(f), `EducationGroupMember must have field '${f}'`);
   }
-
   // 5. Verify EducationGroup fields used in groupName resolution
   const groupFields = extractModelFields('EducationGroup');
   const groupExpected = ['id', 'companyId', 'name'];

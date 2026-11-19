@@ -9,6 +9,7 @@ const PROVIDER_KEYS = Object.freeze({
   TURBO: 'TURBO',
   BOSTA: 'BOSTA',
   QP_EXPRESS: 'QP_EXPRESS',
+  HASHTAG: 'HASHTAG',
   BOSTA_DEMO: 'BOSTA_DEMO',
   MYLERZ_DEMO: 'MYLERZ_DEMO',
   ARAMEX_DEMO: 'ARAMEX_DEMO',
@@ -102,6 +103,9 @@ const normalizeProviderKey = (value, carrier = {}) => {
   }
   if (text.includes('qp') || text.includes('كيو بي') || text.includes('qpxpress') || text.includes('كيو_بي')) {
     return PROVIDER_KEYS.QP_EXPRESS;
+  }
+  if (text.includes('hashtag') || text.includes('هاشتاج')) {
+    return PROVIDER_KEYS.HASHTAG;
   }
   if (text.includes('mylerz') || text.includes('مايلرز')) return PROVIDER_KEYS.MYLERZ_DEMO;
   if (text.includes('aramex') || text.includes('ارامكس') || text.includes('أرامكس')) {
@@ -579,6 +583,51 @@ const createProviderShipment = async (prisma, shipmentOrId, options = {}) => {
         success: false,
         skipped: true,
         reason: `QP_EXPRESS_API_ERROR: ${error.message}`,
+        serviceLevel: provider.serviceLevel,
+      });
+    }
+  }
+
+  if (providerKey === PROVIDER_KEYS.HASHTAG && integrationMode === 'LIVE') {
+    if (!options.allowLiveCreate) {
+      return updateShipmentFromProviderResult(prisma, shipment, provider, {
+        success: false,
+        skipped: true,
+        reason: 'LIVE_CREATE_REQUIRES_EXPLICIT_CONFIRMATION',
+        serviceLevel: provider.serviceLevel,
+      });
+    }
+
+    const HashtagService = require('./hashtagService');
+    const hashtagService = new HashtagService({
+      apiName: settings.apiName || settings.apiKey || settings.username || shippingCompany.apiKey,
+      apiPassword: settings.apiPassword || settings.password,
+      apiUrl: shippingCompany.apiUrl || settings.apiUrl,
+    }, shipment.companyId);
+
+    const formattedOrder = hashtagService.formatOrderForHashtag(
+      shipment.order || {},
+      shipment.order?.customer || {},
+      shipment.order?.orderItems || []
+    );
+
+    try {
+      const result = await hashtagService.createShipment(formattedOrder);
+      return updateShipmentFromProviderResult(prisma, shipment, provider, {
+        success: true,
+        status: 'CREATED',
+        externalShipmentId: result.externalShipmentId,
+        trackingNumber: result.trackingNumber,
+        labelUrl: result.labelUrl,
+        serviceLevel: provider.serviceLevel || result.serviceLevel,
+        cost: result.cost,
+        data: result.data,
+      });
+    } catch (error) {
+      return updateShipmentFromProviderResult(prisma, shipment, provider, {
+        success: false,
+        skipped: true,
+        reason: `HASHTAG_API_ERROR: ${error.message}`,
         serviceLevel: provider.serviceLevel,
       });
     }

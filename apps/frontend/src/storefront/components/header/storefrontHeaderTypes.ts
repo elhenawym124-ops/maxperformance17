@@ -83,6 +83,7 @@ export interface StorefrontHeaderController {
   isUtilityFrameHeader: boolean;
   isRetailDirectHeader: boolean;
   isFashionRetailHeader: boolean;
+  isWarehouseMegaHeader: boolean;
   isFloatingDarkHeader: boolean;
   isKhemetFloatingDarkHeader: boolean;
   isVelaInnerPath: boolean;

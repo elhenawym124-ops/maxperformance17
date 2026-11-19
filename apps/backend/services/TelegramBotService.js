@@ -490,6 +490,26 @@ class TelegramBotService {
                 }
             }
 
+            // ── 🎙️ Egyptian Voice AI Pipeline for Telegram ──
+            if (!botHandledTg && (type === 'VOICE' || type === 'AUDIO') && metadata?.fileUrl) {
+                setImmediate(async () => {
+                    try {
+                        const { processInboundVoiceMessage } = require('./voice/voiceChatPipelineService');
+                        await processInboundVoiceMessage({
+                            companyId,
+                            customerId: customer.id,
+                            conversationId: conversation.id,
+                            channel: 'TELEGRAM',
+                            audioSource: metadata.fileUrl,
+                            senderId: telegramId,
+                            pushName: `${customer.firstName || ''} ${customer.lastName || ''}`.trim(),
+                        });
+                    } catch (voiceErr) {
+                        console.error('❌ [TG-VOICE] Error in Telegram voice pipeline:', voiceErr.message);
+                    }
+                });
+            }
+
             // ── AI auto-reply (fire-and-forget, never blocks the webhook) ──────────────
             if (!botHandledTg && content && type === 'TEXT') {
                 const configId = metadata.telegramConfigId;

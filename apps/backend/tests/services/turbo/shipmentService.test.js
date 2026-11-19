@@ -177,6 +177,47 @@ describe('ShipmentService', () => {
       expect(payload.amount_to_be_collected).toBe(0);
     });
 
+    test('sets is_order=1, return_amount=0, and return_summary="طلب استبدال" for exchange requestType', async () => {
+      axios.post.mockResolvedValue({
+        data: { success: 1, result: { code: 'T_EXCH_1', bar_code: 'B_EXCH_1', is_order: '1' } },
+      });
+
+      const res = await service.createShipment(validOrderData({ requestType: 'exchange', totalValue: 450, shipping: 50 }));
+
+      const payload = axios.post.mock.calls[0][1];
+      expect(payload.is_order).toBe(1);
+      expect(payload.return_amount).toBe(0);
+      expect(payload.return_summary).toBe('طلب استبدال');
+      expect(res.success).toBe(true);
+      expect(res.shipmentId).toBe('T_EXCH_1');
+    });
+
+    test('sets is_order=1, return_amount=0 for exchange order identified via originalOrderId', async () => {
+      axios.post.mockResolvedValue({
+        data: { success: 1, result: { code: 'T_EXCH_2', bar_code: 'B_EXCH_2', is_order: '1' } },
+      });
+
+      await service.createShipment(validOrderData({ originalOrderId: 'orig-order-999', totalValue: 600 }));
+
+      const payload = axios.post.mock.calls[0][1];
+      expect(payload.is_order).toBe(1);
+      expect(payload.return_amount).toBe(0);
+      expect(payload.return_summary).toBe('طلب استبدال');
+    });
+
+    test('sets is_order=0, return_amount=0 for normal delivery order without return', async () => {
+      axios.post.mockResolvedValue({
+        data: { success: 1, result: { code: 'T_NORM_1', bar_code: 'B_NORM_1', is_order: '0' } },
+      });
+
+      await service.createShipment(validOrderData({ requestType: 'delivery', shipping: 50 }));
+
+      const payload = axios.post.mock.calls[0][1];
+      expect(payload.is_order).toBe(0);
+      expect(payload.return_amount).toBe(0);
+      expect(payload.return_summary).toBe('لا يوجد مرتجع');
+    });
+
     test('throws on Turbo API error response', async () => {
       axios.post.mockResolvedValue({
         data: { success: 0, error_msg: 'رقم الهاتف مكرر' },

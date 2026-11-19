@@ -21,6 +21,7 @@ import { MinimalProductCard } from './product-card/variants/MinimalProductCard';
 import { StandardProductCard } from './product-card/variants/StandardProductCard';
 import { MarketplaceRowCard } from './product-card/variants/MarketplaceRowCard';
 import { MarketplaceTileCard } from './product-card/variants/MarketplaceTileCard';
+import { WarehouseProductCard } from './product-card/variants/WarehouseProductCard';
 
 export type { ProductCardProps, ProductCardVariant, ProductCardController };
 
@@ -62,6 +63,8 @@ const renderVariant = (ctrl: ProductCardController): React.ReactNode => {
       return <MarketplaceRowCard ctrl={ctrl} />;
     case 'marketplace-tile':
       return <MarketplaceTileCard ctrl={ctrl} />;
+    case 'warehouse-wholesale':
+      return <WarehouseProductCard ctrl={ctrl} />;
     case 'overlay':
     case 'standard':
     default:

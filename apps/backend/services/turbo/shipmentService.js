@@ -300,14 +300,41 @@ class ShipmentService {
       const shippingFeeVal = parseFloat(shipping || orderData.shipping || orderData.shippingFee || orderData.shippingCost || 0);
       let isOrderVal = 0, returnAmt = 0, defaultReturnSummary = 'لا يوجد مرتجع';
 
-      if (rawReqType === 'partial_delivery' || rawReqType === 'partial' || rawReqType === 'تسليم جزئي') {
-        isOrderVal = 1; returnAmt = shippingFeeVal; defaultReturnSummary = 'تسليم جزئي';
-      } else if (rawReqType === 'return' || rawReqType === 'returned' || orderData.orderType === 'RETURN') {
-        isOrderVal = 2; returnAmt = parseFloat(orderData.returnAmount || totalValue || 0); defaultReturnSummary = formattedSummary;
-      } else if (rawReqType === 'exchange' || rawReqType === 'exchanged' || orderData.orderType === 'EXCHANGE') {
-        isOrderVal = 1; returnAmt = 0; defaultReturnSummary = 'طلب استبدال';
+      const isExchange = rawReqType === 'exchange' ||
+        rawReqType === 'exchanged' ||
+        String(orderData.orderType || '').toUpperCase() === 'EXCHANGE' ||
+        Boolean(orderData.isExchange) ||
+        Boolean(orderData.originalOrderId) ||
+        Boolean(orderData.originalOrderNumber);
+
+      const isReturn = !isExchange && (
+        rawReqType === 'return' ||
+        rawReqType === 'returned' ||
+        String(orderData.orderType || '').toUpperCase() === 'RETURN'
+      );
+
+      const isPartial = !isExchange && !isReturn && (
+        rawReqType === 'partial_delivery' ||
+        rawReqType === 'partial' ||
+        rawReqType === 'تسليم جزئي'
+      );
+
+      if (isExchange) {
+        isOrderVal = 1;
+        returnAmt = 0;
+        defaultReturnSummary = 'طلب استبدال';
+      } else if (isReturn) {
+        isOrderVal = 2;
+        returnAmt = parseFloat(orderData.returnAmount || totalValue || 0);
+        defaultReturnSummary = formattedSummary;
+      } else if (isPartial) {
+        isOrderVal = 1;
+        returnAmt = parseFloat(orderData.returnAmount || shippingFeeVal || 0);
+        defaultReturnSummary = 'تسليم جزئي';
       } else {
-        isOrderVal = 0; returnAmt = parseFloat(orderData.returnAmount || shippingFeeVal || 0);
+        isOrderVal = 0;
+        returnAmt = parseFloat(orderData.returnAmount || 0);
+        defaultReturnSummary = 'لا يوجد مرتجع';
       }
 
       const finalReceiver = (customerName || `عميل طلب #${orderNumber}`).trim();
@@ -511,14 +538,42 @@ class ShipmentService {
         : (formattedData.notes || `طلب #${formattedData.orderNumber || shipmentId}`);
 
       let isOrderVal = 0, returnAmt = 0, defaultReturnSummary = 'لا يوجد مرتجع';
-      if (rawReqType === 'partial_delivery' || rawReqType === 'partial' || rawReqType === 'تسليم جزئي') {
-        isOrderVal = 1; returnAmt = shippingFeeVal; defaultReturnSummary = 'تسليم جزئي';
-      } else if (rawReqType === 'return' || rawReqType === 'returned' || formattedData.orderType === 'RETURN') {
-        isOrderVal = 2; returnAmt = parseFloat(formattedData.returnAmount || totalValue || 0); defaultReturnSummary = formattedSummary;
-      } else if (rawReqType === 'exchange' || rawReqType === 'exchanged' || formattedData.orderType === 'EXCHANGE') {
-        isOrderVal = 1; returnAmt = 0; defaultReturnSummary = 'طلب استبدال';
+
+      const isExchange = rawReqType === 'exchange' ||
+        rawReqType === 'exchanged' ||
+        String(formattedData.orderType || '').toUpperCase() === 'EXCHANGE' ||
+        Boolean(formattedData.isExchange) ||
+        Boolean(formattedData.originalOrderId) ||
+        Boolean(formattedData.originalOrderNumber);
+
+      const isReturn = !isExchange && (
+        rawReqType === 'return' ||
+        rawReqType === 'returned' ||
+        String(formattedData.orderType || '').toUpperCase() === 'RETURN'
+      );
+
+      const isPartial = !isExchange && !isReturn && (
+        rawReqType === 'partial_delivery' ||
+        rawReqType === 'partial' ||
+        rawReqType === 'تسليم جزئي'
+      );
+
+      if (isExchange) {
+        isOrderVal = 1;
+        returnAmt = 0;
+        defaultReturnSummary = 'طلب استبدال';
+      } else if (isReturn) {
+        isOrderVal = 2;
+        returnAmt = parseFloat(formattedData.returnAmount || totalValue || 0);
+        defaultReturnSummary = formattedSummary;
+      } else if (isPartial) {
+        isOrderVal = 1;
+        returnAmt = parseFloat(formattedData.returnAmount || shippingFeeVal || 0);
+        defaultReturnSummary = 'تسليم جزئي';
       } else {
-        isOrderVal = 0; returnAmt = parseFloat(formattedData.returnAmount || shippingFeeVal || 0);
+        isOrderVal = 0;
+        returnAmt = parseFloat(formattedData.returnAmount || 0);
+        defaultReturnSummary = 'لا يوجد مرتجع';
       }
 
       const methodStr = String(formattedData.paymentMethod || '').trim().toUpperCase();

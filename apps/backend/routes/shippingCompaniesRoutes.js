@@ -88,6 +88,8 @@ const buildProviderFields = (body, carrier = {}) => {
   // Merge carrier-specific parameters
   if (body.username !== undefined) settings.username = String(body.username).trim();
   if (body.password !== undefined && String(body.password).trim()) settings.password = String(body.password).trim();
+  if (body.apiName !== undefined) settings.apiName = String(body.apiName).trim();
+  if (body.apiPassword !== undefined && String(body.apiPassword).trim()) settings.apiPassword = String(body.apiPassword).trim();
   if (body.customerId !== undefined && body.customerId !== '') settings.customerId = Number(body.customerId) || body.customerId;
   if (body.defaultNotes !== undefined) settings.defaultNotes = String(body.defaultNotes).trim();
   if (body.pickupAddress !== undefined) settings.pickupAddress = String(body.pickupAddress).trim();
@@ -214,7 +216,7 @@ const deduplicateShippingCompanies = (list) => {
     return new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0);
   });
   for (const item of sorted) {
-    if (item.providerKey && ['QP_EXPRESS', 'BOSTA', 'TURBO'].includes(item.providerKey)) {
+    if (item.providerKey && ['QP_EXPRESS', 'BOSTA', 'TURBO', 'HASHTAG'].includes(item.providerKey)) {
       if (seenStandardKeys.has(item.providerKey)) continue;
       seenStandardKeys.add(item.providerKey);
     }
@@ -943,6 +945,43 @@ router.post('/:id/test-connection', verifyToken.authenticateToken, async (req, r
         status: 'CONNECTED',
         message: 'تم التحقق من إعدادات الاتصال بشركة تربو بنجاح',
       });
+    }
+
+    if (providerKey === 'HASHTAG') {
+      const settings = shippingProviderService.safeJsonParse(company.settings, {});
+      const apiName = req.body?.apiName || req.body?.username || settings.apiName || settings.username || company.apiKey;
+      const apiPassword = req.body?.apiPassword || req.body?.password || settings.apiPassword || settings.password;
+
+      if (!apiName || !apiPassword) {
+        return res.status(400).json({
+          success: false,
+          error: 'يرجى إدخال اسم الـ API (API NAME) وكلمة المرور (API PASSWORD) الخاصة بشركة هاشتاج',
+        });
+      }
+
+      try {
+        const HashtagService = require('../services/hashtagService');
+        const hashtag = new HashtagService({
+          apiName,
+          apiPassword,
+          apiUrl: req.body?.apiUrl || company.apiUrl,
+        }, companyId);
+
+        const result = await hashtag.testConnection({ apiName, apiPassword });
+        return res.json({
+          success: true,
+          status: 'CONNECTED',
+          message: result.message || 'تم التحقق من بيانات الاتصال بشركة هاشتاج بنجاح',
+          data: {
+            apiName,
+          },
+        });
+      } catch (err) {
+        return res.status(400).json({
+          success: false,
+          error: `فحص الاتصال بشركة هاشتاج: ${err.message}`,
+        });
+      }
     }
 
     if (!company.apiKey) {

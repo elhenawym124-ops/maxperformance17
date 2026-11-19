@@ -232,6 +232,11 @@ export const OrderStatusBadgeRail: React.FC<OrderStatusBadgeRailProps> = ({
           <Truck className="h-3.5 w-3.5 shrink-0" />
           <span>بوستا: {sStatus === "DELIVERED" ? "تم التسليم" : `بوليصة #${trackingNumber || ""}`}</span>
         </span>
+      ) : carrier === "HASHTAG" || firstShipment?.carrierType === "HASHTAG" ? (
+        <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-medium bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/30">
+          <Truck className="h-3.5 w-3.5 shrink-0" />
+          <span>هاشتاج: {sStatus === "DELIVERED" ? "تم التسليم" : `بوليصة #${trackingNumber || ""}`}</span>
+        </span>
       ) : firstShipment && trackingNumber ? (
         <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-medium bg-muted text-foreground border border-border/70 font-mono tabular-nums">
           <Truck className="h-3.5 w-3.5 shrink-0" />

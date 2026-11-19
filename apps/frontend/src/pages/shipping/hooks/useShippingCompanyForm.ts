@@ -25,6 +25,8 @@ export const INITIAL_SHIPPING_FORM_DATA: ShippingCompanyFormData = {
   isActive: true,
   username: '',
   password: '',
+  apiName: '',
+  apiPassword: '',
   customerId: '',
   defaultNotes: '',
   pickupAddress: '',
@@ -49,6 +51,8 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
       const payload = {
         username: formData.username,
         password: formData.password,
+        apiName: formData.apiName,
+        apiPassword: formData.apiPassword,
         apiKey: formData.apiKey,
         apiUrl: formData.apiUrl,
       };
@@ -107,8 +111,10 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
       shipmentCreateTrigger: validLoadedTrigger,
       logoUrl: settings.logoUrl || '',
       isActive: autoActivate ? true : company.isActive,
-      username: settings.username || '',
-      password: settings.password || '',
+      username: settings.username || settings.apiName || '',
+      password: settings.password || settings.apiPassword || '',
+      apiName: settings.apiName || settings.username || company.apiKey || '',
+      apiPassword: settings.apiPassword || settings.password || '',
       customerId: settings.customerId ? String(settings.customerId) : '',
       defaultNotes: settings.defaultNotes || '',
       pickupAddress: settings.pickupAddress || '',
@@ -142,8 +148,10 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
         autoCreateShipments: formData.autoCreateShipments,
         ...(formData.autoCreateShipments ? { shipmentCreateTrigger: validTrigger } : {}),
         logoUrl: formData.logoUrl || undefined,
-        username: formData.username || undefined,
-        password: formData.password || undefined,
+        username: formData.username || formData.apiName || undefined,
+        password: formData.password || formData.apiPassword || undefined,
+        apiName: formData.apiName || formData.username || undefined,
+        apiPassword: formData.apiPassword || formData.password || undefined,
         customerId: formData.customerId ? Number(formData.customerId) : undefined,
         defaultNotes: formData.defaultNotes || undefined,
         pickupAddress: formData.pickupAddress || undefined,
@@ -161,6 +169,8 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
           : formData.providerKey === 'BOSTA' && formData.apiKey
           ? 'LIVE'
           : formData.providerKey === 'TURBO' && formData.apiKey
+          ? 'LIVE'
+          : formData.providerKey === 'HASHTAG' && (formData.apiName || formData.apiPassword || formData.username || formData.password || formData.apiKey)
           ? 'LIVE'
           : formData.integrationMode;
 

@@ -86,6 +86,7 @@ export const useStorefrontHeaderController = (
     theme.id === "redline-auto" || headerVariant === "automotive-chassis";
   const isLegacyDefaultOldHeader = headerVariant === "legacy-default-old";
   const isVelaFashionHeader = headerVariant === "vela-fashion";
+  const isWarehouseMegaHeader = headerVariant === "warehouse-mega" || theme.id.includes("warehouse");
   const isElessiPackTheme = theme.id?.startsWith("elessi-") === true;
   const isThemePreview = new URLSearchParams(location.search).has(
     "previewTheme",
@@ -472,6 +473,7 @@ export const useStorefrontHeaderController = (
     isRetailDirectHeader,
     isMarketplaceBazaarHeader,
     isFashionRetailHeader,
+    isWarehouseMegaHeader,
     isFloatingDarkHeader,
     isKhemetFloatingDarkHeader,
     isVelaInnerPath,

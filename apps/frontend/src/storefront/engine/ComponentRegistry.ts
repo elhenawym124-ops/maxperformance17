@@ -5,6 +5,22 @@ import { STOREFRONT_SECTION_COMPONENT_MAP } from './sectionComponentMap';
 // Previously HeroBanner (99KB), PromoStrip, ShopCommandBar were eager — this
 // caused them to ship in every storefront route even when unused (e.g. PDP).
 const HeroBanner = React.lazy(() => import('../sections/HeroBanner'));
+const WarehouseHeroCascade = React.lazy(() => import('../sections/WarehouseHeroCascade'));
+const WarehousePromoMosaic = React.lazy(() => import('../sections/WarehousePromoMosaic'));
+const WarehouseValueProps = React.lazy(() => import('../sections/WarehouseValueProps'));
+const WarehouseCategoryBento = React.lazy(() => import('../sections/WarehouseCategoryBento'));
+const WarehouseNewTVs = React.lazy(() => import('../sections/WarehouseNewTVs'));
+const WarehouseFeaturedProduct = React.lazy(() => import('../sections/WarehouseFeaturedProduct'));
+const WarehouseTopRated = React.lazy(() => import('../sections/WarehouseTopRated'));
+const WarehouseBlogPosts = React.lazy(() => import('../sections/WarehouseBlogPosts'));
+const WarehouseOurStores = React.lazy(() => import('../sections/WarehouseOurStores'));
+const WarehouseSearchedCollections = React.lazy(() => import('../sections/WarehouseSearchedCollections'));
+const WarehouseAbout = React.lazy(() => import('../sections/WarehouseAbout'));
+const WarehouseStaticTrust = React.lazy(() => import('../sections/WarehouseStaticTrust'));
+const WarehouseUrgencyBento = React.lazy(() => import('../sections/WarehouseUrgencyBento'));
+const WarehouseProductTabs = React.lazy(() => import('../sections/WarehouseProductTabs'));
+const WarehouseCollectionList = React.lazy(() => import('../sections/WarehouseCollectionList'));
+const WarehouseBrandsStrip = React.lazy(() => import('../sections/WarehouseBrandsStrip'));
 const PromoStrip = React.lazy(() => import('../sections/PromoStrip'));
 const ShopCommandBar = React.lazy(() => import('../sections/ShopCommandBar'));
 const ProductGrid = React.lazy(() => import('../sections/ProductGrid'));
@@ -147,6 +163,22 @@ const baseComponentRegistry: Record<
 > = {
   'promo-strip': PromoStrip,
   'hero-banner': HeroBanner,
+  'warehouse-hero-cascade': WarehouseHeroCascade,
+  'warehouse-promo-mosaic': WarehousePromoMosaic,
+  'warehouse-value-props': WarehouseValueProps,
+  'warehouse-category-bento': WarehouseCategoryBento,
+  'warehouse-new-tvs': WarehouseNewTVs,
+  'warehouse-featured-product': WarehouseFeaturedProduct,
+  'warehouse-top-rated': WarehouseTopRated,
+  'warehouse-blog-posts': WarehouseBlogPosts,
+  'warehouse-our-stores': WarehouseOurStores,
+  'warehouse-searched-collections': WarehouseSearchedCollections,
+  'warehouse-about': WarehouseAbout,
+  'warehouse-static-trust': WarehouseStaticTrust,
+  'warehouse-urgency-bento': WarehouseUrgencyBento,
+  'warehouse-product-tabs': WarehouseProductTabs,
+  'warehouse-collection-list': WarehouseCollectionList,
+  'warehouse-brands-strip': WarehouseBrandsStrip,
   'featured-collections': FeaturedCollections,
   'featured-products': ProductGrid,
   'lookbook-showcase': LookbookShowcase,

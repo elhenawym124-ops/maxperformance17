@@ -32,6 +32,8 @@ export interface ShippingCompanyFormData {
   isActive: boolean;
   username: string;
   password: string;
+  apiName?: string;
+  apiPassword?: string;
   customerId: string;
   defaultNotes: string;
   pickupAddress: string;

@@ -67,6 +67,9 @@ const resolveBrandLogo = (company?: ShippingCompanyLogoProps['company']): string
   if (key === 'TURBO' || slug.includes('turbo') || name.includes('turbo') || name.includes('تربو')) {
     return withVersion('turbo.svg');
   }
+  if (key === 'HASHTAG' || slug.includes('hashtag') || name.includes('hashtag') || name.includes('هاشتاج')) {
+    return withVersion('hashtag.svg');
+  }
   if (key === 'MAXP_NETWORK' || slug.includes('maxp_network') || name.includes('شبكة maxp') || name.includes('شحن على maxp')) {
     return withVersion('maxp_network.svg');
   }

@@ -1020,10 +1020,12 @@ router.post('/', manualOrderAccess, async (req, res) => {
       ? (`${creatorUser.firstName || ''} ${creatorUser.lastName || ''}`.trim() || creatorUser.email || creatorUser.name || null)
       : null;
 
+    const resolvedRequestType = finalRequestType || (isExchangeRequest ? 'exchange' : (req.body?.requestType || 'delivery'));
     const orderData = {
       ...req.body,
       status: finalStatus,
-      requestType: finalRequestType,
+      requestType: resolvedRequestType,
+      isExchange: Boolean(isExchangeRequest || resolvedRequestType === 'exchange'),
       products,
       productId: req.body.productId || products[0]?.productId || null,
       productName: req.body.productName || products.map(p => p.productName).filter(Boolean).join(', ') || null,
