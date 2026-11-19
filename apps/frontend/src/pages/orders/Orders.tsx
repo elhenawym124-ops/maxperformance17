@@ -1,16 +1,36 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { OrdersToolbarSection } from "./components/OrdersToolbarSection";
 import { OrdersTableSection } from "./components/OrdersTableSection";
 import { OrdersModalsContainer } from "./components/OrdersModalsContainer";
 import { OrderStatusAlertBell } from "./components/OrderStatusAlertBell";
+import { PolarisOrdersView } from "./PolarisOrdersView";
 import { useOrdersPageController } from "./hooks/useOrdersPageController";
 
 /* eslint-disable react-refresh/only-export-components */
 export * from "./ordersCompat";
 
 const Orders: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const { toolbarSectionProps, tableSectionProps, modalsContainerProps } =
     useOrdersPageController();
+
+  if (isPolaris) {
+    return (
+      <PolarisOrdersView
+        toolbarSectionProps={toolbarSectionProps}
+        tableSectionProps={tableSectionProps}
+        modalsContainerProps={modalsContainerProps}
+      />
+    );
+  }
 
   return (
     <div

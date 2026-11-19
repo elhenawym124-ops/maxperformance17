@@ -46,6 +46,7 @@ import AppUpdateIndicator from "../common/AppUpdateIndicator";
 import RouteErrorBoundary from "../common/RouteErrorBoundary";
 import { CompanyLogo } from "../ui/CompanyLogo";
 import { envConfig } from "../../config/environment";
+import PolarisHeader from "./PolarisHeader";
 
 const SuperAdminLayout = React.lazy(() => import("./SuperAdminLayout"));
 const AppDashboardPage = React.lazy(() => import("./app-dashboard/AppDashboardPage"));
@@ -696,6 +697,20 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
           </div>
         </div>
       ) : null}
+      {currentLayout === "polaris" ? (
+        <PolarisHeader
+          isMobile={isMobile}
+          handleMobileToggle={handleMobileToggle}
+          mobileMenuLabel={mobileMenuLabel}
+          currentCompany={currentCompany}
+          user={user}
+          isSuperAdmin={isSuperAdmin}
+          isExternalPortalUser={isExternalPortalUser}
+          hasStore={hasStore}
+          storeUrl={storeUrl}
+          profileMenu={profileMenu}
+        />
+      ) : (
       <header
         className="app-header-theme business-shell-header"
         data-mobile={isMobile ? "true" : "false"}
@@ -889,6 +904,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
         </div>
       </div>
     </header>
+      )}
     </>
   );
 
