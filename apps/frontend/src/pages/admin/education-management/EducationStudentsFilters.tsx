@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Search, Plus, Download, RotateCcw, ArrowUpDown } from "lucide-react";
-import type { EducationSubject, EducationPackage } from "./types";
+import type { EducationSubject, EducationPackage, EducationTeacher } from "./types";
 
 export interface StudentFilterState {
   search: string;
@@ -9,8 +9,14 @@ export interface StudentFilterState {
   grade: string;
   subjectId: string;
   packageId: string;
-  enrollmentStatus: string; // 'all' | 'enrolled' | 'not_enrolled'
-  sortBy: string; // 'name' | 'code' | 'grade' | 'status'
+  enrollmentStatus?: string; // 'all' | 'enrolled' | 'not_enrolled'
+  teacherId?: string;
+  paymentState?: string; // 'all' | 'paid' | 'partial' | 'overdue'
+  dateFrom?: string;
+  dateTo?: string;
+  level?: string; // '1'..'15'
+  groupId?: string;
+  sortBy: string; // 'name' | 'code' | 'grade' | 'status' | 'createdAt' | 'remaining'
   sortDir: "asc" | "desc";
 }
 
@@ -21,6 +27,7 @@ export interface EducationStudentsFiltersProps {
   gradesList: string[];
   subjects: EducationSubject[];
   packages?: EducationPackage[];
+  teachers?: EducationTeacher[];
   enableSubjects?: boolean;
   totalStudents: number;
   filteredCount: number;
@@ -35,6 +42,7 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
   gradesList,
   subjects,
   packages = [],
+  teachers = [],
   enableSubjects = false,
   totalStudents,
   filteredCount,
@@ -45,12 +53,18 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
   const isEn = i18n.language === "en";
 
   const hasActiveFilters =
-    Boolean(filters.search.trim()) ||
-    filters.status !== "all" ||
+    Boolean(filters.search?.trim()) ||
+    (filters.status && filters.status !== "all") ||
     Boolean(filters.grade) ||
     Boolean(filters.subjectId) ||
     Boolean(filters.packageId) ||
-    filters.enrollmentStatus !== "all";
+    (filters.enrollmentStatus && filters.enrollmentStatus !== "all") ||
+    Boolean(filters.teacherId && filters.teacherId !== "all") ||
+    Boolean(filters.paymentState && filters.paymentState !== "all") ||
+    Boolean(filters.dateFrom) ||
+    Boolean(filters.dateTo) ||
+    Boolean(filters.level && filters.level !== "all") ||
+    Boolean(filters.groupId && filters.groupId !== "all");
 
   return (
     <div className="space-y-3 bg-card border border-border/80 rounded-xl p-3 sm:p-4 shadow-xs" dir={isEn ? "ltr" : "rtl"}>
@@ -178,18 +192,77 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
           )}
         </div>
 
-        {/* 5. Enrollment / Payment Status */}
+        {/* 5. Teacher Filter */}
         <div>
           <select
-            value={filters.enrollmentStatus}
-            onChange={(e) => onFilterChange({ enrollmentStatus: e.target.value })}
+            value={filters.teacherId || ""}
+            onChange={(e) => onFilterChange({ teacherId: e.target.value })}
             className="w-full bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            aria-label={isEn ? "Enrollment Status" : "حالة الاشتراك والتسجيل"}
+            aria-label={isEn ? "Teacher Filter" : "فلتر المدرّس"}
           >
-            <option value="all">{isEn ? "All Enrollments" : "كل الاشتراكات"}</option>
-            <option value="enrolled">{isEn ? "Enrolled Only" : "مسجل في كورس/مادة"}</option>
-            <option value="not_enrolled">{isEn ? "No Active Enrollments" : "غير مسجل في كورسات"}</option>
+            <option value="">{isEn ? "All Teachers" : "جميع المدرّسين"}</option>
+            {teachers.map((teach) => (
+              <option key={teach.id} value={teach.id}>
+                {teach.name}
+              </option>
+            ))}
           </select>
+        </div>
+
+        {/* 6. Payment State Filter */}
+        <div>
+          <select
+            value={filters.paymentState || "all"}
+            onChange={(e) => onFilterChange({ paymentState: e.target.value })}
+            className="w-full bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            aria-label={isEn ? "Payment Status Filter" : "فلتر حالة السداد"}
+          >
+            <option value="all">{isEn ? "All Payment Statuses" : "كل حالات السداد"}</option>
+            <option value="paid">{isEn ? "Fully Paid" : "مدفوع بالكامل"}</option>
+            <option value="partial">{isEn ? "Partially Paid" : "مدفوع جزئياً"}</option>
+            <option value="overdue">{isEn ? "Pending / Overdue" : "معلق / مستحق"}</option>
+          </select>
+        </div>
+
+        {/* 7. Level Filter (1..15) */}
+        <div>
+          <select
+            value={filters.level || ""}
+            onChange={(e) => onFilterChange({ level: e.target.value })}
+            className="w-full bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            aria-label={isEn ? "Level Filter" : "فلتر المستوى"}
+          >
+            <option value="">{isEn ? "All Levels" : "جميع المستويات"}</option>
+            {Array.from({ length: 15 }, (_, i) => i + 1).map((lvl) => (
+              <option key={lvl} value={String(lvl)}>
+                {isEn ? `Level ${lvl}` : `المستوى ${lvl}`}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* 8. Date From */}
+        <div>
+          <input
+            type="date"
+            value={filters.dateFrom || ""}
+            onChange={(e) => onFilterChange({ dateFrom: e.target.value })}
+            className="w-full bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            title={isEn ? "Registration Date From" : "تاريخ التسجيل من"}
+            aria-label={isEn ? "Registration Date From" : "تاريخ التسجيل من"}
+          />
+        </div>
+
+        {/* 9. Date To */}
+        <div>
+          <input
+            type="date"
+            value={filters.dateTo || ""}
+            onChange={(e) => onFilterChange({ dateTo: e.target.value })}
+            className="w-full bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            title={isEn ? "Registration Date To" : "تاريخ التسجيل إلى"}
+            aria-label={isEn ? "Registration Date To" : "تاريخ التسجيل إلى"}
+          />
         </div>
       </div>
 
@@ -205,11 +278,14 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
             value={filters.sortBy}
             onChange={(e) => onFilterChange({ sortBy: e.target.value })}
             className="bg-background border border-input rounded-md px-2 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            aria-label={isEn ? "Sort by" : "الترتيب حسب"}
           >
             <option value="name">{isEn ? "Student Name" : "اسم الطالب"}</option>
             <option value="code">{isEn ? "Student Code" : "كود الطالب"}</option>
             <option value="grade">{isEn ? "Grade" : "الصف الدراسي"}</option>
             <option value="status">{isEn ? "Status (Active/Inactive)" : "الحالة (نشط/معطل)"}</option>
+            <option value="createdAt">{isEn ? "Registration Date" : "تاريخ التسجيل"}</option>
+            <option value="remaining">{isEn ? "Remaining Amount" : "المتبقي"}</option>
           </select>
 
           <button
