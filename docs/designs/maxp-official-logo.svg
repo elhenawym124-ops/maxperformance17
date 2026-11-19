@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- MaxP — القمة اللي بتتجمع · اللوجو الرسمي -->
+  <defs>
+    <linearGradient id="mV" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9F59FF"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="mM" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D18BFF"/>
+      <stop offset="1" stop-color="#A832E9"/>
+    </linearGradient>
+    <linearGradient id="mP" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E8AAFF"/>
+      <stop offset="1" stop-color="#C77DFF"/>
+    </linearGradient>
+    <linearGradient id="mG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F5D48A"/>
+      <stop offset=".5" stop-color="#E8C87A"/>
+      <stop offset="1" stop-color="#F8E7C4"/>
+    </linearGradient>
+    <radialGradient id="mGlow" cx=".5" cy=".42" r=".55">
+      <stop offset="0" stop-color="#9F59FF" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#9F59FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="120" fill="#0A0510"/>
+  <circle cx="256" cy="236" r="168" fill="url(#mGlow)"/>
+
+  <!-- same assembling-peak geometry the owner locked -->
+  <g transform="skewX(-6) translate(16,0)">
+    <path d="M136 368 L136 232 L216 304 L216 368 Z" fill="url(#mV)"/>
+    <path d="M216 304 L280 200 L280 368 L216 368 Z" fill="url(#mM)"/>
+    <path d="M280 200 L344 304 L344 368 L280 368 Z" fill="url(#mP)"/>
+    <path d="M136 232 L216 304 L280 200 L344 304 L344 268 L280 168 L216 268 L136 196 Z"
+          fill="url(#mG)" opacity=".95"/>
+    <circle cx="256" cy="300" r="11" fill="#F5D48A"/>
+  </g>
+
+  <text x="256" y="432" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900"
+        font-size="42" fill="#F4EEFF" letter-spacing="6">MAX<tspan fill="#F5D48A">P</tspan></text>
+  <text x="256" y="466" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif"
+        font-size="16" fill="#C4B5FD">أقصى أداء · مساحة عمل بتتحرك معاك</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="none">
+  <!-- MaxP — reconstructed from original max-p geometric mark -->
+  <defs>
+    <linearGradient id="vio" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9F59FF"/>
+      <stop offset="1" stop-color="#A832E9"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E8AAFF"/>
+      <stop offset="1" stop-color="#C77DFF"/>
+    </linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#5F1E85"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="#0A0510"/>
+  <rect x="10" y="10" width="492" height="492" rx="104" stroke="#9F59FF" stroke-opacity="0.22" stroke-width="4"/>
+
+  <!-- Pinwheel M — same DNA as original max-p triangles -->
+  <path d="M112 140 L240 140 L112 268 Z" fill="url(#vio)"/>
+  <path d="M112 268 L240 268 L112 396 Z" fill="url(#pink)"/>
+  <path d="M400 140 L400 396 L272 268 Z" fill="url(#deep)"/>
+  <path d="M272 268 L400 140 L400 268 Z" fill="#9F59FF" opacity="0.55"/>
+
+  <!-- Wordmark -->
+  <text x="256" y="452" text-anchor="middle" font-family="Inter, 'IBM Plex Sans Arabic', sans-serif" font-size="56" font-weight="800" fill="#F4EEFF" letter-spacing="2">MaxP</text>
+</svg>

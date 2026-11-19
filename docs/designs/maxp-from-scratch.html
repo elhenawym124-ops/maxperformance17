@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>MaxP — التصميم من الصفر</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* النهاري */
+    --day-bg: #F8FAFC;
+    --day-surface: #FFFFFF;
+    --day-primary: #7C3AED;
+    --day-primary-deep: #6B21A8;
+    --day-violet: #9F59FF;
+    --day-gold: #B8860B;
+    --day-ink: #0B0A14;
+    --day-muted: #5F1E85;
+    --day-line: rgba(11,10,20,.08);
+    /* الليلي */
+    --night-bg: #0A0612;
+    --night-surface: #150820;
+    --night-surface2: #1A0B2E;
+    --night-primary: #9F59FF;
+    --night-gold: #F5D48A;
+    --night-gold-soft: #FDE68A;
+    --night-text: #F4EEFF;
+    --night-muted: #C4B5FD;
+    --night-line: rgba(196,181,253,.14);
+  }
+  html { font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif; }
+  body { background: #060309; color: #F4EEFF; padding: 28px 22px; }
+  [dir="rtl"] * { letter-spacing: normal !important; }
+  h1 { font-size: 20px; text-align: center; }
+  .sub { text-align: center; color: var(--night-muted); margin: 6px 0 24px; font-size: 13px; }
+  .wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px; }
+  h2 { font-size: 15px; color: var(--night-gold); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  h2 .num { background: rgba(245,212,138,.15); border-radius: 999px; padding: 1px 9px; font-size: 11px; }
+  .note { font-size: 11.5px; color: var(--night-muted); line-height: 1.8; margin-top: 10px; }
+  .note b { color: var(--night-gold); }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* ═══ اللوجو ═══ */
+  .logo-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .logo-cell { border-radius: 16px; display: flex; align-items: center; justify-content: center; height: 190px; border: 1px solid var(--night-line); }
+  .lock { display: flex; align-items: center; gap: 12px; }
+
+  /* ═══ موكاب اللوحة النهارية ═══ */
+  .day-app {
+    background: var(--day-bg); border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--day-line); color: var(--day-ink);
+    display: grid; grid-template-columns: 200px 1fr; min-height: 460px;
+  }
+  .day-side { background: #FFFFFF; border-inline-end: 1px solid var(--day-line); padding: 14px 12px; }
+  .side-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; font-size: 12px; color: var(--day-muted); }
+  .side-item.on { background: rgba(124,58,237,.08); color: var(--day-primary); font-weight: 700; }
+  .side-ic { width: 15px; height: 15px; border-radius: 4px; background: currentColor; opacity: .8; }
+  .day-main { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+  .day-h { display: flex; justify-content: space-between; align-items: center; }
+  .day-h .t { font-size: 15px; font-weight: 700; }
+  .day-h .s { font-size: 11px; color: var(--day-muted); }
+  .btn-p { background: var(--day-primary); color: #fff; border: none; border-radius: 10px; padding: 8px 14px; font-size: 12px; font-weight: 700; font-family: inherit; }
+  .btn-p:hover { background: var(--day-primary-deep); }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .kpi { background: var(--day-surface); border: 1px solid var(--day-line); border-radius: 12px; padding: 12px; }
+  .kpi .l { font-size: 10.5px; color: var(--day-muted); }
+  .kpi .v { font-size: 17px; font-weight: 800; margin-top: 3px; }
+  .kpi .d { font-size: 10px; margin-top: 3px; font-weight: 700; }
+  .up { color: #007F4E; } .gold-chip { color: var(--day-gold); }
+  .table-wrap { background: var(--day-surface); border: 1px solid var(--day-line); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  th { text-align: right; font-size: 10px; color: var(--day-muted); padding: 9px 12px; border-bottom: 1px solid var(--day-line); background: #FCFAFE; font-weight: 600; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--day-line); }
+  tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; }
+  .pill-ok { background: rgba(0,127,78,.1); color: #007F4E; }
+  .pill-ship { background: rgba(124,58,237,.1); color: var(--day-primary); }
+  .pill-gold { background: rgba(184,134,11,.12); color: var(--day-gold); }
+
+  /* ═══ موكاب الليلي ═══ */
+  .night-hero {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(159,89,255,.22), transparent 60%),
+      var(--night-bg);
+    border: 1px solid var(--night-line); border-radius: 18px;
+    padding: 44px 28px 36px; text-align: center; position: relative; overflow: hidden;
+  }
+  .night-hero .grid-bg { position: absolute; inset: 0; opacity: .5; pointer-events: none; }
+  .n-kicker { display: inline-flex; gap: 8px; align-items: center; background: rgba(159,89,255,.1); border: 1px solid rgba(159,89,255,.25); color: var(--night-primary); padding: 5px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+  .n-title { font-size: 30px; font-weight: 700; margin: 16px 0 8px; line-height: 1.4; }
+  .n-title .gold { color: var(--night-gold); }
+  .n-lead { color: var(--night-muted); font-size: 13.5px; max-width: 420px; margin: 0 auto 20px; line-height: 1.8; }
+  .n-ctas { display: flex; gap: 10px; justify-content: center; }
+  .btn-gold { background: var(--night-gold); color: #2A1B00; border: none; border-radius: 12px; padding: 11px 22px; font-size: 13px; font-weight: 800; font-family: inherit; }
+  .btn-ghost-n { background: transparent; border: 1px solid rgba(245,212,138,.35); color: var(--night-gold-soft); border-radius: 12px; padding: 11px 18px; font-size: 13px; font-weight: 700; font-family: inherit; }
+  .n-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 26px; }
+  .n-card { background: rgba(21,8,32,.7); border: 1px solid var(--night-line); border-radius: 14px; padding: 13px; text-align: right; }
+  .n-card .l { font-size: 10.5px; color: var(--night-muted); }
+  .n-card .v { font-size: 16px; font-weight: 800; margin-top: 2px; }
+  .n-card .v.gold { color: var(--night-gold); }
+
+  .fixes { background: #120818; border: 1px solid var(--night-line); border-radius: 14px; padding: 14px 16px; }
+  .fixes li { font-size: 12px; color: var(--night-muted); line-height: 2; margin-inline-start: 16px; }
+  .fixes b { color: #F4EEFF; }
+  .strike { text-decoration: line-through; opacity: .6; }
+</style>
+</head>
+<body>
+
+<h1>MaxP — التصميم من الصفر (بنفسي)</h1>
+<div class="sub">لوجو شريط M · لوحة نهارية · لاندنج ليلية · بنفس التوكنز المقفولة</div>
+
+<div class="wrap">
+
+  <!-- ═══ 1. اللوجو ═══ -->
+  <section>
+    <h2><span class="num">1</span> اللوجو — شريط M (رسمي)</h2>
+    <div class="logo-strip">
+
+      <!-- ليلي -->
+      <div class="logo-cell" style="background: radial-gradient(ellipse at 50% 40%, rgba(159,89,255,.18), transparent 70%), var(--night-bg);">
+        <div class="lock">
+          <svg width="64" height="64" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="lgN1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A855F7"/><stop offset="1" stop-color="#6B21A8"/></linearGradient>
+              <linearGradient id="lgN2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C48BFD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+              <linearGradient id="lgN3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#5B21B6"/></linearGradient>
+              <linearGradient id="goldN" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F5D48A"/><stop offset="1" stop-color="#FDE68A"/></linearGradient>
+            </defs>
+            <g transform="skewX(-6) translate(16,0)">
+              <!-- ribbon M -->
+              <path d="M128 368 L128 168 L152 190 L152 368 Z" fill="url(#lgN1)"/>
+              <path d="M152 190 L256 296 L256 330 L152 224 Z" fill="url(#lgN2)"/>
+              <path d="M256 296 L360 190 L360 224 L256 330 Z" fill="url(#lgN3)"/>
+              <path d="M360 190 L384 168 L384 368 L360 368 Z" fill="url(#lgN1)"/>
+              <!-- gold edge -->
+              <path d="M128 168 L256 296 L384 168" fill="none" stroke="url(#goldN)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- baseline gold -->
+              <path d="M128 368 L384 368" stroke="url(#goldN)" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+              <!-- motion dot -->
+              <circle cx="416" cy="330" r="10" fill="#F5D48A"/>
+            </g>
+          </svg>
+          <div style="text-align:right">
+            <div style="font-family:Inter; font-weight:900; font-size:22px;">Max<span style="color:#F5D48A">P</span></div>
+            <div style="font-size:9.5px; color:var(--night-muted)">أقصى أداء لمتجرك</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- نهاري -->
+      <div class="logo-cell" style="background: var(--day-bg);">
+        <div class="lock">
+          <svg width="64" height="64" viewBox="0 0 512 512">
+            <defs>
+              <linearGradient id="lgD1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#5B21B6"/></linearGradient>
+              <linearGradient id="lgD2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#6B21A8"/></linearGradient>
+              <linearGradient id="goldD" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#B8860B"/><stop offset="1" stop-color="#8a6508"/></linearGradient>
+            </defs>
+            <g transform="skewX(-6) translate(16,0)">
+              <path d="M128 368 L128 168 L152 190 L152 368 Z" fill="url(#lgD1)"/>
+              <path d="M152 190 L256 296 L256 330 L152 224 Z" fill="url(#lgD2)"/>
+              <path d="M256 296 L360 190 L360 224 L256 330 Z" fill="url(#lgD1)"/>
+              <path d="M360 190 L384 168 L384 368 L360 368 Z" fill="url(#lgD2)"/>
+              <path d="M128 168 L256 296 L384 168" fill="none" stroke="url(#goldD)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M128 368 L384 368" stroke="url(#goldD)" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+              <circle cx="416" cy="330" r="10" fill="#B8860B"/>
+            </g>
+          </svg>
+          <div style="text-align:right; color:var(--day-ink)">
+            <div style="font-family:Inter; font-weight:900; font-size:22px;">Max<span style="color:#B8860B">P</span></div>
+            <div style="font-size:9.5px; color:var(--day-muted)">أقصى أداء لمتجرك</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- أيقونة -->
+      <div class="logo-cell" style="background: var(--night-bg);">
+        <svg width="88" height="88" viewBox="0 0 512 512">
+          <defs>
+            <linearGradient id="ic1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A855F7"/><stop offset="1" stop-color="#6B21A8"/></linearGradient>
+            <linearGradient id="ic2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C48BFD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+          </defs>
+          <rect width="512" height="512" rx="112" fill="#0A0612"/>
+          <g transform="skewX(-6) translate(16,0)">
+            <path d="M128 368 L128 168 L152 190 L152 368 Z" fill="url(#ic1)"/>
+            <path d="M152 190 L256 296 L256 330 L152 224 Z" fill="url(#ic2)"/>
+            <path d="M256 296 L360 190 L360 224 L256 330 Z" fill="url(#ic1)"/>
+            <path d="M360 190 L384 168 L384 368 L360 368 Z" fill="url(#ic2)"/>
+            <path d="M128 168 L256 296 L384 168" fill="none" stroke="#F5D48A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M128 368 L384 368" stroke="#F5D48A" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+    <p class="note"><b>الحركة:</b> الشريط بيتكتب من الشمال (draw-on) → حافة الذهب تترسم فوقه → نقطة الموشن تنبض → الكلمة تطلع. الميل 6° ثابت في كل النسخ.</p>
+  </section>
+
+  <!-- ═══ 2. اللوحة النهارية ═══ -->
+  <section>
+    <h2><span class="num">2</span> اللوحة النهارية — أداة شغل نضيفة</h2>
+    <div class="day-app">
+      <aside class="day-side">
+        <div class="lock" style="padding:4px 6px 14px;">
+          <svg width="26" height="26" viewBox="0 0 512 512">
+            <g transform="skewX(-6) translate(16,0)">
+              <path d="M128 368 L128 168 L152 190 L152 368 Z" fill="#7C3AED"/>
+              <path d="M152 190 L256 296 L256 330 L152 224 Z" fill="#9F59FF"/>
+              <path d="M256 296 L360 190 L360 224 L256 330 Z" fill="#7C3AED"/>
+              <path d="M360 190 L384 168 L384 368 L360 368 Z" fill="#9F59FF"/>
+              <path d="M128 168 L256 296 L384 168" fill="none" stroke="#B8860B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <b style="font-size:13px; font-family:Inter;">Max<span style="color:#B8860B">P</span></b>
+        </div>
+        <div class="side-item on"><span class="side-ic"></span> الطلبات</div>
+        <div class="side-item"><span class="side-ic"></span> المخزون</div>
+        <div class="side-item"><span class="side-ic"></span> المحادثات</div>
+        <div class="side-item"><span class="side-ic"></span> الشحن</div>
+        <div class="side-item"><span class="side-ic"></span> التقارير</div>
+        <div class="side-item" style="margin-top:auto; border-top:1px solid var(--day-line); border-radius:0; padding-top:10px;">
+          <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#B8860B);"></span>
+          متجر سوان
+        </div>
+      </aside>
+      <main class="day-main">
+        <div class="day-h">
+          <div>
+            <div class="t">الطلبات</div>
+            <div class="s">آخر تحديث الآن · 128 طلب نشط</div>
+          </div>
+          <button class="btn-p">+ طلب جديد</button>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="l">مبيعات اليوم</div><div class="v tnum">12,480 ج.م</div><div class="d up">+24% أمس</div></div>
+          <div class="kpi"><div class="l">نسبة التسليم</div><div class="v tnum">95.7%</div><div class="d up">+1.2</div></div>
+          <div class="kpi"><div class="l">مرتجع ممنوع</div><div class="v tnum">41 طلب</div><div class="d gold-chip">تأكيد واتساب</div></div>
+          <div class="kpi"><div class="l">مخزون قارب</div><div class="v tnum">3 أصناف</div><div class="d" style="color:#B45309;">حدّد الطلب</div></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>الطلب</th><th>العميل</th><th>المبلغ</th><th>الشحن</th><th>الحالة</th></tr>
+            <tr><td class="tnum">#2841</td><td>محمد عبد الله</td><td class="tnum">1,450 ج.م</td><td>بوسطة</td><td><span class="pill pill-ok">مدفوع</span></td></tr>
+            <tr><td class="tnum">#2840</td><td>سارة محمود</td><td class="tnum">890 ج.م</td><td>Mylerz</td><td><span class="pill pill-ship">في الطريق</span></td></tr>
+            <tr><td class="tnum">#2839</td><td>أحمد سمير</td><td class="tnum">2,300 ج.م</td><td>أرامكس</td><td><span class="pill pill-gold">تأكيد واتساب</span></td></tr>
+          </table>
+        </div>
+      </main>
+    </div>
+    <p class="note"><b>اللي اتعدّل:</b> مفيش توهج جوه اللوحة · مفيش هيرو 3D · الأرقام <span class="tnum">tabular</span> · الذهب شارات بس · الأكسنت ≤10%.</p>
+  </section>
+
+  <!-- ═══ 3. اللاندنج الليلية ═══ -->
+  <section>
+    <h2><span class="num">3</span> اللاندنج الليلية — الفخامة كلها هنا</h2>
+    <div class="night-hero">
+      <svg class="grid-bg" width="100%" height="100%">
+        <defs><pattern id="ng" width="34" height="34" patternUnits="userSpaceOnUse">
+          <path d="M34 0H0V34" fill="none" stroke="#9F59FF" stroke-opacity=".05"/>
+        </pattern></defs>
+        <rect width="100%" height="100%" fill="url(#ng)"/>
+      </svg>
+      <span class="n-kicker">● MaxP Business OS</span>
+      <div class="n-title">أقصى أداء <span class="gold">لمتجرك</span><br>في مكان واحد</div>
+      <p class="n-lead">تأكيد آلي بالواتساب، مخزون بيتحدث لحظيًا، وشحن ببوسطة وأرامكس من نفس الشاشة. 0% عمولة على مبيعاتك.</p>
+      <div class="n-ctas">
+        <button class="btn-gold">ابدأ مجانًا</button>
+        <button class="btn-ghost-n">احجز عرضًا</button>
+      </div>
+      <div class="n-cards">
+        <div class="n-card"><div class="l">مرتجع أقل</div><div class="v gold tnum">-45%</div></div>
+        <div class="n-card"><div class="l">تسليم أعلى</div><div class="v tnum">95.7%</div></div>
+        <div class="n-card"><div class="l">عمولة</div><div class="v gold tnum">0%</div></div>
+      </div>
+    </div>
+    <p class="note"><b>الفخامة عايشة هنا بس:</b> توهج بنفسجي خفيف + شبكة منظورية + ذهب في الأرقام والأزرار. كارت زجاجي واحد كحد أقصى في أي شاشة.</p>
+  </section>
+
+  <!-- ═══ 4. التعديلات ═══ -->
+  <section>
+    <h2><span class="num">4</span> التعديلات على اللوحتين بتوعك</h2>
+    <ul class="fixes">
+      <li>الخلفية اللافندر المشبعة <span class="strike"> lavender </span> → <b>#F8FAFC</b> (راحة للعين 8 ساعات شغل)</li>
+      <li><span class="strike">#F59E0B</span> (Tailwind amber) → <b>#B8860B</b> نهاريًا و<b>#F5D48A</b> ليليًا</li>
+      <li><span class="strike">#8B5CF6</span> (Tailwind violet) → <b>#9F59FF</b> بنفسجينا المقفول</li>
+      <li><span class="strike">Cairo / Plus Jakarta</span> → <b>IBM Plex Sans Arabic + Inter</b> (Cairo مش محمّل أصلًا)</li>
+      <li>التوهج والـ 3D جوه الداشبورد → <b>اتشال</b>. الفخامة للاندنج والـ OG بس</li>
+      <li>glassmorphism على كل كارت → <b>كارت واحد مميز</b> كحد أقصى</li>
+      <li>العناوين إنجليزي كتير → <b>عربي أولًا</b>، الإنجليزي في اللوجو والـ tagline بس</li>
+      <li>أرقام عادية → <b>tabular-nums</b> في كل مبلغ ومقياس</li>
+    </ul>
+  </section>
+
+</div>
+</body>
+</html>

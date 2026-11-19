@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>MaxP — Maximum Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+    background: #060309; color: #F4EEFF; padding: 36px 28px; overflow-x: hidden;
+  }
+  h1 { font-size: 24px; text-align: center; }
+  .sub { text-align: center; color: #C4B5FD; margin: 8px 0 28px; font-size: 14px; line-height: 1.7; }
+  .sub b { color: #F5D48A; }
+
+  .hero {
+    max-width: 780px; margin: 0 auto 36px; text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(159,89,255,.14), transparent 65%),
+      linear-gradient(180deg, #0E0614, #060309);
+    border: 1px solid rgba(245,212,138,.18); border-radius: 26px; padding: 28px 20px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(232,170,255,.08) 50%, transparent 70%);
+    animation: sweep 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes sweep { 0%,100% { transform: translateX(-40%);} 50% { transform: translateX(40%);} }
+
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1100px; margin: 0 auto 24px; }
+  .card {
+    background: linear-gradient(180deg, #120818, #0A0510);
+    border: 1px solid rgba(159,89,255,.22); border-radius: 18px; padding: 16px; text-align: center;
+  }
+  .card h3 { font-size: 14px; margin: 10px 0 6px; color: #F5D48A; }
+  .card p { font-size: 12px; color: #C4B5FD; line-height: 1.7; }
+  .stage { height: 210px; display: flex; align-items: center; justify-content: center; }
+
+  /* ── assemble ── */
+  @keyframes inL { 0% { opacity:0; transform: translate(-90px, 40px) rotate(-25deg);} 70% { opacity:1; transform: translate(4px,-4px) rotate(2deg);} 100% { opacity:1; transform: translate(0,0) rotate(0);} }
+  @keyframes inR { 0% { opacity:0; transform: translate(90px, 40px) rotate(25deg);} 70% { opacity:1; transform: translate(-4px,-4px) rotate(-2deg);} 100% { opacity:1; transform: translate(0,0) rotate(0);} }
+  @keyframes inT { 0% { opacity:0; transform: translateY(-80px) scale(.6);} 70% { opacity:1; transform: translateY(6px) scale(1.05);} 100% { opacity:1; transform: translateY(0) scale(1);} }
+  @keyframes lock { 0%,100% { transform: translate(0,0);} 50% { transform: translate(0,-3px);} }
+  @keyframes maxLine { 0% { stroke-dashoffset: 400; opacity:0;} 30% { opacity:1;} 100% { stroke-dashoffset: 0; opacity:1;} }
+  @keyframes trail { 0% { opacity:0; transform: translateX(30px);} 40% { opacity:.8;} 100% { opacity:0; transform: translateX(-50px);} }
+  @keyframes barUp { 0% { transform: scaleY(0);} 60% { transform: scaleY(1.06);} 100% { transform: scaleY(1);} }
+  @keyframes dotPulse { 0%,100% { r: 8; opacity:.7;} 50% { r: 12; opacity:1;} }
+  @keyframes tiltPulse { 0%,100% { transform: skewX(0) } 50% { transform: skewX(-4deg) } }
+
+  .m1 { opacity:0; animation: inL .7s cubic-bezier(.2,.9,.2,1) .2s both; }
+  .m2 { opacity:0; animation: inR .7s cubic-bezier(.2,.9,.2,1) .45s both; }
+  .m3 { opacity:0; animation: inT .7s cubic-bezier(.2,.9,.2,1) .7s both; }
+  .cap { opacity:0; animation: inT .6s cubic-bezier(.2,.9,.2,1) 1s both; }
+  .lockall { animation: lock 3.2s ease-in-out 1.8s infinite; transform-origin: 50% 80%; }
+  .maxline { stroke-dasharray: 400; animation: maxLine 1s ease-out 1.2s both; }
+  .trail { opacity:0; animation: trail 1.4s ease-out 1.6s infinite; }
+  .bar { transform-origin: bottom; animation: barUp .8s cubic-bezier(.2,.9,.2,1) both; }
+  .b1 { animation-delay:.2s } .b2 { animation-delay:.4s } .b3 { animation-delay:.6s } .b4 { animation-delay:.85s }
+  .pdot { animation: dotPulse 2s ease-in-out 2s infinite; }
+  .lean { animation: tiltPulse 4s ease-in-out 2s infinite; transform-origin: 50% 90%; }
+
+  .palette { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+  .sw { text-align:center; }
+  .sw div { width:56px; height:36px; border-radius:9px; }
+  .sw small { color:#C4B5FD; font-size:10px; }
+</style>
+</head>
+<body>
+
+<h1>MaxP — أقصى أداء · مساحة عمل بتتحرك معاك</h1>
+<div class="sub">
+  MAX = القمة · P = Performance · المثلثات = وحدات الشغل اللي بتقفل على القمة<br>
+  <b>المعنى:</b> المنصة بتجمّع شغلك وترفعك لآخر حد ممكن، وبتفضل ماشية معاك
+</div>
+
+<!-- ═══ HERO: القمة اللي بتتجمع ═══ -->
+<div class="hero">
+  <svg width="360" height="360" viewBox="0 0 512 512">
+    <defs>
+      <linearGradient id="hV" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#6D28D9"/>
+      </linearGradient>
+      <linearGradient id="hM" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#C77DFF"/><stop offset="1" stop-color="#A832E9"/>
+      </linearGradient>
+      <linearGradient id="hP" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#E8AAFF"/><stop offset="1" stop-color="#C77DFF"/>
+      </linearGradient>
+      <linearGradient id="hG" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#F5D48A"/><stop offset=".5" stop-color="#E8C87A"/><stop offset="1" stop-color="#F8E7C4"/>
+      </linearGradient>
+      <linearGradient id="hTrail" x1="1" y1="0" x2="0" y2="0">
+        <stop offset="0" stop-color="#E8AAFF" stop-opacity=".7"/>
+        <stop offset="1" stop-color="#E8AAFF" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- speed trails (الحركة معاك) -->
+    <path class="trail" d="M96 220 L20 220" stroke="url(#hTrail)" stroke-width="8" stroke-linecap="round"/>
+    <path class="trail" style="animation-delay:.25s" d="M110 280 L40 280" stroke="url(#hTrail)" stroke-width="6" stroke-linecap="round"/>
+    <path class="trail" style="animation-delay:.5s" d="M96 340 L28 340" stroke="url(#hTrail)" stroke-width="4" stroke-linecap="round"/>
+
+    <g class="lockall">
+      <g transform="skewX(-6) translate(18,0)">
+        <!-- 3 وحدات الشغل -->
+        <path class="m1" d="M136 368 L136 232 L216 304 L216 368 Z" fill="url(#hV)"/>
+        <path class="m2" d="M216 304 L280 200 L280 368 L216 368 Z" fill="url(#hM)"/>
+        <path class="m3" d="M280 200 L344 304 L344 368 L280 368 Z" fill="url(#hP)"/>
+        <!-- القفل الذهبي = MAX -->
+        <path class="cap" d="M136 232 L216 304 L280 200 L344 304 L344 268 L280 168 L216 268 L136 196 Z"
+              fill="#F5D48A" opacity=".95"/>
+        <!-- خط الأقصى -->
+        <path class="maxline" d="M120 176 L392 176" stroke="url(#hG)" stroke-width="5" stroke-linecap="round" stroke-dasharray="400"/>
+        <!-- نقطة التاجر في القلب -->
+        <circle class="pdot" cx="256" cy="300" r="9" fill="#F5D48A"/>
+      </g>
+    </g>
+
+    <text x="256" y="440" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="40"
+          fill="#F4EEFF" letter-spacing="8">MAX<tspan fill="#F5D48A">P</tspan></text>
+    <text x="256" y="472" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif" font-size="16"
+          fill="#C4B5FD">أقصى أداء · مساحة عمل بتتحرك معاك</text>
+  </svg>
+
+  <h3 style="color:#F5D48A; margin-top:6px">الرئيسي — «القمة اللي بتتجمع»</h3>
+  <p style="color:#C4B5FD; font-size:13px; max-width:520px; margin:6px auto 0">
+    3 وحدات (طلبات · مخزون · شحن) بتطير من الجنبين والتحت وتقفل على القمة،
+    الذهب بينزل كواقف على خط الأقصى، والكله فيه ميل لقدام + خدوش سرعة.
+    النقطة الدهب في القلب = التاجر. الميل = الحركة معاه.
+  </p>
+</div>
+
+<div class="row">
+
+  <!-- 2 شريط الأداء -->
+  <div class="card">
+    <div class="stage">
+      <svg width="180" height="180" viewBox="0 0 512 512">
+        <rect width="512" height="512" rx="110" fill="#0A0510"/>
+        <path class="bar b1" d="M140 380 L140 300 L200 300 L200 380 Z" fill="#5F1E85"/>
+        <path class="bar b2" d="M212 380 L212 240 L272 240 L272 380 Z" fill="#9F59FF"/>
+        <path class="bar b3" d="M284 380 L284 180 L344 180 L344 380 Z" fill="#A832E9"/>
+        <path class="bar b4" d="M356 380 L356 128 L416 128 L416 380 Z" fill="#F5D48A"/>
+        <path d="M120 128 L436 128" stroke="#F5D48A" stroke-width="4" stroke-dasharray="8 8" opacity=".7"/>
+        <text x="256" y="110" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#F5D48A">MAX</text>
+      </svg>
+    </div>
+    <h3>شريط الأداء → القمة</h3>
+    <p>4 وحدات بتطلع زي bar chart لحد خط MAX، وآخر وحدة ذهب (اللحظة اللي المنصة توصل أقصى أداء). بعدين الشريط كله يميل ويبقى سهم.</p>
+  </div>
+
+  <!-- 3 السهم اللي ماشي -->
+  <div class="card">
+    <div class="stage">
+      <svg width="180" height="180" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="fG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#E8AAFF"/>
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="110" fill="#0A0510"/>
+        <!-- workspace grid inside -->
+        <g opacity=".25" stroke="#9F59FF" stroke-width="2">
+          <path d="M150 180 H362 M150 256 H362 M150 332 H362"/>
+          <path d="M180 150 V362 M256 150 V362 M332 150 V362"/>
+        </g>
+        <!-- forward triangle (P / play) -->
+        <path d="M180 160 L380 256 L180 352 Z" fill="url(#fG)" opacity=".95"/>
+        <path d="M180 160 L380 256 L180 352 Z" fill="none" stroke="#F5D48A" stroke-width="4"/>
+        <!-- motion -->
+        <path d="M140 220 L90 220" stroke="#E8AAFF" stroke-width="6" stroke-linecap="round" opacity=".6"/>
+        <path d="M140 256 L70 256" stroke="#9F59FF" stroke-width="6" stroke-linecap="round" opacity=".4"/>
+        <path d="M140 292 L90 292" stroke="#E8AAFF" stroke-width="6" stroke-linecap="round" opacity=".6"/>
+      </svg>
+    </div>
+    <h3>المثلث اللي ماشي معاك</h3>
+    <p>مثلث Play/Forward (حرف P) جوه شبكة مساحة عمل. الخدوش ورا = الحركة. ده لوجو «المنصة معاك في الشارع».</p>
+  </div>
+
+  <!-- 4 الوحدات بتدور وتقفل -->
+  <div class="card">
+    <div class="stage">
+      <svg width="180" height="180" viewBox="0 0 512 512">
+        <rect width="512" height="512" rx="110" fill="#0A0510"/>
+        <g transform="translate(256,256)">
+          <path d="M0 -140 L48 -52 L-48 -52 Z" fill="#9F59FF"/>
+          <path d="M121 70 L25 70 L73 -14 Z" fill="#A832E9" transform="rotate(120) translate(0,0)"/>
+          <path d="M-121 70 L-25 70 L-73 -14 Z" fill="#E8AAFF"/>
+          <circle r="22" fill="#F5D48A"/>
+          <circle r="140" fill="none" stroke="#F5D48A" stroke-width="3" stroke-dasharray="4 10" opacity=".6"/>
+        </g>
+      </svg>
+    </div>
+    <h3>الوحدات بتحوم وتقفل</h3>
+    <p>3 مثلثات حوالي نقطة التاجر الذهبية، دايرة مدار متقطعة. الموشن: المثلثات بتلف حوالين التاجر وكل فترة تقفل على قمة. «الشغل بيدور معاك».</p>
+  </div>
+
+</div>
+
+<div class="palette">
+  <div class="sw"><div style="background:#9F59FF"></div><small>#9F59FF وحدة</small></div>
+  <div class="sw"><div style="background:#A832E9"></div><small>#A832E9 ماجنتا</small></div>
+  <div class="sw"><div style="background:#E8AAFF"></div><small>#E8AAFF وردي</small></div>
+  <div class="sw"><div style="background:#F5D48A"></div><small>#F5D48A الأقصى</small></div>
+  <div class="sw"><div style="background:#5F1E85"></div><small>#5F1E85 عمق</small></div>
+  <div class="sw"><div style="background:#0A0510;border:1px solid #333"></div><small>#0A0510 حبر</small></div>
+</div>
+
+</body>
+</html>

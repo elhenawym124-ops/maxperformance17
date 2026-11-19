@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>MaxP — تعديل ألوان اللوجو</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif; background: #060309; color: #F4EEFF; padding: 28px 22px; }
+  h1 { font-size: 20px; text-align: center; }
+  .sub { text-align: center; color: #C4B5FD; margin: 6px 0 22px; font-size: 13px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto; }
+  .card { border-radius: 18px; padding: 16px; text-align: center; border: 1px solid rgba(255,255,255,.08); }
+  .card h3 { font-size: 14px; margin: 10px 0 4px; }
+  .card p { font-size: 11.5px; opacity: .75; line-height: 1.6; }
+  .stage { height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+  .chips { display: flex; gap: 6px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+  .chip { width: 34px; height: 22px; border-radius: 6px; }
+  .rec { outline: 2px solid #F5D48A; outline-offset: 3px; }
+  .badge { display: inline-block; margin-top: 8px; font-size: 11px; padding: 3px 10px; border-radius: 999px; }
+</style>
+</head>
+<body>
+
+<h1>نفس اللوجو — 5 اتجاهات لون</h1>
+<div class="sub">شكل القمة اللي بتتجمع ثابت · الألوان هي اللي بتتغير</div>
+
+<div class="grid">
+
+  <!-- 1 ORIGINAL -->
+  <div class="card rec" style="background:#120818">
+    <div class="stage" style="background:radial-gradient(ellipse at 50% 40%, rgba(159,89,255,.15), transparent 70%)">
+      <svg width="170" height="170" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="oV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>
+          <linearGradient id="oM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D18BFF"/><stop offset="1" stop-color="#A832E9"/></linearGradient>
+          <linearGradient id="oP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8AAFF"/><stop offset="1" stop-color="#C77DFF"/></linearGradient>
+        </defs>
+        <g transform="skewX(-8) translate(20,0)">
+          <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#oV)"/>
+          <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#oM)"/>
+          <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#oP)"/>
+          <path d="M132 196 L372 196" stroke="#F5D48A" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="256" cy="304" r="13" fill="#F5D48A"/>
+        </g>
+      </svg>
+    </div>
+    <h3>1 — البنفسجي الملكي (الأصل)</h3>
+    <p>من لوجو max-p الأصلي. فخامة + إبداع. هوية المنصة التاريخية.</p>
+    <div class="chips">
+      <div class="chip" style="background:#9F59FF"></div><div class="chip" style="background:#A832E9"></div>
+      <div class="chip" style="background:#E8AAFF"></div><div class="chip" style="background:#F5D48A"></div>
+      <div class="chip" style="background:#0A0510"></div>
+    </div>
+    <span class="badge" style="background:rgba(245,212,138,.15); color:#F5D48A">الموصى به — هوية الأصل</span>
+  </div>
+
+  <!-- 2 EMERALD -->
+  <div class="card" style="background:#071A14">
+    <div class="stage" style="background:radial-gradient(ellipse at 50% 40%, rgba(16,185,129,.15), transparent 70%)">
+      <svg width="170" height="170" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="eV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10B981"/><stop offset="1" stop-color="#065F46"/></linearGradient>
+          <linearGradient id="eM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+          <linearGradient id="eP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A7F3D0"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+        </defs>
+        <g transform="skewX(-8) translate(20,0)">
+          <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#eV)"/>
+          <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#eM)"/>
+          <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#eP)"/>
+          <path d="M132 196 L372 196" stroke="#F5D48A" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="256" cy="304" r="13" fill="#F5D48A"/>
+        </g>
+      </svg>
+    </div>
+    <h3>2 — الزمردي + ذهب (أداء وربح)</h3>
+    <p>لغة الأداء والفلوس عند التاجر المصري. قريب من Operix لكن أعمق وأفخم (مش منت فاتح).</p>
+    <div class="chips">
+      <div class="chip" style="background:#10B981"></div><div class="chip" style="background:#0D9488"></div>
+      <div class="chip" style="background:#A7F3D0"></div><div class="chip" style="background:#F5D48A"></div>
+      <div class="chip" style="background:#071A14"></div>
+    </div>
+    <span class="badge" style="background:rgba(16,185,129,.15); color:#34D399">تجاري · قريب من اللايف</span>
+  </div>
+
+  <!-- 3 SUNSET -->
+  <div class="card" style="background:#1A0B14">
+    <div class="stage" style="background:radial-gradient(ellipse at 50% 40%, rgba(244,114,182,.15), transparent 70%)">
+      <svg width="170" height="170" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="sV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C026D3"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>
+          <linearGradient id="sM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F472B6"/><stop offset="1" stop-color="#C026D3"/></linearGradient>
+          <linearGradient id="sP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FDBA74"/><stop offset="1" stop-color="#F472B6"/></linearGradient>
+        </defs>
+        <g transform="skewX(-8) translate(20,0)">
+          <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#sV)"/>
+          <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#sM)"/>
+          <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#sP)"/>
+          <path d="M132 196 L372 196" stroke="#FDE68A" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="256" cy="304" r="13" fill="#FDE68A"/>
+        </g>
+      </svg>
+    </div>
+    <h3>3 — الغروب (طاقة وحركة)</h3>
+    <p>فوشيا + مرجاني + بنفسجي. أعلى طاقة، مثالي للإنفوجرافيك السريع. أقل «رسمي».</p>
+    <div class="chips">
+      <div class="chip" style="background:#C026D3"></div><div class="chip" style="background:#F472B6"></div>
+      <div class="chip" style="background:#FDBA74"></div><div class="chip" style="background:#FDE68A"></div>
+      <div class="chip" style="background:#1A0B14"></div>
+    </div>
+    <span class="badge" style="background:rgba(244,114,182,.15); color:#F472B6">موشن عالي الطاقة</span>
+  </div>
+
+  <!-- 4 ROYAL INDIGO -->
+  <div class="card" style="background:#0B0F2A">
+    <div class="stage" style="background:radial-gradient(ellipse at 50% 40%, rgba(99,102,241,.18), transparent 70%)">
+      <svg width="170" height="170" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="iV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#312E81"/></linearGradient>
+          <linearGradient id="iM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#4F46E5"/></linearGradient>
+          <linearGradient id="iP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C7D2FE"/><stop offset="1" stop-color="#818CF8"/></linearGradient>
+        </defs>
+        <g transform="skewX(-8) translate(20,0)">
+          <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#iV)"/>
+          <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#iM)"/>
+          <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#iP)"/>
+          <path d="M132 196 L372 196" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="256" cy="304" r="13" fill="#E2E8F0"/>
+        </g>
+      </svg>
+    </div>
+    <h3>4 — النيلي الملكي + فضة</h3>
+    <p>أكثر corporate. يقرب من اللوحة الحالية فالانتقال أقل صدمة. أقل دفء.</p>
+    <div class="chips">
+      <div class="chip" style="background:#6366F1"></div><div class="chip" style="background:#4F46E5"></div>
+      <div class="chip" style="background:#C7D2FE"></div><div class="chip" style="background:#E2E8F0"></div>
+      <div class="chip" style="background:#0B0F2A"></div>
+    </div>
+    <span class="badge" style="background:rgba(99,102,241,.15); color:#C7D2FE">corporate — انتقال سهل</span>
+  </div>
+
+  <!-- 5 WINE -->
+  <div class="card" style="background:#1A0A12">
+    <div class="stage" style="background:radial-gradient(ellipse at 50% 40%, rgba(190,24,93,.15), transparent 70%)">
+      <svg width="170" height="170" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="wV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#BE185D"/><stop offset="1" stop-color="#831843"/></linearGradient>
+          <linearGradient id="wM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F472B6"/><stop offset="1" stop-color="#BE185D"/></linearGradient>
+          <linearGradient id="wP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FBCFE8"/><stop offset="1" stop-color="#F472B6"/></linearGradient>
+        </defs>
+        <g transform="skewX(-8) translate(20,0)">
+          <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#wV)"/>
+          <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#wM)"/>
+          <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#wP)"/>
+          <path d="M132 196 L372 196" stroke="#F5D48A" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="256" cy="304" r="13" fill="#F5D48A"/>
+        </g>
+      </svg>
+    </div>
+    <h3>5 — النبيتي الفاخر</h3>
+    <p>أقرب للوجو البنفسجي الأصلي من ناحية العمق، لكن أدفى. فخامة شرقية.</p>
+    <div class="chips">
+      <div class="chip" style="background:#BE185D"></div><div class="chip" style="background:#F472B6"></div>
+      <div class="chip" style="background:#FBCFE8"></div><div class="chip" style="background:#F5D48A"></div>
+      <div class="chip" style="background:#1A0A12"></div>
+    </div>
+    <span class="badge" style="background:rgba(190,24,93,.15); color:#F472B6">فخامة شرقية</span>
+  </div>
+
+</div>
+
+</body>
+</html>
