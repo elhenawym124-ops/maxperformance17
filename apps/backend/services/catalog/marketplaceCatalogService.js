@@ -123,7 +123,15 @@ class MarketplaceCatalogService {
       updatedAt: normalizeDateIso(app.updatedAt),
       installCount: Number(app.installCount || 0),
       rating: Number(app.rating || 0),
-      reviewCount: Number(app.reviewCount || 0)
+      reviewCount: Number(app.reviewCount || 0),
+      version: app.version || "1.0.0",
+      minPlatformVersion: app.minPlatformVersion || "1.0.0",
+      permissions: Array.isArray(app.permissions) ? app.permissions : [],
+      settingsSchema: app.settingsSchema && typeof app.settingsSchema === "object" ? app.settingsSchema : null,
+      killSwitch: typeof app.killSwitch === "boolean" ? app.killSwitch : false,
+      featureFlag: app.featureFlag || null,
+      healthCheck: app.healthCheck || null,
+      defaultEnabled: Boolean(app.defaultEnabled)
     };
   }
 
@@ -160,13 +168,28 @@ class MarketplaceCatalogService {
       this._readJson(categoriesPath)
     ]);
 
+    let registeredCatalogApps = [];
+    try {
+      const appRegistry = require("../appContract/appRegistryService");
+      registeredCatalogApps = appRegistry.getRegisteredCatalogApps() || [];
+    } catch (_) {}
+
+    const fileApps = Array.isArray(appsData) ? appsData.map((app) => this._withDefaultsForApp(app)) : [];
+    const appSlugsInFile = new Set(fileApps.map((a) => a.slug));
+
+    for (const regApp of registeredCatalogApps) {
+      if (!appSlugsInFile.has(regApp.slug)) {
+        fileApps.push(this._withDefaultsForApp(regApp));
+      }
+    }
+
     const snapshotSource = {
       meta: {
         schemaVersion: indexData.schemaVersion || 1,
         catalogVersion: indexData.catalogVersion || "unknown",
         generatedAt: normalizeDateIso(indexData.generatedAt)
       },
-      apps: Array.isArray(appsData) ? appsData.map((app) => this._withDefaultsForApp(app)) : [],
+      apps: fileApps,
       bundles: Array.isArray(bundlesData) ? bundlesData.map((bundle) => this._withDefaultsForBundle(bundle)) : [],
       categories: Array.isArray(categoriesData) ? categoriesData : []
     };
@@ -222,9 +245,20 @@ class MarketplaceCatalogService {
 
     apps = this._sortApps(apps, sort);
 
+    let appKillSwitchService = null;
+    try {
+      appKillSwitchService = require("../appContract/appKillSwitchService");
+    } catch (_) {}
+
+    const syncKillSwitch = (item) => {
+      if (!item) return item;
+      const isKilled = appKillSwitchService ? appKillSwitchService.isKillSwitchActive(item.slug) : Boolean(item.killSwitch);
+      return { ...item, killSwitch: isKilled };
+    };
+
     const total = apps.length;
     const offset = (page - 1) * limit;
-    const data = apps.slice(offset, offset + limit);
+    const data = apps.slice(offset, offset + limit).map(syncKillSwitch);
 
     return {
       data,
@@ -251,7 +285,14 @@ class MarketplaceCatalogService {
     if (!app) return null;
     if (onlyActive && !app.isActive) return null;
     if (onlyPublic && !app.isPublic) return null;
-    return app;
+
+    let appKillSwitchService = null;
+    try {
+      appKillSwitchService = require("../appContract/appKillSwitchService");
+    } catch (_) {}
+
+    const isKilled = appKillSwitchService ? appKillSwitchService.isKillSwitchActive(app.slug) : Boolean(app.killSwitch);
+    return { ...app, killSwitch: isKilled };
   }
 
   async getAllBundles(options = {}) {

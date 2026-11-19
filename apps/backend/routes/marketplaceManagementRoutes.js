@@ -44,4 +44,10 @@ router.delete('/bundles/:id', marketplaceManagementController.deleteBundle);
 router.get('/export', migrationController.exportMarketplace);
 router.post('/import', migrationController.importMarketplace);
 
+// 🛠️ Modular Tools & Kill Switch Management
+router.get('/tools', marketplaceManagementController.getAllRegisteredTools);
+router.get('/tools/:slug/status', marketplaceManagementController.getToolStatus);
+router.post('/tools/:slug/kill-switch', marketplaceManagementController.toggleToolKillSwitch);
+router.post('/tools/:slug/companies/:companyId/toggle', marketplaceManagementController.toggleCompanyToolAccess);
+
 module.exports = router;

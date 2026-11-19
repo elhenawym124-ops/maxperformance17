@@ -53,6 +53,7 @@
     "templates:test": "node test_registry.js && node test_registry_save_template.js && node test_safety_guards.js && node test_template_content_helpers.js",
     "templates:health": "npm run templates:validate && npm run templates:test",
     "catalog:validate": "node scripts/catalog/validate_marketplace_catalog.js",
+    "ci:verify-tools": "node scripts/validate-app-contract.js",
     "catalog:diff": "node scripts/catalog/diff_marketplace_catalog_vs_db.js",
     "catalog:export-db": "node scripts/catalog/export_db_to_marketplace_catalog.js",
     "catalog:sync-target": "node scripts/sync_target_marketplace_catalog_entries.js",

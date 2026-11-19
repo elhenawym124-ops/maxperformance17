@@ -8,7 +8,10 @@ export const APP_SETTINGS_SLUGS = [
 
 export type AppSettingsSlug = (typeof APP_SETTINGS_SLUGS)[number];
 
-export function supportsAppSettings(slug?: string | null): boolean {
+export function supportsAppSettings(slug?: string | null, appRecord?: any): boolean {
   if (!slug) return false;
-  return (APP_SETTINGS_SLUGS as readonly string[]).includes(slug);
+  if ((APP_SETTINGS_SLUGS as readonly string[]).includes(slug)) return true;
+  // If app has a settingsSchema defined in its manifest or database record, settings are automatically generated
+  if (appRecord?.app?.settingsSchema || appRecord?.settingsSchema) return true;
+  return false;
 }

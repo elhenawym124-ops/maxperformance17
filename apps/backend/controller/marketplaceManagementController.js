@@ -1019,4 +1019,265 @@ exports.deleteBundle = async (req, res) => {
   }
 };
 
+/**
+ * ============================================================================
+ * MODULAR TOOLS & APP CONTRACT MANAGEMENT (Kill Switch & Per-Company Toggle)
+ * ============================================================================
+ */
+
+const appKillSwitchService = require('../services/appContract/appKillSwitchService');
+const appRegistryService = require('../services/appContract/appRegistryService');
+
+/**
+ * @route POST /api/v1/super-admin/marketplace-management/tools/:slug/kill-switch
+ * @desc Instant emergency shutoff for a modular tool or app across the platform
+ * @access Super Admin
+ */
+exports.toggleToolKillSwitch = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const { active, reason } = req.body;
+
+    if (typeof active !== 'boolean') {
+      return res.status(400).json({
+        success: false,
+        message: 'الحقل "active" مطلوب ويجب أن يكون boolean'
+      });
+    }
+
+    const payload = await appKillSwitchService.setKillSwitch(slug, active, {
+      reason,
+      updatedBy: req.user?.id || 'SUPER_ADMIN'
+    });
+
+    try {
+      marketplaceCatalogService?.clearCache?.();
+    } catch (_) {}
+
+    return res.json({
+      success: true,
+      message: active
+        ? `تم تفعيل مفتاح الإيقاف الفوري (Kill Switch) للأداة "${slug}" بنجاح`
+        : `تم إلغاء مفتاح الإيقاف الفوري واستعادة الأداة "${slug}" بنجاح`,
+      data: payload
+    });
+  } catch (error) {
+    console.error('Error toggling tool kill switch:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في تشغيل مفتاح الإيقاف الفوري للأداة',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route GET /api/v1/super-admin/marketplace-management/tools
+ * @desc List all registered modular tools with their manifests, health, and kill switch status
+ * @access Super Admin
+ */
+exports.getAllRegisteredTools = async (req, res) => {
+  try {
+    const tools = appRegistryService.getAllTools().map((t) => {
+      const isKilled = appKillSwitchService.isKillSwitchActive(t.slug);
+      return {
+        slug: t.slug,
+        name: t.name,
+        version: t.version,
+        killSwitch: isKilled,
+        manifest: t.manifest,
+        status: isKilled ? 'DISABLED_BY_KILL_SWITCH' : 'ACTIVE',
+        routesPrefix: t.manifest.routes?.prefix,
+        healthCheck: t.manifest.healthCheck,
+        permissions: t.manifest.permissions,
+        defaultEnabled: t.manifest.defaultEnabled
+      };
+    });
+
+    return res.json({
+      success: true,
+      total: tools.length,
+      data: tools
+    });
+  } catch (error) {
+    console.error('Error listing registered tools:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في جلب الأدوات المسجلة',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route GET /api/v1/super-admin/marketplace-management/tools/:slug/status
+ * @desc Get detailed status and health of a specific tool
+ * @access Super Admin
+ */
+exports.getToolStatus = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const tool = appRegistryService.getTool(slug);
+
+    if (!tool) {
+      return res.status(404).json({
+        success: false,
+        message: `الأداة "${slug}" غير مسجلة في منصة الأدوات`
+      });
+    }
+
+    const isKilled = appKillSwitchService.isKillSwitchActive(slug);
+    const killMetadata = appKillSwitchService.getKillSwitchStatus(slug);
+
+    // Count installed companies
+    const prisma = getSharedPrismaClient();
+    const [activeInstalls, totalInstalls] = await executeWithRetry(async () => {
+      return await Promise.all([
+        prisma.companyApp.count({
+          where: {
+            app: { slug },
+            status: 'ACTIVE'
+          }
+        }),
+        prisma.companyApp.count({
+          where: { app: { slug } }
+        })
+      ]);
+    }).catch(() => [0, 0]);
+
+    return res.json({
+      success: true,
+      data: {
+        slug: tool.slug,
+        name: tool.name,
+        version: tool.version,
+        killSwitch: isKilled,
+        killMetadata,
+        manifest: tool.manifest,
+        installations: {
+          active: activeInstalls,
+          total: totalInstalls
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching tool status:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في جلب تفاصيل حالة الأداة',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route POST /api/v1/super-admin/marketplace-management/tools/:slug/companies/:companyId/toggle
+ * @desc Enable or disable a modular tool for a specific company without deployment
+ * @access Super Admin
+ */
+exports.toggleCompanyToolAccess = async (req, res) => {
+  try {
+    const { slug, companyId } = req.params;
+    const { enabled } = req.body;
+
+    if (typeof enabled !== 'boolean') {
+      return res.status(400).json({
+        success: false,
+        message: 'الحقل "enabled" مطلوب ويجب أن يكون boolean'
+      });
+    }
+
+    const prisma = getSharedPrismaClient();
+
+    // Verify company exists
+    const company = await executeWithRetry(async () => {
+      return await prisma.company.findUnique({
+        where: { id: companyId },
+        select: { id: true, name: true }
+      });
+    });
+
+    if (!company) {
+      return res.status(404).json({
+        success: false,
+        message: 'الشركة غير موجودة'
+      });
+    }
+
+    // Ensure MarketplaceApp record exists in DB for foreign key relations
+    let app = await executeWithRetry(async () => {
+      return await prisma.marketplaceApp.findUnique({
+        where: { slug }
+      });
+    });
+
+    if (!app) {
+      const tool = appRegistryService.getTool(slug);
+      const toolManifest = tool?.manifest;
+
+      app = await executeWithRetry(async () => {
+        return await prisma.marketplaceApp.create({
+          data: {
+            slug,
+            name: toolManifest?.name || slug,
+            description: toolManifest?.description || 'Modular tool',
+            category: toolManifest?.category || 'general',
+            pricingModel: 'FREE',
+            monthlyPrice: 0,
+            yearlyPrice: 0,
+            trialDays: 0,
+            isActive: true,
+            isPublic: true,
+            features: toolManifest?.settingsSchema || {}
+          }
+        });
+      });
+    }
+
+    const nextStatus = enabled ? 'ACTIVE' : 'DISABLED';
+
+    const companyApp = await executeWithRetry(async () => {
+      return await prisma.companyApp.upsert({
+        where: {
+          companyId_appId: {
+            companyId,
+            appId: app.id
+          }
+        },
+        create: {
+          companyId,
+          appId: app.id,
+          status: nextStatus,
+          activePricingModel: 'FREE'
+        },
+        update: {
+          status: nextStatus
+        }
+      });
+    });
+
+    return res.json({
+      success: true,
+      message: enabled
+        ? `تم تمكين الأداة "${app.name}" للشركة "${company.name}" بنجاح`
+        : `تم تعطيل الأداة "${app.name}" للشركة "${company.name}" بنجاح`,
+      data: {
+        slug,
+        companyId,
+        companyName: company.name,
+        enabled,
+        status: nextStatus,
+        companyAppId: companyApp.id
+      }
+    });
+  } catch (error) {
+    console.error('Error toggling company tool access:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في تعديل صلاحية الأداة للشركة',
+      error: error.message
+    });
+  }
+};
+
 module.exports = exports;

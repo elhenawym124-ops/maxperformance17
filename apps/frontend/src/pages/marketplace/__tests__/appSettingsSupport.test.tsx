@@ -42,6 +42,22 @@ describe("appSettingsSupport", () => {
       expect(supportsAppSettings(null)).toBe(false);
       expect(supportsAppSettings(undefined)).toBe(false);
     });
+
+    it("returns true for any app with a settingsSchema defined in its manifest or record", () => {
+      const helloAppWithSchema = {
+        app: {
+          slug: "hello-app",
+          settingsSchema: {
+            type: "object",
+            properties: {
+              welcomeMessage: { type: "string" },
+            },
+          },
+        },
+      };
+
+      expect(supportsAppSettings("hello-app", helloAppWithSchema)).toBe(true);
+    });
   });
 
   describe("conditional rendering based on appSettings support", () => {

@@ -17,6 +17,7 @@ import { ConversionSuiteSettingsTab } from "./components/settings/ConversionSuit
 import { UpsellCenterTab } from "./components/upsell/UpsellCenterTab";
 import { UgcReviewsSettingsTab } from "./components/settings/UgcReviewsSettingsTab";
 import { CommerceAdvancedSettingsTab } from "./components/settings/CommerceAdvancedSettingsTab";
+import { SchemaAppSettingsTab } from "./components/settings/SchemaAppSettingsTab";
 
 export default function AppSettings() {
   const {
@@ -117,17 +118,31 @@ export default function AppSettings() {
             updateAtPath={updateAtPath}
           />
         );
-      default:
+      default: {
+        const schema = companyApp?.app?.settingsSchema || companyApp?.settingsSchema;
+        if (schema) {
+          return (
+            <SchemaAppSettingsTab
+              schema={schema}
+              settings={normalizedSettings}
+              onChange={updateAtPath}
+              onSave={handleSave}
+              saving={saving}
+              appName={companyApp?.app?.name || slug}
+            />
+          );
+        }
         return null;
+      }
     }
   };
 
   useEffect(() => {
-    if (!loading && companyApp && slug && !supportsAppSettings(slug)) {
+    if (!loading && companyApp && slug && !supportsAppSettings(slug, companyApp)) {
       toast.info("التطبيق ده مالوش إعدادات — دي صفحته");
       navigate(`/marketplace/${slug}`, { replace: true });
     }
-  }, [loading, companyApp, slug, navigate]);
+  }, [loading, companyApp, slug, navigate, companyApp?.app?.settingsSchema, companyApp?.settingsSchema]);
 
   if (loading) {
     return (
@@ -159,7 +174,7 @@ export default function AppSettings() {
     );
   }
 
-  if (slug && !supportsAppSettings(slug)) {
+  if (slug && !supportsAppSettings(slug, companyApp)) {
     return <Navigate to={`/marketplace/${slug}`} replace />;
   }
 
@@ -188,7 +203,7 @@ export default function AppSettings() {
                   <h1 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
                     {pageTitle}
                   </h1>
-                  {(supported || supportsAppSettings(slug)) && (
+                  {(supported || supportsAppSettings(slug, companyApp)) && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
                       <Sparkles size={14} />
                       {slug === "internal-courier-fleet" ? "Fleet Operations" : (isUpsellCenter || slug === "upsell-center") ? "Unified" : "Template Ready"}

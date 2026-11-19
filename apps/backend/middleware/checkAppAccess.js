@@ -321,7 +321,22 @@ const filterActiveCompanyAppSlugs = (installedApps = [], company = null) => {
 const checkAppAccess = (appSlug) => {
   const middleware = async (req, res, next) => {
     try {
-      const { companyId } = req.user;
+      // 🚨 Emergency Kill Switch Check (instant platform-wide shutoff)
+      let appKillSwitchService = null;
+      try {
+        appKillSwitchService = require('../services/appContract/appKillSwitchService');
+      } catch (_) {}
+
+      if (appKillSwitchService && appKillSwitchService.isKillSwitchActive(appSlug)) {
+        return res.status(403).json({
+          success: false,
+          code: 'APP_KILL_SWITCH_ACTIVE',
+          error: 'Emergency Kill Switch Active',
+          message: 'تم إيقاف هذه الأداة فورياً عبر مفتاح الإيقاف الفوري (Kill Switch).'
+        });
+      }
+
+      const { companyId } = req.user || {};
 
       // 👑 SUPER_ADMIN & internal AI_SERVICE bypass app access checks
       if (req.user?.role === 'SUPER_ADMIN' || req.user?.role === 'AI_SERVICE') {
@@ -430,6 +445,28 @@ const checkAppAccess = (appSlug) => {
           where: { slug: { in: candidateSlugs } }
         });
       });
+
+      if (candidateApps.length === 0) {
+        try {
+          const appRegistry = require('../services/appContract/appRegistryService');
+          for (const s of candidateSlugs) {
+            const tool = appRegistry.getTool(s);
+            if (tool) {
+              candidateApps.push({
+                id: `tool-${tool.manifest.slug}`,
+                slug: tool.manifest.slug,
+                name: tool.manifest.name,
+                pricingModel: tool.manifest.pricingModel || 'FREE',
+                monthlyPrice: 0,
+                defaultEnabled: false,
+                settingsSchema: tool.manifest.settingsSchema,
+                permissions: tool.manifest.permissions,
+                isActive: true
+              });
+            }
+          }
+        } catch (_) {}
+      }
 
       if (candidateApps.length === 0) {
         return res.status(404).json({
@@ -570,7 +607,7 @@ const checkAppAccess = (appSlug) => {
       //    User cancellation must always be respected!
       if (isCompanyInActiveTrial) {
         const primaryApp = candidateApps.find((a) => a.slug === primarySlug) || candidateApps.find((a) => !STORE_APP_SLUGS.includes(a.slug)) || candidateApps[0];
-        if (primaryApp) {
+        if (primaryApp && primaryApp.defaultEnabled !== false) {
           const primaryRecord = await executeWithRetry(async () => {
             return await getSharedPrismaClient().companyApp.findUnique({
               where: {
@@ -616,8 +653,11 @@ const checkAppAccess = (appSlug) => {
       }
 
       // 🎁 Free apps auto-activation: ONLY if the primary requested app itself has pricingModel === 'FREE'
+      // AND defaultEnabled is not explicitly false (locked apps require explicit company activation)
       const freeApp = candidateApps.find(
-        (a) => (a.slug === primarySlug || (candidateSlugs.includes(a.slug) && !STORE_APP_SLUGS.includes(a.slug))) && String(a.pricingModel || '').toUpperCase() === 'FREE'
+        (a) => (a.slug === primarySlug || (candidateSlugs.includes(a.slug) && !STORE_APP_SLUGS.includes(a.slug))) &&
+               String(a.pricingModel || '').toUpperCase() === 'FREE' &&
+               a.defaultEnabled !== false
       );
       if (freeApp) {
         const existingRecord = await executeWithRetry(async () => {
@@ -691,6 +731,19 @@ const checkAppAccess = (appSlug) => {
       let message = 'هذه الأداة غير نشطة';
       if (bestCompanyApp.status === 'CANCELLED') {
         message = `تم إلغاء ${bestApp.name}. يرجى إعادة التفعيل`;
+      } else if (bestCompanyApp.status === 'DISABLED') {
+        message = `تم تعطيل ${bestApp.name} لهذه الشركة.`;
+        return res.status(403).json({
+          success: false,
+          code: 'APP_DISABLED',
+          message,
+          needsRenewal: false,
+          app: {
+            slug: bestApp.slug,
+            name: bestApp.name,
+            status: 'DISABLED'
+          }
+        });
       }
 
       return res.status(403).json({

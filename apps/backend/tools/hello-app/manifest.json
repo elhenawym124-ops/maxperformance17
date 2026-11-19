@@ -1,0 +1,79 @@
+{
+  "$schema": "https://maxperformance.io/schemas/tool-manifest.v1.json",
+  "slug": "hello-app",
+  "name": "أداة الترحيب والاختبار (Hello App)",
+  "nameEn": "Hello App Test Tool",
+  "description": "أداة اختبار معزولة تثبت عقد التطبيق (App Contract) والتسجيل الذاتي وإنفاذ الصلاحيات بمفاتيح المانيفست",
+  "version": "1.0.0",
+  "minPlatformVersion": "1.0.0",
+  "category": "UTILITIES",
+  "pricingModel": "FREE",
+  "icon": "👋",
+  "permissions": [
+    "dashboard.view",
+    "settings.read"
+  ],
+  "featureFlag": "FEATURE_HELLO_APP",
+  "defaultEnabled": false,
+  "routes": {
+    "prefix": "/api/v1/tools/hello-app",
+    "endpoints": [
+      {
+        "path": "/ping",
+        "method": "GET",
+        "permission": "dashboard.view",
+        "handler": "ping"
+      },
+      {
+        "path": "/data",
+        "method": "GET",
+        "permission": "dashboard.view",
+        "handler": "getData"
+      },
+      {
+        "path": "/config",
+        "method": "POST",
+        "permission": "settings.read",
+        "handler": "saveConfig"
+      }
+    ]
+  },
+  "healthCheck": "/api/v1/tools/hello-app/health",
+  "settingsSchema": {
+    "type": "object",
+    "title": "إعدادات أداة Hello App",
+    "description": "إعدادات الأداة التجريبية المولدة تلقائياً من المانيفست — بدون أي كود واجهة مخصص",
+    "properties": {
+      "welcomeMessage": {
+        "type": "string",
+        "title": "رسالة الترحيب",
+        "description": "الرسالة التي ستظهر للمستخدمين عند تشغيل الأداة",
+        "default": "مرحباً بكم في الأداة الجديدة"
+      },
+      "enableAutoSync": {
+        "type": "boolean",
+        "title": "تفعيل المزامنة التلقائية",
+        "description": "مزامنة البيانات الدورية كل ساعة",
+        "default": false
+      },
+      "syncIntervalMinutes": {
+        "type": "number",
+        "title": "الفترة الزمنية للمزامنة (بالدقائق)",
+        "description": "الوقت بالدقائق بين كل مزامنة",
+        "default": 15,
+        "minimum": 1,
+        "maximum": 1440
+      },
+      "logLevel": {
+        "type": "string",
+        "title": "مستوى السجلات",
+        "description": "حدد مستوى التفاصيل المسجلة",
+        "enum": ["info", "warn", "error"],
+        "default": "info"
+      }
+    },
+    "required": [
+      "welcomeMessage"
+    ]
+  }
+}

@@ -1288,6 +1288,14 @@ app.use(
   "/api/v1/super-admin/marketplace-management",
   marketplaceManagementRoutes,
 );
+
+// 🛠️ Modular Tools & App Contract Dynamic Registry
+try {
+  const appRegistryService = require("./services/appContract/appRegistryService");
+  appRegistryService.mountToolsOnApp(app);
+} catch (toolRegistryError) {
+  console.error("❌ [AppRegistry] Failed to mount modular tools:", toolRegistryError.message);
+}
 app.use("/api/v1/wallet-payment", walletPaymentRoutes);
 app.use("/api/v1/admin/companies", adminCompanyRoutes);
 const adminWhatsAppInboxRoutes = require("./routes/adminWhatsAppInboxRoutes");
