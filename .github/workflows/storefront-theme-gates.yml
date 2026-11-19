@@ -126,13 +126,16 @@ jobs:
           # hold different versions (1.60.x vs 1.62.x) whose browser builds are
           # not interchangeable. Install for both locations so whichever copy the
           # script resolves actually has its chromium on disk.
-          # Playwright's browser revisions are version-specific, so install with the
-          # exact version the gate will resolve (the repo-root copy) instead of a
-          # floating 'npx playwright', which can fetch a different build number and
-          # leave the gate failing with "Executable doesn't exist".
-          PW_VERSION="$(node -p "require('./node_modules/playwright/package.json').version" 2>/dev/null || echo '')"
+          # CI only installs dependencies under apps/frontend, so read the pinned
+          # playwright version from there first (the gate resolves that copy
+          # first too) and fall back to the repo root for local parity.
+          PW_VERSION=""
+          for dir in apps/frontend .; do
+            v="$(node -p "require('./$dir/node_modules/playwright/package.json').version" 2>/dev/null || true)"
+            if [ -n "$v" ] && [ "$v" != "undefined" ]; then PW_VERSION="$v"; break; fi
+          done
           if [ -z "$PW_VERSION" ]; then
-            echo "::error::could not read playwright version from node_modules; browser install would be unreliable"
+            echo "::error::playwright not found under apps/frontend or the repo root — cannot match the gate's browser build"
             exit 1
           fi
           echo "installing browsers for playwright@$PW_VERSION"
