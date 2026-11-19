@@ -1,0 +1,407 @@
+{
+  "id": "tpl-055-daralbait-housewares",
+  "name": "Dar Albait — أدوات منزلية",
+  "description": "قالب أدوات منزلية بلدي بمنطق السوق: هيرو بضائع جانبية، فئات بصور، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، ومعرض عملاء. كريمي وزيتوني وقهوي — مناسب لمتجر بيبيع لكل بيت بالدفع عند الاستلام.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "28 36% 24%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "44 30% 90%",
+      "secondaryForeground": "28 30% 16%",
+      "accent": "88 42% 38%",
+      "accentForeground": "0 0% 100%",
+      "background": "44 42% 97%",
+      "foreground": "28 26% 12%",
+      "muted": "44 24% 92%",
+      "mutedForeground": "28 10% 38%",
+      "border": "42 18% 85%",
+      "card": "0 0% 100%",
+      "cardForeground": "28 26% 12%",
+      "ring": "88 42% 38%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.25rem",
+      "buttonRadius": "0.3rem"
+    },
+    "productCard": {
+      "borderRadius": "0.25rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | DAR ALBAIT",
+    "description": "قالب أدوات منزلية بلدي بمنطق السوق: هيرو بضائع جانبية، فئات بصور، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، ومعرض عملاء. كريمي وزيتوني وقهوي — مناسب لمتجر بيبيع لكل بيت بالدفع عند الاستلام."
+  },
+  "preview": {
+    "colors": [
+      "28 36% 24%",
+      "88 42% 38%",
+      "44 42% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-055-daralbait-housewares/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "DAR ALBAIT",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "الدفع عند الاستلام في كل المحافظات · شحن 45 ج.م بس",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "السوق",
+        "to": "/shop"
+      },
+      {
+        "label": "المطبخ",
+        "to": "/shop?category=kitchen"
+      },
+      {
+        "label": "التخزين",
+        "to": "/shop?category=storage"
+      },
+      {
+        "label": "العروض",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "DAR ALBAIT — قالب أدوات منزلية بلدي بمنطق السوق.",
+    "copyrightText": "© 2026 DAR ALBAIT",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "السوق",
+            "to": "/shop"
+          },
+          {
+            "label": "المطبخ",
+            "to": "/shop?category=kitchen"
+          },
+          {
+            "label": "التخزين",
+            "to": "/shop?category=storage"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "دفع عند الاستلام",
+            "message": "بتفتح الشنطة وتشوف البضاعة قبل ما تدفع — في كل المحافظات",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "speed-banner",
+          "settings": {
+            "eyebrow": "بلدي وأصلي",
+            "title": "أدوات البيت اللي بتعيش سنين",
+            "subtitle": "صواني وأواني وتخزين من ورش مصر — الأسعار مكتوبة، والدفع عند الاستلام في كل المحافظات.",
+            "ctaText": "اطلب دلوقتي",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-055-daralbait-housewares/hero.jpg",
+            "panelImage": "/assets/themes/tpl-055-daralbait-housewares/hero.jpg",
+            "highlights": [
+              {
+                "label": "دفع",
+                "value": "عند الاستلام"
+              },
+              {
+                "label": "شحن",
+                "value": "45 ج.م"
+              },
+              {
+                "label": "ضمان",
+                "value": "سنة"
+              }
+            ],
+            "panelEyebrow": "بلدي وأصلي",
+            "panelTitle": "أدوات البيت اللي بتعيش سنين",
+            "panelSubtitle": "صواني وأواني وتخزين من ورش مصر — الأسعار مكتوبة، والدفع عند الاستلام في كل المحافظات."
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "marketplace-tiles",
+          "settings": {
+            "title": "أقسام السوق",
+            "subtitle": "مطبخ · تخزين · صواني · منظفات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "trust-strip",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "دفع عند الاستلام",
+                "description": "تفتح وتشوف قبل ما تدفع"
+              },
+              {
+                "title": "شحن 45 ج.م",
+                "description": "لكل المحافظات — مجاني فوق 1,200"
+              },
+              {
+                "title": "بضاعة بلدي",
+                "description": "من ورش مصر — مش مستورد"
+              },
+              {
+                "title": "ضمان سنة",
+                "description": "على أي عيب صناعة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "marquee",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من بيوت المصريين",
+            "subtitle": "صوّر مطبخك ووسمنا",
+            "handle": "daralbait.eg",
+            "images": [
+              "/assets/themes/tpl-055-daralbait-housewares/hero.jpg",
+              "/assets/themes/tpl-055-daralbait-housewares/room-1.jpg",
+              "/assets/themes/tpl-055-daralbait-housewares/room-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "كلام الناس",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "أم هاني",
+                "text": "الطلب وصل في يومين والدفع عند الاستلام زي ما قلتوا.",
+                "rating": 5
+              },
+              {
+                "author": "محمد س.",
+                "text": "الصينية قصدير سميكة مش رقيقة — تستاهل.",
+                "rating": 5
+              },
+              {
+                "author": "هبة ع.",
+                "text": "البرطمانات حلوة بس واحد وصل مكسور واستبدلوه بسرعة.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عروض السوق",
+            "subtitle": "رسالة واحدة في الأسبوع بأرخص الأسعار الجديدة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل أدوات البيت",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "menu-quick-order"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "stacked"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "quick"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة السوق",
+            "subtitle": "راجع الطلب وحدد المحافظة قبل التأكيد.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التوصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

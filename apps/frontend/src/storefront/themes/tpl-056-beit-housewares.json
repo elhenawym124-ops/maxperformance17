@@ -1,0 +1,518 @@
+{
+  "id": "tpl-056-beit-housewares",
+  "name": "Beit — أدوات منزلية",
+  "description": "قالب أدوات منزلية أصلي بمنطق الغرفة: هيرو أقسام بصور، مخطّط اختيار حسب الغرفة والميزانية، موزايك مطابخ، فئات معرض، باقات يومية، وآراء. تيراكوتا وأخضر غامق وكريمي — مبني لمتجر بيجهّز البيت غرفة غرفة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "18 52% 40%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "38 28% 90%",
+      "secondaryForeground": "18 40% 16%",
+      "accent": "152 30% 32%",
+      "accentForeground": "0 0% 100%",
+      "background": "36 36% 97%",
+      "foreground": "20 14% 12%",
+      "muted": "38 22% 92%",
+      "mutedForeground": "22 10% 38%",
+      "border": "36 16% 85%",
+      "card": "0 0% 100%",
+      "cardForeground": "20 14% 12%",
+      "ring": "152 30% 32%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, Almarai, sans-serif",
+      "bodyFont": "Readex Pro, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | BEIT",
+    "description": "قالب أدوات منزلية أصلي بمنطق الغرفة: هيرو أقسام بصور، مخطّط اختيار حسب الغرفة والميزانية، موزايك مطابخ، فئات معرض، باقات يومية، وآراء. تيراكوتا وأخضر غامق وكريمي — مبني لمتجر بيجهّز البيت غرفة غرفة."
+  },
+  "preview": {
+    "colors": [
+      "18 52% 40%",
+      "152 30% 32%",
+      "36 36% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-056-beit-housewares/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "BEIT",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "طقم الغرفة الكاملة بسعر واحد · توصيل وتجهيز في 3 أيام",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الأطقم",
+        "to": "/collections"
+      },
+      {
+        "label": "مطبخ",
+        "to": "/shop?category=kitchen"
+      },
+      {
+        "label": "حمام",
+        "to": "/shop?category=bath"
+      },
+      {
+        "label": "نوم",
+        "to": "/shop?category=bedroom"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "BEIT — قالب أدوات منزلية أصلي بمنطق الغرفة.",
+    "copyrightText": "© 2026 BEIT",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الأطقم",
+            "to": "/collections"
+          },
+          {
+            "label": "مطبخ",
+            "to": "/shop?category=kitchen"
+          },
+          {
+            "label": "حمام",
+            "to": "/shop?category=bath"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "drop-board",
+          "settings": {
+            "eyebrow": "بيت مرتب",
+            "title": "أدوات بتخلّي البيت أسهل",
+            "subtitle": "اختار الغرفة والميزانية، وإحنا نجهّز لك طقم كامل: مطبخ، حمام، نوم، أو سفرة — بسعر واحد.",
+            "ctaText": "جهّز بيتك",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-056-beit-housewares/hero.jpg",
+            "panelImage": "/assets/themes/tpl-056-beit-housewares/hero.jpg",
+            "highlights": [
+              {
+                "label": "4 غرف",
+                "value": "مطبخ · حمام · نوم · سفرة"
+              },
+              {
+                "label": "طقم",
+                "value": "بسعر واحد"
+              },
+              {
+                "label": "تجهيز",
+                "value": "3 أيام"
+              }
+            ],
+            "panelEyebrow": "بيت مرتب",
+            "panelTitle": "أدوات بتخلّي البيت أسهل",
+            "panelSubtitle": "اختار الغرفة والميزانية، وإحنا نجهّز لك طقم كامل: مطبخ، حمام، نوم، أو سفرة — بسعر واحد."
+          }
+        },
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توفير 30%",
+            "message": "طقم الغرفة الكاملة أرخص من شراء القطع منفصلة",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "جهّز طقمك في دقيقة",
+            "subtitle": "الغرفة ← الميزانية",
+            "ctaText": "شوف الطقم",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "مطبخ"
+              },
+              {
+                "label": "حمام"
+              },
+              {
+                "label": "غرفة نوم"
+              },
+              {
+                "label": "سفرة"
+              }
+            ],
+            "moods": [
+              {
+                "label": "اقتصادي"
+              },
+              {
+                "label": "متوسط"
+              },
+              {
+                "label": "كامل"
+              }
+            ],
+            "looks": [
+              {
+                "title": "طقم المطبخ",
+                "subtitle": "حلل + برطمانات + أدوات",
+                "price": "5,400 ج.م",
+                "image": "/assets/themes/tpl-056-beit-housewares/room-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "طقم الحمام",
+                "subtitle": "مناشف + تنظيم + إكسسوار",
+                "price": "2,300 ج.م",
+                "image": "/assets/themes/tpl-056-beit-housewares/room-2.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "طقم السفرة",
+                "subtitle": "طقم تقديم + مفرش + شموع",
+                "price": "3,100 ج.م",
+                "image": "/assets/themes/tpl-056-beit-housewares/hero.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "غرف جاهزة زي ما هي",
+            "subtitle": "من بيوت عملاء — مش استوديو",
+            "ctaText": "شوف الغرف",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-056-beit-housewares/room-1.jpg",
+                "title": "طقم المطبخ",
+                "subtitle": "حلل + برطمانات + أدوات خشب",
+                "priceLabel": "5,400 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-056-beit-housewares/room-2.jpg",
+                "title": "طقم الحمام",
+                "subtitle": "مناشف قطن + تنظيم",
+                "priceLabel": "2,300 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-056-beit-housewares/hero.jpg",
+                "title": "طقم السفرة",
+                "subtitle": "تقديم + مفرش + شموع",
+                "priceLabel": "3,100 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "الأطقم والغرف",
+            "subtitle": "مطبخ · حمام · نوم · سفرة",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "طقم 1",
+                "title": "المطبخ الكامل",
+                "subtitle": "حلل + برطمانات + أدوات",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 30%"
+              },
+              {
+                "label": "طقم 2",
+                "title": "الحمام",
+                "subtitle": "مناشف + تنظيم + إكسسوار",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 25%"
+              },
+              {
+                "label": "طقم 3",
+                "title": "السفرة",
+                "subtitle": "تقديم + مفرش + شموع",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 22%"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "editorial",
+          "settings": {
+            "title": "أطقم اتجهّزت",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "رانيا ف.",
+                "text": "طقم المطبخ وفّر عليّ ١٢٠٠ جنيه مقارنة إني أشتري كل حاجة لوحدها.",
+                "rating": 5
+              },
+              {
+                "author": "عمرو س.",
+                "text": "الطقم وصل مجهّز زي ما هو بالظبط، والتوصيل في ٣ أيام.",
+                "rating": 4
+              },
+              {
+                "author": "نورهان أ.",
+                "text": "مناشف الحمام قطن تقيل وملمسها حلو.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "طقم بسعر واحد",
+                "description": "السعر النهائي للغرفة كاملة — من غير مفاضلة"
+              },
+              {
+                "title": "تجهيز 3 أيام",
+                "description": "بنجهّز الطقم ونراجعه قبل الشحن"
+              },
+              {
+                "title": "توصيل لكل المحافظات",
+                "description": "القاهرة والجيزة في يوم"
+              },
+              {
+                "title": "استبدال 14 يوم",
+                "description": "لو قطعة مش مناسبة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "طقم جديد كل شهر",
+            "subtitle": "غرفة واحدة جاهزة كل شهر بميزانية محددة — من غير مفاضلة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل أدوات البيت",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "decision-deck"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "masonry"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "luxury"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "wardrobe-cart",
+          "settings": {
+            "title": "سلة الأطقم",
+            "subtitle": "راجع مكوّنات الطقم ومقاس الغرفة.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "fitting-room-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التوصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

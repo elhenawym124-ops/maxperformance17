@@ -4681,6 +4681,130 @@
     }
   },
   {
+    "id": "tpl-053-haven-housewares",
+    "name": "Haven — أدوات منزلية",
+    "description": "قالب أدوات منزلية هادي بمنطق الصور الكبيرة: بانر صورة واحدة، فئات بصور، شبكة منتجات واسعة، وموزايك لمطبخ حقيقي، وتقييمات. أبيض دافئ وسيج مع كليم — مبني لمتجر أدوات بيت بيبيع بالصورة والخامة.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "housewares",
+        "label": "أدوات منزلية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "150 14% 28%",
+      "40 22% 93%",
+      "24 48% 56%"
+    ],
+    "previewImage": "/assets/themes/tpl-053-haven-housewares/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-054-culina-housewares",
+    "name": "Culina — أدوات منزلية",
+    "description": "قالب أدوات منزلية بمنطق بلوكات الحملات: شريط عرض، بانر إعلاني مقسوم، فئات سريعة، عروض مكدّسة، شبكة منتجات، شريط خدمة، وUGC. كحلي وعنبري — مناسب لمتجر بييجمع البيع مع عروض الأسبوع.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "housewares",
+        "label": "أدوات منزلية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "222 45% 20%",
+      "40 20% 93%",
+      "38 92% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-054-culina-housewares/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-055-daralbait-housewares",
+    "name": "Dar Albait — أدوات منزلية",
+    "description": "قالب أدوات منزلية بلدي بمنطق السوق: هيرو بضائع جانبية، فئات بصور، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، ومعرض عملاء. كريمي وزيتوني وقهوي — مناسب لمتجر بيبيع لكل بيت بالدفع عند الاستلام.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "housewares",
+        "label": "أدوات منزلية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "28 36% 24%",
+      "44 30% 90%",
+      "88 42% 38%"
+    ],
+    "previewImage": "/assets/themes/tpl-055-daralbait-housewares/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-056-beit-housewares",
+    "name": "Beit — أدوات منزلية",
+    "description": "قالب أدوات منزلية أصلي بمنطق الغرفة: هيرو أقسام بصور، مخطّط اختيار حسب الغرفة والميزانية، موزايك مطابخ، فئات معرض، باقات يومية، وآراء. تيراكوتا وأخضر غامق وكريمي — مبني لمتجر بيجهّز البيت غرفة غرفة.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "housewares",
+        "label": "أدوات منزلية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "18 52% 40%",
+      "38 28% 90%",
+      "152 30% 32%"
+    ],
+    "previewImage": "/assets/themes/tpl-056-beit-housewares/preview.png",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 25
+    }
+  },
+  {
     "id": "turbo-parts",
     "name": "Turbo Parts",
     "description": "قالب قطع غيار يختصر القرار: بحث بالموديل، باقات صيانة، وضمان واضح يطمن العميل قبل الشراء.",

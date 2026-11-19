@@ -62,7 +62,7 @@ export const MARKETPLACE_SUBCATEGORY_ORDER: Record<string, string[]> = {
   ],
   food: ["restaurants"],
   electronics: ["mobile-store", "tech-store", "gaming-store"],
-  home: ["furniture-decor"],
+  home: ["furniture-decor", "housewares"],
   automotive: ["car-accessories"],
   medical: ["dental-lab"],
   kids: ["toys"],

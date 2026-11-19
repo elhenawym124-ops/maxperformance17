@@ -341,6 +341,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "furniture-decor",
     "أثاث وديكور",
   ),
+  "tpl-053-haven-housewares": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "housewares",
+    "أدوات منزلية",
+  ),
+  "tpl-054-culina-housewares": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "housewares",
+    "أدوات منزلية",
+  ),
+  "tpl-055-daralbait-housewares": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "housewares",
+    "أدوات منزلية",
+  ),
+  "tpl-056-beit-housewares": createThemeCategoryMeta(
+    "home",
+    "المنزل",
+    "housewares",
+    "أدوات منزلية",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -981,6 +1005,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب أثاث وديكور دافئ بمنطق المجلس: هيرو تحريري كريمي، موزايك غرف، فئات أعمدة معرض، قصة حرفة، وآراء تحريرية. كريمي وبنّي وإسبريسو — مناسب لمتجر أثاث بيجمع التراث والحداثة.",
   "tpl-052-riwaq-furniture":
     "قالب أثاث أصلي بمنطق الغرفة الكاملة: هيرو بانر مقسوم، مخطّط اختيار حسب الغرفة والميزانية، موزايك بنتو، باقات غرف، وآراء. فحمي ورمل ونحاس — مبني لمتجر بيبيع الغرفة جاهزة مش قطعة قطعة.",
+  "tpl-053-haven-housewares":
+    "قالب أدوات منزلية هادي بمنطق الصور الكبيرة: بانر صورة واحدة، فئات بصور، شبكة منتجات واسعة، وموزايك لمطبخ حقيقي، وتقييمات. أبيض دافئ وسيج مع كليم — مبني لمتجر أدوات بيت بيبيع بالصورة والخامة.",
+  "tpl-054-culina-housewares":
+    "قالب أدوات منزلية بمنطق بلوكات الحملات: شريط عرض، بانر إعلاني مقسوم، فئات سريعة، عروض مكدّسة، شبكة منتجات، شريط خدمة، وUGC. كحلي وعنبري — مناسب لمتجر بييجمع البيع مع عروض الأسبوع.",
+  "tpl-055-daralbait-housewares":
+    "قالب أدوات منزلية بلدي بمنطق السوق: هيرو بضائع جانبية، فئات بصور، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، ومعرض عملاء. كريمي وزيتوني وقهوي — مناسب لمتجر بيبيع لكل بيت بالدفع عند الاستلام.",
+  "tpl-056-beit-housewares":
+    "قالب أدوات منزلية أصلي بمنطق الغرفة: هيرو أقسام بصور، مخطّط اختيار حسب الغرفة والميزانية، موزايك مطابخ، فئات معرض، باقات يومية، وآراء. تيراكوتا وأخضر غامق وكريمي — مبني لمتجر بيجهّز البيت غرفة غرفة.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1230,6 +1262,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-051-sadou-furniture/preview.png",
   "tpl-052-riwaq-furniture":
     "/assets/themes/tpl-052-riwaq-furniture/preview.png",
+  "tpl-053-haven-housewares":
+    "/assets/themes/tpl-053-haven-housewares/preview.png",
+  "tpl-054-culina-housewares":
+    "/assets/themes/tpl-054-culina-housewares/preview.png",
+  "tpl-055-daralbait-housewares":
+    "/assets/themes/tpl-055-daralbait-housewares/preview.png",
+  "tpl-056-beit-housewares":
+    "/assets/themes/tpl-056-beit-housewares/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

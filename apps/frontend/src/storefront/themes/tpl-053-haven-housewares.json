@@ -1,0 +1,450 @@
+{
+  "id": "tpl-053-haven-housewares",
+  "name": "Haven — أدوات منزلية",
+  "description": "قالب أدوات منزلية هادي بمنطق الصور الكبيرة: بانر صورة واحدة، فئات بصور، شبكة منتجات واسعة، وموزايك لمطبخ حقيقي، وتقييمات. أبيض دافئ وسيج مع كليم — مبني لمتجر أدوات بيت بيبيع بالصورة والخامة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "150 14% 28%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "40 22% 93%",
+      "secondaryForeground": "150 12% 18%",
+      "accent": "24 48% 56%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 30% 98%",
+      "foreground": "150 10% 12%",
+      "muted": "40 18% 94%",
+      "mutedForeground": "150 8% 40%",
+      "border": "40 14% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "150 10% 12%",
+      "ring": "150 14% 28%"
+    },
+    "typography": {
+      "headingFont": "Tajawal, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.5rem",
+      "buttonRadius": "0.35rem"
+    },
+    "productCard": {
+      "borderRadius": "0.5rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | HAVEN",
+    "description": "قالب أدوات منزلية هادي بمنطق الصور الكبيرة: بانر صورة واحدة، فئات بصور، شبكة منتجات واسعة، وموزايك لمطبخ حقيقي، وتقييمات. أبيض دافئ وسيج مع كليم — مبني لمتجر أدوات بيت بيبيع بالصورة والخامة."
+  },
+  "preview": {
+    "colors": [
+      "150 14% 28%",
+      "24 48% 56%",
+      "40 30% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-053-haven-housewares/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "HAVEN",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل مجاني فوق 1,500 ج.م · استبدال 14 يوم من غير أسئلة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المطبخ",
+        "to": "/shop?category=kitchen"
+      },
+      {
+        "label": "المائدة",
+        "to": "/shop?category=table"
+      },
+      {
+        "label": "التخزين",
+        "to": "/shop?category=storage"
+      },
+      {
+        "label": "التنظيف",
+        "to": "/shop?category=cleaning"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "HAVEN — قالب أدوات منزلية هادي بمنطق الصور الكبيرة.",
+    "copyrightText": "© 2026 HAVEN",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المطبخ",
+            "to": "/shop?category=kitchen"
+          },
+          {
+            "label": "المائدة",
+            "to": "/shop?category=table"
+          },
+          {
+            "label": "التخزين",
+            "to": "/shop?category=storage"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل مجاني",
+            "message": "على أي طلب فوق 1,500 ج.م — وبنغلّف الزجاج بطبقتين فوم",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "graceful-banner",
+          "settings": {
+            "eyebrow": "مجموعة المطبخ",
+            "title": "بيتك يبدأ من المطبخ",
+            "subtitle": "أواني ستانلس، برطمانات تخزين، وأدوات خشب — كل قطعة بمقاسها وخامتها مكتوبة قبل ما تشتري.",
+            "ctaText": "اتفرج على المطبخ",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-053-haven-housewares/hero.jpg",
+            "panelImage": "/assets/themes/tpl-053-haven-housewares/hero.jpg",
+            "highlights": [
+              {
+                "label": "توصيل",
+                "value": "2-3 أيام"
+              },
+              {
+                "label": "تغليف",
+                "value": "زجاج آمن"
+              },
+              {
+                "label": "استبدال",
+                "value": "14 يوم"
+              }
+            ],
+            "panelEyebrow": "مجموعة المطبخ",
+            "panelTitle": "بيتك يبدأ من المطبخ",
+            "panelSubtitle": "أواني ستانلس، برطمانات تخزين، وأدوات خشب — كل قطعة بمقاسها وخامتها مكتوبة قبل ما تشتري."
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "أقسام البيت",
+            "title": "اختار القسم",
+            "subtitle": "مطبخ · مائدة · تخزين · تنظيف",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "مطبخ",
+                "title": "كل أدوات المطبخ",
+                "subtitle": "حلل · مقلاة · أدوات خشب",
+                "image": "/assets/themes/tpl-053-haven-housewares/hero.jpg",
+                "link": "/shop?category=kitchen"
+              },
+              {
+                "label": "مائدة",
+                "title": "طقم المائدة",
+                "subtitle": "أطباق · كوبايات · صواني",
+                "image": "/assets/themes/tpl-053-haven-housewares/room-1.jpg",
+                "link": "/shop?category=table"
+              },
+              {
+                "label": "تخزين",
+                "title": "تنظيم وتخزين",
+                "subtitle": "برطمانات · صناديق · رفوف",
+                "image": "/assets/themes/tpl-053-haven-housewares/room-2.jpg",
+                "link": "/shop?category=storage"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "غرف جاهزة زي ما هي",
+            "subtitle": "من بيوت عملاء — مش استوديو",
+            "ctaText": "شوف الغرف",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-053-haven-housewares/hero.jpg",
+                "title": "مطبخ كامل",
+                "subtitle": "حلل + برطمانات + أدوات خشب",
+                "priceLabel": "من 4,900 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-053-haven-housewares/room-1.jpg",
+                "title": "ركن القهوة",
+                "subtitle": "كانة ستانلس + كوبين حراريين",
+                "priceLabel": "1,250 ج.م",
+                "link": "/shop?category=table"
+              },
+              {
+                "image": "/assets/themes/tpl-053-haven-housewares/room-2.jpg",
+                "title": "تنظيم الدولاب",
+                "subtitle": "صناديق قماش بمقاسات",
+                "priceLabel": "890 ج.م",
+                "link": "/shop?category=storage"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "كلام البيت",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "منى ش.",
+                "text": "البرطمانات وصلت ملفوفة واحدة واحدة، مفيش ولا كسر.",
+                "rating": 5
+              },
+              {
+                "author": "أحمد ع.",
+                "text": "الحلة ستانلس تقيلة ومحترمة، والمقاس زي ما هو مكتوب.",
+                "rating": 5
+              },
+              {
+                "author": "سارة م.",
+                "text": "طلبت صناديق التخزين، لونها أغمق سنة عن الصورة بس حلوة.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "تغليف آمن",
+                "description": "كل قطعة زجاج بتتغلّف بطبقتين فوم قبل الشحن"
+              },
+              {
+                "title": "استبدال 14 يوم",
+                "description": "لو المقاس مش مناسب، بنستبدله من غير أسئلة"
+              },
+              {
+                "title": "توصيل 2-3 يوم",
+                "description": "لكل المحافظات — القاهرة والجيزة في يوم"
+              },
+              {
+                "title": "ضمان سنة",
+                "description": "على كل أواني الستانلس والخشب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "جديد المطبخ",
+            "subtitle": "رسالة واحدة في الشهر — لما تنزل مجموعة جديدة بس، مش كل أسبوع.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل أدوات البيت",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "default-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة المطبخ",
+            "subtitle": "راجع المقاسات وخامة كل قطعة قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التوصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

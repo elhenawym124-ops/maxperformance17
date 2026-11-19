@@ -1,0 +1,442 @@
+{
+  "id": "tpl-054-culina-housewares",
+  "name": "Culina — أدوات منزلية",
+  "description": "قالب أدوات منزلية بمنطق بلوكات الحملات: شريط عرض، بانر إعلاني مقسوم، فئات سريعة، عروض مكدّسة، شبكة منتجات، شريط خدمة، وUGC. كحلي وعنبري — مناسب لمتجر بييجمع البيع مع عروض الأسبوع.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "222 45% 20%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "40 20% 93%",
+      "secondaryForeground": "222 40% 14%",
+      "accent": "38 92% 50%",
+      "accentForeground": "30 45% 10%",
+      "background": "40 20% 98%",
+      "foreground": "222 38% 12%",
+      "muted": "40 16% 94%",
+      "mutedForeground": "220 10% 42%",
+      "border": "40 12% 87%",
+      "card": "0 0% 100%",
+      "cardForeground": "222 38% 12%",
+      "ring": "38 92% 50%"
+    },
+    "typography": {
+      "headingFont": "Changa, Cairo, sans-serif",
+      "bodyFont": "Changa, Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.4rem",
+      "buttonRadius": "0.4rem"
+    },
+    "productCard": {
+      "borderRadius": "0.4rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | CULINA",
+    "description": "قالب أدوات منزلية بمنطق بلوكات الحملات: شريط عرض، بانر إعلاني مقسوم، فئات سريعة، عروض مكدّسة، شبكة منتجات، شريط خدمة، وUGC. كحلي وعنبري — مناسب لمتجر بييجمع البيع مع عروض الأسبوع."
+  },
+  "preview": {
+    "colors": [
+      "222 45% 20%",
+      "38 92% 50%",
+      "40 20% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-054-culina-housewares/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "CULINA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "خصم 25% على أطقم المطبخ · شحن مجاني فوق 1,000 ج.م",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "العروض",
+        "to": "/collections"
+      },
+      {
+        "label": "المطبخ",
+        "to": "/shop?category=kitchen"
+      },
+      {
+        "label": "المائدة",
+        "to": "/shop?category=table"
+      },
+      {
+        "label": "الأجهزة",
+        "to": "/shop?category=appliances"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "CULINA — قالب أدوات منزلية بمنطق بلوكات الحملات.",
+    "copyrightText": "© 2026 CULINA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "العروض",
+            "to": "/collections"
+          },
+          {
+            "label": "المطبخ",
+            "to": "/shop?category=kitchen"
+          },
+          {
+            "label": "المائدة",
+            "to": "/shop?category=table"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم 25%",
+            "message": "على أطقم المطبخ الكاملة — العرض ساري لحد آخر الأسبوع",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "شحن سريع",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "retail-direct-banner",
+          "settings": {
+            "eyebrow": "عرض الأسبوع",
+            "title": "طقم حلل 10 قطع بخصم 25%",
+            "subtitle": "حلل ستانلس بغطيان زجاج + مقلاة جرانيت — السعر النهائي مكتوب، والتوصيل مجاني على الطقم.",
+            "ctaText": "شوف العرض",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-054-culina-housewares/hero.jpg",
+            "panelImage": "/assets/themes/tpl-054-culina-housewares/hero.jpg",
+            "highlights": [
+              {
+                "label": "خصم",
+                "value": "25%"
+              },
+              {
+                "label": "قطع",
+                "value": "10 قطع"
+              },
+              {
+                "label": "توصيل",
+                "value": "مجاني"
+              }
+            ],
+            "panelEyebrow": "عرض الأسبوع",
+            "panelTitle": "طقم حلل 10 قطع بخصم 25%",
+            "panelSubtitle": "حلل ستانلس بغطيان زجاج + مقلاة جرانيت — السعر النهائي مكتوب، والتوصيل مجاني على الطقم."
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "أقسام المتجر",
+            "title": "أقسام المتجر",
+            "subtitle": "حلل · تخزين · أجهزة صغيرة",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "المطبخ",
+                "title": "حلل ومقالي",
+                "subtitle": "ستانلس وجرانيت",
+                "image": "/assets/themes/tpl-054-culina-housewares/hero.jpg",
+                "link": "/shop?category=kitchen"
+              },
+              {
+                "label": "التخزين",
+                "title": "تخزين المطبخ",
+                "subtitle": "برطمانات · علب · منظمات",
+                "image": "/assets/themes/tpl-054-culina-housewares/room-1.jpg",
+                "link": "/shop?category=storage"
+              },
+              {
+                "label": "الأجهزة",
+                "title": "أجهزة صغيرة",
+                "subtitle": "خلاط · كاتيل · محضر",
+                "image": "/assets/themes/tpl-054-culina-housewares/room-2.jpg",
+                "link": "/shop?category=appliances"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "campaign-stack",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "حملة 1",
+                "title": "طقم حلل 10 قطع",
+                "subtitle": "ستانلس بغطيان زجاج",
+                "link": "/shop?category=kitchen",
+                "ctaText": "اعرف أكتر",
+                "stat": "25% خصم"
+              },
+              {
+                "label": "حملة 2",
+                "title": "طقم تخزين 12 برطمان",
+                "subtitle": "زجاج بمقاسات مختلفة",
+                "link": "/shop?category=storage",
+                "ctaText": "اعرف أكتر",
+                "stat": "وفّر 400"
+              },
+              {
+                "label": "Bundle",
+                "title": "مطبخ كامل",
+                "subtitle": "حلل + مقلاة + أدوات",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "بالتقسيط"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل مجاني",
+                "description": "على أي طلب فوق 1,000 ج.م"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "في كل المحافظات بدون رسوم إضافية"
+              },
+              {
+                "title": "استبدال 14 يوم",
+                "description": "لو القطعة مش زي المتوقع"
+              },
+              {
+                "title": "ضمان سنة",
+                "description": "على الأجهزة الصغيرة والستانلس"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من مطابخ عملائنا",
+            "subtitle": "صوّر مطبخك ووسمنا",
+            "handle": "culina.home",
+            "images": [
+              "/assets/themes/tpl-054-culina-housewares/hero.jpg",
+              "/assets/themes/tpl-054-culina-housewares/room-1.jpg",
+              "/assets/themes/tpl-054-culina-housewares/room-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض الحملة على الواتساب",
+            "subtitle": "خصم إضافي 5% لأول 50 مشترك في كل حملة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل أدوات البيت",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "specs-grid"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "compact"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة المشتريات",
+            "subtitle": "كل طقم بمكوناته ظاهر قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التوصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}
