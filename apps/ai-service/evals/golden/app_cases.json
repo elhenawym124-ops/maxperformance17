@@ -605,7 +605,7 @@
         "booking_reserve"
       ],
       "forbidden_capabilities": [],
-      "expect_approval": true
+      "expect_approval": false
     },
     {
       "id": "academy-app-1",

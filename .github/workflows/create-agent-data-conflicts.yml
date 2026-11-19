@@ -1,0 +1,59 @@
+name: Create agent_data_conflicts table (one-off DDL)
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run only (no DB changes)'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  run-ddl:
+    name: Create agent_data_conflicts table on server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Upload script to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || '22' }}
+          source: apps/backend/scripts/one-off/create-agent-data-conflicts.js
+          target: /var/www/backend2/scripts/one-off/
+          strip_components: 4
+          overwrite: true
+
+      - name: Execute DDL on server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || '22' }}
+          script_stop: true
+          envs: DRY_RUN
+          script: |
+            set -euo pipefail
+            cd /var/www/backend2
+            ls -la scripts/one-off/create-agent-data-conflicts.js
+            echo "Running with DRY_RUN=$DRY_RUN"
+            if [ "$DRY_RUN" = "true" ]; then
+              node scripts/one-off/create-agent-data-conflicts.js --dry-run
+            else
+              node scripts/one-off/create-agent-data-conflicts.js
+            fi
