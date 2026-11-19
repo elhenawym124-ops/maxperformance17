@@ -411,7 +411,7 @@ const Register: React.FC = () => {
             body: JSON.stringify({ bundleSlug: SOURCE_TO_BUNDLE[source] }),
           });
           const data = await res.json();
-          navigate(data.success ? "/admin/ai-hub?tab=sandbox" : (redirectParam || postAuthDest || NEW_ACCOUNT_DESTINATION), { replace: true });
+          navigate(data.success ? "/admin/agent-chat" : (redirectParam || postAuthDest || NEW_ACCOUNT_DESTINATION), { replace: true });
         } catch {
           navigate(postAuthDest || NEW_ACCOUNT_DESTINATION, { replace: true });
         }

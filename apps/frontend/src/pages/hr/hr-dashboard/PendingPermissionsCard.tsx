@@ -48,7 +48,7 @@ export const PendingPermissionsCard: React.FC<PendingPermissionsCardProps> = ({
           <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" />
         </Button>
       </CardHeader>
-      <CardContent className="p-5">
+      <CardContent className="p-3.5 sm:p-5">
         {pendingPermissions.length === 0 ? (
           <div className="text-center py-8 flex flex-col items-center">
             <div className="w-10 h-10 bg-muted/40 rounded-xl flex items-center justify-center mb-2 text-muted-foreground">

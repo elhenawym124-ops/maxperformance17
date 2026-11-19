@@ -596,4 +596,104 @@ router.get('/audit-trail', async (req, res) => {
   }
 });
 
+// ── Agent Data Conflicts Routes (كاشف تعارض بيانات الوكيل وقرار التاجر) ──
+
+router.get('/conflicts', async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(400).json({ error: 'companyId is required' });
+    const prisma = getSharedPrismaClient();
+    const status = req.query.status || 'OPEN';
+
+    let conflicts = [];
+    try {
+      if (prisma.agentDataConflict) {
+        const whereClause = { companyId };
+        if (status !== 'ALL') whereClause.status = status;
+        conflicts = await prisma.agentDataConflict.findMany({
+          where: whereClause,
+          orderBy: { createdAt: 'desc' },
+        });
+      } else {
+        const statusFilter = status !== 'ALL' ? `AND status = '${status.replace(/'/g, '')}'` : '';
+        conflicts = await prisma.$queryRawUnsafe(`
+          SELECT * FROM public.agent_data_conflicts
+          WHERE "companyId" = '${companyId.replace(/'/g, '')}' ${statusFilter}
+          ORDER BY "createdAt" DESC
+        `);
+      }
+    } catch (dbErr) {
+      console.warn('[agentControl] Could not query agent_data_conflicts:', dbErr.message);
+    }
+
+    return res.json({
+      success: true,
+      conflicts,
+      count: conflicts.length,
+      openCount: conflicts.filter(c => c.status === 'OPEN').length,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.post('/conflicts/:id/resolve', async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(400).json({ error: 'companyId is required' });
+    const { id } = req.params;
+    const { decision, notes, correctedValue } = req.body;
+    const prisma = getSharedPrismaClient();
+
+    let conflict = null;
+    try {
+      const rows = await prisma.$queryRaw`
+        SELECT * FROM public.agent_data_conflicts
+        WHERE id = ${id} AND "companyId" = ${companyId}
+        LIMIT 1
+      `;
+      conflict = rows && rows[0];
+    } catch (_) {}
+
+    if (!conflict) {
+      return res.status(404).json({ success: false, error: 'Conflict not found' });
+    }
+
+    const newStatus = decision === 'CORRECT_WRITTEN' ? 'RESOLVED_CORRECTED' : (decision === 'IGNORE' ? 'RESOLVED_IGNORED' : 'RESOLVED_DATA_CONFIRMED');
+    const targetVal = correctedValue || conflict.liveValue;
+
+    if (decision === 'CORRECT_WRITTEN' && conflict.surface === 'skill' && conflict.sourceRowId) {
+      try {
+        await prisma.$executeRaw`
+          UPDATE public.company_skills
+          SET instructions = regexp_replace(instructions, ${conflict.writtenValue}, ${targetVal}, 'g'),
+              "updatedAt" = NOW()
+          WHERE "companyId" = ${companyId} AND (id = ${conflict.sourceRowId} OR name = ${conflict.sourceRowId})
+        `;
+      } catch (err) {
+        console.warn('[agentControl] Update skill instructions on conflict resolution failed:', err.message);
+      }
+    }
+
+    await prisma.$executeRaw`
+      UPDATE public.agent_data_conflicts
+      SET status = ${newStatus},
+          "resolvedBy" = ${req.user?.name || req.user?.email || 'merchant'},
+          "resolvedAt" = NOW(),
+          "resolutionNotes" = ${notes || decision},
+          "updatedAt" = NOW()
+      WHERE id = ${id} AND "companyId" = ${companyId}
+    `;
+
+    return res.json({
+      success: true,
+      conflictId: id,
+      status: newStatus,
+      decision,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 module.exports = router;

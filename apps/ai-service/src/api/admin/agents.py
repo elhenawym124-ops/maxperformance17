@@ -1929,6 +1929,32 @@ async def save_agent_files(
     if not agent_raw:
         raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")
 
+    # Inspect text for conflicts against live data before saving
+    save_warnings: list[dict[str, Any]] = []
+    effective_cid = company_id or (agent_model.company_id if agent_model else None)
+    if effective_cid:
+        from src.services.save_conflict_guard import check_save_conflicts
+        from src.services.conflict_detector import detect_and_record_conflicts
+        written_bundle = f"{body.soulInstructions or ''}\n{body.agentInstructions or ''}"
+        save_warnings = await check_save_conflicts(effective_cid, written_bundle, session)
+        if save_warnings:
+            # Also record conflict rows into agent_data_conflicts
+            for w in save_warnings:
+                await detect_and_record_conflicts(
+                    company_id=effective_cid,
+                    surface="merchant_save",
+                    source_row_id=agent_id,
+                    written_text=written_bundle,
+                    live_values={
+                        w["key"]: {
+                            "value": float(w["liveValue"]),
+                            "display": w["liveValue"],
+                            "source": w["liveSource"],
+                        }
+                    },
+                    session=session,
+                )
+
     if agent_model:
         if body.name is not None:
             agent_model.name = body.name

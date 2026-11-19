@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Pre-push guard: refuse to push a frontend import of a package that is not in
+# apps/frontend/package.json. Rollup fails on those ~20s into the deploy build,
+# after the commit is already on main (three red deploys on 2026-11-18).
+#
+# Installed with: git config core.hooksPath .githooks
+# Bypass (only if you really know better): git push --no-verify
+#
+command -v node >/dev/null 2>&1 || exit 0
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+checker="$root/apps/frontend/scripts/check-unresolved-imports.cjs"
+[ -f "$checker" ] || exit 0
+cd "$root/apps/frontend" || exit 0
+if ! node scripts/check-unresolved-imports.cjs --quiet >/tmp/maxp-import-guard.log 2>&1; then
+  echo ""
+  echo "❌ push blocked — a frontend import points at an undeclared package:"
+  cat /tmp/maxp-import-guard.log
+  echo "   Fix the import (e.g. sonner instead of react-hot-toast) or npm install the package."
+  echo "   Bypass: git push --no-verify"
+  exit 1
+fi
+exit 0

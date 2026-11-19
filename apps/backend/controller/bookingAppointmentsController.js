@@ -387,6 +387,19 @@ const createAppointment = async (req, res) => {
       const service = await getSharedPrismaClient().bookingService.findFirst({ where: { id: serviceId, companyId } });
       if (!service) return res.status(400).json({ success: false, error: 'الخدمة غير موجودة' });
       serviceDuration = service.durationMinutes || BOOKING_SLOT_DURATION;
+
+      // Reject if service is not linked to the requested branch (when branch services are configured)
+      const branchServiceCount = await getSharedPrismaClient().bookingBranchService.count({
+        where: { serviceId }
+      });
+      if (branchServiceCount > 0) {
+        const link = await getSharedPrismaClient().bookingBranchService.findFirst({
+          where: { serviceId, branchId, isActive: true }
+        });
+        if (!link) {
+          return res.status(400).json({ success: false, error: 'هذه الخدمة غير متاحة في الفرع المحدد' });
+        }
+      }
     }
 
     // Reject if the requested slot overlaps an existing active appointment in the same branch/doctor

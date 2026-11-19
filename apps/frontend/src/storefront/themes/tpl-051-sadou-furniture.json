@@ -1,0 +1,453 @@
+{
+  "id": "tpl-051-sadou-furniture",
+  "name": "Sadou — أثاث وديكور",
+  "description": "قالب أثاث وديكور دافئ بمنطق المجلس: هيرو تحريري كريمي، موزايك غرف، فئات أعمدة معرض، شبكة منتجات، قصة حرفة، وآراء تحريرية. كريمي وبنّي وإسبريسو — مناسب لمتجر أثاث بيجمع التراث والحداثة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "24 26% 24%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "36 30% 90%",
+      "secondaryForeground": "24 22% 18%",
+      "accent": "14 52% 48%",
+      "accentForeground": "0 0% 100%",
+      "background": "36 36% 95%",
+      "foreground": "24 18% 12%",
+      "muted": "36 22% 91%",
+      "mutedForeground": "26 10% 38%",
+      "border": "34 18% 85%",
+      "card": "40 40% 98%",
+      "cardForeground": "24 18% 12%",
+      "ring": "24 26% 24%"
+    },
+    "typography": {
+      "headingFont": "El Messiri, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1.25rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1.25rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SADOU",
+    "description": "قالب أثاث وديكور دافئ بمنطق المجلس: هيرو تحريري كريمي، موزايك غرف، فئات أعمدة معرض، شبكة منتجات، قصة حرفة، وآراء تحريرية. كريمي وبنّي وإسبريسو — مناسب لمتجر أثاث بيجمع التراث والحداثة."
+  },
+  "preview": {
+    "colors": [
+      "24 26% 24%",
+      "14 52% 48%",
+      "36 36% 95%"
+    ],
+    "imageUrl": "/assets/themes/tpl-051-sadou-furniture/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "SADOU",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "تنجيد حسب الطلب · عيّنات قماش مجانية توصلك البيت",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المجالس",
+        "to": "/collections"
+      },
+      {
+        "label": "كنب",
+        "to": "/shop?category=sofas"
+      },
+      {
+        "label": "سجاد",
+        "to": "/shop?category=rugs"
+      },
+      {
+        "label": "إضاءة",
+        "to": "/shop?category=lighting"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "SADOU — قالب أثاث وديكور دافئ بمنطق المجلس.",
+    "copyrightText": "© 2026 SADOU",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المجالس",
+            "to": "/collections"
+          },
+          {
+            "label": "كنب",
+            "to": "/shop?category=sofas"
+          },
+          {
+            "label": "سجاد",
+            "to": "/shop?category=rugs"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "المقاسات",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "boutique-muse",
+          "settings": {
+            "eyebrow": "مجموعة المجلس",
+            "title": "مجلس بيتك على ذوقك",
+            "subtitle": "قطع تُفصّل على مقاس المجلس — القماش والخشب تختارهم بنفسك، والتسليم ٣ أسابيع.",
+            "ctaText": "شوف المجموعة",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-051-sadou-furniture/hero.jpg",
+            "panelImage": "/assets/themes/tpl-051-sadou-furniture/hero.jpg",
+            "highlights": [
+              {
+                "label": "تنجيد",
+                "value": "حسب الطلب"
+              },
+              {
+                "label": "تسليم",
+                "value": "٣ أسابيع"
+              },
+              {
+                "label": "ضمان",
+                "value": "٥ سنوات"
+              }
+            ]
+          }
+        },
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "عيّنات مجانية",
+            "message": "٣ عيّنات قماش توصلك البيت قبل التفصيل — من غير أي التزام",
+            "saleLabel": "عروض الغرف",
+            "shippingLabel": "توصيل وتركيب",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "الفئات",
+            "subtitle": "مجالس · كنب · سجاد · إضاءة",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "غرف جاهزة زي ما هي",
+            "subtitle": "من بيوت عملاء — مش استوديو",
+            "ctaText": "شوف الغرف",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-051-sadou-furniture/room-1.jpg",
+                "title": "مجلس أرضي",
+                "subtitle": "تنجيد كتان وكوسن",
+                "priceLabel": "من 18,500 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-051-sadou-furniture/room-2.jpg",
+                "title": "ركن القهوة",
+                "subtitle": "طاولة صغيرة وكرسيين",
+                "priceLabel": "9,200 ج.م",
+                "link": "/shop?category=tables"
+              },
+              {
+                "image": "/assets/themes/tpl-051-sadou-furniture/hero.jpg",
+                "title": "مجلس ديوان",
+                "subtitle": "خشب زان وقماش مخمل",
+                "priceLabel": "34,000 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "trust-strip",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "تنجيد حسب الطلب",
+                "description": "القماش واللون على اختيارك"
+              },
+              {
+                "title": "عيّنات مجانية",
+                "description": "٣ عيّنات توصلك قبل التفصيل"
+              },
+              {
+                "title": "ضمان ٥ سنوات",
+                "description": "على الهيكل والتنجيد"
+              },
+              {
+                "title": "تسليم وتركيب",
+                "description": "٣ أسابيع من تاريخ التأكيد"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من مجالس عملائنا",
+            "subtitle": "صوّر مجلسك ووسمنا",
+            "handle": "sadou.majlis",
+            "images": [
+              "/assets/themes/tpl-051-sadou-furniture/hero.jpg",
+              "/assets/themes/tpl-051-sadou-furniture/room-1.jpg",
+              "/assets/themes/tpl-051-sadou-furniture/room-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "story-parallax",
+          "variant": "split-editorial",
+          "settings": {
+            "badge": "الخامة والحرفة",
+            "title": "كل قطعة تمر على نجّار واحد",
+            "content": "من التخشين للتنجيد لآخر مسمار — نفس النجار بيكمّل القطعة، عشان الحرفة تبان في التفاصيل.",
+            "image": "/assets/themes/tpl-051-sadou-furniture/hero.jpg",
+            "imageAlt": "كل قطعة تمر على نجّار واحد",
+            "ctaText": "اعرف عن الخامات",
+            "ctaLink": "/contact",
+            "overlayOpacity": 0.35,
+            "objectFit": "cover",
+            "objectPosition": "center"
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "editorial",
+          "settings": {
+            "title": "حكايات من المجالس",
+            "intro": "تقييمات موثقة من طلبات حقيقية — بعد التوصيل والتركيب.",
+            "reviews": [
+              {
+                "author": "نورة ع.",
+                "text": "القماش اللي وصل العيّنة كان مطابق للمجلس بالظبط.",
+                "rating": 5
+              },
+              {
+                "author": "عبدالله ح.",
+                "text": "التفصيل أخد ٣ أسابيع زي ما قالوا، والنتيجة أحسن من الصور.",
+                "rating": 5
+              },
+              {
+                "author": "ريم س.",
+                "text": "النجار عدّل المقاس مرتين من غير أي زيادة في السعر.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "عيّنة قماش على بيتك",
+            "subtitle": "بنبعتلك ٣ عيّنات قماش مجانًا تختار منهم قبل التفصيل.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الغرف والقطع",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "boutique-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "stacked"
+        },
+        {
+          "type": "product-info",
+          "variant": "bento-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة المجلس",
+            "subtitle": "راجع القماش والمقاس قبل تأكيد التفصيل.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "boutique-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الغرف"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التركيب — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

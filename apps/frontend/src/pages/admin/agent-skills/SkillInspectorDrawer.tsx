@@ -222,7 +222,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
   };
 
   const handleLaunchSandbox = () => {
-    navigate(`/admin/ai-hub?tab=sandbox&skill=${encodeURIComponent(skill.id)}`);
+    navigate("/admin/agent-chat");
   };
 
   return (

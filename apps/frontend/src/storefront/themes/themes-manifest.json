@@ -4557,6 +4557,130 @@
     }
   },
   {
+    "id": "tpl-049-oakline-furniture",
+    "name": "Oakline — أثاث وديكور",
+    "description": "قالب أثاث وديكور على منطق Horizon: بانر صورة واحدة كبيرة، فئات تحريرية، شبكة منتجات واسعة، موزايك بنتو لغرف كاملة، وآراء بعد التركيب. أبيض دافئ وخشب البلوط — مبني لمتجر أثاث بيبيع الغرفة مش القطعة.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "furniture-decor",
+        "label": "أثاث وديكور"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "26 34% 32%",
+      "34 30% 92%",
+      "20 68% 52%"
+    ],
+    "previewImage": "/assets/themes/tpl-049-oakline-furniture/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-050-marlin-furniture",
+    "name": "Marlin — أثاث وديكور",
+    "description": "قالب أثاث وديكور بمنطق الأقسام المتعددة: شريط عرض، هيرو قيادة، فئات سريعة، عروض أقسام، شبكة منتجات، شريط خدمة، وUGC. أخضر بترولي ونحاسي — مناسب لمتجر أثاث بيغطي المعيشة والنوم والسفرة والأوفيس.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "furniture-decor",
+        "label": "أثاث وديكور"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "193 48% 22%",
+      "190 20% 92%",
+      "38 74% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-050-marlin-furniture/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-051-sadou-furniture",
+    "name": "Sadou — أثاث وديكور",
+    "description": "قالب أثاث وديكور دافئ بمنطق المجلس: هيرو تحريري كريمي، موزايك غرف، فئات أعمدة معرض، قصة حرفة، وآراء تحريرية. كريمي وبنّي وإسبريسو — مناسب لمتجر أثاث بيجمع التراث والحداثة.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "furniture-decor",
+        "label": "أثاث وديكور"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "24 26% 24%",
+      "36 30% 90%",
+      "14 52% 48%"
+    ],
+    "previewImage": "/assets/themes/tpl-051-sadou-furniture/preview.png",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 25
+    }
+  },
+  {
+    "id": "tpl-052-riwaq-furniture",
+    "name": "Riwaq — أثاث وديكور",
+    "description": "قالب أثاث أصلي بمنطق الغرفة الكاملة: هيرو بانر مقسوم، مخطّط اختيار حسب الغرفة والميزانية، موزايك بنتو، باقات غرف، وآراء. فحمي ورمل ونحاس — مبني لمتجر بيبيع الغرفة جاهزة مش قطعة قطعة.",
+    "category": "home",
+    "categoryMeta": {
+      "primary": {
+        "id": "home",
+        "label": "المنزل"
+      },
+      "secondary": {
+        "id": "furniture-decor",
+        "label": "أثاث وديكور"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "20 8% 16%",
+      "38 16% 90%",
+      "18 58% 44%"
+    ],
+    "previewImage": "/assets/themes/tpl-052-riwaq-furniture/preview.png",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 25
+    }
+  },
+  {
     "id": "turbo-parts",
     "name": "Turbo Parts",
     "description": "قالب قطع غيار يختصر القرار: بحث بالموديل، باقات صيانة، وضمان واضح يطمن العميل قبل الشراء.",

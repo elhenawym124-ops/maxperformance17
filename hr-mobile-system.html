@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>نظام الموارد البشرية (HR) - واجهة الموبايل الذكية | MaxP Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --font-sans: 'Tajawal', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --bg-canvas: #0F172A;
+      --phone-bg: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --surface-subtle: #F1F5F9;
+      --border-subtle: #E2E8F0;
+      --border-strong: #CBD5E1;
+      
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-soft: #94A3B8;
+      
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      
+      --success: #16A34A;
+      --success-light: #DCFCE7;
+      --warning: #D97706;
+      --warning-light: #FEF3C7;
+      --danger: #DC2626;
+      --danger-light: #FEE2E2;
+      --purple: #7C3AED;
+      --purple-light: #F3E8FF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+      font-family: var(--font-mono), var(--font-sans);
+    }
+
+    /* Top Showcase Bar */
+    .showcase-header {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: #F8FAFC;
+    }
+
+    .showcase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #60A5FA;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .showcase-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .showcase-subtitle {
+      font-size: 14px;
+      color: #94A3B8;
+      max-width: 640px;
+      margin: 0 auto 16px;
+      line-height: 1.6;
+    }
+
+    .view-toggles {
+      display: inline-flex;
+      background: #1E293B;
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+      border: 1px solid #334155;
+    }
+
+    .view-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #94A3B8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .view-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Device Container */
+    .device-wrapper {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-chassis {
+      width: 100%;
+      max-width: 412px;
+      height: 844px;
+      background-color: var(--phone-bg);
+      border-radius: 44px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 10px #1E293B, 0 0 0 12px #334155;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Fluid mode toggle */
+    .device-wrapper.fluid-mode .phone-chassis {
+      max-width: 520px;
+      height: 880px;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    /* Dynamic Island / Notch */
+    .status-bar {
+      height: 44px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface-white);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      z-index: 30;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .notch {
+      width: 120px;
+      height: 22px;
+      background: #000;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+
+    /* App Header */
+    .mobile-app-header {
+      background: var(--surface-white);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+      z-index: 25;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .user-profile-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .avatar-status {
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--success);
+      border: 2px solid #fff;
+    }
+
+    .user-info-text h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .user-info-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-action-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.15s ease;
+    }
+
+    .icon-action-btn:active {
+      transform: scale(0.95);
+    }
+
+    .badge-dot {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--danger);
+      border: 1.5px solid #fff;
+    }
+
+    /* Mode Pill Selector (Admin HR vs Employee) */
+    .persona-bar {
+      display: flex;
+      background: var(--surface-subtle);
+      padding: 3px;
+      border-radius: 10px;
+      gap: 4px;
+    }
+
+    .persona-pill {
+      flex: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .persona-pill.active {
+      background: #FFFFFF;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* Scrollable Horizontal Sub-Navigation Tabs */
+    .tabs-scroller-wrap {
+      background: var(--surface-white);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex-shrink: 0;
+    }
+
+    .tabs-scroller-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 34px;
+    }
+
+    .nav-tab-pill.active {
+      background: var(--primary-light);
+      border-color: #BFDBFE;
+      color: var(--primary);
+    }
+
+    .pill-count {
+      background: #DBEAFE;
+      color: var(--primary);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 9999px;
+    }
+
+    .nav-tab-pill.active .pill-count {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Main Scrollable View Area */
+    .app-viewport {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 14px 84px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scrollbar-width: thin;
+    }
+
+    /* Single-Depth Container: No Box-in-Box */
+    .single-surface-card {
+      background: var(--surface-white);
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    /* KPI Quick Stats Row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .kpi-stat-box {
+      background: var(--surface-white);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .kpi-stat-box .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-stat-box .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-stat-box .kpi-trend {
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .trend-up { color: var(--success); }
+    .trend-warning { color: var(--warning); }
+    .trend-down { color: var(--danger); }
+
+    /* Punch Clock Banner (Mobile First) */
+    .punch-action-card {
+      background: linear-gradient(135deg, #1E293B, #0F172A);
+      color: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+    }
+
+    .punch-action-card::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .punch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .live-time-display {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #F8FAFC;
+    }
+
+    .live-date-display {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-top: 2px;
+    }
+
+    .punch-status-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(34, 197, 94, 0.18);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #4ADE80;
+      font-size: 11px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ADE80;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    .punch-btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .punch-btn {
+      height: 44px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .punch-btn:active {
+      transform: scale(0.97);
+    }
+
+    .punch-btn-in {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+
+    .punch-btn-out {
+      background: rgba(255, 255, 255, 0.1);
+      color: #F8FAFC;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    /* Section Header */
+    .section-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Mobile Density List Items (Zero Horizontal Table Blowout) */
+    .record-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .record-card {
+      background: var(--surface-white);
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .record-card:active {
+      background: #F8FAFC;
+    }
+
+    .record-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .employee-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .employee-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--text-main);
+      flex-shrink: 0;
+    }
+
+    .employee-text {
+      min-width: 0;
+    }
+
+    .employee-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .employee-role {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .status-tag {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .tag-present { background: var(--success-light); color: var(--success); }
+    .tag-late { background: var(--warning-light); color: var(--warning); }
+    .tag-absent { background: var(--danger-light); color: var(--danger); }
+    .tag-pending { background: #FEF3C7; color: #B45309; }
+    .tag-approved { background: #DCFCE7; color: #15803D; }
+    .tag-rejected { background: #FEE2E2; color: #B91C1C; }
+
+    .record-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--surface-subtle);
+      border-radius: 8px;
+      padding: 8px 10px;
+      gap: 8px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-item .meta-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .meta-item .meta-val {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    /* Actions inside Card */
+    .record-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 4px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .action-btn-sm {
+      flex: 1;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn-sm:active {
+      transform: scale(0.97);
+    }
+
+    .btn-approve {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    .btn-reject {
+      background: #fff;
+      color: var(--danger);
+      border-color: #FECACA;
+    }
+
+    /* Search Bar with Filter */
+    .search-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-input-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      padding: 0 34px 0 12px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .search-input-wrap input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+    }
+
+    .search-icon-pos {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-soft);
+      pointer-events: none;
+    }
+
+    .filter-chip-btn {
+      height: 40px;
+      padding: 0 12px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Bottom App Bar (Ergonomic Thumb Zone) */
+    .mobile-bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 6px;
+      z-index: 40;
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      min-width: 58px;
+      height: 100%;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 700;
+      transition: color 0.15s ease;
+      position: relative;
+    }
+
+    .bottom-nav-item svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+    }
+
+    .bottom-nav-item.active {
+      color: var(--primary);
+    }
+
+    .bottom-nav-item.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 28px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 0 0 3px 3px;
+    }
+
+    .nav-badge-pill {
+      position: absolute;
+      top: 6px;
+      right: 14px;
+      background: var(--danger);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 9999px;
+    }
+
+    /* Modal / Bottom Sheet Simulation */
+    .bottom-sheet-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 50;
+      display: none;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .bottom-sheet-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .bottom-sheet-modal {
+      width: 100%;
+      background: #FFFFFF;
+      border-radius: 24px 24px 0 0;
+      padding: 18px 18px 30px;
+      max-height: 85%;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bottom-sheet-backdrop.open .bottom-sheet-modal {
+      transform: translateY(0);
+    }
+
+    .sheet-handle {
+      width: 38px;
+      height: 4px;
+      background: var(--border-strong);
+      border-radius: 4px;
+      margin: 0 auto 14px;
+    }
+
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .sheet-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .sheet-close-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--surface-subtle);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    /* Callout Card (Anti-Slop Advice) */
+    .feature-guidelines-box {
+      width: 100%;
+      max-width: 900px;
+      margin-top: 32px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 20px;
+      color: #E2E8F0;
+    }
+
+    .guidelines-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #38BDF8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+
+    .guideline-card {
+      background: #0F172A;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .guideline-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F8FAFC;
+      margin-bottom: 4px;
+    }
+
+    .guideline-card p {
+      font-size: 12px;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Showcase Controls & Info -->
+  <div class="showcase-header">
+    <div class="showcase-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      معمارية واجهة الموبايل لنظام الموارد البشرية (Mobile HR Experience)
+    </div>
+    <h1 class="showcase-title">نظام الـ HR المتكامل على الموبايل (Single-Depth)</h1>
+    <p class="showcase-subtitle">
+      واجهة استجابة فورية مصممة خصيصاً لشاشات الهواتف (< 640px) بدون جداول مكسورة أو كروت متداخلة (Box-in-Box)، مع وصول فوري للبصمة، الموافقات، سجل الحضور، ورواتب الموظفين.
+    </p>
+
+    <!-- Viewport Switcher -->
+    <div class="view-toggles">
+      <button class="view-btn active" id="btnPhoneView" onclick="setDeviceMode('phone')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        إطار الموبايل (390px)
+      </button>
+      <button class="view-btn" id="btnFluidView" onclick="setDeviceMode('fluid')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        عرض مرن (Fluid View)
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Device Mockup -->
+  <div class="device-wrapper" id="deviceContainer">
+    <div class="phone-chassis">
+      
+      <!-- Native Mobile Status Bar -->
+      <div class="status-bar">
+        <span class="tabular-nums" id="deviceClock">09:41</span>
+        <div class="notch"></div>
+        <div style="display: flex; gap: 4px; align-items: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M22 11h1v2h-1z"/></svg>
+        </div>
+      </div>
+
+      <!-- App Top Bar -->
+      <div class="mobile-app-header">
+        <div class="header-top">
+          <div class="user-profile-bar">
+            <div class="avatar-box">
+              <span>م.ع</span>
+              <div class="avatar-status"></div>
+            </div>
+            <div class="user-info-text">
+              <h3 id="currentUserName">م/ مختار الهنداوي</h3>
+              <p id="currentUserRole">مدير العمليات والموارد البشرية</p>
+            </div>
+          </div>
+          <div class="header-actions">
+            <button class="icon-action-btn" title="تنبيهات النظام" onclick="showNotificationToast()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <div class="badge-dot"></div>
+            </button>
+            <button class="icon-action-btn" title="تسجيل سريع" onclick="openPunchModal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Role Persona Pill Switcher (Admin HR vs Employee) -->
+        <div class="persona-bar">
+          <button class="persona-pill active" id="btnAdminMode" onclick="switchPersona('admin')">
+            منظور الإدارة والـ HR
+          </button>
+          <button class="persona-pill" id="btnStaffMode" onclick="switchPersona('staff')">
+            منظور الموظف الذاتي
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Sub-Category Pills (Horizontal Slider) -->
+      <div class="tabs-scroller-wrap" id="categoryTabs">
+        <button class="nav-tab-pill active" onclick="filterCategory('all', this)">
+          <span>الكل</span>
+        </button>
+        <button class="nav-tab-pill" onclick="filterCategory('attendance', this)">
+          <span>الحضور والغياب</span>
+          <span class="pill-count">24</span>
+        </button>
+        <button class="nav-tab-pill" onclick="filterCategory('leaves', this)">
+          <span>طلبات الإجازات</span>
+          <span class="pill-count" id="leavesBadge">3</span>
+        </button>
+        <button class="nav-tab-pill" onclick="filterCategory('advances', this)">
+          <span>السلف والأذونات</span>
+          <span class="pill-count">2</span>
+        </button>
+        <button class="nav-tab-pill" onclick="filterCategory('payroll', this)">
+          <span>الرواتب والبدلات</span>
+        </button>
+      </div>
+
+      <!-- Scrollable Mobile Body View -->
+      <div class="app-viewport" id="appViewport">
+        
+        <!-- Tab Page 1: Dashboard Overview (Default) -->
+        <div id="viewOverview" class="tab-content" style="display: flex; flex-direction: column; gap: 12px;">
+          
+          <!-- Punch In Action Card (Instant Mobile Access) -->
+          <div class="punch-action-card">
+            <div class="punch-header">
+              <div>
+                <div class="live-time-display tabular-nums" id="livePunchClock">09:41:25</div>
+                <div class="live-date-display" id="livePunchDate">الأربعاء، 18 نوفمبر 2026</div>
+              </div>
+              <div class="punch-status-badge">
+                <span class="pulse-dot"></span>
+                <span>متصل بالنظام</span>
+              </div>
+            </div>
+            <div style="font-size: 11px; color: #CBD5E1; display: flex; align-items: center; gap: 5px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>المقر الرئيسي: فرع المعادي (داخل النطاق الجغرافي 50م)</span>
+            </div>
+            <div class="punch-btn-grid">
+              <button class="punch-btn punch-btn-in" onclick="simulatePunch('حضور')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                تسجيل حضور
+              </button>
+              <button class="punch-btn punch-btn-out" onclick="simulatePunch('انصراف')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                تسجيل انصراف
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick KPIs Single-Depth Grid -->
+          <div class="kpi-row">
+            <div class="kpi-stat-box">
+              <span class="kpi-label">
+                <span>المتواجدون الآن</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="kpi-value tabular-nums">28 <span style="font-size: 13px; font-weight: 500; color: #64748B;">/ 32</span></span>
+              <span class="kpi-trend trend-up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                <span>87.5% نسبة الالتزام اليوم</span>
+              </span>
+            </div>
+
+            <div class="kpi-stat-box">
+              <span class="kpi-label">
+                <span>طلبات بانتظار الاعتماد</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <span class="kpi-value tabular-nums" id="pendingCounter">5</span>
+              <span class="kpi-trend trend-warning">
+                <span>3 إجازة • 2 سلفة عاجلة</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Pending Approvals Section (Thumb-Friendly 1-Tap Action) -->
+          <div class="single-surface-card" id="approvalsSection">
+            <div class="section-title-bar">
+              <h4 class="section-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                طلبات معلقة تحتاج قرارك (HR Fast-Track)
+              </h4>
+              <span class="section-link" onclick="switchNav('requests')">عرض الكل</span>
+            </div>
+
+            <div class="record-list" style="margin-top: 10px;" id="pendingRequestsContainer">
+              
+              <!-- Leave Card 1 -->
+              <div class="record-card" id="req-1">
+                <div class="record-top-row">
+                  <div class="employee-cell">
+                    <div class="employee-pic" style="background: #E0E7FF; color: #4338CA;">أ.س</div>
+                    <div class="employee-text">
+                      <div class="employee-name">أحمد سمير علي</div>
+                      <div class="employee-role">فني خزف أسنان • قسم الإنتاج</div>
+                    </div>
+                  </div>
+                  <span class="status-tag tag-pending">إجازة اعتيادية (3 أيام)</span>
+                </div>
+                <div class="record-meta-grid">
+                  <div class="meta-item">
+                    <span class="meta-label">تاريخ البدء</span>
+                    <span class="meta-val tabular-nums">20 نوفمبر</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">رصيد الإجازات</span>
+                    <span class="meta-val tabular-nums">14 يوم</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">السبب</span>
+                    <span class="meta-val" title="ظرف عائلي طارئ">ظرف عائلي</span>
+                  </div>
+                </div>
+                <div class="record-actions-row">
+                  <button class="action-btn-sm btn-approve" onclick="handleDecision('req-1', 'approve', 'أحمد سمير')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    اعتماد فوري
+                  </button>
+                  <button class="action-btn-sm btn-reject" onclick="handleDecision('req-1', 'reject', 'أحمد سمير')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    رفض
+                  </button>
+                </div>
+              </div>
+
+              <!-- Advance Card 2 -->
+              <div class="record-card" id="req-2">
+                <div class="record-top-row">
+                  <div class="employee-cell">
+                    <div class="employee-pic" style="background: #FEF3C7; color: #92400E;">س.م</div>
+                    <div class="employee-text">
+                      <div class="employee-name">سارة محمود</div>
+                      <div class="employee-role">مسؤولة خدمة عملاء</div>
+                    </div>
+                  </div>
+                  <span class="status-tag tag-pending">طلب سلفة مالية</span>
+                </div>
+                <div class="record-meta-grid">
+                  <div class="meta-item">
+                    <span class="meta-label">المبلغ المطلوب</span>
+                    <span class="meta-val tabular-nums">3,000 ج.م</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">طريقة الخصم</span>
+                    <span class="meta-val">قسطين (راتبين)</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">الراتب الأساسي</span>
+                    <span class="meta-val tabular-nums">9,500 ج.م</span>
+                  </div>
+                </div>
+                <div class="record-actions-row">
+                  <button class="action-btn-sm btn-approve" onclick="handleDecision('req-2', 'approve', 'سارة محمود')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    اعتماد السلفة
+                  </button>
+                  <button class="action-btn-sm btn-reject" onclick="handleDecision('req-2', 'reject', 'سارة محمود')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    رفض
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Live Attendance Log (Mobile High-Density Cards) -->
+          <div class="single-surface-card">
+            <div class="section-title-bar">
+              <h4 class="section-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                حضور اليوم المباشر
+              </h4>
+              <span class="section-link" onclick="switchNav('attendance')">تقرير اليوم</span>
+            </div>
+
+            <!-- Attendance Mini List -->
+            <div class="record-list" style="margin-top: 10px;">
+              
+              <div class="record-card">
+                <div class="record-top-row">
+                  <div class="employee-cell">
+                    <div class="employee-pic" style="background: #DCFCE7; color: #166534;">ك.ح</div>
+                    <div class="employee-text">
+                      <div class="employee-name">كريم حسن مصطفى</div>
+                      <div class="employee-role">مطور واجهات • تكنولوجيا المعلومات</div>
+                    </div>
+                  </div>
+                  <span class="status-tag tag-present">حاضر (في الموعد)</span>
+                </div>
+                <div class="record-meta-grid">
+                  <div class="meta-item">
+                    <span class="meta-label">وقت البصمة</span>
+                    <span class="meta-val tabular-nums">08:54 ص</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">الوردية</span>
+                    <span class="meta-val">صباحي (9:00 - 5:00)</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">طريقة التسجيل</span>
+                    <span class="meta-val">GPS المحمول</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="record-card">
+                <div class="record-top-row">
+                  <div class="employee-cell">
+                    <div class="employee-pic" style="background: #FEF3C7; color: #B45309;">ع.ف</div>
+                    <div class="employee-text">
+                      <div class="employee-name">عمر فاروق الشامي</div>
+                      <div class="employee-role">أخصائي مبيعات خارجية</div>
+                    </div>
+                  </div>
+                  <span class="status-tag tag-late">متأخر (26 دقيقة)</span>
+                </div>
+                <div class="record-meta-grid">
+                  <div class="meta-item">
+                    <span class="meta-label">وقت البصمة</span>
+                    <span class="meta-val tabular-nums">09:26 ص</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">مدة التأخير</span>
+                    <span class="meta-val tabular-nums" style="color: var(--warning);">+26 دقيقة</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">الإجراء</span>
+                    <span class="meta-val">خصم ربع يوم آلي</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tab Page 2: Attendance Records -->
+        <div id="viewAttendance" class="tab-content" style="display: none; flex-direction: column; gap: 12px;">
+          <div class="search-filter-bar">
+            <div class="search-input-wrap">
+              <input type="text" placeholder="بحث باسم الموظف أو الكود..." oninput="filterAttendanceList(this.value)">
+              <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <button class="filter-chip-btn" onclick="openDateFilterModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              اليوم
+            </button>
+          </div>
+
+          <div class="record-list" id="attendanceRecordsFull">
+            <!-- Dynamic Records filled by JS -->
+          </div>
+        </div>
+
+        <!-- Tab Page 3: Requests & Approvals -->
+        <div id="viewRequests" class="tab-content" style="display: none; flex-direction: column; gap: 12px;">
+          <div class="single-surface-card" style="padding: 10px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h4 style="font-size: 14px; font-weight: 800;">سجل الطلبات والموافقات</h4>
+                <p style="font-size: 11px; color: var(--text-muted);">إجازات، أذونات، سلف، وتظلمات البصمة</p>
+              </div>
+              <button class="action-btn-sm" style="flex: none; padding: 0 12px; background: var(--primary); color: #fff; border: none;" onclick="openNewRequestModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                طلب جديد
+              </button>
+            </div>
+          </div>
+
+          <div class="record-list" id="fullRequestsList">
+            <!-- Full requests loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Tab Page 4: Employee Directory -->
+        <div id="viewEmployees" class="tab-content" style="display: none; flex-direction: column; gap: 12px;">
+          <div class="search-filter-bar">
+            <div class="search-input-wrap">
+              <input type="text" placeholder="بحث في دليل الموظفين أو القسم..." oninput="filterEmployeeList(this.value)">
+              <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+          </div>
+
+          <div class="record-list" id="employeesDirectoryList">
+            <!-- Employee Directory -->
+          </div>
+        </div>
+
+        <!-- Tab Page 5: Payroll & Payslip -->
+        <div id="viewPayroll" class="tab-content" style="display: none; flex-direction: column; gap: 12px;">
+          <div class="single-surface-card" style="background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <span style="font-size: 11px; opacity: 0.85;">مسير رواتب شهر نوفمبر 2026</span>
+                <div class="tabular-nums" style="font-size: 26px; font-weight: 800; margin-top: 4px;">184,250 <span style="font-size: 14px; font-weight: 500;">ج.م</span></div>
+              </div>
+              <span style="background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">جاهز للتحويل</span>
+            </div>
+            <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-between; font-size: 11px;">
+              <span>عدد الموظفين: 32 موظف</span>
+              <span>الاستقطاعات: 6,400 ج.م</span>
+              <span>الإضافي: 8,120 ج.م</span>
+            </div>
+          </div>
+
+          <div class="single-surface-card">
+            <h4 class="section-title" style="margin-bottom: 10px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              مفردات مرتب الموظف (نموذج الهاتف)
+            </h4>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border-subtle);">
+                <span style="color: var(--text-muted);">الراتب الأساسي</span>
+                <span class="tabular-nums" style="font-weight: 700;">12,000 ج.م</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border-subtle);">
+                <span style="color: var(--text-muted);">بدل انتقال وسكن</span>
+                <span class="tabular-nums" style="font-weight: 700;">2,500 ج.م</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border-subtle);">
+                <span style="color: var(--text-muted);">مكافأة أداء إنتاجي</span>
+                <span class="tabular-nums" style="font-weight: 700; color: var(--success);">+1,200 ج.م</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border-subtle);">
+                <span style="color: var(--text-muted);">تأمينات اجتماعية وضرائب</span>
+                <span class="tabular-nums" style="font-weight: 700; color: var(--danger);">-1,420 ج.م</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; padding: 8px 0; background: var(--surface-subtle); border-radius: 8px; padding: 8px 10px; margin-top: 4px;">
+                <span>صافي الراتب المستحق</span>
+                <span class="tabular-nums" style="color: var(--primary);">14,280 ج.م</span>
+              </div>
+            </div>
+
+            <button class="action-btn-sm" style="width: 100%; margin-top: 12px; height: 40px; background: var(--surface-subtle); border: 1px solid var(--border-subtle);" onclick="alert('جاري تحميل قسيمة الراتب بتنسيق PDF...')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              تحميل مفردات المرتب (PDF)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Native Ergonomic Bottom Navigation Bar (Thumb Friendly) -->
+      <div class="mobile-bottom-nav">
+        <button class="bottom-nav-item active" id="nav-overview" onclick="switchNav('overview')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>الرئيسية</span>
+        </button>
+        <button class="bottom-nav-item" id="nav-attendance" onclick="switchNav('attendance')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>الحضور</span>
+        </button>
+        <button class="bottom-nav-item" id="nav-requests" onclick="switchNav('requests')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>الطلبات</span>
+          <span class="nav-badge-pill" id="bottomReqBadge">5</span>
+        </button>
+        <button class="bottom-nav-item" id="nav-employees" onclick="switchNav('employees')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>الموظفين</span>
+        </button>
+        <button class="bottom-nav-item" id="nav-payroll" onclick="switchNav('payroll')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>الرواتب</span>
+        </button>
+      </div>
+
+      <!-- Bottom Sheet Modal (Punch In / Details) -->
+      <div class="bottom-sheet-backdrop" id="bottomSheet" onclick="closeBottomSheet(event)">
+        <div class="bottom-sheet-modal" onclick="event.stopPropagation()">
+          <div class="sheet-handle"></div>
+          <div class="sheet-header">
+            <h3 class="sheet-title" id="sheetTitle">تسجيل بصمة الحضور والانصراف</h3>
+            <button class="sheet-close-btn" onclick="closeModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div id="sheetContent">
+            <!-- Modal Body injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Engineering Guidelines & Why This Solves Mobile HR -->
+  <div class="feature-guidelines-box">
+    <div class="guidelines-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      قواعد التصميم المعتمدة لنظام الـ HR على الموبايل في MaxP:
+    </div>
+    <div class="guidelines-grid">
+      <div class="guideline-card">
+        <h4>1. مبدأ السطح الموحد (Single-Depth Surfaces)</h4>
+        <p>إلغاء التداخل الصندوقي (Card-in-Card) وتخفيض البادينج من <code>p-6</code> إلى <code>p-3</code> لضمان استغلال أكثر من 85% من عرض الشاشة الفعلية للمحتوى والبيانات.</p>
+      </div>
+      <div class="guideline-card">
+        <h4>2. استبدال الجداول بكروت عالية الكثافة</h4>
+        <p>الجداول ذات الـ 10 أعمدة مستحيلة الاستخدام على الهواتف. تم استبدالها بكروت موظفين مدمجة مع شبكة بيانات مصغرة (3 أعمدة داخل الكرت) وأزرار إجراء فورية.</p>
+      </div>
+      <div class="guideline-card">
+        <h4>3. شريط تحكم وإجراءات سريعة في متناول الإبهام</h4>
+        <p>نقل أزرار الإجراءات المتكررة (تسجيل بصمة، اعتماد إجازة، اتصال فوري) إلى منطقة إبهام اليد السفلية (Bottom Navigation Bar & Action Sheets) لتجربة استخدام سهلة بيد واحدة.</p>
+      </div>
+      <div class="guideline-card">
+        <h4>4. أرقام جدولية Tabular Nums وأرقام عربية نظيفة</h4>
+        <p>اعتماد <code>font-variant-numeric: tabular-nums</code> لجميع الساعات والرواتب والنسب المئوية لمنع اهتزاز الأرقام وضمان دقة المحاذاة في الجداول المحمولة.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Live Clock Simulation
+    function updateClocks() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      const timeStr = `${hours}:${minutes}`;
+      const fullTimeStr = `${hours}:${minutes}:${seconds}`;
+      
+      const devClock = document.getElementById('deviceClock');
+      const punchClock = document.getElementById('livePunchClock');
+      if (devClock) devClock.textContent = timeStr;
+      if (punchClock) punchClock.textContent = fullTimeStr;
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
+
+    // Toggle Device Frame (Phone 390px vs Fluid)
+    function setDeviceMode(mode) {
+      const container = document.getElementById('deviceContainer');
+      const btnPhone = document.getElementById('btnPhoneView');
+      const btnFluid = document.getElementById('btnFluidView');
+      
+      if (mode === 'fluid') {
+        container.classList.add('fluid-mode');
+        btnFluid.classList.add('active');
+        btnPhone.classList.remove('active');
+      } else {
+        container.classList.remove('fluid-mode');
+        btnPhone.classList.add('active');
+        btnFluid.classList.remove('active');
+      }
+    }
+
+    // Navigation Switcher
+    function switchNav(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
+
+      if (tabName === 'overview') {
+        document.getElementById('viewOverview').style.display = 'flex';
+        document.getElementById('nav-overview').classList.add('active');
+      } else if (tabName === 'attendance') {
+        document.getElementById('viewAttendance').style.display = 'flex';
+        document.getElementById('nav-attendance').classList.add('active');
+        renderFullAttendance();
+      } else if (tabName === 'requests') {
+        document.getElementById('viewRequests').style.display = 'flex';
+        document.getElementById('nav-requests').classList.add('active');
+        renderFullRequests();
+      } else if (tabName === 'employees') {
+        document.getElementById('viewEmployees').style.display = 'flex';
+        document.getElementById('nav-employees').classList.add('active');
+        renderFullEmployees();
+      } else if (tabName === 'payroll') {
+        document.getElementById('viewPayroll').style.display = 'flex';
+        document.getElementById('nav-payroll').classList.add('active');
+      }
+
+      // Scroll viewport to top
+      document.getElementById('appViewport').scrollTop = 0;
+    }
+
+    // Horizontal category pills filter
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.nav-tab-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      if (cat === 'attendance') switchNav('attendance');
+      else if (cat === 'leaves' || cat === 'advances') switchNav('requests');
+      else if (cat === 'payroll') switchNav('payroll');
+      else switchNav('overview');
+    }
+
+    // Switch Role Persona (Admin HR vs Staff)
+    function switchPersona(role) {
+      const btnAdmin = document.getElementById('btnAdminMode');
+      const btnStaff = document.getElementById('btnStaffMode');
+      const userName = document.getElementById('currentUserName');
+      const userRole = document.getElementById('currentUserRole');
+      const approvals = document.getElementById('approvalsSection');
+
+      if (role === 'staff') {
+        btnStaff.classList.add('active');
+        btnAdmin.classList.remove('active');
+        userName.textContent = 'أحمد سمير علي';
+        userRole.textContent = 'فني خزف أسنان • موظف';
+        if (approvals) approvals.style.display = 'none';
+      } else {
+        btnAdmin.classList.add('active');
+        btnStaff.classList.remove('active');
+        userName.textContent = 'م/ مختار الهنداوي';
+        userRole.textContent = 'مدير العمليات والموارد البشرية';
+        if (approvals) approvals.style.display = 'block';
+      }
+    }
+
+    // 1-Tap Fast Decision Handler
+    let pendingCount = 5;
+    function handleDecision(reqId, action, empName) {
+      const card = document.getElementById(reqId);
+      if (!card) return;
+
+      if (action === 'approve') {
+        card.style.transition = 'all 0.3s ease';
+        card.style.background = '#F0FDF4';
+        card.style.borderColor = '#86EFAC';
+        card.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #22C55E; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px;">✓</div>
+              <div>
+                <strong style="font-size: 12px; color: #166534;">تم اعتماد طلب ${empName} بنجاح</strong>
+                <p style="font-size: 10px; color: #15803D;">تم إرسال إشعار للموظف وتحديث رصيد الإجازات.</p>
+              </div>
+            </div>
+            <span class="status-tag tag-approved">معتمد</span>
+          </div>
+        `;
+      } else {
+        card.style.transition = 'all 0.3s ease';
+        card.style.background = '#FEF2F2';
+        card.style.borderColor = '#FCA5A5';
+        card.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #EF4444; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px;">✕</div>
+              <div>
+                <strong style="font-size: 12px; color: #991B1B;">تم رفض طلب ${empName}</strong>
+                <p style="font-size: 10px; color: #B91C1C;">تم إشعار الموظف بسبب الرفض.</p>
+              </div>
+            </div>
+            <span class="status-tag tag-rejected">مرفوض</span>
+          </div>
+        `;
+      }
+
+      pendingCount = Math.max(0, pendingCount - 1);
+      const cnt = document.getElementById('pendingCounter');
+      const btm = document.getElementById('bottomReqBadge');
+      if (cnt) cnt.textContent = pendingCount;
+      if (btm) btm.textContent = pendingCount;
+    }
+
+    // Modal / Bottom Sheet Simulation
+    function openModalWithContent(title, html) {
+      document.getElementById('sheetTitle').textContent = title;
+      document.getElementById('sheetContent').innerHTML = html;
+      document.getElementById('bottomSheet').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('bottomSheet').classList.remove('open');
+    }
+
+    function closeBottomSheet(e) {
+      if (e.target.id === 'bottomSheet') {
+        closeModal();
+      }
+    }
+
+    function openPunchModal() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ar-EG');
+      openModalWithContent('تسجيل بصمة سريعة بالـ GPS', `
+        <div style="text-align: center; padding: 10px 0;">
+          <div style="width: 60px; height: 60px; border-radius: 50%; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4 style="font-size: 18px; font-weight: 800; color: #0F172A;">${timeStr}</h4>
+          <p style="font-size: 12px; color: #64748B; margin-top: 4px;">موقعك الحالي: فرع المعادي (دقة 98%)</p>
+          
+          <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="action-btn-sm btn-approve" style="height: 44px; font-size: 14px;" onclick="confirmPunchAction('حضور')">
+              تأكيد بصمة الحضور
+            </button>
+            <button class="action-btn-sm btn-reject" style="height: 44px; font-size: 14px;" onclick="confirmPunchAction('انصراف')">
+              تأكيد بصمة الانصراف
+            </button>
+          </div>
+        </div>
+      `);
+    }
+
+    function simulatePunch(type) {
+      openPunchModal();
+    }
+
+    function confirmPunchAction(type) {
+      closeModal();
+      alert(`تم تسجيل ${type} بنجاح ومزامنة السجل مع سيرفر الـ HR!`);
+    }
+
+    function showNotificationToast() {
+      alert('لديك 3 طلبات إجازة جديدة و 2 إشعار تأخير اليوم.');
+    }
+
+    function openNewRequestModal() {
+      openModalWithContent('تقديم طلب إجازة / إذن جديد', `
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px; display: block;">نوع الطلب</label>
+            <select style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid #CBD5E1; padding: 0 10px; font-family: inherit; font-size: 12px;">
+              <option>إجازة اعتيادية</option>
+              <option>إجازة عارضة</option>
+              <option>إذن تأخير صباحي</option>
+              <option>طلب سلفة نقدية</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px; display: block;">تاريخ البداية</label>
+            <input type="date" value="2026-11-20" style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid #CBD5E1; padding: 0 10px; font-family: inherit; font-size: 12px;">
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px; display: block;">السبب / ملاحظات</label>
+            <textarea placeholder="اكتب سبب الطلب بوضوح..." style="width: 100%; height: 70px; border-radius: 8px; border: 1px solid #CBD5E1; padding: 8px 10px; font-family: inherit; font-size: 12px;"></textarea>
+          </div>
+          <button class="action-btn-sm btn-approve" style="height: 42px; font-size: 13px; margin-top: 6px;" onclick="closeModal(); alert('تم إرسال طلبك إلى مدير الـ HR بنجاح.');">
+            إرسال الطلب للاعتماد
+          </button>
+        </div>
+      `);
+    }
+
+    // Full Attendance Data & Renderer
+    const mockAttendance = [
+      { name: 'كريم حسن مصطفى', role: 'مطور واجهات', in: '08:54 ص', out: '--:--', status: 'present', shift: 'صباحي' },
+      { name: 'عمر فاروق الشامي', role: 'مبيعات خارجية', in: '09:26 ص', out: '--:--', status: 'late', shift: 'صباحي' },
+      { name: 'هدى عبد الرحمن', role: 'محاسبة تكاليف', in: '08:48 ص', out: '--:--', status: 'present', shift: 'صباحي' },
+      { name: 'يوسف طارق النجار', role: 'فني تشطيب', in: '--:--', out: '--:--', status: 'absent', shift: 'صباحي' },
+      { name: 'رنا إبراهيم حسني', role: 'منسقة جودة', in: '09:00 ص', out: '--:--', status: 'present', shift: 'صباحي' }
+    ];
+
+    function renderFullAttendance(filter = '') {
+      const container = document.getElementById('attendanceRecordsFull');
+      if (!container) return;
+      
+      const filtered = mockAttendance.filter(i => i.name.includes(filter) || i.role.includes(filter));
+      
+      container.innerHTML = filtered.map(item => `
+        <div class="record-card">
+          <div class="record-top-row">
+            <div class="employee-cell">
+              <div class="employee-pic">${item.name.slice(0, 2)}</div>
+              <div class="employee-text">
+                <div class="employee-name">${item.name}</div>
+                <div class="employee-role">${item.role}</div>
+              </div>
+            </div>
+            <span class="status-tag ${item.status === 'present' ? 'tag-present' : item.status === 'late' ? 'tag-late' : 'tag-absent'}">
+              ${item.status === 'present' ? 'حاضر' : item.status === 'late' ? 'متأخر' : 'غائب'}
+            </span>
+          </div>
+          <div class="record-meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">وقت الحضور</span>
+              <span class="meta-val tabular-nums">${item.in}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">وقت الانصراف</span>
+              <span class="meta-val tabular-nums">${item.out}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">الوردية</span>
+              <span class="meta-val">${item.shift}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterAttendanceList(val) {
+      renderFullAttendance(val);
+    }
+
+    // Full Employees Directory
+    const mockEmployees = [
+      { name: 'م/ مختار الهنداوي', role: 'مدير العمليات', dept: 'الإدارة العليا', phone: '+201012345678', online: true },
+      { name: 'أحمد سمير علي', role: 'فني خزف أسنان', dept: 'قسم الإنتاج', phone: '+201123456789', online: true },
+      { name: 'سارة محمود', role: 'خدمة عملاء', dept: 'الدعم والمبيعات', phone: '+201234567890', online: true },
+      { name: 'كريم حسن مصطفى', role: 'مهندس برمجيات', dept: 'التكنولوجيا', phone: '+201098765432', online: true },
+      { name: 'عمر فاروق الشامي', role: 'مبيعات', dept: 'التسويق والمبيعات', phone: '+201187654321', online: false }
+    ];
+
+    function renderFullEmployees(filter = '') {
+      const container = document.getElementById('employeesDirectoryList');
+      if (!container) return;
+
+      const filtered = mockEmployees.filter(e => e.name.includes(filter) || e.dept.includes(filter) || e.role.includes(filter));
+
+      container.innerHTML = filtered.map(emp => `
+        <div class="record-card">
+          <div class="record-top-row">
+            <div class="employee-cell">
+              <div class="employee-pic" style="background: #EFF6FF; color: #1D4ED8;">${emp.name.slice(0, 2)}</div>
+              <div class="employee-text">
+                <div class="employee-name">${emp.name}</div>
+                <div class="employee-role">${emp.role} • ${emp.dept}</div>
+              </div>
+            </div>
+            <span class="status-tag ${emp.online ? 'tag-present' : 'tag-absent'}">
+              ${emp.online ? 'متواجد' : 'غير متصل'}
+            </span>
+          </div>
+          <div class="record-actions-row">
+            <a href="tel:${emp.phone}" class="action-btn-sm" style="text-decoration: none; color: inherit;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              اتصال هاتفي
+            </a>
+            <a href="https://wa.me/${emp.phone.replace('+', '')}" target="_blank" class="action-btn-sm" style="text-decoration: none; color: #15803D; border-color: #BBF7D0;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              مراسلة واتساب
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterEmployeeList(val) {
+      renderFullEmployees(val);
+    }
+
+    function renderFullRequests() {
+      const container = document.getElementById('fullRequestsList');
+      if (!container) return;
+      container.innerHTML = `
+        <div class="record-card">
+          <div class="record-top-row">
+            <div class="employee-cell">
+              <div class="employee-pic" style="background:#E0E7FF; color:#4338CA;">أ.س</div>
+              <div class="employee-text">
+                <div class="employee-name">أحمد سمير علي</div>
+                <div class="employee-role">طلب إجازة سنوية</div>
+              </div>
+            </div>
+            <span class="status-tag tag-pending">معلق</span>
+          </div>
+          <div class="record-meta-grid">
+            <div class="meta-item"><span class="meta-label">المدة</span><span class="meta-val">3 أيام</span></div>
+            <div class="meta-item"><span class="meta-label">البداية</span><span class="meta-val tabular-nums">20 نوفمبر</span></div>
+            <div class="meta-item"><span class="meta-label">الرصيد المتبقي</span><span class="meta-val tabular-nums">14 يوم</span></div>
+          </div>
+        </div>
+        <div class="record-card">
+          <div class="record-top-row">
+            <div class="employee-cell">
+              <div class="employee-pic" style="background:#DCFCE7; color:#166534;">هـ.ع</div>
+              <div class="employee-text">
+                <div class="employee-name">هدى عبد الرحمن</div>
+                <div class="employee-role">إذن انصراف مبكر (ساعتين)</div>
+              </div>
+            </div>
+            <span class="status-tag tag-approved">معتمد</span>
+          </div>
+          <div class="record-meta-grid">
+            <div class="meta-item"><span class="meta-label">التاريخ</span><span class="meta-val tabular-nums">17 نوفمبر</span></div>
+            <div class="meta-item"><span class="meta-label">الوقت</span><span class="meta-val tabular-nums">03:00 م</span></div>
+            <div class="meta-item"><span class="meta-label">الاعتماد</span><span class="meta-val">مدير الحسابات</span></div>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

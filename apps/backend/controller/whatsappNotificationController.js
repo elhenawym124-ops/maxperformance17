@@ -54,8 +54,19 @@ async function getNotificationSettings(req, res) {
 
     const sessions = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findMany({
       where: { companyId },
-      select: { id: true, name: true, phoneNumber: true, status: true, provider: true }
+      select: { id: true, name: true, phoneNumber: true, status: true, provider: true, isDefault: true }
     }));
+
+    if (settings && !settings.defaultSessionId && sessions && sessions.length > 0) {
+      const candidate = sessions.find(s => s.isDefault) || sessions.find(s => s.status === 'CONNECTED') || sessions[0];
+      if (candidate) {
+        settings.defaultSessionId = candidate.id;
+        safeQuery(() => getSharedPrismaClient().whatsAppNotificationSettings.update({
+          where: { companyId },
+          data: { defaultSessionId: candidate.id }
+        })).catch(err => console.warn('⚠️ Could not auto-set defaultSessionId in getNotificationSettings:', err?.message));
+      }
+    }
 
     res.json({
       success: true,

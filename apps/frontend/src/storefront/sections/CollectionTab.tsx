@@ -127,6 +127,21 @@ const CollectionTab: React.FC<CollectionTabProps> = ({ section, settings }) => {
   );
 
   if (variant === 'pills') {
+    const hasCustomGrid = Boolean(settings?.columns || settings?.mobileColumns);
+    const customMobileCols = Number(settings?.mobileColumns) || 1;
+    const customDesktopCols = Math.max(1, Number(settings?.columns) || 3);
+    const mobileColsClass =
+      customMobileCols === 2 ? 'grid-cols-2' :
+      customMobileCols === 3 ? 'grid-cols-3' :
+      customMobileCols === 4 ? 'grid-cols-4' :
+      'grid-cols-1';
+    const desktopColsClass =
+      customDesktopCols === 2 ? 'md:grid-cols-2' :
+      customDesktopCols === 4 ? 'md:grid-cols-4' :
+      customDesktopCols === 5 ? 'md:grid-cols-5' :
+      customDesktopCols === 6 ? 'md:grid-cols-6' :
+      `md:grid-cols-${customDesktopCols}`;
+
     return (
       <section
         className="w-full py-16 text-white md:py-24"
@@ -156,7 +171,13 @@ const CollectionTab: React.FC<CollectionTabProps> = ({ section, settings }) => {
               </button>
             ))}
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div
+            className={
+              hasCustomGrid
+                ? `grid gap-5 ${mobileColsClass} ${desktopColsClass}`
+                : 'grid gap-5 md:grid-cols-3'
+            }
+          >
             {resolvedTabs.map((tab, index) => {
               const internalLink = buildStorefrontPath(
                 location.pathname,

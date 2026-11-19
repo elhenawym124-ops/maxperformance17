@@ -195,7 +195,6 @@ WRITE_TOOL_NAMES: set[str] = {
     "education_cancel_session",
     # Booking vertical writes (align with hotel_* which were already gated);
     # booking_status can cancel an appointment, so it gates too
-    "booking_reserve",
     "booking_status",
     "booking_branch_create",
     "booking_branch_update",
@@ -221,6 +220,10 @@ DIRECT_WRITE_TOOL_NAMES: set[str] = {
     "order_confirm",
     "order_update_details",
     "shipping_zone_set",
+    # Live-conversation bookings: customer scheduling an appointment via chat
+    # executes immediately without waiting for merchant manual approval
+    "booking_reserve",
+    "booking_reserve_skill",
     # Live-conversation replies (agents whose job is real-time customer
     # messaging) — immediate execution; bulk message_broadcast stays gated.
     "whatsapp_send",

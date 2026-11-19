@@ -43,7 +43,7 @@ const HRDashboard: React.FC = () => {
 
   return (
     <div
-      className="space-y-6 w-full pb-8"
+      className="space-y-4 sm:space-y-6 w-full pb-8"
       dir="rtl"
     >
       {/* Hero Welcome & Top Actions */}
@@ -53,7 +53,7 @@ const HRDashboard: React.FC = () => {
       <HRDashboardStatsGrid data={data} />
 
       {/* Main Content: Attendance & Pending Leaves */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-6">
         <AttendanceOverviewCard
           data={data}
           attendanceRate={attendanceRate}
@@ -65,7 +65,7 @@ const HRDashboard: React.FC = () => {
       </div>
 
       {/* Action Center: Permissions, Advances, Warnings */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 mb-4 sm:mb-8">
         <PendingPermissionsCard
           pendingPermissions={data?.pendingPermissions}
           onAction={handlePermissionAction}

@@ -96,6 +96,7 @@ async def inventory_check(input_data: InventoryCheckInput) -> dict[str, Any]:
         "status": _availability_status(product),
         "availableSizes": size_variants,
         "availableColors": color_variants,
+        "_source_name": f"inventory_check (public.products: {product.get('sku') or product['id']})",
     }
 
     compare_price = product.get("comparePrice")

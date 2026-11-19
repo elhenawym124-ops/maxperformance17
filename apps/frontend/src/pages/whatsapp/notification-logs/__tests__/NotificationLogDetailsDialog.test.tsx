@@ -31,6 +31,25 @@ describe('metaErrorCodes', () => {
     expect(info.title).toContain('خطأ في متغيرات القالب');
   });
 
+  it('translates NO_SESSION code to Arabic session settings guidance', () => {
+    const info = getMetaErrorInfo('NO_SESSION');
+    expect(info.title).toBe('لا توجد جلسة واتساب متصلة للشركة');
+    expect(info.actionUrl).toBe('/whatsapp/sessions');
+    expect(info.actionText).toBe('إعدادات جلسات الواتساب');
+  });
+
+  it('translates NO_TEMPLATE_CONFIGURED to Arabic template guidance', () => {
+    const info = getMetaErrorInfo('NO_TEMPLATE_CONFIGURED');
+    expect(info.title).toBe('لا يوجد قالب معتمد للحدث (Meta Cloud)');
+    expect(info.actionUrl).toBe('/whatsapp/templates');
+  });
+
+  it('translates 141006 WABA payment method error to Meta billing guidance', () => {
+    const info = getMetaErrorInfo('141006');
+    expect(info.title).toContain('خطأ في وسيلة الدفع بحساب Meta (WABA)');
+    expect(info.actionUrl).toContain('billing_hub');
+  });
+
   it('handles unknown error code with Arabic fallback', () => {
     const info = getMetaErrorInfo('999999');
     expect(info.title).toBe('كود غير معروف — التفاصيل التقنية تحت');
@@ -203,7 +222,7 @@ describe('NotificationLogDetailsDialog', () => {
     );
 
     expect(screen.getAllByText('محمود حسن').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('+201****8888').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('+201099998888').length).toBeGreaterThan(0);
     // MESSAGE_TYPE_LABELS.TEMPLATE — never the raw enum
     expect(screen.getAllByText('قالب ميتا').length).toBeGreaterThan(0);
     expect(screen.queryByText('TEMPLATE')).not.toBeInTheDocument();

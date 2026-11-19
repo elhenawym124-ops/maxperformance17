@@ -1033,6 +1033,9 @@ app.use("/api/v1/internal", internalCapabilitiesRoutes);
 // Self-authenticated via authenticateAnyPortalOrStaffToken inside portalPushRoutes.js
 app.use(["/api/v1/portal/push", "/api/portal/push"], require("./routes/portalPushRoutes"));
 
+// 🌐 MaxP Unified Platform API v2 (Self-authenticated Gateway with Fail-Closed RBAC & Strict Tenant Isolation)
+app.use("/api/v2", require("./v2"));
+
 // 🚀 Apply Security for sensitive Admin/Company routes
 app.use(globalSecurity);
 

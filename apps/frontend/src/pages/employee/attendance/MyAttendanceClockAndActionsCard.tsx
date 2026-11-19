@@ -85,23 +85,23 @@ export const MyAttendanceClockAndActionsCard: React.FC<
   return (
     <>
       <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
-        <CardContent className="p-6 sm:p-8">
+        <CardContent className="p-3.5 sm:p-6 md:p-8">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center">
-              <Clock className="h-12 w-12 sm:h-16 sm:w-16 text-blue-600 animate-pulse" />
+              <Clock className="h-10 w-10 sm:h-14 sm:w-14 text-blue-600 animate-pulse" />
             </div>
 
             <div>
-              <div className="text-4xl sm:text-5xl md:text-6xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
+              <div className="text-3xl sm:text-5xl md:text-6xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
                 {formatTime(currentTime, timezone)}
               </div>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
                 {t("employee.attendance.currentTime")}
               </p>
             </div>
 
             {todayAttendance && (
-              <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="mt-4 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-2">
                     <AlertCircle

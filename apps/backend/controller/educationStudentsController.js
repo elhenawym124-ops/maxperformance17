@@ -69,9 +69,28 @@ const getAll = async (req, res) => {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    const { customerId, search } = req.query;
+    const {
+      customerId,
+      search,
+      status,
+      grade,
+      paymentStatus,
+      packageId,
+      teacherId,
+      startDate,
+      endDate,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      page: queryPage,
+      pageSize: queryPageSize,
+      limit: queryLimit,
+      all
+    } = req.query;
+
     const where = { companyId };
     if (customerId) where.customerId = customerId;
+
+    // Search query
     if (search && typeof search === 'string' && search.trim()) {
       const q = search.trim();
       const codeQ = q.startsWith('#') ? q.slice(1).trim() : q;
@@ -80,17 +99,106 @@ const getAll = async (req, res) => {
         { firstName: { contains: q, mode: 'insensitive' } },
         { lastName: { contains: q, mode: 'insensitive' } },
         { phone: { contains: q } },
+        { phone2: { contains: q } },
+        { customer: { firstName: { contains: q, mode: 'insensitive' } } },
+        { customer: { lastName: { contains: q, mode: 'insensitive' } } },
+        { customer: { phone: { contains: q } } }
       ];
     }
 
-    const data = await getSharedPrismaClient().educationStudent.findMany({
-      where,
-      include: {
-        customer: { select: { id: true, firstName: true, lastName: true, phone: true, phone2: true, email: true } }
-      },
-      orderBy: { firstName: 'asc' }
+    // Status filter (active/inactive)
+    if (status !== undefined && status !== null && status !== '' && status !== 'all') {
+      const isAct = String(status).toLowerCase() === 'active' || String(status) === 'true';
+      where.isActive = isAct;
+    }
+
+    // Grade filter
+    if (grade && typeof grade === 'string' && grade.trim() && grade !== 'all') {
+      where.grade = { equals: grade.trim(), mode: 'insensitive' };
+    }
+
+    // Enrollment-related filters
+    const enrollmentWhere = { isActive: true };
+    let hasEnrollmentFilter = false;
+
+    if (packageId && packageId !== 'all') {
+      enrollmentWhere.packageId = packageId;
+      hasEnrollmentFilter = true;
+    }
+    if (teacherId && teacherId !== 'all') {
+      enrollmentWhere.teacherId = teacherId;
+      hasEnrollmentFilter = true;
+    }
+    if (paymentStatus && paymentStatus !== 'all') {
+      enrollmentWhere.paymentStatus = String(paymentStatus).toUpperCase();
+      hasEnrollmentFilter = true;
+    }
+
+    if (hasEnrollmentFilter) {
+      where.enrollments = { some: enrollmentWhere };
+    }
+
+    // Date range filter
+    if (startDate || endDate) {
+      where.createdAt = {};
+      if (startDate) where.createdAt.gte = new Date(startDate);
+      if (endDate) where.createdAt.lte = new Date(endDate);
+    }
+
+    // Sorting
+    const allowedSortFields = ['firstName', 'lastName', 'createdAt', 'updatedAt', 'code', 'grade'];
+    const validSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'createdAt';
+    const validSortOrder = String(sortOrder).toLowerCase() === 'asc' ? 'asc' : 'desc';
+    const orderBy = { [validSortBy]: validSortOrder };
+
+    const includeRelations = {
+      customer: { select: { id: true, firstName: true, lastName: true, phone: true, phone2: true, email: true } },
+      enrollments: {
+        where: { isActive: true },
+        include: {
+          package: { select: { id: true, name: true, price: true, totalHours: true } },
+          teacher: { select: { id: true, name: true } }
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 5
+      }
+    };
+
+    const prisma = getSharedPrismaClient();
+
+    // Check if unpaginated mode is explicitly requested (e.g. for small dropdowns or exports)
+    if (all === 'true') {
+      const data = await prisma.educationStudent.findMany({
+        where,
+        include: includeRelations,
+        orderBy
+      });
+      return res.json({ success: true, data, items: data, total: data.length });
+    }
+
+    const page = Math.max(1, parseInt(queryPage) || 1);
+    const pageSize = Math.max(1, Math.min(parseInt(queryPageSize || queryLimit) || 20, 100));
+
+    const [total, items] = await Promise.all([
+      prisma.educationStudent.count({ where }),
+      prisma.educationStudent.findMany({
+        where,
+        include: includeRelations,
+        orderBy,
+        skip: (page - 1) * pageSize,
+        take: pageSize
+      })
+    ]);
+
+    res.json({
+      success: true,
+      data: items, // Backward compatibility for callers expecting res.data as array
+      items,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize)
     });
-    res.json({ success: true, data });
   } catch (error) {
     console.error('Error fetching students:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في جلب الطلاب' });
@@ -132,7 +240,7 @@ const create = async (req, res) => {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    let { customerId, firstName, lastName, phone, phone2, address, gender, grade, subjects, notes, guardianName, guardianPhone, guardianPhone2, guardianEmail, guardianPassword, isSelfGuardian, currentLevel, code, age, branchId, autoGenerateCredentials } = req.body;
+    let { customerId, firstName, lastName, phone, phone2, address, gender, grade, subjects, notes, guardianName, guardianPhone, guardianPhone2, guardianEmail, guardianPassword, isSelfGuardian, currentLevel, code } = req.body;
     if (!firstName || !firstName.trim()) return res.status(400).json({ success: false, error: 'اسم الطالب مطلوب' });
 
     let safeCode = (code && typeof code === 'string' && code.trim()) ? code.trim().toUpperCase() : null;
@@ -146,12 +254,6 @@ const create = async (req, res) => {
     } else {
       safeCode = await generateUniqueStudentCode(companyId, getSharedPrismaClient());
     }
-
-    const { generateUserCredentials, generateGuardianDefaultEmail } = require('../services/educationAgeLevelService');
-    const autoCreds = (autoGenerateCredentials || !guardianPassword)
-      ? generateUserCredentials(firstName, phone || guardianPhone, safeCode)
-      : null;
-    const effectivePassword = guardianPassword ? guardianPassword.trim() : (autoCreds?.password || null);
 
     const safeLastName = (lastName && typeof lastName === 'string' && lastName.trim()) ? lastName.trim() : '';
     const safeGender = normalizeGender(gender);
@@ -174,25 +276,10 @@ const create = async (req, res) => {
     }
     const safeGrade = (grade && typeof grade === 'string' && grade.trim()) ? grade.trim() : null;
     const safeNotes = (notes && typeof notes === 'string' && notes.trim()) ? notes.trim() : null;
-    let safeGuardianEmail = (guardianEmail && typeof guardianEmail === 'string' && guardianEmail.trim())
+    const safeGuardianEmail = (guardianEmail && typeof guardianEmail === 'string' && guardianEmail.trim())
       ? guardianEmail.trim().toLowerCase()
       : null;
-
-    const effParentPhone = (guardianPhone && typeof guardianPhone === 'string' && guardianPhone.trim())
-      ? guardianPhone.trim()
-      : (safePhone || null);
-    const effParentName = (guardianName && typeof guardianName === 'string' && guardianName.trim())
-      ? guardianName.trim()
-      : firstName;
-
-    // توليد بريد إلكتروني افتراضي صحيح ومعتمد لولي الأمر إذا لم يُدخل بريداً أو كان القالب منقوصاً مثل @student.maxp.online
-    if (!safeGuardianEmail || safeGuardianEmail.startsWith('@') || safeGuardianEmail.endsWith('@student.maxp.online')) {
-      safeGuardianEmail = generateGuardianDefaultEmail({
-        phone: effParentPhone,
-        name: effParentName,
-        code: safeCode
-      });
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeGuardianEmail)) {
+    if (safeGuardianEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeGuardianEmail)) {
       return res.status(400).json({ success: false, error: 'صيغة البريد الإلكتروني لولي الأمر غير صحيحة' });
     }
 
@@ -202,8 +289,8 @@ const create = async (req, res) => {
       }
     }
 
-    const safeHashedPassword = effectivePassword
-      ? await hashPassword(effectivePassword)
+    const safeHashedPassword = (guardianPassword && typeof guardianPassword === 'string' && guardianPassword.trim())
+      ? await hashPassword(guardianPassword.trim())
       : null;
 
     if (!customerId) {
@@ -299,10 +386,6 @@ const create = async (req, res) => {
         grade: safeGrade,
         subjects: safeSubjects,
         currentLevel: currentLevel ? Number(currentLevel) : null,
-        age: age ? Number(age) : null,
-        branchId: branchId || null,
-        username: autoCreds?.username || null,
-        plainPassword: autoCreds?.password || null,
         notes: safeNotes
       },
       include: { customer: { select: { id: true, firstName: true, lastName: true, phone: true, phone2: true, email: true } } }
@@ -326,7 +409,7 @@ const create = async (req, res) => {
       req,
     }).catch(e => console.error('[StudentAudit]', e.message));
 
-    res.json({ success: true, data: { ...data, credentials: { ...(autoCreds || {}), email: safeGuardianEmail } } });
+    res.json({ success: true, data });
   } catch (error) {
     console.error('Error creating student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء الطالب' });
@@ -373,12 +456,7 @@ const update = async (req, res) => {
         custUpdate.phone2 = (guardianPhone2 && typeof guardianPhone2 === 'string' && guardianPhone2.trim()) ? guardianPhone2.trim() : null;
       }
       if (guardianEmail !== undefined && typeof guardianEmail === 'string' && guardianEmail.trim()) {
-        let trimmedEmail = guardianEmail.trim().toLowerCase();
-        if (trimmedEmail.startsWith('@') || trimmedEmail.endsWith('@student.maxp.online')) {
-          const { generateGuardianDefaultEmail } = require('../services/educationAgeLevelService');
-          const cust = await getSharedPrismaClient().customer.findFirst({ where: { id: targetCustomerId }, select: { phone: true, firstName: true } });
-          trimmedEmail = generateGuardianDefaultEmail({ phone: cust?.phone, name: cust?.firstName, code: existing.code });
-        }
+        const trimmedEmail = guardianEmail.trim().toLowerCase();
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
           return res.status(400).json({ success: false, error: 'صيغة البريد الإلكتروني لولي الأمر غير صحيحة' });
         }

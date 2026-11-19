@@ -35,6 +35,8 @@ _STATE_CHANGING_TOOLS = {
     "order_refund",
     "order_create_draft",
     "order_create_confirmed",
+    "booking_reserve",
+    "booking_reserve_skill",
 }
 
 _HALLUCINATION_PHRASES = [
@@ -43,6 +45,10 @@ _HALLUCINATION_PHRASES = [
     "اتلغى الطلب", "اتلغي الطلب", "تم إلغاء الطلب", "تم الغاء الطلب", "تم إلغاء الأوردر",
     "اتشحن الطلب", "تم شحن الطلب", "اتنقل للشحن", "راح للشحن", "خرج للشحن",
     "اترد للعميل", "اترجع المبلغ", "تم استرجاع المبلغ", "تم استرداد المبلغ",
+    # Explicit booking state-changing claims without an actual booking tool execution
+    "تم تسجيلك", "سجلتك في", "سجلتك ف", "سجلت حضرتك", "سجلنا حضرتك", "سجلتلك في", "سجلتلك ف",
+    "تم حجز موعدك", "تم تسجيل موعدك", "حجزتلك في", "حجزتلك ف", "حجزت لك في", "حجزت لحضرتك",
+    "booking confirmed", "appointment confirmed", "appointment scheduled", "booked successfully",
     "order confirmed", "order has been confirmed", "order is confirmed",
     "order cancelled", "order canceled", "order has been cancelled",
     "order shipped", "order has been shipped",
@@ -201,9 +207,9 @@ def _build_hallucination_correction(
                 f"{[item.get('tool', '') for item in (ctx.executed_tools or []) if isinstance(item, dict)]}\n"
                 f"نتائج الأدوات (tool evidence): {evidence_text or '(لا توجد)'}\n\n"
                 "اعمل call للأداة الصح (order_confirm / order_update_details / "
-                "order_cancel / order_refund) دلوقتي، استنى نتيجتها، وبعدين اتكلم "
+                "order_cancel / order_refund / booking_reserve) دلوقتي، استنى نتيجتها، وبعدين اتكلم "
                 "مع العميل بناءً على النتيجة الفعلية. لو الأداة رجعت success → قول "
-                "العميل. لو رجعت error → قول الحقيقة واطلب تاني."
+                "للعميل. لو رجعت error → قول الحقيقة واطلب توضيح أو بيانات تانية."
             ),
         }
     ]
@@ -1220,6 +1226,19 @@ async def validate_reply(ctx: PipelineContext) -> PipelineContext:
                 )
                 return ctx
             reply = _strip_internal_tags(corrected)
+
+    # Enforce Requirement 8: Single authoritative number in customer reply
+    if ctx.final_reply and ctx.executed_tools:
+        try:
+            from src.services.conflict_detector import extract_live_values_from_tools
+            from src.services.single_number_enforcer import enforce_single_authoritative_number
+            live_map = extract_live_values_from_tools(ctx.executed_tools)
+            if live_map:
+                ctx.final_reply = enforce_single_authoritative_number(ctx.final_reply, live_map)
+                if ctx.llm_response:
+                    ctx.llm_response = enforce_single_authoritative_number(ctx.llm_response, live_map)
+        except Exception as enforce_err:
+            logger.warning("single_number_enforcer_failed", error=str(enforce_err))
 
     # 3. Context Metrics
     try:

@@ -1,0 +1,443 @@
+{
+  "id": "tpl-050-marlin-furniture",
+  "name": "Marlin — أثاث وديكور",
+  "description": "قالب أثاث وديكور بمنطق الأقسام المتعددة: شريط عرض، هيرو قيادة، فئات سريعة، عروض أقسام، شبكة منتجات، شريط خدمة، وUGC. أخضر بترولي ونحاسي — مناسب لمتجر أثاث بيغطي المعيشة والنوم والسفرة والأوفيس.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "193 48% 22%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "190 20% 92%",
+      "secondaryForeground": "193 40% 18%",
+      "accent": "38 74% 50%",
+      "accentForeground": "30 40% 10%",
+      "background": "40 24% 98%",
+      "foreground": "195 30% 12%",
+      "muted": "190 18% 94%",
+      "mutedForeground": "195 12% 42%",
+      "border": "190 16% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "195 30% 12%",
+      "ring": "193 48% 30%"
+    },
+    "typography": {
+      "headingFont": "Changa, Cairo, sans-serif",
+      "bodyFont": "Changa, Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.35rem",
+      "buttonRadius": "0.35rem"
+    },
+    "productCard": {
+      "borderRadius": "0.35rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | MARLIN",
+    "description": "قالب أثاث وديكور بمنطق الأقسام المتعددة: شريط عرض، هيرو قيادة، فئات سريعة، عروض أقسام، شبكة منتجات، شريط خدمة، وUGC. أخضر بترولي ونحاسي — مناسب لمتجر أثاث بيغطي المعيشة والنوم والسفرة والأوفيس."
+  },
+  "preview": {
+    "colors": [
+      "193 48% 22%",
+      "38 74% 50%",
+      "40 24% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-050-marlin-furniture/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "MARLIN",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "شحن لكل المحافظات · معاينة قبل الدفع على الأثاث الكبير",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الأقسام",
+        "to": "/collections"
+      },
+      {
+        "label": "معيشة",
+        "to": "/shop?category=living"
+      },
+      {
+        "label": "غرف نوم",
+        "to": "/shop?category=bedroom"
+      },
+      {
+        "label": "سفرة",
+        "to": "/shop?category=dining"
+      },
+      {
+        "label": "أوفيس",
+        "to": "/shop?category=office"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "MARLIN — قالب أثاث وديكور بمنطق الأقسام المتعددة.",
+    "copyrightText": "© 2026 MARLIN",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الأقسام",
+            "to": "/collections"
+          },
+          {
+            "label": "معيشة",
+            "to": "/shop?category=living"
+          },
+          {
+            "label": "غرف نوم",
+            "to": "/shop?category=bedroom"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "المقاسات",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم ٢٥٪",
+            "message": "على غرف النوم الكاملة — العرض ساري لحد آخر الشهر",
+            "saleLabel": "عروض الغرف",
+            "shippingLabel": "توصيل وتركيب",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "split-panel",
+          "settings": {
+            "eyebrow": "عرض الأسبوع",
+            "title": "غرفة نوم كاملة بخصم ٢٥٪",
+            "subtitle": "سرير + تسريحة + دولاب — السعر النهائي مكتوب، والتوصيل والتركيب مجاني على الغرفة الكاملة.",
+            "ctaText": "شوف العرض",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-050-marlin-furniture/hero.jpg",
+            "panelImage": "/assets/themes/tpl-050-marlin-furniture/hero.jpg",
+            "highlights": [
+              {
+                "label": "أقسام",
+                "value": "5 أقسام"
+              },
+              {
+                "label": "توصيل",
+                "value": "كل المحافظات"
+              },
+              {
+                "label": "معاينة",
+                "value": "قبل الدفع"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "أقسام المتجر",
+            "subtitle": "معيشة · نوم · سفرة · أوفيس · ديكور",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "category-promo",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "معيشة",
+                "title": "كنب وأرائك",
+                "subtitle": "مقاسات وقطع مفردة",
+                "link": "/shop?category=living",
+                "ctaText": "اعرف أكتر",
+                "stat": "من 12,900"
+              },
+              {
+                "label": "نوم",
+                "title": "غرف نوم كاملة",
+                "subtitle": "سرير + دولاب + كومودينو",
+                "link": "/shop?category=bedroom",
+                "ctaText": "اعرف أكتر",
+                "stat": "-25%"
+              },
+              {
+                "label": "سفرة",
+                "title": "طاولات وكراسي",
+                "subtitle": "٦ و٨ أفراد",
+                "link": "/shop?category=dining",
+                "ctaText": "اعرف أكتر",
+                "stat": "من 18,400"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "معاينة قبل الدفع",
+                "description": "تفتح وتشوف القطعة قبل ما تحاسب"
+              },
+              {
+                "title": "شحن لكل المحافظات",
+                "description": "٢-٥ أيام عمل حسب المحافظة"
+              },
+              {
+                "title": "تركيب مجاني",
+                "description": "على أي طلب فوق 15,000 ج.م"
+              },
+              {
+                "title": "استبدال 14 يوم",
+                "description": "لو المقاس ما ناسبش المكان"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "تقييمات المشترين",
+            "intro": "تقييمات موثقة من طلبات حقيقية — بعد التوصيل والتركيب.",
+            "reviews": [
+              {
+                "author": "كريم ف.",
+                "text": "الغرفة وصلت قبل الميعاد، والتركيب كان من ضمن السعر.",
+                "rating": 5
+              },
+              {
+                "author": "سارة ل.",
+                "text": "المعاينة قبل الدفع فرقت معايا جدًا — رفضت قطعة وغيروها.",
+                "rating": 5
+              },
+              {
+                "author": "محمود ر.",
+                "text": "اللون مختلف شوية عن الصورة بس مقبول.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من بيوت عملائنا",
+            "subtitle": "صوّر ركنك ووسمنا",
+            "handle": "marlin.home",
+            "images": [
+              "/assets/themes/tpl-050-marlin-furniture/hero.jpg",
+              "/assets/themes/tpl-050-marlin-furniture/room-1.jpg",
+              "/assets/themes/tpl-050-marlin-furniture/room-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض الأقسام على الواتساب",
+            "subtitle": "خصم إضافي 5% لأول 50 مشترك في كل عرض قسم.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الغرف والقطع",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "specs-grid"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "compact"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة المشتريات",
+            "subtitle": "كل قطعة بمقاسها ووزنها ظاهر قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الغرف"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التركيب — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

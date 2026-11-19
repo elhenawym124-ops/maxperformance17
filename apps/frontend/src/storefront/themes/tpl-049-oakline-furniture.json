@@ -1,0 +1,438 @@
+{
+  "id": "tpl-049-oakline-furniture",
+  "name": "Oakline — أثاث وديكور",
+  "description": "قالب أثاث وديكور نظيف بمنطق الصور الكبيرة: بانر صورة واحدة، شبكة بنتو لغرف كاملة، فئات تحريرية، شبكة منتجات واسعة، وقصة خامة. أبيض دافئ وخشب البلوط — مبني لمتجر أثاث بيبيع الغرفة مش القطعة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "26 34% 32%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "34 30% 92%",
+      "secondaryForeground": "26 30% 20%",
+      "accent": "20 68% 52%",
+      "accentForeground": "0 0% 100%",
+      "background": "38 40% 97%",
+      "foreground": "26 22% 13%",
+      "muted": "34 24% 93%",
+      "mutedForeground": "28 12% 40%",
+      "border": "32 20% 87%",
+      "card": "0 0% 100%",
+      "cardForeground": "26 22% 13%",
+      "ring": "26 34% 32%"
+    },
+    "typography": {
+      "headingFont": "Tajawal, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.75rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.75rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | OAKLINE",
+    "description": "قالب أثاث وديكور نظيف بمنطق الصور الكبيرة: بانر صورة واحدة، شبكة بنتو لغرف كاملة، فئات تحريرية، شبكة منتجات واسعة، وقصة خامة. أبيض دافئ وخشب البلوط — مبني لمتجر أثاث بيبيع الغرفة مش القطعة."
+  },
+  "preview": {
+    "colors": [
+      "26 34% 32%",
+      "20 68% 52%",
+      "38 40% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-049-oakline-furniture/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "OAKLINE",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل وتركيب داخل القاهرة والجيزة · تقسيط حتى 12 شهر من غير فوائد",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الغرف",
+        "to": "/collections"
+      },
+      {
+        "label": "كنب",
+        "to": "/shop?category=sofas"
+      },
+      {
+        "label": "طاولات",
+        "to": "/shop?category=tables"
+      },
+      {
+        "label": "إضاءة",
+        "to": "/shop?category=lighting"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "OAKLINE — قالب أثاث وديكور نظيف بمنطق الصور الكبيرة.",
+    "copyrightText": "© 2026 OAKLINE",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الغرف",
+            "to": "/collections"
+          },
+          {
+            "label": "كنب",
+            "to": "/shop?category=sofas"
+          },
+          {
+            "label": "طاولات",
+            "to": "/shop?category=tables"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "المقاسات",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل وتركيب",
+            "message": "فريق التركيب بيجي بالعدة والبلاستيك — بيركّب ويشيل الكرتون معاه",
+            "saleLabel": "عروض الغرف",
+            "shippingLabel": "توصيل وتركيب",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "dawn-image-banner",
+          "settings": {
+            "eyebrow": "مجموعة الخريف",
+            "title": "البيت يبدأ بقطعة واحدة صح",
+            "subtitle": "كنب وطاولات وإضاءة مختارة — المقاسات مكتوبة بالسنتيمتر، والخامة تلمسها قبل ما تشتري.",
+            "ctaText": "اتفرج على الغرف",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-049-oakline-furniture/hero.jpg",
+            "panelImage": "/assets/themes/tpl-049-oakline-furniture/hero.jpg",
+            "highlights": [
+              {
+                "label": "توصيل",
+                "value": "كل المحافظات"
+              },
+              {
+                "label": "تركيب",
+                "value": "فريق متخصص"
+              },
+              {
+                "label": "ضمان",
+                "value": "3 سنوات"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "editorial-categories",
+          "settings": {
+            "title": "اختار الغرفة",
+            "subtitle": "معيشة · سفرة · نوم · أوفيس",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "غرف جاهزة زي ما هي",
+            "subtitle": "من بيوت عملاء — مش استوديو",
+            "ctaText": "شوف الغرف",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-049-oakline-furniture/room-1.jpg",
+                "title": "ركن المعيشة الكامل",
+                "subtitle": "أريكة ٣ مقاعد + ترابيزة + سجادة",
+                "priceLabel": "من 24,900 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-049-oakline-furniture/room-2.jpg",
+                "title": "كرسي بذراعين",
+                "subtitle": "خشب بلوط وجلد طبيعي",
+                "priceLabel": "8,400 ج.م",
+                "link": "/shop?category=chairs"
+              },
+              {
+                "image": "/assets/themes/tpl-049-oakline-furniture/hero.jpg",
+                "title": "سفرة ٦ أفراد",
+                "subtitle": "طاولة قابلة للفتح",
+                "priceLabel": "31,500 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "كلام العملاء بعد التركيب",
+            "intro": "تقييمات موثقة من طلبات حقيقية — بعد التوصيل والتركيب.",
+            "reviews": [
+              {
+                "author": "منى ع.",
+                "text": "الكنبة وصلت مركّبة والمقاس زي ما هو مكتوب بالظبط — الفرق ٢ سم بس.",
+                "rating": 5
+              },
+              {
+                "author": "أحمد س.",
+                "text": "طلبت سفرة ٦ أفراد، التركيب أخد ٤٠ دقيقة ومشيوا بالكرتون.",
+                "rating": 5
+              },
+              {
+                "author": "هالة م.",
+                "text": "الخشب تقيل ومتين مش MDF — تستاهل السعر.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل وتركيب",
+                "description": "فريق متخصص يركّب ويشيل التغليف"
+              },
+              {
+                "title": "مقاسات مكتوبة",
+                "description": "كل قطعة بمقاساتها بالسنتيمتر قبل الشراء"
+              },
+              {
+                "title": "تقسيط 12 شهر",
+                "description": "على الطلبات فوق 10,000 ج.م"
+              },
+              {
+                "title": "ضمان 3 سنوات",
+                "description": "على الهيكل والخشب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "story-parallax",
+          "variant": "standard",
+          "settings": {
+            "badge": "الخامة والحرفة",
+            "title": "خشب بلوط مُعتّق، مش لامين",
+            "content": "بنختار الخشب من ورشة واحدة ونسيبه ينشف ٦ أسابيع قبل التجميع، عشان ما يتلخبطش بعد سنة.",
+            "image": "/assets/themes/tpl-049-oakline-furniture/hero.jpg",
+            "imageAlt": "خشب بلوط مُعتّق، مش لامين",
+            "ctaText": "اعرف عن الخامات",
+            "ctaLink": "/contact",
+            "overlayOpacity": 0.35,
+            "objectFit": "cover",
+            "objectPosition": "center"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "وصلت غرف جديدة",
+            "subtitle": "رسالة واحدة في الشهر — لما تنزل غرفة كاملة بسعرها، مش كل قطعة لوحدها.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الغرف والقطع",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "default-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة الغرفة",
+            "subtitle": "راجع القطع والمقاسات قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "standard"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الغرف"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التركيب — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { AttendanceRecord } from "./types";
 import { AttendanceTableRow } from "./AttendanceTableRow";
+import { AttendanceMobileCard } from "./AttendanceMobileCard";
 
 interface AttendanceTableProps {
   loading: boolean;
@@ -59,25 +60,11 @@ export const AttendanceTable: React.FC<AttendanceTableProps> = ({
             <p>لا توجد سجلات</p>
           </div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="text-right">الموظف</TableHead>
-                <TableHead className="text-right">اليوم والتاريخ</TableHead>
-                <TableHead className="text-right">القسم</TableHead>
-                <TableHead className="text-right">الحضور</TableHead>
-                <TableHead className="text-right">الانصراف</TableHead>
-                <TableHead className="text-right">الموقع</TableHead>
-                <TableHead className="text-right">ساعات العمل</TableHead>
-                <TableHead className="text-right">ساعات إضافية</TableHead>
-                <TableHead className="text-right">التأخير</TableHead>
-                <TableHead className="text-right">الحالة</TableHead>
-                <TableHead className="text-right w-[120px]">التحكم</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <>
+            {/* Mobile View: High Density Single-Depth Cards */}
+            <div className="block md:hidden p-3 space-y-2.5">
               {records.map((record) => (
-                <AttendanceTableRow
+                <AttendanceMobileCard
                   key={record.id}
                   record={record}
                   attendanceTimezone={attendanceTimezone}
@@ -91,8 +78,46 @@ export const AttendanceTable: React.FC<AttendanceTableProps> = ({
                   openLocationInMap={openLocationInMap}
                 />
               ))}
-            </TableBody>
-          </Table>
+            </div>
+
+            {/* Desktop View: Full Table */}
+            <div className="hidden md:block w-full overflow-x-auto">
+              <Table className="min-w-[760px]">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-right">الموظف</TableHead>
+                    <TableHead className="text-right">اليوم والتاريخ</TableHead>
+                    <TableHead className="text-right">القسم</TableHead>
+                    <TableHead className="text-right">الحضور</TableHead>
+                    <TableHead className="text-right">الانصراف</TableHead>
+                    <TableHead className="text-right">الموقع</TableHead>
+                    <TableHead className="text-right">ساعات العمل</TableHead>
+                    <TableHead className="text-right">ساعات إضافية</TableHead>
+                    <TableHead className="text-right">التأخير</TableHead>
+                    <TableHead className="text-right">الحالة</TableHead>
+                    <TableHead className="text-right w-[120px]">التحكم</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {records.map((record) => (
+                    <AttendanceTableRow
+                      key={record.id}
+                      record={record}
+                      attendanceTimezone={attendanceTimezone}
+                      handleCheckIn={handleCheckIn}
+                      handleCheckOut={handleCheckOut}
+                      handleEditClick={handleEditClick}
+                      confirmDelete={confirmDelete}
+                      openAutoCloseReview={openAutoCloseReview}
+                      setSelectedNotes={setSelectedNotes}
+                      setShowNotesDialog={setShowNotesDialog}
+                      openLocationInMap={openLocationInMap}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </>
         )}
 
         {pagination.totalPages > 1 && records.length > 0 && (

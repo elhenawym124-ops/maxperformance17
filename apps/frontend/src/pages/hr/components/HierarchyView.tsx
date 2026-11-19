@@ -51,7 +51,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ dept, allDepartments, level }) => {
           ? "bg-primary/5 border border-primary/10"
           : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
           }`}
-        style={{ marginRight: `${level * 24}px` }}
+        style={{ marginRight: `clamp(4px, ${level * 12}px, ${level * 24}px)` }}
       >
         {hasChildren && (
           <button
@@ -127,7 +127,7 @@ const HierarchyView: React.FC<HierarchyViewProps> = ({ departments }) => {
     });
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm min-h-[400px]">
+    <div className="p-3.5 sm:p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm min-h-[400px] overflow-x-auto">
       <div className="mb-6 flex items-center justify-between">
         <h3 className="text-lg font-bold flex items-center gap-2">
           <ArrowLeft className="h-5 w-5 text-primary" />

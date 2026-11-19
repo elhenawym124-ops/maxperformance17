@@ -1,0 +1,177 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="40%" stop-color="#0a1020"/>
+      <stop offset="70%" stop-color="#080d1a"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+
+    <radialGradient id="centerGlow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#0091ff" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#0051a8" stop-opacity="0.15"/>
+      <stop offset="75%" stop-color="#002050" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6"/>
+      <stop offset="25%" stop-color="#0091ff" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#4f46e5" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="sideGlowLeft" cx="15%" cy="65%" r="35%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#050811" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="sideGlowRight" cx="85%" cy="65%" r="35%">
+      <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#050811" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Linear Gradients for Tech Elements -->
+    <linearGradient id="cyanBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0091ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0091ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0091ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1e293b" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Tech Grid Pattern -->
+    <pattern id="cyberGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#0091ff" stroke-width="1" stroke-opacity="0.05"/>
+      <circle cx="60" cy="0" r="1.5" fill="#38bdf8" fill-opacity="0.15"/>
+    </pattern>
+
+    <pattern id="dotMatrix" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="1" fill="#00d2ff" fill-opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <!-- Base Background -->
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+
+  <!-- Tech Grid Overlay -->
+  <rect width="1920" height="1080" fill="url(#cyberGrid)"/>
+  <rect x="200" y="100" width="1520" height="880" fill="url(#dotMatrix)" opacity="0.6"/>
+
+  <!-- Ambient Light Spreads -->
+  <rect width="1920" height="1080" fill="url(#centerGlow)"/>
+  <rect width="1920" height="1080" fill="url(#sideGlowLeft)"/>
+  <rect width="1920" height="1080" fill="url(#sideGlowRight)"/>
+
+  <!-- Perspective Floor Grid (Gaming Stage) -->
+  <g opacity="0.22">
+    <line x1="0" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1.5"/>
+    <line x1="240" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1"/>
+    <line x1="480" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1"/>
+    <line x1="720" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1"/>
+    <line x1="1200" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1"/>
+    <line x1="1440" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1"/>
+    <line x1="1680" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1"/>
+    <line x1="1920" y1="1080" x2="960" y2="600" stroke="#0091ff" stroke-width="1.5"/>
+
+    <line x1="160" y1="980" x2="1760" y2="980" stroke="#0091ff" stroke-width="1.2" stroke-dasharray="6 4"/>
+    <line x1="320" y1="890" x2="1600" y2="890" stroke="#0091ff" stroke-width="1" stroke-dasharray="6 4"/>
+    <line x1="460" y1="810" x2="1460" y2="810" stroke="#0091ff" stroke-width="0.8"/>
+    <line x1="580" y1="740" x2="1340" y2="740" stroke="#0091ff" stroke-width="0.8"/>
+    <line x1="680" y1="680" x2="1240" y2="680" stroke="#0091ff" stroke-width="0.6"/>
+    <line x1="760" y1="630" x2="1160" y2="630" stroke="#0091ff" stroke-width="0.5"/>
+  </g>
+
+  <!-- Central Glowing Halo / Hardware Focus Arc -->
+  <g transform="translate(960, 480)">
+    <circle cx="0" cy="0" r="280" fill="url(#coreGlow)"/>
+    
+    <!-- Outer Octagonal Ring -->
+    <polygon points="0,-300 212,-212 300,0 212,212 0,300 -212,212 -300,0 -212,-212" fill="none" stroke="#0091ff" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="30 15 10 15"/>
+    
+    <!-- Inner Precision Circles -->
+    <circle cx="0" cy="0" r="240" fill="none" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="8 8"/>
+    <circle cx="0" cy="0" r="190" fill="none" stroke="#00d2ff" stroke-width="2" stroke-opacity="0.6" stroke-dasharray="120 40 60 40"/>
+    <circle cx="0" cy="0" r="150" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-opacity="0.4"/>
+    <circle cx="0" cy="0" r="90" fill="none" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.75"/>
+    <circle cx="0" cy="0" r="25" fill="#00d2ff" fill-opacity="0.85"/>
+    <circle cx="0" cy="0" r="8" fill="#ffffff"/>
+
+    <!-- Diagonal Accent Fins -->
+    <path d="M -190 -190 L -230 -230 M 190 -190 L 230 -230 M -190 190 L -230 230 M 190 190 L 230 230" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.7"/>
+    <path d="M 0 -260 L 0 -290 M 0 260 L 0 290 M -260 0 L -290 0 M 260 0 L 290 0" stroke="#00d2ff" stroke-width="2.5" stroke-opacity="0.8"/>
+  </g>
+
+  <!-- Left Cyber Geometry & Circuit Traces -->
+  <g opacity="0.75">
+    <path d="M 100 200 L 280 200 L 360 280 L 520 280 L 580 340" fill="none" stroke="#0091ff" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="100" cy="200" r="4" fill="#00d2ff"/>
+    <circle cx="360" cy="280" r="3" fill="#38bdf8"/>
+    <circle cx="580" cy="340" r="5" fill="#0091ff"/>
+
+    <path d="M 140 380 L 260 380 L 320 440 L 460 440" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-opacity="0.4"/>
+    <circle cx="140" cy="380" r="3" fill="#818cf8"/>
+    <circle cx="460" cy="440" r="4" fill="#6366f1"/>
+
+    <!-- Hexagonal Clusters Left -->
+    <polygon points="260,520 290,502 320,520 320,555 290,573 260,555" fill="url(#hexGrad)" stroke="#0091ff" stroke-width="1.5" stroke-opacity="0.6"/>
+    <polygon points="330,560 360,542 390,560 390,595 360,613 330,595" fill="url(#hexGrad)" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.4"/>
+    <polygon points="260,600 290,582 320,600 320,635 290,653 260,635" fill="url(#hexGrad)" stroke="#0091ff" stroke-width="1" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- Right Cyber Geometry & Circuit Traces (Symmetrical / RTL-safe) -->
+  <g opacity="0.75">
+    <path d="M 1820 200 L 1640 200 L 1560 280 L 1400 280 L 1340 340" fill="none" stroke="#0091ff" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="1820" cy="200" r="4" fill="#00d2ff"/>
+    <circle cx="1560" cy="280" r="3" fill="#38bdf8"/>
+    <circle cx="1340" cy="340" r="5" fill="#0091ff"/>
+
+    <path d="M 1780 380 L 1660 380 L 1600 440 L 1460 440" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-opacity="0.4"/>
+    <circle cx="1780" cy="380" r="3" fill="#818cf8"/>
+    <circle cx="1460" cy="440" r="4" fill="#6366f1"/>
+
+    <!-- Hexagonal Clusters Right -->
+    <polygon points="1660,520 1630,502 1600,520 1600,555 1630,573 1660,555" fill="url(#hexGrad)" stroke="#0091ff" stroke-width="1.5" stroke-opacity="0.6"/>
+    <polygon points="1590,560 1560,542 1530,560 1530,595 1560,613 1590,595" fill="url(#hexGrad)" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.4"/>
+    <polygon points="1660,600 1630,582 1600,600 1600,635 1630,653 1660,635" fill="url(#hexGrad)" stroke="#0091ff" stroke-width="1" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- Horizontal Tech Horizon Beams -->
+  <rect x="0" y="600" width="1920" height="2" fill="url(#cyanBeam)"/>
+  <rect x="300" y="604" width="1320" height="1" fill="url(#cyanBeam)" opacity="0.5"/>
+
+  <!-- Top Cyber Frame Corner Accents -->
+  <g opacity="0.6">
+    <path d="M 40 80 L 40 40 L 80 40" stroke="#00d2ff" stroke-width="2.5" fill="none"/>
+    <circle cx="40" cy="40" r="2" fill="#38bdf8"/>
+    <path d="M 1880 80 L 1880 40 L 1840 40" stroke="#00d2ff" stroke-width="2.5" fill="none"/>
+    <circle cx="1880" cy="40" r="2" fill="#38bdf8"/>
+
+    <path d="M 40 1000 L 40 1040 L 80 1040" stroke="#0091ff" stroke-width="2.5" fill="none"/>
+    <circle cx="40" cy="1040" r="2" fill="#0091ff"/>
+    <path d="M 1880 1000 L 1880 1040 L 1840 1040" stroke="#0091ff" stroke-width="2.5" fill="none"/>
+    <circle cx="1880" cy="1040" r="2" fill="#0091ff"/>
+  </g>
+
+  <!-- Floating Tech Data Nodes / Gaming Particle Accents -->
+  <g opacity="0.5">
+    <circle cx="540" cy="180" r="2" fill="#38bdf8"/>
+    <circle cx="680" cy="240" r="1.5" fill="#00d2ff"/>
+    <circle cx="820" cy="160" r="2" fill="#38bdf8"/>
+    <circle cx="1100" cy="160" r="2" fill="#38bdf8"/>
+    <circle cx="1240" cy="240" r="1.5" fill="#00d2ff"/>
+    <circle cx="1380" cy="180" r="2" fill="#38bdf8"/>
+
+    <line x1="780" y1="160" x2="860" y2="160" stroke="#0091ff" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="1060" y1="160" x2="1140" y2="160" stroke="#0091ff" stroke-width="1" stroke-dasharray="3 3"/>
+  </g>
+</svg>

@@ -3,7 +3,7 @@ const { logEducationEvent } = require('../services/educationAuditService');
 
 const getAll = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const data = await getSharedPrismaClient().educationSubject.findMany({
@@ -19,7 +19,7 @@ const getAll = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { name, description, price } = req.body;
@@ -67,7 +67,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;
@@ -126,7 +126,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const companyId = req.user?.companyId;
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;

@@ -355,12 +355,15 @@ jobs:
         continue-on-error: false
 
       # 🛡️ المعيار الذهبي 2026: فحص Rust فائق السرعة عبر oxlint + فاحص AST لمنع أي نقص استيراد أو متغير غير معرّف
-      - name: 2026 High-Speed Rust & AST Safety Gate (Oxlint & Undeclared Components)
+      - name: 2026 High-Speed Rust & AST Safety Gate (Oxlint, Undeclared Components & Unresolved Imports)
         if: steps.diff-check.outputs.fe-needed == 'true'
         working-directory: ./apps/frontend
         run: |
           npx oxlint --config .oxlintrc.json src
           node scripts/check-undeclared-components.cjs
+          # Catches `import x from "pkg"` where pkg is not in package.json —
+          # the class of error that made Rollup fail 20s into the build on 2026-11-18.
+          node scripts/check-unresolved-imports.cjs
         continue-on-error: false
 
       - name: Build Frontend

@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  Search,
-  Plus,
-  Table as TableIcon,
-  LayoutGrid,
-} from "lucide-react";
-import type { EducationStudent, Customer, EducationSubject } from "./types";
+import React, { useMemo, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
+import type { EducationStudent, Customer, EducationSubject, EducationPackage, EducationTeacher } from "./types";
 import { StudentModal } from "./StudentModal";
+import { EducationStudentsFilters, StudentFilterState } from "./EducationStudentsFilters";
 import { EducationStudentsTable } from "./EducationStudentsTable";
-import { EducationStudentsCards } from "./EducationStudentsCards";
+import { EducationStudentsMobileCards } from "./EducationStudentsMobileCards";
+import { EducationStudentsPagination } from "./EducationStudentsPagination";
 
 export interface EducationStudentsTabProps {
   students: EducationStudent[];
   subjects: EducationSubject[];
+  packages?: EducationPackage[];
+  teachers?: EducationTeacher[];
   enableSubjects?: boolean;
   customers: Customer[];
   customerResults: Customer[];
@@ -30,6 +28,8 @@ export interface EducationStudentsTabProps {
 export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
   students,
   subjects,
+  packages = [],
+  teachers = [],
   enableSubjects = false,
   customers,
   customerResults,
@@ -42,134 +42,299 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
   handleToggleStudent,
   handleDeleteStudent,
 }) => {
-  const { t, i18n } = useTranslation();
-  const isEn = i18n.language === "en";
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [viewMode, setViewMode] = useState<"table" | "grid">(() => {
-    try {
-      const saved = localStorage.getItem("education_students_view_mode");
-      return saved === "grid" ? "grid" : "table";
-    } catch {
-      return "table";
+  // 1. Sync State with URL Search Params
+  const filterState: StudentFilterState = useMemo(() => ({
+    search: searchParams.get("q") ?? studentSearch ?? "",
+    status: searchParams.get("status") ?? "all",
+    grade: searchParams.get("grade") ?? "",
+    subjectId: searchParams.get("subjectId") ?? "",
+    packageId: searchParams.get("packageId") ?? "",
+    enrollmentStatus: searchParams.get("enrollment") ?? "all",
+    sortBy: searchParams.get("sortBy") ?? "name",
+    sortDir: (searchParams.get("sortDir") as "asc" | "desc") ?? "asc",
+  }), [searchParams, studentSearch]);
+
+  const currentPage = Math.max(1, Number(searchParams.get("page") || 1));
+  const pageSize = Math.max(5, Math.min(100, Number(searchParams.get("pageSize") || 10)));
+
+  // Helper to update search params
+  const updateParams = useCallback((updates: Record<string, string | number | null | undefined>) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      Object.entries(updates).forEach(([key, val]) => {
+        if (val === null || val === undefined || val === "" || val === "all") {
+          next.delete(key);
+        } else {
+          next.set(key, String(val));
+        }
+      });
+      return next;
+    }, { replace: true });
+  }, [setSearchParams]);
+
+  // Handle filter changes (resets to page 1)
+  const handleFilterChange = useCallback((updates: Partial<StudentFilterState>) => {
+    const paramUpdates: Record<string, string | number | null> = { page: 1 };
+    if (updates.search !== undefined) {
+      paramUpdates.q = updates.search;
+      setStudentSearch(updates.search);
     }
-  });
+    if (updates.status !== undefined) paramUpdates.status = updates.status;
+    if (updates.grade !== undefined) paramUpdates.grade = updates.grade;
+    if (updates.subjectId !== undefined) paramUpdates.subjectId = updates.subjectId;
+    if (updates.packageId !== undefined) paramUpdates.packageId = updates.packageId;
+    if (updates.enrollmentStatus !== undefined) paramUpdates.enrollment = updates.enrollmentStatus;
+    if (updates.sortBy !== undefined) paramUpdates.sortBy = updates.sortBy;
+    if (updates.sortDir !== undefined) paramUpdates.sortDir = updates.sortDir;
 
-  const handleViewModeChange = (mode: "table" | "grid") => {
-    setViewMode(mode);
-    try {
-      localStorage.setItem("education_students_view_mode", mode);
-    } catch {
-      // ignore storage error
+    updateParams(paramUpdates);
+  }, [setStudentSearch, updateParams]);
+
+  // Reset all filters
+  const handleResetFilters = useCallback(() => {
+    setStudentSearch("");
+    setSearchParams((prev) => {
+      const next = new URLSearchParams();
+      // preserve active tab if present in URL
+      const tab = prev.get("tab");
+      if (tab) next.set("tab", tab);
+      return next;
+    }, { replace: true });
+  }, [setStudentSearch, setSearchParams]);
+
+  // Handle Sort Toggle from Table Header
+  const handleSortHeader = useCallback((column: string) => {
+    if (filterState.sortBy === column) {
+      handleFilterChange({ sortDir: filterState.sortDir === "asc" ? "desc" : "asc" });
+    } else {
+      handleFilterChange({ sortBy: column, sortDir: "asc" });
     }
-  };
+  }, [filterState.sortBy, filterState.sortDir, handleFilterChange]);
 
-  const q = studentSearch.toLowerCase().trim();
-  const codeQ = q.startsWith("#") ? q.slice(1).trim() : q;
-  const filtered = students.filter(
-    (s) =>
-      !q ||
-      (s.code || "").toLowerCase().includes(codeQ) ||
-      (s.firstName || "").toLowerCase().includes(q) ||
-      (s.lastName || "").toLowerCase().includes(q) ||
-      (s.phone || "").toLowerCase().includes(q) ||
-      (s.phone2 || "").toLowerCase().includes(q) ||
-      (s.address || "").toLowerCase().includes(q) ||
-      (s.customer?.firstName || "").toLowerCase().includes(q) ||
-      (s.customer?.lastName || "").toLowerCase().includes(q) ||
-      (s.customer?.phone || "").toLowerCase().includes(q) ||
-      (s.customer?.phone2 || "").toLowerCase().includes(q)
-  );
+  // Extract unique grades list from students for filter dropdown
+  const gradesList = useMemo(() => {
+    const set = new Set<string>();
+    students.forEach((s) => {
+      if (s.grade && s.grade.trim()) set.add(s.grade.trim());
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b, "ar"));
+  }, [students]);
+
+  // 2. Filter Students
+  const filteredStudents = useMemo(() => {
+    const q = filterState.search.toLowerCase().trim();
+    const codeQ = q.startsWith("#") ? q.slice(1).trim() : q;
+
+    return students.filter((s) => {
+      // Search query filter
+      if (q) {
+        const matchesQuery =
+          (s.code || "").toLowerCase().includes(codeQ) ||
+          (s.firstName || "").toLowerCase().includes(q) ||
+          (s.lastName || "").toLowerCase().includes(q) ||
+          (s.phone || "").toLowerCase().includes(q) ||
+          (s.phone2 || "").toLowerCase().includes(q) ||
+          (s.address || "").toLowerCase().includes(q) ||
+          (s.customer?.firstName || "").toLowerCase().includes(q) ||
+          (s.customer?.lastName || "").toLowerCase().includes(q) ||
+          (s.customer?.phone || "").toLowerCase().includes(q) ||
+          (s.customer?.phone2 || "").toLowerCase().includes(q);
+        if (!matchesQuery) return false;
+      }
+
+      // Status filter
+      if (filterState.status === "active" && !s.isActive) return false;
+      if (filterState.status === "inactive" && s.isActive) return false;
+
+      // Grade filter
+      if (filterState.grade && (s.grade || "").trim() !== filterState.grade.trim()) {
+        return false;
+      }
+
+      // Subject filter
+      if (filterState.subjectId) {
+        const hasSub = (s as any).subjects?.some((sub: any) =>
+          typeof sub === "string" ? sub === filterState.subjectId : sub.id === filterState.subjectId
+        );
+        if (!hasSub) return false;
+      }
+
+      // Enrollment filter
+      if (filterState.enrollmentStatus === "enrolled") {
+        const enrolledCount = s.enrollments?.length ?? 0;
+        if (enrolledCount === 0) return false;
+      } else if (filterState.enrollmentStatus === "not_enrolled") {
+        const enrolledCount = s.enrollments?.length ?? 0;
+        if (enrolledCount > 0) return false;
+      }
+
+      return true;
+    });
+  }, [students, filterState]);
+
+  // 3. Sort Students
+  const sortedStudents = useMemo(() => {
+    const list = [...filteredStudents];
+    const { sortBy, sortDir } = filterState;
+    const factor = sortDir === "asc" ? 1 : -1;
+
+    list.sort((a, b) => {
+      if (sortBy === "code") {
+        const codeA = Number(a.code) || 0;
+        const codeB = Number(b.code) || 0;
+        if (codeA && codeB) return (codeA - codeB) * factor;
+        return (a.code || "").localeCompare(b.code || "") * factor;
+      }
+      if (sortBy === "grade") {
+        return (a.grade || "").localeCompare(b.grade || "", "ar") * factor;
+      }
+      if (sortBy === "status") {
+        return (Number(b.isActive) - Number(a.isActive)) * factor;
+      }
+      // default: sortBy === 'name'
+      const nameA = `${a.firstName} ${a.lastName || ""}`.trim();
+      const nameB = `${b.firstName} ${b.lastName || ""}`.trim();
+      return nameA.localeCompare(nameB, "ar") * factor;
+    });
+
+    return list;
+  }, [filteredStudents, filterState.sortBy, filterState.sortDir]);
+
+  // 4. Paginate Students
+  const totalPages = Math.max(1, Math.ceil(sortedStudents.length / pageSize));
+  const effectivePage = Math.min(currentPage, totalPages);
+  const paginatedStudents = useMemo(() => {
+    const start = (effectivePage - 1) * pageSize;
+    return sortedStudents.slice(start, start + pageSize);
+  }, [sortedStudents, effectivePage, pageSize]);
+
+  // Multi-Selection State for Bulk Actions & Table Checkboxes
+  const [selectedIds, setSelectedIds] = React.useState<Set<string>>(new Set());
+
+  const handleToggleSelectAll = useCallback(() => {
+    setSelectedIds((prev) => {
+      const allSelected = paginatedStudents.length > 0 && paginatedStudents.every((s) => prev.has(s.id));
+      if (allSelected) {
+        return new Set();
+      }
+      return new Set(paginatedStudents.map((s) => s.id));
+    });
+  }, [paginatedStudents]);
+
+  const handleToggleSelect = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
+  // 5. CSV Export with UTF-8 BOM
+  const handleExportCsv = useCallback(() => {
+    const headers = [
+      "كود الطالب",
+      "الاسم الأول",
+      "اسم العائلة",
+      "الصف الدراسي",
+      "هاتف الطالب",
+      "هاتف إضافي",
+      "العنوان",
+      "ولي الأمر",
+      "هاتف ولي الأمر",
+      "الحالة",
+    ];
+
+    const escapeCsv = (val: any) => {
+      const str = String(val ?? "").replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = sortedStudents.map((s) => [
+      escapeCsv(s.code || ""),
+      escapeCsv(s.firstName || ""),
+      escapeCsv(s.lastName || ""),
+      escapeCsv(s.grade || ""),
+      escapeCsv(s.phone || ""),
+      escapeCsv(s.phone2 || ""),
+      escapeCsv(s.address || ""),
+      escapeCsv(s.customer ? `${s.customer.firstName} ${s.customer.lastName || ""}`.trim() : ""),
+      escapeCsv(s.customer?.phone || ""),
+      escapeCsv(s.isActive ? "نشط" : "معطل"),
+    ]);
+
+    const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\r\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `students_export_${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [sortedStudents]);
 
   return (
-    <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
-      {/* Top Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <h2 className="text-base font-bold text-foreground">
-            {t("education.students.title", isEn ? "Students Management" : "إدارة الطلاب")}
-          </h2>
-          <span className="font-mono tabular-nums text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-            {filtered.length}
-          </span>
-        </div>
+    <div className="space-y-3.5">
+      {/* 1. Filters & Action Bar */}
+      <EducationStudentsFilters
+        filters={filterState}
+        onFilterChange={handleFilterChange}
+        onResetFilters={handleResetFilters}
+        gradesList={gradesList}
+        subjects={subjects}
+        packages={packages}
+        enableSubjects={enableSubjects}
+        totalStudents={students.length}
+        filteredCount={sortedStudents.length}
+        onOpenAddModal={() => setStudentModal({})}
+        onExport={handleExportCsv}
+      />
 
-        <div className="flex items-center gap-2 w-full sm:w-auto flex-wrap">
-          {/* Search Box */}
-          <div className="relative flex-1 sm:w-64 min-w-[180px]">
-            <Search className={`w-3.5 h-3.5 absolute ${isEn ? "left-3" : "right-3"} top-2.5 text-muted-foreground`} />
-            <input
-              className={`bg-background border border-input rounded-lg ${isEn ? "pl-9 pr-3" : "pr-9 pl-3"} py-1.5 text-xs text-foreground w-full focus:outline-none focus:ring-1 focus:ring-primary`}
-              placeholder={t("education.students.search", isEn ? "Search student by name, code, or phone..." : "بحث عن طالب بالاسم، الكود، أو الهاتف...")}
-              value={studentSearch}
-              onChange={(e) => setStudentSearch(e.target.value)}
-            />
-          </div>
+      {/* 2. Desktop Table View */}
+      <EducationStudentsTable
+        students={paginatedStudents}
+        subjects={subjects}
+        enableSubjects={enableSubjects}
+        sortBy={filterState.sortBy}
+        sortDir={filterState.sortDir}
+        selectedIds={selectedIds}
+        onSort={handleSortHeader}
+        onSelectAll={handleToggleSelectAll}
+        onSelectStudent={handleToggleSelect}
+        onEdit={(student) => setStudentModal(student)}
+        onToggleStatus={handleToggleStudent}
+        onDelete={handleDeleteStudent}
+      />
 
-          {/* View Mode Switcher (Table / Cards) */}
-          <div className="inline-flex items-center p-0.5 rounded-lg border border-border/80 bg-muted/40 shrink-0">
-            <button
-              type="button"
-              onClick={() => handleViewModeChange("table")}
-              className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
-                viewMode === "table"
-                  ? "bg-background text-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              title={isEn ? "Table View" : "عرض جدول"}
-              aria-label={isEn ? "Table View" : "عرض جدول"}
-            >
-              <TableIcon className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{isEn ? "Table" : "جدول"}</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleViewModeChange("grid")}
-              className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
-                viewMode === "grid"
-                  ? "bg-background text-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              title={isEn ? "Cards View" : "عرض بطاقات"}
-              aria-label={isEn ? "Cards View" : "عرض بطاقات"}
-            >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{isEn ? "Cards" : "بطاقات"}</span>
-            </button>
-          </div>
+      {/* 3. Mobile Card View */}
+      <EducationStudentsMobileCards
+        students={paginatedStudents}
+        subjects={subjects}
+        enableSubjects={enableSubjects}
+        onEdit={(student) => setStudentModal(student)}
+        onToggleStatus={handleToggleStudent}
+        onDelete={handleDeleteStudent}
+      />
 
-          {/* Add Student CTA */}
-          <button
-            type="button"
-            onClick={() => setStudentModal({})}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 shadow-xs shrink-0 transition-transform active:scale-[0.98]"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            {t("education.students.addStudent", isEn ? "Add Student" : "إضافة طالب")}
-          </button>
-        </div>
-      </div>
+      {/* 4. Pagination */}
+      <EducationStudentsPagination
+        currentPage={effectivePage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        totalItems={students.length}
+        filteredCount={sortedStudents.length}
+        onPageChange={(page) => updateParams({ page })}
+        onPageSizeChange={(newSize) => updateParams({ pageSize: newSize, page: 1 })}
+      />
 
-      {/* Main View: Table Mode (Default) vs Cards */}
-      {viewMode === "table" ? (
-        <EducationStudentsTable
-          students={filtered}
-          subjects={subjects}
-          enableSubjects={enableSubjects}
-          onEditStudent={(s) => setStudentModal(s)}
-          onToggleStudent={handleToggleStudent}
-          onDeleteStudent={handleDeleteStudent}
-        />
-      ) : (
-        <EducationStudentsCards
-          students={filtered}
-          subjects={subjects}
-          enableSubjects={enableSubjects}
-          onEditStudent={(s) => setStudentModal(s)}
-          onToggleStudent={handleToggleStudent}
-          onDeleteStudent={handleDeleteStudent}
-        />
-      )}
-
+      {/* 5. Add / Edit Modal */}
       {studentModal !== undefined && (
         <StudentModal
           key={studentModal?.id || "new"}

@@ -1219,6 +1219,21 @@ async function recordEarlyFailureLog({
     const persistedCategory = getPersistedNotificationCategory(category, eventType);
     const persistedRecipientType = getPersistedNotificationRecipientType(recipientType);
 
+    let resolvedContent = content;
+    if (!resolvedContent) {
+      if (errorCode === 'NO_SESSION') {
+        resolvedContent = 'تعذر إرسال الإشعار لعدم وجود جلسة واتساب متصلة بحساب الشركة وقت حدوث الإشعار.';
+      } else if (errorCode === 'NO_TEMPLATE_CONFIGURED') {
+        resolvedContent = `تعذر إرسال الإشعار لعدم وجود قالب معتمد مربوط للحدث "${rawEventType || eventType}".`;
+      } else if (errorCode === 'SESSION_NOT_CONNECTED') {
+        resolvedContent = 'تعذر إرسال الإشعار لأن جلسة الواتساب المحددة غير متصلة حالياً.';
+      } else if (errorCode === 'NOTIFICATIONS_DISABLED') {
+        resolvedContent = 'تم إلغاء الإرسال لأن إشعارات الواتساب معطلة في إعدادات الشركة.';
+      } else {
+        resolvedContent = `[${errorCode}] ${reason}`;
+      }
+    }
+
     await safeQuery(() => prisma.whatsAppNotificationLog.create({
       data: {
         companyId,
@@ -1230,7 +1245,7 @@ async function recordEarlyFailureLog({
         category: persistedCategory,
         eventType: persistedEventType,
         rawEventType: rawEventType || eventType,
-        content: content || `[${errorCode}] ${reason}`,
+        content: resolvedContent,
         orderId: orderId || null,
         customerId: customerId || null,
         status: 'FAILED',

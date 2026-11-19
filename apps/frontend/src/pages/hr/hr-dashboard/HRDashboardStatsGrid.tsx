@@ -45,25 +45,25 @@ export const HRDashboardStatsGrid: React.FC<HRDashboardStatsGridProps> = ({
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
       {stats.map((stat, i) => (
         <Card
           key={i}
-          className="rounded-2xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border"
+          className="rounded-xl sm:rounded-2xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border"
         >
-          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
+          <CardContent className="p-3 sm:p-5 flex items-center justify-between">
             <div className="min-w-0">
-              <p className="text-xs font-medium text-muted-foreground truncate mb-1">
+              <p className="text-[11px] sm:text-xs font-medium text-muted-foreground truncate mb-1">
                 {stat.label}
               </p>
-              <p className="text-2xl sm:text-3xl font-bold text-foreground font-mono tabular-nums tracking-tight">
+              <p className="text-xl sm:text-3xl font-bold text-foreground font-mono tabular-nums tracking-tight">
                 {stat.value}
               </p>
             </div>
             <div
-              className={`p-3 rounded-xl border border-border/40 ${stat.iconBg} ${stat.iconColor} shrink-0`}
+              className={`p-2 sm:p-3 rounded-lg sm:rounded-xl border border-border/40 ${stat.iconBg} ${stat.iconColor} shrink-0`}
             >
-              <stat.icon className="h-5 w-5" />
+              <stat.icon className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
           </CardContent>
         </Card>

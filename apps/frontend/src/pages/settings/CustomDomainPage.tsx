@@ -7,8 +7,10 @@ import {
   ExternalLink,
   Loader2,
   HelpCircle,
-  Plus,
   RefreshCw,
+  Edit2,
+  Trash2,
+  Link2,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuthSimple";
 import { getApiUrl } from "../../config/environment";
@@ -26,10 +28,12 @@ export const CustomDomainPage: React.FC = () => {
   const [customDomain, setCustomDomain] = useState(user?.company?.customDomain || "");
   const [editingDomain, setEditingDomain] = useState(false);
   const [savingDomain, setSavingDomain] = useState(false);
+  const [disconnectingDomain, setDisconnectingDomain] = useState(false);
   const [verifyingDNS, setVerifyingDNS] = useState(false);
   const [dnsStatus, setDnsStatus] = useState<{
     success: boolean;
     message: string;
+    record?: string;
   } | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -79,10 +83,16 @@ export const CustomDomainPage: React.FC = () => {
   };
 
   const handleCustomDomainSave = async () => {
+    const cleanDomain = customDomain
+      .trim()
+      .replace(/^https?:\/\//i, "")
+      .replace(/\/+$/, "")
+      .toLowerCase();
+
     const domainRegex =
       /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
-    if (customDomain && !domainRegex.test(customDomain)) {
-      alert(t("customDomain.domainFormatError"));
+    if (cleanDomain && !domainRegex.test(cleanDomain)) {
+      alert(t("customDomain.domainFormatError", "صيغة الدومين غير صحيحة. يجب أن يكون مثل: store.example.com أو example.com"));
       return;
     }
 
@@ -93,7 +103,7 @@ export const CustomDomainPage: React.FC = () => {
         {
           method: "PUT",
           headers: getAuthHeaders({ "Content-Type": "application/json" }),
-          body: JSON.stringify({ customDomain: customDomain || null }),
+          body: JSON.stringify({ customDomain: cleanDomain || null }),
         },
       );
 
@@ -101,19 +111,64 @@ export const CustomDomainPage: React.FC = () => {
       if (data?.success) {
         setCompany((prev: any) => ({
           ...prev,
-          customDomain: customDomain || null,
+          customDomain: cleanDomain || null,
         }));
+        setCustomDomain(cleanDomain);
         setEditingDomain(false);
         setDnsStatus(null);
-        alert(t("customDomain.domainUpdated"));
+        alert(t("customDomain.domainUpdated", "تم حفظ وتحديث الدومين المخصص بنجاح!"));
+
+        // Trigger automatic DNS check if a domain was provided
+        if (cleanDomain) {
+          setTimeout(() => {
+            handleVerifyDNS();
+          }, 800);
+        }
+      } else {
+        alert(data.message || data.error || t("customDomain.domainUpdateFailed", "فشل في تحديث الدومين"));
+      }
+    } catch (error) {
+      console.error("Error updating custom domain:", error);
+      alert(t("customDomain.domainUpdateError", "حدث خطأ أثناء تحديث الدومين"));
+    } finally {
+      setSavingDomain(false);
+    }
+  };
+
+  const handleDisconnectDomain = async () => {
+    if (!window.confirm(t("customDomain.confirmDisconnect", "هل أنت متأكد من رغبتك في إلغاء ربط هذا الدومين من متجرك؟"))) {
+      return;
+    }
+
+    try {
+      setDisconnectingDomain(true);
+      const response = await fetch(
+        `${getApiUrl()}/companies/${user?.companyId}`,
+        {
+          method: "PUT",
+          headers: getAuthHeaders({ "Content-Type": "application/json" }),
+          body: JSON.stringify({ customDomain: null }),
+        },
+      );
+
+      const data = await response.json();
+      if (data?.success) {
+        setCompany((prev: any) => ({
+          ...prev,
+          customDomain: null,
+        }));
+        setCustomDomain("");
+        setEditingDomain(false);
+        setDnsStatus(null);
+        alert(t("customDomain.domainDisconnected", "تم إلغاء ربط الدومين بنجاح"));
       } else {
         alert(data.message || data.error || t("customDomain.domainUpdateFailed"));
       }
     } catch (error) {
-      console.error("Error updating custom domain:", error);
+      console.error("Error disconnecting domain:", error);
       alert(t("customDomain.domainUpdateError"));
     } finally {
-      setSavingDomain(false);
+      setDisconnectingDomain(false);
     }
   };
 
@@ -134,12 +189,13 @@ export const CustomDomainPage: React.FC = () => {
       setDnsStatus({
         success: Boolean(data?.success),
         message: data?.message || (data?.success ? "تم التحقق بنجاح" : "فشل التحقق من DNS"),
+        record: data?.record,
       });
     } catch (error) {
       console.error("Error verifying DNS:", error);
       setDnsStatus({
         success: false,
-        message: t("customDomain.dnsVerifyError"),
+        message: t("customDomain.dnsVerifyError", "حدث خطأ أثناء الاتصال بالسيرفر للتحقق من DNS"),
       });
     } finally {
       setVerifyingDNS(false);
@@ -151,6 +207,8 @@ export const CustomDomainPage: React.FC = () => {
     setCopied(key);
     setTimeout(() => setCopied(null), 2000);
   };
+
+  const hasDomain = Boolean(company?.customDomain);
 
   return (
     <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-background" dir={getDirection()}>
@@ -166,13 +224,13 @@ export const CustomDomainPage: React.FC = () => {
           </span>
         </div>
 
-        {company?.customDomain && !editingDomain && (
+        {hasDomain && !editingDomain && (
           <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={handleVerifyDNS}
               disabled={verifyingDNS}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all active:scale-[0.97] disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all active:scale-[0.97] disabled:opacity-50 shadow-xs"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${verifyingDNS ? "animate-spin" : ""}`} />
               <span>{verifyingDNS ? t("customDomain.checking") : t("customDomain.checkDns")}</span>
@@ -192,122 +250,256 @@ export const CustomDomainPage: React.FC = () => {
             onCopy={copyToClipboard}
           />
 
-          {/* Step 3: Domain Connection & State */}
-          <div className="p-3.5 sm:p-4 rounded-md border border-border/70 bg-card space-y-3">
-            <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
-              <span className="shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-mono">
-                3
-              </span>
-              {t("customDomain.step3Title")}
-            </h2>
+          {/* Step 3: Domain Connection, Verification Tools & Diagnostics */}
+          <div className="p-3.5 sm:p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xs space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                <span className="shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-mono">
+                  3
+                </span>
+                {t("customDomain.step3Title")}
+              </h2>
 
-            {editingDomain ? (
-              <div className="space-y-2">
-                <label htmlFor="custom-domain-input" className="text-xs font-semibold text-foreground">
-                  {t("customDomain.customDomainLabel")}
-                </label>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    id="custom-domain-input"
-                    name="customDomain"
-                    type="text"
-                    autoComplete="url"
-                    value={customDomain}
-                    onChange={(e) => setCustomDomain(e.target.value)}
-                    placeholder="store.yourdomain.com"
-                    className="flex-1 px-3 py-1.5 text-xs font-mono rounded-md border border-border/80 bg-background text-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
+              {hasDomain && !editingDomain && (
+                <span
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                    dnsStatus?.success
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                      : dnsStatus && !dnsStatus.success
+                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                        : "bg-muted text-muted-foreground border-border/60"
+                  }`}
+                >
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      dnsStatus?.success
+                        ? "bg-emerald-500"
+                        : dnsStatus && !dnsStatus.success
+                          ? "bg-amber-500"
+                          : "bg-muted-foreground"
+                    }`}
                   />
+                  {dnsStatus?.success
+                    ? t("customDomain.statusConnected", "متصل ونشط")
+                    : dnsStatus && !dnsStatus.success
+                      ? t("customDomain.statusPending", "بانتظار مطابقة الـ DNS")
+                      : t("customDomain.currentDomain", "الدومين المرتبط")}
+                </span>
+              )}
+            </div>
+
+            {/* A: Form Mode (When no domain connected OR user clicked edit) */}
+            {(!hasDomain || editingDomain) ? (
+              <div className="p-3.5 sm:p-4 rounded-xl border border-primary/20 bg-primary/[0.02] space-y-3">
+                <div>
+                  <label htmlFor="custom-domain-input" className="block text-xs font-semibold text-foreground mb-1">
+                    {t("customDomain.customDomainLabel")}
+                  </label>
+                  <p className="text-[11px] text-muted-foreground">
+                    {t("customDomain.enterDomainHelp", "أدخل النطاق الخاص بمتجرك (مثال: store.yourbrand.com أو yourbrand.com)")}
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-1">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-2.5 pointer-events-none text-muted-foreground text-xs font-mono">
+                      https://
+                    </div>
+                    <input
+                      id="custom-domain-input"
+                      name="customDomain"
+                      type="text"
+                      dir="ltr"
+                      autoComplete="url"
+                      value={customDomain}
+                      onChange={(e) => setCustomDomain(e.target.value)}
+                      placeholder="store.yourdomain.com"
+                      className="w-full ps-16 pe-3 py-2 text-xs font-mono rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary shadow-xs"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleCustomDomainSave();
+                        }
+                      }}
+                    />
+                  </div>
+
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={handleCustomDomainSave}
-                      disabled={savingDomain}
-                      className="px-3.5 py-1.5 bg-primary text-primary-foreground text-xs font-semibold rounded-md hover:bg-primary/90 transition-all active:scale-[0.97] disabled:opacity-50"
+                      disabled={savingDomain || !customDomain.trim()}
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all active:scale-[0.97] disabled:opacity-50 whitespace-nowrap shadow-xs"
                     >
-                      {savingDomain ? t("customDomain.saving") : t("customDomain.save")}
+                      {savingDomain ? (
+                        <>
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          <span>{t("customDomain.saving")}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Link2 className="h-3.5 w-3.5" />
+                          <span>{t("customDomain.saveAndConnect", "حفظ وربط الدومين")}</span>
+                        </>
+                      )}
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingDomain(false);
-                        setCustomDomain(company?.customDomain || "");
-                      }}
-                      className="px-3 py-1.5 bg-muted text-muted-foreground text-xs rounded-md hover:bg-accent transition-colors"
-                    >
-                      {t("customDomain.cancel")}
-                    </button>
+
+                    {hasDomain && editingDomain && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingDomain(false);
+                          setCustomDomain(company?.customDomain || "");
+                        }}
+                        className="px-3.5 py-2 bg-muted text-muted-foreground text-xs font-medium rounded-lg hover:bg-accent transition-colors whitespace-nowrap"
+                      >
+                        {t("customDomain.cancel")}
+                      </button>
+                    )}
                   </div>
+                </div>
+
+                {/* Quick suggestions */}
+                <div className="pt-2 border-t border-border/50 flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground">
+                  <span className="font-semibold text-foreground">خيارات مقترحة:</span>
+                  <button
+                    type="button"
+                    onClick={() => setCustomDomain("shop.yourdomain.com")}
+                    className="px-2 py-0.5 rounded border border-border/70 bg-card hover:bg-muted font-mono transition-colors"
+                  >
+                    shop.yourdomain.com
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCustomDomain("store.yourdomain.com")}
+                    className="px-2 py-0.5 rounded border border-border/70 bg-card hover:bg-muted font-mono transition-colors"
+                  >
+                    store.yourdomain.com
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCustomDomain("yourdomain.com")}
+                    className="px-2 py-0.5 rounded border border-border/70 bg-card hover:bg-muted font-mono transition-colors"
+                  >
+                    yourdomain.com
+                  </button>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center justify-between p-3 rounded-md border border-border/60 bg-muted/20">
-                <div>
-                  <span className="text-[11px] text-muted-foreground">
-                    {t("customDomain.currentDomain")}
-                  </span>
-                  <div className="text-sm font-bold font-mono text-foreground mt-0.5">
-                    {company?.customDomain || t("customDomain.noDomainConnected")}
+              /* B: Domain Connected Card with Full Action Toolset */
+              <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-gray-100 dark:border-gray-700/60 bg-gray-50/70 dark:bg-gray-900/40">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
+                      <Globe className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[11px] text-muted-foreground block">
+                        {t("customDomain.currentDomain")}
+                      </span>
+                      <div className="text-sm sm:text-base font-bold font-mono text-foreground truncate select-all" dir="ltr">
+                        {company.customDomain}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions Bar */}
+                  <div className="flex flex-wrap items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={handleVerifyDNS}
+                      disabled={verifyingDNS}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all active:scale-[0.97] disabled:opacity-50 shadow-xs"
+                      title={t("customDomain.checkDns")}
+                    >
+                      <RefreshCw className={`h-3.5 w-3.5 ${verifyingDNS ? "animate-spin" : ""}`} />
+                      <span>{verifyingDNS ? t("customDomain.checking") : t("customDomain.checkDns", "فحص إعدادات الـ DNS")}</span>
+                    </button>
+
+                    <a
+                      href={`https://${company.customDomain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-border/80 bg-card hover:bg-muted text-foreground transition-all active:scale-[0.97]"
+                    >
+                      <span>{t("customDomain.visitSite", "زيارة المتجر")}</span>
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={() => setEditingDomain(true)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-border/80 bg-card hover:bg-muted text-foreground transition-all active:scale-[0.97]"
+                      title={t("customDomain.changeDomain")}
+                    >
+                      <Edit2 className="h-3 w-3" />
+                      <span>{t("customDomain.changeDomain", "تعديل")}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleDisconnectDomain}
+                      disabled={disconnectingDomain}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-destructive/30 bg-destructive/5 hover:bg-destructive/15 text-destructive transition-all active:scale-[0.97] disabled:opacity-50"
+                      title={t("customDomain.disconnectDomain")}
+                    >
+                      {disconnectingDomain ? (
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-3 w-3" />
+                      )}
+                      <span>{t("customDomain.disconnectDomain", "إلغاء الربط")}</span>
+                    </button>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setEditingDomain(true)}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md border border-border/80 bg-card hover:bg-muted text-foreground transition-all active:scale-[0.97]"
-                >
-                  <Plus className="h-3.5 w-3.5" />
-                  <span>{company?.customDomain ? t("customDomain.changeDomain") : t("customDomain.addDomain")}</span>
-                </button>
-              </div>
-            )}
 
-            {/* DNS Check Result Notification */}
-            {dnsStatus && (
-              <div
-                className={`p-2.5 rounded-md border flex items-center gap-2 text-xs font-medium ${
-                  dnsStatus.success
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-destructive/10 text-destructive border-destructive/20"
-                }`}
-              >
-                {dnsStatus.success ? (
-                  <CheckCircle2 className="h-4 w-4 shrink-0" />
-                ) : (
-                  <AlertTriangle className="h-4 w-4 shrink-0" />
+                {/* DNS Check Diagnostics Inspector */}
+                {dnsStatus && (
+                  <div
+                    className={`p-3.5 rounded-xl border space-y-2 text-xs ${
+                      dnsStatus.success
+                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/25"
+                        : "bg-amber-500/10 text-amber-800 dark:text-amber-200 border-amber-500/25"
+                    }`}
+                  >
+                    <div className="flex items-start gap-2.5">
+                      {dnsStatus.success ? (
+                        <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                      ) : (
+                        <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                      )}
+                      <div className="flex-1 space-y-1">
+                        <p className="font-semibold text-xs">
+                          {dnsStatus.success ? "تم التحقق من ربط الدومين بنجاح!" : "تنبيه التحقق من الـ DNS"}
+                        </p>
+                        <p className="text-[11px] leading-relaxed">
+                          {dnsStatus.message}
+                        </p>
+                        {dnsStatus.record && (
+                          <p className="text-[10px] font-mono opacity-80" dir="ltr">
+                            Found: {dnsStatus.record}
+                          </p>
+                        )}
+                        {!dnsStatus.success && (
+                          <div className="pt-2 border-t border-amber-500/20 text-[11px] space-y-1">
+                            <p className="font-semibold">نصائح سريعة لحل المشكلة:</p>
+                            <ul className="list-disc list-inside space-y-0.5 opacity-90">
+                              <li>تأكد من حفظ سجل DNS في لوحة تحكم مزود الدومين (Hostinger / GoDaddy / Namecheap / Cloudflare).</li>
+                              <li>قد يستغرق انتشار سجلات الـ DNS من 5 إلى 30 دقيقة حول العالم.</li>
+                              <li>إذا كنت تستخدم Cloudflare، يمكنك تفعيل الـ Proxy (الأيقونة البرتقالية) أو إيقافها كلاهما مدعوم.</li>
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 )}
-                <span>{dnsStatus.message}</span>
-              </div>
-            )}
-
-            {/* Verified Direct Link Box */}
-            {company?.customDomain && (
-              <div className="p-3 rounded-md border border-emerald-500/20 bg-emerald-500/[0.04] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                  <div>
-                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                      {t("customDomain.dnsVerified")}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5">
-                      {t("customDomain.dnsVerifiedDesc", { domain: company?.customDomain })}
-                    </p>
-                  </div>
-                </div>
-                <a
-                  href={`https://${company?.customDomain}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-all active:scale-[0.97] whitespace-nowrap self-start sm:self-auto"
-                >
-                  <span>{t("customDomain.visitSite")}</span>
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
               </div>
             )}
           </div>
 
           {/* Step 4: FAQ & Value Props */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            <div className="p-3.5 rounded-md border border-border/70 bg-card space-y-2">
+            <div className="p-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xs space-y-2">
               <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
                 <HelpCircle className="h-3.5 w-3.5 text-primary" />
                 <span>{t("customDomain.whyCustomDomain")}</span>
@@ -320,7 +512,7 @@ export const CustomDomainPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="p-3.5 rounded-md border border-border/70 bg-card space-y-2">
+            <div className="p-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xs space-y-2">
               <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
                 <HelpCircle className="h-3.5 w-3.5 text-primary" />
                 <span>{t("customDomain.faqTitle")}</span>

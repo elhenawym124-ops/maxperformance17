@@ -35,6 +35,8 @@ export default function EducationPublicDemoPage() {
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [registeredStudent, setRegisteredStudent] = useState<any>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -56,8 +58,20 @@ export default function EducationPublicDemoPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+
     if (!studentName.trim() || !phone.trim()) {
-      toast.error("اسم الطالب ورقم الهاتف مطلوبان");
+      const msg = "اسم الطالب ورقم الهاتف مطلوبان";
+      setFormError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    const cleanPhone = phone.replace(/[^\d+]/g, "").trim();
+    if (cleanPhone.length < 8) {
+      const msg = "رقم الهاتف غير صالح، يرجى كتابة رقم هاتف صحيح";
+      setFormError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -79,11 +93,34 @@ export default function EducationPublicDemoPage() {
       });
 
       const data = await res.json();
-      if (!data.success) throw new Error(data.error || "فشل إتمام التسجيل");
+      if (!data.success) {
+        throw new Error(data.error || "فشل إتمام التسجيل");
+      }
+
+      // Update remaining telemetry live on page
+      if (data.data?.spotsLeft !== undefined) {
+        setEvent((prev: any) => ({
+          ...prev,
+          spotsLeft: data.data.spotsLeft,
+          registeredCount: data.data.registeredCount,
+          isFull: data.data.spotsLeft <= 0,
+        }));
+      } else {
+        setEvent((prev: any) => ({
+          ...prev,
+          spotsLeft: Math.max(0, (prev?.spotsLeft ?? 1) - 1),
+          registeredCount: (prev?.registeredCount ?? 0) + 1,
+          isFull: (prev?.spotsLeft ?? 1) - 1 <= 0,
+        }));
+      }
+
+      setRegisteredStudent(data.data || null);
       setSubmitted(true);
       toast.success("تم تأكيد تسجيلك في اليوم التجريبي بنجاح!");
     } catch (err: any) {
-      toast.error(err.message || "فشل إتمام التسجيل");
+      const msg = err.message || "فشل إتمام التسجيل";
+      setFormError(msg);
+      toast.error(msg);
     } finally {
       setSubmitting(false);
     }
@@ -236,6 +273,12 @@ export default function EducationPublicDemoPage() {
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h3 className="text-lg font-black text-foreground">تم تأكيد تسجيلك بنجاح!</h3>
+              {registeredStudent?.studentCode && (
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-muted/60 border border-border text-xs font-mono font-bold text-foreground">
+                  <span>كود الطالب:</span>
+                  <span className="text-primary">{registeredStudent.studentCode}</span>
+                </div>
+              )}
               <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
                 شكراً لك. تم حجز مقعدك في اليوم التجريبي وسيصلك تفاصيل الموعد ورابط الدخول عبر رسالة واتساب على رقمك المسجل.
               </p>
@@ -254,7 +297,7 @@ export default function EducationPublicDemoPage() {
                 </div>
               )}
             </div>
-          ) : event.isFull ? (
+          ) : (event.isFull || (event.spotsLeft !== undefined && event.spotsLeft <= 0)) ? (
             <div className="text-center py-6 space-y-2">
               <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-600 flex items-center justify-center mx-auto">
                 <AlertCircle className="w-6 h-6" />
@@ -267,6 +310,13 @@ export default function EducationPublicDemoPage() {
               <h3 className="text-sm font-bold text-foreground pb-2 border-b border-border/50">
                 بيانات التسجيل وتأكيد الحضور
               </h3>
+
+              {formError && (
+                <div className="p-3 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span className="font-medium">{formError}</span>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="space-y-1">

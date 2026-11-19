@@ -7,7 +7,6 @@ import { apiClient } from "../../services/apiClient";
 import tokenManager from "../../utils/tokenManager";
 import { buildApiUrl } from "../../utils/urlHelper";
 
-const AIAgentSandboxPage = React.lazy(() => import("./ai-agent-sandbox/AIAgentSandboxPage"));
 import ChannelRoutingPage from "./ChannelRoutingPage";
 import AgentSkillsPage from "./AgentSkillsPage";
 import AgentToolsPage from "./AgentToolsPage";
@@ -19,7 +18,6 @@ const SuperAdminAiIncidentsPage = React.lazy(() => import("../super-admin/ai-inc
 const CapabilityCoveragePage = React.lazy(() => import("./CapabilityCoveragePage"));
 
 const TABS = [
-  { key: "sandbox", labelKey: "aiHub.tabs.sandbox" },
   { key: "coverage", labelKey: "aiHub.tabs.coverage" },
   { key: "train", labelKey: "aiHub.tabs.train" },
   { key: "widget", labelKey: "aiHub.tabs.widget" },
@@ -110,7 +108,7 @@ function AgentTestTab({ companyId }: { companyId: string }) {
 
 export default function AIHubLayout() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = searchParams.get("tab") || "sandbox";
+  const activeTab = searchParams.get("tab") || "coverage";
   const { t } = useTranslation();
   const { user } = useAuth();
   const isSuper = user?.role === "SUPER_ADMIN";
@@ -130,7 +128,7 @@ export default function AIHubLayout() {
   }, [isSuper]);
 
   const availableTabs = TABS.filter((t) => !("superOnly" in t && t.superOnly) || isSuper);
-  const currentTab = availableTabs.find((t) => t.key === activeTab) ? activeTab : availableTabs[0]?.key || "sandbox";
+  const currentTab = availableTabs.find((t) => t.key === activeTab) ? activeTab : availableTabs[0]?.key || "coverage";
 
   useLayoutEffect(() => {
     const el = document.querySelector<HTMLElement>(".app-shell-content");
@@ -222,7 +220,6 @@ export default function AIHubLayout() {
             جاري تهيئة مساحة العمل...
           </div>
         }>
-          {currentTab === "sandbox" && <AIAgentSandboxPage />}
           {currentTab === "coverage" && <div className="h-full overflow-y-auto"><CapabilityCoveragePage /></div>}
           {currentTab === "train" && <div className="h-full overflow-y-auto"><AgentTrainingPage /></div>}
           {currentTab === "widget" && <div className="h-full overflow-y-auto"><WebChatWidgetPage /></div>}

@@ -26,6 +26,7 @@ export type StoreSettingsTab =
   | "payment"
   | "footer"
   | "promotion"
+  | "seo"
   | "delivery"
   | "recommendations"
   | "features"
@@ -40,6 +41,7 @@ export const VALID_STORE_SETTINGS_TABS = new Set<StoreSettingsTab>([
   "payment",
   "footer",
   "promotion",
+  "seo",
   "delivery",
   "recommendations",
   "features",

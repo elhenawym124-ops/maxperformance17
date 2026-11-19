@@ -164,8 +164,8 @@
             "ctaLink": "/collections",
             "secondaryCtaText": "كل المنتجات",
             "secondaryCtaLink": "/shop",
-            "backgroundImage": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=2000",
-            "panelImage": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=2000"
+            "backgroundImage": "/assets/themes/tpl-045-brightstage-gaming/hero.svg",
+            "panelImage": "/assets/themes/tpl-045-brightstage-gaming/hero.svg"
           }
         },
         {
@@ -330,7 +330,18 @@
       "sections": [
         {
           "type": "collection-tab",
-          "variant": "pills"
+          "variant": "pills",
+          "settings": {
+            "badge": "فئات العتاد",
+            "title": "مجموعات وتجميعات الجيمنج",
+            "subtitle": "استكشف كروت الشاشة، المعالجات، لابتوبات الألعاب، والملحقات بأفضل توافق وأسعار واضحة.",
+            "tabs": "كروت الشاشة|كروت شاشة للألعاب|أداء رسومي فائق ودقة عرض عالية||/shop?category=gpu\nالمعالجات|معالجات أحدث جيل|قوة تشغيل وسرعة معالجة قصوى||/shop?category=cpu\nلابتوبات جيمنج|أجهزة لابتوب للألعاب|قوة عتادية متكاملة بحجم متنقل||/shop?category=laptop\nالملحقات|شاشات وملحقات قيمنق|ماوسات وكيبوردات وشاشات احترافية||/shop?category=peripherals",
+            "columns": 4,
+            "mobileColumns": "2",
+            "showArrows": false,
+            "ctaText": "تصفح كل المنتجات",
+            "ctaLink": "/shop"
+          }
         },
         {
           "type": "product-grid",

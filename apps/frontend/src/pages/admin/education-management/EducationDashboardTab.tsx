@@ -606,10 +606,10 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
             </div>
           </div>
 
-          {/* Search sessions (hidden while list is empty) */}
-          {filteredSessions.length > 0 && (
+          {/* Search sessions */}
+          {(sessions.length > 0 || sessionSearch.trim().length > 0) && (
             <div className="relative">
-              <Search className="w-3.5 h-3.5 absolute right-3 top-2.5 text-muted-foreground" />
+              <Search className={`w-3.5 h-3.5 absolute ${isEn ? "left-3" : "right-3"} top-2.5 text-muted-foreground`} />
               <input
                 type="text"
                 placeholder={
@@ -619,8 +619,19 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 }
                 value={sessionSearch}
                 onChange={(e) => setSessionSearch(e.target.value)}
-                className="w-full bg-background border border-input rounded-xl pr-9 pl-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className={`w-full bg-background border border-input rounded-xl ${isEn ? "pl-9 pr-8" : "pr-9 pl-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
               />
+              {sessionSearch && (
+                <button
+                  type="button"
+                  onClick={() => setSessionSearch("")}
+                  className={`absolute ${isEn ? "right-2.5" : "left-2.5"} top-2 text-muted-foreground hover:text-foreground text-xs p-0.5 rounded`}
+                  aria-label={isEn ? "Clear search" : "مسح البحث"}
+                  title={isEn ? "Clear search" : "مسح البحث"}
+                >
+                  <XCircle className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           )}
 
@@ -776,7 +787,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
 
           {/* Search instructors */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute right-3 top-2.5 text-muted-foreground" />
+            <Search className={`w-3.5 h-3.5 absolute ${isEn ? "left-3" : "right-3"} top-2.5 text-muted-foreground`} />
             <input
               type="text"
               placeholder={
@@ -784,8 +795,19 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               }
               value={teacherSearch}
               onChange={(e) => setTeacherSearch(e.target.value)}
-              className="w-full bg-background border border-input rounded-xl pr-9 pl-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className={`w-full bg-background border border-input rounded-xl ${isEn ? "pl-9 pr-8" : "pr-9 pl-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
             />
+            {teacherSearch && (
+              <button
+                type="button"
+                onClick={() => setTeacherSearch("")}
+                className={`absolute ${isEn ? "right-2.5" : "left-2.5"} top-2 text-muted-foreground hover:text-foreground text-xs p-0.5 rounded`}
+                aria-label={isEn ? "Clear search" : "مسح البحث"}
+                title={isEn ? "Clear search" : "مسح البحث"}
+              >
+                <XCircle className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
 
           {/* Instructors List */}
@@ -926,10 +948,10 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
             </div>
           </div>
 
-          {filteredStudents.length > 0 && (
+          {(students.length > 0 || studentSearch.trim().length > 0) && (
             <div className="flex items-center w-full sm:w-auto">
               <div className="relative flex-1 sm:w-64">
-                <Search className="w-3.5 h-3.5 absolute right-3 top-2.5 text-muted-foreground" />
+                <Search className={`w-3.5 h-3.5 absolute ${isEn ? "left-3" : "right-3"} top-2.5 text-muted-foreground`} />
                 <input
                   type="text"
                   placeholder={
@@ -937,8 +959,19 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                   }
                   value={studentSearch}
                   onChange={(e) => setStudentSearch(e.target.value)}
-                  className="w-full bg-background border border-input rounded-xl pr-9 pl-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  className={`w-full bg-background border border-input rounded-xl ${isEn ? "pl-9 pr-8" : "pr-9 pl-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
                 />
+                {studentSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setStudentSearch("")}
+                    className={`absolute ${isEn ? "right-2.5" : "left-2.5"} top-2 text-muted-foreground hover:text-foreground text-xs p-0.5 rounded`}
+                    aria-label={isEn ? "Clear search" : "مسح البحث"}
+                    title={isEn ? "Clear search" : "مسح البحث"}
+                  >
+                    <XCircle className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
             </div>
           )}

@@ -1,0 +1,541 @@
+{
+  "id": "tpl-052-riwaq-furniture",
+  "name": "Riwaq — أثاث وديكور",
+  "description": "قالب أثاث أصلي بمنطق الغرفة الكاملة: هيرو بانر مقسوم، مخطّط اختيار حسب الغرفة والميزانية، شبكة منتجات، باقات غرف، موزايك بنتو، وآراء. فحمي ورمل ونحاس — مبني لمتجر بيبيع الغرفة جاهزة مش قطعة قطعة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "20 8% 16%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "38 16% 90%",
+      "secondaryForeground": "20 8% 14%",
+      "accent": "18 58% 44%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 14% 96%",
+      "foreground": "20 8% 12%",
+      "muted": "38 12% 91%",
+      "mutedForeground": "24 8% 40%",
+      "border": "36 12% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "20 8% 12%",
+      "ring": "18 58% 44%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, sans-serif",
+      "bodyFont": "Readex Pro, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.2rem",
+      "buttonRadius": "0.2rem"
+    },
+    "productCard": {
+      "borderRadius": "0.2rem",
+      "boxShadow": "0 6px 22px hsl(220 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(220 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | RIWAQ",
+    "description": "قالب أثاث أصلي بمنطق الغرفة الكاملة: هيرو بانر مقسوم، مخطّط اختيار حسب الغرفة والميزانية، شبكة منتجات، باقات غرف، موزايك بنتو، وآراء. فحمي ورمل ونحاس — مبني لمتجر بيبيع الغرفة جاهزة مش قطعة قطعة."
+  },
+  "preview": {
+    "colors": [
+      "20 8% 16%",
+      "18 58% 44%",
+      "40 14% 96%"
+    ],
+    "imageUrl": "/assets/themes/tpl-052-riwaq-furniture/preview.png"
+  },
+  "header": {
+    "variant": "editorial-soft",
+    "brandName": "RIWAQ",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "باقة الغرفة الكاملة بتوفر ٣٠٪ عن شراء القطع منفصلة · تركيب مجاني",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الباقات",
+        "to": "/collections"
+      },
+      {
+        "label": "الغرف",
+        "to": "/shop"
+      },
+      {
+        "label": "المقاسات",
+        "to": "/contact"
+      },
+      {
+        "label": "التركيب",
+        "to": "/contact"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "RIWAQ — قالب أثاث أصلي بمنطق الغرفة الكاملة.",
+    "copyrightText": "© 2026 RIWAQ",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الباقات",
+            "to": "/collections"
+          },
+          {
+            "label": "الغرف",
+            "to": "/shop"
+          },
+          {
+            "label": "المقاسات",
+            "to": "/contact"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "المقاسات",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "easyorders-masonry",
+          "settings": {
+            "eyebrow": "باقة الغرفة",
+            "title": "غرفة كاملة بسعر واحد",
+            "subtitle": "اختار الغرفة والميزانية، وإحنا نجهّز الباقة: كنبة + ترابيزة + سجادة + إضاءة بنفس الخامة.",
+            "ctaText": "جهّز باقتك",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل المنتجات",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-052-riwaq-furniture/hero.jpg",
+            "panelImage": "/assets/themes/tpl-052-riwaq-furniture/hero.jpg",
+            "highlights": [
+              {
+                "label": "باقة",
+                "value": "توفر 30%"
+              },
+              {
+                "label": "تجهيز",
+                "value": "٥ أيام"
+              },
+              {
+                "label": "تركيب",
+                "value": "مجاني"
+              }
+            ],
+            "slides": [
+              {
+                "image": "/assets/themes/tpl-052-riwaq-furniture/hero.jpg",
+                "title": "غرفة كاملة بسعر واحد",
+                "subtitle": "اختار الغرفة والميزانية، وإحنا نجهّز الباقة: كنبة + ترابيزة + سجادة + إضاءة بنفس الخامة.",
+                "ctaText": "جهّز باقتك",
+                "ctaLink": "/collections",
+                "eyebrow": "باقة الغرفة"
+              },
+              {
+                "image": "/assets/themes/tpl-052-riwaq-furniture/room-1.jpg",
+                "title": "غرفة كاملة بسعر واحد",
+                "subtitle": "اختار الغرفة والميزانية، وإحنا نجهّز الباقة: كنبة + ترابيزة + سجادة + إضاءة بنفس الخامة.",
+                "ctaText": "جهّز باقتك",
+                "ctaLink": "/collections",
+                "eyebrow": "باقة الغرفة"
+              },
+              {
+                "image": "/assets/themes/tpl-052-riwaq-furniture/room-2.jpg",
+                "title": "غرفة كاملة بسعر واحد",
+                "subtitle": "اختار الغرفة والميزانية، وإحنا نجهّز الباقة: كنبة + ترابيزة + سجادة + إضاءة بنفس الخامة.",
+                "ctaText": "جهّز باقتك",
+                "ctaLink": "/collections",
+                "eyebrow": "باقة الغرفة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "جهّز باقتك في دقيقة",
+            "subtitle": "الغرفة ← الميزانية",
+            "ctaText": "شوف الباقة",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "معيشة"
+              },
+              {
+                "label": "نوم"
+              },
+              {
+                "label": "سفرة"
+              },
+              {
+                "label": "أوفيس"
+              }
+            ],
+            "moods": [
+              {
+                "label": "اقتصادي"
+              },
+              {
+                "label": "متوسط"
+              },
+              {
+                "label": "أقصى"
+              }
+            ],
+            "looks": [
+              {
+                "title": "باقة المعيشة",
+                "subtitle": "كنبة + ترابيزة + سجادة",
+                "price": "24,900 ج.م",
+                "image": "/assets/themes/tpl-052-riwaq-furniture/room-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "باقة النوم",
+                "subtitle": "سرير + كومودينو + دولاب",
+                "price": "31,500 ج.م",
+                "image": "/assets/themes/tpl-052-riwaq-furniture/room-2.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "باقة السفرة",
+                "subtitle": "طاولة + ٦ كراسي",
+                "price": "27,400 ج.م",
+                "image": "/assets/themes/tpl-052-riwaq-furniture/hero.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "غرف جاهزة زي ما هي",
+            "subtitle": "من بيوت عملاء — مش استوديو",
+            "ctaText": "شوف الغرف",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-052-riwaq-furniture/room-1.jpg",
+                "title": "باقة المعيشة",
+                "subtitle": "كنبة + ترابيزة + سجادة",
+                "priceLabel": "24,900 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-052-riwaq-furniture/room-2.jpg",
+                "title": "باقة النوم",
+                "subtitle": "سرير + دولاب",
+                "priceLabel": "31,500 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-052-riwaq-furniture/hero.jpg",
+                "title": "باقة السفرة",
+                "subtitle": "طاولة + ٦ كراسي",
+                "priceLabel": "27,400 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "الغرف والباقات",
+            "subtitle": "معيشة · نوم · سفرة · أوفيس",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "قطع بيتباع منها فعلًا",
+            "ctaText": "شوف كل القطع",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "باقة ١",
+                "title": "المعيشة الكاملة",
+                "subtitle": "كنبة + ترابيزة + سجادة",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 30%"
+              },
+              {
+                "label": "باقة ٢",
+                "title": "غرفة النوم",
+                "subtitle": "سرير + دولاب + كومودينو",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 28%"
+              },
+              {
+                "label": "باقة ٣",
+                "title": "السفرة",
+                "subtitle": "طاولة + ٦ كراسي",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 25%"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "باقات اتسلمت",
+            "intro": "تقييمات موثقة من طلبات حقيقية — بعد التوصيل والتركيب.",
+            "reviews": [
+              {
+                "author": "دينا م.",
+                "text": "الباقة طلعت أرخص من إني أشتري كل قطعة لوحدها بـ ٤٠٠٠ جنيه.",
+                "rating": 5
+              },
+              {
+                "author": "شريف ع.",
+                "text": "الغرفة كلها بنفس الخامة — مفيش قطعة شكلها غريب.",
+                "rating": 4
+              },
+              {
+                "author": "مي أ.",
+                "text": "التركيب أخد نص يوم والمقاسات زي الخريطة بالظبط.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "باقة واحدة بسعر واحد",
+                "description": "السعر النهائي للغرفة كاملة"
+              },
+              {
+                "title": "تجهيز ٥ أيام",
+                "description": "بنركّب الباقة ونختبرها قبل الشحن"
+              },
+              {
+                "title": "تركيب مجاني",
+                "description": "فريق التركيب معاه العدة والتغليف"
+              },
+              {
+                "title": "ضمان ٣ سنوات",
+                "description": "على كل قطعة في الباقة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توفير ٣٠٪",
+            "message": "باقة الغرفة الكاملة أرخص من شراء القطع منفصلة",
+            "saleLabel": "عروض الغرف",
+            "shippingLabel": "توصيل وتركيب",
+            "returnLabel": "استبدال 14 يوم",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "باقات جديدة كل شهر",
+            "subtitle": "غرفة واحدة جاهزة كل شهر بميزانية محددة — من غير مفاضلة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المتجر",
+            "subtitle": "كل الغرف والقطع",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "decision-deck"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "masonry"
+        },
+        {
+          "type": "product-info",
+          "variant": "atelier-buybox"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "quick"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "luxury"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "wardrobe-cart",
+          "settings": {
+            "title": "سلة الباقة",
+            "subtitle": "راجع مكوّنات الباقة ومقاس الغرفة.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "fitting-room-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الغرف"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن المقاس أو الخامة أو ميعاد التركيب — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

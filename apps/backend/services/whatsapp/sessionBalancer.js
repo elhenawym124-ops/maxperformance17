@@ -20,6 +20,17 @@ function setSessionRotation(companyId, index) {
 
 const sessionInitializationInFlight = new Map();
 
+function autoHealDefaultSession(companyId, sessionId) {
+  if (!companyId || !sessionId) return;
+  safeQuery(() => getSharedPrismaClient().whatsAppNotificationSettings.upsert({
+    where: { companyId },
+    update: { defaultSessionId: sessionId },
+    create: { id: require('crypto').randomUUID(), companyId, defaultSessionId: sessionId }
+  })).catch(err => {
+    console.warn('⚠️ [SESSION-BALANCER] Could not auto-heal defaultSessionId:', err?.message);
+  });
+}
+
 async function getOrAssignSession({ companyId, customerId, recipientPhone, connectedSessions, settings }) {
   const prisma = getSharedPrismaClient();
 
@@ -31,21 +42,31 @@ async function getOrAssignSession({ companyId, customerId, recipientPhone, conne
       where: { companyId, isDefault: true },
       select: { id: true }
     }));
-    if (defaultSession?.id) return defaultSession.id;
+    if (defaultSession?.id) {
+      autoHealDefaultSession(companyId, defaultSession.id);
+      return defaultSession.id;
+    }
 
     const singleConnected = await safeQuery(() => prisma.whatsAppSession.findFirst({
       where: { companyId, status: 'CONNECTED' },
       orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }],
       select: { id: true }
     }));
-    if (singleConnected?.id) return singleConnected.id;
+    if (singleConnected?.id) {
+      autoHealDefaultSession(companyId, singleConnected.id);
+      return singleConnected.id;
+    }
 
     const anySession = await safeQuery(() => prisma.whatsAppSession.findFirst({
       where: { companyId },
       orderBy: [{ isDefault: 'desc' }, { createdAt: 'desc' }],
       select: { id: true }
     }));
-    return anySession?.id || null;
+    if (anySession?.id) {
+      autoHealDefaultSession(companyId, anySession.id);
+      return anySession.id;
+    }
+    return null;
   }
 
   // 1. ╪º┘ä╪¿╪¡╪½ ╪╣┘å ╪¼┘ä╪│╪⌐ ┘à╪½╪¿╪¬╪⌐ (Sticky Session Affinity)
@@ -112,8 +133,12 @@ async function getOrAssignSession({ companyId, customerId, recipientPhone, conne
     return pickedId;
   }
 
-  // ╪Ñ╪░╪º ┘â╪º┘å ┘ç┘å╪º┘â ╪▒┘é┘à ┘ê╪º╪¡╪» ┘ü┘é╪╖ ┘à╪¬╪╡┘ä
-  return connectedSessions[0].sessionId;
+  // إذا كان هناك رقم واحد فقط متصل
+  const singleSessionId = connectedSessions[0].sessionId;
+  if (!settings?.defaultSessionId) {
+    autoHealDefaultSession(companyId, singleSessionId);
+  }
+  return singleSessionId;
 }
 
 /**

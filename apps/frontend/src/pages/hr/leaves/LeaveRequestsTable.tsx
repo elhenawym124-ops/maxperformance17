@@ -23,6 +23,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 import { LeaveRequest, leaveTypeConfig, statusConfig } from "./types";
+import { LeaveMobileCard } from "./LeaveMobileCard";
 
 interface LeaveRequestsTableProps {
   t: (key: string, options?: any) => string;
@@ -70,7 +71,29 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
             <p>{t("employee.leaves.noLeaveRequests")}</p>
           </div>
         ) : (
-          <Table>
+          <>
+            {/* Mobile View: High Density Single-Depth Cards */}
+            <div className="block md:hidden p-3 space-y-2.5">
+              {requests.map((request) => (
+                <LeaveMobileCard
+                  key={request.id}
+                  request={request}
+                  t={t}
+                  isMyLeaves={isMyLeaves}
+                  onApprove={onApprove}
+                  onOpenReject={onOpenReject}
+                  onCancel={onCancel}
+                  onOpenChangeDecision={onOpenChangeDecision}
+                  onOpenEdit={onOpenEdit}
+                  onDelete={onDelete}
+                  onOpenDetails={onOpenDetails}
+                />
+              ))}
+            </div>
+
+            {/* Desktop View: Full Table */}
+            <div className="hidden md:block w-full overflow-x-auto">
+              <Table className="min-w-[700px]">
             <TableHeader>
               <TableRow>
                 {!isMyLeaves && (
@@ -229,6 +252,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
               })}
             </TableBody>
           </Table>
+          </div>
+        </>
         )}
       </CardContent>
 

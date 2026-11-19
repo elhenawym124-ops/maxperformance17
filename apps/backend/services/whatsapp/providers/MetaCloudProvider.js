@@ -55,12 +55,27 @@ async function apiCall(fn) {
   try {
     return await fn();
   } catch (err) {
+    if (err.response?.data) {
+      console.error('❌ [META-CLOUD-API-ERROR]:', {
+        status: err.response.status,
+        url: err.config?.url,
+        method: err.config?.method,
+        error: err.response.data?.error || err.response.data
+      });
+    }
     const mapped = mapError(err);
-    const error = new Error(mapped.apiMessage || mapped.reason || 'WhatsApp API error');
+    let msg = mapped.apiMessage || mapped.reason || 'WhatsApp API error';
+    if (mapped.code === 100 && (msg === 'Authorization Error' || mapped.reason === 'invalid_parameter')) {
+      const details = mapped.details || err.response?.data?.error?.error_user_msg || err.response?.data?.error?.error_data?.details;
+      msg = details
+        ? `خطأ تفويض من Meta (Authorization Error): ${details}`
+        : 'فشل تفويض الإرسال من Meta (Authorization Error) — الحساب التجاري أو وسيلة الدفع محظورة في Meta، أو ينقص التوكن إذن whatsapp_business_messaging';
+    }
+    const error = new Error(msg);
     error.code = mapped.code;
     error.reason = mapped.reason;
     error.retryable = mapped.retryable;
-    error.details = mapped.details;
+    error.details = mapped.details || err.response?.data?.error?.error_data?.details || err.response?.data?.error?.error_user_msg;
     error.httpStatus = mapped.httpStatus;
     error.statusCode = mapped.httpStatus || (mapped.code === 100 ? 400 : 500);
     error.originalError = err;

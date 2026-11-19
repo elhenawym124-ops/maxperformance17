@@ -18265,6 +18265,22 @@ declare module 'react-i18next' {
         domainUpdateFailed: string;
         domainUpdateError: string;
         dnsVerifyError: string;
+        disconnectDomain: string;
+        confirmDisconnect: string;
+        domainDisconnected: string;
+        enterDomainHelp: string;
+        subdomainOption: string;
+        subdomainDesc: string;
+        rootOption: string;
+        rootDesc: string;
+        serverIp: string;
+        copyIp: string;
+        ipCopied: string;
+        statusConnected: string;
+        statusPending: string;
+        recheckDns: string;
+        dnsDiagnostics: string;
+        saveAndConnect: string;
       };
       deliveryRateAnalytics: {
         title: string;
@@ -19656,6 +19672,7 @@ declare module 'react-i18next' {
         tabPromotion: string;
         tabCheckout: string;
         tabPayment: string;
+        tabSeo: string;
         shippingClassFeesTitle: string;
         shippingClassFeesDesc: string;
         calculationMethod: string;

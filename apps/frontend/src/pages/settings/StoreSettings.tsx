@@ -7,6 +7,7 @@ import {
   StoreFooterTab,
   StorePaymentTab,
   StorePromotionTab,
+  StoreSeoTab,
   StoreSettingsHeader,
   StoreSettingsProps,
   StoreShippingTab,
@@ -137,6 +138,12 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
               settings={ctrl.storefrontSettings}
               onChange={ctrl.setStorefrontSettings}
               loading={ctrl.loading}
+            />
+          ) : ctrl.activeTab === "seo" ? (
+            <StoreSeoTab
+              settings={ctrl.storefrontSettings}
+              company={ctrl.company}
+              onSave={ctrl.handleSaveSeoSettings}
             />
           ) : null}
         </div>
