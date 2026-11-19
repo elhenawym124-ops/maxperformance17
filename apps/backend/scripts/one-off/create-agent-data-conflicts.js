@@ -43,6 +43,16 @@ async function main() {
     return;
   }
 
+  // On the server the connection string lives in /var/www/backend2/.env — Prisma
+  // does not read it by itself for a bare node script.
+  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+    try {
+      require('dotenv').config({ path: require('path').join(process.cwd(), '.env') });
+    } catch (e) {
+      console.log('dotenv load skipped:', e.message);
+    }
+  }
+
   let PrismaClient;
   try {
     ({ PrismaClient } = require('../prisma/generated/postgresql_v2'));
@@ -55,11 +65,11 @@ async function main() {
       await prisma.$executeRawUnsafe(stmt);
       console.log('OK:', stmt.replace(/\s+/g, ' ').slice(0, 90));
     }
-    const [{ exists }] = await prisma.$queryRawUnsafe(
-      `SELECT COUNT(*)::int AS exists FROM information_schema.tables WHERE table_name = 'agent_data_conflicts'`
+    const t = await prisma.$queryRawUnsafe(
+      `SELECT COUNT(*)::int AS tbl_exists FROM information_schema.tables WHERE table_name = 'agent_data_conflicts'`
     );
-    const [{ rows }] = await prisma.$queryRawUnsafe(`SELECT COUNT(*)::int AS rows FROM agent_data_conflicts`);
-    console.log(`VERIFY: table_exists=${exists === 1} rows=${rows}`);
+    const r = await prisma.$queryRawUnsafe(`SELECT COUNT(*)::int AS row_count FROM agent_data_conflicts`);
+    console.log(`VERIFY: table_exists=${t[0].tbl_exists === 1} rows=${r[0].row_count}`);
     const cols = await prisma.$queryRawUnsafe(
       `SELECT column_name FROM information_schema.columns WHERE table_name='agent_data_conflicts' ORDER BY ordinal_position`
     );
