@@ -121,7 +121,19 @@ jobs:
       - name: Install Chromium (visual gate)
         if: steps.changed.outputs.files != ''
         working-directory: ./apps/frontend
-        run: npx playwright install --with-deps chromium
+        run: |
+          # apt mirrors on hosted runners can be briefly unreachable; retry, then
+          # fall back to a browser-only install (ubuntu-24.04 images ship the libs).
+          for i in 1 2 3; do
+            if npx playwright install --with-deps chromium; then
+              echo "chromium installed with system deps (attempt $i)"
+              exit 0
+            fi
+            echo "::warning::playwright --with-deps failed (attempt $i); retrying"
+            sleep 20
+          done
+          echo "::warning::falling back to browser-only install; system deps not installed"
+          npx playwright install chromium
 
       - name: Visual UX gate (real render, mobile)
         if: steps.changed.outputs.files != ''
