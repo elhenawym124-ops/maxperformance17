@@ -53,7 +53,7 @@ jobs:
             ls -la scripts/one-off/create-agent-data-conflicts.js
             echo "Running with DRY_RUN=$DRY_RUN"
             if [ "$DRY_RUN" = "true" ]; then
-              node scripts/one-off/create-agent-data-conflicts.js --dry-run
+              node scripts/one-off/create-agent-data-conflicts.js --dry-run 2>&1
             else
-              node scripts/one-off/create-agent-data-conflicts.js
+              node scripts/one-off/create-agent-data-conflicts.js 2>&1
             fi

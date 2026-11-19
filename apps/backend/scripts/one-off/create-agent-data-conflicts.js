@@ -55,7 +55,7 @@ async function main() {
 
   let PrismaClient;
   try {
-    ({ PrismaClient } = require('../prisma/generated/postgresql_v2'));
+    ({ PrismaClient } = require('../../prisma/generated/postgresql_v2'));
   } catch (e) {
     ({ PrismaClient } = require('@prisma/client'));
   }
