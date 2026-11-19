@@ -3,6 +3,13 @@
  * Zero external dependencies (no @prisma/client require) for unit testability with node --test.
  */
 
+function normalizeDigits(val) {
+  if (val === null || val === undefined) return val;
+  return String(val)
+    .replace(/[٠-٩]/g, (d) => '0123456789'[d.charCodeAt(0) - 1632])
+    .replace(/[۰-۹]/g, (d) => '0123456789'[d.charCodeAt(0) - 1776]);
+}
+
 /**
  * Normalizes paymentState string from UI/query to Prisma PaymentStatus enum value.
  * Mapping:
@@ -99,7 +106,8 @@ function buildStudentsWhere(query = {}, companyId) {
   const rawSearch = query.search !== undefined ? query.search : query.q;
   if (rawSearch && typeof rawSearch === 'string' && rawSearch.trim()) {
     const q = rawSearch.trim();
-    const codeQ = q.startsWith('#') ? q.slice(1).trim() : q;
+    const stripped = q.startsWith('#') ? q.replace(/^#+/, '').trim() : q;
+    const codeQ = stripped || q;
     where.OR = [
       { code: { contains: codeQ, mode: 'insensitive' } },
       { firstName: { contains: q, mode: 'insensitive' } },
@@ -130,7 +138,7 @@ function buildStudentsWhere(query = {}, companyId) {
   // 4. Level filter (alias currentLevel) - strictly 1..15 integer
   const rawLevel = query.level !== undefined && query.level !== '' ? query.level : query.currentLevel;
   if (rawLevel !== undefined && rawLevel !== null && rawLevel !== '' && rawLevel !== 'all') {
-    const lvlNum = Number(rawLevel);
+    const lvlNum = Number(normalizeDigits(rawLevel));
     if (Number.isInteger(lvlNum) && lvlNum >= 1 && lvlNum <= 15) {
       where.currentLevel = lvlNum;
     }
@@ -189,7 +197,11 @@ function buildStudentsWhere(query = {}, companyId) {
     }
   }
   if (rawDateTo) {
-    const dTo = new Date(rawDateTo);
+    const trimmed = typeof rawDateTo === 'string' ? rawDateTo.trim() : '';
+    const dateToNormalized = /^\d{4}-\d{2}-\d{2}$/.test(trimmed)
+      ? `${trimmed}T23:59:59.999Z`
+      : rawDateTo;
+    const dTo = new Date(dateToNormalized);
     if (!isNaN(dTo.getTime())) {
       createdAt.lte = dTo;
     }
@@ -200,12 +212,12 @@ function buildStudentsWhere(query = {}, companyId) {
 
   // 8. Pagination clamping
   const hasPage = query.page !== undefined && query.page !== null && query.page !== '';
-  const rawPage = parseInt(hasPage ? query.page : NaN, 10);
+  const rawPage = parseInt(hasPage ? normalizeDigits(query.page) : NaN, 10);
   const page = (!isNaN(rawPage) && rawPage >= 1) ? rawPage : 1;
 
   const hasPageSize = query.pageSize !== undefined && query.pageSize !== null && query.pageSize !== '';
   const hasLimit = query.limit !== undefined && query.limit !== null && query.limit !== '';
-  const rawPageSize = parseInt(hasPageSize ? query.pageSize : (hasLimit ? query.limit : NaN), 10);
+  const rawPageSize = parseInt(hasPageSize ? normalizeDigits(query.pageSize) : (hasLimit ? normalizeDigits(query.limit) : NaN), 10);
   let pageSize = 20; // default for compatibility
   if (!isNaN(rawPageSize)) {
     pageSize = Math.max(1, Math.min(rawPageSize, 100));

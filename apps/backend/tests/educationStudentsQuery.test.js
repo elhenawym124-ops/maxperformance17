@@ -239,4 +239,61 @@ test('buildStudentsWhere: pagination clamping', () => {
   const resNorm = buildStudentsWhere({ page: '2', pageSize: '25' }, c);
   assert.equal(resNorm.page, 2);
   assert.equal(resNorm.pageSize, 25);
+
+  // Adversarial: page=0 defaults to 1
+  const resPage0 = buildStudentsWhere({ page: 0 }, c);
+  assert.equal(resPage0.page, 1);
+
+  // Adversarial: Arabic numerals ٥٠٠ clamp to 100
+  const resArabicPageSize = buildStudentsWhere({ page: '٣', pageSize: '٥٠٠' }, c);
+  assert.equal(resArabicPageSize.page, 3);
+  assert.equal(resArabicPageSize.pageSize, 100);
+});
+
+test('buildStudentsWhere: adversarial edge cases (lone #, %, empty grade, inverted dates, weird paymentState)', () => {
+  const c = 'comp_1';
+
+  // 1. Lone '#' does not become empty string
+  const resHash = buildStudentsWhere({ search: '#' }, c);
+  assert.equal(resHash.where.OR[0].code.contains, '#');
+
+  // Multiple hashes without code
+  const resMultiHash = buildStudentsWhere({ search: '###' }, c);
+  assert.equal(resMultiHash.where.OR[0].code.contains, '###');
+
+  // Hash with code
+  const resCode = buildStudentsWhere({ search: '#105' }, c);
+  assert.equal(resCode.where.OR[0].code.contains, '105');
+
+  // 2. Search with % and _ does not cause injection or crash
+  const resPercent = buildStudentsWhere({ search: '100%_bonus' }, c);
+  assert.equal(resPercent.where.OR[0].code.contains, '100%_bonus');
+
+  // 3. Empty grade strings and whitespace-only grade
+  assert.equal(buildStudentsWhere({ grade: '' }, c).where.grade, undefined);
+  assert.equal(buildStudentsWhere({ grade: '   ' }, c).where.grade, undefined);
+
+  // 4. Inverted dates: dateFrom > dateTo runs cleanly without runtime exception
+  const resInverted = buildStudentsWhere({
+    dateFrom: '2026-12-31',
+    dateTo: '2026-01-01'
+  }, c);
+  assert.ok(resInverted.where.createdAt.gte instanceof Date);
+  assert.ok(resInverted.where.createdAt.lte instanceof Date);
+  assert.ok(resInverted.where.createdAt.gte > resInverted.where.createdAt.lte);
+
+  // Date without time sets end of day for dateTo
+  assert.ok(resInverted.where.createdAt.lte.toISOString().includes('23:59:59.999Z'));
+
+  // 5. Weird paymentState: null, undefined, strange string -> ignored without crashing
+  const resWeirdPay = buildStudentsWhere({ paymentState: 'weird_unknown_state_123' }, c);
+  assert.equal(resWeirdPay.where.enrollments, undefined);
+
+  // 6. Level with Arabic numerals: ٣ -> 3
+  const resArabicLevel = buildStudentsWhere({ level: '٣' }, c);
+  assert.equal(resArabicLevel.where.currentLevel, 3);
+
+  // Level 0 -> ignored
+  const resLevel0 = buildStudentsWhere({ level: 0 }, c);
+  assert.equal(resLevel0.where.currentLevel, undefined);
 });
