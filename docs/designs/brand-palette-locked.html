@@ -28,12 +28,9 @@
     --r-btn:10px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
   body{
     font-family:'IBM Plex Sans Arabic',sans-serif;
-    background:
-      radial-gradient(ellipse 60% 32% at 50% -4%, rgba(95,30,133,.32), transparent 70%),
-      var(--ink-deep);
+    background:var(--ink-deep);
     color:var(--text);
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
@@ -46,86 +43,83 @@
 
   .page{max-width:920px;margin:0 auto;padding:0 28px 96px}
 
-  /* حركة دخول واحدة هادئة */
   @media (prefers-reduced-motion: no-preference){
-    .rise{opacity:0;transform:translateY(18px);animation:rise .7s cubic-bezier(.16,1,.3,1) forwards}
-    .rise:nth-child(2){animation-delay:.08s}.rise:nth-child(3){animation-delay:.16s}
-    .rise:nth-child(4){animation-delay:.24s}.rise:nth-child(5){animation-delay:.32s}
+    .rise{opacity:0;transform:translateY(12px);animation:rise .6s cubic-bezier(.16,1,.3,1) forwards}
+    .rise:nth-child(2){animation-delay:.07s}.rise:nth-child(3){animation-delay:.14s}
+    .rise:nth-child(4){animation-delay:.21s}.rise:nth-child(5){animation-delay:.28s}
     @keyframes rise{to{opacity:1;transform:none}}
   }
 
-  /* ══ الترويسة ══ */
-  .masthead{padding-top:44px;text-align:center}
+  /* ══ الترويسة: تحريرية بمحاذاة البداية، بلا أي توهج ══ */
+  .masthead{padding-top:52px}
+  .brand-row{display:flex;align-items:center;gap:14px;margin-bottom:34px}
+  .logo-tile{
+    width:76px;height:76px;flex:none;
+    background:var(--panel);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:var(--r-card);
+    display:grid;place-items:center;
+  }
+  .logo-tile svg{width:54px;height:54px}
   .stamp{
     display:inline-flex;align-items:center;gap:8px;
     font-size:11px;font-weight:700;color:var(--gold);
     border:1px solid var(--hairline);border-radius:999px;
     padding:6px 16px;letter-spacing:.02em;
-    box-shadow:0 0 0 3px rgba(245,212,138,.05);
   }
-  .stamp::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(245,212,138,.6)}
-  .logo-stage{
-    margin:40px auto 26px;width:min(240px,58vw);aspect-ratio:1;
-    display:grid;place-items:center;position:relative;
-  }
-  .logo-stage::before{
-    content:"";position:absolute;inset:-12%;
-    background:radial-gradient(circle at 50% 42%, rgba(159,89,255,.18), transparent 62%);
-    border:1px solid var(--line);border-radius:50%;
-  }
-  .logo-stage svg{width:72%;height:72%;position:relative;filter:drop-shadow(0 18px 40px rgba(95,30,133,.45))}
-  .masthead .rule{width:64px;height:2px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-  h1{font-size:clamp(30px,4.6vw,44px);font-weight:700;letter-spacing:-.01em;line-height:1.18;margin:22px 0 10px}
+  .stamp::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+  h1{font-size:clamp(30px,4.4vw,42px);font-weight:700;letter-spacing:-.01em;line-height:1.2;margin-bottom:12px}
   h1 em{font-style:normal;color:var(--gold)}
-  .lede{max-width:52ch;margin:0 auto;color:var(--muted);font-size:14.5px;line-height:1.9}
-  .mastmeta{margin-top:18px;display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
-  .mastmeta span{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.14em;font-family:Inter,sans-serif}
+  .lede{max-width:56ch;color:var(--muted);font-size:14.5px;line-height:1.9}
+  .mastmeta{
+    margin-top:28px;padding-bottom:20px;
+    border-bottom:1px solid var(--hairline);
+    display:flex;gap:22px;flex-wrap:wrap;
+  }
+  .mastmeta span{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.16em;font-family:Inter,sans-serif}
 
   /* ══ رؤوس الأقسام ══ */
-  section{margin-top:72px}
-  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  section{margin-top:64px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
   .sec-head h2{font-size:16px;font-weight:700;color:var(--gold);white-space:nowrap}
-  .sec-head::after{content:"";height:1px;flex:1;background:linear-gradient(to left,var(--hairline),transparent)}
+  .sec-head::after{content:"";height:1px;flex:1;background:var(--line)}
   .sec-head .idx{font-family:Inter,sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.16em}
 
-  /* ══ اللوحة: مدى لوني ══ */
-  .ramps{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-  .ramp{border-radius:var(--r-card);overflow:hidden;border:1px solid rgba(255,255,255,.07);min-width:0}
-  .ramp .grad{position:relative}
-  .ramp .grad::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 32%);
+  /* ══ اللوحة: شيبس صمّاء على طريقة كتالوج الألوان ══ */
+  .chips{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .chip{border-radius:var(--r-card);overflow:hidden;border:1px solid rgba(255,255,255,.08);min-width:0}
+  .chip .c{height:104px}
+  .chip .info{padding:10px 12px;background:var(--panel)}
+  .chip .n{font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .chip .n .lead-tag{font-size:10px;font-weight:700;color:var(--gold)}
+  .chip .n .lead-tag::before{content:"";display:inline-block;width:6px;height:6px;background:var(--gold);transform:rotate(45deg);margin-inline-end:5px}
+  .chip .h{font-family:Inter,sans-serif;font-size:11px;font-weight:600;color:var(--muted);direction:ltr;display:block;text-align:start;margin-top:3px;letter-spacing:.04em;white-space:nowrap}
+  .c-violet{background:#9F59FF}
+  .c-magenta{background:#A832E9}
+  .c-pink{background:#E8AAFF}
+  .c-gold{background:#F5D48A}
+  .c-depth{background:#5F1E85}
+  .c-ink{background:#0A0510}
+
+  /* نسب الاستخدام المقترحة */
+  .proportion{margin-top:26px}
+  .prop-label{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline}
+  .prop-label .latin{font-size:10px;letter-spacing:.14em}
+  .prop-bar{
+    display:flex;gap:2px;height:18px;
+    border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;
   }
-  .ramp .info{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:10px 14px;background:var(--panel)}
-  .ramp .n{font-size:12px;font-weight:700}
-  .ramp .h{font-family:Inter,sans-serif;font-size:11px;font-weight:600;color:var(--muted);direction:ltr;letter-spacing:.04em}
-  .r-hero{grid-column:span 4}
-  .r-hero .grad{height:196px}
-  .ramp:not(.r-hero):not(.r-ink){grid-column:span 2}
-  .ramp:not(.r-hero) .grad{height:120px}
-  .ramp .h{white-space:nowrap}
-  .r-ink{grid-column:span 12}
-  .r-ink .grad{height:64px}
-  /* مدى كل لون: غائط عميق ← اللون الصافي ← غائط فاتح (color-mix على نفس الـhex المقفول) */
-  .g-violet {background:linear-gradient(to top, color-mix(in srgb,#9F59FF 46%,#0A0510), #9F59FF 58%, color-mix(in srgb,#9F59FF 68%,#fff))}
-  .g-magenta{background:linear-gradient(to top, color-mix(in srgb,#A832E9 50%,#0A0510), #A832E9 58%, color-mix(in srgb,#A832E9 66%,#fff))}
-  .g-pink   {background:linear-gradient(to top, color-mix(in srgb,#E8AAFF 52%,#0A0510), #E8AAFF 58%, color-mix(in srgb,#E8AAFF 55%,#fff))}
-  .g-gold   {background:linear-gradient(to top, color-mix(in srgb,#F5D48A 55%,#5F1E85), #F5D48A 58%, #FFF3D6)}
-  .g-depth  {background:linear-gradient(to top, #3A1157, #5F1E85 58%, color-mix(in srgb,#5F1E85 72%,#9F59FF))}
-  .g-ink    {background:linear-gradient(to top, #060309, #0A0510 45%, #1D1030)}
-  .r-hero .grad .core{
-    position:absolute;bottom:14px;inset-inline-start:14px;
-    font-size:13px;font-weight:700;color:var(--ink);
-    background:rgba(255,255,255,.86);backdrop-filter:blur(4px);
-    padding:4px 12px;border-radius:999px;
-  }
+  .prop-bar i{display:block;height:100%}
+  .prop-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
+  .prop-legend span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted)}
+  .prop-legend i{width:10px;height:10px;border-radius:3px;flex:none}
+  .prop-legend b{color:var(--text);font-weight:600}
 
   /* ══ مختبر التباين ══ */
   .lab{border:1px solid var(--line);border-radius:var(--r-card);background:var(--panel);overflow:hidden}
   .lab-row{display:grid;grid-template-columns:1fr 168px;align-items:center;gap:18px;padding:22px 24px}
   .lab-row + .lab-row{border-top:1px solid rgba(159,89,255,.12)}
   .demo{display:flex;align-items:center;gap:16px;min-width:0}
-  .ratio{text-align:start}
   .ratio b{display:block;font-family:Inter,sans-serif;font-size:16px;font-weight:800;direction:ltr;color:var(--gold)}
   .ratio span{font-size:11px;color:var(--muted)}
   .note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.7}
@@ -134,13 +128,11 @@
     display:inline-flex;align-items:center;gap:8px;
     height:44px;padding:0 26px;border:none;border-radius:var(--r-btn);
     background:var(--primary);color:#fff;font:inherit;font-size:14px;font-weight:600;
-    box-shadow:0 10px 26px rgba(124,58,237,.35);
+    box-shadow:0 4px 12px rgba(124,58,237,.24);
     transition:transform 160ms ease-out;cursor:default;
   }
   .btn-primary-demo:active{transform:scale(.97)}
-  .demo-heading-light{
-    background:var(--paper);border-radius:var(--r-btn);padding:16px 22px;flex:1;min-width:0;
-  }
+  .demo-heading-light{background:var(--paper);border-radius:var(--r-btn);padding:16px 22px;flex:1;min-width:0}
   .demo-heading-light h3{font-size:19px;font-weight:700;color:var(--depth);text-wrap:balance}
   .demo-heading-light p{font-size:12px;color:#7A6B95;margin-top:2px}
   .demo-gold-light{background:var(--paper);border-radius:var(--r-btn);padding:16px 22px;flex:1;min-width:0}
@@ -169,10 +161,21 @@
     background:#F0A9B2;transform:rotate(-28deg);
   }
 
+  /* ══ عيّنة طباعي ══ */
+  .type-strip{
+    display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:22px 4px;
+  }
+  .type-strip .ar{font-size:26px;font-weight:700}
+  .type-strip .ar small{font-size:15px;font-weight:400;color:var(--muted);margin-inline-start:12px}
+  .type-strip .la{font-family:Inter,sans-serif;direction:ltr;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+  .type-strip .la b{color:var(--gold)}
+
   /* ══ عينات حية ══ */
   .samples{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .sample{border-radius:var(--r-card);padding:24px;min-width:0}
-  .s-dark{background:var(--ink);border:1px solid #2A1B3D;box-shadow:0 18px 44px rgba(6,3,9,.55)}
+  .s-dark{background:var(--ink);border:1px solid #2A1B3D}
   .s-light{background:var(--paper);border:1px solid #E5D8F5}
   .sample .lbl{font-size:11px;font-weight:600;letter-spacing:.06em}
   .s-dark .lbl{color:var(--muted)}
@@ -191,30 +194,17 @@
   .p-primary{background:var(--primary);color:#fff}
   .sample .foot .latin{font-size:11px;color:var(--muted)}
 
-  /* ══ عيّنة طباعي ══ */
-  .type-strip{
-    display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;
-    border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
-    padding:22px 4px;
-  }
-  .type-strip .ar{font-size:26px;font-weight:700}
-  .type-strip .ar small{font-size:15px;font-weight:400;color:var(--muted);margin-inline-start:12px}
-  .type-strip .la{font-family:Inter,sans-serif;direction:ltr;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
-  .type-strip .la b{color:var(--gold)}
-
-  footer{margin-top:56px;text-align:center}
-  footer .rule{width:48px;height:2px;margin:0 auto 16px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-  footer p{font-size:12px;color:var(--muted)}
-  footer .latin{font-size:10px;letter-spacing:.22em;color:#7A6B95;display:block;margin-top:6px}
+  footer{margin-top:56px}
+  footer .rule{width:48px;height:2px;margin:0 auto 16px;background:var(--gold)}
+  footer p{font-size:12px;color:var(--muted);text-align:center}
+  footer .latin{font-size:10px;letter-spacing:.22em;color:#7A6B95;display:block;margin-top:6px;text-align:center}
 
   @media (max-width:760px){
     .page{padding:0 18px 72px}
-    .r-hero{grid-column:span 12}
-    .ramp:not(.r-hero){grid-column:span 6}
-    .r-ink{grid-column:span 12}
+    .chips{grid-template-columns:repeat(3,1fr)}
     .lab-row{grid-template-columns:1fr;gap:10px}
-    .ratio{text-align:start}
     .laws,.samples{grid-template-columns:1fr}
+    .prop-legend{gap:12px}
   }
 </style>
 </head>
@@ -223,24 +213,25 @@
 
   <!-- ═══ الترويسة ═══ -->
   <header class="masthead">
-    <div class="rise"><span class="stamp">معتمدة ومقفولة</span></div>
-    <div class="logo-stage rise">
-      <svg viewBox="124 182 256 204" role="img" aria-label="شعار MaxP">
-        <defs>
-          <linearGradient id="lgV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>
-          <linearGradient id="lgM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D18BFF"/><stop offset="1" stop-color="#A832E9"/></linearGradient>
-          <linearGradient id="lgP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8AAFF"/><stop offset="1" stop-color="#C77DFF"/></linearGradient>
-        </defs>
-        <g transform="skewX(-8) translate(20,0)">
-          <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#lgV)"/>
-          <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#lgM)"/>
-          <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#lgP)"/>
-          <path d="M132 196 L372 196" stroke="#F5D48A" stroke-width="12" stroke-linecap="round"/>
-          <circle cx="256" cy="304" r="13" fill="#F5D48A"/>
-        </g>
-      </svg>
+    <div class="brand-row rise">
+      <div class="logo-tile">
+        <svg viewBox="124 182 256 204" role="img" aria-label="شعار MaxP">
+          <defs>
+            <linearGradient id="lgV" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9F59FF"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>
+            <linearGradient id="lgM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D18BFF"/><stop offset="1" stop-color="#A832E9"/></linearGradient>
+            <linearGradient id="lgP" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8AAFF"/><stop offset="1" stop-color="#C77DFF"/></linearGradient>
+          </defs>
+          <g transform="skewX(-8) translate(20,0)">
+            <path d="M148 372 L148 240 L228 312 L228 372 Z" fill="url(#lgV)"/>
+            <path d="M228 312 L292 208 L292 372 L228 372 Z" fill="url(#lgM)"/>
+            <path d="M292 208 L356 312 L356 372 L292 372 Z" fill="url(#lgP)"/>
+            <path d="M132 196 L372 196" stroke="#F5D48A" stroke-width="12" stroke-linecap="round"/>
+            <circle cx="256" cy="304" r="13" fill="#F5D48A"/>
+          </g>
+        </svg>
+      </div>
+      <span class="stamp">معتمدة ومقفولة</span>
     </div>
-    <div class="rule rise"></div>
     <h1 class="rise">الهوية البصرية <em>المعتمدة</em></h1>
     <p class="lede rise">بنفسجي ملكي وذهب شمبانيا، مستخرجة من أصل Max P وتثبتت بعد جولة اتجاهات الألوان. خمسة ألوان وثلاثة أحكام تباين، تُحترم كما هي في كل سطح من المنصة.</p>
     <div class="mastmeta rise">
@@ -253,16 +244,36 @@
   <!-- ═══ اللوحة ═══ -->
   <section>
     <div class="sec-head"><span class="idx">01</span><h2>اللوحة</h2></div>
-    <div class="ramps">
-      <div class="ramp r-hero">
-        <div class="grad g-violet"><span class="core">اللون القائد</span></div>
-        <div class="info"><span class="n">بنفسجي ملكي</span><span class="h">#9F59FF</span></div>
+    <div class="chips rise">
+      <div class="chip"><div class="c c-violet"></div><div class="info"><span class="n">بنفسجي ملكي<span class="lead-tag">القائد</span></span><span class="h">#9F59FF</span></div></div>
+      <div class="chip"><div class="c c-magenta"></div><div class="info"><span class="n">ماجنتا</span><span class="h">#A832E9</span></div></div>
+      <div class="chip"><div class="c c-pink"></div><div class="info"><span class="n">وردي</span><span class="h">#E8AAFF</span></div></div>
+      <div class="chip"><div class="c c-gold"></div><div class="info"><span class="n">ذهب</span><span class="h">#F5D48A</span></div></div>
+      <div class="chip"><div class="c c-depth"></div><div class="info"><span class="n">عمق</span><span class="h">#5F1E85</span></div></div>
+      <div class="chip"><div class="c c-ink"></div><div class="info"><span class="n">حبر</span><span class="h">#0A0510</span></div></div>
+    </div>
+
+    <div class="proportion rise">
+      <div class="prop-label">
+        <span>نسب الاستخدام المقترحة على الأسطح الداكنة</span>
+        <span class="latin">GUIDANCE</span>
       </div>
-      <div class="ramp"><div class="grad g-magenta"></div><div class="info"><span class="n">ماجنتا</span><span class="h">#A832E9</span></div></div>
-      <div class="ramp"><div class="grad g-pink"></div><div class="info"><span class="n">وردي</span><span class="h">#E8AAFF</span></div></div>
-      <div class="ramp"><div class="grad g-gold"></div><div class="info"><span class="n">ذهب</span><span class="h">#F5D48A</span></div></div>
-      <div class="ramp"><div class="grad g-depth"></div><div class="info"><span class="n">عمق</span><span class="h">#5F1E85</span></div></div>
-      <div class="ramp r-ink"><div class="grad g-ink"></div><div class="info"><span class="n">حبر</span><span class="h">#0A0510</span><span class="n" style="font-weight:400;color:var(--muted);margin-inline-start:auto;font-size:11px">أرضية الهوية واللوجو والموشن</span></div></div>
+      <div class="prop-bar" role="img" aria-label="نسب الاستخدام: حبر 58%، عمق 16%، بنفسجي 12%، ماجنتا 6%، وردي 4%، ذهب 4%">
+        <i style="width:58%;background:#0A0510;border-inline-end:1px solid rgba(255,255,255,.12)"></i>
+        <i style="width:16%;background:#5F1E85"></i>
+        <i style="width:12%;background:#9F59FF"></i>
+        <i style="width:6%;background:#A832E9"></i>
+        <i style="width:4%;background:#E8AAFF"></i>
+        <i style="width:4%;background:#F5D48A"></i>
+      </div>
+      <div class="prop-legend">
+        <span><i style="background:#0A0510;border:1px solid rgba(255,255,255,.15)"></i>حبر <b class="tnum">58%</b></span>
+        <span><i style="background:#5F1E85"></i>عمق <b class="tnum">16%</b></span>
+        <span><i style="background:#9F59FF"></i>بنفسجي <b class="tnum">12%</b></span>
+        <span><i style="background:#A832E9"></i>ماجنتا <b class="tnum">6%</b></span>
+        <span><i style="background:#E8AAFF"></i>وردي <b class="tnum">4%</b></span>
+        <span><i style="background:#F5D48A"></i>ذهب <b class="tnum">4%</b></span>
+      </div>
     </div>
   </section>
 
@@ -290,7 +301,7 @@
         <div class="demo">
           <div class="demo-gold-light"><b>الذهب العميق يقرأ</b><s>والفاتح يضيع</s></div>
         </div>
-        <div class="ratio"><b class="tnum">AA</b><span><span class="latin">#B8860B</span> على الفاتح، مش <span class="latin">#F5D48A</span></span></div>
+        <div class="ratio"><b>AA</b><span><span class="latin">#B8860B</span> على الفاتح، مش <span class="latin">#F5D48A</span></span></div>
       </div>
     </div>
   </section>
@@ -304,7 +315,7 @@
         <ul>
           <li><b>اللوجو والموشن:</b> بنفسجي وماجنتا ووردي وخط ذهب <span class="latin">#F5D48A</span> فوق حبر <span class="latin">#0A0510</span>.</li>
           <li><b>خلفية الأسطح الفاتحة:</b> <span class="latin">#F8F5FC</span> بلمسة بنفسجية، مش أبيض جاحظ.</li>
-          <li><b>التدرجات:</b> من نفس العائلة فقط، عمق الأسطح يزيد بمزج الحبر مش بالأسود.</li>
+          <li><b>التدرجات:</b> من نفس العائلة فقط، وعمق الأسطح يزيد بمزج الحبر مش بالأسود.</li>
         </ul>
       </div>
       <div class="law law-dont">
