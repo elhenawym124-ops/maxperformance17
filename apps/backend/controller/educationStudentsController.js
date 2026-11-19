@@ -98,7 +98,7 @@ const getAll = async (req, res) => {
       enrollments: {
         where: { isActive: true },
         include: {
-          package: { select: { id: true, name: true, price: true, totalHours: true } },
+          package: { select: { id: true, name: true, price: true, hoursCount: true } },
           teacher: { select: { id: true, name: true } }
         },
         orderBy: { createdAt: 'desc' },
