@@ -13,17 +13,16 @@
 ## الأوامر (من جذر الريبو)
 
 ```bash
-python scripts/agent-coord/coord.py status                     # القفل الحالي + الانحراف عن origin/main + آخر الأحداث
-python scripts/agent-coord/coord.py claim --agent <name> --task "<مهمة>" [--scope "<ملفات>"] [--ttl 90]
-python scripts/agent-coord/coord.py heartbeat --agent <name>   # للتاسكات الطويلة
-python scripts/agent-coord/coord.py guard --agent <name> --push
-python scripts/agent-coord/coord.py release --agent <name> --commit <hash> --note "<ملخص>"
-python scripts/agent-coord/coord.py log -n 20                  # عرض السجل
-python scripts/agent-coord/coord.py install-hooks              # مرة واحدة لكل clone: يثبّت pre-push hook
+node scripts/agent-coord/coord.cjs status                     # القفل الحالي + آخر الأحداث
+node scripts/agent-coord/coord.cjs claim --agent <name> --task "<مهمة>" [--scope "<ملفات>"] [--ttl 90]
+node scripts/agent-coord/coord.cjs heartbeat --agent <name>   # للتاسكات الطويلة (>60 دقيقة)
+node scripts/agent-coord/coord.cjs guard --agent <name> --push
+node scripts/agent-coord/coord.cjs release --agent <name> --commit <hash> --note "<ملخص>"
+node scripts/agent-coord/coord.cjs log -n 20                  # عرض السجل
 ```
 
-- اسم الإيجينت: ثابت وواضح — `hermes-agent` لـ Hermes، `antigravity` لـ Antigravity (أو متغير البيئة `COORD_AGENT`).
-- لو `python` غير موجود استخدم `py` (ويندوز).
+- الـ runner المعتمد هو **Node** (`coord.cjs`) — موجود على كل الأجهزة. نسخة `coord.py` بديل بنفس الواجهة (وتضيف `install-hooks`/`hook-check`) للأجهزة اللي فيها Python فقط.
+- اسم الإيجينت: ثابت وواضح — `hermes-agent` لـ Hermes، `antigravity` لـ Antigravity، `zcode` لـ ZCode (أو متغير البيئة `COORD_AGENT`). ممنوع التنفيذ باسم إيجينت تاني.
 - للدفع المباشر من إيجينت (استثناءً وبدون `guard`): صدّر `COORD_AGENT=<name>` في الجلسة حتى يتعرّف الـ pre-push hook على هويتك ويسمح بالدفع أثناء قفلك أنت — والأفضل دائمًا الدفع عبر `guard`.
 
 ## السيناريوهات (Playbook)
@@ -44,7 +43,7 @@ python scripts/agent-coord/coord.py install-hooks              # مرة واحد
 | المكوّن | المسار | النطاق |
 |---|---|---|
 | الأقفال + اللوج | `~/.agent-coordination/` (`locks/*.json` + `log.jsonl`) | محلي لكل جهاز (خارج الريبو، غير مُتتبَّع) |
-| السكريبت | `scripts/agent-coord/coord.py` | متتبَّع ومُصدَّر مع الريبو |
+| السكريبت | `scripts/agent-coord/coord.cjs` (المعتمد) + `coord.py` (بديل بايثون) | متتبَّع ومُصدَّر مع الريبو |
 | الـ hook | `.git/hooks/pre-push` (عبر `install-hooks`) | محلي لكل clone |
 | القاعدة | قسم «🔗 Cross-Agent Coordination» في `AGENTS.md` | متتبَّع — يقرأه كل الوكلاء |
 

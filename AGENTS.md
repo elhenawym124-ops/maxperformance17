@@ -64,35 +64,41 @@
 ---
 
 ## 🔗 5. Cross-Agent Coordination & The Protected Git Push Gate
-> **Multi-Agent Workspace Law:** Multiple autonomous agents (Antigravity, Hermes, etc.) operate concurrently on this workspace. You MUST strictly adhere to the locking and deployment protocol:
+> **Multi-Agent Workspace Law:** Multiple autonomous agents (Antigravity, Hermes, ZCode, etc.) operate concurrently on this workspace. You MUST strictly adhere to the locking and deployment protocol. The canonical runner is `node scripts/agent-coord/coord.cjs` (`coord.py` is a legacy alternative for machines with Python):
 
-1. **Check Status Before Any Task:**
+1. **Identity:** Use YOUR OWN registered agent name — pass `--agent <your-name>` or export `COORD_AGENT=<your-name>` for the session. NEVER claim, guard, or release under another agent's identity.
+2. **Check Status Before Any Task:**
    ```bash
-   python scripts/agent-coord/coord.py status
+   node scripts/agent-coord/coord.cjs status
    ```
-2. **Acquire Lock Before Editing Code:**
+3. **Acquire Lock Before Editing Code:**
    ```bash
-   python scripts/agent-coord/coord.py claim --agent antigravity --task "<short task>" --scope "<files/folders>" [--ttl 90]
+   node scripts/agent-coord/coord.cjs claim --agent <your-name> --task "<short task>" --scope "<files/folders>" [--ttl 90]
    ```
-3. **The Canonical Protected Push Gate:**
+   TTL is in MINUTES (default 90).
+4. **Heartbeat for Long Tasks:** Any task that may exceed 60 minutes MUST renew its lock periodically, or the lock expires and another agent may reclaim it:
+   ```bash
+   node scripts/agent-coord/coord.cjs heartbeat --agent <your-name>
+   ```
+5. **The Canonical Protected Push Gate:**
    ALL code pushes MUST pass exclusively through the coordination guard:
    ```bash
-   python scripts/agent-coord/coord.py guard --agent antigravity --push
+   node scripts/agent-coord/coord.cjs guard --agent <your-name> --push
    ```
    * The guard handles `fetch` + `pull --rebase` + `push` safely with automatic collision retry.
    * **Absolute Ban:** Direct `git push origin main` without coordination, and **`git push --force` is PERMANENTLY FORBIDDEN**.
-4. **Release Lock After Completion:**
+6. **Release Lock After Completion:**
    ```bash
-   python scripts/agent-coord/coord.py release --agent antigravity --commit <hash> --note "<summary>"
+   node scripts/agent-coord/coord.cjs release --agent <your-name> --commit <hash> --note "<summary>"
    ```
-5. **No Blind Staging:** Always stage specific modified files explicitly (`git add path/to/file`). NEVER run `git add -A` or `git add .` without lock verification.
+7. **No Blind Staging:** Always stage specific modified files explicitly (`git add path/to/file`). NEVER run `git add -A` or `git add .` without lock verification.
 
 ---
 
 ## 🧪 6. Verification Before Push
 1. **Frontend / UI Changes:** Must be verified in the browser (Playwright or Chrome DevTools) with zero console errors and verified responsive layout (390px mobile + desktop) before committing.
 2. **Backend / API Changes:** Must be verified via endpoint health checks or automated unit/integration tests (`200 OK`) before committing.
-3. **Docs / Non-Code Changes:** Verify syntax, links, and markdown formatting, then push through `coord.py guard`.
+3. **Docs / Non-Code Changes:** Verify syntax, links, and markdown formatting, then push through `coord.cjs guard`.
 
 ---
 

@@ -162,6 +162,24 @@ if (cmd === 'status') {
   clearLock(root);
   logEvent({ agent, event: 'release', repo: root, note, commit });
   console.log(`released lock on ${root}`);
+} else if (cmd === 'heartbeat') {
+  const agent = flags.agent || defaultAgent();
+  const ttl = parseInt(flags.ttl || TTL_DEFAULT_MIN, 10);
+  const lk = readLock(root);
+  if (!lk || !isActive(lk)) {
+    console.error('no active lock to heartbeat');
+    process.exit(3);
+  }
+  if (lk.agent !== agent) {
+    console.error(`lock held by another agent: ${lk.agent}`);
+    process.exit(3);
+  }
+  lk.heartbeat = Date.now() / 1000;
+  lk.heartbeat_iso = new Date().toISOString();
+  lk.ttl_min = ttl;
+  writeLock(root, lk);
+  logEvent({ agent, event: 'heartbeat', repo: root, ttl_min: ttl });
+  console.log(`heartbeat ok for ${agent} (ttl ${ttl}m)`);
 } else if (cmd === 'guard') {
   const agent = flags.agent || defaultAgent();
   const branch = flags.branch || 'main';
