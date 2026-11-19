@@ -128,15 +128,18 @@ jobs:
           # script resolves actually has its chromium on disk.
           install_here() {
             for i in 1 2 3; do
-              if npx playwright install --with-deps chromium; then
-                echo "chromium installed with system deps ($1, attempt $i)"
+              # Playwright >=1.62 runs headless through a separate
+              # chromium-headless-shell build; 'install chromium' alone leaves
+              # browserType.launch failing with "Executable doesn't exist".
+              if npx playwright install --with-deps chromium chromium-headless-shell; then
+                echo "chromium + headless shell installed ($1, attempt $i)"
                 return 0
               fi
-              echo "::warning::playwright --with-deps failed ($1, attempt $i); retrying"
+              echo "::warning::playwright install failed ($1, attempt $i); retrying"
               sleep 20
             done
             echo "::warning::falling back to browser-only install ($1)"
-            npx playwright install chromium
+            npx playwright install chromium chromium-headless-shell
           }
           ( cd apps/frontend && install_here apps/frontend )
           install_here root
