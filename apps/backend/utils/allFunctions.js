@@ -2506,6 +2506,35 @@ async function handleFacebookMessage(webhookEvent, currentPageId = null) {
         }
       }
 
+      // ── 🎙️ Egyptian Voice AI Pipeline for Facebook Messenger ──
+      const isFbVoiceNote = (Array.isArray(attachmentsData) && attachmentsData.some(a => a.type === 'audio' || /audioclip|\.mp4|\.m4a|\.mp3|\.opus/i.test(a.url || ''))) ||
+        (/audioclip|\.mp4|\.m4a|\.mp3|\.opus/i.test(content || '') && (/fbsbx\.com|uploads\/chat-media/i.test(content || '')));
+      const fbAudioUrl = isFbVoiceNote
+        ? (attachmentsData?.find(a => a.type === 'audio' || /audioclip|\.mp4|\.m4a|\.mp3|\.opus/i.test(a.url || ''))?.url || content)
+        : null;
+
+      if (isFbVoiceNote && fbAudioUrl && !botHandledFb && customer.companyId) {
+        setImmediate(async () => {
+          try {
+            const { processInboundVoiceMessage } = require('../services/voice/voiceChatPipelineService');
+            await processInboundVoiceMessage({
+              companyId: customer.companyId,
+              customerId: customer.id,
+              conversationId: conversation.id,
+              channel: 'FACEBOOK',
+              audioSource: fbAudioUrl,
+              messageId: fbMessageId,
+              senderId,
+              pageId: messagePageId,
+              accessToken: pageData?.pageAccessToken,
+              pushName: `${customer.firstName || ''} ${customer.lastName || ''}`.trim(),
+            });
+          } catch (voiceErr) {
+            console.error('❌ [FB-VOICE] Error in Facebook voice pipeline:', voiceErr.message);
+          }
+        });
+      }
+
       // ── 🤖 AI Auto-Reply for Facebook Messenger (fire-and-forget, never blocks the webhook) ──
       const hasCustomerTextForAi = isValidMessageContent(messageText || content);
       const hasCustomerAttachmentsForAi = Array.isArray(attachmentsData) && attachmentsData.length > 0;
@@ -2514,6 +2543,7 @@ async function handleFacebookMessage(webhookEvent, currentPageId = null) {
       ).trim();
       const shouldRunFacebookAiAutoReply = Boolean(
         !botHandledFb &&
+        !isFbVoiceNote &&
         customer.companyId &&
         (hasCustomerTextForAi || hasCustomerAttachmentsForAi) &&
         (aiCustomerContent || hasCustomerAttachmentsForAi)

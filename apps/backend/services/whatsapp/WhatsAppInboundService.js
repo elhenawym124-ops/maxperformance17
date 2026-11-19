@@ -732,6 +732,89 @@ async function saveIncomingMessage(payload) {
     });
   }
 
+  // ── 🎙️ Egyptian Voice AI Pipeline (STT -> Agent LLM -> TTS -> Voice Note PTT) ──────────
+  const isIncomingVoice = (messageType === 'AUDIO' || mediaType === 'audio' || (mediaMimeType && mediaMimeType.startsWith('audio/'))) && (mediaUrl || payload.buffer);
+  if (isIncomingVoice && syncedCustomer?.companyId && !botHandled) {
+    setImmediate(async () => {
+      try {
+        const { getSharedPrismaClient } = require('../sharedDatabase');
+        const prisma = getSharedPrismaClient();
+        const aiSetting = await getEffectiveAiAutoReplySetting(syncedCustomer.companyId, prisma);
+        if (!aiSetting?.autoReplyEnabled) {
+          console.log('🟡 [WA-VOICE] AI auto-reply disabled for company');
+          return;
+        }
+
+        // Working hours check
+        if (aiSetting.workingHoursEnabled && aiSetting.workingHours) {
+          try {
+            const hours = JSON.parse(typeof aiSetting.workingHours === 'string' ? aiSetting.workingHours : '{}');
+            const now = new Date();
+            const dayName = now.toLocaleString('en', { weekday: 'long', timeZone: 'Africa/Cairo' }).toLowerCase();
+            const today = hours[dayName];
+            if (today && !today.enabled) { console.log('🟡 [WA-VOICE] Outside working hours (day disabled)'); return; }
+            if (today && today.start && today.end) {
+              const currentMinutes = now.getHours() * 60 + now.getMinutes();
+              const [startH, startM] = today.start.split(':').map(Number);
+              const [endH, endM] = today.end.split(':').map(Number);
+              const startMin = startH * 60 + startM;
+              const endMin = endH * 60 + endM;
+              if (currentMinutes < startMin || currentMinutes > endMin) { console.log('🟡 [WA-VOICE] Outside working hours (time)'); return; }
+            }
+          } catch(e) {}
+        }
+
+        if (syncedConversation?.id) {
+          const conversation = await prisma.conversation.findUnique({
+            where: { id: syncedConversation.id },
+            select: { aiEnabled: true, metadata: true }
+          });
+          if (conversation && conversation.aiEnabled === false) {
+            console.log(`🟡 [WA-VOICE] AI auto-reply disabled for conversation ${syncedConversation.id}`);
+            return;
+          }
+          if (conversation?.metadata) {
+            try {
+              const convMeta = typeof conversation.metadata === 'string' ? JSON.parse(conversation.metadata) : conversation.metadata;
+              if (convMeta?.aiPausedUntil && new Date(convMeta.aiPausedUntil) > new Date()) {
+                console.log(`🟡 [WA-VOICE] AI agent is paused until ${convMeta.aiPausedUntil}`);
+                return;
+              }
+            } catch (e) {}
+          }
+        }
+
+        // Check ignore list
+        try {
+          const _ignorePhone = String(syncedCustomer.phone || normalizedJid.split('@')[0] || '').replace(/\D/g, '');
+          if (_ignorePhone) {
+            const _ignoredRows = await prisma.$queryRaw`SELECT 1 FROM ai.whatsapp_ai_ignore_list WHERE company_id = ${syncedCustomer.companyId} AND phone_number = ${_ignorePhone} LIMIT 1`;
+            if (Array.isArray(_ignoredRows) && _ignoredRows.length > 0) {
+              console.log(`🚫 [WA-VOICE] Sender ${_ignorePhone} is on AI ignore list → skipping voice reply`);
+              return;
+            }
+          }
+        } catch (_) {}
+
+        const { processInboundVoiceMessage } = require('../voice/voiceChatPipelineService');
+        await processInboundVoiceMessage({
+          companyId: syncedCustomer.companyId,
+          customerId: syncedCustomer.id,
+          conversationId: syncedConversation?.id,
+          channel: 'WHATSAPP',
+          audioSource: mediaUrl || payload.buffer,
+          mimeType: mediaMimeType,
+          messageId,
+          sessionId,
+          remoteJid: normalizedJid,
+          pushName,
+        });
+      } catch (voiceErr) {
+        console.error('❌ [WA-VOICE] Error processing incoming voice note:', voiceErr.message);
+      }
+    });
+  }
+
   // ── Lead Follow-up: enroll on first message if customer is LEAD ──────────
   if (syncedCustomer && syncedCustomer.status === 'LEAD') {
     setImmediate(async () => {
