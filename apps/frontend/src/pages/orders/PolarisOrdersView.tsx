@@ -7,8 +7,6 @@ import {
   ArrowPathIcon,
   MagnifyingGlassIcon,
   FunnelIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   XMarkIcon,
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
@@ -191,9 +189,6 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
         break;
     }
   };
-
-  const fromRecord = totalOrders > 0 ? (page - 1) * limit + 1 : 0;
-  const toRecord = Math.min(page * limit, totalOrders);
 
   return (
     <div
@@ -466,60 +461,6 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
             onClearFilters={clearAllFilters}
             onCustomerRatingChange={handleCustomerRatingChange}
           />
-        </div>
-
-        {/* Integrated Pagination Footer */}
-        <div className="px-3 sm:px-4 py-3 border-t border-border/70 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground bg-card">
-          <div className="font-mono tabular-nums">
-            {totalOrders > 0 ? (
-              <span>
-                عرض {fromRecord}-{toRecord} من إجمالي {totalOrders} طلب
-              </span>
-            ) : (
-              <span>لا توجد طلبات</span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span>لكل صفحة:</span>
-              <select
-                value={limit}
-                onChange={(e) => handleLimitChange(Number(e.target.value))}
-                className="h-7 px-2 rounded-md border border-border/70 bg-card text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer"
-              >
-                {[10, 20, 50, 100].map((l) => (
-                  <option key={l} value={l}>
-                    {l}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => handlePageChange(page - 1)}
-                disabled={page <= 1}
-                className="p-1 rounded-md border border-border/70 hover:bg-muted disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
-                aria-label="الصفحة السابقة"
-              >
-                <ChevronRightIcon className="w-4 h-4 rtl:rotate-0 rotate-180" />
-              </button>
-              <span className="px-2 font-mono tabular-nums">
-                {page} / {totalPages || 1}
-              </span>
-              <button
-                type="button"
-                onClick={() => handlePageChange(page + 1)}
-                disabled={page >= totalPages}
-                className="p-1 rounded-md border border-border/70 hover:bg-muted disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
-                aria-label="الصفحة التالية"
-              >
-                <ChevronLeftIcon className="w-4 h-4 rtl:rotate-0 rotate-180" />
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
