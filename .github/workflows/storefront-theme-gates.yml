@@ -121,21 +121,25 @@ jobs:
       - name: Install Chromium (visual gate)
         if: steps.changed.outputs.files != ''
         run: |
-          # The visual gate runs `node scripts/storefront-visual-gate.mjs` from the
-          # repo root, so it resolves playwright from the root node_modules (1.62.x).
-          # Installing under apps/frontend (1.60.x) downloads a different browser
-          # build and the gate then fails with "Executable doesn't exist".
-          # Install here, at the root, so installer and runner use the same version.
-          for i in 1 2 3; do
-            if npx playwright install --with-deps chromium; then
-              echo "chromium installed with system deps (attempt $i)"
-              exit 0
-            fi
-            echo "::warning::playwright --with-deps failed (attempt $i); retrying"
-            sleep 20
-          done
-          echo "::warning::falling back to browser-only install; system deps not installed"
-          npx playwright install chromium
+          # scripts/storefront-visual-gate.mjs resolves playwright from
+          # apps/frontend first and only then from the repo root, and the two can
+          # hold different versions (1.60.x vs 1.62.x) whose browser builds are
+          # not interchangeable. Install for both locations so whichever copy the
+          # script resolves actually has its chromium on disk.
+          install_here() {
+            for i in 1 2 3; do
+              if npx playwright install --with-deps chromium; then
+                echo "chromium installed with system deps ($1, attempt $i)"
+                return 0
+              fi
+              echo "::warning::playwright --with-deps failed ($1, attempt $i); retrying"
+              sleep 20
+            done
+            echo "::warning::falling back to browser-only install ($1)"
+            npx playwright install chromium
+          }
+          ( cd apps/frontend && install_here apps/frontend )
+          install_here root
 
       - name: Visual UX gate (real render, mobile)
         if: steps.changed.outputs.files != ''
