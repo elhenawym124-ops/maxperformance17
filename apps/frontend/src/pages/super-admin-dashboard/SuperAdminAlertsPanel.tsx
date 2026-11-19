@@ -9,6 +9,28 @@ interface SuperAdminAlertsPanelProps {
   alerts: DashboardData["alerts"];
 }
 
+const ALERT_CATEGORY_TRANSLATIONS: Record<string, string> = {
+  AUTH: "دخول",
+  AUTHENTICATION: "دخول",
+  LOGIN: "تسجيل دخول",
+  SECURITY: "أمان",
+  SYSTEM: "النظام",
+  DATABASE: "قاعدة البيانات",
+  USER: "المستخدم",
+  COMPANY: "الشركات",
+  API: "واجهة البرمجة",
+  ORDER: "الطلبات",
+  PAYMENT: "المدفوعات",
+  QUOTA: "الكوتا",
+  GENERAL: "عام",
+};
+
+export const formatAlertCategory = (category?: string): string => {
+  if (!category) return "تنبيه";
+  const key = category.toUpperCase().trim();
+  return ALERT_CATEGORY_TRANSLATIONS[key] || category;
+};
+
 export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
   alerts,
 }) => {
@@ -55,7 +77,7 @@ export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
                 {a.message}
               </p>
               <p className="text-[10px] font-mono text-muted-foreground mt-0.5 tabular-nums">
-                {a.category} ·{" "}
+                {formatAlertCategory(a.category)} ·{" "}
                 {new Date(a.timestamp).toLocaleDateString("ar-EG", {
                   day: "numeric",
                   month: "short",

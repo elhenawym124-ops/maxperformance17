@@ -9,6 +9,75 @@ interface SuperAdminSystemServicesProps {
   systems: DashboardData["systems"];
 }
 
+const SERVICE_NAME_TRANSLATIONS: Record<string, string> = {
+  "Default Agent Template": "القالب الافتراضي للمساعد الذكي",
+  "Product Embedding Auto Regeneration": "التحديث التلقائي لتضمين المنتجات",
+  "Ready Agent Profiles": "الملفات الجاهزة للمساعد الذكي",
+  "Kashier Platform Payment Gateway Settings": "إعدادات بوابة دفع كاشير للمنصة",
+  "Platform onboarding settings": "إعدادات التهيئة والترحيب بالمنصة",
+  "Platform Default Sidebar": "الشريط الجانبي الافتراضي للمنصة",
+  "Support WhatsApp": "دعم واتساب الفني للمنصة",
+  "Broadcast Scheduler": "جدولة حملات البث",
+  "Billing Notifications": "تنبيهات الفواتير والاشتراكات",
+  "Turbo Tracking": "تتبع شحن تيربو",
+  "WooCommerce Sync": "مزامنة ووكومرس",
+  "Central Keys System": "نظام المفاتيح المركزية",
+  "Key Selection": "تحديد المفاتيح",
+};
+
+const CATEGORY_TRANSLATIONS: Record<string, string> = {
+  ai: "ذكاء اصطناعي",
+  platform: "المنصة",
+  "platform-site": "موقع المنصة",
+  support: "الدعم",
+  api_keys: "مفاتيح API",
+  monitoring: "مراقبة",
+  general: "عام",
+  security: "الأمان",
+  payment: "المدفوعات",
+  billing: "الفواتير",
+  messaging: "المراسلة",
+};
+
+const RESOURCE_USAGE_TRANSLATIONS: Record<string, string> = {
+  unknown: "غير معروف",
+  low: "منخفض",
+  medium: "متوسط",
+  high: "مرتفع",
+  none: "لا يوجد",
+  healthy: "نشط",
+  active: "نشط",
+  inactive: "معطل",
+  disabled: "معطل",
+};
+
+export const formatServiceName = (displayName?: string, systemName?: string): string => {
+  if (displayName && SERVICE_NAME_TRANSLATIONS[displayName]) {
+    return SERVICE_NAME_TRANSLATIONS[displayName];
+  }
+  const nameToMatch = (displayName || systemName || "").trim();
+  const normalizedSystemName = (systemName || "").replace(/_/g, " ").trim();
+  const match = Object.keys(SERVICE_NAME_TRANSLATIONS).find(
+    (key) =>
+      key.toLowerCase() === nameToMatch.toLowerCase() ||
+      key.toLowerCase() === normalizedSystemName.toLowerCase(),
+  );
+  if (match) return SERVICE_NAME_TRANSLATIONS[match];
+  return displayName || systemName || "خدمة النظام";
+};
+
+export const formatServiceCategory = (category?: string): string => {
+  if (!category) return "عام";
+  const key = category.toLowerCase().trim();
+  return CATEGORY_TRANSLATIONS[key] || category;
+};
+
+export const formatResourceUsage = (usage?: string): string => {
+  if (!usage) return "غير معروف";
+  const key = usage.toLowerCase().trim();
+  return RESOURCE_USAGE_TRANSLATIONS[key] || usage;
+};
+
 export const SuperAdminSystemServices: React.FC<SuperAdminSystemServicesProps> = ({
   systems,
 }) => {
@@ -57,22 +126,16 @@ export const SuperAdminSystemServices: React.FC<SuperAdminSystemServicesProps> =
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-medium text-foreground truncate">
-                  {s.displayName}
+                  {formatServiceName(s.displayName, s.systemName)}
                 </p>
                 <p className="text-[10px] font-mono text-muted-foreground">
-                  {s.category === "api_keys"
-                    ? "مفاتيح API"
-                    : s.category === "monitoring"
-                      ? "مراقبة"
-                      : s.category === "general"
-                        ? "عام"
-                        : s.category}
+                  {formatServiceCategory(s.category)}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <span className="text-[10px] font-mono text-muted-foreground">
-                {s.resourceUsage}
+                {formatResourceUsage(s.resourceUsage)}
               </span>
               <div
                 className={cn(

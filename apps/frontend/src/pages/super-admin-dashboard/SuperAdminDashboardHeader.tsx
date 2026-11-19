@@ -20,6 +20,15 @@ export const SuperAdminDashboardHeader: React.FC<SuperAdminDashboardHeaderProps>
   onOpenActiveUsers,
   onRefresh,
 }) => {
+  const getGreetingName = () => {
+    const parts = [user?.firstName, user?.lastName].filter(Boolean);
+    const fullName = parts.join(" ").trim();
+    if (!fullName || /super\s*admin/i.test(fullName)) {
+      return "مدير النظام";
+    }
+    return fullName;
+  };
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3.5">
       <div className="flex items-center gap-3">
@@ -37,7 +46,7 @@ export const SuperAdminDashboardHeader: React.FC<SuperAdminDashboardHeaderProps>
             </span>
           </div>
           <p className="text-xs text-muted-foreground mt-0.5">
-            مرحباً {user?.firstName} {user?.lastName} · نظرة موحدة على النبض التشغيلي لمنصة MaxP
+            مرحباً {getGreetingName()} · نظرة موحدة على النبض التشغيلي لمنصة MaxP
           </p>
         </div>
       </div>

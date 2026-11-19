@@ -8,6 +8,30 @@ interface SuperAdminSystemHealthProps {
   health: DashboardData["health"];
 }
 
+export const formatUptime = (seconds?: number): string => {
+  if (seconds === undefined || seconds === null || isNaN(seconds)) {
+    return "٠ يوم ٠ ساعة";
+  }
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const toArabic = (n: number) => new Intl.NumberFormat("ar-EG").format(n);
+  return `${toArabic(days)} يوم ${toArabic(hours)} ساعة`;
+};
+
+export const formatLatency = (ms?: number | null): string => {
+  if (ms === undefined || ms === null || isNaN(ms)) return "—";
+  if (ms >= 1000) {
+    const seconds = ms / 1000;
+    const formatted = new Intl.NumberFormat("ar-EG", {
+      maximumFractionDigits: 1,
+      minimumFractionDigits: 1,
+    }).format(seconds);
+    return `${formatted} ثانية`;
+  }
+  const formatted = new Intl.NumberFormat("ar-EG").format(Math.round(ms));
+  return `${formatted} مللي ثانية`;
+};
+
 export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
   health,
 }) => {
@@ -30,11 +54,7 @@ export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
       ? "text-emerald-600 dark:text-emerald-400"
       : "text-rose-600 dark:text-rose-400";
 
-  const uptimeStr =
-    Math.floor(health.uptime / 86400) +
-    "d " +
-    Math.floor((health.uptime % 86400) / 3600) +
-    "h";
+  const uptimeStr = formatUptime(health?.uptime);
 
   return (
     <div className="flex flex-wrap items-center gap-3.5 rounded-xl border border-border/80 bg-card/40 px-4 py-2.5 shadow-xs text-xs">
@@ -85,7 +105,7 @@ export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
           <div className="h-3.5 w-px bg-border/60" />
           <div className="flex items-center gap-1.5 text-muted-foreground font-mono text-[11px]">
             <HardDrive className="size-3.5" />
-            <span className="tabular-nums">{health.dbStats.latency}ms</span>
+            <span className="tabular-nums">{formatLatency(health.dbStats.latency)}</span>
           </div>
         </>
       )}

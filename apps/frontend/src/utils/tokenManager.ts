@@ -37,17 +37,30 @@ if (typeof window !== "undefined") {
   void restoreNativeTokens();
 }
 
-const readToken = (key: string): string | null =>
-  sessionStorage.getItem(key) || localStorage.getItem(key);
+const readToken = (key: string): string | null => {
+  try {
+    return (
+      (typeof sessionStorage !== "undefined" && sessionStorage?.getItem(key)) ||
+      (typeof localStorage !== "undefined" && localStorage?.getItem(key)) ||
+      null
+    );
+  } catch {
+    return null;
+  }
+};
 
 const writeToken = (key: string, token: string): void => {
-  sessionStorage.setItem(key, token);
-  localStorage.setItem(key, token);
+  try {
+    if (typeof sessionStorage !== "undefined") sessionStorage?.setItem(key, token);
+    if (typeof localStorage !== "undefined") localStorage?.setItem(key, token);
+  } catch {}
 };
 
 const clearToken = (key: string): void => {
-  sessionStorage.removeItem(key);
-  localStorage.removeItem(key);
+  try {
+    if (typeof sessionStorage !== "undefined") sessionStorage?.removeItem(key);
+    if (typeof localStorage !== "undefined") localStorage?.removeItem(key);
+  } catch {}
 };
 
 export const tokenManager = {

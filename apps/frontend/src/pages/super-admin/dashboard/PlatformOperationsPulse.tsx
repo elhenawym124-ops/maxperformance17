@@ -65,6 +65,20 @@ interface OperationsPulseData {
   };
 }
 
+const formatLatency = (ms?: number | null): string => {
+  if (ms === undefined || ms === null || isNaN(ms)) return "—";
+  if (ms >= 1000) {
+    const seconds = ms / 1000;
+    const formatted = new Intl.NumberFormat("ar-EG", {
+      maximumFractionDigits: 1,
+      minimumFractionDigits: 1,
+    }).format(seconds);
+    return `${formatted} ثانية`;
+  }
+  const formatted = new Intl.NumberFormat("ar-EG").format(Math.round(ms));
+  return `${formatted} مللي ثانية`;
+};
+
 export const PlatformOperationsPulse: React.FC = () => {
   const { data, isLoading, isFetching, refetch } = useQuery<{
     success: boolean;
@@ -277,7 +291,7 @@ export const PlatformOperationsPulse: React.FC = () => {
             <p className="mt-1 text-xs text-muted-foreground tabular-nums">
               متوسط الاستجابة:{" "}
               <span className="font-semibold text-foreground">
-                {pulse.aiActivity.avgLatencyMs}ms
+                {formatLatency(pulse.aiActivity.avgLatencyMs)}
               </span>
             </p>
           </div>
