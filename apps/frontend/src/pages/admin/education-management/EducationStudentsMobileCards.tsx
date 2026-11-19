@@ -228,7 +228,8 @@ export const EducationStudentsMobileCards: React.FC<EducationStudentsMobileCards
             </button>
           </div>
         </div>
-      ))}
+        );
+      })}
 
       {students.length === 0 && (
         <div className="text-center py-10 text-xs text-muted-foreground bg-card border border-border/80 rounded-xl">
