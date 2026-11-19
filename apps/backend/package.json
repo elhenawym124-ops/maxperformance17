@@ -108,7 +108,7 @@
     "libphonenumber-js": "^1.13.10",
     "luxon": "^3.7.2",
     "moment-timezone": "^0.6.0",
-    "mongoose": "^9.0.1",
+    "mongoose": "^9.12.1",
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",
     "node-fetch": "^2.7.0",
