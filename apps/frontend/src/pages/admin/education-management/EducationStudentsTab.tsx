@@ -276,6 +276,15 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
     });
   }, []);
 
+  // Safe auth headers helper guarding against environments where storage/tokenManager throws
+  const safeAuthHeaders = (): Record<string, string> => {
+    try {
+      return getAuthHeaders();
+    } catch {
+      return { "Content-Type": "application/json" };
+    }
+  };
+
   // Bulk actions handlers
   const handleBulkStatus = async (isActive: boolean) => {
     if (selectedIds.size === 0) return;
@@ -283,7 +292,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
     try {
       const res = await fetch(api("students/bulk/status"), {
         method: "POST",
-        headers: getAuthHeaders(),
+        headers: safeAuthHeaders(),
         body: JSON.stringify({
           ids: Array.from(selectedIds),
           isActive,
@@ -309,7 +318,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
     try {
       const res = await fetch(api("students/bulk/group"), {
         method: "POST",
-        headers: getAuthHeaders(),
+        headers: safeAuthHeaders(),
         body: JSON.stringify({
           ids: Array.from(selectedIds),
           groupId: selectedGroupId,
@@ -350,7 +359,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
       if (filterState.sortDir) params.append("sortDir", filterState.sortDir);
 
       const res = await fetch(api(`students?${params.toString()}`), {
-        headers: getAuthHeaders(),
+        headers: safeAuthHeaders(),
       });
       const data = await res.json();
       const exportItems: EducationStudent[] = Array.isArray(data?.data)

@@ -4,7 +4,7 @@ import "@testing-library/jest-dom/vitest";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { EducationStudentsTab } from "../EducationStudentsTab";
 import type { EducationStudent, EducationSubject } from "../types";
 
@@ -107,6 +107,39 @@ describe("EducationStudentsTab (Server-side Table & Filters)", () => {
       ok: true,
       json: async () => ({ success: true, data: [] }),
     } as any);
+
+    if (typeof window !== "undefined") {
+      const createMockStorage = () => {
+        let store: Record<string, string> = {};
+        return {
+          getItem: vi.fn((key: string) => store[key] || null),
+          setItem: vi.fn((key: string, val: string) => {
+            store[key] = String(val);
+          }),
+          removeItem: vi.fn((key: string) => {
+            delete store[key];
+          }),
+          clear: vi.fn(() => {
+            store = {};
+          }),
+          key: vi.fn((i: number) => Object.keys(store)[i] || null),
+          get length() {
+            return Object.keys(store).length;
+          },
+        };
+      };
+
+      Object.defineProperty(window, "sessionStorage", {
+        value: createMockStorage(),
+        writable: true,
+        configurable: true,
+      });
+      Object.defineProperty(window, "localStorage", {
+        value: createMockStorage(),
+        writable: true,
+        configurable: true,
+      });
+    }
   });
 
   afterEach(() => {
@@ -116,14 +149,31 @@ describe("EducationStudentsTab (Server-side Table & Filters)", () => {
   it("renders desktop table with correct columns and student records", () => {
     renderComponent();
 
-    // Check table headers
-    expect(screen.getByText("الطالب / الكود")).toBeInTheDocument();
-    expect(screen.getByText("الصف الدراسي")).toBeInTheDocument();
-    expect(screen.getByText("هاتف الطالب")).toBeInTheDocument();
-    expect(screen.getByText("ولي الأمر")).toBeInTheDocument();
-    expect(screen.getByText("العنوان")).toBeInTheDocument();
-    expect(screen.getByText("المواد")).toBeInTheDocument();
-    expect(screen.getByText("الحالة")).toBeInTheDocument();
+    // Check table headers within thead (13 columns + checkbox)
+    const table = screen.getByRole("table");
+    const thead = table.querySelector("thead");
+    expect(thead).toBeInTheDocument();
+    expect(thead).toHaveClass("sticky", "top-0");
+
+    const expectedHeaders = [
+      "الطالب / الكود",
+      "الهاتف / ولي الأمر",
+      "الصف الدراسي",
+      "المستوى",
+      "المواد",
+      "الباقة",
+      "المجموعة",
+      "المدرّس",
+      "تاريخ التسجيل",
+      "المدفوع / المتبقي",
+      "حالة السداد",
+      "الحالة",
+      "الإجراءات",
+    ];
+
+    expectedHeaders.forEach((headerText) => {
+      expect(within(thead!).getByText(headerText)).toBeInTheDocument();
+    });
 
     // Check student names rendered
     expect(screen.getAllByText("أحمد محمود")[0]).toBeInTheDocument();
