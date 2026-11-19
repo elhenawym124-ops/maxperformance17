@@ -1,0 +1,70 @@
+const dns = require('dns');
+const https = require('https');
+const { execSync } = require('child_process');
+
+const resolver = new dns.Resolver();
+resolver.setServers(['8.8.8.8', '1.1.1.1']);
+
+function customLookup(hostname, options, callback) {
+  if (typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+  resolver.resolve4(hostname, (err, addresses) => {
+    if (err) return callback(err);
+    if (!addresses || addresses.length === 0) {
+      return callback(new Error('No address found for ' + hostname));
+    }
+    if (options && options.all) {
+      return callback(null, addresses.map(addr => ({ address: addr, family: 4 })));
+    }
+    callback(null, addresses[0], 4);
+  });
+}
+
+let token = process.env.GITHUB_TOKEN;
+if (!token) {
+  try {
+    token = execSync('C:\\Users\\mokhtar\\AppData\\Local\\Programs\\gh\\gh.exe auth token', { encoding: 'utf8' }).trim();
+  } catch (e) {
+    console.error('Failed to get gh token:', e.message);
+  }
+}
+
+const runId = process.argv[2] || '39522252909';
+
+const options = {
+  hostname: 'api.github.com',
+  path: `/repos/elhenawym124-ops/maxperformance17/actions/runs/${runId}/jobs`,
+  lookup: customLookup,
+  headers: {
+    'User-Agent': 'NodeJS',
+    'Authorization': 'token ' + token,
+    'Accept': 'application/vnd.github.v3+json'
+  }
+};
+
+https.get(options, (res) => {
+  let data = '';
+  res.on('data', chunk => data += chunk);
+  res.on('end', () => {
+    try {
+      const json = JSON.parse(data);
+      if (json.jobs) {
+        json.jobs.forEach(job => {
+          console.log(`JOB [${job.id}] ${job.name} - Status: ${job.status}, Conclusion: ${job.conclusion}`);
+          if (job.steps) {
+            job.steps.forEach(s => {
+              const icon = s.conclusion === 'success' ? '✓' : s.conclusion === 'failure' ? '✗' : s.status === 'in_progress' ? '▶' : '·';
+              console.log(`  ${icon} [${s.status}/${s.conclusion || '-'}] ${s.name}`);
+            });
+          }
+        });
+      } else {
+        console.log(data.slice(0, 500));
+      }
+    } catch (e) {
+      console.error(e.message);
+    }
+  });
+}).on('error', (err) => console.error('Request error:', err.message));
