@@ -70,7 +70,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@hapi/boom": "^10.0.1",
-    "@huggingface/inference": "^4.13.5",
+    "@huggingface/inference": "^4.13.32",
     "@modelcontextprotocol/sdk": "^1.0.4",
     "@napi-rs/canvas": "^1.0.5",
     "@prisma/client": "^6.12.0",
