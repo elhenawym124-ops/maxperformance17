@@ -110,7 +110,11 @@ describe("EducationStudentsTab (Server-side Table & Filters)", () => {
 
     if (typeof window !== "undefined") {
       const createMockStorage = () => {
-        let store: Record<string, string> = {};
+        let store: Record<string, string> = {
+          accessToken: "mock-valid-token-123",
+          token: "mock-valid-token-123",
+          activeCompanyId: "mock-company-1",
+        };
         return {
           getItem: vi.fn((key: string) => store[key] || null),
           setItem: vi.fn((key: string, val: string) => {
@@ -299,5 +303,32 @@ describe("EducationStudentsTab (Server-side Table & Filters)", () => {
     const deleteBtns = screen.getAllByTitle("حذف");
     fireEvent.click(deleteBtns[0]);
     expect(handleDelete).toHaveBeenCalledWith("s1");
+  });
+
+  it("handles CSV export error when fetch returns 401 without downloading file", async () => {
+    const createObjectURLMock = vi.fn().mockReturnValue("blob:mock-url");
+    const revokeObjectURLMock = vi.fn();
+    window.URL.createObjectURL = createObjectURLMock;
+    window.URL.revokeObjectURL = revokeObjectURLMock;
+
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 401,
+      json: async () => ({
+        success: false,
+        error: "Unauthorized",
+      }),
+    } as any);
+
+    renderComponent();
+
+    const exportBtn = screen.getByTitle("تصدير الطلاب المفلترين كـ CSV");
+    fireEvent.click(exportBtn);
+
+    await waitFor(() => {
+      expect(screen.getByRole("alert")).toBeInTheDocument();
+      expect(screen.getByText("فشل تصدير بيانات الطلاب")).toBeInTheDocument();
+      expect(createObjectURLMock).not.toHaveBeenCalled();
+    });
   });
 });

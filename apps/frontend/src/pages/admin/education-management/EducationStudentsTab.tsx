@@ -19,6 +19,7 @@ import type {
   EducationTeacher
 } from "./types";
 import { api, fetchJson, getAuthHeaders } from "./api";
+import { toast } from "sonner";
 import { StudentModal } from "./StudentModal";
 import { EducationStudentsFilters, StudentFilterState } from "./EducationStudentsFilters";
 import { EducationStudentsTable } from "./EducationStudentsTable";
@@ -237,6 +238,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
   const [selectedGroupId, setSelectedGroupId] = useState<string>("");
   const [groups, setGroups] = useState<Array<{ id: string; name: string }>>([]);
   const [bulkLoading, setBulkLoading] = useState<boolean>(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   // Fetch groups list for bulk assignment
   useEffect(() => {
@@ -276,37 +278,82 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
     });
   }, []);
 
-  // Safe auth headers helper guarding against environments where storage/tokenManager throws
+  // Safe auth headers helper guarding against missing token
   const safeAuthHeaders = (): Record<string, string> => {
+    let authHeader: string | null = null;
+    let headers: Record<string, string> = {};
+
     try {
-      return getAuthHeaders();
+      headers = getAuthHeaders();
+      authHeader = headers["Authorization"] || headers["authorization"] || null;
     } catch {
-      return { "Content-Type": "application/json" };
+      // getAuthHeaders threw
     }
+
+    if (!authHeader && typeof window !== "undefined") {
+      try {
+        const rawToken =
+          sessionStorage.getItem("accessToken") ||
+          sessionStorage.getItem("token") ||
+          localStorage.getItem("accessToken") ||
+          localStorage.getItem("token");
+
+        if (rawToken) {
+          authHeader = `Bearer ${rawToken}`;
+          headers["Authorization"] = authHeader;
+        }
+      } catch {
+        // storage access blocked
+      }
+    }
+
+    if (!authHeader) {
+      throw new Error(isEn ? "Authentication token is missing. Please log in again." : "تعذر العثور على رمز تسجيل الدخول. يرجى تسجيل الدخول أولاً");
+    }
+
+    headers["Content-Type"] = "application/json";
+    if (!headers["X-Company-Id"]) {
+      try {
+        const cid = getCompanyId();
+        if (cid) headers["X-Company-Id"] = cid;
+      } catch {}
+    }
+
+    return headers;
   };
 
   // Bulk actions handlers
   const handleBulkStatus = async (isActive: boolean) => {
     if (selectedIds.size === 0) return;
     setBulkLoading(true);
+    setActionError(null);
     try {
+      const headers = safeAuthHeaders();
       const res = await fetch(api("students/bulk/status"), {
         method: "POST",
-        headers: safeAuthHeaders(),
+        headers,
         body: JSON.stringify({
           ids: Array.from(selectedIds),
           isActive,
         }),
       });
-      const data = await res.json();
-      if (data?.success) {
-        setSelectedIds(new Set());
-        if (onStudentsQuery) {
-          onStudentsQuery(buildCurrentQuery());
-        }
+      if (!res.ok) {
+        throw new Error(isEn ? "Failed to update students status" : "فشل تحديث حالة الطلاب");
       }
-    } catch (err) {
+      const data = await res.json();
+      if (!data?.success) {
+        throw new Error(data?.error || data?.message || (isEn ? "Failed to update students status" : "فشل تحديث حالة الطلاب"));
+      }
+      setSelectedIds(new Set());
+      toast.success(isEn ? "Status updated successfully" : "تم تحديث حالة الطلاب بنجاح");
+      if (onStudentsQuery) {
+        onStudentsQuery(buildCurrentQuery());
+      }
+    } catch (err: any) {
       console.error("Bulk status error:", err);
+      const msg = err?.message || (isEn ? "Failed to update students status" : "فشل تحديث حالة الطلاب");
+      setActionError(msg);
+      toast.error(msg);
     } finally {
       setBulkLoading(false);
     }
@@ -315,25 +362,35 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
   const handleBulkAddToGroup = async () => {
     if (selectedIds.size === 0 || !selectedGroupId) return;
     setBulkLoading(true);
+    setActionError(null);
     try {
+      const headers = safeAuthHeaders();
       const res = await fetch(api("students/bulk/group"), {
         method: "POST",
-        headers: safeAuthHeaders(),
+        headers,
         body: JSON.stringify({
           ids: Array.from(selectedIds),
           groupId: selectedGroupId,
         }),
       });
-      const data = await res.json();
-      if (data?.success) {
-        setSelectedIds(new Set());
-        setSelectedGroupId("");
-        if (onStudentsQuery) {
-          onStudentsQuery(buildCurrentQuery());
-        }
+      if (!res.ok) {
+        throw new Error(isEn ? "Failed to add students to group" : "فشل إضافة الطلاب للمجموعة");
       }
-    } catch (err) {
+      const data = await res.json();
+      if (!data?.success) {
+        throw new Error(data?.error || data?.message || (isEn ? "Failed to add students to group" : "فشل إضافة الطلاب للمجموعة"));
+      }
+      setSelectedIds(new Set());
+      setSelectedGroupId("");
+      toast.success(isEn ? "Students added to group successfully" : "تم إضافة الطلاب للمجموعة بنجاح");
+      if (onStudentsQuery) {
+        onStudentsQuery(buildCurrentQuery());
+      }
+    } catch (err: any) {
       console.error("Bulk add to group error:", err);
+      const msg = err?.message || (isEn ? "Failed to add students to group" : "فشل إضافة الطلاب للمجموعة");
+      setActionError(msg);
+      toast.error(msg);
     } finally {
       setBulkLoading(false);
     }
@@ -341,7 +398,9 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
 
   // CSV Export: fetches all=true with active filters from backend
   const handleExportCsv = useCallback(async () => {
+    setActionError(null);
     try {
+      const headers = safeAuthHeaders();
       const params = new URLSearchParams();
       params.set("all", "true");
       if (filterState.search?.trim()) params.append("search", filterState.search.trim());
@@ -359,14 +418,30 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
       if (filterState.sortDir) params.append("sortDir", filterState.sortDir);
 
       const res = await fetch(api(`students?${params.toString()}`), {
-        headers: safeAuthHeaders(),
+        headers,
       });
+
+      if (!res.ok) {
+        throw new Error(isEn ? "Failed to export students data" : "فشل تصدير بيانات الطلاب");
+      }
+
       const data = await res.json();
+      if (!data?.success) {
+        throw new Error(data?.error || data?.message || (isEn ? "Failed to export students data" : "فشل تصدير بيانات الطلاب"));
+      }
+
       const exportItems: EducationStudent[] = Array.isArray(data?.data)
         ? data.data
         : (data?.items || []);
 
-      const headers = [
+      if (exportItems.length === 0) {
+        const emptyMsg = isEn ? "No students matching filters to export" : "لا يوجد طلاب مطابقين للفلاتر لتصديرهم";
+        setActionError(emptyMsg);
+        toast.error(emptyMsg);
+        return;
+      }
+
+      const headersList = [
         "كود الطالب",
         "الاسم الأول",
         "اسم العائلة",
@@ -426,7 +501,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
         ];
       });
 
-      const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\r\n");
+      const csvContent = "\uFEFF" + [headersList.join(","), ...rows.map((r) => r.join(","))].join("\r\n");
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -436,13 +511,37 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Export error:", err);
+      const msg = err?.message || (isEn ? "Failed to export students data" : "فشل تصدير بيانات الطلاب");
+      setActionError(msg);
+      toast.error(msg);
     }
-  }, [filterState]);
+  }, [filterState, isEn]);
 
   return (
     <div className="space-y-3.5">
+      {/* Action Error Banner */}
+      {actionError && (
+        <div
+          role="alert"
+          className="flex items-center justify-between gap-3 p-3 text-xs rounded-xl bg-destructive/10 border border-destructive/30 text-destructive animate-in fade-in"
+          dir={isEn ? "ltr" : "rtl"}
+        >
+          <div className="flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{actionError}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setActionError(null)}
+            className="text-xs hover:underline cursor-pointer"
+          >
+            {isEn ? "Dismiss" : "إغلاق"}
+          </button>
+        </div>
+      )}
+
       {/* 1. Filters & Action Bar */}
       <EducationStudentsFilters
         filters={filterState}

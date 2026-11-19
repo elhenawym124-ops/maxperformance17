@@ -118,3 +118,48 @@
 | ٣١ | RISK | عدّ التوائم بيعمل رحلات DB متسلسلة كل 500 رقم | **مقبول وموثّق** (نفس البند ٢٧) — الدقة أولًا |
 
 **الخلاف:** OpenCode بيقيس التاسك كله (بما فيه كود /orders الممنوع) — إحنا صلّحنا كل اللي في نطاقنا. البنود ٢٩/٣٠/٣١ في كود ممنوع لمسه حسب نص التاسك، والبند ٢٨ قرار منتج (فتح قسم للمديرين). القرار النهائي للمالكة.
+
+---
+
+# OPENCODE_FIXES — f40a3a67 (مراجعة 2026-11-19 14:14 على ab85293bc) — FIX_FIRST
+
+**Verdict: FIX_FIRST** — 0 BLOCKER / 1 BUG / 2 RISK · معايير 7/7 MET.
+التحقق من الـfindings: كل `file:line` اتأكد في نفس الكوميت `ab85293bc`، والتستات اتشغلت فعليًا (مش كلام) — التقرير مقبول.
+
+## BUG (إجباري) — سويت الفرونت أحمر في `apps/frontend/src/pages/admin/education-management/__tests__/EducationStudentsTab.test.tsx`
+تشغيل حقيقي: `cd apps/frontend && node_modules/.bin/vitest run src/pages/admin/education-management/__tests__/EducationStudentsTab.test.tsx`
+النتيجة عند HEAD: `Tests 2 failed | 6 passed (8)`
+
+| # | التست الفاشل | السبب | المطلوب |
+|---|---|---|---|
+| ١ | renders desktop table with correct columns and student records | التست لسه متوقع أعمدة الجدول القديمة؛ إحنا ضفنا «المواد / المستوى / المجموعة» + sticky header | حدّث التست يطابق الـ13 عمود الجديدة ويتأكد إن كل عمود ظاهر — من غير ما تضعّف التست |
+| ٢ | triggers CSV export when clicking Export button | `Export error: TypeError: Cannot read properties of undefined (reading 'getItem')` → `handleExportCsv` بيقع قبل `fetch`، فمفيش نداء `all=true` | خلي مسار التصدير يشتغل في بيئة الاختبار (guard على الـtoken storage) بحيث `fetch` يتنادى فعلاً بـ`all=true` + الفلاتر والملف ينزل — **ممنوع** تخطّي الـassertion |
+
+## RISK (مش إجباري)
+- WhatsApp bulk disabled — متعمّد في البريف.
+- backend runner: الصح `node --test apps/backend/tests/educationStudentsQuery.test.js` (13/13) مش jest.
+
+## تعريف «خلصت»
+`vitest ...EducationStudentsTab.test.tsx` = 8/8 · `node --test ...educationStudentsQuery.test.js` = 13/13 · commit + push على main + الـsha الجديد.
+
+---
+
+# OPENCODE_FIXES — f40a3a67 جولة ٢ (مراجعة 2026-11-19 15:37 على 5c21934f1) — FIX_FIRST
+
+**Verdict: FIX_FIRST** — 0 BLOCKER / 1 BUG / 1 RISK / 1 NIT · معايير 7/7 MET · vitest 8/8 (المراجع شغّله).
+الـfindings اتأكدت في نفس الكوميت `5c21934f1` بـ`git show` — التقرير مقبول.
+
+## BUG (إجباري) — `safeAuthHeaders` بتسقط الهيدرز لما تقع
+`EducationStudentsTab.tsx:279-286`: لو `getAuthHeaders()` رمى، بترجّع `{ "Content-Type": "application/json" }` بس → bulk/export بتبعت requests من غير Authorization ولا X-Company-Id، والتصدير بيعمل CSV فاضي بصمت (`:362` + `:365-367` + `:429-438`).
+
+**المطلوب:**
+1. `safeAuthHeaders` ما تسقطش التوكن أبدًا: جرّب `getAuthHeaders()` → لو رمى، اقرأ `localStorage.getItem('accessToken') || localStorage.getItem('token')` + `user.companyId` يدويًا وابنِ نفس الهيدرز. لو مفيش توكن خالص → **ارمي/أرجع null** مش تكمّل من غير auth.
+2. التصدير: تحقق من `res.ok` و`data.success` قبل بناء الملف — لو فشل، اعرض رسالة عربية للمستخدم (state/تنبيه) وما تنزّلش ملف، وامنع `exportItems=[]` من عمل CSV فاضي.
+3. bulk status / bulk group: نفس المعالجة — رسالة عربية عند الفشل بدل `console.error` بس (RISK).
+4. NIT: بريكبوينت الموبايل في البريف <768px — غيّر `hidden sm:block` → `hidden md:block` و`block sm:hidden` → `md:hidden` في EducationStudentsTable.tsx وEducationStudentsMobileCards.tsx.
+5. ضيف تست للفشل (fetch بيرجّع 401 → مفيش download + رسالة خطأ) — 9/9.
+
+## تعريف «خلصت»
+vitest 9/9 · backend 13/13 · commit + push + sha جديد.
+
+

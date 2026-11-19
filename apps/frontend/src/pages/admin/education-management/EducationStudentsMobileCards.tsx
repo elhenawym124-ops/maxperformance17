@@ -25,7 +25,7 @@ export const EducationStudentsMobileCards: React.FC<EducationStudentsMobileCards
   const isEn = i18n.language === "en";
 
   return (
-    <div className="block sm:hidden space-y-3" dir={isEn ? "ltr" : "rtl"}>
+    <div className="md:hidden space-y-3" dir={isEn ? "ltr" : "rtl"}>
       {students.map((s) => {
         const activeEnrollment = s.enrollments?.[0];
         const packageName = activeEnrollment?.package?.name;

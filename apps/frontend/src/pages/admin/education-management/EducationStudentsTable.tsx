@@ -76,7 +76,7 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
   }, [subjects]);
 
   return (
-    <div className="hidden sm:block bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs" dir={isEn ? "ltr" : "rtl"}>
+    <div className="hidden md:block bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs" dir={isEn ? "ltr" : "rtl"}>
       <div className="overflow-x-auto max-h-[calc(100vh-220px)] overflow-y-auto">
         <table className="w-full text-xs text-start border-collapse">
           <thead className="sticky top-0 bg-card z-10 shadow-xs">
