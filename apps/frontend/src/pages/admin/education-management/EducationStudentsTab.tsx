@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback, useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getCompanyId } from "../../../utils/storefrontApi";
 import {
   UserCheck,
   UserX,
