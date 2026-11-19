@@ -42,7 +42,7 @@ jobs:
           overwrite: true
 
       - name: Execute removal script on server
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         env:
           COMPANY_IDENTIFIER: ${{ github.event.inputs.company_identifier || 'huinzo' }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
