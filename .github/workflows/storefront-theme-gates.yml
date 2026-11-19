@@ -126,12 +126,22 @@ jobs:
           # hold different versions (1.60.x vs 1.62.x) whose browser builds are
           # not interchangeable. Install for both locations so whichever copy the
           # script resolves actually has its chromium on disk.
+          # Playwright's browser revisions are version-specific, so install with the
+          # exact version the gate will resolve (the repo-root copy) instead of a
+          # floating 'npx playwright', which can fetch a different build number and
+          # leave the gate failing with "Executable doesn't exist".
+          PW_VERSION="$(node -p "require('./node_modules/playwright/package.json').version" 2>/dev/null || echo '')"
+          if [ -z "$PW_VERSION" ]; then
+            echo "::error::could not read playwright version from node_modules; browser install would be unreliable"
+            exit 1
+          fi
+          echo "installing browsers for playwright@$PW_VERSION"
           install_here() {
             for i in 1 2 3; do
               # Playwright >=1.62 runs headless through a separate
               # chromium-headless-shell build; 'install chromium' alone leaves
               # browserType.launch failing with "Executable doesn't exist".
-              if npx playwright install --with-deps chromium chromium-headless-shell; then
+              if npx --yes "playwright@$PW_VERSION" install --with-deps chromium chromium-headless-shell; then
                 echo "chromium + headless shell installed ($1, attempt $i)"
                 return 0
               fi
@@ -139,7 +149,7 @@ jobs:
               sleep 20
             done
             echo "::warning::falling back to browser-only install ($1)"
-            npx playwright install chromium chromium-headless-shell
+            npx --yes "playwright@$PW_VERSION" install chromium chromium-headless-shell
           }
           ( cd apps/frontend && install_here apps/frontend )
           install_here root
