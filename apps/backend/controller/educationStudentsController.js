@@ -65,6 +65,72 @@ const generateUniqueStudentCode = async (companyId, prismaClient) => {
   }
 };
 
+/**
+ * Attaches active groupName to an array of student objects in a single batch query (no N+1).
+ * @param {Array<object>} items
+ * @param {string} companyId
+ * @param {object} prisma
+ * @returns {Promise<Array<object>>}
+ */
+const attachStudentGroupNames = async (items, companyId, prisma) => {
+  if (!Array.isArray(items) || items.length === 0 || !companyId || !prisma) {
+    return items;
+  }
+
+  const studentIds = items.map((s) => s && s.id).filter(Boolean);
+  if (studentIds.length === 0) return items;
+
+  try {
+    const memberships = await prisma.educationGroupMember.findMany({
+      where: {
+        studentId: { in: studentIds },
+        companyId,
+        status: 'ACTIVE'
+      },
+      select: { studentId: true, groupId: true }
+    });
+
+    const groupIds = [...new Set(memberships.map((m) => m.groupId).filter(Boolean))];
+    const groupNameMap = new Map();
+
+    if (groupIds.length > 0) {
+      const groups = await prisma.educationGroup.findMany({
+        where: {
+          id: { in: groupIds },
+          companyId
+        },
+        select: { id: true, name: true }
+      });
+      for (const g of groups) {
+        if (g && g.id) groupNameMap.set(g.id, g.name);
+      }
+    }
+
+    const studentGroupMap = new Map();
+    for (const m of memberships) {
+      const gName = groupNameMap.get(m.groupId);
+      if (gName) {
+        if (studentGroupMap.has(m.studentId)) {
+          studentGroupMap.set(m.studentId, `${studentGroupMap.get(m.studentId)}، ${gName}`);
+        } else {
+          studentGroupMap.set(m.studentId, gName);
+        }
+      }
+    }
+
+    return items.map((item) => ({
+      ...item,
+      groupName: (item && item.id && studentGroupMap.get(item.id)) || null
+    }));
+  } catch (err) {
+    console.error('[attachStudentGroupNames] Error resolving student groups:', err);
+    return items.map((item) => ({
+      ...item,
+      groupName: null
+    }));
+  }
+};
+
 const getAll = async (req, res) => {
   try {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
@@ -164,7 +230,8 @@ const getAll = async (req, res) => {
           include: includeRelations
         });
         const rowMap = new Map(fullRows.map(r => [r.id, r]));
-        const ordered = allIds.map(id => rowMap.get(id)).filter(Boolean);
+        let ordered = allIds.map(id => rowMap.get(id)).filter(Boolean);
+        ordered = await attachStudentGroupNames(ordered, companyId, prisma);
         return res.json({ success: true, data: ordered, items: ordered, total: ordered.length });
       }
 
@@ -179,6 +246,7 @@ const getAll = async (req, res) => {
         });
         const rowMap = new Map(fetched.map(r => [r.id, r]));
         items = pageIds.map(id => rowMap.get(id)).filter(Boolean);
+        items = await attachStudentGroupNames(items, companyId, prisma);
       }
 
       return res.json({
@@ -196,15 +264,16 @@ const getAll = async (req, res) => {
     const orderBy = { [sortBy]: sortDir };
 
     if (req.query.all === 'true') {
-      const data = await prisma.educationStudent.findMany({
+      let data = await prisma.educationStudent.findMany({
         where,
         include: includeRelations,
         orderBy
       });
+      data = await attachStudentGroupNames(data, companyId, prisma);
       return res.json({ success: true, data, items: data, total: data.length });
     }
 
-    const [total, items] = await Promise.all([
+    const [total, rawItems] = await Promise.all([
       prisma.educationStudent.count({ where }),
       prisma.educationStudent.findMany({
         where,
@@ -214,6 +283,8 @@ const getAll = async (req, res) => {
         take: pageSize
       })
     ]);
+
+    const items = await attachStudentGroupNames(rawItems, companyId, prisma);
 
     res.json({
       success: true,
@@ -729,5 +800,6 @@ module.exports = {
   remove,
   searchGuardians,
   bulkStatus,
-  bulkAddToGroup
+  bulkAddToGroup,
+  attachStudentGroupNames
 };

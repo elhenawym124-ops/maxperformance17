@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Eye, Pencil, Trash2, BookOpen, MapPin, ArrowUp, ArrowDown } from "lucide-react";
+import { Eye, Pencil, Trash2, BookOpen, ArrowUp, ArrowDown, Users } from "lucide-react";
 import type { EducationStudent, EducationSubject } from "./types";
 
 export interface EducationStudentsTableProps {
@@ -67,14 +67,22 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
     return `${amount.toLocaleString(isEn ? "en-US" : "ar-EG")} ${isEn ? "EGP" : "ج.م"}`;
   };
 
+  const subjectsMap = React.useMemo(() => {
+    const map = new Map<string, string>();
+    (subjects || []).forEach((sub) => {
+      if (sub && sub.id) map.set(sub.id, sub.name);
+    });
+    return map;
+  }, [subjects]);
+
   return (
     <div className="hidden sm:block bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs" dir={isEn ? "ltr" : "rtl"}>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto max-h-[calc(100vh-220px)] overflow-y-auto">
         <table className="w-full text-xs text-start border-collapse">
-          <thead>
-            <tr className="bg-muted/40 border-b border-border text-muted-foreground font-semibold">
+          <thead className="sticky top-0 bg-card z-10 shadow-xs">
+            <tr className="bg-muted/80 backdrop-blur-sm border-b border-border text-muted-foreground font-semibold">
               {/* Checkbox */}
-              <th className="py-3 px-3 text-center w-9">
+              <th className="py-3 px-3 text-center w-9 bg-muted/80">
                 <input
                   type="checkbox"
                   checked={isAllSelected}
@@ -90,66 +98,81 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
               {/* Student Name & Code */}
               <th
                 onClick={() => onSort("name")}
-                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors"
+                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors bg-muted/80"
               >
                 <span>{isEn ? "Student / Code" : "الطالب / الكود"}</span>
                 {renderSortIcon("name")}
               </th>
 
+              {/* Phone / Guardian */}
+              <th className="py-3 px-3.5 text-start bg-muted/80">
+                <span>{isEn ? "Phone / Guardian" : "الهاتف / ولي الأمر"}</span>
+              </th>
+
               {/* Grade */}
               <th
                 onClick={() => onSort("grade")}
-                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors"
+                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors bg-muted/80"
               >
                 <span>{isEn ? "Grade" : "الصف الدراسي"}</span>
                 {renderSortIcon("grade")}
               </th>
 
+              {/* Level */}
+              <th className="py-3 px-3.5 text-start bg-muted/80">
+                <span>{isEn ? "Level" : "المستوى"}</span>
+              </th>
+
+              {/* Subjects */}
+              <th className="py-3 px-3.5 text-start bg-muted/80">
+                <span>{isEn ? "Subjects" : "المواد"}</span>
+              </th>
+
               {/* Package */}
-              <th className="py-3 px-3.5 text-start">
+              <th className="py-3 px-3.5 text-start bg-muted/80">
                 <span>{isEn ? "Package" : "الباقة"}</span>
               </th>
 
+              {/* Group */}
+              <th className="py-3 px-3.5 text-start bg-muted/80">
+                <span>{isEn ? "Group" : "المجموعة"}</span>
+              </th>
+
               {/* Teacher */}
-              <th className="py-3 px-3.5 text-start">
+              <th className="py-3 px-3.5 text-start bg-muted/80">
                 <span>{isEn ? "Teacher" : "المدرّس"}</span>
               </th>
 
               {/* Registration Date */}
               <th
                 onClick={() => onSort("createdAt")}
-                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors"
+                className="py-3 px-3.5 text-start cursor-pointer hover:text-foreground select-none transition-colors bg-muted/80"
               >
                 <span>{isEn ? "Reg. Date" : "تاريخ التسجيل"}</span>
                 {renderSortIcon("createdAt")}
               </th>
 
               {/* Paid / Remaining */}
-              <th className="py-3 px-3.5 text-start">
+              <th className="py-3 px-3.5 text-start bg-muted/80">
                 <span>{isEn ? "Paid / Due" : "المدفوع / المتبقي"}</span>
               </th>
 
               {/* Payment Status */}
-              <th className="py-3 px-3.5 text-center">
+              <th className="py-3 px-3.5 text-center bg-muted/80">
                 <span>{isEn ? "Payment" : "حالة السداد"}</span>
-              </th>
-
-              {/* Student & Guardian Phone */}
-              <th className="py-3 px-3.5 text-start">
-                <span>{isEn ? "Phone / Guardian" : "الهاتف / ولي الأمر"}</span>
               </th>
 
               {/* Status */}
               <th
                 onClick={() => onSort("status")}
-                className="py-3 px-3.5 text-center cursor-pointer hover:text-foreground select-none transition-colors"
+                className="py-3 px-3.5 text-center cursor-pointer hover:text-foreground select-none transition-colors bg-muted/80"
               >
                 <span>{isEn ? "Status" : "الحالة"}</span>
                 {renderSortIcon("status")}
               </th>
 
               {/* Actions */}
-              <th className="py-3 px-3.5 text-end">
+              <th className="py-3 px-3.5 text-end bg-muted/80">
                 <span>{isEn ? "Actions" : "الإجراءات"}</span>
               </th>
             </tr>
@@ -164,6 +187,8 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
               const remainingAmount = Math.max(0, packagePrice - amountPaid);
               const pStatus = activeEnrollment?.paymentStatus || "PENDING";
               const isSelected = selectedIds.has(s.id);
+              const studentSubjects = Array.isArray((s as any).subjects) ? (s as any).subjects : [];
+              const groupName = (s as any).groupName;
 
               return (
                 <tr
@@ -208,12 +233,71 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
                     </div>
                   </td>
 
-                  {/* 2. Grade */}
+                  {/* 2. Phone / Guardian (+ Phone2) */}
+                  <td className="py-2.5 px-3.5 align-middle">
+                    <div className="flex flex-col gap-0.5">
+                      {s.phone ? (
+                        <span className="font-mono text-[11px] text-foreground" dir="ltr">{s.phone}</span>
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                      {s.phone2 && (
+                        <span className="font-mono text-[10px] text-primary/90 bg-primary/5 px-1 py-0.5 rounded border border-primary/15 inline-block w-fit" dir="ltr">
+                          {s.phone2}
+                        </span>
+                      )}
+                      {s.customer && (
+                        <span className="text-[10px] text-muted-foreground truncate max-w-[130px]">
+                          {s.customer.firstName} {s.customer.lastName || ""}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+
+                  {/* 3. Grade */}
                   <td className="py-2.5 px-3.5 align-middle text-muted-foreground font-medium">
                     {s.grade || (isEn ? "Not specified" : "غير محدد")}
                   </td>
 
-                  {/* 3. Package */}
+                  {/* 4. Level */}
+                  <td className="py-2.5 px-3.5 align-middle font-medium">
+                    {s.currentLevel !== undefined && s.currentLevel !== null && String(s.currentLevel).trim() !== "" ? (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-muted text-foreground border border-border/60">
+                        {isEn ? `Lvl ${s.currentLevel}` : `المستوى ${s.currentLevel}`}
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
+
+                  {/* 5. Subjects */}
+                  <td className="py-2.5 px-3.5 align-middle">
+                    {studentSubjects.length > 0 ? (
+                      <div className="flex flex-wrap gap-1 max-w-[140px]">
+                        {studentSubjects.slice(0, 3).map((sub: any, idx: number) => {
+                          const subName =
+                            typeof sub === "string" ? subjectsMap.get(sub) || sub : sub.name || sub.id;
+                          return (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary border border-primary/20 shrink-0"
+                            >
+                              {subName}
+                            </span>
+                          );
+                        })}
+                        {studentSubjects.length > 3 && (
+                          <span className="text-[10px] text-muted-foreground font-mono self-center">
+                            +{studentSubjects.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
+
+                  {/* 6. Package */}
                   <td className="py-2.5 px-3.5 align-middle font-medium text-foreground max-w-[130px] truncate" title={packageName}>
                     {activeEnrollment?.package ? (
                       <span className="inline-flex items-center gap-1 truncate text-xs">
@@ -225,17 +309,29 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
                     )}
                   </td>
 
-                  {/* 4. Teacher */}
+                  {/* 7. Group */}
+                  <td className="py-2.5 px-3.5 align-middle font-medium text-foreground max-w-[130px] truncate" title={groupName || "—"}>
+                    {groupName ? (
+                      <span className="inline-flex items-center gap-1 text-xs truncate">
+                        <Users className="w-3 h-3 text-primary shrink-0" />
+                        <span className="truncate">{groupName}</span>
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
+
+                  {/* 8. Teacher */}
                   <td className="py-2.5 px-3.5 align-middle text-muted-foreground max-w-[120px] truncate" title={teacherName}>
                     {teacherName}
                   </td>
 
-                  {/* 5. Registration Date */}
+                  {/* 9. Registration Date */}
                   <td className="py-2.5 px-3.5 align-middle text-muted-foreground tabular-nums text-[11px]" dir="ltr">
                     {formatDate((s as any).createdAt || activeEnrollment?.enrollmentDate)}
                   </td>
 
-                  {/* 6. Paid / Remaining */}
+                  {/* 10. Paid / Remaining */}
                   <td className="py-2.5 px-3.5 align-middle">
                     {activeEnrollment ? (
                       <div className="flex flex-col text-[11px] tabular-nums" dir="ltr">
@@ -249,7 +345,7 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
                     )}
                   </td>
 
-                  {/* 7. Payment Status */}
+                  {/* 11. Payment Status */}
                   <td className="py-2.5 px-3.5 align-middle text-center">
                     {activeEnrollment ? (
                       <span
@@ -272,23 +368,7 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
                     )}
                   </td>
 
-                  {/* 8. Phone / Guardian */}
-                  <td className="py-2.5 px-3.5 align-middle">
-                    <div className="flex flex-col gap-0.5">
-                      {s.phone ? (
-                        <span className="font-mono text-[11px] text-foreground" dir="ltr">{s.phone}</span>
-                      ) : (
-                        <span className="text-muted-foreground">—</span>
-                      )}
-                      {s.customer && (
-                        <span className="text-[10px] text-muted-foreground truncate max-w-[130px]">
-                          {s.customer.firstName} {s.customer.lastName || ""}
-                        </span>
-                      )}
-                    </div>
-                  </td>
-
-                  {/* 9. Status */}
+                  {/* 12. Status */}
                   <td className="py-2.5 px-3.5 align-middle text-center">
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
@@ -303,7 +383,7 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
                     </span>
                   </td>
 
-                  {/* 10. Actions */}
+                  {/* 13. Actions */}
                   <td className="py-2.5 px-3.5 align-middle text-end">
                     <div className="flex items-center justify-end gap-1.5">
                       {/* View Profile */}
@@ -363,7 +443,7 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
             {students.length === 0 && (
               <tr>
                 <td
-                  colSpan={11}
+                  colSpan={14}
                   className="py-12 text-center text-xs text-muted-foreground"
                 >
                   {t("education.students.empty", isEn ? "No enrolled students found" : "لا يوجد طلاب مطابقين للبحث")}

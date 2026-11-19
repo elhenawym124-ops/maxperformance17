@@ -355,4 +355,88 @@ test('schema verification: includeRelations fields exist in prisma schema (regre
   for (const f of groupMemberExpected) {
     assert.ok(groupMemberFields.has(f), `EducationGroupMember must have field '${f}'`);
   }
+
+  // 5. Verify EducationGroup fields used in groupName resolution
+  const groupFields = extractModelFields('EducationGroup');
+  const groupExpected = ['id', 'companyId', 'name'];
+  for (const f of groupExpected) {
+    assert.ok(groupFields.has(f), `EducationGroup must have field '${f}'`);
+  }
+});
+
+test('attachStudentGroupNames: batch resolves active group names without N+1', async () => {
+  const { attachStudentGroupNames } = require('../controller/educationStudentsController');
+  assert.equal(typeof attachStudentGroupNames, 'function');
+
+  // 1. Empty or invalid items
+  assert.deepEqual(await attachStudentGroupNames([], 'c1', {}), []);
+  assert.equal(await attachStudentGroupNames(null, 'c1', {}), null);
+
+  // 2. Mock prisma to verify batch resolution
+  const mockStudents = [
+    { id: 's1', firstName: 'Ahmed' },
+    { id: 's2', firstName: 'Sara' },
+    { id: 's3', firstName: 'Omar' }
+  ];
+
+  let memberFindManyArgs = null;
+  let groupFindManyArgs = null;
+
+  const mockPrisma = {
+    educationGroupMember: {
+      findMany: async (args) => {
+        memberFindManyArgs = args;
+        return [
+          { studentId: 's1', groupId: 'g1' },
+          { studentId: 's2', groupId: 'g2' },
+          { studentId: 's2', groupId: 'g3' } // s2 is in two groups
+        ];
+      }
+    },
+    educationGroup: {
+      findMany: async (args) => {
+        groupFindManyArgs = args;
+        return [
+          { id: 'g1', name: 'Group Alpha' },
+          { id: 'g2', name: 'Group Beta' },
+          { id: 'g3', name: 'Group Gamma' }
+        ];
+      }
+    }
+  };
+
+  const enriched = await attachStudentGroupNames(mockStudents, 'comp_100', mockPrisma);
+
+  // Verify single batch query for memberships with correct filter
+  assert.deepEqual(memberFindManyArgs, {
+    where: {
+      studentId: { in: ['s1', 's2', 's3'] },
+      companyId: 'comp_100',
+      status: 'ACTIVE'
+    },
+    select: { studentId: true, groupId: true }
+  });
+
+  // Verify single batch query for groups with deduplicated IDs
+  assert.deepEqual(groupFindManyArgs.where.id, { in: ['g1', 'g2', 'g3'] });
+  assert.equal(groupFindManyArgs.where.companyId, 'comp_100');
+
+  // Verify mapped names
+  assert.equal(enriched[0].groupName, 'Group Alpha');
+  assert.equal(enriched[1].groupName, 'Group Beta، Group Gamma');
+  assert.equal(enriched[2].groupName, null); // s3 has no group
+
+  // 3. Graceful failure on db error
+  const failingPrisma = {
+    educationGroupMember: {
+      findMany: async () => {
+        throw new Error('Database connection failed');
+      }
+    }
+  };
+  const fallback = await attachStudentGroupNames(mockStudents, 'comp_100', failingPrisma);
+  assert.equal(fallback.length, 3);
+  assert.equal(fallback[0].groupName, null);
+  assert.equal(fallback[1].groupName, null);
+  assert.equal(fallback[2].groupName, null);
 });
