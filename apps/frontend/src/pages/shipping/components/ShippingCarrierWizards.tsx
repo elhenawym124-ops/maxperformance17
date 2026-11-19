@@ -209,6 +209,88 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
   </div>
 );
 
+export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFormData" | "editingCompany">> = ({
+  formData,
+  setFormData,
+  editingCompany,
+}) => (
+  <div className="space-y-3.5">
+    <div className="p-3.5 bg-gradient-to-r from-teal-50/90 to-emerald-50/60 dark:from-teal-950/40 dark:to-emerald-950/20 rounded-xl border border-teal-200 dark:border-teal-800/60 space-y-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-sm text-teal-950 dark:text-teal-200">
+            هاشتاج إكسبريس (Hashtag Express)
+          </span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">
+            ربط مباشر حقيقي (LIVE)
+          </span>
+        </div>
+        {(formData.apiName || formData.username) && (
+          <span className="text-xs font-mono font-bold text-teal-700 dark:text-teal-300 bg-teal-100 dark:bg-teal-900/60 px-2.5 py-0.5 rounded-md">
+            الحساب: #{formData.apiName || formData.username}
+          </span>
+        )}
+      </div>
+
+      <p className="text-xs text-teal-950 dark:text-teal-300/90 leading-relaxed">
+        <strong>متطلبات الربط:</strong> أدخل <strong>API NAME</strong> و <strong>API PASSWORD</strong> المستلمين من إدارة شركة هاشتاج إكسبريس، لتوليد البوالص وإرسال الشحنات والتتبع اللحظي آلياً.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          اسم الـ API أو كود الحساب (API NAME) *
+        </label>
+        <input
+          type="text"
+          required
+          value={formData.apiName || formData.username}
+          onChange={(e) => {
+            const val = e.target.value;
+            setFormData((prev) => ({ ...prev, apiName: val, username: val, apiKey: val }));
+          }}
+          placeholder="مثال: 429010599"
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-teal-500"
+        />
+        <p className="text-[11px] text-gray-400 mt-0.5">كود أو اسم الـ API المعطى لك من هاشتاج</p>
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          كلمة سر الـ API (API PASSWORD) *
+        </label>
+        <input
+          type="password"
+          required={!editingCompany || (!formData.apiPassword && !formData.password)}
+          value={formData.apiPassword || formData.password}
+          onChange={(e) => {
+            const val = e.target.value;
+            setFormData((prev) => ({ ...prev, apiPassword: val, password: val }));
+          }}
+          placeholder={editingCompany ? "•••••••• (اتركها للإبقاء على الحالية)" : "كلمة سر الـ API من هاشتاج"}
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+        />
+        <p className="text-[11px] text-gray-400 mt-0.5">كلمة السر السرية الخاصة بالربط البرمجي</p>
+      </div>
+    </div>
+
+    <div>
+      <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+        ملاحظات التسليم والمعاينة الافتراضية للبوليصة (اختياري)
+      </label>
+      <input
+        type="text"
+        value={formData.defaultNotes}
+        onChange={(e) => setFormData((prev) => ({ ...prev, defaultNotes: e.target.value }))}
+        placeholder="مثال: يسمح بالمعاينة مع المندوب قبل الاستلام"
+        className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+      />
+      <p className="text-[11px] text-gray-400 mt-0.5">تطبع هذه الملاحظات تلقائياً على كل بوليصة شحن تصدرها لعملائك</p>
+    </div>
+  </div>
+);
+
 export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFormData">> = ({
   formData,
   setFormData,

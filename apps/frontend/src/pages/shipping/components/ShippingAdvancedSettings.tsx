@@ -61,6 +61,7 @@ export const ShippingAdvancedSettings: React.FC<ShippingAdvancedSettingsProps> =
                 <option value="QP_EXPRESS">كيو بي إكسبريس (QP Express)</option>
                 <option value="BOSTA">بوستا (Bosta Courier)</option>
                 <option value="TURBO">تربو (Turbo Courier)</option>
+                <option value="HASHTAG">هاشتاج إكسبريس (Hashtag Express)</option>
                 <option value="MANUAL">أسطول يدوي / مناديب (Manual)</option>
               </select>
             </div>

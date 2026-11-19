@@ -13,6 +13,7 @@ import {
   QpExpressWizard,
   BostaWizard,
   TurboWizard,
+  HashtagWizard,
   ManualFleetWizard,
   MaxpNetworkWizard,
 } from "./ShippingCarrierWizards";
@@ -86,12 +87,13 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
               <label className="block text-xs font-semibold text-foreground mb-1.5">
                 نوع مزوّد الشحن
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 p-1 bg-muted/40 rounded-xl border border-border/80 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-6 gap-1.5 p-1 bg-muted/40 rounded-xl border border-border/80 text-xs">
                 {[
                   { key: "MAXP_NETWORK", label: "شحن على MaxP", badge: "شبكة" },
                   { key: "QP_EXPRESS", label: "كيو بي", badge: "LIVE" },
                   { key: "BOSTA", label: "بوستا", badge: "LIVE" },
                   { key: "TURBO", label: "تربو", badge: "LIVE" },
+                  { key: "HASHTAG", label: "هاشتاج", badge: "LIVE" },
                   { key: "MANUAL", label: "أسطول يدوي", badge: "يدوي" },
                 ].map((p) => {
                   const active = formData.providerKey === p.key;
@@ -163,6 +165,14 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
             <TurboWizard
               formData={formData}
               setFormData={setFormData}
+            />
+          )}
+
+          {formData.providerKey === "HASHTAG" && (
+            <HashtagWizard
+              formData={formData}
+              setFormData={setFormData}
+              editingCompany={editingCompany}
             />
           )}
 
