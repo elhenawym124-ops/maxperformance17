@@ -1,396 +1,113 @@
-# AGENTS.md - Your Workspace
+# AGENTS.md — MaxP Platform Master Workspace Laws
 
-This folder is home. Treat it that way.
+> **Master Constitution:** This file is the single source of truth for all autonomous and human-collaborative agent sessions across the MaxP platform. Every rule here is mandatory and non-negotiable.
 
-## First Run
+---
 
-If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out who you are, then delete it. You won't need it again.
+## ⚡ 1. Default Execution Mode: Automatic Ponytail + Caveman
+1. **Automatic Ponytail (Zero Code Bloat):** Always implement the leanest, smallest possible change that fully and robustly solves the task. Ban speculative abstractions, unnecessary wrapper classes, and superfluous dependencies.
+2. **Automatic Caveman (Zero Conversational Fluff):** Deliver answers and code first. Strip pleasantries, narrations of routine steps, recaps, and conversational padding. Keep all technical facts, code, diffs, and exact error strings verbatim.
+3. **Zero UI Copy Bloat (Show, Don't Tell):** UI controls must be self-evident. Never inject explanatory subtitles, instructional paragraphs, or marketing fluff under headers, cards, or buttons.
 
-## Session Startup
+---
 
-Use runtime-provided startup context first.
+## 🎨 2. MaxP Official Design System: The Petrol & Persimmon Standard
+> **Domain-Aware Standard:** MaxP is an Arabic-first Enterprise E-Commerce & Business Operations OS. It is NOT a developer IDE console or a low-level terminal.
 
-That context may already include:
+### A. The Signature Palette (الملائمة القطاعية الرسمية)
+* **Primary / Ink:** Deep Petrol (`--petrol: #013735`, hover: `#014744`, tint: `#e6f1ef`, text: `#0a1e1d`).
+* **Accent / Action / Signal:** Warm Persimmon (`--accent: #e2603f`, ink: `#b83d1c`, tint: `#fef0eb`, line: `#f8cfc3`).
+* **Base Surfaces:** Natural Warm Paper (`--paper: #f4f6f5`), Porcelain White (`--surface: #ffffff`), Subtle (`--subtle: #fafbfb`).
+* **Dividers & Borders:** Hairline Zinc (`--line: #d8e2df`, `--line-soft: #e7eeec`).
+* **Dark Mode Pairing:** Deep Graphite Teal (`--paper: #081110`, `--surface: #0e1a19`, `--petrol: #3ec8b7`, `--accent: #ff8a68`).
+* **Permanent Ban on Developer Terminal Themes on Business Pages:** Pitch-black OLED (`#000000`), cyber neon, and raw terminal styling are strictly banned on customer-facing, merchant, clinic, or commerce screens.
 
-- `AGENTS.md`, `SOUL.md`, and `USER.md`
-- recent daily memory such as `memory/YYYY-MM-DD.md`
-- `MEMORY.md` when this is the main session
+### B. Typography & Micro-Typography
+* **Official Primary Typography:** `IBM Plex Sans Arabic` for all Arabic UI copy, headings, and labels.
+* **Official Monospace & Telemetry:** `IBM Plex Mono` with `font-variant-numeric: tabular-nums` (or `tabular-nums`) strictly for digits, currency blocks (`EGP`), order counts, timestamps, route paths, and keyboard badges (`kbd`).
+* **Arabic Typography Integrity:** NEVER apply monospace (`font-mono`) to Arabic words as it breaks cursive character connections.
+* **Micro-Typography Rules:** Mandatory `text-wrap: balance` on headings, `text-pretty` on body copy, non-breaking spaces before units (`10&nbsp;MB`, `0.8&nbsp;s`, `⌘&nbsp;K`), and true quotes (`“ ”`).
 
-Do not manually reread startup files unless:
+### C. Architectural Chassis & The "Hub & Drawer" Pattern
+* **Linear-Caliber Clarification (فك الاشتباك):** When rules cite "Linear/Cursor caliber", this strictly refers to **hairline borders (`border-border/70`), spring micro-haptics (`:active scale(0.97)`), and keyboard-first shortcuts (`⌘K`, `1–5`)** — it DOES NOT mean copying dark developer terminal themes.
+* **Single-Surface Chassis:** Workspaces and dashboards must be a single continuous surface separated by clean hairline dividers, banning floating islands separated by wide grey gaps.
+* **Hub & Drawer / Grouped Navigation:** For dense multi-app launchers and cockpits, group tools into 5 primary operational Hubs with smooth CSS grid drawer unfolding (`grid-template-rows: 0fr -> 1fr`) or clear grouped sections, avoiding unorganized flat circle grids.
 
-1. The user explicitly asks
-2. The provided context is missing something you need
-3. You need a deeper follow-up read beyond the provided startup context
-
-## Memory
-
-You wake up fresh each session. These files are your continuity:
-
-- **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
-- **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
-
-Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
-
-### 🧠 MEMORY.md - Your Long-Term Memory
-
-- **ONLY load in main session** (direct chats with your human)
-- **DO NOT load in shared contexts** (Discord, group chats, sessions with other people)
-- This is for **security** — contains personal context that shouldn't leak to strangers
-- You can **read, edit, and update** MEMORY.md freely in main sessions
-- Write significant events, thoughts, decisions, opinions, lessons learned
-- This is your curated memory — the distilled essence, not raw logs
-- Over time, review your daily files and update MEMORY.md with what's worth keeping
-
-### 📝 Write It Down - No "Mental Notes"!
-
-- **Memory is limited** — if you want to remember something, WRITE IT TO A FILE
-- "Mental notes" don't survive session restarts. Files do.
-- Before writing memory files, read them first; write only concrete updates, never empty placeholders.
-- When someone says "remember this" → update `memory/YYYY-MM-DD.md` or relevant file
-- When you learn a lesson → update AGENTS.md, TOOLS.md, or the relevant skill
-- When you make a mistake → document it so future-you doesn't repeat it
-- **Text > Brain** 📝
-
-## Red Lines
-
-- Don't exfiltrate private data. Ever.
-- Don't run destructive commands without asking.
-- Before changing config or schedulers (for example crontab, systemd units, nginx configs, or shell rc files), inspect existing state first and preserve/merge by default.
-- `trash` > `rm` (recoverable beats gone forever)
-- When in doubt, ask.
-
-## ⚡ Rule: Default Terse & Lean Execution (Automatic Ponytail + Caveman Enforcement)
-- **Automatic Default Mode**: Always operate under **Ponytail** (lean code & minimal YAGNI solutions) and **Caveman** (terse, fluff-free responses) by default without requiring explicit user prompt activation.
-- **Zero Conversational Fluff**: Deliver answers first. Strip pleasantries, narrations of routine steps, recaps, and decorative padding. Keep all technical facts, code, and exact error strings verbatim.
-- **Zero Code Bloat (Ponytail Law)**: The best code is the code never written. Solve problems with the minimum necessary code change. Never install dependencies for trivial tasks, and avoid speculative classes or wrappers nobody asked for.
-- **Zero UI Copy Bloat (No Instructional Subtitles)**: In frontend and design implementations, never inject tutorial paragraphs or explanatory subtitles under headers or buttons. UI controls must be crisp, self-evident, and minimal.
-
-## 🔐 Rule: Ban AI Keys in .env (Mandatory Database Storage in public.ai_keys)
-- **Ban AI API Keys in `.env`:** NEVER store, hardcode, suggest, or read AI provider API keys (Google, Gemini, Veo, OpenAI, Anthropic, DeepSeek, OpenRouter, Groq, etc.) from `.env` files. Storing AI keys in `.env` is strictly prohibited.
-- **Mandatory PostgreSQL Storage (`public.ai_keys`):** All AI keys MUST be persisted strictly in the database (`public.ai_keys`) scoped either per tenant (`companyId`) or as a platform-wide central key (`keyType = 'CENTRAL'`).
-- **Dynamic Key Resolution & Safety:** Backend services, agents, and workers must resolve keys exclusively through database queries against `public.ai_keys` (`WHERE isActive = true ORDER BY priority ASC`), enabling real-time key rotation, tenant quota isolation, and eliminating secrets leaking into filesystem, logs, or git.
-
-## 🧱 Rule: Modular Independent Screens (Ban Monolithic "All-in-One-Page" Aggregation)
-- **Ban Monolithic God-Components**: NEVER combine multiple distinct screens/tabs/domains (such as production bench, barcode kiosk, earnings ledger, alerts, and reports) into a single giant monolithic file. Each functional screen MUST be an independent, modular component in its own file (under 300-400 lines max).
-- **Clarification on Single-Depth**: "Single-Depth" is strictly a CSS visual styling rule for container borders and nested box padding (preventing card-in-card cramping on mobile). It DOES NOT mean cramming every feature onto one page or avoiding dedicated sub-pages.
-- **Dedicated Route & State Isolation**: Each screen MUST maintain its own localized state, data fetching, and Error Boundary. A crash or edge-case error in one screen (e.g. reports or vouchers) must NEVER take down or degrade other independent screens (such as the technician's active case bench).
-- **Clean File Structure**: Group related domain screens under a dedicated feature folder (e.g. `pages/dental-lab/technician/` containing `DentalTechBenchTab.tsx`, `DentalTechKioskTab.tsx`, `DentalTechWageTab.tsx`, `DentalTechNotificationsTab.tsx`, `DentalTechReportsTab.tsx`).
-
-## 🛡️ Rule: Strict Change Isolation — Zero Blast-Radius (عزل التعديلات التام — أي تعديل في مكان لا يسمع نهائياً في أي مكان آخر)
-- **Mandatory Pre-Edit Reference Audit**: NEVER modify any component, hook, helper, backend service, or CSS class without first checking all references across the codebase (`grep`). If a file is used by more than one screen, you MUST NOT alter its default behavior, layout, or return signature.
-- **Specialize/Fork Over Mutating Shared Components**: When a specific page requires layout, visual, or behavioral changes to a shared component (`components/common/`, `components/ui/`, shared hooks, or global layout wrappers), DO NOT mutate the shared component in a way that affects other pages. Instead, create a page-scoped component/wrapper inside that feature's folder or use strictly additive optional props with 100% backward-compatible defaults.
-- **Ban Global CSS & Shell Bleed**: Never modify global stylesheets (`index.css`, `App.css`), global theme tokens, or shared `Layout.tsx` rules to fix a single page's UI issue. Scope all styling and layout changes strictly to the target component's root container.
-- **Backend API & Service Contract Immutability**: When updating a backend controller or service for a specific screen, NEVER rename, remove, or change the type/semantics of existing response fields or query filters used by other screens, storefront, or desktop/mobile apps. Create a dedicated endpoint/method or pass an explicit optional parameter that preserves existing behavior 100% when omitted.
-- **Scoped Storage & Cache Keys**: Always prefix `localStorage`, `sessionStorage`, and query cache keys with the specific screen/module namespace so state changes in one screen never collide with or leak into another screen.
-- **Post-Edit `git diff` Blast-Radius Check**: Before committing, verify via `git status` and `git diff` that ONLY the intended target feature files were modified and zero unintended side-effects were introduced elsewhere (see `.agents/skills/strict-change-isolation/SKILL.md`).
-
-## 🤖 Rule: AI Agent Construction & Evolution (`maxp-agent-builder`)
-- **Strict Single Source of Truth:** All AI agents, contracts (`agent.json`, `SOUL.md`, `PERSONA.md`, `TOOLS.md`, `AGENTS.md`, `evals.json`), backend integrations, and agent-facing UI screens MUST be built and maintained in strict compliance with `.agents/skills/maxp-agent-builder/SKILL.md`.
-- **Cloud Database-Backed Sessions:** Agent conversation sessions must NEVER be stored solely in `localStorage`. They must be persisted in PostgreSQL (`companyId` + `userId` scoped) for seamless cross-device synchronization and data security.
-- **Rich Markdown Tables in Chat:** All agent chat interfaces must natively render Markdown tables, structured headers, and decision status chips (`SCALE`, `KILL`, `WATCH`, etc.).
-- **Asset Visibility Tools:** Agents must never be launched blind without account introspection (`_account_info`) and real order attribution (`_attribution_report`) tools.
-- **Continuous Evolutionary Updates:** Whenever any error, edge case, or enhancement is discovered regarding agents, update `.agents/skills/maxp-agent-builder/SKILL.md` immediately with the resolution and checklist item.
-
-## 🐝 Rule: Multi-Agent Parallel Task Execution & Subagent Delegation (إلزامية تشغيل المهام وتفويضها عبر أكثر من إيجينت متخصص)
-- **Mandatory Subagent Delegation on Complex Tasks**: Never execute multi-phase or multi-domain tasks in a single bloated, monolithic pass. Any task requiring exploration/research, multi-file code modifications across frontend/backend, security auditing, or scenario verification MUST be partitioned and executed across specialized subagents using `invoke_subagent` (and `define_subagent` when custom roles are required).
-- **Subagent Archetypes & Separation of Concerns**:
-  1. **Lead Orchestrator (Parent Agent)**: Coordinates the subtask dependency graph, launches subagents in parallel, synthesizes findings, resolves conflicts, and interfaces with the user.
-  2. **Codebase & Schema Researcher (`research` / `flash`)**: Read-only exploration of files, database schemas, and references without cluttering the main context.
-  3. **Module Implementers (`self` / specialized)**: Focused code writers operating on discrete files or branched workspaces (`branch`/`share`).
-  4. **Strict Isolation & Security Auditor (`self` / `code-reviewer`)**: Verifies `git diff`, ensures zero blast-radius, checks modular file size limits (< 400 lines), and confirms zero AI keys in `.env`.
-  5. **Live Scenario Tester (`self` / devtools)**: Runs hands-on browser verification, checks console logs, and confirms API responses.
-- **Zero Polling Loops**: Never poll `manage_subagents(Action='status')` in a loop. Launch subagents concurrently via `invoke_subagent` and stop tool execution to await the runtime's reactive wakeup.
-- **Strict Compliance with `multi-agent-orchestrator` Skill**: All multi-agent workflows must strictly conform to `.agents/skills/multi-agent-orchestrator/SKILL.md`.
-
-## 🔗 Rule: Cross-Agent Coordination — Multi-Agent, One Workspace (تنسيق الوكلاء المتعددين على نفس مساحة العمل)
-- هذا المستودع يعمل عليه **أكثر من إيجينت في الوقت نفسه** (Antigravity، Hermes، وأي أداة أخرى) وعلى أكثر من نسخة/جهاز ترفع إلى `origin`. التزم بالبروتوكول التالي حرفيًا:
-1. **افحص الحالة أولاً** قبل أي تاسك على هذا الـ workspace:
-   ```bash
-   python scripts/agent-coord/coord.py status
-   ```
-2. **خُد قفل الكتابة قبل أول تعديل ملفات** (إيجينت واحد فقط يعدّل في نفس الـ working tree في أي لحظة):
-   ```bash
-   python scripts/agent-coord/coord.py claim --agent <name> --task "<short task>" --scope "<files/folders>" [--ttl 90]
-   ```
-   - لو القفل محجوز من إيجينت آخر نشط → **لا تبدأ العمل بالتوازي**؛ انتظر أو أبلغ المستخدم للتنسيق.
-   - التاسكات الطويلة: `--ttl` أكبر أو `heartbeat` دوري.
-   - الأسماء الثابتة: `hermes-agent` لـ Hermes، `antigravity` لـ Antigravity.
-3. **الرفع عبر البوابة فقط** — كل `git push` (بما فيه الرفع التلقائي بعد أي تاسك) يمر إجباريًا عبر:
-   ```bash
-   python scripts/agent-coord/coord.py guard --agent <name> --push
-   ```
-   - البوابة تنفّذ `fetch` + `pull --rebase` + `push` مع إعادة محاولة تلقائية عند سباق الريموت.
-   - ممنوع `git push` مباشر بدون سبب مُوثّق، و**ممنوع force push نهائيًا**.
-   - رفض البوابة = إيجينت آخر نشط أو تعارض → قف ونسّق، أو `--override "<سبب موثّق>"` بعد تنسيق حقيقي (يُسجَّل في اللوج).
-4. **بعد إنهاء التاسك**: حرّر القفل وسجّل الإنجاز:
-   ```bash
-   python scripts/agent-coord/coord.py release --agent <name> --commit <hash> --note "<summary>"
-   ```
-5. **منع التكرار**: قبل البدء راجع `status` + آخر commits + `log` — لا تعد شغلًا بدأه/أنهاه إيجينت آخر؛ عند الشك طابق مع المستخدم.
-6. **QA متعدد الوكلاء**: كل تاسك جوهري يمر على أكثر من إيجينت (تنفيذ + مراجعة diff/تفتيش) قبل اعتباره منتهيًا — طبقًا لقاعدة الـ Multi-Agent أعلاه.
-7. الحالة محلية لكل جهاز: `~/.agent-coordination/` (أقفال + لوج). البروتوكول الكامل: `docs/agent-coordination.md`.
-8. **الـ staging في شجرة مشتركة:** مسارات صريحة بالاسم فقط — ممنوع `git add -A` / `git add .` / `git checkout .` / `git restore .` / `git reset --hard` / `git stash` بدون قفل التنسيق (خطوة عشوائية واحدة يمكن أن تدمج أو تدمر شغلًا غير ملتزم لإيجينت آخر على نفس الشجرة).
-
-## 📐 Rule: Ergonomic Workspace Design (Ban Wasted Space, Explanatory Clutter, and Single-Use Permanent Columns)
-- **Ban Permanent Columns for Single-Use Tools**: Never allocate a permanent screen column/panel (eating 20-30%+ of screen width) to an action that the user performs only once per session (e.g. selecting a product, browsing historical chat sessions, or picking initial filters). Such tools MUST be placed inside top-bar comboboxes, dropdowns, or collapsible slide-over sheets/modals that disappear immediately after selection, reserving 75-85%+ of the screen for the active workspace and live canvas.
-- **Ban Explanatory Copy & Subtitle Clutter (Show, Don't Tell)**: Pro SaaS and dashboard tools must NEVER be bloated with instructional paragraphs, tutorial subtitles, or marketing copy under every button and title (e.g., "تخطيط الحملات وصياغة الزوايا بناءً على...", "خبير الميديا باير..."). Replace wordy text with crisp, compact action labels, tooltips on hover, and self-evident interactive controls.
-- **Ban Wasted Space & Nested Padding Bloat**: Operational tools and cockpits are productivity workspaces, not marketing landing pages. Eliminate excessive paddings (`p-6`+ on nested cards), outer container margins, and static multi-level border wrapping. Utilize 85%+ of screen space for core production actions.
-- **Action Cards over Walls of Text in AI Outputs**: Long streaming text answers from AI agents that recommend strategies, angles, or parameters must NOT remain dead text. They MUST be formatted as compact, interactive Generative UI cards (e.g., selectable angle card, copyable hook button, budget slider, one-click "Apply to Draft" trigger).
-- **Zero Dead Margins (Full Edge-to-Edge Cockpit)**: In workspaces, cockpits, and full-screen tools, never let the parent shell wrap the page with default dashboard padding (`p-4 md:p-6`). Always configure `<Layout fullWidth>` and add the route to `shouldRemovePadding` in `Layout.tsx` (`p-0 overflow-hidden min-h-0 h-full max-h-full`) with tightly bounded inner padding (`p-1.5 sm:p-2 gap-1.5`).
-- **Laptop Viewport Height Ergonomics (<= 768px Viewports)**: On standard laptops (1366x768 or scaled 1080p), the usable height below chrome is 550-650px. Never use tall fixed-ratio media blocks (`aspect-[4/3]`) that push CTAs below the fold; cap media at `h-36 sm:h-44 object-cover`. Merge inputs (budget/pricing) horizontally into a single action bar with the primary CTA (`[ Input ] + [ Primary Button ]`). Keep secondary settings in collapsible drawers defaulting to collapsed. Never duplicate header context (e.g. product/session badges) inside child panels.
-- **Ban Floating Island Fragmentation (Mandate Unified Single-Surface Cockpits)**:
-  - **Ban Triple/Double Header Syndrome**: Never split a workspace into multiple disconnected headers (e.g. page header + chat panel header + preview canvas header). Use a single, unified top control bar that houses session switcher, product picker, and status. Child panels must seamlessly connect below it without redundant sub-headers.
-  - **Ban Duplicate In-Page Navigation / Secondary Tab Bars (حظر القوائم العلوية المكررة مع السايدبار)**: Never create duplicate horizontal `<NavLink>` tab bars or secondary top navigation menus inside app pages when the app already has a sidebar (`AppSidebar`). ALL app views and sub-features MUST be registered directly and exclusively in the central sidebar (`apps/frontend/src/config/sidebar.ts`). Page headers must only house the title, short context, and primary actions, leaving 100% of the navigation to the dedicated sidebar.
-  - **Ban Floating Islands with Background Gaps**: Never render multiple floating card boxes separated by container background gaps (`bg-slate-100 gap-3 rounded-2xl`). Workspaces and studios must be a **single continuous surface (One Seamless Chassis)** where panels are separated only by subtle, clean borders (`border-r` / `border-l`), creating a unified, professional 2026 SaaS cockpit feel (like Linear/Cursor).
-  - **Ban Redundant Cross-Panel Context Duplication**: Do not show the same selected entity (product, campaign, status) in 3 different headers and badges across the screen. Centralize the active entity in the top unified control bar.
-  - **Ban Nested Border Nesting (Borders inside Borders)**: Do not wrap small stats and sub-sections with thick full-border boxes inside already bordered panels. Use subtle dividers, typography hierarchy, or single-surface groupings to keep the screen breathing and uncluttered.
-
-## 🛑 Rule: Absolute Ban on Meta-Explanatory Clutter in Production UI (حظر قطعي لحشو الشروحات والتنظير وأزرار المقارنة داخل واجهات المستخدم)
-- **Production UI is Strictly for Customers & Business (الواجهة للعميل فقط وليست للمهندس):**
-  - User interfaces, landing pages, dashboards, and client portals MUST NEVER contain design-theory lectures, rule codes, AI self-talk, or internal comparison widgets.
-  - **PERMANENT BAN on embedding inside production UI:**
-    - "Taste vs Slop" toggles, pills, or buttons in user-facing UI.
-    - "قبل المهارة / بعد المهارة" toggles.
-    - "Audit Matrix Drawers" or design breakdown drawers.
-    - Rule codes (`ANTI_SLOP_P01`, `ANTI_SLOP_P02`, etc.) or internal architecture labels.
-    - Text paragraphs lecturing the viewer on why the AI designed something or why an aesthetic is good.
-- **Comparisons Belong Strictly in Chat/Artifacts, NEVER in Code:**
-  - When the user asks to "show the difference between using a skill and not", or "compare approaches", the explanation, audit, and breakdown MUST be presented strictly in the chat conversation or an artifact markdown file. NEVER leak internal comparisons, debugging lenses, or explanatory drawers into the production frontend components or live landing pages.
-- **Show, Don't Tell — Zero Instructional Subtitle Bloat:**
-  - Pro SaaS pages and landing pages must never lecture the visitor with paragraphs explaining "why we designed this button" or "how this tool benefits you in 5 lines of prose".
-  - The UI must speak through crisp, self-evident actions, transparent pricing, visual demonstrations, and hard business metrics.
-
-## 🚫 Rule: Anti-AI-Slop & Design Authenticity (Domain-First Aesthetic & Permanent Ban on AI Clichés)
-Any design resembling generic LLM output or blindly imposing developer-tool aesthetics onto non-technical domains is strictly rejected. Audit all code against these 6 core detection pillars & 12 slop flags:
-
-### The 6 AI-Detection Pillars (Domain-Aware Engineering Standard):
-1. **Domain-First Aesthetic & Palette (الملائمة القطاعية والجمهور المستهدف):**
-   - **Fashion, Apparel, Beauty & Lifestyle Commerce:** NEVER use dark hacker terminal themes, OLED black carbon, or cyber neon. Mandate warm luxury creams (`#FAF8F5`, `#FDFBF7`), clean porcelain whites (`#FFFFFF`), architectural ink contrast (`#141416`), soft tailored shadows, rich garment lookbooks, and high-fashion editorial typography (Zara, Massimo Dutti, Farfetch caliber).
-   - **Business Operations & Dashboards (Dental Lab, POS, Warehouses):** Clean, crisp, high-contrast, distraction-free daylight surfaces (`#FFFFFF` with `#F8FAFC` and subtle zinc dividers).
-   - **Developer Tools & Infrastructure Only:** Dark titanium/graphite palettes are strictly restricted to low-level engineering consoles, CLIs, or IDE extensions — PERMANENTLY BANNED on customer-facing commerce, merchants, clinics, or lifestyle pages.
-2. **Typography & Micro-Typography:**
-   - Mandatory `text-wrap: balance` on headings and `text-pretty` on body copy (ban orphan words).
-   - Mandatory `font-variant-numeric: tabular-nums` (or `tabular-nums`) for all numbers, pricing, and business metrics.
-   - For Arabic typography: NEVER apply monospace (`font-mono`) to Arabic words as it breaks cursive character connections; restrict monospace strictly to Latin codes, currencies, or digit-only tabular blocks.
-   - Use true typographical glyphs: `…` (never `...`), curly quotes `“ ”` (never `"`), non-breaking spaces before units (`10&nbsp;MB`, `0.8&nbsp;s`, `⌘&nbsp;K`).
-3. **Interaction Physics & Micro-Haptics:**
-   - Buttons MUST feel physically responsive: `:active` state requires `transform: scale(0.97)` with `transition: transform 160ms ease-out`.
-   - Popovers MUST be origin-aware: `transform-origin: var(--transform-origin)` (scale in from trigger, not center).
-   - Tooltips MUST skip delay after first hover (`instant hover mode`). Strict `prefers-reduced-motion` compliance.
-4. **Layout Architecture (Anti-Symmetry & Editorial Hierarchy):**
-   - Ban cookie-cutter 3-column equal cards. Use asymmetrical layouts and Bento Grids with varied visual weight.
-   - For SaaS workspaces & cockpits: Unified single-surface chassis with subtle hairline dividers, banning floating islands separated by wide grey gaps.
-   - For Commerce & Marketing: Spacious editorial hierarchy with high-contrast hero, clear visual product previews, and frictionless conversion actions. PERMANENTLY BAN forcing Linear/Cursor dark IDE layouts onto commerce or lifestyle products.
-5. **Real Business Economics & Telemetry over Jargon (الأرقام والنتائج التجارية الحقيقية):**
-   - Zero marketing buzzword fluff ("الذكاء الاصطناعي الخارق").
-   - For E-commerce & Fashion: Replace fluff with hard merchant economics: Return reduction % (e.g. 60%), 1-click Bosta AWB dispatch speed, real profit margin calculations, 0% sales commission, and verified local payment methods (InstaPay/Meeza).
-   - PERMANENTLY BAN developer metrics (P95 latency, model names like DeepSeek/Llama) on business merchant or consumer pages. Developer metrics belong strictly in engineering dashboards.
-6. **Accessibility & Edge-Case Resilience:**
-   - Always use semantic HTML (`<button>`, `<a>`, `<label>`) with `aria-label` on icon-only buttons.
-   - Replace `outline-none` with `focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1`.
-   - Defensive layout: `min-w-0` on flex children with `truncate` or `line-clamp-*` to prevent overflow crashes.
-
-### The 12 Banned Slop Flags:
-1. Zero Emoji Littering (`🤖`, `🚀`, `⚡`, `✨`, `🔥`, `💡`, `🎯`, `🛒`, `🧠`).
-2. Ban Purple/Cyan Dark Mesh Cliché.
+### D. The 12 Banned AI Slop Flags
+1. Zero Emoji Littering in headers, badges, or titles (`🤖`, `🚀`, `⚡`, `✨`, `🔥`, `💡`, `🎯`, `🛒`, `🧠`).
+2. Ban Purple/Cyan Dark Mesh gradients.
 3. Ban Cookie-Cutter Symmetrical Card Clones.
-4. Ban Marketing Buzzword Fluff.
-5. Ban Everything-Is-Glassmorphism.
+4. Ban Marketing Buzzword Fluff ("الذكاء الاصطناعي الخارق").
+5. Ban Everything-Is-Glassmorphism (`backdrop-blur bg-white/5` spam).
 6. Ban Fake Glowing Rainbow Borders & Shimmer Spam.
 7. Ban Floating Island Fragmentation.
 8. Ban Stock 3D Cartoon Avatars.
 9. Ban The Centered Hero Trap.
-10. Ban Dead Unclickable UI Badges.
-11. **Ban Developer Terminal Aesthetics on Commerce/Fashion/Lifestyle:** Never use pitch black OLED/carbon or cyber themes for fashion, clothing, clinics, food, or retail.
-12. **Ban Developer Jargon on Business Landing Pages:** Never show P95 latency, API signatures, or LLM model names to merchant or consumer buyers; use real business unit economics instead.
+10. Ban Dead Unclickable Badges.
+11. Ban Developer Jargon (P95, model names) on business landing pages.
+12. Ban Meta-Explanatory Clutter in Production UI (no "Taste vs Slop" toggles, no before/after pills, no rule codes `ANTI_SLOP_P01` in client-facing code).
 
-## 🧪 Rule: Mandatory Scenario Formulation & Browser Self-Verification Before Push (قاعدة السيناريو الإلزامي والاختبار الذاتي بالمتصفح قبل الرفع)
-- **Strict Law — NO PUSH WITHOUT LIVE PROOF (حظر قطعي للرفع بدون إثبات عملي حي):**
-  1. **Phase 1 (فهم التاسك وصياغة السيناريو):** عند استلام أي تاسك، يجب فهم المطلوب بدقة وصياغة سيناريو تنفيذ وسيناريو فحص تفاعلي مسبق (Pre-Flight Test Scenario) يحدد الرابط المستهدف وخطوات التجربة ومعايير النجاح قبل لمس الكود.
-  2. **Phase 2 (التنفيذ المنضبط المعزول):** تطبيق التعديل طبقاً لقواعد `strict-change-isolation` دون أي آثار جانبية.
-  3. **Phase 3 (بوابة الاختبار الذاتي بالمتصفح - شرط مانع للرفع):** يُحظر منعاً باتاً عمل `git commit` أو `git push` قبل تشغيل المتصفح (عبر `chrome-devtools` MCP أو بيئة التطوير)، وزيارة الصفحة، وتنفيذ خطوات السيناريو تفاعلياً، والتأكد من خلو سجلات الكونسول تماماً من أي أخطاء (`list_console_messages` - Zero Errors)، وسلامة اتصالات الشبكة والواجهة. (وللمهام الخلفية/Backend: تشغيل فحص واختبار حقيقي للـ API بنتيجة 200 OK).
-  4. **Phase 4 (الرفع المعتمد والتوثيق):** فقط بعد اجتياز فحص المتصفح بنجاح تام، يتم عمل Commit & Push مع إرفاق سيناريو الفحص ونتيجة التجربة للعميل.
+---
 
-## 🚀 Post-Task Automatic Git Push Rule (Conditional on Passing Browser Verification)
+## 🛡️ 3. Strict Change Isolation (Zero Blast-Radius) & Safe Evolution
+1. **Mandatory Pre-Edit Audit (`grep`):** Before modifying any shared component, hook, or API endpoint, verify all references across the codebase.
+2. **Specialize Over Mutating Shared Core:** If a specific screen needs custom behavior or layout, create a page-scoped wrapper or additive optional prop. Never mutate shared defaults in ways that break other screens.
+3. **No Legacy Flaw Cloning (تحرير الابتكار في الصفحات الجديدة):** Strict isolation prevents regressions on existing screens; it **DOES NOT** mean copying outdated 2018 templates or bad design patterns when creating **NEW** pages or modules. New pages MUST be built using the MaxP Petrol & Persimmon standard.
+4. **Dedicated Route & State Isolation:** Every functional screen must maintain its own localized state and Error Boundary. Group related domain screens under modular feature folders (< 300–400 lines per file).
 
-- **Mandatory Quality Gate:** You MUST strictly pass the Browser Self-Verification above BEFORE executing this push rule. Pushing unverified code is strictly prohibited.
-- **Mandatory Action:** After passing verification for **ANY** task (feature, bug fix, configuration update, refactoring, or document edit), automatically commit all relevant changes and push directly to `https://github.com/elhenawym124-ops/maxperformance17` (`origin` remote).
-- **Descriptive Commit Message:** Always write a clear, descriptive commit message explaining the exact task changes so the user can easily trace and identify what was updated.
-- **Workflow:**
-  1. `git status`
-  2. `git add <files>`
-  3. `git commit -m "<descriptive message of what was done>"`
-  4. `git push origin main` (or active branch)
-  5. Report commit details & hash to the user upon completion.
-- **🚫 ABSOLUTE BAN — Force Push is PERMANENTLY FORBIDDEN:**
-  - `git push --force` → **BANNED**
-  - `git push --force-with-lease` → **BANNED**
-  - `git push -f` → **BANNED**
-  - If a push is rejected (non-fast-forward), run `git pull --rebase origin main` then `git push origin main`. **NEVER force push. If in doubt, stop and ask the user.**
+---
 
-## 📦 Rule: Desktop App Auto-Update & Mandatory Version Bumping
-- **Mandatory SemVer Increment on ANY Desktop Change:** Whenever any bug fix, UI change, or feature is made in `apps/desktop`, you MUST ALWAYS bump the `version` in `apps/desktop/package.json` (e.g. `1.0.4` → `1.0.5`).
-- **SemVer Comparison Law (`electron-updater`):** The Electron auto-updater strictly compares the remote version in `latest.yml` against the client's currently installed local version (`package.json`). If `remoteVersion === localVersion`, the updater evaluates the app as "up-to-date" and silently aborts download. For employees and users to receive automatic background updates without manual reinstall, `remoteVersion` MUST BE STRICTLY GREATER than `localVersion` (`remote > local`).
-- **Synchronized Tag & Release Pipeline:** After bumping the version in `package.json`, create and push the matching git tag (e.g. `git tag -a v1.0.5` + `git push origin refs/tags/v1.0.5`) to trigger the GitHub Actions build workflow (`release-desktop.yml`), which publishes the new installer and `latest.yml` to `https://maxp.online/download/`.
-- **Ban Ghost Releases:** Never push desktop source code fixes or build installers without bumping the version in `package.json`. Every desktop release MUST have an incremented version.
+## 🔐 4. Zero Secrets in Filesystem (Mandatory Database Storage in `public.ai_keys`)
+1. **Ban AI API Keys in `.env`:** NEVER store, hardcode, or read AI API keys (Google, Gemini, OpenAI, Anthropic, DeepSeek, Groq, etc.) from `.env` or configuration files.
+2. **Mandatory PostgreSQL Storage:** All AI keys MUST be resolved dynamically from `public.ai_keys` (`WHERE isActive = true ORDER BY priority ASC`), scoped by tenant (`companyId`) or platform-wide (`CENTRAL`).
 
+---
 
-## External vs Internal
+## 🔗 5. Cross-Agent Coordination & The Protected Git Push Gate
+> **Multi-Agent Workspace Law:** Multiple autonomous agents (Antigravity, Hermes, etc.) operate concurrently on this workspace. You MUST strictly adhere to the locking and deployment protocol:
 
-**Safe to do freely:**
+1. **Check Status Before Any Task:**
+   ```bash
+   python scripts/agent-coord/coord.py status
+   ```
+2. **Acquire Lock Before Editing Code:**
+   ```bash
+   python scripts/agent-coord/coord.py claim --agent antigravity --task "<short task>" --scope "<files/folders>" [--ttl 90]
+   ```
+3. **The Canonical Protected Push Gate:**
+   ALL code pushes MUST pass exclusively through the coordination guard:
+   ```bash
+   python scripts/agent-coord/coord.py guard --agent antigravity --push
+   ```
+   * The guard handles `fetch` + `pull --rebase` + `push` safely with automatic collision retry.
+   * **Absolute Ban:** Direct `git push origin main` without coordination, and **`git push --force` is PERMANENTLY FORBIDDEN**.
+4. **Release Lock After Completion:**
+   ```bash
+   python scripts/agent-coord/coord.py release --agent antigravity --commit <hash> --note "<summary>"
+   ```
+5. **No Blind Staging:** Always stage specific modified files explicitly (`git add path/to/file`). NEVER run `git add -A` or `git add .` without lock verification.
 
-- Read files, explore, organize, learn
-- Search the web, check calendars
-- Work within this workspace
+---
 
-**Ask first:**
+## 🧪 6. Verification Before Push
+1. **Frontend / UI Changes:** Must be verified in the browser (Playwright or Chrome DevTools) with zero console errors and verified responsive layout (390px mobile + desktop) before committing.
+2. **Backend / API Changes:** Must be verified via endpoint health checks or automated unit/integration tests (`200 OK`) before committing.
+3. **Docs / Non-Code Changes:** Verify syntax, links, and markdown formatting, then push through `coord.py guard`.
 
-- Sending emails, tweets, public posts
-- Anything that leaves the machine
-- Anything you're uncertain about
+---
 
-## Group Chats
+## 📱 7. Mobile-First Single-Depth Surfaces (MOB-015)
+1. **Ban Nested Cards (Box-in-Box):** On mobile (`< 640px`), sub-sections must blend into the parent surface with subtle hairline dividers (`border-t border-line`), not nested borders and cascading padding (`p-6`).
+2. **85%+ Viewport Utilization:** On 390px (iPhone 14), actual content must occupy >= 85% of screen width.
+3. **Horizontal Scroll for Dense Navigations:** Convert multi-button toolbars to compact horizontal scrolling rows (`overflow-x-auto scrollbar-none`).
 
-You have access to your human's stuff. That doesn't mean you _share_ their stuff. In groups, you're a participant — not their voice, not their proxy. Think before you speak.
+---
 
-### 💬 Know When to Speak!
+## 🐝 8. Balanced Delegation & Multi-Agent Orchestration
+1. **Complex / Multi-Domain Tasks:** Multi-file features spanning backend, frontend, security audits, and scenario verification should be partitioned across specialized subagents using `invoke_subagent` without polling loops.
+2. **Atomic / Routine Tasks:** Execute directly and cleanly under Ponytail laws without spinning up redundant subagents for single-file edits.
 
-In group chats where you receive every message, be **smart about when to contribute**:
+---
 
-**Respond when:**
-
-- Directly mentioned or asked a question
-- You can add genuine value (info, insight, help)
-- Something witty/funny fits naturally
-- Correcting important misinformation
-- Summarizing when asked
-
-**Stay silent when:**
-
-- It's just casual banter between humans
-- Someone already answered the question
-- Your response would just be "yeah" or "nice"
-- The conversation is flowing fine without you
-- Adding a message would interrupt the vibe
-
-**The human rule:** Humans in group chats don't respond to every single message. Neither should you. Quality > quantity. If you wouldn't send it in a real group chat with friends, don't send it.
-
-**Avoid the triple-tap:** Don't respond multiple times to the same message with different reactions. One thoughtful response beats three fragments.
-
-Participate, don't dominate.
-
-### 😊 React Like a Human!
-
-On platforms that support reactions (Discord, Slack), use emoji reactions naturally:
-
-**React when:**
-
-- You appreciate something but don't need to reply (👍, ❤️, 🙌)
-- Something made you laugh (😂, 💀)
-- You find it interesting or thought-provoking (🤔, 💡)
-- You want to acknowledge without interrupting the flow
-- It's a simple yes/no or approval situation (✅, 👀)
-
-**Why it matters:**
-Reactions are lightweight social signals. Humans use them constantly — they say "I saw this, I acknowledge you" without cluttering the chat. You should too.
-
-**Don't overdo it:** One reaction per message max. Pick the one that fits best.
-
-## Tools
-
-Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
-
-**🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.
-
-**📝 Platform Formatting:**
-
-- **Discord/WhatsApp:** No markdown tables! Use bullet lists instead
-- **Discord links:** Wrap multiple links in `<>` to suppress embeds: `<https://example.com>`
-- **WhatsApp:** No headers — use **bold** or CAPS for emphasis
-
-## 💓 Heartbeats - Be Proactive!
-
-When you receive a heartbeat poll (message matches the configured heartbeat prompt), don't just reply `HEARTBEAT_OK` every time. Use heartbeats productively!
-
-You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it small to limit token burn.
-
-### Heartbeat vs Cron: When to Use Each
-
-**Use heartbeat when:**
-
-- Multiple checks can batch together (inbox + calendar + notifications in one turn)
-- You need conversational context from recent messages
-- Timing can drift slightly (every ~30 min is fine, not exact)
-- You want to reduce API calls by combining periodic checks
-
-**Use cron when:**
-
-- Exact timing matters ("9:00 AM sharp every Monday")
-- Task needs isolation from main session history
-- You want a different model or thinking level for the task
-- One-shot reminders ("remind me in 20 minutes")
-- Output should deliver directly to a channel without main session involvement
-
-**Tip:** Batch similar periodic checks into `HEARTBEAT.md` instead of creating multiple cron jobs. Use cron for precise schedules and standalone tasks.
-
-**Things to check (rotate through these, 2-4 times per day):**
-
-- **Emails** - Any urgent unread messages?
-- **Calendar** - Upcoming events in next 24-48h?
-- **Mentions** - Twitter/social notifications?
-- **Weather** - Relevant if your human might go out?
-
-**Track your checks** in `memory/heartbeat-state.json`:
-
-```json
-{
-  "lastChecks": {
-    "email": 1703275200,
-    "calendar": 1703260800,
-    "weather": null
-  }
-}
-```
-
-**When to reach out:**
-
-- Important email arrived
-- Calendar event coming up (&lt;2h)
-- Something interesting you found
-- It's been >8h since you said anything
-
-**When to stay quiet (HEARTBEAT_OK):**
-
-- Late night (23:00-08:00) unless urgent
-- Human is clearly busy
-- Nothing new since last check
-- You just checked &lt;30 minutes ago
-
-**Proactive work you can do without asking:**
-
-- Read and organize memory files
-- Check on projects (git status, etc.)
-- Update documentation
-- Commit and push your own changes
-- **Review and update MEMORY.md** (see below)
-
-### 🔄 Memory Maintenance (During Heartbeats)
-
-Periodically (every few days), use a heartbeat to:
-
-1. Read through recent `memory/YYYY-MM-DD.md` files
-2. Identify significant events, lessons, or insights worth keeping long-term
-3. Update `MEMORY.md` with distilled learnings
-4. Remove outdated info from MEMORY.md that's no longer relevant
-
-Think of it like a human reviewing their journal and updating their mental model. Daily files are raw notes; MEMORY.md is curated wisdom.
-
-The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
-
-## Make It Yours
-
-This is a starting point. Add your own conventions, style, and rules as you figure out what works.
-
-## Related
-
-- [Default AGENTS.md](/reference/AGENTS.default)
+## 📦 9. Desktop App Mandatory Version Bumping
+Whenever any change or bug fix is made in `apps/desktop`, you MUST bump the `version` in `apps/desktop/package.json` (e.g. `1.0.4` → `1.0.5`) to satisfy `electron-updater` SemVer laws (`remoteVersion > localVersion`).

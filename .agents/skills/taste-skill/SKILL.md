@@ -1066,10 +1066,26 @@ If a single checkbox cannot be honestly ticked, the page is not done. Fix it bef
 
 > **The Operational Law:** When the brief is an enterprise SaaS application, workspace, operational cockpit, ERP module (HR, Payroll, Accounting, POS, Inventory, Dental Lab, Settings, Analytics), marketing and landing-page rules **DO NOT APPLY**. Operational tools are built for repetitive daily execution, lightning-fast comprehension, and dense data precision — not first-time marketing conversion. Follow these non-negotiable architectural laws to ensure a 100% unified, seamless, and authentic human-engineered interface.
 
-### 15.1 The Single-Surface Continuous Chassis (حظر تجزئة الجزر العائمة والخلفيات المزدوجة)
-* **One Continuous Chassis (Linear / Cursor Caliber):**
+### 15.0 MaxP Official Design Standard: Petrol & Persimmon Chassis
+* **Domain Identity:** MaxP is an Arabic-first Enterprise Commerce & Business Operations OS — NOT a developer terminal or IDE console.
+* **Signature Palette & Token Mapping:**
+  - **Primary Ink & Structure:** Deep Petrol (`#013735`, hover: `#014744`, tint: `#e6f1ef`, dark: `#3ec8b7`).
+  - **Signal, Accent & Action:** Warm Persimmon (`#e2603f`, ink: `#b83d1c`, tint: `#fef0eb`, line: `#f8cfc3`).
+  - **Base Surfaces:** Natural Warm Paper (`#f4f6f5`), Porcelain White (`#ffffff`), Subtle (`#fafbfb`).
+  - **Dividers & Borders:** Hairline Zinc (`#d8e2df` / `#e7eeec` / `border-border/70`).
+* **Official Typography:**
+  - `IBM Plex Sans Arabic` for all Arabic UI copy, labels, titles, and menus.
+  - `IBM Plex Mono` with `tabular-nums` for numeric telemetry, currency blocks (`EGP`), counters, timestamps, route paths, and keyboard badges (`kbd`).
+  - NEVER apply monospace (`font-mono`) to Arabic words as it breaks cursive character connections.
+
+### 15.1 The Single-Surface Continuous Chassis & Linear-Caliber Clarification
+* **Linear-Caliber Clarification (فك الاشتباك):**
+  When guidelines cite "Linear/Cursor caliber", this strictly refers to **hairline borders (`border-border/70`), spring micro-haptics (`:active scale(0.97)`), and keyboard-first navigation (`⌘K`, `1–5`)** — it DOES NOT mean copying dark developer terminal themes or pitch-black carbon on business/merchant tools.
+* **One Continuous Chassis:**
   - Workspaces, dashboards, and studios MUST be a single continuous surface.
   - Panels and sub-sections are separated only by subtle hairline dividers (`border-r`, `border-l`, or `border-b border-border/70`), never by container background gaps or floating grey card boxes (`bg-slate-100 gap-6 rounded-2xl`).
+* **Hub & Drawer / Grouped Navigation:**
+  For multi-tool launchers and complex operational modules, organize tools into 5 primary operational Hubs with smooth CSS grid drawer unfolding (`grid-template-rows: 0fr -> 1fr`) or clear grouped sections, avoiding unorganized flat circle grids.
 * **Root Container Standardization:**
   Every operational screen hosted inside `Layout.tsx` MUST use the standard chassis root:
   ```tsx

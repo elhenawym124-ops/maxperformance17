@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MaxP Launchpad V2 — Hub & All-Apps Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --paper: #f4f6f5;
+      --surface: #ffffff;
+      --subtle: #fafbfb;
+      --hover: #edf2f0;
+      --ink: #0a1e1d;
+      --muted: #48605e;
+      --faint: #788e8c;
+      --line: #d8e2df;
+      --line-soft: #e7eeec;
+      
+      --petrol: #013735;
+      --petrol-hover: #014744;
+      --petrol-tint: #e6f1ef;
+      --petrol-tint-2: #d4e7e4;
+      --on-petrol: #ffffff;
+      
+      --accent: #e2603f;
+      --accent-ink: #b83d1c;
+      --accent-tint: #fef0eb;
+      --accent-line: #f8cfc3;
+      --on-accent: #ffffff;
+
+      --signal-green: #0f8a5f;
+      --signal-green-tint: #eaf6f1;
+      --signal-amber: #b26a00;
+      --signal-amber-tint: #fef5e7;
+
+      --shadow-chassis: 0 1px 2px rgba(1,55,53,0.04), 0 16px 36px -12px rgba(1,55,53,0.12);
+      --font: "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #081110;
+        --surface: #0e1a19;
+        --subtle: #0b1514;
+        --hover: #142422;
+        --ink: #e3edea;
+        --muted: #95aba8;
+        --faint: #637b79;
+        --line: #1c2e2c;
+        --line-soft: #162423;
+        --petrol: #3ec8b7;
+        --petrol-hover: #50d9c8;
+        --petrol-tint: #112d2a;
+        --petrol-tint-2: #163d39;
+        --on-petrol: #04211f;
+        --accent: #ff8a68;
+        --accent-ink: #ffab92;
+        --accent-tint: #2a1510;
+        --accent-line: #52271d;
+        --signal-green: #45c28e;
+        --signal-green-tint: #102e23;
+        --signal-amber: #e5a447;
+        --signal-amber-tint: #302008;
+        --shadow-chassis: 0 16px 36px -12px rgba(0,0,0,0.6);
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --paper: #081110;
+      --surface: #0e1a19;
+      --subtle: #0b1514;
+      --hover: #142422;
+      --ink: #e3edea;
+      --muted: #95aba8;
+      --faint: #637b79;
+      --line: #1c2e2c;
+      --line-soft: #162423;
+      --petrol: #3ec8b7;
+      --petrol-hover: #50d9c8;
+      --petrol-tint: #112d2a;
+      --petrol-tint-2: #163d39;
+      --on-petrol: #04211f;
+      --accent: #ff8a68;
+      --accent-ink: #ffab92;
+      --accent-tint: #2a1510;
+      --accent-line: #52271d;
+      --signal-green: #45c28e;
+      --signal-green-tint: #102e23;
+      --signal-amber: #e5a447;
+      --signal-amber-tint: #302008;
+      --shadow-chassis: 0 16px 36px -12px rgba(0,0,0,0.6);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+    a { text-decoration: none; color: inherit; }
+    svg.lucide { width: 18px; height: 18px; stroke-width: 1.8; }
+    .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+    /* Top Slim Bar */
+    .bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      height: 52px;
+      padding: 0 max(16px, env(safe-area-inset-left));
+    }
+    .bar-in {
+      max-width: 1140px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--petrol);
+      color: var(--on-petrol);
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      position: relative;
+    }
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 1.5px solid var(--surface);
+    }
+    .crumb { color: var(--faint); font-weight: 400; font-size: 13px; }
+    .spacer { flex: 1; }
+
+    .btn-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      position: relative;
+      transition: background 0.14s, transform 0.14s var(--ease);
+    }
+    .btn-icon:hover { background: var(--hover); color: var(--ink); }
+    .btn-icon:active { transform: scale(0.96); }
+    .dot-badge {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      height: 16px;
+      min-width: 16px;
+      padding: 0 4px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid var(--surface);
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 4px 3px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .user-pill b { font-size: 12px; font-weight: 600; line-height: 1.2; }
+    .user-pill small { font-size: 10px; color: var(--faint); font-family: var(--mono); }
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--mono);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Head & Mode Switcher */
+    .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .title-wrap h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .app-total {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--accent-tint);
+      color: var(--accent-ink);
+      border: 1px solid var(--accent-line);
+    }
+
+    /* Mode Segmented Controls */
+    .view-controls {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .view-btn {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.14s, color 0.14s;
+    }
+    .view-btn.active {
+      background: var(--petrol);
+      color: var(--on-petrol);
+      font-weight: 600;
+    }
+    .view-btn svg { width: 14px; height: 14px; }
+
+    .search-box {
+      position: relative;
+      width: min(280px, 100%);
+    }
+    .search-box input {
+      width: 100%;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13px;
+      padding: 0 32px 0 54px;
+      transition: border-color 0.16s, box-shadow 0.16s;
+    }
+    .search-box input::placeholder { color: var(--faint); }
+    .search-box input:focus-visible {
+      outline: none;
+      border-color: var(--petrol);
+      box-shadow: 0 0 0 3px var(--petrol-tint);
+    }
+    .search-box .s-ico {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      color: var(--faint);
+      pointer-events: none;
+    }
+    .search-box .s-ico svg { width: 15px; height: 15px; }
+    kbd {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 4px;
+      line-height: 14px;
+      direction: ltr;
+      display: inline-block;
+    }
+    .search-box kbd {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+    }
+
+    /* Hubs Carousel/Deck */
+    .hubs-deck {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .hub-tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 14px 14px;
+      border: 0;
+      background: transparent;
+      text-align: start;
+      cursor: pointer;
+      border-inline-start: 1px solid var(--line-soft);
+      transition: background 0.16s var(--ease), opacity 0.16s;
+    }
+    .hub-tile:first-child { border-inline-start: 0; }
+    .hub-tile:hover { background: var(--hover); }
+    .hub-tile:active { transform: scale(0.99); }
+    .hub-tile:focus-visible { outline: 2px solid var(--petrol); outline-offset: -2px; }
+
+    .hub-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .hub-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+      flex: none;
+      transition: background 0.18s, color 0.18s;
+    }
+    .hub-icon svg { width: 18px; height: 18px; }
+    .hub-shortcut {
+      margin-inline-start: auto;
+      font-size: 10px;
+      color: var(--faint);
+    }
+    
+    .hub-name {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .hub-footer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .hub-count { font-family: var(--mono); font-weight: 600; }
+    
+    .hub-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--signal-green);
+      margin-inline-start: auto;
+    }
+
+    .hub-tile::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.24s var(--ease);
+    }
+    .hub-tile[aria-expanded="true"] { background: var(--surface); }
+    .hub-tile[aria-expanded="true"]::after { transform: scaleX(1); }
+    .hub-tile[aria-expanded="true"] .hub-icon { background: var(--accent); color: var(--on-accent); }
+    .hub-tile[aria-expanded="true"] .hub-count { color: var(--accent-ink); }
+    .hubs-deck.has-open .hub-tile[aria-expanded="false"] { opacity: 0.65; }
+    .hubs-deck.has-open .hub-tile[aria-expanded="false"]:hover { opacity: 1; }
+    .hub-tile.dim { opacity: 0.3 !important; }
+    .hub-match-badge {
+      display: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent-ink);
+      background: var(--accent-tint);
+      border-radius: 4px;
+      padding: 0 5px;
+      margin-inline-start: auto;
+    }
+    .hub-tile.has-match .hub-match-badge { display: inline-block; }
+    .hub-tile.has-match .hub-pulse { display: none; }
+
+    /* Expandable Drawer */
+    .drawer-chassis {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s var(--ease), opacity 0.25s;
+      opacity: 0;
+      margin-top: -8px;
+    }
+    .drawer-chassis.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 0;
+    }
+    .drawer-clip { overflow: hidden; min-height: 0; }
+
+    .drawer-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow-chassis);
+    }
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .drawer-diamond {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      flex: none;
+    }
+    .drawer-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .drawer-subtitle {
+      color: var(--accent-ink);
+      font-size: 11px;
+      font-family: var(--mono);
+      font-weight: 600;
+    }
+    .drawer-head .btn-close {
+      margin-inline-start: auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      color: var(--faint);
+    }
+    .drawer-head .btn-close:hover { background: var(--hover); color: var(--ink); }
+
+    /* Apps Grid */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+      padding: 10px;
+    }
+    .app-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--ink);
+      min-width: 0;
+      transition: background 0.14s, transform 0.14s var(--ease);
+    }
+    .drawer-chassis.open .app-card {
+      animation: riseCard 0.32s var(--ease) forwards;
+      animation-delay: calc(var(--i) * 20ms + 30ms);
+    }
+    @keyframes riseCard {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .app-card:hover { background: var(--hover); }
+    .app-card:active { transform: scale(0.97); }
+    .app-card:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+    .app-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--subtle);
+      display: grid;
+      place-items: center;
+      color: var(--petrol);
+      flex: none;
+      transition: background 0.14s, color 0.14s, border-color 0.14s;
+    }
+    .app-card:hover .app-icon {
+      background: var(--accent-tint);
+      color: var(--accent-ink);
+      border-color: var(--accent-line);
+    }
+    .app-body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .app-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .app-name {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .app-telemetry {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 4px;
+      border-radius: 3px;
+      flex: none;
+    }
+    .app-telemetry.active { background: var(--signal-green-tint); color: var(--signal-green); }
+    .app-telemetry.warn { background: var(--signal-amber-tint); color: var(--signal-amber); }
+    .app-telemetry.muted { background: var(--subtle); color: var(--faint); border: 1px solid var(--line); }
+
+    .app-desc {
+      font-size: 11px;
+      color: var(--faint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .app-path {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--faint);
+      direction: ltr;
+      text-align: right;
+    }
+
+    /* All-Apps Sections (Mode 2) */
+    .all-sections-wrap {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .all-sections-wrap.active {
+      display: flex;
+    }
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--subtle);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .section-head-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .section-head-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: var(--petrol-tint);
+      color: var(--petrol);
+      display: grid;
+      place-items: center;
+    }
+    .section-head-icon svg { width: 13px; height: 13px; }
+    .section-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    /* Shortcuts Footer */
+    .foot-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      color: var(--faint);
+      font-size: 11px;
+      padding: 4px 6px;
+    }
+    .foot-keys { display: flex; gap: 14px; flex-wrap: wrap; }
+    .foot-keys span { display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .apps-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hub-tile { padding: 12px 10px; }
+      .hub-shortcut { display: none; }
+    }
+    @media (max-width: 720px) {
+      .crumb, .user-pill div { display: none; }
+      .apps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hub-tile { align-items: center; text-align: center; gap: 6px; padding: 10px 4px; }
+      .hub-header { justify-content: center; }
+      .hub-name { font-size: 11px; font-weight: 600; }
+      .hub-footer { justify-content: center; }
+      .hub-footer .lbl, .hub-pulse { display: none; }
+      .search-box { width: 100%; }
+      .head { flex-direction: column; align-items: stretch; }
+    }
+    @media (max-width: 440px) {
+      .apps-grid { grid-template-columns: minmax(0, 1fr); }
+      .hub-icon { width: 30px; height: 30px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .app-card { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Slim Bar -->
+  <header class="bar">
+    <div class="bar-in">
+      <div class="brand">
+        <span class="brand-mark">MP</span>
+        <span>MaxP Launchpad</span>
+        <span class="crumb">/ التطبيقات</span>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn-icon" aria-label="الإشعارات" title="التنبيهات">
+        <i data-lucide="bell"></i>
+        <span class="dot-badge">19</span>
+      </button>
+      <button class="btn-icon" aria-label="تبديل المظهر" id="themeBtn" title="الوضع الليلي">
+        <i data-lucide="moon"></i>
+      </button>
+      <div class="user-pill">
+        <div><b>Super Admin</b><small class="mono">SWAN ENTERPRISE</small></div>
+        <span class="avatar">SA</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Header with View Switcher & Search -->
+    <div class="head">
+      <div class="title-wrap">
+        <h1>تطبيقات المنصة</h1>
+        <span class="app-total mono" id="totalBadge">31 تطبيقا</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <!-- Dual Mode Switcher -->
+        <div class="view-controls">
+          <button class="view-btn active" id="modeAllBtn">
+            <i data-lucide="layout-grid"></i>
+            عرض كل التطبيقات (31)
+          </button>
+          <button class="view-btn" id="modeHubsBtn">
+            <i data-lucide="layers"></i>
+            عرض المحاور (1–5)
+          </button>
+        </div>
+
+        <label class="search-box" for="searchQ">
+          <span class="s-ico"><i data-lucide="search"></i></span>
+          <input id="searchQ" type="search" placeholder="ابحث بالاسم أو المسار..." autocomplete="off">
+          <kbd>Ctrl K</kbd>
+        </label>
+      </div>
+    </div>
+
+    <!-- Mode 1 Container: 5 Hubs + Drawer -->
+    <div id="hubsModeContainer" style="display: none;">
+      <!-- 5 Hub Tiles -->
+      <nav class="hubs-deck" id="hubsDeck" aria-label="مجموعات التطبيقات"></nav>
+
+      <!-- Unfolding Drawer -->
+      <section class="drawer-chassis" id="drawer" aria-live="polite">
+        <div class="drawer-clip">
+          <div class="drawer-panel">
+            <div class="drawer-head">
+              <span class="drawer-diamond"></span>
+              <h2 class="drawer-title" id="drawerTitle"></h2>
+              <span class="drawer-subtitle mono" id="drawerSub"></span>
+              <button class="btn-close" id="drawerClose" aria-label="إغلاق الدرج"><i data-lucide="x"></i></button>
+            </div>
+            <div class="apps-grid" id="appsGrid"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Mode 2 Container: All 5 Sections Rendered Simultaneously -->
+    <div class="all-sections-wrap active" id="allSectionsWrap"></div>
+
+    <!-- Keyboard Navigation Footer -->
+    <footer class="foot-bar mono">
+      <div class="foot-keys">
+        <span><kbd>1</kbd>–<kbd>5</kbd> فتح المحور</span>
+        <span><kbd>Tab</kbd> تبديل العرض</span>
+        <span><kbd>Ctrl K</kbd> بحث مباشر</span>
+        <span><kbd>Esc</kbd> إغلاق</span>
+      </div>
+      <div>
+        <span>MAXP OS · PETROL &amp; PERSIMMON CHASSIS</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const HUBS = [
+      {
+        id: "commerce",
+        name: "التجارة والطلبات",
+        icon: "shopping-bag",
+        apps: [
+          { name: "إدارة الطلبات", icon: "clipboard-list", path: "/orders", desc: "معالجة الفواتير وحالات التوصيل", telemetry: "142 اليوم", tClass: "active" },
+          { name: "المنتجات والتسعير", icon: "package", path: "/products", desc: "الكتالوج والمتغيرات وباقات العروض", telemetry: "1,240 صنف", tClass: "muted" },
+          { name: "إدارة المتجر والدومين", icon: "store", path: "/store", desc: "تخصيص الواجهة وثيم المتجر", telemetry: "ONLINE", tClass: "active" },
+          { name: "المخزون والمستودعات", icon: "warehouse", path: "/inventory", desc: "الجرد الدوري وتنبيه النواقص", telemetry: "3 نواقص", tClass: "warn" },
+          { name: "الشحن والبوالص", icon: "truck", path: "/shipping", desc: "الربط الآلي مع شركات الشحن", telemetry: "Bosta/Mylerz", tClass: "muted" },
+          { name: "قاعدة بيانات العملاء", icon: "users", path: "/customers", desc: "سجل المشترين ونقاط الولاء", telemetry: "4.8k عميل", tClass: "muted" },
+          { name: "الأفلييت والتسويق بالعمولة", icon: "network", path: "/affiliate", desc: "تتبع المسوقين وعمولات البيع", telemetry: "18 مسوق", tClass: "muted" },
+          { name: "تحليلات الطلبات والسلات", icon: "chart-column", path: "/orders/analytics", desc: "نسب التحويل والسلات المتروكة", telemetry: "↑ 18%", tClass: "active" }
+        ]
+      },
+      {
+        id: "inbox",
+        name: "المحادثات والقنوات",
+        icon: "messages-square",
+        apps: [
+          { name: "صندوق الوارد الموحد", icon: "inbox", path: "/inbox", desc: "كل محادثات القنوات في نافذة واحدة", telemetry: "0 متأخر", tClass: "active" },
+          { name: "واتساب للأعمال", icon: "message-circle", path: "/whatsapp", desc: "سحابة Meta Cloud والقوالب الرسمية", telemetry: "متصل 🟢", tClass: "active" },
+          { name: "فيسبوك ماسنجر", icon: "facebook", path: "/facebook", desc: "الرد التلقائي وإشعارات الصفحة", telemetry: "2 صفحات", tClass: "muted" },
+          { name: "إنستجرام دايركت", icon: "instagram", path: "/instagram", desc: "مراسلات وعروض القصص والريلز", telemetry: "نشط", tClass: "muted" },
+          { name: "تليجرام بوت", icon: "send", path: "/telegram", desc: "إشعارات المدراء وتنبيهات الأوردرات", telemetry: "Bot OK", tClass: "muted" },
+          { name: "أتمتة المحادثات والردود", icon: "workflow", path: "/automation", desc: "مسارات الشات بوت وتأكيد الشحن", telemetry: "18 فلو", tClass: "muted" }
+        ]
+      },
+      {
+        id: "growth",
+        name: "الذكاء والنمو",
+        icon: "brain-circuit",
+        apps: [
+          { name: "التسويق والإعلانات", icon: "megaphone", path: "/marketing", desc: "إطلاق الحملات وتتبع الـ ROAS", telemetry: "Pixel OK", tClass: "muted" },
+          { name: "رادار المنافسين والتريند", icon: "trending-up", path: "/competitors", desc: "مراقبة أسعار السوق والزوايا الرابحة", telemetry: "LIVE", tClass: "active" },
+          { name: "فريق الوكلاء (Agents)", icon: "bot", path: "/agents", desc: "وكلاء المبيعات والدعم وتأكيد العناوين", telemetry: "3 نشطين", tClass: "active" },
+          { name: "تقارير أداء الوكلاء", icon: "file-chart-column", path: "/agents/reports", desc: "نسب إغلاق المبيعات والدقة", telemetry: "94% دقة", tClass: "active" },
+          { name: "استوديو الذكاء الاصطناعي", icon: "brain", path: "/ai", desc: "توليد المحتوى التسويقي والصور", telemetry: "Gemini/Veo", tClass: "muted" }
+        ]
+      },
+      {
+        id: "finance",
+        name: "المالية والتشغيل",
+        icon: "landmark",
+        apps: [
+          { name: "لوحة العمليات الرئيسية", icon: "layout-dashboard", path: "/dashboard", desc: "نظرة شاملة على مؤشرات الأداء", telemetry: "SUMMARY", tClass: "muted" },
+          { name: "الخزينة والتدفقات النقدية", icon: "landmark", path: "/treasury", desc: "تحصيلات الشحن والمصروفات وصافي الربح", telemetry: "EGP TABULAR", tClass: "active" },
+          { name: "إدارة الشركات والفروع", icon: "building", path: "/my-companies", desc: "إدارة الكيانات المتعددة والعزل", telemetry: "3 فروع", tClass: "muted" },
+          { name: "سجل المهام والمتابعة", icon: "square-check-big", path: "/tasks", desc: "توزيع المهام ومتابعة التنفيذ", telemetry: "5 معلقة", tClass: "warn" },
+          { name: "أكاديمية ماكس بي", icon: "graduation-cap", path: "/academy", desc: "أدلة التشغيل وتدريب الموظفين", telemetry: "PRO", tClass: "muted" }
+        ]
+      },
+      {
+        id: "platform",
+        name: "إدارة المنصة",
+        icon: "shield-check",
+        apps: [
+          { name: "الشركات والمشتركين", icon: "building-2", path: "/admin/companies", desc: "إدارة الحسابات وصلاحيات الوصول", telemetry: "ISOLATED", tClass: "muted" },
+          { name: "الاشتراكات والفوترة", icon: "receipt-text", path: "/admin/billing", desc: "تجديد الباقات والحصص الشهرية", telemetry: "Enterprise", tClass: "active" },
+          { name: "إضافات ومكونات المتجر", icon: "puzzle", path: "/admin/addons", desc: "تفعيل ميزات إضافية للمتجر", telemetry: "8 مفعّل", tClass: "muted" },
+          { name: "متجر تطبيقات MaxP", icon: "layout-grid", path: "/marketplace", desc: "تصفح وتثبيت تطبيقات جديدة", telemetry: "STORE", tClass: "muted" },
+          { name: "إدارة النظام والخوادم", icon: "server-cog", path: "/admin/system", desc: "مراقبة الأداء، الكاش، والذاكرة", telemetry: "HEALTHY", tClass: "active" },
+          { name: "سجلات الأمان والتطوير", icon: "wrench", path: "/admin/dev", desc: "مفاتيح API وسجل الحركات (Audit)", telemetry: "LOGS OK", tClass: "muted" },
+          { name: "الإعدادات العامة", icon: "settings", path: "/settings", desc: "إعدادات الحساب وتفضيلات النظام", telemetry: "v2.6", tClass: "muted" }
+        ]
+      }
+    ];
+
+    const totalApps = HUBS.reduce((acc, h) => acc + h.apps.length, 0);
+    const hubsDeck = document.getElementById("hubsDeck");
+    const drawer = document.getElementById("drawer");
+    const appsGrid = document.getElementById("appsGrid");
+    const drawerTitle = document.getElementById("drawerTitle");
+    const drawerSub = document.getElementById("drawerSub");
+    const searchQ = document.getElementById("searchQ");
+    const totalBadge = document.getElementById("totalBadge");
+    const hubsModeContainer = document.getElementById("hubsModeContainer");
+    const allSectionsWrap = document.getElementById("allSectionsWrap");
+    const modeHubsBtn = document.getElementById("modeHubsBtn");
+    const modeAllBtn = document.getElementById("modeAllBtn");
+
+    totalBadge.textContent = `${totalApps} تطبيقا`;
+    let activeHubId = null;
+    let currentViewMode = "all"; // Default to "all" so user sees all 31 apps!
+
+    // Card Renderer
+    const renderCard = (app, idx, hubLabel) => `
+      <a class="app-card" href="${app.path}" style="--i: ${idx}" data-path="${app.path}" onclick="event.preventDefault();">
+        <div class="app-icon"><i data-lucide="${app.icon}"></i></div>
+        <div class="app-body">
+          <div class="app-title-row">
+            <span class="app-name">${app.name}</span>
+            <span class="app-telemetry ${app.tClass}">${app.telemetry}</span>
+          </div>
+          <span class="app-desc">${app.desc}</span>
+          ${hubLabel ? `<span class="app-path">${hubLabel} · ${app.path}</span>` : `<span class="app-path">${app.path}</span>`}
+        </div>
+      </a>
+    `;
+
+    // 1. Populate Hubs Deck
+    hubsDeck.innerHTML = HUBS.map((h, i) => `
+      <button class="hub-tile" id="hub-${h.id}" data-id="${h.id}" aria-expanded="false" aria-controls="drawer">
+        <div class="hub-header">
+          <div class="hub-icon"><i data-lucide="${h.icon}"></i></div>
+          <kbd class="hub-shortcut">${i + 1}</kbd>
+        </div>
+        <div class="hub-name">${h.name}</div>
+        <div class="hub-footer">
+          <span class="hub-count mono">${h.apps.length}</span>
+          <span class="lbl">تطبيقات</span>
+          <span class="hub-pulse"></span>
+          <span class="hub-match-badge mono">0</span>
+        </div>
+      </button>
+    `).join("");
+
+    // 2. Populate All-Sections View (All 31 apps visible at once)
+    allSectionsWrap.innerHTML = HUBS.map(h => `
+      <section class="section-card" data-section="${h.id}">
+        <div class="section-head">
+          <div class="section-head-title">
+            <span class="section-head-icon"><i data-lucide="${h.icon}"></i></span>
+            <span>${h.name}</span>
+          </div>
+          <span class="section-count mono">${h.apps.length} تطبيقات</span>
+        </div>
+        <div class="apps-grid">
+          ${h.apps.map((a, i) => renderCard(a, i)).join("")}
+        </div>
+      </section>
+    `).join("");
+
+    function openDrawer(title, sub, html) {
+      appsGrid.innerHTML = html;
+      drawerTitle.textContent = title;
+      drawerSub.textContent = sub;
+      lucide.createIcons();
+      drawer.classList.remove("open");
+      void drawer.offsetHeight;
+      requestAnimationFrame(() => drawer.classList.add("open"));
+    }
+
+    function setActiveHub(id) {
+      activeHubId = id;
+      hubsDeck.classList.toggle("has-open", !!id);
+      hubsDeck.querySelectorAll(".hub-tile").forEach(tile => {
+        tile.setAttribute("aria-expanded", String(tile.dataset.id === id));
+      });
+
+      if (!id) {
+        drawer.classList.remove("open");
+        return;
+      }
+
+      const h = HUBS.find(item => item.id === id);
+      openDrawer(h.name, `${h.apps.length} تطبيقات نشطة`, h.apps.map((a, i) => renderCard(a, i)).join(""));
+    }
+
+    function switchViewMode(mode) {
+      currentViewMode = mode;
+      if (mode === "all") {
+        modeAllBtn.classList.add("active");
+        modeHubsBtn.classList.remove("active");
+        hubsModeContainer.style.display = "none";
+        allSectionsWrap.classList.add("active");
+      } else {
+        modeHubsBtn.classList.add("active");
+        modeAllBtn.classList.remove("active");
+        hubsModeContainer.style.display = "block";
+        allSectionsWrap.classList.remove("active");
+        setActiveHub(activeHubId || "commerce");
+      }
+      lucide.createIcons();
+    }
+
+    modeAllBtn.addEventListener("click", () => switchViewMode("all"));
+    modeHubsBtn.addEventListener("click", () => switchViewMode("hubs"));
+
+    // Hub Tile Click Event
+    hubsDeck.addEventListener("click", (e) => {
+      const tile = e.target.closest(".hub-tile");
+      if (!tile) return;
+      if (searchQ.value) { searchQ.value = ""; resetSearchFilters(); }
+      setActiveHub(activeHubId === tile.dataset.id ? null : tile.dataset.id);
+    });
+
+    document.getElementById("drawerClose").addEventListener("click", () => {
+      if (searchQ.value) { searchQ.value = ""; resetSearchFilters(); }
+      setActiveHub(null);
+    });
+
+    // Real-time Search Engine
+    const normalizeArabic = s => s.toLowerCase().replace(/[أإآ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه");
+
+    function resetSearchFilters() {
+      hubsDeck.querySelectorAll(".hub-tile").forEach(t => t.classList.remove("dim", "has-match"));
+      allSectionsWrap.querySelectorAll(".section-card").forEach(s => s.style.display = "");
+      allSectionsWrap.querySelectorAll(".app-card").forEach(c => c.style.display = "");
+    }
+
+    searchQ.addEventListener("input", () => {
+      const q = normalizeArabic(searchQ.value.trim());
+      if (!q) {
+        resetSearchFilters();
+        if (currentViewMode === "hubs") setActiveHub("commerce");
+        return;
+      }
+
+      if (currentViewMode === "all") {
+        allSectionsWrap.querySelectorAll(".section-card").forEach(sec => {
+          let hasMatch = false;
+          sec.querySelectorAll(".app-card").forEach(card => {
+            const name = normalizeArabic(card.querySelector(".app-name").textContent);
+            const desc = normalizeArabic(card.querySelector(".app-desc").textContent);
+            const path = card.dataset.path || "";
+            const match = name.includes(q) || desc.includes(q) || path.includes(q);
+            card.style.display = match ? "flex" : "none";
+            if (match) hasMatch = true;
+          });
+          sec.style.display = hasMatch ? "block" : "none";
+        });
+      } else {
+        const results = [];
+        HUBS.forEach(h => {
+          const matches = h.apps.filter(a => normalizeArabic(a.name).includes(q) || normalizeArabic(a.desc).includes(q) || a.path.includes(q));
+          const tile = document.getElementById("hub-" + h.id);
+          tile.classList.toggle("dim", matches.length === 0);
+          tile.classList.toggle("has-match", matches.length > 0);
+          tile.querySelector(".hub-match-badge").textContent = matches.length;
+          matches.forEach(m => results.push({ app: m, hubName: h.name }));
+        });
+
+        activeHubId = null;
+        hubsDeck.classList.remove("has-open");
+        hubsDeck.querySelectorAll(".hub-tile").forEach(t => t.setAttribute("aria-expanded", "false"));
+
+        const html = results.length
+          ? results.map((item, i) => renderCard(item.app, i, item.hubName)).join("")
+          : `<div style="grid-column: 1/-1; padding: 32px 16px; text-align: center; color: var(--faint);">لم يتم العثور على أي تطبيق يطابق “${searchQ.value.trim()}”</div>`;
+
+        openDrawer("نتائج البحث الفوري", `${results.length} من ${totalApps} تطبيقا`, html);
+      }
+    });
+
+    // Keyboard Shortcuts
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchQ.focus();
+        return;
+      }
+      if (e.key === "Escape") {
+        if (searchQ.value) { searchQ.value = ""; resetSearchFilters(); }
+        if (currentViewMode === "hubs") setActiveHub(null);
+        searchQ.blur();
+        return;
+      }
+      if (document.activeElement === searchQ) return;
+      const keyNum = parseInt(e.key, 10);
+      if (keyNum >= 1 && keyNum <= 5) {
+        if (currentViewMode !== "hubs") switchViewMode("hubs");
+        const targetHub = HUBS[keyNum - 1].id;
+        setActiveHub(activeHubId === targetHub ? null : targetHub);
+      }
+    });
+
+    // Theme Switcher
+    document.getElementById("themeBtn").addEventListener("click", () => {
+      const root = document.documentElement;
+      const current = root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      root.dataset.theme = current === "dark" ? "light" : "dark";
+    });
+
+    // Start with Mode "all" as default so ALL 31 apps are visible immediately!
+    lucide.createIcons();
+    switchViewMode("all");
+  </script>
+</body>
+</html>
