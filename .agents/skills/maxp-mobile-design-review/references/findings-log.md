@@ -763,4 +763,14 @@
 
 ---
 
-*العدد الكلي: 67 بند. محتاجة قرار من مختار: MOB-055 · MOB-057 · MOB-059 · MOB-060 · MOB-061 · MOB-064.
+### MOB-076 🔴 اللوحة: الشريط السفلي غير موجود أصلاً في شلات classic/horizontal/polaris (مش مخفي — غير مُنصَّب)
+- **الجزء:** اللوحة — كل شاشات التاجر على الشل الافتراضي (القياس: `/admin/education/branches` · `/admin/education/groups` · `/apps` · `/orders`)
+- **العيب:** `AdminBottomNav` كان بيترندر في فرع `app-dashboard` فقط (Layout.tsx:987) وداخل `AppShell` (AppShell.tsx:323). الشل العام (classic/horizontal/polaris) مفيهوش أي قائمة سفلية، فالتاجر على الموبايل بيشوف هيدر علوي بس. الشل نفسه بيتحدد من `?layout=` ← `sessionStorage.maxp_session_layout` ← إعداد الشركة (Layout.tsx:265-279) — وده سبب اختلاف السلوك بين متصفح ومتصفح لنفس الحساب.
+- **الدليل (قياس إنتاج 360×800 · كروم موبايل):** `classic` هيدر 46px + bottomNav=absent · `horizontal` 46px + absent · `polaris` 52px + absent · `app-dashboard` 65px + 66px. لقطات: mob-72-dash-classic.png مقابل mob-73-dash-appdashboard.png.
+- **الإصلاح المنفذ:** تركيب `<AdminBottomNav />` في الشل العام (Layout.tsx:1264) + كلاس `business-shell-with-mobile-dock` على الـ main لحجز `4.5rem + safe-area` (app-dashboard.css:525-533)، وإخفاؤه على مسارات المحادثة عبر `isChatRoute` (Layout.tsx:290) لتفادي تغطية مربع الكتابة.
+- **التحقق بعد النشر (d140bf3cb + 6d56cafab):** 360/412/768 → الشريط 66px عند `top=734` و`padding-bottom: 72px` على main، صفر تمرير أفقي؛ 1100px → الشريط hidden والـ padding 0؛ `/advertising/marketing-studio` → hidden تلقائياً.
+- **الحالة:** ✅ متصلح ومتحقق على الإنتاج 2026-11-20
+
+---
+
+*العدد الكلي: 68 بند. محتاجة قرار من مختار: MOB-055 · MOB-057 · MOB-059 · MOB-060 · MOB-061 · MOB-064.
