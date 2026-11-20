@@ -1373,6 +1373,9 @@ class AttendanceService {
           companyId,
           userId: employeeId,
           checkOut: null,
+          // لا نطابق سجلات الإجازات/العطلات (بلا بصمة دخول) — كانت تُلتقط كسجل مفتوح
+          checkIn: { not: null },
+          status: { notIn: ["ON_LEAVE", "HOLIDAY", "ABSENT", "WEEKEND"] },
         },
         orderBy: { date: "desc" },
       });
@@ -1388,6 +1391,7 @@ class AttendanceService {
           where: {
             companyId,
             userId: employeeId,
+            checkIn: { not: null },
             date: {
               gte: startOfSearch,
               lte: endOfSearch,
