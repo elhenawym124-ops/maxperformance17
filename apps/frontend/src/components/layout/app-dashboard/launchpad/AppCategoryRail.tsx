@@ -16,9 +16,9 @@ interface AppCategoryRailProps {
 }
 
 /**
- * Sticky category rail: a fixed number of pills no matter how many apps a
- * tenant installs. Each pill carries its live count so the rail itself is
- * scannable before anything is clicked.
+ * Sticky category rail (Petrol & Persimmon): a fixed number of tabs no matter
+ * how many apps a tenant installs. Each tab carries its live count, so the rail
+ * is scannable before anything is opened.
  */
 export const AppCategoryRail: React.FC<AppCategoryRailProps> = ({
   categories,
@@ -45,7 +45,7 @@ export const AppCategoryRail: React.FC<AppCategoryRailProps> = ({
   return (
     <nav
       aria-label={String(t('appDashboard.categoryFilterLabel'))}
-      className="sticky top-0 z-20 -mx-2.5 sm:-mx-6 lg:-mx-8 mb-3 border-b border-gray-200/70 dark:border-gray-800 bg-gray-50 dark:bg-gray-900"
+      className="sticky top-0 z-20 -mx-2.5 sm:-mx-6 lg:-mx-8 mb-3 border-b border-[var(--petrol,#013735)]/10 bg-gray-50/95 backdrop-blur-[2px] dark:border-white/10 dark:bg-gray-900/95"
     >
       <div
         role="tablist"
@@ -62,17 +62,24 @@ export const AppCategoryRail: React.FC<AppCategoryRailProps> = ({
               onClick={() => onSelect(item.value)}
               className={cn(
                 'inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg px-3 text-[13px] font-medium transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent,#e2603f)]',
                 isActive
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-gray-600 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800',
+                  ? 'bg-[var(--petrol,#013735)] text-[var(--on-petrol,#ffffff)]'
+                  : 'text-[var(--foreground)]/75 hover:bg-[var(--petrol-tint,#e6f1ef)] dark:text-white/70 dark:hover:bg-white/5',
               )}
             >
               {item.value === 'favorites' && (
-                <Star className={cn('size-3', isActive ? 'fill-white' : 'fill-amber-500 text-amber-500')} />
+                <Star className={cn('size-3', isActive ? 'fill-current' : 'fill-amber-500 text-amber-500')} />
               )}
               <span className="whitespace-nowrap">{item.label}</span>
-              <span className={cn('text-[11px] tabular-nums', isActive ? 'text-white/80' : 'text-gray-400')}>
+              <span
+                className={cn(
+                  'text-[11px] tabular-nums',
+                  isActive
+                    ? 'text-[var(--on-petrol,#ffffff)]/75'
+                    : 'text-[var(--accent-ink,#b83d1c)] dark:text-[var(--accent,#e2603f)]',
+                )}
+              >
                 {item.count}
               </span>
             </button>

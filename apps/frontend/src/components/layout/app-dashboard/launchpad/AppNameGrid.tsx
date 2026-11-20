@@ -14,9 +14,9 @@ interface AppNameGridProps {
 }
 
 /**
- * Dense name-only grid: icon + app name. No description, no badge chatter.
- * Twenty-plus apps stay visible on one screen; the category rail above narrows
- * the set instead of hiding apps behind a single collapsed group.
+ * Dense name-only grid (Petrol & Persimmon): icon + app name, nothing else.
+ * Twenty-plus apps stay on one screen; the category rail narrows the set
+ * instead of hiding apps inside a collapsed group.
  */
 export const AppNameGrid: React.FC<AppNameGridProps> = ({ apps, favorites, onToggleFavorite }) => {
   const { i18n, t } = useTranslation();
@@ -57,8 +57,9 @@ export const AppNameGrid: React.FC<AppNameGridProps> = ({ apps, favorites, onTog
               className={cn(
                 'flex min-h-12 items-center gap-2.5 rounded-lg border border-transparent py-1.5',
                 isRtl ? 'pr-2 pl-8' : 'pl-2 pr-8',
-                'transition-colors duration-150 hover:border-gray-200 hover:bg-white dark:hover:border-gray-700 dark:hover:bg-gray-800',
-                'active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+                'transition-colors duration-150 hover:border-[var(--petrol,#013735)]/15 hover:bg-white',
+                'dark:hover:border-white/10 dark:hover:bg-gray-800',
+                'active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent,#e2603f)]',
               )}
             >
               <span
