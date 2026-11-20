@@ -22,7 +22,8 @@ const getAll = async (req, res) => {
       if (to) where.scheduledAt.lte = new Date(to);
     }
 
-    const data = await getSharedPrismaClient().educationSession.findMany({
+    const prisma = getSharedPrismaClient();
+    const data = await prisma.educationSession.findMany({
       where,
       include: {
         student: { select: { id: true, code: true, firstName: true, lastName: true } },
@@ -32,7 +33,116 @@ const getAll = async (req, res) => {
       },
       orderBy: { scheduledAt: 'desc' }
     });
-    res.json({ success: true, data });
+
+    const formattedPrivate = data.map((s) => ({
+      ...s,
+      sessionType: 'PRIVATE'
+    }));
+
+    // If query allows groups (not explicitly filtered to PRIVATE, and not filtering a specific enrollment)
+    if (sessionType !== 'PRIVATE' && !enrollmentId) {
+      try {
+        let groupSql = `
+          SELECT 
+            s.id,
+            s."groupId",
+            s."sessionDate",
+            s."status",
+            s."notes",
+            s."presentCount",
+            s."absentCount",
+            g.name AS "groupName",
+            g.code AS "groupCode",
+            g.room AS "groupRoom",
+            g."startTime",
+            g."endTime",
+            g."subjectId",
+            t.id AS "teacherId",
+            t.name AS "teacherName",
+            sub.name AS "subjectName"
+          FROM "education_group_sessions" s
+          JOIN "education_groups" g ON g.id = s."groupId" AND g."companyId" = s."companyId"
+          LEFT JOIN "education_teachers" t ON t.id = COALESCE(s."teacherId", g."teacherId") AND t."companyId" = s."companyId"
+          LEFT JOIN "education_subjects" sub ON sub.id = g."subjectId" AND sub."companyId" = s."companyId"
+          WHERE s."companyId" = $1
+        `;
+        const params = [companyId];
+        let pIdx = 2;
+
+        if (teacherId) {
+          groupSql += ` AND (s."teacherId" = $${pIdx} OR g."teacherId" = $${pIdx})`;
+          params.push(teacherId);
+          pIdx++;
+        }
+        if (subjectId) {
+          groupSql += ` AND g."subjectId" = $${pIdx}`;
+          params.push(subjectId);
+          pIdx++;
+        }
+        if (status) {
+          groupSql += ` AND s."status" = $${pIdx}`;
+          params.push(status);
+          pIdx++;
+        }
+        if (from) {
+          groupSql += ` AND s."sessionDate" >= $${pIdx}`;
+          params.push(new Date(from));
+          pIdx++;
+        }
+        if (to) {
+          groupSql += ` AND s."sessionDate" <= $${pIdx}`;
+          params.push(new Date(to));
+          pIdx++;
+        }
+
+        groupSql += ` ORDER BY s."sessionDate" DESC`;
+
+        const groupRows = await prisma.$queryRawUnsafe(groupSql, ...params);
+
+        const mappedGroups = (groupRows || []).map((gs) => {
+          let plannedDuration = 60;
+          if (gs.startTime && gs.endTime) {
+            const [sh, sm] = gs.startTime.split(':').map(Number);
+            const [eh, em] = gs.endTime.split(':').map(Number);
+            if (!isNaN(sh) && !isNaN(eh)) {
+              plannedDuration = Math.max(30, (eh * 60 + (em || 0)) - (sh * 60 + (sm || 0)));
+            }
+          }
+
+          return {
+            id: gs.id,
+            scheduledAt: gs.sessionDate,
+            plannedDuration,
+            actualDuration: plannedDuration,
+            status: gs.status,
+            sessionType: 'GROUP',
+            groupName: gs.groupName,
+            groupId: gs.groupId,
+            room: gs.groupRoom,
+            notes: gs.notes,
+            presentCount: Number(gs.presentCount || 0),
+            absentCount: Number(gs.absentCount || 0),
+            student: null,
+            teacher: gs.teacherId ? { id: gs.teacherId, name: gs.teacherName } : null,
+            subject: gs.subjectId ? { id: gs.subjectId, name: gs.subjectName } : null,
+            enrollment: null
+          };
+        });
+
+        if (sessionType === 'GROUP') {
+          return res.json({ success: true, data: mappedGroups });
+        }
+
+        const combined = [...formattedPrivate, ...mappedGroups].sort(
+          (a, b) => new Date(b.scheduledAt) - new Date(a.scheduledAt)
+        );
+        return res.json({ success: true, data: combined });
+      } catch (err) {
+        console.warn('[Sessions] Group sessions query error:', err.message);
+      }
+    }
+
+    res.json({ success: true, data: formattedPrivate });
   } catch (error) {
     console.error('Error fetching sessions:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في جلب الحصص' });

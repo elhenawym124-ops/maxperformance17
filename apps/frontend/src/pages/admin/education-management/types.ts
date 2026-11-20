@@ -112,6 +112,9 @@ export interface EducationSession {
   teacherId: string;
   subjectId: string;
   sessionType?: "PRIVATE" | "GROUP";
+  groupName?: string;
+  groupId?: string;
+  room?: string;
   scheduledAt: string;
   plannedDuration: number;
   actualDuration?: number;

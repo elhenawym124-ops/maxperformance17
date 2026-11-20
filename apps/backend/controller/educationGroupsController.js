@@ -1216,6 +1216,34 @@ const generateGroupSessionsInternal = async ({
         } catch (_) {}
       }
 
+      // Check room conflict across other groups
+      const targetRoom = (slot.room || group.room || '').trim();
+      if (targetRoom) {
+        try {
+          const roomConflict = await prisma.$queryRawUnsafe(`
+            SELECT gs.id, gs."sessionDate", g.name AS "groupName"
+            FROM "education_group_sessions" gs
+            JOIN "education_groups" g ON g.id = gs."groupId" AND g."companyId" = gs."companyId"
+            WHERE gs."companyId" = $1
+              AND gs."groupId" != $2
+              AND gs."sessionDate" = $3
+              AND gs."status" != 'CANCELLED'
+              AND (
+                LOWER(TRIM(COALESCE(g.room, ''))) = LOWER(TRIM($4))
+                OR LOWER(TRIM(COALESCE(gs.notes, ''))) LIKE LOWER(CONCAT('%', $4, '%'))
+              )
+            LIMIT 1
+          `, companyId, groupId, sessionDateTime, targetRoom);
+
+          if (roomConflict && roomConflict.length > 0) {
+            conflicts.push({
+              date: sessionDateTime,
+              conflictWith: `تعارض القاعة «${targetRoom}» مع المحاضرة المجدولة لمجموعة «${roomConflict[0].groupName}»`
+            });
+          }
+        } catch (_) {}
+      }
+
       const sessionId = generateSessionId();
       sessionsToCreate.push({
         id: sessionId,

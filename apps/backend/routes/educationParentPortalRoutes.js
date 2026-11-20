@@ -56,19 +56,20 @@ router.get('/children', authenticateParentToken, async (req, res) => {
   }
 });
 
-// Sessions for a specific child
+// Sessions for a specific child (Both private 1-on-1 and group classes)
 router.get('/children/:studentId/sessions', authenticateParentToken, async (req, res) => {
   try {
     const parentId = req.parent.id;
     const companyId = req.parent.companyId;
     const { studentId } = req.params;
+    const prisma = getSharedPrismaClient();
 
-    const student = await getSharedPrismaClient().educationStudent.findFirst({
+    const student = await prisma.educationStudent.findFirst({
       where: { id: studentId, customerId: parentId, companyId }
     });
     if (!student) return res.status(404).json({ success: false, message: 'الطالب غير موجود' });
 
-    const data = await getSharedPrismaClient().educationSession.findMany({
+    const privateSessions = await prisma.educationSession.findMany({
       where: { studentId, companyId },
       include: {
         subject: { select: { id: true, name: true } },
@@ -77,26 +78,85 @@ router.get('/children/:studentId/sessions', authenticateParentToken, async (req,
       },
       orderBy: { scheduledAt: 'desc' }
     });
-    res.json({ success: true, data });
+
+    const formattedPrivate = privateSessions.map((s) => ({
+      ...s,
+      sessionType: 'PRIVATE',
+      attendanceStatus: s.status === 'CONFIRMED' ? 'PRESENT' : (s.status === 'CANCELLED' ? 'CANCELLED' : 'SCHEDULED')
+    }));
+
+    // Query group sessions for this student (attendance records + scheduled group sessions)
+    let groupSessions = [];
+    try {
+      groupSessions = await prisma.$queryRawUnsafe(`
+        SELECT 
+          s.id,
+          s."groupId",
+          s."sessionDate" AS "scheduledAt",
+          s."status" AS "sessionStatus",
+          g.name AS "groupName",
+          g.room,
+          t.name AS "teacherName",
+          sub.name AS "subjectName",
+          att.status AS "attendanceStatus",
+          att.notes AS "attendanceNotes"
+        FROM "education_group_members" m
+        JOIN "education_groups" g ON g.id = m."groupId" AND g."companyId" = m."companyId"
+        JOIN "education_group_sessions" s ON s."groupId" = g.id AND s."companyId" = g."companyId"
+        LEFT JOIN "education_teachers" t ON t.id = COALESCE(s."teacherId", g."teacherId") AND t."companyId" = s."companyId"
+        LEFT JOIN "education_subjects" sub ON sub.id = g."subjectId" AND sub."companyId" = s."companyId"
+        LEFT JOIN "education_group_session_attendances" att 
+          ON att."sessionId" = s.id AND att."studentId" = m."studentId" AND att."companyId" = s."companyId"
+        WHERE m."studentId" = $1
+          AND m."companyId" = $2
+          AND m."status" = 'ACTIVE'
+          AND s."status" != 'CANCELLED'
+        ORDER BY s."sessionDate" DESC
+        LIMIT 100
+      `, studentId, companyId);
+    } catch (e) {
+      console.warn('[ParentPortal] Group sessions query bypassed:', e.message);
+    }
+
+    const formattedGroups = (groupSessions || []).map((gs) => ({
+      id: gs.id,
+      sessionType: 'GROUP',
+      groupName: gs.groupName,
+      groupId: gs.groupId,
+      room: gs.room,
+      scheduledAt: gs.scheduledAt,
+      status: gs.sessionStatus,
+      attendanceStatus: gs.attendanceStatus || (gs.sessionStatus === 'SCHEDULED' ? 'SCHEDULED' : 'PENDING'),
+      teacher: gs.teacherName ? { name: gs.teacherName } : null,
+      subject: gs.subjectName ? { name: gs.subjectName } : null,
+      notes: gs.attendanceNotes
+    }));
+
+    const combined = [...formattedPrivate, ...formattedGroups].sort(
+      (a, b) => new Date(b.scheduledAt) - new Date(a.scheduledAt)
+    );
+
+    res.json({ success: true, data: combined });
   } catch (error) {
     console.error('[ParentPortal] Child sessions error:', error);
     res.status(500).json({ success: false, message: 'حدث خطأ في جلب الحصص' });
   }
 });
 
-// Enrollments for a specific child
+// Enrollments for a specific child (Both private packages and active group memberships)
 router.get('/children/:studentId/enrollments', authenticateParentToken, async (req, res) => {
   try {
     const parentId = req.parent.id;
     const companyId = req.parent.companyId;
     const { studentId } = req.params;
+    const prisma = getSharedPrismaClient();
 
-    const student = await getSharedPrismaClient().educationStudent.findFirst({
+    const student = await prisma.educationStudent.findFirst({
       where: { id: studentId, customerId: parentId, companyId }
     });
     if (!student) return res.status(404).json({ success: false, message: 'الطالب غير موجود' });
 
-    const enrollments = await getSharedPrismaClient().educationEnrollment.findMany({
+    const enrollments = await prisma.educationEnrollment.findMany({
       where: { studentId, companyId },
       include: {
         package: {
@@ -112,11 +172,66 @@ router.get('/children/:studentId/enrollments', authenticateParentToken, async (r
       },
       orderBy: { enrollmentDate: 'desc' }
     });
-    const data = enrollments.map(item => ({
+    const mappedEnrollments = enrollments.map((item) => ({
       ...item,
+      enrollmentType: 'PACKAGE',
       subject: item.package?.subject || null
     }));
-    res.json({ success: true, data });
+
+    // Include group memberships
+    let groupMemberships = [];
+    try {
+      groupMemberships = await prisma.$queryRawUnsafe(`
+        SELECT 
+          m.id,
+          m."groupId",
+          m."status",
+          m."joinedAt" AS "enrollmentDate",
+          m."feeAmount",
+          m."paymentStatus",
+          m."amountPaid",
+          g.name AS "groupName",
+          g.code AS "groupCode",
+          g."feeType",
+          t.name AS "teacherName",
+          sub.name AS "subjectName"
+        FROM "education_group_members" m
+        JOIN "education_groups" g ON g.id = m."groupId" AND g."companyId" = m."companyId"
+        LEFT JOIN "education_teachers" t ON t.id = g."teacherId" AND t."companyId" = g."companyId"
+        LEFT JOIN "education_subjects" sub ON sub.id = g."subjectId" AND sub."companyId" = g."companyId"
+        WHERE m."studentId" = $1
+          AND m."companyId" = $2
+        ORDER BY m."joinedAt" DESC
+      `, studentId, companyId);
+    } catch (e) {
+      console.warn('[ParentPortal] Group memberships query bypassed:', e.message);
+    }
+
+    const mappedGroupMemberships = (groupMemberships || []).map((ge) => ({
+      id: ge.id,
+      enrollmentType: 'GROUP',
+      status: ge.status,
+      enrollmentDate: ge.enrollmentDate,
+      groupName: ge.groupName,
+      groupCode: ge.groupCode,
+      feeType: ge.feeType,
+      feeAmount: ge.feeAmount,
+      paymentStatus: ge.paymentStatus,
+      amountPaid: ge.amountPaid,
+      package: {
+        id: ge.groupId,
+        name: `مجموعة ${ge.groupName}`,
+        price: ge.feeAmount
+      },
+      teacher: ge.teacherName ? { name: ge.teacherName } : null,
+      subject: ge.subjectName ? { name: ge.subjectName } : null
+    }));
+
+    const combinedData = [...mappedEnrollments, ...mappedGroupMemberships].sort(
+      (a, b) => new Date(b.enrollmentDate) - new Date(a.enrollmentDate)
+    );
+
+    res.json({ success: true, data: combinedData });
   } catch (error) {
     console.error('[ParentPortal] Child enrollments error:', error);
     res.status(500).json({ success: false, message: 'حدث خطأ في جلب التسجيلات' });

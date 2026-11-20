@@ -34,14 +34,20 @@ const calculate = async (req, res) => {
       return res.status(400).json({ success: false, error: 'المدرس والتاريخ مطلوبان' });
     }
 
-    const sessions = await getSharedPrismaClient().educationSession.findMany({
+    const prisma = getSharedPrismaClient();
+    const rate = Number(hourlyRate) || 0;
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+
+    // 1. Private 1-on-1 Sessions
+    const privateSessions = await prisma.educationSession.findMany({
       where: {
         companyId,
         teacherId,
         status: 'CONFIRMED',
         scheduledAt: {
-          gte: new Date(from),
-          lte: new Date(to)
+          gte: fromDate,
+          lte: toDate
         }
       },
       include: {
@@ -51,11 +57,117 @@ const calculate = async (req, res) => {
       orderBy: { scheduledAt: 'asc' }
     });
 
-    const totalSessions = sessions.length;
-    const totalMinutes = sessions.reduce((sum, s) => sum + (s.actualDuration || s.plannedDuration), 0);
-    const totalHours = Math.round((totalMinutes / 60) * 100) / 100;
-    const rate = hourlyRate || 0;
-    const grossAmount = Math.round(totalHours * rate * 100) / 100;
+    const privateMinutes = privateSessions.reduce((sum, s) => sum + (s.actualDuration || s.plannedDuration || 60), 0);
+    const privateHours = Math.round((privateMinutes / 60) * 100) / 100;
+    const privateGross = Math.round(privateHours * rate * 100) / 100;
+
+    // 2. Group Sessions (completed)
+    let groupSessions = [];
+    try {
+      groupSessions = await prisma.$queryRawUnsafe(`
+        SELECT 
+          s.id,
+          s."groupId",
+          s."sessionDate",
+          s."status",
+          s."presentCount",
+          s."absentCount",
+          g.name AS "groupName",
+          g."teacherRateType",
+          g."teacherRateValue",
+          g."feeType",
+          g."feeAmount",
+          g."startTime",
+          g."endTime",
+          sub.name AS "subjectName"
+        FROM "education_group_sessions" s
+        JOIN "education_groups" g ON g.id = s."groupId" AND g."companyId" = s."companyId"
+        LEFT JOIN "education_subjects" sub ON sub.id = g."subjectId" AND sub."companyId" = s."companyId"
+        WHERE s."companyId" = $1
+          AND (s."teacherId" = $2 OR g."teacherId" = $2)
+          AND s."status" = 'COMPLETED'
+          AND s."sessionDate" >= $3
+          AND s."sessionDate" <= $4
+        ORDER BY s."sessionDate" ASC
+      `, companyId, teacherId, fromDate, toDate);
+    } catch (e) {
+      console.warn('[TeacherPayment] Group sessions query bypassed:', e.message);
+    }
+
+    let groupMinutes = 0;
+    let groupGross = 0;
+
+    const mappedGroupSessions = (groupSessions || []).map((gs) => {
+      // Calculate duration
+      let durMinutes = 60;
+      if (gs.startTime && gs.endTime) {
+        const [sh, sm] = gs.startTime.split(':').map(Number);
+        const [eh, em] = gs.endTime.split(':').map(Number);
+        if (!isNaN(sh) && !isNaN(eh)) {
+          durMinutes = Math.max(30, (eh * 60 + (em || 0)) - (sh * 60 + (sm || 0)));
+        }
+      }
+      groupMinutes += durMinutes;
+
+      // Calculate earnings based on group teacherRateType
+      let sessionPay = 0;
+      const rateVal = Number(gs.teacherRateValue) || 0;
+      const present = Number(gs.presentCount) || 0;
+
+      if (gs.teacherRateType === 'FIXED') {
+        sessionPay = rateVal;
+      } else if (gs.teacherRateType === 'PER_STUDENT') {
+        sessionPay = rateVal * (present > 0 ? present : 1);
+      } else if (gs.teacherRateType === 'PERCENTAGE') {
+        const fee = Number(gs.feeAmount) || 0;
+        const feePerSession = gs.feeType === 'PER_SESSION' ? fee : (fee / 8);
+        const sessionRev = feePerSession * (present > 0 ? present : 1);
+        sessionPay = sessionRev * (rateVal / 100);
+      } else {
+        // Fallback to hourly rate
+        sessionPay = (durMinutes / 60) * rate;
+      }
+
+      sessionPay = Math.round(sessionPay * 100) / 100;
+      groupGross += sessionPay;
+
+      return {
+        id: gs.id,
+        date: gs.sessionDate,
+        subject: gs.subjectName || gs.groupName,
+        groupName: gs.groupName,
+        duration: durMinutes,
+        status: gs.status,
+        sessionType: 'GROUP',
+        presentCount: present,
+        rateType: gs.teacherRateType || 'HOURLY',
+        rateValue: rateVal,
+        amount: sessionPay
+      };
+    });
+
+    const groupHours = Math.round((groupMinutes / 60) * 100) / 100;
+    const totalSessions = privateSessions.length + mappedGroupSessions.length;
+    const totalHours = Math.round((privateHours + groupHours) * 100) / 100;
+    const grossAmount = Math.round((privateGross + groupGross) * 100) / 100;
+
+    const mappedPrivateSessions = privateSessions.map(s => {
+      const dur = s.actualDuration || s.plannedDuration || 60;
+      const amt = Math.round((dur / 60) * rate * 100) / 100;
+      return {
+        id: s.id,
+        date: s.scheduledAt,
+        subject: s.subject?.name,
+        duration: dur,
+        status: s.status,
+        sessionType: 'PRIVATE',
+        amount: amt
+      };
+    });
+
+    const combinedSessions = [...mappedPrivateSessions, ...mappedGroupSessions].sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
 
     res.json({
       success: true,
@@ -67,13 +179,17 @@ const calculate = async (req, res) => {
         totalHours,
         hourlyRate: rate,
         grossAmount,
-        sessions: sessions.map(s => ({
-          id: s.id,
-          date: s.scheduledAt,
-          subject: s.subject?.name,
-          duration: s.actualDuration || s.plannedDuration,
-          status: s.status
-        }))
+        privateBreakdown: {
+          sessionsCount: privateSessions.length,
+          hours: privateHours,
+          amount: privateGross
+        },
+        groupBreakdown: {
+          sessionsCount: mappedGroupSessions.length,
+          hours: groupHours,
+          amount: Math.round(groupGross * 100) / 100
+        },
+        sessions: combinedSessions
       }
     });
   } catch (error) {

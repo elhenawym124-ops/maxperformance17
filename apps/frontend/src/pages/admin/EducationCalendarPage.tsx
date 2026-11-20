@@ -20,6 +20,7 @@ import {
   List,
   GraduationCap,
   Loader2,
+  Users,
 } from "lucide-react";
 import { SessionModal } from "./education-management/SessionModal";
 import { api, getAuthHeaders, fetchJson } from "./education-management/api";
@@ -237,11 +238,13 @@ const EducationCalendarPage: React.FC = () => {
         const studentName = `${s.student?.firstName || ""} ${s.student?.lastName || ""}`.toLowerCase();
         const teacherName = (s.teacher?.name || "").toLowerCase();
         const subjectName = (s.subject?.name || "").toLowerCase();
+        const groupName = (s.groupName || "").toLowerCase();
         const topic = (s.topic || "").toLowerCase();
         if (
           !studentName.includes(q) &&
           !teacherName.includes(q) &&
           !subjectName.includes(q) &&
+          !groupName.includes(q) &&
           !topic.includes(q)
         ) {
           return false;
@@ -772,17 +775,24 @@ const EducationCalendarPage: React.FC = () => {
                       <div className="space-y-1 flex-1">
                         {daySessions.slice(0, 3).map((s) => {
                           const st = STATUS_CONFIG[s.status] || STATUS_CONFIG.SCHEDULED;
+                          const isGroup = s.sessionType === "GROUP";
+                          const label = isGroup ? (s.groupName || (isEn ? "Group" : "مجموعة")) : (s.student?.firstName || (isEn ? "Student" : "طالب"));
                           return (
                             <button
                               key={s.id}
                               onClick={() => setSelectedSession(s)}
                               className={`w-full text-right text-[11px] px-1.5 py-0.5 rounded-md border truncate block transition-transform active:scale-[0.98] ${st.badge}`}
-                              title={`${s.scheduledAt.slice(11, 16)} - ${s.student?.firstName || (isEn ? "Student" : "طالب")} (${s.subject?.name || ""})`}
+                              title={`${s.scheduledAt.slice(11, 16)} - ${label} (${s.subject?.name || ""})`}
                             >
                               <span className="font-mono tabular-nums font-semibold ms-1">
                                 {toLocalTimeStr(s.scheduledAt)}
                               </span>
-                              <span>{s.student?.firstName || (isEn ? "Student" : "طالب")}</span>
+                              {isGroup && (
+                                <span className="text-[9px] px-1 py-0.2 bg-purple-500/20 text-purple-700 dark:text-purple-300 rounded font-bold me-1">
+                                  {isEn ? "GRP" : "مج"}
+                                </span>
+                              )}
+                              <span>{label}</span>
                             </button>
                           );
                         })}
@@ -875,8 +885,17 @@ const EducationCalendarPage: React.FC = () => {
                               <span>{toLocalTimeStr(s.scheduledAt)}</span>
                               <span className="text-[10px]">{s.plannedDuration} {isEn ? "min" : "د"}</span>
                             </div>
-                            <div className="font-semibold text-foreground truncate">
-                              {s.student?.firstName} {s.student?.lastName || ""}
+                            <div className="font-semibold text-foreground truncate flex items-center gap-1">
+                              {s.sessionType === "GROUP" && (
+                                <span className="text-[9px] px-1 py-0.2 bg-purple-500/20 text-purple-700 dark:text-purple-300 rounded font-bold">
+                                  {isEn ? "GRP" : "مجموعة"}
+                                </span>
+                              )}
+                              <span>
+                                {s.sessionType === "GROUP"
+                                  ? (s.groupName || (isEn ? "Group Class" : "مجموعة"))
+                                  : `${s.student?.firstName || ""} ${s.student?.lastName || ""}`.trim() || (isEn ? "Student" : "طالب")}
+                              </span>
                             </div>
                             <div className="text-[11px] text-muted-foreground truncate">
                               {s.subject?.name || (isEn ? "Unspecified Subject" : "مادة غير محددة")}
@@ -959,8 +978,17 @@ const EducationCalendarPage: React.FC = () => {
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="space-y-0.5 min-w-0">
-                              <div className="font-bold text-xs text-foreground truncate">
-                                {s.student?.firstName} {s.student?.lastName || ""}
+                              <div className="font-bold text-xs text-foreground truncate flex items-center gap-1">
+                                {s.sessionType === "GROUP" && (
+                                  <span className="text-[9px] px-1.5 py-0.5 bg-purple-500/20 text-purple-700 dark:text-purple-300 rounded font-bold shrink-0">
+                                    {isEn ? "Group" : "مجموعة"}
+                                  </span>
+                                )}
+                                <span className="truncate">
+                                  {s.sessionType === "GROUP"
+                                    ? (s.groupName || (isEn ? "Group Class" : "مجموعة"))
+                                    : `${s.student?.firstName || ""} ${s.student?.lastName || ""}`.trim() || (isEn ? "Student" : "طالب")}
+                                </span>
                               </div>
                               <div className="text-[11px] text-muted-foreground flex items-center gap-1 truncate">
                                 <BookOpen className="w-3 h-3 text-primary shrink-0" />
@@ -1090,8 +1118,17 @@ const EducationCalendarPage: React.FC = () => {
                         className="p-3 rounded-xl border border-border/80 bg-background/60 space-y-2 hover:border-primary/40 transition-colors"
                       >
                         <div className="flex items-center justify-between">
-                          <div className="font-bold text-xs text-foreground">
-                            {s.student?.firstName} {s.student?.lastName || ""}
+                          <div className="font-bold text-xs text-foreground flex items-center gap-1 truncate">
+                            {s.sessionType === "GROUP" && (
+                              <span className="text-[9px] px-1.5 py-0.5 bg-purple-500/20 text-purple-700 dark:text-purple-300 rounded font-bold shrink-0">
+                                {isEn ? "Group" : "مجموعة"}
+                              </span>
+                            )}
+                            <span className="truncate">
+                              {s.sessionType === "GROUP"
+                                ? (s.groupName || (isEn ? "Group Class" : "مجموعة"))
+                                : `${s.student?.firstName || ""} ${s.student?.lastName || ""}`.trim() || (isEn ? "Student" : "طالب")}
+                            </span>
                           </div>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${st.badge}`}>
                             {st.label}
@@ -1200,14 +1237,24 @@ const EducationCalendarPage: React.FC = () => {
             </div>
 
             <div className="space-y-2.5 text-xs">
-              {/* Student */}
+              {/* Student or Group Class */}
               <div className="flex items-center gap-3 p-3 bg-muted/30 border border-border/60 rounded-xl">
-                <User className="w-5 h-5 text-primary flex-shrink-0" />
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground text-xs">
-                    {selectedSession.student?.firstName} {selectedSession.student?.lastName || ""}
+                {selectedSession.sessionType === "GROUP" ? (
+                  <Users className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                ) : (
+                  <User className="w-5 h-5 text-primary flex-shrink-0" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-foreground text-xs truncate">
+                    {selectedSession.sessionType === "GROUP"
+                      ? selectedSession.groupName
+                      : `${selectedSession.student?.firstName || ""} ${selectedSession.student?.lastName || ""}`.trim() || (isEn ? "Student" : "طالب")}
                   </p>
-                  <p className="text-[11px] text-muted-foreground">{t("education.calendar.enrolledStudent", isEn ? "Enrolled Student" : "الطالب المقيد")}</p>
+                  <p className="text-[11px] text-muted-foreground truncate">
+                    {selectedSession.sessionType === "GROUP"
+                      ? (isEn ? `Group Class ${selectedSession.room ? `(${selectedSession.room})` : ""}` : `مجموعة دراسية ${selectedSession.room ? `(قاعة: ${selectedSession.room})` : ""}`)
+                      : t("education.calendar.enrolledStudent", isEn ? "Enrolled Student" : "الطالب المقيد")}
+                  </p>
                 </div>
               </div>
 
