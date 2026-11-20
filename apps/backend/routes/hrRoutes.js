@@ -120,6 +120,7 @@ router.use((req, res, next) => {
 
 router.use(verifyToken.authenticateToken);
 router.use(checkAppAccess('hr-core'));
+router.use(require('../middleware/hrPermissionGate'));
 
 // Asset Management
 router.use('/assets/reports', assetReportsRoutes);

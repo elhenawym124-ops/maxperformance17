@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>F-15 / F-14 — تشريح المشكلة والحل</title>
+<style>
+  :root{
+    --petrol:#0b3b36; --petrol-2:#115e56; --persimmon:#c2410c; --persimmon-bg:#fff1e9;
+    --ok:#047857; --ok-bg:#ecfdf5; --line:#e3e8e6; --muted:#5b6b69; --bg:#f7f9f8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--petrol);font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif}
+  header{padding:26px 32px 6px}
+  h1{margin:0 0 6px;font-size:24px}
+  .sub{color:var(--muted);font-size:13.5px}
+  .wrap{padding:14px 32px 48px;display:grid;gap:22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card h2{margin:0 0 14px;font-size:16px;display:flex;gap:10px;align-items:center}
+  .tag{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600}
+  .t-bad{background:var(--persimmon-bg);color:var(--persimmon)}
+  .t-good{background:var(--ok-bg);color:var(--ok)}
+  .flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+  .node{flex:1 1 190px;min-width:170px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fbfcfb;position:relative}
+  .node .k{font-size:11px;color:var(--muted);margin-bottom:4px}
+  .node .v{font-size:14px;font-weight:600;line-height:1.5}
+  .node .m{font-size:12px;color:var(--muted);margin-top:6px;font-family:"IBM Plex Mono",monospace;direction:ltr;text-align:left;word-break:break-word}
+  .node.bad{border-color:#f3c7b3;background:var(--persimmon-bg)}
+  .node.good{border-color:#a7f3d0;background:var(--ok-bg)}
+  .node.hub{border-color:#bfd7d3;background:#eef6f4}
+  .arrow{align-self:center;color:#9aaca9;font-size:20px;padding:0 2px}
+  .big{font-size:30px;font-weight:800;line-height:1}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:820px){.split{grid-template-columns:1fr}.wrap{padding:12px 16px 32px}header{padding:18px 16px 4px}}
+  .row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+  .row:last-child{border-bottom:0}
+  .mono{font-family:"IBM Plex Mono",monospace;direction:ltr;font-size:12.5px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:right;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{background:#fbfcfb;color:var(--muted);font-weight:600}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:12px;background:#f1f5f4;border:1px solid var(--line);border-radius:8px;padding:1px 7px;direction:ltr;display:inline-block}
+  .note{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.7}
+  .bar{height:10px;border-radius:999px;background:#eef2f1;overflow:hidden;margin-top:6px}
+  .bar i{display:block;height:100%;background:var(--ok)}
+  .bar b{display:block;height:100%;background:var(--persimmon)}
+</style>
+</head>
+<body>
+<header>
+  <h1>تشريح المشكلة والحل — F-15 و F-14</h1>
+  <div class="sub">شركة التجربة 14 يوم · تينانت <span class="pill">trial-academy-14d</span> · 2026-11-20</div>
+</header>
+
+<div class="wrap">
+
+  <!-- F-15 -->
+  <div class="card">
+    <h2><span class="tag t-bad">F-15</span> لوحة HR تقول «0 موظف» والقائمة تقول «7»</h2>
+
+    <div class="split">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">قبل الإصلاح — مصدران مختلفان للحقيقة</div>
+        <div class="flow" style="flex-direction:column">
+          <div class="node hub">
+            <div class="k">الشاشة</div>
+            <div class="v">لوحة HR — «7؟ ولا 0؟»</div>
+          </div>
+          <div class="flow">
+            <div class="node bad">
+              <div class="k">بطاقة «إجمالي الموظفين»</div>
+              <div class="v"><span class="big">0</span></div>
+              <div class="m">prisma.user.count({ employeeNumber != null })</div>
+            </div>
+            <div class="node good">
+              <div class="k">جدول /hr/employees</div>
+              <div class="v"><span class="big">7</span></div>
+              <div class="m">prisma.employee.findMany({ companyId })</div>
+            </div>
+          </div>
+        </div>
+        <div class="note">
+          الجدول <span class="pill">hr_employees</span> فيه 7 صفوف، لكن البطاقة كانت تعدّ من
+          <span class="pill">users.employeeNumber</span> — وخدمة إنشاء الموظف
+          <span class="pill">createEmployee</span> لا تكتب هذا الحقل. النتيجة: عدّاد صفر دائم لأي موظف يُضاف من الواجهة.
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">بعد الإصلاح — مصدر واحد + fallback</div>
+        <div class="flow" style="flex-direction:column">
+          <div class="node hub">
+            <div class="k">الشاشة</div>
+            <div class="v">لوحة HR</div>
+          </div>
+          <div class="node good">
+            <div class="k">getEmployeeStats()</div>
+            <div class="v">يقرأ <span class="pill">hr_employees</span> أولًا</div>
+            <div class="m">employee.count / groupBy department / contractType / dateOfBirth</div>
+          </div>
+          <div class="flow">
+            <div class="node good"><div class="k">النتيجة</div><div class="v"><span class="big">7</span> موظف</div></div>
+            <div class="node"><div class="k">Fallback</div><div class="v">لو مفيش صفوف Employee → المسار القديم (User)</div></div>
+          </div>
+        </div>
+        <div class="note">
+          نفس المنطق اتطبّق على <span class="pill">getDepartmentStats</span> (كان يعدّ
+          <span class="pill">department.users</span> فأظهر 0 لكل قسم).
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="row"><span>موظفون في <span class="pill">hr_employees</span></span><span>7</span></div>
+      <div class="bar"><i style="width:100%"></i></div>
+      <div class="row"><span>ما كانت اللوحة تعرضه (User.employeeNumber)</span><span style="color:var(--persimmon)">0</span></div>
+      <div class="bar"><b style="width:2%"></b></div>
+    </div>
+  </div>
+
+  <!-- F-14 -->
+  <div class="card">
+    <h2><span class="tag t-bad">F-14</span> مدير التسويق يقرأ رواتب وموظفي HR</h2>
+
+    <div class="split">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">قبل — بوابة واحدة فقط</div>
+        <div class="flow">
+          <div class="node">
+            <div class="k">1 · الطلب</div>
+            <div class="v">GET /api/v1/hr/employees</div>
+            <div class="m">Authorization: Bearer (marketing manager)</div>
+          </div>
+          <div class="arrow">←</div>
+          <div class="node">
+            <div class="k">2 · المصادقة</div>
+            <div class="v">verifyToken</div>
+          </div>
+          <div class="arrow">←</div>
+          <div class="node bad">
+            <div class="k">3 · التطبيق فقط</div>
+            <div class="v">checkAppAccess('hr-core')</div>
+            <div class="m">التطبيق مثبّت للتينانت → pass</div>
+          </div>
+          <div class="arrow">←</div>
+          <div class="node bad">
+            <div class="k">4 · النتيجة</div>
+            <div class="v">200 OK + كل الموظفين</div>
+          </div>
+        </div>
+        <div class="note">أي دور يملك تطبيق HR يمر — بدون أي فحص لصلاحية <span class="pill">hr.employees</span>.</div>
+      </div>
+
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">بعد — بوابة صلاحية دقيقة</div>
+        <div class="flow">
+          <div class="node"><div class="k">1 · الطلب</div><div class="v">نفس الطلب</div></div>
+          <div class="arrow">←</div>
+          <div class="node"><div class="k">2 · المصادقة</div><div class="v">verifyToken</div></div>
+          <div class="arrow">←</div>
+          <div class="node"><div class="k">3 · التطبيق</div><div class="v">checkAppAccess('hr-core')</div></div>
+          <div class="arrow">←</div>
+          <div class="node good">
+            <div class="k">4 · الصلاحية</div>
+            <div class="v">hrPermissionGate</div>
+            <div class="m">employees → hr.employees<br>attendance → hr.attendance<br>payroll → hr.payroll</div>
+          </div>
+          <div class="arrow">←</div>
+          <div class="node good"><div class="k">5 · النتيجة</div><div class="v">403 INSUFFICIENT_PERMISSIONS</div></div>
+        </div>
+        <div class="note">
+          استثناءات مقصودة: <span class="pill">OWNER</span> /
+          <span class="pill">COMPANY_ADMIN</span> /
+          <span class="pill">SUPER_ADMIN</span>، ومسارات الخدمة الذاتية
+          <span class="pill">/employees/me</span> ·
+          <span class="pill">/attendance/my-*</span> ·
+          <span class="pill">/attendance/check-in</span> ·
+          <span class="pill">/payroll/my-*</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- matrix -->
+  <div class="card">
+    <h2>مصفوفة الوصول بعد الإصلاح</h2>
+    <table>
+      <thead><tr><th>الدور</th><th>hr.employees</th><th>hr.attendance</th><th>hr.payroll</th><th>الخدمة الذاتية</th></tr></thead>
+      <tbody>
+        <tr><td>OWNER / COMPANY_ADMIN</td><td style="color:var(--ok)">✓</td><td style="color:var(--ok)">✓</td><td style="color:var(--ok)">✓</td><td style="color:var(--ok)">✓</td></tr>
+        <tr><td>مدير HR (TRIAL_HR_MANAGER)</td><td style="color:var(--ok)">✓</td><td style="color:var(--ok)">✓</td><td style="color:var(--ok)">✓</td><td style="color:var(--ok)">✓</td></tr>
+        <tr><td>مدير التسويق (TRIAL_MARKETING_MANAGER)</td><td style="color:var(--persimmon)">403</td><td style="color:var(--persimmon)">403</td><td style="color:var(--persimmon)">403</td><td style="color:var(--ok)">✓</td></tr>
+        <tr><td>موظف AGENT</td><td style="color:var(--persimmon)">403</td><td style="color:var(--persimmon)">403</td><td style="color:var(--persimmon)">403</td><td style="color:var(--ok)">✓</td></tr>
+      </tbody>
+    </table>
+    <div class="note">الجدول مطابق لسلوك السايدبار الحالي (fail-safe: الدور بدون صلاحيات لا يرى القسم ولا يصل للبيانات).</div>
+  </div>
+
+</div>
+</body>
+</html>

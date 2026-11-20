@@ -1385,6 +1385,98 @@ class EmployeeService {
    */
   async getEmployeeStats(companyId) {
     try {
+      // ── المصدر الأساسي: جدول hr_employees ───────────────────────────────
+      // لوحة HR كانت تحسب الموظفين من User.employeeNumber (نموذج قديم) بينما
+      // شاشة الموظفين تقرأ hr_employees، فكانت تعرض 0 لأي موظف أُنشئ من الواجهة.
+      const hrEmployeeTotal = await this.prisma.employee.count({ where: { companyId } });
+      if (hrEmployeeTotal > 0) {
+        const activeWhere = { companyId, status: 'ACTIVE' };
+        const [
+          totalEmployees,
+          activeEmployees,
+          byDepartmentRaw,
+          byContractTypeRaw,
+          recentHires,
+          birthdayRaw,
+        ] = await executeWithRetry(async () => Promise.all([
+          this.prisma.employee.count({ where: { companyId } }),
+          this.prisma.employee.count({ where: activeWhere }),
+          this.prisma.employee.findMany({
+            where: activeWhere,
+            select: { departmentId: true, departmentRelation: { select: { name: true } } },
+          }),
+          this.prisma.employee.findMany({
+            where: activeWhere,
+            select: { contractType: true },
+          }),
+          this.prisma.employee.findMany({
+            where: activeWhere,
+            orderBy: { hireDate: 'desc' },
+            take: 5,
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              employeeNumber: true,
+              hireDate: true,
+              dateOfBirth: true,
+              email: true,
+              avatar: true,
+              contractType: true,
+              departmentRelation: { select: { name: true } },
+              positionRelation: { select: { title: true } },
+            },
+          }),
+          this.prisma.employee.findMany({
+            where: { ...activeWhere, dateOfBirth: { not: null } },
+            select: { id: true, firstName: true, lastName: true, dateOfBirth: true },
+          }),
+        ]));
+
+        const deptMap = new Map();
+        byDepartmentRaw.forEach((e) => {
+          const name = e.departmentRelation?.name || 'غير محدد';
+          deptMap.set(name, (deptMap.get(name) || 0) + 1);
+        });
+        const byDepartment = [...deptMap.entries()].map(([name, count]) => ({ name, count }));
+
+        const contractMap = new Map();
+        byContractTypeRaw.forEach((e) => {
+          const name = e.contractType || 'غير محدد';
+          contractMap.set(name, (contractMap.get(name) || 0) + 1);
+        });
+        const byContractType = [...contractMap.entries()].map(([name, count]) => ({ name, count }));
+
+        const today = new Date();
+        const upcomingBirthdays = (birthdayRaw || [])
+          .map((emp) => {
+            if (!emp.dateOfBirth) return null;
+            const bday = new Date(emp.dateOfBirth);
+            let nextBday = new Date(today.getFullYear(), bday.getMonth(), bday.getDate());
+            if (nextBday < today) {
+              nextBday = new Date(today.getFullYear() + 1, bday.getMonth(), bday.getDate());
+            }
+            return { ...emp, nextBirthday: nextBday };
+          })
+          .filter(Boolean)
+          .sort((a, b) => a.nextBirthday - b.nextBirthday)
+          .slice(0, 5);
+
+        return {
+          totalEmployees,
+          activeEmployees,
+          byDepartment,
+          byContractType,
+          byStatus: [
+            { name: 'نشط', count: activeEmployees },
+            { name: 'غير نشط', count: totalEmployees - activeEmployees },
+          ],
+          recentHires,
+          upcomingBirthdays,
+        };
+      }
+
+      // ── Fallback للشركات القديمة التي تعتمد على User فقط ────────────────
       const baseEmployeeWhere = {
         employeeNumber: { not: null },
         OR: [

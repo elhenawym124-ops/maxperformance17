@@ -526,25 +526,34 @@ class DepartmentService {
         where: { companyId, isActive: true },
         include: {
           _count: {
-            select: { users: true, positions: true }
+            select: { users: true, positions: true, employees: true }
           },
           users: {
             where: { isActive: true },
+            select: { baseSalary: true }
+          },
+          // المصدر الأساسي للعدّ — جدول hr_employees (وUser كـ fallback للشركات القديمة)
+          employees: {
+            where: { status: 'ACTIVE' },
             select: { baseSalary: true }
           }
         }
       });
 
-      const stats = departments.map(dept => ({
-        id: dept.id,
-        name: dept.name,
-        color: dept.color,
-        employeeCount: dept._count.users,
-        positionCount: dept._count.positions,
-        totalSalary: dept.users.reduce((sum, user) =>
-          sum + (parseFloat(user.baseSalary) || 0), 0
-        )
-      }));
+      const stats = departments.map(dept => {
+        const useHrEmployees = dept.employees.length > 0 || dept._count.employees > 0;
+        const salaryRows = useHrEmployees ? dept.employees : dept.users;
+        return {
+          id: dept.id,
+          name: dept.name,
+          color: dept.color,
+          employeeCount: useHrEmployees ? dept.employees.length : dept._count.users,
+          positionCount: dept._count.positions,
+          totalSalary: salaryRows.reduce((sum, row) =>
+            sum + (Number(row.baseSalary) || 0), 0
+          )
+        };
+      });
 
       return {
         totalDepartments: departments.length,
