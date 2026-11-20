@@ -1,10 +1,12 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Plus } from "lucide-react";
 import {
   BusinessPageHero,
   BusinessPageShell,
 } from "../../components/business/BusinessSurface";
 import { Button } from "../../components/ui/button";
+import { PolarisGoalsView } from "./PolarisGoalsView";
 import {
   useGoalsController,
   GoalsStatsGrid,
@@ -13,6 +15,14 @@ import {
 } from "./goals/index";
 
 const Goals: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     loading,
     stats,
@@ -38,6 +48,29 @@ const Goals: React.FC = () => {
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-primary" />
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisGoalsView
+        stats={stats}
+        projects={projects}
+        goalType={goalType}
+        onGoalTypeChange={setGoalType}
+        status={status}
+        onStatusChange={setStatus}
+        projectId={projectId}
+        onProjectIdChange={setProjectId}
+        includeDaily={includeDaily}
+        onIncludeDailyChange={setIncludeDaily}
+        search={search}
+        onSearchChange={setSearch}
+        filteredGoals={filteredGoals}
+        dailyGoalsCount={dailyGoalsCount}
+        goToNewGoal={goToNewGoal}
+        goToGoalDetails={goToGoalDetails}
+      />
     );
   }
 

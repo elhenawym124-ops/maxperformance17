@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   FileText,
   Plus,
@@ -18,6 +18,7 @@ import {
 import api from '../../services/api';
 import { tToast } from '../../utils/i18n-toast';
 import SettlementDetailsModal from './SettlementDetailsModal';
+import { PolarisResignationsView } from './PolarisResignationsView';
 import i18n from '../../i18n';
 
 interface Resignation {
@@ -37,6 +38,14 @@ interface Resignation {
 
 const Resignations: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const [resignations, setResignations] = useState<Resignation[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedResignationId, setSelectedResignationId] = useState<string | null>(null);
@@ -114,6 +123,32 @@ const Resignations: React.FC = () => {
           <RotateCcw className="animate-spin size-8 text-primary mx-auto mb-3" />
           <p className="text-xs font-mono text-muted-foreground">LOADING RESIGNATION DOSSIERS...</p>
         </div>
+      </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <div className="w-full pb-8" dir={i18n.dir()}>
+        <PolarisResignationsView
+          loading={loading}
+          resignations={resignations}
+          onOpenSettlement={handleOpenSettlement}
+          onNavigateNew={() => navigate('/hr/resignations/new')}
+          onNavigateDecision={(id) => navigate(`/hr/resignations/${id}/decision`)}
+        />
+
+        {selectedResignationId && (
+          <SettlementDetailsModal
+            isOpen={isSettlementModalOpen}
+            onClose={() => {
+              setIsSettlementModalOpen(false);
+              setSelectedResignationId(null);
+            }}
+            resignationId={selectedResignationId}
+            onSettlementUpdated={fetchResignations}
+          />
+        )}
       </div>
     );
   }

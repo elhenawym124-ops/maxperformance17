@@ -15,9 +15,10 @@ import {
 import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
 import { Input } from "../../components/ui/input";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import { tToast } from "../../utils/i18n-toast";
+import { PolarisTrainingView } from "./PolarisTrainingView";
 
 interface TrainingItem {
   id: string;
@@ -48,6 +49,14 @@ const statusMap: Record<string, { label: string; class: string }> = {
 const Training: React.FC = () => {
   const { employeeId } = useParams<{ employeeId?: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const [trainings, setTrainings] = useState<TrainingItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState<string>("ALL");
@@ -105,6 +114,22 @@ const Training: React.FC = () => {
           <p className="text-xs text-muted-foreground font-mono">جاري تحميل سجلات البرامج التدريبية...</p>
         </div>
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisTrainingView
+        loading={loading}
+        trainings={trainings}
+        filteredTrainings={filteredTrainings}
+        selectedStatus={selectedStatus}
+        setSelectedStatus={setSelectedStatus}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        stats={stats}
+        onNavigateNew={() => navigate("/hr/training/new")}
+      />
     );
   }
 
