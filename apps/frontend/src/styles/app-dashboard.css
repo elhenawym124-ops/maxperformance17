@@ -523,6 +523,15 @@ body.app-shell-mobile-open {
 }
 
 @media (max-width: 1023px) {
+  /* Reserve dock height so the fixed bottom nav never covers page content
+     in classic / horizontal / polaris shells (same role app-dashboard.css plays
+     for .app-shell-content). */
+  .business-shell-main.business-shell-with-mobile-dock {
+    padding-bottom: calc(4.5rem + max(env(safe-area-inset-bottom, 0px), var(--app-safe-bottom, 0px)));
+  }
+}
+
+@media (max-width: 1023px) {
   body.app-shell-chat-active .admin-bottom-nav,
   body:has(.business-inbox-shell--conversation-active) .admin-bottom-nav,
   body:has(.whatsapp-workspace--chat-active) .admin-bottom-nav,

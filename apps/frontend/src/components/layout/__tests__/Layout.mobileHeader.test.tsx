@@ -355,6 +355,24 @@ describe("Layout mobile account visibility", () => {
     expect(screen.getByText("Acme Store")).toBeInTheDocument();
   });
 
+  it("renders the mobile bottom dock in the non app-dashboard shell and reserves its height", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/company-dashboard"]}>
+        <Layout>
+          <div>Dashboard body</div>
+        </Layout>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector(".admin-bottom-nav")).toBeInTheDocument();
+    });
+
+    expect(
+      container.querySelector(".business-shell-main.business-shell-with-mobile-dock"),
+    ).toBeInTheDocument();
+  });
+
   it("renders company monogram letter fallback when company has no custom logo", async () => {
     mockUseAuth.mockReturnValue({
       user: {
