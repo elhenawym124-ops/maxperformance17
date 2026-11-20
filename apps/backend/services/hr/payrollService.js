@@ -1064,6 +1064,9 @@ class PayrollService {
       where: { companyId }
     });
 
+    // سياسة الرواتب (تُحفظ في companies.settings.hrPayrollPolicy)
+    const payrollPolicy = await require('./hrPayrollPolicy').getPolicy(this.prisma, companyId);
+
     // Parse workDays and publicHolidays
     let workingDaysConfig = [0, 1, 2, 3, 4, 6]; // Default: Sat-Thu working, Friday rest
     try {
@@ -1217,14 +1220,20 @@ class PayrollService {
     const empHireDate = employee.hireDate || (Array.isArray(employee.employees) ? employee.employees[0]?.hireDate : employee.employees?.hireDate);
     const hireDateStr = empHireDate ? this.toLocalDateKey(empHireDate) : null;
 
-    const trulyAbsentDates = workingDates.filter(d =>
-      (!hireDateStr || d >= hireDateStr) &&
-      !attendedFullDatesSet.has(d) &&
-      !halfDayDatesSet.has(d) &&
-      !paidLeaveDates.has(d) &&
-      !unpaidLeaveDates.has(d) &&
-      !restOrHolidayDatesSet.has(d)
-    );
+    const trulyAbsentDates = payrollPolicy.treatMissingAsAbsent
+      ? workingDates.filter(d =>
+        (!hireDateStr || d >= hireDateStr) &&
+        !attendedFullDatesSet.has(d) &&
+        !halfDayDatesSet.has(d) &&
+        !paidLeaveDates.has(d) &&
+        !unpaidLeaveDates.has(d) &&
+        !restOrHolidayDatesSet.has(d)
+      )
+      // لا نعتبر اليوم غيابًا إلا إذا كان له سجل حضور صريح بحالة ABSENT
+      : workingDates.filter(d =>
+        (!hireDateStr || d >= hireDateStr) &&
+        attendanceMapByDate.get(d)?.status === 'ABSENT'
+      );
 
     // إجمالي أيام الغياب (الأيام الكاملة + 0.5 لكل نصف يوم غير مغطى بإجازة)
     const absentDays = trulyAbsentDates.length + (halfDayDatesSet.size * 0.5);
@@ -1578,6 +1587,8 @@ class PayrollService {
       : [];
 
     lateOccurrences.forEach((occ, index) => {
+      // سياسة DEFICIT: لا خصم تأخير منفصل (يُخصم كعجز ساعات)
+      if (payrollPolicy.latePenaltyMode === 'DEFICIT') return;
       const dateStr = this.toLocalDateKey(occ.date);
       const mins = occ.lateMinutes || 0;
 
@@ -1659,6 +1670,8 @@ class PayrollService {
 
     attendance.forEach(a => {
       if (!['PRESENT', 'LATE', 'REMOTE', 'HALF_DAY'].includes(a.status)) return;
+      // سياسة LATE: لا خصم عجز ساعات (يُخصم كتأخير/خروج مبكر)
+      if (payrollPolicy.latePenaltyMode === 'LATE') return;
 
       const dateStr = this.toLocalDateKey(a.date);
       const expectedHours = a.status === 'HALF_DAY' ? (workingHoursPerDay / 2) : workingHoursPerDay;

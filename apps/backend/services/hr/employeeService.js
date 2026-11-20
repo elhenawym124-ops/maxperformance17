@@ -208,25 +208,25 @@ class EmployeeService {
 
     // توليد رقم موظف تلقائي إذا لم يتم توفيره
     if (!data.employeeNumber) {
-      // Find the last employee number to ensure uniqueness
-      const lastEmployee = await this.prisma.user.findFirst({
-        where: {
-          companyId,
-          employeeNumber: { not: null }
-        },
-        orderBy: { employeeNumber: 'desc' },
-        select: { employeeNumber: true }
+      // نقرأ الأرقام من الجدولين (User + Employee) لتجنّب التكرار
+      const [userNumbers, empNumbers] = await Promise.all([
+        this.prisma.user.findMany({
+          where: { companyId, employeeNumber: { not: null } },
+          select: { employeeNumber: true },
+        }),
+        this.prisma.employee.findMany({
+          where: { companyId, employeeNumber: { not: null } },
+          select: { employeeNumber: true },
+        }),
+      ]);
+      const allNumbers = [...userNumbers, ...empNumbers].map((r) => r.employeeNumber);
+      let maxNumber = 0;
+      allNumbers.forEach((num) => {
+        const match = String(num || '').match(/(\d+)/);
+        if (match) maxNumber = Math.max(maxNumber, parseInt(match[1], 10));
       });
 
-      let nextNumber = 1;
-      if (lastEmployee?.employeeNumber) {
-        const match = lastEmployee.employeeNumber.match(/EMP(\d+)/);
-        if (match) {
-          nextNumber = parseInt(match[1], 10) + 1;
-        }
-      }
-
-      data.employeeNumber = `EMP${String(nextNumber).padStart(5, '0')}`;
+      data.employeeNumber = `EMP${String(maxNumber + 1).padStart(5, '0')}`;
     }
 
     // Fetch current user if linked to avoid overwriting existing details

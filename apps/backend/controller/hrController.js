@@ -6611,9 +6611,15 @@ async function getHRSettings(req, res) {
       settings,
     );
 
+    const hrPayrollPolicy = await require("../services/hr/hrPayrollPolicy").getPolicy(
+      prisma,
+      companyId,
+    );
+
     res.json({
       success: true,
       ...mapHRSettingsPayload(settings, notificationHealth),
+      hrPayrollPolicy,
     });
   } catch (error) {
     console.error("❌ Error getting HR settings:", error);
@@ -6988,10 +6994,25 @@ async function updateHRSettings(req, res) {
       settings,
     );
 
+    let hrPayrollPolicy;
+    if (req.body?.hrPayrollPolicy && typeof req.body.hrPayrollPolicy === 'object') {
+      hrPayrollPolicy = await require("../services/hr/hrPayrollPolicy").setPolicy(
+        prisma,
+        companyId,
+        req.body.hrPayrollPolicy,
+      );
+    } else {
+      hrPayrollPolicy = await require("../services/hr/hrPayrollPolicy").getPolicy(
+        prisma,
+        companyId,
+      );
+    }
+
     res.json({
       success: true,
       message: "تم حفظ الإعدادات بنجاح",
       ...mapHRSettingsPayload(settings, notificationHealth),
+      hrPayrollPolicy,
     });
   } catch (error) {
     console.error("❌ [HR-SETTINGS-BACKEND] Error updating HR settings:", {
