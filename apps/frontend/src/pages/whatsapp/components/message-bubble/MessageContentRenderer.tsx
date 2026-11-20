@@ -111,7 +111,7 @@ export const MessageContentRenderer: React.FC<MessageContentRendererProps> = ({
 
   if (message.mediaUrl === "FAILED_DOWNLOAD") {
     return (
-      <div className="flex items-center gap-2 rounded-xl border border-rose-300/70 bg-rose-500/10 px-3 py-2 text-rose-800 dark:border-rose-500/40 dark:bg-rose-950/40 dark:text-rose-200">
+      <div className="flex items-center gap-2 rounded-xl border border-destructive/70 bg-destructive/10 px-3 py-2 text-destructive dark:border-destructive/40 dark:bg-destructive/40 dark:text-destructive">
         <AlertTriangle className="size-4" />
         <span className="text-sm">{t("whatsapp.dialogs.failedDownload")}</span>
       </div>

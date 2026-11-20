@@ -78,9 +78,9 @@ const WhatsAppCloudConnect: React.FC = () => {
                   {step === 'connecting' ? (
                     <Loader2 className="size-4 animate-spin text-primary" />
                   ) : step === 'success' ? (
-                    <CheckCircle2 className="size-4 text-emerald-600" />
+                    <CheckCircle2 className="size-4 text-success" />
                   ) : (
-                    <AlertCircle className="size-4 text-rose-600" />
+                    <AlertCircle className="size-4 text-destructive" />
                   )}
                   <p className="text-xs font-medium text-foreground">
                     {step === 'connecting'

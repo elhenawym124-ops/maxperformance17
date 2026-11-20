@@ -106,7 +106,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
     case "FILE":
       return (
         <div className="flex min-w-[14rem] items-center gap-3 rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-3">
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-rose-500/10 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400">
+          <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive">
             <FileText className="size-5" />
           </div>
           <div className="min-w-0 flex-1">
@@ -160,7 +160,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
 
       return (
         <div className="space-y-2">
-          <p className="text-sm text-rose-700 dark:text-rose-200">
+          <p className="text-sm text-destructive dark:text-destructive">
             {t("whatsapp.media.unsupported", "نوع وسائط غير مدعوم")}: {message.messageType}
           </p>
           <a

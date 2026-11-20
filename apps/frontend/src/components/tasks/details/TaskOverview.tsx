@@ -123,12 +123,12 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
     <div className="space-y-6">
       {/* Description */}
       {visibility.showDescription && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-            <DocumentDuplicateIcon className="h-5 w-5 text-indigo-500" />
+        <div className="bg-card rounded-xl border border-border dark:border-border p-6 shadow-sm">
+          <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+            <DocumentDuplicateIcon className="h-5 w-5 text-primary" />
             الوصف (للمنفّذ البشري)
           </h3>
-          <div className="prose max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+          <div className="prose max-w-none text-foreground whitespace-pre-wrap leading-relaxed">
             {task.description}
           </div>
         </div>
@@ -136,17 +136,17 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
 
       {/* AI Description (AI Brief) */}
       {task.aiDescription ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-purple-200 dark:border-purple-900/50 p-6 shadow-sm">
+        <div className="bg-card rounded-xl border border-primary dark:border-primary/50 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-              <LightBulbIcon className="h-5 w-5 text-purple-600" />
+            <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+              <LightBulbIcon className="h-5 w-5 text-primary" />
               وصف الذكاء الاصطناعي (AI Brief)
             </h3>
-            <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+            <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-primary dark:bg-primary/60 text-primary dark:text-primary border border-primary dark:border-primary">
               AI
             </span>
           </div>
-          <div className="prose max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed font-mono text-sm bg-purple-50/40 dark:bg-purple-950/20 p-4 rounded-lg border border-purple-100 dark:border-purple-900/30">
+          <div className="prose max-w-none text-foreground whitespace-pre-wrap leading-relaxed font-mono text-sm bg-primary/40 dark:bg-primary/20 p-4 rounded-lg border border-primary dark:border-primary/30">
             {task.aiDescription}
           </div>
         </div>
@@ -154,9 +154,9 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
 
       {/* Page URL & Related Links */}
       {((visibility.showRelatedLinks && task.relatedLinks && task.relatedLinks.length > 0) || task.pageUrl) && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-            <LinkIcon className="h-5 w-5 text-indigo-500" />
+        <div className="bg-card rounded-xl border border-border dark:border-border p-6 shadow-sm">
+          <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+            <LinkIcon className="h-5 w-5 text-primary" />
             روابط المهمة وصفحة العمل (Task Links & Page URL)
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -169,16 +169,16 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 bg-indigo-50/50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-all group"
+                className="flex items-center gap-3 p-3 bg-primary/50 dark:bg-primary/20 rounded-lg border border-primary dark:border-primary hover:bg-primary dark:hover:bg-primary/40 transition-all group"
               >
-                <div className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm group-hover:scale-110 transition-transform">
-                  <LinkIcon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <div className="p-2 bg-card rounded-lg shadow-sm group-hover:scale-110 transition-transform">
+                  <LinkIcon className="h-4 w-4 text-primary" />
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <span className="font-bold text-gray-900 dark:text-gray-100 text-sm truncate">
+                  <span className="font-bold text-foreground text-sm truncate">
                     لينك الصفحة (Page URL)
                   </span>
-                  <span className="text-gray-500 dark:text-gray-400 text-xs truncate dir-ltr text-right">
+                  <span className="text-muted-foreground text-xs truncate dir-ltr text-right">
                     {task.pageUrl}
                   </span>
                 </div>
@@ -194,16 +194,16 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 bg-indigo-50/30 dark:bg-indigo-900/10 rounded-lg border border-indigo-100 dark:border-indigo-900/20 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all group"
+                className="flex items-center gap-3 p-3 bg-primary/30 dark:bg-primary/10 rounded-lg border border-primary dark:border-primary/20 hover:bg-primary/10 dark:hover:bg-primary/20 transition-all group"
               >
-                <div className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm group-hover:scale-110 transition-transform">
-                  <LinkIcon className="h-4 w-4 text-indigo-500" />
+                <div className="p-2 bg-card rounded-lg shadow-sm group-hover:scale-110 transition-transform">
+                  <LinkIcon className="h-4 w-4 text-primary" />
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <span className="font-bold text-gray-900 dark:text-gray-100 text-sm truncate">
+                  <span className="font-bold text-foreground text-sm truncate">
                     {link.title}
                   </span>
-                  <span className="text-gray-500 dark:text-gray-400 text-xs truncate dir-ltr text-right">
+                  <span className="text-muted-foreground text-xs truncate dir-ltr text-right">
                     {link.url}
                   </span>
                 </div>
@@ -217,21 +217,21 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
       {visibility.showChecklists &&
         task.checklists &&
         task.checklists.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-              <CheckCircleIcon className="h-5 w-5 text-indigo-500" />
+          <div className="bg-card rounded-xl border border-border dark:border-border p-6 shadow-sm">
+            <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <CheckCircleIcon className="h-5 w-5 text-primary" />
               القوائم المرجعية (Checklists)
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {task.checklists.map((checklist) => (
                 <div
                   key={checklist.id}
-                  className="bg-gray-50/50 dark:bg-gray-900/20 rounded-xl p-4 border border-gray-100 dark:border-gray-800/50 flex flex-col"
+                  className="bg-gray-50/50 dark:bg-muted rounded-xl p-4 border border-border dark:border-border flex flex-col"
                 >
-                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+                  <h4 className="font-bold text-foreground mb-3 flex items-center gap-2 border-b border-border dark:border-border pb-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
                     {checklist.title}
-                    <span className="mr-auto text-[10px] px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-full font-medium">
+                    <span className="me-auto text-[10px] px-2 py-0.5 bg-primary dark:bg-primary/40 text-primary rounded-full font-medium">
                       {checklist.items?.length || 0} عناصر
                     </span>
                   </h4>
@@ -247,13 +247,13 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                           onChange={() =>
                             handleToggleItem?.(item.id, item.isCompleted)
                           }
-                          className="h-4 w-4 text-indigo-600 rounded border-gray-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 focus:ring-indigo-500"
+                          className="h-4 w-4 text-primary rounded border-border cursor-pointer dark:bg-muted dark:border-border focus:ring-primary"
                         />
                         <span
                           onClick={() =>
                             handleToggleItem?.(item.id, item.isCompleted)
                           }
-                          className={`text-sm flex-1 cursor-pointer transition-all ${item.isCompleted ? "line-through text-gray-400 dark:text-gray-500" : "text-gray-700 dark:text-gray-300"}`}
+                          className={`text-sm flex-1 cursor-pointer transition-all ${item.isCompleted ? "line-through text-muted-foreground/80" : "text-foreground"}`}
                         >
                           {item.content}
                         </span>
@@ -262,7 +262,7 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                   </div>
 
                   {handleAddItem && newItemInputs && setNewItemInputs && (
-                    <div className="flex gap-2 mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex gap-2 mt-4 pt-3 border-t border-border dark:border-border">
                       <input
                         type="text"
                         value={newItemInputs[checklist.id] || ""}
@@ -276,11 +276,11 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                           e.key === "Enter" && handleAddItem(checklist.id)
                         }
                         placeholder="إضافة عنصر..."
-                        className="flex-1 px-3 py-1.5 text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-1 focus:ring-indigo-500 dark:text-gray-200"
+                        className="flex-1 px-3 py-1.5 text-xs bg-card border border-border dark:border-border rounded-lg focus:ring-1 focus:ring-primary dark:text-muted-foreground"
                       />
                       <button
                         onClick={() => handleAddItem(checklist.id)}
-                        className="p-1.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors"
+                        className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition-colors"
                       >
                         <PlusIcon className="h-4 w-4" />
                       </button>
@@ -294,9 +294,9 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
 
       {/* Attached Images - Separate Section */}
       {visibility.showAttachments && imageAttachments.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-            <PhotoIcon className="h-5 w-5 text-indigo-500" />
+        <div className="bg-card rounded-xl border border-border dark:border-border p-6 shadow-sm">
+          <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+            <PhotoIcon className="h-5 w-5 text-primary" />
             الصور المرفقة ({imageAttachments.length})
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -305,7 +305,7 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
               return (
                 <div
                   key={file.id}
-                  className="group relative rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+                  className="group relative rounded-lg overflow-hidden border border-border dark:border-border hover:shadow-lg transition-shadow"
                 >
                   {imageUrl ? (
                     <>
@@ -319,7 +319,7 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                           href={imageUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="opacity-0 group-hover:opacity-100 px-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium transition-opacity"
+                          className="opacity-0 group-hover:opacity-100 px-4 py-2 bg-card text-foreground rounded-lg font-medium transition-opacity"
                         >
                           عرض بالحجم الكامل
                         </a>
@@ -331,8 +331,8 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                       </div>
                     </>
                   ) : (
-                    <div className="w-full h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                    <div className="w-full h-48 bg-muted flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                     </div>
                   )}
                 </div>
@@ -356,19 +356,19 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
         if (!hasBeforeOrAfter && !evidenceObj.numbersBeforeAfter && !evidenceObj.changeType) return null;
 
         return (
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm space-y-4">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-              <PhotoIcon className="h-5 w-5 text-indigo-500" />
+          <div className="bg-card rounded-xl border border-border dark:border-border p-6 shadow-sm space-y-4">
+            <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+              <PhotoIcon className="h-5 w-5 text-primary" />
               أدلة تسليم المهمة (Delivery Gate Evidence)
             </h3>
 
             {hasBeforeOrAfter && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Before Image */}
-                <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 p-4 bg-zinc-50/50 dark:bg-zinc-900/40">
+                <div className="rounded-xl border border-border dark:border-border p-4 bg-muted dark:bg-muted">
                   <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                      <span className="size-2 rounded-full bg-amber-500" />
+                    <span className="text-xs font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
+                      <span className="size-2 rounded-full bg-warning" />
                       صورة قبل (Before)
                     </span>
                     {beforeUrl && (
@@ -376,14 +376,14 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                         href={beforeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
+                        className="text-xs text-primary hover:underline"
                       >
                         عرض بالحجم الكامل ↗
                       </a>
                     )}
                   </div>
                   {beforeUrl ? (
-                    <div className="rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 h-48 bg-black/5 dark:bg-black/40 flex items-center justify-center">
+                    <div className="rounded-lg overflow-hidden border border-border dark:border-border h-48 bg-black/5 dark:bg-black/40 flex items-center justify-center">
                       <img
                         src={beforeUrl}
                         alt="صورة قبل"
@@ -391,18 +391,18 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                       />
                     </div>
                   ) : (
-                    <div className="h-48 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center text-zinc-400 text-xs">
-                      <PhotoIcon className="size-8 mb-1 text-zinc-300 dark:text-zinc-600" />
+                    <div className="h-48 rounded-lg border border-dashed border-border dark:border-border flex flex-col items-center justify-center text-muted-foreground text-xs">
+                      <PhotoIcon className="size-8 mb-1 text-muted-foreground dark:text-foreground" />
                       <span>{evidenceObj.beforeAttachmentId ? "جاري تحميل الصورة..." : "لم تُرفق صورة قبل"}</span>
                     </div>
                   )}
                 </div>
 
                 {/* After Image */}
-                <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 p-4 bg-zinc-50/50 dark:bg-zinc-900/40">
+                <div className="rounded-xl border border-border dark:border-border p-4 bg-muted dark:bg-muted">
                   <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                      <span className="size-2 rounded-full bg-emerald-500" />
+                    <span className="text-xs font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
+                      <span className="size-2 rounded-full bg-success" />
                       صورة بعد (After)
                     </span>
                     {afterUrl && (
@@ -410,14 +410,14 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                         href={afterUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
+                        className="text-xs text-primary hover:underline"
                       >
                         عرض بالحجم الكامل ↗
                       </a>
                     )}
                   </div>
                   {afterUrl ? (
-                    <div className="rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 h-48 bg-black/5 dark:bg-black/40 flex items-center justify-center">
+                    <div className="rounded-lg overflow-hidden border border-border dark:border-border h-48 bg-black/5 dark:bg-black/40 flex items-center justify-center">
                       <img
                         src={afterUrl}
                         alt="صورة بعد"
@@ -425,8 +425,8 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                       />
                     </div>
                   ) : (
-                    <div className="h-48 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center text-zinc-400 text-xs">
-                      <PhotoIcon className="size-8 mb-1 text-zinc-300 dark:text-zinc-600" />
+                    <div className="h-48 rounded-lg border border-dashed border-border dark:border-border flex flex-col items-center justify-center text-muted-foreground text-xs">
+                      <PhotoIcon className="size-8 mb-1 text-muted-foreground dark:text-foreground" />
                       <span>{evidenceObj.afterAttachmentId ? "جاري تحميل الصورة..." : "لم تُرفق صورة بعد"}</span>
                     </div>
                   )}
@@ -435,29 +435,29 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
             )}
 
             {/* Evidence details grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs pt-2 border-t border-zinc-100 dark:border-zinc-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs pt-2 border-t border-border dark:border-border">
               {evidenceObj.changeType && (
-                <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-100 dark:border-zinc-800">
+                <div className="p-2.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
                   <span className="text-zinc-500 block mb-0.5">نوع التغيير</span>
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">{evidenceObj.changeType}</span>
+                  <span className="font-semibold text-foreground dark:text-muted-foreground">{evidenceObj.changeType}</span>
                 </div>
               )}
               {evidenceObj.commitOrPath && (
-                <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-100 dark:border-zinc-800">
+                <div className="p-2.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
                   <span className="text-zinc-500 block mb-0.5">الكوميت / مسار الملفات</span>
-                  <span className="font-mono text-zinc-800 dark:text-zinc-200 truncate block">{evidenceObj.commitOrPath}</span>
+                  <span className="font-mono text-foreground dark:text-muted-foreground truncate block">{evidenceObj.commitOrPath}</span>
                 </div>
               )}
               {evidenceObj.numbersBeforeAfter && (
-                <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-100 dark:border-zinc-800">
+                <div className="p-2.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
                   <span className="text-zinc-500 block mb-0.5">الأرقام قبل / بعد</span>
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">{evidenceObj.numbersBeforeAfter}</span>
+                  <span className="font-semibold text-foreground dark:text-muted-foreground">{evidenceObj.numbersBeforeAfter}</span>
                 </div>
               )}
               {evidenceObj.notTestedScope && (
-                <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-100 dark:border-zinc-800 sm:col-span-2">
+                <div className="p-2.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border sm:col-span-2">
                   <span className="text-zinc-500 block mb-0.5">«إيه اللي ما اختبرتهوش»</span>
-                  <span className="text-zinc-700 dark:text-zinc-300">{evidenceObj.notTestedScope}</span>
+                  <span className="text-zinc-700 dark:text-muted-foreground">{evidenceObj.notTestedScope}</span>
                 </div>
               )}
             </div>
@@ -470,13 +470,13 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Business Value */}
           {visibility.showBusinessValue && (
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm h-full">
-              <h4 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                <LightBulbIcon className="h-5 w-5 text-yellow-500" />
+            <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm h-full">
+              <h4 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
+                <LightBulbIcon className="h-5 w-5 text-warning" />
                 القيمة التجارية
               </h4>
-              <div className="bg-yellow-50 dark:bg-yellow-900/10 rounded-lg p-4 h-[calc(100%-2rem)]">
-                <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+              <div className="bg-yellow-50 dark:bg-warning/10 rounded-lg p-4 h-[calc(100%-2rem)]">
+                <div className="prose prose-sm max-w-none text-foreground whitespace-pre-wrap">
                   {task.businessValue || (
                     <span className="text-gray-400 italic text-sm">
                       لم يتم تحديد القيمة التجارية
@@ -489,28 +489,28 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
 
           {/* Acceptance Criteria */}
           {visibility.showAcceptanceCriteria && (
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm h-full">
-              <h4 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-                <CheckBadgeIcon className="h-5 w-5 text-green-500" />
+            <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm h-full">
+              <h4 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
+                <CheckBadgeIcon className="h-5 w-5 text-success" />
                 معايير القبول
                 {acceptanceCriteriaItems.length > 0 && (
-                  <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full font-medium">
+                  <span className="text-xs bg-success dark:bg-success/30 text-success dark:text-success px-2 py-0.5 rounded-full font-medium">
                     {acceptanceCriteriaItems.length} معيار
                   </span>
                 )}
               </h4>
-              <div className="bg-green-50 dark:bg-green-900/10 rounded-lg p-4 h-[calc(100%-2rem)] overflow-y-auto">
+              <div className="bg-green-50 dark:bg-success/10 rounded-lg p-4 h-[calc(100%-2rem)] overflow-y-auto">
                 {acceptanceCriteriaItems.length > 0 ? (
                   <div className="space-y-2">
                     {acceptanceCriteriaItems.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-start gap-3 p-2 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/20 transition-colors group"
+                        className="flex items-start gap-3 p-2 rounded-lg hover:bg-success dark:hover:bg-success/20 transition-colors group"
                       >
                         <div className="flex-shrink-0 mt-0.5">
-                          <CheckCircleIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                          <CheckCircleIcon className="h-5 w-5 text-success dark:text-success" />
                         </div>
-                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed flex-1">
+                        <span className="text-sm text-foreground leading-relaxed flex-1">
                           {item}
                         </span>
                       </div>
@@ -518,8 +518,8 @@ const TaskOverview: React.FC<TaskOverviewProps> = ({
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center py-8">
-                    <CheckBadgeIcon className="h-12 w-12 text-gray-300 dark:text-gray-600 mb-2" />
-                    <span className="text-gray-400 dark:text-gray-500 italic text-sm">
+                    <CheckBadgeIcon className="h-12 w-12 text-muted-foreground dark:text-foreground mb-2" />
+                    <span className="text-muted-foreground/80 italic text-sm">
                       لم يتم تحديد معايير القبول
                     </span>
                   </div>

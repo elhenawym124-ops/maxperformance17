@@ -13,8 +13,8 @@ export const MetaTemplateTableEmptyState: React.FC<
 > = ({ selectedSessionId, onOpenCreate, onOpenLibrary }) => {
   return (
     <div className="flex flex-col items-center gap-5 py-16 text-center">
-      <div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-50 shadow-inner dark:from-emerald-950/40 dark:to-emerald-900/20">
-        <FileText className="size-10 text-emerald-600 dark:text-emerald-400" />
+      <div className="flex size-20 items-center justify-center rounded-xl bg-gradient-to-br from-success to-success shadow-inner dark:from-success/40 dark:to-success/20">
+        <FileText className="size-10 text-success dark:text-success" />
       </div>
       <div className="space-y-1">
         <p className="text-base font-semibold text-[color:var(--color-foreground)]">

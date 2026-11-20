@@ -97,7 +97,7 @@ export const MetaTemplateMobileCard: React.FC<
                   variant="outline"
                   className={statusBadge[bestStatus] || ""}
                 >
-                  <StatusIcon className="ml-1 size-3.5 inline" />
+                  <StatusIcon className="ms-1 size-3.5 inline" />
                   {bestStatus}
                 </Badge>
                 <span className="rounded-full bg-[color:var(--color-muted)] px-2 py-0.5 text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
@@ -169,7 +169,7 @@ export const MetaTemplateMobileCard: React.FC<
                 />
 
                 {t.rejected_reason && (
-                  <p className="text-[11px] text-red-600 dark:text-red-400">
+                  <p className="text-[11px] text-destructive dark:text-destructive">
                     {t.rejected_reason}
                   </p>
                 )}
@@ -225,7 +225,7 @@ export const MetaTemplateMobileCard: React.FC<
               size="icon"
               onClick={onDeleteTemplate}
               aria-label="حذف القالب"
-              className="size-9 rounded-full text-red-600 dark:text-red-400"
+              className="size-9 rounded-full text-destructive dark:text-destructive"
             >
               <Trash2 className="size-4" />
             </Button>

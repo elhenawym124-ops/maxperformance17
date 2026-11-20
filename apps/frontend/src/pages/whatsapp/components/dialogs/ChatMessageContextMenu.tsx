@@ -80,7 +80,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
                 onSendReaction(selectedMessage.messageId, emoji);
                 onClose();
               }}
-              className="flex size-9 items-center justify-center rounded-2xl text-lg transition-colors hover:bg-[color:var(--shell-control-hover)]"
+              className="flex size-9 items-center justify-center rounded-xl text-lg transition-colors hover:bg-[color:var(--shell-control-hover)]"
             >
               {emoji}
             </button>
@@ -88,7 +88,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
           <UiButton
             variant="ghost"
             size="icon-sm"
-            className="rounded-2xl"
+            className="rounded-xl"
             onClick={() => {
               onOpenReactionPicker(selectedMessage.messageId);
               onClose();
@@ -154,7 +154,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
               onUnpinMessage(selectedMessage.messageId);
               onClose();
             }}
-            className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-amber-600 dark:text-amber-400 transition-colors hover:bg-amber-500/10"
+            className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-warning dark:text-warning transition-colors hover:bg-warning/10"
           >
             <PinOff className="size-4" />
             <span>إلغاء التثبيت</span>
@@ -210,7 +210,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
               onDeleteMessage(selectedMessage);
               onClose();
             }}
-            className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-rose-600 transition-colors hover:bg-rose-500/10"
+            className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10"
           >
             <Trash2 className="size-4" />
             <span>حذف للجميع</span>

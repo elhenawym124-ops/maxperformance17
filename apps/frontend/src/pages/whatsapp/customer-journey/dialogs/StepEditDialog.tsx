@@ -25,7 +25,7 @@ import {
 export function MessagePreview({ content }: { content: string }) {
   return (
     <div
-      className="overflow-hidden rounded-3xl border border-[color:var(--shell-control-border)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+      className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
       style={previewBackgroundStyle}
     >
       <div className="max-w-[22rem] rounded-xl rounded-bl-[6px] bg-[color:color-mix(in_srgb,var(--color-background)_92%,var(--shell-control-bg)_8%)] px-4 py-3 text-start shadow-sm">
@@ -65,7 +65,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-2rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-4xl">
+      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-4xl">
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>
             {currentStep.id
@@ -101,7 +101,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
               />
             </div>
 
-            <div className="space-y-3 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+            <div className="space-y-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
               <div>
                 <p className="text-sm font-medium text-[color:var(--color-foreground)]">
                   {t("whatsappJourney.steps.variables")}
@@ -130,7 +130,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
               </div>
             </div>
 
-            <div className="space-y-3 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+            <div className="space-y-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
               <div className="flex items-center justify-between gap-4">
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-[color:var(--color-foreground)]">
@@ -231,7 +231,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
                 <button
                   type="button"
                   onClick={onOpenMetaModal}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-success bg-success/10 px-3 py-1 text-xs font-semibold text-success transition hover:bg-success dark:border-success dark:bg-success/40 dark:text-success"
                 >
                   <BookOpen className="size-3.5" />
                   قوالب ميتا
@@ -258,7 +258,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
               <MessagePreview content={currentStep.content || ""} />
             </div>
 
-            <div className="space-y-3 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+            <div className="space-y-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
               <p className="text-sm font-medium text-[color:var(--color-foreground)]">
                 {t("whatsappJourney.steps.buttons")}
               </p>

@@ -79,7 +79,7 @@ export const QuickOrderCouponSection: React.FC<
             <button
               type="button"
               onClick={handleRemoveCoupon}
-              className="text-red-500 hover:text-red-700 p-1 rounded transition-colors"
+              className="text-red-500 hover:text-destructive p-1 rounded transition-colors"
               title="إزالة الكوبون"
             >
               <XMarkIcon className="h-4 w-4" />

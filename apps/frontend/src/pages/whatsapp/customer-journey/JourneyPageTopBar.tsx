@@ -34,7 +34,7 @@ export const JourneyPageTopBar: React.FC<JourneyPageTopBarProps> = ({
   addNewFlowLabel,
 }) => {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-3 py-2 shadow-soft sm:rounded-3xl sm:px-4 sm:py-2.5">
+    <div className="flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-3 py-2 shadow-soft sm:rounded-xl sm:px-4 sm:py-2.5">
       <Link
         to={backHref}
         aria-label={backLabel}

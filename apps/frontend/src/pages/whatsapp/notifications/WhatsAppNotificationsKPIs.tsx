@@ -27,7 +27,7 @@ export const WhatsAppNotificationsKPIs: React.FC<WhatsAppNotificationsKPIsProps>
         <div
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md ${
             isEnabled
-              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+              ? "bg-emerald-500/10 text-success dark:text-success"
               : "bg-muted text-muted-foreground"
           }`}
         >
@@ -41,7 +41,7 @@ export const WhatsAppNotificationsKPIs: React.FC<WhatsAppNotificationsKPIsProps>
             <span
               className={`text-xs font-semibold ${
                 isEnabled
-                  ? "text-emerald-600 dark:text-emerald-400"
+                  ? "text-emerald-600 dark:text-success"
                   : "text-muted-foreground"
               }`}
             >
@@ -78,8 +78,8 @@ export const WhatsAppNotificationsKPIs: React.FC<WhatsAppNotificationsKPIsProps>
         <div
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md ${
             connectedSessions > 0
-              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-              : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+              ? "bg-emerald-500/10 text-success dark:text-success"
+              : "bg-amber-500/10 text-warning dark:text-warning"
           }`}
         >
           <Smartphone className="h-4 w-4" />
@@ -101,7 +101,7 @@ export const WhatsAppNotificationsKPIs: React.FC<WhatsAppNotificationsKPIsProps>
 
       {/* 4. Active Default Session */}
       <div className="flex items-center gap-3 rounded-lg border border-border/60 bg-card p-3 shadow-sm">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary dark:text-primary">
           <ShieldCheck className="h-4 w-4" />
         </div>
         <div className="min-w-0 flex-1">

@@ -28,7 +28,7 @@ export const CompanyTab: React.FC<CompanyTabProps> = ({
       <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
         <div className="flex items-center justify-between border-b border-border/50 pb-3">
           <div className="flex items-center gap-2">
-            <Building2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <Building2 className="h-4 w-4 text-success dark:text-success" />
             <h3 className="text-sm font-semibold text-foreground">
               {i18n.language === "ar" ? "تسجيل الحسابات والترحيب" : "Account Signup & Welcome"}
             </h3>
@@ -112,7 +112,7 @@ export const CompanyTab: React.FC<CompanyTabProps> = ({
       {/* 2. Subscription Lifecycle */}
       <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
         <div className="flex items-center gap-2 border-b border-border/50 pb-3">
-          <CreditCard className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <CreditCard className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold text-foreground">
             {i18n.language === "ar" ? "إشعارات الاشتراكات والباقات" : "Subscription Lifecycle"}
           </h3>

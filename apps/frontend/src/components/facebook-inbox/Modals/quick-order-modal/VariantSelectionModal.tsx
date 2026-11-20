@@ -80,7 +80,7 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
           className="business-gallery-toolbar flex items-center justify-between"
           style={{ borderBottom: "1px solid var(--business-muted-line)" }}
         >
-          <h3 className="truncate pr-4 font-bold" style={headingStyle}>
+          <h3 className="truncate pe-4 font-bold" style={headingStyle}>
             {product.name}
           </h3>
           <button
@@ -109,7 +109,7 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
                     >
                       {attr.name}
                       {isSelected && (
-                        <span className="mr-2" style={primaryStyle}>
+                        <span className="me-2" style={primaryStyle}>
                           : {isSelected}
                         </span>
                       )}
@@ -126,7 +126,7 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
                             key={value}
                             onClick={() => onAttributeSelect(attr.name, value)}
                             disabled={!isAvailable}
-                            className={`rounded-2xl border-2 px-3 py-2 text-sm font-medium transition-all ${
+                            className={`rounded-xl border-2 px-3 py-2 text-sm font-medium transition-all ${
                               !isAvailable
                                 ? "cursor-not-allowed line-through"
                                 : ""
@@ -199,7 +199,7 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
               {/* Prompt to select remaining attributes */}
               {!allAttributesSelected && (
                 <div
-                  className="mt-4 rounded-2xl p-3 text-center text-sm"
+                  className="mt-4 rounded-xl p-3 text-center text-sm"
                   style={{
                     ...sectionSurfaceStyle,
                     color: "var(--color-muted-foreground)",
@@ -222,7 +222,7 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
                   key={variant.id}
                   onClick={() => onVariantSelect(variant)}
                   disabled={!isInStock(variant)}
-                  className={`w-full rounded-2xl border p-3 text-right transition-all ${
+                  className={`w-full rounded-xl border p-3 text-right transition-all ${
                     isInStock(variant)
                       ? "cursor-pointer"
                       : "cursor-not-allowed opacity-60"

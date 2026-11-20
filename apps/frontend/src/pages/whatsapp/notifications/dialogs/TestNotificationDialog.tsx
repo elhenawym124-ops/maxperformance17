@@ -71,7 +71,7 @@ export const TestNotificationDialog: React.FC<TestNotificationDialogProps> = ({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <div className="flex items-center gap-2">
-            <TestTube className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            <TestTube className="h-5 w-5 text-success dark:text-success" />
             <DialogTitle className="text-base font-semibold">
               {t("whatsappNotifications.actions.testMessage", "إرسال إشعار اختباري")}
             </DialogTitle>
@@ -131,7 +131,7 @@ export const TestNotificationDialog: React.FC<TestNotificationDialogProps> = ({
             size="sm"
             onClick={onSend}
             disabled={sendingTest || !testPhone.trim()}
-            className="h-8 gap-1.5 bg-emerald-600 text-xs font-medium text-white hover:bg-emerald-700"
+            className="h-8 gap-1.5 bg-success text-xs font-medium text-white hover:bg-success"
           >
             <Send className="h-3.5 w-3.5" />
             {sendingTest

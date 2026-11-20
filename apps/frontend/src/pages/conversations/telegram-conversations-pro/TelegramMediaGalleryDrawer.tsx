@@ -28,7 +28,7 @@ export const TelegramMediaGalleryDrawer: React.FC<TelegramMediaGalleryDrawerProp
             onChange={(e) => setChatSearchQuery(e.target.value)}
             placeholder={isRTL ? "بحث في الرسائل..." : "Search messages..."}
             className={`flex-1 ${
-              isRTL ? "pr-10 pl-4" : "pl-10 pr-4"
+              isRTL ? "pe-10 ps-4" : "ps-10 pe-4"
             } py-2 business-bg-panel border business-border-primary-soft business-control-border rounded-lg text-sm business-text-strong focus:ring-2 business-focus-primary`}
             autoFocus
           />

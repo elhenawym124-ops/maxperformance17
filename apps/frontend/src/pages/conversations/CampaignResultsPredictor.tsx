@@ -261,11 +261,11 @@ const CampaignResultsPredictor: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+              <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center gap-3">
                 <CalculatorIcon className="w-10 h-10 text-blue-600" />
                 حاسبة توقعات نتائج حملات الرسائل
               </h1>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-muted-foreground">
                 أداة متقدمة لتوقعات أداء حملات الرسائل بناءً على البيانات التاريخية والتجارب السابقة
               </p>
             </div>
@@ -273,7 +273,7 @@ const CampaignResultsPredictor: React.FC = () => {
               <button
                 onClick={handleResetToHistorical}
                 disabled={!historicalStats}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-muted text-white rounded-lg hover:bg-muted disabled:bg-muted disabled:cursor-not-allowed transition-colors flex items-center gap-2"
               >
                 <RefreshCwIcon className="w-5 h-5" />
                 إعادة تعيين إلى المتوسط التاريخي
@@ -281,7 +281,7 @@ const CampaignResultsPredictor: React.FC = () => {
               {prediction && (
                 <button
                   onClick={exportReport}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-success text-white rounded-lg hover:bg-success transition-colors flex items-center gap-2"
                 >
                   <DownloadIcon className="w-5 h-5" />
                   تصدير التقرير
@@ -293,21 +293,21 @@ const CampaignResultsPredictor: React.FC = () => {
 
         {/* Loading State */}
         {loading && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-12 text-center">
+          <div className="bg-card rounded-xl shadow-lg p-12 text-center">
             <RefreshCwIcon className="h-12 w-12 animate-spin text-blue-600 mx-auto mb-4" />
-            <p className="text-gray-600 dark:text-gray-400 text-lg">جاري تحميل البيانات التاريخية...</p>
+            <p className="text-gray-600 dark:text-muted-foreground text-lg">جاري تحميل البيانات التاريخية...</p>
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-6 flex items-center gap-3">
-            <AlertTriangleIcon className="h-6 w-6 text-red-600 dark:text-red-400" />
+          <div className="bg-red-50 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-xl p-4 mb-6 flex items-center gap-3">
+            <AlertTriangleIcon className="h-6 w-6 text-destructive dark:text-destructive" />
             <div>
-              <p className="text-red-800 dark:text-red-200 font-medium">{error}</p>
+              <p className="text-red-800 dark:text-destructive font-medium">{error}</p>
               <button
                 onClick={fetchHistoricalStats}
-                className="text-sm text-red-600 dark:text-red-400 underline mt-1"
+                className="text-sm text-destructive dark:text-destructive underline mt-1"
               >
                 إعادة المحاولة
               </button>
@@ -319,8 +319,8 @@ const CampaignResultsPredictor: React.FC = () => {
         {!loading && historicalStats && (
           <div className="space-y-6">
             {/* Parameters Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+            <div className="bg-card rounded-xl shadow-lg p-6">
+              <h2 className="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
                 <TargetIcon className="w-6 h-6 text-blue-600" />
                 المتغيرات الأساسية
               </h2>
@@ -329,42 +329,42 @@ const CampaignResultsPredictor: React.FC = () => {
                 {/* Basic Parameters */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       عدد الرسائل المرسلة
                     </label>
                     <input
                       type="number"
                       value={params.messagesCount}
                       onChange={(e) => handleParamChange('messagesCount', parseInt(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
                       min="0"
                       step="100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       تكلفة الحملة (ج.م)
                     </label>
                     <input
                       type="number"
                       value={params.campaignCost}
                       onChange={(e) => handleParamChange('campaignCost', parseInt(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
                       min="0"
                       step="100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       متوسط الإيراد لكل محادثة (ج.م)
                     </label>
                     <input
                       type="number"
                       value={params.avgRevenuePerConversation}
                       onChange={(e) => handleParamChange('avgRevenuePerConversation', parseFloat(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
                       min="0"
                       step="10"
                     />
@@ -374,7 +374,7 @@ const CampaignResultsPredictor: React.FC = () => {
                 {/* Performance Parameters */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       نسبة الحفظ (%) - المتوسط التاريخي: {historicalStats.averageSavedRate}%
                     </label>
                     <input
@@ -386,7 +386,7 @@ const CampaignResultsPredictor: React.FC = () => {
                       max="100"
                       step="1"
                     />
-                    <div className="flex justify-between text-sm text-gray-500 mt-1">
+                    <div className="flex justify-between text-sm text-muted-foreground mt-1">
                       <span>0%</span>
                       <span>{params.savedRate}%</span>
                       <span>100%</span>
@@ -394,7 +394,7 @@ const CampaignResultsPredictor: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       معدل التحويل (%) - المتوسط التاريخي: {historicalStats.averageConversionRate}%
                     </label>
                     <input
@@ -406,7 +406,7 @@ const CampaignResultsPredictor: React.FC = () => {
                       max="100"
                       step="1"
                     />
-                    <div className="flex justify-between text-sm text-gray-500 mt-1">
+                    <div className="flex justify-between text-sm text-muted-foreground mt-1">
                       <span>0%</span>
                       <span>{params.conversionRate}%</span>
                       <span>100%</span>
@@ -418,11 +418,11 @@ const CampaignResultsPredictor: React.FC = () => {
                     <h3 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-3">الوقت الأمثل للإرسال</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-700 dark:text-gray-300">أفضل ساعة:</span>
+                        <span className="text-sm text-foreground">أفضل ساعة:</span>
                         <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{params.peakHour}:00</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-700 dark:text-gray-300">أفضل يوم:</span>
+                        <span className="text-sm text-foreground">أفضل يوم:</span>
                         <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{days[params.bestDay]}</span>
                       </div>
                     </div>
@@ -452,7 +452,7 @@ const CampaignResultsPredictor: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+                  <div className="bg-gradient-to-br from-primary to-primary rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
                     <div className="flex items-center justify-between mb-4">
                       <TargetIcon className="h-12 w-12 opacity-80" />
                       <div className="bg-white/20 rounded-full p-2">
@@ -468,7 +468,7 @@ const CampaignResultsPredictor: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+                  <div className="bg-gradient-to-br from-success to-success rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
                     <div className="flex items-center justify-between mb-4">
                       <DollarSignIcon className="h-12 w-12 opacity-80" />
                       <div className="bg-white/20 rounded-full p-2">
@@ -481,7 +481,7 @@ const CampaignResultsPredictor: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className={`bg-gradient-to-br ${prediction.profit >= 0 ? 'from-green-500 to-green-600' : 'from-red-500 to-red-600'} rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform`}>
+                  <div className={`bg-gradient-to-br ${prediction.profit >= 0 ? 'from-green-500 to-success' : 'from-red-500 to-destructive'} rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform`}>
                     <div className="flex items-center justify-between mb-4">
                       <BarChart3Icon className="h-12 w-12 opacity-80" />
                       <div className="bg-white/20 rounded-full p-2">
@@ -505,8 +505,8 @@ const CampaignResultsPredictor: React.FC = () => {
                 {/* Detailed Results */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                   {/* Messages Distribution */}
-                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  <div className="bg-card rounded-xl shadow-lg p-6">
+                    <h3 className="text-xl font-semibold text-foreground mb-4">
                       توزيع الرسائل المتوقع
                     </h3>
                     <PieChart
@@ -520,44 +520,44 @@ const CampaignResultsPredictor: React.FC = () => {
                   </div>
 
                   {/* Scenarios Comparison */}
-                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  <div className="bg-card rounded-xl shadow-lg p-6">
+                    <h3 className="text-xl font-semibold text-foreground mb-4">
                       مقارنة السيناريوهات
                     </h3>
                     <div className="space-y-4">
                       {prediction.scenarios.map((scenario, index) => (
                         <div
                           key={index}
-                          className={`p-4 rounded-lg border-l-4 ${index === 0 ? 'bg-red-50 dark:bg-red-900/20 border-red-500' :
+                          className={`p-4 rounded-lg border-l-4 ${index === 0 ? 'bg-red-50 dark:bg-destructive/20 border-destructive' :
                             index === 1 ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500' :
-                              'bg-green-50 dark:bg-green-900/20 border-green-500'
+                              'bg-green-50 dark:bg-success/20 border-success'
                             }`}
                         >
                           <div className="flex justify-between items-start mb-2">
-                            <h4 className="font-semibold text-gray-900 dark:text-white">{scenario.name}</h4>
-                            <span className={`text-sm font-bold ${scenario.roi >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                            <h4 className="font-semibold text-foreground">{scenario.name}</h4>
+                            <span className={`text-sm font-bold ${scenario.roi >= 0 ? 'text-green-600 dark:text-success' : 'text-red-600 dark:text-destructive'
                               }`}>
                               {parseFloat(scenario.roi.toFixed(1))}% ROI
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{scenario.description}</p>
+                          <p className="text-sm text-foreground dark:text-muted-foreground mb-2">{scenario.description}</p>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-400">نسبة الحفظ:</span>
+                            <span className="text-gray-600 dark:text-muted-foreground">نسبة الحفظ:</span>
                             <span className="font-medium">{scenario.savedRate}%</span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-400">معدل التحويل:</span>
+                            <span className="text-gray-600 dark:text-muted-foreground">معدل التحويل:</span>
                             <span className="font-medium">{scenario.conversionRate}%</span>
                           </div>
                           <div className="flex justify-between text-sm font-semibold">
-                            <span className="text-gray-600 dark:text-gray-400">الإيرادات:</span>
-                            <span className="text-gray-900 dark:text-white">
+                            <span className="text-gray-600 dark:text-muted-foreground">الإيرادات:</span>
+                            <span className="text-foreground">
                               {parseFloat(scenario.revenue.toFixed(0)).toLocaleString('ar-EG')} ج.م
                             </span>
                           </div>
                           <div className="flex justify-between text-sm font-semibold">
-                            <span className="text-gray-600 dark:text-gray-400">الأرباح:</span>
-                            <span className={`${scenario.profit >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                            <span className="text-gray-600 dark:text-muted-foreground">الأرباح:</span>
+                            <span className={`${scenario.profit >= 0 ? 'text-green-600 dark:text-success' : 'text-red-600 dark:text-destructive'
                               }`}>
                               {parseFloat(scenario.profit.toFixed(0)).toLocaleString('ar-EG')} ج.م
                             </span>
@@ -569,68 +569,68 @@ const CampaignResultsPredictor: React.FC = () => {
                 </div>
 
                 {/* Advanced Metrics */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                <div className="bg-card rounded-xl shadow-lg p-6 mb-6">
+                  <h3 className="text-xl font-semibold text-foreground mb-6">
                     المقاييس المتقدمة
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">نقطة التعادل</p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="p-4 bg-muted dark:bg-muted rounded-lg">
+                      <p className="text-sm text-foreground dark:text-muted-foreground mb-2">نقطة التعادل</p>
+                      <p className="text-3xl font-bold text-foreground">
                         {prediction.breakEven.toLocaleString('ar-EG')} رسالة
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         العدد الأدنى من الرسائل المطلوب لإسترداد التكلفة
                       </p>
                     </div>
 
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">التكلفة لكل رسالة</p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="p-4 bg-muted dark:bg-muted rounded-lg">
+                      <p className="text-sm text-foreground dark:text-muted-foreground mb-2">التكلفة لكل رسالة</p>
+                      <p className="text-3xl font-bold text-foreground">
                         {parseFloat(prediction.costPerMessage.toFixed(2))} ج.م
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         متوسط التكلفة لكل رسالة مرسلة
                       </p>
                     </div>
 
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">التكلفة لكل تحويل</p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="p-4 bg-muted dark:bg-muted rounded-lg">
+                      <p className="text-sm text-foreground dark:text-muted-foreground mb-2">التكلفة لكل تحويل</p>
+                      <p className="text-3xl font-bold text-foreground">
                         {parseFloat(prediction.costPerConversion.toFixed(2))} ج.م
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         التكلفة المتوقعة لكل محادثة محولة
                       </p>
                     </div>
 
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">عدد الطلبات المتوقع</p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="p-4 bg-muted dark:bg-muted rounded-lg">
+                      <p className="text-sm text-foreground dark:text-muted-foreground mb-2">عدد الطلبات المتوقع</p>
+                      <p className="text-3xl font-bold text-foreground">
                         {prediction.predictedOrders.toLocaleString('ar-EG')}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         بناءً على 80% معدل تحويل من المحادثة إلى طلب
                       </p>
                     </div>
 
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">الربح لكل رسالة</p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="p-4 bg-muted dark:bg-muted rounded-lg">
+                      <p className="text-sm text-foreground dark:text-muted-foreground mb-2">الربح لكل رسالة</p>
+                      <p className="text-3xl font-bold text-foreground">
                         {parseFloat((prediction.profit / params.messagesCount).toFixed(2))} ج.م
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         متوسط الأرباح لكل رسالة مرسلة
                       </p>
                     </div>
 
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">الكفاءة التكلفوية</p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="p-4 bg-muted dark:bg-muted rounded-lg">
+                      <p className="text-sm text-foreground dark:text-muted-foreground mb-2">الكفاءة التكلفوية</p>
+                      <p className="text-3xl font-bold text-foreground">
                         {parseFloat((prediction.predictedRevenue / params.campaignCost).toFixed(2))}x
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         المبلغ المسترد لكل جنيه تم استثماره
                       </p>
                     </div>
@@ -639,8 +639,8 @@ const CampaignResultsPredictor: React.FC = () => {
 
                 {/* Historical Trends */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  <div className="bg-card rounded-xl shadow-lg p-6">
+                    <h3 className="text-xl font-semibold text-foreground mb-4">
                       اتجاه معدل الحفظ التاريخي
                     </h3>
                     <LineChart
@@ -654,8 +654,8 @@ const CampaignResultsPredictor: React.FC = () => {
                     />
                   </div>
 
-                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  <div className="bg-card rounded-xl shadow-lg p-6">
+                    <h3 className="text-xl font-semibold text-foreground mb-4">
                       نمط النشاط الساعي
                     </h3>
                     <BarChart
@@ -671,9 +671,9 @@ const CampaignResultsPredictor: React.FC = () => {
                 </div>
 
                 {/* Recommendations */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                    <TargetIcon className="w-6 h-6 text-green-600" />
+                <div className="bg-card rounded-xl shadow-lg p-6">
+                  <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
+                    <TargetIcon className="w-6 h-6 text-success" />
                     التوصيات الخبيرة
                   </h3>
 
@@ -682,28 +682,28 @@ const CampaignResultsPredictor: React.FC = () => {
                       <div className="flex items-start gap-3">
                         <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">نصيحة الحفظ:</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">نصيحة الحفظ:</p>
+                          <p className="text-xs text-muted-foreground">
                             زيادة نسبة الحفظ بنسبة 10% يمكن أن تُزود الإيرادات بنسبة {parseFloat((prediction.predictedRevenue * 0.25).toFixed(0)).toLocaleString('ar-EG')} ج.م
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-success mt-2 flex-shrink-0" />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">نصيحة التحويل:</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">نصيحة التحويل:</p>
+                          <p className="text-xs text-muted-foreground">
                             تحسين معدل التحويل بنسبة 5% يمكن أن يُزود الأرباح بنسبة {parseFloat((prediction.profit * 0.15).toFixed(0)).toLocaleString('ar-EG')} ج.م
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-amber-500 mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-warning mt-2 flex-shrink-0" />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">نصيحة التكلفة:</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">نصيحة التكلفة:</p>
+                          <p className="text-xs text-muted-foreground">
                             خفض تكلفة الحملة بنسبة 20% يمكن أن يُحسن العائد على الاستثمار بنسبة {parseFloat(prediction.roi * 1.3).toFixed(1)}%
                           </p>
                         </div>
@@ -712,30 +712,30 @@ const CampaignResultsPredictor: React.FC = () => {
 
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-purple-500 mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">نصيحة التوقيت:</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">نصيحة التوقيت:</p>
+                          <p className="text-xs text-muted-foreground">
                             الإرسال في الساعة {params.peakHour}:00 يمكن أن يُزود نسبة الحفظ بنسبة 12% بناءً على البيانات التاريخية
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-destructive mt-2 flex-shrink-0" />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">تحذير هام:</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">تحذير هام:</p>
+                          <p className="text-xs text-muted-foreground">
                             إذا لم يتم تحقيق {parseFloat((params.campaignCost / params.avgRevenuePerConversation).toFixed(0)).toLocaleString('ar-EG')} محادثة محولة، ستكون الحملة خاسرة
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-teal-500 mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-success mt-2 flex-shrink-0" />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">نصيحة الاستثمار:</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">نصيحة الاستثمار:</p>
+                          <p className="text-xs text-muted-foreground">
                             الحملة الحالية تُعتبر مربحة فقط إذا كانت نسبة الحفظ &gt;= {parseFloat((params.campaignCost / (params.messagesCount * params.avgRevenuePerConversation * params.conversionRate / 100)).toFixed(1))}%
                           </p>
                         </div>

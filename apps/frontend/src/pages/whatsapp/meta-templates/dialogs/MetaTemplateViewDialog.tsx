@@ -29,7 +29,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
 
   return (
     <Dialog open={Boolean(viewTemplate)} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="sm:rounded-3xl">
+      <DialogContent className="sm:rounded-xl">
         <DialogHeader>
           <DialogTitle className="font-mono text-base sm:text-lg">
             {viewTemplate.name}
@@ -46,7 +46,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
                 variant="outline"
                 className={`mt-1 ${statusBadge[viewTemplate.status] || ""}`}
               >
-                <StatusIcon className="ml-1 size-3.5 inline" />
+                <StatusIcon className="ms-1 size-3.5 inline" />
                 {viewTemplate.status}
               </Badge>
             </div>
@@ -85,13 +85,13 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               <p className="text-xs text-[color:var(--color-muted-foreground)]">
                 سبب الرفض
               </p>
-              <p className="mt-1 font-medium text-xs text-red-500">
+              <p className="mt-1 font-medium text-xs text-destructive">
                 {viewTemplate.rejected_reason}
               </p>
             </div>
           )}
 
-          <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-4 space-y-3">
+          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-4 space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-muted-foreground)]">
               معاينة المكونات
             </p>

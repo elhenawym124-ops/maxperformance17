@@ -18,8 +18,8 @@ export const CampaignChartsSection: React.FC<CampaignChartsSectionProps> = ({
 }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+      <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           قمع التحويل المتوقع
         </h3>
         <div className="h-80">
@@ -32,8 +32,8 @@ export const CampaignChartsSection: React.FC<CampaignChartsSectionProps> = ({
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+      <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           توقع الإيرادات اليومية
         </h3>
         <div className="h-80">

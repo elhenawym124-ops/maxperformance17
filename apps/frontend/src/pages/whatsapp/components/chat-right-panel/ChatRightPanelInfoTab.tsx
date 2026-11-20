@@ -226,13 +226,13 @@ export const ChatRightPanelInfoTab: React.FC<ChatRightPanelInfoTabProps> = ({
 
       {/* Journey Status Card */}
       {!isGroup && activeJourney && (
-        <div style={sectionStyle} className="border-indigo-500/20 bg-indigo-500/5">
+        <div style={sectionStyle} className="border-indigo-500/20 bg-primary/5">
           <div className="flex items-center justify-between mb-1.5">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-primary">
               <Sparkles className="size-3.5" />
               <span>رحلة العميل النشطة</span>
             </div>
-            <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-semibold text-success dark:text-success">
               {activeJourney.status}
             </span>
           </div>
@@ -246,9 +246,9 @@ export const ChatRightPanelInfoTab: React.FC<ChatRightPanelInfoTabProps> = ({
               size="sm"
               onClick={onReEnroll}
               disabled={reEnrolling}
-              className="h-6 px-2 text-[10px] text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+              className="h-6 px-2 text-[10px] text-primary hover:bg-primary/10 dark:hover:bg-primary/30"
             >
-              <RefreshCw className="size-3 mr-1" />
+              <RefreshCw className="size-3 me-1" />
               إعادة التسجيل
             </Button>
           </div>

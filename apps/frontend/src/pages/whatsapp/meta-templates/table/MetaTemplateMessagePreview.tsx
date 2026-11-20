@@ -19,7 +19,7 @@ export const MetaTemplateMessagePreview: React.FC<
 
   return (
     <div
-      className="rounded-lg border border-emerald-200/60 bg-white px-3 py-2 text-sm shadow-sm dark:border-emerald-900/40 dark:bg-[#0b141a]"
+      className="rounded-lg border border-success/60 bg-white px-3 py-2 text-sm shadow-sm dark:border-success/40 dark:bg-[#0b141a]"
       dir={isRtl ? "rtl" : "ltr"}
     >
       {headerComp?.text ? (
@@ -27,7 +27,7 @@ export const MetaTemplateMessagePreview: React.FC<
           {substituteVars(headerComp.text, variantKey)}
         </p>
       ) : headerComp?.format && headerComp.format !== "TEXT" ? (
-        <div className="mb-2 flex h-20 items-center justify-center rounded bg-emerald-50 text-[10px] uppercase tracking-wide text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">
+        <div className="mb-2 flex h-20 items-center justify-center rounded bg-success/10 text-[10px] uppercase tracking-wide text-success dark:bg-success/30 dark:text-success">
           {headerComp.format} media
         </div>
       ) : null}
@@ -40,7 +40,7 @@ export const MetaTemplateMessagePreview: React.FC<
               /^\{\{\d+\}\}$/.test(part) ? (
                 <span
                   key={idx}
-                  className="mx-0.5 inline-block rounded bg-amber-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200"
+                  className="mx-0.5 inline-block rounded bg-warning px-1.5 py-0.5 font-mono text-[11px] font-semibold text-warning dark:bg-warning/20 dark:text-warning"
                 >
                   {part}
                 </span>

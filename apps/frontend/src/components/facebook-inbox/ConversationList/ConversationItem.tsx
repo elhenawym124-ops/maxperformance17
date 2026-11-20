@@ -201,7 +201,7 @@ const ConversationItem: React.FC<ConversationItemProps> = memo(
             </div>
 
             {conversation.platform === "facebook" && (
-              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-card bg-emerald-500" />
+              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-card bg-success" />
             )}
           </div>
 
@@ -247,7 +247,7 @@ const ConversationItem: React.FC<ConversationItemProps> = memo(
               {/* Delivery Failure Alert Badge */}
               {hasFailedDelivery && (
                 <span
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-red-500/15 text-red-600 dark:text-red-400 border border-red-500/30"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-destructive/15 text-destructive dark:text-destructive border border-destructive/30"
                   title={conversation.lastMessageFailureReason || "فشل إرسال رسالة إلى فيسبوك (Meta)"}
                 >
                   <span className="text-[11px]">⚠️</span>
@@ -259,31 +259,31 @@ const ConversationItem: React.FC<ConversationItemProps> = memo(
               {isFacebook && (
                 isWindowExpired ? (
                   <span
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border border-zinc-500/20"
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-foreground dark:text-muted-foreground border border-border"
                     title="انتهت نافذة الـ 24 ساعة للرد حسب سياسة ميتا (لا يمكن الرد حالياً)"
                   >
-                    <Clock className="w-2.5 h-2.5 text-zinc-500" />
+                    <Clock className="w-2.5 h-2.5 text-muted-foreground" />
                     <span>النافذة مغلقة</span>
                   </span>
                 ) : (
                   <span
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25"
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/25"
                     title="نافذة الرد مفتوحة — يمكنك الرد على هذه المحادثة الآن"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
                     <span>متاح الرد {remainingHours ? `(${remainingHours}س)` : ''}</span>
                   </span>
                 )
               )}
 
               {conversation.priority && (
-                <span className="inline-flex items-center p-0.5 rounded text-amber-500">
+                <span className="inline-flex items-center p-0.5 rounded text-warning">
                   <Star className="w-3 h-3 fill-current" />
                 </span>
               )}
 
               {conversation.assignedTo && (
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-medium bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                   <UserCheck className="w-2.5 h-2.5" />
                   <span>معين</span>
                 </span>
@@ -293,7 +293,7 @@ const ConversationItem: React.FC<ConversationItemProps> = memo(
                 (conversation.aiPausedUntil &&
                   new Date(conversation.aiPausedUntil).getTime() > Date.now())) && (
                 <span
-                  className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20"
                   title="الذكاء الاصطناعي متوقف (تدخل بشري)"
                 >
                   <Bot className="w-2.5 h-2.5" />
@@ -304,7 +304,7 @@ const ConversationItem: React.FC<ConversationItemProps> = memo(
               {conversation.snoozedUntil &&
                 new Date(conversation.snoozedUntil).getTime() > Date.now() && (
                   <span
-                    className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-medium bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20"
+                    className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-medium bg-primary/10 text-primary dark:text-primary border border-primary/20"
                     title="محادثة مؤجلة"
                   >
                     <Clock className="w-2.5 h-2.5" />

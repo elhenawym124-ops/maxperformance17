@@ -78,7 +78,7 @@ export function SettingsToggle({
   onCheckedChange: (checked: boolean) => void;
 }) {
   return (
-    <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm">
+    <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
           <p className="text-sm font-medium text-[color:var(--color-foreground)]">
@@ -147,7 +147,7 @@ export function EmptyScopedSessionAlert({
   message: string;
 }) {
   return (
-    <Alert className="rounded-3xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+    <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
       <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>{message}</AlertDescription>

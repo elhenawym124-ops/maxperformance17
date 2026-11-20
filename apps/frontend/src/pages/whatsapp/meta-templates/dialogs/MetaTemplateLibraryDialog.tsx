@@ -53,10 +53,10 @@ export const MetaTemplateLibraryDialog: React.FC<MetaTemplateLibraryDialogProps>
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl sm:rounded-3xl">
+      <DialogContent className="max-w-2xl sm:rounded-xl">
         <DialogHeader>
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 shadow-sm text-white">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary shadow-sm text-white">
               <FileText className="size-5" />
             </div>
             <div>
@@ -75,7 +75,7 @@ export const MetaTemplateLibraryDialog: React.FC<MetaTemplateLibraryDialogProps>
             value={librarySearch}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="ابحث بالاسم، الوصف، التصنيف..."
-            className="h-11 px-9 rounded-2xl border-[color:var(--shell-control-border)] bg-[var(--color-muted)] transition-all duration-200 focus:scale-[1.01]"
+            className="h-11 px-9 rounded-xl border-[color:var(--shell-control-border)] bg-[var(--color-muted)] transition-all duration-200 focus:scale-[1.01]"
           />
           {librarySearch && (
             <button
@@ -127,7 +127,7 @@ export const MetaTemplateLibraryDialog: React.FC<MetaTemplateLibraryDialogProps>
               return (
                 <section key={category}>
                   <div
-                    className={`sticky top-0 z-10 mb-3 flex items-center gap-2 rounded-2xl p-2.5 ${style.sectionBg} backdrop-blur-sm`}
+                    className={`sticky top-0 z-10 mb-3 flex items-center gap-2 rounded-xl p-2.5 ${style.sectionBg} backdrop-blur-sm`}
                   >
                     <span className="flex size-8 items-center justify-center rounded-xl bg-white text-base shadow-sm dark:bg-[var(--shell-overlay-bg)] text-primary">
                       <IconComponent className="size-4" />
@@ -141,7 +141,7 @@ export const MetaTemplateLibraryDialog: React.FC<MetaTemplateLibraryDialogProps>
                           ? "تسويق"
                           : "خدمات"}
                     </span>
-                    <span className="mr-auto text-[11px] tabular-nums font-mono text-[color:var(--color-muted-foreground)]">
+                    <span className="me-auto text-[11px] tabular-nums font-mono text-[color:var(--color-muted-foreground)]">
                       {templates.length} قالب
                     </span>
                   </div>
@@ -151,7 +151,7 @@ export const MetaTemplateLibraryDialog: React.FC<MetaTemplateLibraryDialogProps>
                         key={libTpl.id}
                         type="button"
                         onClick={() => onApplyTemplate(libTpl)}
-                        className="group w-full rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-4 text-right transition-all duration-200 hover:scale-[1.01] hover:border-[color:var(--color-primary)] hover:shadow-md hover:bg-[var(--shell-overlay-bg)]"
+                        className="group w-full rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-4 text-right transition-all duration-200 hover:scale-[1.01] hover:border-[color:var(--color-primary)] hover:shadow-md hover:bg-[var(--shell-overlay-bg)]"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0 flex-1">

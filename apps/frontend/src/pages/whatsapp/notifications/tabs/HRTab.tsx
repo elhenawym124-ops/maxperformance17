@@ -72,7 +72,7 @@ export const HRTab: React.FC<HRTabProps> = ({ settings, updateSetting }) => {
     <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm max-w-4xl">
       <div className="flex items-center justify-between border-b border-border/50 pb-3">
         <div className="flex items-center gap-2">
-          <Briefcase className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <Briefcase className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold text-foreground">
             {t("whatsappNotifications.tabs.hr", "إشعارات الموارد البشرية وشؤون الموظفين")}
           </h3>

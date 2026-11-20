@@ -38,7 +38,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
       }
     >
       {quickReplies.length === 0 ? (
-        <Alert className="rounded-3xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
           <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
           <AlertTitle>{t("whatsappSettings.quickReplies")}</AlertTitle>
           <AlertDescription>{t("whatsappSettings.noQuickReplies")}</AlertDescription>
@@ -48,7 +48,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
           {quickReplies.map((reply) => (
             <div
               key={reply.id}
-              className="rounded-3xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm"
+              className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm"
             >
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div className="space-y-3">
@@ -73,7 +73,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
                     {!reply.isActive ? (
                       <Badge
                         variant="outline"
-                        className="rounded-full border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:text-slate-200"
+                        className="rounded-full border-border bg-muted text-foreground dark:border-border dark:text-muted-foreground"
                       >
                         Inactive
                       </Badge>
@@ -102,7 +102,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
                   </Button>
                   <Button
                     variant="outline"
-                    className="rounded-full border-rose-300/70 bg-rose-500/10 text-rose-800 hover:bg-rose-500/15 dark:border-rose-500/40 dark:text-rose-200"
+                    className="rounded-full border-destructive/70 bg-destructive/10 text-destructive hover:bg-destructive/15 dark:border-destructive/40 dark:text-destructive"
                     onClick={() => onDelete(reply)}
                   >
                     <Trash2 className="size-4" />

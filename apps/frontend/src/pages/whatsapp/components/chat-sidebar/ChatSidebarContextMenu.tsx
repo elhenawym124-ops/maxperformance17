@@ -55,7 +55,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
         aria-label="Close menu"
       />
       <div
-        className="fixed z-50 w-56 rounded-2xl border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-1.5 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
+        className="fixed z-50 w-56 rounded-xl border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-1.5 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
         style={{ left: menuLeft, top: menuTop }}
         role="menu"
         onKeyDown={(e) => {
@@ -147,7 +147,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
             onDeleteChat(contact);
             onClose();
           }}
-          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-rose-600 transition-colors hover:bg-rose-500/10"
+          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10"
         >
           <span>{translate('whatsapp.sidebar.deleteChat')}</span>
           <Trash2 className="size-3.5" />
@@ -159,7 +159,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
             onBlockContact(contact);
             onClose();
           }}
-          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-rose-600 transition-colors hover:bg-rose-500/10"
+          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10"
         >
           <span>
             {contact.isBlocked

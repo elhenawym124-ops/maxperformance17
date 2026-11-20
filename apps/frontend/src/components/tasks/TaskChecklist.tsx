@@ -232,7 +232,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-4">
-        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -241,28 +241,28 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium text-gray-900 flex items-center">
-          <CheckCircleIcon className="h-5 w-5 text-indigo-600 ml-2" />
+        <h3 className="text-lg font-medium text-foreground flex items-center">
+          <CheckCircleIcon className="h-5 w-5 text-primary ms-2" />
           قوائم التحقق
         </h3>
         <button
           onClick={() => setShowAddChecklist(true)}
-          className="inline-flex items-center px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="inline-flex items-center px-3 py-1.5 text-sm bg-primary text-white rounded-md hover:bg-primary"
         >
-          <PlusIcon className="h-4 w-4 ml-1" />
+          <PlusIcon className="h-4 w-4 ms-1" />
           إضافة قائمة
         </button>
       </div>
 
       {/* Add Checklist Form */}
       {showAddChecklist && (
-        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <div className="bg-gray-50 rounded-lg p-4 border border-border">
           <input
             type="text"
             value={newChecklistTitle}
             onChange={(e) => setNewChecklistTitle(e.target.value)}
             placeholder="عنوان القائمة..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-3"
             autoFocus
             onKeyPress={(e) => e.key === "Enter" && createChecklist()}
           />
@@ -272,13 +272,13 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                 setShowAddChecklist(false);
                 setNewChecklistTitle("");
               }}
-              className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800"
+              className="px-3 py-1.5 text-sm text-foreground hover:text-foreground"
             >
               إلغاء
             </button>
             <button
               onClick={createChecklist}
-              className="px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              className="px-3 py-1.5 text-sm bg-primary text-white rounded-md hover:bg-primary"
             >
               إنشاء
             </button>
@@ -288,32 +288,32 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
 
       {/* Checklists */}
       {checklists.length === 0 && !showAddChecklist ? (
-        <div className="text-center py-8 text-gray-500">
-          <CheckCircleIcon className="h-10 w-10 mx-auto mb-2 text-gray-300" />
+        <div className="text-center py-8 text-muted-foreground">
+          <CheckCircleIcon className="h-10 w-10 mx-auto mb-2 text-muted-foreground" />
           <p className="text-sm">لا توجد قوائم تحقق</p>
         </div>
       ) : (
         checklists.map((checklist) => (
           <div
             key={checklist.id}
-            className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+            className="bg-white rounded-lg border border-border overflow-hidden"
           >
             {/* Checklist Header */}
-            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+            <div className="bg-gray-50 px-4 py-3 border-b border-border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <Bars3Icon className="h-4 w-4 text-gray-400 ml-2" />
-                  <h4 className="font-medium text-gray-900">
+                  <Bars3Icon className="h-4 w-4 text-muted-foreground ms-2" />
+                  <h4 className="font-medium text-foreground">
                     {checklist.title}
                   </h4>
                 </div>
                 <div className="flex items-center space-x-2 space-x-reverse">
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-muted-foreground">
                     {checklist.completedCount}/{checklist.totalCount}
                   </span>
                   <button
                     onClick={() => deleteChecklist(checklist.id)}
-                    className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
+                    className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded"
                   >
                     <TrashIcon className="h-4 w-4" />
                   </button>
@@ -323,7 +323,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
               {/* Progress Bar */}
               {checklist.totalCount > 0 && (
                 <div className="mt-2">
-                  <div className="w-full bg-gray-200 rounded-full h-1.5">
+                  <div className="w-full bg-muted rounded-full h-1.5">
                     <div
                       className={`h-1.5 rounded-full transition-all ${
                         getProgressPercentage(checklist) === 100
@@ -342,7 +342,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
               {checklist.items.map((item) => (
                 <div
                   key={item.id}
-                  className={`flex items-center p-2 rounded-lg hover:bg-gray-50 group ${
+                  className={`flex items-center p-2 rounded-lg hover:bg-muted group ${
                     item.isCompleted ? "opacity-60" : ""
                   }`}
                 >
@@ -350,12 +350,12 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                     onClick={() =>
                       toggleItem(checklist.id, item.id, item.isCompleted)
                     }
-                    className="flex-shrink-0 ml-3"
+                    className="flex-shrink-0 ms-3"
                   >
                     {item.isCompleted ? (
-                      <CheckCircleSolidIcon className="h-5 w-5 text-green-500" />
+                      <CheckCircleSolidIcon className="h-5 w-5 text-success" />
                     ) : (
-                      <div className="h-5 w-5 border-2 border-gray-300 rounded-full hover:border-indigo-500"></div>
+                      <div className="h-5 w-5 border-2 border-border rounded-full hover:border-primary"></div>
                     )}
                   </button>
 
@@ -366,7 +366,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                         type="text"
                         value={editContent}
                         onChange={(e) => setEditContent(e.target.value)}
-                        className="flex-1 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="flex-1 px-2 py-1 border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
                         autoFocus
                         onKeyPress={(e) =>
                           e.key === "Enter" && updateItem(checklist.id, item.id)
@@ -374,7 +374,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                       />
                       <button
                         onClick={() => updateItem(checklist.id, item.id)}
-                        className="text-indigo-600 hover:text-indigo-800"
+                        className="text-indigo-600 hover:text-primary"
                       >
                         حفظ
                       </button>
@@ -383,7 +383,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                           setEditingItem(null);
                           setEditContent("");
                         }}
-                        className="text-gray-400 hover:text-gray-600"
+                        className="text-gray-400 hover:text-foreground"
                       >
                         إلغاء
                       </button>
@@ -391,7 +391,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                   ) : (
                     <>
                       <span
-                        className={`flex-1 text-sm ${item.isCompleted ? "line-through text-gray-400" : "text-gray-700"}`}
+                        className={`flex-1 text-sm ${item.isCompleted ? "line-through text-muted-foreground" : "text-gray-700"}`}
                       >
                         {item.content}
                       </span>
@@ -404,13 +404,13 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                             });
                             setEditContent(item.content);
                           }}
-                          className="p-1 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded"
+                          className="p-1 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded"
                         >
                           <PencilIcon className="h-3.5 w-3.5" />
                         </button>
                         <button
                           onClick={() => deleteItem(checklist.id, item.id)}
-                          className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
+                          className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded"
                         >
                           <XMarkIcon className="h-3.5 w-3.5" />
                         </button>
@@ -422,7 +422,7 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
 
               {/* Add Item */}
               <div className="flex items-center p-2 mt-1">
-                <PlusIcon className="h-5 w-5 text-gray-400 ml-3" />
+                <PlusIcon className="h-5 w-5 text-muted-foreground ms-3" />
                 <input
                   type="text"
                   value={newItemContent[checklist.id] || ""}
@@ -433,13 +433,13 @@ const TaskChecklist: React.FC<TaskChecklistProps> = ({ taskId, onUpdate }) => {
                     })
                   }
                   placeholder="أضف عنصر..."
-                  className="flex-1 px-2 py-1 text-sm border-0 focus:outline-none focus:ring-0 placeholder-gray-400"
+                  className="flex-1 px-2 py-1 text-sm border-0 focus:outline-none focus:ring-0 placeholder-muted"
                   onKeyPress={(e) => e.key === "Enter" && addItem(checklist.id)}
                 />
                 {newItemContent[checklist.id] && (
                   <button
                     onClick={() => addItem(checklist.id)}
-                    className="text-sm text-indigo-600 hover:text-indigo-800"
+                    className="text-sm text-primary hover:text-primary"
                   >
                     إضافة
                   </button>

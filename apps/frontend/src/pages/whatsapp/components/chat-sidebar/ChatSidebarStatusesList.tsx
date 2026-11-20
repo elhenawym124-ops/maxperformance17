@@ -28,7 +28,7 @@ export const ChatSidebarStatusesList: React.FC<ChatSidebarStatusesListProps> = (
       <button
         type="button"
         onClick={onAddStatus}
-        className="flex w-full items-center justify-between rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-elevated)] px-4 py-3 text-start shadow-xs transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+        className="flex w-full items-center justify-between rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-elevated)] px-4 py-3 text-start shadow-xs transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
       >
         <div>
           <p className="text-xs font-semibold text-[color:var(--color-foreground)]">
@@ -55,7 +55,7 @@ export const ChatSidebarStatusesList: React.FC<ChatSidebarStatusesListProps> = (
         statuses.map((status) => (
           <article
             key={status.id}
-            className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] px-3.5 py-3 shadow-xs"
+            className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] px-3.5 py-3 shadow-xs"
           >
             <div className="flex items-start gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-[color:var(--color-primary)]">

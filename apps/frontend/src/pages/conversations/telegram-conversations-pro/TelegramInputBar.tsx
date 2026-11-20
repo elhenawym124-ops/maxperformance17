@@ -227,8 +227,8 @@ export const TelegramInputBar: React.FC<TelegramInputBarProps> = ({
         </button>
 
         <div
-          className={`flex-1 business-bg-soft border business-border business-control-border rounded-2xl flex items-center ${
-            isRTL ? "pr-4 pl-4" : "pl-4 pr-4"
+          className={`flex-1 business-bg-soft border business-border business-control-border rounded-xl flex items-center ${
+            isRTL ? "pe-4 ps-4" : "ps-4 pe-4"
           } py-2 business-focus-within-primary business-focus-within-panel transition-all`}
         >
           <input
@@ -251,7 +251,7 @@ export const TelegramInputBar: React.FC<TelegramInputBarProps> = ({
           <Smile
             size={20}
             className={`business-text-subtle cursor-pointer business-hover-muted ${
-              isRTL ? "mr-2" : "ml-2"
+              isRTL ? "me-2" : "ms-2"
             }`}
           />
         </div>
@@ -263,7 +263,7 @@ export const TelegramInputBar: React.FC<TelegramInputBarProps> = ({
             }
             className="p-3 business-bg-primary-solid business-text-on-accent rounded-full shadow-lg business-hover-primary-soft0 active:scale-95 transition-all flex items-center justify-center transform"
           >
-            <Send size={20} className={isRTL ? "mr-0.5" : "ml-0.5"} />
+            <Send size={20} className={isRTL ? "me-0.5" : "ms-0.5"} />
           </button>
         ) : (
           <button

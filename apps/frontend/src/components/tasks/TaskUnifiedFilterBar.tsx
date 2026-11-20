@@ -205,7 +205,7 @@ export const TaskUnifiedFilterBar: React.FC<TaskUnifiedFilterBarProps> = ({
             value={filters.search}
             onChange={(e) => updateFilter('search', e.target.value)}
             placeholder="بحث بالعنوان، الوصف، المكلف، كود المهمة #id..."
-            className="h-8 w-full rounded-lg border border-border/60 bg-background/90 pr-8 pl-7 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+            className="h-8 w-full rounded-lg border border-border/60 bg-background/90 pe-8 ps-7 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
           />
           {filters.search && (
             <button
@@ -336,7 +336,7 @@ export const TaskUnifiedFilterBar: React.FC<TaskUnifiedFilterBarProps> = ({
               }
             }}
             placeholder="التاجات..."
-            className="h-8 w-24 rounded-lg border border-border/60 bg-background/90 pr-6 pl-2 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none sm:w-28"
+            className="h-8 w-24 rounded-lg border border-border/60 bg-background/90 pe-6 ps-2 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none sm:w-28"
             title="اضغط Enter للتطبيق"
           />
         </div>
@@ -362,7 +362,7 @@ export const TaskUnifiedFilterBar: React.FC<TaskUnifiedFilterBarProps> = ({
           <button
             type="button"
             onClick={handleReset}
-            className="inline-flex h-8 items-center gap-1 rounded-lg border border-rose-500/20 bg-rose-500/10 px-2 text-xs font-medium text-rose-600 transition-colors hover:bg-rose-500/20 dark:text-rose-400"
+            className="inline-flex h-8 items-center gap-1 rounded-lg border border-destructive/20 bg-destructive/10 px-2 text-xs font-medium text-destructive transition-colors hover:bg-destructive/20 dark:text-destructive"
             title="تصفير كل الفلاتر"
           >
             <XMarkIcon className="size-3.5" />
@@ -385,7 +385,7 @@ export const TaskUnifiedFilterBar: React.FC<TaskUnifiedFilterBarProps> = ({
 
         {/* 10. Result Count Badge */}
         {filteredCount !== undefined && (
-          <div className="mr-auto flex items-center gap-1 text-xs text-muted-foreground">
+          <div className="me-auto flex items-center gap-1 text-xs text-muted-foreground">
             <span className="font-semibold text-foreground tabular-nums">{filteredCount}</span>
             {totalCount !== undefined && totalCount !== filteredCount && (
               <span>من أصل <span className="tabular-nums">{totalCount}</span></span>

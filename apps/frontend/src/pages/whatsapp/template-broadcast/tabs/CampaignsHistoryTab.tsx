@@ -135,7 +135,7 @@ const CampaignRunsSection: React.FC<{ campaignId: string }> = ({ campaignId }) =
                 <td className="py-1.5 px-2 font-mono tabular-nums text-blue-600 dark:text-blue-400 font-semibold">
                   {r.sentCount ?? 0}
                 </td>
-                <td className="py-1.5 px-2 font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                <td className="py-1.5 px-2 font-mono tabular-nums text-success dark:text-success">
                   {r.deliveredCount ?? 0}
                 </td>
                 <td className="py-1.5 px-2 font-mono tabular-nums text-destructive">

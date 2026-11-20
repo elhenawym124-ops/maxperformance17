@@ -44,7 +44,7 @@ export const WhatsAppNotificationsHeader: React.FC<WhatsAppNotificationsHeaderPr
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/50 pb-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 mt-0.5">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10 text-success dark:bg-success/20 dark:text-success mt-0.5">
           <Bell className="h-5 w-5" />
         </div>
         <div>
@@ -107,7 +107,7 @@ export const WhatsAppNotificationsHeader: React.FC<WhatsAppNotificationsHeaderPr
           size="sm"
           onClick={onSave}
           disabled={loading || saving}
-          className="h-8 gap-1.5 bg-emerald-600 text-xs font-medium text-white hover:bg-emerald-700"
+          className="h-8 gap-1.5 bg-success text-xs font-medium text-white hover:bg-success"
         >
           <Save className="h-3.5 w-3.5" />
           {saving ? t("common.saving", "جاري الحفظ...") : t("common.save", "حفظ الإعدادات")}

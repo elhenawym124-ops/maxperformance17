@@ -64,7 +64,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <div className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            <FileText className="h-5 w-5 text-success dark:text-success" />
             <DialogTitle className="text-base font-semibold">
               {editingTemplate?.id
                 ? t("whatsappNotifications.templates.edit", "تعديل قالب الرسالة")
@@ -158,7 +158,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
             size="sm"
             onClick={onSave}
             disabled={saving || !templateForm.content.trim()}
-            className="h-8 gap-1.5 bg-emerald-600 text-xs font-medium text-white hover:bg-emerald-700"
+            className="h-8 gap-1.5 bg-success text-xs font-medium text-white hover:bg-success"
           >
             <Save className="h-3.5 w-3.5" />
             {saving ? t("common.saving", "جاري الحفظ...") : t("common.save", "حفظ القالب")}

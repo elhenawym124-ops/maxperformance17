@@ -48,7 +48,7 @@ export const TelegramChatHeader: React.FC<TelegramChatHeaderProps> = ({
             <div className="w-1.5 h-1.5 rounded-full business-bg-success-solid"></div>
             {isRTL ? "مشترك بوت" : "bot subscriber"}
             {isTyping && (
-              <span className="business-text-muted ml-2">
+              <span className="business-text-muted ms-2">
                 {isRTL ? "يكتب..." : "typing..."}
               </span>
             )}
@@ -66,7 +66,7 @@ export const TelegramChatHeader: React.FC<TelegramChatHeaderProps> = ({
           className={`p-2 business-hover-soft rounded-full transition-colors ${
             activeConversation.aiEnabled !== false
               ? "business-text-primary business-bg-primary-soft"
-              : "text-gray-400 hover:text-gray-600"
+              : "text-gray-400 hover:text-foreground"
           }`}
           title={
             activeConversation.aiEnabled !== false

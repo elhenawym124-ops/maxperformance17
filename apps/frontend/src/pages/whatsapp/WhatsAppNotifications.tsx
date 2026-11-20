@@ -96,7 +96,7 @@ const WhatsAppNotifications: React.FC<WhatsAppNotificationsProps> = ({
     return (
       <div className="mx-auto w-full max-w-7xl p-6 text-center" dir={i18n.dir()}>
         <div className="flex flex-col items-center justify-center rounded-lg border border-border/80 bg-card p-8">
-          <AlertTriangle className="h-10 w-10 text-amber-500 mb-3" />
+          <AlertTriangle className="h-10 w-10 text-warning mb-3" />
           <h3 className="text-sm font-semibold text-foreground">
             {t("whatsappNotifications.general.noSettingsFound", "تعذر تحميل إعدادات الإشعارات")}
           </h3>

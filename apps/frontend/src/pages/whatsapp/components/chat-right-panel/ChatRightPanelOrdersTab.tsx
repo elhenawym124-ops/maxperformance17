@@ -72,7 +72,7 @@ export const ChatRightPanelOrdersTab: React.FC<ChatRightPanelOrdersTabProps> = (
 
                       {isServiceOrder && (
                         <div className="flex items-center gap-1">
-                          <span className="inline-flex items-center gap-1 rounded bg-purple-100 dark:bg-purple-900/40 px-1.5 py-0.5 text-[10px] font-bold text-purple-700 dark:text-purple-300">
+                          <span className="inline-flex items-center gap-1 rounded bg-primary dark:bg-primary/40 px-1.5 py-0.5 text-[10px] font-bold text-primary dark:text-primary">
                             <Wrench className="size-2.5" />
                             <span>خدمة</span>
                           </span>
@@ -96,7 +96,7 @@ export const ChatRightPanelOrdersTab: React.FC<ChatRightPanelOrdersTabProps> = (
                         {format(new Date(order.createdAt), 'dd MMM yyyy', { locale: arSA })}
                       </span>
                       {isServiceOrder && order.serviceName && (
-                        <span className="mr-1 text-purple-600 dark:text-purple-400 font-medium">
+                        <span className="me-1 text-primary dark:text-primary font-medium">
                           • {order.serviceName}
                         </span>
                       )}
@@ -121,7 +121,7 @@ export const ChatRightPanelOrdersTab: React.FC<ChatRightPanelOrdersTabProps> = (
                       {order.total?.toLocaleString() || 0} ج.م
                     </span>
                     {isServiceOrder && order.paid > 0 && (
-                      <span className="block font-mono text-[10px] text-emerald-600 dark:text-emerald-400">
+                      <span className="block font-mono text-[10px] text-success dark:text-success">
                         (مدفوع: {order.paid} ج.م)
                       </span>
                     )}
@@ -153,10 +153,10 @@ export const ChatRightPanelOrdersTab: React.FC<ChatRightPanelOrdersTabProps> = (
           <Button
             variant="outline"
             size="sm"
-            className="flex-1 gap-1.5 text-xs font-semibold border-purple-200 text-purple-700 hover:bg-purple-50 dark:border-purple-800 dark:text-purple-300 dark:hover:bg-purple-900/30"
+            className="flex-1 gap-1.5 text-xs font-semibold border-primary text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
             onClick={onOpenServiceOrder}
           >
-            <Wrench className="size-3.5 text-purple-600 dark:text-purple-400" />
+            <Wrench className="size-3.5 text-primary dark:text-primary" />
             <span>طلب خدمة</span>
           </Button>
         )}

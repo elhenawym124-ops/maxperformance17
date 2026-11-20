@@ -79,9 +79,9 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
           message={t("whatsappSettings.noLabels")}
         />
       ) : loadingLabels ? (
-        <Skeleton className="h-72 rounded-3xl" />
+        <Skeleton className="h-72 rounded-xl" />
       ) : labels.length === 0 ? (
-        <Alert className="rounded-3xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
           <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
           <AlertTitle>{t("whatsappSettings.labels")}</AlertTitle>
           <AlertDescription>{t("whatsappSettings.noLabels")}</AlertDescription>
@@ -91,7 +91,7 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
           {labels.map((label) => (
             <div
               key={label.id}
-              className="group flex items-center justify-between gap-3 rounded-3xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-primary)_6%,white)]"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-primary)_6%,white)]"
             >
               <button
                 type="button"
@@ -117,7 +117,7 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
 
               <Button
                 variant="outline"
-                className="rounded-full border-rose-300/70 bg-rose-500/10 text-rose-800 hover:bg-rose-500/15 dark:border-rose-500/40 dark:text-rose-200"
+                className="rounded-full border-destructive/70 bg-destructive/10 text-destructive hover:bg-destructive/15 dark:border-destructive/40 dark:text-destructive"
                 onClick={() => onDeleteLabel(label)}
               >
                 <Trash2 className="size-4" />

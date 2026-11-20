@@ -259,8 +259,8 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                     className={cn(
                       'inline-flex shrink-0 items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[9px] font-medium font-mono tabular-nums',
                       contact.window.isOpen
-                        ? 'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
-                        : 'bg-rose-500/10 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400',
+                        ? 'bg-emerald-500/10 text-success dark:bg-success/15 dark:text-success'
+                        : 'bg-rose-500/10 text-destructive dark:bg-destructive/15 dark:text-destructive',
                     )}
                   >
                     {contact.window.isOpen ? (

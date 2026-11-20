@@ -30,7 +30,7 @@ export const WhatsAppGeneralTab: React.FC<WhatsAppGeneralTabProps> = ({
 
   if (!settings) {
     return (
-      <Alert className="rounded-3xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+      <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
         <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
         <AlertTitle>{t("whatsappSettings.generalSettings")}</AlertTitle>
         <AlertDescription>{t("whatsappSettings.dialogs.errorLoading")}</AlertDescription>
@@ -68,21 +68,21 @@ export const WhatsAppGeneralTab: React.FC<WhatsAppGeneralTabProps> = ({
             }
           />
 
-          <div className="rounded-3xl border border-emerald-300/70 bg-emerald-500/10 p-4">
+          <div className="rounded-xl border border-success/70 bg-success/10 p-4">
             <div className="flex items-start gap-3">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-white">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-success text-white">
                 <Bell className="size-5" />
               </div>
               <div className="space-y-2">
-                <p className="text-base font-semibold text-emerald-900">
+                <p className="text-base font-semibold text-success">
                   {t("whatsappSettings.autoNotifications")}
                 </p>
-                <p className="text-sm leading-6 text-emerald-800">
+                <p className="text-sm leading-6 text-success">
                   {t("whatsappSettings.autoNotificationsAlert")}
                 </p>
                 <Button
                   variant="outline"
-                  className="rounded-full border-emerald-300/70 bg-[color:var(--color-card)] text-emerald-900 hover:bg-[color:var(--color-card)]"
+                  className="rounded-full border-success/70 bg-[color:var(--color-card)] text-success hover:bg-[color:var(--color-card)]"
                   onClick={() => navigate(notificationsHref)}
                 >
                   {t("whatsappSettings.openNotificationSettings")}

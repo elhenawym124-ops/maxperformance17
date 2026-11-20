@@ -39,10 +39,10 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
               }}
             >
               <div
-                className={`message-bubble relative max-w-xs lg:max-w-md px-5 py-3 rounded-2xl shadow-lg backdrop-blur-sm ${
+                className={`message-bubble relative max-w-xs lg:max-w-md px-5 py-3 rounded-xl shadow-lg backdrop-blur-sm ${
                   message.isFromCustomer
-                    ? "bg-white/90 text-gray-900 border border-gray-200/50"
-                    : "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-indigo-500/25"
+                    ? "bg-white/90 text-foreground border border-border"
+                    : "bg-gradient-to-r from-primary to-primary text-white shadow-primary/25"
                 }`}
               >
                 <LinkifiedText
@@ -66,16 +66,16 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
         ) : (
           <div className="flex items-center justify-center h-full">
             <div className="text-center p-8">
-              <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <ChatBubbleLeftRightIcon className="h-10 w-10 text-indigo-500" />
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <ChatBubbleLeftRightIcon className="h-10 w-10 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="text-xl font-bold text-foreground mb-2">
                 لا توجد رسائل بعد
               </h3>
               <p className="text-gray-500 mb-4">
                 ابدأ محادثة جديدة مع العميل
               </p>
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl text-sm font-medium shadow-lg">
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary to-primary text-white rounded-xl text-sm font-medium shadow-lg">
                 <span>في انتظار الرسائل...</span>
               </div>
             </div>
@@ -88,7 +88,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
       {showScrollButton && (
         <button
           onClick={onScrollToBottom}
-          className="absolute bottom-4 right-4 p-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group animate-fade-in"
+          className="absolute bottom-4 right-4 p-3 bg-gradient-to-r from-primary to-primary text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group animate-fade-in"
           title="التمرير لأسفل"
           aria-label="التمرير لأسفل"
         >

@@ -16,7 +16,7 @@ export const TasksModal: React.FC<TasksModalProps> = ({ isOpen, onClose }) => {
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative flex min-h-0 flex-1 flex-col bg-card border border-border/70 m-2 sm:m-4 rounded-2xl overflow-hidden shadow-xl text-foreground">
+      <div className="relative flex min-h-0 flex-1 flex-col bg-card border border-border/70 m-2 sm:m-4 rounded-xl overflow-hidden shadow-xl text-foreground">
         {/* Top Control Bar */}
         <div className="flex items-center justify-between border-b border-border/60 bg-muted/20 px-4 py-3 shrink-0">
           <div className="flex items-center gap-2">

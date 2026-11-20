@@ -43,7 +43,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
       key={`${item.productId}-${item.variantId || ""}`}
       className={`business-cart-card p-2 sm:p-2.5 rounded-xl border transition-colors ${
         isOverStock
-          ? "border-red-300 dark:border-red-700 bg-red-50/40 dark:bg-red-900/15"
+          ? "border-red-300 dark:border-destructive bg-destructive/40 dark:bg-destructive/15"
           : ""
       }`}
       style={{
@@ -80,7 +80,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
             <button
               type="button"
               onClick={() => removeFromCart(item.productId, item.variantId)}
-              className="text-gray-400 hover:text-red-500 p-0.5 rounded transition-colors flex-shrink-0"
+              className="text-gray-400 hover:text-destructive p-0.5 rounded transition-colors flex-shrink-0"
               title="حذف من السلة"
             >
               <TrashIcon className="h-4 w-4" />
@@ -95,7 +95,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
                 </span>
               )}
               {item.size && (
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 font-medium">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-foreground dark:bg-muted dark:text-muted-foreground font-medium">
                   {item.size}
                 </span>
               )}
@@ -108,7 +108,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
           )}
 
           {isOverStock && (
-            <div className="flex items-center gap-1 text-[10px] text-red-500 font-medium mt-1">
+            <div className="flex items-center gap-1 text-[10px] text-destructive font-medium mt-1">
               <ExclamationTriangleIcon className="w-3.5 h-3.5 flex-shrink-0" />
               <span>الكمية أكبر من المخزون ({item.stock})</span>
             </div>
@@ -159,7 +159,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
                   }}
                   className={`w-16 text-xs text-center font-bold font-mono tabular-nums py-0.5 px-1 rounded border ${
                     isCustomPrice
-                      ? "border-amber-400 bg-amber-50 text-amber-900 dark:bg-amber-900/30 dark:text-amber-200"
+                      ? "border-amber-400 bg-warning/10 text-warning dark:bg-warning/30 dark:text-warning"
                       : "border-border/60 bg-background text-foreground"
                   }`}
                   title="سعر القطعة (قابل للتعديل)"

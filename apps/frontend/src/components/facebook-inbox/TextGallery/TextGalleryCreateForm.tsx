@@ -64,7 +64,7 @@ export const TextGalleryCreateForm: React.FC<TextGalleryCreateFormProps> = ({
             data-tone="success"
           >
             <svg
-              className="mr-2 h-5 w-5"
+              className="me-2 h-5 w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -135,7 +135,7 @@ export const TextGalleryCreateForm: React.FC<TextGalleryCreateFormProps> = ({
           {saving ? (
             <div className="flex items-center justify-center">
               <div
-                className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2"
+                className="me-2 h-4 w-4 animate-spin rounded-full border-b-2"
                 style={{ borderColor: "currentColor" }}
               />
               <span>جاري الحفظ...</span>

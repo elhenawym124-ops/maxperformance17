@@ -25,7 +25,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
   onRequestDelete,
 }) => {
   return (
-    <div className="bg-white border-b border-gray-200 p-4 flex justify-between items-center">
+    <div className="bg-white border-b border-border p-4 flex justify-between items-center">
       <div className="flex items-center">
         {conversation.customerAvatar ? (
           <img
@@ -34,17 +34,17 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
             className="w-10 h-10 rounded-full object-cover shrink-0"
           />
         ) : (
-          <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
             <span className="text-gray-600 text-sm font-medium">
               {conversation.customerName?.charAt(0) || "ع"}
             </span>
           </div>
         )}
-        <div className="ml-3">
-          <h3 className="text-sm font-medium text-gray-900">
+        <div className="ms-3">
+          <h3 className="text-sm font-medium text-foreground">
             {conversation.customerName}
           </h3>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             {conversation.isOnline ? "نشط الآن" : "غير متصل"}
           </p>
         </div>
@@ -56,7 +56,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
           className={`p-2 rounded-full transition-colors ${
             conversation.aiEnabled !== false
               ? "text-blue-600 hover:text-blue-800 bg-blue-50"
-              : "text-gray-400 hover:text-gray-600"
+              : "text-gray-400 hover:text-foreground"
           }`}
           title={
             conversation.aiEnabled !== false
@@ -69,7 +69,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
         </button>
         <button
           onClick={onOpenCustomerProfile}
-          className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
           title="ملف العميل"
           aria-label="ملف العميل"
         >
@@ -77,7 +77,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
         </button>
         <button
           onClick={onOpenSavedReplies}
-          className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
           title="الردود المحفوظة"
           aria-label="الردود المحفوظة"
         >
@@ -85,7 +85,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
         </button>
         <button
           onClick={onTriggerFileUpload}
-          className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
           title="إرفاق ملف"
           aria-label="إرفاق ملف"
         >
@@ -93,7 +93,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
         </button>
         <button
           onClick={onRequestDelete}
-          className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+          className="p-2 text-muted-foreground hover:text-destructive rounded-lg hover:bg-destructive/10 transition-colors"
           title="حذف المحادثة"
           aria-label="حذف المحادثة"
         >

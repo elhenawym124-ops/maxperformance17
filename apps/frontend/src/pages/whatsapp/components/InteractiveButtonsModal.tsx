@@ -195,7 +195,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
               {buttons.map((btn, index) => (
                 <div
                   key={index}
-                  className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-3 space-y-2.5"
+                  className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-3 space-y-2.5"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5 text-xs font-bold text-[color:var(--color-primary)]">
@@ -230,7 +230,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
                           variant="ghost"
                           size="icon-sm"
                           onClick={() => handleRemoveButton(index)}
-                          className="size-8 rounded-lg text-rose-600 hover:bg-rose-500/10 hover:text-rose-700"
+                          className="size-8 rounded-lg text-destructive hover:bg-destructive/10 hover:text-destructive"
                         >
                           <Trash2 className="size-3.5" />
                         </Button>

@@ -23,11 +23,11 @@ export const MetaTemplateDeleteDialog: React.FC<MetaTemplateDeleteDialogProps> =
 }) => {
   return (
     <Dialog open={Boolean(templateName)} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="sm:rounded-3xl">
+      <DialogContent className="sm:rounded-xl">
         <DialogHeader>
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-red-50 dark:bg-red-950/30">
-              <Trash2 className="size-5 text-red-500" />
+            <div className="flex size-10 items-center justify-center rounded-xl bg-destructive/10 dark:bg-destructive/30">
+              <Trash2 className="size-5 text-destructive" />
             </div>
             <div>
               <DialogTitle>حذف القالب</DialogTitle>
@@ -37,7 +37,7 @@ export const MetaTemplateDeleteDialog: React.FC<MetaTemplateDeleteDialogProps> =
             </div>
           </div>
         </DialogHeader>
-        <div className="rounded-2xl border border-red-100 bg-red-50 p-3 text-xs text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-400">
+        <div className="rounded-xl border border-destructive bg-destructive/10 p-3 text-xs text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive">
           سيتم حذف جميع ترجمات هذا القالب. هذا الإجراء لا يمكن التراجع عنه.
         </div>
         <DialogFooter className="gap-2">

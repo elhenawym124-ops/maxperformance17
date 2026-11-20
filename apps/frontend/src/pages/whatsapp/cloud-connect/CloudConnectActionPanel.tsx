@@ -32,12 +32,12 @@ export const CloudConnectActionPanel: React.FC<CloudConnectActionPanelProps> = (
     <div className="space-y-4">
       {/* Alert when FB is not configured */}
       {fbConfig && fbConfig.configured === false && (
-        <Alert className="rounded-xl border-amber-300/60 bg-amber-500/10 p-3">
-          <AlertCircle className="size-4 text-amber-600" />
-          <AlertTitle className="text-xs font-semibold text-amber-800 dark:text-amber-200">
+        <Alert className="rounded-xl border-warning/60 bg-warning/10 p-3">
+          <AlertCircle className="size-4 text-warning" />
+          <AlertTitle className="text-xs font-semibold text-warning dark:text-warning">
             {isRtl ? 'Facebook غير مهيأ' : 'Facebook Not Configured'}
           </AlertTitle>
-          <AlertDescription className="text-[11px] text-amber-700 dark:text-amber-300 mt-1">
+          <AlertDescription className="text-[11px] text-warning dark:text-warning mt-1">
             {isRtl ? (
               <>
                 بيانات اعتماد تطبيق Facebook غير مضبوطة بعد. يرجى ضبطها من{' '}

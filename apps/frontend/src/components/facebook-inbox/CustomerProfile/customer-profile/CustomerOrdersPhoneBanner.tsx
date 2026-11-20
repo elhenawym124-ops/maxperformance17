@@ -72,7 +72,7 @@ export const CustomerOrdersPhoneBanner: React.FC<
               type="button"
               onClick={handleSavePhone}
               disabled={savingPhone}
-              className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white transition-all hover:bg-emerald-700 disabled:opacity-50"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-success text-white transition-all hover:bg-success disabled:opacity-50"
               title="حفظ رقم الهاتف"
               aria-label="حفظ رقم الهاتف"
             >
@@ -126,7 +126,7 @@ export const CustomerOrdersPhoneBanner: React.FC<
         <p
           className={`text-xs mt-2 ${
             phoneUpdateMessage.startsWith("تم الحفظ:") || phoneUpdateMessage.includes("تم")
-              ? "text-emerald-600 dark:text-emerald-400"
+              ? "text-emerald-600 dark:text-success"
               : "text-destructive"
           }`}
         >

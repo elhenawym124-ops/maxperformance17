@@ -278,7 +278,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                   <Label className="text-xs font-medium flex items-center justify-between">
                     <span>صورة الرأس</span>
                     {requiresMedia ? (
-                      <span className="text-[10px] text-amber-600 dark:text-amber-400 font-normal">
+                      <span className="text-[10px] text-warning dark:text-warning font-normal">
                         (مطلوبة لهذا القالب — هيدر {headerFormat})
                       </span>
                     ) : (
@@ -305,7 +305,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                     </div>
                   ) : (
                     <label className={`flex h-8 cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed text-xs transition-colors ${
-                      requiresMedia ? 'border-amber-500/50 bg-amber-500/5 text-foreground hover:bg-amber-500/10' : 'border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/40'
+                      requiresMedia ? 'border-amber-500/50 bg-warning/5 text-foreground hover:bg-warning/10' : 'border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/40'
                     }`}>
                       {headerUploading ? (
                         <>
@@ -544,7 +544,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                 </Select>
               </div>
               {recurrence !== 'none' && (
-                <p className="text-[11px] text-emerald-700 dark:text-emerald-300">
+                <p className="text-[11px] text-success dark:text-success">
                   التشغيل الجاي: {nextRunPreview} (توقيت القاهرة)
                 </p>
               )}
@@ -568,7 +568,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                       </div>
                     )}
                     {!!preview?.capped && (
-                      <div className="text-amber-700 dark:text-amber-300">
+                      <div className="text-amber-700 dark:text-warning">
                         تم قص {preview.capped} رقم لتجاوز حد التشغيل
                       </div>
                     )}
@@ -578,12 +578,12 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
             )}
 
             {selectedTemplate && (
-              <div className="rounded-lg border border-emerald-300/60 bg-emerald-500/5 p-3 text-xs">
-                <div className="flex items-center gap-2 font-semibold text-emerald-800 dark:text-emerald-200">
-                  <CheckCircle className="size-3.5 text-emerald-600" />
+              <div className="rounded-lg border border-success/60 bg-success/5 p-3 text-xs">
+                <div className="flex items-center gap-2 font-semibold text-success dark:text-success">
+                  <CheckCircle className="size-3.5 text-success" />
                   <span>تخصيص متغيرات القالب</span>
                 </div>
-                <p className="mt-1 text-[11px] text-emerald-700 dark:text-emerald-300">
+                <p className="mt-1 text-[11px] text-success dark:text-success">
                   سيتم تعبئة المتغير الأول باسم العميل تلقائياً عند الإرسال، والقوالب بدون متغيرات ترسل بالنص الثابت.
                 </p>
               </div>
@@ -624,7 +624,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                     <span>{phone}</span>
                     <button
                       onClick={() => removeRecipient(phone)}
-                      className="mr-0.5 hover:text-destructive"
+                      className="me-0.5 hover:text-destructive"
                       aria-label="إزالة الرقم"
                     >
                       <X className="size-3" />
@@ -705,11 +705,11 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                 )}
               </div>
             ) : result.scheduled ? (
-              <div className="flex flex-col items-center gap-3 rounded-lg border border-amber-300/60 bg-amber-500/10 p-4 text-center">
-                <Clock className="size-7 text-amber-600" />
+              <div className="flex flex-col items-center gap-3 rounded-lg border border-warning/60 bg-warning/10 p-4 text-center">
+                <Clock className="size-7 text-warning" />
                 <div>
-                  <p className="text-xs font-bold text-amber-800 dark:text-amber-200">تمت الجدولة بنجاح</p>
-                  <p className="text-[11px] font-mono text-amber-700 dark:text-amber-300 mt-0.5">
+                  <p className="text-xs font-bold text-warning dark:text-warning">تمت الجدولة بنجاح</p>
+                  <p className="text-[11px] font-mono text-warning dark:text-warning mt-0.5">
                     {new Date(result.scheduledAt || '').toLocaleString('ar-EG')}
                   </p>
                 </div>
@@ -724,24 +724,24 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
               </div>
             ) : (
               <div className="space-y-3">
-                <div className="flex items-center gap-2.5 rounded-lg border border-emerald-300/60 bg-emerald-500/10 p-3">
-                  <CheckCircle className="size-6 text-emerald-600 shrink-0" />
+                <div className="flex items-center gap-2.5 rounded-lg border border-success/60 bg-success/10 p-3">
+                  <CheckCircle className="size-6 text-success shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-sm font-bold font-mono tabular-nums text-emerald-800 dark:text-emerald-200">
+                    <p className="text-sm font-bold font-mono tabular-nums text-success dark:text-success">
                       {result.sentCount || result.sent || 0}
                     </p>
-                    <p className="text-[11px] text-emerald-700 dark:text-emerald-300">تم الإرسال بنجاح</p>
+                    <p className="text-[11px] text-success dark:text-success">تم الإرسال بنجاح</p>
                   </div>
                 </div>
 
                 {(result.failedCount || result.failed || 0) > 0 && (
-                  <div className="flex items-center gap-2.5 rounded-lg border border-red-300/60 bg-red-500/10 p-3">
-                    <XCircle className="size-6 text-red-600 shrink-0" />
+                  <div className="flex items-center gap-2.5 rounded-lg border border-destructive/60 bg-destructive/10 p-3">
+                    <XCircle className="size-6 text-destructive shrink-0" />
                     <div className="min-w-0">
-                      <p className="text-sm font-bold font-mono tabular-nums text-red-800 dark:text-red-200">
+                      <p className="text-sm font-bold font-mono tabular-nums text-destructive dark:text-destructive">
                         {result.failedCount || result.failed || 0}
                       </p>
-                      <p className="text-[11px] text-red-700 dark:text-red-300">فشل في الإرسال</p>
+                      <p className="text-[11px] text-destructive dark:text-destructive">فشل في الإرسال</p>
                     </div>
                   </div>
                 )}

@@ -75,13 +75,13 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
           />
         ) : loadingBusiness ? (
           <div className="grid gap-4 xl:grid-cols-2">
-            <Skeleton className="h-80 rounded-3xl" />
-            <Skeleton className="h-80 rounded-3xl" />
+            <Skeleton className="h-80 rounded-xl" />
+            <Skeleton className="h-80 rounded-xl" />
           </div>
         ) : businessProfile ? (
           <div className="space-y-4">
             <div className="grid gap-4 xl:grid-cols-2">
-              <div className="rounded-2xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
+              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
                 <div className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pb-3">
                   <h3 className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-base">
                     {ts("whatsappSettings.businessInfo")}
@@ -177,7 +177,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
+              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
                 <div className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pb-3">
                   <h3 className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-base">
                     {ts("whatsappSettings.websites")}
@@ -209,7 +209,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
                         <Button
                           variant="outline"
                           size="icon"
-                          className="border-rose-300/70 bg-rose-500/10 text-rose-800 hover:bg-rose-500/15 dark:border-rose-500/40 dark:text-rose-200"
+                          className="border-rose-300/70 bg-destructive/10 text-destructive hover:bg-destructive/15 dark:border-destructive/40 dark:text-destructive"
                           onClick={() =>
                             setBusinessProfile((previous) => {
                               if (!previous) {
@@ -229,7 +229,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
                       </div>
                     ))
                   ) : (
-                    <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+                    <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
                       <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
                       <AlertTitle>{t("whatsappSettings.websites")}</AlertTitle>
                       <AlertDescription>
@@ -273,7 +273,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
             </Button>
           </div>
         ) : (
-          <Alert className="rounded-3xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+          <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
             <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
             <AlertTitle>{t("whatsappSettings.businessProfile")}</AlertTitle>
             <AlertDescription>

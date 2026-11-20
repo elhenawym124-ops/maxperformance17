@@ -121,7 +121,7 @@ export const WhatsAppAnalyticsLogsTable: React.FC<
         </div>
       }
     >
-      <div className="overflow-hidden rounded-2xl border border-border/70 bg-card/60">
+      <div className="overflow-hidden rounded-xl border border-border/70 bg-card/60">
         <Table>
           <TableHeader>
             <TableRow className="border-b border-border/70 hover:bg-transparent">
@@ -178,7 +178,7 @@ export const WhatsAppAnalyticsLogsTable: React.FC<
                   <TableCell>
                     {log.status === "FAILED" && log.failureReason ? (
                       <span
-                        className="max-w-[180px] truncate block text-[11px] text-rose-600 dark:text-rose-400"
+                        className="max-w-[180px] truncate block text-[11px] text-destructive dark:text-destructive"
                         title={log.failureReason}
                       >
                         {log.failureReason}

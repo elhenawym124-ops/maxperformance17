@@ -153,7 +153,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
                     ? "opacity-100"
                     : "opacity-0 group-hover/bubble:opacity-100 focus:opacity-100",
                   myReaction
-                    ? "text-amber-600 bg-amber-100 border-amber-300 dark:bg-amber-950/60 dark:border-amber-800/80 dark:text-amber-400"
+                    ? "text-amber-600 bg-warning border-warning dark:bg-warning/60 dark:border-warning/80 dark:text-warning"
                     : "text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)] hover:text-[color:var(--color-foreground)] border-transparent",
                   message.fromMe ? "order-first me-1" : "order-last ms-1"
                 )}
@@ -208,7 +208,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
             ) : null}
 
             {isPinned ? (
-              <div className="mb-1 inline-flex items-center gap-1 rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:text-amber-300">
+              <div className="mb-1 inline-flex items-center gap-1 rounded-md bg-warning/15 px-1.5 py-0.5 text-[10px] font-semibold text-warning dark:text-warning">
                 <Pin className="size-3" />
                 <span>مثبتة</span>
               </div>
@@ -216,7 +216,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
 
             {message.fromMe && message.metadata?.isBroadcast ? (
               <div className="mb-1 flex items-center gap-1.5">
-                <div className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-sky-600/10 to-blue-600/10 px-1.5 py-0.5 text-[11px] font-medium text-sky-700 dark:from-sky-400/20 dark:to-blue-400/20 dark:text-sky-300">
+                <div className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-info/10 to-blue-600/10 px-1.5 py-0.5 text-[11px] font-medium text-info dark:from-info/20 dark:to-blue-400/20 dark:text-info">
                   <Radio className="size-3" />
                   <span>Broadcast</span>
                 </div>
@@ -225,7 +225,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
 
             {isAI ? (
               <div className="mb-1 flex items-center justify-between gap-1.5">
-                <div className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-purple-600/10 to-violet-600/10 px-1.5 py-0.5 text-[11px] font-medium text-purple-700 dark:from-purple-400/20 dark:to-violet-400/20 dark:text-purple-300">
+                <div className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-primary/10 to-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-primary dark:from-primary/20 dark:to-primary/20 dark:text-primary">
                   <Bot className="size-3" />
                   <span>AI</span>
                 </div>
@@ -237,7 +237,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
                       setIsEditing(true);
                       setCorrectionText(message.content || "");
                     }}
-                    className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-purple-600 transition-colors hover:bg-purple-500/10 dark:text-purple-300 dark:hover:bg-purple-400/10"
+                    className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-primary transition-colors hover:bg-primary/10 dark:text-primary dark:hover:bg-primary/10"
                   >
                     <Pencil className="size-2.5" />
                     <span>تصحيح الرد</span>

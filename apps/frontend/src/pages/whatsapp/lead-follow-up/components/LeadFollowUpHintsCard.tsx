@@ -9,9 +9,9 @@ interface LeadFollowUpHintsCardProps {
 }
 
 const TIPS = [
-  { icon: Clock, color: "text-amber-500 bg-amber-500/10", key: "tip1" },
-  { icon: MessageSquare, color: "text-sky-500 bg-sky-500/10", key: "tip2" },
-  { icon: Sparkles, color: "text-violet-500 bg-violet-500/10", key: "tip3" },
+  { icon: Clock, color: "text-amber-500 bg-warning/10", key: "tip1" },
+  { icon: MessageSquare, color: "text-sky-500 bg-info/10", key: "tip2" },
+  { icon: Sparkles, color: "text-violet-500 bg-primary/10", key: "tip3" },
 ] as const;
 
 export const LeadFollowUpHintsCard: React.FC<LeadFollowUpHintsCardProps> = ({ tx }) => {

@@ -51,7 +51,7 @@ const MessengerChat: React.FC = () => {
   } = useMessengerChat();
 
   return (
-    <div className="flex bg-gray-50 h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="flex bg-muted h-[calc(100vh-4rem)] overflow-hidden">
       {/* قائمة المحادثات */}
       <MessengerConversationsSidebar
         conversations={filteredConversations}
@@ -100,9 +100,9 @@ const MessengerChat: React.FC = () => {
             />
           </>
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="flex-1 flex items-center justify-center bg-muted">
             <div className="text-center">
-              <ChatBubbleLeftRightIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <ChatBubbleLeftRightIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-gray-500">اختر محادثة للبدء</p>
             </div>
           </div>

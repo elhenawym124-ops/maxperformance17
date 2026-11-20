@@ -29,7 +29,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex items-center justify-center">
       <div
-        className="max-w-md w-full text-center space-y-6 business-page-panel p-6 sm:p-8 shadow-xl rounded-2xl border"
+        className="max-w-md w-full text-center space-y-6 business-page-panel p-6 sm:p-8 shadow-xl rounded-xl border"
         style={{
           background: "var(--business-surface-panel)",
           borderColor: "var(--business-card-border)",
@@ -43,7 +43,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
             color: "var(--business-success)",
           }}
         >
-          <CheckCircleIcon className="w-10 h-10 sm:w-12 sm:h-12 text-emerald-500" />
+          <CheckCircleIcon className="w-10 h-10 sm:w-12 sm:h-12 text-success" />
         </div>
 
         <div className="space-y-1.5">
@@ -79,7 +79,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
           </div>
           <div className="flex justify-between">
             <span style={mutedStyle}>إجمالي الطلب:</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <span className="font-bold text-success dark:text-success font-mono tabular-nums">
               {grandTotal.toLocaleString()} ج.م
             </span>
           </div>

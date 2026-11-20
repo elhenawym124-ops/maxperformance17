@@ -65,7 +65,7 @@ export const TemplateMessageContent: React.FC<TemplateMessageContentProps> = ({
           />
         ) : isDocumentHeader ? (
           <div className="flex min-w-[14rem] items-center gap-3 rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2">
-            <FileText className="size-5 text-rose-500" />
+            <FileText className="size-5 text-destructive" />
             <span className="truncate text-xs font-medium text-[color:var(--color-foreground)]">
               {message.mediaFileName || t("whatsapp.media.document", "مستند القالب")}
             </span>

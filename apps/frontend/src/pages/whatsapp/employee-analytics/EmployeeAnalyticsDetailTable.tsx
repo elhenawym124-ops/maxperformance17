@@ -42,7 +42,7 @@ export const EmployeeAnalyticsDetailTable: React.FC<EmployeeAnalyticsDetailTable
   return (
     <motion.div
       variants={reducedMotion ? noMotion : itemSlide}
-      className="relative overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 shadow-sm backdrop-blur-xl sm:rounded-3xl"
+      className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 shadow-sm backdrop-blur-xl sm:rounded-xl"
     >
       <div className="flex items-center justify-between border-b border-[color:var(--shell-control-border)] px-5 py-4">
         <div className="flex items-center gap-2">
@@ -118,11 +118,11 @@ export const EmployeeAnalyticsDetailTable: React.FC<EmployeeAnalyticsDetailTable
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <div className="relative">
-                          <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 to-violet-500/15 text-sm font-semibold text-primary">
+                          <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/15 text-sm font-semibold text-primary">
                             {emp.userName?.charAt(0) || "?"}
                           </div>
                           {idx === 0 && (
-                            <div className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-amber-500 shadow-sm">
+                            <div className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-warning shadow-sm">
                               <Trophy className="size-2.5 text-white" />
                             </div>
                           )}

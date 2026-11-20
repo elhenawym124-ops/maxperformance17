@@ -41,7 +41,7 @@ export const ChatRightPanelOrderModals: React.FC<ChatRightPanelOrderModalsProps>
             aria-label="Close order menu"
           />
           <div
-            className="fixed z-50 w-52 rounded-2xl border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-1.5 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
+            className="fixed z-50 w-52 rounded-xl border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-1.5 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
             style={{
               left: Math.min(
                 orderMenu.mouseX,

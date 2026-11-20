@@ -53,7 +53,7 @@ export const SessionBasicsStep: React.FC<SessionBasicsStepProps> = ({
             type="button"
             onClick={() => setNewSessionProvider("BAILEYS")}
             className={cn(
-              "flex flex-col items-start gap-3 rounded-2xl border p-5 text-start transition-all cursor-pointer",
+              "flex flex-col items-start gap-3 rounded-xl border p-5 text-start transition-all cursor-pointer",
               newSessionProvider === "BAILEYS"
                 ? "border-[color:var(--color-primary)] bg-primary/8 ring-2 ring-[color:var(--color-primary)]"
                 : "border-[color:var(--shell-control-border)] hover:bg-[color:var(--color-muted)]",
@@ -86,7 +86,7 @@ export const SessionBasicsStep: React.FC<SessionBasicsStepProps> = ({
               onSelectMetaCloud();
             }}
             className={cn(
-              "flex flex-col items-start gap-3 rounded-2xl border p-5 text-start transition-all cursor-pointer",
+              "flex flex-col items-start gap-3 rounded-xl border p-5 text-start transition-all cursor-pointer",
               newSessionProvider === "META_CLOUD"
                 ? "border-[color:var(--color-primary)] bg-primary/8 ring-2 ring-[color:var(--color-primary)]"
                 : "border-[color:var(--shell-control-border)] hover:bg-[color:var(--color-muted)]",

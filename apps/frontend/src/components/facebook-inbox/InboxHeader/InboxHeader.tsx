@@ -47,7 +47,7 @@ const InboxHeader: React.FC<InboxHeaderProps> = ({
               type="text"
               placeholder="بحث في المحادثات والرسائل..."
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full bg-background border border-border/70 rounded-lg pr-9 pl-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              className="w-full bg-background border border-border/70 rounded-lg pe-9 ps-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
             />
           </div>
 

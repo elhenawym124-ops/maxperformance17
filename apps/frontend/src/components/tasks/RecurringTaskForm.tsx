@@ -74,7 +74,7 @@ const RecurringTaskForm: React.FC<RecurringTaskFormProps> = ({
   };
 
   return (
-    <div className="bg-card border border-border/70 rounded-2xl p-5 text-foreground space-y-4 shadow-2xs" dir="rtl">
+    <div className="bg-card border border-border/70 rounded-xl p-5 text-foreground space-y-4 shadow-2xs" dir="rtl">
       {/* Header with Switch */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">

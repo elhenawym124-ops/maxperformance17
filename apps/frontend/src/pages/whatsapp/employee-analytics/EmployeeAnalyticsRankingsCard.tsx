@@ -36,14 +36,14 @@ export const RankingRow: React.FC<{
   const isTop = variant === "top";
   const medalColors = isTop
     ? [
-        "bg-amber-500/20 text-amber-600",
-        "bg-slate-400/20 text-slate-600",
-        "bg-orange-700/20 text-orange-700",
+        "bg-amber-500/20 text-warning",
+        "bg-slate-400/20 text-foreground",
+        "bg-orange-700/20 text-warning",
       ]
     : [];
   const barColor = isTop
-    ? "from-indigo-500 to-violet-500"
-    : "from-rose-400 to-rose-500/60";
+    ? "from-indigo-500 to-primary"
+    : "from-rose-400 to-destructive/60";
   const barWidth = Math.max(4, (emp.outgoingMessages / max) * 100);
 
   return (
@@ -103,12 +103,12 @@ export const EmployeeAnalyticsRankingsCard: React.FC<EmployeeAnalyticsRankingsCa
       {/* Most Active */}
       <motion.div
         variants={reducedMotion ? noMotion : itemSlide}
-        className="relative overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-3xl"
+        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
       >
-        <div className="pointer-events-none absolute -left-8 -top-8 size-32 rounded-full bg-emerald-500/5 blur-3xl" />
+        <div className="pointer-events-none absolute -left-8 -top-8 size-32 rounded-full bg-success/5 blur-3xl" />
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 shadow-sm">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-warning to-warning shadow-sm">
               <Trophy className="size-4 text-white" />
             </div>
             <div>
@@ -143,12 +143,12 @@ export const EmployeeAnalyticsRankingsCard: React.FC<EmployeeAnalyticsRankingsCa
       {/* Least Active */}
       <motion.div
         variants={reducedMotion ? noMotion : itemSlide}
-        className="relative overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-3xl"
+        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
       >
-        <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-rose-500/5 blur-3xl" />
+        <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-destructive/5 blur-3xl" />
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-rose-400 to-rose-600 shadow-sm">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-destructive to-destructive shadow-sm">
               <ArrowDown className="size-4 text-white" />
             </div>
             <div>

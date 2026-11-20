@@ -44,10 +44,10 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-6 sm:max-w-xl">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-6 sm:max-w-xl">
         <DialogHeader className="space-y-2">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-info/10 text-info dark:text-info">
               <Globe className="size-5" />
             </div>
             <div>
@@ -69,7 +69,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
               <Label className="font-medium text-[color:var(--color-foreground)]">
                 رابط الويب هوك (Callback URL)
               </Label>
-              <span className="text-[10px] text-sky-600 dark:text-sky-400 font-medium">
+              <span className="text-[10px] text-info dark:text-info font-medium">
                 انسخ هذا الرابط إلى Meta
               </span>
             </div>
@@ -137,7 +137,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
                   navigator.clipboard.writeText("61d94df61ed00ab77e2a7e2c15458d7ce9ec8abc4520a6a83f0b483829617314");
                   toast.success("تم نسخ الرمز البديل بنجاح");
                 }}
-                className="font-mono text-sky-600 dark:text-sky-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                className="font-mono text-info dark:text-info hover:underline inline-flex items-center gap-1 cursor-pointer"
                 title="اضغط لنسخ الرمز البديل"
               >
                 <code>61d94df...7314</code>
@@ -147,7 +147,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           </div>
 
           {/* Subscribed Fields */}
-          <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3.5 space-y-2 text-xs">
+          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3.5 space-y-2 text-xs">
             <div className="flex items-center justify-between">
               <span className="font-medium text-[color:var(--color-foreground)]">
                 الحقول المطلوبة (Webhook fields):
@@ -155,13 +155,13 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
               <div className="flex items-center gap-1.5 flex-wrap">
                 <Badge
                   variant="outline"
-                  className="font-mono text-xs bg-emerald-500/10 border-emerald-300 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-300"
+                  className="font-mono text-xs bg-success/10 border-success text-success dark:border-success/40 dark:text-success"
                 >
                   messages
                 </Badge>
                 <Badge
                   variant="outline"
-                  className="font-mono text-xs bg-sky-500/10 border-sky-300 text-sky-800 dark:border-sky-500/40 dark:text-sky-300"
+                  className="font-mono text-xs bg-info/10 border-info text-info dark:border-info/40 dark:text-info"
                 >
                   message_template_status_update
                 </Badge>
@@ -175,9 +175,9 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           </div>
 
           {/* Step Guide */}
-          <div className="rounded-2xl border border-sky-500/20 bg-sky-500/5 p-3.5 text-xs text-[color:var(--color-muted-foreground)] space-y-2">
+          <div className="rounded-xl border border-info/20 bg-info/5 p-3.5 text-xs text-[color:var(--color-muted-foreground)] space-y-2">
             <p className="font-semibold text-[color:var(--color-foreground)] flex items-center gap-1.5">
-              <Info className="size-3.5 text-sky-600" />
+              <Info className="size-3.5 text-info" />
               خطوات التثبيت في بوابة Meta Developers:
             </p>
             <ol className="list-decimal list-inside space-y-1 text-[11px] leading-relaxed">

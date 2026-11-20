@@ -216,7 +216,7 @@ export const DesktopToolsRow: React.FC<DesktopToolsRowProps> = ({
           <button
             type="button"
             onClick={onOpenOrder}
-            className="business-icon-button rounded-xl p-1.5 transition-colors sm:p-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 hover:bg-emerald-500/10"
+            className="business-icon-button rounded-xl p-1.5 transition-colors sm:p-2 text-success dark:text-success hover:text-success hover:bg-success/10"
             title="إنشاء طلب سريع (أوردر)"
             aria-label="إنشاء طلب سريع"
           >
@@ -281,7 +281,7 @@ export const DesktopToolsRow: React.FC<DesktopToolsRowProps> = ({
           </button>
 
           {showDesktopExtraTools && (
-            <div className="absolute bottom-full mb-2 start-0 z-50 flex w-56 flex-col gap-1 rounded-2xl border border-border/60 bg-popover/95 p-1.5 shadow-2xl backdrop-blur-md animate-in fade-in-0 zoom-in-95">
+            <div className="absolute bottom-full mb-2 start-0 z-50 flex w-56 flex-col gap-1 rounded-xl border border-border/60 bg-popover/95 p-1.5 shadow-2xl backdrop-blur-md animate-in fade-in-0 zoom-in-95">
               <div className="px-2 py-1 text-[11px] font-semibold text-muted-foreground border-b border-border/40">
                 أدوات وإجراءات المحادثة
               </div>

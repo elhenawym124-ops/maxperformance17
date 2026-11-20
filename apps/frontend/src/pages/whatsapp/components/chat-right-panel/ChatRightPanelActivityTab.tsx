@@ -19,9 +19,9 @@ export const ChatRightPanelActivityTab: React.FC<ChatRightPanelActivityTabProps>
   return (
     <div className="space-y-3">
       {activities.length > 0 ? (
-        <div className="relative mr-2 space-y-4 pl-4 border-r-2 border-border/50">
+        <div className="relative me-2 space-y-4 ps-4 border-r-2 border-border/50">
           {activities.map((act) => (
-            <div key={act.id} className="relative pr-5">
+            <div key={act.id} className="relative pe-5">
               <div
                 className="absolute -right-[25px] top-1 size-2.5 rounded-full border-2 border-background bg-primary shadow-xs"
               />

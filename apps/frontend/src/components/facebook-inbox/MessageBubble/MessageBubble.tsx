@@ -133,8 +133,8 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
       <div className="flex flex-col w-full mb-4 relative">
         {isOrderConfirmation && (
           <div className="flex items-center justify-center my-2 w-full">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-success/10 dark:bg-success/70 text-success dark:text-success border border-success dark:border-success shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
               <span>
                 تم إنشاء طلب {orderNum ? `#${orderNum}` : ""} من هذه المحادثة
               </span>
@@ -143,7 +143,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
                   href={`/orders/${encodeURIComponent(orderNum)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="underline hover:text-emerald-900 dark:hover:text-white mr-1 text-[11px]"
+                  className="underline hover:text-success dark:hover:text-white me-1 text-[11px]"
                 >
                   عرض الطلب
                 </a>
@@ -152,7 +152,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
           </div>
         )}
         <div
-          className={`relative max-w-[85%] sm:max-w-xs lg:max-w-md ${isCustomer ? "ml-auto" : "mr-auto"}`}
+          className={`relative max-w-[85%] sm:max-w-xs lg:max-w-md ${isCustomer ? "ms-auto" : "me-auto"}`}
           ref={actionsRef}
         >
           <MessageActionsBar
@@ -176,18 +176,18 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
             <div className="flex items-center gap-1.5 mb-1.5 text-xs select-none">
               {isAIResponse ? (
                 <span
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/30 shadow-2xs"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/15 text-primary dark:text-primary border border-primary/30 shadow-2xs"
                   title="تم الرد آلياً بواسطة المساعد الذكي (MaxP AI)"
                 >
-                  <Bot className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+                  <Bot className="w-3 h-3 text-primary dark:text-primary" />
                   <span>المساعد الذكي (AI)</span>
                 </span>
               ) : isMetaExternal ? (
                 <span
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-500/15 text-sky-800 dark:text-sky-300 border border-sky-500/30 shadow-2xs"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-info/15 text-info dark:text-info border border-info/30 shadow-2xs"
                   title="تم الرد مباشرة من تطبيق فيسبوك أو Meta Business Suite خارج المنصة"
                 >
-                  <Globe className="w-3 h-3 text-sky-600 dark:text-sky-400" />
+                  <Globe className="w-3 h-3 text-info dark:text-info" />
                   <span>فيسبوك (Meta)</span>
                 </span>
               ) : (
@@ -215,7 +215,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
             </div>
           )}
 
-          <div className="px-4 py-2 rounded-2xl" style={bubbleStyle}>
+          <div className="px-4 py-2 rounded-xl" style={bubbleStyle}>
             {replyTo && (
               <ReplyQuotedPreview
                 replyTo={replyTo}
@@ -274,7 +274,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
                     <span className="text-sm">{reaction}</span>
                     {count > 1 && (
                       <span
-                        className="text-[10px] ml-0.5 font-medium tabular-nums"
+                        className="text-[10px] ms-0.5 font-medium tabular-nums"
                         style={{ color: "var(--color-muted-foreground)" }}
                       >
                         {count}
@@ -315,7 +315,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
                     </span>
                   )}
                   {(deliveryStatus === "FAILED" || message.status === "error") && (
-                    <span className="inline-flex items-center gap-1 text-amber-300 font-medium" title={failureReason || "فشل الإرسال"}>
+                    <span className="inline-flex items-center gap-1 text-warning font-medium" title={failureReason || "فشل الإرسال"}>
                       <span>⚠️</span>
                     </span>
                   )}
@@ -325,8 +325,8 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
 
             {/* عرض سبب الفشل وزر إعادة المحاولة للرسائل الفاشلة */}
             {!isCustomer && (deliveryStatus === "FAILED" || message.status === "error") && (
-              <div className="mt-2 pt-2 border-t border-red-400/30 text-xs flex flex-col gap-1.5 bg-red-950/30 -mx-2 px-2 pb-1 rounded-b-xl">
-                <div className="flex items-center gap-1 text-red-200 text-[11px] font-medium leading-tight">
+              <div className="mt-2 pt-2 border-t border-destructive/30 text-xs flex flex-col gap-1.5 bg-destructive/30 -mx-2 px-2 pb-1 rounded-b-xl">
+                <div className="flex items-center gap-1 text-destructive text-[11px] font-medium leading-tight">
                   <span>⚠️</span>
                   <span>{failureReason || "فشل إرسال الرسالة إلى فيسبوك"}</span>
                 </div>
@@ -334,7 +334,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = memo(
                   <button
                     type="button"
                     onClick={() => onRetry(message)}
-                    className="self-end inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-red-600/90 hover:bg-red-600 text-white shadow-xs transition-colors cursor-pointer"
+                    className="self-end inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-destructive/90 hover:bg-destructive text-white shadow-xs transition-colors cursor-pointer"
                   >
                     <span>🔄</span>
                     <span>إعادة محاولة</span>

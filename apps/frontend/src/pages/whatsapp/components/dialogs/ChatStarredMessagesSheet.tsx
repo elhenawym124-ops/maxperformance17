@@ -29,7 +29,7 @@ export const ChatStarredMessagesSheet: React.FC<ChatStarredMessagesSheetProps> =
       >
         <UiSheetHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-6 text-start">
           <div className="flex items-center gap-2">
-            <Star className="size-5 text-amber-500" />
+            <Star className="size-5 text-warning" />
             <UiSheetTitle>الرسائل المميزة</UiSheetTitle>
           </div>
           <UiSheetDescription>

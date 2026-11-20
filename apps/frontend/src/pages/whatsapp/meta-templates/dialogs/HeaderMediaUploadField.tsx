@@ -27,7 +27,7 @@ export const HeaderMediaUploadField: React.FC<HeaderMediaUploadFieldProps> = ({
     <div className="flex h-11 flex-1 items-center gap-2">
       {handle ? (
         <div className="flex h-full flex-1 items-center gap-2 rounded-lg border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] px-3">
-          <FileText className="ml-1 size-4 shrink-0 text-[color:var(--color-muted-foreground)]" />
+          <FileText className="ms-1 size-4 shrink-0 text-[color:var(--color-muted-foreground)]" />
           <span
             className="flex-1 truncate text-sm text-[color:var(--color-muted-foreground)]"
             dir="ltr"
@@ -42,7 +42,7 @@ export const HeaderMediaUploadField: React.FC<HeaderMediaUploadFieldProps> = ({
             onClick={onRemove}
             title="إزالة الوسيط"
           >
-            <Trash2 className="size-4 text-red-500 dark:text-red-400" />
+            <Trash2 className="size-4 text-destructive dark:text-destructive" />
           </Button>
         </div>
       ) : (
@@ -55,7 +55,7 @@ export const HeaderMediaUploadField: React.FC<HeaderMediaUploadFieldProps> = ({
         >
           {uploading ? (
             <>
-              <RefreshCw className="ml-2 size-4 animate-spin" />
+              <RefreshCw className="ms-2 size-4 animate-spin" />
               جاري الرفع إلى ميتا...
             </>
           ) : (

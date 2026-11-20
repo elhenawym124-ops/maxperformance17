@@ -60,7 +60,7 @@ export const MetaTemplateVarPlayground: React.FC<
                 key={n}
                 className="flex items-center gap-2 rounded-md bg-[color:var(--color-card)] px-2 py-1.5 text-xs"
               >
-                <span className="min-w-[28px] rounded bg-amber-100 px-1.5 py-0.5 text-center font-mono text-[10px] font-bold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200">
+                <span className="min-w-[28px] rounded bg-warning px-1.5 py-0.5 text-center font-mono text-[10px] font-bold text-warning dark:bg-warning/20 dark:text-warning">
                   {`{{${n}}}`}
                 </span>
                 <Input

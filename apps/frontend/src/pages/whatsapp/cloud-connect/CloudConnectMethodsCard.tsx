@@ -20,14 +20,14 @@ export const CloudConnectMethodsCard: React.FC<CloudConnectMethodsCardProps> = (
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2.5 pt-3">
-        <div className="rounded-lg border border-emerald-300/60 bg-emerald-500/5 p-2.5">
+        <div className="rounded-lg border border-success/60 bg-success/5 p-2.5">
           <div className="flex items-center gap-2">
-            <Globe className="size-3.5 text-emerald-600" />
-            <span className="text-xs font-semibold text-emerald-800 dark:text-emerald-200">
+            <Globe className="size-3.5 text-success" />
+            <span className="text-xs font-semibold text-success dark:text-success">
               {isRtl ? 'الربط السحابي (موصى به)' : 'Cloud Connect (Recommended)'}
             </span>
           </div>
-          <p className="mt-1 text-[11px] text-emerald-700 dark:text-emerald-300">
+          <p className="mt-1 text-[11px] text-success dark:text-success">
             {isRtl
               ? 'ضغطة زر واحدة، بدون إدخال بيانات يدوية، ورسمي 100% من Meta'
               : 'One click, official Meta Cloud API, zero ban risk'}

@@ -53,7 +53,7 @@ export const MediaAttachmentRenderer: React.FC<MediaAttachmentRendererProps> = (
                   if (parent && !parent.querySelector(".fb-expired-img-notice")) {
                     const notice = document.createElement("div");
                     notice.className =
-                      "fb-expired-img-notice flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs my-1";
+                      "fb-expired-img-notice flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-warning/10 text-warning dark:text-warning text-xs my-1";
                     notice.textContent = "⚠️ انتهت صلاحية عرض هذه الصورة من خوادم فيسبوك";
                     parent.appendChild(notice);
                   }

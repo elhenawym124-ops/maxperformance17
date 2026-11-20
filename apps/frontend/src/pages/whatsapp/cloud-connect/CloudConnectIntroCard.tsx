@@ -20,8 +20,8 @@ function RequirementItem({
         className={cn(
           'mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full',
           checked
-            ? 'bg-emerald-500/15 text-emerald-600'
-            : 'bg-amber-500/15 text-amber-600',
+            ? 'bg-emerald-500/15 text-success'
+            : 'bg-amber-500/15 text-warning',
         )}
       >
         {checked ? (
@@ -61,16 +61,16 @@ export const CloudConnectIntroCard: React.FC<CloudConnectIntroCardProps> = ({ is
     >
       <div className="space-y-5">
         {/* Meta Compliance Banner */}
-        <div className="rounded-xl border border-emerald-300/60 bg-emerald-500/5 p-3.5 sm:p-4">
+        <div className="rounded-xl border border-success/60 bg-success/5 p-3.5 sm:p-4">
           <div className="flex items-start gap-3">
-            <ShieldCheck className="mt-0.5 size-4.5 shrink-0 text-emerald-600" />
+            <ShieldCheck className="mt-0.5 size-4.5 shrink-0 text-success" />
             <div className="space-y-0.5">
-              <p className="text-xs font-semibold text-emerald-800 dark:text-emerald-200">
+              <p className="text-xs font-semibold text-success dark:text-success">
                 {isRtl
                   ? 'معتمد رسمياً من Meta — أمان كامل بدون مخاطر حظر'
                   : 'Official Meta Partner — 100% Ban-Safe Cloud API'}
               </p>
-              <p className="text-[11px] text-emerald-700 dark:text-emerald-300">
+              <p className="text-[11px] text-success dark:text-success">
                 {isRtl
                   ? 'الربط عبر WhatsApp Cloud API المباشر يضمن استقرار الإرسال ووصول الرسائل'
                   : 'Direct official API ensures high delivery rates and reliable communication'}

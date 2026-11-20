@@ -142,9 +142,9 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
                   onExitMultiSelect();
                 }
               }}
-              className="h-7 rounded-lg px-2 text-[11px] text-rose-600 hover:bg-rose-500/10"
+              className="h-7 rounded-lg px-2 text-[11px] text-destructive hover:bg-destructive/10"
             >
-              <Trash2 className="size-3.5 mr-1" />
+              <Trash2 className="size-3.5 me-1" />
               حذف
             </Button>
           ) : null}
@@ -261,7 +261,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
               <span>حذف متعدد</span>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => onDeleteAll?.()}>
-              <Trash2 className="size-4 text-rose-600" />
+              <Trash2 className="size-4 text-destructive" />
               <span className="text-rose-600">حذف كل المحادثات</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

@@ -95,7 +95,7 @@ export const JourneyStepsCanvasCard: React.FC<JourneyStepsCanvasCardProps> = ({
           {Array.from({ length: 3 }).map((_, index) => (
             <Skeleton
               key={index}
-              className="h-40 rounded-2xl border border-[color:var(--shell-control-border)]"
+              className="h-40 rounded-xl border border-[color:var(--shell-control-border)]"
             />
           ))}
         </div>

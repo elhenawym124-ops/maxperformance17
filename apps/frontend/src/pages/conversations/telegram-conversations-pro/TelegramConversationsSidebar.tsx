@@ -50,7 +50,7 @@ export const TelegramConversationsSidebar: React.FC<TelegramConversationsSidebar
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={isRTL ? "بحث في المحادثات..." : "Search chats..."}
             className={`w-full ${
-              isRTL ? "pr-10 pl-4" : "pl-10 pr-4"
+              isRTL ? "pe-10 ps-4" : "ps-10 pe-4"
             } py-2 business-bg-soft-strong border-none rounded-lg text-sm business-text-strong business-placeholder-muted focus:ring-2 business-focus-primary transition-all`}
           />
           <Search
@@ -102,7 +102,7 @@ export const TelegramConversationsSidebar: React.FC<TelegramConversationsSidebar
                 </h3>
                 <span
                   className={`text-[10px] business-text-subtle whitespace-nowrap ${
-                    isRTL ? "mr-2" : "ml-2"
+                    isRTL ? "me-2" : "ms-2"
                   }`}
                 >
                   {conv.lastMessageTime.toLocaleTimeString([], {

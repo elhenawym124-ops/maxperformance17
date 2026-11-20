@@ -28,12 +28,12 @@ export const CustomerTimelineTab: React.FC<CustomerTimelineTabProps> = ({
 }) => {
   return (
     <div
-      className="relative pl-4 space-y-6 mr-2"
+      className="relative ps-4 space-y-6 me-2"
       style={{ borderRight: "2px solid var(--business-muted-line)" }}
     >
       {/* Sync Facebook Messages Button - Only for Facebook conversations */}
       {(!conversation.platform || conversation.platform.toLowerCase() === "facebook") && (
-        <div className="relative pr-6 mb-4">
+        <div className="relative pe-6 mb-4">
           <div
             className="absolute -right-[29px] top-1 w-3 h-3 rounded-full border-2"
             style={{
@@ -111,7 +111,7 @@ export const CustomerTimelineTab: React.FC<CustomerTimelineTabProps> = ({
 
       {/* Post Details Section - Show if postId exists */}
       {conversation.postId && (
-        <div className="relative pr-6 mb-4">
+        <div className="relative pe-6 mb-4">
           <div
             className="absolute -right-[29px] top-1 w-3 h-3 rounded-full border-2"
             style={{
@@ -242,7 +242,7 @@ export const CustomerTimelineTab: React.FC<CustomerTimelineTabProps> = ({
 
       {activities.length === 0 && !conversation.postId ? (
         <div
-          className="text-center py-8 pr-4"
+          className="text-center py-8 pe-4"
           style={{ color: "var(--color-muted-foreground)" }}
         >
           <Clock size={48} className="mx-auto mb-2 opacity-20" />
@@ -250,7 +250,7 @@ export const CustomerTimelineTab: React.FC<CustomerTimelineTabProps> = ({
         </div>
       ) : (
         activities.map((activity) => (
-          <div key={activity.id} className="relative pr-6">
+          <div key={activity.id} className="relative pe-6">
             <div
               className="absolute -right-[29px] top-1 w-3 h-3 rounded-full border-2"
               style={{

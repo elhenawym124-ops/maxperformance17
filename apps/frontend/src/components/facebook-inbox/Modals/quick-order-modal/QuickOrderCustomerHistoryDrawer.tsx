@@ -69,19 +69,19 @@ export const QuickOrderCustomerHistoryDrawer: React.FC<
 
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3">
         {/* Customer Info Card */}
-        <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 space-y-2 text-xs">
+        <div className="p-3 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted space-y-2 text-xs">
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <div className="font-bold text-sm" style={headingStyle}>
               {customerName || "عميل"}
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
               {customerProfile?.customerRating && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-300">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-warning text-warning dark:bg-warning/40 dark:text-warning border border-warning">
                   ⭐ {customerProfile.customerRating}
                 </span>
               )}
               {customerProfile?.deliveryRate != null && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 font-mono tabular-nums">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-success text-success dark:bg-success/40 dark:text-success font-mono tabular-nums">
                   {customerProfile.deliveryRate}% تسليم
                 </span>
               )}
@@ -102,7 +102,7 @@ export const QuickOrderCustomerHistoryDrawer: React.FC<
           )}
 
           {notes && (
-            <div className="text-muted-foreground pt-1 border-t border-slate-200/60 dark:border-slate-800/60">
+            <div className="text-muted-foreground pt-1 border-t border-border dark:border-border">
               📝 {notes}
             </div>
           )}
@@ -123,7 +123,7 @@ export const QuickOrderCustomerHistoryDrawer: React.FC<
           previousOrders.map((prevOrder) => (
             <div
               key={prevOrder.id || prevOrder.orderNumber}
-              className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs space-y-2 shadow-2xs"
+              className="p-3 rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-xs space-y-2 shadow-2xs"
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export const QuickOrderCustomerHistoryDrawer: React.FC<
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-800">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-muted dark:bg-muted">
                     {prevOrder.status}
                   </span>
                   <span className="font-bold text-primary font-mono tabular-nums text-sm">
@@ -145,7 +145,7 @@ export const QuickOrderCustomerHistoryDrawer: React.FC<
               </div>
 
               {prevOrder.orderItems && prevOrder.orderItems.length > 0 && (
-                <div className="space-y-1 pt-1.5 border-t border-slate-100 dark:border-slate-800">
+                <div className="space-y-1 pt-1.5 border-t border-border dark:border-border">
                   {prevOrder.orderItems.map((item: any, idx: number) => (
                     <div
                       key={idx}
@@ -154,7 +154,7 @@ export const QuickOrderCustomerHistoryDrawer: React.FC<
                       <span className="truncate text-muted-foreground">
                         {item.quantity}× {item.productName || item.name}
                         {(item.productColor || item.productSize) && (
-                          <span className="opacity-75 mr-1 font-normal">
+                          <span className="opacity-75 me-1 font-normal">
                             (
                             {[item.productColor, item.productSize]
                               .filter(Boolean)

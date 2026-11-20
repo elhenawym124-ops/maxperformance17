@@ -27,7 +27,7 @@ export const MetaTemplateHistoryDialog: React.FC<MetaTemplateHistoryDialogProps>
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg sm:rounded-3xl">
+      <DialogContent className="max-w-lg sm:rounded-xl">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -62,13 +62,13 @@ export const MetaTemplateHistoryDialog: React.FC<MetaTemplateHistoryDialogProps>
                 className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition-all duration-200 hover:scale-[1.01] hover:bg-[var(--color-muted)]"
               >
                 {entry.action === "created" && (
-                  <CheckCircle className="size-4 shrink-0 text-emerald-500" />
+                  <CheckCircle className="size-4 shrink-0 text-success" />
                 )}
                 {entry.action === "edited" && (
-                  <Pencil className="size-4 shrink-0 text-amber-500" />
+                  <Pencil className="size-4 shrink-0 text-warning" />
                 )}
                 {entry.action === "deleted" && (
-                  <Trash2 className="size-4 shrink-0 text-red-500" />
+                  <Trash2 className="size-4 shrink-0 text-destructive" />
                 )}
                 <span className="font-medium font-mono text-xs">{entry.name}</span>
                 {entry.language && (
@@ -81,7 +81,7 @@ export const MetaTemplateHistoryDialog: React.FC<MetaTemplateHistoryDialogProps>
                     {entry.category}
                   </span>
                 )}
-                <span className="mr-auto text-[10px] tabular-nums font-mono text-[color:var(--color-muted-foreground)]">
+                <span className="me-auto text-[10px] tabular-nums font-mono text-[color:var(--color-muted-foreground)]">
                   {new Date(entry.timestamp).toLocaleString("ar-SA", {
                     day: "numeric",
                     month: "short",

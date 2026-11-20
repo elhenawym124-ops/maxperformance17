@@ -19,7 +19,7 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
       <div
         key={product.id}
         onClick={() => handleProductClick(product)}
-        className="business-product-card group cursor-pointer flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-transparent transition-all duration-150 active:scale-[0.99] hover:border-primary/30"
+        className="business-product-card group cursor-pointer flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-xl border border-transparent transition-all duration-150 active:scale-[0.99] hover:border-primary/30"
       >
         <div className="business-product-card-media relative h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0 overflow-hidden rounded-lg sm:rounded-xl">
           {product.image ? (

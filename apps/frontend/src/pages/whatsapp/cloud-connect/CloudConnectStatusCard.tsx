@@ -51,8 +51,8 @@ export const CloudConnectStatusCard: React.FC<CloudConnectStatusCardProps> = ({
         title={isRtl ? 'تم الربط بنجاح!' : 'Connected Successfully!'}
       >
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-emerald-500/15">
-            <CheckCircle2 className="size-6 text-emerald-600" />
+          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-success/15">
+            <CheckCircle2 className="size-6 text-success" />
           </div>
           <h3 className="text-sm font-bold text-foreground">
             {isRtl
@@ -67,7 +67,7 @@ export const CloudConnectStatusCard: React.FC<CloudConnectStatusCardProps> = ({
           {sessionName && (
             <Badge
               variant="outline"
-              className="mt-3 rounded-full border-emerald-300/70 bg-emerald-500/10 px-3 py-1 text-xs font-mono text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200"
+              className="mt-3 rounded-full border-success/70 bg-success/10 px-3 py-1 text-xs font-mono text-success dark:border-success/40 dark:text-success"
             >
               {sessionName}
             </Badge>
@@ -75,7 +75,7 @@ export const CloudConnectStatusCard: React.FC<CloudConnectStatusCardProps> = ({
           <div className="mt-5 flex flex-wrap gap-2 justify-center">
             <Button
               size="sm"
-              className="h-8 rounded-lg bg-emerald-600 px-4 text-xs text-white hover:bg-emerald-700"
+              className="h-8 rounded-lg bg-success px-4 text-xs text-white hover:bg-success"
               onClick={() => navigate('/whatsapp/settings')}
             >
               {isRtl ? 'الانتقال إلى الإعدادات' : 'Go to Settings'}
@@ -100,8 +100,8 @@ export const CloudConnectStatusCard: React.FC<CloudConnectStatusCardProps> = ({
         title={isRtl ? 'فشل الاتصال' : 'Connection Failed'}
       >
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-rose-500/15">
-            <AlertCircle className="size-6 text-rose-600" />
+          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-destructive/15">
+            <AlertCircle className="size-6 text-destructive" />
           </div>
           <h3 className="text-sm font-bold text-foreground">
             {isRtl ? 'تعذر إتمام عملية الربط' : 'Failed to complete connection'}

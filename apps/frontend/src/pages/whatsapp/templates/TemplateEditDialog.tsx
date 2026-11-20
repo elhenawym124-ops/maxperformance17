@@ -64,7 +64,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl gap-0 p-0 sm:rounded-3xl">
+      <DialogContent className="max-w-2xl gap-0 p-0 sm:rounded-xl">
         <div className="px-6 pb-4 pt-8 sm:px-8">
           <DialogHeader>
             <div className="flex items-center gap-4">
@@ -201,8 +201,8 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
             </div>
 
             {EVENT_TRIGGERS[templateForm.eventType] ? (
-              <div className="flex items-center gap-2 rounded-xl bg-amber-500/10 px-3 py-2 text-xs text-amber-800 dark:text-amber-200">
-                <Clock className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              <div className="flex items-center gap-2 rounded-xl bg-warning/10 px-3 py-2 text-xs text-warning dark:text-warning">
+                <Clock className="size-4 shrink-0 text-warning dark:text-warning" />
                 <span className="font-semibold">
                   {isArabic ? "طبيعة التشغيل التلقائي:" : "Automation trigger:"}
                 </span>
@@ -211,7 +211,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
             ) : null}
 
             {templateForm.metaTemplateName ? (
-              <div className="flex items-center justify-between rounded-xl border border-sky-300/60 bg-sky-500/10 px-3 py-2 text-xs text-sky-800 dark:border-sky-500/40 dark:text-sky-200">
+              <div className="flex items-center justify-between rounded-xl border border-info/60 bg-info/10 px-3 py-2 text-xs text-info dark:border-info/40 dark:text-info">
                 <div className="flex items-center gap-2">
                   <Cloud className="size-4" />
                   <span>
@@ -225,7 +225,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="h-6 text-xs text-sky-700 hover:text-sky-900 dark:text-sky-300"
+                  className="h-6 text-xs text-info hover:text-info dark:text-info"
                   onClick={() =>
                     setTemplateForm((p) => ({ ...p, metaTemplateName: "" }))
                   }
@@ -245,7 +245,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="h-7 gap-1 rounded-full border-sky-300/80 bg-sky-500/5 text-xs text-sky-700 hover:bg-sky-500/10 dark:border-sky-500/40 dark:text-sky-300"
+                    className="h-7 gap-1 rounded-full border-info/80 bg-info/5 text-xs text-info hover:bg-info/10 dark:border-info/40 dark:text-info"
                     onClick={onOpenMetaPicker}
                   >
                     <Cloud className="size-3" />
@@ -267,7 +267,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
 
               {/* Clickable Variable Chips */}
               {activeCategoryVars.length > 0 && (
-                <div className="space-y-1.5 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3">
+                <div className="space-y-1.5 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3">
                   <p className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
                     {isArabic
                       ? "المتغيرات المتاحة لهذا الحدث (اضغط للإدراج عند المؤشر):"

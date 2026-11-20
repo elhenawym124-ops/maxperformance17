@@ -38,7 +38,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-[min(calc(100%-2rem),30rem)] overflow-visible rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-[30rem]"
+        className="max-w-[min(calc(100%-2rem),30rem)] overflow-visible rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-[30rem]"
       >
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6 sm:px-8 sm:pt-7">
           <DialogTitle>{t("whatsappSettings.dialogs.scanQR")}</DialogTitle>
@@ -48,7 +48,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
         <div className="flex flex-col items-center justify-center gap-5 px-6 pb-7 pt-5 text-center sm:px-8">
           {currentPairingCode ? (
             <div className="w-full space-y-4 animate-in fade-in-50 duration-300">
-              <div className="rounded-3xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-5">
+              <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-5">
                 <p className="text-sm text-[color:var(--color-muted-foreground)]">
                   افتح واتساب على رقم
                   {currentPairingPhone ? (
@@ -87,7 +87,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
                   {t("whatsappSettings.dialogs.qrRefreshed")}
                 </p>
               )}
-              <div className="mx-auto rounded-3xl bg-white p-5 shadow-[0_24px_50px_rgba(15,27,45,0.16)] ring-1 ring-black/5 animate-in fade-in-50 duration-300">
+              <div className="mx-auto rounded-xl bg-white p-5 shadow-[0_24px_50px_rgba(15,27,45,0.16)] ring-1 ring-black/5 animate-in fade-in-50 duration-300">
                 <QRCodeSVG
                   value={currentQR}
                   size={320}
@@ -101,7 +101,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
             </div>
           ) : (
             <div className="flex flex-col items-center gap-4 py-4 animate-pulse">
-              <div className="flex size-16 items-center justify-center rounded-2xl bg-primary/10">
+              <div className="flex size-16 items-center justify-center rounded-xl bg-primary/10">
                 <QrCode className="size-8 text-[color:var(--color-primary)]" />
               </div>
               <div className="space-y-1">

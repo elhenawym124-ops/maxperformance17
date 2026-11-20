@@ -94,7 +94,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto max-w-xl sm:rounded-3xl">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto max-w-xl sm:rounded-xl">
         <DialogHeader>
           <DialogTitle>قالب جديد</DialogTitle>
           <DialogDescription>
@@ -170,8 +170,8 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                   <code
                     className={`rounded-md px-2 py-0.5 font-mono ${
                       nameValid
-                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                        : "bg-red-500/10 text-red-700 dark:text-red-300"
+                        ? "bg-emerald-500/10 text-success dark:text-success"
+                        : "bg-red-500/10 text-destructive dark:text-destructive"
                     }`}
                   >
                     {sanitizedName || "(غير صالح)"}
@@ -228,7 +228,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
             <div className="space-y-2">
               <Label>رأس الرسالة (اختياري)</Label>
               {form.category === "AUTHENTICATION" ? (
-                <div className="rounded-xl border border-violet-200 bg-violet-50/70 p-3 text-xs text-violet-800 dark:border-violet-900/40 dark:bg-violet-950/20 dark:text-violet-300">
+                <div className="rounded-xl border border-primary bg-primary/70 p-3 text-xs text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary">
                   قوالب المصادقة الأمنيّة (AUTHENTICATION) تتبع معيار Meta
                   الموحد: لا تدعم رأس الرسالة المخصص.
                 </div>
@@ -246,16 +246,16 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="TEXT">
-                          <MessageSquare className="ml-1 size-3.5 inline" /> TEXT
+                          <MessageSquare className="ms-1 size-3.5 inline" /> TEXT
                         </SelectItem>
                         <SelectItem value="IMAGE">
-                          <Image className="ml-1 size-3.5 inline" /> IMAGE
+                          <Image className="ms-1 size-3.5 inline" /> IMAGE
                         </SelectItem>
                         <SelectItem value="VIDEO">
-                          <Video className="ml-1 size-3.5 inline" /> VIDEO
+                          <Video className="ms-1 size-3.5 inline" /> VIDEO
                         </SelectItem>
                         <SelectItem value="DOCUMENT">
-                          <File className="ml-1 size-3.5 inline" /> DOCUMENT
+                          <File className="ms-1 size-3.5 inline" /> DOCUMENT
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -296,13 +296,13 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                     )}
                   </div>
                   {form.headerFormat !== "TEXT" && !form.headerMediaHandle && (
-                    <p className="text-[11px] text-amber-500 dark:text-amber-400">
+                    <p className="text-[11px] text-warning dark:text-warning">
                       ارفع وسيطاً (صورة/فيديو/مستند) — ميتا تتطلب sample media
                       في الهيدر لاعتماد القالب
                     </p>
                   )}
                   {form.headerText && !headerVarsOk && (
-                    <p className="text-[11px] text-red-500 dark:text-red-400">
+                    <p className="text-[11px] text-destructive dark:text-destructive">
                       استخدم متغيرات مرقمة: {"{{1}}"} بدلاً من {"{{name}}"}.
                       Meta لا يقبل أسماء متغيرات.
                     </p>
@@ -318,7 +318,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
           <div className="space-y-4 animate-[fadeIn_0.25s_ease-out]">
             {form.category === "AUTHENTICATION" ? (
               <div className="space-y-4">
-                <div className="rounded-2xl border border-violet-200 bg-violet-50/80 p-4 text-xs text-violet-900 dark:border-violet-800 dark:bg-violet-950/30 dark:text-violet-200">
+                <div className="rounded-xl border border-primary bg-primary/80 p-4 text-xs text-primary dark:border-primary dark:bg-primary/30 dark:text-primary">
                   <p className="font-semibold text-sm flex items-center gap-1.5 mb-1.5">
                     <Shield className="size-4" /> مواصفات قوالب التحقق
                     والمصادقة (Meta Standard OTP):
@@ -381,7 +381,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                     className="min-h-[140px]"
                   />
                   {form.bodyText && !bodyVarsOk && (
-                    <p className="text-[11px] text-red-500 dark:text-red-400">
+                    <p className="text-[11px] text-destructive dark:text-destructive">
                       استخدم متغيرات مرقمة: {"{{1}}"}, {"{{2}}"} بدلاً من
                       أسماء. Meta يتطلب ترقيم المتغيرات.
                     </p>
@@ -389,7 +389,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                 </div>
 
                 {/* Variable chips */}
-                <div className="space-y-2 rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-3">
+                <div className="space-y-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-3">
                   <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0">
                       <p className="text-xs font-semibold text-[color:var(--color-foreground)]">
@@ -406,7 +406,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                       className="h-7 shrink-0 rounded-full text-xs"
                       onClick={insertBodyVariable}
                     >
-                      <Plus className="ml-1 size-3.5" /> إضافة متغير
+                      <Plus className="ms-1 size-3.5" /> إضافة متغير
                     </Button>
                   </div>
 
@@ -496,7 +496,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                       dir="ltr"
                     />
                     {form.buttonUrl && !buttonUrlOk && (
-                      <p className="text-[11px] text-red-500 dark:text-red-400">
+                      <p className="text-[11px] text-destructive dark:text-destructive">
                         الرابط يجب أن يبدأ بـ https://
                       </p>
                     )}
@@ -510,22 +510,22 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
         {/* Step 3: Review */}
         {createStep === 3 && (
           <div className="space-y-4 animate-[fadeIn_0.25s_ease-out]">
-            <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-4">
+            <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-4">
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[color:var(--color-muted-foreground)]">
                 معاينة حية
               </p>
-              <div className="wa-bubble rounded-2xl bg-[#d9fdd3] px-4 py-3 shadow-sm dark:bg-[var(--whatsapp-message-outgoing)]">
+              <div className="wa-bubble rounded-xl bg-[#d9fdd3] px-4 py-3 shadow-sm dark:bg-[var(--whatsapp-message-outgoing)]">
                 <p className="whitespace-pre-wrap text-[0.95rem] leading-7 text-[color:var(--color-foreground)]">
                   {previewText || "(لا يوجد محتوى)"}
                 </p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+            <div className="rounded-xl border border-warning bg-warning/10 p-3 dark:border-warning dark:bg-warning/30">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Shield className="size-4 text-amber-600 dark:text-amber-400" />
-                  <span className="text-xs font-medium text-amber-800 dark:text-amber-200">
+                  <Shield className="size-4 text-warning dark:text-warning" />
+                  <span className="text-xs font-medium text-warning dark:text-warning">
                     التحقق من التوافق مع سياسات Meta
                   </span>
                 </div>
@@ -541,7 +541,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
               {showCompliance && (
                 <div className="mt-2 space-y-1">
                   {complianceResults.length === 0 ? (
-                    <p className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                    <p className="flex items-center gap-1.5 text-xs text-success dark:text-success">
                       <CheckCircle className="size-3.5" /> لا توجد مشاكل توافق —
                       القالب جاهز للإرسال
                     </p>
@@ -551,8 +551,8 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                         key={r.id}
                         className={`flex items-start gap-1.5 text-[11px] ${
                           r.severity === "error"
-                            ? "text-red-600 dark:text-red-400"
-                            : "text-amber-600 dark:text-amber-400"
+                            ? "text-red-600 dark:text-destructive"
+                            : "text-amber-600 dark:text-warning"
                         }`}
                       >
                         {r.severity === "error" ? (

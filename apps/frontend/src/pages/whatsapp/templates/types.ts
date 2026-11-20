@@ -45,16 +45,16 @@ export const categoryBadgeClasses: Record<string, string> = {
   ORDERS:
     "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200",
   PRODUCTS:
-    "border-violet-300/70 bg-violet-500/10 text-violet-800 dark:border-violet-500/40 dark:text-violet-200",
+    "border-violet-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   MARKETING:
-    "border-pink-300/70 bg-pink-500/10 text-pink-800 dark:border-pink-500/40 dark:text-pink-200",
+    "border-pink-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   CUSTOMER:
-    "border-sky-300/70 bg-sky-500/10 text-sky-800 dark:border-sky-500/40 dark:text-sky-200",
+    "border-sky-300/70 bg-info/10 text-info dark:border-info/40 dark:text-info",
   ABANDONED_CART:
-    "border-orange-300/70 bg-orange-500/10 text-orange-800 dark:border-orange-500/40 dark:text-orange-200",
-  HR: "border-teal-300/70 bg-teal-500/10 text-teal-800 dark:border-teal-500/40 dark:text-teal-200",
+    "border-orange-300/70 bg-warning/10 text-warning dark:border-warning/40 dark:text-warning",
+  HR: "border-teal-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   SYSTEM:
-    "border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:text-slate-200",
+    "border-slate-300/70 bg-muted text-foreground dark:border-border dark:text-muted-foreground",
 };
 
 export const SUPER_ADMIN_EVENT_TYPES = [

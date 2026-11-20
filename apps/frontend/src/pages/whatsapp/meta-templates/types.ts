@@ -37,13 +37,13 @@ export interface TemplateHistoryEntry {
 
 export const statusBadge: Record<string, string> = {
   APPROVED:
-    "border-emerald-300/70 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:bg-emerald-500/[0.08] dark:text-emerald-200",
+    "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:bg-success/[0.08] dark:text-success",
   PENDING:
-    "border-amber-300/70 bg-amber-500/10 text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/[0.08] dark:text-amber-200",
+    "border-amber-300/70 bg-warning/10 text-warning dark:border-warning/40 dark:bg-warning/[0.08] dark:text-warning",
   REJECTED:
-    "border-red-300/70 bg-red-500/10 text-red-800 dark:border-red-500/40 dark:bg-red-500/[0.08] dark:text-red-200",
+    "border-red-300/70 bg-destructive/10 text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive",
   DISABLED:
-    "border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:bg-slate-500/[0.08] dark:text-slate-300",
+    "border-slate-300/70 bg-muted text-foreground dark:border-border dark:bg-muted/[0.08] dark:text-muted-foreground",
   PAUSED:
     "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:bg-blue-500/[0.08] dark:text-blue-200",
 };
@@ -69,23 +69,23 @@ export const CATEGORY_STYLE: Record<
 > = {
   AUTHENTICATION: {
     icon: Shield,
-    gradient: "from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400",
+    gradient: "from-violet-600 to-primary dark:from-primary dark:to-primary",
     badge:
-      "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-800 dark:bg-violet-950/30 dark:text-violet-300",
+      "border-violet-200 bg-primary/10 text-primary dark:border-primary dark:bg-primary/30 dark:text-primary",
     sectionBg:
-      "bg-gradient-to-b from-violet-50/50 to-transparent dark:from-violet-950/20",
+      "bg-gradient-to-b from-primary/50 to-transparent dark:from-primary/20",
   },
   MARKETING: {
     icon: Megaphone,
-    gradient: "from-rose-600 to-pink-600 dark:from-rose-400 dark:to-pink-400",
+    gradient: "from-rose-600 to-primary dark:from-destructive dark:to-primary",
     badge:
-      "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300",
+      "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/30 dark:text-destructive",
     sectionBg:
-      "bg-gradient-to-b from-rose-50/50 to-transparent dark:from-rose-950/20",
+      "bg-gradient-to-b from-destructive/50 to-transparent dark:from-destructive/20",
   },
   UTILITY: {
     icon: Wrench,
-    gradient: "from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400",
+    gradient: "from-blue-600 to-info dark:from-blue-400 dark:to-info",
     badge:
       "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-300",
     sectionBg:

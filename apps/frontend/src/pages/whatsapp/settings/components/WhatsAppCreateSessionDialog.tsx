@@ -122,7 +122,7 @@ export const WhatsAppCreateSessionDialog: React.FC<
         }
       }}
     >
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-2xl">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-2xl">
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappSettings.dialogs.addSessionTitle")}</DialogTitle>
           <DialogDescription>{t("whatsappSettings.description")}</DialogDescription>

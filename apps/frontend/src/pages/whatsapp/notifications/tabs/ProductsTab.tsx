@@ -26,7 +26,7 @@ export const ProductsTab: React.FC<ProductsTabProps> = ({
       <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
         <div className="flex items-center justify-between border-b border-border/50 pb-3">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <ShoppingBag className="h-4 w-4 text-success dark:text-success" />
             <h3 className="text-sm font-semibold text-foreground">
               {t("whatsappNotifications.tabs.products", "تنبيهات المنتجات")}
             </h3>
@@ -97,7 +97,7 @@ export const ProductsTab: React.FC<ProductsTabProps> = ({
       <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
         <div className="flex items-center justify-between border-b border-border/50 pb-3">
           <div className="flex items-center gap-2">
-            <ShoppingCart className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <ShoppingCart className="h-4 w-4 text-success dark:text-success" />
             <h3 className="text-sm font-semibold text-foreground">
               {t("whatsappNotifications.tabs.abandonedCart", "استعادة السلات المتروكة")}
             </h3>

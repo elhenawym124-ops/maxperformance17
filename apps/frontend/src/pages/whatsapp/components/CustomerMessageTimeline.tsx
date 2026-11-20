@@ -119,7 +119,7 @@ const CustomerMessageTimeline: React.FC<Props> = ({ open, onClose, customerId: p
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto rounded-2xl">
+      <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto rounded-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <MessageSquareText className="h-5 w-5 text-[color:var(--color-primary)]" />
@@ -217,13 +217,13 @@ const TimelineItem: React.FC<{ event: TimelineEvent; last: boolean }> = ({ event
   const read = e.meta?.read;
   const delivered = e.meta?.delivered || e.status === 'DELIVERED' || e.status === 'READ';
   return (
-    <div className={`relative pr-7 ${last ? 'before:h-2' : ''}`}>
+    <div className={`relative pe-7 ${last ? 'before:h-2' : ''}`}>
       <span
         className={`absolute right-0 top-2 flex h-[15px] w-[15px] items-center justify-center rounded-full border-2 ${
           failed
             ? 'border-destructive bg-destructive/15'
             : read
-              ? 'border-emerald-500 bg-emerald-500/20'
+              ? 'border-emerald-500 bg-success/20'
               : delivered
                 ? 'border-blue-500 bg-blue-500/15'
                 : 'border-[color:var(--color-border)] bg-[color:var(--color-muted)]'
@@ -254,10 +254,10 @@ const TimelineItem: React.FC<{ event: TimelineEvent; last: boolean }> = ({ event
 const StatusChip: React.FC<{ status: string }> = ({ status }) => {
   const map: Record<string, { label: string; cls: string }> = {
     SENT: { label: 'مرسلة', cls: 'border-blue-300 text-blue-700 dark:border-blue-700 dark:text-blue-400' },
-    DELIVERED: { label: 'وصلت', cls: 'border-emerald-300 text-emerald-700 dark:border-emerald-700 dark:text-emerald-400' },
-    READ: { label: 'اتقرت', cls: 'border-emerald-400 text-emerald-800 dark:border-emerald-600 dark:text-emerald-300' },
+    DELIVERED: { label: 'وصلت', cls: 'border-emerald-300 text-success dark:border-success dark:text-success' },
+    READ: { label: 'اتقرت', cls: 'border-emerald-400 text-success dark:border-success dark:text-success' },
     FAILED: { label: 'فشلت', cls: 'border-destructive/40 text-destructive' },
-    PENDING: { label: 'منتظرة', cls: 'border-amber-300 text-amber-700 dark:border-amber-700 dark:text-amber-400' },
+    PENDING: { label: 'منتظرة', cls: 'border-amber-300 text-warning dark:border-warning dark:text-warning' },
   };
   const s = map[status] || { label: status, cls: 'border-[color:var(--color-border)] text-[color:var(--color-muted-foreground)]' };
   return <Badge variant="outline" className={`rounded-full text-[10px] ${s.cls}`}>{s.label}</Badge>;

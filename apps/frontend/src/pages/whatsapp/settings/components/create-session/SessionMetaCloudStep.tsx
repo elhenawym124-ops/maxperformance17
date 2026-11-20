@@ -71,10 +71,10 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
   return (
     <div className="space-y-4 animate-in fade-in-50 duration-200">
       {/* 1-Click Embedded Sign-up Hero */}
-      <div className="rounded-2xl border-2 border-emerald-500/30 bg-emerald-500/5 p-4 sm:p-5 space-y-3.5">
+      <div className="rounded-xl border-2 border-success/30 bg-success/5 p-4 sm:p-5 space-y-3.5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-sm">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-success text-white shadow-sm">
               <Globe className="size-6" />
             </div>
             <div>
@@ -88,7 +88,7 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
           </div>
           <Badge
             variant="outline"
-            className="rounded-full border-emerald-300 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200 text-[10px] shrink-0 font-medium"
+            className="rounded-full border-success bg-success/10 text-success dark:border-success/40 dark:text-success text-[10px] shrink-0 font-medium"
           >
             موصى به
           </Badge>
@@ -96,18 +96,18 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
 
         <div className="grid grid-cols-2 gap-2 text-xs text-[color:var(--color-muted-foreground)] py-0.5">
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="size-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <CheckCircle2 className="size-3.5 text-success dark:text-success shrink-0" />
             <span>توثيق رسمي ومعتمد</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="size-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <CheckCircle2 className="size-3.5 text-success dark:text-success shrink-0" />
             <span>يعمل 24/7 دون هاتف</span>
           </div>
         </div>
 
         <Button
           type="button"
-          className="w-full rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium h-10 sm:h-11 shadow-sm gap-2 text-xs sm:text-sm"
+          className="w-full rounded-full bg-success hover:bg-success text-white font-medium h-10 sm:h-11 shadow-sm gap-2 text-xs sm:text-sm"
           onClick={() =>
             navigate(
               `/whatsapp/cloud-connect?sessionName=${encodeURIComponent(
@@ -123,7 +123,7 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
       </div>
 
       {/* Collapsible Manual Setup */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] overflow-hidden">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] overflow-hidden">
         <button
           type="button"
           onClick={() => setShowManualMeta((prev) => !prev)}
@@ -160,7 +160,7 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
       </div>
 
       {/* Collapsible Advanced Settings */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] overflow-hidden">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] overflow-hidden">
         <button
           type="button"
           onClick={() => setShowAdvancedMeta((prev) => !prev)}

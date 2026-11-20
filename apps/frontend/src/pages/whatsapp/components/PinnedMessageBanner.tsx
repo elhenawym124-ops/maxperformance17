@@ -50,11 +50,11 @@ export const PinnedMessageBanner: React.FC<PinnedMessageBannerProps> = ({
         className="flex min-w-0 flex-1 items-center gap-2 text-start transition-opacity hover:opacity-85"
         title="انقر للانتقال إلى الرسالة"
       >
-        <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400">
+        <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-warning/15 text-warning dark:text-warning">
           <Pin className="size-3.5" />
         </div>
         <div className="min-w-0 flex-1">
-          <span className="block font-bold text-amber-800 dark:text-amber-300 text-[11px]">
+          <span className="block font-bold text-warning dark:text-warning text-[11px]">
             رسالة مثبتة
           </span>
           <p className="truncate text-[11px] text-[color:var(--color-muted-foreground)]">
@@ -69,7 +69,7 @@ export const PinnedMessageBanner: React.FC<PinnedMessageBannerProps> = ({
           e.stopPropagation();
           onUnpin(pinnedMessage.messageId);
         }}
-        className="flex size-6 items-center justify-center rounded-lg text-[color:var(--color-muted-foreground)] transition-colors hover:bg-rose-500/10 hover:text-rose-600"
+        className="flex size-6 items-center justify-center rounded-lg text-[color:var(--color-muted-foreground)] transition-colors hover:bg-destructive/10 hover:text-destructive"
         title="إلغاء التثبيت"
       >
         <X className="size-3.5" />

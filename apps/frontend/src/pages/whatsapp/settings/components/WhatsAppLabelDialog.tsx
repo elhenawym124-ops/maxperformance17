@@ -39,7 +39,7 @@ export const WhatsAppLabelDialog: React.FC<WhatsAppLabelDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-sm">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-sm">
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappSettings.dialogs.addLabelTitle")}</DialogTitle>
           <DialogDescription>{t("whatsappSettings.manageLabels")}</DialogDescription>

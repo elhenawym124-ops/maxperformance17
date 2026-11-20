@@ -57,7 +57,7 @@ export const MetaTemplateBulkToolbar: React.FC<
         <Button
           variant="outline"
           size="sm"
-          className="h-7 rounded-full text-xs text-red-600 hover:text-red-700 dark:text-red-400"
+          className="h-7 rounded-full text-xs text-destructive hover:text-destructive dark:text-destructive"
           onClick={onDeleteSelected}
         >
           <Trash2 className="size-3" /> حذف المحدد ({selectedCount})

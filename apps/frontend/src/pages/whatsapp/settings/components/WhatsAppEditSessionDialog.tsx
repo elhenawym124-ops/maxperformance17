@@ -57,7 +57,7 @@ export const WhatsAppEditSessionDialog: React.FC<
         }
       }}
     >
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-3xl">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-3xl">
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappSettings.dialogs.editSession")}</DialogTitle>
           <DialogDescription>{editingSession?.name}</DialogDescription>
@@ -182,7 +182,7 @@ export const WhatsAppEditSessionDialog: React.FC<
             />
 
             {editingSession.provider !== "META_CLOUD" && (
-              <div className="space-y-3 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4">
+              <div className="space-y-3 rounded-xl border border-warning/30 bg-warning/5 p-4">
                 <SettingsToggle
                   label="درع المكالمات (Call Shield) — رفض المكالمات الواردة تلقائياً"
                   checked={editingSession.callShieldEnabled ?? false}
@@ -224,7 +224,7 @@ export const WhatsAppEditSessionDialog: React.FC<
               </div>
             )}
 
-            <div className="space-y-2 rounded-3xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4">
+            <div className="space-y-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-sm font-medium text-[color:var(--color-foreground)]">

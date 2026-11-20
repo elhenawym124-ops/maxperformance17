@@ -118,7 +118,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
                     <UiButton
                       variant="ghost"
                       size="icon-sm"
-                      className="rounded-full text-rose-600 hover:bg-rose-500/10 hover:text-rose-700"
+                      className="rounded-full text-destructive hover:bg-destructive/10 hover:text-destructive"
                       onClick={() =>
                         setListData((prev) => ({
                           ...prev,
@@ -163,7 +163,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
                         <UiButton
                           variant="ghost"
                           size="icon-sm"
-                          className="rounded-full text-rose-600 hover:bg-rose-500/10 hover:text-rose-700"
+                          className="rounded-full text-destructive hover:bg-destructive/10 hover:text-destructive"
                           onClick={() => {
                             const newSections = [...listData.sections];
                             if (newSections[sIndex]) {

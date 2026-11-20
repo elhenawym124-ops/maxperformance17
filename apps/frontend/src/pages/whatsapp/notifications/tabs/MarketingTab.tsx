@@ -23,7 +23,7 @@ export const MarketingTab: React.FC<MarketingTabProps> = ({
     <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm max-w-3xl">
       <div className="flex items-center justify-between border-b border-border/50 pb-3">
         <div className="flex items-center gap-2">
-          <Megaphone className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <Megaphone className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold text-foreground">
             {t("whatsappNotifications.tabs.marketing", "الإشعارات التسويقية والولاء")}
           </h3>

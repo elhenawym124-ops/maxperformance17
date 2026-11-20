@@ -57,18 +57,18 @@ export const WhatsAppConversationAnalytics: React.FC<{ companyId?: string }> = (
       >
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-28 rounded-2xl" />
+            <Skeleton key={i} className="h-28 rounded-xl" />
           ))}
         </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
-          <Skeleton className="h-72 rounded-2xl lg:col-span-1" />
-          <Skeleton className="h-72 rounded-2xl lg:col-span-3" />
+          <Skeleton className="h-72 rounded-xl lg:col-span-1" />
+          <Skeleton className="h-72 rounded-xl lg:col-span-3" />
         </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <Skeleton className="h-72 rounded-2xl" />
-          <Skeleton className="h-72 rounded-2xl" />
+          <Skeleton className="h-72 rounded-xl" />
+          <Skeleton className="h-72 rounded-xl" />
         </div>
-        <Skeleton className="h-80 rounded-2xl" />
+        <Skeleton className="h-80 rounded-xl" />
       </WhatsAppPageShell>
     );
   }
@@ -125,7 +125,7 @@ export const WhatsAppConversationAnalytics: React.FC<{ companyId?: string }> = (
             onClick={() => loadData(true)}
             disabled={refreshing}
           >
-            <RefreshCw className={`size-3.5 mr-1 ${refreshing ? "animate-spin" : ""}`} />
+            <RefreshCw className={`size-3.5 me-1 ${refreshing ? "animate-spin" : ""}`} />
             تحديث
           </Button>
         </div>

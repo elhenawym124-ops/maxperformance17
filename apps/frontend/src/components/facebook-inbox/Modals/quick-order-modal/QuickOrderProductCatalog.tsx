@@ -70,7 +70,7 @@ export const QuickOrderProductCatalog: React.FC<
             placeholder="بحث عن منتج..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="business-chat-input w-full pl-4 pr-10 py-2 text-sm"
+            className="business-chat-input w-full ps-4 pe-10 py-2 text-sm"
           />
           <MagnifyingGlassIcon
             className="absolute right-3 top-2.5 h-5 w-5"
@@ -155,8 +155,8 @@ export const QuickOrderProductCatalog: React.FC<
                 key={i}
                 className={
                   viewMode === "grid"
-                    ? "h-44 sm:h-48 animate-pulse rounded-2xl"
-                    : "h-20 animate-pulse rounded-2xl"
+                    ? "h-44 sm:h-48 animate-pulse rounded-xl"
+                    : "h-20 animate-pulse rounded-xl"
                 }
                 style={{
                   background:
@@ -203,7 +203,7 @@ export const QuickOrderProductCatalog: React.FC<
               <button
                 type="button"
                 onClick={loadMoreProducts}
-                className="mt-4 w-full rounded-2xl border-2 border-dashed border-gray-200 py-3 text-sm font-semibold text-gray-500 transition-colors hover:border-blue-400 hover:text-blue-500 dark:border-gray-700 dark:text-gray-400"
+                className="mt-4 w-full rounded-xl border-2 border-dashed border-border py-3 text-sm font-semibold text-muted-foreground transition-colors hover:border-blue-400 hover:text-blue-500 dark:border-border dark:text-muted-foreground"
               >
                 عرض المزيد من المنتجات
               </button>

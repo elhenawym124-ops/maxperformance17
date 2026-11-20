@@ -254,22 +254,22 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div className="fixed inset-0 bg-muted bg-opacity-50 overflow-y-auto h-full w-full z-50">
       <div className="relative top-5 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-md bg-white max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
-            <AdjustmentsHorizontalIcon className="h-6 w-6 text-indigo-600 ml-2" />
-            <h2 className="text-xl font-bold text-gray-900">البحث المتقدم</h2>
+            <AdjustmentsHorizontalIcon className="h-6 w-6 text-primary ms-2" />
+            <h2 className="text-xl font-bold text-foreground">البحث المتقدم</h2>
             {getActiveFiltersCount() > 0 && (
-              <span className="mr-2 px-2 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full">
+              <span className="me-2 px-2 py-1 text-xs bg-primary text-primary rounded-full">
                 {getActiveFiltersCount()} فلتر نشط
               </span>
             )}
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-foreground"
           >
             <XMarkIcon className="h-6 w-6" />
           </button>
@@ -278,25 +278,25 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
         {/* Saved Searches */}
         {savedSearches.length > 0 && (
           <div className="mb-6">
-            <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <BookmarkIcon className="h-4 w-4 ml-1" />
+            <h3 className="text-sm font-medium text-foreground mb-2 flex items-center">
+              <BookmarkIcon className="h-4 w-4 ms-1" />
               عمليات البحث المحفوظة
             </h3>
             <div className="flex flex-wrap gap-2">
               {savedSearches.map((search) => (
                 <div
                   key={search.id}
-                  className="inline-flex items-center bg-gray-100 rounded-full"
+                  className="inline-flex items-center bg-muted rounded-full"
                 >
                   <button
                     onClick={() => loadSavedSearch(search)}
-                    className="px-3 py-1 text-sm text-gray-700 hover:text-indigo-600"
+                    className="px-3 py-1 text-sm text-foreground hover:text-primary"
                   >
                     {search.name}
                   </button>
                   <button
                     onClick={() => deleteSavedSearch(search.id)}
-                    className="p-1 text-gray-400 hover:text-red-600"
+                    className="p-1 text-muted-foreground hover:text-destructive"
                   >
                     <XMarkIcon className="h-3 w-3" />
                   </button>
@@ -308,11 +308,11 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
         {/* Search Query */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             كلمة البحث
           </label>
           <div className="relative">
-            <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
               value={filters.query}
@@ -320,13 +320,13 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 setFilters({ ...filters, query: e.target.value })
               }
               placeholder="ابحث في المهام..."
-              className="w-full pr-10 pl-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full pe-10 ps-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           {/* Search In Options */}
           <div className="mt-2 flex flex-wrap gap-2">
-            <span className="text-sm text-gray-500">البحث في:</span>
+            <span className="text-sm text-muted-foreground">البحث في:</span>
             {[
               { id: "title", label: "العنوان" },
               { id: "description", label: "الوصف" },
@@ -338,8 +338,8 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 onClick={() => toggleSearchIn(option.id as any)}
                 className={`px-2 py-1 text-xs rounded ${
                   filters.searchIn.includes(option.id as any)
-                    ? "bg-indigo-100 text-indigo-700"
-                    : "bg-gray-100 text-gray-600"
+                    ? "bg-indigo-100 text-primary"
+                    : "bg-gray-100 text-foreground"
                 }`}
               >
                 {option.label}
@@ -351,7 +351,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Status Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               الحالة
             </label>
             <div className="flex flex-wrap gap-2">
@@ -359,7 +359,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 {
                   id: "pending",
                   label: "في الانتظار",
-                  color: "bg-yellow-100 text-yellow-800",
+                  color: "bg-yellow-100 text-warning",
                 },
                 {
                   id: "in_progress",
@@ -369,12 +369,12 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 {
                   id: "completed",
                   label: "مكتمل",
-                  color: "bg-green-100 text-green-800",
+                  color: "bg-green-100 text-success",
                 },
                 {
                   id: "cancelled",
                   label: "ملغي",
-                  color: "bg-red-100 text-red-800",
+                  color: "bg-red-100 text-destructive",
                 },
               ].map((status) => (
                 <button
@@ -383,7 +383,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                   className={`px-3 py-1 text-sm rounded-full border-2 ${
                     filters.status.includes(status.id)
                       ? `${status.color} border-current`
-                      : "bg-gray-50 text-gray-500 border-transparent"
+                      : "bg-gray-50 text-muted-foreground border-transparent"
                   }`}
                 >
                   {status.label}
@@ -394,7 +394,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
           {/* Priority Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               الأولوية
             </label>
             <div className="flex flex-wrap gap-2">
@@ -402,22 +402,22 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 {
                   id: "urgent",
                   label: "عاجل",
-                  color: "bg-red-100 text-red-800",
+                  color: "bg-red-100 text-destructive",
                 },
                 {
                   id: "high",
                   label: "عالي",
-                  color: "bg-orange-100 text-orange-800",
+                  color: "bg-orange-100 text-warning",
                 },
                 {
                   id: "medium",
                   label: "متوسط",
-                  color: "bg-yellow-100 text-yellow-800",
+                  color: "bg-yellow-100 text-warning",
                 },
                 {
                   id: "low",
                   label: "منخفض",
-                  color: "bg-green-100 text-green-800",
+                  color: "bg-green-100 text-success",
                 },
               ].map((priority) => (
                 <button
@@ -426,7 +426,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                   className={`px-3 py-1 text-sm rounded-full border-2 ${
                     filters.priority.includes(priority.id)
                       ? `${priority.color} border-current`
-                      : "bg-gray-50 text-gray-500 border-transparent"
+                      : "bg-gray-50 text-muted-foreground border-transparent"
                   }`}
                 >
                   {priority.label}
@@ -437,7 +437,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
           {/* Project Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               المشروع
             </label>
             <select
@@ -445,7 +445,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
               onChange={(e) =>
                 setFilters({ ...filters, projectId: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">جميع المشاريع</option>
               {projects.map((project) => (
@@ -458,7 +458,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
           {/* Category Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               القسم
             </label>
             <select
@@ -466,7 +466,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
               onChange={(e) =>
                 setFilters({ ...filters, categoryId: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">جميع الأقسام</option>
               {categories.map((category) => (
@@ -479,7 +479,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
           {/* Assigned To Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               المسؤول
             </label>
             <select
@@ -487,7 +487,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
               onChange={(e) =>
                 setFilters({ ...filters, assignedTo: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">جميع المستخدمين</option>
               {users.map((user) => (
@@ -500,7 +500,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
           {/* Created By Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               أنشأها
             </label>
             <select
@@ -508,7 +508,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
               onChange={(e) =>
                 setFilters({ ...filters, createdBy: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">جميع المستخدمين</option>
               {users.map((user) => (
@@ -521,7 +521,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
           {/* Due Date Range */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               تاريخ الاستحقاق
             </label>
             <div className="flex space-x-2 space-x-reverse">
@@ -530,21 +530,21 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 onChange={(e) =>
                   setFilters({ ...filters, dueDateFrom: e.target.value })
                 }
-                className="flex-1 px-2 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 px-2 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <DateInput
                 value={filters.dueDateTo}
                 onChange={(e) =>
                   setFilters({ ...filters, dueDateTo: e.target.value })
                 }
-                className="flex-1 px-2 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 px-2 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
           </div>
 
           {/* Created Date Range */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               تاريخ الإنشاء
             </label>
             <div className="flex space-x-2 space-x-reverse">
@@ -553,21 +553,21 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 onChange={(e) =>
                   setFilters({ ...filters, createdDateFrom: e.target.value })
                 }
-                className="flex-1 px-2 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 px-2 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <DateInput
                 value={filters.createdDateTo}
                 onChange={(e) =>
                   setFilters({ ...filters, createdDateTo: e.target.value })
                 }
-                className="flex-1 px-2 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 px-2 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
           </div>
 
           {/* Progress Range */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               التقدم: {filters.progressMin}% - {filters.progressMax}%
             </label>
             <div className="flex items-center space-x-2 space-x-reverse">
@@ -614,9 +614,9 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                     isOverdue: e.target.checked ? true : null,
                   })
                 }
-                className="ml-2"
+                className="ms-2"
               />
-              <span className="text-sm text-gray-700">المهام المتأخرة فقط</span>
+              <span className="text-sm text-foreground">المهام المتأخرة فقط</span>
             </label>
           </div>
           <div>
@@ -630,9 +630,9 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                     hasAttachments: e.target.checked ? true : null,
                   })
                 }
-                className="ml-2"
+                className="ms-2"
               />
-              <span className="text-sm text-gray-700">تحتوي على مرفقات</span>
+              <span className="text-sm text-foreground">تحتوي على مرفقات</span>
             </label>
           </div>
           <div>
@@ -646,16 +646,16 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                     hasComments: e.target.checked ? true : null,
                   })
                 }
-                className="ml-2"
+                className="ms-2"
               />
-              <span className="text-sm text-gray-700">تحتوي على تعليقات</span>
+              <span className="text-sm text-foreground">تحتوي على تعليقات</span>
             </label>
           </div>
         </div>
 
         {/* Tags Filter */}
         <div className="mt-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             الوسوم
           </label>
           <div className="flex items-center space-x-2 space-x-reverse">
@@ -667,11 +667,11 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 e.key === "Enter" && (e.preventDefault(), addTag())
               }
               placeholder="أضف وسم..."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <button
               onClick={addTag}
-              className="px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+              className="px-3 py-2 bg-muted text-foreground rounded-md hover:bg-muted"
             >
               إضافة
             </button>
@@ -683,12 +683,12 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 {filters.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-700 rounded text-sm"
+                    className="inline-flex items-center px-2 py-1 bg-primary text-primary rounded text-sm"
                   >
                     {tag}
                     <button
                       onClick={() => removeTag(tag)}
-                      className="mr-1 text-indigo-500 hover:text-indigo-700"
+                      className="me-1 text-primary hover:text-primary"
                     >
                       ×
                     </button>
@@ -703,30 +703,30 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
           <div className="flex items-center space-x-2 space-x-reverse">
             <button
               onClick={resetFilters}
-              className="px-4 py-2 text-gray-600 hover:text-gray-800"
+              className="px-4 py-2 text-foreground hover:text-foreground"
             >
               إعادة تعيين
             </button>
             <button
               onClick={() => setShowSaveModal(true)}
-              className="px-4 py-2 text-indigo-600 hover:text-indigo-800 flex items-center"
+              className="px-4 py-2 text-primary hover:text-primary flex items-center"
             >
-              <BookmarkIcon className="h-4 w-4 ml-1" />
+              <BookmarkIcon className="h-4 w-4 ms-1" />
               حفظ البحث
             </button>
           </div>
           <div className="flex items-center space-x-2 space-x-reverse">
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+              className="px-4 py-2 bg-muted text-foreground rounded-md hover:bg-muted"
             >
               إلغاء
             </button>
             <button
               onClick={handleSearch}
-              className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center"
+              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary flex items-center"
             >
-              <MagnifyingGlassIcon className="h-5 w-5 ml-2" />
+              <MagnifyingGlassIcon className="h-5 w-5 ms-2" />
               بحث
             </button>
           </div>
@@ -734,9 +734,9 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
         {/* Save Search Modal */}
         {showSaveModal && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-60">
+          <div className="fixed inset-0 bg-muted bg-opacity-50 flex items-center justify-center z-60">
             <div className="bg-white rounded-lg p-6 w-full max-w-sm">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-foreground mb-4">
                 حفظ البحث
               </h3>
               <input
@@ -744,7 +744,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 value={searchName}
                 onChange={(e) => setSearchName(e.target.value)}
                 placeholder="اسم البحث..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-4"
                 autoFocus
               />
               <div className="flex justify-end space-x-2 space-x-reverse">
@@ -753,13 +753,13 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                     setShowSaveModal(false);
                     setSearchName("");
                   }}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  className="px-4 py-2 text-foreground hover:text-foreground"
                 >
                   إلغاء
                 </button>
                 <button
                   onClick={saveSearch}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary"
                 >
                   حفظ
                 </button>

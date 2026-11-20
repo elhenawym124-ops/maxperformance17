@@ -177,7 +177,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         )}
       >
         <div className="max-w-sm space-y-space-4">
-          <div className="mx-auto flex size-16 items-center justify-center rounded-3xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-primary)] shadow-raised">
+          <div className="mx-auto flex size-16 items-center justify-center rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-primary)] shadow-raised">
             <Send className="size-7" />
           </div>
           <p className="text-lg font-semibold text-[color:var(--color-foreground)]">
@@ -402,7 +402,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       >
         {messagesError ? (
           <div className="flex h-full min-h-[18rem] flex-col items-center justify-center gap-4 px-6">
-            <AlertTriangle className="size-10 text-rose-500" />
+            <AlertTriangle className="size-10 text-destructive" />
             <div className="space-y-1 text-center">
               <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
                 {t("whatsapp.dialogs.error")}
@@ -417,7 +417,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                 className="rounded-full border-[color:var(--shell-control-border)]"
                 onClick={onRetryMessages}
               >
-                <RefreshCw className="size-4 ml-2" />
+                <RefreshCw className="size-4 ms-2" />
                 {t("conversations.retry")}
               </Button>
             ) : null}
@@ -431,7 +431,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
         ) : !loadingMessages && messages.length === 0 ? (
           <div className="flex h-full min-h-[18rem] flex-col items-center justify-center gap-4 px-6">
-            <div className="mx-auto flex size-14 items-center justify-center rounded-3xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-muted-foreground)] shadow-md">
+            <div className="mx-auto flex size-14 items-center justify-center rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-muted-foreground)] shadow-md">
               <Send className="size-6" />
             </div>
             <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
@@ -487,9 +487,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         {(selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen) || isUnresolvedLid ? (
           <div className="px-2 pt-2 sm:px-3 sm:pt-2.5 space-y-2">
             {selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen ? (
-              <div className="flex items-center justify-between gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-800 dark:text-amber-200">
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning dark:text-warning">
                 <div className="flex items-center gap-1.5 min-w-0">
-                  <AlertTriangle className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <AlertTriangle className="size-4 shrink-0 text-warning dark:text-warning" />
                   <span className="truncate">
                     انتهت نافذة الـ 24 ساعة المسموحة من Meta. يجب استخدام قالب رسمي معتمد للمراسلة.
                   </span>
@@ -499,7 +499,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                     variant="outline"
                     size="sm"
                     onClick={onOpenTemplate}
-                    className="shrink-0 h-7 text-xs border-amber-500/40 text-amber-900 hover:bg-amber-500/20 dark:text-amber-100"
+                    className="shrink-0 h-7 text-xs border-warning/40 text-warning hover:bg-warning/20 dark:text-warning"
                   >
                     <FileText className="size-3.5 me-1" />
                     إرسال قالب رسمي
@@ -509,9 +509,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             ) : null}
 
             {isUnresolvedLid ? (
-              <div className="flex items-center justify-between gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-800 dark:text-amber-200">
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning dark:text-warning">
                 <div className="flex items-center gap-1.5 min-w-0">
-                  <AlertTriangle className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <AlertTriangle className="size-4 shrink-0 text-warning dark:text-warning" />
                   <span className="truncate sm:whitespace-normal">
                     جهة الاتصال هذه تستخدم معرّف واتساب مشفر (LID). لإرسال واستلام الرسائل بنجاح، يُرجى حفظ رقم هاتف العميل.
                   </span>
@@ -523,7 +523,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                     onClick={() => {
                       if (!showRightPanel) onToggleRightPanel();
                     }}
-                    className="shrink-0 h-7 text-xs border-amber-500/40 text-amber-900 hover:bg-amber-500/20 dark:text-amber-100 font-medium"
+                    className="shrink-0 h-7 text-xs border-warning/40 text-warning hover:bg-warning/20 dark:text-warning font-medium"
                   >
                     {showRightPanel ? "اللوحة مفتوحة" : "إضافة رقم الهاتف"}
                   </Button>

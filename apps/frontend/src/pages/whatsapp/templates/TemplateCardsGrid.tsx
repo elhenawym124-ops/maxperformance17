@@ -47,7 +47,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
 }) => {
   if (templates.length === 0) {
     return (
-      <div className="rounded-3xl border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-6 py-12 text-center">
+      <div className="rounded-xl border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-6 py-12 text-center">
         <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary/10 text-[color:var(--color-primary)]">
           <FileText className="size-7" />
         </div>
@@ -87,7 +87,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
         return (
           <div
             key={itemKey}
-            className="flex h-full flex-col rounded-3xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
+            className="flex h-full flex-col rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="space-y-2">
@@ -117,8 +117,8 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                     variant="outline"
                     className={
                       template.isActive !== false
-                        ? "border-emerald-300/70 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:bg-emerald-500/[0.08] dark:text-emerald-200"
-                        : "border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:bg-slate-500/[0.08] dark:text-slate-300"
+                        ? "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:bg-success/[0.08] dark:text-success"
+                        : "border-slate-300/70 bg-muted text-foreground dark:border-border dark:bg-muted/[0.08] dark:text-muted-foreground"
                     }
                   >
                     {template.isActive !== false
@@ -132,7 +132,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                 </div>
                 {triggerText ? (
                   <div className="mt-2.5 flex items-center gap-1.5 rounded-lg bg-[color:var(--color-muted)] px-2.5 py-1 text-xs text-[color:var(--color-muted-foreground)]">
-                    <Clock className="size-3.5 shrink-0 text-amber-500" />
+                    <Clock className="size-3.5 shrink-0 text-warning" />
                     <span className="font-medium text-[color:var(--color-foreground)]">
                       {isArabic ? "التشغيل:" : "Trigger:"}
                     </span>
@@ -147,10 +147,10 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                     variant="outline"
                     className={
                       template.metaTemplateStatus === "APPROVED"
-                        ? "border-emerald-300/70 bg-emerald-500/10 text-emerald-800"
+                        ? "border-emerald-300/70 bg-success/10 text-success"
                         : template.metaTemplateStatus === "REJECTED"
-                          ? "border-red-300/70 bg-red-500/10 text-red-800"
-                          : "border-amber-300/70 bg-amber-500/10 text-amber-800"
+                          ? "border-red-300/70 bg-destructive/10 text-destructive"
+                          : "border-amber-300/70 bg-warning/10 text-warning"
                     }
                   >
                     <Cloud className="size-3 me-1" />
@@ -187,7 +187,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-7 gap-1 text-xs text-sky-700 border-sky-300/70 hover:bg-sky-50 dark:text-sky-300 dark:border-sky-500/40"
+                  className="h-7 gap-1 text-xs text-info border-info/70 hover:bg-info/10 dark:text-info dark:border-info/40"
                   onClick={onOpenStatusTemplates}
                 >
                   <ExternalLink className="size-3" />
@@ -232,11 +232,11 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
               </div>
             )}
 
-            <div className="mt-4 rounded-2xl border border-emerald-200/80 bg-emerald-500/10 px-4 py-4 dark:border-emerald-500/40 dark:bg-emerald-500/[0.08]">
-              <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-200">
+            <div className="mt-4 rounded-xl border border-success/80 bg-success/10 px-4 py-4 dark:border-success/40 dark:bg-success/[0.08]">
+              <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-success dark:text-success">
                 {isArabic ? "محتوى الرسالة" : "Message preview"}
               </p>
-              <p className="line-clamp-5 whitespace-pre-wrap text-sm leading-7 text-emerald-950 dark:text-emerald-100">
+              <p className="line-clamp-5 whitespace-pre-wrap text-sm leading-7 text-success dark:text-success">
                 {template.content}
               </p>
             </div>
@@ -261,7 +261,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                     ? template.deliveredCount
                     : "—"
                 }
-                colorClass="text-emerald-600 dark:text-emerald-400"
+                colorClass="text-emerald-600 dark:text-success"
               />
               <Separator orientation="vertical" className="mx-1 h-6" />
               <TemplateMetric
@@ -272,7 +272,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                     ? template.readCount
                     : "—"
                 }
-                colorClass="text-sky-600 dark:text-sky-400"
+                colorClass="text-sky-600 dark:text-info"
               />
             </div>
           </div>

@@ -41,7 +41,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
           className="block rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-3 transition-colors hover:bg-[var(--whatsapp-surface)]"
         >
           <div className="flex items-center gap-3">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 dark:bg-sky-950/40 dark:text-sky-400">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-info/10 text-info dark:bg-info/40 dark:text-info">
               <MapPin className="size-5" />
             </div>
             <div className="space-y-1">
@@ -89,22 +89,22 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
     } catch {}
 
     return (
-      <div className="flex items-center gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-3.5 py-2.5 text-amber-900 dark:border-amber-500/30 dark:bg-amber-950/30 dark:text-amber-200">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400">
+      <div className="flex items-center gap-3 rounded-xl border border-warning/30 bg-warning/10 px-3.5 py-2.5 text-warning dark:border-warning/30 dark:bg-warning/30 dark:text-warning">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-warning/20 text-warning dark:text-warning">
           <PhoneOff className="size-4" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-amber-800 dark:text-amber-300">
+            <span className="text-xs font-bold text-warning dark:text-warning">
               درع المكالمات • مكالمة واردة تم رفضها تلقائياً
             </span>
             {callData.isVideo ? (
-              <span className="rounded bg-amber-200/60 px-1 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-900/60 dark:text-amber-200">
+              <span className="rounded bg-warning/60 px-1 py-0.5 text-[10px] font-medium text-warning dark:bg-warning/60 dark:text-warning">
                 فيديو
               </span>
             ) : null}
           </div>
-          <p className="mt-0.5 text-[11px] text-amber-700/90 dark:text-amber-300/80">
+          <p className="mt-0.5 text-[11px] text-warning/90 dark:text-warning/80">
             {callData.autoReplied ? "تم إرسال رسالة التوضيح التلقائية للعميل بنجاح" : "تم رفض المكالمة لمنع الإزعاج"}
           </p>
         </div>
@@ -230,7 +230,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
                     key={i}
                     type="button"
                     onClick={() => onCopyCode(code || displayText)}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-center text-xs font-bold text-sky-700 transition-colors hover:bg-sky-500/20 dark:text-sky-300"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-info/30 bg-info/10 px-3 py-2 text-center text-xs font-bold text-info transition-colors hover:bg-info/20 dark:text-info"
                   >
                     {isCopied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
                     <span>{displayText} {code ? `(${code})` : ""}</span>
@@ -258,7 +258,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
                   <a
                     key={i}
                     href={`tel:${phone || ""}`}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-center text-xs font-bold text-emerald-700 transition-colors hover:bg-emerald-500/20 dark:text-emerald-300"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-success/30 bg-success/10 px-3 py-2 text-center text-xs font-bold text-success transition-colors hover:bg-success/20 dark:text-success"
                   >
                     <PhoneCall className="size-3.5" />
                     <span>{displayText} {phone ? `(${phone})` : ""}</span>

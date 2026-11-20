@@ -70,18 +70,18 @@ export const WhatsAppAnalytics: React.FC<WhatsAppAnalyticsProps> = ({
       >
         <div className="grid gap-3 grid-cols-2 md:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
-            <Skeleton key={index} className="h-32 rounded-2xl" />
+            <Skeleton key={index} className="h-32 rounded-xl" />
           ))}
         </div>
         <div className="grid gap-4 xl:grid-cols-2">
-          <Skeleton className="h-44 rounded-2xl" />
-          <Skeleton className="h-44 rounded-2xl" />
+          <Skeleton className="h-44 rounded-xl" />
+          <Skeleton className="h-44 rounded-xl" />
         </div>
         <div className="grid gap-4 xl:grid-cols-2">
-          <Skeleton className="h-64 rounded-2xl" />
-          <Skeleton className="h-64 rounded-2xl" />
+          <Skeleton className="h-64 rounded-xl" />
+          <Skeleton className="h-64 rounded-xl" />
         </div>
-        <Skeleton className="h-96 rounded-2xl" />
+        <Skeleton className="h-96 rounded-xl" />
       </WhatsAppPageShell>
     );
   }
@@ -110,7 +110,7 @@ export const WhatsAppAnalytics: React.FC<WhatsAppAnalyticsProps> = ({
             onClick={handleRefresh}
             disabled={refreshing}
           >
-            <RefreshCw className={`size-3.5 mr-1 ${refreshing ? "animate-spin" : ""}`} />
+            <RefreshCw className={`size-3.5 me-1 ${refreshing ? "animate-spin" : ""}`} />
             {t("common.refresh")}
           </Button>
         </div>
@@ -118,7 +118,7 @@ export const WhatsAppAnalytics: React.FC<WhatsAppAnalyticsProps> = ({
     >
       <div className="space-y-6">
         {error && (
-          <Alert className="rounded-2xl border-destructive/20 bg-destructive/10 text-destructive">
+          <Alert className="rounded-xl border-destructive/20 bg-destructive/10 text-destructive">
             <AlertTriangle className="size-4 text-destructive" />
             <AlertTitle>{t("whatsappAnalytics.title")}</AlertTitle>
             <AlertDescription>{error}</AlertDescription>

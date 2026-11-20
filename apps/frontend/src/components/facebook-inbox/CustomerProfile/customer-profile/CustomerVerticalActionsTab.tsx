@@ -89,7 +89,7 @@ export const CustomerVerticalActionsTab: React.FC<CustomerVerticalActionsTabProp
             <button
               type="button"
               onClick={onPrimaryAction}
-              className="px-2 py-1.5 rounded-md text-[11px] font-medium bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-100 transition-colors text-center cursor-pointer active:scale-[0.98]"
+              className="px-2 py-1.5 rounded-md text-[11px] font-medium bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning border border-warning/60 hover:bg-warning transition-colors text-center cursor-pointer active:scale-[0.98]"
               title="تسجيل حجز ديمو داي الجمعة 4:00م"
             >
               ديمو الجمعة (4:00م)
@@ -97,7 +97,7 @@ export const CustomerVerticalActionsTab: React.FC<CustomerVerticalActionsTabProp
             <button
               type="button"
               onClick={onPrimaryAction}
-              className="px-2 py-1.5 rounded-md text-[11px] font-medium bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-100 transition-colors text-center cursor-pointer active:scale-[0.98]"
+              className="px-2 py-1.5 rounded-md text-[11px] font-medium bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning border border-warning/60 hover:bg-warning transition-colors text-center cursor-pointer active:scale-[0.98]"
               title="تسجيل حجز ديمو داي السبت 11:00ص"
             >
               ديمو السبت (11:00ص)
@@ -110,9 +110,9 @@ export const CustomerVerticalActionsTab: React.FC<CustomerVerticalActionsTabProp
           <button
             type="button"
             onClick={onCreateOrder}
-            className="w-full mt-2 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/15 transition-colors cursor-pointer active:scale-[0.98]"
+            className="w-full mt-2 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border border-success/30 bg-success/10 text-success dark:text-success hover:bg-success/15 transition-colors cursor-pointer active:scale-[0.98]"
           >
-            <ShoppingBag className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <ShoppingBag className="w-3.5 h-3.5 text-success dark:text-success" />
             <span>إنشاء طلب سريع مع الشحن</span>
           </button>
         )}
@@ -187,8 +187,8 @@ export const CustomerVerticalActionsTab: React.FC<CustomerVerticalActionsTabProp
             <p
               className={`text-[10px] mt-1 ${
                 syncMessage.startsWith("تم:")
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-rose-600 dark:text-rose-400"
+                  ? "text-emerald-600 dark:text-success"
+                  : "text-rose-600 dark:text-destructive"
               }`}
             >
               {syncMessage}

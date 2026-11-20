@@ -25,7 +25,7 @@ export const WhatsAppNotificationsTabsNav: React.FC<WhatsAppNotificationsTabsNav
             onClick={() => onTabChange(tab.id)}
             className={`flex items-center gap-2 px-3.5 py-2 text-xs font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${
               isActive
-                ? "border-emerald-600 text-foreground font-semibold dark:border-emerald-400"
+                ? "border-emerald-600 text-foreground font-semibold dark:border-success"
                 : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
             }`}
           >

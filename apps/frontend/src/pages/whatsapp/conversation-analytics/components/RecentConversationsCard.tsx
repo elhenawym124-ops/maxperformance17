@@ -31,7 +31,7 @@ export const RecentConversationsCard: React.FC<RecentConversationsCardProps> = (
       description="المحادثات الأحدث نشاطاً"
       className={hasTags ? "lg:col-span-2" : "lg:col-span-3"}
     >
-      <div className="overflow-hidden rounded-2xl border border-border/70 bg-card/60">
+      <div className="overflow-hidden rounded-xl border border-border/70 bg-card/60">
         <Table>
           <TableHeader>
             <TableRow className="border-b border-border/70 hover:bg-transparent">
@@ -59,9 +59,9 @@ export const RecentConversationsCard: React.FC<RecentConversationsCardProps> = (
                   <TableCell>
                     <div className="flex items-center gap-1.5 font-mono tabular-nums">
                       {conv.lastMessageIsFromCustomer ? (
-                        <Inbox className="size-3 text-cyan-500 shrink-0" />
+                        <Inbox className="size-3 text-info shrink-0" />
                       ) : (
-                        <Send className="size-3 text-emerald-500 shrink-0" />
+                        <Send className="size-3 text-success shrink-0" />
                       )}
                       <span className="text-xs text-muted-foreground">
                         {formatTime(conv.lastMessageAt)}

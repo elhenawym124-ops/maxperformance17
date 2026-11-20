@@ -35,8 +35,8 @@ export const MetaTemplateStatusBanner: React.FC<MetaTemplateStatusBannerProps> =
     <Alert
       className={
         isRejected
-          ? "border-red-300/70 bg-red-500/[0.06] text-red-800 dark:border-red-500/30 dark:bg-red-500/[0.06] dark:text-red-200"
-          : "border-amber-300/70 bg-amber-500/[0.06] text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/[0.06] dark:text-amber-200"
+          ? "border-red-300/70 bg-destructive/[0.06] text-destructive dark:border-destructive/30 dark:bg-destructive/[0.06] dark:text-destructive"
+          : "border-amber-300/70 bg-warning/[0.06] text-warning dark:border-warning/30 dark:bg-warning/[0.06] dark:text-warning"
       }
     >
       {isRejected ? (
@@ -56,7 +56,7 @@ export const MetaTemplateStatusBanner: React.FC<MetaTemplateStatusBannerProps> =
         {statusCounts.approved > 0 ? (
           <>
             {" · "}
-            <span className="font-medium tabular-nums font-mono text-emerald-700 dark:text-emerald-300">
+            <span className="font-medium tabular-nums font-mono text-success dark:text-success">
               {statusCounts.approved} معتمدة
             </span>
           </>

@@ -87,28 +87,28 @@ export const WhatsAppLeadFollowUp: React.FC<{ companyId?: string }> = ({ company
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={i} className="h-28 rounded-2xl" />
+              <Skeleton key={i} className="h-28 rounded-xl" />
             ))}
           </div>
-          <Skeleton className="h-64 w-full rounded-2xl" />
+          <Skeleton className="h-64 w-full rounded-xl" />
         </div>
       ) : (
         <div className="space-y-6">
           <LeadFollowUpKpiGrid cards={statCards} />
 
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="mb-6 gap-1 rounded-2xl bg-muted/40 p-1">
+            <TabsList className="mb-6 gap-1 rounded-xl bg-muted/40 p-1">
               <TabsTrigger
                 value="flows"
                 className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-xs text-xs"
               >
-                <Layers className="size-3.5 mr-1.5" /> {tx("tabs.flows")}
+                <Layers className="size-3.5 me-1.5" /> {tx("tabs.flows")}
               </TabsTrigger>
               <TabsTrigger
                 value="monitoring"
                 className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-xs text-xs"
               >
-                <Users className="size-3.5 mr-1.5" /> {tx("tabs.monitoring")}
+                <Users className="size-3.5 me-1.5" /> {tx("tabs.monitoring")}
               </TabsTrigger>
             </TabsList>
 

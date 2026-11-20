@@ -103,11 +103,11 @@ const ConversationsSimpleTest: React.FC = () => {
     return (
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-4">🧪 اختبار المحادثات المبسط</h1>
-        <div className="bg-red-50 border border-red-200 rounded p-4">
+        <div className="bg-red-50 border border-destructive rounded p-4">
           <p className="text-red-700">❌ {error}</p>
           <button
             onClick={loadConversations}
-            className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            className="mt-2 px-4 py-2 bg-destructive text-white rounded hover:bg-destructive"
           >
             إعادة المحاولة
           </button>
@@ -135,7 +135,7 @@ const ConversationsSimpleTest: React.FC = () => {
                 <div
                   key={conv.id}
                   onClick={() => selectConversation(conv)}
-                  className={`p-3 border rounded cursor-pointer hover:bg-gray-50 ${
+                  className={`p-3 border rounded cursor-pointer hover:bg-muted ${
                     selectedConversation?.id === conv.id
                       ? "bg-blue-50 border-blue-300"
                       : ""
@@ -144,15 +144,15 @@ const ConversationsSimpleTest: React.FC = () => {
                   <div className="font-medium">
                     {conv.customerName}
                     {conv.pageName && (
-                      <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded mr-2">
+                      <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
                         {conv.pageName}
                       </span>
                     )}
                   </div>
-                  <div className="text-sm text-gray-600 truncate">
+                  <div className="text-sm text-foreground truncate">
                     {conv.lastMessage}
                   </div>
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-xs text-muted-foreground mt-1">
                     ID: {conv.id}
                   </div>
                 </div>
@@ -166,7 +166,7 @@ const ConversationsSimpleTest: React.FC = () => {
           <h2 className="text-lg font-semibold mb-4">
             💬 الرسائل ({messages.length})
             {selectedConversation && (
-              <span className="text-sm font-normal text-gray-600 ml-2">
+              <span className="text-sm font-normal text-foreground ms-2">
                 - {selectedConversation.customerName}
               </span>
             )}
@@ -183,18 +183,18 @@ const ConversationsSimpleTest: React.FC = () => {
                   key={message.id}
                   className={`p-3 rounded-lg ${
                     message.isFromCustomer
-                      ? "bg-gray-100 text-gray-800"
+                      ? "bg-gray-100 text-foreground"
                       : "bg-blue-100 text-blue-800"
                   }`}
                 >
                   <div className="font-medium text-sm">
                     {message.senderName}
-                    <span className="text-xs text-gray-500 ml-2">
+                    <span className="text-xs text-muted-foreground ms-2">
                       {new Date(message.timestamp).toLocaleTimeString("ar-SA")}
                     </span>
                   </div>
                   <LinkifiedText text={message.content} className="block mt-1" />
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-xs text-muted-foreground mt-1">
                     ID: {message.id}
                   </div>
                 </div>
@@ -205,7 +205,7 @@ const ConversationsSimpleTest: React.FC = () => {
       </div>
 
       {/* معلومات التشخيص */}
-      <div className="mt-6 bg-gray-50 border rounded-lg p-4">
+      <div className="mt-6 bg-muted border rounded-lg p-4">
         <h3 className="font-semibold mb-2">🔍 معلومات التشخيص</h3>
         <div className="text-sm space-y-1">
           <div>عدد المحادثات: {conversations.length}</div>

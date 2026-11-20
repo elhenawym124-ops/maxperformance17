@@ -139,11 +139,11 @@ export const SUPER_ADMIN_CATEGORY_SET = new Set<string>(["CUSTOMER", "SYSTEM"]);
 
 export const noticeStyles: Record<NoticeTone, string> = {
   success:
-    "border-emerald-500/20 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300",
+    "border-emerald-500/20 bg-success/10 text-success dark:text-success",
   error:
     "border-destructive/20 bg-destructive/10 text-destructive",
   warning:
-    "border-amber-500/20 bg-amber-500/10 text-amber-800 dark:text-amber-300",
+    "border-amber-500/20 bg-warning/10 text-warning dark:text-warning",
   info: "border-blue-500/20 bg-blue-500/10 text-blue-800 dark:text-blue-300",
 };
 

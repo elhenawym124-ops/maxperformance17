@@ -35,7 +35,7 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-2rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-xl">
+      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-xl">
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>
             {currentFlow.id
@@ -63,7 +63,7 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
             />
           </div>
 
-          <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 px-4 py-4">
+          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-1">
                 <p className="text-sm font-medium text-[color:var(--color-foreground)]">
@@ -85,7 +85,7 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 px-4 py-4">
+          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 px-4 py-4">
             <div className="space-y-2">
               <p className="text-sm font-medium text-[color:var(--color-foreground)]">
                 {t("whatsappJourney.flows.channels")}

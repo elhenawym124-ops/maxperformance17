@@ -31,14 +31,14 @@ export const MessageCorrectionEditor: React.FC<MessageCorrectionEditorProps> = (
         isFromMe ? "flex justify-end" : "flex justify-start"
       )}
     >
-      <div className="w-[75%] rounded-xl border border-purple-300/50 bg-[var(--whatsapp-surface)] p-2.5 shadow-sm dark:border-purple-500/30">
-        <p className="mb-1.5 text-[11px] font-semibold text-purple-700 dark:text-purple-300">
+      <div className="w-[75%] rounded-xl border border-primary/50 bg-[var(--whatsapp-surface)] p-2.5 shadow-sm dark:border-primary/30">
+        <p className="mb-1.5 text-[11px] font-semibold text-primary dark:text-primary">
           تصحيح رد الوكيل:
         </p>
         <textarea
           value={correctionText}
           onChange={(e) => setCorrectionText(e.target.value)}
-          className="w-full min-h-[3.5rem] resize-none rounded-lg border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-2 text-sm text-[color:var(--color-foreground)] outline-none focus:border-purple-500 dark:focus:border-purple-400"
+          className="w-full min-h-[3.5rem] resize-none rounded-lg border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-2 text-sm text-[color:var(--color-foreground)] outline-none focus:border-primary dark:focus:border-primary"
           placeholder="اكتب الرد الصحيح للعميل هنا..."
         />
         <div className="mt-1.5 flex items-center justify-end gap-2">
@@ -53,7 +53,7 @@ export const MessageCorrectionEditor: React.FC<MessageCorrectionEditorProps> = (
             type="button"
             onClick={onSubmit}
             disabled={saving || !correctionText.trim()}
-            className="rounded-lg bg-purple-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50 dark:bg-purple-500 dark:hover:bg-purple-600"
+            className="rounded-lg bg-primary px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-primary disabled:opacity-50 dark:bg-primary dark:hover:bg-primary"
           >
             {saving ? "جارٍ الحفظ..." : "حفظ وتصحيح"}
           </button>

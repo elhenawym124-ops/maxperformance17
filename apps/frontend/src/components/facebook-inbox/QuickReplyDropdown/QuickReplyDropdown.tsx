@@ -387,23 +387,23 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
       <div
         ref={dropdownRef}
         dir="rtl"
-        className="absolute bottom-full mb-1.5 inset-x-1 sm:inset-x-auto sm:start-0 sm:end-auto sm:w-[480px] sm:mb-2 z-40 max-h-[42vh] sm:max-h-[420px] flex flex-col rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transition-opacity duration-150 text-foreground"
+        className="absolute bottom-full mb-1.5 inset-x-1 sm:inset-x-auto sm:start-0 sm:end-auto sm:w-[480px] sm:mb-2 z-40 max-h-[42vh] sm:max-h-[420px] flex flex-col rounded-xl bg-white/95 dark:bg-muted backdrop-blur-xl border border-border dark:border-border shadow-2xl overflow-hidden transition-opacity duration-150 text-foreground"
         style={{
           boxShadow:
             "0 20px 45px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.05)",
         }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-slate-100 dark:border-slate-800/80 bg-slate-50/75 dark:bg-slate-800/50">
+        <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <BoltIcon className="w-3.5 h-3.5" />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-100">
+              <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 الردود السريعة
               </span>
-              <span className="text-[11px] font-semibold px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+              <span className="text-[11px] font-semibold px-1.5 py-0.2 rounded-full bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
                 {filteredReplies.length}
               </span>
             </div>
@@ -416,7 +416,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors"
+              className="p-1 rounded-lg text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-colors"
               title="إغلاق"
             >
               <XMarkIcon className="w-4 h-4" />
@@ -426,7 +426,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
 
         {/* Category Filter Pills */}
         {categories.length > 1 && (
-          <div className="flex items-center gap-1 px-3 py-1.5 overflow-x-auto no-scrollbar border-b border-slate-100 dark:border-slate-800/60 bg-slate-50/30 dark:bg-slate-900/30">
+          <div className="flex items-center gap-1 px-3 py-1.5 overflow-x-auto no-scrollbar border-b border-border dark:border-border bg-muted dark:bg-muted">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
@@ -437,7 +437,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
                   className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
                     isActive
                       ? "bg-primary text-white shadow-sm"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                      : "bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted"
                   }`}
                 >
                   {cat}
@@ -454,11 +454,11 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
         >
           {filteredReplies.length === 0 ? (
             <div className="py-8 px-4 text-center">
-              <SparklesIcon className="w-8 h-8 mx-auto mb-2 text-slate-400 opacity-60" />
-              <p className="text-xs font-medium text-slate-600 dark:text-slate-300">
+              <SparklesIcon className="w-8 h-8 mx-auto mb-2 text-muted-foreground opacity-60" />
+              <p className="text-xs font-medium text-foreground dark:text-muted-foreground">
                 لا توجد ردود تطابق البحث
               </p>
-              <p className="text-[11px] text-slate-400 mt-1">
+              <p className="text-[11px] text-muted-foreground mt-1">
                 اكتب نصاً مختلفاً أو اختر تصنيفاً آخر
               </p>
             </div>
@@ -474,32 +474,32 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
                   className={`group relative flex items-start justify-between gap-2.5 rounded-xl p-2.5 text-start transition-all cursor-pointer border select-none ${
                     isActive
                       ? "bg-primary/10 dark:bg-primary/20 border-primary/40 dark:border-primary/50 shadow-sm"
-                      : "bg-slate-50/70 dark:bg-slate-800/40 hover:bg-slate-100/90 dark:hover:bg-slate-800/80 border-slate-200/60 dark:border-slate-700/60"
+                      : "bg-slate-50/70 dark:bg-muted hover:bg-muted dark:hover:bg-muted border-border dark:border-border"
                   }`}
                   onClick={(e) => handleItemSelect(e, reply)}
                 >
                   {/* Left content block */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                      <span className="text-xs sm:text-sm font-bold text-foreground dark:text-white truncate">
                         {reply.title}
                       </span>
 
                       {reply.category && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-info/15 text-info dark:text-info border border-info/30">
                           {reply.category}
                         </span>
                       )}
 
                       {reply.imageUrls && reply.imageUrls.length > 0 && (
-                        <span className="flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                        <span className="flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-primary/15 text-primary dark:text-primary border border-primary/20">
                           <PhotoIcon className="w-3 h-3" />
                           <span>{reply.imageUrls.length}</span>
                         </span>
                       )}
                     </div>
 
-                    <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed whitespace-pre-line">
+                    <p className="text-[11px] sm:text-xs text-foreground dark:text-muted-foreground line-clamp-2 leading-relaxed whitespace-pre-line">
                       {reply.content}
                     </p>
                   </div>
@@ -508,7 +508,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
                   <div className="flex items-center gap-1.5 flex-shrink-0 self-center">
                     <span
                       dir="ltr"
-                      className="text-[11px] font-mono font-bold px-2 py-1 rounded-lg bg-slate-200/80 dark:bg-slate-800 text-primary dark:text-blue-400 border border-slate-300/80 dark:border-slate-700"
+                      className="text-[11px] font-mono font-bold px-2 py-1 rounded-lg bg-muted dark:bg-muted text-primary dark:text-blue-400 border border-border dark:border-border"
                       style={{ unicodeBidi: "isolate" }}
                     >
                       {reply.shortcut}
@@ -535,7 +535,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
         </div>
 
         {/* Footer Hint & Settings Link */}
-        <div className="flex items-center justify-between px-3.5 py-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 text-[11px] text-slate-500 dark:text-slate-400 gap-2">
+        <div className="flex items-center justify-between px-3.5 py-2 border-t border-border dark:border-border bg-muted dark:bg-muted text-[11px] text-muted-foreground dark:text-muted-foreground gap-2">
           <div className="flex items-center gap-1.5 truncate">
             <span>💡</span>
             <span className="hidden sm:inline">
@@ -550,13 +550,13 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
             <a
               href="/settings/smart-replies"
               onClick={() => onClose()}
-              className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+              className="text-[11px] font-semibold text-primary hover:underline flex items-center gap-1"
               title="الانتقال إلى شاشة الردود التلقائية لتعديل القوالب"
             >
               <span>⚙️ تعديل القوالب</span>
             </a>
-            <span className="text-slate-300 dark:text-slate-600">|</span>
-            <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500">
+            <span className="text-slate-300 dark:text-foreground">|</span>
+            <span className="text-[10px] font-medium text-muted-foreground dark:text-muted-foreground">
               / للردود
             </span>
           </div>

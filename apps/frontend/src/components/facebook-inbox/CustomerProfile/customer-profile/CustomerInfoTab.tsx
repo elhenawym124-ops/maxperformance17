@@ -216,19 +216,19 @@ export const CustomerInfoTab: React.FC<CustomerInfoTabProps> = ({
           </h4>
           <div className="flex items-center gap-2 flex-wrap text-xs">
             {customer?.customerRating && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
-                <Star size={13} className="text-amber-500 fill-amber-500" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-bold bg-warning/10 dark:bg-warning/40 text-warning dark:text-warning border border-warning dark:border-warning">
+                <Star size={13} className="text-amber-500 fill-warning" />
                 <span>{customer.customerRating}</span>
               </span>
             )}
             {customer?.totalOrdersCount != null && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-mono tabular-nums">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border font-mono tabular-nums">
                 <ShoppingBag size={13} />
                 <span>{customer.totalOrdersCount} طلبات مسجلة</span>
               </span>
             )}
             {customer?.deliveryRate != null && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 font-mono tabular-nums">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-medium bg-success/10 dark:bg-success/40 text-success dark:text-success border border-success dark:border-success font-mono tabular-nums">
                 <Award size={13} className="text-emerald-600" />
                 <span>{customer.deliveryRate}% نسبة التسليم</span>
               </span>
@@ -261,7 +261,7 @@ export const CustomerInfoTab: React.FC<CustomerInfoTabProps> = ({
               </div>
             )}
             {customer.address && (
-              <div className="text-muted-foreground pr-5 leading-relaxed">
+              <div className="text-muted-foreground pe-5 leading-relaxed">
                 {customer.address}
               </div>
             )}

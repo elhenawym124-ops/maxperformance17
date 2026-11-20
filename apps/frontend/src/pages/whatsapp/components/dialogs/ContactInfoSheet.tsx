@@ -109,7 +109,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
               className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
             >
               <span>الرسائل المميزة بنجمة</span>
-              <Star className="size-4 text-amber-500 dark:text-amber-400" />
+              <Star className="size-4 text-warning dark:text-warning" />
             </button>
             <div className="h-px bg-[color:var(--shell-control-border)]" />
             <button
@@ -136,7 +136,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
 
             <UiButton
               variant="outline"
-              className="h-11 w-full justify-between rounded-[18px] border-rose-200 bg-rose-50/75 text-rose-600 hover:bg-rose-100/80 hover:text-rose-700 dark:border-rose-500/40 dark:bg-rose-500/[0.08] dark:text-rose-300 dark:hover:bg-rose-500/[0.12] dark:hover:text-rose-200"
+              className="h-11 w-full justify-between rounded-[18px] border-destructive bg-destructive/75 text-destructive hover:bg-destructive/80 hover:text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
               onClick={() => {
                 onDeleteChat(contact);
                 onOpenChange(false);
@@ -158,7 +158,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
             ) : (
               <UiButton
                 variant="outline"
-                className="h-11 w-full justify-between rounded-[18px] border-rose-200 bg-rose-50/75 text-rose-600 hover:bg-rose-100/80 hover:text-rose-700 dark:border-rose-500/40 dark:bg-rose-500/[0.08] dark:text-rose-300 dark:hover:bg-rose-500/[0.12] dark:hover:text-rose-200"
+                className="h-11 w-full justify-between rounded-[18px] border-destructive bg-destructive/75 text-destructive hover:bg-destructive/80 hover:text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
                 onClick={() => onBlockContact(contact)}
               >
                 <span>حظر {contactName}</span>
@@ -168,7 +168,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
 
             <UiButton
               variant="outline"
-              className="h-11 w-full justify-between rounded-[18px] border-rose-200 bg-[var(--whatsapp-surface-strong)] text-rose-600 hover:bg-rose-50 hover:text-rose-700 dark:border-rose-500/40 dark:text-rose-300 dark:hover:bg-rose-500/[0.12] dark:hover:text-rose-200"
+              className="h-11 w-full justify-between rounded-[18px] border-destructive bg-[var(--whatsapp-surface-strong)] text-destructive hover:bg-destructive/10 hover:text-destructive dark:border-destructive/40 dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
               onClick={() => tToast.info("whatsappChat.msg_36fc")}
             >
               <span>الإبلاغ عن {contactName}</span>

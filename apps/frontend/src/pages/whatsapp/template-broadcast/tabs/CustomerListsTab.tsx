@@ -93,7 +93,7 @@ export const CustomerListsTab: React.FC<CustomerListsTabProps> = ({
             value={listsSearch}
             onChange={(e) => setListsSearch(e.target.value)}
             placeholder="ابحث في القوائم..."
-            className="h-8 rounded-lg pr-8 text-xs"
+            className="h-8 rounded-lg pe-8 text-xs"
           />
         </div>
         <div className="flex items-center gap-1 rounded-lg border border-border/50 bg-card p-0.5">
@@ -164,7 +164,7 @@ export const CustomerListsTab: React.FC<CustomerListsTabProps> = ({
                 <div className="mb-2 inline-flex items-center gap-1 rounded-md bg-muted/40 px-2 py-0.5 text-[10px] text-muted-foreground">
                   <Filter className="size-2.5" />
                   <span>{listCriteriaText(list.criteria)}</span>
-                  {(list as any).isStale && <span className="mr-1 text-amber-500 font-medium">• قديم</span>}
+                  {(list as any).isStale && <span className="me-1 text-warning font-medium">• قديم</span>}
                 </div>
 
                 <div className="flex items-baseline gap-1 my-1">
@@ -212,7 +212,7 @@ export const CustomerListsTab: React.FC<CustomerListsTabProps> = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="mr-auto h-7 rounded-md px-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                      className="me-auto h-7 rounded-md px-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
                       onClick={() => onDeleteList(list)}
                       aria-label="حذف القائمة"
                     >

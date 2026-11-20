@@ -200,17 +200,17 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
         {isExchangeOrReturn && (
           <div className="mt-3 space-y-2">
             {phoneDigitsCount < 9 ? (
-              <div className="p-2.5 rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/20 text-xs text-amber-800 dark:text-amber-300 flex items-center gap-2">
-                <ExclamationTriangleIcon className="w-4 h-4 text-amber-600 shrink-0" />
+              <div className="p-2.5 rounded-lg border border-warning dark:border-warning/40 bg-warning/70 dark:bg-warning/20 text-xs text-warning dark:text-warning flex items-center gap-2">
+                <ExclamationTriangleIcon className="w-4 h-4 text-warning shrink-0" />
                 <span>
                   يرجى إدخال رقم هاتف العميل أولاً للتحقق من وجود طلبات سابقة
                   مؤهلة
                 </span>
               </div>
             ) : previousOrderMissing ? (
-              <div className="p-3 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50/80 dark:bg-red-950/30 text-xs text-red-700 dark:text-red-300 space-y-1">
+              <div className="p-3 rounded-lg border border-destructive dark:border-destructive/50 bg-destructive/80 dark:bg-destructive/30 text-xs text-destructive dark:text-destructive space-y-1">
                 <div className="font-semibold flex items-center gap-1.5">
-                  <ExclamationTriangleIcon className="w-4 h-4 text-red-600 shrink-0" />
+                  <ExclamationTriangleIcon className="w-4 h-4 text-destructive shrink-0" />
                   <span>
                     لا يمكن إنشاء طلب{" "}
                     {requestType === "return" ? "مرتجع" : "استبدال"}
@@ -257,8 +257,8 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
                   ))}
                 </select>
                 {selectedOrderObj && (
-                  <div className="text-[11px] text-gray-600 dark:text-gray-300 bg-white/80 dark:bg-gray-800/80 p-2 rounded border border-gray-200 dark:border-gray-700 space-y-0.5">
-                    <span className="font-semibold text-gray-700 dark:text-gray-200">
+                  <div className="text-[11px] text-muted-foreground bg-white/80 dark:bg-muted p-2 rounded border border-border dark:border-border space-y-0.5">
+                    <span className="font-semibold text-foreground">
                       المنتجات بالطلب السابق:{" "}
                     </span>
                     <span>

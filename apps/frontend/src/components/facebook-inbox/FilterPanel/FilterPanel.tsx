@@ -87,13 +87,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
               id="priorityOnly"
               checked={!!filters.priorityOnly}
               onChange={(e) => handleChange("priorityOnly", e.target.checked)}
-              className="w-4 h-4 rounded border-border/70 text-amber-500 focus:ring-amber-500/40 cursor-pointer"
+              className="w-4 h-4 rounded border-border/70 text-warning focus:ring-warning/40 cursor-pointer"
             />
             <label
               htmlFor="priorityOnly"
               className="text-xs text-foreground cursor-pointer select-none flex items-center gap-1.5"
             >
-              <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+              <Star className="w-3.5 h-3.5 text-warning fill-warning" />
               <span>ذات أولوية فقط</span>
             </label>
           </div>
@@ -169,7 +169,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       <div className="flex justify-end mt-3 pt-2.5 border-t border-border/50">
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-1 text-xs font-medium text-rose-500 hover:text-rose-600 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-medium text-destructive hover:text-destructive transition-colors"
         >
           <RotateCcw className="w-3 h-3" />
           <span>إعادة تعيين الفلاتر</span>

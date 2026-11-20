@@ -102,7 +102,7 @@ export const ChatPollDialog: React.FC<ChatPollDialogProps> = ({
                   <UiButton
                     variant="ghost"
                     size="icon-sm"
-                    className="rounded-full text-rose-600 hover:bg-rose-500/10 hover:text-rose-700"
+                    className="rounded-full text-destructive hover:bg-destructive/10 hover:text-destructive"
                     onClick={() => {
                       const newOptions = pollData.options.filter((_, itemIndex) => itemIndex !== index);
                       setPollData((prev) => ({ ...prev, options: newOptions }));

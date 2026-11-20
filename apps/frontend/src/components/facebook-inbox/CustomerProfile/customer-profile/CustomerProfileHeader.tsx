@@ -311,7 +311,7 @@ export const CustomerProfileHeader: React.FC<CustomerProfileHeaderProps> = ({
             <button
               type="button"
               onClick={onCreateOrder}
-              className={`${compactActionCls} border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/15`}
+              className={`${compactActionCls} border-success/30 bg-success/10 text-success dark:text-success hover:bg-success/15`}
               title="إنشاء طلب سريع"
               aria-label="إنشاء طلب سريع"
             >
@@ -323,7 +323,7 @@ export const CustomerProfileHeader: React.FC<CustomerProfileHeaderProps> = ({
             <button
               type="button"
               onClick={onOpenServiceOrder}
-              className={`${compactActionCls} border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/15`}
+              className={`${compactActionCls} border-success/30 bg-success/10 text-success dark:text-success hover:bg-success/15`}
               title="طلب خدمة"
               aria-label="طلب خدمة"
             >
@@ -335,7 +335,7 @@ export const CustomerProfileHeader: React.FC<CustomerProfileHeaderProps> = ({
             <button
               type="button"
               onClick={onOpenTasks}
-              className={`${compactActionCls} border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300 hover:bg-violet-500/15`}
+              className={`${compactActionCls} border-primary/30 bg-primary/10 text-primary dark:text-primary hover:bg-primary/15`}
               title="إنشاء مهمة"
               aria-label="إنشاء مهمة"
             >
@@ -361,7 +361,7 @@ export const CustomerProfileHeader: React.FC<CustomerProfileHeaderProps> = ({
                 disabled={blocking}
                 className={`${
                   useCompactActions ? compactActionCls : expandedActionCls
-                } border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 disabled:cursor-not-allowed disabled:opacity-50`}
+                } border-success/30 bg-success/10 text-success dark:text-success disabled:cursor-not-allowed disabled:opacity-50`}
                 title="إلغاء حظر العميل على الصفحة"
                 aria-label="إلغاء حظر العميل على الصفحة"
               >

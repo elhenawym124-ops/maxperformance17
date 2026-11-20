@@ -49,7 +49,7 @@ export const NotificationLogsFilterBar: React.FC<NotificationLogsFilterBarProps>
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث بالاسم أو رقم الهاتف..."
-          className="h-8 rounded-lg pr-8 text-xs"
+          className="h-8 rounded-lg pe-8 text-xs"
         />
       </div>
 

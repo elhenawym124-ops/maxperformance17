@@ -136,10 +136,10 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
       >
         <AlertDialogContent
           size="sm"
-          className="rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)]"
+          className="rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)]"
         >
           <AlertDialogHeader>
-            <AlertDialogMedia className="rounded-2xl bg-rose-500/10 text-rose-700 dark:text-rose-200">
+            <AlertDialogMedia className="rounded-xl bg-destructive/10 text-destructive dark:text-destructive">
               <Trash2 className="size-5" />
             </AlertDialogMedia>
             <AlertDialogTitle>{flowDeleteTitle}</AlertDialogTitle>

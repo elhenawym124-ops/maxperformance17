@@ -50,10 +50,10 @@ export const TemplateCategoryTabs: React.FC<TemplateCategoryTabsProps> = ({
             value="META"
             className="rounded-full px-4 py-2 text-xs sm:text-sm font-medium data-[state=active]:bg-sky-600 data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-sky-500"
           >
-            <Cloud className="size-3.5 ml-1.5 inline" />
+            <Cloud className="size-3.5 ms-1.5 inline" />
             {isArabic ? "قوالب ميتا" : "Meta Templates"}
             {metaCategoryCounts.ALL > 0 && (
-              <span className="mr-1.5 rounded-full bg-sky-500/20 px-1.5 py-0.2 text-[10px] font-semibold tabular-nums font-mono text-sky-800 dark:text-sky-200">
+              <span className="me-1.5 rounded-full bg-info/20 px-1.5 py-0.2 text-[10px] font-semibold tabular-nums font-mono text-info dark:text-info">
                 {metaCategoryCounts.ALL}
               </span>
             )}
@@ -72,8 +72,8 @@ export const TemplateCategoryTabs: React.FC<TemplateCategoryTabsProps> = ({
 
       {/* Meta subcategories row */}
       {templateCategory === "META" && (
-        <div className="flex flex-wrap items-center gap-1.5 rounded-2xl border border-sky-500/20 bg-sky-500/[0.04] p-2.5 backdrop-blur-sm dark:border-sky-500/30 dark:bg-sky-500/10">
-          <span className="text-xs font-semibold text-sky-800 dark:text-sky-300 ml-2">
+        <div className="flex flex-wrap items-center gap-1.5 rounded-xl border border-info/20 bg-info/[0.04] p-2.5 backdrop-blur-sm dark:border-info/30 dark:bg-info/10">
+          <span className="text-xs font-semibold text-info dark:text-info ms-2">
             {isArabic ? "أقسام قوالب ميتا:" : "Meta Categories:"}
           </span>
           {metaSubCategories.map((sub) => (
@@ -83,7 +83,7 @@ export const TemplateCategoryTabs: React.FC<TemplateCategoryTabsProps> = ({
               onClick={() => onMetaSubCategoryChange(sub.id)}
               className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-all ${
                 metaSubCategory === sub.id
-                  ? "bg-sky-600 text-white shadow-sm dark:bg-sky-500"
+                  ? "bg-sky-600 text-white shadow-sm dark:bg-info"
                   : "border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
               }`}
             >
@@ -93,7 +93,7 @@ export const TemplateCategoryTabs: React.FC<TemplateCategoryTabsProps> = ({
                   className={`text-[10px] rounded-full px-1.5 py-0.2 tabular-nums font-mono ${
                     metaSubCategory === sub.id
                       ? "bg-white/20 text-white"
-                      : "bg-[var(--color-muted)] text-slate-600 dark:text-slate-300"
+                      : "bg-[var(--color-muted)] text-foreground dark:text-muted-foreground"
                   }`}
                 >
                   {sub.count}

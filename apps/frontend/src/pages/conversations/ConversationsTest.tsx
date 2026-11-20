@@ -4,12 +4,12 @@ const ConversationsTest: React.FC = () => {
   return (
     <div className="p-6">
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-bold text-foreground mb-4">
           🚀 اختبار الصفحة المحسنة
         </h1>
         <div className="space-y-4">
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <h2 className="text-lg font-semibold text-green-800 mb-2">
+          <div className="p-4 bg-success/10 border border-success rounded-lg">
+            <h2 className="text-lg font-semibold text-success mb-2">
               ✅ الصفحة تعمل بنجاح!
             </h2>
             <p className="text-green-700">
@@ -28,8 +28,8 @@ const ConversationsTest: React.FC = () => {
             </ul>
           </div>
 
-          <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <h3 className="text-lg font-semibold text-yellow-800 mb-2">
+          <div className="p-4 bg-warning/10 border border-warning rounded-lg">
+            <h3 className="text-lg font-semibold text-warning mb-2">
               🔧 معلومات تقنية:
             </h3>
             <p className="text-yellow-700">

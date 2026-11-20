@@ -125,8 +125,8 @@ export const CampaignAdvancedFinancialAnalysis: React.FC<
       </div>
 
       {/* Break-Even Analysis */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2">
+      <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6">
+        <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
           <InformationCircleIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
           تحليل نقطة التعادل
         </h3>
@@ -142,22 +142,22 @@ export const CampaignAdvancedFinancialAnalysis: React.FC<
               منتج/خدمة
             </p>
           </div>
-          <div className="p-4 bg-emerald-50 dark:bg-emerald-950 rounded-xl">
-            <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-2">
+          <div className="p-4 bg-success/10 dark:bg-success rounded-xl">
+            <p className="text-sm text-success dark:text-success mb-2">
               إيرادات التعادل
             </p>
-            <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <p className="text-3xl font-bold text-success dark:text-success tabular-nums">
               {formatCurrency(currentResults.breakEvenRevenue)}
             </p>
-            <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">
+            <p className="text-xs text-success dark:text-success mt-1">
               المبلغ المطلوب تحقيقه
             </p>
           </div>
           <div className="p-4 business-bg-secondary-soft rounded-xl">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+            <p className="text-sm text-foreground dark:text-muted-foreground mb-2">
               فائض التعادل
             </p>
-            <p className="text-3xl font-bold text-gray-600 dark:text-gray-400 tabular-nums">
+            <p className="text-3xl font-bold text-foreground dark:text-muted-foreground tabular-nums">
               {formatNumber(
                 Math.max(
                   0,
@@ -166,7 +166,7 @@ export const CampaignAdvancedFinancialAnalysis: React.FC<
                 ),
               )}
             </p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-xs text-foreground dark:text-muted-foreground mt-1">
               وحدات فوق التعادل
             </p>
           </div>

@@ -146,19 +146,19 @@ export const providerLabels: Record<WhatsAppProvider, string> = {
 
 export const statusBadgeClasses: Record<string, string> = {
   CONNECTED:
-    "border-emerald-300/70 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200",
+    "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   QR_PENDING:
-    "border-amber-300/70 bg-amber-500/10 text-amber-800 dark:border-amber-500/40 dark:text-amber-200",
+    "border-amber-300/70 bg-warning/10 text-warning dark:border-warning/40 dark:text-warning",
   PAIRING_CODE_PENDING:
-    "border-amber-300/70 bg-amber-500/10 text-amber-800 dark:border-amber-500/40 dark:text-amber-200",
+    "border-amber-300/70 bg-warning/10 text-warning dark:border-warning/40 dark:text-warning",
   CONNECTING:
-    "border-sky-300/70 bg-sky-500/10 text-sky-800 dark:border-sky-500/40 dark:text-sky-200",
+    "border-sky-300/70 bg-info/10 text-info dark:border-info/40 dark:text-info",
   AUTHENTICATING:
-    "border-purple-300/70 bg-purple-500/10 text-purple-800 dark:border-purple-500/40 dark:text-purple-200",
+    "border-purple-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   RECONNECTING:
-    "border-violet-300/70 bg-violet-500/10 text-violet-800 dark:border-violet-500/40 dark:text-violet-200",
+    "border-violet-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   DISCONNECTED:
-    "border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:text-slate-200",
+    "border-slate-300/70 bg-muted text-foreground dark:border-border dark:text-muted-foreground",
 };
 
 export const quickReplyCategoryKeys = [

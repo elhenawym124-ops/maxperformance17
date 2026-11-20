@@ -31,7 +31,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
   return (
     <div className="space-y-4">
       {/* Auth Details */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
         <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
           <Key className="size-4 text-[color:var(--color-primary)]" />
           {t("whatsappSettings.dialogs.authDetails")}
@@ -85,7 +85,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
       </div>
 
       {/* Account Info */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
         <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
           <Briefcase className="size-4 text-[color:var(--color-primary)]" />
           {t("whatsappSettings.dialogs.accountDetails")}
@@ -155,15 +155,15 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
       </div>
 
       {/* Webhook Settings */}
-      <div className="rounded-2xl border border-sky-500/30 bg-sky-500/5 p-5 space-y-4">
+      <div className="rounded-xl border border-info/30 bg-info/5 p-5 space-y-4">
         <div className="flex items-center justify-between">
           <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
-            <Globe className="size-4 text-sky-600 dark:text-sky-400" />
+            <Globe className="size-4 text-info dark:text-info" />
             إعدادات رد الاتصال (Meta Webhook)
           </h4>
           <Badge
             variant="outline"
-            className="text-[10px] bg-sky-500/10 border-sky-300 text-sky-800 dark:border-sky-500/40 dark:text-sky-200"
+            className="text-[10px] bg-info/10 border-info text-info dark:border-info/40 dark:text-info"
           >
             مطلوب للرسائل
           </Badge>
@@ -175,7 +175,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
               <Label htmlFor="edit-meta-webhook-url">
                 رابط الويب هوك (Callback URL)
               </Label>
-              <span className="text-[10px] text-sky-600 dark:text-sky-400">
+              <span className="text-[10px] text-info dark:text-info">
                 انسخ هذا الرابط إلى Meta
               </span>
             </div>
@@ -277,7 +277,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
       </div>
 
       {/* Advanced Settings */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
         <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
           <Settings className="size-4 text-[color:var(--color-muted-foreground)]" />
           {t("whatsappSettings.dialogs.advancedSettings")}

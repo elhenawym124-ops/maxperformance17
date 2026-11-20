@@ -229,7 +229,7 @@ export function FlowCanvas({
   return (
     <div className="space-y-4">
       {/* Step nodes (full width) */}
-      <div className="overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 sm:p-5">
+      <div className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 sm:p-5">
         {/* Header */}
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -325,7 +325,7 @@ export function FlowCanvas({
 
       {/* Live WhatsApp preview (below, collapsible) */}
       {previewOpen && (
-        <div className="overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:color-mix(in_srgb,var(--color-muted)_50%,var(--color-background))] p-4 sm:p-5">
+        <div className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:color-mix(in_srgb,var(--color-muted)_50%,var(--color-background))] p-4 sm:p-5">
           <WhatsAppPreviewPane step={activePreviewStep} totalSteps={orderedSteps.length} />
         </div>
       )}
@@ -607,7 +607,7 @@ function FlowEmptyState({ onAdd, isAdmin }: { onAdd: () => void; isAdmin: boolea
       transition={{ duration: 0.35 }}
       className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] py-10 text-center"
     >
-      <div className="flex size-12 items-center justify-center rounded-2xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
+      <div className="flex size-12 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
         <MessageSquare className="size-6" />
       </div>
       <div className="space-y-1">
@@ -666,7 +666,7 @@ function WhatsAppPreviewPane({ step, totalSteps }: WhatsAppPreviewPaneProps) {
 
       {/* WhatsApp message preview */}
       <div
-        className="overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] p-4"
+        className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] p-4"
         style={{
           background: "#ECE5DD",
           backgroundImage:

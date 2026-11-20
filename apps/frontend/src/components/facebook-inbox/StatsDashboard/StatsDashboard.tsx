@@ -57,7 +57,7 @@ const StatsDashboard: React.FC<StatsDashboardProps> = ({
       className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-150"
       dir="rtl"
     >
-      <div className="bg-card border border-border/70 text-card-foreground shadow-2xl rounded-2xl w-full max-w-4xl max-h-[85vh] overflow-y-auto flex flex-col">
+      <div className="bg-card border border-border/70 text-card-foreground shadow-2xl rounded-xl w-full max-w-4xl max-h-[85vh] overflow-y-auto flex flex-col">
         {/* Header (Zero Emojis) */}
         <div className="px-6 py-4 border-b border-border/60 bg-muted/20 flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
           <div className="flex items-center gap-2.5">
@@ -104,7 +104,7 @@ const StatsDashboard: React.FC<StatsDashboardProps> = ({
                 المحادثات الواردة من العملاء التي لم يتم الرد عليها بعد
               </p>
             </div>
-            <div className="p-3.5 rounded-2xl bg-primary/10 text-primary border border-primary/20">
+            <div className="p-3.5 rounded-xl bg-primary/10 text-primary border border-primary/20">
               <MessageSquare className="w-7 h-7" />
             </div>
           </div>
@@ -150,7 +150,7 @@ const StatsDashboard: React.FC<StatsDashboardProps> = ({
                         <span className="text-base font-bold text-foreground">
                           {employee.conversationsRepliedTo}
                         </span>
-                        <span className="text-[11px] text-muted-foreground mr-1">
+                        <span className="text-[11px] text-muted-foreground me-1">
                           محادثة
                         </span>
                       </div>

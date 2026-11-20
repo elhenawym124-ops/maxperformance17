@@ -107,8 +107,8 @@ export const MessageActionsBar: React.FC<MessageActionsBarProps> = ({
                 }}
                 className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 ${
                   myReaction
-                    ? "text-amber-600 bg-amber-100 border-amber-300"
-                    : "text-amber-500 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 dark:hover:bg-amber-900/60 border-amber-200/80 dark:border-amber-800/80"
+                    ? "text-amber-600 bg-warning border-warning"
+                    : "text-amber-500 dark:text-warning bg-warning/10 dark:bg-warning/60 hover:bg-warning dark:hover:bg-warning/60 border-warning/80 dark:border-warning/80"
                 }`}
                 title="إضافة تفاعل"
               >
@@ -147,8 +147,8 @@ export const MessageActionsBar: React.FC<MessageActionsBarProps> = ({
               onClick={() => onStar(message.id, !!isStarred)}
               className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 ${
                 isStarred
-                  ? "text-white bg-amber-500 hover:bg-amber-600 border-amber-600 shadow-sm"
-                  : "text-amber-500 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 dark:hover:bg-amber-900/60 border-amber-200/80 dark:border-amber-800/80"
+                  ? "text-white bg-warning hover:bg-warning border-warning shadow-sm"
+                  : "text-amber-500 dark:text-warning bg-warning/10 dark:bg-warning/60 hover:bg-warning dark:hover:bg-warning/60 border-warning/80 dark:border-warning/80"
               }`}
               title={isStarred ? "إلغاء التمييز" : "تمييز الرسالة"}
             >
@@ -166,7 +166,7 @@ export const MessageActionsBar: React.FC<MessageActionsBarProps> = ({
                 onForward(message);
                 setShowActions(false);
               }}
-              className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border-indigo-200/80 dark:border-indigo-800/80`}
+              className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 text-primary bg-primary/10 dark:bg-primary/60 hover:bg-primary dark:hover:bg-primary/60 border-primary/80 dark:border-primary/80`}
               title="إعادة توجيه"
             >
               <Forward size={16} strokeWidth={2.4} />
@@ -179,7 +179,7 @@ export const MessageActionsBar: React.FC<MessageActionsBarProps> = ({
                 onDelete(message.id);
                 setShowActions(false);
               }}
-              className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 hover:bg-red-100 dark:hover:bg-red-900/60 border-red-200/80 dark:border-red-800/80`}
+              className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 text-destructive dark:text-destructive bg-destructive/10 dark:bg-destructive/60 hover:bg-destructive dark:hover:bg-destructive/60 border-destructive/80 dark:border-destructive/80`}
               title="حذف الرسالة"
             >
               <Trash2 size={16} strokeWidth={2.4} />

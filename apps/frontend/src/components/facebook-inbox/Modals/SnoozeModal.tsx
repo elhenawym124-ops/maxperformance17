@@ -99,7 +99,7 @@ const SnoozeModal: React.FC<SnoozeModalProps> = ({
               className="w-full flex items-center justify-between p-3 rounded-lg border border-border/60 bg-muted/20 hover:bg-muted/50 hover:border-border transition-all active:scale-[0.99] text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <Sun className="w-4 h-4 text-amber-500" />
+                <Sun className="w-4 h-4 text-warning" />
                 <div>
                   <span className="text-xs font-medium text-foreground block">
                     بعد الظهيرة
@@ -118,7 +118,7 @@ const SnoozeModal: React.FC<SnoozeModalProps> = ({
               className="w-full flex items-center justify-between p-3 rounded-lg border border-border/60 bg-muted/20 hover:bg-muted/50 hover:border-border transition-all active:scale-[0.99] text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <Calendar className="w-4 h-4 text-indigo-500" />
+                <Calendar className="w-4 h-4 text-primary" />
                 <div>
                   <span className="text-xs font-medium text-foreground block">
                     صباح الغد

@@ -53,8 +53,8 @@ const ConversationActionsBar: React.FC<ConversationActionsBarProps> = ({
         disabled={disabled}
         className={`p-1.5 rounded-lg border transition-all duration-200 disabled:opacity-50 ${
           doneFlash
-            ? "bg-emerald-500 text-white border-emerald-600 scale-105 shadow-sm"
-            : "border-border/70 text-muted-foreground hover:text-emerald-600 hover:bg-emerald-500/10 hover:border-emerald-500/20 bg-card"
+            ? "bg-emerald-500 text-white border-success scale-105 shadow-sm"
+            : "border-border/70 text-muted-foreground hover:text-success hover:bg-success/10 hover:border-success/20 bg-card"
         }`}
         title="تحديد كمنتهي"
         aria-label="تحديد كمنتهي"
@@ -69,10 +69,10 @@ const ConversationActionsBar: React.FC<ConversationActionsBarProps> = ({
         disabled={disabled}
         className={`p-1.5 rounded-lg border transition-all duration-200 disabled:opacity-50 ${
           priorityFlash
-            ? "bg-amber-500 text-white border-amber-600 scale-105 shadow-sm"
+            ? "bg-amber-500 text-white border-warning scale-105 shadow-sm"
             : isPriority
-              ? "bg-amber-500/10 text-amber-500 border-amber-500/20"
-              : "border-border/70 text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10 hover:border-amber-500/20 bg-card"
+              ? "bg-amber-500/10 text-warning border-warning/20"
+              : "border-border/70 text-muted-foreground hover:text-warning hover:bg-warning/10 hover:border-warning/20 bg-card"
         }`}
         title={isPriority ? "إلغاء الأولوية" : "تحديد كأولوية"}
         aria-label={isPriority ? "إلغاء الأولوية" : "تحديد كأولوية"}
@@ -104,7 +104,7 @@ const ConversationActionsBar: React.FC<ConversationActionsBarProps> = ({
           type="button"
           onClick={onDelete}
           disabled={disabled}
-          className="p-1.5 rounded-lg border border-rose-500/20 text-rose-500 hover:bg-rose-500/10 bg-card transition-colors disabled:opacity-50"
+          className="p-1.5 rounded-lg border border-destructive/20 text-destructive hover:bg-destructive/10 bg-card transition-colors disabled:opacity-50"
           title="حذف المحادثة"
           aria-label="حذف المحادثة"
         >

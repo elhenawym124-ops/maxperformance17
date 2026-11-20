@@ -143,9 +143,9 @@ export const LeadFollowUpBusinessHoursCard: React.FC<LeadFollowUpBusinessHoursCa
               disabled={isSaving}
             >
               {isSaving ? (
-                <Loader2 className="size-3 animate-spin mr-1" />
+                <Loader2 className="size-3 animate-spin me-1" />
               ) : (
-                <Save className="size-3 mr-1" />
+                <Save className="size-3 me-1" />
               )}
               {tx("actions.save")}
             </Button>

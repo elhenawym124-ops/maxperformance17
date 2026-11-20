@@ -32,7 +32,7 @@ export const JourneyDetailsDialog: React.FC<JourneyDetailsDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="max-w-[calc(100%-2rem)] rounded-3xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-2xl">
+      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-2xl">
         <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappJourney.monitoring.details")}</DialogTitle>
           <DialogDescription>{t("whatsappJourney.subtitle")}</DialogDescription>
@@ -41,7 +41,7 @@ export const JourneyDetailsDialog: React.FC<JourneyDetailsDialogProps> = ({
         {journey ? (
           <div className="space-y-5 px-6 pb-6">
             <div className="grid gap-3 md:grid-cols-2">
-              <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+              <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
                 <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
                   {t("whatsappJourney.monitoring.customer")}
                 </p>
@@ -53,7 +53,7 @@ export const JourneyDetailsDialog: React.FC<JourneyDetailsDialogProps> = ({
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+              <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
                 <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
                   {t("whatsappJourney.monitoring.status")}
                 </p>
@@ -89,7 +89,7 @@ export const JourneyDetailsDialog: React.FC<JourneyDetailsDialogProps> = ({
                 <RefreshCw className="size-4" />
                 {t("whatsappJourney.monitoring.details")}
               </div>
-              <div className="max-h-72 space-y-3 overflow-y-auto rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+              <div className="max-h-72 space-y-3 overflow-y-auto rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
                 {journey.logs?.trim() ? (
                   journey.logs
                     .split("\n")

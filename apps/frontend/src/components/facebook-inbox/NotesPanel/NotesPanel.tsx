@@ -119,7 +119,7 @@ export const NotesPanel: React.FC<NotesPanelProps> = ({
               <button
                 type="button"
                 onClick={() => handleDeleteNote(note.id)}
-                className="absolute top-2 left-2 p-1 rounded-md text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-all active:scale-95"
+                className="absolute top-2 left-2 p-1 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-all active:scale-95"
                 title="حذف الملاحظة"
                 aria-label="حذف"
               >

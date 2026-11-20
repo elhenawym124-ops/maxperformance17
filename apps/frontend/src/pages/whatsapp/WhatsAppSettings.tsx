@@ -136,7 +136,7 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
               data.setWebhookDetailsOpen(true);
             }}
           >
-            <Globe className="size-3.5 text-sky-600 dark:text-sky-400" />
+            <Globe className="size-3.5 text-info dark:text-info" />
             <span className="hidden sm:inline">بيانات Webhook</span>
           </Button>
           <Button
@@ -303,7 +303,7 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
           {Array.from({ length: 4 }).map((_, index) => (
             <Skeleton
               key={index}
-              className="h-24 rounded-2xl sm:h-28 sm:rounded-3xl"
+              className="h-24 rounded-xl sm:h-28 sm:rounded-xl"
             />
           ))}
         </div>
@@ -312,7 +312,7 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
             <Skeleton key={index} className="h-9 w-28 shrink-0 rounded-full" />
           ))}
         </div>
-        <Skeleton className="h-[24rem] w-full rounded-2xl sm:h-[32rem] sm:rounded-3xl" />
+        <Skeleton className="h-[24rem] w-full rounded-xl sm:h-[32rem] sm:rounded-xl" />
       </WhatsAppPageShell>
     );
   }

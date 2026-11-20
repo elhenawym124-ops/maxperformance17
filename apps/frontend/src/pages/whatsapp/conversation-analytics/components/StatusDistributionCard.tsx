@@ -52,7 +52,7 @@ export const StatusDistributionCard: React.FC<StatusDistributionCardProps> = ({
           })}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 p-8 text-center">
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/70 p-8 text-center">
           <BarChart3 className="mb-2 size-8 text-muted-foreground/30" />
           <p className="text-xs text-muted-foreground">لا توجد بيانات توزيع حالات</p>
         </div>

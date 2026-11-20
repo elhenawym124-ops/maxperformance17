@@ -156,7 +156,7 @@ export default function CreateServiceOrderModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-xl rounded-2xl bg-card shadow-2xl border border-border/80 overflow-hidden max-h-[92vh] flex flex-col my-auto text-foreground"
+        className="relative w-full max-w-xl rounded-xl bg-card shadow-2xl border border-border/80 overflow-hidden max-h-[92vh] flex flex-col my-auto text-foreground"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -191,7 +191,7 @@ export default function CreateServiceOrderModal({
             {loadingServices ? (
               <div className="py-3 text-center text-xs text-muted-foreground font-mono">جاري تحميل الخدمات...</div>
             ) : services.length === 0 ? (
-              <div className="p-3 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 rounded-xl text-xs">
+              <div className="p-3 bg-warning/10 border border-warning/20 text-warning dark:text-warning rounded-xl text-xs">
                 لا توجد خدمات نشطة معرفة بالمتجر حالياً. يمكنك إضافتها من قسم الخدمات (/admin/services).
               </div>
             ) : (
@@ -243,7 +243,7 @@ export default function CreateServiceOrderModal({
           </div>
 
           {/* Financials & Payment */}
-          <div className="p-3.5 rounded-2xl bg-muted/20 border border-border/70 space-y-3">
+          <div className="p-3.5 rounded-xl bg-muted/20 border border-border/70 space-y-3">
             <div className="flex items-center gap-2 text-xs font-bold text-foreground">
               <CreditCard className="w-4 h-4 text-primary" />
               <span>الماليات والاتفاق مع العميل:</span>
@@ -338,7 +338,7 @@ export default function CreateServiceOrderModal({
             </select>
           </div>
 
-          <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs flex items-center gap-2">
+          <div className="p-3 bg-success/10 border border-success/20 text-success dark:text-success rounded-xl text-xs flex items-center gap-2">
             <MessageSquare className="w-4 h-4 shrink-0" />
             <span>سيتم إرسال رسالة تأكيد رسمية بالطلب وحسابه المالي تلقائياً على رقم واتساب العميل فور الحفظ</span>
           </div>

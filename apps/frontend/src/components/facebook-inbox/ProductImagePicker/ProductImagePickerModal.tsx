@@ -382,7 +382,7 @@ const ProductImagePickerModal: React.FC<ProductImagePickerModalProps> = ({
                   placeholder="بحث عن منتج..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="business-chat-input w-full pl-4 pr-10 py-2"
+                  className="business-chat-input w-full ps-4 pe-10 py-2"
                 />
                 <MagnifyingGlassIcon
                   className="absolute right-3 top-2.5 h-5 w-5"
@@ -511,7 +511,7 @@ const ProductImagePickerModal: React.FC<ProductImagePickerModalProps> = ({
                     <button
                       type="button"
                       onClick={loadMoreProducts}
-                      className="mt-4 w-full rounded-2xl border-2 border-dashed border-gray-200 py-3 text-sm font-semibold text-gray-500 transition-colors hover:border-blue-400 hover:text-blue-500 dark:border-gray-700 dark:text-gray-400"
+                      className="mt-4 w-full rounded-xl border-2 border-dashed border-border py-3 text-sm font-semibold text-muted-foreground transition-colors hover:border-blue-400 hover:text-blue-500 dark:border-border dark:text-muted-foreground"
                     >
                       عرض المزيد من المنتجات
                     </button>

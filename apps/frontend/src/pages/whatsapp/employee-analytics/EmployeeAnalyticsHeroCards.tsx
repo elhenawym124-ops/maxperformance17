@@ -125,7 +125,7 @@ export const GlassMetric: React.FC<{
     variants={itemSlide}
     whileHover={reducedMotion ? undefined : { y: -3 }}
     transition={{ type: "spring", stiffness: 400, damping: 17 }}
-    className="relative overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-4 shadow-sm backdrop-blur-xl sm:rounded-3xl sm:p-5"
+    className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-4 shadow-sm backdrop-blur-xl sm:rounded-xl sm:p-5"
     style={{ animationDelay: `${delay}ms` }}
   >
     <div
@@ -153,7 +153,7 @@ export const GlassMetric: React.FC<{
         )}
       </div>
       <div
-        className="flex size-10 shrink-0 items-center justify-center rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] sm:size-11 sm:rounded-2xl"
+        className="flex size-10 shrink-0 items-center justify-center rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] sm:size-11 sm:rounded-xl"
         style={{ background: gradient }}
       >
         <Icon className="size-5 text-white sm:size-5.5" />

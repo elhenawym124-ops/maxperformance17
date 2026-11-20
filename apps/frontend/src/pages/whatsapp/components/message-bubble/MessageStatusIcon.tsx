@@ -12,9 +12,9 @@ export const MessageStatusIcon: React.FC<MessageStatusIconProps> = ({ status }) 
     case "DELIVERED":
       return <CheckCheck className="size-3.5 text-[color:var(--color-muted-foreground)]" />;
     case "READ":
-      return <CheckCheck className="size-3.5 text-sky-500" />;
+      return <CheckCheck className="size-3.5 text-info" />;
     case "ERROR":
-      return <AlertTriangle className="size-3.5 text-rose-500" />;
+      return <AlertTriangle className="size-3.5 text-destructive" />;
     case "PENDING":
     default:
       return <Clock3 className="size-3.5 text-[color:var(--color-muted-foreground)]" />;

@@ -45,7 +45,7 @@ const TaskSubtasks: React.FC<TaskSubtasksProps> = ({
           {onRequestTesting && (
             <button
               onClick={onRequestTesting}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-all active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-info hover:bg-info text-white rounded-lg transition-all active:scale-[0.98]"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>طلب اختبار</span>

@@ -162,7 +162,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
                 {isTimerPaused ? (
                   <button
                     onClick={handleResumeTimer}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all active:scale-[0.98]"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-success text-white rounded-lg hover:bg-success transition-all active:scale-[0.98]"
                     title="استئناف"
                   >
                     <Play className="w-3.5 h-3.5 fill-current" />
@@ -171,7 +171,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
                 ) : (
                   <button
                     onClick={handlePauseTimer}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-all active:scale-[0.98]"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-warning text-white rounded-lg hover:bg-warning transition-all active:scale-[0.98]"
                     title="إيقاف مؤقت"
                   >
                     <Pause className="w-3.5 h-3.5 fill-current" />
@@ -180,7 +180,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
                 )}
                 <button
                   onClick={handleStopTimer}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition-all active:scale-[0.98]"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-destructive text-white rounded-lg hover:bg-destructive transition-all active:scale-[0.98]"
                   title="إيقاف نهائي"
                 >
                   <Square className="w-3.5 h-3.5 fill-current" />
@@ -200,7 +200,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
           aria-label="نسخ الرابط"
         >
           {copiedLink ? (
-            <Check className="w-4 h-4 text-emerald-500" />
+            <Check className="w-4 h-4 text-success" />
           ) : (
             <Share2 className="w-4 h-4" />
           )}
@@ -229,7 +229,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
         {canDelete && (
           <button
             onClick={onDelete}
-            className="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors active:scale-95 border border-border/50"
+            className="p-1.5 text-destructive hover:bg-destructive/10 rounded-lg transition-colors active:scale-95 border border-border/50"
             title="حذف المهمة"
             aria-label="حذف"
           >

@@ -76,7 +76,7 @@ export function WhatsAppPageShell({
       )}
     >
       <div
-        className="relative overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-3xl sm:shadow-raised"
+        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised"
         style={{ backgroundImage: "var(--journey-header-gradient)", backgroundSize: "200% 200%" }}
       >
         {/* Accent glow orb */}
@@ -104,7 +104,7 @@ export function WhatsAppPageShell({
               ) : null}
 
               <div className="flex min-w-0 gap-2 sm:gap-3">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[color:var(--journey-accent-soft)] text-[color:var(--journey-accent)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] sm:size-12 sm:rounded-2xl">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[color:var(--journey-accent-soft)] text-[color:var(--journey-accent)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] sm:size-12 sm:rounded-xl">
                   <Icon className="size-5 sm:size-6" />
                 </div>
                 <div className="min-w-0 space-y-1 sm:space-y-2">
@@ -151,7 +151,7 @@ export function WhatsAppSurfaceCard({
   return (
     <Card
       className={cn(
-        "rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-3xl sm:shadow-raised",
+        "rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised",
         className,
       )}
     >
@@ -192,7 +192,7 @@ export function WhatsAppMetricCard({
   const isZero = !Number.isNaN(numValue) && numValue === 0;
 
   return (
-    <Card className="h-full min-w-0 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-sm transition-shadow sm:rounded-3xl sm:shadow-md">
+    <Card className="h-full min-w-0 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-sm transition-shadow sm:rounded-xl sm:shadow-md">
       <CardContent className="flex h-full items-start justify-between gap-3 p-3.5 sm:gap-4 sm:p-5">
         <div className="min-w-0 space-y-1 sm:space-y-2">
           <p className="line-clamp-1 text-[11px] font-normal text-[color:var(--color-muted-foreground)] sm:text-xs">
@@ -217,7 +217,7 @@ export function WhatsAppMetricCard({
         </div>
         <div
           className={cn(
-            "flex size-9 shrink-0 items-center justify-center rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:size-11 sm:rounded-2xl",
+            "flex size-9 shrink-0 items-center justify-center rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:size-11 sm:rounded-xl",
             isZero
               ? "bg-[color:var(--color-muted)] text-[color:var(--color-muted-foreground)]/75"
               : toneClasses[tone],

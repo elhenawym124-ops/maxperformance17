@@ -34,18 +34,18 @@ export interface WhatsAppAnalyticsProps {
 
 export const STATUS_BADGE_CLASSES: Record<string, string> = {
   PENDING:
-    "border-amber-300/70 bg-amber-500/10 text-amber-800 dark:border-amber-500/40 dark:text-amber-200",
+    "border-amber-300/70 bg-warning/10 text-warning dark:border-warning/40 dark:text-warning",
   QUEUED:
-    "border-sky-300/70 bg-sky-500/10 text-sky-800 dark:border-sky-500/40 dark:text-sky-200",
+    "border-sky-300/70 bg-info/10 text-info dark:border-info/40 dark:text-info",
   SENDING:
-    "border-sky-300/70 bg-sky-500/10 text-sky-800 dark:border-sky-500/40 dark:text-sky-200",
+    "border-sky-300/70 bg-info/10 text-info dark:border-info/40 dark:text-info",
   SENT:
-    "border-emerald-300/70 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200",
+    "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   DELIVERED:
-    "border-emerald-300/70 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200",
+    "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   READ: "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200",
   FAILED:
-    "border-rose-300/70 bg-rose-500/10 text-rose-800 dark:border-rose-500/40 dark:text-rose-200",
+    "border-rose-300/70 bg-destructive/10 text-destructive dark:border-destructive/40 dark:text-destructive",
   CANCELLED:
-    "border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:text-slate-200",
+    "border-slate-300/70 bg-muted text-foreground dark:border-border dark:text-muted-foreground",
 };

@@ -111,21 +111,21 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
   return (
     <div className="space-y-6">
       {/* Status & Priority Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-        <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
+      <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm">
+        <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4 border-b border-border dark:border-border pb-2">
           تفاصيل الحالة
         </h3>
 
         {/* Status */}
         <div className="mb-4">
-          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 block mb-2">
+          <label className="text-xs font-medium text-muted-foreground block mb-2">
             الحالة
           </label>
           {userPermissions?.canChangeStatus ? (
             <div className="relative">
               <button
                 onClick={() => setStatusDropdownOpen(!statusDropdownOpen)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg border ${getStatusInfo(task.status).bg} border-gray-200 dark:border-gray-700 ${getStatusInfo(task.status).text}`}
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg border ${getStatusInfo(task.status).bg} border-border dark:border-border ${getStatusInfo(task.status).text}`}
               >
                 <div className="flex items-center gap-2">
                   <span className="font-medium">
@@ -135,16 +135,16 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                 <ChevronDownIcon className="h-4 w-4" />
               </button>
               {statusDropdownOpen && (
-                <div className="absolute top-full left-0 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-20 max-h-60 overflow-y-auto">
+                <div className="absolute top-full left-0 w-full mt-1 bg-card border border-border dark:border-border rounded-lg shadow-xl z-20 max-h-60 overflow-y-auto">
                   {statusOptions.map((config) => (
                     <button
                       key={config.value}
                       onClick={() => handleUpdateStatus(config.value)}
-                      className={`w-full text-right px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm flex items-center justify-between ${task.status === config.value ? "bg-gray-50 dark:bg-gray-700 font-medium" : ""}`}
+                      className={`w-full text-right px-4 py-2 hover:bg-muted/50 text-sm flex items-center justify-between ${task.status === config.value ? "bg-gray-50 dark:bg-muted font-medium" : ""}`}
                     >
                       <span className={config.text}>{config.label}</span>
                       {task.status === config.value && (
-                        <CheckIcon className="h-4 w-4 text-indigo-600" />
+                        <CheckIcon className="h-4 w-4 text-primary" />
                       )}
                     </button>
                   ))}
@@ -162,16 +162,16 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
 
         {/* Priority */}
         <div className="mb-4">
-          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 block mb-2">
+          <label className="text-xs font-medium text-muted-foreground block mb-2">
             الأولوية
           </label>
           <div
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-100 dark:border-gray-700`}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border`}
           >
             <span
               className={`w-2.5 h-2.5 rounded-full ${PRIORITY_COLORS[task.priority] || "bg-gray-400"}`}
             ></span>
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-foreground">
               {priorityInfo.label}
             </span>
           </div>
@@ -179,7 +179,7 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
 
         {/* Type */}
         <div>
-          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 block mb-2">
+          <label className="text-xs font-medium text-muted-foreground block mb-2">
             النوع
           </label>
           <div
@@ -192,22 +192,22 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
       </div>
 
       {/* People Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-        <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
+      <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm">
+        <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4 border-b border-border dark:border-border pb-2">
           فريق العمل
         </h3>
 
         <div className="space-y-4">
           {/* Assignee */}
           <div>
-            <label className="text-xs font-medium text-gray-500 dark:text-gray-400 block mb-2">
+            <label className="text-xs font-medium text-muted-foreground block mb-2">
               المسؤول
             </label>
             {userPermissions?.canAssign && teamMembers.length > 0 ? (
               <div className="relative">
                 <button
                   onClick={() => setAssigneeDropdownOpen(!assigneeDropdownOpen)}
-                  className="w-full flex items-center justify-between p-2 rounded-lg border border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 group transition-all"
+                  className="w-full flex items-center justify-between p-2 rounded-lg border border-border dark:border-border hover:bg-muted/50 group transition-all"
                 >
                   <div className="flex items-center gap-3">
                     {task.assigneeName ? (
@@ -216,37 +216,37 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                           <img
                             src={task.assigneeAvatar}
                             alt=""
-                            className="w-8 h-8 rounded-full ring-2 ring-indigo-50 dark:ring-gray-700"
+                            className="w-8 h-8 rounded-full ring-2 ring-primary dark:ring-border"
                           />
                         ) : (
-                          <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">
+                          <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary/50 text-primary flex items-center justify-center font-bold text-sm">
                             {task.assigneeName.charAt(0)}
                           </div>
                         )}
                         <div className="text-right">
-                          <p className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                          <p className="text-sm font-bold text-foreground">
                             {task.assigneeName}
                           </p>
-                          <p className="text-[10px] text-gray-500">مطور</p>
+                          <p className="text-[10px] text-muted-foreground">مطور</p>
                         </div>
                       </>
                     ) : (
-                      <span className="text-sm text-gray-400 flex items-center gap-1 italic">
+                      <span className="text-sm text-muted-foreground flex items-center gap-1 italic">
                         <UserIcon className="w-4 h-4" /> غير معين
                       </span>
                     )}
                   </div>
-                  <ChevronDownIcon className="h-4 w-4 text-gray-400 group-hover:text-indigo-500 transition-colors" />
+                  <ChevronDownIcon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                 </button>
 
                 {assigneeDropdownOpen && (
-                  <div className="absolute top-full left-0 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-30 max-h-64 overflow-y-auto p-1">
+                  <div className="absolute top-full left-0 w-full mt-1 bg-card border border-border dark:border-border rounded-lg shadow-xl z-30 max-h-64 overflow-y-auto p-1">
                     <button
                       onClick={() => {
                         handleUpdateAssignee?.("unassigned");
                         setAssigneeDropdownOpen(false);
                       }}
-                      className="w-full text-right px-3 py-2 hover:bg-red-50 dark:hover:bg-red-900/10 text-xs text-red-600 dark:text-red-400 rounded-md flex items-center justify-between mb-1"
+                      className="w-full text-right px-3 py-2 hover:bg-destructive/10 dark:hover:bg-destructive/10 text-xs text-destructive dark:text-destructive rounded-md flex items-center justify-between mb-1"
                     >
                       إلغاء التعيين
                     </button>
@@ -257,7 +257,7 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                           handleUpdateAssignee?.(member.userId || member.id);
                           setAssigneeDropdownOpen(false);
                         }}
-                        className={`w-full text-right px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm flex items-center justify-between rounded-md mb-0.5 ${task.assigneeId === (member.userId || member.id) ? "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 font-bold" : "text-gray-700 dark:text-gray-300"}`}
+                        className={`w-full text-right px-3 py-2 hover:bg-muted/50 text-sm flex items-center justify-between rounded-md mb-0.5 ${task.assigneeId === (member.userId || member.id) ? "bg-indigo-50 dark:bg-primary/20 text-primary font-bold" : "text-foreground"}`}
                       >
                         <div className="flex items-center gap-2">
                           {member.avatar ? (
@@ -267,7 +267,7 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                               className="w-6 h-6 rounded-full"
                             />
                           ) : (
-                            <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[10px] font-bold">
+                            <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
                               {member.name.charAt(0)}
                             </div>
                           )}
@@ -291,22 +291,22 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                       <img
                         src={task.assigneeAvatar}
                         alt=""
-                        className="w-10 h-10 rounded-full ring-2 ring-indigo-50 dark:ring-gray-700"
+                        className="w-10 h-10 rounded-full ring-2 ring-primary dark:ring-border"
                       />
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-base">
+                      <div className="w-10 h-10 rounded-full bg-primary dark:bg-primary/50 text-primary flex items-center justify-center font-bold text-base">
                         {task.assigneeName.charAt(0)}
                       </div>
                     )}
                     <div>
-                      <p className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                      <p className="text-sm font-bold text-foreground">
                         {task.assigneeName}
                       </p>
-                      <p className="text-xs text-gray-500">مطور</p>
+                      <p className="text-xs text-muted-foreground">مطور</p>
                     </div>
                   </>
                 ) : (
-                  <span className="text-sm text-gray-400 flex items-center gap-1 italic">
+                  <span className="text-sm text-muted-foreground flex items-center gap-1 italic">
                     <UserIcon className="w-4 h-4" /> غير معين
                   </span>
                 )}
@@ -316,18 +316,18 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
 
           {/* Reporter */}
           <div>
-            <label className="text-xs font-medium text-gray-500 dark:text-gray-400 block mb-2">
+            <label className="text-xs font-medium text-muted-foreground block mb-2">
               المبلغ
             </label>
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex items-center justify-center font-bold text-xs ring-2 ring-gray-50 dark:ring-gray-800">
+              <div className="w-9 h-9 rounded-full bg-muted text-foreground dark:text-muted-foreground flex items-center justify-center font-bold text-xs ring-2 ring-border dark:ring-border">
                 {task.reporterName.charAt(0)}
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <p className="text-sm font-medium text-foreground">
                   {task.reporterName}
                 </p>
-                <p className="text-xs text-gray-500">إدارة</p>
+                <p className="text-xs text-muted-foreground">إدارة</p>
               </div>
             </div>
           </div>
@@ -335,44 +335,44 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
       </div>
 
       {/* Project & Dates Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+      <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm">
         <div className="space-y-4">
           {/* Project */}
           <div>
-            <label className="text-xs font-medium text-gray-500 dark:text-gray-400 block mb-1">
+            <label className="text-xs font-medium text-muted-foreground block mb-1">
               المشروع
             </label>
-            <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+            <div className="flex items-center gap-2 p-2 bg-muted dark:bg-muted rounded-lg">
               <span
                 className="w-3 h-3 rounded-full shadow-sm"
                 style={{ backgroundColor: task.projectColor || "#6366f1" }}
               ></span>
-              <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+              <span className="text-sm font-semibold text-foreground">
                 {task.projectName || "عام"}
               </span>
             </div>
           </div>
 
-          <div className="h-px bg-gray-100 dark:bg-gray-700 my-2"></div>
+          <div className="h-px bg-muted my-2"></div>
 
           {/* Dates */}
           <div className="grid grid-cols-1 gap-3">
             <div>
-              <label className="text-xs font-medium text-gray-500 dark:text-gray-400 flex items-center gap-1 mb-1">
+              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1 mb-1">
                 <ClockIcon className="w-3.5 h-3.5" /> تاريخ البدء
               </label>
-              <p className="text-sm text-gray-700 dark:text-gray-300 font-mono">
+              <p className="text-sm text-foreground font-mono">
                 {task.startDate
                   ? new Date(task.startDate).toLocaleDateString("ar-EG")
                   : "-"}
               </p>
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-500 dark:text-gray-400 flex items-center gap-1 mb-1">
+              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1 mb-1">
                 <CalendarDaysIcon className="w-3.5 h-3.5" /> تاريخ الاستحقاق
               </label>
               <p
-                className={`text-sm font-mono font-medium ${isOverdue ? "text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded w-fit" : "text-gray-700 dark:text-gray-300"}`}
+                className={`text-sm font-mono font-medium ${isOverdue ? "text-red-600 bg-destructive/10 dark:bg-destructive/20 px-2 py-0.5 rounded w-fit" : "text-foreground"}`}
               >
                 {task.dueDate
                   ? new Date(task.dueDate).toLocaleDateString("ar-EG")
@@ -384,38 +384,38 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
       </div>
 
       {/* Time & Progress Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
+      <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-medium text-gray-500 dark:text-gray-400">
+          <label className="text-xs font-medium text-muted-foreground">
             تقدم العمل
           </label>
-          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
+          <span className="text-xs font-bold text-primary">
             {task.progress || 0}%
           </span>
         </div>
-        <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5 mb-4">
+        <div className="w-full bg-muted rounded-full h-2.5 mb-4">
           <div
-            className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2.5 rounded-full transition-all duration-1000 shadow-sm"
+            className="bg-gradient-to-r from-primary to-primary h-2.5 rounded-full transition-all duration-1000 shadow-sm"
             style={{ width: `${task.progress || 0}%` }}
           ></div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-center">
-          <div className="p-3 bg-gray-50 dark:bg-gray-700/30 rounded-xl border border-gray-100 dark:border-gray-700/50">
-            <p className="text-xs text-gray-500 mb-1 flex items-center justify-center gap-1">
+          <div className="p-3 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border">
+            <p className="text-xs text-muted-foreground mb-1 flex items-center justify-center gap-1">
               <ClockIcon className="w-3 h-3" />
               مقدر
             </p>
-            <p className="font-bold text-gray-900 dark:text-gray-100">
+            <p className="font-bold text-foreground">
               {task.estimatedHours || 0}h
             </p>
           </div>
-          <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-900/30">
-            <p className="text-xs text-indigo-600 dark:text-indigo-400 mb-1 flex items-center justify-center gap-1">
+          <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-xl border border-primary dark:border-primary/30">
+            <p className="text-xs text-primary mb-1 flex items-center justify-center gap-1">
               <CheckCircleIcon className="w-3 h-3" />
               فعلي
             </p>
-            <p className="font-bold text-indigo-700 dark:text-indigo-300">
+            <p className="font-bold text-primary dark:text-primary">
               {Math.round((task.actualHours || 0) * 10) / 10}h
             </p>
           </div>
@@ -429,16 +429,16 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
               {task.actualHours &&
                 task.actualHours >= task.estimatedHours * 0.9 &&
                 task.actualHours < task.estimatedHours && (
-                  <div className="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                  <div className="mt-3 p-3 bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg">
                     <div className="flex items-center gap-2">
-                      <span className="text-yellow-600 dark:text-yellow-400 text-lg">
+                      <span className="text-yellow-600 dark:text-warning text-lg">
                         ⚠️
                       </span>
                       <div className="flex-1">
-                        <p className="text-xs font-bold text-yellow-800 dark:text-yellow-200">
+                        <p className="text-xs font-bold text-warning dark:text-warning">
                           اقتربت من الوقت المقدر
                         </p>
-                        <p className="text-[10px] text-yellow-600 dark:text-yellow-400 mt-0.5">
+                        <p className="text-[10px] text-warning dark:text-warning mt-0.5">
                           متبقي{" "}
                           {Math.round(
                             (task.estimatedHours - task.actualHours) * 10,
@@ -450,16 +450,16 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                   </div>
                 )}
               {task.actualHours && task.actualHours >= task.estimatedHours && (
-                <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                <div className="mt-3 p-3 bg-destructive/10 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-red-600 dark:text-red-400 text-lg">
+                    <span className="text-red-600 dark:text-destructive text-lg">
                       🚨
                     </span>
                     <div className="flex-1">
-                      <p className="text-xs font-bold text-red-800 dark:text-red-200">
+                      <p className="text-xs font-bold text-destructive dark:text-destructive">
                         تجاوزت الوقت المقدر!
                       </p>
-                      <p className="text-[10px] text-red-600 dark:text-red-400 mt-0.5">
+                      <p className="text-[10px] text-destructive dark:text-destructive mt-0.5">
                         زيادة{" "}
                         {Math.round(
                           (task.actualHours - task.estimatedHours) * 10,
@@ -476,19 +476,19 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
 
       {/* XP Earned - Show only if task is completed and has XP */}
       {task.status === "DONE" && taskXpEarned && (
-        <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-xl border-2 border-yellow-200 dark:border-yellow-800 p-5 shadow-sm">
+        <div className="bg-gradient-to-br from-warning to-warning dark:from-warning/20 dark:to-warning/20 rounded-xl border-2 border-warning dark:border-warning p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-bold text-yellow-900 dark:text-yellow-100 uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-bold text-warning dark:text-warning uppercase tracking-wider flex items-center gap-2">
               <SparklesIcon className="w-4 h-4" /> نقاط الخبرة
             </h3>
           </div>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 shadow-lg mb-2">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-warning to-warning shadow-lg mb-2">
               <span className="text-2xl font-black text-white">
                 {taskXpEarned}
               </span>
             </div>
-            <p className="text-xs text-yellow-700 dark:text-yellow-300 font-medium">
+            <p className="text-xs text-warning dark:text-warning font-medium">
               نقطة مكتسبة عند الإكمال
             </p>
           </div>
@@ -497,15 +497,15 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
 
       {/* Tags */}
       {task.tags && task.tags.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-          <h3 className="text-xs font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm">
+          <h3 className="text-xs font-bold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
             <TagIcon className="w-4 h-4" /> التصنيفات
           </h3>
           <div className="flex flex-wrap gap-2">
             {task.tags.map((tag, i) => (
               <span
                 key={i}
-                className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-default border border-gray-200 dark:border-gray-600"
+                className="px-2.5 py-1 rounded-lg bg-muted text-muted-foreground text-xs font-medium hover:bg-muted dark:hover:bg-muted transition-colors cursor-default border border-border"
               >
                 #{tag}
               </span>
@@ -517,8 +517,8 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
       {/* Related Links & Page URL */}
       {(settings?.taskDetailsVisibility?.showRelatedLinks ?? true) &&
         ((task.relatedLinks && task.relatedLinks.length > 0) || task.pageUrl) && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-            <h3 className="text-xs font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <div className="bg-card rounded-xl border border-border dark:border-border p-5 shadow-sm">
+            <h3 className="text-xs font-bold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
               <LinkIcon className="w-4 h-4" /> الروابط وصفحة العمل
             </h3>
             <div className="space-y-3">
@@ -531,16 +531,16 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-2 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/20 transition-all border border-indigo-200/60 dark:border-indigo-800/60 group"
+                  className="flex items-center gap-3 p-2 bg-primary/50 dark:bg-primary/10 rounded-lg hover:bg-primary dark:hover:bg-primary/20 transition-all border border-primary/60 dark:border-primary/60 group"
                 >
-                  <div className="p-1.5 bg-white dark:bg-gray-800 rounded shadow-sm text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                  <div className="p-1.5 bg-card rounded shadow-sm text-primary group-hover:scale-110 transition-transform">
                     <LinkIcon className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-gray-900 dark:text-gray-100 truncate">
+                    <p className="text-xs font-bold text-foreground truncate">
                       لينك الصفحة (Page URL)
                     </p>
-                    <p className="text-[10px] text-gray-500 truncate dir-ltr">
+                    <p className="text-[10px] text-muted-foreground truncate dir-ltr">
                       {task.pageUrl}
                     </p>
                   </div>
@@ -556,16 +556,16 @@ const TaskSidebar: React.FC<TaskSidebarProps> = ({
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-2 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/20 transition-all border border-indigo-100/50 dark:border-indigo-900/30 group"
+                  className="flex items-center gap-3 p-2 bg-primary/50 dark:bg-primary/10 rounded-lg hover:bg-primary dark:hover:bg-primary/20 transition-all border border-primary/50 dark:border-primary/30 group"
                 >
-                  <div className="p-1.5 bg-white dark:bg-gray-800 rounded shadow-sm text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                  <div className="p-1.5 bg-card rounded shadow-sm text-primary group-hover:scale-110 transition-transform">
                     <LinkIcon className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-gray-900 dark:text-gray-100 truncate">
+                    <p className="text-xs font-bold text-foreground truncate">
                       {link.title}
                     </p>
-                    <p className="text-[10px] text-gray-500 truncate dir-ltr">
+                    <p className="text-[10px] text-muted-foreground truncate dir-ltr">
                       {link.url}
                     </p>
                   </div>

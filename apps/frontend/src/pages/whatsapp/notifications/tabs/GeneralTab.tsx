@@ -34,7 +34,7 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
       {/* 1. Main Activation & Session Binding */}
       <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
         <div className="flex items-center gap-2.5 border-b border-border/50 pb-3">
-          <Settings className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <Settings className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold text-foreground">
             {t("whatsappNotifications.general.mainControl", "التحكم الرئيسي والجلسة")}
           </h3>
@@ -112,7 +112,7 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
       {/* 2. Rate Limiting & Quiet Hours */}
       <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
         <div className="flex items-center gap-2.5 border-b border-border/50 pb-3">
-          <Shield className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <Shield className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold text-foreground">
             {t("whatsappNotifications.general.safetyAndLimits", "حدود الإرسال وساعات الهدوء")}
           </h3>

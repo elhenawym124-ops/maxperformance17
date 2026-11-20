@@ -46,7 +46,7 @@ export const MessageReactionsPill: React.FC<MessageReactionsPillProps> = ({
         <span key={reaction} className="text-xs leading-none flex items-center">
           <span className="text-sm leading-none">{reaction}</span>
           {count > 1 && (
-            <span className="text-[10px] ml-0.5 font-medium tabular-nums text-[color:var(--color-muted-foreground)]">
+            <span className="text-[10px] ms-0.5 font-medium tabular-nums text-[color:var(--color-muted-foreground)]">
               {count}
             </span>
           )}

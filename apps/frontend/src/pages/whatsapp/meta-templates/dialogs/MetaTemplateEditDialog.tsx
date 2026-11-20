@@ -60,7 +60,7 @@ export const MetaTemplateEditDialog: React.FC<MetaTemplateEditDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto max-w-xl sm:rounded-3xl">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto max-w-xl sm:rounded-xl">
         <DialogHeader>
           <DialogTitle>تعديل القالب</DialogTitle>
           <DialogDescription>
@@ -175,7 +175,7 @@ export const MetaTemplateEditDialog: React.FC<MetaTemplateEditDialogProps> = ({
             </div>
             {editForm.headerFormat !== "TEXT" &&
               !editForm.headerMediaHandle && (
-                <p className="text-[11px] text-amber-500 dark:text-amber-400">
+                <p className="text-[11px] text-warning dark:text-warning">
                   ارفع وسيطاً للهيدر — ميتا تتطلب sample media
                 </p>
               )}
@@ -239,11 +239,11 @@ export const MetaTemplateEditDialog: React.FC<MetaTemplateEditDialogProps> = ({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+        <div className="rounded-xl border border-warning bg-warning/10 p-3 dark:border-warning dark:bg-warning/30">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Shield className="size-4 text-amber-600 dark:text-amber-400" />
-              <span className="text-xs font-medium text-amber-800 dark:text-amber-200">
+              <Shield className="size-4 text-warning dark:text-warning" />
+              <span className="text-xs font-medium text-warning dark:text-warning">
                 التحقق من التوافق مع سياسات Meta
               </span>
             </div>
@@ -259,7 +259,7 @@ export const MetaTemplateEditDialog: React.FC<MetaTemplateEditDialogProps> = ({
           {editShowCompliance && (
             <div className="mt-2 space-y-1">
               {editComplianceResults.length === 0 ? (
-                <p className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                <p className="flex items-center gap-1.5 text-xs text-success dark:text-success">
                   <CheckCircle className="size-3.5" /> لا توجد مشاكل توافق —
                   القالب جاهز للإرسال
                 </p>
@@ -269,8 +269,8 @@ export const MetaTemplateEditDialog: React.FC<MetaTemplateEditDialogProps> = ({
                     key={r.id}
                     className={`flex items-start gap-1.5 text-[11px] ${
                       r.severity === "error"
-                        ? "text-red-600 dark:text-red-400"
-                        : "text-amber-600 dark:text-amber-400"
+                        ? "text-red-600 dark:text-destructive"
+                        : "text-amber-600 dark:text-warning"
                     }`}
                   >
                     {r.severity === "error" ? (

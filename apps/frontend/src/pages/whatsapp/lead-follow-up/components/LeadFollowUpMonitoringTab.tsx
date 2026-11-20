@@ -171,7 +171,7 @@ export const LeadFollowUpMonitoringTab: React.FC<LeadFollowUpMonitoringTabProps>
                           cfg.bg
                         )}
                       >
-                        <span className={cn("mr-1.5 inline-block size-1.5 rounded-full", cfg.dot)} />
+                        <span className={cn("me-1.5 inline-block size-1.5 rounded-full", cfg.dot)} />
                         {tx(`monitoring.${j.status.toLowerCase()}`) || j.status}
                       </span>
                     </TableCell>
@@ -222,7 +222,7 @@ export const LeadFollowUpMonitoringTab: React.FC<LeadFollowUpMonitoringTabProps>
                           cfg.bg
                         )}
                       >
-                        <span className={cn("mr-1.5 inline-block size-1.5 rounded-full", cfg.dot)} />
+                        <span className={cn("me-1.5 inline-block size-1.5 rounded-full", cfg.dot)} />
                         {tx(`monitoring.${e.status.toLowerCase()}`) || e.status}
                       </span>
                     </TableCell>
@@ -237,7 +237,7 @@ export const LeadFollowUpMonitoringTab: React.FC<LeadFollowUpMonitoringTabProps>
                         <Button
                           variant="outline"
                           size="sm"
-                          className="h-7 rounded-full border-rose-500/20 text-rose-500 hover:bg-rose-500/10 text-xs"
+                          className="h-7 rounded-full border-destructive/20 text-destructive hover:bg-destructive/10 text-xs"
                           onClick={() => onCancelEnrollment(e.id)}
                         >
                           {tx("monitoring.cancel")}

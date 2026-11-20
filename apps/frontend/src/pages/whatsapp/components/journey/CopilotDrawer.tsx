@@ -415,7 +415,7 @@ function EmptyState({
   const { t } = useTranslation();
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 py-12 text-center">
-      <span className="flex size-12 items-center justify-center rounded-2xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
+      <span className="flex size-12 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
         <Wand2 className="size-5" />
       </span>
       <p className="max-w-[320px] text-base font-semibold leading-relaxed text-[color:var(--color-foreground)]">
@@ -451,7 +451,7 @@ function MessageBubble({
       </p>
       <div
         className={cn(
-          "max-w-[90%] rounded-2xl border p-3 text-sm leading-6",
+          "max-w-[90%] rounded-xl border p-3 text-sm leading-6",
           isUser
             ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-[color:var(--color-primary-foreground)]"
             : "border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] text-[color:var(--color-foreground)]",

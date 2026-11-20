@@ -85,18 +85,18 @@ const WhatsAppEmployeeAnalytics: React.FC<WhatsAppEmployeeAnalyticsProps> = ({
           >
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-32 rounded-2xl sm:rounded-3xl" />
+                <Skeleton key={i} className="h-32 rounded-xl sm:rounded-xl" />
               ))}
             </div>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <Skeleton className="h-72 rounded-2xl sm:rounded-3xl" />
-              <Skeleton className="h-72 rounded-2xl sm:rounded-3xl lg:col-span-2" />
+              <Skeleton className="h-72 rounded-xl sm:rounded-xl" />
+              <Skeleton className="h-72 rounded-xl sm:rounded-xl lg:col-span-2" />
             </div>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <Skeleton className="h-56 rounded-2xl sm:rounded-3xl" />
-              <Skeleton className="h-56 rounded-2xl sm:rounded-3xl" />
+              <Skeleton className="h-56 rounded-xl sm:rounded-xl" />
+              <Skeleton className="h-56 rounded-xl sm:rounded-xl" />
             </div>
-            <Skeleton className="h-96 rounded-2xl sm:rounded-3xl" />
+            <Skeleton className="h-96 rounded-xl sm:rounded-xl" />
           </motion.div>
         ) : summary ? (
           <motion.div

@@ -138,9 +138,9 @@ export const ChatRightPanelHero: React.FC<ChatRightPanelHeroProps> = ({
               variant="outline"
               size="sm"
               onClick={onOpenServiceOrder}
-              className="h-7 gap-1 px-2.5 text-[11px] font-semibold border-purple-200 text-purple-700 hover:bg-purple-50 dark:border-purple-800 dark:text-purple-300 dark:hover:bg-purple-900/30"
+              className="h-7 gap-1 px-2.5 text-[11px] font-semibold border-primary text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
             >
-              <Wrench className="size-3.5 text-purple-600 dark:text-purple-400" />
+              <Wrench className="size-3.5 text-primary dark:text-primary" />
               <span>طلب خدمة</span>
             </Button>
           )}
@@ -152,7 +152,7 @@ export const ChatRightPanelHero: React.FC<ChatRightPanelHeroProps> = ({
               onClick={onOpenLabels}
               className="h-7 gap-1 px-2.5 text-[11px] font-semibold"
             >
-              <Tag className="size-3.5 text-amber-500" />
+              <Tag className="size-3.5 text-warning" />
               <span>التصنيفات</span>
             </Button>
           )}

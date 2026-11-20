@@ -110,7 +110,7 @@ export const TextGalleryItemEdit: React.FC<TextGalleryItemEditProps> = ({
           data-tone="primary"
         >
           <svg
-            className="mr-2 h-5 w-5"
+            className="me-2 h-5 w-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

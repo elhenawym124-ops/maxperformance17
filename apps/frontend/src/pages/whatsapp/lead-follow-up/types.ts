@@ -136,10 +136,10 @@ export const WA_HOURS = Array.from({ length: 24 }, (_, i) => i);
 export const STATUSES = ["ACTIVE", "COMPLETED", "CANCELLED"] as const;
 
 export const statusCfg: Record<string, { dot: string; bg: string }> = {
-  ACTIVE: { dot: "bg-amber-500", bg: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
-  COMPLETED: { dot: "bg-emerald-500", bg: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
-  CANCELLED: { dot: "bg-rose-500", bg: "bg-rose-500/10 text-rose-600 border-rose-500/20" },
-  FAILED: { dot: "bg-rose-500", bg: "bg-rose-500/10 text-rose-600 border-rose-500/20" },
+  ACTIVE: { dot: "bg-amber-500", bg: "bg-amber-500/10 text-warning border-warning/20" },
+  COMPLETED: { dot: "bg-emerald-500", bg: "bg-emerald-500/10 text-success border-success/20" },
+  CANCELLED: { dot: "bg-rose-500", bg: "bg-rose-500/10 text-destructive border-destructive/20" },
+  FAILED: { dot: "bg-rose-500", bg: "bg-rose-500/10 text-destructive border-destructive/20" },
 };
 
 export const apiBase = "/api/v1/whatsapp/automation";

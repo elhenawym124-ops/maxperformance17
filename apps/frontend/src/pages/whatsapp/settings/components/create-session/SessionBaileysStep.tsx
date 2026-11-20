@@ -90,7 +90,7 @@ export const SessionBaileysStep: React.FC<SessionBaileysStepProps> = ({
         </span>
       </label>
 
-      <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+      <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
         <QrCode className="size-4 text-[color:var(--color-primary)]" />
         <AlertTitle>QR Code</AlertTitle>
         <AlertDescription>

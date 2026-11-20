@@ -24,7 +24,7 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
         <div>
           <div className="flex items-center justify-between mb-1.5 text-xs">
             <div className="flex items-center gap-1.5">
-              <Send className="size-3.5 text-indigo-500" />
+              <Send className="size-3.5 text-primary" />
               <span className="text-muted-foreground">يدوي (ردود)</span>
             </div>
             <span className="font-semibold font-mono tabular-nums text-foreground">
@@ -33,7 +33,7 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
           </div>
           <div className="h-2 rounded-full bg-muted overflow-hidden">
             <div
-              className="h-2 rounded-full bg-indigo-500 transition-[width]"
+              className="h-2 rounded-full bg-primary transition-[width]"
               style={{ width: `${manualPct}%` }}
             />
           </div>
@@ -43,7 +43,7 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
         <div>
           <div className="flex items-center justify-between mb-1.5 text-xs">
             <div className="flex items-center gap-1.5">
-              <Megaphone className="size-3.5 text-amber-500" />
+              <Megaphone className="size-3.5 text-warning" />
               <span className="text-muted-foreground">برودكاست</span>
             </div>
             <span className="font-semibold font-mono tabular-nums text-foreground">
@@ -52,7 +52,7 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
           </div>
           <div className="h-2 rounded-full bg-muted overflow-hidden">
             <div
-              className="h-2 rounded-full bg-amber-500 transition-[width]"
+              className="h-2 rounded-full bg-warning transition-[width]"
               style={{ width: `${broadcastPct}%` }}
             />
           </div>
@@ -62,7 +62,7 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
         <div>
           <div className="flex items-center justify-between mb-1.5 text-xs">
             <div className="flex items-center gap-1.5">
-              <Bot className="size-3.5 text-violet-400" />
+              <Bot className="size-3.5 text-primary" />
               <span className="text-muted-foreground">تلقائي (فلو + AI)</span>
             </div>
             <span className="font-semibold font-mono tabular-nums text-foreground">
@@ -71,15 +71,15 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
           </div>
           <div className="h-2 rounded-full bg-muted overflow-hidden">
             <div
-              className="h-2 rounded-full bg-violet-400 transition-[width]"
+              className="h-2 rounded-full bg-primary transition-[width]"
               style={{ width: `${autoPct}%` }}
             />
           </div>
         </div>
 
         {/* Informational Guidance */}
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-[11px] leading-5 text-muted-foreground">
-          <strong className="font-semibold text-amber-600 dark:text-amber-400">تنبيه:</strong> الأرقام تشمل جميع الرسائل الصادرة المصنفة وفق الحقول الوصفية:
+        <div className="rounded-xl border border-warning/20 bg-warning/5 px-3 py-2 text-[11px] leading-5 text-muted-foreground">
+          <strong className="font-semibold text-warning dark:text-warning">تنبيه:</strong> الأرقام تشمل جميع الرسائل الصادرة المصنفة وفق الحقول الوصفية:
           <ul className="mt-1 list-disc list-inside space-y-0.5 text-[10px]">
             <li><strong>يدوي:</strong> رسائل المودريترز اليدوية المباشرة</li>
             <li><strong>برودكاست:</strong> حملات البث الجماعي المجدولة</li>
@@ -91,13 +91,13 @@ export const OutgoingBreakdownCard: React.FC<OutgoingBreakdownCardProps> = ({ su
         <div className="border-t border-border/60 pt-3 space-y-2 font-mono tabular-nums">
           <div className="flex items-center justify-between text-xs">
             <span className="text-muted-foreground font-sans">بانتظار رد الفريق</span>
-            <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+            <span className="font-semibold text-primary">
               {summary?.waitingForReply ?? 0}
             </span>
           </div>
           <div className="flex items-center justify-between text-xs">
             <span className="text-muted-foreground font-sans">بانتظار رد العميل</span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="font-semibold text-success dark:text-success">
               {summary?.awaitingCustomer ?? 0}
             </span>
           </div>

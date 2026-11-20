@@ -186,7 +186,7 @@ export const WindowPolicySettingsTab: React.FC = () => {
           </div>
 
           <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-3.5 flex items-start gap-3">
-            <Clock className="size-5 shrink-0 text-amber-500 mt-0.5" />
+            <Clock className="size-5 shrink-0 text-warning mt-0.5" />
             <div className="text-xs space-y-1 text-[color:var(--color-muted-foreground)]">
               <span className="font-semibold text-[color:var(--color-foreground)] block">
                 كيف تعمل النافذة تلقائياً؟

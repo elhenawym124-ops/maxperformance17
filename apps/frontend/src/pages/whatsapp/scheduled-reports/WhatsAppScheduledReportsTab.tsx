@@ -186,7 +186,7 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
   if (loading) {
     return (
       <div className="flex h-48 items-center justify-center text-sm text-[color:var(--color-muted-foreground)]">
-        <RefreshCw className="size-5 animate-spin ltr:mr-2 rtl:ml-2" />
+        <RefreshCw className="size-5 animate-spin ltr:me-2 rtl:ms-2" />
         {isAr ? "جاري تحميل إعدادات التقارير المجدولة..." : "Loading scheduled reports..."}
       </div>
     );
@@ -198,8 +198,8 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
         <div
           className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${
             notice.tone === "positive"
-              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300"
-              : "border-red-500/30 bg-red-500/10 text-red-800 dark:text-red-300"
+              ? "border-emerald-500/30 bg-success/10 text-success dark:text-success"
+              : "border-red-500/30 bg-destructive/10 text-destructive dark:text-destructive"
           }`}
         >
           {notice.tone === "positive" ? <CheckCircle2 className="size-4 shrink-0" /> : <AlertCircle className="size-4 shrink-0" />}
@@ -400,9 +400,9 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
               </Button>
             }
           >
-            <div className="relative rounded-2xl border border-[color:var(--shell-control-border)]/60 bg-[#e5ddd5]/30 p-4 dark:bg-zinc-950/60">
-              <div className="rounded-xl border border-white/20 bg-white/95 p-3.5 shadow-sm dark:border-white/10 dark:bg-zinc-900/90">
-                <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-zinc-900 dark:text-zinc-100">
+            <div className="relative rounded-xl border border-[color:var(--shell-control-border)]/60 bg-[#e5ddd5]/30 p-4 dark:bg-muted">
+              <div className="rounded-xl border border-white/20 bg-white/95 p-3.5 shadow-sm dark:border-white/10 dark:bg-muted">
+                <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-foreground dark:text-muted-foreground">
                   {previewText || (isAr ? "جاري تجهيز بيانات التقرير..." : "Preparing report data...")}
                 </pre>
               </div>

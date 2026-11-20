@@ -48,15 +48,15 @@ export type DeleteTarget =
 
 export const journeyStatusClasses: Record<string, string> = {
   ACTIVE:
-    "border-emerald-300/70 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200",
+    "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   COMPLETED:
     "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200",
   CANCELLED:
-    "border-slate-300/70 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:text-slate-200",
+    "border-slate-300/70 bg-muted text-foreground dark:border-border dark:text-muted-foreground",
   FAILED:
-    "border-rose-300/70 bg-rose-500/10 text-rose-800 dark:border-rose-500/40 dark:text-rose-200",
+    "border-rose-300/70 bg-destructive/10 text-destructive dark:border-destructive/40 dark:text-destructive",
   NOT_STARTED:
-    "border-amber-300/70 bg-amber-500/10 text-amber-800 dark:border-amber-500/40 dark:text-amber-200",
+    "border-amber-300/70 bg-warning/10 text-warning dark:border-warning/40 dark:text-warning",
 };
 
 export const journeyStatusTranslationKey: Record<string, string> = {
@@ -73,9 +73,9 @@ export const getJourneyStatusKey = (status: string) =>
 
 export const noticeStyles: Record<NoticeTone, string> = {
   success:
-    "border-emerald-300/70 bg-emerald-500/12 text-emerald-950 dark:border-emerald-500/40 dark:text-emerald-100",
+    "border-emerald-300/70 bg-success/12 text-success dark:border-success/40 dark:text-success",
   error:
-    "border-rose-300/70 bg-rose-500/12 text-rose-950 dark:border-rose-500/40 dark:text-rose-100",
+    "border-rose-300/70 bg-destructive/12 text-destructive dark:border-destructive/40 dark:text-destructive",
 };
 
 export const variableTokens = [
@@ -94,7 +94,7 @@ export const previewBackgroundStyle: React.CSSProperties = {
 };
 
 export const floatingNoticeBaseClass =
-  "rounded-2xl border shadow-[0_18px_40px_rgba(15,27,45,0.12)] backdrop-blur";
+  "rounded-xl border shadow-[0_18px_40px_rgba(15,27,45,0.12)] backdrop-blur";
 
 export const isNotFoundError = (error: unknown) => {
   if (typeof error !== "object" || error === null || !("response" in error)) {

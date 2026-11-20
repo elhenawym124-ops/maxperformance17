@@ -290,7 +290,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           />
         ) : conversationsError ? (
           <div className="flex flex-col items-center justify-center px-5 py-10 text-center">
-            <AlertTriangle className="mb-4 size-10 text-rose-500" />
+            <AlertTriangle className="mb-4 size-10 text-destructive" />
             <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
               {t('whatsapp.dialogs.error')}
             </p>
@@ -303,7 +303,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
                 className="mt-4 rounded-full border-[color:var(--shell-control-border)]"
                 onClick={onRetryConversations}
               >
-                <RefreshCw className="size-4 ml-2" />
+                <RefreshCw className="size-4 ms-2" />
                 {t('conversations.retry')}
               </Button>
             )}

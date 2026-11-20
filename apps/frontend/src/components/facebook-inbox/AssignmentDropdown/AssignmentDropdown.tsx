@@ -96,7 +96,7 @@ const AssignmentDropdown: React.FC<AssignmentDropdownProps> = ({
                     : "text-muted-foreground hover:bg-muted/40 hover:text-foreground"
                 }`}
               >
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/20">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-destructive border border-destructive/20">
                   <UserX className="w-3 h-3" />
                 </div>
                 <span className="flex-1 truncate">إلغاء التعيين</span>

@@ -64,7 +64,7 @@ export const TelegramMessagesList: React.FC<TelegramMessagesListProps> = ({
               }`}
             >
               <div
-                className={`max-w-[70%] p-3 rounded-2xl shadow-sm relative group-hover:shadow-md transition-shadow ${
+                className={`max-w-[70%] p-3 rounded-xl shadow-sm relative group-hover:shadow-md transition-shadow ${
                   isMe
                     ? `business-bg-primary-soft ${
                         isRTL ? "rounded-tl-none" : "rounded-tr-none"
@@ -79,7 +79,7 @@ export const TelegramMessagesList: React.FC<TelegramMessagesListProps> = ({
                   <div
                     className={`mb-2 ${
                       isRTL ? "border-r-2" : "border-l-2"
-                    } business-border-primary-strong pl-2 pr-2 py-1 business-bg-soft rounded text-xs`}
+                    } business-border-primary-strong ps-2 pe-2 py-1 business-bg-soft rounded text-xs`}
                   >
                     <p className="font-semibold business-text-primary">
                       {replyingToMsg.senderName}

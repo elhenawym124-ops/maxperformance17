@@ -13,7 +13,7 @@ export const ChannelBadge: React.FC<ChannelBadgeProps> = ({ channel, isArabic })
     return (
       <Badge
         variant="outline"
-        className="gap-1 border-sky-300/80 bg-sky-500/10 text-sky-800 dark:border-sky-500/40 dark:text-sky-200"
+        className="gap-1 border-info/80 bg-info/10 text-info dark:border-info/40 dark:text-info"
       >
         <Cloud className="size-3" />
         {isArabic ? "ميتا كلاود (Meta Cloud)" : "Meta Cloud"}
@@ -24,7 +24,7 @@ export const ChannelBadge: React.FC<ChannelBadgeProps> = ({ channel, isArabic })
     return (
       <Badge
         variant="outline"
-        className="gap-1 border-emerald-300/80 bg-emerald-500/10 text-emerald-800 dark:border-emerald-500/40 dark:text-emerald-200"
+        className="gap-1 border-success/80 bg-success/10 text-success dark:border-success/40 dark:text-success"
       >
         <Smartphone className="size-3" />
         {isArabic ? "واتساب ويب (Baileys)" : "Baileys"}
@@ -34,7 +34,7 @@ export const ChannelBadge: React.FC<ChannelBadgeProps> = ({ channel, isArabic })
   return (
     <Badge
       variant="outline"
-      className="gap-1 border-slate-300/80 bg-slate-500/10 text-slate-700 dark:border-slate-500/40 dark:text-slate-300"
+      className="gap-1 border-border bg-muted text-foreground dark:border-border dark:text-muted-foreground"
     >
       <Layers className="size-3" />
       {isArabic ? "توجيه ذكي (Auto)" : "Smart Auto"}

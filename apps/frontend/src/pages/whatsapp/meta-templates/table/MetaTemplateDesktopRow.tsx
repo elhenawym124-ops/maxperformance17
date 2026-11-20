@@ -118,7 +118,7 @@ export const MetaTemplateDesktopRow: React.FC<
             variant="outline"
             className={statusBadge[bestStatus] || ""}
           >
-            <StatusIcon className="ml-1 size-3.5 inline" />
+            <StatusIcon className="ms-1 size-3.5 inline" />
             {bestStatus}
           </Badge>
         </TableCell>
@@ -195,7 +195,7 @@ export const MetaTemplateDesktopRow: React.FC<
                     if (tmpl) onEditTemplate(tmpl);
                   }}
                 >
-                  <Pencil className="ml-2 size-4" />
+                  <Pencil className="ms-2 size-4" />
                   تعديل القالب
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -204,7 +204,7 @@ export const MetaTemplateDesktopRow: React.FC<
                     if (tmpl) onViewTemplate(tmpl);
                   }}
                 >
-                  <FileText className="ml-2 size-4" />
+                  <FileText className="ms-2 size-4" />
                   عرض التفاصيل
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -213,15 +213,15 @@ export const MetaTemplateDesktopRow: React.FC<
                     if (tmpl) onDuplicateTemplate(tmpl);
                   }}
                 >
-                  <Copy className="ml-2 size-4" />
+                  <Copy className="ms-2 size-4" />
                   تكرار القالب
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={onDeleteTemplate}
-                  className="text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
+                  className="text-red-600 focus:text-destructive dark:text-destructive dark:focus:text-destructive"
                 >
-                  <Trash2 className="ml-2 size-4" />
+                  <Trash2 className="ms-2 size-4" />
                   حذف القالب
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -269,11 +269,11 @@ export const MetaTemplateDesktopRow: React.FC<
                   variant="outline"
                   className={statusBadge[t.status] || ""}
                 >
-                  <StatusIcon className="ml-1 size-3.5 inline" />
+                  <StatusIcon className="ms-1 size-3.5 inline" />
                   {t.status}
                 </Badge>
                 {t.rejected_reason && (
-                  <p className="mt-1 text-[10px] text-red-600 dark:text-red-400">
+                  <p className="mt-1 text-[10px] text-destructive dark:text-destructive">
                     {t.rejected_reason}
                   </p>
                 )}

@@ -12,7 +12,7 @@ export const CampaignGoalPredictorBanner: React.FC<
   CampaignGoalPredictorBannerProps
 > = ({ inputs, currentResults, formatNumber }) => {
   return (
-    <div className="lg:col-span-4 business-bg-brand-gradient rounded-2xl p-8 text-white shadow-xl relative overflow-hidden group">
+    <div className="lg:col-span-4 business-bg-brand-gradient rounded-xl p-8 text-white shadow-xl relative overflow-hidden group">
       <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform pointer-events-none">
         <SparklesIcon className="w-32 h-32" />
       </div>

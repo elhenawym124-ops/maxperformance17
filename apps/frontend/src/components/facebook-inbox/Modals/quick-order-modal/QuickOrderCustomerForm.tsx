@@ -85,7 +85,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
         {(loadingCustomerOrders ||
           customerProfile ||
           previousOrders.length > 0) && (
-          <div className="rounded-xl border p-3 text-xs sm:text-sm bg-slate-50/70 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 space-y-2.5">
+          <div className="rounded-xl border p-3 text-xs sm:text-sm bg-muted dark:bg-muted border-border dark:border-border space-y-2.5">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-xs" style={headingStyle}>
@@ -102,16 +102,16 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
               {customerProfile && (
                 <div className="flex items-center gap-1.5 flex-wrap">
                   {customerProfile.customerRating && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-300">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-warning text-warning dark:bg-warning/40 dark:text-warning border border-warning">
                       ⭐ {customerProfile.customerRating}
                     </span>
                   )}
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono tabular-nums">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-mono tabular-nums">
                     {customerProfile.totalOrdersCount || previousOrders.length}{" "}
                     طلبات
                   </span>
                   {customerProfile.deliveryRate != null && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 font-mono tabular-nums">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-success text-success dark:bg-success/40 dark:text-success font-mono tabular-nums">
                       {customerProfile.deliveryRate}% تسليم
                     </span>
                   )}
@@ -122,7 +122,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
             {/* Customer Tags & Address info if any */}
             {customerProfile &&
               (customerProfile.tags || customerProfile.notes) && (
-                <div className="text-[11px] space-y-1 text-muted-foreground border-t border-slate-200/60 dark:border-slate-800/60 pt-1.5">
+                <div className="text-[11px] space-y-1 text-muted-foreground border-t border-border dark:border-border pt-1.5">
                   {customerProfile.notes && (
                     <p className="truncate">
                       📝 <span className="font-medium text-foreground">ملاحظات:</span>{" "}
@@ -141,11 +141,11 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
                   </span>
                   <span className="text-[10px] opacity-75">محدّثة فورياً</span>
                 </div>
-                <div className="max-h-48 overflow-y-auto space-y-1.5 pr-0.5">
+                <div className="max-h-48 overflow-y-auto space-y-1.5 pe-0.5">
                   {previousOrders.map((prevOrder) => (
                     <div
                       key={prevOrder.id || prevOrder.orderNumber}
-                      className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 text-xs space-y-1 shadow-2xs"
+                      className="p-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-xs space-y-1 shadow-2xs"
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5 flex-wrap">
@@ -159,7 +159,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
                             {prevOrder.status}
                           </span>
                           <span className="font-bold text-primary font-mono tabular-nums">
@@ -216,8 +216,8 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
           <div
             className={`rounded-xl border p-3 text-xs sm:text-sm ${
               customerBlock?.blocked
-                ? "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300"
-                : "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-200"
+                ? "border-red-200 bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive"
+                : "border-amber-200 bg-warning/10 text-warning dark:border-warning dark:bg-warning/20 dark:text-warning"
             }`}
           >
             <div className="flex items-start gap-2">
@@ -243,7 +243,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
                       onChange={(e) =>
                         setAllowBlockedCustomerOverride(e.target.checked)
                       }
-                      className="h-4 w-4 rounded border-red-300 text-red-600 focus:ring-red-500"
+                      className="h-4 w-4 rounded border-destructive text-destructive focus:ring-destructive"
                     />
                     <span>تجاوز الحظر وإتمام الطلب (صلاحية إدارية)</span>
                   </label>

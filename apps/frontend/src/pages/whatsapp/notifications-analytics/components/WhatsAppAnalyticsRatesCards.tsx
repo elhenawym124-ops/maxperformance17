@@ -35,14 +35,14 @@ export const WhatsAppAnalyticsRatesCards: React.FC<WhatsAppAnalyticsRatesCardsPr
                 {t("whatsappAnalytics.stats.delivered")}
               </p>
             </div>
-            <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-medium font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="flex items-center gap-1.5 rounded-full bg-success/10 px-2.5 py-1 text-xs font-medium font-mono tabular-nums text-success dark:text-success">
               <TrendingUp className="size-3.5" />
               {deliveryPct}%
             </div>
           </div>
-          <div className="h-2 rounded-full bg-emerald-500/10 overflow-hidden">
+          <div className="h-2 rounded-full bg-success/10 overflow-hidden">
             <div
-              className="h-2 rounded-full bg-emerald-500 transition-[width]"
+              className="h-2 rounded-full bg-success transition-[width]"
               style={{ width: `${Math.min(100, Number(deliveryPct))}%` }}
             />
           </div>

@@ -31,7 +31,7 @@ const getPlatformIcon = (platform: Platform) => {
       );
     case "whatsapp":
       return (
-        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+        <div className="w-6 h-6 bg-success rounded-full flex items-center justify-center shadow-lg">
           <span className="text-white text-xs">💬</span>
         </div>
       );
@@ -43,7 +43,7 @@ const getPlatformIcon = (platform: Platform) => {
       );
     default:
       return (
-        <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center shadow-lg">
+        <div className="w-6 h-6 bg-muted rounded-full flex items-center justify-center shadow-lg">
           <span className="text-white text-xs">💬</span>
         </div>
       );
@@ -64,9 +64,9 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
   formatTime,
 }) => {
   return (
-    <div className="w-1/3 bg-white/80 backdrop-blur-sm border-r border-gray-200/50 flex flex-col shadow-xl">
+    <div className="w-1/3 bg-white/80 backdrop-blur-sm border-r border-border flex flex-col shadow-xl">
       {/* Header */}
-      <div className="flex-shrink-0 p-6 border-b border-gray-200/50 bg-gradient-to-r from-indigo-500 to-purple-600">
+      <div className="flex-shrink-0 p-6 border-b border-border bg-gradient-to-r from-primary to-primary">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -80,9 +80,9 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
               </p>
             </div>
             {hasNewMessages && (
-              <div className="flex items-center space-x-2 space-x-reverse bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm">
-                <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                <span className="text-xs text-red-100 font-medium animate-pulse">
+              <div className="flex items-center space-x-2 space-x-reverse bg-destructive/20 px-3 py-1 rounded-full backdrop-blur-sm">
+                <div className="w-2 h-2 bg-destructive rounded-full animate-pulse" />
+                <span className="text-xs text-destructive font-medium animate-pulse">
                   رسائل جديدة
                 </span>
               </div>
@@ -90,20 +90,20 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
           </div>
           {isAutoUpdating && !isUserTyping && (
             <div className="flex items-center text-sm bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
-              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white ml-2" />
+              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white/30 border-t-white ms-2" />
               <span className="text-white font-medium">تحديث تلقائي</span>
             </div>
           )}
           {isUserTyping && (
-            <div className="flex items-center text-sm bg-orange-500/20 px-3 py-1 rounded-full backdrop-blur-sm">
-              <div className="flex space-x-1 ml-2">
-                <div className="w-2 h-2 bg-orange-300 rounded-full animate-bounce" />
+            <div className="flex items-center text-sm bg-warning/20 px-3 py-1 rounded-full backdrop-blur-sm">
+              <div className="flex space-x-1 ms-2">
+                <div className="w-2 h-2 bg-warning rounded-full animate-bounce" />
                 <div
-                  className="w-2 h-2 bg-orange-300 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-warning rounded-full animate-bounce"
                   style={{ animationDelay: "0.1s" }}
                 />
                 <div
-                  className="w-2 h-2 bg-orange-300 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-warning rounded-full animate-bounce"
                   style={{ animationDelay: "0.2s" }}
                 />
               </div>
@@ -125,7 +125,7 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
               placeholder="البحث في المحادثات..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-white/50 backdrop-blur-sm transition-all duration-200"
+              className="w-full ps-10 pe-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-white/50 backdrop-blur-sm transition-all duration-200"
             />
           </div>
           <div className="flex items-center space-x-2 space-x-reverse">
@@ -158,10 +158,10 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
         {filteredConversations.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <div className="text-center p-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <ChatBubbleLeftRightIcon className="h-8 w-8 text-gray-400" />
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <ChatBubbleLeftRightIcon className="h-8 w-8 text-muted-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-600 mb-2">
+              <h3 className="text-lg font-semibold text-foreground mb-2">
                 لا توجد محادثات
               </h3>
               <p className="text-gray-500 text-sm">في انتظار رسائل العملاء...</p>
@@ -172,10 +172,10 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
             <div
               key={conversation.id}
               onClick={() => handleSelectConversation(conversation)}
-              className={`conversation-item group relative p-4 mb-2 rounded-2xl cursor-pointer animate-slide-in ${
+              className={`conversation-item group relative p-4 mb-2 rounded-xl cursor-pointer animate-slide-in ${
                 selectedConversation?.id === conversation.id
-                  ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25"
-                  : "bg-white/60 hover:bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:shadow-lg hover:shadow-gray-500/10"
+                  ? "bg-gradient-to-r from-primary to-primary text-white shadow-lg shadow-primary/25"
+                  : "bg-white/60 hover:bg-white/80 backdrop-blur-sm border border-border hover:shadow-lg hover:shadow-gray-500/10"
               }`}
               style={{
                 animationDelay: `${index * 0.1}s`,
@@ -184,10 +184,10 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
               <div className="flex items-center space-x-4 space-x-reverse">
                 <div className="relative">
                   <div
-                    className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                    className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 ${
                       selectedConversation?.id === conversation.id
                         ? "bg-white/20 backdrop-blur-sm"
-                        : "bg-gradient-to-br from-indigo-100 to-purple-100"
+                        : "bg-gradient-to-br from-primary to-primary"
                     }`}
                   >
                     <UserCircleIcon
@@ -199,7 +199,7 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
                     />
                   </div>
                   {conversation.isOnline && (
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-lg animate-pulse" />
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-success rounded-full border-2 border-white shadow-lg animate-pulse" />
                   )}
                   <div className="absolute -bottom-1 -left-1 text-sm">
                     {getPlatformIcon(conversation.platform)}
@@ -216,7 +216,7 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
                     >
                       {conversation.customerName}
                       {conversation.pageName && (
-                        <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded mr-2">
+                        <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
                           {conversation.pageName}
                         </span>
                       )}
@@ -232,7 +232,7 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
                         {formatTime(conversation.lastMessageTime)}
                       </span>
                       {conversation.unreadCount > 0 && (
-                        <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-2 text-xs font-bold text-white bg-red-500 rounded-full shadow-lg animate-pulse tabular-nums">
+                        <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-2 text-xs font-bold text-white bg-destructive rounded-full shadow-lg animate-pulse tabular-nums">
                           {conversation.unreadCount}
                         </span>
                       )}

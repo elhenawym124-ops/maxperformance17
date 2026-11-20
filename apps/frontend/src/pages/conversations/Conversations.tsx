@@ -44,7 +44,7 @@ const Conversations: React.FC = () => {
   }
 
   return (
-    <div className="flex bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-full">
+    <div className="flex bg-gradient-to-br from-slate-50 via-blue-50 to-primary min-h-full">
       <ConversationsSidebar
         filteredConversations={filteredConversations}
         selectedConversation={selectedConversation}

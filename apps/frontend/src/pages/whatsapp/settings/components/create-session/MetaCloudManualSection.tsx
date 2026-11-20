@@ -169,12 +169,12 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
       <div className="space-y-3.5 border-t border-[color:var(--shell-control-border)] pt-4">
         <div className="flex items-center justify-between">
           <h5 className="text-xs font-semibold text-[color:var(--color-foreground)] uppercase flex items-center gap-1.5">
-            <Globe className="size-3.5 text-sky-600 dark:text-sky-400" />
+            <Globe className="size-3.5 text-info dark:text-info" />
             إعدادات رد الاتصال (Meta Webhook)
           </h5>
           <Badge
             variant="outline"
-            className="text-[10px] bg-sky-500/10 border-sky-300 text-sky-800 dark:border-sky-500/40 dark:text-sky-200"
+            className="text-[10px] bg-info/10 border-info text-info dark:border-info/40 dark:text-info"
           >
             مطلوب للرسائل
           </Badge>
@@ -190,7 +190,7 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
               رابط الويب هوك (Callback URL)
               <span className="text-red-500">*</span>
             </Label>
-            <span className="text-[10px] text-sky-600 dark:text-sky-400 font-medium">
+            <span className="text-[10px] text-info dark:text-info font-medium">
               انسخ هذا الرابط والصقه في Meta
             </span>
           </div>
@@ -270,7 +270,7 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
         {/* Quick 3-Step Guide */}
         <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--app-panel-bg)] p-3 text-[11px] text-[color:var(--color-muted-foreground)] space-y-1.5">
           <p className="font-semibold text-[color:var(--color-foreground)] flex items-center gap-1.5">
-            <Info className="size-3.5 text-sky-600" />
+            <Info className="size-3.5 text-info" />
             خطوات الربط في بوابة Meta for Developers:
           </p>
           <ol className="list-decimal list-inside space-y-1 leading-relaxed">

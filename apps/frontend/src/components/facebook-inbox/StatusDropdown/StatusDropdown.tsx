@@ -18,22 +18,22 @@ const STATUS_CONFIG: Record<
 > = {
   open: {
     label: "مفتوح",
-    dotClass: "bg-sky-500 ring-sky-500/20",
-    badgeClass: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
+    dotClass: "bg-sky-500 ring-info/20",
+    badgeClass: "bg-sky-500/10 text-info dark:text-info border-info/20",
   },
   pending: {
     label: "قيد المعالجة",
-    dotClass: "bg-amber-500 ring-amber-500/20",
-    badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    dotClass: "bg-amber-500 ring-warning/20",
+    badgeClass: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
   },
   resolved: {
     label: "محلول",
-    dotClass: "bg-emerald-500 ring-emerald-500/20",
-    badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    dotClass: "bg-emerald-500 ring-success/20",
+    badgeClass: "bg-emerald-500/10 text-success dark:text-success border-success/20",
   },
   done: {
     label: "منتهي",
-    dotClass: "bg-zinc-400 ring-zinc-400/20",
+    dotClass: "bg-zinc-400 ring-border",
     badgeClass: "bg-muted text-muted-foreground border-border/60",
   },
 };

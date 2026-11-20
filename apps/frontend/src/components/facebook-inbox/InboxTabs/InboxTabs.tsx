@@ -156,7 +156,7 @@ const InboxTabs: React.FC<InboxTabsProps> = ({
               type="text"
               placeholder={String(t("inbox.searchPlaceholder", "بحث..."))}
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full h-8 bg-background border border-border/60 rounded-lg pr-8 pl-2.5 text-xs text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all"
+              className="w-full h-8 bg-background border border-border/60 rounded-lg pe-8 ps-2.5 text-xs text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all"
             />
           </div>
 
@@ -169,13 +169,13 @@ const InboxTabs: React.FC<InboxTabsProps> = ({
               title={String(t("inbox.priorityFilter", "تصفية بالأولوية"))}
               className={`${iconBtnBase} ${
                 isPriorityOnly
-                  ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700/60 dark:bg-amber-950/50 dark:text-amber-300"
+                  ? "border-amber-300 bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/50 dark:text-warning"
                   : "border-border/60 bg-background text-muted-foreground hover:text-foreground hover:bg-muted/40"
               }`}
             >
               <Star
                 className={`w-3.5 h-3.5 ${
-                  isPriorityOnly ? "fill-amber-500 text-amber-500" : ""
+                  isPriorityOnly ? "fill-amber-500 text-warning" : ""
                 }`}
               />
               {typeof priorityCount === "number" && priorityCount > 0 && (

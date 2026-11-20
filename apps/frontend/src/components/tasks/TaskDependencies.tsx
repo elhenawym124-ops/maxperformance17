@@ -149,13 +149,13 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
   const getStatusIcon = (status: string) => {
     switch (status?.toLowerCase()) {
       case "completed":
-        return <CheckCircleIcon className="h-4 w-4 text-green-500" />;
+        return <CheckCircleIcon className="h-4 w-4 text-success" />;
       case "in_progress":
         return <ClockIcon className="h-4 w-4 text-blue-500" />;
       case "pending":
-        return <ClockIcon className="h-4 w-4 text-yellow-500" />;
+        return <ClockIcon className="h-4 w-4 text-warning" />;
       default:
-        return <ExclamationTriangleIcon className="h-4 w-4 text-gray-500" />;
+        return <ExclamationTriangleIcon className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -186,25 +186,25 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
   );
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
+    <div className="bg-white rounded-lg border border-border p-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium text-gray-900 flex items-center">
-          <LinkIcon className="h-5 w-5 text-indigo-600 ml-2" />
+        <h3 className="text-lg font-medium text-foreground flex items-center">
+          <LinkIcon className="h-5 w-5 text-primary ms-2" />
           تبعيات المهمة
         </h3>
         <button
           onClick={() => setShowAddModal(true)}
-          className="inline-flex items-center px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="inline-flex items-center px-3 py-1.5 text-sm bg-primary text-white rounded-md hover:bg-primary"
         >
-          <PlusIcon className="h-4 w-4 ml-1" />
+          <PlusIcon className="h-4 w-4 ms-1" />
           إضافة تبعية
         </button>
       </div>
 
       {hasBlockingIssues && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
-          <div className="flex items-center text-yellow-800">
-            <ExclamationTriangleIcon className="h-5 w-5 ml-2" />
+        <div className="bg-yellow-50 border border-warning rounded-lg p-3 mb-4">
+          <div className="flex items-center text-warning">
+            <ExclamationTriangleIcon className="h-5 w-5 ms-2" />
             <span className="text-sm font-medium">
               هذه المهمة محظورة بمهام أخرى غير مكتملة
             </span>
@@ -215,8 +215,8 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
       {/* Blocked By Section */}
       {blockedByTasks.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-            <ArrowLeftIcon className="h-4 w-4 ml-1 text-red-500" />
+          <h4 className="text-sm font-medium text-foreground mb-2 flex items-center">
+            <ArrowLeftIcon className="h-4 w-4 ms-1 text-destructive" />
             محظورة بـ (يجب إكمالها أولاً)
           </h4>
           <div className="space-y-2">
@@ -225,25 +225,25 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
                 key={dep.id}
                 className={`flex items-center justify-between p-3 rounded-lg border ${
                   dep.dependsOnTask?.status?.toLowerCase() === "completed"
-                    ? "bg-green-50 border-green-200"
-                    : "bg-red-50 border-red-200"
+                    ? "bg-green-50 border-success"
+                    : "bg-red-50 border-destructive"
                 }`}
               >
                 <div className="flex items-center">
                   {getStatusIcon(dep.dependsOnTask?.status)}
                   <Link
                     to={`/tasks/${dep.dependsOnTaskId}`}
-                    className="mr-2 text-sm font-medium text-gray-900 hover:text-indigo-600"
+                    className="me-2 text-sm font-medium text-foreground hover:text-primary"
                   >
                     {dep.dependsOnTask?.title}
                   </Link>
-                  <span className="text-xs text-gray-500 mr-2">
+                  <span className="text-xs text-muted-foreground me-2">
                     ({getStatusText(dep.dependsOnTask?.status)})
                   </span>
                 </div>
                 <button
                   onClick={() => removeDependency(dep.id)}
-                  className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-100 rounded"
+                  className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive rounded"
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>
@@ -256,8 +256,8 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
       {/* Blocks Section */}
       {taskDependencies.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-            <ArrowRightIcon className="h-4 w-4 ml-1 text-blue-500" />
+          <h4 className="text-sm font-medium text-foreground mb-2 flex items-center">
+            <ArrowRightIcon className="h-4 w-4 ms-1 text-blue-500" />
             تحظر (تنتظر إكمال هذه المهمة)
           </h4>
           <div className="space-y-2">
@@ -270,17 +270,17 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
                   {getStatusIcon(dep.dependsOnTask?.status)}
                   <Link
                     to={`/tasks/${dep.dependsOnTaskId}`}
-                    className="mr-2 text-sm font-medium text-gray-900 hover:text-indigo-600"
+                    className="me-2 text-sm font-medium text-foreground hover:text-primary"
                   >
                     {dep.dependsOnTask?.title}
                   </Link>
-                  <span className="text-xs text-gray-500 mr-2">
+                  <span className="text-xs text-muted-foreground me-2">
                     ({getStatusText(dep.dependsOnTask?.status)})
                   </span>
                 </div>
                 <button
                   onClick={() => removeDependency(dep.id)}
-                  className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-100 rounded"
+                  className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive rounded"
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>
@@ -291,21 +291,21 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
       )}
 
       {taskDependencies.length === 0 && blockedByTasks.length === 0 && (
-        <div className="text-center py-6 text-gray-500">
-          <LinkIcon className="h-8 w-8 mx-auto mb-2 text-gray-300" />
+        <div className="text-center py-6 text-muted-foreground">
+          <LinkIcon className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
           <p className="text-sm">لا توجد تبعيات لهذه المهمة</p>
         </div>
       )}
 
       {/* Add Dependency Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div className="fixed inset-0 bg-muted bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">إضافة تبعية</h3>
+              <h3 className="text-lg font-medium text-foreground">إضافة تبعية</h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-foreground"
               >
                 <XMarkIcon className="h-6 w-6" />
               </button>
@@ -313,13 +313,13 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   نوع التبعية
                 </label>
                 <select
                   value={dependencyType}
                   onChange={(e) => setDependencyType(e.target.value as any)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="blocked_by">
                     محظورة بـ (يجب إكمال المهمة المحددة أولاً)
@@ -332,7 +332,7 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   البحث عن مهمة
                 </label>
                 <input
@@ -340,17 +340,17 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="ابحث بعنوان المهمة..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   اختر المهمة
                 </label>
-                <div className="max-h-60 overflow-y-auto border border-gray-300 rounded-md">
+                <div className="max-h-60 overflow-y-auto border border-border rounded-md">
                   {filteredTasks.length === 0 ? (
-                    <div className="p-4 text-center text-gray-500 text-sm">
+                    <div className="p-4 text-center text-muted-foreground text-sm">
                       لا توجد مهام متاحة
                     </div>
                   ) : (
@@ -358,19 +358,19 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
                       <button
                         key={task.id}
                         onClick={() => setSelectedTaskId(task.id)}
-                        className={`w-full text-right p-3 border-b last:border-b-0 hover:bg-gray-50 ${
+                        className={`w-full text-right p-3 border-b last:border-b-0 hover:bg-muted ${
                           selectedTaskId === task.id
-                            ? "bg-indigo-50 border-indigo-200"
+                            ? "bg-indigo-50 border-primary"
                             : ""
                         }`}
                       >
                         <div className="flex items-center">
                           {getStatusIcon(task.status)}
-                          <span className="mr-2 text-sm font-medium text-gray-900">
+                          <span className="me-2 text-sm font-medium text-foreground">
                             {task.title}
                           </span>
                         </div>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted-foreground">
                           {getStatusText(task.status)}
                         </span>
                       </button>
@@ -383,14 +383,14 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
             <div className="mt-6 flex justify-end space-x-2 space-x-reverse">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                className="px-4 py-2 bg-muted text-foreground rounded-md hover:bg-muted"
               >
                 إلغاء
               </button>
               <button
                 onClick={addDependency}
                 disabled={!selectedTaskId || loading}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "جاري الإضافة..." : "إضافة"}
               </button>

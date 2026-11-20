@@ -12,10 +12,10 @@ export const TemplateCustomerRetentionBanner: React.FC<TemplateCustomerRetention
   onNavigateToNotifications,
 }) => {
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-sky-300/50 bg-sky-500/5 p-4 dark:border-sky-500/30 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 rounded-xl border border-info/50 bg-info/5 p-4 dark:border-info/30 sm:flex-row sm:items-center sm:justify-between">
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <Sparkles className="size-4 text-sky-600 dark:text-sky-400" />
+          <Sparkles className="size-4 text-info dark:text-info" />
           <h4 className="text-sm font-semibold text-[color:var(--color-foreground)]">
             {isArabic
               ? "محرك أتمتة رحلات العملاء والولاء (Customer Retention Engine)"
@@ -31,7 +31,7 @@ export const TemplateCustomerRetentionBanner: React.FC<TemplateCustomerRetention
       <Button
         variant="outline"
         size="sm"
-        className="shrink-0 gap-1.5 rounded-full border-sky-300/80 bg-[color:var(--color-card)] text-sky-700 hover:bg-sky-500/10 dark:border-sky-500/40 dark:text-sky-300"
+        className="shrink-0 gap-1.5 rounded-full border-info/80 bg-[color:var(--color-card)] text-info hover:bg-info/10 dark:border-info/40 dark:text-info"
         onClick={onNavigateToNotifications}
       >
         <ExternalLink className="size-3.5" />

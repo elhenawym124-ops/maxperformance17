@@ -162,7 +162,7 @@ const MentionInput: React.FC<MentionInputProps> = ({
       {showSuggestions && filteredUsers.length > 0 && (
         <div
           ref={suggestionsRef}
-          className="absolute z-50 w-64 mt-1 bg-card border border-border/80 rounded-2xl shadow-2xl max-h-48 overflow-y-auto text-foreground p-1 animate-in fade-in zoom-in-95 duration-100"
+          className="absolute z-50 w-64 mt-1 bg-card border border-border/80 rounded-xl shadow-2xl max-h-48 overflow-y-auto text-foreground p-1 animate-in fade-in zoom-in-95 duration-100"
         >
           {filteredUsers.map((user, index) => (
             <button

@@ -93,10 +93,10 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
           <Button
             variant="outline"
             size="sm"
-            className="rounded-full text-amber-600 border-amber-300 hover:bg-amber-500/10 text-xs"
+            className="rounded-full text-warning border-warning hover:bg-warning/10 text-xs"
             onClick={onCreatePresetFlow}
           >
-            <Sparkles className="size-3.5 mr-1" /> {tx("flows.presetWelcome")}
+            <Sparkles className="size-3.5 me-1" /> {tx("flows.presetWelcome")}
           </Button>
 
           <Dialog
@@ -112,9 +112,9 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
             <DialogTrigger asChild>
               <Button
                 size="sm"
-                className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs text-xs"
+                className="rounded-full bg-success hover:bg-success text-white shadow-xs text-xs"
               >
-                <Plus className="size-3.5 mr-1" /> {tx("flows.addNew")}
+                <Plus className="size-3.5 me-1" /> {tx("flows.addNew")}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-lg">
@@ -176,7 +176,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                                 onSetNewFlowCategoryIds((prev) => prev.filter((id) => id !== cat.id));
                               }
                             }}
-                            className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                            className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                           />
                           <span
                             className="inline-block size-3 shrink-0 rounded-full"
@@ -205,9 +205,9 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                   disabled={!newFlowName.trim() || saving === "create"}
                 >
                   {saving === "create" ? (
-                    <Loader2 className="size-3 animate-spin mr-1" />
+                    <Loader2 className="size-3 animate-spin me-1" />
                   ) : (
-                    <Plus className="size-3 mr-1" />
+                    <Plus className="size-3 me-1" />
                   )}
                   {tx("flows.addNew")}
                 </Button>
@@ -228,7 +228,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
           {flows.map((flow) => (
             <div
               key={flow.id}
-              className="rounded-2xl border border-border/70 bg-card/60 shadow-xs transition-all hover:border-border"
+              className="rounded-xl border border-border/70 bg-card/60 shadow-xs transition-all hover:border-border"
             >
               <button
                 type="button"
@@ -249,8 +249,8 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                       className={cn(
                         "inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium",
                         flow.isGeneral
-                          ? "border-sky-300/70 bg-sky-500/10 text-sky-700 dark:text-sky-400"
-                          : "border-amber-300/70 bg-amber-500/10 text-amber-700 dark:text-amber-400"
+                          ? "border-sky-300/70 bg-info/10 text-info dark:text-info"
+                          : "border-amber-300/70 bg-warning/10 text-warning dark:text-warning"
                       )}
                     >
                       {flow.isGeneral ? tx("flows.general") : tx("flows.targeted")}
@@ -261,7 +261,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                     {tx("flows.activeLeads").replace("{{count}}", String(flow._count.journeys))}
                   </p>
                   {flow.isGeneral ? (
-                    <p className="mt-0.5 text-xs text-sky-600 dark:text-sky-400">
+                    <p className="mt-0.5 text-xs text-info dark:text-info">
                       {tx("flows.generalDesc")}
                     </p>
                   ) : flow.categories && flow.categories.length > 0 ? (
@@ -311,7 +311,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                           })
                         }
                       >
-                        <Plus className="size-3 mr-1" /> {tx("steps.add")}
+                        <Plus className="size-3 me-1" /> {tx("steps.add")}
                       </Button>
                     </div>
 
@@ -394,7 +394,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                           className={cn(
                             "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
                             !flow.isGeneral
-                              ? "bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-300/40"
+                              ? "bg-amber-500/15 text-warning dark:text-warning border border-warning/40"
                               : "border border-border/60 text-muted-foreground hover:bg-muted/40"
                           )}
                         >
@@ -406,7 +406,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                           className={cn(
                             "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
                             flow.isGeneral
-                              ? "bg-sky-500/15 text-sky-700 dark:text-sky-400 border border-sky-300/40"
+                              ? "bg-sky-500/15 text-info dark:text-info border border-info/40"
                               : "border border-border/60 text-muted-foreground hover:bg-muted/40"
                           )}
                         >
@@ -432,7 +432,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                                 type="checkbox"
                                 checked={!!isLinked}
                                 onChange={() => onLinkCategoryToFlow(cat.id, !!isLinked, flow.id)}
-                                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                               />
                               <span
                                 className="inline-block size-2.5 shrink-0 rounded-full"
@@ -457,7 +457,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                           className="h-7 rounded-full text-xs"
                           onClick={() => onDeleteFlow(flow.id)}
                         >
-                          <Trash2 className="size-3 mr-1" /> {tx("actions.delete")}
+                          <Trash2 className="size-3 me-1" /> {tx("actions.delete")}
                         </Button>
                         <Button
                           variant="ghost"
@@ -475,7 +475,7 @@ export const LeadFollowUpFlowsList: React.FC<LeadFollowUpFlowsListProps> = ({
                         className="h-7 rounded-full text-xs text-destructive hover:bg-destructive/10"
                         onClick={() => onSetDeleteConfirm(flow.id)}
                       >
-                        <Trash2 className="size-3 mr-1" /> {tx("actions.delete")}
+                        <Trash2 className="size-3 me-1" /> {tx("actions.delete")}
                       </Button>
                     )}
                   </div>

@@ -138,8 +138,8 @@ export const CustomerOrdersTab: React.FC<CustomerOrdersTabProps> = ({
                 <span>{customer.name || conversation.customerName}</span>
               </div>
               {customer.customerRating && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
-                  <Star size={11} className="text-amber-500 fill-amber-500" />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-warning/10 dark:bg-warning/40 text-warning dark:text-warning border border-warning dark:border-warning">
+                  <Star size={11} className="text-amber-500 fill-warning" />
                   {customer.customerRating}
                 </span>
               )}
@@ -208,7 +208,7 @@ export const CustomerOrdersTab: React.FC<CustomerOrdersTabProps> = ({
                       #{order.orderNumber}
                     </p>
                     {isServiceOrder && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800/60">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-md bg-success/10 dark:bg-success/40 text-success dark:text-success border border-success/70 dark:border-success/60">
                         <Wrench className="h-3 w-3" />
                         <span>طلب خدمة</span>
                       </span>
@@ -249,7 +249,7 @@ export const CustomerOrdersTab: React.FC<CustomerOrdersTabProps> = ({
                       <span className="truncate font-medium flex-1 text-right text-foreground">
                         {item.quantity}× {item.productName || item.name}
                         {(item.productColor || item.productSize) && (
-                          <span className="text-[11px] opacity-75 mr-1 font-normal">
+                          <span className="text-[11px] opacity-75 me-1 font-normal">
                             (
                             {[item.productColor, item.productSize]
                               .filter(Boolean)

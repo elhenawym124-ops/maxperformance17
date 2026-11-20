@@ -95,7 +95,7 @@ export const CustomerPhoneSection: React.FC<CustomerPhoneSectionProps> = ({
                       size="icon-sm"
                       onClick={onSavePhone}
                       disabled={savingPhone}
-                      className="size-7 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md"
+                      className="size-7 bg-success hover:bg-success text-white rounded-md"
                     >
                       <Check className="size-3.5" />
                     </Button>
@@ -124,14 +124,14 @@ export const CustomerPhoneSection: React.FC<CustomerPhoneSectionProps> = ({
               {phoneUpdateMessage && (
                 <div className="flex items-center gap-1 text-[11px]">
                   {phoneUpdateMessage.includes('تم') ? (
-                    <Check className="size-3 text-emerald-500 shrink-0" />
+                    <Check className="size-3 text-success shrink-0" />
                   ) : (
                     <AlertCircle className="size-3 text-destructive shrink-0" />
                   )}
                   <span
                     className={
                       phoneUpdateMessage.includes('تم')
-                        ? 'text-emerald-600 dark:text-emerald-400'
+                        ? 'text-emerald-600 dark:text-success'
                         : 'text-destructive'
                     }
                   >
@@ -179,7 +179,7 @@ export const CustomerPhoneSection: React.FC<CustomerPhoneSectionProps> = ({
                     size="icon-sm"
                     onClick={onSavePhone2}
                     disabled={savingPhone2}
-                    className="size-7 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md"
+                    className="size-7 bg-success hover:bg-success text-white rounded-md"
                   >
                     <Check className="size-3.5" />
                   </Button>

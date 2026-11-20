@@ -25,11 +25,11 @@ export const MessengerMessageInput: React.FC<MessengerMessageInputProps> = ({
   fileInputRef,
 }) => {
   return (
-    <div className="bg-white border-t border-gray-200 p-4">
+    <div className="bg-white border-t border-border p-4">
       <div className="flex items-center gap-1">
         <button
           onClick={onOpenSavedReplies}
-          className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
           title="الردود المحفوظة"
           aria-label="الردود المحفوظة"
         >
@@ -37,7 +37,7 @@ export const MessengerMessageInput: React.FC<MessengerMessageInputProps> = ({
         </button>
         <button
           onClick={() => fileInputRef.current?.click()}
-          className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
           title="إرفاق ملف"
           aria-label="إرفاق ملف"
         >
@@ -67,7 +67,7 @@ export const MessengerMessageInput: React.FC<MessengerMessageInputProps> = ({
             }
           }}
           placeholder="اكتب رسالتك..."
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          className="flex-1 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
         />
         <button
           onClick={onSendMessage}

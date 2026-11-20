@@ -188,7 +188,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
             onChange={(e) => setIsScheduledOrder(e.target.checked)}
             className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
           />
-          <CalendarIcon className="h-5 w-5 text-amber-500" />
+          <CalendarIcon className="h-5 w-5 text-warning" />
           <span className="text-sm font-semibold text-foreground">
             جدولة الطلب لتسليمه في تاريخ محدد
           </span>

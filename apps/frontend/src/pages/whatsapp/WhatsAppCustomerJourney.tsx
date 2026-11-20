@@ -89,9 +89,9 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
           addNewFlowLabel={t("whatsappJourney.flows.addNew")}
         />
         <div className="space-y-4">
-          <Skeleton className="h-[26rem] rounded-2xl sm:rounded-3xl" />
-          <Skeleton className="h-[22rem] rounded-2xl sm:rounded-3xl" />
-          <Skeleton className="h-56 rounded-2xl sm:rounded-3xl" />
+          <Skeleton className="h-[26rem] rounded-xl sm:rounded-xl" />
+          <Skeleton className="h-[22rem] rounded-xl sm:rounded-xl" />
+          <Skeleton className="h-56 rounded-xl sm:rounded-xl" />
         </div>
       </section>
     );

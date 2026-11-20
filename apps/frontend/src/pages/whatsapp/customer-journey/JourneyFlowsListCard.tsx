@@ -34,8 +34,8 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] px-6 py-10 text-center">
-      <div className="flex size-12 items-center justify-center rounded-2xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
+    <div className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] px-6 py-10 text-center">
+      <div className="flex size-12 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
         <Icon className="size-6" />
       </div>
       <div className="space-y-1">
@@ -96,7 +96,7 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
             placeholder={t("common.search") as string}
             className={cn(
               "h-8 bg-[color:var(--color-card)]/75 text-xs",
-              isRtl ? "pr-8 pl-3" : "pl-8 pr-3",
+              isRtl ? "pe-8 ps-3" : "ps-8 pe-3",
             )}
           />
         </div>

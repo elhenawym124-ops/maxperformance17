@@ -43,7 +43,7 @@ const BulkActionsBar: React.FC<BulkActionsBarProps> = ({
           <button
             type="button"
             onClick={onMarkAsDone}
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border border-success/20 bg-success/10 text-success dark:text-success hover:bg-success/20 transition-colors"
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>إنهاء</span>

@@ -210,7 +210,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                         >
                           {copiedField === 'error' ? (
                             <>
-                              <Check className="size-3 text-emerald-600" />
+                              <Check className="size-3 text-success" />
                               <span className="text-emerald-600">تم النسخ</span>
                             </>
                           ) : (
@@ -262,7 +262,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                 >
                   {copiedField === 'quick-content' ? (
                     <>
-                      <Check className="size-3 text-emerald-600" />
+                      <Check className="size-3 text-success" />
                       <span className="text-emerald-600">تم نسخ الرسالة</span>
                     </>
                   ) : (
@@ -280,7 +280,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
               <div className="rounded-xl border border-border/40 bg-card p-3.5 sm:p-4 space-y-2.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                    <MessageSquare className="size-4 text-emerald-600" />
+                    <MessageSquare className="size-4 text-success" />
                     <span>محتوى الرسالة</span>
                   </span>
                   <Button
@@ -292,7 +292,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                   >
                     {copiedField === 'bubble-content' ? (
                       <>
-                        <Check className="size-3 text-emerald-600" />
+                        <Check className="size-3 text-success" />
                         <span className="text-emerald-600">تم النسخ</span>
                       </>
                     ) : (
@@ -306,7 +306,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
 
                 <div className="flex flex-col items-end">
                   <div
-                    className="w-auto max-w-[90%] sm:max-w-[85%] rounded-2xl rounded-tr-xs border border-emerald-200/60 bg-emerald-50/80 p-3.5 text-xs sm:text-sm leading-relaxed text-foreground shadow-xs dark:border-emerald-800/40 dark:bg-emerald-950/30"
+                    className="w-auto max-w-[90%] sm:max-w-[85%] rounded-xl rounded-tr-xs border border-success/60 bg-success/80 p-3.5 text-xs sm:text-sm leading-relaxed text-foreground shadow-xs dark:border-success/40 dark:bg-success/30"
                     dir="auto"
                   >
                     <div
@@ -326,7 +326,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                       {log.status === 'READ' ||
                       log.status === 'DELIVERED' ||
                       log.status === 'SENT' ? (
-                        <CheckCircle2 className="size-3 text-emerald-600" />
+                        <CheckCircle2 className="size-3 text-success" />
                       ) : null}
                     </div>
                   </div>
@@ -408,7 +408,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                     )}
                     {log.metaTemplateName && (
                       <span
-                        className="rounded bg-indigo-50 px-1.5 py-0.5 text-[11px] font-mono font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400"
+                        className="rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-mono font-medium text-primary dark:bg-primary/30 dark:text-primary"
                         dir="ltr"
                       >
                         {log.metaTemplateName}
@@ -469,7 +469,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                     >
                       {copiedField === 'tech-wamid' ? (
                         <>
-                          <Check className="size-3 text-emerald-600" />
+                          <Check className="size-3 text-success" />
                           <span className="text-emerald-600">تم النسخ</span>
                         </>
                       ) : (
@@ -503,7 +503,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                     >
                       {copiedField === 'tech-template' ? (
                         <>
-                          <Check className="size-3 text-emerald-600" />
+                          <Check className="size-3 text-success" />
                           <span className="text-emerald-600">تم النسخ</span>
                         </>
                       ) : (
@@ -541,7 +541,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                     >
                       {copiedField === 'tech-url' ? (
                         <>
-                          <Check className="size-3 text-emerald-600" />
+                          <Check className="size-3 text-success" />
                           <span className="text-emerald-600">تم النسخ</span>
                         </>
                       ) : (
@@ -573,7 +573,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                     >
                       {copiedField === 'tech-session' ? (
                         <>
-                          <Check className="size-3 text-emerald-600" />
+                          <Check className="size-3 text-success" />
                           <span className="text-emerald-600">تم النسخ</span>
                         </>
                       ) : (
@@ -605,7 +605,7 @@ export const NotificationLogDetailsDialog: React.FC<NotificationLogDetailsDialog
                     >
                       {copiedField === 'tech-time' ? (
                         <>
-                          <Check className="size-3 text-emerald-600" />
+                          <Check className="size-3 text-success" />
                           <span className="text-emerald-600">تم النسخ</span>
                         </>
                       ) : (

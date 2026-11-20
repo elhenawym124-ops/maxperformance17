@@ -77,7 +77,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
     <div className="w-full min-w-0 space-y-4">
       {sessions.length === 0 ? (
         <WhatsAppSurfaceCard contentClassName="p-4 sm:p-6">
-          <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+          <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
             <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
             <AlertTitle>لا توجد جلسات بعد</AlertTitle>
             <AlertDescription>{t("whatsappSettings.noSessions")}</AlertDescription>
@@ -104,7 +104,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
               <div
                 key={session.id}
                 data-session-card
-                className="flex min-w-0 flex-col justify-between overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 shadow-sm transition-all sm:rounded-3xl sm:p-5"
+                className="flex min-w-0 flex-col justify-between overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 shadow-sm transition-all sm:rounded-xl sm:p-5"
               >
                 <div>
                   {/* Top row: Identity */}
@@ -195,7 +195,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                     {session.autoReply ? (
                       <Badge
                         variant="outline"
-                        className="rounded-full border-amber-300/70 bg-amber-500/10 text-[11px] font-medium text-amber-800 dark:border-amber-500/40 dark:text-amber-200 sm:text-xs"
+                        className="rounded-full border-warning/70 bg-warning/10 text-[11px] font-medium text-warning dark:border-warning/40 dark:text-warning sm:text-xs"
                       >
                         {t("whatsappSettings.dialogs.autoReply")}
                       </Badge>
@@ -225,16 +225,16 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                   ["REQUESTED", "IN_PROGRESS"].includes(
                     session.historyImport.status,
                   ) ? (
-                    <div className="mt-3 rounded-xl border border-sky-300/60 bg-sky-500/10 px-3 py-2 text-xs text-sky-900 dark:border-sky-500/40 dark:text-sky-100">
+                    <div className="mt-3 rounded-xl border border-info/60 bg-info/10 px-3 py-2 text-xs text-info dark:border-info/40 dark:text-info">
                       <div className="flex items-center justify-between gap-3">
                         <span>جاري مزامنة الرسائل</span>
                         <span className="font-mono tabular-nums">
                           {Math.round(session.historyImport.lastProgress || 0)}%
                         </span>
                       </div>
-                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-sky-950/10 dark:bg-white/10">
+                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-info/10 dark:bg-white/10">
                         <div
-                          className="h-full rounded-full bg-sky-500 transition-all"
+                          className="h-full rounded-full bg-info transition-all"
                           style={{
                             width: `${Math.min(
                               Math.max(
@@ -260,7 +260,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-9 min-h-[36px] w-full whitespace-nowrap rounded-full border-rose-300/70 bg-rose-500/10 text-xs font-medium text-rose-800 hover:bg-rose-500/15 dark:border-rose-500/40 dark:text-rose-200 sm:text-sm"
+                        className="h-9 min-h-[36px] w-full whitespace-nowrap rounded-full border-destructive/70 bg-destructive/10 text-xs font-medium text-destructive hover:bg-destructive/15 dark:border-destructive/40 dark:text-destructive sm:text-sm"
                         onClick={() => setPendingDisconnect(session)}
                       >
                         <Link2Off className="size-3.5 ms-1 shrink-0" />
@@ -270,7 +270,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-9 min-h-[36px] w-full whitespace-nowrap rounded-full border-violet-300/70 bg-violet-500/10 text-xs font-medium text-violet-800 hover:bg-violet-500/15 dark:border-violet-500/40 dark:text-violet-200 sm:text-sm"
+                        className="h-9 min-h-[36px] w-full whitespace-nowrap rounded-full border-primary/70 bg-primary/10 text-xs font-medium text-primary hover:bg-primary/15 dark:border-primary/40 dark:text-primary sm:text-sm"
                         disabled
                       >
                         <RefreshCw className="size-3.5 ms-1 shrink-0 animate-spin" />
@@ -298,7 +298,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-9 min-h-[36px] shrink-0 gap-1.5 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-3 text-xs font-medium text-sky-600 hover:bg-[color:var(--color-muted)] dark:text-sky-400"
+                        className="h-9 min-h-[36px] shrink-0 gap-1.5 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-3 text-xs font-medium text-info hover:bg-[color:var(--color-muted)] dark:text-info"
                         onClick={() => onOpenWebhookDetails(session)}
                         title="بيانات Webhook"
                       >
@@ -330,7 +330,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="end"
-                        className="w-44 rounded-2xl border-[color:var(--shell-control-border)] p-1.5 shadow-lg"
+                        className="w-44 rounded-xl border-[color:var(--shell-control-border)] p-1.5 shadow-lg"
                       >
                         <DropdownMenuItem
                           onClick={() => onStartEditSession(session)}
@@ -342,7 +342,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                         {session.provider === "META_CLOUD" && (
                           <DropdownMenuItem
                             onClick={() => onOpenWebhookDetails(session)}
-                            className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs text-sky-600 focus:text-sky-700 sm:text-sm"
+                            className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs text-info focus:text-info sm:text-sm"
                           >
                             <Globe className="size-4" />
                             <span>بيانات Webhook</span>
@@ -362,7 +362,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                         <DropdownMenuItem
                           variant="destructive"
                           onClick={() => onDeleteSession(session)}
-                          className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs text-rose-600 focus:bg-rose-50 focus:text-rose-600 dark:focus:bg-rose-950/30 sm:text-sm"
+                          className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs text-destructive focus:bg-destructive/10 focus:text-destructive dark:focus:bg-destructive/30 sm:text-sm"
                         >
                           <Trash2 className="size-4" />
                           <span>{t("whatsappSettings.delete")}</span>

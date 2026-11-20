@@ -173,7 +173,7 @@ export const TextGalleryItemView: React.FC<TextGalleryItemViewProps> = ({
         </div>
       </div>
 
-      <div className="mr-2 flex items-center gap-1 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
+      <div className="me-2 flex items-center gap-1 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
         <button
           type="button"
           onClick={(e) => onTogglePin(text.id, e)}

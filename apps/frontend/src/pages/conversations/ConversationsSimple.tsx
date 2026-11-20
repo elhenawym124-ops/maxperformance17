@@ -177,47 +177,47 @@ const ConversationsSimple: React.FC = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-muted">
       {/* قائمة المحادثات */}
-      <div className="w-1/3 bg-white border-r border-gray-200">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800">
+      <div className="w-1/3 bg-white border-r border-border">
+        <div className="p-4 border-b border-border">
+          <h2 className="text-xl font-bold text-foreground">
             المحادثات ({conversations.length})
           </h2>
         </div>
 
         <div className="overflow-y-auto h-full">
           {conversations.length === 0 ? (
-            <div className="p-4 text-center text-gray-500">لا توجد محادثات</div>
+            <div className="p-4 text-center text-muted-foreground">لا توجد محادثات</div>
           ) : (
             conversations.map((conversation) => (
               <div
                 key={conversation.id}
                 onClick={() => setSelectedConversation(conversation)}
-                className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 ${
+                className={`p-4 border-b border-border cursor-pointer hover:bg-muted ${
                   selectedConversation?.id === conversation.id
                     ? "bg-blue-50 border-blue-200"
                     : ""
                 }`}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-medium text-gray-900">
+                  <h3 className="font-medium text-foreground">
                     {conversation.customerName || conversation.customerId}
                     {conversation.pageName && (
-                      <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded mr-2">
+                      <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
                         {conversation.pageName}
                       </span>
                     )}
                   </h3>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-muted-foreground">
                     {conversation.platform}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 truncate">
+                <p className="text-sm text-foreground truncate">
                   {conversation.lastMessage || "لا توجد رسائل"}
                 </p>
                 <div className="flex justify-between items-center mt-2">
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-muted-foreground">
                     {new Date(conversation.lastMessageAt).toLocaleString(
                       "ar-EG",
                     )}
@@ -237,27 +237,27 @@ const ConversationsSimple: React.FC = () => {
         {selectedConversation ? (
           <>
             {/* رأس المحادثة */}
-            <div className="bg-white border-b border-gray-200 p-4">
-              <h3 className="font-bold text-lg text-gray-800">
+            <div className="bg-white border-b border-border p-4">
+              <h3 className="font-bold text-lg text-foreground">
                 محادثة مع{" "}
                 {selectedConversation.customerName ||
                   selectedConversation.customerId}
                 {selectedConversation.pageName && (
-                  <span className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded mr-2">
+                  <span className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded me-2">
                     {selectedConversation.pageName}
                   </span>
                 )}
               </h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 منصة: {selectedConversation.platform} | الحالة:{" "}
                 {selectedConversation.status}
               </p>
             </div>
 
             {/* قائمة الرسائل */}
-            <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 bg-muted">
               {messages.length === 0 ? (
-                <div className="text-center text-gray-500 mt-8">
+                <div className="text-center text-muted-foreground mt-8">
                   لا توجد رسائل في هذه المحادثة
                 </div>
               ) : (
@@ -272,16 +272,16 @@ const ConversationsSimple: React.FC = () => {
                       <div
                         className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                           message.isFromCustomer
-                            ? "bg-white border border-gray-200 text-gray-800"
+                            ? "bg-white border border-border text-foreground"
                             : message.isFacebookReply
-                              ? "bg-purple-100 border border-purple-200 text-purple-800" // نمط خاص للردود من فيسبوك
+                              ? "bg-purple-100 border border-primary text-primary" // نمط خاص للردود من فيسبوك
                               : "bg-blue-500 text-white"
                         }`}
                       >
                         {/* عرض أيقونة خاصة للردود من فيسبوك */}
                         {message.isFacebookReply && (
                           <div className="flex items-center mb-1">
-                            <span className="text-xs font-bold text-purple-600">
+                            <span className="text-xs font-bold text-primary">
                               رد من صفحتك على فيسبوك
                             </span>
                           </div>
@@ -305,7 +305,7 @@ const ConversationsSimple: React.FC = () => {
             </div>
 
             {/* منطقة إرسال الرسائل */}
-            <div className="bg-white border-t border-gray-200 p-4">
+            <div className="bg-white border-t border-border p-4">
               <div className="flex">
                 <input
                   type="text"
@@ -313,7 +313,7 @@ const ConversationsSimple: React.FC = () => {
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && sendMessage()}
                   placeholder="اكتب رسالتك هنا..."
-                  className="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="flex-1 border border-border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   disabled={loading}
                 />
                 <button
@@ -327,7 +327,7 @@ const ConversationsSimple: React.FC = () => {
             </div>
           </>
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="flex-1 flex items-center justify-center bg-muted">
             <div className="text-center">
               <div className="text-5xl mb-4">💬</div>
               <p className="text-gray-500">

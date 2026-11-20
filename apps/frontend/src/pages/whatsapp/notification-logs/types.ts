@@ -23,25 +23,25 @@ export interface LogEntry {
 }
 
 export const STATUS_STYLES: Record<string, string> = {
-  SENT: 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-400',
+  SENT: 'border-emerald-200 bg-success/10 text-success dark:border-success/40 dark:bg-success/20 dark:text-success',
   DELIVERED:
-    'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-400',
-  READ: 'border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-900/40 dark:bg-sky-900/20 dark:text-sky-400',
+    'border-emerald-200 bg-success/10 text-success dark:border-success/40 dark:bg-success/20 dark:text-success',
+  READ: 'border-sky-200 bg-info/10 text-info dark:border-info/40 dark:bg-info/20 dark:text-info',
   FAILED:
-    'border-red-200 bg-red-50 text-red-700 dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-400',
+    'border-red-200 bg-destructive/10 text-destructive dark:border-destructive/40 dark:bg-destructive/20 dark:text-destructive',
   PENDING:
-    'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-400',
+    'border-amber-200 bg-warning/10 text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning',
   CANCELLED:
-    'border-slate-200 bg-slate-100 text-slate-600 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-400',
+    'border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground',
 };
 
 export const MESSAGE_TYPE_STYLES: Record<string, string> = {
   TEMPLATE:
-    'border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-900/40 dark:bg-indigo-900/20 dark:text-indigo-400',
+    'border-indigo-200 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary',
   BUTTONS:
-    'border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-900/40 dark:bg-violet-900/20 dark:text-violet-400',
-  TEXT: 'border-slate-200 bg-slate-100 text-slate-600 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-400',
-  LIST: 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-400',
+    'border-violet-200 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary',
+  TEXT: 'border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground',
+  LIST: 'border-amber-200 bg-warning/10 text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning',
 };
 
 export const STATUS_LABELS: Record<string, string> = {

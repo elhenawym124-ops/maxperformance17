@@ -126,7 +126,7 @@ export const NotificationLogsTable: React.FC<NotificationLogsTableProps> = ({
                     >
                       {log.errorCode && (
                         <span
-                          className="shrink-0 rounded bg-red-100 px-1 py-0.5 text-[10px] font-mono font-bold text-red-700 dark:bg-red-950/40 dark:text-red-400"
+                          className="shrink-0 rounded bg-destructive px-1 py-0.5 text-[10px] font-mono font-bold text-destructive dark:bg-destructive/40 dark:text-destructive"
                           dir="ltr"
                         >
                           #{log.errorCode}

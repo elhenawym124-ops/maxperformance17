@@ -21,7 +21,7 @@ export const CampaignTabsNav: React.FC<CampaignTabsNavProps> = ({
   onTabChange,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg mb-6">
+    <div className="bg-white dark:bg-muted rounded-xl shadow-lg mb-6">
       <div className="border-b business-border">
         <nav className="flex -mb-px">
           {TABS.map((tab) => (
@@ -31,7 +31,7 @@ export const CampaignTabsNav: React.FC<CampaignTabsNavProps> = ({
               className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
                 activeTab === tab.id
                   ? "border-blue-500 text-blue-600 dark:text-blue-400"
-                  : "business-border-clear text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 business-control-border"
+                  : "business-border-clear text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground business-control-border"
               }`}
             >
               <tab.icon className="w-5 h-5" />

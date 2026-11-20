@@ -94,7 +94,7 @@ export const LeadFollowUpStepForm: React.FC<LeadFollowUpStepFormProps> = ({
           disabled={!local.content.trim() || isSaving}
           className="text-xs"
         >
-          {isSaving ? <Loader2 className="size-3 animate-spin mr-1" /> : <Save className="size-3 mr-1" />}
+          {isSaving ? <Loader2 className="size-3 animate-spin me-1" /> : <Save className="size-3 me-1" />}
           {tx("actions.save")}
         </Button>
       </div>

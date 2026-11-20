@@ -37,7 +37,7 @@ export const SessionReviewStep: React.FC<SessionReviewStepProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in-50 duration-200">
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-6 space-y-4">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-6 space-y-4">
         <div className="flex items-center justify-between border-b border-[color:var(--shell-control-border)] pb-4">
           <h4 className="font-semibold text-base text-[color:var(--color-foreground)]">
             {t("whatsappSettings.dialogs.reviewDetails")}
@@ -196,7 +196,7 @@ export const SessionReviewStep: React.FC<SessionReviewStepProps> = ({
         </div>
       </div>
 
-      <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+      <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
         <Info className="size-4 text-[color:var(--color-primary)]" />
         <AlertDescription>
           {t("whatsappSettings.dialogs.confirmPrompt")}

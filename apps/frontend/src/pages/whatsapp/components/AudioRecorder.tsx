@@ -113,19 +113,19 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSend, onCancel }) => {
   };
 
   return (
-    <div className="flex w-full items-center gap-2 rounded-3xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] px-3 py-2 shadow-md">
+    <div className="flex w-full items-center gap-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] px-3 py-2 shadow-md">
       <Button
         variant="ghost"
         size="icon-sm"
         onClick={onCancel}
         disabled={isSending}
-        className="rounded-full text-rose-600 hover:bg-rose-500/10 hover:text-rose-700"
+        className="rounded-full text-destructive hover:bg-destructive/10 hover:text-destructive"
       >
         <Trash2 className="size-4" />
       </Button>
 
       <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-primary/5 px-3 py-2">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-rose-500/10 text-rose-600">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-destructive">
           {status === "recording" ? (
             <Mic className="size-4 animate-pulse" />
           ) : (

@@ -239,7 +239,7 @@ export const MobileToolsMenu: React.FC<MobileToolsMenuProps> = ({
       {/* Mobile Tools Popover */}
       {showMobileTools && (
         <div
-          className="absolute bottom-[calc(100%+8px)] start-0 z-50 min-w-[210px] max-w-[260px] rounded-2xl p-1.5 shadow-2xl border animate-in fade-in zoom-in-95 duration-150"
+          className="absolute bottom-[calc(100%+8px)] start-0 z-50 min-w-[210px] max-w-[260px] rounded-xl p-1.5 shadow-2xl border animate-in fade-in zoom-in-95 duration-150"
           style={{
             background: "var(--business-surface-strong, #182234)",
             borderColor: "var(--business-card-border, rgba(255,255,255,0.12))",
