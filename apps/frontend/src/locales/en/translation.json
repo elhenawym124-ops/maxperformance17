@@ -11325,6 +11325,10 @@
   "companyDashboard": {
     "title": "Dashboard",
     "welcome": "Welcome, {{name}}",
+    "tabs": {
+      "specialty": "Specialty & business dashboard",
+      "installedApps": "Installed apps"
+    },
     "status": {
       "active": "Active",
       "inactive": "Inactive"
