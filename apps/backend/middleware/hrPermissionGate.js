@@ -75,7 +75,9 @@ module.exports = async function hrPermissionGate(req, res, next) {
     if (Array.isArray(permissions) && permissions.includes(rule.permission)) {
       // الأدوار المخصّصة (مثل TRIAL_HR_MANAGER) تأتي كـ role string مختلف،
       // فلا تعرفها requireRole القديمة. بما أن الصلاحية الدقيقة متحققة هنا،
-      // نطابق الدور مؤقتًا لهذا الطلب فقط حتى تمر حراسات requireRole.
+      // نمنح الطلب تصريحًا مؤقتًا يقرأه requireRole (المصادقة تعيد بناء req.user
+      // داخل المسار، فلا يكفي تعديل الدور هنا).
+      req.hrGrantedPermission = rule.permission;
       const knownRoles = ['OWNER', 'COMPANY_ADMIN', 'MANAGER', 'AGENT', 'SUPER_ADMIN'];
       if (!knownRoles.includes(String(user.role || '').toUpperCase())) {
         req.user.role = 'MANAGER';

@@ -77,6 +77,7 @@ describe('hrPermissionGate', () => {
     await gate(req, res, next);
     expect(next).toHaveBeenCalled();
     expect(req.user.role).toBe('MANAGER');
+    expect(req.hrGrantedPermission).toBe('hr.payroll');
   });
 
   it('لا يغيّر سلوك مسارات HR الأخرى', async () => {

@@ -772,6 +772,12 @@ const requireRole = (allowedRoles, fallbackPermission) => {
       }
     }
 
+    // 2.b تصريح HR الصريح: hrPermissionGate تحقق من الصلاحية الدقيقة (hr.employees /
+    // hr.attendance / hr.payroll) قبل الوصول للمسار، والأدوار المخصّصة لا تعرفها القائمة أعلاه.
+    if (req.hrGrantedPermission && Array.isArray(allowedRoles) && allowedRoles.includes('MANAGER')) {
+      return next();
+    }
+
     return res.status(403).json({
       success: false,
       message: 'ليس لديك صلاحية لهذا الإجراء',
