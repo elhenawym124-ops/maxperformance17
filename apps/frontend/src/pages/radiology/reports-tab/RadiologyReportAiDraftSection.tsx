@@ -24,11 +24,11 @@ export const RadiologyReportAiDraftSection: React.FC<RadiologyReportAiDraftSecti
   return (
     <div className="mt-2">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+        <span className="text-xs font-medium text-muted-foreground">
           {t("radiology.aiDraft.focus")}
         </span>
         <select
-          className="border dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs dark:bg-gray-800 dark:text-gray-100 cursor-pointer"
+          className="border dark:border-border rounded-lg px-2 py-1.5 text-xs dark:bg-muted dark:text-muted-foreground cursor-pointer"
           value={aiFocus}
           onChange={(e) => setAiFocus(e.target.value)}
         >
@@ -40,7 +40,7 @@ export const RadiologyReportAiDraftSection: React.FC<RadiologyReportAiDraftSecti
           type="button"
           onClick={() => void generateDraft()}
           disabled={generating}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-violet-600 text-white rounded-lg hover:bg-violet-700 disabled:opacity-50 cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 cursor-pointer"
         >
           {generating ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -55,7 +55,7 @@ export const RadiologyReportAiDraftSection: React.FC<RadiologyReportAiDraftSecti
         </button>
       </div>
       {aiMeta ? (
-        <p className="mt-1.5 text-xs text-violet-600 dark:text-violet-400">
+        <p className="mt-1.5 text-xs text-primary dark:text-primary">
           {t("radiology.aiDraft.disclaimer")}
           {aiMeta.model ? ` — ${t("radiology.aiDraft.model")}: ${aiMeta.model}` : ""}
           {aiMeta.provider ? ` (${aiMeta.provider})` : ""}

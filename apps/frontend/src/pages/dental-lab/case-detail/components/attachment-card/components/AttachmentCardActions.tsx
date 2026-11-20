@@ -49,7 +49,7 @@ export function AttachmentCardActions({
         {isPdf && url && (
           <button
             onClick={onOpenPdf}
-            className="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"
+            className="p-1 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded"
             title="معاينة الـPDF"
             aria-label="PDF Preview"
           >
@@ -59,7 +59,7 @@ export function AttachmentCardActions({
         {isHtml && url && (
           <button
             onClick={onOpenHtml}
-            className="p-1 text-teal-600 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/30 rounded"
+            className="p-1 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded"
             title="معاينة تقرير / عارض HTML"
             aria-label="HTML Preview"
           >
@@ -76,7 +76,7 @@ export function AttachmentCardActions({
         </button>
         <button
           onClick={onRemove}
-          className="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"
+          className="p-1 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded"
           title={t("dentalLab.common.delete")}
           aria-label="Delete"
         >

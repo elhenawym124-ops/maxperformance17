@@ -27,11 +27,11 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
       aria-labelledby="bench-upload-modal-title"
       className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4"
     >
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl w-full max-w-md p-5 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between pb-2 border-b border-gray-100 dark:border-gray-800">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-md p-5 space-y-4 shadow-xl">
+        <div className="flex items-center justify-between pb-2 border-b border-border dark:border-border">
           <h4
             id="bench-upload-modal-title"
-            className="font-bold text-sm text-gray-900 dark:text-white flex items-center gap-2"
+            className="font-bold text-sm text-foreground flex items-center gap-2"
           >
             <Upload className="w-4 h-4 text-blue-600" />
             <span>رفع مخرجات المرحلة أو صور توثيق</span>
@@ -39,7 +39,7 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-gray-400 hover:text-gray-600"
+            className="p-1 rounded-lg text-muted-foreground hover:text-foreground"
             aria-label="إغلاق النافذة"
           >
             <X className="w-4 h-4" />
@@ -50,7 +50,7 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
           <div>
             <label
               htmlFor="bench-upload-file-input"
-              className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1"
+              className="block text-xs font-semibold text-foreground mb-1"
             >
               اختر الملف (صورة، STL، أو PDF)
             </label>
@@ -58,7 +58,7 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
               id="bench-upload-file-input"
               type="file"
               onChange={(e) => onFileChange(e.target.files?.[0] || null)}
-              className="w-full text-xs text-gray-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              className="w-full text-xs text-muted-foreground file:me-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               required
             />
           </div>
@@ -67,7 +67,7 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 hover:bg-gray-50"
+              className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-border dark:border-border text-foreground hover:bg-muted"
             >
               إلغاء
             </button>

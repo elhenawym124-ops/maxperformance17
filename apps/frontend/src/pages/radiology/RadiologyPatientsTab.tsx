@@ -52,10 +52,10 @@ const GENDER_LABEL: Record<string, string> = { male: "radiology.gender.male", fe
 const STATUS_LABEL: Record<string, string> = { ACTIVE: "radiology.patients.active", INACTIVE: "radiology.patients.inactive", REVIEW: "radiology.patients.underReview" };
 
 const statusColor = (status?: string, isActive?: boolean): string => {
-  if (status === "ACTIVE" || isActive) return "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300";
-  if (status === "INACTIVE" || isActive === false) return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300";
-  if (status === "REVIEW") return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300";
-  return "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300";
+  if (status === "ACTIVE" || isActive) return "bg-green-100 text-success dark:bg-success/40 dark:text-success";
+  if (status === "INACTIVE" || isActive === false) return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
+  if (status === "REVIEW") return "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning";
+  return "bg-green-100 text-success dark:bg-success/40 dark:text-success";
 };
 
 export default function RadiologyPatientsTab() {
@@ -207,36 +207,36 @@ export default function RadiologyPatientsTab() {
         <h2 className="text-xl font-bold">{t("radiology.patients.title")}</h2>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400" />
+            <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground" />
             <input value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} placeholder={t("radiology.patients.searchPlaceholder")}
-              className={`${MODAL_INPUT_CLS} pr-9 max-w-xs`} />
+              className={`${MODAL_INPUT_CLS} pe-9 max-w-xs`} />
           </div>
           <select className={MODAL_INPUT_CLS} value={insuranceCompanyId} onChange={e => { setInsuranceCompanyId(e.target.value); setPage(1); }}>
             <option value="">{t("radiology.patients.allInsuranceCompanies")}</option>
             {insuranceCompanies.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
-          <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
+          <label className="flex items-center gap-2 text-sm text-foreground whitespace-nowrap">
             <input type="checkbox" checked={includeInactive} onChange={e => { setIncludeInactive(e.target.checked); setPage(1); }} className="rounded" />
             {t("radiology.patients.inactiveOnly")}
           </label>
           <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
             <Plus className="w-4 h-4" />{t("radiology.patients.newPatient")}
           </button>
-          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm">
+          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
         </div>
       </div>
 
       {loading ? (
-        <p className="text-center py-10 text-gray-400">{t("radiology.loading")}</p>
+        <p className="text-center py-10 text-muted-foreground">{t("radiology.loading")}</p>
       ) : items.length === 0 ? (
-        <p className="text-center py-10 text-gray-400">{t("radiology.patients.noPatients")}</p>
+        <p className="text-center py-10 text-muted-foreground">{t("radiology.patients.noPatients")}</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-x-auto">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-x-auto">
           <table className="w-full text-sm min-w-[800px]">
             <thead>
-              <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400">
+              <tr className="border-b dark:border-border text-muted-foreground">
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.patients.patientId")}</th>
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.patients.name")}</th>
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.patients.phone")}</th>
@@ -250,8 +250,8 @@ export default function RadiologyPatientsTab() {
             </thead>
             <tbody>
               {items.map(p => (
-                <tr key={p.id} className={`border-b dark:border-gray-700/50 last:border-0 ${!p.isActive ? "opacity-60" : ""}`}>
-                  <td className="py-3 px-4 text-gray-700 dark:text-gray-300">
+                <tr key={p.id} className={`border-b dark:border-border last:border-0 ${!p.isActive ? "opacity-60" : ""}`}>
+                  <td className="py-3 px-4 text-foreground">
                     <span className="text-xs font-mono font-medium" dir="ltr">{formatSequentialId(idSettings.patientPrefix, p.patientNo, idSettings.digits, idSettings.enabled) || p.id.slice(0, 8)}</span>
                   </td>
                   <td className="py-3 px-4 font-medium">{p.firstName} {p.lastName || ""}</td>
@@ -260,7 +260,7 @@ export default function RadiologyPatientsTab() {
                   <td className="py-3 px-4" dir="ltr">{p.nationalId || "—"}</td>
                   <td className="py-3 px-4">
                     {p.insuranceNumber ? <span dir="ltr">{p.insuranceNumber}</span> : "—"}
-                    {p.insuranceCompany?.name ? <div className="text-xs text-gray-400">{p.insuranceCompany.name}</div> : null}
+                    {p.insuranceCompany?.name ? <div className="text-xs text-muted-foreground">{p.insuranceCompany.name}</div> : null}
                   </td>
                   <td className="py-3 px-4">{p.visitCount ?? 0}</td>
                   <td className="py-3 px-4">
@@ -270,16 +270,16 @@ export default function RadiologyPatientsTab() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <button onClick={() => { setRecordId(p.id); }} className="text-xs px-2 py-1 border rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 flex items-center gap-1">
+                      <button onClick={() => { setRecordId(p.id); }} className="text-xs px-2 py-1 border rounded-lg hover:bg-blue-50 dark:hover:bg-muted flex items-center gap-1">
                         <FileText className="w-3.5 h-3.5" />{t("radiology.patients.file")}
                       </button>
-                      <button onClick={() => viewRecord(p)} className="text-xs px-2 py-1 border rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 flex items-center gap-1">
+                      <button onClick={() => viewRecord(p)} className="text-xs px-2 py-1 border rounded-lg hover:bg-blue-50 dark:hover:bg-muted flex items-center gap-1">
                         <FileText className="w-3.5 h-3.5" />{t("radiology.patients.studies")}
                       </button>
                       <button onClick={() => openEdit(p)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
-                      <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="p-1.5 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded" title={t("radiology.patients.merge")}><GitMerge className="w-4 h-4" /></button>
-                      <button onClick={() => toggle(p)} className={`p-1.5 rounded ${p.isActive ? "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700" : "text-green-500 hover:bg-green-50 dark:hover:bg-green-900/30"}`} title={p.isActive ? t("radiology.patients.deactivate") : t("radiology.patients.activate")}><Check className="w-4 h-4" /></button>
-                      <button onClick={() => remove(p)} disabled={deletingId === p.id} className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
+                      <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="p-1.5 text-warning dark:text-warning hover:bg-warning/10 dark:hover:bg-warning/30 rounded" title={t("radiology.patients.merge")}><GitMerge className="w-4 h-4" /></button>
+                      <button onClick={() => toggle(p)} className={`p-1.5 rounded ${p.isActive ? "text-gray-500 hover:bg-muted" : "text-green-500 hover:bg-success/10 dark:hover:bg-success/30"}`} title={p.isActive ? t("radiology.patients.deactivate") : t("radiology.patients.activate")}><Check className="w-4 h-4" /></button>
+                      <button onClick={() => remove(p)} disabled={deletingId === p.id} className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                     </div>
                   </td>
                 </tr>
@@ -290,17 +290,17 @@ export default function RadiologyPatientsTab() {
       )}
 
       {total > pageSize && (
-        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>{t("radiology.patients.totalPatients", { total })}</span>
           <div className="flex items-center gap-2">
-            <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="px-3 py-1.5 border dark:border-gray-600 rounded-lg disabled:opacity-40">{t("radiology.patients.previous")}</button>
+            <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="px-3 py-1.5 border dark:border-border rounded-lg disabled:opacity-40">{t("radiology.patients.previous")}</button>
             <span>{page} / {pageCount}</span>
-            <button disabled={page >= pageCount} onClick={() => setPage(p => p + 1)} className="px-3 py-1.5 border dark:border-gray-600 rounded-lg disabled:opacity-40">{t("radiology.patients.next")}</button>
+            <button disabled={page >= pageCount} onClick={() => setPage(p => p + 1)} className="px-3 py-1.5 border dark:border-border rounded-lg disabled:opacity-40">{t("radiology.patients.next")}</button>
           </div>
         </div>
       )}
 
-      <p className="text-sm text-gray-500 dark:text-gray-400">
+      <p className="text-sm text-muted-foreground">
         {t("radiology.patients.subtitle")} <a href="/radiology/schedule" className="text-blue-600 dark:text-blue-400">{t("radiology.patients.scheduleLink")}</a>.
       </p>
 
@@ -312,36 +312,36 @@ export default function RadiologyPatientsTab() {
           <div className={`${MODAL_CONTENT_CLS} max-h-[85vh] overflow-y-auto`} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{t("radiology.patientTimeline.title")} — {recordPatient.firstName} {recordPatient.lastName || ""}</h3>
-              <button onClick={() => setRecordPatient(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setRecordPatient(null)} className="p-1 hover:bg-muted rounded-lg"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             {recordLoading ? (
-              <p className="text-center py-10 text-gray-400">{t("radiology.loadingEllipsis")}</p>
+              <p className="text-center py-10 text-muted-foreground">{t("radiology.loadingEllipsis")}</p>
             ) : recordVisits.length === 0 ? (
-              <p className="text-center py-10 text-gray-400">{t("radiology.patientTimeline.noVisits")}</p>
+              <p className="text-center py-10 text-muted-foreground">{t("radiology.patientTimeline.noVisits")}</p>
             ) : (
               <div className="space-y-4">
-                <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.patientTimeline.visits", { count: recordVisits.length })}</p>
+                <p className="text-sm text-muted-foreground">{t("radiology.patientTimeline.visits", { count: recordVisits.length })}</p>
                 {recordVisits.map((v, idx) => (
-                  <div key={v.key} className="rounded-lg border dark:border-gray-700 overflow-hidden">
-                    <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 bg-gray-50 dark:bg-gray-800/70 border-b dark:border-gray-700">
+                  <div key={v.key} className="rounded-lg border dark:border-border overflow-hidden">
+                    <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 bg-muted dark:bg-muted border-b dark:border-border">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-sm font-bold text-gray-700 dark:text-gray-200">
+                        <span className="text-sm font-bold text-foreground">
                           {v.appointmentId ? t("radiology.patientTimeline.visitNumber", { n: recordVisits.length - idx }) : t("radiology.patientTimeline.singleVisit")}
                         </span>
                         <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 whitespace-nowrap">
                           {t("radiology.patientTimeline.studyCount", { count: v.studies.length })}
                         </span>
                         {v.bookingNo ? (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 whitespace-nowrap" dir="ltr">
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-foreground dark:bg-muted dark:text-muted-foreground whitespace-nowrap" dir="ltr">
                             {t("radiology.patientTimeline.bookingNo")}: {formatSequentialId(idSettings.bookingPrefix, v.bookingNo, idSettings.digits, idSettings.enabled) || v.bookingNo}
                           </span>
                         ) : null}
                       </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">{v.date ? new Date(v.date).toLocaleDateString("ar-EG") : "—"}</span>
+                      <span className="text-xs text-muted-foreground">{v.date ? new Date(v.date).toLocaleDateString("ar-EG") : "—"}</span>
                     </div>
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400">
+                        <tr className="border-b dark:border-border text-muted-foreground">
                           <th className="py-2 px-3 text-right font-medium">{t("radiology.patients.studyNumber")}</th>
                           <th className="py-2 px-3 text-right font-medium">{t("radiology.patients.exam")}</th>
                           <th className="py-2 px-3 text-right font-medium">{t("radiology.patients.status")}</th>
@@ -351,7 +351,7 @@ export default function RadiologyPatientsTab() {
                       </thead>
                       <tbody>
                         {v.studies.map(s => (
-                          <tr key={s.id} className="border-b dark:border-gray-700/50 last:border-0">
+                          <tr key={s.id} className="border-b dark:border-border last:border-0">
                             <td className="py-2 px-3" dir="ltr">{s.studyNumber || "—"}</td>
                             <td className="py-2 px-3">{s.examTypeName || "—"}</td>
                             <td className="py-2 px-3">{s.status || "—"}</td>
@@ -359,18 +359,18 @@ export default function RadiologyPatientsTab() {
                               {s.report?.reportStatus ? (
                                 <div className="truncate" title={s.report?.reportText || s.report?.reportStatus}>
                                   <span className="text-blue-600 dark:text-blue-400">{s.report?.reportStatus}</span>
-                                  {s.report?.reportText ? <span className="text-gray-500 dark:text-gray-400"> — {s.report.reportText.slice(0, 60)}{s.report.reportText.length > 60 ? "…" : ""}</span> : null}
+                                  {s.report?.reportText ? <span className="text-muted-foreground"> — {s.report.reportText.slice(0, 60)}{s.report.reportText.length > 60 ? "…" : ""}</span> : null}
                                 </div>
                               ) : <span className="text-gray-400">—</span>}
                             </td>
                             <td className="py-2 px-3 whitespace-nowrap">
                               {Number(s.paidAmount || 0) > 0 ? (
-                                <span className="text-green-600 dark:text-green-400">{Number(s.paidAmount).toFixed(0)} {t("radiology.currency")}</span>
+                                <span className="text-green-600 dark:text-success">{Number(s.paidAmount).toFixed(0)} {t("radiology.currency")}</span>
                               ) : (
                                 <span className="text-gray-400">0 {t("radiology.currency")}</span>
                               )}
                               {s.paymentStatus && s.paymentStatus !== "UNPAID" && s.paymentStatus !== "PAID" ? (
-                                <span className="text-xs text-amber-600 dark:text-amber-400"> ({s.paymentStatus})</span>
+                                <span className="text-xs text-warning dark:text-warning"> ({s.paymentStatus})</span>
                               ) : null}
                             </td>
                           </tr>
@@ -390,17 +390,17 @@ export default function RadiologyPatientsTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold">{t("radiology.patients.mergePatient")}</h3>
-              <button onClick={() => setMergeSource(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setMergeSource(null)} className="p-1 hover:bg-muted rounded-lg"><XMarkIcon className="w-5 h-5" /></button>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4" dangerouslySetInnerHTML={{ __html: t("radiology.patients.mergeDescription", { name: `${mergeSource.firstName} ${mergeSource.lastName || ""}` }) }} />
+            <p className="text-sm text-muted-foreground mb-4" dangerouslySetInnerHTML={{ __html: t("radiology.patients.mergeDescription", { name: `${mergeSource.firstName} ${mergeSource.lastName || ""}` }) }} />
             <label className="block text-sm font-medium mb-1">{t("radiology.patients.targetPatient")}</label>
             <select className={MODAL_INPUT_CLS} value={mergeTargetId} onChange={e => setMergeTargetId(e.target.value)}>
               <option value="">{t("radiology.patients.selectTargetPatient")}</option>
               {mergeCandidates.map(c => <option key={c.id} value={c.id}>{c.firstName} {c.lastName || ""}{c.phone ? ` (${c.phone})` : ""}</option>)}
             </select>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setMergeSource(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg">{t("radiology.cancel")}</button>
-              <button onClick={confirmMerge} disabled={!mergeTargetId || merging} className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 disabled:opacity-50">
+              <button onClick={() => setMergeSource(null)} className="px-4 py-2 text-foreground border rounded-lg">{t("radiology.cancel")}</button>
+              <button onClick={confirmMerge} disabled={!mergeTargetId || merging} className="px-4 py-2 bg-warning text-white rounded-lg hover:bg-warning disabled:opacity-50">
                 {merging ? t("radiology.patients.merging") : t("radiology.patients.confirmMerge")}
               </button>
             </div>

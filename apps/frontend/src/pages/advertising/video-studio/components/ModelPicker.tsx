@@ -56,7 +56,7 @@ export const ModelPicker: React.FC<ModelPickerProps> = ({ models, value, onChang
         </SelectContent>
       </Select>
       {selected && (selected.supportsCharacterRefs === false) && (
-        <p className="text-[11px] text-amber-600 dark:text-amber-400">هذا الموديل لا يدعم مراجع الشخصيات — للنصوص فقط</p>
+        <p className="text-[11px] text-warning dark:text-warning">هذا الموديل لا يدعم مراجع الشخصيات — للنصوص فقط</p>
       )}
     </div>
   );

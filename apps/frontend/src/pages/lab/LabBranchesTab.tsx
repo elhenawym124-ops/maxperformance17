@@ -38,22 +38,22 @@ export default function LabBranchesTab() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-bold">الفروع</h2>
-        <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm">
+        <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm">
           <RefreshCw className="w-4 h-4" />تحديث
         </button>
       </div>
       {loading ? (
-        <p className="text-center py-10 text-gray-400">جاري التحميل...</p>
+        <p className="text-center py-10 text-muted-foreground">جاري التحميل...</p>
       ) : items.length === 0 ? (
-        <p className="text-center py-10 text-gray-400">لا توجد فروع</p>
+        <p className="text-center py-10 text-muted-foreground">لا توجد فروع</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map(b => (
-            <div key={b.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+            <div key={b.id} className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
               <p className="font-semibold">{b.name}</p>
-              {b.address && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{b.address}</p>}
-              {b.phone && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1" dir="ltr">{b.phone}</p>}
-              <button onClick={() => toggle(b)} className="mt-3 text-xs px-3 py-1.5 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+              {b.address && <p className="text-sm text-muted-foreground mt-1">{b.address}</p>}
+              {b.phone && <p className="text-sm text-muted-foreground mt-1" dir="ltr">{b.phone}</p>}
+              <button onClick={() => toggle(b)} className="mt-3 text-xs px-3 py-1.5 border rounded-lg hover:bg-muted/50">
                 {b.isActive ? "تعطيل" : "تفعيل"}
               </button>
             </div>

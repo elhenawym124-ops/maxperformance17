@@ -71,28 +71,28 @@ export default function LabPatientsTab() {
         <h2 className="text-xl font-bold">المرضى</h2>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400" />
+            <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="بحث بالاسم أو الهاتف"
-              className={`${MODAL_INPUT_CLS} pr-9 max-w-xs`} />
+              className={`${MODAL_INPUT_CLS} pe-9 max-w-xs`} />
           </div>
           <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
             <Plus className="w-4 h-4" />مريض جديد
           </button>
-          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm">
+          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm">
             <RefreshCw className="w-4 h-4" />تحديث
           </button>
         </div>
       </div>
 
       {loading ? (
-        <p className="text-center py-10 text-gray-400">جاري التحميل...</p>
+        <p className="text-center py-10 text-muted-foreground">جاري التحميل...</p>
       ) : filtered.length === 0 ? (
-        <p className="text-center py-10 text-gray-400">لا يوجد مرضى</p>
+        <p className="text-center py-10 text-muted-foreground">لا يوجد مرضى</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-x-auto">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400">
+              <tr className="border-b dark:border-border text-muted-foreground">
                 <th className="py-3 px-4 text-right font-medium">الاسم</th>
                 <th className="py-3 px-4 text-right font-medium">الهاتف</th>
                 <th className="py-3 px-4 text-right font-medium">الجنس</th>
@@ -102,13 +102,13 @@ export default function LabPatientsTab() {
             </thead>
             <tbody>
               {filtered.map(p => (
-                <tr key={p.id} className="border-b dark:border-gray-700/50 last:border-0">
+                <tr key={p.id} className="border-b dark:border-border last:border-0">
                   <td className="py-3 px-4 font-medium">{p.firstName} {p.lastName || ""}</td>
                   <td className="py-3 px-4" dir="ltr">{p.phone || "—"}</td>
                   <td className="py-3 px-4">{p.gender || "—"}</td>
                   <td className="py-3 px-4">{STATUS_LABEL[p.status || ""] || (p.isActive ? "نشط" : "غير نشط")}</td>
                   <td className="py-3 px-4">
-                    <button onClick={() => toggle(p)} className="text-xs px-2 py-1 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <button onClick={() => toggle(p)} className="text-xs px-2 py-1 border rounded-lg hover:bg-muted/50">
                       {p.isActive ? "تعطيل" : "تفعيل"}
                     </button>
                   </td>
@@ -134,7 +134,7 @@ export default function LabPatientsTab() {
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg">إلغاء</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg">إلغاء</button>
               <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
                 {saving ? "جاري الحفظ..." : "حفظ"}
               </button>

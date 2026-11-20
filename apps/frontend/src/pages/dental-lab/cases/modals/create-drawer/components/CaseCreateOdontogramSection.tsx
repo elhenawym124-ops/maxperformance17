@@ -42,7 +42,7 @@ export const CaseCreateOdontogramSection: React.FC<
             <button
               type="button"
               onClick={() => onTeethChange([])}
-              className="text-xs text-rose-500 hover:underline"
+              className="text-xs text-destructive hover:underline"
             >
               مسح الأسنان المحددة (
               <span className="tabular-nums font-mono">
@@ -52,7 +52,7 @@ export const CaseCreateOdontogramSection: React.FC<
             </button>
           )}
         </div>
-        <div className="p-3 bg-gray-50 dark:bg-gray-800/80 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div className="p-3 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border">
           <OdontogramChart
             selectedTeeth={selectedTeeth}
             onChange={onTeethChange}

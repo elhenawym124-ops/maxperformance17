@@ -67,7 +67,7 @@ export default function StudyDetails({ studyId }: { studyId: string }) {
     return (
       <div dir="rtl" className="max-w-7xl mx-auto p-4 md:p-6 w-full min-h-screen">
         <div className="flex justify-center py-24">
-          <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+          <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
         </div>
       </div>
     );
@@ -89,7 +89,7 @@ export default function StudyDetails({ studyId }: { studyId: string }) {
             </button>
             <button
               onClick={() => navigate("/radiology/studies")}
-              className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 cursor-pointer"
             >
               {t("radiology.details.back")}
             </button>

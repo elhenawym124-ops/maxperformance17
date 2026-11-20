@@ -25,33 +25,33 @@ export function DoctorsSummaryCards({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="bg-card rounded-xl border dark:border-border p-4">
+        <p className="text-xs text-muted-foreground">
           {t("dentalLab.doctors.ledger.totalOutstanding")}
         </p>
-        <p className="text-xl font-bold mt-1 font-mono tabular-nums text-rose-600 dark:text-rose-400">
+        <p className="text-xl font-bold mt-1 font-mono tabular-nums text-destructive dark:text-destructive">
           {fmtMoney(totalOutstanding)} {t("dentalLab.common.egp")}
         </p>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="bg-card rounded-xl border dark:border-border p-4">
+        <p className="text-xs text-muted-foreground">
           {t("dentalLab.doctors.ledger.totalBilled")}
         </p>
-        <p className="text-xl font-bold mt-1 font-mono tabular-nums text-gray-900 dark:text-gray-100">
+        <p className="text-xl font-bold mt-1 font-mono tabular-nums text-foreground">
           {fmtMoney(totalBilled)} {t("dentalLab.common.egp")}
         </p>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="bg-card rounded-xl border dark:border-border p-4">
+        <p className="text-xs text-muted-foreground">
           {t("dentalLab.doctors.ledger.overCredit")}
         </p>
         <p
           className={`text-xl font-bold mt-1 font-mono tabular-nums ${
             overCreditCount > 0
-              ? "text-red-600 dark:text-red-400"
-              : "text-gray-900 dark:text-gray-100"
+              ? "text-red-600 dark:text-destructive"
+              : "text-foreground"
           }`}
         >
           {overCreditCount} {t("dentalLab.common.doctor")}

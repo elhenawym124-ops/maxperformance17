@@ -102,22 +102,22 @@ const MarketingAiStudioPage: React.FC = () => {
 
   const telemetryBadge = latestTelemetry ? (
     <div
-      className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/70 text-[10px] font-mono tabular-nums text-slate-600 dark:text-slate-300 shadow-2xs"
+      className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border text-[10px] font-mono tabular-nums text-foreground dark:text-muted-foreground shadow-2xs"
       title={`نموذج العمل: ${latestTelemetry.model || "Hermes"} | زمن الاستجابة: ${
         latestTelemetry.latency_ms || 0
       }ms`}
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-      <span className="font-bold text-slate-800 dark:text-slate-200">
+      <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+      <span className="font-bold text-foreground dark:text-muted-foreground">
         {latestTelemetry.model || "Hermes-Engine"}
       </span>
       {typeof latestTelemetry.latency_ms === "number" && (
-        <span className="text-slate-500 dark:text-slate-400">
+        <span className="text-slate-500 dark:text-muted-foreground">
           • {latestTelemetry.latency_ms}ms
         </span>
       )}
       {latestTelemetry.p95_sla && (
-        <span className="text-emerald-600 dark:text-emerald-400 hidden lg:inline">
+        <span className="text-emerald-600 dark:text-success hidden lg:inline">
           • SLA {latestTelemetry.p95_sla}
         </span>
       )}
@@ -154,8 +154,8 @@ const MarketingAiStudioPage: React.FC = () => {
             <span>مسودة الإعلان جاهزة (مراجعة)</span>
           </button>
         ) : (
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground dark:text-muted-foreground">
+            <span className="w-2 h-2 rounded-full bg-success" />
             <span>مساعد التسويق جاهز</span>
           </div>
         )
@@ -207,15 +207,15 @@ const MarketingAiStudioPage: React.FC = () => {
               />
               <aside
                 aria-label="مسودة إطلاق الحملة الإعلانية"
-                className="w-full sm:w-[540px] lg:w-[600px] max-w-full h-full bg-white dark:bg-slate-900 border-r sm:border-r-0 sm:border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-200"
+                className="w-full sm:w-[540px] lg:w-[600px] max-w-full h-full bg-white dark:bg-muted border-r sm:border-r-0 sm:border-l border-border dark:border-border shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-200"
               >
-                <div className="p-3.5 sm:p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-800/50 flex-shrink-0">
+                <div className="p-3.5 sm:p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted flex-shrink-0">
                   <div className="flex items-center gap-2.5">
                     <div className="p-2 rounded-xl bg-blue-600 text-white shadow-sm">
                       <Rocket className="w-4 h-4" />
                     </div>
                     <div>
-                      <h2 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                      <h2 className="text-xs sm:text-sm font-bold text-foreground dark:text-white flex items-center gap-2">
                         مسودة الحملة الإعلانية
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
                           جاهزة للإطلاق
@@ -227,7 +227,7 @@ const MarketingAiStudioPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setIsDraftDrawerOpen(false)}
-                    className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+                    className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition cursor-pointer"
                     title="إغلاق"
                   >
                     <X className="w-4 h-4" />

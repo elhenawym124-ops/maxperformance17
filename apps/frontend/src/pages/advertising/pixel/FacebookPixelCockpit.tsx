@@ -491,8 +491,8 @@ export const FacebookPixelCockpit: React.FC = () => {
     return (
       <div className="w-full min-h-[70vh] flex items-center justify-center p-6">
         <div className="text-center space-y-3">
-          <ArrowPathIcon className="w-8 h-8 animate-spin text-indigo-600 mx-auto" />
-          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+          <ArrowPathIcon className="w-8 h-8 animate-spin text-primary mx-auto" />
+          <p className="text-xs font-semibold text-foreground dark:text-muted-foreground">
             جاري مزامنة بيانات وقمرة Facebook Pixel & CAPI v26.0…
           </p>
         </div>
@@ -507,7 +507,7 @@ export const FacebookPixelCockpit: React.FC = () => {
   );
 
   return (
-    <div className="w-full min-h-screen bg-gray-50/50 dark:bg-gray-950 flex flex-col antialiased">
+    <div className="w-full min-h-screen bg-muted dark:bg-muted flex flex-col antialiased">
       {/* 1. Header Bar with Telemetry */}
       <PixelHeaderBar
         isPixelActive={isPixelActive}

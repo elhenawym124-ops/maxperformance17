@@ -20,7 +20,7 @@ export const CreativeSourceSelector: React.FC<CreativeSourceSelectorProps> = ({
 }) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label className="block text-sm font-medium text-foreground mb-2">
         {isEn ? "Creative Source" : "مصدر الإعلان (Creative Source)"}
       </label>
       <div className="grid grid-cols-2 gap-3 mb-4">
@@ -35,7 +35,7 @@ export const CreativeSourceSelector: React.FC<CreativeSourceSelectorProps> = ({
           className={`p-3 border-2 rounded-xl flex items-center justify-center gap-2 transition-all font-medium text-sm ${
             creativeSource === "NEW_AD"
               ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-sm"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800"
+              : "border-gray-200 dark:border-border hover:border-border text-muted-foreground bg-card"
           }`}
         >
           <Plus className="w-4 h-4" />
@@ -50,7 +50,7 @@ export const CreativeSourceSelector: React.FC<CreativeSourceSelectorProps> = ({
           className={`p-3 border-2 rounded-xl flex items-center justify-center gap-2 transition-all font-medium text-sm ${
             creativeSource === "EXISTING_POST"
               ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-sm"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800"
+              : "border-gray-200 dark:border-border hover:border-border text-muted-foreground bg-card"
           }`}
         >
           <FileText className="w-4 h-4" />

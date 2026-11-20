@@ -32,16 +32,16 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
   onClose,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-between pb-3 border-b dark:border-gray-800 mb-4 gap-3 print:hidden">
+    <div className="flex flex-wrap items-center justify-between pb-3 border-b dark:border-border mb-4 gap-3 print:hidden">
       <div className="flex items-center gap-2.5">
         <div className="p-2 bg-blue-50 dark:bg-blue-900/40 text-blue-600 rounded-xl">
           <FileSpreadsheet className="w-5 h-5" />
         </div>
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100">
+          <h3 className="text-base sm:text-lg font-bold text-foreground">
             كشف حساب الطبيب: {doctor.name}
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-muted-foreground">
             {doctor.clinicName ? `${doctor.clinicName} • ` : ""}
             {doctor.phone ? `هاتف: ${doctor.phone}` : ""}
           </p>
@@ -51,19 +51,19 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
         <button
           type="button"
           onClick={onShareWhatsApp}
-          className="px-3 py-1.5 bg-green-50 text-green-700 border border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-green-100"
+          className="px-3 py-1.5 bg-success/10 text-success border border-success dark:bg-success/30 dark:text-success dark:border-success rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-success"
           title="إرسال كشف الحساب عبر الواتساب"
         >
-          <MessageCircle className="w-4 h-4 text-green-600" />
+          <MessageCircle className="w-4 h-4 text-success" />
           <span>واتساب</span>
         </button>
         <button
           type="button"
           onClick={onExportExcel}
-          className="px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-300 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-emerald-100"
+          className="px-3 py-1.5 bg-success/10 text-success border border-success dark:bg-success/30 dark:text-success dark:border-success rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-success"
           title="تصدير كشف الحساب كملف Excel (.xlsx)"
         >
-          <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+          <FileSpreadsheet className="w-4 h-4 text-success" />
           <span>Excel</span>
         </button>
         <button
@@ -83,10 +83,10 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
         <button
           type="button"
           onClick={onPrint}
-          className="px-3 py-1.5 border dark:border-gray-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-gray-50 dark:hover:bg-gray-800"
+          className="px-3 py-1.5 border dark:border-border rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-muted dark:hover:bg-muted"
           title="طباعة ورقية نظيفة"
         >
-          <Printer className="w-4 h-4 text-gray-600" />
+          <Printer className="w-4 h-4 text-foreground" />
           <span>طباعة</span>
         </button>
         <button
@@ -100,7 +100,7 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
         <button
           type="button"
           onClick={onClose}
-          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg dark:text-gray-300"
+          className="p-1 hover:bg-muted dark:hover:bg-muted rounded-lg dark:text-muted-foreground"
           aria-label="إغلاق"
         >
           <XMarkIcon className="w-5 h-5" />

@@ -19,7 +19,7 @@ export const CatalogProductsTable: React.FC<CatalogProductsTableProps> = ({
     switch (status) {
       case "SUCCESS":
         return (
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-0.5 text-[11px] font-semibold text-success dark:text-success border border-success/20">
             <CheckCircle2 className="w-3 h-3" />
             متزامن
           </span>
@@ -33,7 +33,7 @@ export const CatalogProductsTable: React.FC<CatalogProductsTableProps> = ({
         );
       case "IN_PROGRESS":
         return (
-          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+          <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2.5 py-0.5 text-[11px] font-semibold text-warning dark:text-warning border border-warning/20">
             <Clock className="w-3 h-3 animate-spin" />
             جاري المزامنة
           </span>
@@ -49,7 +49,7 @@ export const CatalogProductsTable: React.FC<CatalogProductsTableProps> = ({
 
   if ((products || []).length === 0) {
     return (
-      <div className="text-center py-12 border border-dashed border-border/70 rounded-2xl bg-card p-6">
+      <div className="text-center py-12 border border-dashed border-border/70 rounded-xl bg-card p-6">
         <Package className="h-10 w-10 mx-auto mb-2 text-muted-foreground/40" />
         <p className="text-xs text-muted-foreground">لا توجد منتجات مسجلة في هذا الكتالوج حالياً</p>
       </div>
@@ -57,7 +57,7 @@ export const CatalogProductsTable: React.FC<CatalogProductsTableProps> = ({
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+    <div className="overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
       <table className="w-full text-xs">
         <thead className="bg-muted/40 border-b border-border/70 text-muted-foreground">
           <tr>

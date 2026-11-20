@@ -17,7 +17,7 @@ export const CreativeFormatSelector: React.FC<CreativeFormatSelectorProps> = ({
 }) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+      <label className="block text-sm font-medium text-foreground mb-3">
         {isEn ? "Creative Format" : "نوع المحتوى"}
       </label>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -27,11 +27,11 @@ export const CreativeFormatSelector: React.FC<CreativeFormatSelectorProps> = ({
           className={`p-4 border-2 rounded-xl text-center transition-all ${
             formData.creativeType === "SINGLE_IMAGE"
               ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+              : "border-gray-200 dark:border-border hover:border-border text-foreground bg-card"
           }`}
         >
           <Image
-            className={`w-8 h-8 mx-auto mb-2 ${formData.creativeType === "SINGLE_IMAGE" ? "text-blue-500" : "text-gray-400 dark:text-gray-500"}`}
+            className={`w-8 h-8 mx-auto mb-2 ${formData.creativeType === "SINGLE_IMAGE" ? "text-blue-500" : "text-muted-foreground/80"}`}
           />
           <div className="font-medium text-sm">{isEn ? "Image" : "صورة"}</div>
         </button>
@@ -42,11 +42,11 @@ export const CreativeFormatSelector: React.FC<CreativeFormatSelectorProps> = ({
           className={`p-4 border-2 rounded-xl text-center transition-all ${
             formData.creativeType === "SINGLE_VIDEO"
               ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+              : "border-gray-200 dark:border-border hover:border-border text-foreground bg-card"
           }`}
         >
           <Eye
-            className={`w-8 h-8 mx-auto mb-2 ${formData.creativeType === "SINGLE_VIDEO" ? "text-blue-500" : "text-gray-400 dark:text-gray-500"}`}
+            className={`w-8 h-8 mx-auto mb-2 ${formData.creativeType === "SINGLE_VIDEO" ? "text-blue-500" : "text-muted-foreground/80"}`}
           />
           <div className="font-medium text-sm">{isEn ? "Video" : "فيديو"}</div>
         </button>
@@ -77,14 +77,14 @@ export const CreativeFormatSelector: React.FC<CreativeFormatSelectorProps> = ({
           className={`p-4 border-2 rounded-xl text-center transition-all ${
             formData.creativeType === "CAROUSEL"
               ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+              : "border-gray-200 dark:border-border hover:border-border text-foreground bg-card"
           }`}
         >
           <Layout
-            className={`w-8 h-8 mx-auto mb-2 ${formData.creativeType === "CAROUSEL" ? "text-blue-500" : "text-gray-400 dark:text-gray-500"}`}
+            className={`w-8 h-8 mx-auto mb-2 ${formData.creativeType === "CAROUSEL" ? "text-blue-500" : "text-muted-foreground/80"}`}
           />
           <div className="font-medium text-sm">{isEn ? "Carousel" : "دوّار"}</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">{isEn ? "2-10 cards" : "2-10 بطاقات"}</div>
+          <div className="text-xs text-muted-foreground">{isEn ? "2-10 cards" : "2-10 بطاقات"}</div>
         </button>
 
         <button
@@ -92,18 +92,18 @@ export const CreativeFormatSelector: React.FC<CreativeFormatSelectorProps> = ({
           disabled
           aria-disabled="true"
           title={isEn ? "Flexible format in progress" : "التنسيق المرن قيد التجهيز"}
-          className="p-4 border-2 rounded-xl text-center transition-all border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/40 text-gray-400 dark:text-gray-500 opacity-60 cursor-not-allowed"
+          className="p-4 border-2 rounded-xl text-center transition-all border-border dark:border-border bg-muted dark:bg-muted text-muted-foreground/80 opacity-60 cursor-not-allowed"
         >
           <Sparkles
-            className="w-8 h-8 mx-auto mb-2 text-gray-400 dark:text-gray-500"
+            className="w-8 h-8 mx-auto mb-2 text-muted-foreground/80"
           />
           <div className="font-medium text-sm">{isEn ? "Flexible" : "مرن"}</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">{isEn ? "Soon" : "قريبًا"}</div>
+          <div className="text-xs text-muted-foreground">{isEn ? "Soon" : "قريبًا"}</div>
         </button>
       </div>
 
       {getError("creativeType") && (
-        <p className="mt-2 text-sm text-red-500">
+        <p className="mt-2 text-sm text-destructive">
           {getError("creativeType")}
         </p>
       )}

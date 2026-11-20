@@ -73,21 +73,21 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
       <div
         dir={isEn ? "ltr" : "rtl"}
-        className="bg-white dark:bg-gray-800 w-full max-w-xl rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+        className="bg-card w-full max-w-xl rounded-xl shadow-2xl border border-border dark:border-border overflow-hidden animate-in fade-in zoom-in-95 duration-150"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-700 bg-slate-50/50 dark:bg-slate-900/40">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
             <div className="p-2 bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 rounded-lg">
               <Link2 className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+              <h3 className="text-sm font-bold text-foreground">
                 {isEn
                   ? "Dynamic URL Parameter Builder (UTM Builder)"
                   : "مُنشئ معلمات التتبع الديناميكية (UTM Builder)"}
               </h3>
-              <p className="text-[11px] text-gray-500 dark:text-gray-400">
+              <p className="text-[11px] text-muted-foreground">
                 {isEn
                   ? "Use Meta dynamic macros to accurately analyze traffic acquisition paths"
                   : "استخدم رموز فيسبوك التلقائية (Dynamic Macros) لتحليل مسار الزيارات بدقة"}
@@ -97,7 +97,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -106,7 +106,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
         <div className={`p-5 space-y-4 max-h-[75vh] overflow-y-auto ${isEn ? "text-left" : "text-right"}`}>
           {/* Quick Presets */}
           <div>
-            <label className="block text-xs font-bold text-gray-800 dark:text-gray-200 mb-2">
+            <label className="block text-xs font-bold text-foreground dark:text-muted-foreground mb-2">
               {isEn ? "Quick Presets" : "قوالب جاهزة سريعة (Presets)"}
             </label>
             <div className="space-y-2">
@@ -115,16 +115,16 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => setParams(preset.value)}
-                  className={`w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/40 dark:hover:bg-blue-950/30 ${isEn ? "text-left" : "text-right"} transition-all flex items-start justify-between group`}
+                  className={`w-full p-2.5 rounded-xl border border-border dark:border-border hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/40 dark:hover:bg-blue-950/30 ${isEn ? "text-left" : "text-right"} transition-all flex items-start justify-between group`}
                 >
                   <div>
-                    <div className="text-xs font-semibold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400">
+                    <div className="text-xs font-semibold text-foreground group-hover:text-blue-700 dark:group-hover:text-blue-400">
                       {preset.name}
                     </div>
-                    <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                    <div className="text-[11px] text-muted-foreground mt-0.5">
                       {preset.desc}
                     </div>
-                    <code className="text-[10px] text-slate-600 dark:text-slate-300 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded mt-1 inline-block font-mono">
+                    <code className="text-[10px] text-foreground dark:text-muted-foreground bg-muted px-1.5 py-0.5 rounded mt-1 inline-block font-mono">
                       {preset.value}
                     </code>
                   </div>
@@ -136,7 +136,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
 
           {/* Dynamic Macro Chips */}
           <div>
-            <label className="block text-xs font-bold text-gray-800 dark:text-gray-200 mb-2">
+            <label className="block text-xs font-bold text-foreground dark:text-muted-foreground mb-2">
               {isEn
                 ? "Meta Dynamic Macros (Click to insert)"
                 : "رموز Meta الديناميكية (انقر للإدراج)"}
@@ -147,7 +147,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
                   key={item.macro}
                   type="button"
                   onClick={() => insertMacro(item.macro)}
-                  className="text-xs px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/60 hover:bg-white dark:hover:bg-slate-700 hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 text-gray-700 dark:text-gray-300 font-mono transition-all"
+                  className="text-xs px-2.5 py-1.5 rounded-lg border border-border dark:border-border bg-muted dark:bg-muted hover:bg-white dark:hover:bg-muted hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 text-foreground font-mono transition-all"
                   title={item.label}
                 >
                   + {item.macro}
@@ -158,7 +158,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
 
           {/* Value Input */}
           <div>
-            <label className="block text-xs font-bold text-gray-800 dark:text-gray-200 mb-1.5">
+            <label className="block text-xs font-bold text-foreground dark:text-muted-foreground mb-1.5">
               {isEn
                 ? "Current URL Parameters"
                 : "قيمة المعلمات الحالية (URL Parameters)"}
@@ -168,18 +168,18 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
               value={params}
               onChange={(e) => setParams(e.target.value)}
               placeholder="utm_source={{site_source_name}}&utm_campaign={{campaign.name}}"
-              className="w-full px-3.5 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-xl font-mono text-xs focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3.5 py-2.5 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-xl font-mono text-xs focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               dir="ltr"
             />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-3.5 bg-gray-50 dark:bg-slate-900/40 border-t border-gray-100 dark:border-gray-700">
+        <div className="flex items-center justify-between px-5 py-3.5 bg-muted dark:bg-muted border-t border-border dark:border-border">
           <button
             type="button"
             onClick={() => setParams("")}
-            className="text-xs text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 font-medium"
+            className="text-xs text-muted-foreground hover:text-destructive dark:hover:text-destructive font-medium"
           >
             {isEn ? "Clear" : "مسح"}
           </button>
@@ -187,7 +187,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200/70 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-lg transition-colors"
             >
               {isEn ? "Cancel" : "إلغاء"}
             </button>

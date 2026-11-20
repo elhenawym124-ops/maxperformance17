@@ -153,48 +153,48 @@ export default function RoomsTab() {
     const availableDevices = activeDevices.filter(deviceNotInRoom(r));
     const availableDoctors = activeDoctors.filter(doctorNotInRoom(r));
     return (
-      <div key={r.id} className="border-b dark:border-gray-700">
-        <div className="flex flex-wrap items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
-          <button onClick={() => setExpandedId(expanded ? null : r.id)} className="p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 rounded">
+      <div key={r.id} className="border-b dark:border-border">
+        <div className="flex flex-wrap items-center gap-3 px-4 py-3 hover:bg-muted/50 text-sm">
+          <button onClick={() => setExpandedId(expanded ? null : r.id)} className="p-1 text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded">
             {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
-          <DoorOpen className="w-4 h-4 text-indigo-500 shrink-0" />
+          <DoorOpen className="w-4 h-4 text-primary shrink-0" />
           <span className="font-medium flex-1 min-w-[140px]">{r.name}</span>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+          <span className="text-xs px-2 py-0.5 rounded-full bg-primary text-primary dark:bg-primary/40 dark:text-primary">
             {t("radiology.rooms.capacityPerHour", { count: r.capacityPerHour })}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+          <span className="flex items-center gap-1 text-xs text-muted-foreground whitespace-nowrap">
             <Monitor className="w-3.5 h-3.5" />
             {t("radiology.rooms.deviceCount", { count: (r.devices || []).length })}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+          <span className="flex items-center gap-1 text-xs text-muted-foreground whitespace-nowrap">
             <Stethoscope className="w-3.5 h-3.5" />
             {t("radiology.rooms.doctorCount", { count: (r.doctors || []).length })}
           </span>
           <span>
             {r.isActive ? (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">{t("radiology.rooms.active")}</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/40 dark:text-success">{t("radiology.rooms.active")}</span>
             ) : (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">{t("radiology.rooms.inactive")}</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">{t("radiology.rooms.inactive")}</span>
             )}
           </span>
           <div className="flex items-center gap-1.5">
             <button onClick={() => setModal({ id: r.id, name: r.name, capacityPerHour: String(r.capacityPerHour), deviceIds: (r.devices || []).map(d => d.id), doctorIds: (r.doctors || []).map(d => d.id), isActive: r.isActive })} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={String(t("radiology.edit"))}><Pencil className="w-4 h-4" /></button>
-            <button onClick={() => remove(r)} disabled={removingId !== null} className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded disabled:opacity-40" title={String(t("radiology.delete"))}><Trash2 className="w-4 h-4" /></button>
+            <button onClick={() => remove(r)} disabled={removingId !== null} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded disabled:opacity-40" title={String(t("radiology.delete"))}><Trash2 className="w-4 h-4" /></button>
           </div>
         </div>
         {expanded && (
           <div className="px-6 pb-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="bg-gray-50 dark:bg-gray-700/40 rounded-lg p-3">
+            <div className="bg-gray-50 dark:bg-muted rounded-lg p-3">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-300 flex items-center gap-1.5"><Monitor className="w-3.5 h-3.5" />{t("radiology.rooms.devicesLabel")}</h4>
+                <h4 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground flex items-center gap-1.5"><Monitor className="w-3.5 h-3.5" />{t("radiology.rooms.devicesLabel")}</h4>
               </div>
               <div className="flex flex-wrap gap-1.5 mb-2">
-                {(r.devices || []).length === 0 && <span className="text-xs text-gray-400 dark:text-gray-500">{t("radiology.rooms.noDevices")}</span>}
+                {(r.devices || []).length === 0 && <span className="text-xs text-muted-foreground/80">{t("radiology.rooms.noDevices")}</span>}
                 {(r.devices || []).map(d => (
-                  <span key={d.id} className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-600">
-                    {d.name}{d.modality ? <span className="text-[10px] text-gray-400" dir="ltr">({d.modality})</span> : null}
-                    <button onClick={() => toggleDevice(r, d, false)} disabled={busyDeviceRoom !== null} className="text-gray-400 hover:text-red-500 disabled:opacity-40" title={String(t("radiology.rooms.removeDevice"))}><XMarkIcon className="w-3 h-3" /></button>
+                  <span key={d.id} className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-card border dark:border-border">
+                    {d.name}{d.modality ? <span className="text-[10px] text-muted-foreground" dir="ltr">({d.modality})</span> : null}
+                    <button onClick={() => toggleDevice(r, d, false)} disabled={busyDeviceRoom !== null} className="text-gray-400 hover:text-destructive disabled:opacity-40" title={String(t("radiology.rooms.removeDevice"))}><XMarkIcon className="w-3 h-3" /></button>
                   </span>
                 ))}
               </div>
@@ -205,14 +205,14 @@ export default function RoomsTab() {
                 </select>
               </div>
             </div>
-            <div className="bg-gray-50 dark:bg-gray-700/40 rounded-lg p-3">
-              <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-300 flex items-center gap-1.5 mb-2"><Stethoscope className="w-3.5 h-3.5" />{t("radiology.rooms.doctorsLabel")}</h4>
+            <div className="bg-gray-50 dark:bg-muted rounded-lg p-3">
+              <h4 className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground flex items-center gap-1.5 mb-2"><Stethoscope className="w-3.5 h-3.5" />{t("radiology.rooms.doctorsLabel")}</h4>
               <div className="flex flex-wrap gap-1.5 mb-2">
-                {(r.doctors || []).length === 0 && <span className="text-xs text-gray-400 dark:text-gray-500">{t("radiology.rooms.noDoctors")}</span>}
+                {(r.doctors || []).length === 0 && <span className="text-xs text-muted-foreground/80">{t("radiology.rooms.noDoctors")}</span>}
                 {(r.doctors || []).map(d => (
-                  <span key={d.id} className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-600">
+                  <span key={d.id} className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-card border dark:border-border">
                     {d.name}
-                    <button onClick={() => toggleDoctor(r, d, false)} disabled={busyDoctorRoom !== null} className="text-gray-400 hover:text-red-500 disabled:opacity-40" title={String(t("radiology.rooms.removeDoctor"))}><XMarkIcon className="w-3 h-3" /></button>
+                    <button onClick={() => toggleDoctor(r, d, false)} disabled={busyDoctorRoom !== null} className="text-gray-400 hover:text-destructive disabled:opacity-40" title={String(t("radiology.rooms.removeDoctor"))}><XMarkIcon className="w-3 h-3" /></button>
                   </span>
                 ))}
               </div>
@@ -234,10 +234,10 @@ export default function RoomsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.rooms.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.rooms.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.rooms.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
           <button onClick={() => setModal({ name: "", capacityPerHour: "1", deviceIds: [], doctorIds: [], isActive: true })} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
@@ -247,32 +247,32 @@ export default function RoomsTab() {
       </div>
 
       {error && (
-        <div className="flex items-center justify-between bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+        <div className="flex items-center justify-between bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
           <span>{error}</span>
-          <button onClick={() => setError(null)} className="p-1 hover:bg-red-100 dark:hover:bg-red-900/50 rounded"><XMarkIcon className="w-4 h-4" /></button>
+          <button onClick={() => setError(null)} className="p-1 hover:bg-destructive dark:hover:bg-destructive/50 rounded"><XMarkIcon className="w-4 h-4" /></button>
         </div>
       )}
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[220px]">
-          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-gray-400" />
-          <input className={`${MODAL_INPUT_CLS} pr-9`} value={search} onChange={e => setSearch(e.target.value)} placeholder={String(t("radiology.rooms.searchPlaceholder"))} />
+          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground" />
+          <input className={`${MODAL_INPUT_CLS} pe-9`} value={search} onChange={e => setSearch(e.target.value)} placeholder={String(t("radiology.rooms.searchPlaceholder"))} />
         </div>
-        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-          <input type="checkbox" checked={showInactive} onChange={e => setShowInactive(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600" />
+        <label className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
+          <input type="checkbox" checked={showInactive} onChange={e => setShowInactive(e.target.checked)} className="rounded border-border" />
           {t("radiology.rooms.showInactive")}
         </label>
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.loadingEllipsis")}</div>
+        <div className="text-center py-16 text-muted-foreground/80">{t("radiology.loadingEllipsis")}</div>
       ) : filtered.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-12 text-center text-gray-400 dark:text-gray-500">
+        <div className="bg-card rounded-xl border dark:border-border p-12 text-center text-muted-foreground/80">
           <DoorOpen className="w-10 h-10 mx-auto mb-3" />
           {search ? t("radiology.rooms.noResults") : t("radiology.rooms.noRooms")}
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             {filtered.map(renderRow)}
           </div>
@@ -284,38 +284,38 @@ export default function RoomsTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{modal.id ? t("radiology.rooms.editRoom") : t("radiology.rooms.newRoomModal")}</h3>
-              <button onClick={() => !saving && setModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => !saving && setModal(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.rooms.name")} *</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.rooms.name")} *</label>
                 <input className={MODAL_INPUT_CLS} value={modal.name} onChange={e => setModal({ ...modal, name: e.target.value })} placeholder={String(t("radiology.rooms.namePlaceholder"))} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.rooms.capacityPerHourLabel")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.rooms.capacityPerHourLabel")}</label>
                 <input type="number" min={1} className={MODAL_INPUT_CLS} dir="ltr" value={modal.capacityPerHour} onChange={e => setModal({ ...modal, capacityPerHour: e.target.value })} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.rooms.devicesLabel")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.rooms.devicesLabel")}</label>
                 <select multiple className={`${MODAL_INPUT_CLS} min-h-[90px]`} value={modal.deviceIds} onChange={e => setModal({ ...modal, deviceIds: Array.from(e.target.selectedOptions, o => o.value) })}>
                   {activeDevices.map(d => <option key={d.id} value={d.id}>{d.name}{d.modality ? ` (${d.modality})` : ""}</option>)}
                 </select>
-                <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1">{t("radiology.rooms.multiSelectHint")}</p>
+                <p className="text-[11px] text-muted-foreground/80 mt-1">{t("radiology.rooms.multiSelectHint")}</p>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.rooms.doctorsLabel")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.rooms.doctorsLabel")}</label>
                 <select multiple className={`${MODAL_INPUT_CLS} min-h-[90px]`} value={modal.doctorIds} onChange={e => setModal({ ...modal, doctorIds: Array.from(e.target.selectedOptions, o => o.value) })}>
                   {activeDoctors.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
                 </select>
-                <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1">{t("radiology.rooms.multiSelectHint")}</p>
+                <p className="text-[11px] text-muted-foreground/80 mt-1">{t("radiology.rooms.multiSelectHint")}</p>
               </div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                <input type="checkbox" checked={modal.isActive} onChange={e => setModal({ ...modal, isActive: e.target.checked })} className="rounded border-gray-300 dark:border-gray-600" />
+              <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <input type="checkbox" checked={modal.isActive} onChange={e => setModal({ ...modal, isActive: e.target.checked })} className="rounded border-border" />
                 {t("radiology.rooms.enabled")}
               </label>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50">{t("radiology.cancel")}</button>
+              <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50">{t("radiology.cancel")}</button>
               <button onClick={save} disabled={saving || !modal.name.trim()} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>

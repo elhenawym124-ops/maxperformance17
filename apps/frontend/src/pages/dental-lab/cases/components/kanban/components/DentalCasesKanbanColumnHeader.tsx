@@ -14,7 +14,7 @@ export const DentalCasesKanbanColumnHeader: React.FC<DentalCasesKanbanColumnHead
   applyFilter,
 }) => {
   return (
-    <div className="p-3.5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-white dark:bg-gray-800 rounded-t-2xl">
+    <div className="p-3.5 border-b border-border dark:border-border flex items-center justify-between bg-card rounded-t-2xl">
       <div className="flex items-center gap-2">
         <span className={`w-2.5 h-2.5 rounded-full ${stage.dotColor}`} />
         <Link
@@ -23,13 +23,13 @@ export const DentalCasesKanbanColumnHeader: React.FC<DentalCasesKanbanColumnHead
             e.stopPropagation();
             applyFilter("status", stage.id, true);
           }}
-          className="font-bold text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 hover:underline cursor-pointer transition-colors"
+          className="font-bold text-sm text-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:underline cursor-pointer transition-colors"
           title={`عرض كل حالات مرحلة "${stage.label}" فقط`}
         >
           {stage.label}
         </Link>
       </div>
-      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-mono tabular-nums">
+      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-muted text-foreground font-mono tabular-nums">
         {count}
       </span>
     </div>

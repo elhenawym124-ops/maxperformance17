@@ -31,14 +31,14 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
   return (
     <div className="flex items-center gap-1.5 flex-wrap">
       {/* Table / Kanban Toggle */}
-      <div className="flex items-center bg-slate-100 dark:bg-gray-700/60 p-0.5 rounded-xl text-xs">
+      <div className="flex items-center bg-muted dark:bg-muted p-0.5 rounded-xl text-xs">
         <button
           type="button"
           onClick={() => onLayoutModeChange("TABLE")}
           className={`p-1.5 rounded-lg transition-all ${
             layoutMode === "TABLE"
-              ? "bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-2xs font-bold"
-              : "text-slate-500 hover:text-slate-800 dark:text-slate-400"
+              ? "bg-card text-blue-600 dark:text-blue-400 shadow-2xs font-bold"
+              : "text-slate-500 hover:text-foreground dark:text-muted-foreground"
           }`}
           title="عرض جدول الحالات"
           aria-label="عرض جدول الحالات"
@@ -50,8 +50,8 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
           onClick={() => onLayoutModeChange("KANBAN")}
           className={`p-1.5 rounded-lg transition-all ${
             layoutMode === "KANBAN"
-              ? "bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-2xs font-bold"
-              : "text-slate-500 hover:text-slate-800 dark:text-slate-400"
+              ? "bg-card text-blue-600 dark:text-blue-400 shadow-2xs font-bold"
+              : "text-slate-500 hover:text-foreground dark:text-muted-foreground"
           }`}
           title="عرض لوحة مراحل التشغيل (كانبان)"
           aria-label="عرض لوحة مراحل التشغيل"
@@ -64,7 +64,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
       <button
         type="button"
         onClick={onOpenKiosk}
-        className="flex items-center gap-1 px-2.5 py-1.5 border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-slate-50 dark:hover:bg-gray-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors"
+        className="flex items-center gap-1 px-2.5 py-1.5 border border-border dark:border-border bg-card hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors"
         title="فتح محطة المسح السريع بالباركود"
       >
         <ScanLine className="w-3.5 h-3.5 text-blue-500" />
@@ -75,7 +75,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
       <button
         type="button"
         onClick={onRefresh}
-        className="p-1.5 border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-slate-50 dark:hover:bg-gray-700 text-slate-600 dark:text-slate-300 rounded-xl transition-colors"
+        className="p-1.5 border border-border dark:border-border bg-card hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground rounded-xl transition-colors"
         title={String(t("dentalLab.common.refresh"))}
         aria-label="تحديث"
       >
@@ -86,7 +86,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
       <button
         type="button"
         onClick={onExportExcel}
-        className="p-1.5 border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-slate-50 dark:hover:bg-gray-700 text-emerald-600 rounded-xl transition-colors"
+        className="p-1.5 border border-border dark:border-border bg-card hover:bg-muted dark:hover:bg-muted text-success rounded-xl transition-colors"
         title="تصدير الحالات المعروضة إلى Excel"
         aria-label="تصدير Excel"
       >

@@ -53,7 +53,7 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
         </label>
         <div className="relative">
           <input
-            className={`${MODAL_INPUT_CLS} pl-8`}
+            className={`${MODAL_INPUT_CLS} ps-8`}
             value={examSearch}
             onChange={e => {
               onExamSearchChange(e.target.value);
@@ -63,14 +63,14 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
             onBlur={() => setExamOpen(false)}
             placeholder={t('radiology.schedule.searchExam')}
           />
-          <ChevronDown className="w-4 h-4 absolute left-3 top-2.5 text-gray-400 dark:text-gray-500 pointer-events-none" />
+          <ChevronDown className="w-4 h-4 absolute left-3 top-2.5 text-muted-foreground/80 pointer-events-none" />
           {examOpen ? (
             <div
-              className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg shadow-xl"
+              className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-card border dark:border-border rounded-lg shadow-xl"
               onMouseDown={e => e.preventDefault()}
             >
               {examFiltered.length === 0 ? (
-                <div className="px-3 py-2 text-sm text-gray-500">
+                <div className="px-3 py-2 text-sm text-muted-foreground">
                   {t('radiology.schedule.noExams')}
                 </div>
               ) : (
@@ -81,14 +81,14 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
                       key={et.id}
                       type="button"
                       onClick={() => onToggleExam(et.id)}
-                      className={`block w-full text-right px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-between gap-2 ${
+                      className={`block w-full text-right px-3 py-2 text-sm hover:bg-muted/50 flex items-center justify-between gap-2 ${
                         selected ? 'bg-blue-50 dark:bg-blue-900/30' : ''
                       }`}
                     >
                       <span className="min-w-0">
                         <span className="font-medium">{et.name}</span>
                         {et.category ? (
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-muted-foreground">
                             {' '}
                             ({et.category})
                           </span>
@@ -115,9 +115,9 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
               return (
                 <span
                   key={id}
-                  className={`flex items-center gap-1.5 text-xs border dark:border-gray-600 rounded-full px-2.5 py-1 ${
+                  className={`flex items-center gap-1.5 text-xs border dark:border-border rounded-full px-2.5 py-1 ${
                     cov && !cov.covered
-                      ? 'border-amber-500 text-amber-600 dark:text-amber-400'
+                      ? 'border-amber-500 text-warning dark:text-warning'
                       : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                   }`}
                 >
@@ -130,7 +130,7 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
                   <button
                     type="button"
                     onClick={() => onToggleExam(id)}
-                    className="text-gray-400 hover:text-red-500"
+                    className="text-gray-400 hover:text-destructive"
                     aria-label="Remove exam"
                   >
                     <XMarkIcon className="w-3 h-3" />
@@ -144,8 +144,8 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
 
       <div className="sm:col-span-2">
         <label className={labelCls}>{t('radiology.schedule.priceLabel')}</label>
-        <div className="rounded-lg border dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2.5 flex items-center justify-between">
-          <span className="text-sm text-gray-600 dark:text-gray-300 tabular-nums">
+        <div className="rounded-lg border dark:border-border bg-muted dark:bg-muted px-4 py-2.5 flex items-center justify-between">
+          <span className="text-sm text-muted-foreground tabular-nums">
             {(() => {
               const exams = modal.examTypeIds
                 .map(id => examTypes.find(t => t.id === id))

@@ -22,14 +22,14 @@ export default function DentalLabReportsTab() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-bold text-foreground">
             {t("dentalLab.reports.title")}
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             {t("dentalLab.reports.subtitle")}
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <CalendarRange className="w-4 h-4" />
           {t("dentalLab.reports.periodHint")}
         </div>

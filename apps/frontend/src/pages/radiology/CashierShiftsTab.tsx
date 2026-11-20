@@ -85,24 +85,24 @@ export default function CashierShiftsTab() {
 
   const summaryRow = (s: ShiftSummary) => (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-sm">
-      <div className="rounded-lg border dark:border-gray-700 px-3 py-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.cashierShifts.collectedFromPatients")}</p>
+      <div className="rounded-lg border dark:border-border px-3 py-2">
+        <p className="text-xs text-muted-foreground">{t("radiology.cashierShifts.collectedFromPatients")}</p>
         <b className="text-green-600">{fmtMoney(s.patientCollected, t("radiology.currency"))}</b>
       </div>
-      <div className="rounded-lg border dark:border-gray-700 px-3 py-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.cashierShifts.insuranceCollected")}</p>
+      <div className="rounded-lg border dark:border-border px-3 py-2">
+        <p className="text-xs text-muted-foreground">{t("radiology.cashierShifts.insuranceCollected")}</p>
         <b className="text-blue-600">{fmtMoney(s.insuranceCollected, t("radiology.currency"))}</b>
       </div>
-      <div className="rounded-lg border dark:border-gray-700 px-3 py-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.cashierShifts.refunded")}</p>
+      <div className="rounded-lg border dark:border-border px-3 py-2">
+        <p className="text-xs text-muted-foreground">{t("radiology.cashierShifts.refunded")}</p>
         <b className="text-red-600">{fmtMoney(s.refunded, t("radiology.currency"))}</b>
       </div>
-      <div className="rounded-lg border dark:border-gray-700 px-3 py-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.cashierShifts.netLabel")}</p>
+      <div className="rounded-lg border dark:border-border px-3 py-2">
+        <p className="text-xs text-muted-foreground">{t("radiology.cashierShifts.netLabel")}</p>
         <b className="text-blue-600">{fmtMoney(s.net, t("radiology.currency"))}</b>
       </div>
-      <div className="rounded-lg border dark:border-gray-700 px-3 py-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.cashierShifts.patientCash")}</p>
+      <div className="rounded-lg border dark:border-border px-3 py-2">
+        <p className="text-xs text-muted-foreground">{t("radiology.cashierShifts.patientCash")}</p>
         <b>{fmtMoney(s.byMethod?.["CASH"], t("radiology.currency"))}</b>
       </div>
     </div>
@@ -113,34 +113,34 @@ export default function CashierShiftsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.cashierShifts.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.cashierShifts.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.cashierShifts.subtitle")}</p>
         </div>
-        <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+        <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
           <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
         </button>
       </div>
 
       {loading && !active ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : active ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
-              <h3 className="font-bold flex items-center gap-2"><Banknote className="w-5 h-5 text-green-600" />{t("radiology.cashierShifts.openShift")}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t("radiology.cashierShifts.cashier")} <b>{active.cashierName}</b> — {t("radiology.cashierShifts.openedAt")} {fmtDate(active.openedAt)}</p>
+              <h3 className="font-bold flex items-center gap-2"><Banknote className="w-5 h-5 text-success" />{t("radiology.cashierShifts.openShift")}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{t("radiology.cashierShifts.cashier")} <b>{active.cashierName}</b> — {t("radiology.cashierShifts.openedAt")} {fmtDate(active.openedAt)}</p>
             </div>
-            <button onClick={close} disabled={busy} className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 text-sm">
+            <button onClick={close} disabled={busy} className="flex items-center gap-2 px-4 py-2 bg-destructive text-white rounded-lg hover:bg-destructive disabled:opacity-50 text-sm">
               {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <StopCircle className="w-4 h-4" />}{t("radiology.cashierShifts.closeShift")}
             </button>
           </div>
           {active.summary ? summaryRow(active.summary) : null}
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
           <h3 className="font-bold mb-3">{t("radiology.cashierShifts.noOpenShift")}</h3>
           <div className="flex gap-3">
             <input className={MODAL_INPUT_CLS} placeholder={t("radiology.cashierShifts.cashierNamePlaceholder")} value={cashierName} onChange={e => setCashierName(e.target.value)} />
-            <button onClick={open} disabled={busy} className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm">
+            <button onClick={open} disabled={busy} className="flex items-center gap-2 px-4 py-2 bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 text-sm">
               {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}{t("radiology.cashierShifts.openNewShift")}
             </button>
           </div>
@@ -148,12 +148,12 @@ export default function CashierShiftsTab() {
       )}
 
       {history.length > 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
           <h3 className="font-semibold px-5 pt-4">{t("radiology.cashierShifts.shiftsHistory")}</h3>
           <div className="overflow-x-auto mt-2">
             <table className="w-full min-w-[700px] text-sm">
               <thead>
-                <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300">
+                <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground">
                   {[t("radiology.cashierShifts.cashierCol"), t("radiology.cashierShifts.status"), t("radiology.cashierShifts.openTime"), t("radiology.cashierShifts.closeTime"), t("radiology.cashierShifts.fromPatients"), t("radiology.cashierShifts.fromInsurance"), t("radiology.cashierShifts.refund"), t("radiology.cashierShifts.net")].map(h => (
                     <th key={h} className="text-right py-3 px-4 whitespace-nowrap">{h}</th>
                   ))}
@@ -161,18 +161,18 @@ export default function CashierShiftsTab() {
               </thead>
               <tbody>
                 {history.map(s => (
-                  <tr key={s.id} className="border-b dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <tr key={s.id} className="border-b dark:border-border hover:bg-muted/50">
                     <td className="py-3 px-4 font-medium">{s.cashierName}</td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${s.status === "OPEN" ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs ${s.status === "OPEN" ? "bg-green-100 text-success dark:bg-success/40 dark:text-success" : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"}`}>
                         {s.status === "OPEN" ? t("radiology.cashierShifts.open") : t("radiology.cashierShifts.closed")}
                       </span>
                     </td>
                     <td className="py-3 px-4 whitespace-nowrap">{fmtDate(s.openedAt)}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{s.closedAt ? fmtDate(s.closedAt) : "—"}</td>
-                    <td className="py-3 px-4 text-green-600 font-medium">{fmtMoney(s.summary?.patientCollected, t("radiology.currency"))}</td>
+                    <td className="py-3 px-4 text-success font-medium">{fmtMoney(s.summary?.patientCollected, t("radiology.currency"))}</td>
                     <td className="py-3 px-4 text-blue-600 font-medium">{fmtMoney(s.summary?.insuranceCollected, t("radiology.currency"))}</td>
-                    <td className="py-3 px-4 text-red-600">{fmtMoney(s.summary?.refunded, t("radiology.currency"))}</td>
+                    <td className="py-3 px-4 text-destructive">{fmtMoney(s.summary?.refunded, t("radiology.currency"))}</td>
                     <td className="py-3 px-4 font-bold">{fmtMoney(s.summary?.net, t("radiology.currency"))}</td>
                   </tr>
                 ))}

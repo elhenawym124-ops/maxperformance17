@@ -46,14 +46,14 @@ export default function DentalTechniciansTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">فريق العمل والمحطات</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             إدارة تخصصات ومحطات فريق المعمل، أجور المراحل، وسندات صرف المستحقات والسلف
           </p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => load()}
-            className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
             {t("dentalLab.common.refresh")}
@@ -70,11 +70,11 @@ export default function DentalTechniciansTab() {
 
       {/* Error Banner */}
       {error && (
-        <div className="flex items-center justify-between bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+        <div className="flex items-center justify-between bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
           <span>{error}</span>
           <button
             onClick={() => setError(null)}
-            className="p-1 hover:bg-red-100 dark:hover:bg-red-900/50 rounded transition-colors"
+            className="p-1 hover:bg-destructive dark:hover:bg-destructive/50 rounded transition-colors"
           >
             <XMarkIcon className="w-4 h-4" />
           </button>
@@ -90,17 +90,17 @@ export default function DentalTechniciansTab() {
       />
 
       {/* Technicians Table Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-        <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b dark:border-gray-700">
+      <div className="bg-card rounded-xl border dark:border-border">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b dark:border-border">
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+            <Users className="w-5 h-5 text-muted-foreground" />
             <h3 className="font-semibold">أعضاء فريق العمل والتخصصات</h3>
-            <Wallet className="w-4 h-4 text-gray-400" />
+            <Wallet className="w-4 h-4 text-muted-foreground" />
           </div>
           <div className="relative">
-            <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-gray-400" />
+            <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground" />
             <input
-              className={`${inputCls} pr-9 w-64`}
+              className={`${inputCls} pe-9 w-64`}
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="بحث بالاسم أو الهاتف..."

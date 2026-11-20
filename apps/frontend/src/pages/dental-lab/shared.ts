@@ -680,14 +680,14 @@ export interface CasesListResult {
 }
 
 export const CASE_STATUSES: { id: DentalCaseStatus; label: string; color: string; barColor: string; dotColor: string }[] = [
-  { id: "RECEIVED", label: "وصل", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300", barColor: "#9ca3af", dotColor: "bg-gray-400" },
+  { id: "RECEIVED", label: "وصل", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground", barColor: "#9ca3af", dotColor: "bg-gray-400" },
   { id: "DESIGN", label: "تصميم", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300", barColor: "#3b82f6", dotColor: "bg-blue-500" },
-  { id: "MANUFACTURING", label: "تصنيع", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300", barColor: "#6366f1", dotColor: "bg-indigo-500" },
-  { id: "OUTSOURCED", label: "بره المعمل", color: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300", barColor: "#f59e0b", dotColor: "bg-amber-500" },
-  { id: "QC", label: "فحص جودة", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300", barColor: "#eab308", dotColor: "bg-yellow-500" },
-  { id: "READY", label: "جاهز للتسليم", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300", barColor: "#22c55e", dotColor: "bg-green-500" },
-  { id: "DELIVERED", label: "اتسلم", color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300", barColor: "#14b8a6", dotColor: "bg-teal-500" },
-  { id: "CLOSED", label: "مقفول", color: "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300", barColor: "#6b7280", dotColor: "bg-gray-500" },
+  { id: "MANUFACTURING", label: "تصنيع", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary", barColor: "#6366f1", dotColor: "bg-indigo-500" },
+  { id: "OUTSOURCED", label: "بره المعمل", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning", barColor: "#f59e0b", dotColor: "bg-amber-500" },
+  { id: "QC", label: "فحص جودة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning", barColor: "#eab308", dotColor: "bg-yellow-500" },
+  { id: "READY", label: "جاهز للتسليم", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success", barColor: "#22c55e", dotColor: "bg-green-500" },
+  { id: "DELIVERED", label: "اتسلم", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success", barColor: "#14b8a6", dotColor: "bg-teal-500" },
+  { id: "CLOSED", label: "مقفول", color: "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground", barColor: "#6b7280", dotColor: "bg-gray-500" },
 ];
 
 export const CASE_STATUS_MAP: Record<string, { label: string; color: string }> = CASE_STATUSES.reduce(
@@ -730,41 +730,41 @@ export const nextStatusOf = (status: string): DentalCaseStatus | null => {
 };
 
 export const PRIORITY_CONFIG: Record<DentalCasePriority, { label: string; color: string }> = {
-  NORMAL: { label: "عادي", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
-  URGENT: { label: "مستعجل", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-  STAT: { label: "استعجالي جداً", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
+  NORMAL: { label: "عادي", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  URGENT: { label: "مستعجل", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  STAT: { label: "استعجالي جداً", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
 };
 
 export const ROLE_CONFIG: Record<string, { label: string; color: string }> = {
   CAD_DESIGNER: { label: "مصمم CAD/CAM", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
-  CERAMIST: { label: "فني خزف وبورسلين", color: "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300" },
-  MODEL_WAX: { label: "فني شمع وموديلات", color: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300" },
-  METAL_CASTING: { label: "فني ميتال وكاستينج", color: "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300" },
-  FINISHING_POLISHING: { label: "فني فينشنج وتلميع", color: "bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-300" },
-  QC_INSPECTOR: { label: "مراقب جودة", color: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300" },
-  RECEPTION_LOGISTICS: { label: "استقبال ولوجستيات", color: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300" },
-  SUPERVISOR: { label: "مشرف المعمل", color: "bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300" },
-  GENERAL_TECHNICIAN: { label: "فني أسنان عام", color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
+  CERAMIST: { label: "فني خزف وبورسلين", color: "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  MODEL_WAX: { label: "فني شمع وموديلات", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  METAL_CASTING: { label: "فني ميتال وكاستينج", color: "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  FINISHING_POLISHING: { label: "فني فينشنج وتلميع", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
+  QC_INSPECTOR: { label: "مراقب جودة", color: "bg-emerald-100 text-success dark:bg-success/40 dark:text-success" },
+  RECEPTION_LOGISTICS: { label: "استقبال ولوجستيات", color: "bg-sky-100 text-info dark:bg-info/40 dark:text-info" },
+  SUPERVISOR: { label: "مشرف المعمل", color: "bg-rose-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  GENERAL_TECHNICIAN: { label: "فني أسنان عام", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   // Backward compatibility
-  RECEPTION: { label: "استقبال ولوجستيات", color: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300" },
+  RECEPTION: { label: "استقبال ولوجستيات", color: "bg-sky-100 text-info dark:bg-info/40 dark:text-info" },
   CAD: { label: "مصمم CAD/CAM", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
-  TECHNICIAN: { label: "فني أسنان عام", color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  QC: { label: "مراقب جودة QC", color: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300" },
+  TECHNICIAN: { label: "فني أسنان عام", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  QC: { label: "مراقب جودة QC", color: "bg-emerald-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const PAYMENT_STATUS_MAP: Record<DentalPaymentStatus, { label: string; color: string }> = {
-  UNPAID: { label: "مش مدفوعة", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  PARTIAL: { label: "مدفوعة جزئياً", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-  PAID: { label: "مدفوعة", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
+  UNPAID: { label: "مش مدفوعة", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  PARTIAL: { label: "مدفوعة جزئياً", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  PAID: { label: "مدفوعة", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const INVOICE_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  OPEN: { label: "غير مسددة", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  UNPAID: { label: "غير مسددة", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  PARTIAL: { label: "مسددة جزئياً", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-  PAID: { label: "مسددة", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  VOID: { label: "ملغاة", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
-  CANCELLED: { label: "ملغاة", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  OPEN: { label: "غير مسددة", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  UNPAID: { label: "غير مسددة", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  PARTIAL: { label: "مسددة جزئياً", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  PAID: { label: "مسددة", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  VOID: { label: "ملغاة", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  CANCELLED: { label: "ملغاة", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };
 
 export const VITA_SHADES = [
@@ -791,10 +791,10 @@ export const CASE_INTENTS = [
 ];
 
 export const STAGE_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  PENDING: { label: "مستنى", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  PENDING: { label: "مستنى", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   IN_PROGRESS: { label: "بيشتغل", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  COMPLETED: { label: "خلصت", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  SKIPPED: { label: "تخطيت", color: "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300" },
+  COMPLETED: { label: "خلصت", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  SKIPPED: { label: "تخطيت", color: "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };
 
 export const WORK_TYPE_CATEGORIES = ["CROWN", "BRIDGE", "REMOVABLE", "ORTHODONTICS", "IMPLANT", "VENEERS", "OTHER"];
@@ -1381,8 +1381,8 @@ export const fmtDateTime = (iso?: string): string => (iso ? new Date(iso).toLoca
 /** i18next strict typing only accepts literal keys; this helper allows dynamic keys (e.g. from TABS arrays). */
 export const tKey = (t: (key: never) => unknown, key: string): string => String(t(key as never));
 
-export const MODAL_CONTENT_CLS = "bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
-export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100";
+export const MODAL_CONTENT_CLS = "bg-white dark:bg-muted rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
+export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground";
 
 // ==================== Dental Materials & Suppliers API ====================
 

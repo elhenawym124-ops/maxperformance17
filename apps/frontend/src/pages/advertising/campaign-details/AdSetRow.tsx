@@ -101,11 +101,11 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
   const targetingParts = formatTargetingSummary(adSet);
 
   return (
-    <div className="px-4 py-3 hover:bg-slate-50/70 transition-colors">
+    <div className="px-4 py-3 hover:bg-muted transition-colors">
       <div className="flex flex-col gap-2 xl:flex-row xl:items-center xl:justify-between">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="truncate text-sm font-black text-slate-950">
+            <h3 className="truncate text-sm font-black text-foreground">
               {adSet.name}
             </h3>
             <span
@@ -116,20 +116,20 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
               {getStatusLabel(adSet.effectiveStatus || adSet.status, isEn)}
             </span>
             {adSet.facebookAdSetId && (
-              <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-mono text-slate-500">
+              <span className="rounded bg-muted px-2 py-0.5 text-[11px] font-mono text-muted-foreground">
                 ID: {adSet.facebookAdSetId}
               </span>
             )}
           </div>
 
-          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
+          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs font-semibold text-muted-foreground">
             {editingBudgetAdSetId === adSet.id ? (
-              <div className="inline-flex items-center gap-1.5 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded-lg">
+              <div className="inline-flex items-center gap-1.5 bg-primary/10 border border-primary px-2 py-1 rounded-lg">
                 <input
                   type="number"
                   value={editBudgetValue}
                   onChange={(e) => setEditBudgetValue(e.target.value)}
-                  className="w-20 rounded border border-indigo-300 bg-white px-1.5 py-0.5 text-xs font-bold text-slate-900"
+                  className="w-20 rounded border border-primary bg-white px-1.5 py-0.5 text-xs font-bold text-foreground"
                   placeholder="الميزانية"
                   autoFocus
                 />
@@ -137,7 +137,7 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
                   type="button"
                   onClick={() => onSaveBudget(adSet)}
                   disabled={savingBudgetId === adSet.id}
-                  className="p-1 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                  className="p-1 rounded bg-primary text-white hover:bg-primary transition-colors"
                   title={isEn ? "Save" : "حفظ"}
                 >
                   <CheckIcon className="h-3.5 w-3.5" />
@@ -145,7 +145,7 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
                 <button
                   type="button"
                   onClick={onCancelEditBudget}
-                  className="p-1 rounded text-slate-500 hover:text-slate-800 transition-colors"
+                  className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
                   title={isEn ? "Cancel" : "إلغاء"}
                 >
                   <XMarkIcon className="h-3.5 w-3.5" />
@@ -154,7 +154,7 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
             ) : (
               <span
                 onClick={() => onStartEditBudget(adSet)}
-                className="inline-flex items-center gap-1 cursor-pointer hover:text-indigo-600 hover:underline bg-slate-50 px-2 py-0.5 rounded border border-slate-100"
+                className="inline-flex items-center gap-1 cursor-pointer hover:text-primary hover:underline bg-muted px-2 py-0.5 rounded border border-border"
                 title={
                   isEn
                     ? "Click to edit budget quickly"
@@ -169,23 +169,23 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
                       : " / يوم"
                     : ""}
                 </span>
-                <PencilSquareIcon className="h-3 w-3 text-slate-400 hover:text-indigo-600" />
+                <PencilSquareIcon className="h-3 w-3 text-muted-foreground hover:text-primary" />
               </span>
             )}
             <span className="tabular-nums">
               {ads.length} {isEn ? "ads" : "إعلان"}
             </span>
             {adSet.optimizationGoal && (
-              <span className="rounded bg-slate-50 px-2 py-0.5 text-slate-600">
+              <span className="rounded bg-muted px-2 py-0.5 text-foreground">
                 {adSet.optimizationGoal}
               </span>
             )}
             {targetingParts.map((part, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1 rounded bg-slate-100 px-2 py-0.5 text-slate-700"
+                className="inline-flex items-center gap-1 rounded bg-muted px-2 py-0.5 text-foreground"
               >
-                {idx === 0 && <MapPinIcon className="h-3 w-3 text-slate-400" />}
+                {idx === 0 && <MapPinIcon className="h-3 w-3 text-muted-foreground" />}
                 <span>{part}</span>
               </span>
             ))}
@@ -196,14 +196,14 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
           <button
             onClick={() => onDuplicateAdSet(adSet)}
             disabled={duplicatingAdSetId === adSet.id}
-            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition disabled:opacity-50"
+            className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-2.5 py-1.5 text-xs font-bold text-foreground hover:bg-muted hover:border-border transition disabled:opacity-50"
             title={
               isEn
                 ? "Duplicate Ad Set (1-Click)"
                 : "تكرار المجموعة الإعلانية بنقرة واحدة"
             }
           >
-            <DocumentDuplicateIcon className="h-3.5 w-3.5 text-slate-500" />
+            <DocumentDuplicateIcon className="h-3.5 w-3.5 text-muted-foreground" />
             <span>
               {duplicatingAdSetId === adSet.id
                 ? isEn
@@ -220,8 +220,8 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
             disabled={togglingAdSetId === adSet.id}
             className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-xs font-bold transition disabled:opacity-50 ${
               isAdSetActive
-                ? "border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100"
-                : "border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
+                ? "border-amber-200 bg-warning/10 text-warning hover:bg-warning"
+                : "border-emerald-200 bg-success/10 text-success hover:bg-success"
             }`}
             title={
               isEn
@@ -255,7 +255,7 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
           </button>
           <button
             onClick={() => onCreateNewAd(adSet.id)}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-white hover:bg-primary transition-colors"
             title={isEn ? "Create New Ad" : "إنشاء إعلان جديد"}
           >
             <PlusIcon className="h-4 w-4" />
@@ -263,7 +263,7 @@ export const AdSetRow: React.FC<AdSetRowProps> = ({
           </button>
           <button
             onClick={() => onCreateDynamicAd(adSet.id)}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary transition-colors"
             title={isEn ? "Create Dynamic Ad" : "إنشاء Dynamic Ad"}
           >
             <ShoppingBagIcon className="h-4 w-4" />

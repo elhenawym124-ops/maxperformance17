@@ -25,7 +25,7 @@ export const TechnicianProductivityFilters: React.FC<TechnicianProductivityFilte
     <div className="flex flex-wrap items-end justify-between gap-3">
       <div className="flex flex-wrap items-end gap-3">
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.from")}
           </label>
           <DateInput
@@ -34,7 +34,7 @@ export const TechnicianProductivityFilters: React.FC<TechnicianProductivityFilte
           />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.to")}
           </label>
           <DateInput
@@ -44,7 +44,7 @@ export const TechnicianProductivityFilters: React.FC<TechnicianProductivityFilte
         </div>
         <button
           onClick={onRefresh}
-          className="flex items-center gap-1.5 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="flex items-center gap-1.5 px-3 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
         >
           <RefreshCw className="w-4 h-4" />
           {t("dentalLab.common.refresh")}

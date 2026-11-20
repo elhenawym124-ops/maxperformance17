@@ -16,11 +16,11 @@ export function TechnicianModalFooter({
   const { t } = useTranslation();
 
   return (
-    <div className="flex justify-end gap-3 mt-6 border-t pt-3 dark:border-gray-700">
+    <div className="flex justify-end gap-3 mt-6 border-t pt-3 dark:border-border">
       <button
         onClick={onClose}
         disabled={saving}
-        className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 text-sm"
+        className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50 text-sm"
       >
         {t("dentalLab.common.cancel")}
       </button>

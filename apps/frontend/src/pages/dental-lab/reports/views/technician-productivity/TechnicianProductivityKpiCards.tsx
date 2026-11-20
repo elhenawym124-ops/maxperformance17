@@ -16,33 +16,33 @@ export const TechnicianProductivityKpiCards: React.FC<TechnicianProductivityKpiC
 }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+      <div className="rounded-xl border border-border dark:border-border bg-card p-4">
+        <p className="text-xs text-muted-foreground font-medium">
           إجمالي المراحل المكتملة
         </p>
         <p className="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400 tabular-nums font-mono">
-          {totalStages} <span className="text-xs font-normal text-gray-400">مرحلة</span>
+          {totalStages} <span className="text-xs font-normal text-muted-foreground">مرحلة</span>
         </p>
       </div>
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+      <div className="rounded-xl border border-border dark:border-border bg-card p-4">
+        <p className="text-xs text-muted-foreground font-medium">
           إجمالي الوحدات المنجزة
         </p>
-        <p className="text-2xl font-bold mt-1 text-purple-600 dark:text-purple-400 tabular-nums font-mono">
-          {totalUnits} <span className="text-xs font-normal text-gray-400">وحدة</span>
+        <p className="text-2xl font-bold mt-1 text-primary dark:text-primary tabular-nums font-mono">
+          {totalUnits} <span className="text-xs font-normal text-muted-foreground">وحدة</span>
         </p>
       </div>
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+      <div className="rounded-xl border border-border dark:border-border bg-card p-4">
+        <p className="text-xs text-muted-foreground font-medium">
           إجمالي مستحقات وأجور الفريق
         </p>
-        <p className="text-2xl font-bold mt-1 text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+        <p className="text-2xl font-bold mt-1 text-success dark:text-success tabular-nums font-mono">
           {fmtMoney(totalWages)}{" "}
-          <span className="text-xs font-normal text-gray-400">ج.م</span>
+          <span className="text-xs font-normal text-muted-foreground">ج.م</span>
         </p>
       </div>
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
-        <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+      <div className="rounded-xl border border-border dark:border-border bg-card p-4">
+        <p className="text-xs text-muted-foreground font-medium">
           إجمالي الإعادات المرتبطة
         </p>
         <p
@@ -50,7 +50,7 @@ export const TechnicianProductivityKpiCards: React.FC<TechnicianProductivityKpiC
             totalRemakes > 0 ? "text-amber-600" : "text-gray-600"
           }`}
         >
-          {totalRemakes} <span className="text-xs font-normal text-gray-400">حالة</span>
+          {totalRemakes} <span className="text-xs font-normal text-muted-foreground">حالة</span>
         </p>
       </div>
     </div>

@@ -17,7 +17,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
       <div>
         <label
           htmlFor="custom-audience-pixel-id"
-          className="block text-sm font-medium text-gray-700 mb-1.5"
+          className="block text-sm font-medium text-foreground mb-1.5"
         >
           Facebook Pixel *
         </label>
@@ -26,7 +26,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
             id="custom-audience-pixel-id"
             value={formData.pixelId}
             onChange={(e) => onInputChange("pixelId", e.target.value)}
-            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+            className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
           >
             {pixels.map((pix) => (
               <option key={pix.id} value={pix.id}>
@@ -40,7 +40,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
             type="text"
             value={formData.pixelId}
             onChange={(e) => onInputChange("pixelId", e.target.value)}
-            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+            className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
             placeholder="أدخل معرف البيكسل (Pixel ID)"
           />
         )}
@@ -50,7 +50,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
         <div>
           <label
             htmlFor="custom-audience-event-type"
-            className="block text-sm font-medium text-gray-700 mb-1.5"
+            className="block text-sm font-medium text-foreground mb-1.5"
           >
             نوع الحدث (Event) *
           </label>
@@ -58,7 +58,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
             id="custom-audience-event-type"
             value={formData.eventType}
             onChange={(e) => onInputChange("eventType", e.target.value)}
-            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+            className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
           >
             <option value="ALL_VISITORS">جميع زوار المتجر (PageView)</option>
             <option value="PURCHASE">المشترون الفعليون (Purchase)</option>
@@ -75,7 +75,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
         <div>
           <label
             htmlFor="custom-audience-retention-days"
-            className="block text-sm font-medium text-gray-700 mb-1.5"
+            className="block text-sm font-medium text-foreground mb-1.5"
           >
             فترة الاسترجاع (من 1 إلى 180 يوماً)
           </label>
@@ -86,7 +86,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
             max={180}
             value={formData.retentionDays || 30}
             onChange={(e) => onInputChange("retentionDays", parseInt(e.target.value) || 30)}
-            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm tabular-nums"
+            className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm tabular-nums"
           />
         </div>
       </div>
@@ -94,7 +94,7 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
       <div>
         <label
           htmlFor="custom-audience-url-contains"
-          className="block text-sm font-medium text-gray-700 mb-1.5"
+          className="block text-sm font-medium text-foreground mb-1.5"
         >
           فلترة بمسار رابط معين (اختياري)
         </label>
@@ -104,9 +104,9 @@ export const Step2WebsiteCriteria: React.FC<Step2WebsiteCriteriaProps> = ({
           value={formData.urlContains || ""}
           onChange={(e) => onInputChange("urlContains", e.target.value)}
           placeholder="مثال: /checkout أو /shoes أو /sale"
-          className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+          className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
         />
-        <p className="mt-1 text-xs text-gray-500">
+        <p className="mt-1 text-xs text-muted-foreground">
           اتركه فارغاً لاستهداف كافة صفحات المتجر، أو اكتب كلمة لتخصيص الزوار لصفحات معينة فقط.
         </p>
       </div>

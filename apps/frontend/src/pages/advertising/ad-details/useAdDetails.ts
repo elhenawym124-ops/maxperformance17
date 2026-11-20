@@ -204,8 +204,8 @@ export function useAdDetails() {
 
   const performanceSourceClass =
     details?.meta?.performanceSource === "META"
-      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-      : "border-slate-200 bg-slate-50 text-slate-700";
+      ? "border-emerald-200 bg-success/10 text-success"
+      : "border-slate-200 bg-muted text-foreground";
 
   const bestSibling = useMemo(() => {
     const siblings = details?.siblingAds || [];

@@ -18,7 +18,7 @@ export const TechnicianProductivityTable: React.FC<TechnicianProductivityTablePr
     <div className={tableWrap}>
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-300">
+          <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground">
             <th className={thCls}>عضو الفريق</th>
             <th className={thCls}>التخصص / المحطة</th>
             <th className={thCls}>الحالات المسندة</th>
@@ -36,10 +36,10 @@ export const TechnicianProductivityTable: React.FC<TechnicianProductivityTablePr
             return (
               <tr
                 key={r.technicianId ?? r.name ?? "—"}
-                className="border-b dark:border-gray-700 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                className="border-b dark:border-border last:border-b-0 hover:bg-muted dark:hover:bg-muted"
               >
                 <td
-                  className={`${tdCls} font-semibold text-gray-900 dark:text-gray-100`}
+                  className={`${tdCls} font-semibold text-foreground`}
                 >
                   {r.name || "—"}
                 </td>
@@ -47,7 +47,7 @@ export const TechnicianProductivityTable: React.FC<TechnicianProductivityTablePr
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                       roleMeta?.color ||
-                      "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                      "bg-muted text-foreground"
                     }`}
                   >
                     {roleMeta?.label || r.role || "فني"}
@@ -62,13 +62,13 @@ export const TechnicianProductivityTable: React.FC<TechnicianProductivityTablePr
                   {r.completedStages ?? 0}
                 </td>
                 <td
-                  className={`${tdCls} font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums`}
+                  className={`${tdCls} font-bold text-primary dark:text-primary font-mono tabular-nums`}
                 >
                   {r.completedUnits ?? 0}
                 </td>
                 <td className={tdCls}>
                   {r.avgHoursPerStage ? (
-                    <span className="text-xs text-gray-600 dark:text-gray-300 font-mono tabular-nums">
+                    <span className="text-xs text-muted-foreground font-mono tabular-nums">
                       {r.avgHoursPerStage} ساعة (~{r.avgDaysPerStage} يوم)
                     </span>
                   ) : (
@@ -79,17 +79,17 @@ export const TechnicianProductivityTable: React.FC<TechnicianProductivityTablePr
                   {r.wagePerStage ? `${fmtMoney(r.wagePerStage)} ج.م` : "—"}
                 </td>
                 <td
-                  className={`${tdCls} font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums`}
+                  className={`${tdCls} font-bold text-success dark:text-success font-mono tabular-nums`}
                 >
                   {fmtMoney(r.earnedWages ?? 0)} ج.م
                 </td>
                 <td className={tdCls}>
                   {(r.remakesCount ?? 0) > 0 ? (
-                    <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 font-mono tabular-nums">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-warning text-warning dark:bg-warning/40 dark:text-warning font-mono tabular-nums">
                       {r.remakesCount} إعادات
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                    <span className="inline-flex items-center gap-1 text-xs text-success dark:text-success font-medium">
                       <Check className="w-3.5 h-3.5" />
                       ممتاز (0)
                     </span>

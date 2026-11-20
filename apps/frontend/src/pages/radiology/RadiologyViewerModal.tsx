@@ -35,19 +35,19 @@ export default function RadiologyViewerModal({ studyId, onClose }: { studyId: st
       <div className={`${MODAL_CONTENT_CLS} !max-w-5xl max-h-[90vh] overflow-y-auto`} onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold">{t("radiology.viewer.title")}</h3>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><X className="w-5 h-5" /></button>
+          <button onClick={onClose} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><X className="w-5 h-5" /></button>
         </div>
         {loading ? (
-          <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 animate-spin text-gray-400" /></div>
+          <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 animate-spin text-muted-foreground" /></div>
         ) : error ? (
-          <div className="text-center py-16 text-red-500">{error}</div>
+          <div className="text-center py-16 text-destructive">{error}</div>
         ) : images.length === 0 ? (
-          <div className="text-center py-16 text-gray-400 dark:text-gray-500">
+          <div className="text-center py-16 text-muted-foreground/80">
             <ImageIcon className="w-10 h-10 mx-auto mb-3" />
             {t("radiology.viewer.noImages")}
           </div>
         ) : (
-          <React.Suspense fallback={<div className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.viewer.loadingViewer")}</div>}>
+          <React.Suspense fallback={<div className="text-center py-16 text-muted-foreground/80">{t("radiology.viewer.loadingViewer")}</div>}>
             <Viewer studyId={studyId} images={images} />
           </React.Suspense>
         )}

@@ -59,37 +59,37 @@ export function BulkPaymentModal({
       >
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-lg font-bold flex items-center gap-2">
-            <Banknote className="w-5 h-5 text-green-600" />
+            <Banknote className="w-5 h-5 text-success" />
             تحصيل دفعة على الحساب
           </h3>
           <button
             onClick={onClose}
             disabled={saving}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors"
+            className="p-1 hover:bg-muted rounded-lg text-muted-foreground transition-colors"
             aria-label="إغلاق"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          الطبيب: <span className="font-semibold text-gray-900 dark:text-gray-100">{doctor.name}</span>
+        <p className="text-sm text-foreground dark:text-muted-foreground mb-4">
+          الطبيب: <span className="font-semibold text-foreground">{doctor.name}</span>
           <br />
           المديونية الحالية:{" "}
-          <span className="font-bold text-red-600 font-mono tabular-nums">
+          <span className="font-bold text-destructive font-mono tabular-nums">
             {fmtMoney(doctor.outstanding ?? 0)} ج.م
           </span>
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-3">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-3">
             {error}
           </div>
         )}
 
         <div className="space-y-3">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               المبلغ المحصل (ج.م) *
             </label>
             <input
@@ -104,7 +104,7 @@ export function BulkPaymentModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               طريقة الدفع
             </label>
             <select
@@ -121,7 +121,7 @@ export function BulkPaymentModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               ملاحظات / رقم الإيصال
             </label>
             <input
@@ -133,18 +133,18 @@ export function BulkPaymentModal({
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-border">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 text-sm border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             {t("dentalLab.common.cancel")}
           </button>
           <button
             onClick={save}
             disabled={saving}
-            className="px-5 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 font-medium transition-colors"
+            className="px-5 py-2 text-sm bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 flex items-center gap-2 font-medium transition-colors"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
             {saving ? "جاري التسجيل..." : "تأكيد التحصيل والتوزيع"}

@@ -22,8 +22,8 @@ import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
 
 const statusMap: Record<string, { label: string; class: string }> = {
-  RUNNING: { label: "قيد التشغيل", class: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
-  PAUSED: { label: "متوقف مؤقتاً", class: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
+  RUNNING: { label: "قيد التشغيل", class: "bg-emerald-500/10 text-success border-success/20" },
+  PAUSED: { label: "متوقف مؤقتاً", class: "bg-amber-500/10 text-warning border-warning/20" },
   DRAFT: { label: "مسودة", class: "bg-muted text-muted-foreground border-border/60" },
   COMPLETED: { label: "مكتمل بحسم", class: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
   ARCHIVED: { label: "مؤرشف", class: "bg-muted text-muted-foreground border-border/60" },
@@ -152,9 +152,9 @@ const ABTestsManagement: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>قيد التشغيل والجمع</span>
-            <Play className="h-3.5 w-3.5 text-emerald-500" />
+            <Play className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-500">{stats.running}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-success">{stats.running}</div>
           <div className="text-[11px] text-muted-foreground mt-0.5">تجمع بيانات حية</div>
         </div>
 
@@ -248,7 +248,7 @@ const ABTestsManagement: React.FC = () => {
                         </>
                       )}
                       {test.confidenceLevel && (
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-mono bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-mono bg-primary/10 text-primary border-primary/20">
                           {test.confidenceLevel.toFixed(1)}% ثقة إحصائية
                         </Badge>
                       )}
@@ -257,12 +257,12 @@ const ABTestsManagement: React.FC = () => {
 
                   <div className="flex items-center gap-1.5 self-end md:self-center" onClick={(e) => e.stopPropagation()}>
                     {test.status === "DRAFT" && (
-                      <Button variant="outline" size="sm" onClick={(e) => handleStartTest(test.id, e)} className="h-7 text-xs gap-1 border-border/70 text-emerald-600">
+                      <Button variant="outline" size="sm" onClick={(e) => handleStartTest(test.id, e)} className="h-7 text-xs gap-1 border-border/70 text-success">
                         <Play className="h-3 w-3" /> تشغيل
                       </Button>
                     )}
                     {test.status === "RUNNING" && (
-                      <Button variant="outline" size="sm" onClick={(e) => handlePauseTest(test.id, e)} className="h-7 text-xs gap-1 border-border/70 text-amber-600">
+                      <Button variant="outline" size="sm" onClick={(e) => handlePauseTest(test.id, e)} className="h-7 text-xs gap-1 border-border/70 text-warning">
                         <Pause className="h-3 w-3" /> إيقاف
                       </Button>
                     )}
@@ -270,7 +270,7 @@ const ABTestsManagement: React.FC = () => {
                       <Eye className="h-3 w-3" /> التفاصيل
                     </Button>
                     {test.status !== "RUNNING" && (
-                      <Button variant="ghost" size="icon" onClick={(e) => handleDeleteTest(test.id, e)} className="h-7 w-7 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600">
+                      <Button variant="ghost" size="icon" onClick={(e) => handleDeleteTest(test.id, e)} className="h-7 w-7 text-destructive hover:bg-destructive/10 hover:text-destructive">
                         <Trash2 className="h-3.5 w-3.5" />
                       </Button>
                     )}

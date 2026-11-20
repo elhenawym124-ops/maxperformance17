@@ -30,12 +30,12 @@ export const StudyPatientExamCard: React.FC<StudyPatientExamCardProps> = ({
         action={
           <div className="flex items-center gap-1.5 flex-wrap">
             {study.emergency ? (
-              <span className="px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300">
+              <span className="px-2 py-0.5 rounded-full text-xs bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive">
                 {t("radiology.studies.emergency")}
               </span>
             ) : null}
             {study.withContrast ? (
-              <span className="px-2 py-0.5 rounded-full text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+              <span className="px-2 py-0.5 rounded-full text-xs bg-primary text-primary dark:bg-primary/40 dark:text-primary">
                 {t("radiology.reception.withContrast")}
               </span>
             ) : null}
@@ -62,7 +62,7 @@ export const StudyPatientExamCard: React.FC<StudyPatientExamCardProps> = ({
         ) : null}
         {flags.length > 0 ? (
           <div className="flex items-start justify-between gap-3 py-2 text-sm">
-            <span className="text-gray-500 dark:text-gray-400 shrink-0">
+            <span className="text-muted-foreground shrink-0">
               {t("radiology.schedule.medicalRiskFlags")}
             </span>
             <span className="flex flex-wrap gap-1 justify-end">
@@ -107,7 +107,7 @@ export const StudyPatientExamCard: React.FC<StudyPatientExamCardProps> = ({
         {study.isExternalReferral ? (
           <Row label={t("radiology.details.externalReferral")}>
             <span className="flex items-center gap-2 flex-wrap justify-end">
-              <span className="px-2 py-0.5 rounded-full text-[11px] whitespace-nowrap bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+              <span className="px-2 py-0.5 rounded-full text-[11px] whitespace-nowrap bg-primary text-primary dark:bg-primary/40 dark:text-primary">
                 {t("radiology.details.externalReferralBadge")}
               </span>
               {study.externalPartnerName || "—"}
@@ -122,8 +122,8 @@ export const StudyPatientExamCard: React.FC<StudyPatientExamCardProps> = ({
                 <span
                   className={`px-2 py-0.5 rounded-full text-[11px] whitespace-nowrap ${
                     billingType === "INSURANCE"
-                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300"
-                      : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                      ? "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary"
+                      : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                   }`}
                 >
                   {billingTypeText(billingType, t)}

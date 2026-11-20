@@ -10,8 +10,8 @@ const GENDER_OPTIONS = [
 ];
 
 const inputCls = MODAL_INPUT_CLS;
-const labelCls = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
-const cardCls = "bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5";
+const labelCls = "block text-sm font-medium text-foreground mb-1";
+const cardCls = "bg-card rounded-xl shadow-sm border dark:border-border p-5";
 
 export default function ReceptionTab() {
   const { t } = useTranslation();
@@ -196,29 +196,29 @@ export default function ReceptionTab() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-bold">{t("radiology.reception.title")}</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.reception.subtitle")}</p>
+        <p className="text-sm text-muted-foreground">{t("radiology.reception.subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className={cardCls}>
-          <h3 className="font-bold mb-4 text-gray-800 dark:text-gray-100">{t("radiology.reception.patientData")}</h3>
+          <h3 className="font-bold mb-4 text-foreground dark:text-muted-foreground">{t("radiology.reception.patientData")}</h3>
           <div className="relative mb-4">
-            <Search className="w-4 h-4 absolute right-3 top-3 text-gray-400 dark:text-gray-500" />
-            <input className={`${inputCls} pr-9`} placeholder={t("radiology.reception.searchPatient")} value={patientSearch} onChange={e => setPatientSearch(e.target.value)} />
-            {searching && <Loader2 className="w-4 h-4 absolute left-3 top-3 animate-spin text-gray-400" />}
+            <Search className="w-4 h-4 absolute right-3 top-3 text-muted-foreground/80" />
+            <input className={`${inputCls} pe-9`} placeholder={t("radiology.reception.searchPatient")} value={patientSearch} onChange={e => setPatientSearch(e.target.value)} />
+            {searching && <Loader2 className="w-4 h-4 absolute left-3 top-3 animate-spin text-muted-foreground" />}
             {patientResults.length > 0 ? (
-              <div className="absolute z-20 mt-1 w-full bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg shadow-xl max-h-48 overflow-y-auto">
+              <div className="absolute z-20 mt-1 w-full bg-card border dark:border-border rounded-lg shadow-xl max-h-48 overflow-y-auto">
                 {patientResults.map(p => (
-                  <button key={p.id} type="button" onClick={() => pickPatient(p)} className="w-full text-right px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm flex justify-between">
+                  <button key={p.id} type="button" onClick={() => pickPatient(p)} className="w-full text-right px-3 py-2 hover:bg-muted/50 text-sm flex justify-between">
                     <span>{p.firstName}{p.lastName ? ' ' + p.lastName : ''}</span>
-                    <span className="text-gray-400 dark:text-gray-500" dir="ltr">{p.phone}</span>
+                    <span className="text-muted-foreground/80" dir="ltr">{p.phone}</span>
                   </button>
                 ))}
               </div>
             ) : null}
           </div>
           {patientId ? (
-            <p className="text-xs text-green-600 mb-3">{t("radiology.reception.linkedToPatient")}</p>
+            <p className="text-xs text-success mb-3">{t("radiology.reception.linkedToPatient")}</p>
           ) : null}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -252,7 +252,7 @@ export default function ReceptionTab() {
         </div>
 
         <div className={cardCls}>
-          <h3 className="font-bold mb-4 text-gray-800 dark:text-gray-100">{t("radiology.reception.examData")}</h3>
+          <h3 className="font-bold mb-4 text-foreground dark:text-muted-foreground">{t("radiology.reception.examData")}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
               <label className={labelCls}>{t("radiology.reception.examType")}</label>
@@ -273,8 +273,8 @@ export default function ReceptionTab() {
               </div>
             ) : null}
             {examTypeId ? (
-              <div className="sm:col-span-2 rounded-lg border dark:border-gray-700 px-4 py-3 flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-300">{t("radiology.reception.totalLabel")}</span>
+              <div className="sm:col-span-2 rounded-lg border dark:border-border px-4 py-3 flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">{t("radiology.reception.totalLabel")}</span>
                 <b className="text-lg text-blue-600">{(displayPrice + additionsTotal).toFixed(0)} {t("radiology.currency")}</b>
               </div>
             ) : null}
@@ -287,16 +287,16 @@ export default function ReceptionTab() {
                 placeholder={t("radiology.reception.searchDoctor")}
               />
               {physicianSearch.trim() && (
-                <div className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg shadow-xl">
+                <div className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-card border dark:border-border rounded-lg shadow-xl">
                   {searchingPhysicians ? (
-                    <div className="px-3 py-2 text-sm text-gray-500">{t("radiology.reception.searching")}</div>
+                    <div className="px-3 py-2 text-sm text-muted-foreground">{t("radiology.reception.searching")}</div>
                   ) : physicianResults.length === 0 ? (
-                    <div className="px-3 py-2 text-sm text-gray-500">{t("radiology.reception.noResults")}</div>
+                    <div className="px-3 py-2 text-sm text-muted-foreground">{t("radiology.reception.noResults")}</div>
                   ) : (
                     physicianResults.map(p => (
-                      <button key={p.id} type="button" onClick={() => pickPhysician(p)} className="block w-full text-right px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <button key={p.id} type="button" onClick={() => pickPhysician(p)} className="block w-full text-right px-3 py-2 text-sm hover:bg-muted/50">
                         <span className="font-medium">{p.name}</span>
-                        {p.specialty ? <span className="text-xs text-gray-500 dark:text-gray-400"> — {p.specialty}</span> : null}
+                        {p.specialty ? <span className="text-xs text-muted-foreground"> — {p.specialty}</span> : null}
                       </button>
                     ))
                   )}
@@ -308,8 +308,8 @@ export default function ReceptionTab() {
                 <label className={labelCls}>{t("radiology.reception.examAdditions")}</label>
                 <div className="flex flex-wrap gap-2">
                   {additions.map(a => (
-                    <label key={a.id} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-600 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <input type="checkbox" checked={selectedAdditions.includes(a.id)} onChange={() => toggleAddition(a.id)} className="rounded border-gray-300 dark:border-gray-600" />
+                    <label key={a.id} className="flex items-center gap-2 text-sm text-foreground border dark:border-border rounded-lg px-3 py-1.5 cursor-pointer hover:bg-muted/50">
+                      <input type="checkbox" checked={selectedAdditions.includes(a.id)} onChange={() => toggleAddition(a.id)} className="rounded border-border" />
                       {a.name} ({Number(a.price).toFixed(0)} {t("radiology.currency")})
                     </label>
                   ))}
@@ -317,12 +317,12 @@ export default function ReceptionTab() {
               </div>
             ) : null}
             <div className="sm:col-span-2 flex items-center gap-6">
-              <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <input type="checkbox" checked={emergency} onChange={e => setEmergency(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600" />
+              <label className="flex items-center gap-2 text-sm text-foreground">
+                <input type="checkbox" checked={emergency} onChange={e => setEmergency(e.target.checked)} className="rounded border-border" />
                 {t("radiology.reception.emergencyCase")}
               </label>
-              <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <input type="checkbox" checked={withContrast} onChange={e => setWithContrast(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600" />
+              <label className="flex items-center gap-2 text-sm text-foreground">
+                <input type="checkbox" checked={withContrast} onChange={e => setWithContrast(e.target.checked)} className="rounded border-border" />
                 {t("radiology.reception.withContrast")}
               </label>
             </div>

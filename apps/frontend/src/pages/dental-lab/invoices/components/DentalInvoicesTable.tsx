@@ -40,11 +40,11 @@ export function DentalInvoicesTable({
   return (
     <div className="space-y-4">
       {error && (
-        <div className="flex items-center justify-between bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+        <div className="flex items-center justify-between bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
           <span>{error}</span>
           <button
             onClick={onClearError}
-            className="p-1 hover:bg-red-100 dark:hover:bg-red-900/50 rounded"
+            className="p-1 hover:bg-destructive dark:hover:bg-destructive/50 rounded"
             aria-label="إغلاق التنبيه"
           >
             <XMarkIcon className="w-4 h-4" />
@@ -53,23 +53,23 @@ export function DentalInvoicesTable({
       )}
 
       {/* Invoices Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border dark:border-gray-800 overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted rounded-xl border dark:border-border overflow-hidden shadow-sm">
         {loading ? (
           <div className="flex justify-center py-16">
-            <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
           </div>
         ) : rows.length === 0 ? (
-          <div className="p-12 text-center text-gray-400 dark:text-gray-500">
-            <CreditCard className="w-10 h-10 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
-            <p className="text-base font-semibold text-gray-600 dark:text-gray-300">
+          <div className="p-12 text-center text-muted-foreground/80">
+            <CreditCard className="w-10 h-10 mx-auto mb-3 text-muted-foreground dark:text-foreground" />
+            <p className="text-base font-semibold text-muted-foreground">
               {t("dentalLab.invoices.noData")}
             </p>
-            <p className="text-xs text-gray-400 mt-1">جرّب تغيير فلاتر البحث أو الطبيب المحدد</p>
+            <p className="text-xs text-muted-foreground mt-1">جرّب تغيير فلاتر البحث أو الطبيب المحدد</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs sm:text-sm text-right tabular-nums">
-              <thead className="border-b dark:border-gray-800 bg-gray-50 dark:bg-gray-800/60 text-gray-500 dark:text-gray-300 font-bold">
+              <thead className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground font-bold">
                 <tr>
                   <th className="py-3 px-3.5 whitespace-nowrap">رقم الفاتورة</th>
                   <th className="py-3 px-3 whitespace-nowrap">التاريخ</th>
@@ -85,7 +85,7 @@ export function DentalInvoicesTable({
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y dark:divide-gray-800">
+              <tbody className="divide-y dark:divide-border">
                 {rows.map((inv) => (
                   <tr
                     key={inv.id}
@@ -95,10 +95,10 @@ export function DentalInvoicesTable({
                     <td className="py-3 px-3.5 font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap font-mono">
                       {inv.invoiceNumber || inv.id.slice(0, 8)}
                     </td>
-                    <td className="py-3 px-3 text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                    <td className="py-3 px-3 text-muted-foreground whitespace-nowrap">
                       {fmtDate(inv.createdAt)}
                     </td>
-                    <td className="py-3 px-3.5 font-semibold text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                    <td className="py-3 px-3.5 font-semibold text-foreground whitespace-nowrap">
                       {inv.doctorName || "—"}
                     </td>
                     <td className="py-3 px-3.5">
@@ -125,12 +125,12 @@ export function DentalInvoicesTable({
                         if (isConsolidated) {
                           return (
                             <div className="flex flex-col gap-0.5">
-                              <span className="inline-flex items-center gap-1 font-bold text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded text-xs w-fit">
-                                <Sparkles className="w-3 h-3 text-indigo-500" />
+                              <span className="inline-flex items-center gap-1 font-bold text-primary dark:text-primary bg-primary/10 dark:bg-primary/30 px-2 py-0.5 rounded text-xs w-fit">
+                                <Sparkles className="w-3 h-3 text-primary" />
                                 فاتورة مجمعة ({casesCount} حالة)
                               </span>
                               {totalUnits > 0 && (
-                                <span className="text-[11px] text-gray-500 font-mono">
+                                <span className="text-[11px] text-muted-foreground font-mono">
                                   {totalUnits} وحدة
                                 </span>
                               )}
@@ -139,11 +139,11 @@ export function DentalInvoicesTable({
                         }
                         return (
                           <div className="flex flex-col">
-                            <span className="font-medium text-gray-800 dark:text-gray-200">
+                            <span className="font-medium text-foreground dark:text-muted-foreground">
                               {inv.patientName || inv.case?.patientName || "—"}
                             </span>
                             {inv.case?.caseNumber && (
-                              <span className="text-[11px] text-gray-400 font-mono">
+                              <span className="text-[11px] text-muted-foreground font-mono">
                                 حالة: {inv.case.caseNumber}
                               </span>
                             )}
@@ -151,18 +151,18 @@ export function DentalInvoicesTable({
                         );
                       })()}
                     </td>
-                    <td className="py-3 px-3 font-semibold text-gray-900 dark:text-gray-100 whitespace-nowrap font-mono">
+                    <td className="py-3 px-3 font-semibold text-foreground whitespace-nowrap font-mono">
                       {fmtMoney(inv.total)}
                     </td>
-                    <td className="py-3 px-3 text-green-600 dark:text-green-400 font-semibold whitespace-nowrap font-mono">
+                    <td className="py-3 px-3 text-success dark:text-success font-semibold whitespace-nowrap font-mono">
                       {fmtMoney(inv.paid)}
                     </td>
-                    <td className="py-3 px-3 text-red-600 font-bold whitespace-nowrap font-mono">
+                    <td className="py-3 px-3 text-destructive font-bold whitespace-nowrap font-mono">
                       {fmtMoney(inv.remaining)}
                     </td>
-                    <td className="py-3 px-3 text-gray-500 whitespace-nowrap">
+                    <td className="py-3 px-3 text-muted-foreground whitespace-nowrap">
                       {inv.dueDate ? (
-                        <span className="text-xs text-amber-700 dark:text-amber-400">
+                        <span className="text-xs text-warning dark:text-warning">
                           {fmtDate(inv.dueDate)}
                         </span>
                       ) : (
@@ -174,7 +174,7 @@ export function DentalInvoicesTable({
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => onRowClick(inv)}
-                          className="p-1.5 text-gray-600 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+                          className="p-1.5 text-foreground hover:text-blue-600 hover:bg-muted dark:hover:bg-muted rounded-lg"
                           title="تفاصيل الفاتورة"
                           aria-label="تفاصيل الفاتورة"
                         >
@@ -200,7 +200,7 @@ export function DentalInvoicesTable({
                         </button>
                         <button
                           onClick={() => shareInvoiceWhatsApp(inv)}
-                          className="p-1.5 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-lg"
+                          className="p-1.5 text-success hover:bg-success/10 dark:hover:bg-success/30 rounded-lg"
                           title="إرسال الفاتورة عبر واتساب"
                           aria-label="إرسال الفاتورة عبر واتساب"
                         >
@@ -221,7 +221,7 @@ export function DentalInvoicesTable({
                               );
                             }
                           }}
-                          className="p-1.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg"
+                          className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
                           title={t("dentalLab.invoices.paymentLink")}
                           aria-label={t("dentalLab.invoices.paymentLink")}
                         >
@@ -230,7 +230,7 @@ export function DentalInvoicesTable({
                         {inv.remaining > 0 && (
                           <button
                             onClick={() => onPaymentClick(inv)}
-                            className="flex items-center gap-1 px-2 py-1 bg-green-50 border border-green-300 text-green-700 hover:bg-green-100 dark:bg-green-900/30 dark:border-green-800 dark:text-green-300 rounded-lg text-xs font-semibold"
+                            className="flex items-center gap-1 px-2 py-1 bg-success/10 border border-success text-success hover:bg-success dark:bg-success/30 dark:border-success dark:text-success rounded-lg text-xs font-semibold"
                             title={t("dentalLab.invoices.addPayment")}
                           >
                             <Banknote className="w-3.5 h-3.5" />
@@ -240,7 +240,7 @@ export function DentalInvoicesTable({
                         {inv.status !== "VOID" && inv.status !== "PAID" && (
                           <button
                             onClick={() => onVoidClick(inv)}
-                            className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors"
+                            className="p-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition-colors"
                             title="إلغاء الفاتورة (Void)"
                             aria-label="إلغاء الفاتورة"
                           >

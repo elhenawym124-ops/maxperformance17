@@ -37,10 +37,10 @@ export const AdMetricsGrid: React.FC<AdMetricsGridProps> = ({
       {metricCards.map((metric) => (
         <div
           key={metric.label}
-          className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm"
+          className="rounded-lg border border-border bg-white p-2.5 shadow-sm"
         >
-          <p className="text-[11px] font-bold text-slate-500">{metric.label}</p>
-          <p className="mt-0.5 text-base font-black text-slate-950 tabular-nums">
+          <p className="text-[11px] font-bold text-muted-foreground">{metric.label}</p>
+          <p className="mt-0.5 text-base font-black text-foreground tabular-nums">
             {metric.value}
           </p>
           {renderChange(metric.comparison, metric.inverse)}

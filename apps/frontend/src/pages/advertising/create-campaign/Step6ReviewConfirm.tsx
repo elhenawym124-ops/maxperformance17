@@ -23,32 +23,32 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
 }) => {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-xl font-semibold text-foreground">
         مراجعة وإطلاق
       </h2>
 
       <div className="space-y-4">
         {/* Campaign Info */}
-        <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg space-y-4">
-          <h3 className="font-medium text-gray-900 dark:text-white">معلومات الحملة</h3>
+        <div className="p-6 bg-muted dark:bg-muted rounded-lg space-y-4">
+          <h3 className="font-medium text-foreground">معلومات الحملة</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">اسم الحملة</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">اسم الحملة</p>
+              <p className="font-semibold text-foreground">
                 {formData.name}
               </p>
             </div>
             {formData.description && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">الوصف</p>
-                <p className="font-semibold text-gray-900 dark:text-white">
+                <p className="text-sm text-foreground dark:text-muted-foreground">الوصف</p>
+                <p className="font-semibold text-foreground">
                   {formData.description}
                 </p>
               </div>
             )}
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الهدف</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">الهدف</p>
+              <p className="font-semibold text-foreground">
                 {
                   CAMPAIGN_OBJECTIVES.find(
                     (o) => o.value === formData.objective,
@@ -57,8 +57,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الحالة</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">الحالة</p>
+              <p className="font-semibold text-foreground">
                 {formData.status === "ACTIVE" ? "نشطة" : "متوقفة"}
               </p>
             </div>
@@ -66,47 +66,47 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
         </div>
 
         {/* Budget */}
-        <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg space-y-4">
-          <h3 className="font-medium text-gray-900 dark:text-white">الميزانية</h3>
+        <div className="p-6 bg-muted dark:bg-muted rounded-lg space-y-4">
+          <h3 className="font-medium text-foreground">الميزانية</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">نوع الميزانية</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">نوع الميزانية</p>
+              <p className="font-semibold text-foreground">
                 {formData.budgetType === "DAILY" ? "يومية" : "إجمالية"}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">مبلغ الميزانية</p>
-              <p className="font-semibold text-gray-900 dark:text-white font-mono tabular-nums">
+              <p className="text-sm text-foreground dark:text-muted-foreground">مبلغ الميزانية</p>
+              <p className="font-semibold text-foreground font-mono tabular-nums">
                 {formData.budgetAmount.toLocaleString()} EGP
               </p>
             </div>
             {formData.spendLimit && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">حد الإنفاق</p>
-                <p className="font-semibold text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-sm text-foreground dark:text-muted-foreground">حد الإنفاق</p>
+                <p className="font-semibold text-foreground font-mono tabular-nums">
                   {formData.spendLimit.toLocaleString()} EGP
                 </p>
               </div>
             )}
             {formData.budgetOptimization && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">CBO</p>
-                <p className="font-semibold text-green-600 dark:text-green-400">مفعل</p>
+                <p className="text-sm text-foreground dark:text-muted-foreground">CBO</p>
+                <p className="font-semibold text-success dark:text-success">مفعل</p>
               </div>
             )}
             {formData.startDate && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">تاريخ البدء</p>
-                <p className="font-semibold text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-sm text-foreground dark:text-muted-foreground">تاريخ البدء</p>
+                <p className="font-semibold text-foreground font-mono tabular-nums">
                   {new Date(formData.startDate).toLocaleDateString("ar-EG")}
                 </p>
               </div>
             )}
             {formData.endDate && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">تاريخ الانتهاء</p>
-                <p className="font-semibold text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-sm text-foreground dark:text-muted-foreground">تاريخ الانتهاء</p>
+                <p className="font-semibold text-foreground font-mono tabular-nums">
                   {new Date(formData.endDate).toLocaleDateString("ar-EG")}
                 </p>
               </div>
@@ -115,34 +115,34 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
         </div>
 
         {/* Targeting */}
-        <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg space-y-4">
-          <h3 className="font-medium text-gray-900 dark:text-white">الاستهداف</h3>
+        <div className="p-6 bg-muted dark:bg-muted rounded-lg space-y-4">
+          <h3 className="font-medium text-foreground">الاستهداف</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">مكان التحويل</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">مكان التحويل</p>
+              <p className="font-semibold text-foreground">
                 {conversionLocations.find(
                   (l) => l.value === formData.conversionLocation,
                 )?.label || formData.conversionLocation}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">هدف التحسين</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">هدف التحسين</p>
+              <p className="font-semibold text-foreground">
                 {optimizationGoals.find(
                   (g) => g.value === formData.optimizationGoal,
                 )?.label || formData.optimizationGoal}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الفئة العمرية</p>
-              <p className="font-semibold text-gray-900 dark:text-white font-mono tabular-nums">
+              <p className="text-sm text-foreground dark:text-muted-foreground">الفئة العمرية</p>
+              <p className="font-semibold text-foreground font-mono tabular-nums">
                 {formData.targetingAgeMin} - {formData.targetingAgeMax} سنة
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الجنس</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">الجنس</p>
+              <p className="font-semibold text-foreground">
                 {formData.targetingGenders.length === 0
                   ? "الكل"
                   : formData.targetingGenders
@@ -151,8 +151,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">المواقع</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">المواقع</p>
+              <p className="font-semibold text-foreground">
                 {formData.targetingLocations
                   .map(
                     (code) =>
@@ -164,8 +164,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
             </div>
             {formData.targetingInterests.length > 0 && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">الاهتمامات</p>
-                <p className="font-semibold text-gray-900 dark:text-white">
+                <p className="text-sm text-foreground dark:text-muted-foreground">الاهتمامات</p>
+                <p className="font-semibold text-foreground">
                   {formData.targetingInterests
                     .map(
                       (i) =>
@@ -180,12 +180,12 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
         </div>
 
         {/* Placements */}
-        <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg space-y-4">
-          <h3 className="font-medium text-gray-900 dark:text-white">المواضع</h3>
+        <div className="p-6 bg-muted dark:bg-muted rounded-lg space-y-4">
+          <h3 className="font-medium text-foreground">المواضع</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">نوع المواضع</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">نوع المواضع</p>
+              <p className="font-semibold text-foreground">
                 {formData.placementType === "AUTOMATIC"
                   ? "Advantage+ (تلقائي)"
                   : "يدوي"}
@@ -194,8 +194,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
             {formData.placementType === "MANUAL" &&
               formData.placements.length > 0 && (
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">المواضع المحددة</p>
-                  <p className="font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm text-foreground dark:text-muted-foreground">المواضع المحددة</p>
+                  <p className="font-semibold text-foreground">
                     {formData.placements
                       .map(
                         (p) =>
@@ -210,21 +210,21 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
         </div>
 
         {/* Advanced Settings */}
-        <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg space-y-4">
-          <h3 className="font-medium text-gray-900 dark:text-white">
+        <div className="p-6 bg-muted dark:bg-muted rounded-lg space-y-4">
+          <h3 className="font-medium text-foreground">
             الإعدادات المتقدمة
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">نوع الشراء</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">نوع الشراء</p>
+              <p className="font-semibold text-foreground">
                 {buyingTypes.find((t) => t.value === formData.buyingType)
                   ?.label || "مزاد"}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">استراتيجية المزايدة</p>
-              <p className="font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm text-foreground dark:text-muted-foreground">استراتيجية المزايدة</p>
+              <p className="font-semibold text-foreground">
                 {bidStrategies.find(
                   (s) => s.value === formData.bidStrategy,
                 )?.label || "أقل تكلفة"}
@@ -232,8 +232,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
             </div>
             {formData.pixelId && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Facebook Pixel</p>
-                <p className="font-semibold text-gray-900 dark:text-white">
+                <p className="text-sm text-foreground dark:text-muted-foreground">Facebook Pixel</p>
+                <p className="font-semibold text-foreground">
                   {pixels.find((p) => p.pixelId === formData.pixelId)
                     ?.pixelName || formData.pixelId}
                 </p>
@@ -242,8 +242,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
             {formData.specialAdCategories &&
               formData.specialAdCategories.length > 0 && (
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">فئات خاصة</p>
-                  <p className="font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm text-foreground dark:text-muted-foreground">فئات خاصة</p>
+                  <p className="font-semibold text-foreground">
                     {formData.specialAdCategories
                       .map(
                         (id) =>
@@ -258,8 +258,8 @@ export const Step6ReviewConfirm: React.FC<Step6ReviewConfirmProps> = ({
           </div>
         </div>
 
-        <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-          <p className="text-sm text-green-800 dark:text-green-200">
+        <div className="p-4 bg-success/10 dark:bg-success/20 border border-success dark:border-success rounded-lg">
+          <p className="text-sm text-success dark:text-success">
             <strong>جاهز للإطلاق!</strong> راجع جميع الإعدادات أعلاه ثم اضغط على &quot;إنشاء الحملة&quot; لبدء حملتك الإعلانية.
           </p>
         </div>

@@ -13,7 +13,7 @@ export const SettlementSummaryStrip: React.FC<SettlementSummaryStripProps> = ({
   return (
     <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3 text-xs tabular-nums">
       <div className="p-2.5 bg-blue-50/60 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/40 rounded-xl">
-        <span className="text-gray-500 dark:text-gray-400 block text-[11px]">
+        <span className="text-muted-foreground block text-[11px]">
           إجمالي فواتير الشهر
         </span>
         <p className="text-sm sm:text-base font-bold text-blue-700 dark:text-blue-300 mt-0.5 font-mono">
@@ -21,38 +21,38 @@ export const SettlementSummaryStrip: React.FC<SettlementSummaryStripProps> = ({
         </p>
       </div>
 
-      <div className="p-2.5 bg-green-50/60 dark:bg-green-900/20 border border-green-100 dark:border-green-900/40 rounded-xl">
-        <span className="text-green-700 dark:text-green-400 block text-[11px]">
+      <div className="p-2.5 bg-success/60 dark:bg-success/20 border border-success dark:border-success/40 rounded-xl">
+        <span className="text-green-700 dark:text-success block text-[11px]">
           إجمالي المسدد
         </span>
-        <p className="text-sm sm:text-base font-bold text-green-700 dark:text-green-400 mt-0.5 font-mono">
+        <p className="text-sm sm:text-base font-bold text-success dark:text-success mt-0.5 font-mono">
           <span className="tabular-nums">{fmtMoney(summary.totalPaid)}</span> ج.م
         </p>
       </div>
 
-      <div className="p-2.5 bg-amber-50/60 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/40 rounded-xl">
-        <span className="text-amber-700 dark:text-amber-400 block text-[11px]">
+      <div className="p-2.5 bg-warning/60 dark:bg-warning/20 border border-warning dark:border-warning/40 rounded-xl">
+        <span className="text-amber-700 dark:text-warning block text-[11px]">
           إجمالي التسويات
         </span>
-        <p className="text-sm sm:text-base font-bold text-amber-700 dark:text-amber-400 mt-0.5 font-mono">
+        <p className="text-sm sm:text-base font-bold text-warning dark:text-warning mt-0.5 font-mono">
           <span className="tabular-nums">{fmtMoney(summary.totalAdjustments)}</span> ج.م
         </p>
       </div>
 
-      <div className="p-2.5 bg-red-50/60 dark:bg-red-900/20 border border-red-100 dark:border-red-900/40 rounded-xl">
-        <span className="text-red-700 dark:text-red-400 block text-[11px]">
+      <div className="p-2.5 bg-destructive/60 dark:bg-destructive/20 border border-destructive dark:border-destructive/40 rounded-xl">
+        <span className="text-red-700 dark:text-destructive block text-[11px]">
           صافي المديونية المرحلة
         </span>
-        <p className="text-sm sm:text-base font-bold text-red-600 mt-0.5 font-mono">
+        <p className="text-sm sm:text-base font-bold text-destructive mt-0.5 font-mono">
           <span className="tabular-nums">{fmtMoney(summary.totalClosingBalance)}</span> ج.م
         </p>
       </div>
 
-      <div className="p-2.5 bg-purple-50/60 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-900/40 rounded-xl col-span-2 sm:col-span-1">
-        <span className="text-purple-700 dark:text-purple-400 block text-[11px]">
+      <div className="p-2.5 bg-primary/60 dark:bg-primary/20 border border-primary dark:border-primary/40 rounded-xl col-span-2 sm:col-span-1">
+        <span className="text-purple-700 dark:text-primary block text-[11px]">
           نسبة الاعتماد للشهر
         </span>
-        <p className="text-sm sm:text-base font-bold text-purple-700 dark:text-purple-300 mt-0.5 font-mono">
+        <p className="text-sm sm:text-base font-bold text-primary dark:text-primary mt-0.5 font-mono">
           <span className="tabular-nums">{summary.closedCount}</span> /{" "}
           <span className="tabular-nums">{summary.totalDoctors}</span> طبيب
         </p>

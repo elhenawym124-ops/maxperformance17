@@ -50,9 +50,9 @@ export function DentalCasesQuickPills({
   setPage,
 }: DentalCasesQuickPillsProps) {
   return (
-    <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-xs border-t border-slate-100 dark:border-gray-700/60 pt-2">
+    <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-xs border-t border-border dark:border-border pt-2">
       <span className="text-slate-400 font-semibold flex items-center gap-1 shrink-0 text-[11px]">
-        <Layers className="w-3 h-3 text-slate-400" /> فلاتر سريعة:
+        <Layers className="w-3 h-3 text-muted-foreground" /> فلاتر سريعة:
       </span>
       <button
         type="button"
@@ -83,7 +83,7 @@ export function DentalCasesQuickPills({
           !workTypeId &&
           !paymentStatus
             ? "bg-blue-600 text-white shadow-2xs"
-            : "bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
+            : "bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground hover:bg-muted"
         }`}
       >
         الكل
@@ -116,10 +116,10 @@ export function DentalCasesQuickPills({
         className={`px-2.5 py-0.5 rounded-full font-medium transition-all shrink-0 flex items-center gap-1 text-xs ${
           viewMode === "OVERDUE"
             ? "bg-rose-600 text-white shadow-2xs"
-            : "bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 hover:bg-rose-100 border border-rose-200/80 dark:border-rose-900"
+            : "bg-rose-50 dark:bg-destructive/40 text-destructive dark:text-destructive hover:bg-destructive border border-destructive/80 dark:border-destructive"
         }`}
       >
-        <Flame className="w-3 h-3 text-rose-500" />
+        <Flame className="w-3 h-3 text-destructive" />
         <span>متأخرة عن موعدها</span>
       </button>
       <button
@@ -131,10 +131,10 @@ export function DentalCasesQuickPills({
         className={`px-2.5 py-0.5 rounded-full font-medium transition-all shrink-0 flex items-center gap-1 text-xs ${
           dateRangePreset === "today"
             ? "bg-amber-600 text-white shadow-2xs"
-            : "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 hover:bg-amber-100 border border-amber-200/80 dark:border-amber-900"
+            : "bg-amber-50 dark:bg-warning/40 text-warning dark:text-warning hover:bg-warning border border-warning/80 dark:border-warning"
         }`}
       >
-        <Clock className="w-3 h-3 text-amber-500" />
+        <Clock className="w-3 h-3 text-warning" />
         <span>تسليم اليوم</span>
       </button>
       <button
@@ -145,10 +145,10 @@ export function DentalCasesQuickPills({
         className={`px-2.5 py-0.5 rounded-full font-medium transition-all shrink-0 flex items-center gap-1 text-xs ${
           priority === "URGENT"
             ? "bg-purple-600 text-white shadow-2xs"
-            : "bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 border border-purple-200/80 dark:border-purple-900"
+            : "bg-purple-50 dark:bg-primary/40 text-primary dark:text-primary hover:bg-primary border border-primary/80 dark:border-primary"
         }`}
       >
-        <Zap className="w-3 h-3 text-purple-500" />
+        <Zap className="w-3 h-3 text-primary" />
         <span>مستعجل</span>
       </button>
       <button
@@ -159,10 +159,10 @@ export function DentalCasesQuickPills({
         className={`px-2.5 py-0.5 rounded-full font-medium transition-all shrink-0 flex items-center gap-1 text-xs ${
           priority === "STAT"
             ? "bg-red-600 text-white shadow-2xs"
-            : "bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 hover:bg-red-100 border border-red-200/80 dark:border-red-900"
+            : "bg-red-50 dark:bg-destructive/40 text-destructive dark:text-destructive hover:bg-destructive border border-destructive/80 dark:border-destructive"
         }`}
       >
-        <AlertTriangle className="w-3 h-3 text-red-500" />
+        <AlertTriangle className="w-3 h-3 text-destructive" />
         <span>طارئ فوري</span>
       </button>
       <button
@@ -173,10 +173,10 @@ export function DentalCasesQuickPills({
         className={`px-2.5 py-0.5 rounded-full font-medium transition-all shrink-0 flex items-center gap-1 text-xs ${
           status === "OUTSOURCED"
             ? "bg-amber-600 text-white shadow-2xs"
-            : "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 hover:bg-amber-100 border border-amber-200/80 dark:border-amber-900"
+            : "bg-amber-50 dark:bg-warning/40 text-warning dark:text-warning hover:bg-warning border border-warning/80 dark:border-warning"
         }`}
       >
-        <ExternalLink className="w-3 h-3 text-amber-500" />
+        <ExternalLink className="w-3 h-3 text-warning" />
         <span>بره المعمل (خارجي)</span>
       </button>
     </div>

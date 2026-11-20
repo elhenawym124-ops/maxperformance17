@@ -22,7 +22,7 @@ export function QuickOrderTechnicianAssignCard({
   onSelectedTechnicianRoleChange,
 }: QuickOrderTechnicianAssignCardProps) {
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
-  const labelCls = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  const labelCls = "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div className="rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/30 p-3.5 space-y-2.5">

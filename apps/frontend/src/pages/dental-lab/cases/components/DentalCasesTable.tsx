@@ -30,7 +30,7 @@ export const DentalCasesTable: React.FC<DentalCasesTableProps> = ({
 
   return (
     <div className="space-y-3">
-      <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xs border border-slate-200 dark:border-gray-700 overflow-hidden">
+      <div className="w-full bg-card rounded-xl shadow-2xs border border-border dark:border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs tabular-nums">
             <DentalCasesTableHeader

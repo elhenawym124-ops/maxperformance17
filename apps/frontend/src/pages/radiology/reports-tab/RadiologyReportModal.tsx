@@ -258,7 +258,7 @@ export function RadiologyReportModal({ studyId, onClose, onSaved }: RadiologyRep
             <h3 className="text-lg font-bold">{t("radiology.reports.enterReport")}</h3>
             <button
               onClick={onClose}
-              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300 cursor-pointer"
+              className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground cursor-pointer"
             >
               <XMarkIcon className="w-5 h-5" />
             </button>
@@ -266,7 +266,7 @@ export function RadiologyReportModal({ studyId, onClose, onSaved }: RadiologyRep
 
           {loading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+              <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
             </div>
           ) : (
             <>
@@ -316,7 +316,7 @@ export function RadiologyReportModal({ studyId, onClose, onSaved }: RadiologyRep
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   onClick={() => setViewerStudyId(studyId)}
-                  className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer"
+                  className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted flex items-center gap-2 cursor-pointer"
                 >
                   <FolderOpen className="w-4 h-4" />
                   {t("radiology.reports.viewImages")}
@@ -324,14 +324,14 @@ export function RadiologyReportModal({ studyId, onClose, onSaved }: RadiologyRep
                 <button
                   onClick={printPdf}
                   disabled={printing}
-                  className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer"
+                  className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted flex items-center gap-2 cursor-pointer"
                 >
                   {printing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Printer className="w-4 h-4" />}
                   {t("radiology.reports.printPdf")}
                 </button>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                  className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted cursor-pointer"
                 >
                   {t("radiology.cancel")}
                 </button>

@@ -14,9 +14,9 @@ export function DashboardTopDoctors({
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 p-5">
+    <div className="rounded-xl border border-border dark:border-border bg-card/50 p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white">
+        <h3 className="font-semibold text-foreground">
           {t("dentalLab.dashboard.topDoctors")}
         </h3>
         <button
@@ -29,14 +29,14 @@ export function DashboardTopDoctors({
       </div>
 
       {topDoctors.length === 0 ? (
-        <p className="text-sm text-gray-400 dark:text-gray-500">
+        <p className="text-sm text-muted-foreground/80">
           {t("dentalLab.common.noData")}
         </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-300 text-xs">
+              <tr className="border-b dark:border-border text-muted-foreground dark:text-muted-foreground text-xs">
                 <th className="text-right py-2 px-2">
                   {t("dentalLab.dashboard.doctorName")}
                 </th>
@@ -63,7 +63,7 @@ export function DashboardTopDoctors({
                       );
                     }
                   }}
-                  className="border-b dark:border-gray-700 last:border-b-0 hover:bg-blue-50/60 dark:hover:bg-blue-950/20 cursor-pointer transition-colors group"
+                  className="border-b dark:border-border last:border-b-0 hover:bg-blue-50/60 dark:hover:bg-blue-950/20 cursor-pointer transition-colors group"
                   title="اضغط لفتح الملف الكامل للطبيب وحالاته"
                 >
                   <td className="py-2.5 px-2 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 flex items-center gap-1.5">
@@ -73,7 +73,7 @@ export function DashboardTopDoctors({
                   <td className="py-2.5 px-2 text-center font-semibold font-mono tabular-nums">
                     {d.count ?? 0}
                   </td>
-                  <td className="py-2.5 px-2 text-left font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                  <td className="py-2.5 px-2 text-left font-bold text-success dark:text-success font-mono tabular-nums">
                     {fmtMoney(d.revenue)} {t("dentalLab.common.egp")}
                   </td>
                 </tr>

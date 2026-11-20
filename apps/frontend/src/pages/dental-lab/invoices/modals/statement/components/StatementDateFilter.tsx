@@ -17,8 +17,8 @@ export const StatementDateFilter: React.FC<StatementDateFilterProps> = ({
   onClear,
 }) => {
   return (
-    <div className="flex flex-wrap items-center gap-2.5 pb-3 border-b dark:border-gray-800 text-xs print:hidden">
-      <span className="font-semibold text-gray-600 dark:text-gray-400">
+    <div className="flex flex-wrap items-center gap-2.5 pb-3 border-b dark:border-border text-xs print:hidden">
+      <span className="font-semibold text-foreground dark:text-muted-foreground">
         الفترة:
       </span>
       <div className="flex items-center gap-1.5">
@@ -27,7 +27,7 @@ export const StatementDateFilter: React.FC<StatementDateFilterProps> = ({
           aria-label="تاريخ البداية"
           value={from}
           onChange={(e) => onFromChange(e.target.value)}
-          className="border dark:border-gray-700 rounded px-2 py-1 text-xs dark:bg-gray-800"
+          className="border dark:border-border rounded px-2 py-1 text-xs dark:bg-muted"
         />
       </div>
       <div className="flex items-center gap-1.5">
@@ -36,7 +36,7 @@ export const StatementDateFilter: React.FC<StatementDateFilterProps> = ({
           aria-label="تاريخ النهاية"
           value={to}
           onChange={(e) => onToChange(e.target.value)}
-          className="border dark:border-gray-700 rounded px-2 py-1 text-xs dark:bg-gray-800"
+          className="border dark:border-border rounded px-2 py-1 text-xs dark:bg-muted"
         />
       </div>
       {(from || to) && (

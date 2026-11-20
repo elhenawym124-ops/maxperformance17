@@ -47,9 +47,9 @@ export const CaseCreateMaterialDatesSection: React.FC<
   return (
     <>
       {/* Material & Warranty info */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-gray-50 dark:bg-gray-800/60 p-3 rounded-xl border border-gray-200 dark:border-gray-700">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-muted dark:bg-muted p-3 rounded-xl border border-border dark:border-border">
         <div>
-          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-medium text-foreground mb-1">
             المادة الخام
           </label>
           <input
@@ -60,7 +60,7 @@ export const CaseCreateMaterialDatesSection: React.FC<
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-medium text-foreground mb-1">
             البراند / الشركة
           </label>
           <input
@@ -71,7 +71,7 @@ export const CaseCreateMaterialDatesSection: React.FC<
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-medium text-foreground mb-1">
             رقم التشغيلة (Lot)
           </label>
           <input
@@ -82,7 +82,7 @@ export const CaseCreateMaterialDatesSection: React.FC<
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-medium text-foreground mb-1">
             سنين الضمان
           </label>
           <input

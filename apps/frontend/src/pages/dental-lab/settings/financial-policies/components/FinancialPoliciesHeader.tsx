@@ -17,7 +17,7 @@ export function FinancialPoliciesHeader({
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-4">
         <div>
           <h2 className="text-lg font-bold flex items-center gap-2">
-            <DollarSign className="size-5 text-emerald-500" />
+            <DollarSign className="size-5 text-success" />
             الطبقة المالية والترحيل الموحّد (Financial Posting)
           </h2>
           <p className="text-xs text-muted-foreground mt-0.5">

@@ -334,20 +334,20 @@ const FacebookAdsDashboard: React.FC = () => {
 
   if (loading && !selectedAdAccount) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="flex min-h-screen items-center justify-center bg-muted dark:bg-muted">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-9 w-9 animate-spin rounded-full border-2 border-slate-200 border-t-blue-600" />
-          <p className="text-xs font-bold text-slate-500">جاري تحميل إعلانات فيسبوك...</p>
+          <div className="h-9 w-9 animate-spin rounded-full border-2 border-border border-t-blue-600" />
+          <p className="text-xs font-bold text-muted-foreground">جاري تحميل إعلانات فيسبوك...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white" dir={isEn ? "ltr" : "rtl"}>
+    <div className="min-h-screen bg-muted text-foreground dark:bg-muted dark:text-white" dir={isEn ? "ltr" : "rtl"}>
       <main className="mx-auto flex max-w-7xl flex-col gap-3 p-3 sm:p-5">
         {/* Executive Header Controls */}
-        <section className="rounded-xl border border-slate-200/80 bg-white/95 p-3 sm:p-4 shadow-xs backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/95">
+        <section className="rounded-xl border border-border bg-white/95 p-3 sm:p-4 shadow-xs backdrop-blur-md dark:border-border dark:bg-muted">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
@@ -356,8 +356,8 @@ const FacebookAdsDashboard: React.FC = () => {
                   Meta Marketing Suite
                 </span>
                 {stats.delivering > 0 && (
-                  <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-600 dark:bg-emerald-400/15 dark:text-emerald-300">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+                  <span className="flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-1 text-xs font-bold text-success dark:bg-success/15 dark:text-success">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
                     {stats.delivering} {isEn ? "campaigns delivering live" : "حملة تسلم الآن"}
                   </span>
                 )}
@@ -369,7 +369,7 @@ const FacebookAdsDashboard: React.FC = () => {
                 <select
                   value={selectedAdAccountId}
                   onChange={(e) => setSelectedAdAccountId(e.target.value)}
-                  className="h-9 w-full rounded-xl border border-slate-300 bg-white px-2.5 text-xs font-bold text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  className="h-9 w-full rounded-xl border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
                 >
                   <option value="">{isEn ? "-- Select Ad Account --" : "-- اختار حساب إعلاني --"}</option>
                   {businessGroups.map(([key, group]) => (
@@ -398,7 +398,7 @@ const FacebookAdsDashboard: React.FC = () => {
                 type="button"
                 onClick={handleManualRefresh}
                 disabled={refreshing}
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-700 shadow-xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-border bg-white px-3 text-xs font-bold text-foreground shadow-xs hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
                 <span className="hidden sm:inline">{isEn ? "Refresh" : "تحديث"}</span>
@@ -417,7 +417,7 @@ const FacebookAdsDashboard: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate("/advertising/marketing-studio")}
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-3.5 text-xs font-black text-white shadow-xs hover:from-purple-700 hover:to-indigo-700 transition-all shadow-purple-500/20"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-primary px-3.5 text-xs font-black text-white shadow-xs hover:from-primary hover:to-primary transition-all shadow-primary/20"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>{isEn ? "AI Marketing Studio" : "مركز التسويق الذكي"}</span>
@@ -432,7 +432,7 @@ const FacebookAdsDashboard: React.FC = () => {
                     }`,
                   )
                 }
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3 text-xs font-bold text-slate-700 shadow-xs hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300 transition-all"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-border bg-white px-3 text-xs font-bold text-foreground shadow-xs hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground transition-all"
                 title={isEn ? "Create empty campaign container" : "إنشاء هيكل حملة فقط"}
               >
                 <Layers className="h-3.5 w-3.5" />
@@ -506,11 +506,11 @@ const FacebookAdsDashboard: React.FC = () => {
         </section>
 
         {!selectedAdAccountId ? (
-          <section className="rounded-xl border border-dashed border-slate-300 p-4 sm:p-8 text-center dark:border-slate-800">
+          <section className="rounded-xl border border-dashed border-border p-4 sm:p-8 text-center dark:border-border">
             <h3 className="text-base font-black">
               {isEn ? "No Ad Account Selected" : "لم يتم اختيار حساب إعلاني"}
             </h3>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
               {isEn
                 ? "Select an account above to inspect campaigns, spend, and intelligence signals."
                 : "اختر حسابك الإعلاني من القائمة العلوية لعرض الحملات والنتائج الحية، أو قم بربط حساب جديد."}
@@ -528,7 +528,7 @@ const FacebookAdsDashboard: React.FC = () => {
         ) : (
           <>
             {/* Specialized Tools Quick Access Hub */}
-            <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200/80 bg-white p-2 sm:px-3 shadow-xs dark:border-slate-800/80 dark:bg-slate-900">
+            <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-white p-2 sm:px-3 shadow-xs dark:border-border dark:bg-muted">
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                 <div className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-bold text-white shadow-xs">
                   <Layers className="h-3.5 w-3.5" />
@@ -540,12 +540,12 @@ const FacebookAdsDashboard: React.FC = () => {
 
                 <Link
                   to={`/advertising/facebook-ads/budget-alerts${selectedAdAccountId ? `?adAccountId=${selectedAdAccountId}` : ""}`}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200/80 bg-emerald-50/50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition-all hover:bg-emerald-100/60 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-300"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-success/80 bg-success/50 px-3 py-1.5 text-xs font-bold text-success transition-all hover:bg-success/60 dark:border-success/40 dark:bg-success/30 dark:text-success"
                 >
-                  <BellRing className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <BellRing className="h-3.5 w-3.5 text-success dark:text-success" />
                   <span>{isEn ? "WhatsApp Alerts" : "تنبيهات WhatsApp"}</span>
                   {selectedAccountBalance !== null && (
-                    <span className="rounded-full bg-emerald-600 px-1.5 py-0.2 text-[11px] font-black text-white">
+                    <span className="rounded-full bg-success px-1.5 py-0.2 text-[11px] font-black text-white">
                       {formatCurrency(selectedAccountBalance, selectedCurrency)}
                     </span>
                   )}
@@ -553,17 +553,17 @@ const FacebookAdsDashboard: React.FC = () => {
 
                 <Link
                   to={`/advertising/facebook-ads/decision-reports${selectedAdAccountId ? `?adAccountId=${selectedAdAccountId}` : ""}`}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
                   <Gauge className="h-3.5 w-3.5 text-blue-600" />
                   <span>{isEn ? "Decisions & Reports" : "القرارات والتقارير الذكية"}</span>
                   {decisionCounts.warnings > 0 && (
-                    <span className="rounded-full bg-rose-100 px-1.5 py-0.2 text-[11px] font-black text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
+                    <span className="rounded-full bg-destructive px-1.5 py-0.2 text-[11px] font-black text-destructive dark:bg-destructive/60 dark:text-destructive">
                       {decisionCounts.warnings}
                     </span>
                   )}
                   {decisionCounts.opportunities > 0 && (
-                    <span className="rounded-full bg-emerald-100 px-1.5 py-0.2 text-[11px] font-black text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
+                    <span className="rounded-full bg-success px-1.5 py-0.2 text-[11px] font-black text-success dark:bg-success/60 dark:text-success">
                       +{decisionCounts.opportunities}
                     </span>
                   )}
@@ -571,9 +571,9 @@ const FacebookAdsDashboard: React.FC = () => {
 
                 <Link
                   to={`/advertising/facebook-ads/geo${selectedAdAccountId ? `?adAccountId=${selectedAdAccountId}` : ""}`}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
-                  <Globe2 className="h-3.5 w-3.5 text-slate-400" />
+                  <Globe2 className="h-3.5 w-3.5 text-muted-foreground" />
                   <span>{isEn ? "Geo Analytics" : "الأداء الجغرافي"}</span>
                 </Link>
               </div>
@@ -581,25 +581,25 @@ const FacebookAdsDashboard: React.FC = () => {
               <div className="ms-auto flex items-center gap-1.5">
                 <Link
                   to="/advertising/facebook-ads/audiences"
-                  className="hidden lg:inline-flex h-8 items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-2.5 text-xs font-semibold text-slate-600 shadow-2xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 transition-all"
+                  className="hidden lg:inline-flex h-8 items-center gap-1.5 rounded-lg border border-border bg-white px-2.5 text-xs font-semibold text-foreground shadow-2xs hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground transition-all"
                 >
-                  <Users className="h-3.5 w-3.5 text-slate-400" />
+                  <Users className="h-3.5 w-3.5 text-muted-foreground" />
                   <span>{isEn ? "Audiences" : "الجماهير"}</span>
                 </Link>
                 <Link
                   to="/advertising/facebook-ads/catalogs"
-                  className="hidden lg:inline-flex h-8 items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-2.5 text-xs font-semibold text-slate-600 shadow-2xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 transition-all"
+                  className="hidden lg:inline-flex h-8 items-center gap-1.5 rounded-lg border border-border bg-white px-2.5 text-xs font-semibold text-foreground shadow-2xs hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground transition-all"
                 >
-                  <ShoppingBag className="h-3.5 w-3.5 text-slate-400" />
+                  <ShoppingBag className="h-3.5 w-3.5 text-muted-foreground" />
                   <span>{isEn ? "Catalogs" : "الكتالوجات"}</span>
                 </Link>
                 <Link
                   to="/advertising/facebook-pixel"
-                  className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-3 text-xs font-bold text-slate-700 shadow-2xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-all"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-xs font-bold text-foreground shadow-2xs hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground transition-all"
                 >
-                  <Target className="h-3.5 w-3.5 text-slate-400" />
+                  <Target className="h-3.5 w-3.5 text-muted-foreground" />
                   <span>{isEn ? "Pixel & CAPI" : "البيكسل و CAPI"}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
+                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
                 </Link>
               </div>
             </div>

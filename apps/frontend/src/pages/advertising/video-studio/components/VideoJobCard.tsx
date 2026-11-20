@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const STATUS_CLASS: Record<string, string> = {
   QUEUED: "bg-muted text-muted-foreground",
   PROCESSING: "bg-primary/10 text-primary",
-  COMPLETED: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  COMPLETED: "bg-emerald-500/10 text-success dark:text-success",
   FAILED: "bg-destructive/10 text-destructive",
   CANCELLED: "bg-muted text-muted-foreground",
 };

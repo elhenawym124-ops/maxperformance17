@@ -11,19 +11,19 @@ export const SettlementHeader: React.FC<SettlementHeaderProps> = ({
   onClose,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-between pb-3 border-b dark:border-gray-800 mb-3 gap-2">
+    <div className="flex flex-wrap items-center justify-between pb-3 border-b dark:border-border mb-3 gap-2">
       <div className="flex items-center gap-2.5">
-        <div className="p-2 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 rounded-xl">
+        <div className="p-2 bg-primary/10 dark:bg-primary/40 text-primary rounded-xl">
           <CalendarClock className="w-5 h-5" />
         </div>
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+          <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
             <span>تقفيل المستحقات الشهرية وتجميد الأرصدة</span>
-            <span className="text-xs font-normal text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded-md border border-indigo-100 dark:border-indigo-900 font-mono tabular-nums">
+            <span className="text-xs font-normal text-primary bg-primary/10 dark:bg-primary/50 px-2 py-0.5 rounded-md border border-primary dark:border-primary font-mono tabular-nums">
               {period}
             </span>
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-muted-foreground">
             تسوية فواتير ومسددات الشهر لكل طبيب، ترحيل رصيد أول المدة، وتجميد
             الحسابات للتدقيق المحاسبي
           </p>
@@ -32,7 +32,7 @@ export const SettlementHeader: React.FC<SettlementHeaderProps> = ({
       <button
         type="button"
         onClick={onClose}
-        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg dark:text-gray-300"
+        className="p-1 hover:bg-muted dark:hover:bg-muted rounded-lg dark:text-muted-foreground"
         aria-label="إغلاق"
       >
         <XMarkIcon className="w-5 h-5" />

@@ -66,14 +66,14 @@ export default function ExamAdditionsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.examAdditions.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.examAdditions.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.examAdditions.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400 dark:text-gray-500" />
-            <input className={`${MODAL_INPUT_CLS} pr-9 w-44`} placeholder={t("radiology.examAdditions.searchPlaceholder")} value={search} onChange={e => setSearch(e.target.value)} />
+            <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground/80" />
+            <input className={`${MODAL_INPUT_CLS} pe-9 w-44`} placeholder={t("radiology.examAdditions.searchPlaceholder")} value={search} onChange={e => setSearch(e.target.value)} />
           </div>
-          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
           <button onClick={() => setModal({ name: "", price: "0" })} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
@@ -83,15 +83,15 @@ export default function ExamAdditionsTab() {
       </div>
 
       {loading && !items.length ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : items.length === 0 ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.examAdditions.noAdditions")}</p>
+        <p className="text-center py-16 text-muted-foreground/80">{t("radiology.examAdditions.noAdditions")}</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[500px]">
               <thead>
-                <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-sm">
+                <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-sm">
                   {[t("radiology.examAdditions.name"), t("radiology.examAdditions.price"), t("radiology.examAdditions.actions")].map(h => (
                     <th key={h} className="text-right py-3 px-4 whitespace-nowrap">{h}</th>
                   ))}
@@ -99,13 +99,13 @@ export default function ExamAdditionsTab() {
               </thead>
               <tbody>
                 {items.map(a => (
-                  <tr key={a.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
+                  <tr key={a.id} className="border-b dark:border-border hover:bg-muted/50 text-sm">
                     <td className="py-3 px-4 font-medium">{a.name}</td>
                     <td className="py-3 px-4">{Number(a.price).toFixed(0)} {t("radiology.currency")}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-1.5">
                         <button onClick={() => setModal({ id: a.id, name: a.name, price: String(a.price) })} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
-                        <button onClick={() => remove(a)} className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => remove(a)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>
@@ -121,20 +121,20 @@ export default function ExamAdditionsTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{modal.id ? t("radiology.examAdditions.editAddition") : t("radiology.examAdditions.newAdditionModal")}</h3>
-              <button onClick={() => setModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setModal(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.examAdditions.nameLabel")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.examAdditions.nameLabel")}</label>
                 <input className={MODAL_INPUT_CLS} value={modal.name} onChange={e => setModal({ ...modal, name: e.target.value })} placeholder={t("radiology.examAdditions.namePlaceholder")} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.examAdditions.priceLabel")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.examAdditions.priceLabel")}</label>
                 <input type="number" min={0} className={MODAL_INPUT_CLS} dir="ltr" value={modal.price} onChange={e => setModal({ ...modal, price: e.target.value })} />
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">{t("radiology.cancel")}</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
               <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>

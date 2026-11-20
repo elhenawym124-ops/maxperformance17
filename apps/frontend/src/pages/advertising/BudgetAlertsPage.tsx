@@ -311,10 +311,10 @@ export const BudgetAlertsPage: React.FC = () => {
 
   if (loading && !selectedAdAccount) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="flex min-h-screen items-center justify-center bg-muted dark:bg-muted">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-9 w-9 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
-          <p className="text-xs font-bold text-slate-500">
+          <div className="h-9 w-9 animate-spin rounded-full border-2 border-success border-t-transparent" />
+          <p className="text-xs font-bold text-muted-foreground">
             {isEn ? "Loading WhatsApp budget alerts..." : "جاري تحميل تنبيهات WhatsApp..."}
           </p>
         </div>
@@ -323,30 +323,30 @@ export const BudgetAlertsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100" dir={isEn ? "ltr" : "rtl"}>
+    <div className="min-h-screen bg-muted text-foreground dark:bg-muted dark:text-muted-foreground" dir={isEn ? "ltr" : "rtl"}>
       <main className="mx-auto flex max-w-[1600px] flex-col gap-3 p-2.5 sm:p-5">
         <FacebookAdsModuleNav selectedAdAccountId={selectedAdAccountId} />
 
         {/* Executive Header Banner */}
-        <section className="rounded-2xl border border-emerald-500/20 bg-gradient-to-r from-emerald-950/10 via-white to-white p-3.5 shadow-sm dark:border-emerald-500/30 dark:from-emerald-950/40 dark:via-slate-900 dark:to-slate-900 sm:p-5">
+        <section className="rounded-xl border border-success/20 bg-gradient-to-r from-success/10 via-white to-white p-3.5 shadow-sm dark:border-success/30 dark:from-success/40 dark:via-slate-900 dark:to-slate-900 sm:p-5">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-start gap-3.5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-md shadow-emerald-500/25">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-success text-white shadow-md shadow-success/25">
                 <MessageSquare className="h-6 w-6" />
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-black text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                  <span className="rounded-full bg-success px-2.5 py-0.5 text-[11px] font-black text-success dark:bg-success/60 dark:text-success">
                     WhatsApp Cloud Gateway
                   </span>
-                  <span className="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                  <span className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
                     <Clock className="h-3 w-3" /> {isEn ? "Automated check every 15 min" : "فحص دوري آلي كل 15 دقيقة"}
                   </span>
                 </div>
                 <h1 className="mt-1.5 text-lg font-black tracking-tight sm:text-xl">
                   {isEn ? "Ad Budget & Balance Alerts via WhatsApp" : "تنبيهات ميزانية ورصيد الإعلانات عبر WhatsApp"}
                 </h1>
-                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                <p className="mt-1 text-xs text-muted-foreground dark:text-muted-foreground">
                   {isEn
                     ? "Instant phone notifications to prevent sudden ad delivery stops when balance is low or campaigns reach spend limits."
                     : "إشعارات فورية على هاتفك لتفادي توقف الإعلانات المفاجئ عند انخفاض الرصيد أو وصول الحملات لحدود الإنفاق."}
@@ -359,7 +359,7 @@ export const BudgetAlertsPage: React.FC = () => {
                 <select
                   value={selectedAdAccountId}
                   onChange={(e) => setSelectedAdAccountId(e.target.value)}
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-800 shadow-sm outline-none transition focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  className="h-10 w-full rounded-xl border border-border bg-white px-3 text-xs font-bold text-foreground shadow-sm outline-none transition focus:border-success dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
                   <option value="">{isEn ? "-- Select Ad Account --" : "-- اختار الحساب الإعلاني --"}</option>
                   {businessGroups.map(([key, group]) => (
@@ -378,7 +378,7 @@ export const BudgetAlertsPage: React.FC = () => {
                 type="button"
                 onClick={handleManualCheck}
                 disabled={checkingAlerts}
-                className="inline-flex h-10 items-center gap-2 rounded-xl bg-emerald-600 px-3.5 text-xs font-black text-white shadow-sm transition hover:bg-emerald-700 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-xl bg-success px-3.5 text-xs font-black text-white shadow-sm transition hover:bg-success disabled:opacity-50"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${checkingAlerts ? "animate-spin" : ""}`} />
                 <span>{checkingAlerts ? (isEn ? "Checking..." : "جاري الفحص...") : (isEn ? "Check Meta Now" : "فحص Meta الآن")}</span>
@@ -389,66 +389,66 @@ export const BudgetAlertsPage: React.FC = () => {
 
         {/* 4 Sleek KPI Cards */}
         <section className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
+            <div className="flex items-center justify-between text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <span>{isEn ? "Available Account Balance" : "رصيد الحساب المتاح"}</span>
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-success/10 text-success dark:bg-success/40 dark:text-success">
                 <Zap className="h-4 w-4" />
               </div>
             </div>
-            <div className="mt-2 text-base font-black text-emerald-600 dark:text-emerald-400 sm:text-xl">
+            <div className="mt-2 text-base font-black text-success dark:text-success sm:text-xl">
               {selectedAccountBalance === null
                 ? (isEn ? "Unspecified" : "غير محدد")
                 : formatCurrency(selectedAccountBalance, selectedCurrency)}
             </div>
-            <p className="mt-1 text-[11px] text-slate-400">
+            <p className="mt-1 text-[11px] text-muted-foreground">
               {isEn ? "Real active balance on Meta" : "الرصيد الفعلي الجاري لدى Meta"}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
+            <div className="flex items-center justify-between text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <span>{isEn ? "Remaining Spend Cap" : "المتبقي من حد الإنفاق"}</span>
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400">
                 <ShieldAlert className="h-4 w-4" />
               </div>
             </div>
-            <div className="mt-2 text-base font-black text-slate-800 dark:text-slate-200 sm:text-xl">
+            <div className="mt-2 text-base font-black text-foreground dark:text-muted-foreground sm:text-xl">
               {selectedSpendCapRemaining === null
                 ? (isEn ? "Unspecified" : "غير محدد")
                 : formatCurrency(selectedSpendCapRemaining, selectedCurrency)}
             </div>
-            <p className="mt-1 text-[11px] text-slate-400">
+            <p className="mt-1 text-[11px] text-muted-foreground">
               {isEn ? "Account Spend Cap Remaining" : "المتبقي من سقف إنفاق الحساب"}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
+            <div className="flex items-center justify-between text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <span>{isEn ? "Active Alert Rules" : "قواعد التنبيه النشطة"}</span>
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-950/40 dark:text-purple-400">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary">
                 <BellRing className="h-4 w-4" />
               </div>
             </div>
-            <div className="mt-2 text-base font-black text-slate-800 dark:text-slate-200 sm:text-xl">
-              {activeRulesCount} <span className="text-xs font-normal text-slate-400">{isEn ? `of ${selectedAccountAlertRules.length}` : `من ${selectedAccountAlertRules.length}`}</span>
+            <div className="mt-2 text-base font-black text-foreground dark:text-muted-foreground sm:text-xl">
+              {activeRulesCount} <span className="text-xs font-normal text-muted-foreground">{isEn ? `of ${selectedAccountAlertRules.length}` : `من ${selectedAccountAlertRules.length}`}</span>
             </div>
-            <p className="mt-1 text-[11px] text-slate-400">
+            <p className="mt-1 text-[11px] text-muted-foreground">
               {isEn ? "Currently active monitoring rules" : "قواعد مراقبة فعالة حالياً"}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
+            <div className="flex items-center justify-between text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <span>{isEn ? "Total Messages Sent" : "إجمالي الرسائل المرسلة"}</span>
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning">
                 <Send className="h-4 w-4" />
               </div>
             </div>
-            <div className="mt-2 text-base font-black text-slate-800 dark:text-slate-200 sm:text-xl">
-              {budgetAlertLogs.length} <span className="text-xs font-normal text-slate-400">{isEn ? "alerts" : "تنبيه"}</span>
+            <div className="mt-2 text-base font-black text-foreground dark:text-muted-foreground sm:text-xl">
+              {budgetAlertLogs.length} <span className="text-xs font-normal text-muted-foreground">{isEn ? "alerts" : "تنبيه"}</span>
             </div>
-            <p className="mt-1 text-[11px] text-slate-400">
+            <p className="mt-1 text-[11px] text-muted-foreground">
               {isEn ? "Gateway dispatch logs" : "سجل الإرسال عبر البوابة"}
             </p>
           </div>
@@ -460,13 +460,13 @@ export const BudgetAlertsPage: React.FC = () => {
           <div className="lg:col-span-5">
             <form
               onSubmit={handleCreateRule}
-              className="flex flex-col gap-3 rounded-2xl border border-emerald-500/20 bg-white p-3.5 shadow-sm dark:border-emerald-500/30 dark:bg-slate-900 sm:p-4"
+              className="flex flex-col gap-3 rounded-xl border border-success/20 bg-white p-3.5 shadow-sm dark:border-success/30 dark:bg-muted sm:p-4"
             >
-              <div className="border-b border-slate-100 pb-2.5 dark:border-slate-800">
-                <h2 className="text-sm font-black text-slate-900 dark:text-slate-100 sm:text-base">
+              <div className="border-b border-border pb-2.5 dark:border-border">
+                <h2 className="text-sm font-black text-foreground dark:text-muted-foreground sm:text-base">
                   {isEn ? "Create New WhatsApp Alert" : "إنشاء تنبيه WhatsApp جديد"}
                 </h2>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                   {isEn
                     ? "Set trigger condition and phone number to receive instant notification upon matching"
                     : "حدد شرط الإرسال ورقم الهاتف ليصلك إشعار فوري عند مطابقة الشرط"}
@@ -475,7 +475,7 @@ export const BudgetAlertsPage: React.FC = () => {
 
               {/* Scope Selection */}
               <div>
-                <label className="mb-1 block text-xs font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-1 block text-xs font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Monitoring Scope" : "نطاق المراقبة (Scope)"}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -493,8 +493,8 @@ export const BudgetAlertsPage: React.FC = () => {
                       }
                       className={`rounded-xl border px-2.5 py-2 text-center text-xs font-black transition ${
                         form.scope === opt.value
-                          ? "border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-400 dark:bg-emerald-950/40 dark:text-emerald-300"
-                          : "border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+                          ? "border-emerald-500 bg-success/10 text-success dark:border-success dark:bg-success/40 dark:text-success"
+                          : "border-slate-200 bg-muted text-foreground hover:border-border dark:border-border dark:bg-muted dark:text-muted-foreground"
                       }`}
                     >
                       {opt.label}
@@ -506,13 +506,13 @@ export const BudgetAlertsPage: React.FC = () => {
               {/* Campaign selector if scope is campaign */}
               {form.scope === "CAMPAIGN" && (
                 <div>
-                  <label className="mb-1 block text-xs font-bold text-slate-700 dark:text-slate-300">
+                  <label className="mb-1 block text-xs font-bold text-foreground dark:text-muted-foreground">
                     {isEn ? "Target Ad Campaign" : "الحملة الإعلانية المستهدفة"}
                   </label>
                   <select
                     value={form.campaignId}
                     onChange={(e) => setForm((prev) => ({ ...prev, campaignId: e.target.value }))}
-                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-800 outline-none focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                    className="h-10 w-full rounded-xl border border-border bg-white px-3 text-xs font-bold text-foreground outline-none focus:border-success dark:border-border dark:bg-muted dark:text-muted-foreground"
                   >
                     <option value="">{isEn ? "-- Select Campaign --" : "-- اختار الحملة --"}</option>
                     {campaigns.map((c) => (
@@ -526,7 +526,7 @@ export const BudgetAlertsPage: React.FC = () => {
 
               {/* Metric Trigger */}
               <div>
-                <label className="mb-1 block text-xs font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-1 block text-xs font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Trigger Condition" : "شرط إطلاق التنبيه (Trigger Condition)"}
                 </label>
                 <select
@@ -538,7 +538,7 @@ export const BudgetAlertsPage: React.FC = () => {
                       thresholdAmount: e.target.value === "CAMPAIGN_FINISHED" ? "0" : prev.thresholdAmount,
                     }))
                   }
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-800 outline-none focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  className="h-10 w-full rounded-xl border border-border bg-white px-3 text-xs font-bold text-foreground outline-none focus:border-success dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
                   {metricOptionsByScope[form.scope].map((m) => (
                     <option key={m.value} value={m.value}>
@@ -552,10 +552,10 @@ export const BudgetAlertsPage: React.FC = () => {
               {form.metric !== "CAMPAIGN_FINISHED" && (
                 <div>
                   <div className="mb-1 flex items-center justify-between text-xs font-bold">
-                    <span className="text-slate-700 dark:text-slate-300">
+                    <span className="text-slate-700 dark:text-muted-foreground">
                       {isEn ? "Minimum Alert Threshold" : "قيمة الحد الأدنى للتنبيه"}
                     </span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-black">{selectedCurrency}</span>
+                    <span className="text-emerald-600 dark:text-success font-black">{selectedCurrency}</span>
                   </div>
                   <input
                     type="number"
@@ -564,10 +564,10 @@ export const BudgetAlertsPage: React.FC = () => {
                     value={form.thresholdAmount}
                     onChange={(e) => setForm((prev) => ({ ...prev, thresholdAmount: e.target.value }))}
                     placeholder={isEn ? "e.g. 100" : "مثال: 100"}
-                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-black text-slate-900 outline-none focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                    className="h-10 w-full rounded-xl border border-border bg-white px-3 text-sm font-black text-foreground outline-none focus:border-success dark:border-border dark:bg-muted dark:text-muted-foreground"
                   />
                   <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-muted-foreground">
                       {isEn ? "Quick Presets:" : "مقترحات سريعة:"}
                     </span>
                     {thresholdPresets.map((val) => (
@@ -575,7 +575,7 @@ export const BudgetAlertsPage: React.FC = () => {
                         key={val}
                         type="button"
                         onClick={() => setForm((prev) => ({ ...prev, thresholdAmount: val }))}
-                        className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-bold text-slate-600 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
+                        className="rounded-lg border border-border bg-muted px-2 py-0.5 text-[11px] font-bold text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                       >
                         {val} {selectedCurrency}
                       </button>
@@ -586,13 +586,13 @@ export const BudgetAlertsPage: React.FC = () => {
 
               {/* Cooldown minutes */}
               <div>
-                <label className="mb-1 block text-xs font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-1 block text-xs font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Anti-Spam Cooldown" : "منع التكرار (Anti-Spam Cooldown)"}
                 </label>
                 <select
                   value={form.cooldownMinutes}
                   onChange={(e) => setForm((prev) => ({ ...prev, cooldownMinutes: e.target.value }))}
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-800 outline-none focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  className="h-10 w-full rounded-xl border border-border bg-white px-3 text-xs font-bold text-foreground outline-none focus:border-success dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
                   {cooldownOptions.map((c) => (
                     <option key={c.value} value={c.value}>
@@ -600,7 +600,7 @@ export const BudgetAlertsPage: React.FC = () => {
                     </option>
                   ))}
                 </select>
-                <p className="mt-1 text-[11px] text-slate-400">
+                <p className="mt-1 text-[11px] text-muted-foreground">
                   {isEn
                     ? "Interval before sending a new alert for the same threshold to avoid spam"
                     : "المدة الفاصلة قبل إرسال تنبيه جديد لنفس الحد لتفادي الإزعاج"}
@@ -609,7 +609,7 @@ export const BudgetAlertsPage: React.FC = () => {
 
               {/* Recipient Phones */}
               <div>
-                <label className="mb-1 block text-xs font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-1 block text-xs font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Recipient WhatsApp Numbers" : "أرقام WhatsApp المستلمة"}
                 </label>
                 <textarea
@@ -617,9 +617,9 @@ export const BudgetAlertsPage: React.FC = () => {
                   value={form.recipientPhones}
                   onChange={(e) => setForm((prev) => ({ ...prev, recipientPhones: e.target.value }))}
                   placeholder={isEn ? "01000000000, 01100000000 or +201200000000" : "01000000000، 01100000000 أو +201200000000"}
-                  className="w-full rounded-xl border border-slate-200 bg-white p-2.5 text-xs font-bold text-slate-800 outline-none focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  className="w-full rounded-xl border border-border bg-white p-2.5 text-xs font-bold text-foreground outline-none focus:border-success dark:border-border dark:bg-muted dark:text-muted-foreground"
                 />
-                <p className="mt-0.5 text-[11px] text-slate-400">
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
                   {isEn
                     ? "You can enter multiple numbers separated by comma or new line"
                     : "يمكن إدخال أكثر من رقم مفصولة بفاصلة أو سطر جديد"}
@@ -630,7 +630,7 @@ export const BudgetAlertsPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={savingAlert || !selectedAdAccountId}
-                className="mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 text-xs font-black text-white shadow-md shadow-emerald-600/20 transition hover:bg-emerald-700 disabled:opacity-50"
+                className="mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-success px-4 text-xs font-black text-white shadow-md shadow-success/20 transition hover:bg-success disabled:opacity-50"
               >
                 <MessageSquare className="h-4 w-4" />
                 <span>
@@ -645,13 +645,13 @@ export const BudgetAlertsPage: React.FC = () => {
           {/* Active Rules & Log (Left on RTL, 7 cols) */}
           <div className="flex flex-col gap-3.5 lg:col-span-7">
             {/* Active Rules Card */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 dark:border-slate-800">
+            <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
+              <div className="flex items-center justify-between border-b border-border pb-2.5 dark:border-border">
                 <div>
-                  <h2 className="text-sm font-black text-slate-900 dark:text-slate-100 sm:text-base">
+                  <h2 className="text-sm font-black text-foreground dark:text-muted-foreground sm:text-base">
                     {isEn ? `Current Alert Rules (${selectedAccountAlertRules.length})` : `قواعد التنبيه الحالية (${selectedAccountAlertRules.length})`}
                   </h2>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                     {isEn
                       ? "Rules periodically monitoring account balance and campaign budgets"
                       : "القواعد التي تراقب رصيد الحساب وميزانيات الحملات دورياً"}
@@ -661,12 +661,12 @@ export const BudgetAlertsPage: React.FC = () => {
 
               <div className="mt-3 flex flex-col gap-2.5">
                 {selectedAccountAlertRules.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 py-8 text-center dark:border-slate-800">
-                    <BellRing className="h-8 w-8 text-slate-300 dark:text-slate-600" />
-                    <p className="mt-2 text-xs font-bold text-slate-500">
+                  <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-8 text-center dark:border-border">
+                    <BellRing className="h-8 w-8 text-muted-foreground dark:text-foreground" />
+                    <p className="mt-2 text-xs font-bold text-muted-foreground">
                       {isEn ? "No active alert rules for this account yet" : "لا توجد قواعد تنبيه مفعلة لهذا الحساب بعد"}
                     </p>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="text-[11px] text-muted-foreground">
                       {isEn ? "Use the form to create your first WhatsApp alert" : "استخدم النموذج المقابل لإنشاء أول تنبيه WhatsApp"}
                     </p>
                   </div>
@@ -682,8 +682,8 @@ export const BudgetAlertsPage: React.FC = () => {
                         key={rule.id}
                         className={`rounded-xl border p-3 transition ${
                           rule.isEnabled
-                            ? "border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-950/40"
-                            : "border-dashed border-slate-200 bg-slate-50/20 opacity-70 dark:border-slate-800"
+                            ? "border-slate-200 bg-muted dark:border-border dark:bg-muted"
+                            : "border-dashed border-border bg-muted opacity-70 dark:border-border"
                         }`}
                       >
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -692,8 +692,8 @@ export const BudgetAlertsPage: React.FC = () => {
                               <span
                                 className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
                                   rule.isEnabled
-                                    ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
-                                    : "bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                                    ? "bg-emerald-100 text-success dark:bg-success/60 dark:text-success"
+                                    : "bg-slate-200 text-foreground dark:bg-muted dark:text-muted-foreground"
                                 }`}
                               >
                                 {rule.isEnabled ? (isEn ? "Active & Enabled" : "نشط ومفعل") : (isEn ? "Disabled" : "معطل")}
@@ -701,29 +701,29 @@ export const BudgetAlertsPage: React.FC = () => {
                               <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
                                 {isCampaign ? (isEn ? "Campaign" : "حملة") : (isEn ? "Ad Account" : "حساب إعلاني")}
                               </span>
-                              <h3 className="truncate text-xs font-black text-slate-900 dark:text-slate-100 sm:text-sm">
+                              <h3 className="truncate text-xs font-black text-foreground dark:text-muted-foreground sm:text-sm">
                                 {title}
                               </h3>
                             </div>
 
-                            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500 dark:text-slate-400">
+                            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground dark:text-muted-foreground">
                               <span>
-                                {isEn ? "Condition: " : "الشرط: "}<strong className="text-slate-700 dark:text-slate-300">{metricLabels[rule.metric] || rule.metric}</strong>
+                                {isEn ? "Condition: " : "الشرط: "}<strong className="text-slate-700 dark:text-muted-foreground">{metricLabels[rule.metric] || rule.metric}</strong>
                               </span>
                               <span>
-                                {isEn ? "Threshold: " : "الحد: "}<strong className="text-emerald-600 dark:text-emerald-400">{formatCurrency(rule.thresholdAmount, rule.currency)}</strong>
+                                {isEn ? "Threshold: " : "الحد: "}<strong className="text-emerald-600 dark:text-success">{formatCurrency(rule.thresholdAmount, rule.currency)}</strong>
                               </span>
                               <span>
-                                {isEn ? "Cooldown: " : "منع التكرار: "}<strong className="text-slate-700 dark:text-slate-300">{rule.cooldownMinutes} {isEn ? "min" : "دقيقة"}</strong>
+                                {isEn ? "Cooldown: " : "منع التكرار: "}<strong className="text-slate-700 dark:text-muted-foreground">{rule.cooldownMinutes} {isEn ? "min" : "دقيقة"}</strong>
                               </span>
                             </div>
 
                             <div className="mt-1.5 flex flex-wrap items-center gap-1">
-                              <PhoneCall className="h-3 w-3 text-slate-400" />
+                              <PhoneCall className="h-3 w-3 text-muted-foreground" />
                               {rule.recipientPhones.map((ph, idx) => (
                                 <span
                                   key={idx}
-                                  className="rounded-md bg-white px-1.5 py-0.5 text-[10px] font-bold text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300"
+                                  className="rounded-md bg-white px-1.5 py-0.5 text-[10px] font-bold text-foreground shadow-sm dark:bg-muted dark:text-muted-foreground"
                                 >
                                   {ph}
                                 </span>
@@ -736,7 +736,7 @@ export const BudgetAlertsPage: React.FC = () => {
                               type="button"
                               onClick={() => handleTestRule(rule.id)}
                               disabled={testingAlertId === rule.id}
-                              className="inline-flex h-8 items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2 text-[11px] font-bold text-emerald-700 transition hover:bg-emerald-100 disabled:opacity-50 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                              className="inline-flex h-8 items-center gap-1 rounded-lg border border-success bg-success/10 px-2 text-[11px] font-bold text-success transition hover:bg-success disabled:opacity-50 dark:border-success dark:bg-success/40 dark:text-success"
                               title={isEn ? "Send instant test message on WhatsApp" : "إرسال رسالة اختبارية فورية على واتساب"}
                             >
                               <Send className="h-3 w-3" />
@@ -746,7 +746,7 @@ export const BudgetAlertsPage: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => handleToggleRule(rule)}
-                              className="inline-flex h-8 items-center rounded-lg border border-slate-200 bg-white px-2.5 text-[11px] font-bold text-slate-700 transition hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
+                              className="inline-flex h-8 items-center rounded-lg border border-border bg-white px-2.5 text-[11px] font-bold text-foreground transition hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                             >
                               {rule.isEnabled ? (isEn ? "Disable" : "إيقاف") : (isEn ? "Enable" : "تفعيل")}
                             </button>
@@ -754,7 +754,7 @@ export const BudgetAlertsPage: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => handleDeleteRule(rule.id)}
-                              className="inline-flex h-8 items-center rounded-lg border border-red-200 bg-red-50 p-2 text-red-600 transition hover:bg-red-100 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-400"
+                              className="inline-flex h-8 items-center rounded-lg border border-destructive bg-destructive/10 p-2 text-destructive transition hover:bg-destructive dark:border-destructive/40 dark:bg-destructive/30 dark:text-destructive"
                               title={isEn ? "Delete Rule" : "حذف القاعدة"}
                             >
                               <Trash2 className="h-3.5 w-3.5" />
@@ -769,19 +769,19 @@ export const BudgetAlertsPage: React.FC = () => {
             </div>
 
             {/* Audit & Logs Card */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 dark:border-slate-800">
-                <h2 className="text-sm font-black text-slate-900 dark:text-slate-100 sm:text-base">
+            <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
+              <div className="flex items-center justify-between border-b border-border pb-2.5 dark:border-border">
+                <h2 className="text-sm font-black text-foreground dark:text-muted-foreground sm:text-base">
                   {isEn ? "Sent WhatsApp Messages Log" : "سجل رسائل WhatsApp المرسلة"}
                 </h2>
-                <span className="text-[11px] font-bold text-slate-400">
+                <span className="text-[11px] font-bold text-muted-foreground">
                   {isEn ? `Latest ${budgetAlertLogs.length} notifications` : `آخر ${budgetAlertLogs.length} إشعار`}
                 </span>
               </div>
 
               <div className="mt-3 flex flex-col gap-2">
                 {budgetAlertLogs.length === 0 ? (
-                  <div className="py-6 text-center text-xs font-bold text-slate-400">
+                  <div className="py-6 text-center text-xs font-bold text-muted-foreground">
                     {isEn ? "No sent messages recorded yet" : "لم يتم تسجيل أي رسائل مرسلة حتى الآن"}
                   </div>
                 ) : (
@@ -790,28 +790,28 @@ export const BudgetAlertsPage: React.FC = () => {
                     return (
                       <div
                         key={log.id}
-                        className="flex flex-col gap-1 rounded-xl bg-slate-50 p-2 text-xs font-bold dark:bg-slate-950 sm:flex-row sm:items-center sm:justify-between"
+                        className="flex flex-col gap-1 rounded-xl bg-muted p-2 text-xs font-bold dark:bg-muted sm:flex-row sm:items-center sm:justify-between"
                       >
                         <div className="flex items-center gap-2">
                           <span
                             className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
                               isSuccess
-                                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300"
-                                : "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-300"
+                                ? "bg-emerald-100 text-success dark:bg-success/50 dark:text-success"
+                                : "bg-red-100 text-destructive dark:bg-destructive/50 dark:text-destructive"
                             }`}
                           >
                             {isSuccess ? (isEn ? "Sent" : "تم الإرسال") : log.status}
                           </span>
-                          <span className="text-slate-800 dark:text-slate-200">
+                          <span className="text-slate-800 dark:text-muted-foreground">
                             {log.recipientPhone}
                           </span>
                           <span className="text-slate-400">·</span>
-                          <span className="text-slate-500 dark:text-slate-400">
+                          <span className="text-slate-500 dark:text-muted-foreground">
                             {metricLabels[log.metric] || log.metric}
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                        <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                           {log.currentValue != null && (
                             <span>{isEn ? "Value: " : "القيمة: "}{formatCurrency(log.currentValue, log.currency)}</span>
                           )}

@@ -49,13 +49,13 @@ export default function LabDashboardTab() {
     <div className="space-y-6">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         {cards.map(c => (
-          <div key={c.label} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
-            <p className="text-sm text-gray-500 dark:text-gray-400">{c.label}</p>
+          <div key={c.label} className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
+            <p className="text-sm text-muted-foreground">{c.label}</p>
             <p className="text-2xl font-bold mt-1">{c.value}</p>
           </div>
         ))}
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+      <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
         <h3 className="font-semibold mb-3">حالات الطلبات</h3>
         <div className="flex flex-wrap gap-2">
           {Object.entries(LAB_STATUS_MAP).map(([k, v]) => (
@@ -63,7 +63,7 @@ export default function LabDashboardTab() {
           ))}
         </div>
       </div>
-      <p className="text-sm text-gray-500 dark:text-gray-400">لوحة المعمل — بيانات الطلبات والفواتير.</p>
+      <p className="text-sm text-muted-foreground">لوحة المعمل — بيانات الطلبات والفواتير.</p>
     </div>
   );
 }

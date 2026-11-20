@@ -123,20 +123,20 @@ export interface LabSampleType {
 export const CULTURE_STATUS = { SCHEDULED: "مجدولة", DONE: "تمت", CANCELLED: "ملغاة" };
 
 export const LAB_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  PENDING: { label: "بانتظار أخذ العينة", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  PENDING: { label: "بانتظار أخذ العينة", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   COLLECTED: { label: "تم أخذ العينة", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  IN_PROGRESS: { label: "جارٍ التحليل", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  REVIEWED: { label: "تمت المراجعة", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  SIGNED: { label: "تم التوقيع", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  DELIVERED: { label: "تم التسليم", color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300" },
+  IN_PROGRESS: { label: "جارٍ التحليل", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  REVIEWED: { label: "تمت المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  SIGNED: { label: "تم التوقيع", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  DELIVERED: { label: "تم التسليم", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const LAB_REPORT_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  PENDING: { label: "بانتظار النتائج", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  PENDING: { label: "بانتظار النتائج", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   RESULTS_ENTERED: { label: "تم إدخال النتائج", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  REVIEWED: { label: "تمت المراجعة", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  SIGNED: { label: "تم التوقيع", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  DELIVERED: { label: "تم التسليم", color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300" },
+  REVIEWED: { label: "تمت المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  SIGNED: { label: "تم التوقيع", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  DELIVERED: { label: "تم التسليم", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const PATIENT_FLAGS = [
@@ -189,5 +189,5 @@ export const tryParseJSON = <T = unknown>(v: unknown): T | null => {
   try { return JSON.parse(v as string) as T; } catch { return null; }
 };
 
-export const MODAL_CONTENT_CLS = "bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
-export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100";
+export const MODAL_CONTENT_CLS = "bg-white dark:bg-muted rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
+export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground";

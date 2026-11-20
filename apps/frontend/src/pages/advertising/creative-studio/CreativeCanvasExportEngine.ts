@@ -29,7 +29,7 @@ export async function renderCompositeCanvas({
   product,
   aspectRatio,
   overlay,
-  previewGradient = "from-slate-900 to-indigo-950",
+  previewGradient = "from-slate-900 to-primary",
 }: ExportCanvasOptions): Promise<HTMLCanvasElement> {
   // 1. High-DPI Output Dimensions (2K Resolution)
   const dimensions: Record<AspectRatioType, { width: number; height: number }> = {

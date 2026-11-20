@@ -81,7 +81,7 @@ export function DoctorEditModal({
 
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
   const labelCls =
-    "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+    "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div
@@ -89,7 +89,7 @@ export function DoctorEditModal({
       onClick={() => !saving && onClose()}
     >
       <div
-        className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-6 w-full max-w-2xl max-h-[92vh] overflow-y-auto mx-auto"
+        className="bg-white dark:bg-muted rounded-xl shadow-2xl p-6 w-full max-w-2xl max-h-[92vh] overflow-y-auto mx-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">
@@ -100,14 +100,14 @@ export function DoctorEditModal({
           </h3>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-4">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-4">
             {error}
           </div>
         )}
@@ -128,14 +128,14 @@ export function DoctorEditModal({
           />
 
           {modal.id && (
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 sm:col-span-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-foreground sm:col-span-2">
               <input
                 type="checkbox"
                 checked={modal.isActive}
                 onChange={(e) =>
                   setModal({ ...modal, isActive: e.target.checked })
                 }
-                className="rounded border-gray-300 dark:border-gray-600"
+                className="rounded border-border"
               />
               {t("dentalLab.common.active")}
             </label>
@@ -146,7 +146,7 @@ export function DoctorEditModal({
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             {t("dentalLab.common.cancel")}
           </button>

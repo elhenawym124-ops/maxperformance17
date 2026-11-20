@@ -56,7 +56,7 @@ export const DentalInvoicesFilterBar: React.FC<DentalInvoicesFilterBarProps> = (
       )}
 
       {/* Doctor Selection Bar & Active Doctor Dashboard */}
-      <div className="bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-xl p-3 sm:p-4 shadow-sm space-y-3">
+      <div className="bg-white dark:bg-muted border dark:border-border rounded-xl p-3 sm:p-4 shadow-sm space-y-3">
         <DentalInvoicesDoctorSelector
           selectedDoctorId={selectedDoctorId}
           onSelectDoctorId={onSelectDoctorId}

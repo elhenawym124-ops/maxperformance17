@@ -35,16 +35,16 @@ export function NewDoctorInline({ onCreated, onCancel }: NewDoctorInlineProps) {
   };
 
   return (
-    <div className="rounded-xl border-2 border-dashed border-emerald-300 dark:border-emerald-700 bg-emerald-50/40 dark:bg-emerald-900/10 p-3.5 space-y-2.5">
+    <div className="rounded-xl border-2 border-dashed border-success dark:border-success bg-success/40 dark:bg-success/10 p-3.5 space-y-2.5">
       <div className="flex items-center justify-between">
-        <div className="font-semibold text-sm text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
+        <div className="font-semibold text-sm text-success dark:text-success flex items-center gap-1.5">
           <UserPlus className="w-4 h-4" />
           إضافة طبيب وعيادة جديدة فوراً
         </div>
         <button
           type="button"
           onClick={onCancel}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-gray-400 hover:text-foreground transition-colors"
           aria-label="إلغاء الإضافة"
         >
           <XMarkIcon className="w-4 h-4" />
@@ -77,7 +77,7 @@ export function NewDoctorInline({ onCreated, onCancel }: NewDoctorInlineProps) {
           type="button"
           onClick={save}
           disabled={saving || !name.trim()}
-          className="px-4 py-1.5 bg-emerald-600 text-white rounded-lg text-sm hover:bg-emerald-700 disabled:opacity-50 flex items-center gap-1 shadow-sm transition-colors"
+          className="px-4 py-1.5 bg-success text-white rounded-lg text-sm hover:bg-success disabled:opacity-50 flex items-center gap-1 shadow-sm transition-colors"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
           حفظ واختيار الطبيب

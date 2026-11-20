@@ -93,7 +93,7 @@ export function WhatsappSettingsSection({
           <h3 className="font-semibold">
             {t("dentalLab.settings.whatsappTemplates")}
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             {t("dentalLab.settings.whatsappHint")}
           </p>
         </div>

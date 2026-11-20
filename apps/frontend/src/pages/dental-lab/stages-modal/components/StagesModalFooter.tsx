@@ -14,8 +14,8 @@ export function StagesModalFooter({
   onSave,
 }: StagesModalFooterProps) {
   return (
-    <div className="flex items-center justify-between p-4 border-t dark:border-gray-800 shrink-0 bg-gray-50/50 dark:bg-gray-900/40">
-      <p className="text-[11px] text-gray-500 dark:text-gray-400 hidden sm:block">
+    <div className="flex items-center justify-between p-4 border-t dark:border-border shrink-0 bg-muted dark:bg-muted">
+      <p className="text-[11px] text-muted-foreground hidden sm:block">
         أي حالة جديدة يتم إنشاؤها لهذا النوع ستأخذ تسلسل المراحل هذا تلقائياً مع أدوارها وSLA المحددة.
       </p>
       <div className="flex items-center gap-2.5 ms-auto">
@@ -23,7 +23,7 @@ export function StagesModalFooter({
           type="button"
           onClick={onClose}
           disabled={saving}
-          className="px-4 py-2 border dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 border dark:border-border text-foreground text-xs font-medium rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
         >
           إلغاء
         </button>

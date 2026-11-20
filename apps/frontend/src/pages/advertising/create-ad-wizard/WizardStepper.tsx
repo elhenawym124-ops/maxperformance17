@@ -21,7 +21,7 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ controller }) => {
                     ? "bg-blue-600 text-white ring-4 ring-blue-100 dark:ring-blue-900"
                     : currentStep > step.id
                       ? "bg-green-500 text-white"
-                      : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400")
+                      : "bg-gray-200 dark:bg-muted text-muted-foreground")
                 }
               >
                 {step.icon}
@@ -31,7 +31,7 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ controller }) => {
                   "text-xs mt-2 font-medium text-center max-w-[80px] " +
                   (currentStep === step.id
                     ? "text-blue-600 dark:text-blue-400"
-                    : "text-gray-500 dark:text-gray-400")
+                    : "text-muted-foreground")
                 }
               >
                 {step.title}
@@ -43,7 +43,7 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ controller }) => {
                   "flex-1 h-1 mx-2 transition-all " +
                   (currentStep > step.id
                     ? "bg-green-500"
-                    : "bg-gray-200 dark:bg-gray-700")
+                    : "bg-gray-200 dark:bg-muted")
                 }
               />
             )}

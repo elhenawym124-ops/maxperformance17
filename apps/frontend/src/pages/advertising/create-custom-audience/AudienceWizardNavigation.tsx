@@ -18,11 +18,11 @@ export const AudienceWizardNavigation: React.FC<AudienceWizardNavigationProps> =
   onSubmit,
 }) => {
   return (
-    <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+    <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
       <button
         onClick={onPrevious}
         disabled={currentStep === 1}
-        className="px-6 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-6 py-2 text-foreground bg-white border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
       >
         السابق
       </button>
@@ -30,7 +30,7 @@ export const AudienceWizardNavigation: React.FC<AudienceWizardNavigationProps> =
       {currentStep < totalSteps ? (
         <button
           onClick={onNext}
-          className="px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+          className="px-6 py-2 text-white bg-primary rounded-lg hover:bg-primary"
         >
           التالي
         </button>
@@ -38,7 +38,7 @@ export const AudienceWizardNavigation: React.FC<AudienceWizardNavigationProps> =
         <button
           onClick={onSubmit}
           disabled={loading}
-          className="px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+          className="px-6 py-2 text-white bg-primary rounded-lg hover:bg-primary disabled:opacity-50"
         >
           {loading ? "جاري الإنشاء..." : "إنشاء الجمهور"}
         </button>

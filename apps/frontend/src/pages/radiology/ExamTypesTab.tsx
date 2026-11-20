@@ -184,7 +184,7 @@ export default function ExamTypesTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.examTypes.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.examTypes.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.examTypes.subtitle")}</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           <Plus className="w-4 h-4" />{t("radiology.examTypes.addExamType")}
@@ -192,17 +192,17 @@ export default function ExamTypesTab() {
       </div>
 
       {error && (
-        <div className="flex items-center justify-between bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+        <div className="flex items-center justify-between bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
           <span>{error}</span>
-          <button onClick={() => setError(null)} className="p-1 hover:bg-red-100 dark:hover:bg-red-900/50 rounded"><XMarkIcon className="w-4 h-4" /></button>
+          <button onClick={() => setError(null)} className="p-1 hover:bg-destructive dark:hover:bg-destructive/50 rounded"><XMarkIcon className="w-4 h-4" /></button>
         </div>
       )}
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[220px]">
-          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-gray-400" />
+          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground" />
           <input
-            className={`${MODAL_INPUT_CLS} pr-9`}
+            className={`${MODAL_INPUT_CLS} pe-9`}
             value={searchInput}
             onChange={e => setSearchInput(e.target.value)}
             placeholder={t("radiology.examTypes.searchPlaceholder")}
@@ -212,30 +212,30 @@ export default function ExamTypesTab() {
           <option value="">{t("radiology.examTypes.allCategories")}</option>
           {categories.map(c => <option key={c.id} value={c.id}>{c.parentName ? `${c.parentName} / ${c.name}` : c.name}</option>)}
         </select>
-        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
+        <label className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
           <input
             type="checkbox"
             checked={includeInactive}
             onChange={e => setIncludeInactive(e.target.checked)}
-            className="rounded border-gray-300 dark:border-gray-600"
+            className="rounded border-border"
           />
           {t("radiology.examTypes.showInactive")}
         </label>
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.loadingEllipsis")}</div>
+        <div className="text-center py-16 text-muted-foreground/80">{t("radiology.loadingEllipsis")}</div>
       ) : examTypes.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-12 text-center text-gray-400 dark:text-gray-500">
+        <div className="bg-card rounded-xl border dark:border-border p-12 text-center text-muted-foreground/80">
           <ScanLine className="w-10 h-10 mx-auto mb-3" />
           {search || categoryId ? t("radiology.examTypes.noResults") : t("radiology.examTypes.noExamTypes")}
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300">
+                <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground">
                   <th className="text-right py-3 px-4">{t("radiology.examTypes.name")}</th>
                   <th className="text-right py-3 px-4">{t("radiology.examTypes.category")}</th>
                   <th className="text-right py-3 px-4">{t("radiology.examTypes.abbreviation")}</th>
@@ -246,19 +246,19 @@ export default function ExamTypesTab() {
               </thead>
               <tbody>
                 {examTypes.map(et => (
-                  <tr key={et.id} className="border-b dark:border-gray-700 last:border-b-0">
+                  <tr key={et.id} className="border-b dark:border-border last:border-b-0">
                     <td className="py-3 px-4 font-medium">
                       {et.name}
-                      {et.isAddition ? <span className="mr-2 text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">{t("radiology.examTypes.additionBadge")}</span> : null}
+                      {et.isAddition ? <span className="me-2 text-[10px] px-2 py-0.5 rounded-full bg-warning text-warning dark:bg-warning/40 dark:text-warning">{t("radiology.examTypes.additionBadge")}</span> : null}
                     </td>
                     <td className="py-3 px-4">{et.examCategory?.name || et.category || "—"}</td>
                     <td className="py-3 px-4">{et.abbreviation || "—"}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{et.price ?? 0} {t("radiology.currency")}</td>
                     <td className="py-3 px-4">
                       {et.isActive ? (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">{t("radiology.examTypes.active")}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/40 dark:text-success">{t("radiology.examTypes.active")}</span>
                       ) : (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">{t("radiology.examTypes.inactive")}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">{t("radiology.examTypes.inactive")}</span>
                       )}
                     </td>
                     <td className="py-3 px-4">
@@ -266,7 +266,7 @@ export default function ExamTypesTab() {
                         <button onClick={() => openEdit(et)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg" title={t("radiology.edit")}>
                           <Pencil className="w-4 h-4" />
                         </button>
-                        <button onClick={() => remove(et)} disabled={removingId !== null} className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg disabled:opacity-40" title={t("radiology.delete")}>
+                        <button onClick={() => remove(et)} disabled={removingId !== null} className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40" title={t("radiology.delete")}>
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -276,13 +276,13 @@ export default function ExamTypesTab() {
               </tbody>
             </table>
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t dark:border-border text-sm text-muted-foreground">
             <span>{t("radiology.examTypes.showingRange", { shown: examTypes.length, total })}</span>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="flex items-center gap-1 px-3 py-1.5 border rounded-lg disabled:opacity-40 hover:bg-gray-50 dark:hover:bg-gray-700 dark:border-gray-600"
+                className="flex items-center gap-1 px-3 py-1.5 border rounded-lg disabled:opacity-40 hover:bg-muted/50 dark:border-border"
               >
                 <ChevronRight className="w-4 h-4" />{t("radiology.examTypes.previous")}
               </button>
@@ -290,7 +290,7 @@ export default function ExamTypesTab() {
               <button
                 onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="flex items-center gap-1 px-3 py-1.5 border rounded-lg disabled:opacity-40 hover:bg-gray-50 dark:hover:bg-gray-700 dark:border-gray-600"
+                className="flex items-center gap-1 px-3 py-1.5 border rounded-lg disabled:opacity-40 hover:bg-muted/50 dark:border-border"
               >
                 {t("radiology.examTypes.next")}<ChevronLeft className="w-4 h-4" />
               </button>
@@ -304,26 +304,26 @@ export default function ExamTypesTab() {
           <div className={`${MODAL_CONTENT_CLS}`} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold">{modal.id ? t("radiology.examTypes.editExamType") : t("radiology.examTypes.newExamType")}</h3>
-              <button onClick={() => !saving && setModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300">
+              <button onClick={() => !saving && setModal(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground">
                 <XMarkIcon className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("radiology.examTypes.examTypeName")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("radiology.examTypes.examTypeName")}</label>
                 <input className={MODAL_INPUT_CLS} value={modal.name} onChange={e => setModal({ ...modal, name: e.target.value })} placeholder={t("radiology.examTypes.namePlaceholder")} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("radiology.examTypes.category")}</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">{t("radiology.examTypes.category")}</label>
                   <select className={MODAL_INPUT_CLS} value={modal.categoryId} onChange={e => setModal({ ...modal, categoryId: e.target.value })}>
                     <option value="">{t("radiology.examTypes.selectCategory")}</option>
                     {categories.map(c => <option key={c.id} value={c.id}>{c.parentName ? `${c.parentName} / ${c.name}` : c.name}</option>)}
                   </select>
                   <div className="flex items-center gap-2 mt-2">
                     <input className={MODAL_INPUT_CLS} value={quickName} onChange={e => setQuickName(e.target.value)} placeholder={t("radiology.examTypes.newCategoryPlaceholder")} />
-                    <button onClick={quickAddCategory} disabled={quickSaving || !quickName.trim()} className="flex items-center gap-1 px-3 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 whitespace-nowrap text-sm">
+                    <button onClick={quickAddCategory} disabled={quickSaving || !quickName.trim()} className="flex items-center gap-1 px-3 py-2 bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 whitespace-nowrap text-sm">
                       {quickSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}{t("radiology.examTypes.addCategory")}
                     </button>
                   </div>
@@ -332,28 +332,28 @@ export default function ExamTypesTab() {
                   </a>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("radiology.examTypes.abbreviation")}</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">{t("radiology.examTypes.abbreviation")}</label>
                   <input className={MODAL_INPUT_CLS} value={modal.abbreviation} onChange={e => setModal({ ...modal, abbreviation: e.target.value })} placeholder={t("radiology.examTypes.abbreviationPlaceholder")} />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("radiology.examTypes.priceLabel")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("radiology.examTypes.priceLabel")}</label>
                 <input type="number" min={0} className={MODAL_INPUT_CLS} value={modal.price} onChange={e => setModal({ ...modal, price: e.target.value })} />
               </div>
               {modal.id && (
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                  <input type="checkbox" checked={modal.isActive} onChange={e => setModal({ ...modal, isActive: e.target.checked })} className="rounded border-gray-300 dark:border-gray-600" />
+                <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <input type="checkbox" checked={modal.isActive} onChange={e => setModal({ ...modal, isActive: e.target.checked })} className="rounded border-border" />
                   {t("radiology.examTypes.enabled")}
                 </label>
               )}
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                <input type="checkbox" checked={modal.isAddition} onChange={e => setModal({ ...modal, isAddition: e.target.checked })} className="rounded border-gray-300 dark:border-gray-600" />
+              <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <input type="checkbox" checked={modal.isAddition} onChange={e => setModal({ ...modal, isAddition: e.target.checked })} className="rounded border-border" />
                 {t("radiology.examTypes.isAddition")}
               </label>
             </div>
 
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50">{t("radiology.cancel")}</button>
+              <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50">{t("radiology.cancel")}</button>
               <button onClick={save} disabled={saving || !modal.name.trim()} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
                 {saving ? t("radiology.saving") : t("radiology.save")}
               </button>

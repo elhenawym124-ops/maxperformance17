@@ -78,7 +78,7 @@ export default function DentalTechnicianPortal({ initialSection }: Props) {
 
   if (loading && safeCases.length === 0 && !wage) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 gap-3 text-gray-500">
+      <div className="flex flex-col items-center justify-center py-20 gap-3 text-muted-foreground">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
         <span className="text-xs">جاري تهيئة محطة عمل الفني...</span>
       </div>
@@ -110,7 +110,7 @@ export default function DentalTechnicianPortal({ initialSection }: Props) {
 
       {/* Error alert if any */}
       {error && (
-        <div className="p-3 bg-red-50 text-red-700 text-xs rounded-xl border border-red-200">
+        <div className="p-3 bg-destructive/10 text-destructive text-xs rounded-xl border border-destructive">
           {error}
         </div>
       )}

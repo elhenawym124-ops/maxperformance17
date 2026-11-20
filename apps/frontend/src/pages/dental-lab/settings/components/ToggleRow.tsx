@@ -16,11 +16,11 @@ export function ToggleRow({
   return (
     <div className="flex items-center justify-between gap-3 py-1">
       <div>
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <p className="text-sm font-medium text-foreground">
           {label}
         </p>
         {hint && (
-          <p className="text-xs text-gray-400 dark:text-gray-500">{hint}</p>
+          <p className="text-xs text-muted-foreground/80">{hint}</p>
         )}
       </div>
       <button
@@ -28,7 +28,7 @@ export function ToggleRow({
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={`relative w-11 h-6 rounded-full transition-colors disabled:opacity-40 shrink-0 ${
-          checked ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
+          checked ? "bg-blue-600" : "bg-gray-300 dark:bg-muted"
         }`}
         aria-pressed={checked}
       >

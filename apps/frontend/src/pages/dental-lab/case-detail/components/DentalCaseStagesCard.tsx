@@ -41,12 +41,12 @@ export default function DentalCaseStagesCard({
   return (
     <DentalCaseCard title={t("dentalLab.detail.stages")} icon={<Layers className="w-5 h-5" />}>
       {stages.length === 0 ? (
-        <p className="text-sm text-gray-400 dark:text-gray-500">{t("dentalLab.detail.noStages")}</p>
+        <p className="text-sm text-muted-foreground/80">{t("dentalLab.detail.noStages")}</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-300">
+              <tr className="border-b dark:border-border text-muted-foreground dark:text-muted-foreground">
                 <th className="text-right py-2.5 px-3">{t("dentalLab.detail.stageName")}</th>
                 <th className="text-right py-2.5 px-3">الفنيون المسندون للمرحلة</th>
                 <th className="text-right py-2.5 px-3">{t("dentalLab.common.status")}</th>
@@ -61,7 +61,7 @@ export default function DentalCaseStagesCard({
                 return (
                   <tr
                     key={s.id}
-                    className="border-b dark:border-gray-700 last:border-b-0 hover:bg-gray-50/50 dark:hover:bg-gray-900/30"
+                    className="border-b dark:border-border last:border-b-0 hover:bg-muted dark:hover:bg-muted"
                   >
                     <td className="py-2.5 px-3 font-medium">{s.name}</td>
                     <td className="py-2.5 px-3">
@@ -92,7 +92,7 @@ export default function DentalCaseStagesCard({
                         <span
                           className={
                             s.assigneeName
-                              ? "font-semibold text-gray-900 dark:text-gray-100"
+                              ? "font-semibold text-foreground"
                               : "text-gray-400 italic text-xs"
                           }
                         >

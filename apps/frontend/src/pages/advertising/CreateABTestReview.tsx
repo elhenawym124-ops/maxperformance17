@@ -18,7 +18,7 @@ export const CreateABTestReview: React.FC<CreateABTestReviewProps> = ({
 
   return (
     <div className="space-y-4 text-xs">
-      <div className="rounded-2xl border border-border/70 bg-card p-5 space-y-4 shadow-2xs">
+      <div className="rounded-xl border border-border/70 bg-card p-5 space-y-4 shadow-2xs">
         <div className="flex items-center gap-2 pb-3 border-b border-border/60">
           <span className="p-1.5 rounded-lg bg-primary/10 text-primary">
             <Sparkles className="w-4 h-4" />
@@ -73,7 +73,7 @@ export const CreateABTestReview: React.FC<CreateABTestReviewProps> = ({
       </div>
 
       {/* Variants List */}
-      <div className="rounded-2xl border border-border/70 bg-card p-5 space-y-3 shadow-2xs">
+      <div className="rounded-xl border border-border/70 bg-card p-5 space-y-3 shadow-2xs">
         <h4 className="text-xs font-bold text-foreground">المتغيرات ({formData.variants.length})</h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {(formData.variants || []).map((v, idx) => (

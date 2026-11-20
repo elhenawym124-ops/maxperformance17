@@ -50,23 +50,23 @@ export function DoctorsTable({
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-      <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b dark:border-gray-700">
+    <div className="bg-card rounded-xl border dark:border-border">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b dark:border-border">
         <div className="flex items-center gap-2">
-          <Users className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+          <Users className="w-5 h-5 text-muted-foreground" />
           <h3 className="font-semibold">
             {viewMode === "ACTIVE"
               ? t("dentalLab.doctors.title")
               : "الأطباء المؤرشفين"}
           </h3>
-          <span className="text-xs text-gray-400 dark:text-gray-500">
+          <span className="text-xs text-muted-foreground/80">
             {t("dentalLab.doctors.ledger.title")}
           </span>
         </div>
         <div className="relative">
-          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-gray-400" />
+          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground" />
           <input
-            className={`${inputCls} pr-9 w-64`}
+            className={`${inputCls} pe-9 w-64`}
             value={searchInput}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={t("dentalLab.common.search")}
@@ -76,10 +76,10 @@ export function DoctorsTable({
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
         </div>
       ) : rows.length === 0 ? (
-        <div className="p-12 text-center text-gray-400 dark:text-gray-500">
+        <div className="p-12 text-center text-muted-foreground/80">
           {viewMode === "ACTIVE" ? (
             <>
               <Users className="w-10 h-10 mx-auto mb-3" />
@@ -87,7 +87,7 @@ export function DoctorsTable({
             </>
           ) : (
             <>
-              <Archive className="w-10 h-10 mx-auto mb-3 text-gray-400" />
+              <Archive className="w-10 h-10 mx-auto mb-3 text-muted-foreground" />
               <p>لا يوجد أطباء في الأرشيف</p>
             </>
           )}
@@ -96,7 +96,7 @@ export function DoctorsTable({
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300">
+              <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground">
                 {[
                   t("dentalLab.common.name"),
                   t("dentalLab.common.phone"),
@@ -124,7 +124,7 @@ export function DoctorsTable({
               {rows.map((d) => (
                 <tr
                   key={d.id}
-                  className="border-b dark:border-gray-700 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="border-b dark:border-border last:border-b-0 hover:bg-muted/50"
                 >
                   <td className="py-3 px-3 font-bold">
                     <Link
@@ -136,14 +136,14 @@ export function DoctorsTable({
                     </Link>
                   </td>
                   <td
-                    className="py-3 px-3 text-gray-500 dark:text-gray-400 font-mono"
+                    className="py-3 px-3 text-muted-foreground font-mono"
                     dir="ltr"
                   >
                     {d.phone || "—"}
                   </td>
                   <td className="py-3 px-3">
                     <div>
-                      <span className="font-medium text-gray-900 dark:text-gray-100">
+                      <span className="font-medium text-foreground">
                         {d.clinicName || "—"}
                       </span>
                       {d.doctors && d.doctors.length > 0 && (
@@ -160,22 +160,22 @@ export function DoctorsTable({
                   <td className="py-3 px-3 font-mono tabular-nums">
                     {fmtMoney(d.totalBilled ?? 0)}
                   </td>
-                  <td className="py-3 px-3 text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                  <td className="py-3 px-3 text-success dark:text-success font-mono tabular-nums">
                     {fmtMoney(d.totalPaid ?? 0)}
                   </td>
                   <td
                     className={`py-3 px-3 font-semibold font-mono tabular-nums ${
                       (d.outstanding ?? 0) > 0
-                        ? "text-rose-600 dark:text-rose-400"
-                        : "text-gray-500 dark:text-gray-400"
+                        ? "text-rose-600 dark:text-destructive"
+                        : "text-muted-foreground"
                     }`}
                   >
                     {fmtMoney(d.outstanding ?? 0)}
                   </td>
-                  <td className="py-3 px-3 text-gray-600 dark:text-gray-300">
+                  <td className="py-3 px-3 text-muted-foreground">
                     <span className="font-mono tabular-nums">{d.activeCases ?? 0}</span>
                     {(d.overdueCases ?? 0) > 0 && (
-                      <span className="mr-1 text-xs text-rose-500 font-mono tabular-nums">
+                      <span className="me-1 text-xs text-destructive font-mono tabular-nums">
                         ({d.overdueCases} {t("dentalLab.doctors.ledger.overdue")})
                       </span>
                     )}
@@ -185,11 +185,11 @@ export function DoctorsTable({
                   </td>
                   <td className="py-3 px-3">
                     {d.creditExceeded ? (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 border border-red-200 dark:border-red-800">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive dark:border-destructive">
                         {t("dentalLab.doctors.ledger.creditExceeded")}
                       </span>
                     ) : (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 border border-green-200 dark:border-green-800">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/40 dark:text-success border border-success dark:border-success">
                         {t("dentalLab.doctors.ledger.creditOk")}
                       </span>
                     )}
@@ -199,8 +199,8 @@ export function DoctorsTable({
                       onClick={() => onToggleActive(d)}
                       className={`text-xs px-2 py-0.5 rounded-full border ${
                         d.isActive
-                          ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 border-green-200 dark:border-green-800"
-                          : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600"
+                          ? "bg-green-100 text-success dark:bg-success/40 dark:text-success border-success dark:border-success"
+                          : "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground border-border"
                       }`}
                     >
                       {d.isActive
@@ -212,7 +212,7 @@ export function DoctorsTable({
                     <div className="flex gap-1">
                       <Link
                         to={`/dental-lab/doctors/${d.id}`}
-                        className="p-1.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                        className="p-1.5 text-muted-foreground hover:bg-muted rounded-lg"
                         title="عرض تفاصيل الطبيب"
                       >
                         <Eye className="w-4 h-4" />
@@ -228,14 +228,14 @@ export function DoctorsTable({
                           </button>
                           <button
                             onClick={() => onBulkPayment(d)}
-                            className="p-1.5 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg"
+                            className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded-lg"
                             title="تحصيل دفعة على الحساب"
                           >
                             <Banknote className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onPricing(d)}
-                            className="p-1.5 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg"
+                            className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
                             title={t("dentalLab.doctors.pricing.title")}
                           >
                             <BadgePercent className="w-4 h-4" />
@@ -243,7 +243,7 @@ export function DoctorsTable({
                           <button
                             onClick={() => onRemove(d)}
                             disabled={removingId !== null}
-                            className="p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg disabled:opacity-40"
+                            className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40"
                             title="أرشفة / حذف الطبيب"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -254,14 +254,14 @@ export function DoctorsTable({
                           <button
                             onClick={() => onRestore(d)}
                             disabled={removingId !== null}
-                            className="p-1.5 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg disabled:opacity-40"
+                            className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded-lg disabled:opacity-40"
                             title="استعادة إلى القائمة النشطة"
                           >
                             <RotateCcw className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onPricing(d)}
-                            className="p-1.5 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg"
+                            className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
                             title={t("dentalLab.doctors.pricing.title")}
                           >
                             <BadgePercent className="w-4 h-4" />
@@ -269,7 +269,7 @@ export function DoctorsTable({
                           <button
                             onClick={() => onPermanentDelete(d)}
                             disabled={removingId !== null}
-                            className="p-1.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg disabled:opacity-40"
+                            className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40"
                             title="حذف نهائي من قاعدة البيانات"
                           >
                             <Trash2 className="w-4 h-4" />

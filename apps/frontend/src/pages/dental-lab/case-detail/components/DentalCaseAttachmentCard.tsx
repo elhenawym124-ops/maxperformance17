@@ -66,7 +66,7 @@ export default function DentalCaseAttachmentCard({
   };
 
   return (
-    <div className="border dark:border-gray-700 rounded-lg overflow-hidden group relative">
+    <div className="border dark:border-border rounded-lg overflow-hidden group relative">
       <AttachmentCardThumbnail
         attachment={attachment}
         url={url}

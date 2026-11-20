@@ -20,10 +20,10 @@ export function StageRowItem({
   onRemove,
 }: StageRowItemProps) {
   return (
-    <div className="bg-white dark:bg-gray-800/80 border dark:border-gray-700/70 rounded-lg p-3 flex flex-col md:flex-row md:items-center gap-3 shadow-xs hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
+    <div className="bg-card/80 border dark:border-border rounded-lg p-3 flex flex-col md:flex-row md:items-center gap-3 shadow-xs hover:border-border transition-colors">
       {/* Reorder and Index */}
       <div className="flex items-center gap-1.5 shrink-0">
-        <span className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-mono font-bold flex items-center justify-center tabular-nums">
+        <span className="w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs font-mono font-bold flex items-center justify-center tabular-nums">
           {index + 1}
         </span>
         <div className="flex flex-col">
@@ -31,7 +31,7 @@ export function StageRowItem({
             type="button"
             disabled={index === 0}
             onClick={() => onMove(-1)}
-            className="p-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
+            className="p-0.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground disabled:opacity-20 transition-colors"
             title="تحريك لأعلى"
             aria-label={`تحريك المرحلة ${index + 1} لأعلى`}
           >
@@ -41,7 +41,7 @@ export function StageRowItem({
             type="button"
             disabled={index === totalStages - 1}
             onClick={() => onMove(1)}
-            className="p-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
+            className="p-0.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground disabled:opacity-20 transition-colors"
             title="تحريك لأسفل"
             aria-label={`تحريك المرحلة ${index + 1} لأسفل`}
           >
@@ -52,7 +52,7 @@ export function StageRowItem({
 
       {/* Stage Name */}
       <div className="flex-1 min-w-[140px]">
-        <label className="block text-[11px] font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-[11px] font-medium text-muted-foreground mb-1">
           اسم المرحلة *
         </label>
         <input
@@ -66,7 +66,7 @@ export function StageRowItem({
 
       {/* Required Role */}
       <div className="w-full md:w-56 shrink-0">
-        <label className="block text-[11px] font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-[11px] font-medium text-muted-foreground mb-1">
           الدور الفني المطلوب (requiredRole)
         </label>
         <select
@@ -84,7 +84,7 @@ export function StageRowItem({
 
       {/* SLA Hours */}
       <div className="w-24 shrink-0">
-        <label className="block text-[11px] font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-[11px] font-medium text-muted-foreground mb-1">
           المدة (SLA س)
         </label>
         <input
@@ -100,7 +100,7 @@ export function StageRowItem({
 
       {/* Stage Wage */}
       <div className="w-24 shrink-0">
-        <label className="block text-[11px] font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-[11px] font-medium text-muted-foreground mb-1">
           أجر المرحلة (ج.م)
         </label>
         <input
@@ -118,14 +118,14 @@ export function StageRowItem({
       {/* Required toggle and Delete */}
       <div className="flex items-center gap-2 shrink-0 md:pt-4">
         <label
-          className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-300 cursor-pointer"
+          className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer"
           title="مرحلة إلزامية في تسلسل الحالة"
         >
           <input
             type="checkbox"
             checked={stage.isRequired !== false}
             onChange={(e) => onUpdate({ isRequired: e.target.checked })}
-            className="rounded border-gray-300 text-blue-600"
+            className="rounded border-border text-blue-600"
           />
           <span className="text-[11px]">إلزامية</span>
         </label>
@@ -133,7 +133,7 @@ export function StageRowItem({
         <button
           type="button"
           onClick={onRemove}
-          className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+          className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg transition-colors"
           title="حذف المرحلة"
           aria-label={`حذف المرحلة ${stage.name || index + 1}`}
         >

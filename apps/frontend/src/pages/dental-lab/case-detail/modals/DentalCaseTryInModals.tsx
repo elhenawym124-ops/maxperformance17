@@ -52,14 +52,14 @@ export function DentalCaseSendToTryInModal({
           <button
             type="button"
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               نوع البروفة المطلوبة
             </label>
             <select
@@ -75,7 +75,7 @@ export function DentalCaseSendToTryInModal({
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               ملاحظات البروفة أو تعليمات الطبيب
             </label>
             <textarea
@@ -91,7 +91,7 @@ export function DentalCaseSendToTryInModal({
             type="button"
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             إلغاء
           </button>
@@ -99,7 +99,7 @@ export function DentalCaseSendToTryInModal({
             type="button"
             onClick={save}
             disabled={saving}
-            className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 bg-warning hover:bg-warning text-white rounded-lg disabled:opacity-50 flex items-center gap-2"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />} تسجيل خروج
             للبلوفة
@@ -151,14 +151,14 @@ export function DentalCaseReturnFromTryInModal({
           <button
             type="button"
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               المرحلة المستهدفة لاستئناف العمل
             </label>
             <select
@@ -175,7 +175,7 @@ export function DentalCaseReturnFromTryInModal({
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               ملاحظات الطبيب والتعديلات المطلوبة
             </label>
             <textarea
@@ -191,7 +191,7 @@ export function DentalCaseReturnFromTryInModal({
             type="button"
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             إلغاء
           </button>

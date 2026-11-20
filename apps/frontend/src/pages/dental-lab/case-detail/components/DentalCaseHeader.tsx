@@ -86,7 +86,7 @@ export default function DentalCaseHeader({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b dark:border-gray-800">
+    <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b dark:border-border">
       <div className="flex flex-wrap items-center gap-3">
         <Link
           to="/dental-lab/cases"
@@ -100,7 +100,7 @@ export default function DentalCaseHeader({
         </h1>
 
         {c.isDeleted ? (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
             <Trash2 className="w-3.5 h-3.5" />
             سلة المهملات
           </span>
@@ -117,13 +117,13 @@ export default function DentalCaseHeader({
         {renderBadge(PRIORITY_CONFIG, c.priority)}
 
         {c.isTryIn && (
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-900/50 dark:text-amber-200">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-warning text-warning border border-warning dark:bg-warning/50 dark:text-warning">
             في بروفة ({c.tryInStage})
           </span>
         )}
 
         {isOverdue && (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-200 border border-rose-300 dark:border-rose-800 animate-pulse tabular-nums">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-destructive text-destructive dark:bg-destructive/50 dark:text-destructive border border-destructive dark:border-destructive animate-pulse tabular-nums">
             <AlertTriangle className="w-3.5 h-3.5" />
             متأخر {daysOverdue} يوم
           </span>
@@ -134,7 +134,7 @@ export default function DentalCaseHeader({
         <button
           onClick={openWorkOrder}
           disabled={workOrderLoading}
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 disabled:opacity-50"
         >
           {workOrderLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileDown className="w-4 h-4" />}
           {t("dentalLab.detail.workOrder")}
@@ -143,7 +143,7 @@ export default function DentalCaseHeader({
         <button
           onClick={openPanLabel}
           disabled={panLabelLoading}
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 disabled:opacity-50"
           title="طباعة ملصق الباركود لعلبة الشغل (حراري 80x50 مم)"
         >
           {panLabelLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Box className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
@@ -153,20 +153,20 @@ export default function DentalCaseHeader({
         <button
           onClick={openWarrantyCertificate}
           disabled={warrantyLoading}
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 border border-emerald-300 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/20 text-emerald-800 dark:text-emerald-300 rounded-lg text-sm hover:bg-emerald-100 dark:hover:bg-emerald-900/40 disabled:opacity-50"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 border border-success dark:border-success bg-success/50 dark:bg-success/20 text-success dark:text-success rounded-lg text-sm hover:bg-success dark:hover:bg-success/40 disabled:opacity-50"
           title="طباعة شهادة ضمان المريض مع تفاصيل الخامة والـ Lot Number"
         >
-          {warrantyLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <BadgeCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+          {warrantyLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <BadgeCheck className="w-4 h-4 text-success dark:text-success" />}
           شهادة الضمان
         </button>
 
         {!c.isTryIn && c.status !== "DELIVERED" && c.status !== "CLOSED" && !c.isDeleted && (
           <button
             onClick={onOpenTryInSend}
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 border border-amber-300 dark:border-amber-700 bg-amber-50/50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 rounded-lg text-sm hover:bg-amber-100 dark:hover:bg-amber-900/40"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 border border-warning dark:border-warning bg-warning/50 dark:bg-warning/20 text-warning dark:text-warning rounded-lg text-sm hover:bg-warning dark:hover:bg-warning/40"
             title="إرسال الحالة للعيادة لإجراء بروفة"
           >
-            <RotateCcw className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <RotateCcw className="w-4 h-4 text-warning dark:text-warning" />
             خروج بروفة
           </button>
         )}
@@ -174,7 +174,7 @@ export default function DentalCaseHeader({
         {c.isTryIn && (
           <button
             onClick={onOpenTryInReturn}
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-sm font-semibold shadow-sm"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-warning hover:bg-warning text-white rounded-lg text-sm font-semibold shadow-sm"
           >
             <RotateCcw className="w-4 h-4" />
             استلام من بروفة
@@ -183,7 +183,7 @@ export default function DentalCaseHeader({
 
         <button
           onClick={onRefresh}
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
         >
           <RefreshCw className="w-4 h-4" />
           {t("dentalLab.common.refresh")}
@@ -203,10 +203,10 @@ export default function DentalCaseHeader({
           <button
             type="button"
             onClick={onOpenOutsource}
-            className="flex items-center gap-1.5 px-3 sm:px-4 py-2 border border-amber-300 dark:border-amber-700 bg-amber-50/80 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 rounded-lg text-sm font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition"
+            className="flex items-center gap-1.5 px-3 sm:px-4 py-2 border border-warning dark:border-warning bg-warning/80 dark:bg-warning/30 text-warning dark:text-warning rounded-lg text-sm font-semibold hover:bg-warning dark:hover:bg-warning/50 shadow-sm transition"
             title="إرسال الحالة لجهة خارجية (ميلنج، صب، ليزر...)"
           >
-            <ExternalLink className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <ExternalLink className="w-4 h-4 text-warning dark:text-warning" />
             بره المعمل
           </button>
         )}
@@ -216,7 +216,7 @@ export default function DentalCaseHeader({
             type="button"
             onClick={onReturnFromOutsource}
             disabled={caseBusy}
-            className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-semibold shadow-sm transition disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-success hover:bg-success text-white rounded-lg text-sm font-semibold shadow-sm transition disabled:opacity-50"
             title="استلام الشغل من الجهة الخارجية ونقله لفحص الجودة"
           >
             <CheckCircle2 className="w-4 h-4" />
@@ -238,7 +238,7 @@ export default function DentalCaseHeader({
           <button
             onClick={onTrash}
             disabled={caseBusy}
-            className="flex items-center gap-1.5 px-3 py-2 border border-red-200 dark:border-red-900/60 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg text-sm disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-2 border border-destructive dark:border-destructive/60 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg text-sm disabled:opacity-50"
             title="نقل الحالة إلى سلة المهملات"
           >
             <Trash2 className="w-4 h-4" />
@@ -257,7 +257,7 @@ export default function DentalCaseHeader({
             <button
               onClick={onPermanentDelete}
               disabled={caseBusy}
-              className="flex items-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-semibold disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-2 bg-destructive hover:bg-destructive text-white rounded-lg text-sm font-semibold disabled:opacity-50"
             >
               <Trash2 className="w-3.5 h-3.5" />
               حذف نهائي

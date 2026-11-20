@@ -72,9 +72,9 @@ export function DentalCaseOutsourceModal({
         className={`${MODAL_CONTENT_CLS} max-w-lg w-full`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-4 border-b dark:border-gray-700 pb-3">
+        <div className="flex items-center justify-between mb-4 border-b dark:border-border pb-3">
           <div className="flex items-center gap-2">
-            <ExternalLink className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            <ExternalLink className="w-5 h-5 text-warning dark:text-warning" />
             <h3 className="text-base sm:text-lg font-bold">
               إرسال الشغل لجهة خارجية (بره المعمل)
             </h3>
@@ -82,7 +82,7 @@ export function DentalCaseOutsourceModal({
           <button
             type="button"
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -90,7 +90,7 @@ export function DentalCaseOutsourceModal({
 
         <div className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               اسم جهة التنفيذ الخارجية (مركز ميلنج / معمل صب / مورد) *
             </label>
             <input
@@ -104,7 +104,7 @@ export function DentalCaseOutsourceModal({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 نوع العمل المطلوب خارجياً
               </label>
               <input
@@ -115,7 +115,7 @@ export function DentalCaseOutsourceModal({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 التكلفة المتوقعة (ج.م)
               </label>
               <input
@@ -131,7 +131,7 @@ export function DentalCaseOutsourceModal({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 موعد الاستلام المتوقع
               </label>
               <DateInput
@@ -140,7 +140,7 @@ export function DentalCaseOutsourceModal({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 رقم الإيصال / البوليصة
               </label>
               <input
@@ -153,7 +153,7 @@ export function DentalCaseOutsourceModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               ملاحظات وتعليمات للجهة الخارجية
             </label>
             <textarea
@@ -165,12 +165,12 @@ export function DentalCaseOutsourceModal({
           </div>
         </div>
 
-        <div className="flex justify-end gap-2.5 mt-5 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-2.5 mt-5 pt-3 border-t dark:border-border">
           <button
             type="button"
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-medium text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             إلغاء
           </button>
@@ -178,7 +178,7 @@ export function DentalCaseOutsourceModal({
             type="button"
             onClick={save}
             disabled={saving}
-            className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold disabled:opacity-50 flex items-center gap-1.5 shadow-sm"
+            className="px-4 py-2 bg-warning hover:bg-warning text-white rounded-lg text-xs font-bold disabled:opacity-50 flex items-center gap-1.5 shadow-sm"
           >
             {saving ? (
               <Loader2 className="w-4 h-4 animate-spin" />

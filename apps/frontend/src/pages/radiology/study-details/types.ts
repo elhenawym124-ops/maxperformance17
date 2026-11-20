@@ -77,15 +77,15 @@ export const HISTORY_DIMENSION_META: Record<string, { label: string; color: stri
   },
   PREP: {
     label: "radiology.historyDimension.PREP",
-    color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
+    color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary",
   },
   REPORT: {
     label: "radiology.historyDimension.REPORT",
-    color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
+    color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success",
   },
   PAYMENT: {
     label: "radiology.historyDimension.PAYMENT",
-    color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+    color: "bg-green-100 text-success dark:bg-success/40 dark:text-success",
   },
 };
 

@@ -19,9 +19,9 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
   t,
 }) => {
   return (
-    <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200/70 dark:border-slate-800/70">
+    <div className="mt-4 overflow-x-auto rounded-xl border border-border dark:border-border">
       <table className="w-full text-start text-xs">
-        <thead className="bg-slate-50/90 text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
+        <thead className="bg-slate-50/90 text-muted-foreground dark:bg-muted dark:text-muted-foreground">
           <tr>
             <th className="px-4 py-2.5 text-start font-semibold">{t.tableAccount}</th>
             <th className="px-4 py-2.5 text-start font-semibold">{t.tableSource}</th>
@@ -30,10 +30,10 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
             <th className="px-4 py-2.5 text-start font-semibold">{t.tableTokenType}</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+        <tbody className="divide-y divide-border dark:divide-border">
           {loading ? (
             <tr>
-              <td colSpan={5} className="px-4 py-6 text-center text-slate-500">
+              <td colSpan={5} className="px-4 py-6 text-center text-muted-foreground">
                 <Loader2 className="me-2 inline-block h-4 w-4 animate-spin text-blue-600" />
                 {t.loadingAccounts}
               </td>
@@ -49,46 +49,46 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
               return (
                 <tr
                   key={account.id}
-                  className="transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/30"
+                  className="transition-colors hover:bg-muted dark:hover:bg-muted"
                 >
                   <td className="px-4 py-3">
-                    <p className="font-bold text-slate-900 dark:text-white">
+                    <p className="font-bold text-foreground dark:text-white">
                       {account.name}
                     </p>
-                    <p className="font-mono text-[11px] tabular-nums text-slate-400">
+                    <p className="font-mono text-[11px] tabular-nums text-muted-foreground">
                       {account.accountId}
                     </p>
                   </td>
-                  <td className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
+                  <td className="px-4 py-3 font-medium text-foreground dark:text-muted-foreground">
                     {account.connectionSource?.facebookUserName ||
                       account.connectionSource?.facebookUserEmail ||
                       (account.connectionSourceId ? t.facebookAccount : t.legacySource)}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="rounded-md bg-slate-100 px-2 py-0.5 font-mono font-semibold tabular-nums text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                    <span className="rounded-md bg-muted px-2 py-0.5 font-mono font-semibold tabular-nums text-foreground dark:bg-muted dark:text-muted-foreground">
                       {account.currency}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap items-center gap-1.5">
                       {isMetaDisabled ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2 py-0.5 text-[11px] font-semibold text-rose-700 dark:bg-rose-950/40 dark:text-rose-300">
-                          <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
+                        <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[11px] font-semibold text-destructive dark:bg-destructive/40 dark:text-destructive">
+                          <span className="h-1.5 w-1.5 rounded-full bg-destructive" />
                           {t.statusMetaDisabled}
                         </span>
                       ) : isMetaReview ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
-                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                        <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-[11px] font-semibold text-warning dark:bg-warning/40 dark:text-warning">
+                          <span className="h-1.5 w-1.5 rounded-full bg-warning" />
                           {t.statusMetaReview}
                         </span>
                       ) : isMetaActive || account.isActive ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-semibold text-success dark:bg-success/40 dark:text-success">
+                          <span className="h-1.5 w-1.5 rounded-full bg-success" />
                           {isMetaActive ? t.statusMetaActive : t.statusActive}
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400">
-                          <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                        <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-foreground dark:bg-muted dark:text-muted-foreground">
+                          <span className="h-1.5 w-1.5 rounded-full bg-muted" />
                           {t.statusSaved}
                         </span>
                       )}
@@ -108,7 +108,7 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
                       ) : null}
                     </div>
                   </td>
-                  <td className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
+                  <td className="px-4 py-3 font-medium text-foreground dark:text-muted-foreground">
                     {account.tokenSource === "facebook_account"
                       ? t.tokenFromSource
                       : account.hasIsolatedToken
@@ -120,7 +120,7 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
             })
           ) : (
             <tr>
-              <td colSpan={5} className="px-4 py-6 text-center text-slate-500">
+              <td colSpan={5} className="px-4 py-6 text-center text-muted-foreground">
                 {t.noSavedAccounts}
               </td>
             </tr>

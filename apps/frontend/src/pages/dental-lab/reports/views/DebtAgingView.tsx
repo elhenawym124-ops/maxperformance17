@@ -39,13 +39,13 @@ export function DebtAgingView() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Wallet className="w-4 h-4" />
           <span>{t("dentalLab.reports.aging.hint")}</span>
         </div>
         <button
           onClick={load}
-          className="flex items-center gap-1.5 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="flex items-center gap-1.5 px-3 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
         >
           <RefreshCw className="w-4 h-4" />
           {t("dentalLab.common.refresh")}
@@ -56,11 +56,11 @@ export function DebtAgingView() {
         <Skeleton />
       ) : (
         <>
-          <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4 flex items-center justify-between">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+          <div className="bg-card rounded-xl border dark:border-border p-4 flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
               {t("dentalLab.reports.aging.totalOutstanding")}
             </p>
-            <p className="text-xl font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+            <p className="text-xl font-bold text-destructive dark:text-destructive font-mono tabular-nums">
               {fmtMoney(total)} {t("dentalLab.common.egp")}
             </p>
           </div>
@@ -77,7 +77,7 @@ export function DebtAgingView() {
                 {(buckets || []).map((b, i) => (
                   <tr
                     key={b.label}
-                    className="border-b dark:border-gray-700 last:border-b-0"
+                    className="border-b dark:border-border last:border-b-0"
                   >
                     <td className={tdCls}>
                       <div className="flex items-center gap-2">
@@ -99,8 +99,8 @@ export function DebtAgingView() {
                     <td
                       className={`${tdCls} font-semibold font-mono tabular-nums ${
                         i === 0
-                          ? "text-gray-700 dark:text-gray-200"
-                          : "text-rose-600 dark:text-rose-400"
+                          ? "text-foreground"
+                          : "text-rose-600 dark:text-destructive"
                       }`}
                     >
                       {fmtMoney(b.total)}

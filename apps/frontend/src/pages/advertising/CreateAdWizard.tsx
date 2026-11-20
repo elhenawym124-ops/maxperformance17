@@ -27,16 +27,16 @@ const CreateAdWizard: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8"
+      className="min-h-screen bg-muted dark:bg-muted py-8"
       dir={isEn ? "ltr" : "rtl"}
     >
       <div className="w-full px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-foreground">
             {isEn ? "Create New Ad" : "إنشاء إعلان جديد"}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-gray-600 dark:text-muted-foreground mt-2">
             {isEn
               ? "Follow the steps to create a professional advertising campaign"
               : "اتبع الخطوات لإنشاء حملة إعلانية احترافية"}
@@ -44,7 +44,7 @@ const CreateAdWizard: React.FC = () => {
         </div>
 
         {isStorefrontProductLaunch && (
-          <div className="mb-6 rounded-2xl border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-900 shadow-sm dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200">
+          <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-900 shadow-sm dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-900/80 dark:text-blue-300">

@@ -18,15 +18,15 @@ export const AudienceHeaderAndProgress: React.FC<AudienceHeaderAndProgressProps>
           <button
             onClick={onBack}
             aria-label="الرجوع إلى إدارة الجماهير"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="flex items-center gap-2 text-foreground hover:text-foreground mb-4"
           >
             <ArrowLeftIcon className="w-5 h-5" />
             رجوع
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-foreground">
             إنشاء جمهور مخصص جديد
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-foreground">
             اتبع الخطوات لإنشاء جمهور مخصص لحملاتك الإعلانية
           </p>
         </div>
@@ -44,7 +44,7 @@ export const AudienceHeaderAndProgress: React.FC<AudienceHeaderAndProgressProps>
                       ? "bg-green-500 text-white"
                       : step === currentStep
                         ? "bg-indigo-600 text-white"
-                        : "bg-gray-200 text-gray-600"
+                        : "bg-gray-200 text-foreground"
                   }`}
                 >
                   {step < currentStep ? (

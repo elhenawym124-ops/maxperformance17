@@ -116,11 +116,11 @@ export const WorkTypeMaterialWarrantyFields: React.FC<
             onChange={(e) =>
               setModal({ ...modal, isActive: e.target.checked })
             }
-            className="rounded border-gray-300 dark:border-gray-600 text-blue-600"
+            className="rounded border-border text-blue-600"
           />
           <label
             htmlFor="worktype-active"
-            className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
+            className="text-sm font-medium text-foreground cursor-pointer"
           >
             {t("dentalLab.common.active")} (متاح لاختياره في الحالات والطلبات
             الجديدة)

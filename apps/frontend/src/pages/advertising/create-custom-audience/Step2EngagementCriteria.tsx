@@ -21,7 +21,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-page-select"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 صفحة فيسبوك المستهدفة *
               </label>
@@ -29,7 +29,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 id="custom-audience-page-select"
                 value={formData.pageId}
                 onChange={(e) => onInputChange("pageId", e.target.value)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
               >
                 {pages.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -44,7 +44,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-page-action"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 طبيعة التفاعل المطلوبة *
               </label>
@@ -52,7 +52,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 id="custom-audience-page-action"
                 value={formData.pageEngagementType || "page_engaged"}
                 onChange={(e) => onInputChange("pageEngagementType", e.target.value)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
               >
                 <option value="page_engaged">كل من تفاعل مع الصفحة أو منشوراتها (الأوسع)</option>
                 <option value="page_visited">الأشخاص الذين زاروا الصفحة فقط</option>
@@ -66,7 +66,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-page-retention"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 فترة الاسترجاع (حتى 365 يوماً)
               </label>
@@ -77,7 +77,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 max={365}
                 value={formData.retentionDays || 365}
                 onChange={(e) => onInputChange("retentionDays", parseInt(e.target.value) || 365)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm tabular-nums"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm tabular-nums"
               />
             </div>
           </div>
@@ -91,7 +91,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-ig-action"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 طبيعة التفاعل مع Instagram *
               </label>
@@ -99,7 +99,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 id="custom-audience-ig-action"
                 value={formData.igEngagementType || "ig_business_profile_engaged"}
                 onChange={(e) => onInputChange("igEngagementType", e.target.value)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
               >
                 <option value="ig_business_profile_engaged">كل من تفاعل مع الحساب الاحترافي (الأشمل)</option>
                 <option value="ig_business_profile_visited">من زاروا الملف الشخصي للحساب</option>
@@ -112,7 +112,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-ig-retention"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 فترة الاسترجاع (حتى 365 يوماً)
               </label>
@@ -123,7 +123,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 max={365}
                 value={formData.retentionDays || 365}
                 onChange={(e) => onInputChange("retentionDays", parseInt(e.target.value) || 365)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm tabular-nums"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm tabular-nums"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-video-page"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 صفحة الفيديوهات *
               </label>
@@ -145,7 +145,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 id="custom-audience-video-page"
                 value={formData.pageId}
                 onChange={(e) => onInputChange("pageId", e.target.value)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
               >
                 {pages.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -160,7 +160,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-video-duration"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 مدة أو نسبة مشاهدة الفيديو *
               </label>
@@ -168,7 +168,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 id="custom-audience-video-duration"
                 value={formData.videoViewDuration || "video_watched_10s"}
                 onChange={(e) => onInputChange("videoViewDuration", e.target.value)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm"
               >
                 <option value="video_watched_10s">مشاهدة 10 ثوانٍ فما فوق أو اكتمال الفيديو (ThruPlay - موصى به)</option>
                 <option value="video_watched_3s">مشاهدة 3 ثوانٍ على الأقل</option>
@@ -182,7 +182,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
             <div>
               <label
                 htmlFor="custom-audience-video-retention"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-foreground mb-1.5"
               >
                 فترة الاسترجاع (حتى 365 يوماً)
               </label>
@@ -193,7 +193,7 @@ export const Step2EngagementCriteria: React.FC<Step2EngagementCriteriaProps> = (
                 max={365}
                 value={formData.retentionDays || 365}
                 onChange={(e) => onInputChange("retentionDays", parseInt(e.target.value) || 365)}
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm tabular-nums"
+                className="w-full px-3.5 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-primary text-sm tabular-nums"
               />
             </div>
           </div>

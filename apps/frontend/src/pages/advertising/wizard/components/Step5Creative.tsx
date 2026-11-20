@@ -121,7 +121,7 @@ export const Step5Creative: React.FC<Step5CreativeProps> = ({
           />
 
           {creativeSource === "EXISTING_POST" ? (
-            <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-4">
+            <div className="p-4 bg-card border border-border dark:border-border rounded-xl space-y-4">
               <PagePostsSelector
                 pageId={formData.pageId}
                 selectedPostId={formData.postId}

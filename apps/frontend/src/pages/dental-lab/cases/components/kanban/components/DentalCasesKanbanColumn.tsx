@@ -31,7 +31,7 @@ export const DentalCasesKanbanColumn: React.FC<DentalCasesKanbanColumnProps> = (
   onEditCase,
 }) => {
   return (
-    <div className="w-80 shrink-0 flex flex-col bg-gray-50/70 dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700/70 shadow-xs max-h-[calc(100vh-300px)]">
+    <div className="w-80 shrink-0 flex flex-col bg-muted dark:bg-muted rounded-xl border border-border dark:border-border shadow-xs max-h-[calc(100vh-300px)]">
       <DentalCasesKanbanColumnHeader
         stage={stage}
         count={stageCases.length}
@@ -40,7 +40,7 @@ export const DentalCasesKanbanColumn: React.FC<DentalCasesKanbanColumnProps> = (
 
       <div className="p-3 space-y-3 overflow-y-auto flex-1">
         {stageCases.length === 0 ? (
-          <div className="py-8 text-center border-2 border-dashed border-gray-200 dark:border-gray-700/60 rounded-xl text-xs text-gray-400">
+          <div className="py-8 text-center border-2 border-dashed border-border dark:border-border rounded-xl text-xs text-muted-foreground">
             لا توجد حالات حالياً
           </div>
         ) : (

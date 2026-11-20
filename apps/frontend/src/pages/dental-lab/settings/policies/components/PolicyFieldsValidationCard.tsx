@@ -13,7 +13,7 @@ export function PolicyFieldsValidationCard({
   return (
     <div className="rounded-xl border border-border/60 bg-card p-4 space-y-4">
       <h3 className="text-sm font-semibold flex items-center gap-2">
-        <ShieldCheck className="size-4 text-emerald-500" />
+        <ShieldCheck className="size-4 text-success" />
         سياسات حقول الإدخال الإلزامية
       </h3>
 
@@ -37,7 +37,7 @@ export function PolicyFieldsValidationCard({
             إلزامية رقم هاتف المريض في كل طلب جديد (P7)
           </span>
         </label>
-        <p className="text-[11px] text-muted-foreground mr-6">
+        <p className="text-[11px] text-muted-foreground me-6">
           يمنع إنشاء الطلب بدون إدخال رقم هاتف محمول صحيح للمريض لإرسال تنبيهات
           المتابعة والبحث السريع.
         </p>
@@ -61,7 +61,7 @@ export function PolicyFieldsValidationCard({
             إلزامية تحديد موضع السن واللون في ويزارد الطلب
           </span>
         </label>
-        <p className="text-[11px] text-muted-foreground mr-6">
+        <p className="text-[11px] text-muted-foreground me-6">
           يضمن عدم تسجيل أي حالة تركيبات بدون رقم السن أو لون الـ VITA المطابق.
         </p>
       </div>

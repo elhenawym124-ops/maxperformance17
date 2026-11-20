@@ -348,11 +348,11 @@ const CreativeAiStudioPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsModelModalOpen(true)}
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-indigo-600 transition cursor-pointer"
+          className="flex items-center gap-1.5 text-xs font-bold text-foreground dark:text-muted-foreground hover:text-primary transition cursor-pointer"
           title="انقر لفتح معرض النماذج 2026"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          <span className="font-mono text-[11px] text-indigo-600 dark:text-indigo-400">{selectedModel.split("/").pop()}</span>
+          <Sparkles className="w-3.5 h-3.5 text-warning" />
+          <span className="font-mono text-[11px] text-primary">{selectedModel.split("/").pop()}</span>
         </button>
       }
       chatTabLabel="بيئات الاستوديو والنصوص"

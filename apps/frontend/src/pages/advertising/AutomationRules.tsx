@@ -321,12 +321,12 @@ const AutomationRules: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-950/50">
+      <div className="flex min-h-[60vh] flex-col items-center justify-center bg-muted dark:bg-muted">
         <div className="relative flex h-16 w-16 items-center justify-center">
-          <div className="absolute inset-0 animate-ping rounded-full bg-indigo-500/20" />
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent dark:border-indigo-400" />
+          <div className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent dark:border-primary" />
         </div>
-        <p className="mt-4 text-sm font-medium text-slate-500 animate-pulse">
+        <p className="mt-4 text-sm font-medium text-muted-foreground animate-pulse">
           {isEn ? "Loading automation rules..." : "جاري تحميل القواعد..."}
         </p>
       </div>
@@ -337,25 +337,25 @@ const AutomationRules: React.FC = () => {
     <div className="min-h-screen space-y-8 bg-[#f8fafc] px-4 py-8 dark:bg-[#030712] sm:px-6 lg:px-8" dir={isEn ? "ltr" : "rtl"}>
       <FacebookAdsModuleNav />
       {/* Elite Command Bar */}
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between rounded-3xl bg-white/70 p-6 backdrop-blur-xl border border-slate-200/60 shadow-sm dark:bg-slate-900/50 dark:border-slate-800/60">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between rounded-xl bg-white/70 p-6 backdrop-blur-xl border border-border shadow-sm dark:bg-muted dark:border-border">
         <div>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-warning text-warning dark:bg-warning/50 dark:text-warning">
               <Zap className="h-5 w-5" />
             </div>
-            <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-2xl font-black tracking-tight text-foreground dark:text-white">
               {isEn ? (
                 <>
-                  Automation <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Rules</span>
+                  Automation <span className="text-transparent bg-clip-text bg-gradient-to-r from-warning to-warning">Rules</span>
                 </>
               ) : (
                 <>
-                  قواعد <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">الأتمتة</span>
+                  قواعد <span className="text-transparent bg-clip-text bg-gradient-to-r from-warning to-warning">الأتمتة</span>
                 </>
               )}
             </h1>
           </div>
-          <p className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-400 max-w-2xl">
+          <p className="mt-2 text-sm font-medium text-muted-foreground dark:text-muted-foreground max-w-2xl">
             {isEn
               ? "Automate campaign management. Create rules to pause losing ads, scale profitable ads, or send notifications."
               : "أتمتة إدارة الحملات. أنشئ قواعد لإيقاف الإعلانات الخاسرة، زيادة ميزانية الإعلانات الرابحة، أو إرسال إشعارات."}
@@ -364,7 +364,7 @@ const AutomationRules: React.FC = () => {
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex h-11 items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 text-sm font-bold text-white shadow-md shadow-slate-900/20 transition-all hover:bg-slate-800 hover:shadow-lg dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white dark:shadow-none"
+            className="flex h-11 items-center justify-center gap-2 rounded-xl bg-muted px-6 text-sm font-bold text-white shadow-md shadow-slate-900/20 transition-all hover:bg-muted hover:shadow-lg dark:bg-muted dark:text-foreground dark:hover:bg-white dark:shadow-none"
           >
             <Plus className="h-5 w-5" />
             {isEn ? "New Rule" : "قاعدة جديدة"}
@@ -373,46 +373,46 @@ const AutomationRules: React.FC = () => {
       </div>
 
       {/* Rules List */}
-      <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
-        <div className="border-b border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/50">
-          <h2 className="text-lg font-black text-slate-900 dark:text-white">
+      <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border dark:bg-muted dark:ring-border">
+        <div className="border-b border-border bg-muted p-6 dark:border-border dark:bg-muted">
+          <h2 className="text-lg font-black text-foreground dark:text-white">
             {isEn ? "Active Rules" : "القواعد النشطة"}
           </h2>
         </div>
 
         {rules.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-16 text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100 text-slate-400 dark:bg-slate-800">
+            <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-muted text-muted-foreground dark:bg-muted">
               <Zap className="h-10 w-10" />
             </div>
-            <h3 className="mt-6 text-xl font-black text-slate-900 dark:text-white">
+            <h3 className="mt-6 text-xl font-black text-foreground dark:text-white">
               {isEn ? "No Automation Rules" : "لا توجد قواعد أتمتة"}
             </h3>
-            <p className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-400 max-w-sm">
+            <p className="mt-2 text-sm font-medium text-muted-foreground dark:text-muted-foreground max-w-sm">
               {isEn
                 ? "Create a new rule to start managing your campaigns automatically and protecting your budget 24/7."
                 : "قم بإنشاء قاعدة جديدة لتبدأ في إدارة حملاتك آلياً وحماية ميزانيتك على مدار الساعة."}
             </p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 font-bold text-white shadow-md shadow-amber-500/20 transition-all hover:bg-amber-600 hover:shadow-lg dark:shadow-none"
+              className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-warning px-6 font-bold text-white shadow-md shadow-warning/20 transition-all hover:bg-warning hover:shadow-lg dark:shadow-none"
             >
               <Plus className="h-5 w-5" />
               {isEn ? "Create Rule" : "إنشاء قاعدة"}
             </button>
           </div>
         ) : (
-          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-px bg-muted dark:bg-muted sm:grid-cols-2 lg:grid-cols-3">
             {rules.map((rule) => (
-              <div key={rule.id} className="bg-white p-6 transition-colors hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-900/80">
+              <div key={rule.id} className="bg-white p-6 transition-colors hover:bg-muted dark:bg-muted dark:hover:bg-muted">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${rule.status === "ACTIVE" ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400" : "bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500"}`}>
+                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${rule.status === "ACTIVE" ? "bg-emerald-50 text-success dark:bg-success/30 dark:text-success" : "bg-slate-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground"}`}>
                       <Zap className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-slate-900 dark:text-white">{rule.name}</h3>
-                      <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-slate-500">
+                      <h3 className="font-bold text-foreground dark:text-white">{rule.name}</h3>
+                      <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-muted-foreground">
                         <span className="flex items-center gap-1"><Target className="h-3 w-3" /> {ENTITY_TYPES.find((e) => e.value === rule.entityType)?.label}</span>
                         <span>•</span>
                         <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {SCHEDULES.find((s) => s.value === rule.schedule)?.label}</span>
@@ -421,14 +421,14 @@ const AutomationRules: React.FC = () => {
                   </div>
                   <button
                     onClick={() => handleDeleteRule(rule.id)}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive dark:hover:bg-destructive/30 dark:hover:text-destructive"
                     title={isEn ? "Delete Rule" : "حذف القاعدة"}
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="mt-6 flex items-center justify-between">
-                  <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wider ${rule.status === "ACTIVE" ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"}`}>
+                  <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wider ${rule.status === "ACTIVE" ? "bg-emerald-50 text-success dark:bg-success/30 dark:text-success" : "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground"}`}>
                     <span className={`h-1.5 w-1.5 rounded-full ${rule.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-400"}`}></span>
                     {rule.status === "ACTIVE" ? (isEn ? "Active" : "نشط") : (isEn ? "Paused" : "متوقف")}
                   </span>
@@ -441,10 +441,10 @@ const AutomationRules: React.FC = () => {
 
       {/* Create Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white shadow-2xl ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800" dir={isEn ? "ltr" : "rtl"}>
-            <div className="border-b border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/50">
-              <h2 className="text-xl font-black text-slate-900 dark:text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-muted p-4 backdrop-blur-sm">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white shadow-2xl ring-1 ring-border dark:bg-muted dark:ring-border" dir={isEn ? "ltr" : "rtl"}>
+            <div className="border-b border-border bg-muted p-6 dark:border-border dark:bg-muted">
+              <h2 className="text-xl font-black text-foreground dark:text-white">
                 {isEn ? "Create New Automation Rule" : "إنشاء قاعدة أتمتة جديدة"}
               </h2>
             </div>
@@ -452,7 +452,7 @@ const AutomationRules: React.FC = () => {
             <div className="space-y-6 p-6">
               {/* Form styling adapted from existing */}
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-2 block text-sm font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Rule Name" : "اسم القاعدة"}
                 </label>
                 <input
@@ -460,18 +460,18 @@ const AutomationRules: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
                   placeholder={isEn ? "e.g. Pause losing ads" : "مثال: إيقاف الإعلانات الخاسرة"}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  className="w-full rounded-xl border border-border bg-white px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-2 block text-sm font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Apply to" : "تطبيق على"}
                 </label>
                 <select
                   value={formData.entityType}
                   onChange={(e) => setFormData((prev) => ({ ...prev, entityType: e.target.value as CreateRuleForm["entityType"] }))}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  className="w-full rounded-xl border border-border bg-white px-4 py-3 outline-none dark:border-border dark:bg-muted dark:text-white"
                 >
                   {ENTITY_TYPES.map((type) => (
                     <option key={type.value} value={type.value}>{type.label}</option>
@@ -480,7 +480,7 @@ const AutomationRules: React.FC = () => {
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-2 block text-sm font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Target Action" : "الإجراء المستهدف"}
                 </label>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -489,7 +489,7 @@ const AutomationRules: React.FC = () => {
                       key={action.value}
                       type="button"
                       onClick={() => setFormData((prev) => ({ ...prev, actionType: action.value }))}
-                      className={`flex items-center gap-2 rounded-xl border-2 p-3 text-sm font-bold transition-all ${formData.actionType === action.value ? "border-amber-500 bg-amber-50 text-amber-700 dark:border-amber-500/50 dark:bg-amber-900/20 dark:text-amber-400" : "border-slate-200 text-slate-600 hover:border-slate-300 dark:border-slate-800 dark:text-slate-400 dark:hover:border-slate-700"}`}
+                      className={`flex items-center gap-2 rounded-xl border-2 p-3 text-sm font-bold transition-all ${formData.actionType === action.value ? "border-amber-500 bg-warning/10 text-warning dark:border-warning/50 dark:bg-warning/20 dark:text-warning" : "border-slate-200 text-foreground hover:border-border dark:border-border dark:text-muted-foreground dark:hover:border-border"}`}
                     >
                       {action.icon}
                       <span className="truncate">{action.label}</span>
@@ -500,7 +500,7 @@ const AutomationRules: React.FC = () => {
 
               {(formData.actionType === "INCREASE_BUDGET" || formData.actionType === "DECREASE_BUDGET") && (
                 <div>
-                  <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                  <label className="mb-2 block text-sm font-bold text-foreground dark:text-muted-foreground">
                     {isEn ? "Budget Change Percentage (%)" : "نسبة تغيير الميزانية (%)"}
                   </label>
                   <input
@@ -510,22 +510,22 @@ const AutomationRules: React.FC = () => {
                     value={formData.actionValue ?? 10}
                     onChange={(e) => setFormData((prev) => ({ ...prev, actionValue: Math.max(1, Number(e.target.value)) }))}
                     placeholder="10"
-                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                    className="w-full rounded-xl border border-border bg-white px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                   />
                 </div>
               )}
 
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-2 block text-sm font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Conditions" : "الشروط"}
                 </label>
                 <div className="space-y-3">
                   {formData.conditions.map((condition, index) => (
-                    <div key={index} className="flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 p-3 dark:bg-slate-800/50">
+                    <div key={index} className="flex flex-wrap items-center gap-3 rounded-xl bg-muted p-3 dark:bg-muted">
                       <select
                         value={condition.field}
                         onChange={(e) => updateCondition(index, "field", e.target.value)}
-                        className="flex-1 min-w-[120px] rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                        className="flex-1 min-w-[120px] rounded-lg border border-border bg-white px-3 py-2 text-sm dark:border-border dark:bg-muted dark:text-white"
                       >
                         {CONDITION_FIELDS.map((field) => (
                           <option key={field.value} value={field.value}>{field.label}</option>
@@ -534,7 +534,7 @@ const AutomationRules: React.FC = () => {
                       <select
                         value={condition.operator}
                         onChange={(e) => updateCondition(index, "operator", e.target.value)}
-                        className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                        className="rounded-lg border border-border bg-white px-3 py-2 text-sm dark:border-border dark:bg-muted dark:text-white"
                       >
                         {OPERATORS.map((op) => (
                           <option key={op.value} value={op.value}>{op.label}</option>
@@ -544,12 +544,12 @@ const AutomationRules: React.FC = () => {
                         type="number"
                         value={condition.value}
                         onChange={(e) => updateCondition(index, "value", parseFloat(e.target.value))}
-                        className="w-24 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                        className="w-24 rounded-lg border border-border bg-white px-3 py-2 text-sm dark:border-border dark:bg-muted dark:text-white"
                       />
                       {formData.conditions.length > 1 && (
                         <button
                           onClick={() => removeCondition(index)}
-                          className="flex h-9 w-9 items-center justify-center rounded-lg text-red-500 transition-colors hover:bg-red-100 dark:hover:bg-red-900/30"
+                          className="flex h-9 w-9 items-center justify-center rounded-lg text-destructive transition-colors hover:bg-destructive dark:hover:bg-destructive/30"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -558,7 +558,7 @@ const AutomationRules: React.FC = () => {
                   ))}
                   <button
                     onClick={addCondition}
-                    className="mt-2 flex items-center gap-2 text-sm font-bold text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                    className="mt-2 flex items-center gap-2 text-sm font-bold text-primary transition-colors hover:text-primary dark:text-primary dark:hover:text-primary"
                   >
                     <Plus className="h-4 w-4" />
                     {isEn ? "Add another condition" : "إضافة شرط آخر"}
@@ -567,13 +567,13 @@ const AutomationRules: React.FC = () => {
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                <label className="mb-2 block text-sm font-bold text-foreground dark:text-muted-foreground">
                   {isEn ? "Schedule (Evaluation Frequency)" : "التكرار (معدل الفحص)"}
                 </label>
                 <select
                   value={formData.schedule}
                   onChange={(e) => setFormData((prev) => ({ ...prev, schedule: e.target.value }))}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  className="w-full rounded-xl border border-border bg-white px-4 py-3 outline-none dark:border-border dark:bg-muted dark:text-white"
                 >
                   {SCHEDULES.map((schedule) => (
                     <option key={schedule.value} value={schedule.value}>{schedule.label}</option>
@@ -582,17 +582,17 @@ const AutomationRules: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 border-t border-slate-200 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/50">
+            <div className="flex justify-end gap-3 border-t border-border bg-muted p-6 dark:border-border dark:bg-muted">
               <button
                 onClick={() => { setShowCreateModal(false); resetForm(); }}
-                className="rounded-xl bg-slate-200 px-6 py-2.5 font-bold text-slate-700 transition-colors hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                className="rounded-xl bg-muted px-6 py-2.5 font-bold text-foreground transition-colors hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               >
                 {isEn ? "Cancel" : "إلغاء"}
               </button>
               <button
                 onClick={handleCreateRule}
                 disabled={creating}
-                className="flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-2.5 font-bold text-white shadow-sm transition-all hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+                className="flex items-center gap-2 rounded-xl bg-muted px-6 py-2.5 font-bold text-white shadow-sm transition-all hover:bg-muted disabled:opacity-50 dark:bg-muted dark:text-foreground dark:hover:bg-white"
               >
                 {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle className="h-4 w-4" />}
                 {isEn ? "Create Rule" : "إنشاء القاعدة"}

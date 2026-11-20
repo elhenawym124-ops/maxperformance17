@@ -37,7 +37,7 @@ export const StudyImagesInsuranceCard: React.FC<StudyImagesInsuranceCardProps> =
         }
       >
         {images.length === 0 ? (
-          <p className="text-sm text-gray-400 dark:text-gray-500">
+          <p className="text-sm text-muted-foreground/80">
             {t("radiology.details.noImages")}
           </p>
         ) : (
@@ -45,12 +45,12 @@ export const StudyImagesInsuranceCard: React.FC<StudyImagesInsuranceCardProps> =
             {images.map((img) => (
               <div
                 key={img.id}
-                className="flex items-center justify-between gap-3 text-sm border dark:border-gray-700 rounded-lg px-3 py-2"
+                className="flex items-center justify-between gap-3 text-sm border dark:border-border rounded-lg px-3 py-2"
               >
-                <span className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                <span className="font-medium text-foreground truncate">
                   {img.fileName}
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0 tabular-nums">
+                <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
                   {img.seriesDescription ? `${img.seriesDescription} ` : ""}
                   {img.fileSize ? `— ${(Number(img.fileSize) / 1024).toFixed(0)} KB` : ""}
                 </span>

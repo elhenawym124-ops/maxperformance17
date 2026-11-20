@@ -79,7 +79,7 @@ export function DentalCaseCreateModal({
 
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
   const labelCls =
-    "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+    "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div
@@ -89,7 +89,7 @@ export function DentalCaseCreateModal({
       onClick={() => !saving && onClose()}
     >
       <div
-        className="w-full max-w-2xl bg-white dark:bg-gray-850 h-full shadow-2xl flex flex-col border-r dark:border-gray-700 animate-in slide-in-from-right duration-300"
+        className="w-full max-w-2xl bg-white dark:bg-muted h-full shadow-2xl flex flex-col border-r dark:border-border animate-in slide-in-from-right duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}

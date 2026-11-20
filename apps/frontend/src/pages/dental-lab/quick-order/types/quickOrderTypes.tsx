@@ -29,19 +29,19 @@ export function fileIcon(name: string): React.ReactNode {
     return <ImageIcon className="w-4 h-4 text-blue-500" />;
   }
   if (ext === "pdf") {
-    return <FileText className="w-4 h-4 text-red-500" />;
+    return <FileText className="w-4 h-4 text-destructive" />;
   }
   if (["stl", "ply", "dxf", "dcm"].includes(ext)) {
     return (
-      <span className="w-4 h-4 inline-flex items-center justify-center text-[10px] font-bold text-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 rounded font-mono">
+      <span className="w-4 h-4 inline-flex items-center justify-center text-[10px] font-bold text-primary bg-primary/10 dark:bg-primary/40 rounded font-mono">
         3D
       </span>
     );
   }
   if (["json", "txt"].includes(ext)) {
-    return <FileText className="w-4 h-4 text-amber-500" />;
+    return <FileText className="w-4 h-4 text-warning" />;
   }
-  return <FileText className="w-4 h-4 text-gray-400" />;
+  return <FileText className="w-4 h-4 text-muted-foreground" />;
 }
 
 export function stepLabel(step: Step): string {

@@ -21,11 +21,11 @@ interface StudioSettingsDrawerProps {
 }
 
 const KEY_STATE: Record<KeyTestResult["state"], { label: string; cls: string }> = {
-  accepted: { label: "المفتاح صالح", cls: "text-emerald-600 dark:text-emerald-400" },
+  accepted: { label: "المفتاح صالح", cls: "text-emerald-600 dark:text-success" },
   rejected: { label: "مرفوض من Higgsfield", cls: "text-destructive" },
   invalid_format: { label: "الصيغة غلط (KeyID:Secret)", cls: "text-destructive" },
-  reachable: { label: "واصل لكن استجابة غير متوقعة", cls: "text-amber-600 dark:text-amber-400" },
-  unreachable: { label: "تعذر الوصول للمزود", cls: "text-amber-600 dark:text-amber-400" },
+  reachable: { label: "واصل لكن استجابة غير متوقعة", cls: "text-amber-600 dark:text-warning" },
+  unreachable: { label: "تعذر الوصول للمزود", cls: "text-amber-600 dark:text-warning" },
   no_key: { label: "لا يوجد مفتاح", cls: "text-muted-foreground" },
 };
 
@@ -146,7 +146,7 @@ export const StudioSettingsDrawer: React.FC<StudioSettingsDrawerProps> = ({ open
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0">
                     <p className="flex items-center gap-1.5 text-sm font-medium">
-                      <KeyRound className="size-3.5 text-emerald-600" />
+                      <KeyRound className="size-3.5 text-success" />
                       مفعّل
                     </p>
                     <p dir="ltr" className="truncate text-[11px] tabular-nums text-muted-foreground">
@@ -222,7 +222,7 @@ export const StudioSettingsDrawer: React.FC<StudioSettingsDrawerProps> = ({ open
               </div>
               {(prefModel || prefAspect) && (
                 <p className="col-span-2 flex items-center gap-1 text-[11px] text-muted-foreground">
-                  <Check className="size-3 text-emerald-600" />
+                  <Check className="size-3 text-success" />
                   بتتطبق تلقائيًا على مشهد جديد
                 </p>
               )}
@@ -240,7 +240,7 @@ export const StudioSettingsDrawer: React.FC<StudioSettingsDrawerProps> = ({ open
           </section>
 
           {config?.simulation && (
-            <p className="rounded-md bg-amber-500/10 px-3 py-2 text-[11px] text-amber-700 dark:text-amber-400">
+            <p className="rounded-md bg-warning/10 px-3 py-2 text-[11px] text-warning dark:text-warning">
               وضع المحاكاة شغال (مفيش مفتاح) — المخرجات تجريبية بلا أي تكلفة.
             </p>
           )}

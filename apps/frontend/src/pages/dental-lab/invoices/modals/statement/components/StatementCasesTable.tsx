@@ -9,9 +9,9 @@ export const StatementCasesTable: React.FC<StatementCasesTableProps> = ({
   cases,
 }) => {
   return (
-    <div className="overflow-x-auto max-h-72 print:max-h-none print:overflow-visible border dark:border-gray-700 rounded-xl print:border-slate-300 print:rounded-none">
+    <div className="overflow-x-auto max-h-72 print:max-h-none print:overflow-visible border dark:border-border rounded-xl print:border-slate-300 print:rounded-none">
       <table className="w-full text-xs text-right">
-        <thead className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold print:bg-slate-100 print:text-black">
+        <thead className="bg-gray-50 dark:bg-muted text-muted-foreground font-semibold print:bg-slate-100 print:text-black">
           <tr>
             <th className="py-2.5 px-3">رقم الحالة</th>
             <th className="py-2.5 px-3">المريض</th>
@@ -22,10 +22,10 @@ export const StatementCasesTable: React.FC<StatementCasesTableProps> = ({
             <th className="py-2.5 px-3">المتبقي</th>
           </tr>
         </thead>
-        <tbody className="divide-y dark:divide-gray-700 print:divide-slate-200">
+        <tbody className="divide-y dark:divide-border print:divide-slate-200">
           {!cases || cases.length === 0 ? (
             <tr>
-              <td colSpan={7} className="py-8 text-center text-gray-400">
+              <td colSpan={7} className="py-8 text-center text-muted-foreground">
                 لا توجد حالات مسجلة في هذه الفترة
               </td>
             </tr>
@@ -33,7 +33,7 @@ export const StatementCasesTable: React.FC<StatementCasesTableProps> = ({
             cases.map((c, idx) => (
               <tr
                 key={c.caseNumber || idx}
-                className="hover:bg-gray-50/50 dark:hover:bg-gray-800/40 font-mono tabular-nums"
+                className="hover:bg-gray-50/50 dark:hover:bg-muted font-mono tabular-nums"
               >
                 <td className="py-2.5 px-3 font-semibold text-blue-600 print:text-black">
                   {c.caseNumber || "—"}
@@ -41,19 +41,19 @@ export const StatementCasesTable: React.FC<StatementCasesTableProps> = ({
                 <td className="py-2.5 px-3 font-medium font-sans">
                   {c.patientName || "—"}
                 </td>
-                <td className="py-2.5 px-3 text-gray-600 dark:text-gray-300 print:text-black font-sans">
+                <td className="py-2.5 px-3 text-muted-foreground print:text-black font-sans">
                   {c.workTypeName || "—"}
                 </td>
                 <td className="py-2.5 px-3 font-sans">
-                  <span className="px-2 py-0.5 rounded-full text-[11px] bg-gray-100 dark:bg-gray-800 print:border">
+                  <span className="px-2 py-0.5 rounded-full text-[11px] bg-muted dark:bg-muted print:border">
                     {c.status || "—"}
                   </span>
                 </td>
                 <td className="py-2.5 px-3 font-medium">{fmtMoney(c.total)}</td>
-                <td className="py-2.5 px-3 text-green-600 print:text-black">
+                <td className="py-2.5 px-3 text-success print:text-black">
                   {fmtMoney(c.paid)}
                 </td>
-                <td className="py-2.5 px-3 text-red-600 font-bold print:text-black">
+                <td className="py-2.5 px-3 text-destructive font-bold print:text-black">
                   {fmtMoney(c.remaining)}
                 </td>
               </tr>

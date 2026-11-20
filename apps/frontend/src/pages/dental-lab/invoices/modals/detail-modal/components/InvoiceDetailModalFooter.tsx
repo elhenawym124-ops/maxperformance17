@@ -18,7 +18,7 @@ export function InvoiceDetailModalFooter({
   onClose,
 }: InvoiceDetailModalFooterProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t dark:border-gray-800 mt-4">
+    <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t dark:border-border mt-4">
       <div className="flex items-center gap-2">
         <button
           onClick={onPdf}
@@ -28,13 +28,13 @@ export function InvoiceDetailModalFooter({
         </button>
         <button
           onClick={onPaymentLink}
-          className="px-3 py-1.5 border border-indigo-300 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 dark:border-indigo-700 dark:text-indigo-300 dark:bg-indigo-900/30 rounded-lg text-xs font-semibold flex items-center gap-1.5"
+          className="px-3 py-1.5 border border-primary text-primary bg-primary/10 hover:bg-primary dark:border-primary dark:text-primary dark:bg-primary/30 rounded-lg text-xs font-semibold flex items-center gap-1.5"
         >
           <Link2 className="w-3.5 h-3.5" /> رابط دفع
         </button>
         <button
           onClick={() => shareInvoiceWhatsApp(invoice)}
-          className="px-3 py-1.5 border border-green-300 text-green-700 bg-green-50 hover:bg-green-100 dark:border-green-700 dark:text-green-300 dark:bg-green-900/30 rounded-lg text-xs font-semibold flex items-center gap-1.5"
+          className="px-3 py-1.5 border border-success text-success bg-success/10 hover:bg-success dark:border-success dark:text-success dark:bg-success/30 rounded-lg text-xs font-semibold flex items-center gap-1.5"
         >
           <MessageCircle className="w-3.5 h-3.5" /> إرسال واتساب
         </button>
@@ -44,14 +44,14 @@ export function InvoiceDetailModalFooter({
         {invoice.remaining > 0 && (
           <button
             onClick={onAddPayment}
-            className="px-4 py-1.5 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 flex items-center gap-1.5"
+            className="px-4 py-1.5 bg-success text-white rounded-lg text-xs font-semibold hover:bg-success flex items-center gap-1.5"
           >
             <Banknote className="w-3.5 h-3.5" /> تسجيل سداد
           </button>
         )}
         <button
           onClick={onClose}
-          className="px-4 py-1.5 border dark:border-gray-700 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+          className="px-4 py-1.5 border dark:border-border rounded-lg text-xs font-semibold text-foreground hover:bg-muted dark:hover:bg-muted"
         >
           إغلاق
         </button>

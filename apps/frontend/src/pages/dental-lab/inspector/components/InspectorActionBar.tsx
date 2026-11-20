@@ -63,51 +63,51 @@ export function InspectorActionBar({
       <button
         type="button"
         onClick={() => onPrintPanLabel(caseData)}
-        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors shadow-2xs"
+        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors shadow-2xs"
         title="طباعة تيكت صينية المعمل (Pan Label)"
       >
-        <Printer className="w-3.5 h-3.5 text-slate-500" />
+        <Printer className="w-3.5 h-3.5 text-muted-foreground" />
         <span>تيكت</span>
       </button>
 
       <button
         type="button"
         onClick={() => onPrintWorkOrder(caseData)}
-        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors shadow-2xs"
+        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors shadow-2xs"
         title="طباعة أمر الشغل (Work Order PDF)"
       >
-        <FileText className="w-3.5 h-3.5 text-indigo-500" />
+        <FileText className="w-3.5 h-3.5 text-primary" />
         <span>أمر شغل</span>
       </button>
 
       <button
         type="button"
         onClick={() => onAssign(caseData)}
-        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors shadow-2xs"
+        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors shadow-2xs"
         title="إسناد فنيين للحالة"
       >
-        <UserPlus className="w-3.5 h-3.5 text-purple-500" />
+        <UserPlus className="w-3.5 h-3.5 text-primary" />
         <span>إسناد</span>
       </button>
 
       <button
         type="button"
         onClick={() => onInvoice(caseData)}
-        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors shadow-2xs"
+        className="flex items-center gap-1 py-1.5 px-2.5 bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors shadow-2xs"
         title="إصدار فاتورة أو تسجيل دفعة"
       >
-        <CreditCard className="w-3.5 h-3.5 text-amber-500" />
+        <CreditCard className="w-3.5 h-3.5 text-warning" />
         <span>فاتورة</span>
       </button>
 
       <label
-        className="flex items-center gap-1 py-1.5 px-2 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition-colors shadow-2xs cursor-pointer"
+        className="flex items-center gap-1 py-1.5 px-2 bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors shadow-2xs cursor-pointer"
         title="رفع مرفقات وصور للحالة"
       >
         {uploadingId === caseData.id ? (
-          <Loader2 className="w-3.5 h-3.5 animate-spin text-teal-500" />
+          <Loader2 className="w-3.5 h-3.5 animate-spin text-success" />
         ) : (
-          <Upload className="w-3.5 h-3.5 text-teal-500" />
+          <Upload className="w-3.5 h-3.5 text-success" />
         )}
         <span>مرفق</span>
         <input
@@ -121,7 +121,7 @@ export function InspectorActionBar({
       <button
         type="button"
         onClick={() => onEdit(caseData)}
-        className="p-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl transition-colors shadow-2xs"
+        className="p-1.5 bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground rounded-xl transition-colors shadow-2xs"
         title="تعديل سريع للحالة"
       >
         <Pencil className="w-3.5 h-3.5 text-blue-500" />
@@ -131,7 +131,7 @@ export function InspectorActionBar({
         type="button"
         onClick={() => onTrash(caseData)}
         disabled={isBusy}
-        className="p-1.5 bg-white dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 border border-slate-200 dark:border-slate-700 text-red-500 rounded-xl transition-colors shadow-2xs disabled:opacity-50"
+        className="p-1.5 bg-white dark:bg-muted hover:bg-destructive/10 dark:hover:bg-destructive/40 border border-border dark:border-border text-destructive rounded-xl transition-colors shadow-2xs disabled:opacity-50"
         title="نقل لسلة المهملات"
       >
         <Trash2 className="w-3.5 h-3.5" />

@@ -97,7 +97,7 @@ export function DentalCaseAdvanceModal({
           <h3 className="text-lg font-bold">{t("dentalLab.cases.advanceTitle")}</h3>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label="إغلاق"
           >
             <XMarkIcon className="w-5 h-5" />
@@ -105,17 +105,17 @@ export function DentalCaseAdvanceModal({
         </div>
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-500 font-medium">الحالة الحالية:</span>
+            <span className="text-xs text-muted-foreground font-medium">الحالة الحالية:</span>
             {statusBadge(CASE_STATUS_MAP, caseData.status)}
-            <ArrowRightCircle className="w-5 h-5 text-gray-400" />
+            <ArrowRightCircle className="w-5 h-5 text-muted-foreground" />
             {targetStatus ? (
               statusBadge(CASE_STATUS_MAP, targetStatus)
             ) : (
-              <span className="text-sm text-gray-400">{t("dentalLab.common.noData")}</span>
+              <span className="text-sm text-muted-foreground">{t("dentalLab.common.noData")}</span>
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               المرحلة أو الحالة المراد الانتقال إليها *
             </label>
             <select
@@ -131,7 +131,7 @@ export function DentalCaseAdvanceModal({
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               {t("dentalLab.cases.advanceReason")}
             </label>
             <textarea
@@ -142,7 +142,7 @@ export function DentalCaseAdvanceModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               {t("dentalLab.cases.advanceAssignee")}
             </label>
             <select
@@ -165,7 +165,7 @@ export function DentalCaseAdvanceModal({
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 text-xs font-semibold"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50 text-xs font-semibold"
           >
             {t("dentalLab.common.cancel")}
           </button>

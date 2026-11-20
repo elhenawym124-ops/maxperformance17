@@ -51,19 +51,19 @@ export const CampaignMetricsGrid: React.FC<CampaignMetricsGridProps> = ({
   ];
 
   return (
-    <div className="grid border-t border-slate-100 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid border-t border-border sm:grid-cols-2 xl:grid-cols-4">
       {metricItems.map((item) => (
         <div
           key={item.label}
-          className="flex min-h-[72px] items-center justify-between gap-3 border-t border-slate-100 px-4 py-3 sm:border-l sm:border-t-0"
+          className="flex min-h-[72px] items-center justify-between gap-3 border-t border-border px-4 py-3 sm:border-l sm:border-t-0"
         >
           <div>
-            <p className="text-xs font-bold text-slate-500">{item.label}</p>
-            <p className="mt-1 text-lg font-black text-slate-950 tabular-nums">
+            <p className="text-xs font-bold text-muted-foreground">{item.label}</p>
+            <p className="mt-1 text-lg font-black text-foreground tabular-nums">
               {item.value}
             </p>
           </div>
-          <span className="rounded-lg bg-slate-50 px-2 py-1 text-[11px] font-bold text-slate-500 tabular-nums">
+          <span className="rounded-lg bg-muted px-2 py-1 text-[11px] font-bold text-muted-foreground tabular-nums">
             {item.sub}
           </span>
         </div>

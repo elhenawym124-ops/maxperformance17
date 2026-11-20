@@ -43,7 +43,7 @@ export const DentalCaseInspectorDrawer: React.FC<DentalCaseInspectorDrawerProps>
       onClick={onClose}
     >
       <div
-        className="w-full sm:w-[500px] md:w-[540px] bg-white dark:bg-gray-900 h-full shadow-2xl flex flex-col border-r dark:border-gray-800 animate-in slide-in-from-left duration-200"
+        className="w-full sm:w-[500px] md:w-[540px] bg-white dark:bg-muted h-full shadow-2xl flex flex-col border-r dark:border-border animate-in slide-in-from-left duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <DentalCaseInspector

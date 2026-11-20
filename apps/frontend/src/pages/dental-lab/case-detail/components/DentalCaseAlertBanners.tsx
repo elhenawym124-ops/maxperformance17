@@ -54,30 +54,30 @@ export default function DentalCaseAlertBanners({
   return (
     <>
       {isOverdue && (
-        <div className="mb-6 p-4 rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 flex flex-wrap items-center justify-between gap-4 animate-in fade-in duration-200">
+        <div className="mb-6 p-4 rounded-xl border border-destructive dark:border-destructive bg-destructive/10 dark:bg-destructive/40 flex flex-wrap items-center justify-between gap-4 animate-in fade-in duration-200">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-destructive text-white flex items-center justify-center shrink-0 shadow-sm">
               <AlertTriangle className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-rose-900 dark:text-rose-200">
+              <h4 className="text-sm font-bold text-destructive dark:text-destructive">
                 تنبيه تأخير: هذه الحالة متأخرة بمقدار {daysOverdue} يوم عن موعد التسليم المحدد!
               </h4>
-              <p className="text-xs text-rose-700 dark:text-rose-300 mt-0.5">
+              <p className="text-xs text-destructive dark:text-destructive mt-0.5">
                 تاريخ الاستحقاق كان في: <b className="font-mono tabular-nums">{fmtDate(c.dueDate)}</b> —
                 يرجى الإسراع في إنهاء المراحل المتبقية وتجهيز الشغل للتسليم.
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs font-semibold text-rose-800 dark:text-rose-300 hidden sm:inline">
+            <span className="text-xs font-semibold text-destructive dark:text-destructive hidden sm:inline">
               تأجيل التنبيه (Snooze):
             </span>
             <button
               type="button"
               onClick={() => handleSnoozeOverdue(1)}
               disabled={snoozing}
-              className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-200 text-xs font-bold hover:bg-rose-100 dark:hover:bg-rose-900/50 shadow-sm disabled:opacity-50 transition-colors"
+              className="px-2.5 py-1.5 rounded-lg bg-card border border-destructive dark:border-destructive text-destructive dark:text-destructive text-xs font-bold hover:bg-destructive dark:hover:bg-destructive/50 shadow-sm disabled:opacity-50 transition-colors"
               title="تأجيل تنبيه التأخير وتمديد الموعد ليوم إضافي"
             >
               تأجيل +1 يوم
@@ -86,7 +86,7 @@ export default function DentalCaseAlertBanners({
               type="button"
               onClick={() => handleSnoozeOverdue(3)}
               disabled={snoozing}
-              className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-200 text-xs font-bold hover:bg-rose-100 dark:hover:bg-rose-900/50 shadow-sm disabled:opacity-50 transition-colors"
+              className="px-2.5 py-1.5 rounded-lg bg-card border border-destructive dark:border-destructive text-destructive dark:text-destructive text-xs font-bold hover:bg-destructive dark:hover:bg-destructive/50 shadow-sm disabled:opacity-50 transition-colors"
               title="تأجيل تنبيه التأخير وتمديد الموعد لـ 3 أيام"
             >
               تأجيل +3 أيام
@@ -95,7 +95,7 @@ export default function DentalCaseAlertBanners({
               type="button"
               onClick={() => handleSnoozeOverdue(7)}
               disabled={snoozing}
-              className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-200 text-xs font-bold hover:bg-rose-100 dark:hover:bg-rose-900/50 shadow-sm disabled:opacity-50 transition-colors"
+              className="px-2.5 py-1.5 rounded-lg bg-card border border-destructive dark:border-destructive text-destructive dark:text-destructive text-xs font-bold hover:bg-destructive dark:hover:bg-destructive/50 shadow-sm disabled:opacity-50 transition-colors"
               title="تأجيل تنبيه التأخير وتمديد الموعد لأسبوع كامل"
             >
               تأجيل +أسبوع
@@ -105,23 +105,23 @@ export default function DentalCaseAlertBanners({
       )}
 
       {c.status === "OUTSOURCED" && (
-        <div className="mb-6 p-4 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 flex flex-wrap items-center justify-between gap-4 animate-in fade-in duration-200">
+        <div className="mb-6 p-4 rounded-xl border border-warning dark:border-warning bg-warning/10 dark:bg-warning/40 flex flex-wrap items-center justify-between gap-4 animate-in fade-in duration-200">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-warning text-white flex items-center justify-center shrink-0 shadow-sm">
               <ExternalLink className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h4 className="text-sm font-bold text-amber-900 dark:text-amber-200">
+                <h4 className="text-sm font-bold text-warning dark:text-warning">
                   الشغل حالياً لدى جهة خارجية: {c.externalLabName || "معمل خارجي"}
                 </h4>
                 {c.expectedReturnAt && new Date(c.expectedReturnAt) < new Date() && (
-                  <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white animate-pulse">
+                  <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-destructive text-white animate-pulse">
                     متأخر عن موعد العودة المتوقع
                   </span>
                 )}
               </div>
-              <p className="text-xs text-amber-700 dark:text-amber-300 mt-0.5 font-mono tabular-nums">
+              <p className="text-xs text-warning dark:text-warning mt-0.5 font-mono tabular-nums">
                 {c.expectedReturnAt ? `موعد الاستلام المتوقع: ${fmtDate(c.expectedReturnAt)}` : "جاري التشغيل الخارجي"}
                 {c.outsourceCost != null ? ` | التكلفة: ${fmtMoney(c.outsourceCost)}` : ""}
                 {c.outsourceNotes ? ` | ${c.outsourceNotes}` : ""}
@@ -132,7 +132,7 @@ export default function DentalCaseAlertBanners({
             type="button"
             onClick={handleReturnFromOutsource}
             disabled={caseBusy}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-sm transition disabled:opacity-50 flex items-center gap-1.5"
+            className="px-4 py-2 bg-success hover:bg-success text-white rounded-lg text-xs font-bold shadow-sm transition disabled:opacity-50 flex items-center gap-1.5"
           >
             <CheckCircle2 className="w-4 h-4" />
             استلام الشغل وفحص الجودة
@@ -141,16 +141,16 @@ export default function DentalCaseAlertBanners({
       )}
 
       {c.isDeleted && (
-        <div className="mb-6 p-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/80 flex items-center justify-between gap-4 animate-in fade-in duration-200">
+        <div className="mb-6 p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted flex items-center justify-between gap-4 animate-in fade-in duration-200">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gray-600 text-white flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-muted text-white flex items-center justify-center shrink-0">
               <Trash2 className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200">
+              <h4 className="text-sm font-bold text-foreground dark:text-muted-foreground">
                 هذه الحالة موجودة حالياً في سلة المهملات
               </h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 تم نقل الحالة إلى سلة المهملات ولا تظهر في القوائم النشطة أو الإحصائيات. يمكنك
                 استعادتها أو حذفها نهائياً.
               </p>
@@ -168,7 +168,7 @@ export default function DentalCaseAlertBanners({
             <button
               onClick={handlePermanentDelete}
               disabled={caseBusy}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-lg disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-destructive hover:bg-destructive text-white text-xs font-semibold rounded-lg disabled:opacity-50"
             >
               <Trash2 className="w-3.5 h-3.5" />
               حذف نهائي
@@ -178,14 +178,14 @@ export default function DentalCaseAlertBanners({
       )}
 
       {c.isTryIn && (
-        <div className="mb-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 flex flex-wrap items-center justify-between gap-4">
+        <div className="mb-6 p-4 rounded-xl bg-warning/10 dark:bg-warning/40 border border-warning dark:border-warning flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="p-2 rounded-lg bg-amber-500 text-white font-bold text-sm">بروفة</span>
+            <span className="p-2 rounded-lg bg-warning text-white font-bold text-sm">بروفة</span>
             <div>
-              <h4 className="font-bold text-amber-900 dark:text-amber-200">
+              <h4 className="font-bold text-warning dark:text-warning">
                 الحالة حالياً في مرحلة بروفة (Try-in) لدى العيادة — {c.tryInStage || "بروفة عامة"}
               </h4>
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+              <p className="text-xs text-warning dark:text-warning mt-0.5">
                 عدد مرات خروج البروفة لهذه الحالة:{" "}
                 <span className="font-mono tabular-nums font-bold">{c.tryInCount || 1}</span> مرات.
                 الفاتورة والبيانات المالية محفوظة دون تكرار.
@@ -194,7 +194,7 @@ export default function DentalCaseAlertBanners({
           </div>
           <button
             onClick={onOpenTryInReturn}
-            className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-sm font-semibold shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-warning hover:bg-warning text-white rounded-lg text-sm font-semibold shadow-sm"
           >
             <RotateCcw className="w-4 h-4" />
             استلام الحالة من البروفة
@@ -206,10 +206,10 @@ export default function DentalCaseAlertBanners({
         <div
           className={`mb-6 p-4 rounded-xl border flex flex-wrap items-center justify-between gap-4 ${
             isApproved
-              ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200"
+              ? "bg-emerald-50 dark:bg-success/30 border-success dark:border-success text-success dark:text-success"
               : isChanges
-              ? "bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200"
-              : "bg-indigo-50 dark:bg-indigo-950/30 border-indigo-300 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200"
+              ? "bg-amber-50 dark:bg-warning/30 border-warning dark:border-warning text-warning dark:text-warning"
+              : "bg-indigo-50 dark:bg-primary/30 border-primary dark:border-primary text-primary dark:text-primary"
           }`}
         >
           <div className="flex items-center gap-3">
@@ -243,9 +243,9 @@ export default function DentalCaseAlertBanners({
                   url: `/api/v1/dental-lab/files/${designAtt.storedPath}`,
                 })
               }
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-800 border rounded-lg text-xs font-semibold shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-card border rounded-lg text-xs font-semibold shadow-sm hover:bg-muted/50"
             >
-              <Eye className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+              <Eye className="w-3.5 h-3.5 text-primary" />
               معاينة التصميم ثلاثي الأبعاد
             </button>
           </div>

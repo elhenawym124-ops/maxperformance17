@@ -18,10 +18,10 @@ export function WagesSettingsSection({
   return (
     <div className={`${sectionCardCls} space-y-4`}>
       <div className="flex items-center gap-2">
-        <Coins className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+        <Coins className="w-5 h-5 text-muted-foreground" />
         <div>
           <h3 className="font-semibold">{t("dentalLab.settings.wages.title")}</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             {t("dentalLab.settings.wages.hint")}
           </p>
         </div>
@@ -42,7 +42,7 @@ export function WagesSettingsSection({
           />
         </div>
         <div className="sm:col-span-2">
-          <p className="text-xs text-gray-400 dark:text-gray-500">
+          <p className="text-xs text-muted-foreground/80">
             {t("dentalLab.settings.wages.note")}
           </p>
         </div>

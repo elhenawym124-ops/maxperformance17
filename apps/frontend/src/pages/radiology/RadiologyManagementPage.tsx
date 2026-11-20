@@ -61,10 +61,10 @@ export default function RadiologyManagementPage() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 w-full h-full overflow-y-auto" dir="rtl">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b dark:border-gray-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b dark:border-border">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t("radiology.title")}</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.subtitle")}</p>
+          <h1 className="text-2xl font-bold text-foreground">{t("radiology.title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("radiology.subtitle")}</p>
         </div>
       </div>
 

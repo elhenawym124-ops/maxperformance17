@@ -22,18 +22,18 @@ export const DentalCasesTablePagination: React.FC<DentalCasesTablePaginationProp
         type="button"
         disabled={page <= 1}
         onClick={() => setPage((p) => Math.max(1, p - 1))}
-        className="px-3 py-1.5 border dark:border-gray-600 rounded-lg disabled:opacity-40 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-gray-750 transition-colors"
+        className="px-3 py-1.5 border dark:border-border rounded-lg disabled:opacity-40 text-xs font-semibold hover:bg-muted dark:hover:bg-muted transition-colors"
       >
         {t("dentalLab.common.prev")}
       </button>
-      <span className="text-gray-500 dark:text-gray-400 text-xs font-mono tabular-nums">
+      <span className="text-muted-foreground text-xs font-mono tabular-nums">
         {page} / {totalPages}
       </span>
       <button
         type="button"
         disabled={page >= totalPages}
         onClick={() => setPage((p) => p + 1)}
-        className="px-3 py-1.5 border dark:border-gray-600 rounded-lg disabled:opacity-40 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-gray-750 transition-colors"
+        className="px-3 py-1.5 border dark:border-border rounded-lg disabled:opacity-40 text-xs font-semibold hover:bg-muted dark:hover:bg-muted transition-colors"
       >
         {t("dentalLab.common.next")}
       </button>

@@ -372,11 +372,11 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-100/60 dark:bg-slate-950/80 select-none overflow-hidden">
+    <div className="flex flex-col h-full bg-muted dark:bg-muted select-none overflow-hidden">
       {/* Top Workspace Canvas Control Bar */}
-      <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 flex-shrink-0 gap-2 flex-wrap">
+      <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 bg-white dark:bg-muted border-b border-border dark:border-border flex-shrink-0 gap-2 flex-wrap">
         {/* Aspect Ratio Switcher */}
-        <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700/60">
+        <div className="flex items-center bg-muted dark:bg-muted p-0.5 rounded-lg border border-border dark:border-border">
           {(
             [
               { id: "1:1", label: "1:1 Feed" },
@@ -391,8 +391,8 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
               onClick={() => onChangeAspectRatio(item.id)}
               className={`px-2.5 py-1 text-xs font-bold rounded-md transition cursor-pointer ${
                 aspectRatio === item.id
-                  ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs"
-                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+                  ? "bg-white dark:bg-muted text-foreground dark:text-white shadow-xs"
+                  : "text-slate-500 hover:text-foreground dark:hover:text-muted-foreground"
               }`}
             >
               {item.label}
@@ -413,8 +413,8 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
               }
               className={`h-8 px-2 text-xs font-bold rounded-lg border transition flex items-center gap-1 cursor-pointer ${
                 overlay.showProductLayer !== false
-                  ? "bg-indigo-50 dark:bg-indigo-950/50 border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300"
-                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500"
+                  ? "bg-indigo-50 dark:bg-primary/50 border-primary dark:border-primary text-primary dark:text-primary"
+                  : "bg-white dark:bg-muted border-border dark:border-border text-muted-foreground"
               }`}
               title="إظهار أو إخفاء مجسم المنتج المفرغ فوق خلفية الذكاء الاصطناعي"
             >
@@ -435,13 +435,13 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
               type="button"
               disabled={isRemovingBg}
               onClick={handleRemoveBackground}
-              className="h-8 px-2 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition flex items-center gap-1 cursor-pointer"
+              className="h-8 px-2 text-xs font-bold rounded-lg border border-border dark:border-border bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground transition flex items-center gap-1 cursor-pointer"
               title="تفريغ الخلفية البيضاء أو الاستوديو تلقائياً ليصبح المنتج شفافاً 100%"
             >
               {isRemovingBg ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
-                <Scissors className="w-3.5 h-3.5 text-amber-500" />
+                <Scissors className="w-3.5 h-3.5 text-warning" />
               )}
               <span className="hidden md:inline">تفريغ الخلفية</span>
             </button>
@@ -463,10 +463,10 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="h-8 px-2 text-xs font-bold rounded-lg border border-dashed border-slate-300 dark:border-slate-700 hover:border-indigo-400 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 transition flex items-center gap-1 cursor-pointer"
+            className="h-8 px-2 text-xs font-bold rounded-lg border border-dashed border-border dark:border-border hover:border-primary bg-white dark:bg-muted text-foreground dark:text-muted-foreground transition flex items-center gap-1 cursor-pointer"
             title="رفع صورة منتج خارجي من حاسوبك أو هاتفك"
           >
-            <Upload className="w-3.5 h-3.5 text-indigo-500" />
+            <Upload className="w-3.5 h-3.5 text-primary" />
             <span className="hidden md:inline">رفع منتج خارجي</span>
           </button>
         </div>
@@ -477,9 +477,9 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
             variant="outline"
             size="sm"
             onClick={handleCopyAdText}
-            className="h-8 text-xs gap-1.5 rounded-lg border-slate-200 dark:border-slate-700 cursor-pointer"
+            className="h-8 text-xs gap-1.5 rounded-lg border-border dark:border-border cursor-pointer"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
             <span className="hidden sm:inline">نسخ النصوص</span>
           </Button>
 
@@ -488,7 +488,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
             size="sm"
             onClick={handleDownloadSnapshot}
             disabled={isExporting}
-            className="h-8 text-xs gap-1.5 rounded-lg border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50 dark:hover:bg-indigo-950/40 cursor-pointer"
+            className="h-8 text-xs gap-1.5 rounded-lg border-border dark:border-border text-primary font-bold hover:bg-primary/10 dark:hover:bg-primary/40 cursor-pointer"
             title="تصدير تصميم متكامل بدقة 2K (الخلفية + المنتج + اللوجو + الظلال + النصوص)"
           >
             {isExporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
@@ -498,7 +498,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
           <Button
             size="sm"
             onClick={handleLaunchMetaWizard}
-            className="h-8 text-xs gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-xs cursor-pointer"
+            className="h-8 text-xs gap-1.5 rounded-lg bg-primary hover:bg-primary/90 text-white font-bold shadow-xs cursor-pointer"
             title="تعبئة معالج إعلانات فيسبوك مباشرة بهذا التصميم الإعلاني والنصوص"
           >
             <Rocket className="w-3.5 h-3.5" />
@@ -509,7 +509,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
             variant="ghost"
             size="sm"
             onClick={handleSendToMarketingStudio}
-            className="h-8 text-xs px-2 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer hidden lg:flex"
+            className="h-8 text-xs px-2 text-foreground dark:text-muted-foreground hover:text-primary cursor-pointer hidden lg:flex"
             title="المتابعة في استوديو كتابة الحملات التسويقية"
           >
             <span>استوديو الحملات</span>
@@ -519,9 +519,9 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
 
       {/* Product Angles & Multi-Image Gallery Strip */}
       {selectedProduct && productPhotos.length > 0 && (
-        <div data-testid="product-angles-strip" className="flex items-center justify-between px-3 sm:px-5 py-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800/70 flex-shrink-0 gap-2 overflow-x-auto">
-          <div className="flex items-center gap-1.5 text-xs font-black text-slate-800 dark:text-slate-200 flex-shrink-0">
-            <Package className="w-3.5 h-3.5 text-indigo-500" />
+        <div data-testid="product-angles-strip" className="flex items-center justify-between px-3 sm:px-5 py-2 bg-white/80 dark:bg-muted backdrop-blur-md border-b border-border dark:border-border flex-shrink-0 gap-2 overflow-x-auto">
+          <div className="flex items-center gap-1.5 text-xs font-black text-foreground dark:text-muted-foreground flex-shrink-0">
+            <Package className="w-3.5 h-3.5 text-primary" />
             <span>زوايا المنتج ({productPhotos.length}):</span>
           </div>
 
@@ -535,21 +535,21 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
                   onClick={() => handleSelectAngle(item.url)}
                   className={`group relative flex items-center gap-1.5 p-1 rounded-xl border transition-all cursor-pointer flex-shrink-0 ${
                     isActive
-                      ? "bg-indigo-50/80 dark:bg-indigo-950/60 border-indigo-600 dark:border-indigo-500 shadow-xs ring-2 ring-indigo-400/30"
-                      : "bg-white/60 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:border-slate-400 opacity-80 hover:opacity-100"
+                      ? "bg-indigo-50/80 dark:bg-primary/60 border-primary dark:border-primary shadow-xs ring-2 ring-primary/30"
+                      : "bg-white/60 dark:bg-muted border-border dark:border-border hover:border-border opacity-80 hover:opacity-100"
                   }`}
                   title={item.label}
                 >
                   <img
                     src={item.url}
                     alt={item.label}
-                    className="w-8 h-8 rounded-lg object-contain bg-slate-100 dark:bg-slate-950/50 p-0.5"
+                    className="w-8 h-8 rounded-lg object-contain bg-muted dark:bg-muted p-0.5"
                   />
-                  <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 px-1 hidden md:inline">
+                  <span className="text-[11px] font-bold text-foreground dark:text-muted-foreground px-1 hidden md:inline">
                     {item.label}
                   </span>
                   {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 mr-1" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary dark:bg-primary me-1" />
                   )}
                 </button>
               );
@@ -566,10 +566,10 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
             <button
               type="button"
               onClick={() => angleFileInputRef.current?.click()}
-              className="h-8 px-2.5 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 hover:border-indigo-400 bg-white/40 dark:bg-slate-800/40 text-slate-600 dark:text-slate-400 text-[11px] font-bold transition flex items-center gap-1 cursor-pointer flex-shrink-0"
+              className="h-8 px-2.5 rounded-xl border border-dashed border-border dark:border-border hover:border-primary bg-white/40 dark:bg-muted text-foreground dark:text-muted-foreground text-[11px] font-bold transition flex items-center gap-1 cursor-pointer flex-shrink-0"
               title="رفع صورة زاوية جديدة لهذا المنتج من حاسوبك"
             >
-              <Upload className="w-3 h-3 text-indigo-500" />
+              <Upload className="w-3 h-3 text-primary" />
               <span>+ إضافة زاوية</span>
             </button>
           </div>
@@ -581,7 +581,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
         {/* The Live Layered Canvas Frame */}
         <div
           ref={canvasRef}
-          className={`w-full ${aspectClass} relative rounded-2xl overflow-hidden shadow-2xl border border-slate-900/10 dark:border-white/10 transition-all duration-300 flex flex-col justify-between flex-shrink-0`}
+          className={`w-full ${aspectClass} relative rounded-xl overflow-hidden shadow-2xl border border-border dark:border-white/10 transition-all duration-300 flex flex-col justify-between flex-shrink-0`}
         >
           {/* Layer 0: Background Layer (AI image or Simulated Studio Preset) */}
           {backgroundUrl ? (
@@ -691,7 +691,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
                   role="button"
                   tabIndex={0}
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-48 h-48 rounded-2xl border-2 border-dashed border-white/30 hover:border-indigo-400 flex flex-col items-center justify-center p-4 text-center bg-black/30 backdrop-blur-xs cursor-pointer transition"
+                  className="w-48 h-48 rounded-xl border-2 border-dashed border-white/30 hover:border-primary flex flex-col items-center justify-center p-4 text-center bg-black/30 backdrop-blur-xs cursor-pointer transition"
                 >
                   <Package className="w-10 h-10 text-white/40 mb-2" />
                   <span className="text-xs font-bold text-white/80">
@@ -719,7 +719,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
             )}
 
             <div className="px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white/90 flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-amber-400" />
+              <Sparkles className="w-3 h-3 text-warning" />
               <span>{selectedPreset.labelAr}</span>
             </div>
           </div>
@@ -762,7 +762,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
                     </span>
                   )}
                   <span
-                    className="text-sm sm:text-lg font-black text-emerald-400 drop-shadow-xs"
+                    className="text-sm sm:text-lg font-black text-success drop-shadow-xs"
                     style={{ color: overlay.accentColor || "#10b981" }}
                   >
                     {overlay.price} {overlay.currency}
@@ -776,8 +776,8 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
           {isGenerating && (
             <div className="absolute inset-0 z-40 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center">
               <div className="relative mb-3">
-                <div className="w-12 h-12 rounded-full border-3 border-indigo-500/20 border-t-indigo-500 animate-spin" />
-                <Sparkles className="w-5 h-5 text-indigo-400 absolute inset-0 m-auto" />
+                <div className="w-12 h-12 rounded-full border-3 border-primary/20 border-t-indigo-500 animate-spin" />
+                <Sparkles className="w-5 h-5 text-primary absolute inset-0 m-auto" />
               </div>
               <p className="text-xs font-bold text-white mb-1">
                 جاري توليد المشهد الإعلاني بالذكاء الاصطناعي...
@@ -791,8 +791,8 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
 
         {/* Multi-Variant Selector Strip (Batch Generation 1x/2x/4x) */}
         {variantUrls && variantUrls.length > 1 && (
-          <div className="mt-3 flex items-center gap-2 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xl z-20">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 px-1">
+          <div className="mt-3 flex items-center gap-2 p-2 bg-white/90 dark:bg-muted backdrop-blur-md rounded-xl border border-border dark:border-border shadow-xl z-20">
+            <span className="text-xs font-bold text-foreground dark:text-muted-foreground px-1">
               تنويعات المشهد:
             </span>
             <div className="flex items-center gap-1.5">
@@ -803,7 +803,7 @@ export const CreativeStudioInteractiveCanvas: React.FC<CreativeStudioInteractive
                   onClick={() => onSelectVariant?.(url)}
                   className={`relative w-11 h-11 rounded-xl overflow-hidden border-2 transition cursor-pointer ${
                     backgroundUrl === url
-                      ? "border-indigo-600 scale-105 shadow-md ring-2 ring-indigo-400/40"
+                      ? "border-indigo-600 scale-105 shadow-md ring-2 ring-primary/40"
                       : "border-transparent opacity-60 hover:opacity-100"
                   }`}
                 >

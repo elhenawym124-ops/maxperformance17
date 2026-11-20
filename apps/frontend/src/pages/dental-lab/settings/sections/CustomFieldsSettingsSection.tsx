@@ -96,7 +96,7 @@ export function CustomFieldsSettingsSection({
     <div className={`${sectionCardCls} space-y-4`}>
       <div>
         <h3 className="font-semibold">{t("dentalLab.settings.customFields")}</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-muted-foreground">
           {t("dentalLab.settings.customFieldsHint")}
         </p>
       </div>
@@ -133,7 +133,7 @@ export function CustomFieldsSettingsSection({
         </button>
       </div>
       {customFields.length > 0 && (
-        <div className="border dark:border-gray-700 rounded-lg divide-y dark:divide-gray-700">
+        <div className="border dark:border-border rounded-lg divide-y dark:divide-border">
           {customFields.map((f) => (
             <div
               key={f.id}
@@ -141,7 +141,7 @@ export function CustomFieldsSettingsSection({
             >
               <span className="font-medium">{f.name}</span>
               <div className="flex items-center gap-3">
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-muted-foreground">
                   {f.fieldType
                     ? tKey(t, `dentalLab.settings.fieldTypes.${f.fieldType}`)
                     : "—"}
@@ -150,8 +150,8 @@ export function CustomFieldsSettingsSection({
                   onClick={() => toggleField(f)}
                   className={`text-xs px-2 py-0.5 rounded-full border ${
                     f.isActive
-                      ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 border-green-200 dark:border-green-800"
-                      : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600"
+                      ? "bg-green-100 text-success dark:bg-success/40 dark:text-success border-success dark:border-success"
+                      : "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground border-border"
                   }`}
                 >
                   {f.isActive
@@ -161,7 +161,7 @@ export function CustomFieldsSettingsSection({
                 <button
                   onClick={() => removeField(f)}
                   disabled={fieldBusyId !== null}
-                  className="p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg disabled:opacity-40"
+                  className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40"
                   title={t("dentalLab.common.delete")}
                 >
                   <Trash2 className="w-4 h-4" />

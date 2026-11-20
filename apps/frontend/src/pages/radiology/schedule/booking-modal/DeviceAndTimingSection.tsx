@@ -73,7 +73,7 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
             return true;
           });
           return clash ? (
-            <p className="mt-1.5 text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+            <p className="mt-1.5 text-xs text-warning dark:text-warning flex items-center gap-1">
               <Zap className="w-3 h-3" />{' '}
               {t('radiology.schedule.deviceConflict', {
                 name: clash.patientName,
@@ -120,7 +120,7 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
               ))}
             </select>
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+          <p className="text-xs text-muted-foreground/80 mt-1">
             {t('radiology.receptionFlow.initialPaymentHint')}
           </p>
         </div>
@@ -128,7 +128,7 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
 
       {modal.insuranceCompanyId && Object.keys(coverage).some(k => !coverage[k]?.covered) ? (
         <div className="sm:col-span-2">
-          <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+          <p className="text-xs text-warning dark:text-warning flex items-center gap-1">
             <Zap className="w-3 h-3" /> {t('radiology.schedule.coverageWarning')}
           </p>
         </div>
@@ -162,9 +162,9 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
           placeholder={t('radiology.schedule.searchDoctor')}
         />
         {physicianSearch.trim() && (
-          <div className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg shadow-xl">
+          <div className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-card border dark:border-border rounded-lg shadow-xl">
             {physicianResults.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-gray-500">
+              <div className="px-3 py-2 text-sm text-muted-foreground">
                 {t('radiology.schedule.noResults')}
               </div>
             ) : (
@@ -173,7 +173,7 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
                   key={p.id}
                   type="button"
                   onClick={() => onPickPhysician(p)}
-                  className="block w-full text-right px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="block w-full text-right px-3 py-2 text-sm hover:bg-muted/50"
                 >
                   <span className="font-medium">{p.name}</span>
                 </button>
@@ -206,7 +206,7 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
           ))}
         </select>
         {modal.marketingRepName && !modal.marketingRepId ? (
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{modal.marketingRepName}</p>
+          <p className="text-xs text-muted-foreground/80 mt-1">{modal.marketingRepName}</p>
         ) : null}
       </div>
 
@@ -239,7 +239,7 @@ export const DeviceAndTimingSection: React.FC<DeviceAndTimingSectionProps> = ({
               a.appointmentTime === tm
           );
           return clash ? (
-            <p className="mt-1.5 text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+            <p className="mt-1.5 text-xs text-warning dark:text-warning flex items-center gap-1">
               <Zap className="w-3 h-3" />{' '}
               {t('radiology.schedule.timeSlotTaken', {
                 name: clash.patientName,

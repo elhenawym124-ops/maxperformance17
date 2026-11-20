@@ -42,9 +42,9 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
             <span>{allSelected ? "إلغاء تحديد الكل" : "تحديد جميع الأطباء"}</span>
           </button>
         </div>
-        <span className="text-xs text-gray-500 font-mono tabular-nums">
+        <span className="text-xs text-muted-foreground font-mono tabular-nums">
           المحدد:{" "}
-          <strong className="text-gray-900 dark:text-gray-100">
+          <strong className="text-foreground">
             {selectedStats.doctorsCount} طبيب
           </strong>{" "}
           ({selectedStats.cases} حالة) بإجمالي{" "}
@@ -55,7 +55,7 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
       </div>
 
       {/* Doctor Rows */}
-      <div className="border dark:border-gray-700 rounded-xl divide-y dark:divide-gray-700 max-h-56 overflow-y-auto">
+      <div className="border dark:border-border rounded-xl divide-y dark:divide-border max-h-56 overflow-y-auto">
         {currentSummary.doctors.map((doc) => {
           const isSelected = Boolean(
             doc.doctorId && selectedDoctorIds.includes(doc.doctorId)
@@ -67,7 +67,7 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
               className={`p-3 flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                 isSelected
                   ? "bg-blue-50/60 dark:bg-blue-900/20"
-                  : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  : "hover:bg-gray-50 dark:hover:bg-muted"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -75,23 +75,23 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
                   className={`w-5 h-5 rounded flex items-center justify-center border transition-colors ${
                     isSelected
                       ? "bg-blue-600 border-blue-600 text-white"
-                      : "border-gray-300 dark:border-gray-600"
+                      : "border-border"
                   }`}
                 >
                   {isSelected && <Check className="w-3.5 h-3.5" />}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                  <p className="text-sm font-semibold text-foreground">
                     {doc.doctorName}
                   </p>
-                  <p className="text-xs text-gray-500 font-mono tabular-nums">
+                  <p className="text-xs text-muted-foreground font-mono tabular-nums">
                     {doc.clinicName ? `${doc.clinicName} • ` : ""}
                     {doc.casesCount} حالة غير مفوترة
                   </p>
                 </div>
               </div>
               <div className="text-left font-mono tabular-nums">
-                <p className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                <p className="text-sm font-bold text-foreground">
                   {fmtMoney(doc.totalAmount)} ج.م
                 </p>
               </div>

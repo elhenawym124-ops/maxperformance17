@@ -48,13 +48,13 @@ export default function DentalCaseTeamQualityCards({
       {/* Team Assignments Card */}
       <DentalCaseCard title={t("dentalLab.detail.team")} icon={<UserCheck className="w-5 h-5" />}>
         {assignments.length === 0 ? (
-          <p className="text-sm text-gray-400 dark:text-gray-500">{t("dentalLab.detail.noTeam")}</p>
+          <p className="text-sm text-muted-foreground/80">{t("dentalLab.detail.noTeam")}</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {assignments.map((a) => (
               <div
                 key={a.id}
-                className="border dark:border-gray-700 rounded-lg p-3 flex items-center justify-between"
+                className="border dark:border-border rounded-lg p-3 flex items-center justify-between"
               >
                 <div>
                   <p className="font-medium text-sm">
@@ -66,11 +66,11 @@ export default function DentalCaseTeamQualityCards({
                       {a.technician?.name || a.technicianId}
                     </Link>
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     {t("dentalLab.technicians.role")}: {ROLE_CONFIG[a.role]?.label ?? a.role}
                   </p>
                 </div>
-                <span className="text-xs text-gray-400 font-mono tabular-nums">
+                <span className="text-xs text-muted-foreground font-mono tabular-nums">
                   {fmtDate(a.assignedAt)}
                 </span>
               </div>
@@ -94,13 +94,13 @@ export default function DentalCaseTeamQualityCards({
         }
       >
         {latestCheck && latestCheck.passed && (
-          <div className="flex items-center gap-1.5 mb-3 px-3 py-1.5 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 text-xs font-medium w-fit">
+          <div className="flex items-center gap-1.5 mb-3 px-3 py-1.5 rounded-lg bg-success/10 dark:bg-success/30 text-success dark:text-success border border-success dark:border-success text-xs font-medium w-fit">
             <CheckCircle2 className="w-4 h-4" />
             {t("dentalLab.detail.qualityInspected")}
           </div>
         )}
         {qualityChecks.length === 0 ? (
-          <p className="text-sm text-gray-400 dark:text-gray-500">
+          <p className="text-sm text-muted-foreground/80">
             {t("dentalLab.detail.qualityNoData")}
           </p>
         ) : (
@@ -111,27 +111,27 @@ export default function DentalCaseTeamQualityCards({
                   new Date(b.checkedAt ?? 0).getTime() - new Date(a.checkedAt ?? 0).getTime()
               )
               .map((q) => (
-                <div key={q.id} className="border dark:border-gray-700 rounded-lg p-3">
+                <div key={q.id} className="border dark:border-border rounded-lg p-3">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <span className="flex items-center gap-1.5 text-sm font-medium">
                       {q.passed ? (
-                        <CheckCircle2 className="w-4 h-4 text-green-500" />
+                        <CheckCircle2 className="w-4 h-4 text-success" />
                       ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
+                        <XCircle className="w-4 h-4 text-destructive" />
                       )}
                       {q.passed
                         ? t("dentalLab.detail.qualityPassed")
                         : t("dentalLab.detail.qualityFailed")}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono tabular-nums">
+                    <span className="text-xs text-muted-foreground font-mono tabular-nums">
                       {fmtDateTime(q.checkedAt)}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     {t("dentalLab.detail.changedBy")}: {q.checkedByName || q.checkedBy || "—"}
                   </p>
                   {q.notes ? (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{q.notes}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{q.notes}</p>
                   ) : null}
                 </div>
               ))}
@@ -146,7 +146,7 @@ export default function DentalCaseTeamQualityCards({
         action={
           <button
             onClick={onOpenRefab}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 text-white rounded-lg text-xs hover:bg-amber-600 shadow-sm transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-warning text-white rounded-lg text-xs hover:bg-warning shadow-sm transition"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             {t("dentalLab.detail.refabButton")}
@@ -154,7 +154,7 @@ export default function DentalCaseTeamQualityCards({
         }
       >
         {refabrications.length === 0 ? (
-          <p className="text-sm text-gray-400 dark:text-gray-500">
+          <p className="text-sm text-muted-foreground/80">
             {t("dentalLab.detail.refabNoData")}
           </p>
         ) : (
@@ -165,27 +165,27 @@ export default function DentalCaseTeamQualityCards({
                   new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime()
               )
               .map((r) => (
-                <div key={r.id} className="border dark:border-gray-700 rounded-lg p-3">
+                <div key={r.id} className="border dark:border-border rounded-lg p-3">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <span
                       className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
                         r.resolved || r.status === "RESOLVED"
-                          ? "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                          : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300"
+                          ? "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
+                          : "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning"
                       }`}
                     >
                       {r.resolved || r.status === "RESOLVED"
                         ? t("dentalLab.detail.refabResolvedTag")
                         : t("dentalLab.detail.refabOpenTag")}
                     </span>
-                    <span className="text-xs text-gray-400 font-mono tabular-nums">
+                    <span className="text-xs text-muted-foreground font-mono tabular-nums">
                       {fmtDateTime(r.createdAt)}
                     </span>
                   </div>
                   {r.reason ? (
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{r.reason}</p>
+                    <p className="text-sm text-foreground mt-1">{r.reason}</p>
                   ) : null}
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {t("dentalLab.detail.refabStageFrom")}:{" "}
                     {r.stageFrom ? t(`dentalLab.status.${r.stageFrom}` as any) : "—"}
                   </p>
@@ -193,7 +193,7 @@ export default function DentalCaseTeamQualityCards({
                     <button
                       onClick={() => onResolveRefab(r)}
                       disabled={refabBusyId !== null}
-                      className="mt-2 flex items-center gap-1.5 px-3 py-1.5 border border-green-300 text-green-700 bg-green-50 hover:bg-green-100 dark:border-green-700 dark:text-green-300 dark:bg-green-900/30 dark:hover:bg-green-900/50 rounded-lg text-xs font-semibold disabled:opacity-50 transition"
+                      className="mt-2 flex items-center gap-1.5 px-3 py-1.5 border border-success text-success bg-success/10 hover:bg-success dark:border-success dark:text-success dark:bg-success/30 dark:hover:bg-success/50 rounded-lg text-xs font-semibold disabled:opacity-50 transition"
                     >
                       {refabBusyId === r.id ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />

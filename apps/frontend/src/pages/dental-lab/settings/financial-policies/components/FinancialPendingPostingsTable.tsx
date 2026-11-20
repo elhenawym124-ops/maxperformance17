@@ -20,7 +20,7 @@ export function FinancialPendingPostingsTable({
     <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Clock className="size-4 text-amber-500" />
+          <Clock className="size-4 text-warning" />
           <h3 className="text-sm font-semibold">الحركات المالية المعلقة بانتظار التأكيد (Pending Postings)</h3>
         </div>
         <Badge variant="outline" className="tabular-nums font-mono text-xs">
@@ -78,7 +78,7 @@ export function FinancialPendingPostingsTable({
                       <Button
                         size="sm"
                         variant="default"
-                        className="h-7 text-[11px] px-2.5 bg-emerald-600 hover:bg-emerald-700 gap-1"
+                        className="h-7 text-[11px] px-2.5 bg-success hover:bg-success gap-1"
                         disabled={actionBusyId === p.id}
                         onClick={() => onConfirm(p.id)}
                       >
@@ -87,7 +87,7 @@ export function FinancialPendingPostingsTable({
                       <Button
                         size="sm"
                         variant="ghost"
-                        className="h-7 text-[11px] px-2 text-rose-500 hover:text-rose-600 hover:bg-rose-50"
+                        className="h-7 text-[11px] px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
                         disabled={actionBusyId === p.id}
                         onClick={() => onVoid(p.id)}
                       >

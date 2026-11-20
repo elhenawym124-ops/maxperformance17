@@ -213,7 +213,7 @@ const FacebookAdsGeoPage: React.FC = () => {
                   <span className="text-[10px] font-mono text-muted-foreground block">
                     ROAS:
                   </span>
-                  <p className="font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-0.5">
+                  <p className="font-bold font-mono tabular-nums text-success dark:text-success mt-0.5">
                     {formatNumber(row.metrics.roas, 2)}x
                   </p>
                 </div>

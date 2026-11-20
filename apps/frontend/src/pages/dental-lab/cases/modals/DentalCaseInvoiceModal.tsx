@@ -67,7 +67,7 @@ export function DentalCaseInvoiceModal({
           <h3 className="text-lg font-bold">{t("dentalLab.cases.createInvoice")}</h3>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label="إغلاق"
           >
             <XMarkIcon className="w-5 h-5" />
@@ -75,7 +75,7 @@ export function DentalCaseInvoiceModal({
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               {t("dentalLab.invoices.total")}
             </label>
             <input
@@ -86,7 +86,7 @@ export function DentalCaseInvoiceModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               {t("dentalLab.detail.paymentAmount")}
             </label>
             <input
@@ -97,7 +97,7 @@ export function DentalCaseInvoiceModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               {t("dentalLab.detail.paymentMethod")}
             </label>
             <select className={inputCls} value={method} onChange={(e) => setMethod(e.target.value)}>
@@ -109,7 +109,7 @@ export function DentalCaseInvoiceModal({
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               {t("dentalLab.detail.paymentNote")}
             </label>
             <input className={inputCls} value={note} onChange={(e) => setNote(e.target.value)} />
@@ -119,7 +119,7 @@ export function DentalCaseInvoiceModal({
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 text-xs font-semibold"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50 text-xs font-semibold"
           >
             {t("dentalLab.common.cancel")}
           </button>

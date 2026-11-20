@@ -23,9 +23,9 @@ export function DoctorInvoicesTab({
   return (
     <div className="space-y-4">
       {/* Top Bar with Filter Chips */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-xl border dark:border-gray-700">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card p-3 sm:p-4 rounded-xl border dark:border-border">
         <div className="flex items-center gap-2">
-          <Receipt className="w-5 h-5 text-gray-500" />
+          <Receipt className="w-5 h-5 text-muted-foreground" />
           <span className="font-semibold text-sm">فواتير ومستحقات الطبيب</span>
         </div>
 
@@ -42,7 +42,7 @@ export function DoctorInvoicesTab({
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 statusFilter === f.id
                   ? "bg-blue-600 text-white"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200"
+                  : "bg-muted text-muted-foreground hover:bg-muted"
               }`}
             >
               {f.label}
@@ -53,19 +53,19 @@ export function DoctorInvoicesTab({
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
         </div>
       ) : filteredInvoices.length === 0 ? (
-        <div className="p-10 text-center bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-          <Receipt className="w-10 h-10 mx-auto mb-3 text-gray-400" />
+        <div className="p-10 text-center bg-card rounded-xl border dark:border-border">
+          <Receipt className="w-10 h-10 mx-auto mb-3 text-muted-foreground" />
           <p className="text-gray-500 font-medium">لا توجد فواتير تطابق هذا التصنيف</p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden shadow-sm">
+        <div className="bg-card rounded-xl border dark:border-border overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border-b dark:border-gray-700 text-right">
+                <tr className="bg-gray-50 dark:bg-muted text-muted-foreground border-b dark:border-border text-right">
                   <th className="py-3 px-3.5">رقم الفاتورة</th>
                   <th className="py-3 px-3.5">التاريخ</th>
                   <th className="py-3 px-3.5">رقم الحالة / البيان</th>
@@ -76,18 +76,18 @@ export function DoctorInvoicesTab({
                   <th className="py-3 px-3.5 text-center">الإجراءات</th>
                 </tr>
               </thead>
-              <tbody className="divide-y dark:divide-gray-700">
+              <tbody className="divide-y dark:divide-border">
                 {filteredInvoices.map((inv) => {
                   const st = PAYMENT_STATUS_MAP[inv.status as keyof typeof PAYMENT_STATUS_MAP] || {
                     label: inv.status,
-                    color: "bg-gray-100 text-gray-700",
+                    color: "bg-gray-100 text-foreground",
                   };
                   return (
-                    <tr key={inv.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                      <td className="py-3 px-3.5 font-bold text-gray-900 dark:text-gray-100 font-mono">
+                    <tr key={inv.id} className="hover:bg-muted/50/50">
+                      <td className="py-3 px-3.5 font-bold text-foreground font-mono">
                         {inv.invoiceNumber}
                       </td>
-                      <td className="py-3 px-3.5 text-xs text-gray-500 font-mono tabular-nums">
+                      <td className="py-3 px-3.5 text-xs text-muted-foreground font-mono tabular-nums">
                         {fmtDate(inv.createdAt)}
                       </td>
                       <td className="py-3 px-3.5">
@@ -99,13 +99,13 @@ export function DoctorInvoicesTab({
                             {inv.case.caseNumber} {inv.case.patientName ? `(${inv.case.patientName})` : ""}
                           </Link>
                         ) : (
-                          <span className="text-xs text-gray-400">فاتورة مجمعة / دورية</span>
+                          <span className="text-xs text-muted-foreground">فاتورة مجمعة / دورية</span>
                         )}
                       </td>
                       <td className="py-3 px-3.5 font-semibold font-mono tabular-nums">
                         {fmtMoney(inv.total)} ج.م
                       </td>
-                      <td className="py-3 px-3.5 text-emerald-600 font-medium font-mono tabular-nums">
+                      <td className="py-3 px-3.5 text-success font-medium font-mono tabular-nums">
                         {fmtMoney(inv.paid)} ج.م
                       </td>
                       <td
@@ -125,7 +125,7 @@ export function DoctorInvoicesTab({
                           {(inv.remaining || 0) > 0 && (
                             <button
                               onClick={() => onPayInvoice(inv)}
-                              className="p-1.5 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                              className="p-1.5 text-success hover:bg-success/10 dark:hover:bg-success/30 rounded-lg transition-colors"
                               title="سداد الفاتورة"
                               aria-label="سداد الفاتورة"
                             >
@@ -142,7 +142,7 @@ export function DoctorInvoicesTab({
                           </button>
                           <button
                             onClick={() => onCopyPaymentLink(inv.id)}
-                            className="p-1.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors"
+                            className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition-colors"
                             title="نسخ رابط الدفع الإلكتروني"
                             aria-label="نسخ رابط الدفع الإلكتروني"
                           >

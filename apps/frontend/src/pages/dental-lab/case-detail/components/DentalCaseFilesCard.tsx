@@ -74,7 +74,7 @@ export default function DentalCaseFilesCard({
                   toast.error(e instanceof Error ? e.message : t("dentalLab.common.noData"));
                 }
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-border rounded-lg text-xs hover:bg-muted/50"
               title="تحميل كل الملفات دفعة واحدة (ZIP)"
             >
               <Download className="w-3.5 h-3.5" />
@@ -84,7 +84,7 @@ export default function DentalCaseFilesCard({
           <button
             onClick={() => designReviewInputRef.current?.click()}
             disabled={uploading}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs hover:bg-indigo-700 disabled:opacity-50 shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs hover:bg-primary disabled:opacity-50 shadow-sm"
             title="رفع تصميم ثلاثي الأبعاد (HTML Exocad أو STL) لاعتماده من الطبيب قبل البدء بالتفريز"
           >
             <Box className="w-3.5 h-3.5" />
@@ -130,16 +130,16 @@ export default function DentalCaseFilesCard({
         className={`flex flex-col items-center justify-center gap-2 px-4 py-6 mb-4 border-2 border-dashed rounded-lg cursor-pointer transition ${
           uploadDragOver
             ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-            : "border-gray-300 dark:border-gray-600 hover:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+            : "border-border hover:border-blue-400 hover:bg-muted dark:hover:bg-muted"
         }`}
       >
         <UploadCloud
           className={`w-8 h-8 ${uploadDragOver ? "text-blue-500" : "text-gray-400"}`}
         />
-        <p className="text-sm text-gray-600 dark:text-gray-300 text-center font-medium">
+        <p className="text-sm text-muted-foreground text-center font-medium">
           {uploadDragOver ? "إفلت الملفات هنا" : "اسحب الملفات هنا أو اضغط للاختيار"}
         </p>
-        <p className="text-xs text-gray-400 text-center font-mono">
+        <p className="text-xs text-muted-foreground text-center font-mono">
           STL, PLY, OBJ, HTML (Exocad 3D), JPG, PNG, PDF, DCM — حد أقصى 50MB للملف
         </p>
       </div>
@@ -148,13 +148,13 @@ export default function DentalCaseFilesCard({
       {uploadItems.length > 0 && (
         <div className="mb-4 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+            <span className="text-xs font-medium text-muted-foreground">
               {uploading ? "جاري الرفع..." : "نتائج الرفع"}
             </span>
             {!uploading && (
               <button
                 onClick={clearFinishedUploads}
-                className="text-xs text-gray-500 hover:text-gray-700"
+                className="text-xs text-muted-foreground hover:text-foreground"
               >
                 مسح المكتمل
               </button>
@@ -171,12 +171,12 @@ export default function DentalCaseFilesCard({
             const doneCount = uploadItems.filter((it) => it.status === "done").length;
             const totalPct = totalBytes > 0 ? Math.round((loadedBytes * 100) / totalBytes) : 0;
             return (
-              <div className="border dark:border-gray-700 rounded-lg p-2.5 bg-white dark:bg-gray-800">
+              <div className="border dark:border-border rounded-lg p-2.5 bg-card">
                 <div className="flex items-center justify-between gap-2 mb-1.5 font-mono tabular-nums">
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <span className="text-xs font-semibold text-foreground">
                     الإجمالي: {totalPct}%
                   </span>
-                  <span className="text-[10px] text-gray-400">
+                  <span className="text-[10px] text-muted-foreground">
                     {doneCount}/{uploadItems.length} ملف مكتمل ·{" "}
                     {uploadItems.filter((it) => it.status === "error").length > 0
                       ? `${uploadItems.filter((it) => it.status === "error").length} فشل · `
@@ -185,7 +185,7 @@ export default function DentalCaseFilesCard({
                     {Math.round(totalBytes / 1024 / 1024)}MB
                   </span>
                 </div>
-                <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+                <div className="h-2 bg-muted dark:bg-muted rounded overflow-hidden">
                   <div
                     className={`h-full transition-all ${
                       totalPct >= 100 ? "bg-green-500" : "bg-indigo-500"
@@ -200,15 +200,15 @@ export default function DentalCaseFilesCard({
           {uploadItems.map((it) => (
             <div
               key={it.id}
-              className="border dark:border-gray-700 rounded-lg p-2.5 bg-gray-50 dark:bg-gray-800/50"
+              className="border dark:border-border rounded-lg p-2.5 bg-muted dark:bg-muted"
             >
               <div className="flex items-center justify-between gap-2 mb-1.5">
                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                  <FileText className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+                  <FileText className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                   <span className="text-xs truncate font-mono" title={it.file.name}>
                     {it.file.name}
                   </span>
-                  <span className="text-[10px] text-gray-400 flex-shrink-0 font-mono tabular-nums">
+                  <span className="text-[10px] text-muted-foreground flex-shrink-0 font-mono tabular-nums">
                     ({(it.file.size / 1024 / 1024).toFixed(1)}MB · {it.kind})
                   </span>
                 </div>
@@ -216,10 +216,10 @@ export default function DentalCaseFilesCard({
                   {it.status === "uploading" && (
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-500" />
                   )}
-                  {it.status === "done" && <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />}
+                  {it.status === "done" && <CheckCircle2 className="w-3.5 h-3.5 text-success" />}
                   {it.status === "error" && (
                     <>
-                      <XCircle className="w-3.5 h-3.5 text-red-500" />
+                      <XCircle className="w-3.5 h-3.5 text-destructive" />
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -233,13 +233,13 @@ export default function DentalCaseFilesCard({
                     </>
                   )}
                   {it.status === "queued" && (
-                    <span className="text-[10px] text-gray-400">في الانتظار</span>
+                    <span className="text-[10px] text-muted-foreground">في الانتظار</span>
                   )}
                 </div>
               </div>
               {(it.status === "uploading" || it.status === "done") && (
                 <div className="flex items-center gap-2">
-                  <div className="h-1 flex-1 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+                  <div className="h-1 flex-1 bg-muted dark:bg-muted rounded overflow-hidden">
                     <div
                       className={`h-full transition-all ${
                         it.status === "done" ? "bg-green-500" : "bg-blue-500"
@@ -247,13 +247,13 @@ export default function DentalCaseFilesCard({
                       style={{ width: `${it.progress}%` }}
                     />
                   </div>
-                  <span className="text-[10px] text-gray-500 flex-shrink-0 w-8 text-left font-mono tabular-nums">
+                  <span className="text-[10px] text-muted-foreground flex-shrink-0 w-8 text-left font-mono tabular-nums">
                     {it.progress}%
                   </span>
                 </div>
               )}
               {it.status === "error" && it.error && (
-                <p className="text-[10px] text-red-500 mt-1 truncate" title={it.error}>
+                <p className="text-[10px] text-destructive mt-1 truncate" title={it.error}>
                   {it.error}
                 </p>
               )}
@@ -263,7 +263,7 @@ export default function DentalCaseFilesCard({
       )}
 
       {attachments.length === 0 ? (
-        <p className="text-sm text-gray-400 dark:text-gray-500">{t("dentalLab.detail.noFiles")}</p>
+        <p className="text-sm text-muted-foreground/80">{t("dentalLab.detail.noFiles")}</p>
       ) : (
         <div className="grid grid-cols-2 gap-3">
           {attachments.map((a) => (

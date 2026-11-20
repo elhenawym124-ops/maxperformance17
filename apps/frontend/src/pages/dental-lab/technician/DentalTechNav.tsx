@@ -17,14 +17,14 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
   overdueCasesCount,
 }) => {
   return (
-    <nav className="flex items-center gap-1.5 p-1.5 bg-gray-100 dark:bg-gray-800/70 rounded-xl overflow-x-auto text-xs font-semibold">
+    <nav className="flex items-center gap-1.5 p-1.5 bg-muted dark:bg-muted rounded-xl overflow-x-auto text-xs font-semibold">
       {/* 1. Bench */}
       <button
         onClick={() => onSelectSection("bench")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "bench"
-            ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-xs font-bold"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
         <ListChecks className="w-4 h-4" />
@@ -41,8 +41,8 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("kiosk")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "kiosk"
-            ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-xs font-bold"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
         <ScanLine className="w-4 h-4" />
@@ -54,8 +54,8 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("wage")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "wage"
-            ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-xs font-bold"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
         <Wallet className="w-4 h-4" />
@@ -67,15 +67,15 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("notifications")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "notifications"
-            ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-xs font-bold"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
         <Bell className="w-4 h-4" />
         <span>التنبيهات</span>
         {overdueCasesCount > 0 && (
-          <span className="px-1.5 py-0.2 rounded-full text-[11px] bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300 flex items-center gap-0.5">
-            <AlertTriangle className="w-3 h-3 text-rose-600" />
+          <span className="px-1.5 py-0.2 rounded-full text-[11px] bg-destructive dark:bg-destructive/50 text-destructive dark:text-destructive flex items-center gap-0.5">
+            <AlertTriangle className="w-3 h-3 text-destructive" />
             {overdueCasesCount}
           </span>
         )}
@@ -86,8 +86,8 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("reports")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "reports"
-            ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-xs font-bold"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
         <BarChart3 className="w-4 h-4" />

@@ -170,46 +170,46 @@ export interface RadiologyStudy {
 }
 
 export const RadiologyStatusMap: Record<string, { label: string; color: string }> = {
-  PENDING_IMAGING: { label: "radiology.studyStatus.PENDING_IMAGING", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  PENDING_IMAGING: { label: "radiology.studyStatus.PENDING_IMAGING", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   IMAGED: { label: "radiology.studyStatus.IMAGED", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  PENDING_REPORT: { label: "radiology.studyStatus.PENDING_REPORT", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  REPORTED: { label: "radiology.studyStatus.REPORTED", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  DELIVERED: { label: "radiology.studyStatus.DELIVERED", color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300" },
+  PENDING_REPORT: { label: "radiology.studyStatus.PENDING_REPORT", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  REPORTED: { label: "radiology.studyStatus.REPORTED", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  DELIVERED: { label: "radiology.studyStatus.DELIVERED", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const RadiologyReportStatusMap: Record<string, { label: string; color: string }> = {
   DRAFT: { label: "radiology.reportStatus.DRAFT", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  REVIEWED: { label: "radiology.reportStatus.REVIEWED", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  SIGNED: { label: "radiology.reportStatus.SIGNED", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  DELIVERED: { label: "radiology.reportStatus.DELIVERED", color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300" },
+  REVIEWED: { label: "radiology.reportStatus.REVIEWED", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  SIGNED: { label: "radiology.reportStatus.SIGNED", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  DELIVERED: { label: "radiology.reportStatus.DELIVERED", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const RadiologySubmissionStatusMap: Record<string, { label: string; color: string }> = {
-  NOT_SUBMITTED: { label: "radiology.submissionStatus.NOT_SUBMITTED", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  NOT_SUBMITTED: { label: "radiology.submissionStatus.NOT_SUBMITTED", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   SUBMITTED: { label: "radiology.submissionStatus.SUBMITTED", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  REPORT_READY: { label: "radiology.submissionStatus.REPORT_READY", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
+  REPORT_READY: { label: "radiology.submissionStatus.REPORT_READY", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const RadiologyOrderStatusMap: Record<string, { label: string; color: string }> = {
-  PENDING:    { label: "radiology.orderStatus.PENDING",    color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  PENDING:    { label: "radiology.orderStatus.PENDING",    color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   CHECKED_IN: { label: "radiology.orderStatus.CHECKED_IN", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  IN_PROGRESS:{ label: "radiology.orderStatus.IN_PROGRESS",color: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-  COMPLETED:  { label: "radiology.orderStatus.COMPLETED",  color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300" },
-  CANCELLED:  { label: "radiology.orderStatus.CANCELLED",  color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
+  IN_PROGRESS:{ label: "radiology.orderStatus.IN_PROGRESS",color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  COMPLETED:  { label: "radiology.orderStatus.COMPLETED",  color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
+  CANCELLED:  { label: "radiology.orderStatus.CANCELLED",  color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
 };
 
 export const RadiologyPaymentStatusMap: Record<string, { label: string; color: string }> = {
-  UNPAID:   { label: "radiology.paymentStatus.UNPAID",   color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  PARTIAL:  { label: "radiology.paymentStatus.PARTIAL",  color: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-  PAID:     { label: "radiology.paymentStatus.PAID",     color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  REFUNDED: { label: "radiology.paymentStatus.REFUNDED", color: "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300" },
+  UNPAID:   { label: "radiology.paymentStatus.UNPAID",   color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  PARTIAL:  { label: "radiology.paymentStatus.PARTIAL",  color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  PAID:     { label: "radiology.paymentStatus.PAID",     color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  REFUNDED: { label: "radiology.paymentStatus.REFUNDED", color: "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };
 
 export const RADIOLOGY_CRITICAL_META: Record<string, { label: string; color: string; level: number }> = {
-  CAT1: { label: "radiology.critical.CAT1", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300", level: 1 },
-  CAT2: { label: "radiology.critical.CAT2", color: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300", level: 2 },
-  CAT3: { label: "radiology.critical.CAT3", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300", level: 3 },
-  NONE: { label: "radiology.critical.NONE", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300", level: 0 },
+  CAT1: { label: "radiology.critical.CAT1", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive", level: 1 },
+  CAT2: { label: "radiology.critical.CAT2", color: "bg-orange-100 text-warning dark:bg-warning/40 dark:text-warning", level: 2 },
+  CAT3: { label: "radiology.critical.CAT3", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning", level: 3 },
+  NONE: { label: "radiology.critical.NONE", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground", level: 0 },
 };
 
 export const criticalCategoryText = (report?: { criticalCategory?: string } | null): string | null => {
@@ -225,13 +225,13 @@ export interface RadiologyPatientFlag {
 }
 
 export const DEFAULT_RADIOLOGY_PATIENT_FLAGS: RadiologyPatientFlag[] = [
-  { value: "pregnancy", label: "حمل", color: "bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300" },
-  { value: "contrast_allergy", label: "حساسية تباين", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  { value: "renal", label: "قصور كلوي", color: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300" },
-  { value: "bleeding", label: "سيولة", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  { value: "diabetic", label: "سكر", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-  { value: "claustrophobia", label: "خوف من الأماكن المغلقة", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300" },
-  { value: "pacemaker", label: "منظم ضربات القلب", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
+  { value: "pregnancy", label: "حمل", color: "bg-pink-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  { value: "contrast_allergy", label: "حساسية تباين", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  { value: "renal", label: "قصور كلوي", color: "bg-orange-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  { value: "bleeding", label: "سيولة", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  { value: "diabetic", label: "سكر", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  { value: "claustrophobia", label: "خوف من الأماكن المغلقة", color: "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  { value: "pacemaker", label: "منظم ضربات القلب", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
 ];
 
 let riskFlagsCache: RadiologyPatientFlag[] | null = null;
@@ -329,8 +329,8 @@ export const tryParseJSON = <T = unknown>(v: unknown): T | null => {
   try { return JSON.parse(v as string) as T; } catch { return null; }
 };
 
-export const MODAL_CONTENT_CLS = "bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
-export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100";
+export const MODAL_CONTENT_CLS = "bg-white dark:bg-muted rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
+export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground";
 
 export interface RadiologyIdSettings {
   bookingPrefix: string;
@@ -371,10 +371,10 @@ export const derivePrimaryStage = (study: { status?: string }): RadiologyStage =
 };
 
 export const RADIOLOGY_STAGE_META: Record<RadiologyStage, { label: string; color: string }> = {
-  RECEPTION: { label: "radiology.stage.RECEPTION", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  RECEPTION: { label: "radiology.stage.RECEPTION", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   IMAGING: { label: "radiology.stage.IMAGING", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
-  REPORT: { label: "radiology.stage.REPORT", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  DELIVERED: { label: "radiology.stage.DELIVERED", color: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300" },
+  REPORT: { label: "radiology.stage.REPORT", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  DELIVERED: { label: "radiology.stage.DELIVERED", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const STAGE_ORDER: RadiologyStage[] = ["RECEPTION", "IMAGING", "REPORT", "DELIVERED"];

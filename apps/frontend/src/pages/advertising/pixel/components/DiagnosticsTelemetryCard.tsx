@@ -29,26 +29,26 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
   const isHealthy = score >= 80;
 
   return (
-    <section className="border border-gray-200/90 dark:border-gray-800/90 bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-xs">
+    <section className="border border-border dark:border-border bg-white dark:bg-muted rounded-xl overflow-hidden shadow-xs">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-850/50">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-border dark:border-border bg-muted dark:bg-muted">
         <div className="flex items-center gap-2">
-          <WrenchScrewdriverIcon className="w-4 h-4 text-indigo-500" />
-          <h2 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white">
+          <WrenchScrewdriverIcon className="w-4 h-4 text-primary" />
+          <h2 className="text-sm sm:text-base font-bold text-foreground">
             تشخيص سلامة الاتصال والأذونات (Telemetry & Diagnostics)
           </h2>
         </div>
 
         {diagnostics?.overall && (
           <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-muted-foreground">
               درجة الصحة:
             </span>
             <span
               className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-bold tabular-nums border ${
                 isHealthy
-                  ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-emerald-200/60"
-                  : "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200/60"
+                  ? "bg-emerald-50 text-success dark:bg-success/40 dark:text-success border-success/60"
+                  : "bg-amber-50 text-warning dark:bg-warning/40 dark:text-warning border-warning/60"
               }`}
             >
               {score}/100
@@ -60,14 +60,14 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
       <div className="p-4 sm:p-6 space-y-4">
         {/* Diagnostics Status Pills */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-800 flex items-center justify-between text-xs">
-            <span className="text-gray-600 dark:text-gray-400 font-medium">
+          <div className="p-3 rounded-lg border border-border dark:border-border flex items-center justify-between text-xs">
+            <span className="text-gray-600 dark:text-muted-foreground font-medium">
               تتبع المتصفح (Browser Pixel)
             </span>
             <span
               className={`font-semibold inline-flex items-center gap-1 ${
                 diagnostics?.pixel?.configured
-                  ? "text-emerald-600 dark:text-emerald-400"
+                  ? "text-emerald-600 dark:text-success"
                   : "text-gray-400"
               }`}
             >
@@ -82,15 +82,15 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
             </span>
           </div>
 
-          <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-800 flex items-center justify-between text-xs">
-            <span className="text-gray-600 dark:text-gray-400 font-medium">
+          <div className="p-3 rounded-lg border border-border dark:border-border flex items-center justify-between text-xs">
+            <span className="text-gray-600 dark:text-muted-foreground font-medium">
               اتصال السيرفر (Conversions API)
             </span>
             <span
               className={`font-semibold inline-flex items-center gap-1 ${
                 diagnostics?.capi?.configured
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-amber-600 dark:text-amber-400"
+                  ? "text-emerald-600 dark:text-success"
+                  : "text-amber-600 dark:text-warning"
               }`}
             >
               {diagnostics?.capi?.configured ? (
@@ -113,15 +113,15 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
           <div
             className={`p-3.5 rounded-lg border text-xs ${
               tokenPermissions.valid
-                ? "border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300"
-                : "border-red-200 dark:border-red-800/60 bg-red-50/50 dark:bg-red-950/20 text-red-800 dark:text-red-300"
+                ? "border-emerald-200 dark:border-success/60 bg-success/50 dark:bg-success/20 text-success dark:text-success"
+                : "border-red-200 dark:border-destructive/60 bg-destructive/50 dark:bg-destructive/20 text-destructive dark:text-destructive"
             }`}
           >
             <div className="flex items-center gap-2 font-bold mb-1.5">
               {tokenPermissions.valid ? (
-                <CheckCircleIcon className="w-4 h-4 text-emerald-600" />
+                <CheckCircleIcon className="w-4 h-4 text-success" />
               ) : (
-                <XCircleIcon className="w-4 h-4 text-red-600" />
+                <XCircleIcon className="w-4 h-4 text-destructive" />
               )}
               <span>
                 {tokenPermissions.valid
@@ -135,7 +135,7 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
                 {tokenPermissions.permissions.map((p) => (
                   <span
                     key={p}
-                    className="px-2 py-0.5 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 font-mono text-[11px] text-gray-700 dark:text-gray-300"
+                    className="px-2 py-0.5 rounded bg-card border border-border dark:border-border font-mono text-[11px] text-foreground"
                   >
                     {p}
                   </span>

@@ -8,24 +8,24 @@ export function MaterialCard({ material, onStockIn }: MaterialCardProps) {
   const isLow = material.isLowStock;
 
   return (
-    <div className="bg-white dark:bg-gray-800 border border-gray-200/90 dark:border-gray-700/80 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+    <div className="bg-card border border-border dark:border-border rounded-xl p-4 shadow-sm flex flex-col justify-between">
       <div>
         <div className="flex items-start justify-between gap-2 mb-2">
           <div className="min-w-0">
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-muted text-muted-foreground">
               {CATEGORY_LABELS[material.category] || material.category}
             </span>
-            <h4 className="text-base font-black text-gray-900 dark:text-white mt-1 truncate">
+            <h4 className="text-base font-black text-foreground mt-1 truncate">
               {material.name}
             </h4>
             {material.brand && (
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-muted-foreground">
                 ماركة: {material.brand}
               </span>
             )}
           </div>
           {isLow && (
-            <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-300/40 flex items-center gap-1">
+            <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-warning dark:bg-warning/60 text-warning dark:text-warning border border-warning/40 flex items-center gap-1">
               <AlertTriangle className="w-3 h-3" />
               رصيد منخفض
             </span>
@@ -33,14 +33,14 @@ export function MaterialCard({ material, onStockIn }: MaterialCardProps) {
         </div>
 
         {/* Stock Gauge */}
-        <div className="my-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-900/60 border border-gray-100 dark:border-gray-800">
+        <div className="my-3 p-3 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
           <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
-            <span className="text-gray-600 dark:text-gray-300">الرصيد المتاح:</span>
-            <span className="text-cyan-600 dark:text-cyan-400 font-bold font-mono tabular-nums">
+            <span className="text-muted-foreground">الرصيد المتاح:</span>
+            <span className="text-cyan-600 dark:text-info font-bold font-mono tabular-nums">
               {totalUnits} وحدة ({activeStocks.length} قرص/لوت)
             </span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+          <div className="w-full bg-muted dark:bg-muted h-2 rounded-full overflow-hidden">
             <div
               className={`h-full transition-all ${
                 isLow ? "bg-amber-500" : "bg-cyan-600"
@@ -61,20 +61,20 @@ export function MaterialCard({ material, onStockIn }: MaterialCardProps) {
         {/* Active Lots Details */}
         {activeStocks.length > 0 && (
           <div className="space-y-1.5 mb-3">
-            <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+            <span className="text-[11px] font-bold text-muted-foreground">
               التشغيلات النشطة (Active Lots):
             </span>
             <div className="max-h-28 overflow-y-auto space-y-1 text-xs">
               {activeStocks.map((stk) => (
                 <div
                   key={stk.id}
-                  className="flex items-center justify-between p-1.5 bg-gray-100/70 dark:bg-gray-700/50 rounded-lg text-[11px]"
+                  className="flex items-center justify-between p-1.5 bg-muted dark:bg-muted rounded-lg text-[11px]"
                 >
-                  <span className="font-mono font-bold text-gray-800 dark:text-gray-200">
+                  <span className="font-mono font-bold text-foreground dark:text-muted-foreground">
                     Lot# {stk.lotNumber}
                     {stk.shade ? ` (${stk.shade})` : ""}
                   </span>
-                  <span className="text-cyan-600 dark:text-cyan-400 font-semibold font-mono tabular-nums">
+                  <span className="text-cyan-600 dark:text-info font-semibold font-mono tabular-nums">
                     {stk.remainingUnits}/{stk.initialUnits} وحدة
                   </span>
                 </div>
@@ -84,17 +84,17 @@ export function MaterialCard({ material, onStockIn }: MaterialCardProps) {
         )}
       </div>
 
-      <div className="pt-3 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between gap-2">
-        <div className="text-[11px] text-gray-500">
+      <div className="pt-3 border-t border-border dark:border-border flex items-center justify-between gap-2">
+        <div className="text-[11px] text-muted-foreground">
           <span>تكلفة الوحدة: </span>
-          <strong className="text-gray-900 dark:text-white font-mono tabular-nums">
+          <strong className="text-foreground font-mono tabular-nums">
             {fmtMoney(material.costPerUnit)} ج.م
           </strong>
         </div>
         <button
           type="button"
           onClick={() => onStockIn(material)}
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 text-xs font-bold hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-info/10 dark:bg-info/40 text-info dark:text-info text-xs font-bold hover:bg-info dark:hover:bg-info/50 transition-colors cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>توريد قرص جديد</span>

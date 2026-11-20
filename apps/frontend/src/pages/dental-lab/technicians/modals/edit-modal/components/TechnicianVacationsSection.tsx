@@ -13,11 +13,11 @@ export function TechnicianVacationsSection({ modal, setModal }: TechnicianVacati
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
 
   return (
-    <div className="sm:col-span-2 border-t dark:border-gray-700/80 pt-4 mt-2">
+    <div className="sm:col-span-2 border-t dark:border-border pt-4 mt-2">
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-2">
-          <Palmtree className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-          <h4 className="text-xs font-bold text-gray-900 dark:text-gray-100">
+          <Palmtree className="w-4 h-4 text-warning dark:text-warning" />
+          <h4 className="text-xs font-bold text-foreground">
             الإجازات الاستثنائية والتفرغ (Exceptional Vacations)
           </h4>
         </div>
@@ -33,18 +33,18 @@ export function TechnicianVacationsSection({ modal, setModal }: TechnicianVacati
               ],
             });
           }}
-          className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-200 dark:border-amber-800 rounded-lg transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-warning dark:text-warning bg-warning/10 dark:bg-warning/40 hover:bg-warning dark:hover:bg-warning/50 border border-warning dark:border-warning rounded-lg transition-colors cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>إضافة فترة إجازة</span>
         </button>
       </div>
-      <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-3">
+      <p className="text-[11px] text-muted-foreground mb-3">
         يتم استبعاد الفني آلياً من التوزيع الذكي والمحرك خلال فترات الإجازة المحددة لحماية سلاسة العمل.
       </p>
 
       {modal.vacations.length === 0 ? (
-        <div className="p-3 text-center border border-dashed rounded-lg border-gray-200 dark:border-gray-700/80 text-xs text-gray-400 dark:text-gray-500">
+        <div className="p-3 text-center border border-dashed rounded-lg border-border dark:border-border text-xs text-muted-foreground/80">
           لا توجد إجازات استثنائية مسجلة حالياً (الفني متاح للعمل حسب جدوله الأسبوعي).
         </div>
       ) : (
@@ -52,11 +52,11 @@ export function TechnicianVacationsSection({ modal, setModal }: TechnicianVacati
           {modal.vacations.map((vac, idx) => (
             <div
               key={idx}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-2.5 rounded-lg border border-gray-200 dark:border-gray-700/80 bg-gray-50/60 dark:bg-gray-800/40"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-2.5 rounded-lg border border-border dark:border-border bg-muted dark:bg-muted"
             >
               <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
-                  <span className="text-[10px] text-gray-500 dark:text-gray-400 block mb-0.5">من تاريخ *</span>
+                  <span className="text-[10px] text-muted-foreground block mb-0.5">من تاريخ *</span>
                   <DateInput
                     className={`${inputCls} py-1 text-xs font-mono`}
                     value={vac.startDate}
@@ -69,7 +69,7 @@ export function TechnicianVacationsSection({ modal, setModal }: TechnicianVacati
                   />
                 </div>
                 <div>
-                  <span className="text-[10px] text-gray-500 dark:text-gray-400 block mb-0.5">إلى تاريخ *</span>
+                  <span className="text-[10px] text-muted-foreground block mb-0.5">إلى تاريخ *</span>
                   <DateInput
                     className={`${inputCls} py-1 text-xs font-mono`}
                     value={vac.endDate}
@@ -83,7 +83,7 @@ export function TechnicianVacationsSection({ modal, setModal }: TechnicianVacati
                 </div>
               </div>
               <div className="flex-[1.5]">
-                <span className="text-[10px] text-gray-500 dark:text-gray-400 block mb-0.5">السبب / ملاحظات</span>
+                <span className="text-[10px] text-muted-foreground block mb-0.5">السبب / ملاحظات</span>
                 <input
                   type="text"
                   className={`${inputCls} py-1 text-xs`}
@@ -103,7 +103,7 @@ export function TechnicianVacationsSection({ modal, setModal }: TechnicianVacati
                     const next = modal.vacations.filter((_, i) => i !== idx);
                     setModal({ ...modal, vacations: next });
                   }}
-                  className="p-1.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded transition-colors"
+                  className="p-1.5 text-muted-foreground hover:text-destructive dark:hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded transition-colors"
                   title="حذف هذه الإجازة"
                 >
                   <Trash2 className="w-4 h-4" />

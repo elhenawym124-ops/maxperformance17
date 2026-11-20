@@ -29,7 +29,7 @@ export const AdditionalOptionsSection: React.FC<AdditionalOptionsSectionProps> =
             {additions.map(a => (
               <label
                 key={a.id}
-                className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-600 rounded-lg px-3 py-1.5 cursor-pointer"
+                className="flex items-center gap-2 text-sm text-foreground border dark:border-border rounded-lg px-3 py-1.5 cursor-pointer"
               >
                 <input
                   type="checkbox"
@@ -42,7 +42,7 @@ export const AdditionalOptionsSection: React.FC<AdditionalOptionsSectionProps> =
                         : [...modal.additionIds, a.id],
                     })
                   }
-                  className="rounded border-gray-300 dark:border-gray-600"
+                  className="rounded border-border"
                 />
                 {a.name} ({Number(a.price).toFixed(0)} {t('radiology.currency')})
               </label>
@@ -52,12 +52,12 @@ export const AdditionalOptionsSection: React.FC<AdditionalOptionsSectionProps> =
       ) : null}
 
       <div className="sm:col-span-2 flex items-center gap-6">
-        <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+        <label className="flex items-center gap-2 text-sm text-foreground">
           <input
             type="checkbox"
             checked={modal.emergency}
             onChange={e => onModalChange({ ...modal, emergency: e.target.checked })}
-            className="rounded border-gray-300 dark:border-gray-600"
+            className="rounded border-border"
           />
           {t('radiology.schedule.emergencyCase')}
         </label>
@@ -69,7 +69,7 @@ export const AdditionalOptionsSection: React.FC<AdditionalOptionsSectionProps> =
           {patientFlags.map(f => (
             <label
               key={f.value}
-              className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-600 rounded-lg px-3 py-1.5 cursor-pointer"
+              className="flex items-center gap-2 text-sm text-foreground border dark:border-border rounded-lg px-3 py-1.5 cursor-pointer"
             >
               <input
                 type="checkbox"
@@ -82,7 +82,7 @@ export const AdditionalOptionsSection: React.FC<AdditionalOptionsSectionProps> =
                       : [...modal.patientFlags, f.value],
                   })
                 }
-                className="rounded border-gray-300 dark:border-gray-600"
+                className="rounded border-border"
               />
               {f.label}
             </label>

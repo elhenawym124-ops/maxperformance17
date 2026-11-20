@@ -82,7 +82,7 @@ export const DentalCasesFilterBar: React.FC<DentalCasesFilterBarProps> = ({
   setPage,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800/90 border border-slate-200 dark:border-gray-700/80 rounded-2xl p-2.5 sm:p-3 shadow-2xs space-y-2.5">
+    <div className="bg-card/90 border border-border dark:border-border rounded-xl p-2.5 sm:p-3 shadow-2xs space-y-2.5">
       {/* Top Header Row: Title, Segmented Tabs, Search & Action Buttons */}
       <div className="flex flex-wrap items-center justify-between gap-2.5">
         <DentalCasesFilterModeTabs

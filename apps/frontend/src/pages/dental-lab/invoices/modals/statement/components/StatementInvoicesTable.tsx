@@ -30,9 +30,9 @@ export const StatementInvoicesTable: React.FC<StatementInvoicesTableProps> = ({
   invoices,
 }) => {
   return (
-    <div className="overflow-x-auto max-h-72 print:max-h-none print:overflow-visible border dark:border-gray-700 rounded-xl print:border-slate-300 print:rounded-none">
+    <div className="overflow-x-auto max-h-72 print:max-h-none print:overflow-visible border dark:border-border rounded-xl print:border-slate-300 print:rounded-none">
       <table className="w-full text-xs text-right">
-        <thead className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold print:bg-slate-100 print:text-black">
+        <thead className="bg-gray-50 dark:bg-muted text-muted-foreground font-semibold print:bg-slate-100 print:text-black">
           <tr>
             <th className="py-2.5 px-3">رقم الفاتورة</th>
             <th className="py-2.5 px-3">رقم الكارتة</th>
@@ -46,10 +46,10 @@ export const StatementInvoicesTable: React.FC<StatementInvoicesTableProps> = ({
             <th className="py-2.5 px-3">الحالة</th>
           </tr>
         </thead>
-        <tbody className="divide-y dark:divide-gray-700 print:divide-slate-200">
+        <tbody className="divide-y dark:divide-border print:divide-slate-200">
           {!invoices || invoices.length === 0 ? (
             <tr>
-              <td colSpan={10} className="py-8 text-center text-gray-400">
+              <td colSpan={10} className="py-8 text-center text-muted-foreground">
                 لا توجد فواتير مسجلة في هذه الفترة
               </td>
             </tr>
@@ -57,31 +57,31 @@ export const StatementInvoicesTable: React.FC<StatementInvoicesTableProps> = ({
             invoices.map((inv) => (
               <tr
                 key={inv.id}
-                className="hover:bg-gray-50/50 dark:hover:bg-gray-800/40 font-mono tabular-nums"
+                className="hover:bg-gray-50/50 dark:hover:bg-muted font-mono tabular-nums"
               >
                 <td className="py-2.5 px-3 font-semibold text-blue-600 print:text-black">
                   {inv.invoiceNumber || inv.id?.slice(0, 8)}
                 </td>
-                <td className="py-2.5 px-3 text-gray-700 dark:text-gray-300">
+                <td className="py-2.5 px-3 text-foreground">
                   {inv.caseNumber || inv.case?.caseNumber || "—"}
                 </td>
-                <td className="py-2.5 px-3 font-medium text-gray-900 dark:text-gray-100 font-sans">
+                <td className="py-2.5 px-3 font-medium text-foreground font-sans">
                   {inv.patientName || inv.case?.patientName || "—"}
                 </td>
-                <td className="py-2.5 px-3 text-gray-600 dark:text-gray-400 font-sans">
+                <td className="py-2.5 px-3 text-foreground dark:text-muted-foreground font-sans">
                   {inv.workTypeName || inv.case?.workTypeName || "—"}
                 </td>
-                <td className="py-2.5 px-3 font-semibold text-gray-700 dark:text-gray-300">
+                <td className="py-2.5 px-3 font-semibold text-foreground">
                   {inv.unitsCount ?? inv.case?.unitsCount ?? 1}
                 </td>
-                <td className="py-2.5 px-3 text-gray-500 print:text-black">
+                <td className="py-2.5 px-3 text-muted-foreground print:text-black">
                   {fmtDate(inv.createdAt)}
                 </td>
                 <td className="py-2.5 px-3 font-medium">{fmtMoney(inv.total)}</td>
-                <td className="py-2.5 px-3 text-green-600 print:text-black">
+                <td className="py-2.5 px-3 text-success print:text-black">
                   {fmtMoney(inv.paid)}
                 </td>
-                <td className="py-2.5 px-3 text-red-600 font-bold print:text-black">
+                <td className="py-2.5 px-3 text-destructive font-bold print:text-black">
                   {fmtMoney(inv.remaining)}
                 </td>
                 <td className="py-2.5 px-3 font-sans">

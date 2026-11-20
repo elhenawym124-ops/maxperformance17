@@ -4,10 +4,10 @@ interface TechnicianLedgerModalFooterProps {
 
 export function TechnicianLedgerModalFooter({ onClose }: TechnicianLedgerModalFooterProps) {
   return (
-    <div className="p-3 border-t dark:border-gray-700 flex justify-end print:hidden">
+    <div className="p-3 border-t dark:border-border flex justify-end print:hidden">
       <button
         onClick={onClose}
-        className="px-4 py-1.5 text-xs text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+        className="px-4 py-1.5 text-xs text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
       >
         إغلاق
       </button>

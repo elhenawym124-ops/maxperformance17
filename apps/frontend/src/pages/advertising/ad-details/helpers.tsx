@@ -82,35 +82,35 @@ export const getStatusLabel = (status?: string, isEn = false) => {
 export const getStatusBadge = (status?: string) => {
   const normalized = status || "";
   if (normalized === "ACTIVE") {
-    return "border-emerald-200 bg-emerald-50 text-emerald-700";
+    return "border-emerald-200 bg-success/10 text-success";
   }
   if (normalized === "PAUSED") {
-    return "border-amber-200 bg-amber-50 text-amber-700";
+    return "border-amber-200 bg-warning/10 text-warning";
   }
   if (["DISAPPROVED", "WITH_ISSUES", "DELETED"].includes(normalized)) {
-    return "border-red-200 bg-red-50 text-red-700";
+    return "border-red-200 bg-destructive/10 text-destructive";
   }
-  return "border-slate-200 bg-slate-50 text-slate-700";
+  return "border-slate-200 bg-muted text-foreground";
 };
 
 export const getVerdictClass = (tone?: string) => {
   const classes: Record<string, string> = {
-    green: "border-emerald-200 bg-emerald-50 text-emerald-800",
-    red: "border-red-200 bg-red-50 text-red-800",
-    amber: "border-amber-200 bg-amber-50 text-amber-800",
+    green: "border-emerald-200 bg-success/10 text-success",
+    red: "border-red-200 bg-destructive/10 text-destructive",
+    amber: "border-amber-200 bg-warning/10 text-warning",
     blue: "border-blue-200 bg-blue-50 text-blue-800",
-    slate: "border-slate-200 bg-slate-50 text-slate-800",
+    slate: "border-slate-200 bg-muted text-foreground",
   };
 
   return classes[tone || "slate"] || classes["slate"];
 };
 
 export const getPriorityClass = (priority?: string) => {
-  if (priority === "HIGH") return "border-red-200 bg-red-50 text-red-800";
+  if (priority === "HIGH") return "border-red-200 bg-destructive/10 text-destructive";
   if (priority === "MEDIUM") {
-    return "border-amber-200 bg-amber-50 text-amber-800";
+    return "border-amber-200 bg-warning/10 text-warning";
   }
-  return "border-slate-200 bg-slate-50 text-slate-700";
+  return "border-slate-200 bg-muted text-foreground";
 };
 
 export const getPreviewHtml = (preview: unknown[]) => {
@@ -131,9 +131,9 @@ export const InfoLine = ({
   value?: string;
   notAvailableText?: string;
 }) => (
-  <div className="rounded-lg border border-slate-200 bg-slate-50 p-2">
-    <p className="text-[11px] font-bold text-slate-500">{label}</p>
-    <p className="mt-1 truncate text-sm font-bold text-slate-900">
+  <div className="rounded-lg border border-border bg-muted p-2">
+    <p className="text-[11px] font-bold text-muted-foreground">{label}</p>
+    <p className="mt-1 truncate text-sm font-bold text-foreground">
       {value || notAvailableText}
     </p>
   </div>
@@ -148,9 +148,9 @@ export const QualityLine = ({
   value?: string;
   notAvailableText?: string;
 }) => (
-  <div className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-    <span className="text-xs font-bold text-slate-500">{label}</span>
-    <span className="text-sm font-black text-slate-900">{value || notAvailableText}</span>
+  <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted px-3 py-2">
+    <span className="text-xs font-bold text-muted-foreground">{label}</span>
+    <span className="text-sm font-black text-foreground">{value || notAvailableText}</span>
   </div>
 );
 
@@ -163,15 +163,15 @@ export const HealthLine = ({
   label: string;
   value: string;
 }) => (
-  <div className="flex items-start gap-2 rounded-lg border border-slate-200 bg-slate-50 p-2">
+  <div className="flex items-start gap-2 rounded-lg border border-border bg-muted p-2">
     {ok ? (
-      <CheckCircleIcon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+      <CheckCircleIcon className="mt-0.5 h-4 w-4 shrink-0 text-success" />
     ) : (
-      <ExclamationTriangleIcon className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
+      <ExclamationTriangleIcon className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
     )}
     <div className="min-w-0">
-      <p className="text-[11px] font-bold text-slate-500">{label}</p>
-      <p className="truncate text-sm font-bold text-slate-900">{value}</p>
+      <p className="text-[11px] font-bold text-muted-foreground">{label}</p>
+      <p className="truncate text-sm font-bold text-foreground">{value}</p>
     </div>
   </div>
 );

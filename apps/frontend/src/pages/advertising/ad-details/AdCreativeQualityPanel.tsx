@@ -29,16 +29,16 @@ export const AdCreativeQualityPanel: React.FC<AdCreativeQualityPanelProps> = ({
   return (
     <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
       {/* Creative & Message */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-base font-black text-slate-950">
+      <div className="rounded-lg border border-border bg-white p-4 shadow-sm">
+        <h2 className="text-base font-black text-foreground">
           {isEn ? "Creative & Message" : "الكريتيف والرسالة"}
         </h2>
         <div className="mt-3 space-y-3 text-sm">
           <div>
-            <p className="text-xs font-bold text-slate-500">
+            <p className="text-xs font-bold text-muted-foreground">
               {isEn ? "Primary Text" : "النص الأساسي"}
             </p>
-            <p className="mt-1 whitespace-pre-wrap text-slate-800">
+            <p className="mt-1 whitespace-pre-wrap text-foreground">
               {details.ad.primaryText || (isEn ? "Not available" : "غير متاح")}
             </p>
           </div>
@@ -72,7 +72,7 @@ export const AdCreativeQualityPanel: React.FC<AdCreativeQualityPanelProps> = ({
               href={details.ad.linkUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-50"
+              className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-bold text-primary hover:bg-primary/10"
             >
               <LinkIcon className="h-4 w-4" />
               {isEn ? "Open Ad Link" : "فتح رابط الإعلان"}
@@ -82,8 +82,8 @@ export const AdCreativeQualityPanel: React.FC<AdCreativeQualityPanelProps> = ({
       </div>
 
       {/* Ad Quality from Meta */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-base font-black text-slate-950">
+      <div className="rounded-lg border border-border bg-white p-4 shadow-sm">
+        <h2 className="text-base font-black text-foreground">
           {isEn ? "Ad Quality from Meta" : "جودة الإعلان من Meta"}
         </h2>
         <div className="mt-3 grid grid-cols-1 gap-2">
@@ -104,7 +104,7 @@ export const AdCreativeQualityPanel: React.FC<AdCreativeQualityPanelProps> = ({
           />
         </div>
         {!details.quality.available && (
-          <div className="mt-3 rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+          <div className="mt-3 rounded-lg border border-dashed border-border bg-muted p-3 text-xs text-foreground">
             {details.quality.error ||
               (isEn
                 ? "Quality ranking metrics not currently available from Meta for this ad."
@@ -114,13 +114,13 @@ export const AdCreativeQualityPanel: React.FC<AdCreativeQualityPanelProps> = ({
       </div>
 
       {/* In-Group Comparison */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-base font-black text-slate-950">
+      <div className="rounded-lg border border-border bg-white p-4 shadow-sm">
+        <h2 className="text-base font-black text-foreground">
           {isEn ? "In-Group Comparison" : "مقارنة داخل المجموعة"}
         </h2>
         <div className="mt-3 space-y-2">
           {bestSibling && (
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+            <div className="rounded-lg border border-success bg-success/10 p-3 text-sm text-success">
               <p className="font-black">
                 {isEn ? "Best ROAS:" : "أفضل ROAS:"} {bestSibling.name}
               </p>
@@ -138,21 +138,21 @@ export const AdCreativeQualityPanel: React.FC<AdCreativeQualityPanelProps> = ({
               }
               className={`w-full rounded-lg border p-3 ${
                 isEn ? "text-left" : "text-right"
-              } text-sm hover:bg-slate-50 transition-colors ${
+              } text-sm hover:bg-muted transition-colors ${
                 sibling.id === details.ad.id
-                  ? "border-indigo-200 bg-indigo-50"
+                  ? "border-indigo-200 bg-primary/10"
                   : "border-slate-200 bg-white"
               }`}
             >
               <div className="flex items-center justify-between gap-3">
-                <span className="truncate font-bold text-slate-950">
+                <span className="truncate font-bold text-foreground">
                   {sibling.name}
                 </span>
-                <span className="text-xs font-bold text-slate-500 tabular-nums">
+                <span className="text-xs font-bold text-muted-foreground tabular-nums">
                   {formatDecimal(sibling.metrics.roas)}x
                 </span>
               </div>
-              <p className="mt-1 text-xs text-slate-500 tabular-nums">
+              <p className="mt-1 text-xs text-muted-foreground tabular-nums">
                 {formatCurrency(sibling.metrics.spend)} ·{" "}
                 {formatNumber(sibling.metrics.purchases)}{" "}
                 {isEn ? "purchases" : "شراء"}

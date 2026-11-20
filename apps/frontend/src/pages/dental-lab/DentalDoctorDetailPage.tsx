@@ -71,7 +71,7 @@ export function DentalDoctorDetailPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3" dir="rtl">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-        <p className="text-sm text-gray-500 font-medium">جاري تحميل بيانات الطبيب...</p>
+        <p className="text-sm text-muted-foreground font-medium">جاري تحميل بيانات الطبيب...</p>
       </div>
     );
   }
@@ -79,17 +79,17 @@ export function DentalDoctorDetailPage() {
   if (error || !doctor) {
     return (
       <div className="p-4 sm:p-6 max-w-4xl mx-auto" dir="rtl">
-        <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center">
-          <AlertTriangle className="w-10 h-10 text-red-500 mx-auto mb-3" />
-          <h2 className="text-lg font-bold text-red-800 dark:text-red-200 mb-1">
+        <div className="bg-red-50 dark:bg-destructive/30 border border-destructive dark:border-destructive rounded-xl p-6 text-center">
+          <AlertTriangle className="w-10 h-10 text-destructive mx-auto mb-3" />
+          <h2 className="text-lg font-bold text-destructive dark:text-destructive mb-1">
             {error || "لم يتم العثور على الطبيب المطلوب"}
           </h2>
-          <p className="text-sm text-red-600 dark:text-red-300 mb-4">
+          <p className="text-sm text-destructive dark:text-destructive mb-4">
             قد يكون الطبيب محذوفاً أو تم فتح رابط غير صحيح.
           </p>
           <button
             onClick={() => navigate("/dental-lab/doctors")}
-            className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 bg-card text-foreground dark:text-muted-foreground border rounded-lg text-sm font-medium hover:bg-muted transition-colors"
           >
             الرجوع لقائمة الأطباء
           </button>

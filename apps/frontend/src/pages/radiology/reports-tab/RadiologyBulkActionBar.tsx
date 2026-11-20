@@ -23,8 +23,8 @@ export const RadiologyBulkActionBar: React.FC<RadiologyBulkActionBarProps> = ({
 
   return (
     <div className="fixed bottom-6 inset-x-0 z-40 flex justify-center pointer-events-none">
-      <div className="pointer-events-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 px-4 py-3 flex flex-wrap items-center justify-center gap-3">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+      <div className="pointer-events-auto bg-card rounded-xl shadow-lg border dark:border-border px-4 py-3 flex flex-wrap items-center justify-center gap-3">
+        <span className="text-sm font-medium text-foreground">
           {t("radiology.bulk.selected", { count: selectedCount })}
         </span>
         <button
@@ -54,7 +54,7 @@ export const RadiologyBulkActionBar: React.FC<RadiologyBulkActionBarProps> = ({
         <button
           onClick={onClearSelection}
           disabled={bulkBusy !== null}
-          className="px-3 py-1.5 text-sm rounded-lg border dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 cursor-pointer"
+          className="px-3 py-1.5 text-sm rounded-lg border dark:border-border text-foreground hover:bg-muted/50 disabled:opacity-50 cursor-pointer"
         >
           {t("radiology.bulk.done")}
         </button>

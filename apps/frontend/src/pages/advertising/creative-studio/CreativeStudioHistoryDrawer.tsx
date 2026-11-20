@@ -120,22 +120,22 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
       {/* Slide-over Drawer */}
       <aside
         aria-label="سجل الصور المولدة بالذكاء الاصطناعي"
-        className="w-full sm:w-[480px] max-w-full h-full bg-white dark:bg-slate-900 border-r sm:border-r-0 sm:border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-200"
+        className="w-full sm:w-[480px] max-w-full h-full bg-white dark:bg-muted border-r sm:border-r-0 sm:border-l border-border dark:border-border shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-200"
       >
         {/* Drawer Header */}
-        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-800/50 flex-shrink-0">
+        <div className="p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-indigo-600 text-white shadow-xs">
+            <div className="p-2 rounded-xl bg-primary text-white shadow-xs">
               <ImageIcon className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <h2 className="text-sm font-bold text-foreground dark:text-white flex items-center gap-2">
                 سجل الصور والتصاميم
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 tabular-nums">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary dark:bg-primary text-primary dark:text-primary tabular-nums">
                   {images.length} صورة
                 </span>
               </h2>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-[11px] text-muted-foreground dark:text-muted-foreground mt-0.5">
                 كل الخلفيات والمشاهد المولدة لمتجرك محفوظة هنا بدقة عالية
               </p>
             </div>
@@ -146,15 +146,15 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
               type="button"
               onClick={fetchHistory}
               disabled={loading}
-              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+              className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition cursor-pointer"
               title="تحديث السجل"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-indigo-600" : ""}`} />
+              <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-primary" : ""}`} />
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+              className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition cursor-pointer"
               title="إغلاق"
             >
               <X className="w-5 h-5" />
@@ -163,15 +163,15 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
         </div>
 
         {/* Search input */}
-        <div className="p-3 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0">
+        <div className="p-3 border-b border-border dark:border-border bg-white dark:bg-muted flex-shrink-0">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث بالوصف، الموديل، أو اسم الملف..."
-              className="w-full pl-3 pr-9 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full ps-3 pe-9 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
         </div>
@@ -179,12 +179,12 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
         {/* Images Grid */}
         <div className="flex-1 overflow-y-auto p-3 space-y-3">
           {loading && images.length === 0 ? (
-            <div className="p-12 text-center text-xs text-slate-400">
-              <RefreshCw className="w-5 h-5 mx-auto mb-2 animate-spin text-indigo-600" />
+            <div className="p-12 text-center text-xs text-muted-foreground">
+              <RefreshCw className="w-5 h-5 mx-auto mb-2 animate-spin text-primary" />
               جاري استرجاع الصور السابقة...
             </div>
           ) : filteredImages.length === 0 ? (
-            <div className="p-12 text-center text-xs text-slate-400">
+            <div className="p-12 text-center text-xs text-muted-foreground">
               {search ? "لا توجد نتائج مطابقة لبحثك." : "لم يتم توليد أي صور حتى الآن. ابدأ بتوليد أول مشهد إعلاني!"}
             </div>
           ) : (
@@ -202,10 +202,10 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
                 return (
                   <div
                     key={img.filename}
-                    className="group relative rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-850 hover:border-indigo-300 dark:hover:border-indigo-700 transition flex flex-col overflow-hidden shadow-xs"
+                    className="group relative rounded-xl border border-border dark:border-border bg-muted dark:bg-muted hover:bg-white dark:hover:bg-muted hover:border-primary dark:hover:border-primary transition flex flex-col overflow-hidden shadow-xs"
                   >
                     {/* Image Preview Container */}
-                    <div className="aspect-square w-full bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                    <div className="aspect-square w-full bg-muted relative overflow-hidden flex items-center justify-center">
                       <img
                         src={img.url}
                         alt={img.prompt || "AI Scene"}
@@ -231,7 +231,7 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
 
                       {/* Quick Hover Action: Apply to Canvas */}
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <span className="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+                        <span className="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold shadow-md flex items-center gap-1.5">
                           <Wand2 className="w-3.5 h-3.5" />
                           تطبيق على الكانفاس
                         </span>
@@ -242,18 +242,18 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
                     <div className="p-2.5 flex flex-col gap-2 flex-1 justify-between">
                       <div>
                         {img.prompt && (
-                          <p className="text-[11px] text-slate-700 dark:text-slate-300 line-clamp-2 leading-relaxed" title={img.prompt}>
+                          <p className="text-[11px] text-foreground dark:text-muted-foreground line-clamp-2 leading-relaxed" title={img.prompt}>
                             {img.prompt}
                           </p>
                         )}
-                        <div className="flex items-center gap-1.5 text-[10px] text-slate-400 mt-1.5">
+                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mt-1.5">
                           <Calendar className="w-3 h-3" />
                           <span>{dateStr}</span>
                         </div>
                       </div>
 
                       {/* Actions Bar */}
-                      <div className="flex items-center justify-between gap-1 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                      <div className="flex items-center justify-between gap-1 pt-2 border-t border-border dark:border-border">
                         <Button
                           variant="default"
                           size="sm"
@@ -262,7 +262,7 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
                             onClose();
                             toast.success("تم تطبيق المشهد كخلفية للاستوديو");
                           }}
-                          className="h-7 text-[11px] px-2.5 bg-indigo-600 hover:bg-indigo-700 text-white gap-1 rounded-lg flex-1 cursor-pointer"
+                          className="h-7 text-[11px] px-2.5 bg-primary hover:bg-primary/90 text-white gap-1 rounded-lg flex-1 cursor-pointer"
                         >
                           <Wand2 className="w-3 h-3" />
                           <span>تطبيق</span>
@@ -273,7 +273,7 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
                             href={img.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                             title="عرض بالحجم الأصلي"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
@@ -282,7 +282,7 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
                           <button
                             type="button"
                             onClick={(e) => handleDownload(img.url, img.filename, e)}
-                            className="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+                            className="p-1.5 text-muted-foreground hover:text-primary rounded-lg hover:bg-muted dark:hover:bg-muted transition cursor-pointer"
                             title="تحميل بجودة كاملة"
                           >
                             <Download className="w-3.5 h-3.5" />
@@ -292,7 +292,7 @@ export const CreativeStudioHistoryDrawer: React.FC<CreativeStudioHistoryDrawerPr
                             type="button"
                             onClick={(e) => handleDelete(img.filename, e)}
                             disabled={deletingFilename === img.filename}
-                            className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer"
+                            className="p-1.5 text-muted-foreground hover:text-destructive dark:hover:text-destructive rounded-lg hover:bg-destructive/10 dark:hover:bg-destructive/30 transition cursor-pointer"
                             title="حذف من السجل"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

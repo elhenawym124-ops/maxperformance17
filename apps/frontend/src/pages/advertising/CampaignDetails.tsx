@@ -48,7 +48,7 @@ const CampaignDetails: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600" />
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
       </div>
     );
   }
@@ -61,7 +61,7 @@ const CampaignDetails: React.FC = () => {
         </p>
         <button
           onClick={() => navigate(dashboardUrl)}
-          className="mt-4 text-indigo-600 hover:text-indigo-700 font-bold"
+          className="mt-4 text-primary hover:text-primary font-bold"
         >
           {isEn ? "Back to Dashboard" : "العودة للقائمة"}
         </button>
@@ -87,7 +87,7 @@ const CampaignDetails: React.FC = () => {
 
   return (
     <div className="space-y-3" dir={isEn ? "ltr" : "rtl"}>
-      <section className="rounded-xl border border-slate-200 bg-white shadow-sm">
+      <section className="rounded-xl border border-border bg-white shadow-sm">
         <CampaignHeaderSection
           campaign={campaign as CampaignWithCurrency}
           isEn={isEn}

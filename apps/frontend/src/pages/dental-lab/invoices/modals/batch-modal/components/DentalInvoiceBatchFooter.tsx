@@ -24,10 +24,10 @@ export const DentalInvoiceBatchFooter: React.FC<DentalInvoiceBatchFooterProps> =
   onRunBatch,
 }) => {
   return (
-    <div className="flex items-center justify-between pt-4 border-t dark:border-gray-800 mt-4">
-      <div className="text-xs text-gray-500">
+    <div className="flex items-center justify-between pt-4 border-t dark:border-border mt-4">
+      <div className="text-xs text-muted-foreground">
         سيتم إنشاء الفواتير بنمط{" "}
-        <span className="font-semibold text-gray-700 dark:text-gray-300">
+        <span className="font-semibold text-foreground">
           {mode === "PER_CASE"
             ? "فاتورة منفصلة لكل حالة"
             : "فاتورة شهرية مجمعة شاملة الحالات"}
@@ -38,7 +38,7 @@ export const DentalInvoiceBatchFooter: React.FC<DentalInvoiceBatchFooterProps> =
           type="button"
           onClick={onClose}
           disabled={submitting}
-          className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 transition-colors"
+          className="px-4 py-2 text-sm text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50 transition-colors"
         >
           إلغاء
         </button>
@@ -46,7 +46,7 @@ export const DentalInvoiceBatchFooter: React.FC<DentalInvoiceBatchFooterProps> =
           type="button"
           onClick={onRunBatch}
           disabled={submitting || selectedDoctorIdsCount === 0}
-          className="px-5 py-2 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 font-semibold disabled:opacity-50 flex items-center gap-2 shadow-sm font-mono tabular-nums transition-all"
+          className="px-5 py-2 text-sm bg-gradient-to-r from-blue-600 to-primary text-white rounded-lg hover:from-blue-700 hover:to-primary font-semibold disabled:opacity-50 flex items-center gap-2 shadow-sm font-mono tabular-nums transition-all"
         >
           {submitting ? (
             <Loader2 className="w-4 h-4 animate-spin" />

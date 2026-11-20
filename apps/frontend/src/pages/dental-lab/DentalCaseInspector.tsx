@@ -25,7 +25,7 @@ export default function DentalCaseInspector({
   uploadingId,
 }: DentalCaseInspectorProps) {
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden transition-all">
+    <div className="flex flex-col h-full bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-xs overflow-hidden transition-all">
       <InspectorHeader caseData={caseData} onClose={onClose} />
       <InspectorActionBar
         caseData={caseData}

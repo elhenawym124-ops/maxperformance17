@@ -196,20 +196,20 @@ const FacebookAdsConnection: React.FC = () => {
   }, [status, t]);
 
   return (
-    <div className="min-h-screen bg-slate-50/60 p-3 text-slate-900 sm:p-6 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-muted p-3 text-foreground sm:p-6 dark:bg-muted dark:text-muted-foreground">
       <div className="mx-auto flex max-w-6xl 2xl:max-w-7xl flex-col gap-4">
         {/* Header Container */}
-        <header className="flex flex-col gap-3.5 rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-xs backdrop-blur-md sm:p-5 dark:border-slate-800/80 dark:bg-slate-900/95">
+        <header className="flex flex-col gap-3.5 rounded-xl border border-border bg-white/95 p-4 shadow-xs backdrop-blur-md sm:p-5 dark:border-border dark:bg-muted">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/70 bg-blue-50/80 px-2.5 py-0.5 text-xs font-semibold text-blue-700 dark:border-blue-900/50 dark:bg-blue-950/40 dark:text-blue-300">
                 <PlugZap className="h-3.5 w-3.5" />
                 {t.badge}
               </div>
-              <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-white">
+              <h1 className="mt-1 text-2xl font-bold tracking-tight text-foreground sm:text-3xl dark:text-white">
                 {t.title}
               </h1>
-              <p className="mt-1 max-w-2xl text-xs text-slate-600 sm:text-sm dark:text-slate-300">
+              <p className="mt-1 max-w-2xl text-xs text-foreground sm:text-sm dark:text-muted-foreground">
                 {t.subtitle}
               </p>
             </div>
@@ -218,7 +218,7 @@ const FacebookAdsConnection: React.FC = () => {
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-slate-200/90 bg-white px-3 text-xs font-semibold text-slate-700 shadow-xs transition-all hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-border bg-white px-3 text-xs font-semibold text-foreground shadow-xs transition-all hover:border-border hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                 title={isEn ? "تبديل إلى العربية" : "Switch to English"}
               >
                 <Globe className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
@@ -228,7 +228,7 @@ const FacebookAdsConnection: React.FC = () => {
                 type="button"
                 onClick={loadStatus}
                 disabled={loading}
-                className="inline-flex h-9 items-center gap-2 rounded-xl border border-slate-200/90 bg-white px-3.5 text-xs font-semibold text-slate-700 shadow-xs transition-all hover:bg-slate-50 disabled:opacity-60 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                className="inline-flex h-9 items-center gap-2 rounded-xl border border-border bg-white px-3.5 text-xs font-semibold text-foreground shadow-xs transition-all hover:bg-muted disabled:opacity-60 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               >
                 <RefreshCw className={["h-3.5 w-3.5", loading ? "animate-spin" : ""].join(" ")} />
                 {t.refresh}
@@ -238,7 +238,7 @@ const FacebookAdsConnection: React.FC = () => {
         </header>
 
         {error ? (
-          <div className="rounded-xl border border-red-200 bg-red-50/90 px-4 py-3 text-sm font-semibold text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-200">
+          <div className="rounded-xl border border-destructive bg-destructive/90 px-4 py-3 text-sm font-semibold text-destructive dark:border-destructive/60 dark:bg-destructive/30 dark:text-destructive">
             {safeStr(error)}
           </div>
         ) : null}
@@ -271,13 +271,13 @@ const FacebookAdsConnection: React.FC = () => {
         <main className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
           <section className="space-y-4">
             {/* Primary Action Card */}
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800/80 dark:bg-slate-900">
+            <div className="rounded-xl border border-border bg-white p-5 shadow-xs dark:border-border dark:bg-muted">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h2 className="text-base font-bold text-slate-900 dark:text-white">
+                  <h2 className="text-base font-bold text-foreground dark:text-white">
                     {t.isolatedSectionTitle}
                   </h2>
-                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                  <p className="mt-0.5 text-xs text-muted-foreground dark:text-muted-foreground">
                     {t.isolatedSectionSubtitle}
                   </p>
                 </div>
@@ -323,16 +323,16 @@ const FacebookAdsConnection: React.FC = () => {
 
           {/* Aside: Meta Health & Diagnostics */}
           <aside className="space-y-4">
-            <section className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800/80 dark:bg-slate-900">
+            <section className="rounded-xl border border-border bg-white p-5 shadow-xs dark:border-border dark:bg-muted">
               <div className="flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
                   <PlugZap className="h-4 w-4" />
                 </span>
-                <h2 className="text-sm font-bold text-slate-900 dark:text-white">
+                <h2 className="text-sm font-bold text-foreground dark:text-white">
                   {t.metaTestTitle}
                 </h2>
               </div>
-              <div className="mt-3 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+              <div className="mt-3 space-y-1.5 text-xs text-foreground dark:text-muted-foreground">
                 <p>
                   {status?.remote.checked
                     ? status.remote.ok
@@ -359,9 +359,9 @@ const FacebookAdsConnection: React.FC = () => {
                     return (
                       <div
                         key={sourceRemote.sourceId}
-                        className="flex items-center justify-between gap-2 rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs dark:bg-slate-800/60"
+                        className="flex items-center justify-between gap-2 rounded-lg bg-muted px-2.5 py-1.5 text-xs dark:bg-muted"
                       >
-                        <span className="truncate font-medium text-slate-700 dark:text-slate-200">
+                        <span className="truncate font-medium text-foreground dark:text-muted-foreground">
                           {source?.facebookUserName ||
                             source?.facebookUserEmail ||
                             sourceRemote.sourceId}
@@ -370,8 +370,8 @@ const FacebookAdsConnection: React.FC = () => {
                           className={[
                             "font-semibold tabular-nums",
                             sourceRemote.ok
-                              ? "text-emerald-700 dark:text-emerald-300"
-                              : "text-amber-700 dark:text-amber-300",
+                              ? "text-emerald-700 dark:text-success"
+                              : "text-amber-700 dark:text-warning",
                           ].join(" ")}
                         >
                           {sourceRemote.ok

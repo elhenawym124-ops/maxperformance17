@@ -44,7 +44,7 @@ export const CreativePhysicsTab: React.FC<CreativePhysicsTabProps> = ({
     <div className="space-y-4">
       {/* Shadow Physics Mode */}
       <div className="space-y-2">
-        <Label className="text-xs font-bold text-slate-800 dark:text-slate-200">
+        <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
           فيزياء الظل (Shadow Physics)
         </Label>
         <div className="grid grid-cols-2 gap-2">
@@ -59,12 +59,12 @@ export const CreativePhysicsTab: React.FC<CreativePhysicsTabProps> = ({
               }
               className={`p-2.5 rounded-xl border text-right transition cursor-pointer ${
                 transform.shadowType === s.id
-                  ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-500"
-                  : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+                  ? "border-indigo-600 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary ring-1 ring-primary"
+                  : "border-slate-200 dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground"
               }`}
             >
               <div className="text-xs font-bold">{s.label}</div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400">
+              <div className="text-[10px] text-muted-foreground dark:text-muted-foreground">
                 {s.desc}
               </div>
             </button>
@@ -73,12 +73,12 @@ export const CreativePhysicsTab: React.FC<CreativePhysicsTabProps> = ({
       </div>
 
       {/* Scale Slider */}
-      <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-slate-800">
+      <div className="space-y-1.5 pt-2 border-t border-border dark:border-border">
         <div className="flex items-center justify-between text-xs font-bold">
-          <span className="text-slate-700 dark:text-slate-300">
+          <span className="text-slate-700 dark:text-muted-foreground">
             حجم المنتج (Scale)
           </span>
-          <span className="font-mono text-indigo-600 dark:text-indigo-400 tabular-nums">
+          <span className="font-mono text-primary tabular-nums">
             {Math.round(transform.scale * 100)}%
           </span>
         </div>
@@ -96,17 +96,17 @@ export const CreativePhysicsTab: React.FC<CreativePhysicsTabProps> = ({
               },
             })
           }
-          className="w-full accent-indigo-600 cursor-pointer"
+          className="w-full accent-primary cursor-pointer"
         />
       </div>
 
       {/* Rotation Slider */}
-      <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-slate-800">
+      <div className="space-y-1.5 pt-2 border-t border-border dark:border-border">
         <div className="flex items-center justify-between text-xs font-bold">
-          <span className="text-slate-700 dark:text-slate-300">
+          <span className="text-slate-700 dark:text-muted-foreground">
             تدوير المنتج (Rotation)
           </span>
-          <span className="font-mono text-indigo-600 dark:text-indigo-400 tabular-nums">
+          <span className="font-mono text-primary tabular-nums">
             {transform.rotation}°
           </span>
         </div>
@@ -124,7 +124,7 @@ export const CreativePhysicsTab: React.FC<CreativePhysicsTabProps> = ({
               },
             })
           }
-          className="w-full accent-indigo-600 cursor-pointer"
+          className="w-full accent-primary cursor-pointer"
         />
       </div>
 
@@ -144,7 +144,7 @@ export const CreativePhysicsTab: React.FC<CreativePhysicsTabProps> = ({
               },
             })
           }
-          className="w-full h-8 text-xs rounded-xl border-slate-200 dark:border-slate-800 cursor-pointer gap-1.5"
+          className="w-full h-8 text-xs rounded-xl border-border dark:border-border cursor-pointer gap-1.5"
         >
           <RefreshCw className="w-3.5 h-3.5" />
           <span>إعادة ضبط الموضع والحجم للافتراضي</span>

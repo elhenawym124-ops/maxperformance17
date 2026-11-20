@@ -108,8 +108,8 @@ export const ABTestDetails: React.FC = () => {
   const getStatusBadge = (status: string) => {
     const badges: Record<string, string> = {
       DRAFT: "bg-muted text-muted-foreground border-border/60",
-      RUNNING: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-      PAUSED: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+      RUNNING: "bg-emerald-500/10 text-success dark:text-success border-success/20",
+      PAUSED: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
       COMPLETED: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
       ARCHIVED: "bg-muted text-muted-foreground border-border/60",
     };
@@ -188,7 +188,7 @@ export const ABTestDetails: React.FC = () => {
           {test.status === "DRAFT" && (
             <button
               onClick={handleStartTest}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-all active:scale-[0.97]"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-white bg-success hover:bg-success transition-all active:scale-[0.97]"
             >
               <Play className="h-3.5 w-3.5" />
               <span>بدء الاختبار</span>
@@ -206,7 +206,7 @@ export const ABTestDetails: React.FC = () => {
               </button>
               <button
                 onClick={handlePauseTest}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition-all active:scale-[0.97]"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-warning dark:text-warning bg-warning/10 hover:bg-warning/20 border border-warning/20 transition-all active:scale-[0.97]"
               >
                 <Pause className="h-3.5 w-3.5" />
                 <span>إيقاف</span>
@@ -216,7 +216,7 @@ export const ABTestDetails: React.FC = () => {
           {test.status === "PAUSED" && (
             <button
               onClick={handleStartTest}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-all active:scale-[0.97]"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-white bg-success hover:bg-success transition-all active:scale-[0.97]"
             >
               <Play className="h-3.5 w-3.5" />
               <span>استئناف</span>
@@ -312,7 +312,7 @@ export const ABTestDetails: React.FC = () => {
                   <div>
                     <span className="text-xs font-semibold text-foreground">القيمة الإحصائية (P-value)</span>
                     {analysis.isSignificant && (
-                      <div className="flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                      <div className="flex items-center gap-1 text-[11px] text-success dark:text-success font-medium">
                         <CheckCircle2 className="h-3 w-3" />
                         <span>معنوية إحصائياً (مستوى ثقة 95%)</span>
                       </div>
@@ -324,14 +324,14 @@ export const ABTestDetails: React.FC = () => {
                 </div>
               )}
               {analysis.winner && (
-                <div className="p-2.5 rounded bg-emerald-500/[0.06] border border-emerald-500/20 flex items-center justify-between">
+                <div className="p-2.5 rounded bg-success/[0.06] border border-success/20 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Award className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    <Award className="h-4 w-4 text-success dark:text-success" />
                     <span className="text-xs font-semibold text-foreground">
                       {analysis.winner.winner === "VARIANT_A" ? "Variant A" : "Variant B"}
                     </span>
                   </div>
-                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+                  <span className="text-xs font-mono text-success dark:text-success font-bold">
                     تحسن بنسبة {analysis.winner.improvement}%
                   </span>
                 </div>

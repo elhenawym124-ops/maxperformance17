@@ -46,14 +46,14 @@ export function AddMaterialModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
       <div className={MODAL_CONTENT_CLS}>
-        <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-700 mb-4">
-          <h3 className="text-base font-bold text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border mb-4">
+          <h3 className="text-base font-bold text-foreground">
             إضافة خامة معمل جديدة
           </h3>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer"
+            className="text-gray-400 hover:text-foreground dark:hover:text-muted-foreground cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -61,7 +61,7 @@ export function AddMaterialModal({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block font-semibold mb-1 text-foreground">
               اسم الخامة *
             </label>
             <input
@@ -76,7 +76,7 @@ export function AddMaterialModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 التصنيف
               </label>
               <select
@@ -92,7 +92,7 @@ export function AddMaterialModal({
               </select>
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 الماركة المصنعة
               </label>
               <input
@@ -107,7 +107,7 @@ export function AddMaterialModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 سعة القرص بالوحدات
               </label>
               <input
@@ -120,7 +120,7 @@ export function AddMaterialModal({
               />
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 اللون الافتراضي
               </label>
               <input
@@ -135,7 +135,7 @@ export function AddMaterialModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 تكلفة شراء القرص الكامل (ج.م)
               </label>
               <input
@@ -148,7 +148,7 @@ export function AddMaterialModal({
               />
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 تنبيه قرب النفاد (أقل من)
               </label>
               <input
@@ -162,13 +162,13 @@ export function AddMaterialModal({
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block font-semibold text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold text-foreground">
                 شركة التوريد المعتمدة (المورد)
               </label>
               <button
                 type="button"
                 onClick={onOpenAddSupplier}
-                className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                className="text-xs text-info dark:text-info font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>مورد جديد</span>
@@ -188,18 +188,18 @@ export function AddMaterialModal({
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-200 dark:border-gray-700 mt-4">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold cursor-pointer"
+              className="px-4 py-2 rounded-xl border border-border text-foreground font-semibold cursor-pointer"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold disabled:opacity-50 cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-info hover:bg-info text-white font-bold disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? "جاري الحفظ..." : "حفظ الخامة"}
             </button>

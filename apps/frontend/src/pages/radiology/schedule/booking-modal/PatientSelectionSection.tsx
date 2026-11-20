@@ -73,9 +73,9 @@ export const PatientSelectionSection: React.FC<PatientSelectionSectionProps> = (
           placeholder={t('radiology.schedule.searchPatient')}
         />
         {patientSearch.trim() && (
-          <div className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg shadow-xl">
+          <div className="absolute z-20 mt-1 w-full max-h-52 overflow-y-auto bg-card border dark:border-border rounded-lg shadow-xl">
             {patientResults.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-gray-500">
+              <div className="px-3 py-2 text-sm text-muted-foreground">
                 {t('radiology.schedule.noResults')}
               </div>
             ) : (
@@ -84,13 +84,13 @@ export const PatientSelectionSection: React.FC<PatientSelectionSectionProps> = (
                   key={p.id}
                   type="button"
                   onClick={() => onPickPatient(p)}
-                  className="block w-full text-right px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="block w-full text-right px-3 py-2 text-sm hover:bg-muted/50"
                 >
                   <span className="font-medium">
                     {p.firstName} {p.lastName || ''}
                   </span>
                   {p.phone ? (
-                    <span className="text-xs text-gray-500 dark:text-gray-400"> — {p.phone}</span>
+                    <span className="text-xs text-muted-foreground"> — {p.phone}</span>
                   ) : null}
                 </button>
               ))

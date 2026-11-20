@@ -32,7 +32,7 @@ export default function DentalCaseTimelineCard({ history }: DentalCaseTimelineCa
   return (
     <DentalCaseCard title={t("dentalLab.detail.timeline")} icon={<History className="w-5 h-5" />}>
       {history.length === 0 ? (
-        <p className="text-sm text-gray-400 dark:text-gray-500">{t("dentalLab.common.noData")}</p>
+        <p className="text-sm text-muted-foreground/80">{t("dentalLab.common.noData")}</p>
       ) : (
         <div className="space-y-4">
           {history.map((h) => (
@@ -46,18 +46,18 @@ export default function DentalCaseTimelineCard({ history }: DentalCaseTimelineCa
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold ${
                         h.status === "APPROVED"
-                          ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-                          : "bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+                          ? "bg-emerald-100 text-success dark:bg-success/40 dark:text-success border border-success dark:border-success"
+                          : "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning border border-warning dark:border-warning"
                       }`}
                     >
                       {h.status === "APPROVED" ? (
                         <>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-success" />
                           <span>اعتماد تصميم الـ 3D من الطبيب</span>
                         </>
                       ) : (
                         <>
-                          <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                          <AlertTriangle className="w-3.5 h-3.5 text-warning" />
                           <span>طلب تعديل على تصميم الـ 3D</span>
                         </>
                       )}
@@ -65,19 +65,19 @@ export default function DentalCaseTimelineCard({ history }: DentalCaseTimelineCa
                   ) : (
                     <>
                       {renderBadge(CASE_STATUS_MAP, h.fromStatus)}
-                      <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      <ArrowRight className="w-3.5 h-3.5 text-muted-foreground" />
                       {renderBadge(CASE_STATUS_MAP, h.toStatus)}
                     </>
                   )}
-                  <span className="text-xs text-gray-400 dark:text-gray-500 font-mono tabular-nums">
+                  <span className="text-xs text-muted-foreground/80 font-mono tabular-nums">
                     {fmtDateTime(h.createdAt)}
                   </span>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t("dentalLab.detail.changedBy")}: {h.userName || h.changedBy || "—"}
                 </p>
                 {h.reason ? (
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{h.reason}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{h.reason}</p>
                 ) : null}
               </div>
             </div>

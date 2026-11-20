@@ -34,21 +34,21 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
   };
 
   return (
-    <div className="sm:col-span-2 border-t dark:border-gray-700 pt-4">
+    <div className="sm:col-span-2 border-t dark:border-border pt-4">
       <div className="flex items-center justify-between mb-2">
         <div>
-          <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100 flex items-center gap-1.5">
+          <h4 className="text-sm font-bold text-foreground flex items-center gap-1.5">
             <Users className="w-4 h-4 text-blue-600" />
             <span>أطباء العيادة / الفريق الطبي التابع للعيادة</span>
           </h4>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-muted-foreground">
             إذا كانت العيادة أو المركز يضم أكثر من دكتور، يمكنك تسجيل أسمائهم هنا لربط أوردراتهم بنفس حساب العيادة الموحد دون تشتيت الحسابات.
           </p>
         </div>
       </div>
 
       {/* فورم إضافة دكتور للعيادة */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-gray-50 dark:bg-gray-800/60 p-2.5 rounded-lg border dark:border-gray-700 mb-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-muted dark:bg-muted p-2.5 rounded-lg border dark:border-border mb-3">
         <input
           className={`${inputCls} text-xs`}
           placeholder="اسم الدكتور (مثال: د. سارة أحمد)"
@@ -82,14 +82,14 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
 
       {/* قائمة الأطباء المضافين */}
       {doctors && doctors.length > 0 ? (
-        <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+        <div className="space-y-1.5 max-h-36 overflow-y-auto pe-1">
           {doctors.map((doc, idx) => (
             <div
               key={doc.id || idx}
-              className="flex items-center justify-between bg-white dark:bg-gray-800 border dark:border-gray-700 px-3 py-1.5 rounded-lg text-xs"
+              className="flex items-center justify-between bg-card border dark:border-border px-3 py-1.5 rounded-lg text-xs"
             >
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-900 dark:text-gray-100">
+                <span className="font-semibold text-foreground">
                   {doc.name}
                 </span>
                 {doc.specialty && (
@@ -106,7 +106,7 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
               <button
                 type="button"
                 onClick={() => onRemoveDoctor(idx)}
-                className="p-1 text-gray-400 hover:text-red-500 rounded"
+                className="p-1 text-muted-foreground hover:text-destructive rounded"
                 title="حذف الطبيب من العيادة"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -115,7 +115,7 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
           ))}
         </div>
       ) : (
-        <p className="text-xs text-gray-400 italic">
+        <p className="text-xs text-muted-foreground italic">
           لم يتم إضافة أطباء إضافيين للعيادة بعد (الحساب يسجل باسم الطبيب الرئيسي أعلاه).
         </p>
       )}

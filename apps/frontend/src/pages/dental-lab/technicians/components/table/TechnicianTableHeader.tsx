@@ -6,7 +6,7 @@ export const TechnicianTableHeader: React.FC = () => {
 
   return (
     <thead>
-      <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300">
+      <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground">
         <th className="text-right py-3 px-3 whitespace-nowrap">{t("dentalLab.common.name")}</th>
         <th className="text-right py-3 px-3 whitespace-nowrap">{t("dentalLab.common.phone")}</th>
         <th className="text-right py-3 px-3 whitespace-nowrap">التخصص / المحطة</th>

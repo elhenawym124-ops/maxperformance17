@@ -120,14 +120,14 @@ export default function ReferringPhysiciansTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.referringPhysicians.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.referringPhysicians.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.referringPhysicians.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400 dark:text-gray-500" />
-            <input className={`${MODAL_INPUT_CLS} pr-9 w-44`} placeholder={t("radiology.referringPhysicians.searchPlaceholder")} value={search} onChange={e => setSearch(e.target.value)} />
+            <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground/80" />
+            <input className={`${MODAL_INPUT_CLS} pe-9 w-44`} placeholder={t("radiology.referringPhysicians.searchPlaceholder")} value={search} onChange={e => setSearch(e.target.value)} />
           </div>
-          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
           <button onClick={() => setModal({ name: "", phone: "", specialty: "", commissionType: "NONE", commissionValue: "0", marketingRepId: "" })} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
@@ -137,30 +137,30 @@ export default function ReferringPhysiciansTab() {
       </div>
 
       {commissions.length > 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border p-4">
           <h3 className="font-semibold mb-3 flex items-center gap-2"><BadgePercent className="w-4 h-4" />{t("radiology.referringPhysicians.dueCommissions")}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {commissions.map(c => (
-              <div key={c.physicianId} className="flex justify-between items-center border dark:border-gray-700 rounded-lg px-3 py-2 text-sm">
+              <div key={c.physicianId} className="flex justify-between items-center border dark:border-border rounded-lg px-3 py-2 text-sm">
                 <span className="font-medium">{c.name || "—"}</span>
                 <span className="text-green-600 font-bold">{Number(c.commission).toFixed(0)} {t("radiology.currency")}</span>
               </div>
             ))}
           </div>
-          <p className="text-sm mt-3 text-gray-500 dark:text-gray-400">{t("radiology.referringPhysicians.totalDueCommissions")} <b className="text-green-600">{Number(totalCommission).toFixed(0)} {t("radiology.currency")}</b></p>
+          <p className="text-sm mt-3 text-muted-foreground">{t("radiology.referringPhysicians.totalDueCommissions")} <b className="text-green-600">{Number(totalCommission).toFixed(0)} {t("radiology.currency")}</b></p>
         </div>
       ) : null}
 
       {loading && !items.length ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : items.length === 0 ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.referringPhysicians.noPhysicians")}</p>
+        <p className="text-center py-16 text-muted-foreground/80">{t("radiology.referringPhysicians.noPhysicians")}</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[700px]">
               <thead>
-                <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-sm">
+                <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-sm">
                   {[t("radiology.referringPhysicians.name"), t("radiology.referringPhysicians.specialty"), t("radiology.referringPhysicians.phone"), t("radiology.referringPhysicians.rep"), t("radiology.referringPhysicians.commission"), t("radiology.actions")].map(h => (
                     <th key={h} className="text-right py-3 px-4 whitespace-nowrap">{h}</th>
                   ))}
@@ -168,17 +168,17 @@ export default function ReferringPhysiciansTab() {
               </thead>
               <tbody>
                 {items.map(p => (
-                  <tr key={p.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
+                  <tr key={p.id} className="border-b dark:border-border hover:bg-muted/50 text-sm">
                     <td className="py-3 px-4 font-medium">{p.name}</td>
-                    <td className="py-3 px-4 text-gray-500 dark:text-gray-400">{p.specialty || "—"}</td>
+                    <td className="py-3 px-4 text-muted-foreground">{p.specialty || "—"}</td>
                     <td className="py-3 px-4" dir="ltr">{p.phone || "—"}</td>
                     <td className="py-3 px-4">{p.marketingRepName || "—"}</td>
                     <td className="py-3 px-4">{t(COMMISSION_LABEL[p.commissionType] || p.commissionType)}{p.commissionType === "PERCENTAGE" ? ` ${p.commissionValue}%` : p.commissionType === "FIXED" ? ` ${p.commissionValue} ${t("radiology.currency")}` : ""}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-1.5">
-                        <button onClick={() => openResults(p)} className="p-1.5 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded" title={t("radiology.physicianResults.button")}><FileText className="w-4 h-4" /></button>
+                        <button onClick={() => openResults(p)} className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.physicianResults.button")}><FileText className="w-4 h-4" /></button>
                         <button onClick={() => setModal({ id: p.id, name: p.name, phone: p.phone || "", specialty: p.specialty || "", commissionType: p.commissionType, commissionValue: String(p.commissionValue), marketingRepId: p.marketingRepId || "" })} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
-                        <button onClick={() => remove(p)} className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => remove(p)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>
@@ -194,30 +194,30 @@ export default function ReferringPhysiciansTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{modal.id ? t("radiology.referringPhysicians.editPhysician") : t("radiology.referringPhysicians.newPhysicianModal")}</h3>
-              <button onClick={() => setModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setModal(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.referringPhysicians.physicianName")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.referringPhysicians.physicianName")}</label>
                 <input className={MODAL_INPUT_CLS} value={modal.name} onChange={e => setModal({ ...modal, name: e.target.value })} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.referringPhysicians.specialty")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.referringPhysicians.specialty")}</label>
                 <input className={MODAL_INPUT_CLS} value={modal.specialty} onChange={e => setModal({ ...modal, specialty: e.target.value })} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.referringPhysicians.phone")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.referringPhysicians.phone")}</label>
                 <input className={MODAL_INPUT_CLS} dir="ltr" value={modal.phone} onChange={e => setModal({ ...modal, phone: e.target.value })} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.referringPhysicians.rep")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.referringPhysicians.rep")}</label>
                 <select className={MODAL_INPUT_CLS} value={modal.marketingRepId} onChange={e => setModal({ ...modal, marketingRepId: e.target.value })}>
                   <option value="">{t("radiology.referringPhysicians.noRep")}</option>
                   {reps.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.referringPhysicians.commissionType")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.referringPhysicians.commissionType")}</label>
                 <select className={MODAL_INPUT_CLS} value={modal.commissionType} onChange={e => setModal({ ...modal, commissionType: e.target.value })}>
                   <option value="NONE">{t("radiology.referringPhysicians.none")}</option>
                   <option value="PERCENTAGE">{t("radiology.referringPhysicians.percentageLabel")}</option>
@@ -225,12 +225,12 @@ export default function ReferringPhysiciansTab() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.referringPhysicians.commissionValue")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.referringPhysicians.commissionValue")}</label>
                 <input type="number" min={0} className={MODAL_INPUT_CLS} dir="ltr" value={modal.commissionValue} onChange={e => setModal({ ...modal, commissionValue: e.target.value })} disabled={modal.commissionType === "NONE"} />
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">{t("radiology.cancel")}</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
               <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
@@ -244,18 +244,18 @@ export default function ReferringPhysiciansTab() {
           <div className={`${MODAL_CONTENT_CLS} max-w-2xl max-h-[80vh] overflow-y-auto`} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{t("radiology.physicianResults.title")}</h3>
-              <button onClick={() => setResults(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setResults(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><XMarkIcon className="w-5 h-5" /></button>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t("radiology.physicianResults.subtitle", { name: results.physician.name })}</p>
+            <p className="text-sm text-muted-foreground mb-4">{t("radiology.physicianResults.subtitle", { name: results.physician.name })}</p>
             {resultsLoading ? (
-              <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+              <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
             ) : results.items.length === 0 ? (
-              <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.physicianResults.empty")}</p>
+              <p className="text-center py-16 text-muted-foreground/80">{t("radiology.physicianResults.empty")}</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[600px] text-sm">
                   <thead>
-                    <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400 text-right">
+                    <tr className="border-b dark:border-border text-muted-foreground text-right">
                       <th className="py-2 px-2">{t("radiology.physicianResults.patient")}</th>
                       <th className="py-2 px-2">{t("radiology.physicianResults.exam")}</th>
                       <th className="py-2 px-2">{t("radiology.physicianResults.date")}</th>
@@ -265,20 +265,20 @@ export default function ReferringPhysiciansTab() {
                   </thead>
                   <tbody>
                     {results.items.map(i => (
-                      <tr key={i.id} className="border-b dark:border-gray-700/50">
+                      <tr key={i.id} className="border-b dark:border-border">
                         <td className="py-2 px-2 font-medium">{i.patientName}</td>
                         <td className="py-2 px-2">{i.examTypeName || i.modality || "—"}</td>
                         <td className="py-2 px-2 whitespace-nowrap">{new Date(i.createdAt).toLocaleDateString("ar-EG")}</td>
                         <td className="py-2 px-2">
-                          <span className={`inline-block px-2 py-0.5 rounded text-xs ${RadiologyStatusMap[i.status]?.color || "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"}`}>
+                          <span className={`inline-block px-2 py-0.5 rounded text-xs ${RadiologyStatusMap[i.status]?.color || "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"}`}>
                             {RadiologyStatusMap[i.status] ? t(RadiologyStatusMap[i.status].label) : i.status}
                           </span>
                         </td>
                         <td className="py-2 px-2">
                           {readIds.has(i.id) ? (
-                            <span className="inline-flex items-center gap-1 text-green-600 dark:text-green-400 text-xs"><CheckCircle2 className="w-3.5 h-3.5" />{t("radiology.physicianResults.read")}</span>
+                            <span className="inline-flex items-center gap-1 text-success dark:text-success text-xs"><CheckCircle2 className="w-3.5 h-3.5" />{t("radiology.physicianResults.read")}</span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-gray-400 dark:text-gray-500 text-xs"><Circle className="w-3.5 h-3.5" />{t("radiology.physicianResults.unread")}</span>
+                            <span className="inline-flex items-center gap-1 text-muted-foreground/80 text-xs"><Circle className="w-3.5 h-3.5" />{t("radiology.physicianResults.unread")}</span>
                           )}
                         </td>
                       </tr>
@@ -288,7 +288,7 @@ export default function ReferringPhysiciansTab() {
               </div>
             )}
             <div className="flex justify-end mt-6">
-              <button onClick={() => setResults(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">{t("radiology.close")}</button>
+              <button onClick={() => setResults(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.close")}</button>
             </div>
           </div>
         </div>

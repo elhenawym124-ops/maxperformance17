@@ -36,11 +36,11 @@ export function QuickOrderSummaryPricingCard({
     <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/30 p-3.5 space-y-2 text-xs">
       <div className="font-bold text-blue-900 dark:text-blue-100 flex items-center justify-between border-b border-blue-200/60 dark:border-blue-800/60 pb-1.5">
         <span>ملخص أمر الشغل النهائي</span>
-        <span className="font-mono text-emerald-600 dark:text-emerald-400 font-bold text-sm tabular-nums">
+        <span className="font-mono text-success dark:text-success font-bold text-sm tabular-nums">
           صافي الإجمالي: {fmtMoney(netTotal)} ج.م
         </span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-gray-700 dark:text-gray-300">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-foreground">
         <div>
           <span className="text-gray-400">الطبيب: </span>
           {selectedDoctor?.name || "—"}

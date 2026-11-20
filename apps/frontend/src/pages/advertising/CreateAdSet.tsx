@@ -331,8 +331,8 @@ const CreateAdSet: React.FC = () => {
   if (loadingCampaign) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-3">
-        <div className="w-8 h-8 border-3 border-cyan-600 border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-xs text-gray-500 font-semibold">جاري تجهيز بيئة إنشاء المجموعة الإعلانية v25...</p>
+        <div className="w-8 h-8 border-3 border-info border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-xs text-muted-foreground font-semibold">جاري تجهيز بيئة إنشاء المجموعة الإعلانية v25...</p>
       </div>
     );
   }
@@ -342,29 +342,29 @@ const CreateAdSet: React.FC = () => {
   return (
     <div className="w-full max-w-5xl mx-auto space-y-5 p-3 sm:p-6 pb-20">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-200 dark:border-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-border dark:border-border">
         <div>
           <button
             type="button"
             onClick={() => navigate(`/advertising/facebook-ads/campaigns/${campaignId}`)}
-            className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 dark:hover:text-white mb-2 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground dark:hover:text-white mb-2 transition-colors cursor-pointer"
           >
             <ArrowRightIcon className="w-4 h-4" />
             <span>الرجوع لتفاصيل الحملة</span>
           </button>
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
               إنشاء مجموعة إعلانات جديدة
             </h1>
-            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 dark:bg-cyan-950/70 dark:text-cyan-300 font-mono font-bold">
+            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-info text-info dark:bg-info/70 dark:text-info font-mono font-bold">
               Meta v26.0
             </span>
           </div>
           {campaign && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              داخل الحملة: <span className="font-bold text-gray-800 dark:text-gray-200">{campaign.name}</span>
+            <p className="text-xs text-muted-foreground mt-1">
+              داخل الحملة: <span className="font-bold text-foreground dark:text-muted-foreground">{campaign.name}</span>
               {campaign.objective && (
-                <span className="mx-1.5 px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 font-mono text-[10px]">
+                <span className="mx-1.5 px-2 py-0.5 rounded-md bg-muted dark:bg-muted font-mono text-[10px]">
                   {campaign.objective}
                 </span>
               )}
@@ -374,7 +374,7 @@ const CreateAdSet: React.FC = () => {
 
         {/* AdSet Name Input (Always Visible) */}
         <div className="w-full sm:w-72">
-          <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-bold text-foreground mb-1">
             اسم المجموعة الإعلانية *
           </label>
           <input
@@ -382,13 +382,13 @@ const CreateAdSet: React.FC = () => {
             value={adSetName}
             onChange={(e) => setAdSetName(e.target.value)}
             placeholder="مثال: نساء القاهرة الكبرى - أحذية"
-            className="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-semibold text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500"
+            className="w-full px-3 py-2 bg-card border border-border dark:border-border rounded-xl text-xs sm:text-sm font-semibold text-foreground focus:ring-2 focus:ring-info"
           />
         </div>
       </div>
 
       {/* Modern Stepper Tabs */}
-      <div className="bg-white dark:bg-gray-800/80 p-2 sm:p-3 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xs overflow-x-auto">
+      <div className="bg-card/80 p-2 sm:p-3 rounded-xl border border-border dark:border-border shadow-xs overflow-x-auto">
         <div className="flex items-center min-w-[620px] justify-between">
           {STEPS.map((step, idx) => {
             const Icon = step.icon;
@@ -407,17 +407,17 @@ const CreateAdSet: React.FC = () => {
                     isCurrent
                       ? "bg-cyan-600 text-white shadow-xs"
                       : isCompleted
-                        ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 hover:bg-emerald-100"
-                        : "text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                        ? "bg-emerald-50 text-success dark:bg-success/40 dark:text-success hover:bg-success"
+                        : "text-gray-400 hover:text-foreground dark:hover:text-muted-foreground"
                   }`}
                 >
                   <div
                     className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] shrink-0 font-mono ${
                       isCurrent
-                        ? "bg-white text-cyan-700"
+                        ? "bg-white text-info"
                         : isCompleted
                           ? "bg-emerald-600 text-white"
-                          : "bg-gray-100 dark:bg-gray-700 text-gray-500"
+                          : "bg-muted text-muted-foreground"
                     }`}
                   >
                     {isCompleted ? <CheckCircleIcon className="w-4 h-4" /> : step.id}
@@ -430,7 +430,7 @@ const CreateAdSet: React.FC = () => {
                     className={`h-0.5 flex-1 mx-2 transition-colors ${
                       currentStep > idx + 1
                         ? "bg-emerald-500"
-                        : "bg-gray-200 dark:bg-gray-700"
+                        : "bg-gray-200 dark:bg-muted"
                     }`}
                   />
                 )}
@@ -441,7 +441,7 @@ const CreateAdSet: React.FC = () => {
       </div>
 
       {/* Active Step Content Container */}
-      <div className="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/80 rounded-2xl p-4 sm:p-6 shadow-xs min-h-[420px]">
+      <div className="bg-card/60 border border-border dark:border-border rounded-xl p-4 sm:p-6 shadow-xs min-h-[420px]">
         {currentStep === 1 && (
           <AdSetConversionStep
             conversionLocation={conversionLocation}
@@ -565,12 +565,12 @@ const CreateAdSet: React.FC = () => {
       </div>
 
       {/* Navigation Buttons Footer */}
-      <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-200 dark:border-gray-800">
+      <div className="flex items-center justify-between gap-3 pt-3 border-t border-border dark:border-border">
         <button
           type="button"
           onClick={handlePrev}
           disabled={currentStep === 1 || loading}
-          className="px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+          className="px-5 py-2.5 rounded-xl border border-border dark:border-border bg-card text-xs sm:text-sm font-bold text-foreground hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
         >
           السابق
         </button>
@@ -580,7 +580,7 @@ const CreateAdSet: React.FC = () => {
             <button
               type="button"
               onClick={handleNext}
-              className="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all active:scale-95 cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-info hover:bg-info text-white text-xs sm:text-sm font-bold shadow-xs transition-all active:scale-95 cursor-pointer"
             >
               التالي
             </button>
@@ -589,7 +589,7 @@ const CreateAdSet: React.FC = () => {
               type="button"
               onClick={handleSubmit}
               disabled={loading}
-              className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white text-xs sm:text-sm font-bold shadow-md disabled:opacity-50 transition-all active:scale-95 cursor-pointer flex items-center gap-2"
+              className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-info to-blue-600 hover:from-info hover:to-blue-700 text-white text-xs sm:text-sm font-bold shadow-md disabled:opacity-50 transition-all active:scale-95 cursor-pointer flex items-center gap-2"
             >
               {loading ? (
                 <>

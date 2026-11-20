@@ -28,15 +28,15 @@ export function DentalCaseMaterialConsumeModal({
         className={`${MODAL_CONTENT_CLS} max-w-lg w-full`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-4 border-b dark:border-gray-700 pb-3">
-          <h3 className="text-base font-bold flex items-center gap-2 text-gray-900 dark:text-gray-100">
+        <div className="flex items-center justify-between mb-4 border-b dark:border-border pb-3">
+          <h3 className="text-base font-bold flex items-center gap-2 text-foreground">
             <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             تسجيل استهلاك خامات وتتبع التشغيلة (Lot Traceability)
           </h3>
           <button
             type="button"
             onClick={() => !materialBusy && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+            className="p-1 hover:bg-muted rounded-lg"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -44,7 +44,7 @@ export function DentalCaseMaterialConsumeModal({
 
         <div className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block font-semibold text-foreground mb-1">
               المادة الخام المستهلكة *
             </label>
             <select
@@ -70,7 +70,7 @@ export function DentalCaseMaterialConsumeModal({
 
           {selectedMatId && (
             <div>
-              <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block font-semibold text-foreground mb-1">
                 التشغيلة أو القرص المحدد (Lot / Disc) *
               </label>
               {(() => {
@@ -78,7 +78,7 @@ export function DentalCaseMaterialConsumeModal({
                 const stocks = mat?.stocks || [];
                 if (stocks.length === 0) {
                   return (
-                    <div className="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 text-amber-800 dark:text-amber-300 text-xs">
+                    <div className="p-2.5 rounded-lg bg-warning/10 dark:bg-warning/30 border border-warning text-warning dark:text-warning text-xs">
                       لا توجد شحنات مسجلة برقم تشغيلة لهذه الخامة. سيتم الصرف
                       مباشرة من الرصيد العام.
                     </div>
@@ -109,7 +109,7 @@ export function DentalCaseMaterialConsumeModal({
           )}
 
           <div>
-            <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block font-semibold text-foreground mb-1">
               الكمية المستهلكة (عدد التيجان / الجرامات / الوحدات) *
             </label>
             <input
@@ -123,7 +123,7 @@ export function DentalCaseMaterialConsumeModal({
           </div>
 
           <div>
-            <label className="block font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block font-semibold text-foreground mb-1">
               ملاحظات الاستهلاك (اختياري)
             </label>
             <input
@@ -135,12 +135,12 @@ export function DentalCaseMaterialConsumeModal({
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-border">
           <button
             type="button"
             onClick={onClose}
             disabled={materialBusy}
-            className="px-4 py-2 border rounded-lg text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 border rounded-lg text-xs text-foreground hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             إلغاء
           </button>

@@ -38,13 +38,13 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
         <User className="w-4 h-4 text-blue-600 shrink-0" />
         <label
           htmlFor="doctor-account-select"
-          className="text-xs font-bold text-gray-700 dark:text-gray-300 whitespace-nowrap"
+          className="text-xs font-bold text-foreground whitespace-nowrap"
         >
           حساب الطبيب:
         </label>
         <select
           id="doctor-account-select"
-          className="flex-1 border dark:border-gray-700 rounded-lg px-3 py-1.5 text-xs sm:text-sm dark:bg-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+          className="flex-1 border dark:border-border rounded-lg px-3 py-1.5 text-xs sm:text-sm dark:bg-muted dark:text-muted-foreground focus:ring-2 focus:ring-blue-500"
           value={selectedDoctorId}
           onChange={(e) => onSelectDoctorId(e.target.value)}
         >
@@ -71,7 +71,7 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
           <button
             type="button"
             onClick={() => onOpenSettlement(activeDoctor.id)}
-            className="px-3 py-1.5 bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-indigo-100 transition-colors"
+            className="px-3 py-1.5 bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary border border-primary dark:border-primary rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-primary transition-colors"
           >
             <CalendarClock className="w-3.5 h-3.5" />
             <span>تقفيل الشهر</span>
@@ -79,7 +79,7 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
           <button
             type="button"
             onClick={() => onBulkPayment(activeDoctor)}
-            className="px-3 py-1.5 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300 border border-green-200 dark:border-green-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-green-100 transition-colors"
+            className="px-3 py-1.5 bg-success/10 text-success dark:bg-success/30 dark:text-success border border-success dark:border-success rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-success transition-colors"
           >
             <Banknote className="w-3.5 h-3.5" />
             <span>تحصيل دفعة</span>
@@ -95,7 +95,7 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
                   cases: activeDoctorStats?.invoicesCount,
                 })
               }
-              className="px-3 py-1.5 bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-emerald-100 transition-colors"
+              className="px-3 py-1.5 bg-success/10 text-success dark:bg-success/30 dark:text-success border border-success dark:border-success rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-success transition-colors"
               title="مراسلة الطبيب عبر واتساب"
             >
               <MessageCircle className="w-3.5 h-3.5" />

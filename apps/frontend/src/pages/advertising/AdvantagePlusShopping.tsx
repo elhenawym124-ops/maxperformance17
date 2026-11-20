@@ -125,7 +125,7 @@ const AdvantagePlusShopping: React.FC = () => {
 
   return (
     <div
-      className="p-6 space-y-6 min-h-screen bg-gray-50 dark:bg-gray-900"
+      className="p-6 space-y-6 min-h-screen bg-muted dark:bg-muted"
       dir="rtl"
     >
       <FacebookAdsModuleNav />
@@ -134,16 +134,16 @@ const AdvantagePlusShopping: React.FC = () => {
         <button
           onClick={() => navigate("/advertising/facebook-ads")}
           aria-label="العودة إلى إدارة إعلانات Facebook"
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+          className="p-2 hover:bg-muted dark:hover:bg-muted rounded-lg"
         >
-          <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+          <ArrowLeft className="w-5 h-5 text-foreground dark:text-muted-foreground" />
         </button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <ShoppingBag className="w-7 h-7 text-green-600 dark:text-green-400" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <ShoppingBag className="w-7 h-7 text-success dark:text-success" />
             حملة Advantage+ Shopping
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-gray-600 dark:text-muted-foreground mt-1">
             حملات تسوق تعتمد تحسين Meta التلقائي لتحقيق أفضل النتائج
           </p>
         </div>
@@ -151,56 +151,56 @@ const AdvantagePlusShopping: React.FC = () => {
 
       {/* Benefits */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 border border-green-100 dark:border-green-800">
-          <Sparkles className="w-8 h-8 text-green-600 dark:text-green-400 mb-2" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">
+        <div className="bg-gradient-to-br from-success to-success dark:from-success/20 dark:to-success/20 rounded-xl p-4 border border-success dark:border-success">
+          <Sparkles className="w-8 h-8 text-success dark:text-success mb-2" />
+          <h3 className="font-semibold text-foreground">
             تحسين تلقائي
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Meta Advantage+ يحسّن الإعلانات تلقائياً
           </p>
         </div>
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
+        <div className="bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
           <Target className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-2" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">
+          <h3 className="font-semibold text-foreground">
             استهداف ذكي
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             يصل للعملاء الأكثر احتمالاً للشراء
           </p>
         </div>
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-4 border border-purple-100 dark:border-purple-800">
-          <TrendingUp className="w-8 h-8 text-purple-600 dark:text-purple-400 mb-2" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">
+        <div className="bg-gradient-to-br from-primary to-primary dark:from-primary/20 dark:to-primary/20 rounded-xl p-4 border border-primary dark:border-primary">
+          <TrendingUp className="w-8 h-8 text-primary dark:text-primary mb-2" />
+          <h3 className="font-semibold text-foreground">
             أداء أفضل
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             تكلفة أقل لكل عملية شراء
           </p>
         </div>
-        <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl p-4 border border-orange-100 dark:border-orange-800">
-          <Zap className="w-8 h-8 text-orange-600 dark:text-orange-400 mb-2" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">
+        <div className="bg-gradient-to-br from-warning to-warning dark:from-warning/20 dark:to-warning/20 rounded-xl p-4 border border-warning dark:border-warning">
+          <Zap className="w-8 h-8 text-warning dark:text-warning mb-2" />
+          <h3 className="font-semibold text-foreground">
             إعداد سريع
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             إعداد بسيط وسريع للحملة
           </p>
         </div>
       </div>
 
       {/* Main Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-900/20 border border-gray-200 dark:border-gray-700">
+      <div className="bg-card rounded-xl shadow-sm dark:shadow-gray-900/20 border border-border dark:border-border">
         {/* Campaign Name */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-600">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-semibold text-foreground mb-4">
             معلومات الحملة
           </h2>
           <div className="space-y-4">
             <div>
               <label
                 htmlFor="advantage-plus-campaign-name"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 اسم الحملة *
               </label>
@@ -214,14 +214,14 @@ const AdvantagePlusShopping: React.FC = () => {
                   setFormData((prev) => ({ ...prev, name: e.target.value }))
                 }
                 placeholder="مثال: حملة التسوق - رمضان 2025"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success bg-card text-foreground placeholder-muted dark:placeholder-muted"
               />
             </div>
 
             <div>
               <label
                 htmlFor="advantage-plus-pixel-id"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 معرف Facebook Pixel *
               </label>
@@ -235,9 +235,9 @@ const AdvantagePlusShopping: React.FC = () => {
                   setFormData((prev) => ({ ...prev, pixelId: e.target.value }))
                 }
                 placeholder="أدخل معرف الـ Pixel"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success bg-card text-foreground placeholder-muted dark:placeholder-muted"
               />
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 مطلوب لتتبع التحويلات والمبيعات
               </p>
             </div>
@@ -245,12 +245,12 @@ const AdvantagePlusShopping: React.FC = () => {
             <div>
               <label
                 htmlFor="advantage-plus-catalog-id"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 كتالوج المنتجات
               </label>
               {loadingCatalogs ? (
-                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-2 text-muted-foreground">
                   <Loader2 className="w-4 h-4 animate-spin" />
                   جاري التحميل...
                 </div>
@@ -266,7 +266,7 @@ const AdvantagePlusShopping: React.FC = () => {
                       catalogId: e.target.value,
                     }))
                   }
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success bg-card text-foreground"
                 >
                   <option value="">بدون كتالوج (اختياري)</option>
                   {catalogs.map((catalog) => (
@@ -281,14 +281,14 @@ const AdvantagePlusShopping: React.FC = () => {
         </div>
 
         {/* Budget */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-600">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <DollarSign className="w-5 h-5 text-green-600 dark:text-green-400" />
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+            <DollarSign className="w-5 h-5 text-success dark:text-success" />
             الميزانية
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 نوع الميزانية
               </label>
               <div className="flex gap-3">
@@ -298,12 +298,12 @@ const AdvantagePlusShopping: React.FC = () => {
                   }
                   className={`flex-1 p-3 rounded-lg border-2 transition-all ${
                     formData.budgetType === "DAILY"
-                      ? "border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300"
-                      : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      ? "border-green-500 dark:border-success bg-success/10 dark:bg-success/20 text-success dark:text-success"
+                      : "border-border hover:border-border dark:hover:border-border bg-card text-foreground"
                   }`}
                 >
                   <div className="font-medium">يومية</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-muted-foreground">
                     إنفاق يومي ثابت
                   </div>
                 </button>
@@ -313,12 +313,12 @@ const AdvantagePlusShopping: React.FC = () => {
                   }
                   className={`flex-1 p-3 rounded-lg border-2 transition-all ${
                     formData.budgetType === "LIFETIME"
-                      ? "border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300"
-                      : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      ? "border-green-500 dark:border-success bg-success/10 dark:bg-success/20 text-success dark:text-success"
+                      : "border-border hover:border-border dark:hover:border-border bg-card text-foreground"
                   }`}
                 >
                   <div className="font-medium">إجمالية</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-muted-foreground">
                     لكامل مدة الحملة
                   </div>
                 </button>
@@ -328,13 +328,13 @@ const AdvantagePlusShopping: React.FC = () => {
             <div>
               <label
                 htmlFor="advantage-plus-budget-amount"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-sm font-medium text-foreground mb-2"
               >
                 المبلغ ({formData.budgetType === "DAILY" ? "يومياً" : "إجمالي"})
                 *
               </label>
               <div className="relative">
-                <DollarSign className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
+                <DollarSign className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/80" />
                 <input
                   id="advantage-plus-budget-amount"
                   name="budgetAmount"
@@ -348,7 +348,7 @@ const AdvantagePlusShopping: React.FC = () => {
                     }))
                   }
                   min={1}
-                  className="w-full pr-10 pl-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full pe-10 ps-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success bg-card text-foreground"
                 />
               </div>
             </div>
@@ -356,9 +356,9 @@ const AdvantagePlusShopping: React.FC = () => {
         </div>
 
         {/* Country Targeting */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-600">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <Globe className="w-5 h-5 text-green-600 dark:text-green-400" />
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+            <Globe className="w-5 h-5 text-success dark:text-success" />
             الدول المستهدفة
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -372,18 +372,18 @@ const AdvantagePlusShopping: React.FC = () => {
                   onClick={() => toggleCountry(country.code)}
                   className={`p-3 rounded-lg border-2 transition-all ${
                     isSelected
-                      ? "border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20"
-                      : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700"
+                      ? "border-green-500 dark:border-success bg-success/10 dark:bg-success/20"
+                      : "border-border hover:border-border dark:hover:border-border bg-card"
                   }`}
                 >
                   <div className="text-2xl mb-1">{country.flag}</div>
                   <div
-                    className={`text-sm font-medium ${isSelected ? "text-green-700 dark:text-green-300" : "text-gray-700 dark:text-gray-300"}`}
+                    className={`text-sm font-medium ${isSelected ? "text-green-700 dark:text-success" : "text-foreground"}`}
                   >
                     {country.name}
                   </div>
                   {isSelected && (
-                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 mx-auto mt-1" />
+                    <CheckCircle className="w-4 h-4 text-success dark:text-success mx-auto mt-1" />
                   )}
                 </button>
               );
@@ -392,8 +392,8 @@ const AdvantagePlusShopping: React.FC = () => {
         </div>
 
         {/* Status */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-600">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-semibold text-foreground mb-4">
             حالة الحملة
           </h2>
           <div className="flex gap-3">
@@ -403,14 +403,14 @@ const AdvantagePlusShopping: React.FC = () => {
               }
               className={`flex-1 p-4 rounded-lg border-2 transition-all ${
                 formData.status === "PAUSED"
-                  ? "border-yellow-500 dark:border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20"
-                  : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700"
+                  ? "border-yellow-500 dark:border-warning bg-warning/10 dark:bg-warning/20"
+                  : "border-border hover:border-border dark:hover:border-border bg-card"
               }`}
             >
-              <div className="font-medium text-gray-900 dark:text-white">
+              <div className="font-medium text-foreground">
                 متوقفة
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
+              <div className="text-sm text-muted-foreground">
                 ستبدأ عند التفعيل يدوياً
               </div>
             </button>
@@ -420,14 +420,14 @@ const AdvantagePlusShopping: React.FC = () => {
               }
               className={`flex-1 p-4 rounded-lg border-2 transition-all ${
                 formData.status === "ACTIVE"
-                  ? "border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20"
-                  : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700"
+                  ? "border-green-500 dark:border-success bg-success/10 dark:bg-success/20"
+                  : "border-border hover:border-border dark:hover:border-border bg-card"
               }`}
             >
-              <div className="font-medium text-gray-900 dark:text-white">
+              <div className="font-medium text-foreground">
                 نشطة
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
+              <div className="text-sm text-muted-foreground">
                 ستبدأ فوراً بعد الإنشاء
               </div>
             </button>
@@ -435,17 +435,17 @@ const AdvantagePlusShopping: React.FC = () => {
         </div>
 
         {/* Actions */}
-        <div className="p-6 bg-gray-50 dark:bg-gray-700 flex gap-3 justify-end">
+        <div className="p-6 bg-muted dark:bg-muted flex gap-3 justify-end">
           <button
             onClick={() => navigate("/advertising/facebook-ads")}
-            className="px-6 py-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="px-6 py-2 text-foreground bg-card border border-border rounded-lg hover:bg-muted/50"
           >
             إلغاء
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 text-white bg-green-600 dark:bg-green-500 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 disabled:opacity-50 flex items-center gap-2"
+            className="px-6 py-2 text-white bg-success dark:bg-success rounded-lg hover:bg-success dark:hover:bg-success disabled:opacity-50 flex items-center gap-2"
           >
             {loading ? (
               <>

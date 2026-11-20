@@ -18,9 +18,9 @@ export const BenchOverdueAlert: React.FC<BenchOverdueAlertProps> = ({
   }
 
   return (
-    <div className="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-xl flex items-center justify-between gap-3 text-xs text-rose-800 dark:text-rose-300 shadow-xs">
+    <div className="p-3 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive rounded-xl flex items-center justify-between gap-3 text-xs text-destructive dark:text-destructive shadow-xs">
       <div className="flex items-center gap-2">
-        <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 animate-bounce" />
+        <AlertTriangle className="w-4 h-4 text-destructive shrink-0 animate-bounce" />
         <span>
           يوجد{" "}
           <b className="tabular-nums font-mono font-bold">
@@ -33,7 +33,7 @@ export const BenchOverdueAlert: React.FC<BenchOverdueAlertProps> = ({
       <button
         type="button"
         onClick={onFilterOverdue}
-        className="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shrink-0 transition"
+        className="px-2.5 py-1 bg-destructive hover:bg-destructive text-white font-bold rounded-lg shrink-0 transition"
       >
         تصفية المتأخرات فقط
       </button>

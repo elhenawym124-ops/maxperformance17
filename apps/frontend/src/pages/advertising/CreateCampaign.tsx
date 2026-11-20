@@ -45,13 +45,13 @@ const CreateCampaign: React.FC = () => {
   } = useCreateCampaignController();
 
   return (
-    <div className="w-full space-y-6 min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="w-full space-y-6 min-h-screen bg-muted dark:bg-muted p-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-3xl font-bold text-foreground">
           إنشاء حملة إعلانية جديدة
         </h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-foreground dark:text-muted-foreground">
           اتبع الخطوات لإنشاء حملة إعلانية على Facebook
         </p>
       </div>
@@ -60,7 +60,7 @@ const CreateCampaign: React.FC = () => {
       <WizardStepper currentStep={currentStep} />
 
       {/* Form Content */}
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow dark:shadow-gray-900/20 border-0 dark:border dark:border-gray-700">
+      <div className="bg-card p-8 rounded-lg shadow dark:shadow-gray-900/20 border-0 dark:border dark:border-border">
         {currentStep === 1 && (
           <Step1BasicInfo
             formData={formData}
@@ -114,11 +114,11 @@ const CreateCampaign: React.FC = () => {
         )}
 
         {/* Navigation Buttons */}
-        <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
+        <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
           <button
             type="button"
             onClick={() => navigate("/advertising/facebook-ads")}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="px-4 py-2 text-foreground bg-card border border-border rounded-lg hover:bg-muted/50"
           >
             إلغاء
           </button>
@@ -128,7 +128,7 @@ const CreateCampaign: React.FC = () => {
               <button
                 type="button"
                 onClick={handlePrevious}
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="flex items-center gap-2 px-4 py-2 text-foreground bg-card border border-border rounded-lg hover:bg-muted/50"
               >
                 <ChevronLeftIcon className="w-5 h-5" />
                 السابق
@@ -138,7 +138,7 @@ const CreateCampaign: React.FC = () => {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex items-center gap-2 px-4 py-2 text-white bg-indigo-600 dark:bg-indigo-500 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600"
+                className="flex items-center gap-2 px-4 py-2 text-white bg-primary dark:bg-primary rounded-lg hover:bg-primary dark:hover:bg-primary"
               >
                 التالي
                 <ChevronRightIcon className="w-5 h-5" />
@@ -148,7 +148,7 @@ const CreateCampaign: React.FC = () => {
                 type="button"
                 onClick={handleSubmit}
                 disabled={loading}
-                className="flex items-center gap-2 px-6 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 disabled:opacity-50"
+                className="flex items-center gap-2 px-6 py-2 text-white bg-success rounded-lg hover:bg-success disabled:opacity-50"
               >
                 {loading ? (
                   <>

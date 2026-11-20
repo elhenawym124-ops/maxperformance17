@@ -40,18 +40,18 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label className="block text-sm font-medium text-foreground mb-2">
         {isEn ? "Facebook Page" : "صفحة Facebook"} <span className="text-red-500">*</span>
       </label>
 
       {facebookPagesMeta?.primaryWarning && (
-        <div className="mb-3 rounded-lg border border-amber-200 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-950/40 p-3 text-sm text-amber-800 dark:text-amber-300">
+        <div className="mb-3 rounded-lg border border-warning dark:border-warning/60 bg-warning/10 dark:bg-warning/40 p-3 text-sm text-warning dark:text-warning">
           {facebookPagesMeta.primaryWarning}
         </div>
       )}
 
       {loadingPages ? (
-        <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg">
+        <div className="flex items-center gap-2 text-muted-foreground p-3 border border-border bg-card rounded-lg">
           <Loader2 className="w-4 h-4 animate-spin" />
           <span className="text-sm">{isEn ? "Loading pages..." : "جاري تحميل الصفحات..."}</span>
         </div>
@@ -59,8 +59,8 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
         <select
           value={formData.pageId}
           onChange={(e) => handleChange("pageId", e.target.value)}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-            getError("pageId") ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground ${
+            getError("pageId") ? "border-red-500" : "border-border"
           }`}
         >
           <option value="">{isEn ? "Select Page" : "اختر الصفحة"}</option>
@@ -97,8 +97,8 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
           )}
         </select>
       ) : (
-        <div className="bg-yellow-50 dark:bg-yellow-950/40 border border-yellow-200 dark:border-yellow-800/60 rounded-lg p-3">
-          <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-2">
+        <div className="bg-yellow-50 dark:bg-warning/40 border border-warning dark:border-warning/60 rounded-lg p-3">
+          <p className="text-sm text-warning dark:text-warning mb-2">
             {isEn ? "⚠️ No pages available. You can enter the page ID manually:" : "⚠️ لا توجد صفحات متاحة. يمكنك إدخال معرف الصفحة يدوياً:"}
           </p>
           <input
@@ -106,20 +106,20 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
             value={formData.pageId}
             onChange={(e) => handleChange("pageId", e.target.value)}
             placeholder={isEn ? "e.g. 123456789" : "مثال: 123456789"}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg text-sm"
+            className="w-full px-3 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg text-sm"
           />
         </div>
       )}
 
       {facebookPagesMeta?.counts && (
         <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-3">
-          <div className="rounded-lg border border-green-200 dark:border-green-800/60 bg-green-50 dark:bg-green-950/40 px-3 py-2 text-xs text-green-800 dark:text-green-300">
+          <div className="rounded-lg border border-success dark:border-success/60 bg-success/10 dark:bg-success/40 px-3 py-2 text-xs text-success dark:text-success">
             {isEn ? "Ready Pages: " : "صفحات الشركة الجاهزة: "}{facebookPagesMeta.counts.ready}
           </div>
-          <div className="rounded-lg border border-amber-200 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-950/40 px-3 py-2 text-xs text-amber-800 dark:text-amber-300">
+          <div className="rounded-lg border border-warning dark:border-warning/60 bg-warning/10 dark:bg-warning/40 px-3 py-2 text-xs text-warning dark:text-warning">
             {isEn ? "Unlinked Meta Pages: " : "صفحات Meta غير المربوطة: "}{facebookPagesMeta.counts.accessibleButNotConnected}
           </div>
-          <div className="rounded-lg border border-red-200 dark:border-red-800/60 bg-red-50 dark:bg-red-950/40 px-3 py-2 text-xs text-red-800 dark:text-red-300">
+          <div className="rounded-lg border border-destructive dark:border-destructive/60 bg-destructive/10 dark:bg-destructive/40 px-3 py-2 text-xs text-destructive dark:text-destructive">
             {isEn ? "Unavailable Pages: " : "صفحات الشركة غير المتاحة: "}{facebookPagesMeta.counts.connectedButNotAccessible}
           </div>
         </div>
@@ -127,7 +127,7 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
 
       {selectedFacebookPage &&
         selectedFacebookPage.isConnectedToCompany === false && (
-          <div className="mt-3 rounded-lg border border-amber-200 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-950/40 p-3 text-sm text-amber-800 dark:text-amber-300">
+          <div className="mt-3 rounded-lg border border-warning dark:border-warning/60 bg-warning/10 dark:bg-warning/40 p-3 text-sm text-warning dark:text-warning">
             {isEn
               ? "The ad will be published under an available page from the current Meta account, but it is not linked to this company in Max P."
               : "سيتم إنشاء الإعلان باسم صفحة متاحة من حساب Meta الحالي لكنها غير مربوطة بهذه الشركة داخل Max P."}
@@ -135,20 +135,20 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
         )}
 
       {selectedFacebookPage?.warning && (
-        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-xs text-muted-foreground">
           {selectedFacebookPage.warning}
         </p>
       )}
 
       {facebookPagesMeta?.permissions?.missingRecommended?.length ? (
-        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-xs text-muted-foreground">
           {isEn ? "Recommended permissions to display all pages: " : "الصلاحيات التي قد نحتاجها لإظهار الصفحات بشكل أكمل: "}
           {facebookPagesMeta.permissions.missingRecommended.join(", ")}
         </p>
       ) : null}
 
       {getError("pageId") && (
-        <p className="mt-1 text-sm text-red-500">{getError("pageId")}</p>
+        <p className="mt-1 text-sm text-destructive">{getError("pageId")}</p>
       )}
 
       {/* Instagram Account Identity */}

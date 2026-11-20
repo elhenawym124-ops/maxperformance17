@@ -69,6 +69,6 @@ export const INVOICE_MODES: {
 ];
 
 export const sectionCardCls =
-  "bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-5";
+  "bg-card rounded-xl border dark:border-border p-5";
 export const labelCls =
-  "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  "block text-sm font-medium text-foreground mb-1";

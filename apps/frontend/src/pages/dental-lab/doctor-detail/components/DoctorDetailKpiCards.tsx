@@ -36,27 +36,27 @@ export function DoctorDetailKpiCards({
       {/* 4 Financial & Operational Metric Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         {/* Card 1: Outstanding Balance */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-3.5 sm:p-4 shadow-sm">
+        <div className="bg-card rounded-xl border dark:border-border p-3.5 sm:p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+            <span className="text-xs text-muted-foreground font-medium">
               الرصيد المتبقي (المديونية)
             </span>
-            <Wallet className="w-4 h-4 text-red-500" />
+            <Wallet className="w-4 h-4 text-destructive" />
           </div>
           <p
             className={`text-lg sm:text-2xl font-black mt-1.5 font-mono tabular-nums ${
-              (doctor.outstanding ?? 0) > 0 ? "text-red-600 dark:text-red-400" : "text-emerald-600"
+              (doctor.outstanding ?? 0) > 0 ? "text-red-600 dark:text-destructive" : "text-emerald-600"
             }`}
           >
             {fmtMoney(doctor.outstanding ?? 0)}{" "}
             <span className="text-xs font-normal font-sans">ج.م</span>
           </p>
-          <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+          <div className="mt-1 flex items-center justify-between text-[11px] text-muted-foreground">
             <span>
               حد الائتمان: {doctor.creditLimit ? `${fmtMoney(doctor.creditLimit)} ج.م` : "غير محدد"}
             </span>
             {doctor.creditExceeded && (
-              <span className="text-red-600 dark:text-red-400 font-bold bg-red-50 dark:bg-red-900/40 px-1.5 py-0.5 rounded">
+              <span className="text-red-600 dark:text-destructive font-bold bg-destructive/10 dark:bg-destructive/40 px-1.5 py-0.5 rounded">
                 تجاوز الحد!
               </span>
             )}
@@ -64,35 +64,35 @@ export function DoctorDetailKpiCards({
         </div>
 
         {/* Card 2: Total Invoiced */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-3.5 sm:p-4 shadow-sm">
+        <div className="bg-card rounded-xl border dark:border-border p-3.5 sm:p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+            <span className="text-xs text-muted-foreground font-medium">
               إجمالي المسحوبات (الفوترة)
             </span>
             <Receipt className="w-4 h-4 text-blue-500" />
           </div>
-          <p className="text-lg sm:text-2xl font-black mt-1.5 text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+          <p className="text-lg sm:text-2xl font-black mt-1.5 text-foreground font-mono tabular-nums">
             {fmtMoney(doctor.totalBilled ?? 0)}{" "}
             <span className="text-xs font-normal font-sans">ج.م</span>
           </p>
-          <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+          <p className="mt-1 text-[11px] text-muted-foreground font-mono tabular-nums">
             {doctor.invoicesCount ?? 0} فواتير مسجلة
           </p>
         </div>
 
         {/* Card 3: Total Paid */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-3.5 sm:p-4 shadow-sm">
+        <div className="bg-card rounded-xl border dark:border-border p-3.5 sm:p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+            <span className="text-xs text-muted-foreground font-medium">
               إجمالي المدفوعات (المحصل)
             </span>
-            <Banknote className="w-4 h-4 text-emerald-500" />
+            <Banknote className="w-4 h-4 text-success" />
           </div>
-          <p className="text-lg sm:text-2xl font-black mt-1.5 text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <p className="text-lg sm:text-2xl font-black mt-1.5 text-success dark:text-success font-mono tabular-nums">
             {fmtMoney(doctor.totalPaid ?? 0)}{" "}
             <span className="text-xs font-normal font-sans">ج.م</span>
           </p>
-          <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+          <p className="mt-1 text-[11px] text-muted-foreground font-mono tabular-nums">
             نسبة التحصيل:{" "}
             {(doctor.totalBilled ?? 0) > 0
               ? `${Math.round(((doctor.totalPaid ?? 0) / (doctor.totalBilled || 1)) * 100)}%`
@@ -101,19 +101,19 @@ export function DoctorDetailKpiCards({
         </div>
 
         {/* Card 4: Cases Status */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-3.5 sm:p-4 shadow-sm">
+        <div className="bg-card rounded-xl border dark:border-border p-3.5 sm:p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+            <span className="text-xs text-muted-foreground font-medium">
               حالات الطبيب
             </span>
-            <Layers className="w-4 h-4 text-indigo-500" />
+            <Layers className="w-4 h-4 text-primary" />
           </div>
           <div className="flex items-baseline gap-2 mt-1.5">
-            <span className="text-lg sm:text-2xl font-black text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+            <span className="text-lg sm:text-2xl font-black text-foreground font-mono tabular-nums">
               {doctor.activeCases ?? 0}
             </span>
             <span className="text-xs text-blue-600 font-semibold">حالة شغالة</span>
-            <span className="text-xs text-gray-400 font-mono tabular-nums">
+            <span className="text-xs text-muted-foreground font-mono tabular-nums">
               / {doctor.casesCount ?? 0} إجمالي
             </span>
           </div>
@@ -134,7 +134,7 @@ export function DoctorDetailKpiCards({
       </div>
 
       {/* Navigation Tabs Bar */}
-      <div className="border-b dark:border-gray-700">
+      <div className="border-b dark:border-border">
         <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar pb-px">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -146,7 +146,7 @@ export function DoctorDetailKpiCards({
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium text-sm whitespace-nowrap transition-all touch-manipulation min-h-[44px] ${
                   active
                     ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20"
-                    : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300"
+                    : "border-transparent text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:border-border"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -156,7 +156,7 @@ export function DoctorDetailKpiCards({
                     className={`text-xs px-2 py-0.5 rounded-full font-bold font-mono tabular-nums ${
                       active
                         ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+                        : "bg-gray-100 dark:bg-muted text-foreground dark:text-muted-foreground"
                     }`}
                   >
                     {tab.count}

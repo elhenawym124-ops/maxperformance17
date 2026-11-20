@@ -29,9 +29,9 @@ export function InspectorStatusBanner({ caseData }: InspectorStatusBannerProps) 
   };
 
   return (
-    <div className="flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 rounded-xl">
+    <div className="flex items-center justify-between p-2.5 bg-muted dark:bg-muted border border-border dark:border-border rounded-xl">
       <div className="flex items-center gap-2">
-        <span className="font-semibold text-slate-600 dark:text-slate-300">
+        <span className="font-semibold text-foreground dark:text-muted-foreground">
           مرحلة التشغيل:
         </span>
         <span
@@ -42,12 +42,12 @@ export function InspectorStatusBanner({ caseData }: InspectorStatusBannerProps) 
       </div>
 
       {isOverdue ? (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-bold bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800 animate-pulse">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-bold bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive dark:border-destructive animate-pulse">
           <AlertTriangle className="w-3.5 h-3.5" />
           <span>متأخر {daysOverdue} يوم</span>
         </span>
       ) : caseData.dueDate ? (
-        <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium">
+        <span className="text-slate-500 dark:text-muted-foreground flex items-center gap-1 font-medium">
           <Clock className="w-3.5 h-3.5 text-blue-500" />
           <span>تسليم: {fmtDate(caseData.dueDate)}</span>
         </span>

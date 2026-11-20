@@ -24,7 +24,7 @@ export const ABTestVariantCard: React.FC<ABTestVariantCardProps> = ({ variant })
             {variant.variantType}
           </span>
           {variant.isWinner && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium rounded bg-success/10 text-success dark:text-success border border-success/20">
               <Award className="h-3 w-3" />
               المتغير الفائز
             </span>

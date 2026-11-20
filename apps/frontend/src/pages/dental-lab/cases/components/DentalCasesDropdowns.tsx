@@ -70,10 +70,10 @@ export function DentalCasesDropdowns({
   const yesterdayStr = yesterdayDate.toLocaleDateString("en-CA");
 
   return (
-    <div className="flex flex-wrap items-center gap-1.5 border-t border-slate-100 dark:border-gray-700/60 pt-2 text-xs">
+    <div className="flex flex-wrap items-center gap-1.5 border-t border-border dark:border-border pt-2 text-xs">
       {viewMode !== "TRASH" && (
         <select
-          className="bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
+          className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
           value={status}
           onChange={(e) => {
             applyFilter("status", e.target.value);
@@ -91,7 +91,7 @@ export function DentalCasesDropdowns({
       )}
 
       <select
-        className="bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[150px]"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[150px]"
         value={doctorId}
         onChange={(e) => {
           applyFilter("doctorId", e.target.value);
@@ -110,7 +110,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[140px]"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[140px]"
         value={workTypeId}
         onChange={(e) => {
           applyFilter("workTypeId", e.target.value);
@@ -127,7 +127,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
         value={priority}
         onChange={(e) => {
           applyFilter("priority", e.target.value);
@@ -142,7 +142,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[130px]"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[130px]"
         value={technicianId}
         onChange={(e) => {
           applyFilter("technicianId", e.target.value);
@@ -161,7 +161,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
         value={paymentStatus}
         onChange={(e) => {
           applyFilter("paymentStatus", e.target.value);
@@ -176,10 +176,10 @@ export function DentalCasesDropdowns({
       </select>
 
       {/* Agenda Date Range & Shortcuts */}
-      <div className="flex items-center gap-1 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-lg px-2 py-0.5 text-xs">
+      <div className="flex items-center gap-1 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-0.5 text-xs">
         <span className="text-slate-400 font-medium text-[11px]">الأجندة:</span>
         <select
-          className="bg-transparent text-xs text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer"
+          className="bg-transparent text-xs text-foreground dark:text-muted-foreground focus:outline-none cursor-pointer"
           value={agendaField}
           onChange={(e) => {
             setAgendaField(e.target.value as "receivedDate" | "dueDate");
@@ -190,7 +190,7 @@ export function DentalCasesDropdowns({
           <option value="dueDate">تاريخ التسليم</option>
         </select>
         <DateInput
-          className="bg-transparent text-xs text-slate-800 dark:text-slate-200 focus:outline-none w-[110px] font-mono"
+          className="bg-transparent text-xs text-foreground dark:text-muted-foreground focus:outline-none w-[110px] font-mono"
           value={agendaDate}
           onChange={(e) => {
             const val = e.target.value;
@@ -206,7 +206,7 @@ export function DentalCasesDropdowns({
               setDateRangePreset("ALL");
               setPage(1);
             }}
-            className="text-slate-400 hover:text-slate-600"
+            className="text-slate-400 hover:text-foreground"
             title="مسح التاريخ"
             aria-label="مسح التاريخ"
           >
@@ -215,7 +215,7 @@ export function DentalCasesDropdowns({
         )}
       </div>
 
-      <div className="flex items-center bg-slate-100 dark:bg-gray-800 p-0.5 rounded-lg text-[11px]">
+      <div className="flex items-center bg-muted dark:bg-muted p-0.5 rounded-lg text-[11px]">
         <button
           type="button"
           onClick={() => {
@@ -224,8 +224,8 @@ export function DentalCasesDropdowns({
           }}
           className={`px-2 py-0.5 rounded transition-colors ${
             agendaDate === yesterdayStr
-              ? "bg-white dark:bg-gray-700 font-bold shadow-2xs text-blue-600"
-              : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+              ? "bg-card font-bold shadow-2xs text-blue-600"
+              : "text-slate-600 dark:text-muted-foreground hover:text-foreground"
           }`}
         >
           أمس
@@ -238,8 +238,8 @@ export function DentalCasesDropdowns({
           }}
           className={`px-2 py-0.5 rounded transition-colors ${
             agendaDate === todayStr
-              ? "bg-white dark:bg-gray-700 font-bold shadow-2xs text-blue-600"
-              : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+              ? "bg-card font-bold shadow-2xs text-blue-600"
+              : "text-slate-600 dark:text-muted-foreground hover:text-foreground"
           }`}
         >
           اليوم
@@ -252,7 +252,7 @@ export function DentalCasesDropdowns({
               setDateRangePreset("ALL");
               setPage(1);
             }}
-            className="px-2 py-0.5 rounded text-slate-500 hover:text-slate-800"
+            className="px-2 py-0.5 rounded text-muted-foreground hover:text-foreground"
           >
             كل المواعيد
           </button>
@@ -263,7 +263,7 @@ export function DentalCasesDropdowns({
         <button
           type="button"
           onClick={clearAllFilters}
-          className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 font-bold text-xs flex items-center gap-1 px-2.5 py-1 rounded-lg border border-rose-200 dark:border-rose-900 transition-colors mr-auto"
+          className="text-rose-600 dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 font-bold text-xs flex items-center gap-1 px-2.5 py-1 rounded-lg border border-destructive dark:border-destructive transition-colors me-auto"
           title="إلغاء كل الفلاتر وإعادة ضبط الجدول"
         >
           <FilterX className="w-3.5 h-3.5" />

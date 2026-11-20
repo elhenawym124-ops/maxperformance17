@@ -23,9 +23,9 @@ export interface DentalCaseEditFinancialSectionProps {
   setStatus: (s: DentalCaseStatus) => void;
 }
 
-const labelCls = "block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1";
+const labelCls = "block text-xs font-semibold text-foreground mb-1";
 const sectionTitleCls =
-  "text-sm font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2 border-b dark:border-gray-700 pb-2 mb-3";
+  "text-sm font-bold text-foreground flex items-center gap-2 border-b dark:border-border pb-2 mb-3";
 
 export const DentalCaseEditFinancialSection: React.FC<DentalCaseEditFinancialSectionProps> = ({
   priceSnapshot,
@@ -42,7 +42,7 @@ export const DentalCaseEditFinancialSection: React.FC<DentalCaseEditFinancialSec
   setStatus,
 }) => {
   return (
-    <div className="bg-gray-50/70 dark:bg-gray-800/40 p-4 rounded-xl border dark:border-gray-700/60">
+    <div className="bg-gray-50/70 dark:bg-muted p-4 rounded-xl border dark:border-border">
       <h4 className={sectionTitleCls}>
         <DollarSign className="w-4 h-4 text-blue-600 dark:text-blue-400" />
         <span>الأسعار والجدولة</span>

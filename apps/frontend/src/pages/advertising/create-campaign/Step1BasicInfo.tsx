@@ -22,7 +22,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
 }) => {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-xl font-semibold text-foreground">
         معلومات الحملة
       </h2>
 
@@ -30,7 +30,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
       <div>
         <label
           htmlFor="create-campaign-name"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           اسم الحملة *
         </label>
@@ -42,7 +42,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
           value={formData.name}
           onChange={(e) => handleInputChange("name", e.target.value)}
           placeholder="مثال: حملة صيف 2025"
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
         />
       </div>
 
@@ -50,7 +50,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
       <div>
         <label
           htmlFor="create-campaign-description"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           الوصف (اختياري)
         </label>
@@ -62,7 +62,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
           onChange={(e) => handleInputChange("description", e.target.value)}
           placeholder="وصف الحملة..."
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
         />
       </div>
 
@@ -70,7 +70,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
       <div>
         <label
           htmlFor="create-campaign-objective"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           هدف الحملة *
         </label>
@@ -80,7 +80,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
           autoComplete="off"
           value={formData.objective}
           onChange={(e) => handleInputChange("objective", e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         >
           {CAMPAIGN_OBJECTIVES.map((obj) => (
             <option key={obj.value} value={obj.value}>
@@ -89,7 +89,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
           ))}
         </select>
         {formData.objective && (
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-sm text-muted-foreground">
             {getObjectiveDescription(formData.objective)}
           </p>
         )}
@@ -98,8 +98,8 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
       {/* Ad Account */}
       {loadingAccounts ? (
         <div className="text-center py-4">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary dark:border-primary mx-auto"></div>
+          <p className="mt-2 text-sm text-foreground dark:text-muted-foreground">
             جاري تحميل حسابات Facebook Ads...
           </p>
         </div>
@@ -107,7 +107,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
         <div>
           <label
             htmlFor="create-campaign-ad-account"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-medium text-foreground mb-2"
           >
             حساب Facebook Ads *
           </label>
@@ -117,7 +117,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
             autoComplete="off"
             value={formData.adAccountId}
             onChange={(e) => handleInputChange("adAccountId", e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
             required
           >
             {adAccounts.map((account) => (
@@ -132,8 +132,8 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
           </select>
         </div>
       ) : (
-        <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-          <p className="text-sm text-yellow-800 dark:text-yellow-200">
+        <div className="p-4 bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg">
+          <p className="text-sm text-warning dark:text-warning">
             لا توجد حسابات Facebook Ads متاحة. يرجى ربط حساب Facebook أولاً.
           </p>
         </div>
@@ -143,7 +143,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
       <div>
         <label
           htmlFor="create-campaign-status"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           حالة الحملة
         </label>
@@ -155,7 +155,7 @@ export const Step1BasicInfo: React.FC<Step1BasicInfoProps> = ({
           onChange={(e) =>
             handleInputChange("status", e.target.value as "ACTIVE" | "PAUSED")
           }
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         >
           <option value="PAUSED">متوقفة (سأفعلها لاحقاً)</option>
           <option value="ACTIVE">نشطة (تبدأ فوراً)</option>

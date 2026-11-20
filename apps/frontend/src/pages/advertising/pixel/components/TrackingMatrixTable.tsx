@@ -107,14 +107,14 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
   };
 
   return (
-    <section className="border border-gray-200/90 dark:border-gray-800/90 bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-xs">
+    <section className="border border-border dark:border-border bg-white dark:bg-muted rounded-xl overflow-hidden shadow-xs">
       {/* Table Header Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-850/50">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-border dark:border-border bg-muted dark:bg-muted">
         <div>
-          <h2 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white">
+          <h2 className="text-sm sm:text-base font-bold text-foreground">
             مصفوفة تتبع الأحداث الهجينة (Hybrid Tracking Matrix)
           </h2>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             التحكم المتزامن بأحداث المتصفح والسيرفر مع ضمان منع التكرار (Deduplication)
           </p>
         </div>
@@ -122,7 +122,7 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
         <button
           type="button"
           onClick={handleEnableAll}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 border border-indigo-200/60 dark:border-indigo-800/60 transition-all active:scale-[0.97]"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 hover:bg-primary dark:hover:bg-primary/50 border border-primary/60 dark:border-primary/60 transition-all active:scale-[0.97]"
         >
           <SparklesIcon className="w-3.5 h-3.5" />
           <span>تفعيل الإعدادات الموصى بها</span>
@@ -133,17 +133,17 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
       <div className="overflow-x-auto">
         <table className="w-full text-right text-xs">
           <thead>
-            <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/40 text-gray-600 dark:text-gray-400 font-semibold">
+            <tr className="border-b border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-semibold">
               <th className="px-4 sm:px-6 py-3">الحدث والمعيار</th>
               <th className="px-4 sm:px-6 py-3 text-center">
                 <div className="inline-flex items-center gap-1.5">
-                  <GlobeAltIcon className="w-4 h-4 text-indigo-500" />
+                  <GlobeAltIcon className="w-4 h-4 text-primary" />
                   <span>متصفح الويب (Browser)</span>
                 </div>
               </th>
               <th className="px-4 sm:px-6 py-3 text-center">
                 <div className="inline-flex items-center gap-1.5">
-                  <ServerStackIcon className="w-4 h-4 text-emerald-500" />
+                  <ServerStackIcon className="w-4 h-4 text-success" />
                   <span>السيرفر (CAPI)</span>
                 </div>
               </th>
@@ -152,7 +152,7 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+          <tbody className="divide-y divide-border dark:divide-border">
             {TRACKING_EVENTS.map((event) => {
               const isPixelOn = Boolean(settings[event.pixelKey]);
               const isCapiOn = event.capiKey ? Boolean(settings[event.capiKey]) : false;
@@ -161,27 +161,27 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
               return (
                 <tr
                   key={event.id}
-                  className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors"
+                  className="hover:bg-gray-50/50 dark:hover:bg-muted transition-colors"
                 >
                   {/* Event Name & Spec */}
                   <td className="px-4 sm:px-6 py-3.5">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-gray-900 dark:text-white text-xs sm:text-sm">
+                      <span className="font-bold text-foreground text-xs sm:text-sm">
                         {event.name}
                       </span>
                       <code
                         dir="ltr"
-                        className="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-mono text-[11px] border border-gray-200/60 dark:border-gray-700/60"
+                        className="px-2 py-0.5 rounded bg-muted dark:bg-muted text-foreground font-mono text-[11px] border border-border dark:border-border"
                       >
                         {event.code}
                       </code>
                       {event.isHighValue && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60 font-semibold">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-warning/10 dark:bg-warning/40 text-warning dark:text-warning border border-warning/60 dark:border-warning/60 font-semibold">
                           أولوية قصوى
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
                       {event.description}
                     </p>
                   </td>
@@ -197,7 +197,7 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
                         }
                         className="sr-only peer"
                       />
-                      <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600 relative" />
+                      <div className="w-9 h-5 bg-muted peer-focus:outline-none rounded-full peer dark:bg-muted peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-border peer-checked:bg-indigo-600 relative" />
                     </label>
                   </td>
 
@@ -213,7 +213,7 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
                           }
                           className="sr-only peer"
                         />
-                        <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600 relative" />
+                        <div className="w-9 h-5 bg-muted peer-focus:outline-none rounded-full peer dark:bg-muted peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-border peer-checked:bg-emerald-600 relative" />
                       </label>
                     ) : (
                       <span className="text-gray-400 text-[11px]">—</span>
@@ -223,12 +223,12 @@ export const TrackingMatrixTable: React.FC<TrackingMatrixTableProps> = ({
                   {/* Deduplication Status */}
                   <td className="px-4 sm:px-6 py-3.5 text-center hidden md:table-cell">
                     {isDeduplicated ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium font-mono">
+                      <span className="inline-flex items-center gap-1 text-[11px] text-success dark:text-success font-medium font-mono">
                         <ShieldCheckIcon className="w-4 h-4" />
                         <span>event_id active</span>
                       </span>
                     ) : (
-                      <span className="text-[11px] text-gray-400 font-mono">
+                      <span className="text-[11px] text-muted-foreground font-mono">
                         {isPixelOn || isCapiOn ? "أحادي القناة" : "معطل"}
                       </span>
                     )}

@@ -113,14 +113,14 @@ export function DentalInvoiceMonthlySettlementModal({
         )}
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-3 border-t dark:border-gray-800 mt-2">
-          <span className="text-[11px] text-gray-400">
+        <div className="flex items-center justify-between pt-3 border-t dark:border-border mt-2">
+          <span className="text-[11px] text-muted-foreground">
             * يتم ترحيل الرصيد الختامي آلياً كرصيد أول مدة لشهر القادم.
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+            className="px-4 py-1.5 text-xs font-semibold text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
           >
             إغلاق
           </button>

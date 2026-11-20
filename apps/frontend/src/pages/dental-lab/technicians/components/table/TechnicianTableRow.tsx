@@ -52,7 +52,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
     const meta = ROLE_CONFIG[cleanRole] || ROLE_CONFIG[role];
     if (!meta) {
       return (
-        <span className="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+        <span className="px-2 py-0.5 rounded-full text-xs bg-muted text-foreground">
           {cleanRole}
         </span>
       );
@@ -75,9 +75,9 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
   return (
     <tr
       key={x.id}
-      className="border-b dark:border-gray-700 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700"
+      className="border-b dark:border-border last:border-b-0 hover:bg-muted/50"
     >
-      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">
+      <td className="py-3 px-3 font-medium text-foreground">
         <Link
           to={`/dental-lab/cases?technicianId=${x.id}`}
           className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline cursor-pointer"
@@ -86,35 +86,35 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
           {x.name}
         </Link>
       </td>
-      <td className="py-3 px-3 text-xs text-gray-600 dark:text-gray-300 font-mono" dir="ltr">
+      <td className="py-3 px-3 text-xs text-muted-foreground font-mono" dir="ltr">
         {x.phone || "—"}
       </td>
       <td className="py-3 px-3">{roleBadge(x.role)}</td>
       <td className="py-3 px-3 text-xs">
-        <div className="font-mono tabular-nums text-gray-800 dark:text-gray-200">
+        <div className="font-mono tabular-nums text-foreground dark:text-muted-foreground">
           {Array.isArray(x.workingDays) && x.workingDays.length > 0
             ? `${x.workingDays.length} أيام عمل`
             : "6 أيام (افتراضي)"}
         </div>
-        <div className="text-[11px] text-gray-400 mt-0.5 font-mono tabular-nums">
+        <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums">
           {x.dailyCap && x.dailyCap > 0 ? `سقف: ${x.dailyCap} حالة/يوم` : "سقف مفتوح"}
         </div>
         {vac.onVacation && vac.vacation && (
           <div
-            className="inline-flex items-center gap-1 mt-1 text-[11px] font-medium text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded px-1.5 py-0.5"
+            className="inline-flex items-center gap-1 mt-1 text-[11px] font-medium text-warning dark:text-warning bg-warning/10 dark:bg-warning/40 border border-warning dark:border-warning/60 rounded px-1.5 py-0.5"
             title={
               vac.vacation.reason
                 ? `السبب: ${vac.vacation.reason}`
                 : `في إجازة حتى ${vac.vacation.endDate}`
             }
           >
-            <Palmtree className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />
+            <Palmtree className="w-3 h-3 text-warning dark:text-warning shrink-0" />
             <span className="font-mono tabular-nums">في إجازة حتى {vac.vacation.endDate}</span>
           </div>
         )}
         {!vac.onVacation && vac.upcomingCount > 0 && (
           <div
-            className="inline-flex items-center gap-1 mt-0.5 text-[10px] text-amber-700/90 dark:text-amber-400/90 font-mono tabular-nums"
+            className="inline-flex items-center gap-1 mt-0.5 text-[10px] text-warning/90 dark:text-warning/90 font-mono tabular-nums"
             title={`${vac.upcomingCount} فترة إجازة قادمة مسجلة`}
           >
             <Palmtree className="w-2.5 h-2.5 shrink-0" />
@@ -126,7 +126,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
         {x.backupTechnicianName ||
         (x.backupTechnicianId &&
           rows.find((r) => r.id === x.backupTechnicianId)?.name) ? (
-          <span className="inline-flex items-center gap-1 text-[11px] text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800">
+          <span className="inline-flex items-center gap-1 text-[11px] text-primary dark:text-primary bg-primary/10 dark:bg-primary/30 px-2 py-0.5 rounded border border-primary dark:border-primary">
             {x.backupTechnicianName ||
               rows.find((r) => r.id === x.backupTechnicianId)?.name}
           </span>
@@ -136,11 +136,11 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
       </td>
       <td className="py-3 px-3">
         {x.wagePerStage != null ? (
-          <span className="font-semibold text-gray-800 dark:text-gray-200 font-mono tabular-nums">
+          <span className="font-semibold text-foreground dark:text-muted-foreground font-mono tabular-nums">
             {fmtMoney(x.wagePerStage)} ج.م
           </span>
         ) : (
-          <span className="text-xs text-gray-400 font-mono tabular-nums">
+          <span className="text-xs text-muted-foreground font-mono tabular-nums">
             افتراضي ({fmtMoney(wageDefault)} ج.م)
           </span>
         )}
@@ -153,26 +153,26 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
         {Number(x.totalBonuses) > 0 || Number(x.totalDeductions) > 0 ? (
           <div className="text-[11px] font-normal flex items-center gap-1 mt-0.5 font-mono tabular-nums">
             {Number(x.totalBonuses) > 0 && (
-              <span className="text-emerald-600 dark:text-emerald-400">
+              <span className="text-emerald-600 dark:text-success">
                 +{fmtMoney(x.totalBonuses)}
               </span>
             )}
             {Number(x.totalDeductions) > 0 && (
-              <span className="text-red-600 dark:text-red-400">
+              <span className="text-red-600 dark:text-destructive">
                 -{fmtMoney(x.totalDeductions)}
               </span>
             )}
           </div>
         ) : null}
       </td>
-      <td className="py-3 px-3 font-semibold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+      <td className="py-3 px-3 font-semibold text-primary dark:text-primary font-mono tabular-nums">
         {fmtMoney(x.totalPaid ?? 0)} ج.م
       </td>
       <td
         className={`py-3 px-3 font-bold font-mono tabular-nums ${
           (x.balanceDue ?? 0) > 0
-            ? "text-emerald-600 dark:text-emerald-400"
-            : "text-gray-600 dark:text-gray-300"
+            ? "text-emerald-600 dark:text-success"
+            : "text-muted-foreground"
         }`}
       >
         {fmtMoney(x.balanceDue ?? 0)} ج.م
@@ -193,7 +193,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
         ) : (
           <button
             onClick={() => onOpenEdit(x)}
-            className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800 hover:bg-amber-100"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-warning dark:text-warning bg-warning/10 dark:bg-warning/30 px-2 py-0.5 rounded border border-warning dark:border-warning hover:bg-warning"
             title="اضغط لإنشاء أو ربط حساب المنصة"
           >
             <Plus className="w-3 h-3" />
@@ -206,8 +206,8 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
           onClick={() => onToggleActive(x)}
           className={`text-xs px-2 py-0.5 rounded-full border ${
             x.isActive
-              ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 border-green-200 dark:border-green-800"
-              : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600"
+              ? "bg-green-100 text-success dark:bg-success/40 dark:text-success border-success dark:border-success"
+              : "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground border-border"
           }`}
         >
           {x.isActive ? t("dentalLab.common.active") : t("dentalLab.common.inactive")}
@@ -217,7 +217,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
         <div className="flex items-center gap-1">
           <button
             onClick={() => onOpenPayout(x)}
-            className="p-1.5 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"
+            className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded-lg transition-colors"
             title="صرف مستحقات / سلفة"
           >
             <Wallet className="w-4 h-4" />
@@ -231,7 +231,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
           </button>
           <button
             onClick={() => onOpenEdit(x)}
-            className="p-1.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-1.5 text-muted-foreground hover:bg-muted rounded-lg transition-colors"
             title={String(t("dentalLab.common.edit"))}
           >
             <Pencil className="w-4 h-4" />
@@ -239,7 +239,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
           <button
             onClick={() => onRemove(x)}
             disabled={removingId !== null}
-            className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg disabled:opacity-40 transition-colors"
+            className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40 transition-colors"
             title={String(t("dentalLab.common.delete"))}
           >
             <Trash2 className="w-4 h-4" />

@@ -55,7 +55,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
           type="button"
           onClick={() => onPermanentDelete(dentalCase)}
           disabled={isBusy}
-          className="p-1 text-xs font-semibold bg-red-50 text-red-700 rounded hover:bg-red-100 transition-colors disabled:opacity-50"
+          className="p-1 text-xs font-semibold bg-destructive/10 text-destructive rounded hover:bg-destructive transition-colors disabled:opacity-50"
           title="حذف نهائي"
           aria-label="حذف نهائي"
         >
@@ -81,7 +81,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
         <button
           type="button"
           onClick={() => onAdvanceCase(dentalCase)}
-          className="p-1.5 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-lg transition-colors"
+          className="p-1.5 hover:bg-success/10 dark:hover:bg-success/40 text-success dark:text-success rounded-lg transition-colors"
           title={`نقل إلى: ${CASE_STATUS_MAP[next]?.label || next}`}
           aria-label="ترقية المرحلة"
         >
@@ -92,7 +92,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
       <button
         type="button"
         onClick={() => onEditCase(dentalCase)}
-        className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 rounded-lg transition-colors"
+        className="p-1.5 hover:bg-muted dark:hover:bg-muted text-muted-foreground rounded-lg transition-colors"
         title="تعديل سريع"
         aria-label="تعديل سريع"
       >
@@ -102,7 +102,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
       <button
         type="button"
         onClick={() => onPrintPanLabel(dentalCase)}
-        className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 rounded-lg transition-colors"
+        className="p-1.5 hover:bg-muted dark:hover:bg-muted text-muted-foreground rounded-lg transition-colors"
         title="طباعة تيكت صينية"
         aria-label="طباعة تيكت صينية"
       >
@@ -113,7 +113,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
         type="button"
         onClick={() => onTrashCase(dentalCase)}
         disabled={isBusy}
-        className="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-500 rounded-lg transition-colors disabled:opacity-50"
+        className="p-1.5 hover:bg-destructive/10 dark:hover:bg-destructive/40 text-destructive rounded-lg transition-colors disabled:opacity-50"
         title="نقل إلى سلة المهملات"
         aria-label="نقل للمهملات"
       >

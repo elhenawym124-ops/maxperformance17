@@ -82,13 +82,13 @@ export const WizardStepContent: React.FC<WizardStepContentProps> = ({
   } = controller;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-8 mb-8">
+    <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-6 md:p-8 mb-8">
       {currentStep === 1 && (
         <ErrorBoundary
           fallback={
-            <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 text-center space-y-3">
-              <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-6 rounded-xl border border-warning dark:border-warning/60 bg-warning/50 dark:bg-warning/20 text-center space-y-3">
+              <AlertCircle className="w-10 h-10 text-warning mx-auto" />
+              <h3 className="font-semibold text-foreground">
                 {isEn
                   ? "Unable to load campaign details"
                   : "تعذر عرض بيانات الحملة"}
@@ -108,14 +108,14 @@ export const WizardStepContent: React.FC<WizardStepContentProps> = ({
       {currentStep === 2 && (
         <ErrorBoundary
           fallback={
-            <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 text-center space-y-3">
-              <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-6 rounded-xl border border-warning dark:border-warning/60 bg-warning/50 dark:bg-warning/20 text-center space-y-3">
+              <AlertCircle className="w-10 h-10 text-warning mx-auto" />
+              <h3 className="font-semibold text-foreground">
                 {isEn
                   ? "Unable to load budget & schedule settings"
                   : "تعذر عرض إعدادات الميزانية والجدول الزمني"}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-foreground dark:text-muted-foreground">
                 {isEn
                   ? "Please verify your Facebook Ad account connection or return to previous steps."
                   : "يرجى التأكد من ربط حساب إعلانات فيسبوك أو الرجوع للخطوة السابقة."}
@@ -151,9 +151,9 @@ export const WizardStepContent: React.FC<WizardStepContentProps> = ({
       {currentStep === 3 && (
         <ErrorBoundary
           fallback={
-            <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 text-center space-y-3">
-              <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-6 rounded-xl border border-warning dark:border-warning/60 bg-warning/50 dark:bg-warning/20 text-center space-y-3">
+              <AlertCircle className="w-10 h-10 text-warning mx-auto" />
+              <h3 className="font-semibold text-foreground">
                 {isEn
                   ? "Unable to load targeting options"
                   : "تعذر عرض خيارات الاستهداف"}
@@ -198,9 +198,9 @@ export const WizardStepContent: React.FC<WizardStepContentProps> = ({
       {currentStep === 4 && (
         <ErrorBoundary
           fallback={
-            <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 text-center space-y-3">
-              <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-6 rounded-xl border border-warning dark:border-warning/60 bg-warning/50 dark:bg-warning/20 text-center space-y-3">
+              <AlertCircle className="w-10 h-10 text-warning mx-auto" />
+              <h3 className="font-semibold text-foreground">
                 {isEn
                   ? "Unable to load ad placements"
                   : "تعذر عرض مواضع الإعلان"}
@@ -220,9 +220,9 @@ export const WizardStepContent: React.FC<WizardStepContentProps> = ({
       {currentStep === 5 && (
         <ErrorBoundary
           fallback={
-            <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 text-center space-y-3">
-              <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-6 rounded-xl border border-warning dark:border-warning/60 bg-warning/50 dark:bg-warning/20 text-center space-y-3">
+              <AlertCircle className="w-10 h-10 text-warning mx-auto" />
+              <h3 className="font-semibold text-foreground">
                 {isEn
                   ? "Unable to load creative options"
                   : "تعذر عرض خيارات وتصميم الكرياتيف"}
@@ -254,14 +254,14 @@ export const WizardStepContent: React.FC<WizardStepContentProps> = ({
       {currentStep === 6 && (
         <ErrorBoundary
           fallback={
-            <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 text-center space-y-3">
-              <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-6 rounded-xl border border-warning dark:border-warning/60 bg-warning/50 dark:bg-warning/20 text-center space-y-3">
+              <AlertCircle className="w-10 h-10 text-warning mx-auto" />
+              <h3 className="font-semibold text-foreground">
                 {isEn
                   ? "Unable to render ad review details"
                   : "تعذر عرض بعض تفاصيل مراجعة الإعلان"}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-foreground dark:text-muted-foreground">
                 {isEn
                   ? "You can still publish the campaign directly or return to previous steps to edit."
                   : "يمكنك متابعة نشر الحملة مباشرة أو الرجوع للخطوات السابقة لتعديل البيانات."}

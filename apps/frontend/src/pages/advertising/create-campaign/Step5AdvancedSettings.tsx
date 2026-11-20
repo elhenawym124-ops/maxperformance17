@@ -24,7 +24,7 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
 }) => {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-xl font-semibold text-foreground">
         إعدادات متقدمة
       </h2>
 
@@ -32,13 +32,13 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
       <div>
         {loadingPixels ? (
           <div className="text-center py-2" aria-live="polite">
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-indigo-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary mx-auto"></div>
           </div>
         ) : pixels.length > 0 ? (
           <>
             <label
               htmlFor="create-campaign-pixel-id"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              className="block text-sm font-medium text-foreground mb-2"
             >
               Facebook Pixel (للتتبع)
             </label>
@@ -48,7 +48,7 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
               autoComplete="off"
               value={formData.pixelId}
               onChange={(e) => handleInputChange("pixelId", e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
             >
               <option value="">بدون Pixel</option>
               {pixels.map((pixel) => (
@@ -59,23 +59,23 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
             </select>
           </>
         ) : (
-          <div className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg">
-            <p className="mb-1 text-sm font-medium text-gray-800 dark:text-gray-200">
+          <div className="p-3 bg-muted dark:bg-muted border border-border rounded-lg">
+            <p className="mb-1 text-sm font-medium text-foreground dark:text-muted-foreground">
               Facebook Pixel (للتتبع)
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-foreground dark:text-muted-foreground">
               لا توجد Pixels متاحة. يمكنك إضافة Pixel من إعدادات Facebook Pixel.
             </p>
           </div>
         )}
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-sm text-muted-foreground">
           اختر Pixel لتتبع التحويلات والأحداث
         </p>
       </div>
 
       {/* Buying Type */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           نوع الشراء (Buying Type)
         </label>
         <div className="grid grid-cols-2 gap-4">
@@ -84,15 +84,15 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
               key={type.value}
               className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
                 formData.buyingType === type.value
-                  ? "border-indigo-500 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                  : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700"
+                  ? "border-indigo-500 dark:border-primary bg-primary/10 dark:bg-primary/20"
+                  : "border-border hover:border-border dark:hover:border-border bg-card"
               }`}
               onClick={() => handleInputChange("buyingType", type.value)}
             >
-              <div className="font-medium text-gray-900 dark:text-white">
+              <div className="font-medium text-foreground">
                 {type.label}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <div className="text-sm text-foreground dark:text-muted-foreground mt-1">
                 {type.description}
               </div>
             </div>
@@ -104,7 +104,7 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
       <div>
         <label
           htmlFor="create-campaign-bid-strategy"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           استراتيجية المزايدة (Bid Strategy)
         </label>
@@ -114,7 +114,7 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
           autoComplete="off"
           value={formData.bidStrategy}
           onChange={(e) => handleInputChange("bidStrategy", e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         >
           {bidStrategies.map((strategy) => (
             <option key={strategy.value} value={strategy.value}>
@@ -123,7 +123,7 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
           ))}
         </select>
         {formData.bidStrategy && (
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-sm text-muted-foreground">
             {
               bidStrategies.find((s) => s.value === formData.bidStrategy)
                 ?.description
@@ -134,7 +134,7 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
 
       {/* Special Ad Categories */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+        <label className="block text-sm font-medium text-foreground mb-3">
           فئات الإعلانات الخاصة (Special Ad Categories)
         </label>
         <div className="space-y-3">
@@ -143,8 +143,8 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
               key={category.value}
               className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
                 formData.specialAdCategories?.includes(category.value)
-                  ? "border-indigo-500 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                  : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-700"
+                  ? "border-indigo-500 dark:border-primary bg-primary/10 dark:bg-primary/20"
+                  : "border-border hover:border-border dark:hover:border-border bg-card"
               }`}
               onClick={() => handleSpecialAdCategoryToggle(category.value)}
             >
@@ -161,13 +161,13 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
                   onChange={() =>
                     handleSpecialAdCategoryToggle(category.value)
                   }
-                  className="mt-1 w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  className="mt-1 w-4 h-4 text-primary border-border rounded focus:ring-primary"
                 />
                 <div className="flex-1">
-                  <div className="font-medium text-gray-900 dark:text-white">
+                  <div className="font-medium text-foreground">
                     {category.label}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <div className="text-sm text-foreground dark:text-muted-foreground mt-1">
                     {category.description}
                   </div>
                 </div>

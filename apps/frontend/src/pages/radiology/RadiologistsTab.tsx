@@ -107,18 +107,18 @@ export default function RadiologistsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.radiologists.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.radiologists.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.radiologists.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400 dark:text-gray-500" />
-            <input className="border dark:border-gray-600 rounded-lg pl-3 pr-9 py-2 text-sm dark:bg-gray-800 dark:text-gray-100" placeholder={t("radiology.radiologists.searchPlaceholder")} value={search} onChange={e => setSearch(e.target.value)} />
+            <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground/80" />
+            <input className="border dark:border-border rounded-lg ps-3 pe-9 py-2 text-sm dark:bg-muted dark:text-muted-foreground" placeholder={t("radiology.radiologists.searchPlaceholder")} value={search} onChange={e => setSearch(e.target.value)} />
           </div>
-          <label className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
+          <label className="flex items-center gap-1.5 text-sm text-muted-foreground whitespace-nowrap">
             <input type="checkbox" checked={includeInactive} onChange={e => setIncludeInactive(e.target.checked)} />
             {t("radiology.radiologists.showInactive")}
           </label>
-          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
           <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
@@ -128,15 +128,15 @@ export default function RadiologistsTab() {
       </div>
 
       {loading && !radiologists ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : radiologists === null || radiologists.length === 0 ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.radiologists.noRadiologists")}</p>
+        <p className="text-center py-16 text-muted-foreground/80">{t("radiology.radiologists.noRadiologists")}</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[600px]">
               <thead>
-                <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-sm">
+                <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-sm">
                   {[t("radiology.radiologists.name"), t("radiology.radiologists.location"), t("radiology.radiologists.actions")].map(h => (
                     <th key={h} className="text-right py-3 px-4 whitespace-nowrap">{h}</th>
                   ))}
@@ -144,22 +144,22 @@ export default function RadiologistsTab() {
               </thead>
               <tbody>
                 {radiologists.map(r => (
-                  <tr key={r.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
+                  <tr key={r.id} className="border-b dark:border-border hover:bg-muted/50 text-sm">
                     <td className="py-3 px-4">
                       <span className="font-medium">{r.name}</span>
                       {!r.isActive ? (
-                        <span className="mr-2 px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">{t("radiology.radiologists.inactive")}</span>
+                        <span className="me-2 px-2 py-0.5 rounded-full text-xs bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">{t("radiology.radiologists.inactive")}</span>
                       ) : null}
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${r.location === "ON_SITE" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" : "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${r.location === "ON_SITE" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"}`}>
                         {t(locationLabel(r.location))}
                       </span>
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-1.5">
                         <button onClick={() => openEdit(r)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
-                        <button onClick={() => remove(r)} className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => remove(r)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>
@@ -175,26 +175,26 @@ export default function RadiologistsTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{modal.id ? t("radiology.radiologists.editRadiologist") : t("radiology.radiologists.newRadiologistModal")}</h3>
-              <button onClick={() => setModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setModal(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.radiologists.nameRequired")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.radiologists.nameRequired")}</label>
                 <input className={MODAL_INPUT_CLS} value={modal.name} onChange={e => setModal({ ...modal, name: e.target.value })} placeholder={t("radiology.radiologists.namePlaceholder")} />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.radiologists.locationLabel")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.radiologists.locationLabel")}</label>
                 <select className={MODAL_INPUT_CLS} value={modal.location} onChange={e => setModal({ ...modal, location: e.target.value })}>
                   {RADIOLOGIST_LOCATIONS.map(l => <option key={l.value} value={l.value}>{t(l.label)}</option>)}
                 </select>
               </div>
               <div className="sm:col-span-2 flex items-center gap-2">
                 <input type="checkbox" checked={modal.isActive} onChange={e => setModal({ ...modal, isActive: e.target.checked })} />
-                <span className="text-sm text-gray-600 dark:text-gray-300">{t("radiology.radiologists.enabled")}</span>
+                <span className="text-sm text-muted-foreground">{t("radiology.radiologists.enabled")}</span>
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">{t("radiology.cancel")}</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
               <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>

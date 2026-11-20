@@ -25,12 +25,12 @@ const VideoStudioPage: React.FC = () => {
         <Clapperboard className="size-4 text-primary" />
         <h1 className="text-sm font-semibold">استوديو الفيديو</h1>
         {config?.simulation && (
-          <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-400">
+          <span className="rounded-full bg-warning/10 px-2 py-0.5 text-[10px] font-medium text-warning dark:text-warning">
             محاكاة
           </span>
         )}
         {config?.byok.configured && (
-          <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:text-emerald-400">
+          <span className="flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success dark:text-success">
             <KeyRound className="size-3" />
             مفتاحك
           </span>

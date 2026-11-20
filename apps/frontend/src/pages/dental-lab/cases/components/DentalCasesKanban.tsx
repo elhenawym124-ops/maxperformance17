@@ -44,7 +44,7 @@ export const DentalCasesKanban: React.FC<DentalCasesKanbanProps> = ({
           })}
         </div>
       </div>
-      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 pt-2 px-1">
+      <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 px-1">
         <span>عرض خط الإنتاج (Kanban Pipeline) — إجمالي {cases?.length || 0} حالة</span>
         <span>يمكنك ترقية الحالة إلى المرحلة التالية بضغطة زر واحدة مباشرة</span>
       </div>

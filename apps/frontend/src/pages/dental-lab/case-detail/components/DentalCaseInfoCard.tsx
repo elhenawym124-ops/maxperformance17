@@ -41,7 +41,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
               </Link>
               <Link
                 to={`/dental-lab/doctors/${c.doctorId}`}
-                className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 p-0.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 p-0.5 rounded hover:bg-muted transition"
                 title="الملف الشامل والمالي للطبيب"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -52,7 +52,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
           )}
           {c.doctor && c.doctorName && c.doctor.name !== c.doctorName && (
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20"
+              className="text-[10px] px-1.5 py-0.5 rounded bg-warning/10 text-warning dark:text-warning border border-warning/20"
               title="الاسم وقت إنشاء الحالة"
             >
               الاسم وقت التنفيذ: {c.doctorName}
@@ -71,13 +71,13 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
                 ? `/dental-lab/cases?workTypeId=${c.workTypeId}`
                 : `/dental-lab/cases?search=${encodeURIComponent(c.workTypeName || "")}`
             }
-            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:underline inline-flex items-center gap-1 font-medium transition-colors"
+            className="text-primary hover:text-primary dark:hover:text-primary hover:underline inline-flex items-center gap-1 font-medium transition-colors"
             title={`عرض كل حالات نوع الشغل: ${c.workType?.name || c.workTypeName || ""}`}
           >
             <span>{c.workType?.name || c.workTypeName || "—"}</span>
           </Link>
           {c.unitsCount && c.unitsCount > 1 ? (
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+            <span className="text-xs text-muted-foreground font-mono tabular-nums">
               ({c.unitsCount} وحدات)
             </span>
           ) : null}
@@ -114,7 +114,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
     {
       label: "رقم التشغيلة (Lot #)",
       value: c.lotNumber ? (
-        <span className="font-mono font-semibold text-gray-800 dark:text-gray-200">
+        <span className="font-mono font-semibold text-foreground dark:text-muted-foreground">
           {c.lotNumber}
         </span>
       ) : (
@@ -125,7 +125,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
       label: "فترة الضمان",
       value:
         c.warrantyYears && c.warrantyYears > 0 ? (
-          <span className="text-emerald-600 dark:text-emerald-400 font-semibold font-mono tabular-nums">
+          <span className="text-emerald-600 dark:text-success font-semibold font-mono tabular-nums">
             {c.warrantyYears} سنوات ضمان
           </span>
         ) : (
@@ -138,7 +138,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
         <span className="font-mono tabular-nums">
           {fmtMoney(c.priceSnapshot)}
           {c.discount && c.discount > 0 ? (
-            <span className="text-red-500 text-xs mr-1"> (خصم: {fmtMoney(c.discount)})</span>
+            <span className="text-red-500 text-xs me-1"> (خصم: {fmtMoney(c.discount)})</span>
           ) : null}
         </span>
       ),
@@ -148,7 +148,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
           {
             label: "جهة التشغيل الخارجي",
             value: (
-              <span className="font-semibold text-amber-600 dark:text-amber-400">
+              <span className="font-semibold text-warning dark:text-warning">
                 {c.externalLabName}
               </span>
             ),
@@ -188,15 +188,15 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
         {infoRows.map((r) => (
           <div key={r.label}>
-            <p className="text-gray-500 dark:text-gray-400 text-xs mb-0.5">{r.label}</p>
+            <p className="text-muted-foreground text-xs mb-0.5">{r.label}</p>
             <div className="font-medium">{r.value}</div>
           </div>
         ))}
       </div>
 
       {c.teeth ? (
-        <div className="mt-4 border-t dark:border-gray-700 pt-4">
-          <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+        <div className="mt-4 border-t dark:border-border pt-4">
+          <p className="text-xs font-semibold text-foreground mb-2">
             خريطة الأسنان المحددة في أمر الشغل (Visual FDI Odontogram):
           </p>
           <OdontogramChart
@@ -208,11 +208,11 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
       ) : null}
 
       {c.notes ? (
-        <div className="mt-4 border-t dark:border-gray-700 pt-3 text-sm">
-          <p className="text-gray-500 dark:text-gray-400 text-xs mb-0.5">
+        <div className="mt-4 border-t dark:border-border pt-3 text-sm">
+          <p className="text-muted-foreground text-xs mb-0.5">
             {t("dentalLab.common.notes")}
           </p>
-          <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{c.notes}</p>
+          <p className="text-gray-800 dark:text-muted-foreground whitespace-pre-wrap">{c.notes}</p>
         </div>
       ) : null}
     </DentalCaseCard>

@@ -70,7 +70,7 @@ export default function OdontogramChart({
           "w-8 h-10 sm:w-9 sm:h-11 p-0.5",
           isSelected
             ? "bg-blue-600 text-white shadow ring-2 ring-blue-400 font-bold scale-105 z-10"
-            : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20",
+            : "bg-gray-50 dark:bg-muted text-foreground border border-border dark:border-border hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20",
           readOnly ? "cursor-default" : "cursor-pointer",
         ].join(" ")}
       >
@@ -80,7 +80,7 @@ export default function OdontogramChart({
             "w-3.5 h-3.5 mt-0.5 rounded-sm flex items-center justify-center text-[9px]",
             isSelected
               ? "bg-white/25 text-white"
-              : "bg-gray-200 dark:bg-gray-700 text-gray-400",
+              : "bg-gray-200 dark:bg-muted text-muted-foreground",
             isUpper ? "rounded-t-md" : "rounded-b-md",
           ].join(" ")}
         >
@@ -91,12 +91,12 @@ export default function OdontogramChart({
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-3 sm:p-4 space-y-3">
+    <div className="rounded-xl border border-border dark:border-border bg-card p-3 sm:p-4 space-y-3">
       {/* Header & Quick selectors */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b dark:border-gray-700 pb-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b dark:border-border pb-2.5">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-blue-600" />
-          <span className="text-xs font-semibold text-gray-800 dark:text-gray-200">
+          <span className="text-xs font-semibold text-foreground dark:text-muted-foreground">
             خريطة الأسنان التفاعلية (نظام FDI)
           </span>
           <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
@@ -109,21 +109,21 @@ export default function OdontogramChart({
             <button
               type="button"
               onClick={() => selectGroup([...UPPER_RIGHT, ...UPPER_LEFT])}
-              className="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+              className="px-2 py-0.5 rounded bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             >
               العلوي
             </button>
             <button
               type="button"
               onClick={() => selectGroup([...LOWER_RIGHT, ...LOWER_LEFT])}
-              className="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+              className="px-2 py-0.5 rounded bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             >
               السفلي
             </button>
             <button
               type="button"
               onClick={() => selectGroup(ANTERIOR_TEETH)}
-              className="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+              className="px-2 py-0.5 rounded bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             >
               الأمامية
             </button>
@@ -131,7 +131,7 @@ export default function OdontogramChart({
               <button
                 type="button"
                 onClick={clearAll}
-                className="px-2 py-0.5 rounded text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-0.5"
+                className="px-2 py-0.5 rounded text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/20 flex items-center gap-0.5"
               >
                 <RotateCcw className="w-3 h-3" /> مسح
               </button>
@@ -144,7 +144,7 @@ export default function OdontogramChart({
       <div className="overflow-x-auto py-1">
         <div className="min-w-[540px] space-y-2">
           {/* Upper Arch Label */}
-          <div className="flex items-center justify-between text-[10px] font-semibold text-gray-400 dark:text-gray-500 px-2">
+          <div className="flex items-center justify-between text-[10px] font-semibold text-muted-foreground/80 px-2">
             <span>يمين المريض (Q1)</span>
             <span className="text-blue-600 dark:text-blue-400 font-medium">الفك العلوي (Upper Arch)</span>
             <span>يسار المريض (Q2)</span>
@@ -163,26 +163,26 @@ export default function OdontogramChart({
 
           {/* Divider */}
           <div className="flex items-center justify-center gap-2 py-0.5">
-            <div className="h-px bg-gray-200 dark:bg-gray-700 flex-1" />
-            <span className="text-[10px] text-gray-400 tracking-wider font-mono">خط الإطباق</span>
-            <div className="h-px bg-gray-200 dark:bg-gray-700 flex-1" />
+            <div className="h-px bg-muted dark:bg-muted flex-1" />
+            <span className="text-[10px] text-muted-foreground tracking-wider font-mono">خط الإطباق</span>
+            <div className="h-px bg-muted dark:bg-muted flex-1" />
           </div>
 
           {/* Lower Arch Teeth */}
-          <div className="flex items-center justify-center gap-1 sm:gap-1.5 p-2 bg-purple-50/40 dark:bg-purple-950/20 rounded-xl border border-purple-100/60 dark:border-purple-900/30">
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 p-2 bg-primary/40 dark:bg-primary/20 rounded-xl border border-primary/60 dark:border-primary/30">
             <div className="flex items-center gap-1 sm:gap-1.5">
               {LOWER_RIGHT.map(t => renderTooth(t, false))}
             </div>
-            <div className="w-0.5 h-10 bg-purple-300 dark:bg-purple-700 mx-1" />
+            <div className="w-0.5 h-10 bg-primary dark:bg-primary mx-1" />
             <div className="flex items-center gap-1 sm:gap-1.5">
               {LOWER_LEFT.map(t => renderTooth(t, false))}
             </div>
           </div>
 
           {/* Lower Arch Label */}
-          <div className="flex items-center justify-between text-[10px] font-semibold text-gray-400 dark:text-gray-500 px-2">
+          <div className="flex items-center justify-between text-[10px] font-semibold text-muted-foreground/80 px-2">
             <span>يمين المريض (Q4)</span>
-            <span className="text-purple-600 dark:text-purple-400 font-medium">الفك السفلي (Lower Arch)</span>
+            <span className="text-purple-600 dark:text-primary font-medium">الفك السفلي (Lower Arch)</span>
             <span>يسار المريض (Q3)</span>
           </div>
         </div>
@@ -190,8 +190,8 @@ export default function OdontogramChart({
 
       {/* Selected Chips */}
       {selectedSet.size > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t dark:border-gray-700">
-          <span className="text-[11px] text-gray-500 dark:text-gray-400">الأسنان المحددة:</span>
+        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t dark:border-border">
+          <span className="text-[11px] text-muted-foreground">الأسنان المحددة:</span>
           {Array.from(selectedSet).map(t => (
             <span
               key={t}
@@ -202,7 +202,7 @@ export default function OdontogramChart({
                 <button
                   type="button"
                   onClick={() => toggleTooth(t)}
-                  className="hover:text-red-500 text-gray-400"
+                  className="hover:text-red-500 text-muted-foreground"
                 >
                   ×
                 </button>

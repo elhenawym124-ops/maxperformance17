@@ -8,7 +8,7 @@ interface WizardStepperProps {
 
 export const WizardStepper: React.FC<WizardStepperProps> = ({ currentStep }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow dark:shadow-gray-900/20 overflow-hidden border-0 dark:border dark:border-gray-700">
+    <div className="bg-card p-6 rounded-lg shadow dark:shadow-gray-900/20 overflow-hidden border-0 dark:border dark:border-border">
       <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-4 lg:flex-nowrap lg:items-center lg:justify-between">
         {[1, 2, 3, 4, 5, 6].map((step) => (
           <React.Fragment key={step}>
@@ -16,10 +16,10 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ currentStep }) => 
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center ${
                   step < currentStep
-                    ? "bg-green-500 dark:bg-green-600 text-white"
+                    ? "bg-green-500 dark:bg-success text-white"
                     : step === currentStep
-                      ? "bg-indigo-600 dark:bg-indigo-500 text-white"
-                      : "bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400"
+                      ? "bg-indigo-600 dark:bg-primary text-white"
+                      : "bg-gray-200 dark:bg-muted text-foreground dark:text-muted-foreground"
                 }`}
               >
                 {step < currentStep ? (
@@ -31,8 +31,8 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ currentStep }) => 
               <p
                 className={`text-center text-xs font-medium ${
                   step <= currentStep
-                    ? "text-gray-900 dark:text-white"
-                    : "text-gray-500 dark:text-gray-400"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 {STEP_TITLES[step - 1]}
@@ -42,8 +42,8 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ currentStep }) => 
               <div
                 className={`hidden h-1 flex-1 mx-2 min-w-[20px] lg:block ${
                   step < currentStep
-                    ? "bg-green-500 dark:bg-green-400"
-                    : "bg-gray-200 dark:bg-gray-600"
+                    ? "bg-green-500 dark:bg-success"
+                    : "bg-gray-200 dark:bg-muted"
                 }`}
               />
             )}

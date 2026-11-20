@@ -18,13 +18,13 @@ export function TechnicianLedgerTable({
     switch (type) {
       case "PAYOUT":
         return (
-          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-success text-success dark:bg-success/60 dark:text-success">
             صرف مستحقات
           </span>
         );
       case "ADVANCE":
         return (
-          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
+          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-warning text-warning dark:bg-warning/60 dark:text-warning">
             سلفة نقدية
           </span>
         );
@@ -36,13 +36,13 @@ export function TechnicianLedgerTable({
         );
       case "DEDUCTION":
         return (
-          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300">
+          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-destructive text-destructive dark:bg-destructive/60 dark:text-destructive">
             خصم تالف/إعادة
           </span>
         );
       default:
         return (
-          <span className="px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-700">
+          <span className="px-2 py-0.5 rounded-full text-xs bg-muted text-foreground">
             {type}
           </span>
         );
@@ -59,23 +59,23 @@ export function TechnicianLedgerTable({
 
   return (
     <div className="overflow-y-auto flex-1 p-4">
-      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2.5">
+      <h4 className="text-xs font-semibold text-muted-foreground mb-2.5">
         سجل الحركات وسندات الصرف
       </h4>
       {loading ? (
         <div className="py-12 flex justify-center">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
         </div>
       ) : payouts.length === 0 ? (
-        <div className="text-center py-12 text-gray-400 dark:text-gray-500 text-sm">
+        <div className="text-center py-12 text-muted-foreground/80 text-sm">
           <Receipt className="w-10 h-10 mx-auto mb-2 opacity-40" />
           لا توجد سندات صرف أو حركات مسجلة لهذا الفني حتى الآن
         </div>
       ) : (
-        <div className="overflow-x-auto border dark:border-gray-700 rounded-lg">
+        <div className="overflow-x-auto border dark:border-border rounded-lg">
           <table className="w-full text-xs">
             <thead>
-              <tr className="bg-gray-50 dark:bg-gray-800 border-b dark:border-gray-700 text-gray-500">
+              <tr className="bg-gray-50 dark:bg-muted border-b dark:border-border text-muted-foreground">
                 <th className="py-2.5 px-3 text-right">التاريخ</th>
                 <th className="py-2.5 px-3 text-right">نوع الحركة</th>
                 <th className="py-2.5 px-3 text-right">المبلغ</th>
@@ -86,11 +86,11 @@ export function TechnicianLedgerTable({
                 <th className="py-2.5 px-3 text-right print:hidden">إجراء</th>
               </tr>
             </thead>
-            <tbody className="divide-y dark:divide-gray-700">
+            <tbody className="divide-y dark:divide-border">
               {payouts.map((p) => (
                 <tr
                   key={p.id}
-                  className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50"
+                  className="hover:bg-gray-50/50 dark:hover:bg-muted"
                 >
                   <td className="py-2.5 px-3 font-mono tabular-nums whitespace-nowrap">
                     {fmtDate(p.paidAt)}
@@ -110,23 +110,23 @@ export function TechnicianLedgerTable({
                     {p.type === "DEDUCTION" ? "-" : "+"}
                     {fmtMoney(p.amount)} ج.م
                   </td>
-                  <td className="py-2.5 px-3 whitespace-nowrap text-gray-600 dark:text-gray-300">
+                  <td className="py-2.5 px-3 whitespace-nowrap text-muted-foreground">
                     {methodLabel[p.paymentMethod] || p.paymentMethod}
                   </td>
-                  <td className="py-2.5 px-3 whitespace-nowrap text-gray-500 font-mono tabular-nums">
+                  <td className="py-2.5 px-3 whitespace-nowrap text-muted-foreground font-mono tabular-nums">
                     {p.reference || "—"}
                   </td>
-                  <td className="py-2.5 px-3 text-gray-700 dark:text-gray-300 max-w-xs truncate">
+                  <td className="py-2.5 px-3 text-foreground max-w-xs truncate">
                     {p.notes || "—"}
                   </td>
-                  <td className="py-2.5 px-3 text-gray-400 whitespace-nowrap">
+                  <td className="py-2.5 px-3 text-muted-foreground whitespace-nowrap">
                     {p.createdByName || "الإدارة"}
                   </td>
                   <td className="py-2.5 px-3 whitespace-nowrap print:hidden">
                     <button
                       onClick={() => onDelete(p.id)}
                       disabled={deletingId === p.id}
-                      className="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded transition-colors disabled:opacity-40"
+                      className="p-1 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded transition-colors disabled:opacity-40"
                       title="حذف السند"
                     >
                       {deletingId === p.id ? (
@@ -147,11 +147,11 @@ export function TechnicianLedgerTable({
       <div className="hidden print:grid grid-cols-2 gap-8 mt-12 pt-8 border-t text-sm">
         <div className="text-right">
           <p className="font-bold">توقيع الفني المستلم:</p>
-          <div className="mt-8 border-b border-dashed border-gray-400 w-48"></div>
+          <div className="mt-8 border-b border-dashed border-border w-48"></div>
         </div>
         <div className="text-left" dir="ltr">
           <p className="font-bold">توقيع الإدارة / الحسابات:</p>
-          <div className="mt-8 border-b border-dashed border-gray-400 w-48 ml-auto"></div>
+          <div className="mt-8 border-b border-dashed border-border w-48 ms-auto"></div>
         </div>
       </div>
     </div>

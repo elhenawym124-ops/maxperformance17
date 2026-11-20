@@ -32,7 +32,7 @@ export const CreateAdStepsNav: React.FC<CreateAdStepsNavProps> = ({
               isCurrent
                 ? 'border-primary bg-primary/10 text-primary font-semibold shadow-xs'
                 : isCompleted
-                ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-medium'
+                ? 'border-emerald-500/30 bg-success/10 text-success dark:text-success font-medium'
                 : 'border-border/60 text-muted-foreground hover:text-foreground hover:bg-muted/30'
             }`}
           >

@@ -44,7 +44,7 @@ export const CreativeStudioTabBar: React.FC<CreativeStudioTabBarProps> = ({
       id: "LIBRARY" as const,
       label: "مكتبة المشاهد والتبديل",
       icon: Layers,
-      iconClass: "text-indigo-600 dark:text-indigo-400",
+      iconClass: "text-primary",
     },
     {
       id: "PRESETS" as const,
@@ -73,7 +73,7 @@ export const CreativeStudioTabBar: React.FC<CreativeStudioTabBarProps> = ({
   ];
 
   return (
-    <div className="flex border-b border-slate-200/80 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 px-2 pt-1.5 gap-0.5 overflow-x-auto flex-shrink-0 no-scrollbar">
+    <div className="flex border-b border-border dark:border-border bg-muted dark:bg-muted px-2 pt-1.5 gap-0.5 overflow-x-auto flex-shrink-0 no-scrollbar">
       {tabs.map((tab) => {
         const IconComponent = tab.icon;
         const isActive = activeTab === tab.id;
@@ -84,8 +84,8 @@ export const CreativeStudioTabBar: React.FC<CreativeStudioTabBarProps> = ({
             onClick={() => onChangeTab(tab.id)}
             className={`flex items-center gap-1 px-2.5 py-1.5 text-xs font-bold rounded-t-lg transition cursor-pointer border-b-2 whitespace-nowrap ${
               isActive
-                ? "bg-white dark:bg-slate-950 text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 shadow-2xs"
-                : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-transparent"
+                ? "bg-white dark:bg-muted text-primary border-primary dark:border-primary shadow-2xs"
+                : "text-slate-500 hover:text-foreground dark:hover:text-muted-foreground border-transparent"
             }`}
           >
             <IconComponent

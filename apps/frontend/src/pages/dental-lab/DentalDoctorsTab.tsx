@@ -76,14 +76,14 @@ export default function DentalDoctorsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("dentalLab.doctors.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             {t("dentalLab.subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => load()}
-            className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
           >
             <RefreshCw className="w-4 h-4" />
             {t("dentalLab.common.refresh")}
@@ -99,11 +99,11 @@ export default function DentalDoctorsTab() {
       </div>
 
       {error && (
-        <div className="flex items-center justify-between bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+        <div className="flex items-center justify-between bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
           <span>{error}</span>
           <button
             onClick={() => setError(null)}
-            className="p-1 hover:bg-red-100 dark:hover:bg-red-900/50 rounded"
+            className="p-1 hover:bg-destructive dark:hover:bg-destructive/50 rounded"
           >
             <XMarkIcon className="w-4 h-4" />
           </button>

@@ -43,19 +43,19 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
 }) => {
   return (
     <div
-      className={`p-3.5 rounded-xl bg-white dark:bg-gray-850 border shadow-xs hover:shadow-md transition-all flex flex-col gap-2.5 ${
+      className={`p-3.5 rounded-xl bg-white dark:bg-muted border shadow-xs hover:shadow-md transition-all flex flex-col gap-2.5 ${
         isSelected
           ? "ring-2 ring-blue-500 border-blue-400 dark:border-blue-500"
           : isOverdue
-          ? "border-rose-300 dark:border-rose-900/80 bg-rose-50/20"
-          : "border-gray-200 dark:border-gray-700/80"
+          ? "border-rose-300 dark:border-destructive/80 bg-destructive/20"
+          : "border-gray-200 dark:border-border"
       }`}
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <input
             type="checkbox"
-            className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer"
+            className="rounded border-border text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer"
             checked={isSelected}
             onChange={() => toggleSelect(dentalCase.id)}
             aria-label={`تحديد حالة ${dentalCase.caseNumber || dentalCase.id}`}
@@ -84,7 +84,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
       </div>
 
       <div>
-        <div className="text-xs font-bold text-gray-900 dark:text-gray-100 truncate">
+        <div className="text-xs font-bold text-foreground truncate">
           {dentalCase.patientName}
         </div>
         {dentalCase.doctorName ? (
@@ -102,7 +102,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
                 if (dentalCase.doctorId) applyFilter("doctorId", dentalCase.doctorId, true);
                 else applyFilter("search", dentalCase.doctorName || "", true);
               }}
-              className="text-[11px] text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:underline truncate flex items-center gap-1"
+              className="text-[11px] text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:underline truncate flex items-center gap-1"
               title={`عرض كل حالات د. ${dentalCase.doctorName} فقط`}
             >
               <Stethoscope className="w-3 h-3 text-blue-500 shrink-0 opacity-70 group-hover/doc:opacity-100" />
@@ -111,7 +111,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
             {dentalCase.doctorId && (
               <Link
                 to={`/dental-lab/doctors/${dentalCase.doctorId}`}
-                className="opacity-0 group-hover/doc:opacity-100 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-opacity p-0.5"
+                className="opacity-0 group-hover/doc:opacity-100 text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-opacity p-0.5"
                 title="الملف الشامل للطبيب"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -120,13 +120,13 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
             )}
           </div>
         ) : (
-          <div className="text-[11px] text-gray-400 truncate mt-0.5">
+          <div className="text-[11px] text-muted-foreground truncate mt-0.5">
             د. طبيب غير محدد
           </div>
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 text-[11px] bg-gray-50 dark:bg-gray-800/80 p-2 rounded-lg border border-gray-100 dark:border-gray-700/50">
+      <div className="flex items-center justify-between gap-2 text-[11px] bg-muted dark:bg-muted p-2 rounded-lg border border-border dark:border-border">
         {dentalCase.workTypeName ? (
           <Link
             to={
@@ -141,14 +141,14 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
               if (dentalCase.workTypeId) applyFilter("workTypeId", dentalCase.workTypeId, true);
               else applyFilter("search", dentalCase.workTypeName || "", true);
             }}
-            className="font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline truncate flex items-center gap-1"
+            className="font-medium text-foreground hover:text-primary hover:underline truncate flex items-center gap-1"
             title={`عرض كل حالات نوع الشغل: ${dentalCase.workTypeName} فقط`}
           >
-            <Layers className="w-3 h-3 text-indigo-500 shrink-0" />
+            <Layers className="w-3 h-3 text-primary shrink-0" />
             <span className="truncate max-w-[120px]">{dentalCase.workTypeName}</span>
           </Link>
         ) : (
-          <span className="font-medium text-gray-500 truncate">
+          <span className="font-medium text-muted-foreground truncate">
             نوع الشغل غير محدد
           </span>
         )}
@@ -174,7 +174,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
                     e.stopPropagation();
                     applyFilter("technicianId", targetTechId, true);
                   }}
-                  className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/60 truncate max-w-[100px] cursor-pointer"
+                  className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary border border-primary dark:border-primary hover:bg-primary dark:hover:bg-primary/60 truncate max-w-[100px] cursor-pointer"
                   title={`عرض كل حالات الفني: ${techName} فقط`}
                 >
                   {techName}
@@ -184,7 +184,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
             <button
               type="button"
               onClick={() => onAssignCase(dentalCase)}
-              className="p-0.5 text-purple-600 hover:text-purple-800 hover:bg-purple-100 dark:hover:bg-purple-950/40 rounded transition-colors"
+              className="p-0.5 text-primary hover:text-primary hover:bg-primary dark:hover:bg-primary/40 rounded transition-colors"
               title="تعديل أو إضافة فني"
               aria-label="إسناد فني"
             >
@@ -195,7 +195,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
           <button
             type="button"
             onClick={() => onAssignCase(dentalCase)}
-            className="text-[10px] text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-0.5 font-medium transition-colors"
+            className="text-[10px] text-primary dark:text-primary hover:underline flex items-center gap-0.5 font-medium transition-colors"
           >
             <UserPlus className="w-3 h-3" />
             <span>إسناد فني</span>
@@ -203,9 +203,9 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
         )}
       </div>
 
-      <div className="flex items-center justify-between text-[11px] pt-1 border-t dark:border-gray-800">
+      <div className="flex items-center justify-between text-[11px] pt-1 border-t dark:border-border">
         <span className="text-gray-400 text-[10px]">دخول:</span>
-        <span className="text-gray-600 dark:text-gray-300 font-medium font-mono">
+        <span className="text-muted-foreground font-medium font-mono">
           {fmtDate(dentalCase.receivedDate)}
         </span>
       </div>
@@ -213,11 +213,11 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
       <div className="flex items-center justify-between text-[11px]">
         <span className="text-gray-400 text-[10px]">تسليم:</span>
         {isOverdue ? (
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-600 dark:text-rose-400 animate-pulse font-mono">
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-destructive dark:text-destructive animate-pulse font-mono">
             <Flame className="w-3 h-3" /> متأخر {daysOverdue} يوم
           </span>
         ) : (
-          <span className="text-gray-600 dark:text-gray-300 font-medium font-mono">
+          <span className="text-muted-foreground font-medium font-mono">
             {fmtDate(dentalCase.dueDate)}
           </span>
         )}

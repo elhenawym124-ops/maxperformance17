@@ -33,7 +33,7 @@ export function WorkTypeEditModal({
 
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
   const labelCls =
-    "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+    "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div
@@ -54,7 +54,7 @@ export function WorkTypeEditModal({
         />
 
         {error && (
-          <div className="mx-4 sm:mx-6 mt-4 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+          <div className="mx-4 sm:mx-6 mt-4 bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
             {error}
           </div>
         )}

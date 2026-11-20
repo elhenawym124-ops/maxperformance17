@@ -54,13 +54,13 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
       label: "صرف مستحقات إنتاج",
       desc: "دفع أجر المراحل المكتملة",
       color:
-        "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
+        "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success",
     },
     ADVANCE: {
       label: "سلفة نقدية على الحساب",
       desc: "سلفة تخصم لاحقاً من الأرباح",
       color:
-        "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
+        "bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning",
     },
     BONUS: {
       label: "مكافأة أداء / حافز",
@@ -72,7 +72,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
       label: "خصم (تالف / إعادة شغل)",
       desc: "خصم يقلل المستحق للفني",
       color:
-        "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800",
+        "bg-red-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive",
     },
   };
 
@@ -85,10 +85,10 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
         className={`${MODAL_CONTENT_CLS} max-w-lg max-h-[92vh] overflow-y-auto`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between pb-3 border-b dark:border-gray-700">
+        <div className="flex items-center justify-between pb-3 border-b dark:border-border">
           <div>
             <h3 className="text-lg font-bold">تسجيل حركة مالية / سند صرف</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               الفني: {tech.name} (المتبقي الحالي:{" "}
               <span className="font-mono tabular-nums">
                 {fmtMoney(tech.balanceDue ?? 0)} ج.م
@@ -98,7 +98,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
           </div>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+            className="p-1 hover:bg-muted rounded-lg"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -106,7 +106,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-xs font-semibold text-foreground mb-2">
               نوع الحركة المالية *
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -121,11 +121,11 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
                     className={`p-2.5 rounded-lg border text-right transition-all text-xs ${
                       isSelected
                         ? `${cfg.color} ring-2 ring-blue-500 font-bold shadow-sm`
-                        : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
+                        : "border-gray-200 dark:border-border hover:bg-muted dark:hover:bg-muted text-muted-foreground"
                     }`}
                   >
                     <div>{cfg.label}</div>
-                    <div className="text-[10px] text-gray-400 mt-0.5 font-normal">
+                    <div className="text-[10px] text-muted-foreground mt-0.5 font-normal">
                       {cfg.desc}
                     </div>
                   </button>
@@ -136,7 +136,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 المبلغ (ج.م) *
               </label>
               <input
@@ -151,7 +151,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 طريقة الصرف *
               </label>
               <select
@@ -170,7 +170,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 تاريخ الصرف
               </label>
               <DateInput
@@ -180,7 +180,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 الرقم المرجعي / رقم الإيصال
               </label>
               <input
@@ -194,7 +194,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               البيان / الملاحظات
             </label>
             <textarea
@@ -206,19 +206,19 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
             />
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t dark:border-gray-700">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t dark:border-border">
             <button
               type="button"
               onClick={onClose}
               disabled={saving}
-              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="px-4 py-2 text-sm text-muted-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={saving || !amount}
-              className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 font-semibold shadow-sm flex items-center gap-1.5"
+              className="px-5 py-2 text-sm bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 font-semibold shadow-sm flex items-center gap-1.5"
             >
               {saving ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

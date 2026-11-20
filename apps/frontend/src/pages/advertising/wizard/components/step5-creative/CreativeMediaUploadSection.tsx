@@ -55,7 +55,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-foreground">
           {isImage ? (isEn ? "Image" : "الصورة") : (isEn ? "Video" : "الفيديو")}{" "}
           <span className="text-red-500">*</span>
         </label>
@@ -89,7 +89,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
 
       {/* Active preview if media is present */}
       {hasActiveMedia && !uploading ? (
-        <div className="relative rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 overflow-hidden">
+        <div className="relative rounded-xl border border-border dark:border-border bg-muted dark:bg-muted overflow-hidden">
           {isVideo ? (
             <div className="relative bg-black flex items-center justify-center">
               <video
@@ -100,7 +100,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
               />
             </div>
           ) : (
-            <div className="relative h-48 sm:h-56 bg-slate-900/5 dark:bg-slate-950/40 flex items-center justify-center p-2">
+            <div className="relative h-48 sm:h-56 bg-muted dark:bg-muted flex items-center justify-center p-2">
               <img
                 src={formData.imageUrl}
                 alt="Ad Creative"
@@ -109,7 +109,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
             </div>
           )}
 
-          <div className="p-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between gap-3">
+          <div className="p-3 bg-card border-t border-border dark:border-border flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center flex-shrink-0 text-blue-600 dark:text-blue-400">
                 {isVideo ? (
@@ -119,10 +119,10 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-medium text-gray-900 dark:text-white truncate">
+                <p className="text-xs font-medium text-foreground truncate">
                   {isImage ? formData.imageUrl : formData.videoUrl}
                 </p>
-                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
+                <p className="text-[10px] text-success dark:text-success flex items-center gap-1 font-medium">
                   <CheckCircle2 className="w-3 h-3" />
                   {isEn ? "Media ready for Meta Ad" : "الملف جاهز للإعلان"}
                 </p>
@@ -132,7 +132,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-border dark:border-border hover:bg-muted/50 text-foreground transition-colors"
               >
                 <RefreshCw className="w-3 h-3" />
                 {isEn ? "Replace" : "تغيير"}
@@ -147,7 +147,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
                   }
                   if (fileInputRef.current) fileInputRef.current.value = "";
                 }}
-                className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors"
+                className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition-colors"
                 title={isEn ? "Remove" : "حذف"}
                 aria-label={isEn ? "Remove" : "حذف"}
               >
@@ -166,21 +166,21 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
           className={`border-2 border-dashed rounded-xl p-6 text-center transition-all cursor-pointer ${
             isDragging
               ? "border-blue-500 bg-blue-50/70 dark:bg-blue-950/40"
-              : "border-gray-300 dark:border-gray-700 hover:border-blue-400 bg-gray-50 dark:bg-gray-800/60"
+              : "border-gray-300 dark:border-border hover:border-blue-400 bg-muted dark:bg-muted"
           }`}
         >
           {uploading ? (
             <div className="py-2 space-y-3">
               <Loader2 className="w-10 h-10 mx-auto text-blue-500 animate-spin" />
               <div>
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                   {isEn ? `Uploading... ${uploadProgress}%` : `جاري الرفع... ${uploadProgress}%`}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn ? "Processing file and verifying format" : "جاري معالجة الملف والتحقق من التنسيق"}
                 </p>
               </div>
-              <div className="w-full max-w-xs mx-auto bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+              <div className="w-full max-w-xs mx-auto bg-muted dark:bg-muted rounded-full h-2 overflow-hidden">
                 <div
                   className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${uploadProgress}%` }}
@@ -192,12 +192,12 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
               <div className="w-12 h-12 mx-auto rounded-full bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-3">
                 <UploadCloud className="w-6 h-6" />
               </div>
-              <p className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">
+              <p className="text-sm font-medium text-foreground dark:text-muted-foreground mb-1">
                 {isEn
                   ? "Click to upload or drag & drop"
                   : "انقر للرفع من جهازك أو اسحب الملف وأفلته هنا"}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 {isImage
                   ? (isEn
                       ? "PNG, JPG, WEBP (Max 25MB) • 1080x1080 Recommended"
@@ -213,7 +213,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
 
       {/* Upload error banner if any */}
       {uploadError && (
-        <div className="flex items-center gap-2 p-2.5 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 rounded-lg text-xs text-red-600 dark:text-red-400">
+        <div className="flex items-center gap-2 p-2.5 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive rounded-lg text-xs text-destructive dark:text-destructive">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{uploadError}</span>
         </div>
@@ -222,11 +222,11 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
       {/* Direct URL Input */}
       <div className="pt-1">
         <div className="flex items-center gap-2 mb-2">
-          <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
-          <span className="text-xs text-gray-400 dark:text-gray-500">
+          <div className="flex-1 h-px bg-muted dark:bg-muted"></div>
+          <span className="text-xs text-muted-foreground/80">
             {isEn ? "or enter direct URL" : "أو أدخل رابط مباشر"}
           </span>
-          <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+          <div className="flex-1 h-px bg-muted dark:bg-muted"></div>
         </div>
         <input
           type="url"
@@ -235,15 +235,15 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
             handleChange(isImage ? "imageUrl" : "videoUrl", e.target.value)
           }
           placeholder="https://..."
-          className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+          className="w-full px-3.5 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
         />
         {isImage && getError("imageUrl") && (
-          <p className="mt-1 text-xs text-red-500">
+          <p className="mt-1 text-xs text-destructive">
             {getError("imageUrl")}
           </p>
         )}
         {isVideo && getError("videoUrl") && (
-          <p className="mt-1 text-xs text-red-500">
+          <p className="mt-1 text-xs text-destructive">
             {getError("videoUrl")}
           </p>
         )}

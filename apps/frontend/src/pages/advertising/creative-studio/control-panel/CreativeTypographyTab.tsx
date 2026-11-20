@@ -34,7 +34,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
   return (
     <div className="space-y-3">
       <div>
-        <Label className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+        <Label className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
           عنوان الإعلان الرئيسي (Headline)
         </Label>
         <Input
@@ -46,7 +46,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
       </div>
 
       <div>
-        <Label className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+        <Label className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
           النص التوضيحي (Subheadline)
         </Label>
         <Input
@@ -59,7 +59,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
 
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <Label className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+          <Label className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
             شارة الخصم (Badge)
           </Label>
           <Input
@@ -71,7 +71,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
         </div>
 
         <div>
-          <Label className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+          <Label className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
             زر الحث على الشراء (CTA)
           </Label>
           <Input
@@ -84,11 +84,11 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
       </div>
 
       {/* Brand Kit & Color Lock */}
-      <div className="p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-2.5">
+      <div className="p-3 rounded-xl border border-border dark:border-border bg-white dark:bg-muted space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <Palette className="w-3.5 h-3.5 text-indigo-500" />
-            <h4 className="text-xs font-black text-slate-900 dark:text-white">
+            <Palette className="w-3.5 h-3.5 text-primary" />
+            <h4 className="text-xs font-black text-foreground dark:text-white">
               تثبيت هوية وألوان البراند (Brand Kit)
             </h4>
           </div>
@@ -97,8 +97,8 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
             onClick={() => onUpdateBrandKit({ isLocked: !brandKit.isLocked })}
             className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition flex items-center gap-1 cursor-pointer ${
               brandKit.isLocked
-                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                ? "bg-emerald-100 text-success dark:bg-success dark:text-success"
+                : "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground"
             }`}
           >
             {brandKit.isLocked ? (
@@ -112,7 +112,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
 
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <Label className="text-[10px] font-bold text-slate-500 mb-1 block">
+            <Label className="text-[10px] font-bold text-muted-foreground mb-1 block">
               اللون الأساسي
             </Label>
             <div className="flex items-center gap-1">
@@ -137,7 +137,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
           </div>
 
           <div>
-            <Label className="text-[10px] font-bold text-slate-500 mb-1 block">
+            <Label className="text-[10px] font-bold text-muted-foreground mb-1 block">
               لون التمييز (Accent)
             </Label>
             <div className="flex items-center gap-1">
@@ -163,7 +163,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
         </div>
 
         <div>
-          <Label className="text-[10px] font-bold text-slate-500 mb-1 block">
+          <Label className="text-[10px] font-bold text-muted-foreground mb-1 block">
             طابع الهوية البصرية
           </Label>
           <select
@@ -171,7 +171,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
             onChange={(e) =>
               onUpdateBrandKit({ aestheticMood: e.target.value as any })
             }
-            className="w-full h-7 px-2 text-[11px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+            className="w-full h-7 px-2 text-[11px] rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-white"
           >
             <option value="minimalist-luxury">
               فخامة هادئة (Minimalist Luxury)
@@ -193,11 +193,11 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
       </div>
 
       {/* Brand Logo Overlay */}
-      <div className="p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-2">
+      <div className="p-3 rounded-xl border border-border dark:border-border bg-white dark:bg-muted space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <Bookmark className="w-3.5 h-3.5 text-indigo-500" />
-            <h4 className="text-xs font-black text-slate-900 dark:text-white">
+            <Bookmark className="w-3.5 h-3.5 text-primary" />
+            <h4 className="text-xs font-black text-foreground dark:text-white">
               لوجو العلامة التجارية (Brand Logo)
             </h4>
           </div>
@@ -218,8 +218,8 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
             }
             className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition cursor-pointer ${
               overlay.logo?.show
-                ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
-                : "bg-slate-100 text-slate-500"
+                ? "bg-indigo-100 text-primary dark:bg-primary dark:text-primary"
+                : "bg-slate-100 text-muted-foreground"
             }`}
           >
             {overlay.logo?.show ? "مفعل" : "معطل"}
@@ -235,17 +235,17 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
         />
 
         {overlay.logo?.url ? (
-          <div className="flex items-center gap-2 p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border">
+          <div className="flex items-center gap-2 p-1.5 rounded-lg bg-muted dark:bg-muted border">
             <img
               src={overlay.logo.url}
               alt="Logo preview"
               className="w-8 h-8 object-contain rounded border bg-white/20"
             />
             <div className="flex-1 min-w-0">
-              <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200 block truncate">
+              <span className="text-[11px] font-bold text-foreground dark:text-muted-foreground block truncate">
                 تم تعيين الشعار
               </span>
-              <p className="text-[9px] text-slate-400">
+              <p className="text-[9px] text-muted-foreground">
                 يظهر فوق الكانفاس والتصدير بدقة 2K
               </p>
             </div>
@@ -263,7 +263,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
             <button
               type="button"
               onClick={() => logoFileInputRef.current?.click()}
-              className="w-full py-1.5 px-2 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 hover:bg-slate-50 text-slate-600 dark:text-slate-400 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full py-1.5 px-2 rounded-lg border border-dashed border-border dark:border-border hover:bg-muted text-foreground dark:text-muted-foreground text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Upload className="w-3 h-3" />
               <span>رفع شعار المتجر (PNG مفرغ شفاف)</span>
@@ -284,9 +284,9 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
                     },
                   })
                 }
-                className="w-full py-1 px-2 rounded-lg border border-indigo-200 dark:border-indigo-800/80 bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold hover:bg-indigo-100 transition flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-1 px-2 rounded-lg border border-primary dark:border-primary/80 bg-primary/70 dark:bg-primary/40 text-primary dark:text-primary text-[11px] font-bold hover:bg-primary transition flex items-center justify-center gap-1 cursor-pointer"
               >
-                <Sparkles className="w-3 h-3 text-indigo-500" />
+                <Sparkles className="w-3 h-3 text-primary" />
                 <span>استخدام لوجو المتجر الافتراضي</span>
               </button>
             )}
@@ -295,9 +295,9 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
 
         {/* Logo Position & Size */}
         {overlay.logo?.show && (
-          <div className="grid grid-cols-2 gap-2 pt-1.5 border-t border-slate-100 dark:border-slate-800">
+          <div className="grid grid-cols-2 gap-2 pt-1.5 border-t border-border dark:border-border">
             <div>
-              <Label className="text-[10px] text-slate-500 mb-1 block">
+              <Label className="text-[10px] text-muted-foreground mb-1 block">
                 الموضع
               </Label>
               <select
@@ -310,7 +310,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
                     },
                   })
                 }
-                className="w-full h-7 px-1.5 text-xs rounded border bg-white dark:bg-slate-800"
+                className="w-full h-7 px-1.5 text-xs rounded border bg-white dark:bg-muted"
               >
                 <option value="top-right">أعلى اليمين</option>
                 <option value="top-left">أعلى اليسار</option>
@@ -320,7 +320,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
             </div>
 
             <div>
-              <Label className="text-[10px] text-slate-500 mb-1 block">
+              <Label className="text-[10px] text-muted-foreground mb-1 block">
                 الحجم
               </Label>
               <select
@@ -330,7 +330,7 @@ export const CreativeTypographyTab: React.FC<CreativeTypographyTabProps> = ({
                     logo: { ...overlay.logo!, size: e.target.value as any },
                   })
                 }
-                className="w-full h-7 px-1.5 text-xs rounded border bg-white dark:bg-slate-800"
+                className="w-full h-7 px-1.5 text-xs rounded border bg-white dark:bg-muted"
               >
                 <option value="sm">صغير</option>
                 <option value="md">متوسط</option>

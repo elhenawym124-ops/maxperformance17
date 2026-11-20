@@ -87,7 +87,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
             <button
               onClick={() => void printPdf()}
               disabled={printing}
-              className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-border rounded-lg text-xs hover:bg-muted/50 disabled:opacity-50 cursor-pointer"
             >
               {printing ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -114,7 +114,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
               <button
                 onClick={cancelEditReport}
                 disabled={savingReport}
-                className="px-3 py-1.5 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 cursor-pointer"
+                className="px-3 py-1.5 border dark:border-border rounded-lg text-xs hover:bg-muted/50 disabled:opacity-50 cursor-pointer"
               >
                 {t("radiology.cancel")}
               </button>
@@ -122,7 +122,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
           ) : (
             <button
               onClick={startEditReport}
-              className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-border rounded-lg text-xs hover:bg-muted/50 cursor-pointer"
             >
               <Pencil className="w-3.5 h-3.5" />
               {report ? t("radiology.details.editReport") : t("radiology.details.draftReport")}
@@ -168,7 +168,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
           <button
             onClick={() => void generateDraft()}
             disabled={aiDrafting}
-            className="flex items-center gap-1.5 px-3 py-1.5 border border-purple-300 dark:border-purple-800 text-purple-600 dark:text-purple-400 rounded-lg text-xs hover:bg-purple-50 dark:hover:bg-purple-900/20 disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 border border-primary dark:border-primary text-primary dark:text-primary rounded-lg text-xs hover:bg-primary/10 dark:hover:bg-primary/20 disabled:opacity-50 cursor-pointer"
           >
             {aiDrafting ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -187,42 +187,42 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
             placeholder={t("radiology.reports.reportTextPlaceholder") as string}
           />
           {aiDraftInfo ? (
-            <p className="text-xs text-amber-600 dark:text-amber-400">{aiDraftInfo}</p>
+            <p className="text-xs text-warning dark:text-warning">{aiDraftInfo}</p>
           ) : null}
         </div>
       ) : (
         <>
-          <p className="text-sm leading-6 text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+          <p className="text-sm leading-6 text-foreground dark:text-muted-foreground whitespace-pre-wrap">
             {report?.reportText || t("radiology.details.emptyReport")}
           </p>
           {report?.typedBy || report?.reviewedBy || report?.signedBy ? (
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
               {report.typedBy ? (
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     {t("radiology.reports.typedBy")}:{" "}
                   </span>
-                  <span className="font-medium text-gray-800 dark:text-gray-200">
+                  <span className="font-medium text-foreground dark:text-muted-foreground">
                     {report.typedBy}
                   </span>
                 </div>
               ) : null}
               {report.reviewedBy ? (
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     {t("radiology.reports.reviewedBy")}:{" "}
                   </span>
-                  <span className="font-medium text-gray-800 dark:text-gray-200">
+                  <span className="font-medium text-foreground dark:text-muted-foreground">
                     {report.reviewedBy}
                   </span>
                 </div>
               ) : null}
               {report.signedBy ? (
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     {t("radiology.reports.signedBy")}:{" "}
                   </span>
-                  <span className="font-medium text-gray-800 dark:text-gray-200">
+                  <span className="font-medium text-foreground dark:text-muted-foreground">
                     {report.signedBy}
                   </span>
                 </div>
@@ -232,32 +232,32 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
         </>
       )}
       {report ? (
-        <div className="mt-4 pt-3 border-t dark:border-gray-700/50 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-4 pt-3 border-t dark:border-border grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-muted-foreground">
           <div>
             {t("radiology.details.reportCreatedAt")}:{" "}
-            <span className="font-medium text-gray-700 dark:text-gray-300">
+            <span className="font-medium text-foreground">
               {fmtDateTime(report.createdAt)}
             </span>
           </div>
           <div>
             {t("radiology.details.reportSignedAt")}:{" "}
-            <span className="font-medium text-gray-700 dark:text-gray-300">
+            <span className="font-medium text-foreground">
               {fmtDateTime(report.signedAt)}
             </span>
           </div>
           <div>
             {t("radiology.details.turnaround")}:{" "}
-            <span className="font-medium text-gray-700 dark:text-gray-300">
+            <span className="font-medium text-foreground">
               {turnaroundText(report)}
             </span>
           </div>
         </div>
       ) : null}
-      <div className="mt-4 border dark:border-gray-700 rounded-lg">
+      <div className="mt-4 border dark:border-border rounded-lg">
         <button
           type="button"
           onClick={() => setCriticalOpen((o) => !o)}
-          className="w-full px-3 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg flex items-center gap-1.5 cursor-pointer"
+          className="w-full px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted/50/50 rounded-lg flex items-center gap-1.5 cursor-pointer"
         >
           <AlertTriangle className="w-3.5 h-3.5" />
           {t("radiology.critical.title")}
@@ -270,7 +270,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
         {criticalOpen ? (
           <div className="px-3 pb-3 space-y-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-medium text-muted-foreground mb-1">
                 {t("radiology.critical.label")}
               </label>
               <select
@@ -286,7 +286,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-medium text-muted-foreground mb-1">
                 {t("radiology.critical.findingText")}
               </label>
               <input
@@ -300,7 +300,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
               <button
                 onClick={() => void saveCriticalFlag()}
                 disabled={savingCritical}
-                className="flex items-center gap-1.5 px-3 py-2 bg-red-600 text-white rounded-lg text-xs hover:bg-red-700 disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-2 bg-destructive text-white rounded-lg text-xs hover:bg-destructive disabled:opacity-50 cursor-pointer"
               >
                 {savingCritical ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -317,7 +317,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
                 <button
                   onClick={() => void acknowledgeCritical()}
                   disabled={savingCritical}
-                  className="px-3 py-2 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 cursor-pointer"
+                  className="px-3 py-2 border dark:border-border rounded-lg text-xs hover:bg-muted/50 disabled:opacity-50 cursor-pointer"
                 >
                   {t("radiology.critical.acknowledge")}
                 </button>

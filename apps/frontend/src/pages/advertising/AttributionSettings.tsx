@@ -293,7 +293,7 @@ const AttributionSettings: React.FC = () => {
         {/* View Attribution Window */}
         <div className="p-5 border-b border-border/70 space-y-3">
           <div className="flex items-center gap-2">
-            <div className="p-1 rounded-md bg-purple-500/10 text-purple-500">
+            <div className="p-1 rounded-md bg-primary/10 text-primary">
               <Eye className="w-4 h-4" />
             </div>
             <div>
@@ -321,7 +321,7 @@ const AttributionSettings: React.FC = () => {
                   }
                   className={`p-3.5 rounded-lg border text-right transition-all cursor-pointer relative ${
                     isSelected
-                      ? "border-purple-500 bg-purple-500/5 text-foreground ring-1 ring-purple-500"
+                      ? "border-purple-500 bg-primary/5 text-foreground ring-1 ring-primary"
                       : "border-border/70 bg-card hover:bg-muted/20 text-muted-foreground"
                   }`}
                 >

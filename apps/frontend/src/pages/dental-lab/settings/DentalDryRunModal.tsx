@@ -106,7 +106,7 @@ export default function DentalDryRunModal({ open, onClose }: DryRunModalProps) {
             <div className="space-y-4 border-t border-border/40 pt-4 animate-in fade-in duration-200">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-muted-foreground">نتائج المحاكاة الافتراضية</span>
-                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-xs">
+                <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20 text-xs">
                   نجحت التجربة (آمنة 100%)
                 </Badge>
               </div>
@@ -127,7 +127,7 @@ export default function DentalDryRunModal({ open, onClose }: DryRunModalProps) {
               {/* 2. Technician Assignment */}
               <div className="rounded-lg border border-border/60 p-3 bg-muted/20 space-y-1">
                 <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                  <User className="size-3.5 text-purple-500" /> الفني المرشح للإسناد
+                  <User className="size-3.5 text-primary" /> الفني المرشح للإسناد
                 </div>
                 {result.assignedTechnician ? (
                   <div className="flex items-center justify-between">
@@ -149,7 +149,7 @@ export default function DentalDryRunModal({ open, onClose }: DryRunModalProps) {
               {/* 3. Generated Stages Preview */}
               <div className="rounded-lg border border-border/60 p-3 bg-muted/20 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                  <Layers className="size-3.5 text-amber-500" /> مراحل العمل المقترحة ({result.stages?.length || 0})
+                  <Layers className="size-3.5 text-warning" /> مراحل العمل المقترحة ({result.stages?.length || 0})
                 </div>
                 <div className="space-y-1.5 max-h-36 overflow-y-auto">
                   {(result.stages || []).map((s: any, idx: number) => (
@@ -166,7 +166,7 @@ export default function DentalDryRunModal({ open, onClose }: DryRunModalProps) {
               {/* 4. Financial Postings Preview */}
               <div className="rounded-lg border border-border/60 p-3 bg-muted/20 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                  <DollarSign className="size-3.5 text-emerald-500" /> الحركات المالية المتوقعة
+                  <DollarSign className="size-3.5 text-success" /> الحركات المالية المتوقعة
                 </div>
                 <div className="space-y-1 text-xs">
                   <div className="flex justify-between">
@@ -187,7 +187,7 @@ export default function DentalDryRunModal({ open, onClose }: DryRunModalProps) {
               {/* 5. Notification preview */}
               <div className="rounded-lg border border-border/60 p-3 bg-muted/20 space-y-1">
                 <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                  <Bell className="size-3.5 text-indigo-500" /> التنبيهات
+                  <Bell className="size-3.5 text-primary" /> التنبيهات
                 </div>
                 <div className="text-xs text-muted-foreground space-y-0.5">
                   <p>• إخطار الطبيب: {result.notifications?.doctorEnabled ? 'مفعّل ✅' : 'معطل ❌'}</p>

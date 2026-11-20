@@ -37,20 +37,20 @@ export function AddSupplierModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
       <div className={MODAL_CONTENT_CLS}>
-        <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-700 mb-4">
+        <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border mb-4">
           <div>
-            <h3 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h3 className="text-base font-bold text-foreground flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-info dark:text-info" />
               <span>إضافة مورد / شركة خامات جديدة</span>
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               يتم حفظ المورد في قاعدة بيانات الموردين الموحدة للمنظومة
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all cursor-pointer"
+            className="p-1 rounded-lg text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -58,7 +58,7 @@ export function AddSupplierModal({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block font-semibold mb-1 text-foreground">
               اسم الشركة أو المورد *
             </label>
             <input
@@ -74,7 +74,7 @@ export function AddSupplierModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 مسؤول المبيعات / المندوب
               </label>
               <input
@@ -86,7 +86,7 @@ export function AddSupplierModal({
               />
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 رقم الهاتف / الواتساب
               </label>
               <input
@@ -101,7 +101,7 @@ export function AddSupplierModal({
           </div>
 
           <div>
-            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block font-semibold mb-1 text-foreground">
               المدينة / المقر
             </label>
             <input
@@ -114,7 +114,7 @@ export function AddSupplierModal({
           </div>
 
           <div>
-            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block font-semibold mb-1 text-foreground">
               ملاحظات أو شروط السداد
             </label>
             <textarea
@@ -126,18 +126,18 @@ export function AddSupplierModal({
             />
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-200 dark:border-gray-700 mt-4">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold cursor-pointer"
+              className="px-4 py-2 rounded-xl border border-border text-foreground font-semibold cursor-pointer"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
+              className="px-5 py-2 rounded-xl bg-info hover:bg-info text-white font-bold disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
             >
               {isSubmitting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
               <span>{isSubmitting ? "جاري الحفظ..." : "حفظ المورد"}</span>

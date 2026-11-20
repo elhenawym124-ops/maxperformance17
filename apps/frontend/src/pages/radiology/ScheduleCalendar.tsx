@@ -25,9 +25,9 @@ export const egyptWeekStart = (d: Date) => { const x = new Date(d); const ed = (
 
 const STATUS_COLOR: Record<string, string> = {
   SCHEDULED: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  CHECKED_IN: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
-  DONE: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
-  CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+  CHECKED_IN: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning",
+  DONE: "bg-green-100 text-success dark:bg-success/40 dark:text-success",
+  CANCELLED: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive",
 };
 
 const statusCls = (s?: string) => STATUS_COLOR[s || "SCHEDULED"] || STATUS_COLOR["SCHEDULED"];
@@ -54,22 +54,22 @@ export default function ScheduleCalendar(props: {
   }
   for (const list of byDay.values()) list.sort((a, b) => (a.appointmentTime || "").localeCompare(b.appointmentTime || ""));
 
-  const navBtn = "px-3 py-1.5 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700";
+  const navBtn = "px-3 py-1.5 border dark:border-border rounded-lg text-sm hover:bg-muted/50";
 
   const dayCell = (d: Date, compact = false) => {
     const key = dayKey(d);
     const list = byDay.get(key) || [];
     const isToday = key === dayKey(new Date());
     return (
-      <div key={key} className={`rounded-lg border dark:border-gray-700 p-2 ${isToday ? "ring-2 ring-blue-500" : ""}`}>
+      <div key={key} className={`rounded-lg border dark:border-border p-2 ${isToday ? "ring-2 ring-blue-500" : ""}`}>
         <button onClick={() => onSelectDay(key)} className="text-sm font-semibold hover:text-blue-600 dark:hover:text-blue-400">
           {compact ? `${d.getDate()}/${d.getMonth() + 1}` : d.getDate()}
         </button>
         {compact ? (
-          <div className="text-xs mt-1 text-gray-500 dark:text-gray-400">{list.length ? `${list.length} ${t("radiology.scheduleCalendar.bookings")}` : ""}</div>
+          <div className="text-xs mt-1 text-muted-foreground">{list.length ? `${list.length} ${t("radiology.scheduleCalendar.bookings")}` : ""}</div>
         ) : (
           <div className="mt-1 space-y-1 max-h-40 overflow-y-auto">
-            {list.length === 0 ? <div className="text-xs text-gray-400">—</div> : list.map(a => (
+            {list.length === 0 ? <div className="text-xs text-muted-foreground">—</div> : list.map(a => (
               <button
                 key={a.id}
                 type="button"
@@ -100,11 +100,11 @@ export default function ScheduleCalendar(props: {
             <span className="font-bold text-sm">{fmtLabel(anchor)}</span>
             <button className={`${navBtn} text-blue-600 dark:text-blue-400`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.today") as string}>{t("radiology.scheduleCalendar.today")}</button>
           </div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">{list.length} {t("radiology.scheduleCalendar.bookings")}</span>
+          <span className="text-sm text-muted-foreground">{list.length} {t("radiology.scheduleCalendar.bookings")}</span>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 divide-y dark:divide-gray-700">
+        <div className="bg-card rounded-xl border dark:border-border divide-y dark:divide-border">
           {list.length === 0 ? (
-            <div className="p-10 text-center text-gray-400">{t("radiology.scheduleCalendar.noBookingsToday")}</div>
+            <div className="p-10 text-center text-muted-foreground">{t("radiology.scheduleCalendar.noBookingsToday")}</div>
           ) : list.map(a => (
             <button
               key={a.id}
@@ -114,10 +114,10 @@ export default function ScheduleCalendar(props: {
               aria-label={`${t("radiology.scheduleCalendar.booking")} ${a.patientName}`}
               className={`flex items-center gap-3 px-4 py-3 text-sm w-full ${onOpenAppointment ? "cursor-pointer hover:opacity-80" : ""}`}
             >
-              <span className="font-mono whitespace-nowrap text-gray-500 dark:text-gray-400" dir="ltr">{a.appointmentTime || "—"}</span>
+              <span className="font-mono whitespace-nowrap text-muted-foreground" dir="ltr">{a.appointmentTime || "—"}</span>
               <span className={`px-2 py-0.5 rounded-full text-xs ${statusCls(a.status)}`}>{a.status === "SCHEDULED" ? t("radiology.scheduleCalendar.scheduled") : a.status === "CHECKED_IN" ? t("radiology.scheduleCalendar.checkedIn") : a.status === "DONE" ? t("radiology.scheduleCalendar.done") : t("radiology.scheduleCalendar.cancelled")}</span>
-              <span className="font-medium">{a.patientName}{a.emergency ? <span className="mr-1 text-xs text-red-500">{t("radiology.scheduleCalendar.emergency")}</span> : null}</span>
-              <span className="text-gray-500 dark:text-gray-400 flex-1 truncate">{a.examTypeName || ""}{a.deviceName ? ` (${a.deviceName})` : ""}{a.additionAmount ? ` (+${Number(a.additionAmount).toFixed(0)}${t("radiology.currency")})` : ""}</span>
+              <span className="font-medium">{a.patientName}{a.emergency ? <span className="me-1 text-xs text-destructive">{t("radiology.scheduleCalendar.emergency")}</span> : null}</span>
+              <span className="text-muted-foreground flex-1 truncate">{a.examTypeName || ""}{a.deviceName ? ` (${a.deviceName})` : ""}{a.additionAmount ? ` (+${Number(a.additionAmount).toFixed(0)}${t("radiology.currency")})` : ""}</span>
             </button>
           ))}
         </div>
@@ -142,7 +142,7 @@ export default function ScheduleCalendar(props: {
         <div className="grid grid-cols-7 gap-2">
           {days.map((d, i) => (
             <div key={i} className="min-w-0">
-              <div className="text-center text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">{t(EGPY_DAYS[i] ?? "")}</div>
+              <div className="text-center text-xs font-semibold text-muted-foreground mb-1">{t(EGPY_DAYS[i] ?? "")}</div>
               {dayCell(d)}
             </div>
           ))}
@@ -166,10 +166,10 @@ export default function ScheduleCalendar(props: {
             <span className="font-bold text-sm">{monthLabel}</span>
             <button className={`${navBtn} text-blue-600 dark:text-blue-400`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.thisMonth") as string}>{t("radiology.scheduleCalendar.thisMonth")}</button>
           </div>
-        <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400"><CalendarDays className="w-4 h-4" />{t("radiology.scheduleCalendar.clickDayForBookings")}</span>
+        <span className="flex items-center gap-1 text-xs text-muted-foreground"><CalendarDays className="w-4 h-4" />{t("radiology.scheduleCalendar.clickDayForBookings")}</span>
       </div>
       <div className="grid grid-cols-7 gap-1.5">
-        {EGPY_DAYS.map(d => <div key={d} className="text-center text-xs font-semibold text-gray-500 dark:text-gray-400 py-1">{t(d)}</div>)}
+        {EGPY_DAYS.map(d => <div key={d} className="text-center text-xs font-semibold text-muted-foreground py-1">{t(d)}</div>)}
         {cells.filter(c => c.getMonth() === anchor.getMonth()).map(c => dayCell(c, true))}
       </div>
     </div>

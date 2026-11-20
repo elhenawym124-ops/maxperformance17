@@ -25,7 +25,7 @@ export function StagesSettingsSection({
         <h3 className="font-semibold">
           {t("dentalLab.settings.stageTemplates")}
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-muted-foreground">
           {t("dentalLab.settings.stageTemplatesHint")}
         </p>
       </div>
@@ -33,12 +33,12 @@ export function StagesSettingsSection({
         {WORK_TYPE_CATEGORIES.map((cat) => {
           const stages = stageTemplates[cat] ?? [];
           return (
-            <div key={cat} className="border dark:border-gray-700 rounded-lg p-4">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            <div key={cat} className="border dark:border-border rounded-lg p-4">
+              <p className="text-sm font-medium text-foreground mb-3">
                 {CATEGORY_LABEL(t, cat)}
               </p>
               {stages.length === 0 && (
-                <p className="text-xs text-gray-400 dark:text-gray-500 mb-2">
+                <p className="text-xs text-muted-foreground/80 mb-2">
                   {t("dentalLab.common.noData")}
                 </p>
               )}
@@ -55,7 +55,7 @@ export function StagesSettingsSection({
                     />
                     <button
                       onClick={() => removeStage(cat, i)}
-                      className="p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg"
+                      className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg"
                       title={t("dentalLab.settings.removeStage")}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -65,7 +65,7 @@ export function StagesSettingsSection({
               </div>
               <button
                 onClick={() => addStage(cat)}
-                className="mt-3 flex items-center gap-1.5 px-3 py-1.5 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="mt-3 flex items-center gap-1.5 px-3 py-1.5 border dark:border-border rounded-lg text-xs hover:bg-muted/50"
               >
                 <Plus className="w-3.5 h-3.5" />
                 {t("dentalLab.settings.addStage")}

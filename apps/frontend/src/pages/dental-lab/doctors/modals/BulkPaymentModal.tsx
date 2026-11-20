@@ -63,37 +63,37 @@ export function BulkPaymentModal({
       <div className={MODAL_CONTENT_CLS} onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-bold flex items-center gap-2">
-            <Banknote className="w-5 h-5 text-emerald-600" />
+            <Banknote className="w-5 h-5 text-success" />
             تحصيل دفعة على الحساب
           </h3>
           <button
             onClick={onClose}
             disabled={saving}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className="text-sm text-muted-foreground mb-4">
           الطبيب:{" "}
-          <span className="font-semibold text-gray-800 dark:text-gray-200">
+          <span className="font-semibold text-foreground dark:text-muted-foreground">
             {doctor.name}
           </span>{" "}
           — المتبقي الحالي:{" "}
-          <span className="font-semibold text-rose-600 font-mono tabular-nums">
+          <span className="font-semibold text-destructive font-mono tabular-nums">
             {fmtMoney(doctor.outstanding ?? 0)}
           </span>
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-3">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-3">
             {error}
           </div>
         )}
 
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-muted-foreground mb-1">
               المبلغ المحصل *
             </label>
             <input
@@ -104,12 +104,12 @@ export function BulkPaymentModal({
               placeholder="0.00"
               autoFocus
             />
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               سيتم توزيع المبلغ تلقائياً على الفواتير المفتوحة والأقدم أولاً (FIFO).
             </p>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-muted-foreground mb-1">
               طريقة الدفع
             </label>
             <select
@@ -125,7 +125,7 @@ export function BulkPaymentModal({
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-muted-foreground mb-1">
               ملاحظات أو رقم الإيصال
             </label>
             <input
@@ -141,14 +141,14 @@ export function BulkPaymentModal({
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             {t("dentalLab.common.cancel")}
           </button>
           <button
             onClick={save}
             disabled={saving || !amount || Number(amount) <= 0}
-            className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 flex items-center gap-2"
           >
             {saving ? (
               <Loader2 className="w-4 h-4 animate-spin" />

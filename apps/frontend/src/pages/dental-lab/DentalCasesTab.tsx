@@ -96,7 +96,7 @@ export function DentalCasesTab() {
 
   if (loading && !cases) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-slate-500 min-h-[300px]">
+      <div className="flex flex-col items-center justify-center p-12 text-muted-foreground min-h-[300px]">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-2" />
         <span className="text-sm font-medium">جاري تحميل حالات المعمل...</span>
       </div>

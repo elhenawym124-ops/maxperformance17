@@ -63,7 +63,7 @@ export function RemakesAnalysisView() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="flex flex-wrap items-end gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-500 mb-1">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">
               {t("dentalLab.reports.from")}
             </label>
             <DateInput
@@ -72,7 +72,7 @@ export function RemakesAnalysisView() {
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-500 mb-1">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">
               {t("dentalLab.reports.to")}
             </label>
             <DateInput
@@ -102,24 +102,24 @@ export function RemakesAnalysisView() {
       {!loading && data && (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50">
-              <span className="text-xs text-gray-500">
+            <div className="p-4 rounded-xl border border-border dark:border-border bg-card/50">
+              <span className="text-xs text-muted-foreground">
                 إجمالي حالات الإعادة (Remakes)
               </span>
-              <p className="text-2xl font-bold text-rose-600 mt-1 font-mono tabular-nums">
+              <p className="text-2xl font-bold text-destructive mt-1 font-mono tabular-nums">
                 {summary?.totalRemakes ?? 0}
               </p>
             </div>
-            <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50">
-              <span className="text-xs text-gray-500">
+            <div className="p-4 rounded-xl border border-border dark:border-border bg-card/50">
+              <span className="text-xs text-muted-foreground">
                 إعادات مجانية على المعمل (Lab Warranty)
               </span>
-              <p className="text-2xl font-bold text-amber-600 mt-1 font-mono tabular-nums">
+              <p className="text-2xl font-bold text-warning mt-1 font-mono tabular-nums">
                 {summary?.freeRemakes ?? 0}
               </p>
             </div>
-            <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50">
-              <span className="text-xs text-gray-500">
+            <div className="p-4 rounded-xl border border-border dark:border-border bg-card/50">
+              <span className="text-xs text-muted-foreground">
                 إعادات مدفوعة على الطبيب (Billable)
               </span>
               <p className="text-2xl font-bold text-blue-600 mt-1 font-mono tabular-nums">
@@ -129,12 +129,12 @@ export function RemakesAnalysisView() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50">
+            <div className="p-4 rounded-xl border border-border dark:border-border bg-card/50">
               <h3 className="font-bold text-sm mb-4">
                 توزيع الأسباب الجذرية للإعادة (Root Causes)
               </h3>
               {categories.length === 0 ? (
-                <p className="text-xs text-gray-400 py-8 text-center">
+                <p className="text-xs text-muted-foreground py-8 text-center">
                   لا توجد إعادات مسجلة في هذه الفترة
                 </p>
               ) : (
@@ -146,16 +146,16 @@ export function RemakesAnalysisView() {
                     return (
                       <div key={c.category} className="space-y-1">
                         <div className="flex justify-between text-xs">
-                          <span className="font-medium text-gray-800 dark:text-gray-200">
+                          <span className="font-medium text-foreground dark:text-muted-foreground">
                             {categoryLabels[c.category] || c.category}
                           </span>
                           <span className="text-gray-500 font-mono tabular-nums">
                             {c.count} حالات ({pct}%)
                           </span>
                         </div>
-                        <div className="h-2 w-full rounded-full bg-gray-100 dark:bg-gray-700 overflow-hidden">
+                        <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
                           <div
-                            className="h-full bg-rose-500 rounded-full"
+                            className="h-full bg-destructive rounded-full"
                             style={{ width: `${pct}%` }}
                           />
                         </div>
@@ -166,20 +166,20 @@ export function RemakesAnalysisView() {
               )}
             </div>
 
-            <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 space-y-4">
+            <div className="p-4 rounded-xl border border-border dark:border-border bg-card/50 space-y-4">
               <div>
                 <h3 className="font-bold text-sm mb-2">أكثر الأطباء تسجيلاً للإعادات</h3>
                 {topDoctors.length === 0 ? (
-                  <p className="text-xs text-gray-400 py-2">لا توجد بيانات</p>
+                  <p className="text-xs text-muted-foreground py-2">لا توجد بيانات</p>
                 ) : (
                   <div className="space-y-1.5 text-xs">
                     {topDoctors.map((d) => (
                       <div
                         key={d.doctorId || d.doctorName}
-                        className="flex justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-700/50"
+                        className="flex justify-between p-2 rounded-lg bg-muted dark:bg-muted"
                       >
                         <span className="font-medium">{d.doctorName}</span>
-                        <span className="font-bold text-rose-600 font-mono tabular-nums">
+                        <span className="font-bold text-destructive font-mono tabular-nums">
                           {d.count} حالات
                         </span>
                       </div>
@@ -188,21 +188,21 @@ export function RemakesAnalysisView() {
                 )}
               </div>
 
-              <div className="pt-2 border-t dark:border-gray-700">
+              <div className="pt-2 border-t dark:border-border">
                 <h3 className="font-bold text-sm mb-2">
                   أكثر التركيبات والأعمال تعرضاً للإعادة
                 </h3>
                 {topWorkTypes.length === 0 ? (
-                  <p className="text-xs text-gray-400 py-2">لا توجد بيانات</p>
+                  <p className="text-xs text-muted-foreground py-2">لا توجد بيانات</p>
                 ) : (
                   <div className="space-y-1.5 text-xs">
                     {topWorkTypes.map((w) => (
                       <div
                         key={w.workTypeName}
-                        className="flex justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-700/50"
+                        className="flex justify-between p-2 rounded-lg bg-muted dark:bg-muted"
                       >
                         <span className="font-medium">{w.workTypeName}</span>
-                        <span className="font-bold text-rose-600 font-mono tabular-nums">
+                        <span className="font-bold text-destructive font-mono tabular-nums">
                           {w.count} حالات
                         </span>
                       </div>
@@ -213,12 +213,12 @@ export function RemakesAnalysisView() {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50">
+          <div className="p-4 rounded-xl border border-border dark:border-border bg-card/50">
             <h3 className="font-bold text-sm mb-3">
               سجل طلبات الإعادة التفصيلي ({list.length})
             </h3>
             {list.length === 0 ? (
-              <p className="text-xs text-gray-400 py-4 text-center">لا توجد حالات إعادة</p>
+              <p className="text-xs text-muted-foreground py-4 text-center">لا توجد حالات إعادة</p>
             ) : (
               <div className={tableWrap}>
                 <table className="w-full text-right">
@@ -234,11 +234,11 @@ export function RemakesAnalysisView() {
                       <th className={thCls}>التاريخ</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs">
+                  <tbody className="divide-y divide-border dark:divide-border text-xs">
                     {list.map((r) => (
                       <tr
                         key={r.id}
-                        className="hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                        className="hover:bg-gray-50 dark:hover:bg-muted"
                       >
                         <td className={`${tdCls} font-mono font-semibold`}>
                           {r.case?.caseNumber || r.caseId.slice(0, 8)}
@@ -249,7 +249,7 @@ export function RemakesAnalysisView() {
                           {r.case?.workType?.name || r.case?.workTypeName || "—"}
                         </td>
                         <td className={tdCls}>
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-destructive/10 text-destructive border border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive">
                             {categoryLabels[r.rootCauseCategory || ""] ||
                               r.rootCauseCategory ||
                               "غير محدد"}

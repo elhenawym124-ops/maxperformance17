@@ -237,22 +237,22 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
   });
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-white dark:bg-slate-950">
+    <div className="flex flex-col h-full overflow-hidden bg-white dark:bg-muted">
       {/* Header Bar */}
-      <div className="p-3 border-b border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/40 flex-shrink-0 space-y-2.5">
+      <div className="p-3 border-b border-border dark:border-border bg-muted dark:bg-muted flex-shrink-0 space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+            <div className="w-7 h-7 rounded-lg bg-primary/10 dark:bg-primary/60 border border-primary/80 dark:border-primary flex items-center justify-center text-primary">
               <Layers className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+              <h3 className="text-xs font-bold text-foreground dark:text-white flex items-center gap-1.5">
                 <span>مكتبة المشاهد والتبديل (Scene Swap)</span>
-                <span className="text-[10px] bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-mono px-1.5 py-0.2 rounded-full">
+                <span className="text-[10px] bg-primary dark:bg-primary/80 text-primary dark:text-primary font-mono px-1.5 py-0.2 rounded-full">
                   2026 Engine
                 </span>
               </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                 اختر مشهد موديل جاهز واستبدله بمنتجك بضغطة زر واحدة مع الحفاظ على وضعية الموديل والظلال
               </p>
             </div>
@@ -261,7 +261,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
           <button
             type="button"
             onClick={() => setShowUploadModal(true)}
-            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 transition flex items-center gap-1 cursor-pointer"
+            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-primary dark:border-primary bg-primary/10 hover:bg-primary dark:bg-primary/60 text-primary dark:text-primary transition flex items-center gap-1 cursor-pointer"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>رفع مشهد خاص</span>
@@ -271,13 +271,13 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
         {/* Search & Category Filter Pills */}
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
-            <Search className="w-3.5 h-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ابحث بالاسم، الفئة أو الوسم (#OnModel)..."
-              className="w-full pl-3 pr-8 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full ps-3 pe-8 py-1.5 text-xs rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
 
@@ -298,7 +298,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                 className={`px-2 py-1 text-[11px] font-bold rounded-md whitespace-nowrap transition cursor-pointer ${
                   activeCategoryFilter === cat.id
                     ? "bg-indigo-600 text-white shadow-2xs"
-                    : "bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    : "bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
                 }`}
               >
                 {cat.label}
@@ -312,8 +312,8 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
       <div className="flex-1 overflow-y-auto p-3 space-y-3">
         {filteredScenes.length === 0 ? (
           <div className="text-center py-10 space-y-2">
-            <Camera className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto" />
-            <p className="text-xs text-slate-500">لا توجد مشاهد مطابقة للبحث المحدد</p>
+            <Camera className="w-8 h-8 text-muted-foreground dark:text-foreground mx-auto" />
+            <p className="text-xs text-muted-foreground">لا توجد مشاهد مطابقة للبحث المحدد</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -322,14 +322,14 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
               return (
                 <div
                   key={scene.id}
-                  className={`group relative rounded-xl border transition-all duration-200 flex flex-col overflow-hidden bg-white dark:bg-slate-900/90 shadow-2xs hover:shadow-md ${
+                  className={`group relative rounded-xl border transition-all duration-200 flex flex-col overflow-hidden bg-white dark:bg-muted shadow-2xs hover:shadow-md ${
                     isApplied
-                      ? "border-indigo-500 ring-2 ring-indigo-500/20"
-                      : "border-slate-200/90 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
+                      ? "border-indigo-500 ring-2 ring-primary/20"
+                      : "border-slate-200/90 dark:border-border hover:border-border dark:hover:border-border"
                   }`}
                 >
                   {/* Image Container with Aspect Ratio */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-950">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-muted dark:bg-muted">
                     <img
                       src={scene.previewUrl}
                       alt={scene.titleAr}
@@ -345,7 +345,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                         {scene.category.toUpperCase()}
                       </span>
                       {scene.isCustom && (
-                        <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/90 text-white">
+                        <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-md bg-warning/90 text-white">
                           مخصص
                         </span>
                       )}
@@ -355,7 +355,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                       <button
                         type="button"
                         onClick={(e) => handleDeleteCustomScene(scene.id, e)}
-                        className="absolute top-2 left-2 p-1.5 rounded-md bg-red-600/80 hover:bg-red-600 text-white backdrop-blur-sm transition cursor-pointer"
+                        className="absolute top-2 left-2 p-1.5 rounded-md bg-destructive/80 hover:bg-destructive text-white backdrop-blur-sm transition cursor-pointer"
                         title="حذف هذا المشهد من مكتبتي"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -367,7 +367,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                       <h4 className="text-xs font-bold text-white drop-shadow-xs line-clamp-1">
                         {scene.titleAr}
                       </h4>
-                      <p className="text-[10px] text-slate-200/90 line-clamp-1">
+                      <p className="text-[10px] text-muted-foreground line-clamp-1">
                         {scene.modelPoseDescription}
                       </p>
                     </div>
@@ -380,7 +380,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                       {scene.tags.map((t, idx) => (
                         <span
                           key={idx}
-                          className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                          className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground"
                         >
                           {t}
                         </span>
@@ -394,8 +394,8 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                         onClick={() => handleApplySwap(scene, false)}
                         className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                           isApplied
-                            ? "bg-emerald-600 hover:bg-emerald-700 text-white"
-                            : "bg-slate-900 hover:bg-black text-white dark:bg-slate-100 dark:hover:bg-white dark:text-slate-900"
+                            ? "bg-emerald-600 hover:bg-success text-white"
+                            : "bg-slate-900 hover:bg-black text-white dark:bg-muted dark:hover:bg-white dark:text-foreground"
                         }`}
                       >
                         {isApplied ? (
@@ -414,10 +414,10 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                       <button
                         type="button"
                         onClick={() => handleApplySwap(scene, true)}
-                        className="py-1.5 px-2.5 rounded-lg text-xs font-bold bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 transition flex items-center gap-1 cursor-pointer"
+                        className="py-1.5 px-2.5 rounded-lg text-xs font-bold bg-primary/10 hover:bg-primary dark:bg-primary/60 dark:hover:bg-primary/60 text-primary dark:text-primary border border-primary dark:border-primary transition flex items-center gap-1 cursor-pointer"
                         title="تطبيق المشهد وبدء التوليد فوراً"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                        <Sparkles className="w-3.5 h-3.5 text-primary" />
                         <span>توليد فوراً</span>
                       </button>
                     </div>
@@ -432,16 +432,16 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
       {/* Upload Custom Scene Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Upload className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 max-w-md w-full shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
+              <h3 className="text-sm font-bold text-foreground dark:text-white flex items-center gap-2">
+                <Upload className="w-4 h-4 text-primary" />
                 <span>رفع وحفظ مشهد جديد في مكتبتك الخاصة</span>
               </h3>
               <button
                 type="button"
                 onClick={() => setShowUploadModal(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg leading-none cursor-pointer"
+                className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground text-lg leading-none cursor-pointer"
               >
                 ✕
               </button>
@@ -449,7 +449,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
 
             <form onSubmit={handleSaveCustomScene} className="space-y-3.5">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-foreground dark:text-muted-foreground mb-1">
                   عنوان المشهد
                 </label>
                 <input
@@ -458,17 +458,17 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="مثال: عارضة شابة ترتدي حذاء أبيض في شارع وسط البلد"
                   required
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-foreground dark:text-muted-foreground mb-1">
                   صورة المشهد / الوضعية
                 </label>
                 <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-indigo-500 rounded-xl p-4 text-center cursor-pointer bg-slate-50/50 dark:bg-slate-950/50 transition group"
+                  className="border-2 border-dashed border-border dark:border-border hover:border-primary rounded-xl p-4 text-center cursor-pointer bg-muted dark:bg-muted transition group"
                 >
                   {newPreviewUrl ? (
                     <div className="space-y-2">
@@ -477,17 +477,17 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                         alt="Preview"
                         className="h-28 mx-auto object-cover rounded-lg shadow-xs"
                       />
-                      <span className="text-[11px] text-indigo-600 font-bold block">
+                      <span className="text-[11px] text-primary font-bold block">
                         انقر لتغيير الصورة
                       </span>
                     </div>
                   ) : (
                     <div className="space-y-1.5 py-2">
-                      <Upload className="w-6 h-6 text-slate-400 group-hover:text-indigo-600 mx-auto transition" />
-                      <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                      <Upload className="w-6 h-6 text-muted-foreground group-hover:text-primary mx-auto transition" />
+                      <p className="text-xs font-bold text-foreground dark:text-muted-foreground">
                         انقر لرفع صورة المشهد من جهازك
                       </p>
-                      <p className="text-[10px] text-slate-500">JPG, PNG, WEBP (حجم حتى 10MB)</p>
+                      <p className="text-[10px] text-muted-foreground">JPG, PNG, WEBP (حجم حتى 10MB)</p>
                     </div>
                   )}
                   <input
@@ -501,7 +501,7 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-foreground dark:text-muted-foreground mb-1">
                   برومبت الاستبدال المقترح (اختياري - بالإنجليزية)
                 </label>
                 <textarea
@@ -509,22 +509,22 @@ export const CreativeSceneLibraryTab: React.FC<CreativeSceneLibraryTabProps> = (
                   onChange={(e) => setNewPrompt(e.target.value)}
                   rows={3}
                   placeholder="استخدم {productName} ليشير إلى اسم منتجك تلقائياً..."
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setShowUploadModal(false)}
-                  className="px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-bold text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-white cursor-pointer"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
                   disabled={!newTitle.trim() || !newPreviewUrl}
-                  className="px-4 py-1.5 text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition disabled:opacity-50 cursor-pointer"
+                  className="px-4 py-1.5 text-xs font-bold bg-primary hover:bg-primary/90 text-white rounded-lg transition disabled:opacity-50 cursor-pointer"
                 >
                   حفظ في مكتبتي
                 </button>

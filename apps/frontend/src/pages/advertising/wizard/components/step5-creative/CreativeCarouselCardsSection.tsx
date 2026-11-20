@@ -27,7 +27,7 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-foreground">
           {isEn ? `Carousel Cards (${formData.carouselCards.length}/10)` : `بطاقات الدوّار (${formData.carouselCards.length}/10)`}
         </label>
         <button
@@ -41,7 +41,7 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
       </div>
 
       {getError("carouselCards") && (
-        <p className="mb-3 text-sm text-red-500">
+        <p className="mb-3 text-sm text-destructive">
           {getError("carouselCards")}
         </p>
       )}
@@ -50,17 +50,17 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
         {formData.carouselCards.map((card, index) => (
           <div
             key={card.id}
-            className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800"
+            className="border border-border dark:border-border rounded-lg p-4 bg-card"
           >
             <div className="flex items-center justify-between mb-3">
-              <h5 className="font-medium text-sm text-gray-900 dark:text-white">
+              <h5 className="font-medium text-sm text-foreground">
                 {isEn ? `Card ${index + 1}` : `بطاقة ${index + 1}`}
               </h5>
               {formData.carouselCards.length > 2 && (
                 <button
                   type="button"
                   onClick={() => handleRemoveCard(card.id)}
-                  className="text-red-500 hover:text-red-700 text-sm"
+                  className="text-red-500 hover:text-destructive text-sm"
                   aria-label={isEn ? "Remove Card" : "حذف البطاقة"}
                 >
                   <X className="w-4 h-4" />
@@ -72,7 +72,7 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
               {/* Image URL with Direct Upload */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs text-gray-600 dark:text-gray-400">
+                  <label className="block text-xs text-foreground dark:text-muted-foreground">
                     {isEn ? "Image URL *" : "صورة البطاقة *"}
                   </label>
                   <label
@@ -107,7 +107,7 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
                 </div>
                 <div className="flex items-center gap-2">
                   {card.imageUrl && (
-                    <div className="w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-900">
+                    <div className="w-9 h-9 rounded-lg border border-border dark:border-border overflow-hidden flex-shrink-0 bg-muted dark:bg-muted">
                       <img src={card.imageUrl} alt="" className="w-full h-full object-cover" />
                     </div>
                   )}
@@ -116,14 +116,14 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
                     value={card.imageUrl}
                     onChange={(e) => handleUpdateCard(card.id, { imageUrl: e.target.value })}
                     placeholder="https://..."
-                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 px-3 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
 
               {/* Headline */}
               <div>
-                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                   {isEn ? "Headline *" : "العنوان *"}
                 </label>
                 <input
@@ -132,13 +132,13 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
                   onChange={(e) => handleUpdateCard(card.id, { headline: e.target.value })}
                   placeholder={isEn ? "Card headline" : "عنوان البطاقة"}
                   maxLength={40}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                   {isEn ? "Description" : "الوصف"}
                 </label>
                 <input
@@ -147,13 +147,13 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
                   onChange={(e) => handleUpdateCard(card.id, { description: e.target.value })}
                   placeholder={isEn ? "Card description" : "وصف البطاقة"}
                   maxLength={20}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               {/* Link URL */}
               <div>
-                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                   {isEn ? "Destination URL *" : "رابط الوجهة *"}
                 </label>
                 <input
@@ -161,7 +161,7 @@ export const CreativeCarouselCardsSection: React.FC<CreativeCarouselCardsSection
                   value={card.linkUrl}
                   onChange={(e) => handleUpdateCard(card.id, { linkUrl: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>

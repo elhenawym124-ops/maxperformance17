@@ -28,7 +28,7 @@ export const ScheduleDateFilters: React.FC<ScheduleDateFiltersProps> = ({
   return (
     <>
       <div className="flex flex-wrap items-center gap-3">
-        <label className="text-sm text-gray-600 dark:text-gray-300">
+        <label className="text-sm text-muted-foreground">
           {t("radiology.schedule.from")}
         </label>
         <DateInput
@@ -37,7 +37,7 @@ export const ScheduleDateFilters: React.FC<ScheduleDateFiltersProps> = ({
           value={dateFrom}
           onChange={(e) => onDateFromChange(e.target.value)}
         />
-        <label className="text-sm text-gray-600 dark:text-gray-300">
+        <label className="text-sm text-muted-foreground">
           {t("radiology.schedule.to")}
         </label>
         <DateInput
@@ -53,7 +53,7 @@ export const ScheduleDateFilters: React.FC<ScheduleDateFiltersProps> = ({
               onDateFromChange(yest);
               onDateToChange(yest);
             }}
-            className="px-2.5 py-2 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="px-2.5 py-2 border dark:border-border rounded-lg text-xs hover:bg-muted/50"
           >
             {t("radiology.schedule.quickYesterday")}
           </button>
@@ -62,7 +62,7 @@ export const ScheduleDateFilters: React.FC<ScheduleDateFiltersProps> = ({
               onDateFromChange(dayKey(addDays(new Date(), -6)));
               onDateToChange(todayKey());
             }}
-            className="px-2.5 py-2 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="px-2.5 py-2 border dark:border-border rounded-lg text-xs hover:bg-muted/50"
           >
             {t("radiology.schedule.quick7Days")}
           </button>
@@ -71,7 +71,7 @@ export const ScheduleDateFilters: React.FC<ScheduleDateFiltersProps> = ({
               onDateFromChange(dayKey(addDays(new Date(), -29)));
               onDateToChange(todayKey());
             }}
-            className="px-2.5 py-2 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="px-2.5 py-2 border dark:border-border rounded-lg text-xs hover:bg-muted/50"
           >
             {t("radiology.schedule.quick30Days")}
           </button>
@@ -79,11 +79,11 @@ export const ScheduleDateFilters: React.FC<ScheduleDateFiltersProps> = ({
       </div>
 
       {loadError && (
-        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-lg border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-900/20 text-sm text-red-700 dark:text-red-300">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-lg border border-destructive dark:border-destructive/40 bg-destructive/10 dark:bg-destructive/20 text-sm text-destructive dark:text-destructive">
           <span>{loadError}</span>
           <button
             onClick={onRetry}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs hover:bg-red-700"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-destructive text-white text-xs hover:bg-destructive"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             {t("radiology.schedule.retry")}

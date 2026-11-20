@@ -17,16 +17,16 @@ export function DoctorPortalTab({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* Card 1: Portal Access */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-5 space-y-4 shadow-xs">
-        <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold">
+      <div className="bg-card rounded-xl border dark:border-border p-5 space-y-4 shadow-xs">
+        <div className="flex items-center gap-2 text-primary font-bold">
           <KeyRound className="w-5 h-5" />
           <h3>بوابة الأطباء الذاتية (Doctor Portal)</h3>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-foreground dark:text-muted-foreground">
           تتيح البوابة للدكتور تسجيل ومتابعة طلبات التركيبات مباشرة، رفع ملفات السكانات والأشعة ثلاثية الأبعاد، واستعراض ومراجعة التصاميم.
         </p>
 
-        <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl space-y-2 text-sm">
+        <div className="p-3 bg-muted dark:bg-muted rounded-xl space-y-2 text-sm">
           <div className="flex justify-between items-center">
             <span className="text-gray-500">حالة البوابة:</span>
             <span
@@ -48,7 +48,7 @@ export function DoctorPortalTab({
         <div className="pt-2 flex flex-col sm:flex-row gap-2">
           <button
             onClick={onOpenPinDialog}
-            className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 flex items-center justify-center gap-2 transition-colors"
+            className="flex-1 px-4 py-2 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary flex items-center justify-center gap-2 transition-colors"
           >
             <KeyRound className="w-4 h-4" />
             <span>{doctor.hasPortalPin ? "تغيير رمز الدخول (PIN)" : "تعيين رمز الدخول (PIN)"}</span>
@@ -56,7 +56,7 @@ export function DoctorPortalTab({
 
           <button
             onClick={handleCopyPortalLink}
-            className="px-4 py-2 border dark:border-gray-700 rounded-xl text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 transition-colors"
+            className="px-4 py-2 border dark:border-border rounded-xl text-sm font-medium hover:bg-muted/50 flex items-center justify-center gap-2 transition-colors"
           >
             <Copy className="w-4 h-4" />
             <span>نسخ رابط البوابة</span>
@@ -65,16 +65,16 @@ export function DoctorPortalTab({
       </div>
 
       {/* Card 2: Contact & Registration Details */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-5 space-y-4 shadow-xs">
+      <div className="bg-card rounded-xl border dark:border-border p-5 space-y-4 shadow-xs">
         <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold">
           <Building2 className="w-5 h-5" />
           <h3>بيانات الاتصال والعيادة</h3>
         </div>
 
-        <div className="divide-y dark:divide-gray-700 text-sm">
+        <div className="divide-y dark:divide-border text-sm">
           <div className="py-2.5 flex justify-between">
             <span className="text-gray-500">اسم الطبيب:</span>
-            <span className="font-bold text-gray-900 dark:text-gray-100">{doctor.name}</span>
+            <span className="font-bold text-foreground">{doctor.name}</span>
           </div>
           <div className="py-2.5 flex justify-between">
             <span className="text-gray-500">رقم الهاتف:</span>

@@ -180,7 +180,7 @@ const CreateLookalikeAudience: React.FC = () => {
                 <span className="text-[10px] text-destructive font-medium">* مطلوب</span>
               </label>
               {customAudiences.length === 0 ? (
-                <div className="p-2.5 bg-amber-500/10 border border-amber-500/20 rounded-lg text-amber-700 dark:text-amber-400 text-xs flex items-center gap-2">
+                <div className="p-2.5 bg-warning/10 border border-warning/20 rounded-lg text-warning dark:text-warning text-xs flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>لا توجد جماهير مخصصة نشطة. يرجى إنشاء جمهور مخصص أولاً.</span>
                 </div>

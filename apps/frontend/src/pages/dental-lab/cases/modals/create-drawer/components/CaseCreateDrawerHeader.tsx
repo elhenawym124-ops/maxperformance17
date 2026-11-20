@@ -19,19 +19,19 @@ export const CaseCreateDrawerHeader: React.FC<CaseCreateDrawerHeaderProps> = ({
 
   return (
     <>
-      <div className="px-6 py-4 border-b dark:border-gray-700 flex items-center justify-between bg-gray-50/70 dark:bg-gray-800">
+      <div className="px-6 py-4 border-b dark:border-border flex items-center justify-between bg-muted dark:bg-muted">
         <div>
           <div className="flex items-center gap-2">
             <span className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
               <Pencil className="w-4 h-4" />
             </span>
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+            <h3 className="text-lg font-bold text-foreground">
               {initial
                 ? `تعديل الأوردر ${initial.caseNumber || initial.id.slice(0, 8)}`
                 : t("dentalLab.cases.createTitle")}
             </h3>
           </div>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {initial
               ? "تعديل تفاصيل وأسنان ومواصفات الحالة السريعة عبر الدرج الجانبي"
               : "إدخال بيانات حالة جديدة في معمل الأسنان"}
@@ -40,7 +40,7 @@ export const CaseCreateDrawerHeader: React.FC<CaseCreateDrawerHeaderProps> = ({
         <button
           type="button"
           onClick={() => !saving && onClose()}
-          className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+          className="p-2 hover:bg-muted rounded-lg text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition-colors"
           aria-label="إغلاق"
         >
           <XMarkIcon className="w-5 h-5" />

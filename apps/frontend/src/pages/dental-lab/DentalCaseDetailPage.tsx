@@ -22,7 +22,7 @@ export default function DentalCaseDetailPage() {
 
   if (!id) {
     return (
-      <div className="text-center py-16 text-gray-400 dark:text-gray-500">
+      <div className="text-center py-16 text-muted-foreground/80">
         {t("dentalLab.common.noData")}
       </div>
     );
@@ -31,7 +31,7 @@ export default function DentalCaseDetailPage() {
   if (detailState.loading && !detailState.detail) {
     return (
       <div className="flex justify-center py-16">
-        <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function DentalCaseDetailPage() {
   if (detailState.error || !detailState.detail) {
     return (
       <div className="p-4 md:p-6 lg:p-8" dir="rtl">
-        <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-4">
+        <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-4">
           {detailState.error || t("dentalLab.common.noData")}
         </div>
         <Link to="/dental-lab/cases" className="text-blue-600 dark:text-blue-400 text-sm">

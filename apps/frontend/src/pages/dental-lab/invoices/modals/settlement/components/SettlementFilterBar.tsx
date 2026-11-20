@@ -28,10 +28,10 @@ export const SettlementFilterBar: React.FC<SettlementFilterBarProps> = ({
   hasSettlements,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2.5 p-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl mb-3 text-xs">
+    <div className="flex flex-wrap items-center justify-between gap-2.5 p-2.5 bg-muted dark:bg-muted rounded-xl mb-3 text-xs">
       <div className="flex flex-wrap items-center gap-2 flex-1 min-w-[280px]">
         <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-gray-600 dark:text-gray-300">
+          <span className="font-semibold text-muted-foreground">
             شهر التقفيل:
           </span>
           <input
@@ -39,18 +39,18 @@ export const SettlementFilterBar: React.FC<SettlementFilterBarProps> = ({
             aria-label="شهر التقفيل"
             value={period}
             onChange={(e) => onPeriodChange(e.target.value)}
-            className="border dark:border-gray-700 rounded-lg px-2.5 py-1.5 text-xs dark:bg-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 font-mono tabular-nums"
+            className="border dark:border-border rounded-lg px-2.5 py-1.5 text-xs dark:bg-muted dark:text-muted-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
           />
         </div>
         <div className="flex items-center gap-1.5 flex-1 min-w-[180px]">
-          <span className="font-semibold text-gray-600 dark:text-gray-300">
+          <span className="font-semibold text-muted-foreground">
             الطبيب:
           </span>
           <select
             aria-label="اختيار الطبيب"
             value={doctorId}
             onChange={(e) => onDoctorIdChange(e.target.value)}
-            className="flex-1 border dark:border-gray-700 rounded-lg px-2 py-1.5 text-xs dark:bg-gray-800 dark:text-gray-100"
+            className="flex-1 border dark:border-border rounded-lg px-2 py-1.5 text-xs dark:bg-muted dark:text-muted-foreground"
           >
             <option value="">-- جميع الأطباء النشطين --</option>
             {doctors.map((d) => (
@@ -63,7 +63,7 @@ export const SettlementFilterBar: React.FC<SettlementFilterBarProps> = ({
         <button
           type="button"
           onClick={onRefresh}
-          className="p-1.5 text-gray-500 hover:text-gray-700 border dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
+          className="p-1.5 text-muted-foreground hover:text-foreground border dark:border-border rounded-lg bg-card"
           title="تحديث البيانات"
         >
           <RefreshCw className="w-4 h-4" />
@@ -75,7 +75,7 @@ export const SettlementFilterBar: React.FC<SettlementFilterBarProps> = ({
           type="button"
           onClick={onCloseAll}
           disabled={saving || loading || !hasSettlements}
-          className="px-3.5 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700 disabled:opacity-50 shadow-xs flex items-center gap-1.5"
+          className="px-3.5 py-1.5 bg-primary text-white rounded-lg text-xs font-semibold hover:bg-primary disabled:opacity-50 shadow-xs flex items-center gap-1.5"
         >
           {saving ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />

@@ -72,15 +72,15 @@ export function DentalCasesBulkBar({
       : [];
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-2xl border border-gray-700/80 flex items-center gap-3 flex-wrap max-w-[95vw] animate-in fade-in slide-in-from-bottom-5">
-      <div className="flex items-center gap-2 pr-2 border-l border-gray-700">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-muted dark:bg-muted backdrop-blur-md text-white px-4 py-3 rounded-xl shadow-2xl border border-border flex items-center gap-3 flex-wrap max-w-[95vw] animate-in fade-in slide-in-from-bottom-5">
+      <div className="flex items-center gap-2 pe-2 border-l border-border">
         <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping" />
         <span className="text-xs font-bold whitespace-nowrap font-mono">
           تم تحديد {selectedCaseIds.size} حالة
         </span>
         <button
           onClick={onClearSelection}
-          className="text-[11px] text-gray-400 hover:text-white underline mr-1"
+          className="text-[11px] text-muted-foreground hover:text-white underline me-1"
         >
           إلغاء
         </button>
@@ -91,7 +91,7 @@ export function DentalCasesBulkBar({
           {/* Bulk Advance Status */}
           <div className="flex items-center gap-1.5">
             <select
-              className="bg-gray-800 border border-gray-700 text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="bg-gray-800 border border-border text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
               value={bulkStatusTarget}
               onChange={(e) => onBulkStatusTargetChange(e.target.value)}
               disabled={bulkBusy}
@@ -121,7 +121,7 @@ export function DentalCasesBulkBar({
           {/* Bulk Assign Technician */}
           <div className="flex items-center gap-1.5">
             <select
-              className="bg-gray-800 border border-gray-700 text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="bg-gray-800 border border-border text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-primary"
               value={bulkTechTarget}
               onChange={(e) => onBulkTechTargetChange(e.target.value)}
               disabled={bulkBusy}
@@ -144,7 +144,7 @@ export function DentalCasesBulkBar({
               type="button"
               onClick={onBulkAssign}
               disabled={bulkBusy || !bulkTechTarget}
-              className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
+              className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
             >
               {bulkBusy ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -158,7 +158,7 @@ export function DentalCasesBulkBar({
           {/* Bulk Priority */}
           <div className="flex items-center gap-1.5">
             <select
-              className="bg-gray-800 border border-gray-700 text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="bg-gray-800 border border-border text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-warning"
               value={bulkPriorityTarget}
               onChange={(e) =>
                 onBulkPriorityTargetChange(e.target.value as DentalCasePriority)
@@ -174,7 +174,7 @@ export function DentalCasesBulkBar({
               type="button"
               onClick={onBulkPriority}
               disabled={bulkBusy || !bulkPriorityTarget}
-              className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
+              className="px-3 py-1.5 bg-warning hover:bg-warning text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
             >
               تحديث
             </button>
@@ -183,7 +183,7 @@ export function DentalCasesBulkBar({
           {/* Bulk Transfer to Doctor / Clinic */}
           <div className="flex items-center gap-1.5">
             <select
-              className="bg-gray-800 border border-gray-700 text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 max-w-[170px]"
+              className="bg-gray-800 border border-border text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-success max-w-[170px]"
               value={bulkDoctorTarget}
               onChange={(e) => onBulkDoctorTargetChange(e.target.value)}
               disabled={bulkBusy}
@@ -201,7 +201,7 @@ export function DentalCasesBulkBar({
               type="button"
               onClick={onBulkTransferDoctor}
               disabled={bulkBusy || !bulkDoctorTarget}
-              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
+              className="px-3 py-1.5 bg-success hover:bg-success text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
               title="نقل الحالات المحددة لعيادة أو دكتور آخر مع تحديث فواتيرها"
             >
               {bulkBusy ? (
@@ -218,7 +218,7 @@ export function DentalCasesBulkBar({
             type="button"
             onClick={onBulkTrash}
             disabled={bulkBusy}
-            className="px-3 py-1.5 bg-red-600/90 hover:bg-red-600 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 mr-auto shadow-sm transition font-mono"
+            className="px-3 py-1.5 bg-destructive/90 hover:bg-destructive text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 me-auto shadow-sm transition font-mono"
             title="نقل الحالات المحددة إلى المهملات"
           >
             <Trash2 className="w-3.5 h-3.5" />

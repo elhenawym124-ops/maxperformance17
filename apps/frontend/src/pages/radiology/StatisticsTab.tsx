@@ -66,17 +66,17 @@ function TatSection() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.tat.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.tat.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.tat.subtitle")}</p>
         </div>
-        <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+        <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
           <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
         </button>
       </div>
 
       {loading && !tat ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : !tat ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.tat.noData")}</p>
+        <p className="text-center py-16 text-muted-foreground/80">{t("radiology.tat.noData")}</p>
       ) : (
         <>
           {tat.overall && (
@@ -87,8 +87,8 @@ function TatSection() {
                 { label: t("radiology.tat.min"), value: fmtHours(tat.overall.minHours) },
                 { label: t("radiology.tat.max"), value: fmtHours(tat.overall.maxHours) },
               ].map(c => (
-                <div key={c.label} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{c.label}</p>
+                <div key={c.label} className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
+                  <p className="text-sm text-muted-foreground">{c.label}</p>
                   <p className="text-2xl font-bold mt-1">{c.value}</p>
                 </div>
               ))}
@@ -96,14 +96,14 @@ function TatSection() {
           )}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5 lg:col-span-2 overflow-x-auto">
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5 lg:col-span-2 overflow-x-auto">
               <h3 className="font-semibold mb-4">{t("radiology.tat.stage")}</h3>
               {tat.stageTimes.length === 0 ? (
-                <p className="text-sm text-gray-400">{t("radiology.tat.noData")}</p>
+                <p className="text-sm text-muted-foreground">{t("radiology.tat.noData")}</p>
               ) : (
                 <table className="w-full min-w-[560px] text-sm">
                   <thead>
-                    <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400 text-right">
+                    <tr className="border-b dark:border-border text-muted-foreground text-right">
                       <th className="py-2 px-2">{t("radiology.tat.stage")}</th>
                       <th className="py-2 px-2">{t("radiology.tat.count")}</th>
                       <th className="py-2 px-2">{t("radiology.tat.avg")}</th>
@@ -113,9 +113,9 @@ function TatSection() {
                   </thead>
                   <tbody>
                     {tat.stageTimes.map(r => (
-                      <tr key={`${r.dimension}|${r.fromStatus}|${r.toStatus}`} className="border-b dark:border-gray-700/50">
+                      <tr key={`${r.dimension}|${r.fromStatus}|${r.toStatus}`} className="border-b dark:border-border">
                         <td className="py-2 px-2 whitespace-nowrap">
-                          <span className="text-xs text-gray-400 dark:text-gray-500 ml-1">{r.dimension}</span>
+                          <span className="text-xs text-muted-foreground/80 ms-1">{r.dimension}</span>
                           {stageLabel(r.dimension, r.fromStatus)} <span className="text-gray-400">→</span> {stageLabel(r.dimension, r.toStatus)}
                         </td>
                         <td className="py-2 px-2">{r.count}</td>
@@ -129,21 +129,21 @@ function TatSection() {
               )}
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
               <h3 className="font-semibold mb-4">{t("radiology.tat.byModality")}</h3>
               {tat.byModality.length === 0 ? (
-                <p className="text-sm text-gray-400">{t("radiology.tat.noData")}</p>
+                <p className="text-sm text-muted-foreground">{t("radiology.tat.noData")}</p>
               ) : (
                 <div className="space-y-2">
                   {tat.byModality.map(m => {
                     const max = Math.max(...tat.byModality.map(x => x.avgHours), 1);
                     return (
                       <div key={m.modality} className="flex items-center gap-2 text-sm">
-                        <span className="w-32 truncate text-gray-600 dark:text-gray-300">{m.modality}</span>
-                        <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded h-4 overflow-hidden">
-                          <div className="h-full bg-indigo-500 rounded" style={{ width: `${(m.avgHours / max) * 100}%` }} />
+                        <span className="w-32 truncate text-muted-foreground">{m.modality}</span>
+                        <div className="flex-1 bg-muted rounded h-4 overflow-hidden">
+                          <div className="h-full bg-primary rounded" style={{ width: `${(m.avgHours / max) * 100}%` }} />
                         </div>
-                        <span className="w-16 text-left text-gray-500 dark:text-gray-400">{fmtHours(m.avgHours)}</span>
+                        <span className="w-16 text-left text-muted-foreground">{fmtHours(m.avgHours)}</span>
                       </div>
                     );
                   })}
@@ -151,19 +151,19 @@ function TatSection() {
               )}
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
-              <h3 className="font-semibold mb-4 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-500" />{t("radiology.tat.stuckEmergencies")}</h3>
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
+              <h3 className="font-semibold mb-4 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-warning" />{t("radiology.tat.stuckEmergencies")}</h3>
               {tat.stuckEmergencies.length === 0 ? (
-                <p className="text-sm text-gray-400">{t("radiology.tat.stuckEmpty")}</p>
+                <p className="text-sm text-muted-foreground">{t("radiology.tat.stuckEmpty")}</p>
               ) : (
                 <div className="space-y-2">
                   {tat.stuckEmergencies.map(s => (
-                    <div key={s.id} className="flex justify-between items-center text-sm border dark:border-gray-700/50 rounded-lg px-3 py-2">
+                    <div key={s.id} className="flex justify-between items-center text-sm border dark:border-border rounded-lg px-3 py-2">
                       <div>
                         <p className="font-medium">{s.patientName}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{s.examTypeName || s.modality || "—"}{s.studyNumber ? ` • ${s.studyNumber}` : ""}</p>
+                        <p className="text-xs text-muted-foreground">{s.examTypeName || s.modality || "—"}{s.studyNumber ? ` • ${s.studyNumber}` : ""}</p>
                       </div>
-                      <span className="text-xs text-amber-600 dark:text-amber-400">{RadiologyStatusMap[s.status] ? t(RadiologyStatusMap[s.status].label) : s.status}</span>
+                      <span className="text-xs text-warning dark:text-warning">{RadiologyStatusMap[s.status] ? t(RadiologyStatusMap[s.status].label) : s.status}</span>
                     </div>
                   ))}
                 </div>
@@ -198,17 +198,17 @@ export default function StatisticsTab() {
   const bars = (obj?: Record<string, number>) => {
     if (!obj) return null;
     const entries = Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, 10);
-    if (entries.length === 0) return <p className="text-sm text-gray-400">{t("radiology.statistics.noData")}</p>;
+    if (entries.length === 0) return <p className="text-sm text-muted-foreground">{t("radiology.statistics.noData")}</p>;
     const max = Math.max(...entries.map(e => e[1]), 1);
     return (
       <div className="space-y-2">
         {entries.map(([k, v]) => (
           <div key={k} className="flex items-center gap-2 text-sm">
-            <span className="w-40 truncate text-gray-600 dark:text-gray-300">{k}</span>
-            <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded h-4 overflow-hidden">
+            <span className="w-40 truncate text-muted-foreground">{k}</span>
+            <div className="flex-1 bg-muted rounded h-4 overflow-hidden">
               <div className="h-full bg-blue-500 rounded" style={{ width: `${(v / max) * 100}%` }} />
             </div>
-            <span className="w-10 text-left text-gray-500 dark:text-gray-400">{v}</span>
+            <span className="w-10 text-left text-muted-foreground">{v}</span>
           </div>
         ))}
       </div>
@@ -220,17 +220,17 @@ export default function StatisticsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.statistics.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.statistics.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.statistics.subtitle")}</p>
         </div>
-        <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+        <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
           <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
         </button>
       </div>
 
       {loading && !stats ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : !stats ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.statistics.noData")}</p>
+        <p className="text-center py-16 text-muted-foreground/80">{t("radiology.statistics.noData")}</p>
       ) : (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -241,34 +241,34 @@ export default function StatisticsTab() {
               { label: t("radiology.statistics.pendingReport"), value: stats.pendingReport },
               { label: t("radiology.statistics.completionRate"), value: `${stats.completionRate}%` },
             ].map(c => (
-              <div key={c.label} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
-                <p className="text-sm text-gray-500 dark:text-gray-400">{c.label}</p>
+              <div key={c.label} className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
+                <p className="text-sm text-muted-foreground">{c.label}</p>
                 <p className="text-2xl font-bold mt-1">{c.value}</p>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
               <h3 className="font-semibold mb-4">{t("radiology.statistics.byStudyStatus")}</h3>
               <div className="space-y-2">
                 {Object.entries(stats.byStatus).map(([k, v]) => (
-                  <div key={k} className="flex justify-between text-sm border-b dark:border-gray-700/50 pb-1.5">
-                    <span className="text-gray-600 dark:text-gray-300">{STATUS_LABEL[k] ? t(STATUS_LABEL[k] ?? "") : k}</span>
+                  <div key={k} className="flex justify-between text-sm border-b dark:border-border pb-1.5">
+                    <span className="text-muted-foreground">{STATUS_LABEL[k] ? t(STATUS_LABEL[k] ?? "") : k}</span>
                     <b>{v}</b>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
               <h3 className="font-semibold mb-4">{t("radiology.statistics.byModality")}</h3>
               {bars(stats.byModality)}
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
               <h3 className="font-semibold mb-4">{t("radiology.statistics.byRadiologist")}</h3>
               {bars(stats.byRadiologist)}
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+            <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
               <h3 className="font-semibold mb-4">{t("radiology.statistics.byReferringDoctor")}</h3>
               {bars(stats.byDoctor)}
             </div>

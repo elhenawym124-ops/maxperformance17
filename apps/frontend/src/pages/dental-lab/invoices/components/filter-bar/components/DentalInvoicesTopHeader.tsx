@@ -33,11 +33,11 @@ export const DentalInvoicesTopHeader: React.FC<DentalInvoicesTopHeaderProps> = (
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h2 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-gray-100 flex items-center gap-2">
+        <h2 className="text-xl sm:text-2xl font-black text-foreground flex items-center gap-2">
           <CreditCard className="w-6 h-6 text-blue-600" />
           <span>{t("dentalLab.invoices.title")}</span>
         </h2>
-        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-xs sm:text-sm text-muted-foreground">
           إدارة ومتابعة فواتير الأطباء ودورات التحصيل والفوترة الشهرية
         </p>
       </div>
@@ -55,7 +55,7 @@ export const DentalInvoicesTopHeader: React.FC<DentalInvoicesTopHeaderProps> = (
         <button
           type="button"
           onClick={onExportExcel}
-          className="flex items-center gap-1.5 px-3 py-2 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-lg text-xs sm:text-sm font-medium hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors shadow-sm"
+          className="flex items-center gap-1.5 px-3 py-2 border border-success dark:border-success text-success dark:text-success bg-success/50 dark:bg-success/20 rounded-lg text-xs sm:text-sm font-medium hover:bg-success dark:hover:bg-success/40 transition-colors shadow-sm"
           title="تصدير الفواتير المعروضة إلى Excel"
         >
           <Download className="w-4 h-4" />
@@ -66,7 +66,7 @@ export const DentalInvoicesTopHeader: React.FC<DentalInvoicesTopHeaderProps> = (
           <button
             type="button"
             onClick={onBatchInvoice}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg text-xs sm:text-sm font-semibold hover:from-amber-600 hover:to-orange-600 shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-warning to-warning text-white rounded-lg text-xs sm:text-sm font-semibold hover:from-warning hover:to-warning shadow-sm transition-all"
           >
             <Sparkles className="w-4 h-4" />
             <span>فوترة مجمعة ({uninvoicedCasesCount} حالة)</span>
@@ -76,7 +76,7 @@ export const DentalInvoicesTopHeader: React.FC<DentalInvoicesTopHeaderProps> = (
         <button
           type="button"
           onClick={() => onOpenSettlement(selectedDoctorId || undefined)}
-          className="flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 text-white rounded-lg text-xs sm:text-sm font-semibold hover:bg-indigo-700 shadow-sm transition-all"
+          className="flex items-center gap-1.5 px-3.5 py-2 bg-primary text-white rounded-lg text-xs sm:text-sm font-semibold hover:bg-primary shadow-sm transition-all"
         >
           <CalendarClock className="w-4 h-4" />
           <span>تقفيل المستحقات الشهرية</span>
@@ -85,9 +85,9 @@ export const DentalInvoicesTopHeader: React.FC<DentalInvoicesTopHeaderProps> = (
         <button
           type="button"
           onClick={onRefresh}
-          className="flex items-center gap-1.5 px-3 py-2 border dark:border-gray-700 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-2 border dark:border-border rounded-lg text-xs sm:text-sm font-medium hover:bg-muted dark:hover:bg-muted transition-colors"
         >
-          <RefreshCw className="w-4 h-4 text-gray-500" />
+          <RefreshCw className="w-4 h-4 text-muted-foreground" />
           <span>{t("dentalLab.common.refresh")}</span>
         </button>
       </div>

@@ -19,16 +19,16 @@ export const DentalCasesFilterModeTabs: React.FC<DentalCasesFilterModeTabsProps>
   return (
     <div className="flex items-center gap-2.5 flex-wrap">
       <div className="flex items-center gap-2">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+        <h2 className="text-lg font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
           <span>حالات معمل الأسنان</span>
-          <span className="text-xs font-mono tabular-nums font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-gray-700 text-slate-600 dark:text-slate-300">
+          <span className="text-xs font-mono tabular-nums font-bold px-2 py-0.5 rounded-full bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
             {total}
           </span>
         </h2>
       </div>
 
       {/* Segmented Mode Selector: Active / Overdue / Trash */}
-      <div className="flex items-center bg-slate-100 dark:bg-gray-700/60 p-0.5 rounded-xl text-xs font-semibold">
+      <div className="flex items-center bg-muted dark:bg-muted p-0.5 rounded-xl text-xs font-semibold">
         <button
           type="button"
           onClick={() => {
@@ -37,8 +37,8 @@ export const DentalCasesFilterModeTabs: React.FC<DentalCasesFilterModeTabsProps>
           }}
           className={`px-3 py-1 rounded-lg transition-all ${
             viewMode === "ACTIVE"
-              ? "bg-white dark:bg-gray-800 text-slate-900 dark:text-slate-100 shadow-2xs"
-              : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+              ? "bg-card text-foreground dark:text-muted-foreground shadow-2xs"
+              : "text-slate-500 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           }`}
         >
           النشطة
@@ -52,7 +52,7 @@ export const DentalCasesFilterModeTabs: React.FC<DentalCasesFilterModeTabsProps>
           className={`flex items-center gap-1 px-3 py-1 rounded-lg transition-all ${
             viewMode === "OVERDUE"
               ? "bg-rose-600 text-white shadow-2xs"
-              : "text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40"
+              : "text-rose-600 dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40"
           }`}
         >
           <AlertTriangle className="w-3 h-3" />
@@ -66,14 +66,14 @@ export const DentalCasesFilterModeTabs: React.FC<DentalCasesFilterModeTabsProps>
           }}
           className={`flex items-center gap-1 px-3 py-1 rounded-lg transition-all ${
             viewMode === "TRASH"
-              ? "bg-slate-700 dark:bg-slate-600 text-white shadow-2xs"
-              : "text-slate-500 dark:text-slate-400 hover:text-slate-800"
+              ? "bg-slate-700 dark:bg-muted text-white shadow-2xs"
+              : "text-slate-500 dark:text-muted-foreground hover:text-foreground"
           }`}
         >
           <Trash2 className="w-3 h-3" />
           <span>سلة المهملات</span>
           {trashCount > 0 && (
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 font-mono tabular-nums">
+            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-mono tabular-nums">
               {trashCount}
             </span>
           )}

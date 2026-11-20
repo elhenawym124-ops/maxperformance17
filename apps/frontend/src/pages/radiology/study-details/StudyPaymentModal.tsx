@@ -49,14 +49,14 @@ export const StudyPaymentModal: React.FC<StudyPaymentModalProps> = ({
           </h3>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300 cursor-pointer"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground cursor-pointer"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
         <div className="space-y-3">
           <div>
-            <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-medium text-muted-foreground mb-1">
               {t("radiology.insuranceInvoices.amountRequired")}
             </label>
             <input
@@ -71,7 +71,7 @@ export const StudyPaymentModal: React.FC<StudyPaymentModalProps> = ({
           </div>
           {type === "PAY" ? (
             <div>
-              <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-medium text-muted-foreground mb-1">
                 {t("radiology.insuranceInvoices.paymentMethod")}
               </label>
               <select
@@ -89,7 +89,7 @@ export const StudyPaymentModal: React.FC<StudyPaymentModalProps> = ({
             </div>
           ) : null}
           <div>
-            <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-medium text-muted-foreground mb-1">
               {t("radiology.insuranceInvoices.note")}
             </label>
             <input
@@ -104,7 +104,7 @@ export const StudyPaymentModal: React.FC<StudyPaymentModalProps> = ({
           <button
             onClick={onClose}
             disabled={savingPay}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg disabled:opacity-50 cursor-pointer"
+            className="px-4 py-2 text-foreground border rounded-lg disabled:opacity-50 cursor-pointer"
           >
             {t("radiology.cancel")}
           </button>

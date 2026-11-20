@@ -42,7 +42,7 @@ type StudyWithRadiologist = RadiologyStudy & {
   bookingNo?: number | null;
 };
 
-const filterCls = "border dark:border-gray-600 rounded-lg px-3 py-2 text-sm dark:bg-gray-800 dark:text-gray-100";
+const filterCls = "border dark:border-border rounded-lg px-3 py-2 text-sm dark:bg-muted dark:text-muted-foreground";
 
 export default function StudiesTab() {
   const { t } = useTranslation();
@@ -276,13 +276,13 @@ export default function StudiesTab() {
   const statusBadge = (value?: string) => {
     const meta = value ? RadiologyStatusMap[value] : undefined;
     if (meta) return <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${meta.color}`}>{t(meta.label)}</span>;
-    return <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">{value || "—"}</span>;
+    return <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">{value || "—"}</span>;
   };
 
   const submissionBadge = (value?: string) => {
     const meta = value ? RadiologySubmissionStatusMap[value] : undefined;
     if (meta) return <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${meta.color}`}>{t(meta.label)}</span>;
-    return <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">{value || "—"}</span>;
+    return <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">{value || "—"}</span>;
   };
 
   const criticalBadge = (r?: RadiologyReport | null) => {
@@ -379,7 +379,7 @@ export default function StudiesTab() {
 
   const renderStudyRow = (s: StudyWithRadiologist) => (
     <Fragment key={s.id}>
-      <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
+      <tr className="border-b dark:border-border hover:bg-muted/50 text-sm">
         <td className="py-3 px-4 w-8">
           <input type="checkbox" className="w-4 h-4" checked={selectedIds.has(s.id)} onChange={() => toggleSelect(s.id)} />
         </td>
@@ -387,13 +387,13 @@ export default function StudiesTab() {
         <td className="py-3 px-4 font-medium" dir="ltr">{s.studyNumber || s.id.slice(0, 8)}</td>
         <td className="py-3 px-4 font-medium">
           {s.patientName}
-          {s.emergency ? <span className="mr-2 px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300">{t("radiology.studies.emergency")}</span> : null}
+          {s.emergency ? <span className="me-2 px-2 py-0.5 rounded-full text-xs bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive">{t("radiology.studies.emergency")}</span> : null}
           {parsePatientFlags(s.patientFlags).map(f => {
             const meta = flagMeta(f);
-            return meta ? <span key={f} className={`mr-1.5 px-2 py-0.5 rounded-full text-[11px] whitespace-nowrap inline-block align-middle ${meta.color}`}>{meta.label}</span> : null;
+            return meta ? <span key={f} className={`me-1.5 px-2 py-0.5 rounded-full text-[11px] whitespace-nowrap inline-block align-middle ${meta.color}`}>{meta.label}</span> : null;
           })}
         </td>
-        <td className="py-3 px-4 text-gray-500 dark:text-gray-400">{s.examTypeName || s.examType?.name || "—"}</td>
+        <td className="py-3 px-4 text-muted-foreground">{s.examTypeName || s.examType?.name || "—"}</td>
         <td className="py-3 px-4">
           <div className="flex flex-col gap-1 min-w-[150px]">
             <select
@@ -406,10 +406,10 @@ export default function StudiesTab() {
               {radiologists.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
             {s.assignedRadiologistName ? (
-              <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">{s.assignedRadiologistName}</span>
+              <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-success text-success dark:bg-success/40 dark:text-success">{s.assignedRadiologistName}</span>
             ) : null}
             {s.radiologistLocation ? (
-              <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${s.radiologistLocation === "ON_SITE" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" : "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300"}`}>
+              <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${s.radiologistLocation === "ON_SITE" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"}`}>
                 {s.radiologistLocation === "ON_SITE" ? t("radiology.studies.onSite") : t("radiology.studies.offSite")}
               </span>
             ) : null}
@@ -423,11 +423,11 @@ export default function StudiesTab() {
           </div>
         </td>
         <td className="py-3 px-4">{submissionBadge(s.submissionStatus)}</td>
-        <td className="py-3 px-4 text-gray-400 dark:text-gray-500 whitespace-nowrap">{fmtDate(s.createdAt)}</td>
+        <td className="py-3 px-4 text-muted-foreground/80 whitespace-nowrap">{fmtDate(s.createdAt)}</td>
         <td className="py-3 px-4">
           <div className="flex items-center gap-1.5 flex-wrap">
             <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.details.viewDetails") as string}><Info className="w-4 h-4" /></button>
-            <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="p-1.5 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30 rounded" title={t("radiology.studies.openReport") as string}><FileText className="w-4 h-4" /></button>
+            <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="p-1.5 text-info dark:text-info hover:bg-info/10 dark:hover:bg-info/30 rounded" title={t("radiology.studies.openReport") as string}><FileText className="w-4 h-4" /></button>
             <input
               ref={el => { fileInputs.current[s.id] = el; }}
               type="file"
@@ -436,40 +436,40 @@ export default function StudiesTab() {
               className="hidden"
               onChange={e => { uploadImages(s.id, e.target.files); e.target.value = ""; }}
             />
-            <button onClick={() => fileInputs.current[s.id]?.click()} disabled={uploadingId === s.id} className="p-1.5 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded disabled:opacity-40" title={t("radiology.studies.uploadImages") as string}>{uploadingId === s.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}</button>
+            <button onClick={() => fileInputs.current[s.id]?.click()} disabled={uploadingId === s.id} className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded disabled:opacity-40" title={t("radiology.studies.uploadImages") as string}>{uploadingId === s.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}</button>
             <button onClick={() => setViewerStudyId(s.id)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.studies.viewImages") as string}><FolderOpen className="w-4 h-4" /></button>
-            <button onClick={() => setReportStudyId(s.id)} className="p-1.5 text-teal-600 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/30 rounded" title={t("radiology.studies.enterReport") as string}><FileText className="w-4 h-4" /></button>
-            <button onClick={() => printLabel(s.id)} className="p-1.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/30 rounded" title={t("radiology.studies.printLabel") as string}><Printer className="w-4 h-4" /></button>
-            <button onClick={() => openPayment(s.id)} className="p-1.5 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded" title={t("radiology.studies.payment") as string}><Banknote className="w-4 h-4" /></button>
-            <button onClick={() => duplicateStudy(s)} className="p-1.5 text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded" title={t("radiology.studies.duplicate") as string}><Copy className="w-4 h-4" /></button>
+            <button onClick={() => setReportStudyId(s.id)} className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded" title={t("radiology.studies.enterReport") as string}><FileText className="w-4 h-4" /></button>
+            <button onClick={() => printLabel(s.id)} className="p-1.5 text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded" title={t("radiology.studies.printLabel") as string}><Printer className="w-4 h-4" /></button>
+            <button onClick={() => openPayment(s.id)} className="p-1.5 text-warning dark:text-warning hover:bg-warning/10 dark:hover:bg-warning/30 rounded" title={t("radiology.studies.payment") as string}><Banknote className="w-4 h-4" /></button>
+            <button onClick={() => duplicateStudy(s)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.studies.duplicate") as string}><Copy className="w-4 h-4" /></button>
             {s.rologyStudyLink ? (
-              <a href={s.rologyStudyLink} target="_blank" rel="noreferrer" className="p-1.5 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded" title={t("radiology.studies.openInRology") as string}><ExternalLink className="w-4 h-4" /></a>
+              <a href={s.rologyStudyLink} target="_blank" rel="noreferrer" className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.studies.openInRology") as string}><ExternalLink className="w-4 h-4" /></a>
             ) : null}
-            <button onClick={() => toggleExpand(s)} className={`px-2 py-1 text-xs rounded border font-medium ${expanded.has(s.id) ? "bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300" : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"}`} title={t("radiology.studies.trackRology") as string}>Rology</button>
-            <button onClick={() => advanceStatus(s)} disabled={advancingId === s.id || !STUDY_STATUS[s.status]} className="p-1.5 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded disabled:opacity-40" title={t("radiology.studies.advanceStatus") as string}>{advancingId === s.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowUpCircle className="w-4 h-4" />}</button>
+            <button onClick={() => toggleExpand(s)} className={`px-2 py-1 text-xs rounded border font-medium ${expanded.has(s.id) ? "bg-purple-50 text-primary dark:bg-primary/30 dark:text-primary" : "text-muted-foreground hover:bg-muted/50"}`} title={t("radiology.studies.trackRology") as string}>Rology</button>
+            <button onClick={() => advanceStatus(s)} disabled={advancingId === s.id || !STUDY_STATUS[s.status]} className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded disabled:opacity-40" title={t("radiology.studies.advanceStatus") as string}>{advancingId === s.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowUpCircle className="w-4 h-4" />}</button>
           </div>
         </td>
       </tr>
       {expanded.has(s.id) && (
-        <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700/40">
+        <tr className="border-b dark:border-border bg-muted dark:bg-muted">
           <td colSpan={10} className="py-4 px-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.studies.rologySubmissionStatus")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.studies.rologySubmissionStatus")}</label>
                 <select className={MODAL_INPUT_CLS} value={drafts[s.id]?.submissionStatus ?? ""} onChange={e => setDrafts(d => ({ ...d, [s.id]: { ...(d[s.id] ?? emptyRologyDraft()), submissionStatus: e.target.value } }))}>
                   {Object.entries(RadiologySubmissionStatusMap).map(([k, v]) => <option key={k} value={k}>{t(v.label)}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.studies.rologyStudyLink")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.studies.rologyStudyLink")}</label>
                 <input className={MODAL_INPUT_CLS} dir="ltr" value={drafts[s.id]?.rologyStudyLink ?? ""} onChange={e => setDrafts(d => ({ ...d, [s.id]: { ...(d[s.id] ?? emptyRologyDraft()), rologyStudyLink: e.target.value } }))} placeholder="https://..." />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.studies.rologyReportLink")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.studies.rologyReportLink")}</label>
                 <input className={MODAL_INPUT_CLS} dir="ltr" value={drafts[s.id]?.rologyReportLink ?? ""} onChange={e => setDrafts(d => ({ ...d, [s.id]: { ...(d[s.id] ?? emptyRologyDraft()), rologyReportLink: e.target.value } }))} placeholder="https://..." />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.studies.rologistName")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.studies.rologistName")}</label>
                 <input className={MODAL_INPUT_CLS} value={drafts[s.id]?.rologyRadiologist ?? ""} onChange={e => setDrafts(d => ({ ...d, [s.id]: { ...(d[s.id] ?? emptyRologyDraft()), rologyRadiologist: e.target.value } }))} placeholder={t("radiology.studies.rologistPlaceholder") as string} />
               </div>
             </div>
@@ -489,29 +489,29 @@ export default function StudiesTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.studies.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.studies.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.studies.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
           <a href="/radiology/schedule" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
             <Plus className="w-4 h-4" />{t("radiology.studies.newStudy")}
           </a>
-          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+          <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center rounded-lg border dark:border-gray-600 overflow-hidden text-sm">
+        <div className="flex items-center rounded-lg border dark:border-border overflow-hidden text-sm">
           <button
             onClick={() => setViewMode("orders")}
-            className={`flex items-center gap-1.5 px-3 py-2 ${viewMode === "orders" ? "bg-blue-600 text-white" : "hover:bg-gray-50 dark:hover:bg-gray-700"}`}
+            className={`flex items-center gap-1.5 px-3 py-2 ${viewMode === "orders" ? "bg-blue-600 text-white" : "hover:bg-muted/50"}`}
           >
             <Layers className="w-4 h-4" />{t("radiology.order.viewAsOrders")}
           </button>
           <button
             onClick={() => setViewMode("studies")}
-            className={`flex items-center gap-1.5 px-3 py-2 ${viewMode === "studies" ? "bg-blue-600 text-white" : "hover:bg-gray-50 dark:hover:bg-gray-700"}`}
+            className={`flex items-center gap-1.5 px-3 py-2 ${viewMode === "studies" ? "bg-blue-600 text-white" : "hover:bg-muted/50"}`}
           >
             <FolderOpen className="w-4 h-4" />{t("radiology.order.viewAsStudies")}
           </button>
@@ -521,8 +521,8 @@ export default function StudiesTab() {
           {Object.entries(RadiologyStatusMap).map(([k, v]) => <option key={k} value={k}>{t(v.label)}</option>)}
         </select>
         <div className="relative">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400 dark:text-gray-500" />
-          <input className={`${filterCls} pr-9 w-48`} placeholder={t("radiology.studies.searchByName") as string} value={search} onChange={e => setSearch(e.target.value)} />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground/80" />
+          <input className={`${filterCls} pe-9 w-48`} placeholder={t("radiology.studies.searchByName") as string} value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <input className={filterCls} dir="ltr" placeholder={t("radiology.studies.nationalId") as string} value={nationalSearch} onChange={e => setNationalSearch(e.target.value)} />
         <input className={filterCls} dir="ltr" placeholder={t("radiology.studies.insuranceNumber") as string} value={insuranceSearch} onChange={e => setInsuranceSearch(e.target.value)} />
@@ -531,15 +531,15 @@ export default function StudiesTab() {
       </div>
 
       {loading && !studies ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : studies === null || studies.length === 0 ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">{t("radiology.studies.noStudies")}</p>
+        <p className="text-center py-16 text-muted-foreground/80">{t("radiology.studies.noStudies")}</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[1000px]">
               <thead>
-                <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-sm">
+                <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-sm">
                   <th className="text-right py-3 px-4 w-8">
                     <input
                       type="checkbox"
@@ -569,7 +569,7 @@ export default function StudiesTab() {
                         const groupExpanded = expandedGroups.has(key);
                         return (
                           <Fragment key={key}>
-                            <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">
+                            <tr className="border-b dark:border-border bg-muted dark:bg-muted hover:bg-muted text-sm">
                               <td className="py-3 px-4 w-8">
                                 <input
                                   type="checkbox"
@@ -596,7 +596,7 @@ export default function StudiesTab() {
                                   <span className="px-2 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 whitespace-nowrap">
                                     {t("radiology.order.examProgress", { done: items.filter(i => i.status === "DELIVERED").length, total: items.length })}
                                   </span>
-                                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                                  <span className="text-xs text-muted-foreground/80">
                                     {t("radiology.order.siblingCount", { count: items.length })}
                                   </span>
                                 </div>
@@ -618,8 +618,8 @@ export default function StudiesTab() {
 
       {selectedIds.size > 0 ? (
         <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border dark:border-gray-700 px-4 py-3 flex items-center gap-3 flex-wrap">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("radiology.order.bulkSelected", { count: selectedIds.size })}</span>
+          <div className="bg-card rounded-xl shadow-2xl border dark:border-border px-4 py-3 flex items-center gap-3 flex-wrap">
+            <span className="text-sm font-medium text-foreground">{t("radiology.order.bulkSelected", { count: selectedIds.size })}</span>
             <button
               onClick={() => void runBulk("advance")}
               disabled={bulkBusy !== null}
@@ -631,7 +631,7 @@ export default function StudiesTab() {
             <button
               onClick={() => void runBulk("deliver")}
               disabled={bulkBusy !== null}
-              className="flex items-center gap-1.5 px-3 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 disabled:opacity-50 text-sm"
+              className="flex items-center gap-1.5 px-3 py-2 bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 text-sm"
             >
               {bulkBusy === "deliver" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Printer className="w-4 h-4" />}
               {t("radiology.order.bulkDeliver")}
@@ -639,12 +639,12 @@ export default function StudiesTab() {
             <button
               onClick={() => void runBulk("labels")}
               disabled={bulkBusy !== null}
-              className="flex items-center gap-1.5 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 disabled:opacity-50 text-sm"
+              className="flex items-center gap-1.5 px-3 py-2 bg-muted text-white rounded-lg hover:bg-muted disabled:opacity-50 text-sm"
             >
               {bulkBusy === "labels" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Printer className="w-4 h-4" />}
               {t("radiology.order.bulkLabels")}
             </button>
-            <button onClick={() => setSelectedIds(new Set())} className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" title={t("radiology.close") as string}>
+            <button onClick={() => setSelectedIds(new Set())} className="p-1.5 text-muted-foreground hover:bg-muted rounded-lg" title={t("radiology.close") as string}>
               <XMarkIcon className="w-4 h-4" />
             </button>
           </div>
@@ -659,31 +659,31 @@ export default function StudiesTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{t("radiology.studies.paymentModalTitle")}</h3>
-              <button onClick={() => setPayModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => setPayModal(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             <div className="flex items-center gap-2 mb-4">
-              <span className={`px-2 py-0.5 rounded-full text-xs ${payModal.billingType === "INSURANCE" ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300" : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"}`}>
+              <span className={`px-2 py-0.5 rounded-full text-xs ${payModal.billingType === "INSURANCE" ? "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"}`}>
                 {payModal.billingType === "INSURANCE" ? t("radiology.studies.billingToEntity") : t("radiology.studies.directPatientPayment")}
               </span>
             </div>
             <div className="grid grid-cols-3 gap-3 mb-4">
-              <div className="bg-gray-50 dark:bg-gray-700/40 rounded-lg p-3 text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.total")}</p>
+              <div className="bg-gray-50 dark:bg-muted rounded-lg p-3 text-center">
+                <p className="text-xs text-muted-foreground">{t("radiology.total")}</p>
                 <p className="text-lg font-bold">{payModal.total.toFixed(0)} {t("radiology.currency")}</p>
               </div>
-              <div className="bg-green-50 dark:bg-green-900/30 rounded-lg p-3 text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.paid")}</p>
-                <p className="text-lg font-bold text-green-600">{payModal.paidAmount.toFixed(0)} {t("radiology.currency")}</p>
+              <div className="bg-green-50 dark:bg-success/30 rounded-lg p-3 text-center">
+                <p className="text-xs text-muted-foreground">{t("radiology.paid")}</p>
+                <p className="text-lg font-bold text-success">{payModal.paidAmount.toFixed(0)} {t("radiology.currency")}</p>
               </div>
-              <div className="bg-red-50 dark:bg-red-900/30 rounded-lg p-3 text-center">
-                <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.remaining")}</p>
-                <p className="text-lg font-bold text-red-600">{payModal.remaining.toFixed(0)} {t("radiology.currency")}</p>
+              <div className="bg-red-50 dark:bg-destructive/30 rounded-lg p-3 text-center">
+                <p className="text-xs text-muted-foreground">{t("radiology.remaining")}</p>
+                <p className="text-lg font-bold text-destructive">{payModal.remaining.toFixed(0)} {t("radiology.currency")}</p>
               </div>
             </div>
             {payModal.payments.length > 0 ? (
               <div className="mb-4 max-h-32 overflow-y-auto">
                 {payModal.payments.map(p => (
-                  <div key={p.id} className="flex justify-between text-sm border-b dark:border-gray-700/50 py-1.5">
+                  <div key={p.id} className="flex justify-between text-sm border-b dark:border-border py-1.5">
                     <span>{p.method || "CASH"} {p.note ? `— ${p.note}` : ""}</span>
                     <b className="text-green-600">{p.amount.toFixed(0)} {t("radiology.currency")}</b>
                   </div>
@@ -701,13 +701,13 @@ export default function StudiesTab() {
             </div>
             <div className="flex gap-3 mt-3">
               <input type="number" min={0} className={MODAL_INPUT_CLS} dir="ltr" placeholder={t("radiology.studies.refundPlaceholder") as string} value={refundAmount} onChange={e => setRefundAmount(e.target.value)} />
-              <button onClick={saveRefund} disabled={savingPay || !refundAmount} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-40 text-sm">
+              <button onClick={saveRefund} disabled={savingPay || !refundAmount} className="px-4 py-2 bg-destructive text-white rounded-lg hover:bg-destructive disabled:opacity-40 text-sm">
                 {t("radiology.studies.refund")}
               </button>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setPayModal(null)} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">{t("radiology.close")}</button>
-              <button onClick={savePayment} disabled={savingPay} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2">
+              <button onClick={() => setPayModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.close")}</button>
+              <button onClick={savePayment} disabled={savingPay} className="px-4 py-2 bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 flex items-center gap-2">
                 {savingPay && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.studies.recordPayment")}
               </button>
             </div>

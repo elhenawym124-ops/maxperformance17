@@ -21,7 +21,7 @@ export function PolicyEscalationCard({
     <div className="rounded-xl border border-border/60 bg-card p-4 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <Bell className="size-4 text-rose-500" />
+          <Bell className="size-4 text-destructive" />
           تصعيد التأخير التلقائي (Automated Escalation)
         </h3>
         <Button
@@ -29,7 +29,7 @@ export function PolicyEscalationCard({
           size="sm"
           onClick={onRunEscalation}
           disabled={runningEscalation}
-          className="text-xs gap-1.5 text-rose-600 border-rose-200 hover:bg-rose-50 dark:hover:bg-rose-950/40"
+          className="text-xs gap-1.5 text-destructive border-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40"
         >
           {runningEscalation ? (
             <RefreshCw className="size-3 animate-spin" />

@@ -57,11 +57,11 @@ export default function RadiologyReportsTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.reports.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.reports.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.reports.subtitle")}</p>
         </div>
         <button
           onClick={() => refresh()}
-          className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 cursor-pointer"
         >
           {refreshing ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
           {t("radiology.refresh")}
@@ -82,21 +82,21 @@ export default function RadiologyReportsTab() {
 
       {loading && !rows ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
         </div>
       ) : rows === null && loadError ? (
         <div className="text-center py-16">
-          <AlertTriangle className="w-10 h-10 mx-auto mb-3 text-red-400" />
-          <p className="text-sm text-red-500 mb-4">{loadError}</p>
+          <AlertTriangle className="w-10 h-10 mx-auto mb-3 text-destructive" />
+          <p className="text-sm text-destructive mb-4">{loadError}</p>
           <button
             onClick={() => refresh()}
-            className="px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+            className="px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 cursor-pointer"
           >
             {t("radiology.reports.retry")}
           </button>
         </div>
       ) : rows === null || rows.length === 0 ? (
-        <div className="text-center py-16 text-gray-400 dark:text-gray-500">
+        <div className="text-center py-16 text-muted-foreground/80">
           <FileText className="w-10 h-10 mx-auto mb-3" />
           {hasActiveFilters ? t("radiology.reports.noReportsMatch") : t("radiology.reports.noReportsYet")}
         </div>
@@ -116,7 +116,7 @@ export default function RadiologyReportsTab() {
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t("radiology.reports.showingRange", {
                 shown: rows.length,
                 total,
@@ -128,14 +128,14 @@ export default function RadiologyReportsTab() {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1 || refreshing}
-                className="px-3 py-1.5 border dark:border-gray-600 rounded-lg text-sm disabled:opacity-40 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                className="px-3 py-1.5 border dark:border-border rounded-lg text-sm disabled:opacity-40 hover:bg-muted/50 cursor-pointer"
               >
                 {t("radiology.reports.previous")}
               </button>
               <button
                 onClick={() => setPage((p) => p + 1)}
                 disabled={page >= totalPages || refreshing}
-                className="px-3 py-1.5 border dark:border-gray-600 rounded-lg text-sm disabled:opacity-40 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                className="px-3 py-1.5 border dark:border-border rounded-lg text-sm disabled:opacity-40 hover:bg-muted/50 cursor-pointer"
               >
                 {t("radiology.reports.next")}
               </button>

@@ -197,13 +197,13 @@ const AdPreview: React.FC = () => {
                       <span className="text-xs font-medium">{format.label}</span>
                     </div>
                     {format.platform === "instagram" && (
-                      <Instagram className="h-4 w-4 text-pink-500" />
+                      <Instagram className="h-4 w-4 text-primary" />
                     )}
                     {format.platform === "facebook" && (
                       <Facebook className="h-4 w-4 text-blue-500" />
                     )}
                     {format.platform === "messenger" && (
-                      <MessageCircle className="h-4 w-4 text-violet-500" />
+                      <MessageCircle className="h-4 w-4 text-primary" />
                     )}
                   </button>
                 );
@@ -260,8 +260,8 @@ const AdPreview: React.FC = () => {
                     }`}
                   >
                     {selectedFormat.includes("STORY") ? (
-                      <div className="rounded-3xl border border-border/80 bg-background p-2.5 shadow-xl">
-                        <div className="aspect-[9/16] overflow-hidden rounded-2xl bg-muted/40">
+                      <div className="rounded-xl border border-border/80 bg-background p-2.5 shadow-xl">
+                        <div className="aspect-[9/16] overflow-hidden rounded-xl bg-muted/40">
                           {previewData.body ? (
                             <div dangerouslySetInnerHTML={{ __html: previewData.body }} />
                           ) : (
@@ -272,8 +272,8 @@ const AdPreview: React.FC = () => {
                         </div>
                       </div>
                     ) : selectedFormat.includes("MOBILE") ? (
-                      <div className="rounded-3xl border border-border/80 bg-background p-3 shadow-xl">
-                        <div className="overflow-hidden rounded-2xl bg-muted/40">
+                      <div className="rounded-xl border border-border/80 bg-background p-3 shadow-xl">
+                        <div className="overflow-hidden rounded-xl bg-muted/40">
                           {previewData.body ? (
                             <div dangerouslySetInnerHTML={{ __html: previewData.body }} />
                           ) : (

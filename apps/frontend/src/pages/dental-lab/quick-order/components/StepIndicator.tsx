@@ -15,10 +15,10 @@ export function StepIndicator({ current }: StepIndicatorProps) {
               className={[
                 "w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border-2 transition-colors font-mono tabular-nums",
                 done
-                  ? "bg-emerald-500 border-emerald-500 text-white"
+                  ? "bg-emerald-500 border-success text-white"
                   : active
                   ? "bg-blue-600 border-blue-600 text-white shadow-sm"
-                  : "border-gray-300 dark:border-gray-600 text-gray-400",
+                  : "border-border text-muted-foreground",
               ].join(" ")}
             >
               {done ? <Check className="w-4 h-4 stroke-[3]" /> : s}
@@ -26,13 +26,13 @@ export function StepIndicator({ current }: StepIndicatorProps) {
             <span
               className={[
                 "text-xs sm:text-sm font-medium",
-                active ? "font-bold text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400",
+                active ? "font-bold text-blue-600 dark:text-blue-400" : "text-muted-foreground",
               ].join(" ")}
             >
               {stepLabel(s)}
             </span>
             {idx < steps.length - 1 && (
-              <ChevronRight className="w-4 h-4 text-gray-300 dark:text-gray-600" />
+              <ChevronRight className="w-4 h-4 text-muted-foreground dark:text-foreground" />
             )}
           </div>
         );

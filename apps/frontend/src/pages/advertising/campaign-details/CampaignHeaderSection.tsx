@@ -58,7 +58,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
       <div className="flex min-w-0 items-start gap-3">
         <button
           onClick={onNavigateBack}
-          className="mt-0.5 rounded-lg border border-slate-200 p-2 text-slate-600 hover:bg-slate-50 transition-colors"
+          className="mt-0.5 rounded-lg border border-border p-2 text-foreground hover:bg-muted transition-colors"
           aria-label={isEn ? "Back to Campaigns" : "العودة لقائمة الحملات"}
           title={isEn ? "Back" : "رجوع"}
         >
@@ -66,7 +66,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
         </button>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="max-w-3xl truncate text-xl font-black text-slate-950">
+            <h1 className="max-w-3xl truncate text-xl font-black text-foreground">
               {campaign.name}
             </h1>
             <span
@@ -77,17 +77,17 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
               {getStatusLabel(campaign.status, isEn)}
             </span>
             {campaign.deliveryReadiness?.label && (
-              <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">
+              <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-bold text-foreground">
                 {campaign.deliveryReadiness.label}
               </span>
             )}
           </div>
-          <div className="mt-2 flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
-            <span className="rounded-lg bg-slate-50 px-2.5 py-1">
+          <div className="mt-2 flex flex-wrap gap-2 text-xs font-semibold text-foreground">
+            <span className="rounded-lg bg-muted px-2.5 py-1">
               {isEn ? "Objective:" : "الهدف:"}{" "}
               {getObjectiveLabel(campaign.objective)}
             </span>
-            <span className="rounded-lg bg-slate-50 px-2.5 py-1">
+            <span className="rounded-lg bg-muted px-2.5 py-1">
               {isEn ? "Budget:" : "الميزانية:"}{" "}
               <span className="tabular-nums">
                 {formatCurrency(campaign.budgetAmount, campaignCurrency, isEn)}
@@ -98,19 +98,19 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
                   : " / يوم"
                 : ""}
             </span>
-            <span className="rounded-lg bg-slate-50 px-2.5 py-1">
+            <span className="rounded-lg bg-muted px-2.5 py-1">
               {isEn ? "Ad Sets:" : "المجموعات:"}{" "}
               <span className="tabular-nums">
                 {activeAdSets}/{totalAdSets}
               </span>
             </span>
-            <span className="rounded-lg bg-slate-50 px-2.5 py-1">
+            <span className="rounded-lg bg-muted px-2.5 py-1">
               {isEn ? "Ads:" : "الإعلانات:"}{" "}
               <span className="tabular-nums">
                 {activeAds}/{totalAds}
               </span>
             </span>
-            <span className="rounded-lg bg-slate-50 px-2.5 py-1">
+            <span className="rounded-lg bg-muted px-2.5 py-1">
               {isEn ? "Period:" : "الفترة:"} {dateRangeLabel}
             </span>
           </div>
@@ -121,7 +121,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
         <button
           onClick={onSyncMeta}
           disabled={syncing || refreshing}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-100 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-primary bg-primary/10 px-3 py-2 text-xs font-bold text-primary hover:bg-primary disabled:opacity-50 transition-colors"
           title={
             isEn
               ? "Sync structure & latest data directly from Meta"
@@ -129,7 +129,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
           }
         >
           <ArrowPathIcon
-            className={`h-4 w-4 ${syncing ? "animate-spin text-indigo-600" : ""}`}
+            className={`h-4 w-4 ${syncing ? "animate-spin text-primary" : ""}`}
           />
           {syncing
             ? isEn
@@ -145,12 +145,12 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
             href={`https://adsmanager.facebook.com/adsmanager/manage/campaigns?selected_campaign_ids=${campaign.facebookCampaignId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-2 text-xs font-bold text-foreground hover:bg-muted transition-colors"
             title={
               isEn ? "Open in Facebook Ads Manager" : "فتح في مدير إعلانات فيسبوك"
             }
           >
-            <ArrowTopRightOnSquareIcon className="h-4 w-4 text-slate-500" />
+            <ArrowTopRightOnSquareIcon className="h-4 w-4 text-muted-foreground" />
             {isEn ? "Ads Manager" : "مدير الإعلانات"}
           </a>
         )}
@@ -158,7 +158,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
         <button
           onClick={onRefresh}
           disabled={refreshing || syncing}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-2 text-xs font-bold text-foreground hover:bg-muted disabled:opacity-50 transition-colors"
         >
           <ArrowPathIcon
             className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
@@ -169,7 +169,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
         {campaign.status === "ACTIVE" ? (
           <button
             onClick={onPause}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-bold text-amber-800 hover:bg-amber-100 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-warning bg-warning/10 px-3 py-2 text-xs font-bold text-warning hover:bg-warning transition-colors"
           >
             <PauseIcon className="h-4 w-4" />
             {isEn ? "Pause" : "إيقاف"}
@@ -177,7 +177,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
         ) : campaign.status === "PAUSED" ? (
           <button
             onClick={onResume}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-success bg-success/10 px-3 py-2 text-xs font-bold text-success hover:bg-success transition-colors"
           >
             <PlayIcon className="h-4 w-4" />
             {isEn ? "Resume" : "تشغيل"}
@@ -186,7 +186,7 @@ export const CampaignHeaderSection: React.FC<CampaignHeaderSectionProps> = ({
 
         <button
           onClick={onDelete}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-white px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-50 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-destructive bg-white px-3 py-2 text-xs font-bold text-destructive hover:bg-destructive/10 transition-colors"
         >
           <TrashIcon className="h-4 w-4" />
           {isEn ? "Delete" : "حذف"}

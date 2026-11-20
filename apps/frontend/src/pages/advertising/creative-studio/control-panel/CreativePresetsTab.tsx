@@ -42,11 +42,11 @@ export const CreativePresetsTab: React.FC<CreativePresetsTabProps> = ({
   return (
     <div className="space-y-3">
       {/* Reference Image Uploader Card */}
-      <div className="p-3 rounded-xl border border-indigo-200/80 dark:border-indigo-900/60 bg-indigo-50/30 dark:bg-indigo-950/20">
+      <div className="p-3 rounded-xl border border-primary/80 dark:border-primary/60 bg-primary/30 dark:bg-primary/20">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5">
-            <ImageIcon className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            <h4 className="text-xs font-black text-slate-900 dark:text-white">
+            <ImageIcon className="w-3.5 h-3.5 text-primary" />
+            <h4 className="text-xs font-black text-foreground dark:text-white">
               صورة مرجعية للأسلوب (Style Reference)
             </h4>
           </div>
@@ -54,7 +54,7 @@ export const CreativePresetsTab: React.FC<CreativePresetsTabProps> = ({
             <button
               type="button"
               onClick={() => onSetReferenceImageUrl(null)}
-              className="text-[10px] text-red-500 hover:text-red-700 flex items-center gap-0.5 cursor-pointer font-bold"
+              className="text-[10px] text-destructive hover:text-destructive flex items-center gap-0.5 cursor-pointer font-bold"
             >
               <X className="w-3 h-3" />
               <span>إلغاء المرجع</span>
@@ -71,18 +71,18 @@ export const CreativePresetsTab: React.FC<CreativePresetsTabProps> = ({
         />
 
         {referenceImageUrl ? (
-          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-800">
+          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white dark:bg-muted border border-primary dark:border-primary">
             <img
               src={referenceImageUrl}
               alt="Style Reference"
               className="w-10 h-10 rounded-md object-cover border"
             />
             <div className="flex-1 min-w-0">
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <span className="text-xs font-bold text-success dark:text-success flex items-center gap-1">
                 <Check className="w-3 h-3" />
                 مرجع الأسلوب نشط
               </span>
-              <p className="text-[10px] text-slate-400 truncate">
+              <p className="text-[10px] text-muted-foreground truncate">
                 سيقتبس الذكاء الاصطناعي الأسلوب والإضاءة
               </p>
             </div>
@@ -99,7 +99,7 @@ export const CreativePresetsTab: React.FC<CreativePresetsTabProps> = ({
           <button
             type="button"
             onClick={() => refFileInputRef.current?.click()}
-            className="w-full py-2 px-3 rounded-lg border border-dashed border-indigo-300 dark:border-indigo-800 hover:bg-white dark:hover:bg-slate-900 text-indigo-600 dark:text-indigo-400 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+            className="w-full py-2 px-3 rounded-lg border border-dashed border-primary dark:border-primary hover:bg-white dark:hover:bg-muted text-primary text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Upload className="w-3.5 h-3.5" />
             <span>انقر لرفع صورة مرجعية للأسلوب (Pinterest / Competitor Ad)</span>
@@ -127,7 +127,7 @@ export const CreativePresetsTab: React.FC<CreativePresetsTabProps> = ({
               className={`flex items-center gap-1 px-2.5 py-1 text-[11px] font-bold rounded-lg transition whitespace-nowrap cursor-pointer ${
                 selectedModality === mod.id
                   ? "bg-indigo-600 text-white shadow-xs"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+                  : "bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground hover:bg-muted"
               }`}
             >
               <Icon className="w-3 h-3" />
@@ -155,24 +155,24 @@ export const CreativePresetsTab: React.FC<CreativePresetsTabProps> = ({
               }}
               className={`text-right p-2.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                 isSelected
-                  ? "border-indigo-600 dark:border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 shadow-xs ring-1 ring-indigo-500"
-                  : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700"
+                  ? "border-indigo-600 dark:border-primary bg-primary/60 dark:bg-primary/40 shadow-xs ring-1 ring-primary"
+                  : "border-slate-200 dark:border-border bg-white dark:bg-muted hover:border-border dark:hover:border-border"
               }`}
             >
               <div>
                 <div className="flex items-center justify-between gap-1 mb-1">
                   <span
                     className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${
-                      preset.badgeColor || "bg-slate-100 text-slate-600 border-slate-200"
+                      preset.badgeColor || "bg-slate-100 text-foreground border-border"
                     }`}
                   >
                     {preset.category}
                   </span>
-                  <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                  <h4 className="text-xs font-bold text-foreground dark:text-white truncate">
                     {preset.labelAr}
                   </h4>
                 </div>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                <p className="text-[10px] text-muted-foreground dark:text-muted-foreground line-clamp-2 leading-relaxed">
                   {preset.descriptionAr}
                 </p>
               </div>

@@ -42,13 +42,13 @@ export const DentalInvoiceBatchOptions: React.FC<DentalInvoiceBatchOptionsProps>
             checked={includeAllStatuses}
             onChange={(e) => onIncludeAllToggle(e.target.checked)}
             disabled={loadingSummary || submitting}
-            className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 cursor-pointer"
+            className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border cursor-pointer"
           />
-          <span className="text-xs font-bold text-gray-900 dark:text-gray-100">
+          <span className="text-xs font-bold text-foreground">
             تضمين كافة الحالات المسجلة (حتى تحت التشغيل والتصميم)
           </span>
         </label>
-        <span className="text-[11px] text-gray-500 dark:text-gray-400">
+        <span className="text-[11px] text-muted-foreground">
           {loadingSummary
             ? "جارٍ التحديث..."
             : includeAllStatuses
@@ -58,9 +58,9 @@ export const DentalInvoiceBatchOptions: React.FC<DentalInvoiceBatchOptionsProps>
       </div>
 
       {/* Options */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 dark:bg-gray-800/40 p-3 rounded-xl border dark:border-gray-700/50">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-muted dark:bg-muted p-3 rounded-xl border dark:border-border">
         <div>
-          <label htmlFor="batch-mode-select" className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="batch-mode-select" className="block text-xs font-semibold text-foreground mb-1">
             نمط إصدار الفواتير
           </label>
           <select
@@ -78,7 +78,7 @@ export const DentalInvoiceBatchOptions: React.FC<DentalInvoiceBatchOptionsProps>
           </select>
         </div>
         <div>
-          <label htmlFor="batch-due-date" className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="batch-due-date" className="block text-xs font-semibold text-foreground mb-1">
             تاريخ استحقاق الفواتير
           </label>
           <DateInput
@@ -88,7 +88,7 @@ export const DentalInvoiceBatchOptions: React.FC<DentalInvoiceBatchOptionsProps>
           />
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="batch-notes" className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="batch-notes" className="block text-xs font-semibold text-foreground mb-1">
             ملاحظات تظهر على الفواتير الصادرة
           </label>
           <input

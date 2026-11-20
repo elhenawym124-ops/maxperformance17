@@ -36,7 +36,7 @@ export function QuickOrderStepWorkType({
   refsLoading = false,
 }: QuickOrderStepWorkTypeProps) {
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
-  const labelCls = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  const labelCls = "block text-sm font-medium text-foreground mb-1";
 
   const activeWorkTypes = useMemo(
     () => workTypes.filter((w) => w.isActive !== false),
@@ -50,10 +50,10 @@ export function QuickOrderStepWorkType({
         <label className={labelCls}>نوع الشغل والخدمة الأساسية *</label>
         {refsLoading ? (
           <div className="flex justify-center py-4">
-            <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+            <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-36 overflow-y-auto p-1 border dark:border-gray-700 rounded-xl">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-36 overflow-y-auto p-1 border dark:border-border rounded-xl">
             {activeWorkTypes.map((w) => {
               const checked = selectedServiceIds.includes(w.id);
               const isPrimary = selectedServiceIds[0] === w.id;
@@ -72,7 +72,7 @@ export function QuickOrderStepWorkType({
                     "p-2.5 rounded-lg border text-right transition flex items-center justify-between text-xs",
                     checked
                       ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100 font-bold shadow-sm"
-                      : "border-gray-200 dark:border-gray-700 hover:border-blue-300 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200",
+                      : "border-gray-200 dark:border-border hover:border-blue-300 bg-card text-foreground",
                   ].join(" ")}
                 >
                   <div className="truncate">
@@ -84,7 +84,7 @@ export function QuickOrderStepWorkType({
                         </span>
                       )}
                     </div>
-                    <div className="text-[10px] text-gray-400 font-normal font-mono tabular-nums">
+                    <div className="text-[10px] text-muted-foreground font-normal font-mono tabular-nums">
                       {specialPrice != null
                         ? `${fmtMoney(specialPrice)} ج.م (خاص)`
                         : w.price
@@ -112,13 +112,13 @@ export function QuickOrderStepWorkType({
       </div>
 
       {/* Shade Selector (VITA & Bleach) */}
-      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-3.5 space-y-2.5">
+      <div className="rounded-xl border border-border dark:border-border bg-card p-3.5 space-y-2.5">
         <div className="flex items-center justify-between">
-          <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+          <label className="text-xs font-semibold text-foreground">
             دليل ألوان الأسنان (VITA / Bleach)
           </label>
           {(shade || customShade) && (
-            <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 font-mono">
+            <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-warning text-warning dark:bg-warning/40 dark:text-warning font-mono">
               اللون المختار: {customShade || shade}
             </span>
           )}
@@ -136,14 +136,14 @@ export function QuickOrderStepWorkType({
               className={[
                 "px-2.5 py-1 rounded text-xs font-mono font-bold transition",
                 shade === s && !customShade
-                  ? "bg-amber-500 text-white shadow-sm ring-1 ring-amber-300"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-amber-100 dark:hover:bg-amber-900/30",
+                  ? "bg-amber-500 text-white shadow-sm ring-1 ring-warning"
+                  : "bg-muted text-foreground hover:bg-warning dark:hover:bg-warning/30",
               ].join(" ")}
             >
               {s}
             </button>
           ))}
-          <div className="h-4 w-px bg-gray-300 dark:bg-gray-600 mx-1" />
+          <div className="h-4 w-px bg-muted dark:bg-muted mx-1" />
           {BLEACH_SHADES.map((s) => (
             <button
               key={s}
@@ -155,8 +155,8 @@ export function QuickOrderStepWorkType({
               className={[
                 "px-2 py-1 rounded text-[11px] font-mono font-bold transition",
                 shade === s && !customShade
-                  ? "bg-purple-600 text-white shadow-sm ring-1 ring-purple-300"
-                  : "bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40",
+                  ? "bg-purple-600 text-white shadow-sm ring-1 ring-primary"
+                  : "bg-purple-50 dark:bg-primary/40 text-primary dark:text-primary hover:bg-primary dark:hover:bg-primary/40",
               ].join(" ")}
             >
               {s}
@@ -179,8 +179,8 @@ export function QuickOrderStepWorkType({
 
       {/* Impression Type & Case Intent */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-3 space-y-2">
-          <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 block">
+        <div className="rounded-xl border border-border dark:border-border bg-card p-3 space-y-2">
+          <label className="text-xs font-semibold text-foreground block">
             نوع الطبعة المستلمة
           </label>
           <div className="grid grid-cols-2 gap-1.5">
@@ -193,7 +193,7 @@ export function QuickOrderStepWorkType({
                   "p-2 rounded-lg text-start text-xs font-medium border transition flex items-center gap-1.5",
                   impressionType === imp.id
                     ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100 font-bold"
-                    : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200",
+                    : "border-gray-200 dark:border-border hover:bg-muted/50 text-foreground",
                 ].join(" ")}
               >
                 <span className="truncate">{imp.label}</span>
@@ -202,8 +202,8 @@ export function QuickOrderStepWorkType({
           </div>
         </div>
 
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-3 space-y-2">
-          <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 block">
+        <div className="rounded-xl border border-border dark:border-border bg-card p-3 space-y-2">
+          <label className="text-xs font-semibold text-foreground block">
             نوع مرحلة التسليم (تجربة / نهائي)
           </label>
           <div className="grid grid-cols-2 gap-1.5">
@@ -215,12 +215,12 @@ export function QuickOrderStepWorkType({
                 className={[
                   "p-2 rounded-lg text-start text-xs font-medium border transition flex flex-col",
                   caseIntent === intent.id
-                    ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-900 dark:text-indigo-100 font-bold"
-                    : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200",
+                    ? "border-indigo-500 bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary font-bold"
+                    : "border-gray-200 dark:border-border hover:bg-muted/50 text-foreground",
                 ].join(" ")}
               >
                 <span className="truncate">{intent.label}</span>
-                <span className="text-[10px] text-gray-400 font-normal truncate">
+                <span className="text-[10px] text-muted-foreground font-normal truncate">
                   {intent.desc}
                 </span>
               </button>
@@ -254,7 +254,7 @@ export function QuickOrderStepWorkType({
           <div className="flex items-center justify-between">
             <label className={labelCls}>سعر الطلب (قبل الخصم)</label>
             {primaryService && doctorPricingMap[primaryService.id] != null && (
-              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold font-mono tabular-nums">
+              <span className="text-[10px] text-success dark:text-success font-bold font-mono tabular-nums">
                 سعر خاص ({fmtMoney(doctorPricingMap[primaryService.id])})
               </span>
             )}

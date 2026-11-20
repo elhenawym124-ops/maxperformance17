@@ -55,18 +55,18 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
       );
     }
     return (
-      <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+      <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
         {value || "—"}
       </span>
     );
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+    <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[800px]">
           <thead>
-            <tr className="border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-sm">
+            <tr className="border-b dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-sm">
               <th className="py-3 px-4 whitespace-nowrap">
                 {canManage ? (
                   <input
@@ -104,7 +104,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
               return (
                 <tr
                   key={s.id}
-                  className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm"
+                  className="border-b dark:border-border hover:bg-muted/50 text-sm"
                 >
                   <td className="py-3 px-4">
                     {canManage ? (
@@ -121,7 +121,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                   <td className="py-3 px-4 font-medium font-mono" dir="ltr">
                     {s.studyNumber || s.id.slice(0, 8)}
                   </td>
-                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">
+                  <td className="py-3 px-4 text-muted-foreground">
                     {s.examTypeName || s.examType?.name || "—"}
                   </td>
                   <td className="py-3 px-4">
@@ -145,7 +145,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                         return (
                           <span
                             key={r.key}
-                            className="text-xs text-right px-2 py-0.5 rounded border border-gray-200 dark:border-gray-700"
+                            className="text-xs text-right px-2 py-0.5 rounded border border-border dark:border-border"
                           >
                             {t(r.labelKey)}: <b>{name || "—"}</b>
                           </span>
@@ -153,14 +153,14 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                       })}
                     </div>
                   </td>
-                  <td className="py-3 px-4 text-gray-400 dark:text-gray-500 whitespace-nowrap tabular-nums">
+                  <td className="py-3 px-4 text-muted-foreground/80 whitespace-nowrap tabular-nums">
                     {fmtDate(s.report?.updatedAt || s.report?.signedAt || s.report?.typedAt || s.createdAt)}
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <button
                         onClick={() => navigate(`/radiology/study/${s.id}`)}
-                        className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
+                        className="p-1.5 text-muted-foreground hover:bg-muted rounded cursor-pointer"
                         title={t("radiology.reports.details") as string}
                       >
                         <Eye className="w-4 h-4" />
@@ -179,7 +179,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                           className={`px-2.5 py-1.5 text-xs rounded-lg border font-medium cursor-pointer ${action.cls}`}
                         >
                           {busyId === s.id ? (
-                            <Loader2 className="w-3 h-3 inline animate-spin ml-1" />
+                            <Loader2 className="w-3 h-3 inline animate-spin ms-1" />
                           ) : null}
                           {t(ACTION_META[action.kind].labelKey)}
                         </button>

@@ -18,12 +18,12 @@ export const CaseCreateDrawerFooter: React.FC<CaseCreateDrawerFooterProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="px-6 py-4 border-t dark:border-gray-700 bg-gray-50/70 dark:bg-gray-800 flex items-center justify-end gap-3">
+    <div className="px-6 py-4 border-t dark:border-border bg-muted dark:bg-muted flex items-center justify-end gap-3">
       <button
         type="button"
         onClick={onClose}
         disabled={saving}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        className="px-4 py-2 border border-border rounded-xl text-sm font-semibold hover:bg-muted transition"
       >
         {t("dentalLab.common.cancel")}
       </button>

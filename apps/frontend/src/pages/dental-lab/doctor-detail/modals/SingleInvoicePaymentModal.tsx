@@ -59,20 +59,20 @@ export function SingleInvoicePaymentModal({
           <button
             onClick={onClose}
             disabled={saving}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors"
+            className="p-1 hover:bg-muted rounded-lg text-muted-foreground transition-colors"
             aria-label="إغلاق"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-mono tabular-nums">
+        <p className="text-sm text-muted-foreground mb-4 font-mono tabular-nums">
           إجمالي الفاتورة: <span className="font-semibold">{fmtMoney(invoice.total)}</span> | المتبقي:{" "}
-          <span className="font-bold text-red-600">{fmtMoney(invoice.remaining)} ج.م</span>
+          <span className="font-bold text-destructive">{fmtMoney(invoice.remaining)} ج.م</span>
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-3">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-3">
             {error}
           </div>
         )}
@@ -112,11 +112,11 @@ export function SingleInvoicePaymentModal({
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-border">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 text-sm border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             {t("dentalLab.common.cancel")}
           </button>

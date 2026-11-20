@@ -39,7 +39,7 @@ export default function DentalCaseMaterialsCard({
       }
     >
       {materialUsages.length === 0 ? (
-        <div className="text-center py-5 text-gray-400 dark:text-gray-500 text-xs">
+        <div className="text-center py-5 text-muted-foreground/80 text-xs">
           <Package className="w-8 h-8 mx-auto mb-2 opacity-40" />
           لم يتم تسجيل استهلاك خامات أو ربط قرص تفريز / تشغيلة بهذه الحالة حتى الآن.
         </div>
@@ -48,11 +48,11 @@ export default function DentalCaseMaterialsCard({
           {materialUsages.map((usage) => (
             <div
               key={usage.id}
-              className="border dark:border-gray-700 rounded-xl p-3 bg-gray-50/50 dark:bg-gray-800/50 flex items-center justify-between gap-3 text-xs"
+              className="border dark:border-border rounded-xl p-3 bg-muted dark:bg-muted flex items-center justify-between gap-3 text-xs"
             >
               <div className="min-w-0 space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-bold text-gray-900 dark:text-gray-100 text-sm">
+                  <span className="font-bold text-foreground text-sm">
                     {usage.material?.name || "مادة خام"}
                   </span>
                   {usage.material?.category && (
@@ -61,22 +61,22 @@ export default function DentalCaseMaterialsCard({
                     </span>
                   )}
                   {usage.material?.shade && (
-                    <span className="px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-mono text-[10px]">
+                    <span className="px-1.5 py-0.5 rounded bg-warning/10 dark:bg-warning/30 text-warning dark:text-warning font-mono text-[10px]">
                       {usage.material.shade}
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400 text-[11px] flex-wrap">
+                <div className="flex items-center gap-3 text-muted-foreground text-[11px] flex-wrap">
                   <span>
                     الكمية:{" "}
-                    <strong className="text-gray-800 dark:text-gray-200 font-semibold font-mono tabular-nums">
+                    <strong className="text-gray-800 dark:text-muted-foreground font-semibold font-mono tabular-nums">
                       {usage.unitsUsed} {usage.material?.unit || "وحدة"}
                     </strong>
                   </span>
                   {usage.lotNumber && (
                     <span>
                       رقم التشغيلة (Lot #):{" "}
-                      <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200 font-bold tabular-nums">
+                      <code className="bg-gray-200 dark:bg-muted px-1 py-0.5 rounded font-mono text-foreground dark:text-muted-foreground font-bold tabular-nums">
                         {usage.lotNumber}
                       </code>
                     </span>
@@ -90,8 +90,8 @@ export default function DentalCaseMaterialsCard({
                   <span className="font-mono tabular-nums">{fmtDateTime(usage.consumedAt)}</span>
                 </div>
                 {usage.notes && (
-                  <p className="text-gray-600 dark:text-gray-300 text-[11px] mt-0.5 flex items-center gap-1">
-                    <FileText className="w-3 h-3 text-gray-400 shrink-0" />
+                  <p className="text-muted-foreground text-[11px] mt-0.5 flex items-center gap-1">
+                    <FileText className="w-3 h-3 text-muted-foreground shrink-0" />
                     <span>{usage.notes}</span>
                   </p>
                 )}
@@ -101,7 +101,7 @@ export default function DentalCaseMaterialsCard({
                   type="button"
                   onClick={() => onDeleteUsage(usage.id)}
                   disabled={materialBusy}
-                  className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition disabled:opacity-50"
+                  className="p-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition disabled:opacity-50"
                   title="إلغاء الاستهلاك واسترجاع الرصيد للمخزن"
                 >
                   <Trash2 className="w-4 h-4" />

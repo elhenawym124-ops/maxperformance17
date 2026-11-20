@@ -58,22 +58,22 @@ export function DoctorStatementView() {
     {
       label: t("dentalLab.reports.cases"),
       value: String(totals?.cases ?? "—"),
-      tone: "text-gray-900 dark:text-white",
+      tone: "text-foreground",
     },
     {
       label: t("dentalLab.reports.invoices"),
       value: String(totals?.invoicesCount ?? "—"),
-      tone: "text-gray-900 dark:text-white",
+      tone: "text-foreground",
     },
     {
       label: t("dentalLab.common.paid"),
       value: totals ? fmtMoney(totals.paid) : "—",
-      tone: "text-emerald-600 dark:text-emerald-400",
+      tone: "text-emerald-600 dark:text-success",
     },
     {
       label: t("dentalLab.common.remaining"),
       value: totals ? fmtMoney(totals.remaining) : "—",
-      tone: "text-rose-600 dark:text-rose-400",
+      tone: "text-rose-600 dark:text-destructive",
     },
   ];
 
@@ -81,7 +81,7 @@ export function DoctorStatementView() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-end gap-3">
         <div className="min-w-[200px]">
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.doctor")}
           </label>
           <select
@@ -100,7 +100,7 @@ export function DoctorStatementView() {
           </select>
         </div>
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.from")}
           </label>
           <DateInput
@@ -109,7 +109,7 @@ export function DoctorStatementView() {
           />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.to")}
           </label>
           <DateInput
@@ -130,9 +130,9 @@ export function DoctorStatementView() {
           {t("dentalLab.reports.run")}
         </button>
         {data?.doctor?.name ? (
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-sm">
-            <Coins className="w-4 h-4 text-gray-400" />
-            <span className="text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted dark:bg-muted text-sm">
+            <Coins className="w-4 h-4 text-muted-foreground" />
+            <span className="text-muted-foreground">
               {t("dentalLab.reports.doctorName")}:
             </span>
             <span className="font-semibold">{data.doctor.name}</span>
@@ -146,9 +146,9 @@ export function DoctorStatementView() {
             {kpi.map((k) => (
               <div
                 key={k.label}
-                className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-4 py-3"
+                className="rounded-xl border border-border dark:border-border bg-card/50 px-4 py-3"
               >
-                <p className="text-xs text-gray-500 dark:text-gray-400">{k.label}</p>
+                <p className="text-xs text-muted-foreground">{k.label}</p>
                 <p className={`text-xl font-bold mt-0.5 tabular-nums font-mono ${k.tone}`}>
                   {k.value}
                 </p>
@@ -157,7 +157,7 @@ export function DoctorStatementView() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+            <h4 className="text-sm font-semibold text-foreground mb-2">
               {t("dentalLab.reports.cases")}
             </h4>
             {cases.length === 0 ? (
@@ -180,7 +180,7 @@ export function DoctorStatementView() {
                     {cases.map((cs, i) => (
                       <tr
                         key={cs.caseNumber ?? i}
-                        className="border-b dark:border-gray-700 last:border-b-0"
+                        className="border-b dark:border-border last:border-b-0"
                       >
                         <td className={`${tdCls} font-mono`} dir="ltr">
                           {cs.caseNumber || "—"}
@@ -197,7 +197,7 @@ export function DoctorStatementView() {
                           {fmtMoney(cs.paid)}
                         </td>
                         <td
-                          className={`${tdCls} text-rose-600 dark:text-rose-400 font-mono tabular-nums`}
+                          className={`${tdCls} text-destructive dark:text-destructive font-mono tabular-nums`}
                         >
                           {fmtMoney(cs.remaining)}
                         </td>
@@ -210,7 +210,7 @@ export function DoctorStatementView() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+            <h4 className="text-sm font-semibold text-foreground mb-2">
               {t("dentalLab.reports.invoices")}
             </h4>
             {invoices.length === 0 ? (
@@ -231,7 +231,7 @@ export function DoctorStatementView() {
                     {invoices.map((inv) => (
                       <tr
                         key={inv.id}
-                        className="border-b dark:border-gray-700 last:border-b-0"
+                        className="border-b dark:border-border last:border-b-0"
                       >
                         <td className={`${tdCls} font-mono`} dir="ltr">
                           {inv.invoiceNumber || inv.id.slice(0, 8)}
@@ -244,7 +244,7 @@ export function DoctorStatementView() {
                           {fmtMoney(inv.paid)}
                         </td>
                         <td
-                          className={`${tdCls} text-rose-600 dark:text-rose-400 font-mono tabular-nums`}
+                          className={`${tdCls} text-destructive dark:text-destructive font-mono tabular-nums`}
                         >
                           {fmtMoney(inv.remaining)}
                         </td>

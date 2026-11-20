@@ -8,7 +8,7 @@ import type {
 
 export const FALLBACK_BADGE = {
   label: "",
-  color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300",
+  color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground",
 };
 
 export const statusBadge = (

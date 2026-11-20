@@ -38,13 +38,13 @@ export function OverdueCasesView() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-sm text-rose-600 dark:text-rose-400">
+      <div className="flex items-center gap-2 text-sm text-destructive dark:text-destructive">
         <AlertTriangle className="w-4 h-4" />
         <span>{t("dentalLab.reports.overdueHint")}</span>
       </div>
       <button
         onClick={load}
-        className="flex items-center gap-1.5 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+        className="flex items-center gap-1.5 px-3 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
       >
         <RefreshCw className="w-4 h-4" />
         {t("dentalLab.common.refresh")}
@@ -72,7 +72,7 @@ export function OverdueCasesView() {
               {rows.map((r, i) => (
                 <tr
                   key={r.caseNumber ?? i}
-                  className="border-b dark:border-gray-700 last:border-b-0"
+                  className="border-b dark:border-border last:border-b-0"
                 >
                   <td className={`${tdCls} font-mono`} dir="ltr">
                     {r.caseNumber || "—"}
@@ -84,12 +84,12 @@ export function OverdueCasesView() {
                     {fmtDate(r.dueDate)}
                   </td>
                   <td className={tdCls}>
-                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300 font-mono tabular-nums">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive font-mono tabular-nums">
                       {r.daysOverdue ?? 0} {t("dentalLab.reports.dayUnit")}
                     </span>
                   </td>
                   <td
-                    className={`${tdCls} text-rose-600 dark:text-rose-400 font-mono tabular-nums`}
+                    className={`${tdCls} text-destructive dark:text-destructive font-mono tabular-nums`}
                   >
                     {fmtMoney(r.remaining)}
                   </td>

@@ -76,14 +76,14 @@ export function DentalInvoiceDoctorStatementModal({
         <StatementTotalsSummary statement={statement} />
 
         {/* Tab switch */}
-        <div className="flex items-center gap-2 border-b dark:border-gray-800 mb-3 print:hidden">
+        <div className="flex items-center gap-2 border-b dark:border-border mb-3 print:hidden">
           <button
             type="button"
             onClick={() => setTab("invoices")}
             className={`pb-2 px-3 text-xs font-bold border-b-2 transition-colors ${
               tab === "invoices"
                 ? "border-blue-600 text-blue-600"
-                : "border-transparent text-gray-500 hover:text-gray-700"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             سجل الفواتير ({statement?.invoices?.length || 0})
@@ -94,7 +94,7 @@ export function DentalInvoiceDoctorStatementModal({
             className={`pb-2 px-3 text-xs font-bold border-b-2 transition-colors ${
               tab === "cases"
                 ? "border-blue-600 text-blue-600"
-                : "border-transparent text-gray-500 hover:text-gray-700"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             سجل الحالات ({statement?.cases?.length || 0})
@@ -104,7 +104,7 @@ export function DentalInvoiceDoctorStatementModal({
         {/* Content Table */}
         {loading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
           </div>
         ) : tab === "invoices" ? (
           <StatementInvoicesTable invoices={statement?.invoices || []} />
@@ -116,14 +116,14 @@ export function DentalInvoiceDoctorStatementModal({
         <StatementPrintableFooter />
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t dark:border-gray-800 mt-4 print:hidden">
-          <span className="text-xs text-gray-400">
+        <div className="flex items-center justify-between pt-4 border-t dark:border-border mt-4 print:hidden">
+          <span className="text-xs text-muted-foreground">
             تم إنشاء كشف الحساب آلياً من منصة MaxP Dental Lab
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+            className="px-4 py-2 text-sm text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
           >
             إغلاق
           </button>

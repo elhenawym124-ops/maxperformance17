@@ -49,38 +49,38 @@ export function DentalInvoicePaymentModal({
       onClick={() => !saving && onClose()}
     >
       <div className={`${MODAL_CONTENT_CLS} max-w-md`} onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between pb-3 border-b dark:border-gray-800 mb-4">
+        <div className="flex items-center justify-between pb-3 border-b dark:border-border mb-4">
           <div className="flex items-center gap-2">
-            <Banknote className="w-5 h-5 text-green-600" />
+            <Banknote className="w-5 h-5 text-success" />
             <h3 className="text-base sm:text-lg font-bold">
               {t("dentalLab.invoices.paymentTitle")}
             </h3>
           </div>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted dark:hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label="Close"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-3 bg-gray-50 dark:bg-gray-800/60 rounded-lg text-xs space-y-1 mb-4 border dark:border-gray-700/50">
-          <p className="flex justify-between text-gray-600 dark:text-gray-300">
+        <div className="p-3 bg-muted dark:bg-muted rounded-lg text-xs space-y-1 mb-4 border dark:border-border">
+          <p className="flex justify-between text-muted-foreground">
             <span>رقم الفاتورة:</span>{" "}
-            <span className="font-bold text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+            <span className="font-bold text-foreground font-mono tabular-nums">
               {invoice.invoiceNumber || invoice.id.slice(0, 8)}
             </span>
           </p>
-          <p className="flex justify-between text-gray-600 dark:text-gray-300">
+          <p className="flex justify-between text-muted-foreground">
             <span>الطبيب:</span>{" "}
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
+            <span className="font-semibold text-foreground">
               {invoice.doctorName || "—"}
             </span>
           </p>
-          <p className="flex justify-between text-gray-600 dark:text-gray-300">
+          <p className="flex justify-between text-muted-foreground">
             <span>المتبقي المستحق:</span>{" "}
-            <span className="font-bold text-red-600 font-mono tabular-nums">
+            <span className="font-bold text-destructive font-mono tabular-nums">
               {fmtMoney(invoice.remaining)} ج.م
             </span>
           </p>
@@ -89,7 +89,7 @@ export function DentalInvoicePaymentModal({
         <div className="space-y-3.5">
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <label className="text-xs font-semibold text-foreground">
                 {t("dentalLab.detail.paymentAmount")} *
               </label>
               {invoice.remaining > 0 && (
@@ -113,7 +113,7 @@ export function DentalInvoicePaymentModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               {t("dentalLab.detail.paymentMethod")}
             </label>
             <select
@@ -130,7 +130,7 @@ export function DentalInvoicePaymentModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               {t("dentalLab.detail.paymentNote")}
             </label>
             <input
@@ -142,18 +142,18 @@ export function DentalInvoicePaymentModal({
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2.5 pt-4 border-t dark:border-gray-800 mt-4">
+        <div className="flex items-center justify-end gap-2.5 pt-4 border-t dark:border-border mt-4">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-sm text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             {t("dentalLab.common.cancel")}
           </button>
           <button
             onClick={save}
             disabled={saving || !(Number(amount) > 0)}
-            className="px-5 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 font-medium"
+            className="px-5 py-2 text-sm bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 flex items-center gap-2 font-medium"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
             {saving ? t("dentalLab.common.saving") : "تسجيل الدفعة"}

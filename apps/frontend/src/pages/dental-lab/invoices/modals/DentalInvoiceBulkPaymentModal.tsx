@@ -59,31 +59,31 @@ export function DentalInvoiceBulkPaymentModal({
       onClick={() => !saving && onClose()}
     >
       <div className={`${MODAL_CONTENT_CLS} max-w-md`} onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between pb-3 border-b dark:border-gray-800 mb-4">
+        <div className="flex items-center justify-between pb-3 border-b dark:border-border mb-4">
           <div className="flex items-center gap-2">
-            <Banknote className="w-5 h-5 text-green-600" />
+            <Banknote className="w-5 h-5 text-success" />
             <h3 className="text-base sm:text-lg font-bold">تحصيل دفعة على حساب الطبيب</h3>
           </div>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted dark:hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label="Close"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+        <p className="text-xs text-muted-foreground mb-3">
           الطبيب:{" "}
-          <span className="font-bold text-gray-900 dark:text-gray-100">{doctor.name}</span> —
+          <span className="font-bold text-foreground">{doctor.name}</span> —
           المتبقي الحالي:{" "}
-          <span className="font-bold text-red-600 font-mono tabular-nums">
+          <span className="font-bold text-destructive font-mono tabular-nums">
             {fmtMoney(doctor.outstanding ?? 0)} ج.م
           </span>
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-3.5 py-2 text-xs mb-3">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-3.5 py-2 text-xs mb-3">
             {error}
           </div>
         )}
@@ -91,7 +91,7 @@ export function DentalInvoiceBulkPaymentModal({
         <div className="space-y-3.5">
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <label className="text-xs font-semibold text-foreground">
                 المبلغ المحصل *
               </label>
               {(doctor.outstanding ?? 0) > 0 && (
@@ -114,13 +114,13 @@ export function DentalInvoiceBulkPaymentModal({
               placeholder="0.00"
               autoFocus
             />
-            <p className="text-[11px] text-gray-400 mt-1">
+            <p className="text-[11px] text-muted-foreground mt-1">
               سيتم توزيع المبلغ تلقائياً على فواتير الطبيب المفتوحة بالأقدمية (FIFO).
             </p>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               طريقة الدفع
             </label>
             <select
@@ -137,7 +137,7 @@ export function DentalInvoiceBulkPaymentModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               ملاحظات أو رقم الإيصال
             </label>
             <input
@@ -149,18 +149,18 @@ export function DentalInvoiceBulkPaymentModal({
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2.5 pt-4 border-t dark:border-gray-800 mt-4">
+        <div className="flex items-center justify-end gap-2.5 pt-4 border-t dark:border-border mt-4">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-sm text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             إلغاء
           </button>
           <button
             onClick={save}
             disabled={saving || !Number(amount)}
-            className="px-5 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 font-medium"
+            className="px-5 py-2 text-sm bg-success text-white rounded-lg hover:bg-success disabled:opacity-50 flex items-center gap-2 font-medium"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
             {saving ? "جاري التسجيل..." : "تأكيد التحصيل"}

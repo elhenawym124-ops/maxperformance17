@@ -99,7 +99,7 @@ export default function DentalModelViewer({ url, ext }: { url: string; ext: stri
         () => {
           if (!cancelled) {
             const err = document.createElement("div");
-            err.className = "absolute inset-0 flex items-center justify-center text-red-500 text-sm p-4 text-center";
+            err.className = "absolute inset-0 flex items-center justify-center text-destructive text-sm p-4 text-center";
             err.textContent = "فشل تحميل النموذج. تأكد إن الملف صالح.";
             container.appendChild(err);
           }
@@ -121,7 +121,7 @@ export default function DentalModelViewer({ url, ext }: { url: string; ext: stri
         () => {
           if (!cancelled) {
             const err = document.createElement("div");
-            err.className = "absolute inset-0 flex items-center justify-center text-red-500 text-sm p-4 text-center";
+            err.className = "absolute inset-0 flex items-center justify-center text-destructive text-sm p-4 text-center";
             err.textContent = "فشل تحميل النموذج. تأكد إن الملف STL/PLY صالح.";
             container.appendChild(err);
           }

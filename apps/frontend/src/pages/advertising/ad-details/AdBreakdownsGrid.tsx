@@ -36,7 +36,7 @@ export const AdBreakdownsGrid: React.FC<AdBreakdownsGridProps> = ({
 
     if (rows.length === 0) {
       return (
-        <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+        <div className="rounded-lg border border-dashed border-border bg-muted p-4 text-sm text-foreground">
           {emptyLabel}
         </div>
       );
@@ -47,26 +47,26 @@ export const AdBreakdownsGrid: React.FC<AdBreakdownsGridProps> = ({
         {rows.slice(0, 5).map((row: FacebookPerformanceBreakdownRow) => (
           <div
             key={row.key}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2"
+            className="rounded-lg border border-border bg-white px-3 py-2"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="truncate text-sm font-bold text-slate-950">
+                <p className="truncate text-sm font-bold text-foreground">
                   {row.label}
                 </p>
-                <p className="mt-0.5 text-[11px] text-slate-500 tabular-nums">
+                <p className="mt-0.5 text-[11px] text-muted-foreground tabular-nums">
                   {formatCurrency(row.metrics.spend)} · ROAS{" "}
                   {formatDecimal(row.metrics.roas)}x · CPA{" "}
                   {formatCurrency(row.metrics.cpa)}
                 </p>
               </div>
-              <span className="shrink-0 text-xs font-bold text-slate-600 tabular-nums">
+              <span className="shrink-0 text-xs font-bold text-foreground tabular-nums">
                 {formatNumber(row.metrics.purchases)} {isEn ? "purchases" : "شراء"}
               </span>
             </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100">
+            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
               <div
-                className="h-full rounded-full bg-indigo-500"
+                className="h-full rounded-full bg-primary"
                 style={{
                   width: `${Math.max(4, (row.metrics.spend / maxSpend) * 100)}%`,
                 }}
@@ -81,10 +81,10 @@ export const AdBreakdownsGrid: React.FC<AdBreakdownsGridProps> = ({
   return (
     <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
       {/* Age & Gender */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="rounded-lg border border-border bg-white p-4 shadow-sm">
         <div className="flex items-center gap-2">
-          <CursorArrowRaysIcon className="h-5 w-5 text-slate-700" />
-          <h2 className="text-base font-black text-slate-950">
+          <CursorArrowRaysIcon className="h-5 w-5 text-foreground" />
+          <h2 className="text-base font-black text-foreground">
             {isEn ? "Age & Gender" : "العمر والجنس"}
           </h2>
         </div>
@@ -99,10 +99,10 @@ export const AdBreakdownsGrid: React.FC<AdBreakdownsGridProps> = ({
       </div>
 
       {/* Platform & Placement */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="rounded-lg border border-border bg-white p-4 shadow-sm">
         <div className="flex items-center gap-2">
-          <ChartBarIcon className="h-5 w-5 text-slate-700" />
-          <h2 className="text-base font-black text-slate-950">
+          <ChartBarIcon className="h-5 w-5 text-foreground" />
+          <h2 className="text-base font-black text-foreground">
             {isEn ? "Platform & Placement" : "المنصة والموضع"}
           </h2>
         </div>
@@ -117,10 +117,10 @@ export const AdBreakdownsGrid: React.FC<AdBreakdownsGridProps> = ({
       </div>
 
       {/* Devices */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="rounded-lg border border-border bg-white p-4 shadow-sm">
         <div className="flex items-center gap-2">
-          <BoltIcon className="h-5 w-5 text-slate-700" />
-          <h2 className="text-base font-black text-slate-950">
+          <BoltIcon className="h-5 w-5 text-foreground" />
+          <h2 className="text-base font-black text-foreground">
             {isEn ? "Devices" : "الأجهزة"}
           </h2>
         </div>

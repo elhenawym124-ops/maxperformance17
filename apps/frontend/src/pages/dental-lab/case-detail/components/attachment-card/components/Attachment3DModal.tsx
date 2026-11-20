@@ -25,22 +25,22 @@ export function Attachment3DModal({
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col"
+        className="bg-card rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+        <div className="flex items-center justify-between p-4 border-b dark:border-border">
           <div className="flex items-center gap-2 min-w-0">
             <Box className="w-5 h-5 text-blue-600 flex-shrink-0" />
-            <span className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+            <span className="font-semibold text-foreground truncate">
               {attachment.fileName}
             </span>
-            <span className="text-xs text-gray-400 flex-shrink-0 tabular-nums font-mono">
+            <span className="text-xs text-muted-foreground flex-shrink-0 tabular-nums font-mono">
               ({((attachment.size || 0) / 1024 / 1024).toFixed(1)}MB · {fileExt.toUpperCase()})
             </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 rounded flex-shrink-0"
+            className="p-1 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded flex-shrink-0"
             title="إغلاق"
             aria-label="Close"
           >
@@ -49,18 +49,18 @@ export function Attachment3DModal({
         </div>
         <div className="flex-1 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 relative min-h-[500px]">
           {fileExt === "dcm" ? (
-            <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm p-4 text-center">
+            <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-sm p-4 text-center">
               ملف DICOM (DCM) لا يُعاين هنا — حمّله وافتحه في عارض DICOM المتخصص.
             </div>
           ) : url ? (
             <DentalModelViewer url={url} ext={fileExt} />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm">
+            <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-sm">
               جاري تحميل النموذج 3D...
             </div>
           )}
         </div>
-        <div className="p-3 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-600 dark:text-gray-400 flex items-center justify-between">
+        <div className="p-3 border-t dark:border-border bg-muted dark:bg-muted text-xs text-foreground dark:text-muted-foreground flex items-center justify-between">
           <span>اسحب لتدوير · عجلة للتقريب · نقرة مزدوجة للإعادة</span>
           <a
             href={url}

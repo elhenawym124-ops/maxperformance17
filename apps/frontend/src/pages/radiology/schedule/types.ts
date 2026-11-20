@@ -44,15 +44,15 @@ export const STATUS_META: Record<string, { label: string; color: string }> = {
   },
   CHECKED_IN: {
     label: "radiology.appointmentStatus.CHECKED_IN",
-    color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+    color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning",
   },
   DONE: {
     label: "radiology.appointmentStatus.DONE",
-    color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+    color: "bg-green-100 text-success dark:bg-success/40 dark:text-success",
   },
   CANCELLED: {
     label: "radiology.appointmentStatus.CANCELLED",
-    color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+    color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive",
   },
 };
 

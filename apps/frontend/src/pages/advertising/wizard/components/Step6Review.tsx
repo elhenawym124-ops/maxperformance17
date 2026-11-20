@@ -106,16 +106,16 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
   return (
     <div className="space-y-6">
       {errors && Object.keys(errors).length > 0 && (
-        <div className="rounded-2xl border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40 p-5 space-y-2">
-          <div className="flex items-center gap-2 text-sm font-semibold text-red-800 dark:text-red-200">
-            <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0" />
+        <div className="rounded-xl border border-destructive dark:border-destructive/60 bg-destructive/10 dark:bg-destructive/40 p-5 space-y-2">
+          <div className="flex items-center gap-2 text-sm font-semibold text-destructive dark:text-destructive">
+            <AlertCircle className="w-5 h-5 text-destructive dark:text-destructive shrink-0" />
             <span>
               {isEn
                 ? "Please resolve the following required fields before confirming:"
                 : "يرجى استكمال البيانات التالية قبل تأكيد النشر:"}
             </span>
           </div>
-          <ul className="list-disc list-inside text-sm text-red-700 dark:text-red-300 space-y-1">
+          <ul className="list-disc list-inside text-sm text-destructive dark:text-destructive space-y-1">
             {Object.entries(errors).map(([key, msg]) => (
               <li key={key}>{msg}</li>
             ))}
@@ -125,15 +125,15 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
 
       {createdFullAd && (
         <div
-          className="rounded-2xl border border-emerald-200 dark:border-emerald-800/60 bg-emerald-50 dark:bg-emerald-950/40 p-5"
+          className="rounded-xl border border-success dark:border-success/60 bg-success/10 dark:bg-success/40 p-5"
           data-testid="full-ad-created-panel"
         >
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+              <p className="text-sm font-semibold text-success dark:text-success">
                 {isEn ? "Ad created on Meta" : "تم إنشاء الإعلان على Meta"}
               </p>
-              <h3 className="mt-1 text-xl font-bold text-slate-950 dark:text-white">
+              <h3 className="mt-1 text-xl font-bold text-foreground dark:text-white">
                 {isEn ? "Ad is saved and linked with production IDs" : "الإعلان محفوظ ومربوط بمعرفات الإنتاج"}
               </h3>
             </div>
@@ -146,7 +146,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
                       `/advertising/facebook-ads/ads/${createdFullAd.localAdId}`,
                     )
                   }
-                  className="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-800"
+                  className="rounded-xl bg-success px-4 py-2 text-sm font-semibold text-white hover:bg-success"
                 >
                   {isEn ? "Open Ad Details" : "فتح تفاصيل الإعلان"}
                 </button>
@@ -158,7 +158,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
                     `/advertising/facebook-ads?adAccountId=${createdFullAd.adAccountId}`,
                   )
                 }
-                className="rounded-xl border border-emerald-300 dark:border-emerald-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/40"
+                className="rounded-xl border border-success dark:border-success bg-card px-4 py-2 text-sm font-semibold text-success dark:text-success hover:bg-success dark:hover:bg-success/40"
               >
                 {isEn ? "Back to Ads Dashboard" : "رجوع للوحة الإعلانات"}
               </button>
@@ -174,12 +174,12 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
             ].map(([label, value]) => (
               <div
                 key={label}
-                className="rounded-xl border border-emerald-200 dark:border-emerald-800/60 bg-white dark:bg-gray-800 px-4 py-3"
+                className="rounded-xl border border-success dark:border-success/60 bg-card px-4 py-3"
               >
-                <div className="text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-300">
+                <div className="text-xs font-semibold uppercase text-success dark:text-success">
                   {label}
                 </div>
-                <div className="mt-1 break-all text-sm font-bold text-slate-950 dark:text-white">
+                <div className="mt-1 break-all text-sm font-bold text-foreground dark:text-white">
                   {value || (isEn ? "Unavailable" : "غير متاح")}
                 </div>
               </div>
@@ -197,12 +197,12 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
               ].map(([label, value]) => (
                 <div
                   key={label}
-                  className="rounded-xl border border-emerald-200 dark:border-emerald-800/60 bg-emerald-100/60 dark:bg-emerald-900/40 px-4 py-3"
+                  className="rounded-xl border border-success dark:border-success/60 bg-success/60 dark:bg-success/40 px-4 py-3"
                 >
-                  <div className="text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-300">
+                  <div className="text-xs font-semibold uppercase text-success dark:text-success">
                     {label}
                   </div>
-                  <div className="mt-1 break-all text-sm font-bold text-slate-950 dark:text-white">
+                  <div className="mt-1 break-all text-sm font-bold text-foreground dark:text-white">
                     {value || (isEn ? "Unavailable" : "غير متاح")}
                   </div>
                 </div>
@@ -210,34 +210,34 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
             </div>
           )}
 
-          <div className="mt-3 text-sm font-semibold text-emerald-800 dark:text-emerald-300">
+          <div className="mt-3 text-sm font-semibold text-success dark:text-success">
             {isEn ? "Status: " : "الحالة: "}{createdFullAd.status}
           </div>
         </div>
       )}
 
-      <div className="bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+      <div className="bg-gray-50 dark:bg-muted border border-border dark:border-border rounded-xl p-6">
+        <h3 className="text-lg font-bold text-foreground mb-4">
           {isEn ? "Ad Summary" : "ملخص الإعلان"}
         </h3>
 
         {/* Campaign Summary */}
         <div className="space-y-4">
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Campaign Name" : "اسم الحملة"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">{formData.campaignName}</span>
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Campaign Name" : "اسم الحملة"}</span>
+            <span className="font-medium text-foreground">{formData.campaignName}</span>
           </div>
           {(formData.adSetName || formData.adName) && (
-            <div className="flex justify-between gap-4 py-2 border-b border-gray-200 dark:border-gray-700">
-              <span className="text-gray-600 dark:text-gray-400">{isEn ? "Ad Structure" : "هيكل الإعلان"}</span>
-              <span className="text-left font-medium text-gray-900 dark:text-white">
+            <div className="flex justify-between gap-4 py-2 border-b border-border dark:border-border">
+              <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Ad Structure" : "هيكل الإعلان"}</span>
+              <span className="text-left font-medium text-foreground">
                 {[formData.adSetName, formData.adName].filter(Boolean).join(" / ")}
               </span>
             </div>
           )}
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Objective" : "الهدف"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Objective" : "الهدف"}</span>
+            <span className="font-medium text-foreground">
               {objectives.find((o) => o.value === formData.objective)?.label}
             </span>
           </div>
@@ -248,9 +248,9 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
               {(formData.objective === "OUTCOME_SALES" ||
                 formData.objective === "OUTCOME_LEADS") && (
                 <>
-                  <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400">{isEn ? "Performance Goal" : "هدف الأداء"}</span>
-                    <span className="font-medium text-gray-900 dark:text-white">
+                  <div className="flex justify-between py-2 border-b border-border dark:border-border">
+                    <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Performance Goal" : "هدف الأداء"}</span>
+                    <span className="font-medium text-foreground">
                       {
                         performanceGoals.find(
                           (g) => g.value === formData.performanceGoal,
@@ -258,9 +258,9 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
                       }
                     </span>
                   </div>
-                  <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400">{isEn ? "Conversion Event" : "حدث التحويل"}</span>
-                    <span className="font-medium text-gray-900 dark:text-white">
+                  <div className="flex justify-between py-2 border-b border-border dark:border-border">
+                    <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Conversion Event" : "حدث التحويل"}</span>
+                    <span className="font-medium text-foreground">
                       {
                         conversionEvents.find(
                           (e) => e.value === formData.conversionEvent,
@@ -270,23 +270,23 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
                   </div>
                 </>
               )}
-              <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-                <span className="text-gray-600 dark:text-gray-400">{isEn ? "Attribution Window" : "نافذة الإحالة"}</span>
-                <span className="font-medium text-gray-900 dark:text-white">{selectedAttributionWindowLabel}</span>
+              <div className="flex justify-between py-2 border-b border-border dark:border-border">
+                <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Attribution Window" : "نافذة الإحالة"}</span>
+                <span className="font-medium text-foreground">{selectedAttributionWindowLabel}</span>
               </div>
             </>
           )}
 
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Budget" : "الميزانية"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Budget" : "الميزانية"}</span>
+            <span className="font-medium text-foreground">
               {formatSelectedAdAccountCurrency(formData.budgetAmount)} /{" "}
               {formData.budgetType === "DAILY" ? (isEn ? "Daily" : "يومياً") : (isEn ? "Lifetime" : "إجمالي")}
             </span>
           </div>
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Bid Strategy" : "استراتيجية المزايدة"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Bid Strategy" : "استراتيجية المزايدة"}</span>
+            <span className="font-medium text-foreground">
               {
                 bidStrategies.find((b) => b.value === formData.bidStrategy)
                   ?.label
@@ -294,9 +294,9 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
             </span>
           </div>
           {formData.frequencyCap && (
-            <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-              <span className="text-gray-600 dark:text-gray-400">{isEn ? "Frequency Cap" : "حد التكرار"}</span>
-              <span className="font-medium text-gray-900 dark:text-white">
+            <div className="flex justify-between py-2 border-b border-border dark:border-border">
+              <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Frequency Cap" : "حد التكرار"}</span>
+              <span className="font-medium text-foreground">
                 {formData.frequencyCap} {isEn ? (formData.frequencyCap === 1 ? "time" : "times") : "مرة"} /{" "}
                 {formData.frequencyCapInterval === "DAY"
                   ? (isEn ? "Daily" : "يومياً")
@@ -306,37 +306,37 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
               </span>
             </div>
           )}
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Locations" : "المواقع"}</span>
-            <span className={`font-medium text-gray-900 dark:text-white ${isEn ? "text-right" : "text-left"}`}>
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Locations" : "المواقع"}</span>
+            <span className={`font-medium text-foreground ${isEn ? "text-right" : "text-left"}`}>
               {selectedGeoSummary || (isEn ? "Unspecified" : "غير محدد")}
             </span>
           </div>
           {selectedTargetingSignalCount > 0 && (
-            <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-              <span className="text-gray-600 dark:text-gray-400">{isEn ? "Active Targeting Signals" : "إشارات الاستهداف النشطة"}</span>
-              <span className="font-medium text-gray-900 dark:text-white">
+            <div className="flex justify-between py-2 border-b border-border dark:border-border">
+              <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Active Targeting Signals" : "إشارات الاستهداف النشطة"}</span>
+              <span className="font-medium text-foreground">
                 {selectedTargetingSignalCount} {isEn ? (selectedTargetingSignalCount === 1 ? "signal" : "signals") : "اختيار"}
               </span>
             </div>
           )}
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Age Range" : "الفئة العمرية"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Age Range" : "الفئة العمرية"}</span>
+            <span className="font-medium text-foreground">
               {formData.ageMin} - {formData.ageMax}
             </span>
           </div>
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Placements" : "المواضع"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Placements" : "المواضع"}</span>
+            <span className="font-medium text-foreground">
               {formData.placementType === "AUTOMATIC"
                 ? (isEn ? "Automatic" : "تلقائي")
                 : `${formData.publisherPlatforms?.length || 0} ${isEn ? "placements" : "مواضع"}`}
             </span>
           </div>
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Creative Format" : "نوع المحتوى"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Creative Format" : "نوع المحتوى"}</span>
+            <span className="font-medium text-foreground">
               {formData.creativeType === "SINGLE_IMAGE"
                 ? (isEn ? "Single Image" : "صورة")
                 : formData.creativeType === "SINGLE_VIDEO"
@@ -348,39 +348,39 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
                       : (isEn ? "Flexible" : "مرن (Flexible)")}
             </span>
           </div>
-          <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-            <span className="text-gray-600 dark:text-gray-400">{isEn ? "Ad Page" : "صفحة الإعلان"}</span>
-            <span className="font-medium text-gray-900 dark:text-white">
+          <div className="flex justify-between py-2 border-b border-border dark:border-border">
+            <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Ad Page" : "صفحة الإعلان"}</span>
+            <span className="font-medium text-foreground">
               {selectedFacebookPage?.name || formData.pageId || (isEn ? "Unspecified" : "غير محددة")}
             </span>
           </div>
           {selectedFacebookPage?.isConnectedToCompany === false && (
-            <div className="rounded-lg border border-amber-200 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-950/40 px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
+            <div className="rounded-lg border border-warning dark:border-warning/60 bg-warning/10 dark:bg-warning/40 px-4 py-3 text-sm text-warning dark:text-warning">
               {isEn
                 ? "The ad will be published under an available page from the current Meta account, but it is not linked to this company in Max P."
                 : "الإعلان سيُنشر باسم صفحة متاحة من حساب Meta الحالي لكنها غير مربوطة بهذه الشركة داخل Max P."}
             </div>
           )}
           {formData.creativeType === "EXISTING_POST" && formData.postId && (
-            <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-              <span className="text-gray-600 dark:text-gray-400">{isEn ? "Post ID" : "معرف المنشور"}</span>
-              <span className="font-medium text-gray-900 dark:text-white">
+            <div className="flex justify-between py-2 border-b border-border dark:border-border">
+              <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Post ID" : "معرف المنشور"}</span>
+              <span className="font-medium text-foreground">
                 {formData.postId}
               </span>
             </div>
           )}
           {formData.creativeType === "FLEXIBLE" &&
             (formData.flexibleAssets?.length || 0) > 0 && (
-              <div className="flex justify-between py-2 border-b border-gray-200 dark:border-gray-700">
-                <span className="text-gray-600 dark:text-gray-400">{isEn ? "File Count" : "عدد الملفات"}</span>
-                <span className="font-medium text-green-600 dark:text-green-400">
+              <div className="flex justify-between py-2 border-b border-border dark:border-border">
+                <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "File Count" : "عدد الملفات"}</span>
+                <span className="font-medium text-success dark:text-success">
                   {formData.flexibleAssets?.length || 0} {isEn ? ((formData.flexibleAssets?.length || 0) === 1 ? "file" : "files") : "ملف"}
                 </span>
               </div>
             )}
           {formData.linkUrl && (
             <div className="flex justify-between py-2">
-              <span className="text-gray-600 dark:text-gray-400">{isEn ? "Destination URL" : "رابط الوجهة"}</span>
+              <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Destination URL" : "رابط الوجهة"}</span>
               <span className="font-medium text-blue-600 dark:text-blue-400 truncate max-w-xs">
                 {formData.linkUrl}
               </span>
@@ -388,8 +388,8 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
           )}
           {formData.urlParameters && (
             <div className="flex justify-between py-2">
-              <span className="text-gray-600 dark:text-gray-400">{isEn ? "URL Parameters" : "معاملات URL"}</span>
-              <span className="font-medium text-xs text-gray-500 dark:text-gray-400 truncate max-w-xs">
+              <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "URL Parameters" : "معاملات URL"}</span>
+              <span className="font-medium text-xs text-muted-foreground truncate max-w-xs">
                 {formData.urlParameters}
               </span>
             </div>
@@ -399,7 +399,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
 
       {/* Status Selection */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+        <label className="block text-sm font-medium text-foreground mb-3">
           {isEn ? "Ad Status After Publishing" : "حالة الإعلان بعد النشر"}
         </label>
         <div className="grid grid-cols-2 gap-4">
@@ -408,12 +408,12 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
             onClick={() => handleChange("status", "PAUSED")}
             className={`p-4 border-2 rounded-xl text-center transition-all ${
               formData.status === "PAUSED"
-                ? "border-yellow-500 bg-yellow-50 dark:bg-yellow-950/40 text-yellow-800 dark:text-yellow-300"
-                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+                ? "border-yellow-500 bg-warning/10 dark:bg-warning/40 text-warning dark:text-warning"
+                : "border-gray-200 dark:border-border hover:border-border text-foreground bg-card"
             }`}
           >
             <div className="font-medium">{isEn ? "Paused" : "متوقف مؤقتاً"}</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <div className="text-xs text-muted-foreground mt-1">
               {isEn ? "Review ad before activating" : "راجع الإعلان قبل تفعيله"}
             </div>
           </button>
@@ -422,12 +422,12 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
             onClick={() => handleChange("status", "ACTIVE")}
             className={`p-4 border-2 rounded-xl text-center transition-all ${
               formData.status === "ACTIVE"
-                ? "border-green-500 bg-green-50 dark:bg-green-950/40 text-green-800 dark:text-green-300"
-                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+                ? "border-green-500 bg-success/10 dark:bg-success/40 text-success dark:text-success"
+                : "border-gray-200 dark:border-border hover:border-border text-foreground bg-card"
             }`}
           >
             <div className="font-medium">{isEn ? "Active Immediately" : "نشط فوراً"}</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <div className="text-xs text-muted-foreground mt-1">
               {isEn ? "Start ad delivery immediately" : "ابدأ عرض الإعلان مباشرة"}
             </div>
           </button>

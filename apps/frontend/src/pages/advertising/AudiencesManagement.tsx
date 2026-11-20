@@ -151,14 +151,14 @@ const AudiencesManagement: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>جماهير مشابهة</span>
-            <Sparkles className="h-3.5 w-3.5 text-purple-500" />
+            <Sparkles className="h-3.5 w-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-purple-500">{stats.lookalikeCount}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-primary">{stats.lookalikeCount}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>الحجم التقديري الإجمالي</span>
-            <Layers className="h-3.5 w-3.5 text-emerald-500" />
+            <Layers className="h-3.5 w-3.5 text-success" />
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">
             {stats.totalReach > 0 ? stats.totalReach.toLocaleString() : "قيد الحساب"}
@@ -189,7 +189,7 @@ const AudiencesManagement: React.FC = () => {
 
         <div className="relative w-full sm:w-64">
           <Search className="absolute right-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
-          <Input placeholder="بحث في أسماء الجماهير..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="h-8 pr-8 text-xs border-border/70 bg-card" />
+          <Input placeholder="بحث في أسماء الجماهير..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="h-8 pe-8 text-xs border-border/70 bg-card" />
         </div>
       </div>
 
@@ -230,7 +230,7 @@ const AudiencesManagement: React.FC = () => {
                         {aud.audienceSize ? aud.audienceSize.toLocaleString() : "قيد المعالجة"}
                       </td>
                       <td className="px-4 py-3">
-                        <Badge variant="outline" className={`text-[10px] px-1.5 py-0 font-medium ${aud.status === "ACTIVE" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" : "bg-muted text-muted-foreground border-border/60"}`}>
+                        <Badge variant="outline" className={`text-[10px] px-1.5 py-0 font-medium ${aud.status === "ACTIVE" ? "bg-emerald-500/10 text-success border-success/20" : "bg-muted text-muted-foreground border-border/60"}`}>
                           {aud.status === "ACTIVE" ? "نشط ومتاح" : "معلق"}
                         </Badge>
                       </td>
@@ -240,7 +240,7 @@ const AudiencesManagement: React.FC = () => {
                           <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground" onClick={() => navigate(`/advertising/facebook-ads/audiences/custom/${aud.id}`)}>
                             <Eye className="h-3.5 w-3.5" />
                           </Button>
-                          <Button variant="ghost" size="icon" className="h-7 w-7 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600" onClick={(e) => handleDeleteCustomAudience(aud.id, e)}>
+                          <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={(e) => handleDeleteCustomAudience(aud.id, e)}>
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         </div>
@@ -279,7 +279,7 @@ const AudiencesManagement: React.FC = () => {
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{aud.sourceAudience?.name || "المصدر المحدد"}</td>
                       <td className="px-4 py-3">
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-mono bg-purple-500/10 text-purple-500 border-purple-500/20">
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-mono bg-primary/10 text-primary border-primary/20">
                           {aud.ratio || 1}%
                         </Badge>
                       </td>
@@ -287,7 +287,7 @@ const AudiencesManagement: React.FC = () => {
                         {aud.audienceSize ? aud.audienceSize.toLocaleString() : "قيد المعالجة"}
                       </td>
                       <td className="px-4 py-3">
-                        <Badge variant="outline" className={`text-[10px] px-1.5 py-0 font-medium ${aud.status === "ACTIVE" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" : "bg-muted text-muted-foreground border-border/60"}`}>
+                        <Badge variant="outline" className={`text-[10px] px-1.5 py-0 font-medium ${aud.status === "ACTIVE" ? "bg-emerald-500/10 text-success border-success/20" : "bg-muted text-muted-foreground border-border/60"}`}>
                           {aud.status === "ACTIVE" ? "نشط" : "معلق"}
                         </Badge>
                       </td>

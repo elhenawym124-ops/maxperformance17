@@ -50,7 +50,7 @@ export default function DentalWorkTypeStagesModal({
         />
 
         {error && (
-          <div className="m-4 p-3 bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-300 text-xs rounded-lg">
+          <div className="m-4 p-3 bg-destructive/10 border border-destructive/30 text-destructive dark:text-destructive text-xs rounded-lg">
             {error}
           </div>
         )}
@@ -58,10 +58,10 @@ export default function DentalWorkTypeStagesModal({
         <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
           {loading ? (
             <div className="flex justify-center py-16">
-              <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+              <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
             </div>
           ) : stages.length === 0 ? (
-            <div className="py-12 text-center text-gray-400">
+            <div className="py-12 text-center text-muted-foreground">
               <Workflow className="w-8 h-8 mx-auto mb-2 opacity-50" />
               <p className="text-sm">لا توجد مراحل مسجلة لهذا النوع.</p>
             </div>
@@ -82,7 +82,7 @@ export default function DentalWorkTypeStagesModal({
           <button
             type="button"
             onClick={addStage}
-            className="w-full py-2.5 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-xs font-semibold text-gray-600 dark:text-gray-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 border-2 border-dashed border-border dark:border-border rounded-lg text-xs font-semibold text-muted-foreground hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
           >
             <Plus className="w-4 h-4" />
             إضافة محطة / مرحلة إنتاجية جديدة

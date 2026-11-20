@@ -187,7 +187,7 @@ const CreateABTest: React.FC = () => {
       </div>
 
       {/* Progress Steps Strip */}
-      <div className="bg-card rounded-2xl border border-border/70 p-4 shadow-2xs">
+      <div className="bg-card rounded-xl border border-border/70 p-4 shadow-2xs">
         <div className="flex items-center justify-between">
           {[1, 2, 3].map((step) => (
             <React.Fragment key={step}>
@@ -226,7 +226,7 @@ const CreateABTest: React.FC = () => {
       </div>
 
       {/* Form Content */}
-      <div className="bg-card rounded-2xl border border-border/70 p-5 shadow-2xs space-y-4">
+      <div className="bg-card rounded-xl border border-border/70 p-5 shadow-2xs space-y-4">
         {/* Step 1: Test Info */}
         {currentStep === 1 && (
           <div className="space-y-4 text-xs">

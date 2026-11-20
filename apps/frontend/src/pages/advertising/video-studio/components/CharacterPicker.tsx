@@ -63,7 +63,7 @@ export const CharacterPicker: React.FC<CharacterPickerProps> = ({
             <span className="max-w-24 truncate">{c.name}</span>
             {!hasRefs && (
               <span
-                className="text-[10px] text-amber-600 dark:text-amber-400"
+                className="text-[10px] text-warning dark:text-warning"
                 title="الشخصية بدون مراجع بعد — ولّد الشيت أولًا"
               >
                 بلا مراجع

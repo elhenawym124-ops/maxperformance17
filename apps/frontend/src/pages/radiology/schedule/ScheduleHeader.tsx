@@ -50,12 +50,12 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h2 className="text-xl font-bold">{t("radiology.schedule.title")}</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-muted-foreground">
           {t("radiology.schedule.subtitle")}
         </p>
       </div>
 
-      <div className="flex items-center gap-1.5 border dark:border-gray-600 rounded-lg p-1">
+      <div className="flex items-center gap-1.5 border dark:border-border rounded-lg p-1">
         {VIEW_TABS.map((v) => (
           <button
             key={v.id}
@@ -63,7 +63,7 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
               view === v.id
                 ? "bg-blue-600 text-white"
-                : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                : "hover:bg-muted"
             }`}
           >
             <v.icon className="w-4 h-4" />
@@ -75,14 +75,14 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
       <div className="flex flex-wrap items-center gap-2">
         <button
           onClick={onToday}
-          className="px-3 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="px-3 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
         >
           {t("radiology.schedule.today")}
         </button>
         <div className="relative">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400 dark:text-gray-500" />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground/80" />
           <input
-            className={`${MODAL_INPUT_CLS} pr-9 w-44`}
+            className={`${MODAL_INPUT_CLS} pe-9 w-44`}
             placeholder={t("radiology.schedule.searchByPatient")}
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -102,14 +102,14 @@ export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({
         </select>
         <button
           onClick={onRefresh}
-          className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
         >
           <RefreshCw className="w-4 h-4" />
           {t("radiology.refresh")}
         </button>
         <button
           onClick={() => onOpenNew(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 text-sm"
+          className="flex items-center gap-2 px-4 py-2 bg-warning text-white rounded-lg hover:bg-warning text-sm"
         >
           <Zap className="w-4 h-4" />
           {t("radiology.schedule.walkIn")}

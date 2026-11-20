@@ -20,14 +20,14 @@ export const CreativeFlexibleAssetsSection: React.FC<CreativeFlexibleAssetsSecti
 }) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label className="block text-sm font-medium text-foreground mb-2">
         {isEn ? "Images & Videos (up to 10 files)" : "الصور والفيديوهات (حتى 10 ملفات)"}{" "}
         <span className="text-red-500">*</span>
       </label>
 
       <div
         onClick={() => flexibleInputRef.current?.click()}
-        className="border-2 border-dashed border-green-300 dark:border-green-800/60 rounded-xl p-6 text-center hover:border-green-400 transition-colors cursor-pointer bg-green-50 dark:bg-green-950/30"
+        className="border-2 border-dashed border-success dark:border-success/60 rounded-xl p-6 text-center hover:border-success transition-colors cursor-pointer bg-success/10 dark:bg-success/30"
       >
         <input
           type="file"
@@ -37,11 +37,11 @@ export const CreativeFlexibleAssetsSection: React.FC<CreativeFlexibleAssetsSecti
           className="hidden"
           onChange={handleFlexibleFilesUpload}
         />
-        <Sparkles className="w-12 h-12 mx-auto text-green-500 mb-3" />
-        <p className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
+        <Sparkles className="w-12 h-12 mx-auto text-success mb-3" />
+        <p className="text-sm text-foreground mb-1 font-medium">
           {isEn ? "Upload up to 10 images or videos" : "ارفع حتى 10 صور أو فيديوهات"}
         </p>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+        <p className="text-xs text-muted-foreground mb-3">
           {isEn ? "Facebook will automatically select the best format for each user" : "سيختار Facebook تلقائياً أفضل تنسيق لكل مستخدم"}
         </p>
         <button
@@ -50,7 +50,7 @@ export const CreativeFlexibleAssetsSection: React.FC<CreativeFlexibleAssetsSecti
             e.stopPropagation();
             flexibleInputRef.current?.click();
           }}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+          className="px-4 py-2 bg-success text-white rounded-lg hover:bg-success transition-colors text-sm"
         >
           {isEn ? "Choose Files" : "اختر الملفات"}
         </button>
@@ -59,13 +59,13 @@ export const CreativeFlexibleAssetsSection: React.FC<CreativeFlexibleAssetsSecti
       {/* Uploaded Assets List */}
       {formData.flexibleAssets.length > 0 && (
         <div className="mt-4 space-y-2">
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <p className="text-sm font-medium text-foreground">
             {isEn ? `Uploaded Files (${formData.flexibleAssets.length}/10)` : `الملفات المرفوعة (${formData.flexibleAssets.length}/10)`}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {formData.flexibleAssets.map((asset, index) => (
               <div key={asset.id} className="relative group">
-                <div className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700">
+                <div className="aspect-square bg-muted dark:bg-muted rounded-lg overflow-hidden border-2 border-border dark:border-border">
                   {asset.type === "IMAGE" ? (
                     <img
                       src={asset.url}
@@ -73,7 +73,7 @@ export const CreativeFlexibleAssetsSection: React.FC<CreativeFlexibleAssetsSecti
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                    <div className="w-full h-full flex items-center justify-center bg-muted">
                       <Eye className="w-8 h-8 text-white" />
                     </div>
                   )}
@@ -81,7 +81,7 @@ export const CreativeFlexibleAssetsSection: React.FC<CreativeFlexibleAssetsSecti
                 <button
                   type="button"
                   onClick={() => handleRemoveFlexibleAsset(asset.id)}
-                  className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute top-1 right-1 p-1 bg-destructive text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   aria-label={isEn ? "Remove asset" : "حذف الملف"}
                 >
                   <X className="w-4 h-4" />

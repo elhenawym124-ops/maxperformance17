@@ -21,7 +21,7 @@ export const RadiologyReportsFilterBar: React.FC<RadiologyReportsFilterBarProps>
   return (
     <div className="flex flex-wrap items-center gap-3">
       <select
-        className="border dark:border-gray-600 rounded-lg px-3 py-2 text-sm dark:bg-gray-800 dark:text-gray-100 cursor-pointer"
+        className="border dark:border-border rounded-lg px-3 py-2 text-sm dark:bg-muted dark:text-muted-foreground cursor-pointer"
         value={filters.statusFilter}
         onChange={(e) => updateFilter("statusFilter", e.target.value)}
       >
@@ -34,7 +34,7 @@ export const RadiologyReportsFilterBar: React.FC<RadiologyReportsFilterBarProps>
       </select>
 
       <select
-        className="border dark:border-gray-600 rounded-lg px-3 py-2 text-sm dark:bg-gray-800 dark:text-gray-100 cursor-pointer"
+        className="border dark:border-border rounded-lg px-3 py-2 text-sm dark:bg-muted dark:text-muted-foreground cursor-pointer"
         value={filters.criticalFilter}
         onChange={(e) => updateFilter("criticalFilter", e.target.value)}
       >
@@ -44,9 +44,9 @@ export const RadiologyReportsFilterBar: React.FC<RadiologyReportsFilterBarProps>
       </select>
 
       <div className="relative">
-        <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400 dark:text-gray-500 pointer-events-none" />
+        <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground/80 pointer-events-none" />
         <input
-          className="border dark:border-gray-600 rounded-lg pr-9 py-2 text-sm dark:bg-gray-800 dark:text-gray-100 w-52"
+          className="border dark:border-border rounded-lg pe-9 py-2 text-sm dark:bg-muted dark:text-muted-foreground w-52"
           placeholder={t("radiology.reports.searchByPatient") as string}
           value={filters.search}
           onChange={(e) => updateFilter("search", e.target.value)}
@@ -54,7 +54,7 @@ export const RadiologyReportsFilterBar: React.FC<RadiologyReportsFilterBarProps>
       </div>
 
       <input
-        className="border dark:border-gray-600 rounded-lg px-3 py-2 text-sm dark:bg-gray-800 dark:text-gray-100"
+        className="border dark:border-border rounded-lg px-3 py-2 text-sm dark:bg-muted dark:text-muted-foreground"
         dir="ltr"
         placeholder={t("radiology.reports.studyNumber") as string}
         value={filters.studySearch}
@@ -62,18 +62,18 @@ export const RadiologyReportsFilterBar: React.FC<RadiologyReportsFilterBarProps>
       />
 
       <DateInput
-        className="border dark:border-gray-600 rounded-lg px-3 py-2 text-sm dark:bg-gray-800 dark:text-gray-100"
+        className="border dark:border-border rounded-lg px-3 py-2 text-sm dark:bg-muted dark:text-muted-foreground"
         value={filters.dateFrom}
         onChange={(e) => updateFilter("dateFrom", e.target.value)}
       />
 
       <DateInput
-        className="border dark:border-gray-600 rounded-lg px-3 py-2 text-sm dark:bg-gray-800 dark:text-gray-100"
+        className="border dark:border-border rounded-lg px-3 py-2 text-sm dark:bg-muted dark:text-muted-foreground"
         value={filters.dateTo}
         onChange={(e) => updateFilter("dateTo", e.target.value)}
       />
 
-      {refreshing ? <Loader2 className="w-4 h-4 animate-spin text-gray-400" /> : null}
+      {refreshing ? <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" /> : null}
     </div>
   );
 };

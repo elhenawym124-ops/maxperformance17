@@ -162,10 +162,10 @@ const AdLibraryResearch: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-6 text-slate-950 dark:bg-slate-950 dark:text-slate-50 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-muted px-4 py-6 text-foreground dark:bg-muted dark:text-muted-foreground sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-6xl 2xl:max-w-7xl flex-col gap-5">
         <FacebookAdsModuleNav />
-        <header className="flex flex-col gap-3 border-b border-slate-200 pb-5 dark:border-slate-800 lg:flex-row lg:items-end lg:justify-between">
+        <header className="flex flex-col gap-3 border-b border-border pb-5 dark:border-border lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-bold text-blue-700 dark:text-blue-300">
               Meta Ad Library
@@ -174,7 +174,7 @@ const AdLibraryResearch: React.FC = () => {
               مكتبة الإعلانات
             </h1>
           </div>
-          <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-3 py-2 text-sm font-bold text-foreground shadow-sm dark:border-border dark:bg-muted dark:text-muted-foreground">
             <Megaphone className="h-4 w-4 text-blue-600" />
             <span>{apiVersion || "v25.0"}</span>
           </div>
@@ -182,11 +182,11 @@ const AdLibraryResearch: React.FC = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+          className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted"
         >
           <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="flex flex-col gap-4">
-              <div className="inline-flex w-full rounded-lg border border-slate-200 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-950 sm:w-fit">
+              <div className="inline-flex w-full rounded-lg border border-border bg-muted p-1 dark:border-border dark:bg-muted sm:w-fit">
                 {[
                   { value: "terms", label: "كلمة بحث" },
                   { value: "pages", label: "Page IDs" },
@@ -198,8 +198,8 @@ const AdLibraryResearch: React.FC = () => {
                     className={[
                       "rounded-md px-4 py-2 text-sm font-black transition-colors",
                       searchMode === item.value
-                        ? "bg-white text-slate-950 shadow-sm dark:bg-slate-800 dark:text-white"
-                        : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white",
+                        ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
+                        : "text-slate-600 hover:text-foreground dark:text-muted-foreground dark:hover:text-white",
                     ].join(" ")}
                   >
                     {item.label}
@@ -212,11 +212,11 @@ const AdLibraryResearch: React.FC = () => {
                   {searchMode === "terms" ? "البحث" : "Page IDs"}
                 </span>
                 <div className="relative">
-                  <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                  <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <input
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-white py-3 pl-3 pr-10 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                    className="w-full rounded-lg border border-border bg-white py-3 ps-3 pe-10 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                     placeholder={
                       searchMode === "terms"
                         ? "مثال: boots أو skincare"
@@ -232,7 +232,7 @@ const AdLibraryResearch: React.FC = () => {
                   <input
                     value={countries}
                     onChange={(event) => setCountries(event.target.value)}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                     placeholder="EG,SA,US"
                   />
                 </label>
@@ -244,7 +244,7 @@ const AdLibraryResearch: React.FC = () => {
                     onChange={(event) =>
                       setAdActiveStatus(event.target.value as typeof adActiveStatus)
                     }
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                   >
                     {activeStatusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -262,13 +262,13 @@ const AdLibraryResearch: React.FC = () => {
                     max={100}
                     value={limit}
                     onChange={(event) => setLimit(Number(event.target.value))}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                   />
                 </label>
               </div>
             </div>
 
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950">
+            <div className="rounded-lg border border-border bg-muted p-3 dark:border-border dark:bg-muted">
               <div className="mb-3 flex items-center gap-2 text-sm font-black">
                 <Filter className="h-4 w-4 text-blue-600" />
                 <span>الفلاتر</span>
@@ -276,13 +276,13 @@ const AdLibraryResearch: React.FC = () => {
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <label className="flex flex-col gap-2">
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-400">
+                  <span className="text-xs font-black text-muted-foreground dark:text-muted-foreground">
                     النوع
                   </span>
                   <select
                     value={adType}
                     onChange={(event) => setAdType(event.target.value as typeof adType)}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold outline-none dark:border-slate-700 dark:bg-slate-900"
+                    className="rounded-lg border border-border bg-white px-3 py-2 text-sm font-bold outline-none dark:border-border dark:bg-muted"
                   >
                     {adTypeOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -293,7 +293,7 @@ const AdLibraryResearch: React.FC = () => {
                 </label>
 
                 <label className="flex flex-col gap-2">
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-400">
+                  <span className="text-xs font-black text-muted-foreground dark:text-muted-foreground">
                     الوسائط
                   </span>
                   <select
@@ -301,7 +301,7 @@ const AdLibraryResearch: React.FC = () => {
                     onChange={(event) =>
                       setMediaType(event.target.value as typeof mediaType)
                     }
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold outline-none dark:border-slate-700 dark:bg-slate-900"
+                    className="rounded-lg border border-border bg-white px-3 py-2 text-sm font-bold outline-none dark:border-border dark:bg-muted"
                   >
                     {mediaTypeOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -312,24 +312,24 @@ const AdLibraryResearch: React.FC = () => {
                 </label>
 
                 <label className="flex flex-col gap-2">
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-400">
+                  <span className="text-xs font-black text-muted-foreground dark:text-muted-foreground">
                     من
                   </span>
                   <DateInput
                     value={deliveryDateMin}
                     onChange={(event) => setDeliveryDateMin(event.target.value)}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold outline-none dark:border-slate-700 dark:bg-slate-900"
+                    className="rounded-lg border border-border bg-white px-3 py-2 text-sm font-semibold outline-none dark:border-border dark:bg-muted"
                   />
                 </label>
 
                 <label className="flex flex-col gap-2">
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-400">
+                  <span className="text-xs font-black text-muted-foreground dark:text-muted-foreground">
                     إلى
                   </span>
                   <DateInput
                     value={deliveryDateMax}
                     onChange={(event) => setDeliveryDateMax(event.target.value)}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold outline-none dark:border-slate-700 dark:bg-slate-900"
+                    className="rounded-lg border border-border bg-white px-3 py-2 text-sm font-semibold outline-none dark:border-border dark:bg-muted"
                   />
                 </label>
               </div>
@@ -344,7 +344,7 @@ const AdLibraryResearch: React.FC = () => {
                       "rounded-md border px-3 py-1.5 text-xs font-black transition-colors",
                       publisherPlatforms.includes(platform.value)
                         ? "border-blue-600 bg-blue-600 text-white"
-                        : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200",
+                        : "border-slate-200 bg-white text-foreground hover:border-blue-300 dark:border-border dark:bg-muted dark:text-muted-foreground",
                     ].join(" ")}
                   >
                     {platform.label}
@@ -370,23 +370,23 @@ const AdLibraryResearch: React.FC = () => {
           </div>
         </form>
 
-        <section className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="flex flex-col gap-2 border-b border-slate-200 p-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+        <section className="rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+          <div className="flex flex-col gap-2 border-b border-border p-4 dark:border-border sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-base font-black">النتائج</h2>
-              <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+              <p className="mt-1 text-sm font-semibold text-muted-foreground dark:text-muted-foreground">
                 {hasResults
                   ? `${results.length} نتيجة لـ ${lastSearchLabel}`
                   : "لا توجد نتائج معروضة"}
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <CalendarDays className="h-4 w-4" />
               <span>{selectedCountries.join(", ") || "EG"}</span>
             </div>
           </div>
 
-          <div className="divide-y divide-slate-200 dark:divide-slate-800">
+          <div className="divide-y divide-border dark:divide-border">
             {hasResults ? (
               results.map((ad) => {
                 const title = firstText(ad.ad_creative_link_titles);
@@ -401,18 +401,18 @@ const AdLibraryResearch: React.FC = () => {
                             {ad.page_name || "صفحة غير معروفة"}
                           </h3>
                           {ad.page_id ? (
-                            <span className="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                            <span className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
                               {ad.page_id}
                             </span>
                           ) : null}
                         </div>
                         {title ? (
-                          <p className="mt-2 text-sm font-black text-slate-900 dark:text-white">
+                          <p className="mt-2 text-sm font-black text-foreground dark:text-white">
                             {title}
                           </p>
                         ) : null}
                         {body ? (
-                          <p className="mt-2 max-w-4xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+                          <p className="mt-2 max-w-4xl text-sm font-semibold leading-6 text-foreground dark:text-muted-foreground">
                             {body}
                           </p>
                         ) : null}
@@ -423,7 +423,7 @@ const AdLibraryResearch: React.FC = () => {
                           href={ad.ad_snapshot_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-black text-slate-800 transition hover:border-blue-500 hover:text-blue-700 dark:border-slate-700 dark:text-slate-100 dark:hover:border-blue-400 dark:hover:text-blue-300"
+                          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-black text-foreground transition hover:border-blue-500 hover:text-blue-700 dark:border-border dark:text-muted-foreground dark:hover:border-blue-400 dark:hover:text-blue-300"
                         >
                           <ExternalLink className="h-4 w-4" />
                           <span>Snapshot</span>
@@ -432,28 +432,28 @@ const AdLibraryResearch: React.FC = () => {
                     </div>
 
                     <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                      <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                        <p className="text-xs font-black text-slate-500">بدأ</p>
+                      <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                        <p className="text-xs font-black text-muted-foreground">بدأ</p>
                         <p className="mt-1 text-sm font-bold">
                           {formatDate(ad.ad_delivery_start_time)}
                         </p>
                       </div>
-                      <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                        <p className="text-xs font-black text-slate-500">توقف</p>
+                      <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                        <p className="text-xs font-black text-muted-foreground">توقف</p>
                         <p className="mt-1 text-sm font-bold">
                           {formatDate(ad.ad_delivery_stop_time)}
                         </p>
                       </div>
-                      <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                        <p className="text-xs font-black text-slate-500">
+                      <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                        <p className="text-xs font-black text-muted-foreground">
                           الانطباعات
                         </p>
                         <p className="mt-1 text-sm font-bold">
                           {formatRange(ad.impressions)}
                         </p>
                       </div>
-                      <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                        <p className="text-xs font-black text-slate-500">الإنفاق</p>
+                      <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                        <p className="text-xs font-black text-muted-foreground">الإنفاق</p>
                         <p className="mt-1 text-sm font-bold">
                           {formatRange(ad.spend)} {ad.currency || ""}
                         </p>
@@ -479,8 +479,8 @@ const AdLibraryResearch: React.FC = () => {
             ) : (
               <div className="flex min-h-[220px] items-center justify-center p-6 text-center">
                 <div>
-                  <Search className="mx-auto h-8 w-8 text-slate-400" />
-                  <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">
+                  <Search className="mx-auto h-8 w-8 text-muted-foreground" />
+                  <p className="mt-3 text-sm font-bold text-muted-foreground dark:text-muted-foreground">
                     ابدأ بحثًا لعرض الإعلانات المؤرشفة.
                   </p>
                 </div>

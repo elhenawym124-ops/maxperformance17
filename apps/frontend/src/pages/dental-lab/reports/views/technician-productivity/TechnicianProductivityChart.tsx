@@ -25,8 +25,8 @@ export const TechnicianProductivityChart: React.FC<TechnicianProductivityChartPr
   data,
 }) => {
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 p-4">
-      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+    <div className="rounded-xl border border-border dark:border-border bg-card/50 p-4">
+      <h4 className="text-sm font-semibold text-foreground mb-3">
         مقارنة إنتاجية مراحل ووحدات فريق العمل
       </h4>
       <ResponsiveContainer width="100%" height={240}>

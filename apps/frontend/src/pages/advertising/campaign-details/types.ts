@@ -139,12 +139,12 @@ export const getObjectiveLabel = (objective: string): string => {
 
 export const getStatusBadge = (status: string): string => {
   const badges: Record<string, string> = {
-    ACTIVE: "bg-green-100 text-green-800",
-    PAUSED: "bg-yellow-100 text-yellow-800",
-    ARCHIVED: "bg-gray-100 text-gray-800",
-    DELETED: "bg-red-100 text-red-800",
+    ACTIVE: "bg-green-100 text-success",
+    PAUSED: "bg-yellow-100 text-warning",
+    ARCHIVED: "bg-gray-100 text-foreground",
+    DELETED: "bg-red-100 text-destructive",
   };
-  return badges[status] || "bg-gray-100 text-gray-800";
+  return badges[status] || "bg-gray-100 text-foreground";
 };
 
 export const getStatusLabel = (status: string, isEn: boolean): string => {

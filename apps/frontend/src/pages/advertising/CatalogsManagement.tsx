@@ -131,9 +131,9 @@ const CatalogsManagement: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>المنتجات المتزامنة</span>
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-500">{stats.totalProducts.toLocaleString()}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-success">{stats.totalProducts.toLocaleString()}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
@@ -214,7 +214,7 @@ const CatalogsManagement: React.FC = () => {
           </Button>
         </div>
       </div>
-      {errors.businessId && <p className="text-xs text-rose-500 font-mono -mt-2">{errors.businessId}</p>}
+      {errors.businessId && <p className="text-xs text-destructive font-mono -mt-2">{errors.businessId}</p>}
 
       {/* Catalogs Single Surface Table */}
       <div className="rounded-lg border border-border/70 bg-card overflow-hidden">
@@ -274,7 +274,7 @@ const CatalogsManagement: React.FC = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600"
+                    className="h-7 w-7 text-destructive hover:bg-destructive/10 hover:text-destructive"
                     onClick={(e) => handleDeleteCatalog(cat.id, e)}
                   >
                     <Trash2 className="h-3.5 w-3.5" />

@@ -52,9 +52,9 @@ interface InvoiceListResponse {
 }
 
 const INVOICE_STATUS: Record<string, { label: string; color: string }> = {
-  OPEN: { label: "radiology.insuranceInvoices.open", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
-  PARTIAL: { label: "radiology.insuranceInvoices.partial", color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  PAID: { label: "radiology.insuranceInvoices.paidFull", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
+  OPEN: { label: "radiology.insuranceInvoices.open", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  PARTIAL: { label: "radiology.insuranceInvoices.partial", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  PAID: { label: "radiology.insuranceInvoices.paidFull", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 const fmtMoney = (n?: number, currency = "") => `${Number(n ?? 0).toFixed(2)} ${currency}`;
@@ -202,10 +202,10 @@ export default function InsuranceInvoicesTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.insuranceInvoices.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.insuranceInvoices.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.insuranceInvoices.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm">
+          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
           <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
@@ -215,14 +215,14 @@ export default function InsuranceInvoicesTab() {
       </div>
 
       {loading ? (
-        <p className="text-center py-10 text-gray-400">{t("radiology.loading")}</p>
+        <p className="text-center py-10 text-muted-foreground">{t("radiology.loading")}</p>
       ) : invoices.length === 0 ? (
-        <p className="text-center py-10 text-gray-400">{t("radiology.insuranceInvoices.noInvoices")}</p>
+        <p className="text-center py-10 text-muted-foreground">{t("radiology.insuranceInvoices.noInvoices")}</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-x-auto">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400">
+              <tr className="border-b dark:border-border text-muted-foreground">
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.insuranceInvoices.invoiceNumber")}</th>
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.insuranceInvoices.entity")}</th>
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.insuranceInvoices.total")}</th>
@@ -235,9 +235,9 @@ export default function InsuranceInvoicesTab() {
             </thead>
             <tbody>
               {invoices.map(inv => {
-                const st = INVOICE_STATUS[inv.status] ?? { label: inv.status, color: "bg-gray-100 text-gray-700" };
+                const st = INVOICE_STATUS[inv.status] ?? { label: inv.status, color: "bg-gray-100 text-foreground" };
                 return (
-                  <tr key={inv.id} className="border-b dark:border-gray-700/50 last:border-0">
+                  <tr key={inv.id} className="border-b dark:border-border last:border-0">
                     <td className="py-3 px-4" dir="ltr">{inv.invoiceNumber || "—"}</td>
                     <td className="py-3 px-4 font-medium">{inv.insuranceCompanyName || "—"}</td>
                     <td className="py-3 px-4">{fmtMoney(inv.totalAmount, t("radiology.currency"))}</td>
@@ -251,7 +251,7 @@ export default function InsuranceInvoicesTab() {
                           <Banknote className="w-3.5 h-3.5" />{t("radiology.insuranceInvoices.recordPayment")}
                         </button>
                       ) : (
-                        <span className="text-xs text-gray-400">—</span>
+                        <span className="text-xs text-muted-foreground">—</span>
                       )}
                     </td>
                   </tr>
@@ -267,13 +267,13 @@ export default function InsuranceInvoicesTab() {
           <div className={`${MODAL_CONTENT_CLS} max-h-[90vh] overflow-y-auto`} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{t("radiology.insuranceInvoices.createInvoiceTitle")}</h3>
-              <button onClick={() => !saving && setCreateOpen(false)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300">
+              <button onClick={() => !saving && setCreateOpen(false)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground">
                 <XMarkIcon className="w-5 h-5" />
               </button>
             </div>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.insuranceEntityRequired")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.insuranceEntityRequired")}</label>
                 <select className={MODAL_INPUT_CLS} value={createForm.insuranceCompanyId} onChange={e => setCreateForm({ ...createForm, insuranceCompanyId: e.target.value })}>
                   <option value="">{t("radiology.insuranceInvoices.selectEntity")}</option>
                   {entities.map(en => <option key={en.id} value={en.id}>{en.name}</option>)}
@@ -281,36 +281,36 @@ export default function InsuranceInvoicesTab() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.dateFrom")}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.dateFrom")}</label>
                   <DateInput className={MODAL_INPUT_CLS} value={createForm.periodFrom} onChange={e => setCreateForm({ ...createForm, periodFrom: e.target.value })} />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.dateTo")}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.dateTo")}</label>
                   <DateInput className={MODAL_INPUT_CLS} value={createForm.periodTo} onChange={e => setCreateForm({ ...createForm, periodTo: e.target.value })} />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.studies")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.studies")}</label>
                 {studiesLoading ? (
-                  <p className="text-sm text-gray-400 py-2">{t("radiology.insuranceInvoices.loadingStudies")}</p>
+                  <p className="text-sm text-muted-foreground py-2">{t("radiology.insuranceInvoices.loadingStudies")}</p>
                 ) : !createForm.insuranceCompanyId ? (
-                  <p className="text-sm text-gray-400 py-2">{t("radiology.insuranceInvoices.selectEntityFirst")}</p>
+                  <p className="text-sm text-muted-foreground py-2">{t("radiology.insuranceInvoices.selectEntityFirst")}</p>
                 ) : eligibleStudies.length === 0 ? (
-                  <p className="text-sm text-gray-400 py-2">{t("radiology.insuranceInvoices.noLinkedStudies")}</p>
+                  <p className="text-sm text-muted-foreground py-2">{t("radiology.insuranceInvoices.noLinkedStudies")}</p>
                 ) : (
-                  <div className="max-h-48 overflow-y-auto border dark:border-gray-600 rounded-lg divide-y dark:divide-gray-700">
+                  <div className="max-h-48 overflow-y-auto border dark:border-border rounded-lg divide-y dark:divide-border">
                     {eligibleStudies.map(s => (
-                      <label key={s.id} className="flex items-start gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <label key={s.id} className="flex items-start gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-muted/50">
                         <input
                           type="checkbox"
                           checked={createForm.studyIds.includes(s.id)}
                           onChange={() => toggleStudy(s.id)}
-                          className="mt-0.5 rounded border-gray-300 dark:border-gray-600"
+                          className="mt-0.5 rounded border-border"
                         />
                         <span>
                           <span className="font-medium">{s.patientName}</span>
-                          {s.examTypeName ? <span className="text-gray-500 dark:text-gray-400"> — {s.examTypeName}</span> : null}
-                          {!s.insuranceCompanyId ? <span className="text-xs text-yellow-600 dark:text-yellow-400"> ({t("radiology.insuranceInvoices.willBeLinked")})</span> : null}
+                          {s.examTypeName ? <span className="text-muted-foreground"> — {s.examTypeName}</span> : null}
+                          {!s.insuranceCompanyId ? <span className="text-xs text-warning dark:text-warning"> ({t("radiology.insuranceInvoices.willBeLinked")})</span> : null}
                         </span>
                       </label>
                     ))}
@@ -318,12 +318,12 @@ export default function InsuranceInvoicesTab() {
                 )}
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.notes")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.notes")}</label>
                 <input className={MODAL_INPUT_CLS} value={createForm.notes} onChange={e => setCreateForm({ ...createForm, notes: e.target.value })} placeholder={t("radiology.insuranceInvoices.notesOptionalPlaceholder")} />
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setCreateOpen(false)} disabled={saving} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50">{t("radiology.cancel")}</button>
+              <button onClick={() => setCreateOpen(false)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50">{t("radiology.cancel")}</button>
               <button onClick={submitCreate} disabled={saving || !createForm.insuranceCompanyId} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.insuranceInvoices.createInvoiceSubmit")}
               </button>
@@ -337,20 +337,20 @@ export default function InsuranceInvoicesTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{t("radiology.insuranceInvoices.recordPaymentTitle")}</h3>
-              <button onClick={() => !paying && setPaymentTarget(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300">
+              <button onClick={() => !paying && setPaymentTarget(null)} className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground">
                 <XMarkIcon className="w-5 h-5" />
               </button>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-sm text-muted-foreground mb-4">
               {t("radiology.insuranceInvoices.invoiceLabel")} <span dir="ltr">{paymentTarget.invoiceNumber || paymentTarget.id}</span> — {t("radiology.insuranceInvoices.remaining")} {fmtMoney(paymentTarget.remainingAmount, t("radiology.currency"))}
             </p>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.amountRequired")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.amountRequired")}</label>
                 <input type="number" min={0} className={MODAL_INPUT_CLS} value={paymentForm.amount} onChange={e => setPaymentForm({ ...paymentForm, amount: e.target.value })} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.paymentMethod")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.paymentMethod")}</label>
                 <select className={MODAL_INPUT_CLS} value={paymentForm.method} onChange={e => setPaymentForm({ ...paymentForm, method: e.target.value })}>
                   <option value="BANK">{t("radiology.paymentMethod.BANK")}</option>
                   <option value="CASH">{t("radiology.paymentMethod.CASH")}</option>
@@ -359,12 +359,12 @@ export default function InsuranceInvoicesTab() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.insuranceInvoices.note")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.insuranceInvoices.note")}</label>
                 <input className={MODAL_INPUT_CLS} value={paymentForm.note} onChange={e => setPaymentForm({ ...paymentForm, note: e.target.value })} />
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setPaymentTarget(null)} disabled={paying} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50">{t("radiology.cancel")}</button>
+              <button onClick={() => setPaymentTarget(null)} disabled={paying} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50">{t("radiology.cancel")}</button>
               <button onClick={submitPayment} disabled={paying} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
                 {paying && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.insuranceInvoices.recordPayment")}
               </button>

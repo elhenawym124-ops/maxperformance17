@@ -177,7 +177,7 @@ export const CreateDynamicAd: React.FC = () => {
                 item.step === currentStep
                   ? "bg-primary text-primary-foreground border-primary"
                   : item.step < currentStep
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                     : "bg-muted/40 text-muted-foreground border-border/60"
               }`}
             >
@@ -222,7 +222,7 @@ export const CreateDynamicAd: React.FC = () => {
                     <span>جاري تحميل الكتالوجات...</span>
                   </div>
                 ) : catalogs.length === 0 ? (
-                  <div className="p-3 rounded-md bg-amber-500/10 border border-amber-500/20 text-xs text-amber-600 dark:text-amber-400">
+                  <div className="p-3 rounded-md bg-warning/10 border border-warning/20 text-xs text-warning dark:text-warning">
                     لا توجد كتالوجات مفعلة. يرجى ربط كتالوج منتجات فيسبوك أولاً.
                   </div>
                 ) : (
@@ -294,7 +294,7 @@ export const CreateDynamicAd: React.FC = () => {
                   مجموعة المنتجات (Product Set) *
                 </label>
                 {productSets.length === 0 ? (
-                  <div className="p-3 rounded-md bg-amber-500/10 border border-amber-500/20 text-xs text-amber-600 dark:text-amber-400">
+                  <div className="p-3 rounded-md bg-warning/10 border border-warning/20 text-xs text-warning dark:text-warning">
                     لا توجد مجموعات منتجات (Product Sets) مرتبطة بهذا الكتالوج.
                   </div>
                 ) : (

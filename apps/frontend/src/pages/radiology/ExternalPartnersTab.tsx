@@ -74,23 +74,23 @@ export default function ExternalPartnersTab() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold">{t("radiology.externalPartners.title")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.externalPartners.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("radiology.externalPartners.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm"><RefreshCw className="w-4 h-4" />{t("radiology.refresh")}</button>
+          <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm"><RefreshCw className="w-4 h-4" />{t("radiology.refresh")}</button>
           <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"><Plus className="w-4 h-4" />{t("radiology.externalPartners.newPartner")}</button>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
       ) : items.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">{t("radiology.externalPartners.noPartners")}</div>
+        <div className="text-center py-16 text-muted-foreground">{t("radiology.externalPartners.noPartners")}</div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-x-auto">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b dark:border-gray-700 text-gray-500 dark:text-gray-400">
+              <tr className="border-b dark:border-border text-muted-foreground">
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.externalPartners.partner")}</th>
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.externalPartners.phone")}</th>
                 <th className="py-3 px-4 text-right font-medium">{t("radiology.externalPartners.contactName")}</th>
@@ -100,19 +100,19 @@ export default function ExternalPartnersTab() {
             </thead>
             <tbody>
               {items.map(c => (
-                <tr key={c.id} className="border-b dark:border-gray-700/50 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="py-3 px-4 font-medium"><span className="flex items-center gap-2"><Network className="w-4 h-4 text-gray-400" />{c.name}</span></td>
+                <tr key={c.id} className="border-b dark:border-border last:border-0 hover:bg-muted/50">
+                  <td className="py-3 px-4 font-medium"><span className="flex items-center gap-2"><Network className="w-4 h-4 text-muted-foreground" />{c.name}</span></td>
                   <td className="py-3 px-4" dir="ltr">{c.phone || "—"}</td>
                   <td className="py-3 px-4">{c.contactName || "—"}</td>
                   <td className="py-3 px-4">
-                    <span className={`px-2 py-0.5 rounded-full text-xs ${c.isActive === false ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" : "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300"}`}>
+                    <span className={`px-2 py-0.5 rounded-full text-xs ${c.isActive === false ? "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" : "bg-green-100 text-success dark:bg-success/40 dark:text-success"}`}>
                       {c.isActive === false ? t("radiology.externalPartners.inactive") : t("radiology.externalPartners.active")}
                     </span>
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <button onClick={() => { setModal(c); setName(c.name); setPhone(c.phone || ""); setContactName(c.contactName || ""); }} className="px-2 py-1 text-xs bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 rounded-lg">{t("radiology.externalPartners.edit")}</button>
-                      <button onClick={() => toggle(c)} className="px-2 py-1 text-xs bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 rounded-lg">{c.isActive === false ? t("radiology.externalPartners.activate") : t("radiology.externalPartners.deactivate")}</button>
+                      <button onClick={() => toggle(c)} className="px-2 py-1 text-xs bg-muted text-foreground dark:bg-muted dark:text-muted-foreground rounded-lg">{c.isActive === false ? t("radiology.externalPartners.activate") : t("radiology.externalPartners.deactivate")}</button>
                     </div>
                   </td>
                 </tr>
@@ -127,26 +127,26 @@ export default function ExternalPartnersTab() {
           <div className={MODAL_CONTENT_CLS} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold">{modal.id ? t("radiology.externalPartners.editPartner") : t("radiology.externalPartners.newPartnerModal")}</h3>
-              <button onClick={() => !saving && setModal(null)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"><XMarkIcon className="w-5 h-5" /></button>
+              <button onClick={() => !saving && setModal(null)} className="p-1 hover:bg-muted rounded-lg"><XMarkIcon className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.externalPartners.nameRequired")}</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.externalPartners.nameRequired")}</label>
                 <input className={MODAL_INPUT_CLS} value={name} onChange={e => setName(e.target.value)} placeholder={t("radiology.externalPartners.namePlaceholder")} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.externalPartners.phone")}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.externalPartners.phone")}</label>
                   <input className={MODAL_INPUT_CLS} value={phone} onChange={e => setPhone(e.target.value)} />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{t("radiology.externalPartners.contactName")}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.externalPartners.contactName")}</label>
                   <input className={MODAL_INPUT_CLS} value={contactName} onChange={e => setContactName(e.target.value)} />
                 </div>
               </div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg disabled:opacity-50">{t("radiology.cancel")}</button>
+              <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg disabled:opacity-50">{t("radiology.cancel")}</button>
               <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>

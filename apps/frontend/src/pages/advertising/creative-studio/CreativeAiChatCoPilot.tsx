@@ -297,22 +297,22 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-950 overflow-hidden relative">
+    <div className="flex flex-col h-full bg-white dark:bg-muted overflow-hidden relative">
       {/* Header Bar */}
-      <div className="px-3.5 py-2.5 bg-slate-50/80 dark:bg-slate-900/60 border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between flex-shrink-0">
+      <div className="px-3.5 py-2.5 bg-muted dark:bg-muted border-b border-border dark:border-border flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+          <div className="w-7 h-7 rounded-lg bg-primary/10 dark:bg-primary/60 border border-primary/80 dark:border-primary flex items-center justify-center text-primary">
             <Bot className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+            <h4 className="text-xs font-bold text-foreground dark:text-white flex items-center gap-1.5">
               <span>محادثة المخرج الإبداعي (Creative Co-Pilot)</span>
-              <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-mono px-1.5 py-0.2 rounded-full">
+              <span className="text-[10px] bg-success dark:bg-success/60 text-success dark:text-success font-mono px-1.5 py-0.2 rounded-full">
                 Live AI
               </span>
             </h4>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400">
-              تحدث بالعامية لصياغة المشاهد أو اكتب <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold">/</span> لأمر سريع
+            <p className="text-[10px] text-muted-foreground dark:text-muted-foreground">
+              تحدث بالعامية لصياغة المشاهد أو اكتب <span className="font-mono text-primary font-bold">/</span> لأمر سريع
             </p>
           </div>
         </div>
@@ -329,7 +329,7 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
               },
             ])
           }
-          className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+          className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition cursor-pointer"
           title="بدء محادثة جديدة"
         >
           <RotateCcw className="w-3.5 h-3.5" />
@@ -343,13 +343,13 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
           return (
             <div
               key={msg.id}
-              className={`flex gap-2.5 max-w-[92%] ${isUser ? "ml-auto flex-row-reverse" : "mr-auto flex-row"}`}
+              className={`flex gap-2.5 max-w-[92%] ${isUser ? "ms-auto flex-row-reverse" : "me-auto flex-row"}`}
             >
               {/* Avatar */}
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold ${
                   isUser
-                    ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                    ? "bg-slate-900 text-white dark:bg-white dark:text-foreground"
                     : "bg-indigo-600 text-white shadow-2xs"
                 }`}
               >
@@ -359,10 +359,10 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
               {/* Message Box */}
               <div className="space-y-2 flex-1 min-w-0">
                 <div
-                  className={`p-3 rounded-2xl text-xs leading-relaxed ${
+                  className={`p-3 rounded-xl text-xs leading-relaxed ${
                     isUser
-                      ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-tr-xs"
-                      : "bg-slate-100/90 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200/70 dark:border-slate-800 rounded-tl-xs"
+                      ? "bg-slate-900 text-white dark:bg-muted dark:text-foreground rounded-tr-xs"
+                      : "bg-slate-100/90 dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border rounded-tl-xs"
                   }`}
                 >
                   <p className="whitespace-pre-line">{msg.text}</p>
@@ -370,22 +370,22 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
 
                 {/* Generative UI Card for Prompts */}
                 {msg.suggestedPrompt && (
-                  <div className="rounded-xl border border-indigo-200/80 dark:border-indigo-900/60 bg-gradient-to-br from-indigo-50/70 to-slate-50 dark:from-indigo-950/40 dark:to-slate-900/60 p-3 space-y-2.5 shadow-2xs animate-in fade-in duration-300">
-                    <div className="flex items-center justify-between border-b border-indigo-100/80 dark:border-indigo-900/40 pb-2">
+                  <div className="rounded-xl border border-primary/80 dark:border-primary/60 bg-gradient-to-br from-primary/70 to-slate-50 dark:from-primary/40 dark:to-slate-900/60 p-3 space-y-2.5 shadow-2xs animate-in fade-in duration-300">
+                    <div className="flex items-center justify-between border-b border-primary/80 dark:border-primary/40 pb-2">
                       <div className="flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                        <span className="text-[11px] font-black text-indigo-900 dark:text-indigo-200">
+                        <Sparkles className="w-3.5 h-3.5 text-primary" />
+                        <span className="text-[11px] font-black text-primary dark:text-primary">
                           {msg.suggestedAngle || "البرومبت التجاري المقترح"}
                         </span>
                       </div>
                       <button
                         type="button"
                         onClick={() => handleCopyPrompt(msg.suggestedPrompt!, msg.id)}
-                        className="text-[10px] font-bold text-slate-500 hover:text-indigo-600 flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/70 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                        className="text-[10px] font-bold text-muted-foreground hover:text-primary flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/70 dark:bg-muted border border-border dark:border-border cursor-pointer"
                       >
                         {copiedId === msg.id ? (
                           <>
-                            <Check className="w-3 h-3 text-emerald-500" />
+                            <Check className="w-3 h-3 text-success" />
                             <span>تم النسخ</span>
                           </>
                         ) : (
@@ -397,7 +397,7 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
                       </button>
                     </div>
 
-                    <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-950/80 border border-slate-200/60 dark:border-slate-800 text-[11px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed max-h-24 overflow-y-auto no-scrollbar select-all">
+                    <div className="p-2 rounded-lg bg-white/80 dark:bg-muted border border-border dark:border-border text-[11px] font-mono text-foreground dark:text-muted-foreground leading-relaxed max-h-24 overflow-y-auto no-scrollbar select-all">
                       {msg.suggestedPrompt}
                     </div>
 
@@ -408,7 +408,7 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
                           onApplyPrompt(msg.suggestedPrompt!);
                           toast.success("تم تطبيق البرومبت في الكانفاس");
                         }}
-                        className="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold border border-indigo-200 dark:border-indigo-800 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center justify-center gap-1 cursor-pointer"
+                        className="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold border border-primary dark:border-primary bg-white dark:bg-muted text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 transition flex items-center justify-center gap-1 cursor-pointer"
                       >
                         <Wand2 className="w-3 h-3" />
                         <span>تطبيق في الكانفاس</span>
@@ -418,7 +418,7 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
                         type="button"
                         disabled={isGenerating}
                         onClick={() => onTriggerGenerate(msg.suggestedPrompt!)}
-                        className="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition flex items-center justify-center gap-1 cursor-pointer shadow-xs disabled:opacity-50"
+                        className="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold bg-primary hover:bg-primary/90 text-white transition flex items-center justify-center gap-1 cursor-pointer shadow-xs disabled:opacity-50"
                       >
                         {isGenerating ? (
                           <>
@@ -441,8 +441,8 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
         })}
 
         {isLoading && (
-          <div className="flex gap-2 mr-auto items-center text-slate-400 text-xs py-2 animate-pulse">
-            <Bot className="w-4 h-4 text-indigo-500 animate-spin" />
+          <div className="flex gap-2 me-auto items-center text-muted-foreground text-xs py-2 animate-pulse">
+            <Bot className="w-4 h-4 text-primary animate-spin" />
             <span>المخرج الإبداعي يفكر ويحلل الفكرة تسويقياً...</span>
           </div>
         )}
@@ -452,16 +452,16 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
 
       {/* Floating Slash Commands Autocomplete Menu */}
       {showSlashMenu && filteredCommands.length > 0 && (
-        <div className="absolute bottom-28 right-3 left-3 z-40 bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-900/80 rounded-xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-2 duration-150">
-          <div className="px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] font-bold text-slate-500">
+        <div className="absolute bottom-28 right-3 left-3 z-40 bg-white dark:bg-muted border border-primary dark:border-primary/80 rounded-xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-2 duration-150">
+          <div className="px-3 py-1.5 bg-muted dark:bg-muted border-b border-border dark:border-border flex items-center justify-between text-[11px] font-bold text-muted-foreground">
             <span className="flex items-center gap-1">
-              <Terminal className="w-3 h-3 text-indigo-500" />
+              <Terminal className="w-3 h-3 text-primary" />
               <span>أوامر السلاش السريعة (Slash Commands)</span>
             </span>
-            <span className="text-[10px] text-slate-400">Enter للاختيار • Esc للإلغاء</span>
+            <span className="text-[10px] text-muted-foreground">Enter للاختيار • Esc للإلغاء</span>
           </div>
 
-          <div className="max-h-48 overflow-y-auto p-1 divide-y divide-slate-100 dark:divide-slate-800/60 no-scrollbar">
+          <div className="max-h-48 overflow-y-auto p-1 divide-y divide-border dark:divide-border no-scrollbar">
             {filteredCommands.map((cmd, idx) => {
               const isSelected = idx === slashSelectedIndex;
               return (
@@ -471,22 +471,22 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
                   onClick={() => handleSelectSlashCommand(cmd, false)}
                   className={`w-full text-right px-2.5 py-2 rounded-lg flex items-center justify-between transition cursor-pointer ${
                     isSelected
-                      ? "bg-indigo-50 dark:bg-indigo-950/70 text-indigo-900 dark:text-indigo-200"
-                      : "hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300"
+                      ? "bg-indigo-50 dark:bg-primary/70 text-primary dark:text-primary"
+                      : "hover:bg-slate-50 dark:hover:bg-muted text-foreground dark:text-muted-foreground"
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-base">{cmd.iconName}</span>
                     <div>
-                      <span className="text-xs font-bold font-mono text-indigo-600 dark:text-indigo-400">
+                      <span className="text-xs font-bold font-mono text-primary">
                         {cmd.command}
                       </span>
-                      <span className="text-xs text-slate-600 dark:text-slate-400 mr-2">
+                      <span className="text-xs text-foreground dark:text-muted-foreground me-2">
                         {cmd.labelAr}
                       </span>
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                  <span className="text-[10px] font-mono text-muted-foreground bg-muted dark:bg-muted px-1.5 py-0.5 rounded">
                     {cmd.category}
                   </span>
                 </button>
@@ -497,11 +497,11 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
       )}
 
       {/* Footer: Quick Idea Pills + Input Bar */}
-      <div className="p-2.5 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 flex-shrink-0 space-y-2">
+      <div className="p-2.5 border-t border-border dark:border-border bg-muted dark:bg-muted flex-shrink-0 space-y-2">
         {/* Quick Suggestion Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-          <span className="text-[10px] text-slate-400 font-bold flex items-center gap-0.5 flex-shrink-0">
-            <Zap className="w-3 h-3 text-amber-500" />
+          <span className="text-[10px] text-muted-foreground font-bold flex items-center gap-0.5 flex-shrink-0">
+            <Zap className="w-3 h-3 text-warning" />
             <span>اقتراحات:</span>
           </span>
           {[
@@ -518,7 +518,7 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
                 const found = SLASH_COMMANDS.find((c) => c.command === item.cmd);
                 if (found) handleSelectSlashCommand(found, false);
               }}
-              className="text-[11px] font-bold px-2 py-1 rounded-md bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 transition whitespace-nowrap cursor-pointer flex-shrink-0 shadow-2xs"
+              className="text-[11px] font-bold px-2 py-1 rounded-md bg-white dark:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground hover:text-primary hover:border-primary transition whitespace-nowrap cursor-pointer flex-shrink-0 shadow-2xs"
             >
               {item.label}
             </button>
@@ -535,14 +535,14 @@ export const CreativeAiChatCoPilot: React.FC<CreativeAiChatCoPilotProps> = ({
             onKeyDown={handleKeyDown}
             disabled={isLoading}
             placeholder="اكتب بالعامية أو اضغط / للأوامر السريعة (مثال: /luxury)..."
-            className="w-full pl-10 pr-3.5 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-2xs"
+            className="w-full ps-10 pe-3.5 py-2 text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary transition shadow-2xs"
           />
 
           <button
             type="button"
             disabled={!inputMessage.trim() || isLoading}
             onClick={() => handleSendMessage()}
-            className="absolute left-1.5 p-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-40 transition cursor-pointer shadow-xs"
+            className="absolute left-1.5 p-1.5 rounded-lg bg-primary hover:bg-primary/90 text-white disabled:opacity-40 transition cursor-pointer shadow-xs"
             title="إرسال الفكرة"
           >
             <Send className="w-3.5 h-3.5 rotate-180" />

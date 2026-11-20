@@ -59,7 +59,7 @@ export function EditDoctorModal({
   };
 
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
-  const labelCls = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  const labelCls = "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div
@@ -78,7 +78,7 @@ export function EditDoctorModal({
           <button
             onClick={onClose}
             disabled={saving}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors"
+            className="p-1 hover:bg-muted rounded-lg text-muted-foreground transition-colors"
             aria-label="إغلاق"
           >
             <XMarkIcon className="w-5 h-5" />
@@ -86,7 +86,7 @@ export function EditDoctorModal({
         </div>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-4">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-4">
             {error}
           </div>
         )}
@@ -164,7 +164,7 @@ export function EditDoctorModal({
                   : "تعيين رمز الدخول (مثال: 1234)"
               }
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               يستخدمه الطبيب لتسجيل الدخول إلى بوابة الأطباء ومتابعة حالاته.
             </p>
           </div>
@@ -185,22 +185,22 @@ export function EditDoctorModal({
               id="doc-active"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300"
+              className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border"
             />
             <label
               htmlFor="doc-active"
-              className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
+              className="text-sm font-medium text-foreground cursor-pointer"
             >
               حساب الطبيب نشط (يسمح بإسناد واستلام حالات جديدة)
             </label>
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-border">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 text-sm text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             {t("dentalLab.common.cancel")}
           </button>

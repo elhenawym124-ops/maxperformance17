@@ -46,7 +46,7 @@ export function PortalPinDialog({
   };
 
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
-  const labelCls = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  const labelCls = "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div
@@ -54,26 +54,26 @@ export function PortalPinDialog({
       onClick={() => !saving && onClose()}
     >
       <div
-        className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border dark:border-gray-700 p-5 w-full max-w-sm mx-4 animate-in zoom-in-95 duration-200"
+        className="bg-white dark:bg-muted rounded-xl shadow-2xl border dark:border-border p-5 w-full max-w-sm mx-4 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-base font-bold flex items-center gap-2">
-            <KeyRound className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            <KeyRound className="w-5 h-5 text-primary" />
             <span>{doctor.hasPortalPin ? "تغيير رمز الدخول (PIN)" : "تعيين رمز الدخول (PIN)"}</span>
           </h3>
           <button
             onClick={onClose}
             disabled={saving}
             aria-label="إغلاق"
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors"
+            className="p-1 hover:bg-muted rounded-lg text-muted-foreground transition-colors"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2 text-xs mb-3">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-3 py-2 text-xs mb-3">
             {error}
           </div>
         )}
@@ -96,7 +96,7 @@ export function PortalPinDialog({
             <label className={labelCls}>{t("dentalLab.doctors.portalPin")} *</label>
             <div className="relative">
               <input
-                className={`${inputCls} pl-10`}
+                className={`${inputCls} ps-10`}
                 type={showPin ? "text" : "password"}
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
@@ -108,29 +108,29 @@ export function PortalPinDialog({
                 type="button"
                 onClick={() => setShowPin((s) => !s)}
                 aria-label={showPin ? "إخفاء رمز الدخول" : "إظهار رمز الدخول"}
-                className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded"
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded"
               >
                 {showPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               يستخدمه الطبيب مع رقم الهاتف لتسجيل الدخول إلى بوابة الأطباء.
             </p>
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-3 mt-6 pt-3 border-t dark:border-border">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 text-sm text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             {t("dentalLab.common.cancel")}
           </button>
           <button
             onClick={save}
             disabled={saving}
-            className="px-5 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2 font-medium transition-colors"
+            className="px-5 py-2 text-sm bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2 font-medium transition-colors"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <KeyRound className="w-4 h-4" />}
             {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}

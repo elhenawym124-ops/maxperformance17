@@ -65,8 +65,8 @@ export default function DentalLabSettingsTab() {
         <div>
           <h2 className="text-xl font-bold">{t("dentalLab.tabs.settings")}</h2>
           {activeDirty && (
-            <p className="mt-1 flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            <p className="mt-1 flex items-center gap-1.5 text-xs text-warning dark:text-warning">
+              <span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" />
               {t("dentalLab.settings.unsavedChanges")}
             </p>
           )}
@@ -74,14 +74,14 @@ export default function DentalLabSettingsTab() {
         <div className="flex items-center gap-2">
           <button
             onClick={handleRefresh}
-            className="flex items-center gap-2 px-4 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
             {t("dentalLab.common.refresh")}
           </button>
           {isInstantSection ? (
-            <span className="flex items-center gap-1.5 px-3 py-2 text-xs text-gray-400 dark:text-gray-500">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            <span className="flex items-center gap-1.5 px-3 py-2 text-xs text-muted-foreground/80">
+              <CheckCircle2 className="w-4 h-4 text-success" />
               {t("dentalLab.settings.savedInstantly")}
             </span>
           ) : (
@@ -98,11 +98,11 @@ export default function DentalLabSettingsTab() {
       </div>
 
       {error && (
-        <div className="flex items-center justify-between bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm">
+        <div className="flex items-center justify-between bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm">
           <span>{error}</span>
           <button
             onClick={() => setError(null)}
-            className="p-1 hover:bg-red-100 dark:hover:bg-red-900/50 rounded transition-colors"
+            className="p-1 hover:bg-destructive dark:hover:bg-destructive/50 rounded transition-colors"
             aria-label="Dismiss error"
           >
             <XMarkIcon className="w-4 h-4" />
@@ -121,14 +121,14 @@ export default function DentalLabSettingsTab() {
         <div className="min-w-0 space-y-6">
           {loading ? (
             <div className={`${sectionCardCls} space-y-4`}>
-              <div className="h-5 w-44 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+              <div className="h-5 w-44 bg-muted dark:bg-muted rounded animate-pulse" />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="h-10 bg-gray-100 dark:bg-gray-700/50 rounded-lg animate-pulse" />
-                <div className="h-10 bg-gray-100 dark:bg-gray-700/50 rounded-lg animate-pulse" />
-                <div className="h-10 bg-gray-100 dark:bg-gray-700/50 rounded-lg animate-pulse" />
+                <div className="h-10 bg-muted/50 rounded-lg animate-pulse" />
+                <div className="h-10 bg-muted/50 rounded-lg animate-pulse" />
+                <div className="h-10 bg-muted/50 rounded-lg animate-pulse" />
               </div>
-              <div className="h-24 bg-gray-100 dark:bg-gray-700/50 rounded-lg animate-pulse" />
-              <div className="h-24 bg-gray-100 dark:bg-gray-700/50 rounded-lg animate-pulse" />
+              <div className="h-24 bg-muted/50 rounded-lg animate-pulse" />
+              <div className="h-24 bg-muted/50 rounded-lg animate-pulse" />
             </div>
           ) : (
             <>

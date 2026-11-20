@@ -117,19 +117,19 @@ export default function DentalCaseAssignStageModal({
         className={`${MODAL_CONTENT_CLS} max-w-lg w-full max-h-[90vh] overflow-y-auto`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-4 border-b dark:border-gray-700 pb-3">
+        <div className="flex items-center justify-between mb-4 border-b dark:border-border pb-3">
           <div>
-            <h3 className="text-base font-bold flex items-center gap-2 text-gray-900 dark:text-gray-100">
+            <h3 className="text-base font-bold flex items-center gap-2 text-foreground">
               <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               إسناد الفنيين لمرحلة: <span className="text-blue-600 dark:text-blue-400">{stage.name}</span>
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               يمكنك تعيين أكثر من فني وتحديد دور كل فني (رئيسي، مساعد، فحص جودة، تشطيب)
             </p>
           </div>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label="Close"
           >
             <XMarkIcon className="w-5 h-5" />
@@ -139,7 +139,7 @@ export default function DentalCaseAssignStageModal({
         {/* List of currently assigned technicians */}
         <div className="mb-5">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide flex items-center gap-1.5">
+            <h4 className="text-xs font-bold text-foreground uppercase tracking-wide flex items-center gap-1.5">
               <span>الفنيون المسندون للمرحلة</span>
               <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 font-bold tabular-nums">
                 {assignees.length}
@@ -148,7 +148,7 @@ export default function DentalCaseAssignStageModal({
           </div>
 
           {assignees.length === 0 ? (
-            <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-dashed border-gray-300 dark:border-gray-700 text-center text-xs text-gray-500 dark:text-gray-400">
+            <div className="p-4 rounded-xl bg-muted dark:bg-muted border border-dashed border-border dark:border-border text-center text-xs text-muted-foreground">
               لا يوجد فنيون مسندون لهذه المرحلة حتى الآن. اختر فنياً من النموذج أدناه لإسناده.
             </div>
           ) : (
@@ -160,25 +160,25 @@ export default function DentalCaseAssignStageModal({
                 return (
                   <div
                     key={asg.id || asg.technicianId}
-                    className="flex items-center justify-between p-3 rounded-xl border dark:border-gray-700 bg-white dark:bg-gray-800/80 shadow-sm"
+                    className="flex items-center justify-between p-3 rounded-xl border dark:border-border bg-card/80 shadow-sm"
                   >
-                    <div className="flex-1 min-w-0 pr-2">
+                    <div className="flex-1 min-w-0 pe-2">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 truncate">
+                        <span className="font-semibold text-sm text-foreground truncate">
                           {techName}
                         </span>
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border ${
                             roleMeta?.badgeCls ||
-                            "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700"
+                            "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground border-border dark:border-border"
                           }`}
                         >
                           {roleMeta?.shortLabel || asg.role}
                         </span>
                       </div>
                       {asg.notes && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2 flex items-center gap-1">
-                          <FileText className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2 flex items-center gap-1">
+                          <FileText className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                           <span>{asg.notes}</span>
                         </p>
                       )}
@@ -187,7 +187,7 @@ export default function DentalCaseAssignStageModal({
                       type="button"
                       onClick={() => handleRemoveAssignee(asg.technicianId, techName)}
                       disabled={isRemoving || saving}
-                      className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition disabled:opacity-50 flex items-center gap-1 text-xs"
+                      className="p-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition disabled:opacity-50 flex items-center gap-1 text-xs"
                       title="إزالة الفني من المرحلة"
                     >
                       {isRemoving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
@@ -200,14 +200,14 @@ export default function DentalCaseAssignStageModal({
         </div>
 
         {/* Add new technician to stage section */}
-        <div className="bg-gray-50/80 dark:bg-gray-800/50 p-4 rounded-xl border dark:border-gray-700/80 space-y-3.5">
-          <h4 className="text-xs font-bold text-gray-800 dark:text-gray-200 flex items-center gap-1.5">
+        <div className="bg-gray-50/80 dark:bg-muted p-4 rounded-xl border dark:border-border space-y-3.5">
+          <h4 className="text-xs font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
             <UserPlus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             إضافة فني جديد إلى المرحلة
           </h4>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               اختر الفني *
             </label>
             <select
@@ -230,7 +230,7 @@ export default function DentalCaseAssignStageModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               دور الفني في هذه المرحلة
             </label>
             <select
@@ -247,7 +247,7 @@ export default function DentalCaseAssignStageModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               ملاحظات وتوجيهات خاصة للفني (اختياري)
             </label>
             <input
@@ -269,11 +269,11 @@ export default function DentalCaseAssignStageModal({
           </button>
         </div>
 
-        <div className="flex justify-end mt-5 pt-3 border-t dark:border-gray-700">
+        <div className="flex justify-end mt-5 pt-3 border-t dark:border-border">
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+            className="px-5 py-2 text-sm text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
           >
             إغلاق
           </button>

@@ -40,7 +40,7 @@ export const ScheduleCardScanModal: React.FC<ScheduleCardScanModalProps> = ({
           </h3>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+            className="p-1 hover:bg-muted rounded-lg"
             aria-label={t("radiology.cancel") as string}
           >
             <XMarkIcon className="w-5 h-5" />
@@ -49,7 +49,7 @@ export const ScheduleCardScanModal: React.FC<ScheduleCardScanModalProps> = ({
         <img
           src={cardScan}
           alt="البطاقة"
-          className="w-full max-h-64 object-contain rounded-lg border dark:border-gray-600 mb-4"
+          className="w-full max-h-64 object-contain rounded-lg border dark:border-border mb-4"
         />
         {cardOcrBusy ? (
           <p className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 mb-3">
@@ -57,7 +57,7 @@ export const ScheduleCardScanModal: React.FC<ScheduleCardScanModalProps> = ({
             {t("radiology.schedule.cardOcrReading")}
           </p>
         ) : (
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+          <p className="text-sm text-muted-foreground mb-3">
             {t("radiology.schedule.cardScanHint")}
           </p>
         )}
@@ -77,7 +77,7 @@ export const ScheduleCardScanModal: React.FC<ScheduleCardScanModalProps> = ({
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg"
+            className="px-4 py-2 text-foreground border rounded-lg"
           >
             {t("radiology.cancel")}
           </button>

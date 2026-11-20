@@ -39,8 +39,8 @@ export const RadiologyReportCriticalSection: React.FC<RadiologyReportCriticalSec
   const { t } = useTranslation();
 
   return (
-    <div className="mt-3 border dark:border-gray-700 rounded-lg p-3">
-      <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+    <div className="mt-3 border dark:border-border rounded-lg p-3">
+      <p className="text-sm font-semibold text-foreground mb-2">
         {t("radiology.critical.title")}
       </p>
       <div className="space-y-2">
@@ -65,7 +65,7 @@ export const RadiologyReportCriticalSection: React.FC<RadiologyReportCriticalSec
             type="button"
             onClick={() => void saveCritical()}
             disabled={savingCritical || !critChanged}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border font-medium border-red-300 text-red-700 bg-red-50 hover:bg-red-100 dark:border-red-800 dark:text-red-300 dark:bg-red-900/30 dark:hover:bg-red-900/50 disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border font-medium border-destructive text-destructive bg-destructive/10 hover:bg-destructive dark:border-destructive dark:text-destructive dark:bg-destructive/30 dark:hover:bg-destructive/50 disabled:opacity-50 cursor-pointer"
           >
             {savingCritical ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -81,18 +81,18 @@ export const RadiologyReportCriticalSection: React.FC<RadiologyReportCriticalSec
           ) : null}
         </div>
         {criticalCat ? (
-          <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1 pt-1">
+          <div className="text-xs text-muted-foreground space-y-1 pt-1">
             {report?.criticalFlaggedBy ? (
               <p>
                 {t("radiology.critical.flaggedBy")}:{" "}
-                <b className="text-gray-700 dark:text-gray-200">{report.criticalFlaggedBy}</b>
+                <b className="text-foreground">{report.criticalFlaggedBy}</b>
                 {report.criticalFlaggedAt ? ` — ${fmtDateTime(report.criticalFlaggedAt)}` : ""}
               </p>
             ) : null}
             {report?.criticalAcknowledgedBy ? (
               <p>
                 {t("radiology.critical.acknowledgedBy")}:{" "}
-                <b className="text-gray-700 dark:text-gray-200">{report.criticalAcknowledgedBy}</b>
+                <b className="text-foreground">{report.criticalAcknowledgedBy}</b>
                 {report.criticalAcknowledgedAt ? ` — ${fmtDateTime(report.criticalAcknowledgedAt)}` : ""}
               </p>
             ) : (

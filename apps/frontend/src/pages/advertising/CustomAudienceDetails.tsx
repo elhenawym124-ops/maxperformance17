@@ -158,7 +158,7 @@ const CustomAudienceDetails: React.FC = () => {
             <span
               className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${
                 audience.status === "ACTIVE"
-                  ? "border border-emerald-500/20 bg-emerald-500/10 text-emerald-500"
+                  ? "border border-success/20 bg-success/10 text-success"
                   : "border border-muted-foreground/20 bg-muted/40 text-muted-foreground"
               }`}
             >
@@ -177,14 +177,14 @@ const CustomAudienceDetails: React.FC = () => {
           </div>
           <div className="mt-2 font-mono text-xl font-bold tabular-nums text-foreground">
             {audience.audienceSize ? audience.audienceSize.toLocaleString("en-US") : "—"}
-            <span className="mr-1.5 text-xs font-normal text-muted-foreground">مستخدم</span>
+            <span className="me-1.5 text-xs font-normal text-muted-foreground">مستخدم</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-border/70 bg-card p-4 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>نوع ومصدر الجمهور</span>
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-violet-500/20 bg-violet-500/10 text-violet-500">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
               <Tag className="h-3.5 w-3.5" />
             </div>
           </div>
@@ -255,7 +255,7 @@ const CustomAudienceDetails: React.FC = () => {
           {audience.matchRate !== undefined && audience.matchRate !== null && (
             <div className="rounded-lg border border-border/60 bg-muted/20 p-3.5">
               <span className="text-xs text-muted-foreground">نسبة المطابقة (Match Rate)</span>
-              <div className="mt-1 font-mono text-xs font-semibold tabular-nums text-emerald-500">
+              <div className="mt-1 font-mono text-xs font-semibold tabular-nums text-success">
                 {audience.matchRate.toFixed(1)}%
               </div>
             </div>
@@ -289,7 +289,7 @@ const CustomAudienceDetails: React.FC = () => {
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px] ${
                     lookalike.status === "ACTIVE"
-                      ? "border border-emerald-500/20 bg-emerald-500/10 text-emerald-500"
+                      ? "border border-success/20 bg-success/10 text-success"
                       : "border border-muted-foreground/20 bg-muted/40 text-muted-foreground"
                   }`}
                 >

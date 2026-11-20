@@ -48,7 +48,7 @@ const AdDetails: React.FC = () => {
   if (loading) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-indigo-600" />
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-primary" />
       </div>
     );
   }
@@ -61,7 +61,7 @@ const AdDetails: React.FC = () => {
         </p>
         <button
           onClick={() => navigate("/advertising/facebook-ads")}
-          className="mt-4 text-indigo-600 hover:text-indigo-700 font-bold"
+          className="mt-4 text-primary hover:text-primary font-bold"
         >
           {isEn ? "Back to Ads Dashboard" : "العودة للوحة الإعلانات"}
         </button>

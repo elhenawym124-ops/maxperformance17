@@ -22,10 +22,10 @@ export default function LabManagementPage() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 w-full h-full overflow-y-auto" dir="rtl">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b dark:border-gray-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b dark:border-border">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">نظام إدارة المعمل</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">الاستقبال، الاختبارات، النتائج والتقارير</p>
+          <h1 className="text-2xl font-bold text-foreground">نظام إدارة المعمل</h1>
+          <p className="text-sm text-muted-foreground">الاستقبال، الاختبارات، النتائج والتقارير</p>
         </div>
         <div className="flex flex-wrap gap-1.5 max-w-3xl">
           {TABS.map(t => (
@@ -34,7 +34,7 @@ export default function LabManagementPage() {
               href={`/lab/${t.id}`}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${activeTab === t.id
                 ? "bg-blue-600 text-white"
-                : "bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"}`}
+                : "bg-card border dark:border-border text-muted-foreground hover:bg-muted/50"}`}
             >
               {t.label}
             </a>

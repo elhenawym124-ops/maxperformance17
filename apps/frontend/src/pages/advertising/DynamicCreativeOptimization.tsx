@@ -192,25 +192,25 @@ const DynamicCreativeOptimization: React.FC = () => {
 
   return (
     <div
-      className="p-6 space-y-6 min-h-screen bg-gray-50 dark:bg-gray-900"
+      className="p-6 space-y-6 min-h-screen bg-muted dark:bg-muted"
       dir="rtl"
     >
       <FacebookAdsModuleNav />
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <Sparkles className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <Sparkles className="w-7 h-7 text-primary" />
             Dynamic Creative Optimization
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-gray-600 dark:text-muted-foreground mt-1">
             تحسين الإعلانات الديناميكية - اختبار عناصر متعددة تلقائياً
           </p>
         </div>
       </div>
 
       {/* Stats Card */}
-      <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl p-6 text-white">
+      <div className="bg-gradient-to-r from-primary to-primary rounded-xl p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-purple-100">إجمالي التركيبات الممكنة</p>
@@ -219,20 +219,20 @@ const DynamicCreativeOptimization: React.FC = () => {
               سيتم اختبارها تلقائياً لتحقيق أفضل أداء
             </p>
           </div>
-          <BarChart3 className="w-16 h-16 text-purple-200" />
+          <BarChart3 className="w-16 h-16 text-primary" />
         </div>
       </div>
 
       {/* Main Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-900/20 border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm dark:shadow-gray-900/20 border border-border dark:border-border overflow-hidden">
         {/* Basic Info */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-600">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-semibold text-foreground mb-4">
             معلومات أساسية
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 معرف الصفحة *
               </label>
               <input
@@ -242,11 +242,11 @@ const DynamicCreativeOptimization: React.FC = () => {
                   setFormData((prev) => ({ ...prev, pageId: e.target.value }))
                 }
                 placeholder="أدخل معرف صفحة Facebook"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 اسم الإعلان
               </label>
               <input
@@ -256,14 +256,14 @@ const DynamicCreativeOptimization: React.FC = () => {
                   setFormData((prev) => ({ ...prev, name: e.target.value }))
                 }
                 placeholder="اختياري"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
               />
             </div>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-600">
+        <div className="border-b border-border">
           <div className="flex overflow-x-auto">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -273,8 +273,8 @@ const DynamicCreativeOptimization: React.FC = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-4 font-medium whitespace-nowrap transition-colors ${
                     activeTab === tab.id
-                      ? "text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                      : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                      ? "text-primary border-b-2 border-primary dark:border-primary bg-primary/10 dark:bg-primary/20"
+                      : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -282,8 +282,8 @@ const DynamicCreativeOptimization: React.FC = () => {
                   <span
                     className={`text-xs px-2 py-1 rounded-full ${
                       activeTab === tab.id
-                        ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
-                        : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                        ? "bg-indigo-100 dark:bg-primary/30 text-primary"
+                        : "bg-muted text-muted-foreground"
                     }`}
                   >
                     {tab.count}
@@ -304,7 +304,7 @@ const DynamicCreativeOptimization: React.FC = () => {
                 <button
                   onClick={() => addItem("images")}
                   disabled={formData.images.length >= 10}
-                  className="flex items-center gap-1 text-purple-600 hover:text-purple-700 disabled:opacity-50"
+                  className="flex items-center gap-1 text-primary hover:text-primary disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                   إضافة صورة
@@ -319,12 +319,12 @@ const DynamicCreativeOptimization: React.FC = () => {
                       updateItem("images", index, e.target.value)
                     }
                     placeholder="رابط الصورة"
-                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"
                   />
                   {formData.images.length > 1 && (
                     <button
                       onClick={() => removeItem("images", index)}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                      className="p-2 text-destructive hover:bg-destructive/10 rounded-lg"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>
@@ -344,7 +344,7 @@ const DynamicCreativeOptimization: React.FC = () => {
                 <button
                   onClick={() => addItem("videos")}
                   disabled={formData.videos.length >= 10}
-                  className="flex items-center gap-1 text-purple-600 hover:text-purple-700 disabled:opacity-50"
+                  className="flex items-center gap-1 text-primary hover:text-primary disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                   إضافة فيديو
@@ -359,12 +359,12 @@ const DynamicCreativeOptimization: React.FC = () => {
                       updateItem("videos", index, e.target.value)
                     }
                     placeholder="رابط الفيديو"
-                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"
                   />
                   {formData.videos.length > 1 && (
                     <button
                       onClick={() => removeItem("videos", index)}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                      className="p-2 text-destructive hover:bg-destructive/10 rounded-lg"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>
@@ -384,7 +384,7 @@ const DynamicCreativeOptimization: React.FC = () => {
                 <button
                   onClick={() => addItem("titles")}
                   disabled={formData.titles.length >= 5}
-                  className="flex items-center gap-1 text-purple-600 hover:text-purple-700 disabled:opacity-50"
+                  className="flex items-center gap-1 text-primary hover:text-primary disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                   إضافة عنوان
@@ -400,15 +400,15 @@ const DynamicCreativeOptimization: React.FC = () => {
                     }
                     placeholder={`العنوان ${index + 1}`}
                     maxLength={40}
-                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"
                   />
-                  <span className="text-xs text-gray-400 self-center">
+                  <span className="text-xs text-muted-foreground self-center">
                     {title.length}/40
                   </span>
                   {formData.titles.length > 1 && (
                     <button
                       onClick={() => removeItem("titles", index)}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                      className="p-2 text-destructive hover:bg-destructive/10 rounded-lg"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>
@@ -426,7 +426,7 @@ const DynamicCreativeOptimization: React.FC = () => {
                 <button
                   onClick={() => addItem("bodies")}
                   disabled={formData.bodies.length >= 5}
-                  className="flex items-center gap-1 text-purple-600 hover:text-purple-700 disabled:opacity-50"
+                  className="flex items-center gap-1 text-primary hover:text-primary disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                   إضافة نص
@@ -442,16 +442,16 @@ const DynamicCreativeOptimization: React.FC = () => {
                     placeholder={`النص الأساسي ${index + 1}`}
                     rows={3}
                     maxLength={125}
-                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"
                   />
                   <div className="flex flex-col justify-between">
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                       {body.length}/125
                     </span>
                     {formData.bodies.length > 1 && (
                       <button
                         onClick={() => removeItem("bodies", index)}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                        className="p-2 text-destructive hover:bg-destructive/10 rounded-lg"
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
@@ -491,8 +491,8 @@ const DynamicCreativeOptimization: React.FC = () => {
                       }}
                       className={`p-3 rounded-lg border-2 transition-all ${
                         isSelected
-                          ? "border-purple-500 bg-purple-50 text-purple-700"
-                          : "border-gray-200 hover:border-gray-300"
+                          ? "border-purple-500 bg-primary/10 text-primary"
+                          : "border-gray-200 hover:border-border"
                       }`}
                     >
                       <div className="flex items-center justify-center gap-2">
@@ -509,13 +509,13 @@ const DynamicCreativeOptimization: React.FC = () => {
 
         {/* Link URL */}
         <div className="p-6 border-t">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             رابط الوجهة
           </label>
           {formData.linkUrls.map((url, index) => (
             <div key={index} className="flex gap-2 mb-2">
               <div className="flex-1 relative">
-                <Link className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Link className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="url"
                   value={url}
@@ -523,7 +523,7 @@ const DynamicCreativeOptimization: React.FC = () => {
                     updateItem("linkUrls", index, e.target.value)
                   }
                   placeholder="https://example.com"
-                  className="w-full pr-10 pl-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full pe-10 ps-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
@@ -531,17 +531,17 @@ const DynamicCreativeOptimization: React.FC = () => {
         </div>
 
         {/* Actions */}
-        <div className="p-6 border-t bg-gray-50 flex gap-3 justify-end">
+        <div className="p-6 border-t bg-muted flex gap-3 justify-end">
           <button
             onClick={() => navigate("/advertising/facebook-ads")}
-            className="px-6 py-2 text-gray-700 bg-white border rounded-lg hover:bg-gray-50"
+            className="px-6 py-2 text-foreground bg-white border rounded-lg hover:bg-muted"
           >
             إلغاء
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 text-white bg-purple-600 rounded-lg hover:bg-purple-700 disabled:opacity-50 flex items-center gap-2"
+            className="px-6 py-2 text-white bg-primary rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2"
           >
             {loading ? (
               <>

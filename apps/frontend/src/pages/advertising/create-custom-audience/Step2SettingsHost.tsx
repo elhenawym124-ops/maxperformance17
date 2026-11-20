@@ -32,10 +32,10 @@ export const Step2SettingsHost: React.FC<Step2SettingsHostProps> = ({
     <div className="space-y-6">
       {/* Account Selector */}
       {adAccounts.length > 1 && (
-        <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl space-y-1.5">
+        <div className="p-4 bg-muted border border-border rounded-xl space-y-1.5">
           <label
             htmlFor="custom-audience-account-select"
-            className="block text-xs font-semibold text-gray-700"
+            className="block text-xs font-semibold text-foreground"
           >
             الحساب الإعلاني المستهدف
           </label>
@@ -43,7 +43,7 @@ export const Step2SettingsHost: React.FC<Step2SettingsHostProps> = ({
             id="custom-audience-account-select"
             value={formData.adAccountId}
             onChange={(e) => onInputChange("adAccountId", e.target.value)}
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-white focus:ring-2 focus:ring-primary"
           >
             {adAccounts.map((acc) => (
               <option key={acc.id} value={acc.id}>

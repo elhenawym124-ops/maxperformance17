@@ -22,22 +22,22 @@ export function AttachmentPdfModal({
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col"
+        className="bg-card rounded-xl shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+        <div className="flex items-center justify-between p-4 border-b dark:border-border">
           <div className="flex items-center gap-2 min-w-0">
-            <FileText className="w-5 h-5 text-red-500 flex-shrink-0" />
-            <span className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+            <FileText className="w-5 h-5 text-destructive flex-shrink-0" />
+            <span className="font-semibold text-foreground truncate">
               {attachment.fileName}
             </span>
-            <span className="text-xs text-gray-400 flex-shrink-0 tabular-nums font-mono">
+            <span className="text-xs text-muted-foreground flex-shrink-0 tabular-nums font-mono">
               ({((attachment.size || 0) / 1024).toFixed(0)}KB · PDF)
             </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 rounded flex-shrink-0"
+            className="p-1 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded flex-shrink-0"
             title="إغلاق"
             aria-label="Close"
           >
@@ -45,7 +45,7 @@ export function AttachmentPdfModal({
           </button>
         </div>
         <iframe src={url} title={attachment.fileName} className="flex-1 w-full bg-white" />
-        <div className="p-3 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-600 dark:text-gray-400 flex items-center justify-between">
+        <div className="p-3 border-t dark:border-border bg-muted dark:bg-muted text-xs text-foreground dark:text-muted-foreground flex items-center justify-between">
           <span>الروشتة / الوصفة الطبية</span>
           <a
             href={url}

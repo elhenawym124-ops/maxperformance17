@@ -30,7 +30,7 @@ export function QuickOrderPatientDatesFields({
   onPriorityChange,
 }: QuickOrderPatientDatesFieldsProps) {
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
-  const labelCls = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  const labelCls = "block text-sm font-medium text-foreground mb-1";
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

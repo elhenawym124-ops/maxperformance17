@@ -27,7 +27,7 @@ export const InlineNewPatientForm: React.FC<InlineNewPatientFormProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="mt-3 rounded-lg border dark:border-gray-600 p-3 space-y-3 bg-gray-50 dark:bg-gray-800/50">
+    <div className="mt-3 rounded-lg border dark:border-border p-3 space-y-3 bg-muted dark:bg-muted">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className={labelCls}>{t('radiology.schedule.patientName')}</label>
@@ -93,7 +93,7 @@ export const InlineNewPatientForm: React.FC<InlineNewPatientFormProps> = ({
             <button
               type="button"
               onClick={onOpenCardScanner}
-              className="shrink-0 flex items-center gap-1 px-3 py-2 border dark:border-gray-600 rounded-lg text-xs hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="shrink-0 flex items-center gap-1 px-3 py-2 border dark:border-border rounded-lg text-xs hover:bg-muted/50"
             >
               <ScanLine className="w-3.5 h-3.5" />
               {t('radiology.schedule.scanCard')}
@@ -103,7 +103,7 @@ export const InlineNewPatientForm: React.FC<InlineNewPatientFormProps> = ({
             <img
               src={newPatient.nationalIdImage}
               alt="بطاقة الرقم القومي"
-              className="mt-2 w-24 h-16 object-cover rounded-lg border dark:border-gray-600"
+              className="mt-2 w-24 h-16 object-cover rounded-lg border dark:border-border"
             />
           ) : null}
         </div>
@@ -125,7 +125,7 @@ export const InlineNewPatientForm: React.FC<InlineNewPatientFormProps> = ({
         <button
           type="button"
           onClick={onCloseNewPatient}
-          className="px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 border rounded-lg"
+          className="px-3 py-1.5 text-xs text-muted-foreground border rounded-lg"
         >
           {t('radiology.cancel')}
         </button>

@@ -12,16 +12,16 @@ export const BenchEmptyState: React.FC<BenchEmptyStateProps> = ({
   onResetFilter,
 }) => {
   return (
-    <div className="text-center py-16 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
-      <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 mx-auto flex items-center justify-center mb-3">
+    <div className="text-center py-16 bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-6">
+      <div className="w-12 h-12 rounded-full bg-muted dark:bg-muted text-muted-foreground mx-auto flex items-center justify-center mb-3">
         <Layers className="w-6 h-6" />
       </div>
-      <h4 className="text-sm font-bold text-gray-700 dark:text-gray-300">
+      <h4 className="text-sm font-bold text-foreground">
         {filterPriority === "OVERDUE"
           ? "ممتاز! لا توجد أي حالات متأخرة حالياً"
           : "لا توجد حالات مطابقة لمعايير البحث الحالية"}
       </h4>
-      <p className="text-xs text-gray-500 mt-1">
+      <p className="text-xs text-muted-foreground mt-1">
         {filterPriority === "OVERDUE"
           ? "جميع الحالات المسندة إليك تسير وفق الجدول الزمني المحدد"
           : "جرب تغيير نص البحث أو اختيار تصفية أخرى"}

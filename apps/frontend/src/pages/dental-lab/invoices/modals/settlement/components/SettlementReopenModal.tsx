@@ -32,10 +32,10 @@ export const SettlementReopenModal: React.FC<SettlementReopenModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-900 rounded-xl p-5 max-w-md w-full shadow-2xl border dark:border-gray-700 space-y-3"
+        className="bg-white dark:bg-muted rounded-xl p-5 max-w-md w-full shadow-2xl border dark:border-border space-y-3"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-2 text-amber-600">
+        <div className="flex items-center gap-2 text-warning">
           <ShieldAlert className="w-5 h-5" />
           <h4
             id="settlement-reopen-modal-title"
@@ -44,7 +44,7 @@ export const SettlementReopenModal: React.FC<SettlementReopenModalProps> = ({
             إعادة فتح شهر {period} للتعديل المحاسبي
           </h4>
         </div>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-muted-foreground">
           أنت على وشك إلغاء تجميد حساب د.{" "}
           <strong>{reopenTarget.doctorName}</strong> لشهر {period}. يلزم تسجيل
           سبب إعادة الفتح لأغراض التدقيق المالي.
@@ -52,7 +52,7 @@ export const SettlementReopenModal: React.FC<SettlementReopenModalProps> = ({
         <div>
           <label
             htmlFor="reopen-reason-textarea"
-            className="text-[11px] font-semibold text-gray-700 dark:text-gray-300 block mb-1"
+            className="text-[11px] font-semibold text-foreground block mb-1"
           >
             سبب إعادة الفتح *
           </label>
@@ -65,11 +65,11 @@ export const SettlementReopenModal: React.FC<SettlementReopenModalProps> = ({
             className={MODAL_INPUT_CLS}
           />
         </div>
-        <div className="flex items-center justify-end gap-2 pt-2 border-t dark:border-gray-800">
+        <div className="flex items-center justify-end gap-2 pt-2 border-t dark:border-border">
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg"
+            className="px-3 py-1.5 text-xs text-foreground border dark:border-border rounded-lg"
           >
             إلغاء
           </button>
@@ -77,7 +77,7 @@ export const SettlementReopenModal: React.FC<SettlementReopenModalProps> = ({
             type="button"
             onClick={onConfirm}
             disabled={reopening || !reason.trim()}
-            className="px-4 py-1.5 bg-amber-600 text-white text-xs font-semibold rounded-lg hover:bg-amber-700 disabled:opacity-50 flex items-center gap-1.5"
+            className="px-4 py-1.5 bg-warning text-white text-xs font-semibold rounded-lg hover:bg-warning disabled:opacity-50 flex items-center gap-1.5"
           >
             {reopening && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>تأكيد إعادة الفتح</span>

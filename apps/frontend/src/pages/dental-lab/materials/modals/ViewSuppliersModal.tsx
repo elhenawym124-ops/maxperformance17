@@ -13,29 +13,29 @@ export function ViewSuppliersModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
       <div className={`${MODAL_CONTENT_CLS} max-w-xl!`}>
-        <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-700 mb-4">
+        <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border mb-4">
           <div>
-            <h3 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h3 className="text-base font-bold text-foreground flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-info dark:text-info" />
               <span>الشركات والموردين المعتمدين ({suppliers.length})</span>
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               قائمة الموردين المعتمدين لتوريد خامات وأقراص ومستهلكات المعمل
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all cursor-pointer"
+            className="p-1 rounded-lg text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="space-y-3 max-h-96 overflow-y-auto pr-1">
+        <div className="space-y-3 max-h-96 overflow-y-auto pe-1">
           {suppliers.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400 text-xs">
-              <Building2 className="w-10 h-10 mx-auto text-gray-300 dark:text-gray-600 mb-2" />
+            <div className="text-center py-8 text-muted-foreground text-xs">
+              <Building2 className="w-10 h-10 mx-auto text-muted-foreground dark:text-foreground mb-2" />
               <p className="font-semibold">لا يوجد موردين مسجلين بعد</p>
               <p className="mt-1">
                 يمكنك إضافة أول شركة توريد لتسجيل أقراص وخامات المعمل باسمها.
@@ -45,28 +45,28 @@ export function ViewSuppliersModal({
             suppliers.map((s) => (
               <div
                 key={s.id}
-                className="p-3 bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700/80 rounded-xl flex items-center justify-between gap-3 text-xs"
+                className="p-3 bg-muted dark:bg-muted border border-border dark:border-border rounded-xl flex items-center justify-between gap-3 text-xs"
               >
                 <div className="space-y-1">
-                  <div className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  <div className="font-bold text-foreground flex items-center gap-2">
                     <span>{s.name}</span>
                     {s.city && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 flex items-center gap-1 font-normal">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-info dark:bg-info/60 text-info dark:text-info flex items-center gap-1 font-normal">
                         <MapPin className="w-3 h-3" />
                         {s.city}
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-3 text-gray-500 dark:text-gray-400 text-[11px]">
+                  <div className="flex flex-wrap items-center gap-3 text-muted-foreground text-[11px]">
                     {s.contactPerson && (
                       <span className="flex items-center gap-1">
-                        <User className="w-3 h-3 text-gray-400" />
+                        <User className="w-3 h-3 text-muted-foreground" />
                         {s.contactPerson}
                       </span>
                     )}
                     {s.phone && (
                       <span className="flex items-center gap-1 dir-ltr font-mono">
-                        <Phone className="w-3 h-3 text-gray-400" />
+                        <Phone className="w-3 h-3 text-muted-foreground" />
                         {s.phone}
                       </span>
                     )}
@@ -75,12 +75,12 @@ export function ViewSuppliersModal({
 
                 {s.currentBalance !== undefined && Number(s.currentBalance) !== 0 && (
                   <div className="text-left shrink-0">
-                    <span className="text-[10px] text-gray-400 block">الرصيد</span>
+                    <span className="text-[10px] text-muted-foreground block">الرصيد</span>
                     <span
                       className={`font-bold font-mono tabular-nums ${
                         Number(s.currentBalance) > 0
-                          ? "text-red-600 dark:text-red-400"
-                          : "text-emerald-600 dark:text-emerald-400"
+                          ? "text-red-600 dark:text-destructive"
+                          : "text-emerald-600 dark:text-success"
                       }`}
                     >
                       {fmtMoney(Number(s.currentBalance))}
@@ -92,11 +92,11 @@ export function ViewSuppliersModal({
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
+        <div className="flex items-center justify-between pt-4 border-t border-border dark:border-border mt-4">
           <button
             type="button"
             onClick={onOpenAddSupplier}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-info hover:bg-info text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>+ مورد / شركة جديدة</span>
@@ -105,7 +105,7 @@ export function ViewSuppliersModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-xs font-semibold cursor-pointer"
+            className="px-4 py-2 rounded-xl border border-border text-foreground text-xs font-semibold cursor-pointer"
           >
             إغلاق
           </button>

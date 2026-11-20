@@ -60,12 +60,12 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
   const isReady = Boolean(pixelId) && hasCapiToken;
 
   return (
-    <section className="border border-gray-200/90 dark:border-gray-800/90 bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-xs">
+    <section className="border border-border dark:border-border bg-white dark:bg-muted rounded-xl overflow-hidden shadow-xs">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-850/50">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-border dark:border-border bg-muted dark:bg-muted">
         <div className="flex items-center gap-2">
-          <CommandLineIcon className="w-4 h-4 text-indigo-500" />
-          <h2 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white">
+          <CommandLineIcon className="w-4 h-4 text-primary" />
+          <h2 className="text-sm sm:text-base font-bold text-foreground">
             طرفية اختبار الأحداث اللحظية (Meta v26.0 Event Console)
           </h2>
         </div>
@@ -74,7 +74,7 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
           href="https://business.facebook.com/events_manager2"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 font-medium"
+          className="inline-flex items-center gap-1 text-xs text-primary hover:text-primary dark:text-primary font-medium"
         >
           <span>معاينة في Meta Test Events</span>
           <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5" />
@@ -86,7 +86,7 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {/* Event Selector */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1.5">
+              <label className="block text-xs font-bold text-foreground mb-1.5">
                 الحدث التجريبي
               </label>
               <select
@@ -94,7 +94,7 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
                 onChange={(e) =>
                   setSelectedEvent(e.target.value as SimulatorEventType)
                 }
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-xs font-medium focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 min-h-[38px]"
+                className="w-full px-3 py-2 rounded-lg border border-border dark:border-border bg-card text-foreground text-xs font-medium focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[38px]"
               >
                 <option value="Purchase">Purchase (إتمام الشراء)</option>
                 <option value="AddToCart">AddToCart (إضافة للسلة)</option>
@@ -106,7 +106,7 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
 
             {/* Event Value */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1.5">
+              <label className="block text-xs font-bold text-foreground mb-1.5">
                 القيمة النقدية (Value)
               </label>
               <div className="relative">
@@ -115,9 +115,9 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
                   min="1"
                   value={value}
                   onChange={(e) => setValue(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-xs font-mono tabular-nums focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 min-h-[38px] pl-10"
+                  className="w-full px-3 py-2 rounded-lg border border-border dark:border-border bg-card text-foreground text-xs font-mono tabular-nums focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[38px] ps-10"
                 />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-gray-400">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-muted-foreground">
                   EGP
                 </span>
               </div>
@@ -125,7 +125,7 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
 
             {/* Test Event Code */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1.5">
+              <label className="block text-xs font-bold text-foreground mb-1.5">
                 Test Event Code (من فيسبوك)
               </label>
               <input
@@ -134,7 +134,7 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
                 value={testCode}
                 onChange={(e) => onUpdateTestCode(e.target.value.trim())}
                 placeholder="TEST12345"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-xs font-mono uppercase focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 min-h-[38px]"
+                className="w-full px-3 py-2 rounded-lg border border-border dark:border-border bg-card text-foreground text-xs font-mono uppercase focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[38px]"
               />
             </div>
           </div>
@@ -146,14 +146,14 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
                 value={contentName}
                 onChange={(e) => setContentName(e.target.value)}
                 placeholder="اسم المنتج أو المحتوى التجريبي"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 min-h-[38px]"
+                className="w-full px-3 py-2 rounded-lg border border-border dark:border-border bg-card text-foreground text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[38px]"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSending || !isReady}
-              className="px-5 py-2 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[38px] shadow-xs"
+              className="px-5 py-2 rounded-lg text-xs font-semibold bg-primary hover:bg-primary/90 text-white transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[38px] shadow-xs"
             >
               {isSending ? (
                 <>
@@ -172,9 +172,9 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
 
         {/* Real-time Response Output */}
         {result && (
-          <div className="p-3.5 rounded-lg bg-gray-900 text-gray-100 font-mono text-xs border border-gray-800 space-y-2">
-            <div className="flex items-center justify-between border-b border-gray-800 pb-2 text-[11px] text-gray-400">
-              <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <div className="p-3.5 rounded-lg bg-muted text-muted-foreground font-mono text-xs border border-border space-y-2">
+            <div className="flex items-center justify-between border-b border-border pb-2 text-[11px] text-muted-foreground">
+              <span className="flex items-center gap-1.5 text-success font-semibold">
                 <CheckCircleIcon className="w-3.5 h-3.5" />
                 <span>200 OK — تم استلام الحدث بنجاح في Meta Conversions API</span>
               </span>
@@ -192,11 +192,11 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
                 <button
                   type="button"
                   onClick={() => handleCopy(result.eventId)}
-                  className="p-0.5 text-gray-400 hover:text-white"
+                  className="p-0.5 text-muted-foreground hover:text-white"
                   title="نسخ"
                 >
                   {copiedId === result.eventId ? (
-                    <CheckIcon className="w-3 h-3 text-emerald-400" />
+                    <CheckIcon className="w-3 h-3 text-success" />
                   ) : (
                     <ClipboardDocumentIcon className="w-3 h-3" />
                   )}
@@ -216,38 +216,38 @@ export const RealtimeSimulatorTerminal: React.FC<RealtimeSimulatorTerminalProps>
         {recentEvents.length > 1 && (
           <div className="pt-2">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
+              <span className="text-xs font-bold text-foreground">
                 سجل تدفق الأحداث الأخيرة في الجلسة (Session Event Log)
               </span>
-              <span className="text-[10px] text-gray-400 font-mono">
+              <span className="text-[10px] text-muted-foreground font-mono">
                 {recentEvents.length} أحداث
               </span>
             </div>
 
-            <div className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
+            <div className="border border-border dark:border-border rounded-lg overflow-hidden">
               <table className="w-full text-right text-xs">
                 <thead>
-                  <tr className="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-200 dark:border-gray-800 text-[11px] text-gray-500">
+                  <tr className="bg-gray-50 dark:bg-muted border-b border-border dark:border-border text-[11px] text-muted-foreground">
                     <th className="px-3 py-2">الحدث</th>
                     <th className="px-3 py-2">معرف الحدث (Event ID)</th>
                     <th className="px-3 py-2 text-center">الوقت</th>
                     <th className="px-3 py-2 text-center">الحالة</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100 dark:divide-gray-800 font-mono text-[11px]">
+                <tbody className="divide-y divide-border dark:divide-border font-mono text-[11px]">
                   {recentEvents.map((ev, idx) => (
-                    <tr key={ev.eventId + idx} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30">
-                      <td className="px-3 py-2 font-bold text-gray-900 dark:text-white">
+                    <tr key={ev.eventId + idx} className="hover:bg-gray-50/50 dark:hover:bg-muted">
+                      <td className="px-3 py-2 font-bold text-foreground">
                         {ev.eventName}
                       </td>
-                      <td className="px-3 py-2 text-amber-600 dark:text-amber-400">
+                      <td className="px-3 py-2 text-warning dark:text-warning">
                         {ev.eventId}
                       </td>
-                      <td className="px-3 py-2 text-center tabular-nums text-gray-500">
+                      <td className="px-3 py-2 text-center tabular-nums text-muted-foreground">
                         {ev.timestamp}
                       </td>
                       <td className="px-3 py-2 text-center">
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200/60 font-sans font-semibold">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-success/10 text-success dark:bg-success/40 dark:text-success border border-success/60 font-sans font-semibold">
                           Processed
                         </span>
                       </td>

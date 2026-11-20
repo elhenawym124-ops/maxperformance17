@@ -93,8 +93,8 @@ export default function RadiologyDashboardTab() {
     <div className="space-y-6">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         {cards.map(c => (
-          <div key={c.label} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
-            <p className="text-sm text-gray-500 dark:text-gray-400">{c.label}</p>
+          <div key={c.label} className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
+            <p className="text-sm text-muted-foreground">{c.label}</p>
             {c.to ? (
               <a href={c.to} className="text-2xl font-bold mt-1 block text-blue-600 dark:text-blue-400 hover:underline">{c.value}</a>
             ) : (
@@ -103,7 +103,7 @@ export default function RadiologyDashboardTab() {
           </div>
         ))}
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+      <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
         <h3 className="font-semibold mb-3">{t("radiology.dashboard.studyStatuses")}</h3>
         <div className="flex flex-wrap gap-2">
           {Object.entries(RadiologyStatusMap).map(([k, v]) => (
@@ -113,21 +113,21 @@ export default function RadiologyDashboardTab() {
       </div>
 
       {orderBreakdown ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
           <h3 className="font-semibold mb-3">{t("radiology.dashboard.orderStatusFunnel")}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">
             {ORDER_STATUS_KEYS.map(k => {
               const meta = RadiologyOrderStatusMap[k];
               const count = orderBreakdown[k] || 0;
               return (
-                <div key={k} className={`rounded-lg p-3 border dark:border-gray-700 ${meta?.color || ""}`}>
+                <div key={k} className={`rounded-lg p-3 border dark:border-border ${meta?.color || ""}`}>
                   <p className="text-xs opacity-80">{t(meta?.label || "")}</p>
                   <p className="text-xl font-bold mt-0.5">{count}</p>
                 </div>
               );
             })}
           </div>
-          <div className="flex h-2 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700">
+          <div className="flex h-2 rounded-full overflow-hidden bg-muted">
             {ORDER_STATUS_KEYS.map(k => {
               const total = ORDER_STATUS_KEYS.reduce((s, x) => s + (orderBreakdown[x] || 0), 0);
               const pct = total ? ((orderBreakdown[k] || 0) / total) * 100 : 0;
@@ -139,34 +139,34 @@ export default function RadiologyDashboardTab() {
       ) : null}
 
       {fin ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5">
+        <div className="bg-card rounded-xl shadow-sm border dark:border-border p-5">
           <h3 className="font-semibold mb-3">{t("radiology.dashboard.financialSummary")}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-            <div className="rounded-lg p-4 border dark:border-gray-700 bg-gray-50 dark:bg-gray-700/40">
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.dashboard.collectedFromPatients")}</p>
-              <p className="text-xl font-bold text-green-600">{Number(fin.patient.collected).toFixed(0)} {t("radiology.currency")}</p>
+            <div className="rounded-lg p-4 border dark:border-border bg-muted dark:bg-muted">
+              <p className="text-xs text-muted-foreground">{t("radiology.dashboard.collectedFromPatients")}</p>
+              <p className="text-xl font-bold text-success">{Number(fin.patient.collected).toFixed(0)} {t("radiology.currency")}</p>
             </div>
-            <div className="rounded-lg p-4 border dark:border-gray-700 bg-gray-50 dark:bg-gray-700/40">
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.dashboard.outstandingFromPatients")}</p>
-              <p className="text-xl font-bold text-red-600">{Number(fin.patient.outstanding).toFixed(0)} {t("radiology.currency")}</p>
+            <div className="rounded-lg p-4 border dark:border-border bg-muted dark:bg-muted">
+              <p className="text-xs text-muted-foreground">{t("radiology.dashboard.outstandingFromPatients")}</p>
+              <p className="text-xl font-bold text-destructive">{Number(fin.patient.outstanding).toFixed(0)} {t("radiology.currency")}</p>
             </div>
-            <div className="rounded-lg p-4 border dark:border-gray-700 bg-gray-50 dark:bg-gray-700/40">
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.dashboard.collectedFromInsurance")}</p>
-              <p className="text-xl font-bold text-green-600">{Number(fin.insurance.collected).toFixed(0)} {t("radiology.currency")}</p>
+            <div className="rounded-lg p-4 border dark:border-border bg-muted dark:bg-muted">
+              <p className="text-xs text-muted-foreground">{t("radiology.dashboard.collectedFromInsurance")}</p>
+              <p className="text-xl font-bold text-success">{Number(fin.insurance.collected).toFixed(0)} {t("radiology.currency")}</p>
             </div>
-            <div className="rounded-lg p-4 border dark:border-gray-700 bg-gray-50 dark:bg-gray-700/40">
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t("radiology.dashboard.outstandingFromInsurance")}</p>
-              <p className="text-xl font-bold text-red-600">{Number(fin.insurance.outstanding).toFixed(0)} {t("radiology.currency")}</p>
+            <div className="rounded-lg p-4 border dark:border-border bg-muted dark:bg-muted">
+              <p className="text-xs text-muted-foreground">{t("radiology.dashboard.outstandingFromInsurance")}</p>
+              <p className="text-xl font-bold text-destructive">{Number(fin.insurance.outstanding).toFixed(0)} {t("radiology.currency")}</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-4 text-sm">
-            <span className="text-gray-500 dark:text-gray-400">{t("radiology.dashboard.totalCollectedLabel")} <b className="text-green-600">{Number(fin.totalCollected).toFixed(0)} {t("radiology.currency")}</b></span>
-            <span className="text-gray-500 dark:text-gray-400">{t("radiology.dashboard.totalOutstandingLabel")} <b className="text-red-600">{Number(fin.totalOutstanding).toFixed(0)} {t("radiology.currency")}</b></span>
+            <span className="text-muted-foreground">{t("radiology.dashboard.totalCollectedLabel")} <b className="text-green-600">{Number(fin.totalCollected).toFixed(0)} {t("radiology.currency")}</b></span>
+            <span className="text-muted-foreground">{t("radiology.dashboard.totalOutstandingLabel")} <b className="text-red-600">{Number(fin.totalOutstanding).toFixed(0)} {t("radiology.currency")}</b></span>
           </div>
           {fin.byEntity && fin.byEntity.length > 0 ? (
             <div className="mt-3 space-y-1.5">
               {fin.byEntity.map(e => (
-                <div key={e.insuranceCompanyId} className="flex justify-between text-sm border-b dark:border-gray-700/50 pb-1.5">
+                <div key={e.insuranceCompanyId} className="flex justify-between text-sm border-b dark:border-border pb-1.5">
                   <span>{e.name}</span>
                   <span><b className="text-green-600">{Number(e.paid).toFixed(0)}</b> / <b className="text-red-600">{Number(e.remaining).toFixed(0)}</b> {t("radiology.currency")}</span>
                 </div>
@@ -176,7 +176,7 @@ export default function RadiologyDashboardTab() {
         </div>
       ) : null}
 
-      <p className="text-sm text-gray-500 dark:text-gray-400">{t("radiology.dashboard.title")}</p>
+      <p className="text-sm text-muted-foreground">{t("radiology.dashboard.title")}</p>
     </div>
   );
 }

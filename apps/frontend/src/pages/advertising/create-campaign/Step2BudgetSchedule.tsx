@@ -14,7 +14,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
 }) => {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-xl font-semibold text-foreground">
         الميزانية والجدولة
       </h2>
 
@@ -28,16 +28,16 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
             onChange={(e) =>
               handleInputChange("budgetOptimization", e.target.checked)
             }
-            className="mt-1 w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            className="mt-1 w-4 h-4 text-primary border-border rounded focus:ring-primary"
           />
           <div className="flex-1">
             <label
               htmlFor="budgetOptimization"
-              className="block text-sm font-medium text-gray-900 dark:text-white"
+              className="block text-sm font-medium text-foreground"
             >
               تفعيل Campaign Budget Optimization (CBO)
             </label>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <p className="mt-1 text-sm text-foreground dark:text-muted-foreground">
               يسمح لـ Facebook بتوزيع الميزانية تلقائياً بين Ad Sets للحصول على أفضل نتائج
             </p>
           </div>
@@ -48,7 +48,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
       <div>
         <label
           htmlFor="create-campaign-budget-type"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           نوع الميزانية *
         </label>
@@ -63,7 +63,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
               e.target.value as "DAILY" | "LIFETIME",
             )
           }
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         >
           <option value="DAILY">ميزانية يومية</option>
           <option value="LIFETIME">ميزانية إجمالية</option>
@@ -74,7 +74,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
       <div>
         <label
           htmlFor="create-campaign-budget-amount"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           مبلغ الميزانية ({formData.budgetType === "DAILY" ? "يومياً" : "إجمالي"}) *
         </label>
@@ -93,19 +93,19 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
                 parseFloat(e.target.value) || 0,
               )
             }
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono tabular-nums"
+            className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground font-mono tabular-nums"
             placeholder="100"
           />
-          <span className="absolute left-4 top-2 text-gray-500 dark:text-gray-400">EGP</span>
+          <span className="absolute left-4 top-2 text-muted-foreground">EGP</span>
         </div>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">الحد الأدنى: 1 EGP</p>
+        <p className="mt-2 text-sm text-muted-foreground">الحد الأدنى: 1 EGP</p>
       </div>
 
       {/* Spend Limit */}
       <div>
         <label
           htmlFor="create-campaign-spend-limit"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           حد الإنفاق (اختياري)
         </label>
@@ -124,12 +124,12 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
                 e.target.value ? parseFloat(e.target.value) : undefined,
               )
             }
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono tabular-nums"
+            className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground font-mono tabular-nums"
             placeholder="حد أقصى للإنفاق"
           />
-          <span className="absolute left-4 top-2 text-gray-500 dark:text-gray-400">EGP</span>
+          <span className="absolute left-4 top-2 text-muted-foreground">EGP</span>
         </div>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-sm text-muted-foreground">
           حد أقصى للإنفاق على هذه الحملة (اختياري)
         </p>
       </div>
@@ -138,7 +138,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
       <div>
         <label
           htmlFor="create-campaign-timezone"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           المنطقة الزمنية
         </label>
@@ -148,7 +148,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
           autoComplete="off"
           value={formData.timezone}
           onChange={(e) => handleInputChange("timezone", e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         >
           {timezones.map((tz) => (
             <option key={tz.value} value={tz.value}>
@@ -162,7 +162,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
       <div>
         <label
           htmlFor="create-campaign-start-date"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           تاريخ البدء (اختياري)
         </label>
@@ -171,7 +171,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
           value={formData.startDate}
           onChange={(e) => handleInputChange("startDate", e.target.value)}
           min={new Date().toISOString().split("T")[0]}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         />
       </div>
 
@@ -179,7 +179,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
       <div>
         <label
           htmlFor="create-campaign-end-date"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           تاريخ الانتهاء (اختياري)
         </label>
@@ -188,7 +188,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
           value={formData.endDate}
           onChange={(e) => handleInputChange("endDate", e.target.value)}
           min={formData.startDate || new Date().toISOString().split("T")[0]}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground"
         />
       </div>
     </div>

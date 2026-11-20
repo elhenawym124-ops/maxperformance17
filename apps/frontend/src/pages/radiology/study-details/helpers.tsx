@@ -66,7 +66,7 @@ export const renderBadge = (
     );
   }
   return (
-    <span className="px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+    <span className="px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
       {value || "—"}
     </span>
   );

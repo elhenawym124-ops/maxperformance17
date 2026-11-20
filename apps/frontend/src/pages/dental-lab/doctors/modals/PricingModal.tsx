@@ -81,35 +81,35 @@ export function PricingModal({ doctor, onClose, onSaved }: PricingModalProps) {
           <button
             onClick={onClose}
             disabled={saving}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className="text-sm text-muted-foreground mb-4">
           {doctor.name} — {t("dentalLab.doctors.pricing.hint")}
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg px-4 py-2 text-sm mb-3">
+          <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-3">
             {error}
           </div>
         )}
 
         {loading ? (
           <div className="flex justify-center py-10">
-            <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
           </div>
         ) : (
           <div className="space-y-2 max-h-[50vh] overflow-y-auto">
             {workTypes.map((w) => (
               <div
                 key={w.id}
-                className="flex items-center justify-between gap-3 border dark:border-gray-700 rounded-lg px-3 py-2"
+                className="flex items-center justify-between gap-3 border dark:border-border rounded-lg px-3 py-2"
               >
                 <div>
                   <p className="text-sm font-medium">{w.name}</p>
-                  <p className="text-xs text-gray-400 font-mono tabular-nums">
+                  <p className="text-xs text-muted-foreground font-mono tabular-nums">
                     {t("dentalLab.doctors.pricing.defaultPrice")}: {fmtMoney(w.price)}
                   </p>
                 </div>
@@ -131,7 +131,7 @@ export function PricingModal({ doctor, onClose, onSaved }: PricingModalProps) {
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             {t("dentalLab.common.cancel")}
           </button>

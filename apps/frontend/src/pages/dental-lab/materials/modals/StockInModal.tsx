@@ -55,19 +55,19 @@ export function StockInModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
       <div className={MODAL_CONTENT_CLS}>
-        <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-700 mb-4">
+        <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border mb-4">
           <div>
-            <h3 className="text-base font-bold text-gray-900 dark:text-white">
+            <h3 className="text-base font-bold text-foreground">
               توريد قرص / باتش جديد
             </h3>
-            <p className="text-xs text-cyan-600 font-semibold mt-0.5">
+            <p className="text-xs text-info font-semibold mt-0.5">
               الخامة: {material.name}
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer"
+            className="text-gray-400 hover:text-foreground dark:hover:text-muted-foreground cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -75,9 +75,9 @@ export function StockInModal({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block font-semibold mb-1 text-foreground">
               رقم التشغيلة (Lot Number) *{" "}
-              <span className="text-[11px] text-gray-400 font-normal">
+              <span className="text-[11px] text-muted-foreground font-normal">
                 (مطلوب لشهادة الضمان)
               </span>
             </label>
@@ -93,7 +93,7 @@ export function StockInModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 درجة اللون (Shade)
               </label>
               <input
@@ -105,7 +105,7 @@ export function StockInModal({
               />
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 السماكة (mm)
               </label>
               <select
@@ -126,7 +126,7 @@ export function StockInModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 عدد الوحدات القابلة للتفريز
               </label>
               <input
@@ -139,7 +139,7 @@ export function StockInModal({
               />
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 إجمالي تكلفة الشراء (ج.م)
               </label>
               <input
@@ -156,13 +156,13 @@ export function StockInModal({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="block font-semibold text-gray-700 dark:text-gray-300">
+                <label className="block font-semibold text-foreground">
                   شركة التوريد (المورد)
                 </label>
                 <button
                   type="button"
                   onClick={onOpenAddSupplier}
-                  className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  className="text-xs text-info dark:text-info font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>مورد جديد</span>
@@ -182,7 +182,7 @@ export function StockInModal({
               </select>
             </div>
             <div>
-              <label className="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+              <label className="block font-semibold mb-1 text-foreground">
                 تاريخ انتهاء الصلاحية
               </label>
               <DateInput
@@ -193,18 +193,18 @@ export function StockInModal({
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-200 dark:border-gray-700 mt-4">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold cursor-pointer"
+              className="px-4 py-2 rounded-xl border border-border text-foreground font-semibold cursor-pointer"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold disabled:opacity-50 cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-info hover:bg-info text-white font-bold disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? "جاري التوريد..." : "تسجيل وارد المخزن"}
             </button>

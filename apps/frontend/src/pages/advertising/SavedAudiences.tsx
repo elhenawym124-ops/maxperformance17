@@ -178,7 +178,7 @@ const SavedAudiences: React.FC = () => {
 
   return (
     <div
-      className="p-6 space-y-6 min-h-screen bg-gray-50 dark:bg-gray-900"
+      className="p-6 space-y-6 min-h-screen bg-muted dark:bg-muted"
       dir="rtl"
     >
       <FacebookAdsModuleNav />
@@ -187,16 +187,16 @@ const SavedAudiences: React.FC = () => {
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate("/advertising/facebook-ads/audiences")}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+            className="p-2 hover:bg-muted dark:hover:bg-muted rounded-lg"
           >
-            <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            <ArrowLeft className="w-5 h-5 text-foreground dark:text-muted-foreground" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               الجماهير المحفوظة
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-600 dark:text-muted-foreground mt-1">
               إنشاء وإدارة الجماهير المستهدفة القابلة لإعادة الاستخدام
             </p>
           </div>
@@ -212,13 +212,13 @@ const SavedAudiences: React.FC = () => {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="البحث في الجماهير..."
-          className="w-full pr-10 pl-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          className="w-full pe-10 ps-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
         />
       </div>
 
@@ -228,12 +228,12 @@ const SavedAudiences: React.FC = () => {
           <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
         </div>
       ) : filteredAudiences.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-          <Users className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+        <div className="text-center py-12 bg-card rounded-xl border border-border dark:border-border">
+          <Users className="w-16 h-16 text-muted-foreground dark:text-foreground mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">
             لا توجد جماهير محفوظة
           </h3>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
+          <p className="text-muted-foreground mb-4">
             أنشئ جمهوراً جديداً لاستخدامه في حملاتك
           </p>
           <button
@@ -248,7 +248,7 @@ const SavedAudiences: React.FC = () => {
           {filteredAudiences.map((audience) => (
             <div
               key={audience.id}
-              className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-card rounded-xl border border-border dark:border-border shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="p-4">
                 <div className="flex items-start justify-between">
@@ -257,23 +257,23 @@ const SavedAudiences: React.FC = () => {
                       <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">
+                      <h3 className="font-semibold text-foreground">
                         {audience.name}
                       </h3>
                       {audience.description && (
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+                        <p className="text-sm text-muted-foreground mt-0.5">
                           {audience.description}
                         </p>
                       )}
                     </div>
                   </div>
-                  <button className="p-1 text-gray-400 hover:text-gray-600">
+                  <button className="p-1 text-muted-foreground hover:text-foreground">
                     <MoreVertical className="w-5 h-5" />
                   </button>
                 </div>
 
                 {audience.approximateCount && (
-                  <div className="mt-4 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="mt-4 flex items-center gap-2 text-sm text-foreground dark:text-muted-foreground">
                     <Users className="w-4 h-4" />
                     <span>
                       ~{audience.approximateCount.toLocaleString()} شخص
@@ -281,7 +281,7 @@ const SavedAudiences: React.FC = () => {
                   </div>
                 )}
 
-                <div className="mt-4 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                   <Calendar className="w-3 h-3" />
                   <span>
                     {new Date(audience.createdAt).toLocaleDateString("ar-EG")}
@@ -289,17 +289,17 @@ const SavedAudiences: React.FC = () => {
                 </div>
               </div>
 
-              <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 flex gap-2">
+              <div className="px-4 py-3 border-t border-border bg-muted dark:bg-muted flex gap-2">
                 <button
                   onClick={() => setSelectedAudience(audience)}
-                  className="flex-1 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg flex items-center justify-center gap-1"
+                  className="flex-1 py-1.5 text-sm text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-white hover:bg-muted dark:hover:bg-muted rounded-lg flex items-center justify-center gap-1"
                 >
                   <Eye className="w-4 h-4" />
                   عرض
                 </button>
                 <button
                   onClick={() => handleDelete(audience.id)}
-                  className="flex-1 py-1.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg flex items-center justify-center gap-1"
+                  className="flex-1 py-1.5 text-sm text-destructive hover:text-destructive hover:bg-destructive/10 rounded-lg flex items-center justify-center gap-1"
                 >
                   <Trash2 className="w-4 h-4" />
                   حذف
@@ -313,16 +313,16 @@ const SavedAudiences: React.FC = () => {
       {/* Create Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto border-0 dark:border dark:border-gray-700">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-600">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-card rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto border-0 dark:border dark:border-border">
+            <div className="p-6 border-b border-border">
+              <h2 className="text-xl font-bold text-foreground">
                 إنشاء جمهور جديد
               </h2>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   اسم الجمهور *
                 </label>
                 <input
@@ -335,12 +335,12 @@ const SavedAudiences: React.FC = () => {
                     }))
                   }
                   placeholder="مثال: عملاء السعودية 25-45"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   الوصف
                 </label>
                 <textarea
@@ -353,17 +353,17 @@ const SavedAudiences: React.FC = () => {
                   }
                   placeholder="وصف اختياري للجمهور"
                   rows={2}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   الفئة العمرية
                 </label>
                 <div className="flex items-center gap-4">
                   <div className="flex-1">
-                    <label className="text-xs text-gray-500 dark:text-gray-400">
+                    <label className="text-xs text-muted-foreground">
                       من
                     </label>
                     <input
@@ -377,11 +377,11 @@ const SavedAudiences: React.FC = () => {
                       }
                       min={13}
                       max={65}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                     />
                   </div>
                   <div className="flex-1">
-                    <label className="text-xs text-gray-500">إلى</label>
+                    <label className="text-xs text-muted-foreground">إلى</label>
                     <input
                       type="number"
                       value={newAudience.ageMax}
@@ -400,7 +400,7 @@ const SavedAudiences: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   الجنس
                 </label>
                 <div className="flex gap-3">
@@ -418,20 +418,20 @@ const SavedAudiences: React.FC = () => {
                     onClick={() => toggleGender(2)}
                     className={`flex-1 p-2 rounded-lg border-2 transition-all ${
                       newAudience.genders.includes(2)
-                        ? "border-pink-500 bg-pink-50 text-pink-700"
+                        ? "border-pink-500 bg-primary/10 text-primary"
                         : "border-gray-200"
                     }`}
                   >
                     إناث
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   اترك فارغاً لاستهداف الجميع
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   الدول
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -441,7 +441,7 @@ const SavedAudiences: React.FC = () => {
                       onClick={() => toggleCountry(country.code)}
                       className={`px-3 py-1.5 rounded-lg border-2 text-sm transition-all ${
                         newAudience.countries.includes(country.code)
-                          ? "border-green-500 bg-green-50 text-green-700"
+                          ? "border-green-500 bg-success/10 text-success"
                           : "border-gray-200"
                       }`}
                     >
@@ -452,7 +452,7 @@ const SavedAudiences: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   الاهتمامات
                 </label>
                 <input
@@ -470,10 +470,10 @@ const SavedAudiences: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 border-t bg-gray-50 flex gap-3 justify-end">
+            <div className="p-6 border-t bg-muted flex gap-3 justify-end">
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 text-gray-700 bg-white border rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 text-foreground bg-white border rounded-lg hover:bg-muted"
               >
                 إلغاء
               </button>
@@ -504,12 +504,12 @@ const SavedAudiences: React.FC = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl w-full max-w-md">
             <div className="p-6 border-b flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">
+              <h2 className="text-xl font-bold text-foreground">
                 {selectedAudience.name}
               </h2>
               <button
                 onClick={() => setSelectedAudience(null)}
-                className="p-1 text-gray-400 hover:text-gray-600"
+                className="p-1 text-muted-foreground hover:text-foreground"
               >
                 ✕
               </button>
@@ -521,18 +521,18 @@ const SavedAudiences: React.FC = () => {
                 </p>
               )}
               <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-medium text-gray-900 mb-2">
+                <h3 className="font-medium text-foreground mb-2">
                   إعدادات الاستهداف
                 </h3>
-                <pre className="text-xs text-gray-600 overflow-auto max-h-60">
+                <pre className="text-xs text-foreground overflow-auto max-h-60">
                   {JSON.stringify(selectedAudience.targeting, null, 2)}
                 </pre>
               </div>
             </div>
-            <div className="p-6 border-t bg-gray-50">
+            <div className="p-6 border-t bg-muted">
               <button
                 onClick={() => setSelectedAudience(null)}
-                className="w-full py-2 text-gray-700 bg-white border rounded-lg hover:bg-gray-50"
+                className="w-full py-2 text-foreground bg-white border rounded-lg hover:bg-muted"
               >
                 إغلاق
               </button>

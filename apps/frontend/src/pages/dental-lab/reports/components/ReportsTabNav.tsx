@@ -60,15 +60,15 @@ export function ReportsTabNav({
   ];
 
   return (
-    <div className="inline-flex rounded-xl bg-gray-100 dark:bg-gray-800 p-1 gap-1 flex-wrap">
+    <div className="inline-flex rounded-xl bg-muted dark:bg-muted p-1 gap-1 flex-wrap">
       {VIEWS.map((v) => (
         <button
           key={v.id}
           onClick={() => onSelectView(v.id)}
           className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
             currentView === v.id
-              ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
-              : "text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "bg-card text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
           }`}
         >
           {v.icon}

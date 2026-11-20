@@ -18,8 +18,8 @@ const statusLabel = (status: string) => STATUS_LABELS[status] || status || "-";
 
 const statusClass = (status: string) =>
   status === "ACTIVE"
-    ? "inline-flex px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300"
-    : "inline-flex px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300";
+    ? "inline-flex px-2 py-0.5 text-xs rounded-full bg-success text-success dark:bg-success/40 dark:text-success"
+    : "inline-flex px-2 py-0.5 text-xs rounded-full bg-muted text-foreground dark:bg-muted dark:text-muted-foreground";
 
 interface LeadFormsTableProps {
   loading: boolean;
@@ -46,12 +46,12 @@ export const LeadFormsTable: React.FC<LeadFormsTableProps> = ({
 
   if (forms.length === 0) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
-        <FileText className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+      <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-12 text-center">
+        <FileText className="w-16 h-16 text-muted-foreground dark:text-foreground mx-auto mb-4" />
+        <h3 className="text-lg font-medium text-foreground mb-2">
           لا توجد نماذج
         </h3>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-muted-foreground">
           {hasPages
             ? "لا توجد نماذج على هذه الصفحة — ابدأ بإنشاء نموذج جديد"
             : "اربط صفحة Facebook أولاً لعرض نماذج جمع البيانات"}
@@ -61,16 +61,16 @@ export const LeadFormsTable: React.FC<LeadFormsTableProps> = ({
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400">
+    <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
+      <div className="px-5 py-3 border-b border-border dark:border-border text-sm text-foreground dark:text-muted-foreground">
         الصفحة:{" "}
-        <span className="font-medium text-gray-900 dark:text-white">
+        <span className="font-medium text-foreground">
           {pageLabel}
         </span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 dark:bg-gray-700/40">
+          <thead className="bg-gray-50 dark:bg-muted">
             <tr>
               {[
                 "النموذج",
@@ -82,23 +82,23 @@ export const LeadFormsTable: React.FC<LeadFormsTableProps> = ({
               ].map((title) => (
                 <th
                   key={title}
-                  className="px-4 py-3 text-right font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap"
+                  className="px-4 py-3 text-right font-medium text-foreground whitespace-nowrap"
                 >
                   {title}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+          <tbody className="divide-y divide-border dark:divide-border">
             {forms.map((form) => (
               <tr
                 key={form.id}
-                className="hover:bg-gray-50 dark:hover:bg-gray-700/30"
+                className="hover:bg-muted/50/30"
               >
-                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                <td className="px-4 py-3 font-medium text-foreground">
                   {form.name}
                 </td>
-                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
+                <td className="px-4 py-3 text-foreground dark:text-muted-foreground">
                   {pageLabel}
                 </td>
                 <td className="px-4 py-3">
@@ -106,12 +106,12 @@ export const LeadFormsTable: React.FC<LeadFormsTableProps> = ({
                     {statusLabel(form.status)}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-gray-600 dark:text-gray-400 tabular-nums">
+                <td className="px-4 py-3 text-foreground dark:text-muted-foreground tabular-nums">
                   {form.createdTime
                     ? new Date(form.createdTime).toLocaleDateString("ar-EG")
                     : "-"}
                 </td>
-                <td className="px-4 py-3 text-gray-900 dark:text-white tabular-nums">
+                <td className="px-4 py-3 text-foreground tabular-nums">
                   {form.leadsCount}
                 </td>
                 <td className="px-4 py-3">

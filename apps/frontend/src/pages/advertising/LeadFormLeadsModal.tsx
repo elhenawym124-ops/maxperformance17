@@ -102,10 +102,10 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
         <div className="p-6 border-b flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 className="text-xl font-bold text-foreground">
               بيانات العملاء المحتملين
             </h2>
             <p className="text-gray-500">{form.name}</p>
@@ -126,7 +126,7 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
             <button
               onClick={exportLeadsToCSV}
               disabled={leads.length === 0}
-              className="flex items-center gap-2 px-3 py-2 text-green-600 bg-green-50 rounded-lg hover:bg-green-100 disabled:opacity-50"
+              className="flex items-center gap-2 px-3 py-2 text-success bg-success/10 rounded-lg hover:bg-success disabled:opacity-50"
             >
               <Download className="w-4 h-4" />
               تصدير CSV
@@ -134,7 +134,7 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
             <button
               onClick={onClose}
               aria-label="إغلاق"
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-foreground"
             >
               <X className="w-6 h-6" />
             </button>
@@ -148,7 +148,7 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
             </div>
           ) : leads.length === 0 ? (
             <div className="text-center py-12">
-              <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+              <Users className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
               <p className="text-gray-500">لا توجد بيانات بعد</p>
             </div>
           ) : (
@@ -156,13 +156,13 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
               <table className="w-full">
                 <thead>
                   <tr className="bg-gray-50">
-                    <th className="px-4 py-3 text-right text-sm font-medium text-gray-700">
+                    <th className="px-4 py-3 text-right text-sm font-medium text-foreground">
                       التاريخ
                     </th>
                     {leads[0]?.field_data?.map((field, i) => (
                       <th
                         key={i}
-                        className="px-4 py-3 text-right text-sm font-medium text-gray-700"
+                        className="px-4 py-3 text-right text-sm font-medium text-foreground"
                       >
                         {field.name}
                       </th>
@@ -172,11 +172,11 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
                 <tbody className="divide-y">
                   {leads.map((lead) => (
                     <tr key={lead.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-sm text-gray-600 tabular-nums">
+                      <td className="px-4 py-3 text-sm text-foreground tabular-nums">
                         {new Date(lead.created_time).toLocaleDateString("ar-EG")}
                       </td>
                       {lead.field_data?.map((field, i) => (
-                        <td key={i} className="px-4 py-3 text-sm text-gray-900">
+                        <td key={i} className="px-4 py-3 text-sm text-foreground">
                           {field.values?.join(", ") || "-"}
                         </td>
                       ))}

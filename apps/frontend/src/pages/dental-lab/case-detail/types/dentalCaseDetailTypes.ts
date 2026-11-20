@@ -22,7 +22,7 @@ export type UploadItem = {
 
 export const FALLBACK_BADGE = {
   label: "",
-  color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300",
+  color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground",
 };
 
 export const REFAB_STAGES: { id: RefabricationStage; labelKey: string }[] = [
@@ -69,28 +69,28 @@ export const STAGE_ASSIGNEE_ROLES: {
     label: "مساعد (Assistant)",
     shortLabel: "مساعد",
     badgeCls:
-      "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300 border-purple-200 dark:border-purple-800",
+      "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary",
   },
   {
     id: "QC",
     label: "مراجعة وفحص جودة (QC)",
     shortLabel: "فحص جودة",
     badgeCls:
-      "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+      "bg-emerald-100 text-success dark:bg-success/40 dark:text-success border-success dark:border-success",
   },
   {
     id: "FINISHER",
     label: "تشطيب وتلميع (Finisher)",
     shortLabel: "تشطيب",
     badgeCls:
-      "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-200 dark:border-amber-800",
+      "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning border-warning dark:border-warning",
   },
   {
     id: "OTHER",
     label: "دور آخر (Other)",
     shortLabel: "آخر",
     badgeCls:
-      "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700",
+      "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground border-border dark:border-border",
   },
 ];
 

@@ -37,7 +37,7 @@ export const CaseCreatePricingNotesSection: React.FC<
             value={priceSnapshot}
             onChange={(e) => setPriceSnapshot(parseFloat(e.target.value) || 0)}
           />
-          <span className="text-[11px] text-gray-500 mt-0.5 block">
+          <span className="text-[11px] text-muted-foreground mt-0.5 block">
             محسوب تلقائياً بناءً على تعاقد الطبيب والوحدات
           </span>
         </div>

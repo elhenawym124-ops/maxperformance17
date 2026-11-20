@@ -11,7 +11,7 @@ export interface DentalCaseEditFooterProps {
   onSave: () => void;
 }
 
-const labelCls = "block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1";
+const labelCls = "block text-xs font-semibold text-foreground mb-1";
 
 export const DentalCaseEditFooter: React.FC<DentalCaseEditFooterProps> = ({
   notes,
@@ -37,12 +37,12 @@ export const DentalCaseEditFooter: React.FC<DentalCaseEditFooterProps> = ({
         />
       </div>
 
-      <div className="flex justify-end gap-3 mt-6 pt-4 border-t dark:border-gray-700">
+      <div className="flex justify-end gap-3 mt-6 pt-4 border-t dark:border-border">
         <button
           type="button"
           onClick={onClose}
           disabled={saving}
-          className="px-5 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 transition-colors"
+          className="px-5 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50 transition-colors"
         >
           {t("dentalLab.common.cancel")}
         </button>

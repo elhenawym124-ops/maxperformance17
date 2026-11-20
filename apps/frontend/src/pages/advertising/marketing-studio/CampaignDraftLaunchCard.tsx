@@ -352,53 +352,53 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
   const isHeadlineTooLong = headlineLength > 45;
 
   return (
-    <div className="flex flex-col h-full bg-slate-50/40 dark:bg-slate-900/40 min-h-0 overflow-hidden text-slate-800 dark:text-slate-200">
+    <div className="flex flex-col h-full bg-muted dark:bg-muted min-h-0 overflow-hidden text-foreground dark:text-muted-foreground">
       {/* Body: Scrollable Workspace */}
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3 min-h-0">
         {/* 1. Single-Depth Product Summary & Economics */}
-        <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60">
+        <div className="p-3 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
           <div className="flex items-center gap-3">
             {selectedProduct?.mainImage ? (
               <img
                 src={selectedProduct.mainImage}
                 alt={productName}
-                className="w-12 h-12 rounded-xl object-cover border border-slate-200 dark:border-slate-700 flex-shrink-0 shadow-xs"
+                className="w-12 h-12 rounded-xl object-cover border border-border dark:border-border flex-shrink-0 shadow-xs"
               />
             ) : (
-              <div className="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 text-slate-400">
+              <div className="w-12 h-12 rounded-xl bg-muted dark:bg-muted flex items-center justify-center flex-shrink-0 text-muted-foreground">
                 <Package className="w-5 h-5" />
               </div>
             )}
 
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">
+              <h4 className="text-xs font-bold text-foreground dark:text-white truncate">
                 {productName}
               </h4>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-[10px] text-muted-foreground dark:text-muted-foreground mt-0.5">
                 المخزون المتوفر:{" "}
-                <span className="font-bold text-slate-700 dark:text-slate-200">
+                <span className="font-bold text-foreground dark:text-muted-foreground">
                   {availableStock} قطعة
                 </span>
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 mt-2.5 pt-2.5 border-t border-slate-200/70 dark:border-slate-700/50 text-center">
+          <div className="grid grid-cols-3 gap-2 mt-2.5 pt-2.5 border-t border-border dark:border-border text-center">
             <div>
-              <span className="block text-[10px] text-slate-400">سعر البيع</span>
-              <span className="text-xs font-black text-slate-900 dark:text-white">
+              <span className="block text-[10px] text-muted-foreground">سعر البيع</span>
+              <span className="text-xs font-black text-foreground dark:text-white">
                 {sellingPrice} ج.م
               </span>
             </div>
-            <div className="border-x border-slate-200/60 dark:border-slate-700/40 px-1">
-              <span className="block text-[10px] text-slate-400">سقف الـ CPA</span>
+            <div className="border-x border-border dark:border-border px-1">
+              <span className="block text-[10px] text-muted-foreground">سقف الـ CPA</span>
               <span className="text-xs font-black text-blue-600 dark:text-blue-400">
                 ~{targetCpa} ج.م
               </span>
             </div>
             <div>
-              <span className="block text-[10px] text-slate-400">هامش الربح</span>
-              <span className="text-xs font-black text-emerald-600 dark:text-emerald-400">
+              <span className="block text-[10px] text-muted-foreground">هامش الربح</span>
+              <span className="text-xs font-black text-success dark:text-success">
                 {profitMargin}%
               </span>
             </div>
@@ -406,21 +406,21 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
         </div>
 
         {/* 2. Copywriting Suite: Dialect & Framework Switcher */}
-        <div className="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700/70 space-y-2.5 shadow-2xs">
+        <div className="p-3 rounded-xl bg-white dark:bg-muted border border-border dark:border-border space-y-2.5 shadow-2xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+            <span className="text-xs font-bold text-foreground dark:text-white flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
               أطر ونماذج الصياغة الإعلانية (Copy Frameworks)
             </span>
             {/* A/B Variant Toggle */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-900 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700 text-[10px] font-bold">
+            <div className="flex items-center bg-muted dark:bg-muted rounded-lg p-0.5 border border-border dark:border-border text-[10px] font-bold">
               <button
                 type="button"
                 onClick={() => setActiveVariant("A")}
                 className={`px-2 py-0.5 rounded-md transition ${
                   activeVariant === "A"
                     ? "bg-indigo-600 text-white shadow-xs"
-                    : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+                    : "text-slate-500 hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 نسخة A
@@ -431,7 +431,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                 className={`px-2 py-0.5 rounded-md transition ${
                   activeVariant === "B"
                     ? "bg-indigo-600 text-white shadow-xs"
-                    : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+                    : "text-slate-500 hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 نسخة B (بديلة)
@@ -441,7 +441,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
 
           {/* Dialect Selector Chips */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1">
-            <span className="text-[10px] text-slate-400 font-semibold flex-shrink-0">
+            <span className="text-[10px] text-muted-foreground font-semibold flex-shrink-0">
               اللهجة والنبرة:
             </span>
             {DIALECT_CONFIGS.map((d) => {
@@ -453,8 +453,8 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                   onClick={() => handleSelectDialect(d.id)}
                   className={`px-2 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1 flex-shrink-0 cursor-pointer border ${
                     isSelected
-                      ? "bg-slate-900 text-white border-slate-900 dark:bg-indigo-600 dark:border-indigo-600 shadow-xs"
-                      : "bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100"
+                      ? "bg-slate-900 text-white border-border dark:bg-primary dark:border-primary shadow-xs"
+                      : "bg-slate-50 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border hover:bg-muted"
                   }`}
                 >
                   <span>{d.flag}</span>
@@ -475,18 +475,18 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                   onClick={() => handleSelectFramework(fw)}
                   className={`p-2 rounded-xl text-start transition flex items-center justify-between border cursor-pointer ${
                     isSelected
-                      ? "bg-indigo-50/80 dark:bg-indigo-950/40 border-indigo-500 text-indigo-900 dark:text-indigo-200 shadow-2xs"
-                      : "bg-slate-50/60 dark:bg-slate-900/50 border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100/80"
+                      ? "bg-indigo-50/80 dark:bg-primary/40 border-primary text-primary dark:text-primary shadow-2xs"
+                      : "bg-slate-50/60 dark:bg-muted border-border dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted"
                   }`}
                 >
                   <div className="min-w-0 flex-1">
                     <span className="text-xs font-bold block truncate">{fw.name}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 block">
+                    <span className="text-[10px] text-muted-foreground dark:text-muted-foreground mt-0.5 block">
                       {fw.badge}
                     </span>
                   </div>
                   {isSelected && (
-                    <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center flex-shrink-0 mr-1 shadow-xs">
+                    <div className="w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0 me-1 shadow-xs">
                       <Check className="w-3 h-3" />
                     </div>
                   )}
@@ -497,16 +497,16 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
         </div>
 
         {/* 3. Hooks Presets Bar */}
-        <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
+        <div className="p-2.5 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <Zap className="w-3 h-3 text-amber-500" />
+            <span className="text-[11px] font-bold text-foreground dark:text-muted-foreground flex items-center gap-1">
+              <Zap className="w-3 h-3 text-warning" />
               هوكات خاطفة للعنوان (Hook Presets):
             </span>
             <button
               type="button"
               onClick={() => handleAiPolish("hook_boost")}
-              className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5"
+              className="text-[10px] font-bold text-primary hover:underline flex items-center gap-0.5"
             >
               <Wand2 className="w-2.5 h-2.5" />
               توليد هوك عشوائي
@@ -518,7 +518,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                 key={hIdx}
                 type="button"
                 onClick={() => handleApplyHook(hook)}
-                className="px-2 py-1 rounded-lg text-[10px] font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-indigo-400 flex-shrink-0 max-w-[200px] truncate cursor-pointer active:scale-95"
+                className="px-2 py-1 rounded-lg text-[10px] font-medium bg-white dark:bg-muted border border-border dark:border-border text-foreground dark:text-muted-foreground hover:border-primary flex-shrink-0 max-w-[200px] truncate cursor-pointer active:scale-95"
                 title={hook}
               >
                 {hook}
@@ -528,15 +528,15 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
         </div>
 
         {/* 4. Direct Ad Copy Editor & AI Polish Toolbar */}
-        <div className="space-y-3 p-3 rounded-xl bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 shadow-2xs">
+        <div className="space-y-3 p-3 rounded-xl bg-white dark:bg-muted border border-border dark:border-border shadow-2xs">
           {/* Primary Text Header + AI Polish Toolbar */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between flex-wrap gap-1">
               <div className="flex items-center gap-1.5">
-                <label className="text-[11px] font-bold text-slate-800 dark:text-slate-200">
+                <label className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
                   نص الإعلان الرئيسي (Primary Text):
                 </label>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-bold">
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-primary dark:bg-primary/80 text-primary dark:text-primary font-bold">
                   {activeVariant === "A" ? "نسخة A" : "نسخة B"}
                 </span>
               </div>
@@ -546,16 +546,16 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                 <button
                   type="button"
                   onClick={() => handleAiPolish("shorten")}
-                  className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-[10px] font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-0.5 cursor-pointer"
+                  className="px-1.5 py-0.5 rounded bg-muted dark:bg-muted hover:bg-muted dark:hover:bg-muted text-[10px] font-semibold text-foreground dark:text-muted-foreground flex items-center gap-0.5 cursor-pointer"
                   title="اختصار النص للتركيز على الزبدة"
                 >
-                  <Zap className="w-2.5 h-2.5 text-amber-500" />
+                  <Zap className="w-2.5 h-2.5 text-warning" />
                   اختصار
                 </button>
                 <button
                   type="button"
                   onClick={() => handleAiPolish("stronger_cta")}
-                  className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-[10px] font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-0.5 cursor-pointer"
+                  className="px-1.5 py-0.5 rounded bg-muted dark:bg-muted hover:bg-muted dark:hover:bg-muted text-[10px] font-semibold text-foreground dark:text-muted-foreground flex items-center gap-0.5 cursor-pointer"
                   title="تقوية الدعوة للشراء وضمان المعاينة"
                 >
                   <Target className="w-2.5 h-2.5 text-blue-500" />
@@ -564,10 +564,10 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                 <button
                   type="button"
                   onClick={() => handleAiPolish("polish")}
-                  className="px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 text-[10px] font-semibold text-indigo-700 dark:text-indigo-300 flex items-center gap-0.5 cursor-pointer"
+                  className="px-1.5 py-0.5 rounded bg-primary/10 dark:bg-primary/60 hover:bg-primary text-[10px] font-semibold text-primary dark:text-primary flex items-center gap-0.5 cursor-pointer"
                   title="إعادة الصياغة بلمسة تسويقية احترافية"
                 >
-                  <Wand2 className="w-2.5 h-2.5 text-indigo-500" />
+                  <Wand2 className="w-2.5 h-2.5 text-primary" />
                   تحسين ذكي
                 </button>
               </div>
@@ -578,14 +578,14 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
               onChange={(e) => setPrimaryText(e.target.value)}
               rows={5}
               placeholder="اكتب النص الإعلاني أو اختر قالباً من الأعلى لتطبيقه تلقائياً..."
-              className="w-full p-2.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed resize-y font-sans"
+              className="w-full p-2.5 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed resize-y font-sans"
             />
 
             {/* Meta Fold Ergonomics Guide */}
-            <div className="flex items-center justify-between text-[10px] text-slate-400 pt-0.5">
+            <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-0.5">
               <span>
                 {primaryTextLength <= 125 ? (
-                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+                  <span className="text-emerald-600 dark:text-success font-medium">
                     ✓ يظهر كاملاً قبل زر "عرض المزيد" في فيسبوك
                   </span>
                 ) : (
@@ -603,13 +603,13 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
           {/* Headline Field */}
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <label className="text-[11px] font-bold text-slate-800 dark:text-slate-200">
+              <label className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
                 عنوان الإعلان الرئيسي (Headline):
               </label>
               <span
                 className={`text-[10px] font-mono font-semibold ${
                   isHeadlineTooLong
-                    ? "text-amber-600 dark:text-amber-400"
+                    ? "text-amber-600 dark:text-warning"
                     : "text-slate-400"
                 }`}
               >
@@ -621,13 +621,13 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
               value={headline}
               onChange={(e) => setHeadline(e.target.value)}
               placeholder="عنوان الإعلان الرئيسي..."
-              className="w-full px-3 py-2 text-xs font-bold rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 text-xs font-bold rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           {/* Link & CTA Preview */}
-          <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-            <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+          <div className="p-2 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5 text-muted-foreground dark:text-muted-foreground">
               <ExternalLink className="w-3.5 h-3.5" />
               <span className="text-[11px] font-mono truncate max-w-[200px]">
                 {selectedProduct?.slug
@@ -635,25 +635,25 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                   : "swan.maxp.online"}
               </span>
             </div>
-            <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 text-[10px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs">
+            <span className="px-2 py-0.5 rounded bg-white dark:bg-muted text-[10px] font-bold text-foreground dark:text-muted-foreground border border-border dark:border-border shadow-2xs">
               زر الإعلان: تسوق الآن
             </span>
           </div>
         </div>
 
         {/* 5. Campaign Parameters & Budget Bar */}
-        <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-2.5">
+        <div className="p-3 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
               إعدادات الحملة في Meta
             </span>
-            <span className="text-[11px] text-slate-500 font-medium">
+            <span className="text-[11px] text-muted-foreground font-medium">
               مصر • جميع المحافظات • تسوق أونلاين
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-3 bg-white dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
-            <span className="text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex items-center justify-between gap-3 bg-white dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+            <span className="text-xs text-foreground dark:text-muted-foreground">
               الميزانية اليومية الموصى بها:
             </span>
             <div className="flex items-center gap-1.5">
@@ -661,9 +661,9 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                 type="number"
                 value={dailyBudget}
                 onChange={(e) => setDailyBudget(Number(e.target.value))}
-                className="w-20 py-1 px-2 text-xs font-black text-center rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 focus:outline-none"
+                className="w-20 py-1 px-2 text-xs font-black text-center rounded border border-border dark:border-border bg-muted dark:bg-muted text-success dark:text-success focus:outline-none"
               />
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 ج.م / يومياً
               </span>
             </div>
@@ -672,7 +672,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
       </div>
 
       {/* 6. Action Footer: Launch to Meta Ads & Studio Bridge */}
-      <div className="p-2.5 sm:p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md flex-shrink-0 sticky bottom-0 z-10 shadow-lg sm:shadow-none space-y-2">
+      <div className="p-2.5 sm:p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] border-t border-border dark:border-border bg-white/95 dark:bg-muted backdrop-blur-md flex-shrink-0 sticky bottom-0 z-10 shadow-lg sm:shadow-none space-y-2">
         <button
           type="button"
           onClick={() => {
@@ -687,9 +687,9 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
               },
             });
           }}
-          className="w-full min-h-[38px] py-2 px-3 rounded-xl border border-indigo-200 dark:border-indigo-800/60 bg-indigo-50/70 hover:bg-indigo-100/80 dark:bg-indigo-950/30 dark:hover:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.99]"
+          className="w-full min-h-[38px] py-2 px-3 rounded-xl border border-primary dark:border-primary/60 bg-primary/70 hover:bg-primary/80 dark:bg-primary/30 dark:hover:bg-primary/50 text-primary dark:text-primary font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.99]"
         >
-          <Palette className="w-3.5 h-3.5 text-indigo-500" />
+          <Palette className="w-3.5 h-3.5 text-primary" />
           <span>صمم إعلان مرئي بالذكاء الاصطناعي في Creative Studio</span>
         </button>
 
@@ -697,7 +697,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
           type="button"
           onClick={handleLaunch}
           disabled={publishing}
-          className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer active:scale-[0.99]"
+          className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary text-white font-bold text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer active:scale-[0.99]"
         >
           {publishing ? (
             <>

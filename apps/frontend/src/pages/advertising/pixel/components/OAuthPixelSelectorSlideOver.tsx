@@ -32,16 +32,16 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
     <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-xs transition-opacity">
       <div className="fixed inset-0" onClick={onClose} aria-hidden="true" />
 
-      <div className="relative w-full max-w-md bg-white dark:bg-gray-900 h-full shadow-2xl border-l border-gray-200 dark:border-gray-800 flex flex-col z-10 animate-in slide-in-from-right duration-200">
+      <div className="relative w-full max-w-md bg-white dark:bg-muted h-full shadow-2xl border-l border-border dark:border-border flex flex-col z-10 animate-in slide-in-from-right duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-850/50">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
             <SparklesIcon className="w-5 h-5 text-[#1877F2]" />
             <div>
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+              <h3 className="text-sm font-bold text-foreground">
                 اختر البيكسل من حساب Facebook
               </h3>
-              <p className="text-[11px] text-gray-500 dark:text-gray-400">
+              <p className="text-[11px] text-muted-foreground">
                 سيتم جلب المعرّف وتوليد الـ Access Token تلقائياً
               </p>
             </div>
@@ -50,7 +50,7 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-lg transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg transition-colors"
             aria-label="إغلاق"
           >
             <XMarkIcon className="w-5 h-5" />
@@ -62,7 +62,7 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-12 text-center space-y-2">
               <ArrowPathIcon className="w-6 h-6 animate-spin text-[#1877F2]" />
-              <p className="text-xs text-gray-500">جاري فحص البيكسلات المرتبطة بحسابك على Meta…</p>
+              <p className="text-xs text-muted-foreground">جاري فحص البيكسلات المرتبطة بحسابك على Meta…</p>
             </div>
           ) : pixels.length > 0 ? (
             pixels.map((p) => {
@@ -76,11 +76,11 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
                   className={`w-full text-right p-3.5 rounded-xl border transition-all active:scale-[0.98] ${
                     isCurrent
                       ? "border-[#1877F2] bg-blue-50/50 dark:bg-blue-950/20 shadow-xs"
-                      : "border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-white dark:bg-gray-850"
+                      : "border-gray-200 dark:border-border hover:border-border dark:hover:border-border bg-white dark:bg-muted"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
+                    <span className="text-xs sm:text-sm font-bold text-foreground">
                       {p.pixelName}
                     </span>
                     {isCurrent && (
@@ -91,7 +91,7 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2 mt-1.5 text-[11px] text-gray-500 dark:text-gray-400 font-mono">
+                  <div className="flex items-center gap-2 mt-1.5 text-[11px] text-muted-foreground font-mono">
                     <span>ID: {p.pixelId}</span>
                     {p.businessName && (
                       <span>• {p.businessName}</span>
@@ -102,10 +102,10 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
             })
           ) : (
             <div className="p-8 text-center space-y-2">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground">
                 لم يتم العثور على أية بيكسلات في حساب Business Manager المرتبط.
               </p>
-              <p className="text-[11px] text-gray-400">
+              <p className="text-[11px] text-muted-foreground">
                 يمكنك إنشاء بيكسل جديد مباشرة أو إدخال المعرف يدوياً.
               </p>
             </div>

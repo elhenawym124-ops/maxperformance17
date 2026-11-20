@@ -50,12 +50,12 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
 
   return (
     <div
-      className={`flex flex-col justify-between rounded-2xl border transition-all shadow-xs ${
+      className={`flex flex-col justify-between rounded-xl border transition-all shadow-xs ${
         isOverdue
-          ? "border-rose-300 dark:border-rose-900/80 bg-rose-50/20 dark:bg-rose-950/10 hover:border-rose-400"
+          ? "border-rose-300 dark:border-destructive/80 bg-destructive/20 dark:bg-destructive/10 hover:border-destructive"
           : c.priority === "URGENT"
-          ? "border-amber-300 dark:border-amber-800 bg-amber-50/20 dark:bg-amber-950/10"
-          : "border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-700"
+          ? "border-amber-300 dark:border-warning bg-warning/20 dark:bg-warning/10"
+          : "border-gray-200 dark:border-border bg-white dark:bg-muted hover:border-border dark:hover:border-border"
       }`}
     >
       {/* Top Section */}
@@ -63,21 +63,21 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
         <div className="flex items-start justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-sm font-black text-gray-900 dark:text-white tabular-nums">
+              <span className="font-mono text-sm font-black text-foreground tabular-nums">
                 #{c.caseNumber || c.id.slice(0, 6)}
               </span>
               {isOverdue ? (
-                <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 animate-pulse flex items-center gap-0.5">
-                  <AlertTriangle className="w-3 h-3 text-rose-600" />
+                <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-destructive dark:bg-destructive/60 text-destructive dark:text-destructive animate-pulse flex items-center gap-0.5">
+                  <AlertTriangle className="w-3 h-3 text-destructive" />
                   متأخرة (<span className="tabular-nums font-mono">{overdueDays}</span> يوم)
                 </span>
               ) : c.priority === "URGENT" ? (
-                <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">
+                <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-warning dark:bg-warning/50 text-warning dark:text-warning">
                   طارئ
                 </span>
               ) : null}
             </div>
-            <p className="text-xs font-bold text-gray-800 dark:text-gray-200 mt-0.5">
+            <p className="text-xs font-bold text-foreground dark:text-muted-foreground mt-0.5">
               {c.workTypeName || "عمل معمل أسنان"}
             </p>
           </div>
@@ -90,22 +90,22 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
         </div>
 
         {/* Doctor and Patient Grid */}
-        <div className="grid grid-cols-2 gap-2 text-xs bg-gray-50 dark:bg-gray-800/50 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
+        <div className="grid grid-cols-2 gap-2 text-xs bg-muted dark:bg-muted p-2.5 rounded-xl border border-border dark:border-border">
           <div>
             <span className="text-gray-400 block text-[10px]">الطبيب:</span>
-            <span className="font-semibold text-gray-800 dark:text-gray-200 truncate block">
+            <span className="font-semibold text-foreground dark:text-muted-foreground truncate block">
               {c.doctorName || "—"}
             </span>
           </div>
           <div>
             <span className="text-gray-400 block text-[10px]">المريض:</span>
-            <span className="font-semibold text-gray-800 dark:text-gray-200 truncate block">
+            <span className="font-semibold text-foreground dark:text-muted-foreground truncate block">
               {c.patientName || "—"}
             </span>
           </div>
           <div>
             <span className="text-gray-400 block text-[10px]">اللون (Shade):</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400 block">
+            <span className="font-bold text-success dark:text-success block">
               {c.shade || "غير محدد"}
             </span>
           </div>
@@ -113,7 +113,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
             <span className="text-gray-400 block text-[10px]">تاريخ التسليم:</span>
             <span
               className={`font-semibold block tabular-nums font-mono ${
-                isOverdue ? "text-rose-600 font-bold" : "text-gray-700 dark:text-gray-300"
+                isOverdue ? "text-rose-600 font-bold" : "text-foreground"
               }`}
             >
               {fmtDate(c.dueDate)}
@@ -124,8 +124,8 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
         {/* 3D Files Quick Trigger */}
         {scanAttachments.length > 0 && (
           <div className="flex items-center gap-1.5 flex-wrap pt-1">
-            <span className="text-[11px] text-gray-400 flex items-center gap-1">
-              <Box className="w-3 h-3 text-indigo-500" />
+            <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+              <Box className="w-3 h-3 text-primary" />
               ملفات 3D:
             </span>
             {scanAttachments.slice(0, 2).map((att: any, idx: number) => (
@@ -140,7 +140,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
                       att.fileName || `model-${c.caseNumber}.${att.fileType || "stl"}`,
                   })
                 }
-                className="px-2 py-0.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 rounded text-[11px] font-bold border border-indigo-200 dark:border-indigo-800 flex items-center gap-1 transition"
+                className="px-2 py-0.5 bg-primary/10 hover:bg-primary dark:bg-primary/50 text-primary dark:text-primary rounded text-[11px] font-bold border border-primary dark:border-primary flex items-center gap-1 transition"
               >
                 <Eye className="w-3 h-3" />
                 <span>معاينة {att.fileType || "3D"}</span>
@@ -151,7 +151,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
       </div>
 
       {/* Bottom Action Footer */}
-      <div className="p-3 bg-gray-50/70 dark:bg-gray-800/40 border-t border-gray-100 dark:border-gray-800 rounded-b-2xl flex items-center justify-between gap-2">
+      <div className="p-3 bg-muted dark:bg-muted border-t border-border dark:border-border rounded-b-2xl flex items-center justify-between gap-2">
         {/* Stopwatch */}
         <div className="flex items-center gap-1.5">
           <button
@@ -159,16 +159,16 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
             onClick={() => onToggleTimer(c.id)}
             className={`p-1.5 rounded-lg border transition ${
               timerState.running
-                ? "bg-amber-500 text-white border-amber-600 animate-pulse"
+                ? "bg-amber-500 text-white border-warning animate-pulse"
                 : timerState.elapsedSeconds > 0
-                ? "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600"
-                : "bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:text-gray-700"
+                ? "bg-gray-200 dark:bg-muted text-foreground dark:text-muted-foreground border-border"
+                : "bg-card text-muted-foreground border-border dark:border-border hover:text-foreground"
             }`}
             title={timerState.running ? "إيقاف مؤقت للوقت" : "بدء عداد وقت المرحلة"}
           >
             {timerState.running ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
           </button>
-          <span className="font-mono text-xs font-semibold text-gray-700 dark:text-gray-300 tabular-nums">
+          <span className="font-mono text-xs font-semibold text-foreground tabular-nums">
             {fmtTimer(timerState.elapsedSeconds)}
           </span>
         </div>
@@ -178,7 +178,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
           <button
             type="button"
             onClick={() => onOpenUpload(c.id)}
-            className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+            className="p-1.5 rounded-lg border border-border dark:border-border bg-card text-muted-foreground hover:bg-muted transition"
             title="رفع مخرجات المرحلة أو صور"
           >
             <Upload className="w-3.5 h-3.5" />
@@ -186,7 +186,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
 
           <Link
             to={`/dental-lab/cases/${c.id}`}
-            className="px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 text-xs font-semibold"
+            className="px-2.5 py-1.5 rounded-lg border border-border dark:border-border bg-card text-foreground hover:bg-muted text-xs font-semibold"
           >
             التفاصيل
           </Link>

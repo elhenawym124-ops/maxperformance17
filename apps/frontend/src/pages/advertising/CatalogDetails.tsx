@@ -134,7 +134,7 @@ const CatalogDetails: React.FC = () => {
 
   if (!catalog) {
     return (
-      <div className="text-center py-16 border border-dashed border-border/70 rounded-2xl bg-card p-6">
+      <div className="text-center py-16 border border-dashed border-border/70 rounded-xl bg-card p-6">
         <p className="text-xs text-muted-foreground">لم يتم العثور على Catalog</p>
       </div>
     );
@@ -191,25 +191,25 @@ const CatalogDetails: React.FC = () => {
 
       {/* Info KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">إجمالي المنتجات</span>
           <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-foreground">
             {catalog.totalProducts || 0}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">المنتجات المتزامنة</span>
-          <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
             {catalog.syncedProducts || 0}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">حالة المزامنة الأخيرة</span>
           <div className="mt-1 flex items-center gap-2">
             {catalog.lastSyncStatus === "SUCCESS" ? (
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-success dark:text-success">
                 <CheckCircle2 className="w-4 h-4" />
                 مكتمل بنجاح
               </span>
@@ -219,7 +219,7 @@ const CatalogDetails: React.FC = () => {
                 فشل في المزامنة
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-warning dark:text-warning">
                 <Clock className="w-4 h-4" />
                 قيد المعالجة
               </span>
@@ -235,7 +235,7 @@ const CatalogDetails: React.FC = () => {
 
       {/* Feed URL Card */}
       {catalog.feedUrl && (
-        <div className="bg-card rounded-2xl border border-border/70 p-4 shadow-2xs space-y-2">
+        <div className="bg-card rounded-xl border border-border/70 p-4 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Link2 className="w-4 h-4 text-primary" />

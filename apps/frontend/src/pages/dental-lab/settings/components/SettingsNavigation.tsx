@@ -21,7 +21,7 @@ export function SettingsNavigation({
 
   return (
     <aside className="min-w-0">
-      <nav className="flex flex-wrap lg:flex-col gap-1 bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-2">
+      <nav className="flex flex-wrap lg:flex-col gap-1 bg-card rounded-xl border dark:border-border p-2">
         {SETTINGS_SECTIONS.map((section) => {
           const Icon = section.icon;
           const sectionDirty = !loading && (dirtyMap[section.id] ?? false);
@@ -34,7 +34,7 @@ export function SettingsNavigation({
               className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 activeSection === section.id
                   ? "bg-blue-600 text-white shadow-sm"
-                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  : "text-muted-foreground hover:bg-muted"
               }`}
             >
               <Icon className="w-4 h-4 shrink-0" />

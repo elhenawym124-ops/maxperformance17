@@ -49,22 +49,22 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
       {onBackToBench && (
         <button
           onClick={onBackToBench}
-          className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-blue-600 transition mb-1"
+          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-blue-600 transition mb-1"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>العودة لطاولة الحالات</span>
         </button>
       )}
 
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-xs text-center space-y-4">
-        <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-2xl mx-auto flex items-center justify-center">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-6 shadow-xs text-center space-y-4">
+        <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-xl mx-auto flex items-center justify-center">
           <ScanLine className="w-8 h-8 animate-pulse" />
         </div>
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+          <h3 className="text-base sm:text-lg font-bold text-foreground">
             محطة المسح السريع بالباركود
           </h3>
-          <p className="text-xs text-gray-500 max-w-sm mx-auto mt-1">
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto mt-1">
             وجّه قارئ الباركود نحو تيكيت الحالة أو اكتب كود الحالة ثم اضغط Enter لنقلها لمرحلتك فوراً
           </p>
         </div>
@@ -77,7 +77,7 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
               value={kioskInput}
               onChange={(e) => setKioskInput(e.target.value)}
               placeholder="امسح الباركود أو اكتب رقم الحالة..."
-              className="w-full text-center text-sm sm:text-base font-mono py-3 px-4 rounded-xl border-2 border-blue-500 bg-blue-50/20 dark:bg-blue-950/20 text-gray-900 dark:text-white focus:ring-4 focus:ring-blue-500/20 outline-hidden"
+              className="w-full text-center text-sm sm:text-base font-mono py-3 px-4 rounded-xl border-2 border-blue-500 bg-blue-50/20 dark:bg-blue-950/20 text-foreground focus:ring-4 focus:ring-blue-500/20 outline-hidden"
               disabled={kioskLoading}
               autoFocus
             />
@@ -94,13 +94,13 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
         </form>
 
         {kioskResult && (
-          <div className="p-4 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl text-right space-y-2 text-xs">
-            <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold text-sm">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+          <div className="p-4 bg-success/10 dark:bg-success/30 border border-success dark:border-success rounded-xl text-right space-y-2 text-xs">
+            <div className="flex items-center gap-2 text-success dark:text-success font-bold text-sm">
+              <CheckCircle2 className="w-4 h-4 text-success" />
               <span>تمت العملية بنجاح!</span>
             </div>
             {kioskResult.case && (
-              <div className="text-gray-700 dark:text-gray-300 space-y-1">
+              <div className="text-foreground space-y-1">
                 <p>
                   رقم الحالة: <b>#{kioskResult.case.caseNumber}</b>
                 </p>

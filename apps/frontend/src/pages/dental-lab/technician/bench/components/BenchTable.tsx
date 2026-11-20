@@ -16,10 +16,10 @@ export const BenchTable: React.FC<BenchTableProps> = ({
   busyId,
 }) => {
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-white dark:bg-gray-900 shadow-xs">
+    <div className="border border-border dark:border-border rounded-xl overflow-hidden bg-white dark:bg-muted shadow-xs">
       <div className="overflow-x-auto">
         <table className="w-full text-xs text-right">
-          <thead className="bg-gray-50 dark:bg-gray-800/60 text-gray-500 border-b border-gray-200 dark:border-gray-700">
+          <thead className="bg-gray-50 dark:bg-muted text-muted-foreground border-b border-border dark:border-border">
             <tr>
               <th className="py-3 px-3">رقم الحالة</th>
               <th className="py-3 px-3">نوع الشغل</th>
@@ -30,15 +30,15 @@ export const BenchTable: React.FC<BenchTableProps> = ({
               <th className="py-3 px-3 text-left">إجراءات سريعة</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+          <tbody className="divide-y divide-border dark:divide-border">
             {cases.map((c) => {
               const overdue = isCaseOverdue(c);
               const nextStatus = nextStatusOf(c.status);
               return (
                 <tr
                   key={c.id}
-                  className={`hover:bg-gray-50/50 dark:hover:bg-gray-800/30 ${
-                    overdue ? "bg-rose-50/30 dark:bg-rose-950/20" : ""
+                  className={`hover:bg-gray-50/50 dark:hover:bg-muted ${
+                    overdue ? "bg-rose-50/30 dark:bg-destructive/20" : ""
                   }`}
                 >
                   <td className="py-2.5 px-3 font-mono font-bold tabular-nums">
@@ -49,7 +49,7 @@ export const BenchTable: React.FC<BenchTableProps> = ({
                       #{c.caseNumber || c.id.slice(0, 6)}
                     </Link>
                   </td>
-                  <td className="py-2.5 px-3 font-medium text-gray-900 dark:text-white">
+                  <td className="py-2.5 px-3 font-medium text-foreground">
                     {c.workTypeName || "—"}
                   </td>
                   <td className="py-2.5 px-3">
@@ -57,10 +57,10 @@ export const BenchTable: React.FC<BenchTableProps> = ({
                       {c.activeStageName || c.status}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-gray-600 dark:text-gray-300">
+                  <td className="py-2.5 px-3 text-muted-foreground">
                     {c.doctorName || "—"} / {c.patientName || "—"}
                   </td>
-                  <td className="py-2.5 px-3 font-bold text-emerald-600">
+                  <td className="py-2.5 px-3 font-bold text-success">
                     {c.shade || "—"}
                   </td>
                   <td className="py-2.5 px-3">

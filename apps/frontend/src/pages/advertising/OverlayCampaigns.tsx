@@ -34,11 +34,11 @@ interface OverlayCampaign {
 }
 
 const statusMap: Record<string, { label: string; class: string }> = {
-  ACTIVE: { label: "نشط", class: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
+  ACTIVE: { label: "نشط", class: "bg-emerald-500/10 text-success border-success/20" },
   SCHEDULED: { label: "مجدول", class: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
   DRAFT: { label: "مسودة", class: "bg-muted text-muted-foreground border-border/60" },
-  PAUSED: { label: "موقف", class: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
-  EXPIRED: { label: "منتهي", class: "bg-rose-500/10 text-rose-500 border-rose-500/20" },
+  PAUSED: { label: "موقف", class: "bg-amber-500/10 text-warning border-warning/20" },
+  EXPIRED: { label: "منتهي", class: "bg-rose-500/10 text-destructive border-destructive/20" },
 };
 
 const OverlayCampaigns: React.FC = () => {
@@ -169,9 +169,9 @@ const OverlayCampaigns: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>حملات نشطة</span>
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-500">{stats.active}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-success">{stats.active}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
@@ -243,7 +243,7 @@ const OverlayCampaigns: React.FC = () => {
         </div>
         <div className="relative w-full sm:w-64">
           <Search className="absolute right-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
-          <Input placeholder="بحث في حملات الإطارات..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="h-8 pr-8 text-xs border-border/70 bg-card" />
+          <Input placeholder="بحث في حملات الإطارات..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="h-8 pe-8 text-xs border-border/70 bg-card" />
         </div>
       </div>
 
@@ -290,7 +290,7 @@ const OverlayCampaigns: React.FC = () => {
                     <Button variant="outline" size="sm" onClick={() => navigate(`/advertising/facebook-ads/overlay-campaigns/${c.id}`)} className="h-7 text-xs gap-1 border-border/70" title="إدارة المنتجات">
                       <ExternalLink className="h-3 w-3" /> المنتجات
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(c.id)} className="h-7 w-7 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600">
+                    <Button variant="ghost" size="icon" onClick={() => handleDelete(c.id)} className="h-7 w-7 text-destructive hover:bg-destructive/10 hover:text-destructive">
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>
                   </div>

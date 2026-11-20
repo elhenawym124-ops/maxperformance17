@@ -21,7 +21,7 @@ export function FinancialPostingModesGrid({
   return (
     <div className="rounded-xl border border-border/60 bg-card p-4 space-y-4">
       <h3 className="text-sm font-semibold flex items-center gap-2">
-        <ShieldCheck className="size-4 text-emerald-500" />
+        <ShieldCheck className="size-4 text-success" />
         أوضاع ترحيل المعاملات (Posting Modes)
       </h3>
 

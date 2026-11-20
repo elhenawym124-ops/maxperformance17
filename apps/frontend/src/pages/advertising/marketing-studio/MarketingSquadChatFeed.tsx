@@ -330,18 +330,18 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
   ];
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-950 min-h-0 overflow-hidden">
+    <div className="flex flex-col h-full bg-white dark:bg-muted min-h-0 overflow-hidden">
       {/* Messages List */}
       <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
         {activeSession.messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center p-4 sm:p-6 text-slate-400">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200/60 dark:border-indigo-800/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-3 shadow-xs">
+          <div className="h-full flex flex-col items-center justify-center text-center p-4 sm:p-6 text-muted-foreground">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/50 border border-primary/60 dark:border-primary/60 flex items-center justify-center text-primary mb-3 shadow-xs">
               <Sparkles className="w-6 h-6" />
             </div>
-            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+            <h3 className="text-sm font-bold text-foreground dark:text-muted-foreground mb-1">
               مركز الصياغة والتخطيط الإعلاني الذكي
             </h3>
-            <p className="text-xs text-slate-500 max-w-sm mb-4">
+            <p className="text-xs text-muted-foreground max-w-sm mb-4">
               {selectedProduct
                 ? `جاهز لصياغة أفضل إعلانات لـ "${selectedProduct.name}". اختر طلباً سريعاً أو وجه الفريق مباشرة:`
                 : "اختر أحد مسارات الصياغة الإعلانية الموصى بها للبدء فوراً:"}
@@ -357,9 +357,9 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                     type="button"
                     onClick={() => handleSend(item.prompt)}
                     disabled={loading}
-                    className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 hover:border-indigo-300 dark:hover:border-indigo-700 transition cursor-pointer text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2 group shadow-2xs text-start active:scale-[0.98]"
+                    className="p-2.5 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted hover:bg-primary/60 dark:hover:bg-primary/40 hover:border-primary dark:hover:border-primary transition cursor-pointer text-xs font-semibold text-foreground dark:text-muted-foreground flex items-center gap-2 group shadow-2xs text-start active:scale-[0.98]"
                   >
-                    <div className="p-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition flex-shrink-0">
+                    <div className="p-1.5 rounded-lg bg-white dark:bg-muted border border-border dark:border-border text-primary group-hover:bg-primary group-hover:text-white transition flex-shrink-0">
                       <IconComponent className="w-3.5 h-3.5" />
                     </div>
                     <span className="truncate">{item.label}</span>
@@ -386,7 +386,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                 {/* Avatar */}
                 <div
                   className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-[11px] font-bold ${
-                    isUser ? "bg-slate-800" : "bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-sm"
+                    isUser ? "bg-slate-800" : "bg-gradient-to-tr from-blue-600 to-primary shadow-sm"
                   }`}
                 >
                   {isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -394,10 +394,10 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
 
                 {/* Bubble */}
                 <div
-                  className={`rounded-2xl p-3.5 space-y-2 leading-relaxed ${bubbleCornerClass} ${
+                  className={`rounded-xl p-3.5 space-y-2 leading-relaxed ${bubbleCornerClass} ${
                     isUser
                       ? "max-w-[85%] bg-blue-600 text-white shadow-sm"
-                      : "max-w-[95%] sm:max-w-[90%] bg-slate-100 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700/60 shadow-sm"
+                      : "max-w-[95%] sm:max-w-[90%] bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border shadow-sm"
                   }`}
                 >
                   {/* Tool execution badge if present */}
@@ -451,11 +451,11 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                               className={`p-2.5 rounded-xl border flex flex-col gap-1.5 w-full max-w-xs ${
                                 isUser
                                   ? "bg-blue-700/70 border-blue-400/40 text-white"
-                                  : "bg-slate-200/80 dark:bg-slate-700/80 border-slate-300/60 dark:border-slate-600 text-slate-800 dark:text-slate-200"
+                                  : "bg-slate-200/80 dark:bg-muted border-border dark:border-border text-foreground dark:text-muted-foreground"
                               }`}
                             >
                               <div className="flex items-center gap-1.5 text-[11px] font-semibold">
-                                <Mic className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
+                                <Mic className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                                 <span className="truncate">{att.name || "تسجيل صوتي"}</span>
                               </div>
                               <audio src={att.url} controls className="w-full h-8" />
@@ -471,8 +471,8 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
 
                   {/* Hermes Telemetry HUD & Performance Stats */}
                   {!isUser && msg.telemetry && (
-                    <div className="flex flex-wrap items-center gap-2 pt-1.5 mt-1 border-t border-slate-200/60 dark:border-slate-700/40 text-[10px] text-slate-500 dark:text-slate-400 font-mono tabular-nums">
-                      <span className="px-1.5 py-0.2 rounded bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold">
+                    <div className="flex flex-wrap items-center gap-2 pt-1.5 mt-1 border-t border-border dark:border-border text-[10px] text-muted-foreground dark:text-muted-foreground font-mono tabular-nums">
+                      <span className="px-1.5 py-0.2 rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-bold">
                         {msg.telemetry.model || "Hermes-Engine"}
                       </span>
                       {typeof msg.telemetry.latency_ms === "number" && (
@@ -482,7 +482,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                         <span>• {msg.telemetry.tokens} tkn</span>
                       )}
                       {msg.telemetry.p95_sla && (
-                        <span className="text-emerald-600 dark:text-emerald-400">
+                        <span className="text-emerald-600 dark:text-success">
                           • SLA {msg.telemetry.p95_sla}
                         </span>
                       )}
@@ -495,7 +495,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                         type="button"
                         onClick={onRewind}
                         disabled={isRewinding}
-                        className="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer active:scale-95 disabled:opacity-40"
+                        className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-primary transition cursor-pointer active:scale-95 disabled:opacity-40"
                         title="التراجع عن هذه الخطوة واستعادة الحالة السابقة"
                       >
                         <Undo2 className={`w-3 h-3 ${isRewinding ? "animate-spin" : ""}`} />
@@ -519,11 +519,11 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
         )}
 
         {loading && (
-          <div className="flex flex-row-reverse gap-3 text-xs items-center text-slate-400">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center">
+          <div className="flex flex-row-reverse gap-3 text-xs items-center text-muted-foreground">
+            <div className="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center">
               <Bot className="w-4 h-4" />
             </div>
-            <div className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center gap-2 text-slate-600 dark:text-slate-300">
+            <div className="p-3 rounded-xl bg-muted dark:bg-muted flex items-center gap-2 text-foreground dark:text-muted-foreground">
               <div className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
               {activeAgent?.name ? `${activeAgent.name} يحلل بيانات المتجر واقتصاديات المنتج...` : "فريق التسويق يحلل بيانات المتجر واقتصاديات المنتج..."}
             </div>
@@ -533,39 +533,39 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
 
 
       {/* Input Bar (Sticky Mobile Composer) */}
-      <div className="p-2 sm:p-3 pb-[calc(0.6rem+env(safe-area-inset-bottom,0px))] border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md flex-shrink-0 z-10 space-y-2">
+      <div className="p-2 sm:p-3 pb-[calc(0.6rem+env(safe-area-inset-bottom,0px))] border-t border-border dark:border-border bg-white/95 dark:bg-muted backdrop-blur-md flex-shrink-0 z-10 space-y-2">
         {/* Media Attachments Preview Strip */}
         {attachedMedia.length > 0 && (
           <div className="flex items-center gap-2 overflow-x-auto py-1 px-1 no-scrollbar">
             {attachedMedia.map((item, mIdx) => (
               <div
                 key={mIdx}
-                className="relative group p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/90 dark:bg-slate-800/90 flex items-center gap-2 flex-shrink-0 shadow-2xs"
+                className="relative group p-1.5 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted flex items-center gap-2 flex-shrink-0 shadow-2xs"
               >
                 {item.type === "image" && (
                   <img
                     src={item.previewUrl}
                     alt={item.name}
-                    className="w-10 h-10 rounded-lg object-cover border border-slate-300 dark:border-slate-600"
+                    className="w-10 h-10 rounded-lg object-cover border border-border dark:border-border"
                   />
                 )}
                 {item.type === "video" && (
-                  <div className="w-10 h-10 rounded-lg bg-indigo-950/80 text-indigo-400 flex items-center justify-center flex-shrink-0 border border-indigo-700/50">
+                  <div className="w-10 h-10 rounded-lg bg-primary/80 text-primary flex items-center justify-center flex-shrink-0 border border-primary/50">
                     <VideoIcon className="w-5 h-5" />
                   </div>
                 )}
                 {item.type === "audio" && (
-                  <div className="w-10 h-10 rounded-lg bg-emerald-950/80 text-emerald-400 flex items-center justify-center flex-shrink-0 border border-emerald-700/50">
+                  <div className="w-10 h-10 rounded-lg bg-success/80 text-success flex items-center justify-center flex-shrink-0 border border-success/50">
                     <Music className="w-5 h-5" />
                   </div>
                 )}
                 <div className="min-w-0 max-w-[120px]">
-                  <p className="text-[11px] font-medium text-slate-800 dark:text-slate-200 truncate">
+                  <p className="text-[11px] font-medium text-foreground dark:text-muted-foreground truncate">
                     {item.name}
                   </p>
-                  <p className="text-[9px] text-slate-400 font-mono">
+                  <p className="text-[9px] text-muted-foreground font-mono">
                     {item.uploading ? (
-                      <span className="inline-flex items-center gap-1 text-indigo-500 animate-pulse font-semibold">
+                      <span className="inline-flex items-center gap-1 text-primary animate-pulse font-semibold">
                         <Loader2 className="w-2.5 h-2.5 animate-spin" /> جاري الرفع...
                       </span>
                     ) : (
@@ -576,7 +576,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                 <button
                   type="button"
                   onClick={() => removeAttachedMedia(mIdx)}
-                  className="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-red-500 hover:text-white text-slate-500 flex items-center justify-center transition cursor-pointer"
+                  className="w-5 h-5 rounded-full bg-muted dark:bg-muted hover:bg-destructive hover:text-white text-muted-foreground flex items-center justify-center transition cursor-pointer"
                   title="حذف المرفق"
                 >
                   <X className="w-3 h-3" />
@@ -611,7 +611,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={loading}
-              className="w-10 h-10 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center justify-center flex-shrink-0 cursor-pointer active:scale-95 shadow-2xs mb-0.5"
+              className="w-10 h-10 rounded-xl border border-border dark:border-border hover:border-primary dark:hover:border-primary bg-muted dark:bg-muted text-foreground dark:text-muted-foreground hover:text-primary transition flex items-center justify-center flex-shrink-0 cursor-pointer active:scale-95 shadow-2xs mb-0.5"
               title="إرفاق صورة، فيديو، أو تسجيل صوتي"
             >
               <Paperclip className="w-4 h-4" />
@@ -652,7 +652,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                     ? `اطلب من ${activeAgent?.name || "فريق التسويق"} زوايا، هوكات، أو صياغة إعلانات لـ ${selectedProduct.name}... (Enter للإرسال • Shift+Enter لسطر جديد)`
                     : `وجه ${activeAgent?.name || "فريق التسويق"} أو ارفع صورة/فيديو/صوت... (Enter للإرسال • Shift+Enter لسطر جديد)`
                 }
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none leading-relaxed"
+                className="w-full px-3 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary resize-none leading-relaxed"
               />
             </div>
 
@@ -664,7 +664,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                 loading ||
                 attachedMedia.some((m) => m.uploading)
               }
-              className="w-10 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition disabled:opacity-40 flex items-center justify-center flex-shrink-0 cursor-pointer active:scale-95 shadow-xs mb-0.5"
+              className="w-10 h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold transition disabled:opacity-40 flex items-center justify-center flex-shrink-0 cursor-pointer active:scale-95 shadow-xs mb-0.5"
               title="إرسال (Enter)"
             >
               <Send className="w-4 h-4" />
@@ -672,9 +672,9 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
           </div>
 
           {/* Subtitle / Key Guide */}
-          <div className="flex items-center justify-between px-1 text-[10px] text-slate-400">
+          <div className="flex items-center justify-between px-1 text-[10px] text-muted-foreground">
             <span>
-              💡 اضغط <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[9px] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">Shift + Enter</kbd> للنزول لسطر جديد • <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[9px] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">Enter</kbd> للإرسال
+              💡 اضغط <kbd className="px-1 py-0.5 rounded bg-muted dark:bg-muted font-mono text-[9px] text-foreground dark:text-muted-foreground border border-border dark:border-border">Shift + Enter</kbd> للنزول لسطر جديد • <kbd className="px-1 py-0.5 rounded bg-muted dark:bg-muted font-mono text-[9px] text-foreground dark:text-muted-foreground border border-border dark:border-border">Enter</kbd> للإرسال
             </span>
             <span className="hidden sm:inline">
               يدعم إرفاق الصور والفيديو والتسجيلات الصوتية 📎

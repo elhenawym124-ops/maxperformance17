@@ -135,7 +135,7 @@ const OverlayCampaignDetails: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-success/10 text-success dark:text-success border border-success/20">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>حملة إطارات نشطة</span>
           </span>
@@ -172,7 +172,7 @@ const OverlayCampaignDetails: React.FC = () => {
                 value={searchQuery} 
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="ابحث باسم المنتج أو كود SKU..."
-                className="w-full rounded-lg border border-border/70 bg-background px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary pl-8" 
+                className="w-full rounded-lg border border-border/70 bg-background px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary ps-8" 
               />
               <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
             </div>
@@ -245,7 +245,7 @@ const OverlayCampaignDetails: React.FC = () => {
 
                 <div className="flex items-center gap-2 shrink-0">
                   {cp.framedImage && (
-                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-success dark:text-success bg-success/10 border border-success/20 px-2 py-0.5 rounded-full">
                       مكتمل
                     </span>
                   )}

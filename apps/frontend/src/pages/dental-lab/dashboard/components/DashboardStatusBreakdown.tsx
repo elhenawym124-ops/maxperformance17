@@ -16,18 +16,18 @@ export function DashboardStatusBreakdown({
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 p-5">
+    <div className="rounded-xl border border-border dark:border-border bg-card/50 p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white">
+        <h3 className="font-semibold text-foreground">
           {t("dentalLab.dashboard.byStatus")}
         </h3>
-        <span className="text-xs text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+        <span className="text-xs text-muted-foreground font-mono tabular-nums">
           {totalCases} {t("dentalLab.dashboard.totalCases")}
         </span>
       </div>
 
       <div
-        className="h-2 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden mb-4 flex cursor-pointer"
+        className="h-2 rounded-full bg-muted dark:bg-muted overflow-hidden mb-4 flex cursor-pointer"
         title="انقر على أي مرحلة بالأسفل للفلترة"
       >
         {CASE_STATUSES.map((s) => {
@@ -66,21 +66,21 @@ export function DashboardStatusBreakdown({
             >
               <div className="flex items-center gap-2">
                 <span className={`w-2.5 h-2.5 rounded-full ${s.dotColor}`} />
-                <span className="text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
+                <span className="text-muted-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
                   {s.label}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-bold font-mono tabular-nums text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <span className="font-bold font-mono tabular-nums text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400">
                   {count}
                 </span>
-                <ArrowLeft className="w-3.5 h-3.5 text-gray-400 opacity-0 group-hover:opacity-100 group-hover:-translate-x-0.5 transition-all" />
+                <ArrowLeft className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:-translate-x-0.5 transition-all" />
               </div>
             </div>
           );
         })}
         {Object.keys(byStatus).length === 0 && (
-          <p className="text-sm text-gray-400 dark:text-gray-500">
+          <p className="text-sm text-muted-foreground/80">
             {t("dentalLab.common.noData")}
           </p>
         )}

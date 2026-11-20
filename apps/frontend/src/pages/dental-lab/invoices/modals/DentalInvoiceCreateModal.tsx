@@ -95,7 +95,7 @@ export function DentalInvoiceCreateModal({
   };
 
   const inputCls = `${MODAL_INPUT_CLS} text-sm`;
-  const labelCls = "block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1";
+  const labelCls = "block text-xs font-semibold text-foreground mb-1";
 
   return (
     <div
@@ -103,14 +103,14 @@ export function DentalInvoiceCreateModal({
       onClick={() => !saving && onClose()}
     >
       <div className={`${MODAL_CONTENT_CLS} max-w-lg my-8`} onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between pb-3 border-b dark:border-gray-800 mb-4">
+        <div className="flex items-center justify-between pb-3 border-b dark:border-border mb-4">
           <div className="flex items-center gap-2">
             <CreditCard className="w-5 h-5 text-blue-600" />
             <h3 className="text-base sm:text-lg font-bold">{t("dentalLab.invoices.createTitle")}</h3>
           </div>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted dark:hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label="Close"
           >
             <XMarkIcon className="w-5 h-5" />
@@ -192,9 +192,9 @@ export function DentalInvoiceCreateModal({
             />
           </div>
 
-          <div className="border-t dark:border-gray-800 pt-3 mt-2">
-            <p className="text-xs font-bold text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-1.5">
-              <Banknote className="w-4 h-4 text-green-600" />
+          <div className="border-t dark:border-border pt-3 mt-2">
+            <p className="text-xs font-bold text-foreground dark:text-muted-foreground mb-2 flex items-center gap-1.5">
+              <Banknote className="w-4 h-4 text-success" />
               سداد دفعة فورية مع إنشاء الفاتورة (اختياري)
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -237,11 +237,11 @@ export function DentalInvoiceCreateModal({
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2.5 pt-4 border-t dark:border-gray-800 mt-4">
+        <div className="flex items-center justify-end gap-2.5 pt-4 border-t dark:border-border mt-4">
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="px-4 py-2 text-sm text-foreground border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50"
           >
             {t("dentalLab.common.cancel")}
           </button>

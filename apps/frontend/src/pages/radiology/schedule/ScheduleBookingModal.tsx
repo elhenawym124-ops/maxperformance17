@@ -58,7 +58,7 @@ export const ScheduleBookingModal: React.FC<ScheduleBookingModalProps> = ({
 
   if (!modal) return null;
 
-  const labelCls = 'block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1';
+  const labelCls = 'block text-xs font-medium text-muted-foreground mb-1';
 
   return (
     <div
@@ -81,7 +81,7 @@ export const ScheduleBookingModal: React.FC<ScheduleBookingModalProps> = ({
           </h3>
           <button
             onClick={() => !saving && onClose()}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg dark:text-gray-300"
+            className="p-1 hover:bg-muted rounded-lg dark:text-muted-foreground"
             aria-label={t('radiology.cancel') as string}
           >
             <XMarkIcon className="w-5 h-5" />
@@ -163,7 +163,7 @@ export const ScheduleBookingModal: React.FC<ScheduleBookingModalProps> = ({
           <button
             onClick={onClose}
             disabled={saving}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg disabled:opacity-50"
+            className="px-4 py-2 text-foreground border rounded-lg disabled:opacity-50"
           >
             {t('radiology.cancel')}
           </button>
@@ -172,7 +172,7 @@ export const ScheduleBookingModal: React.FC<ScheduleBookingModalProps> = ({
               <button
                 onClick={onReceiveAndCreate}
                 disabled={saving}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2"
               >
                 {saving ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -184,7 +184,7 @@ export const ScheduleBookingModal: React.FC<ScheduleBookingModalProps> = ({
               <button
                 onClick={() => onSave(true)}
                 disabled={saving}
-                className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 disabled:opacity-50 flex items-center gap-2"
+                className="px-4 py-2 bg-warning text-white rounded-lg hover:bg-warning disabled:opacity-50 flex items-center gap-2"
               >
                 {saving ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

@@ -16,14 +16,14 @@ export const MetaTosWarningBanner: React.FC<MetaTosWarningBannerProps> = ({
   if (!tosErrorUrl) return null;
 
   return (
-    <div className="rounded-xl border border-amber-300/80 bg-amber-50/90 p-4 text-amber-900 shadow-sm">
+    <div className="rounded-xl border border-warning/80 bg-warning/90 p-4 text-warning shadow-sm">
       <div className="flex items-start gap-3">
-        <ExclamationTriangleIcon className="h-6 w-6 text-amber-600 flex-shrink-0 mt-0.5" />
+        <ExclamationTriangleIcon className="h-6 w-6 text-warning flex-shrink-0 mt-0.5" />
         <div className="flex-1 text-sm">
-          <h3 className="font-semibold text-amber-950">
+          <h3 className="font-semibold text-warning">
             مطلوب قبول شروط الجماهير المخصصة (Meta TOS) لهذا الحساب
           </h3>
-          <p className="mt-1 text-amber-800 leading-relaxed">
+          <p className="mt-1 text-warning leading-relaxed">
             تفرض سياسة Meta على مدير الحساب الإعلاني قبول اتفاقية شروط خدمة الجماهير المخصصة
             (Custom Audiences Terms of Service) مرة واحدة قبل السماح بإنشاء أو رفع قوائم العملاء عبر واجهة البرمجة (API).
           </p>
@@ -32,7 +32,7 @@ export const MetaTosWarningBanner: React.FC<MetaTosWarningBannerProps> = ({
               href={tosErrorUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-amber-700 hover:bg-amber-800 rounded-lg shadow-sm transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-warning hover:bg-warning rounded-lg shadow-sm transition-colors"
             >
               <span>قبول الشروط في مدير إعلانات Meta</span>
               <ArrowTopRightOnSquareIcon className="w-4 h-4" />
@@ -40,7 +40,7 @@ export const MetaTosWarningBanner: React.FC<MetaTosWarningBannerProps> = ({
             <button
               type="button"
               onClick={onDismiss}
-              className="text-xs text-amber-700 hover:text-amber-900 underline"
+              className="text-xs text-warning hover:text-warning underline"
             >
               إخفاء التنبيه
             </button>

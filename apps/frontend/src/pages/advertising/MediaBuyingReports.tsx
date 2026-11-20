@@ -381,12 +381,12 @@ const MediaBuyingReports: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/70 px-4 py-6 text-slate-950 dark:bg-slate-950 dark:text-white font-sans sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-muted px-4 py-6 text-foreground dark:bg-muted dark:text-white font-sans sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-6xl 2xl:max-w-7xl flex-col gap-5">
         <FacebookAdsModuleNav selectedAdAccountId={accountContext.selectedAdAccountId} />
         <FacebookAdsAccountContextPanel context={accountContext} compact />
 
-        <header className="flex flex-col gap-4 border-b border-slate-200 pb-5 dark:border-slate-800 lg:flex-row lg:items-end lg:justify-between">
+        <header className="flex flex-col gap-4 border-b border-border pb-5 dark:border-border lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="inline-flex items-center gap-2 text-sm font-black text-blue-700 dark:text-blue-300">
               <BarChart3 className="h-4 w-4" />
@@ -395,34 +395,34 @@ const MediaBuyingReports: React.FC = () => {
             <h1 className="mt-1 text-2xl font-black tracking-normal sm:text-3xl">
               تقارير Meta Ads التنفيذية
             </h1>
-            <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+            <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-foreground dark:text-muted-foreground">
               ابن تقريرًا آمنًا من نفس خدمات الواجهة الحالية: تشغيل async كامل من Meta،
               أو معاينة sync سريعة عبر breakdown endpoint الموجود.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs font-black sm:grid-cols-4">
-            <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-900">
-              <span className="block text-slate-500">Mode</span>
+            <div className="rounded-lg border border-border bg-white px-3 py-2 dark:border-border dark:bg-muted">
+              <span className="block text-muted-foreground">Mode</span>
               <span>{mode === "async" ? "Async" : "Sync"}</span>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-900">
-              <span className="block text-slate-500">Level</span>
+            <div className="rounded-lg border border-border bg-white px-3 py-2 dark:border-border dark:bg-muted">
+              <span className="block text-muted-foreground">Level</span>
               <span>{level}</span>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-900">
-              <span className="block text-slate-500">Fields</span>
+            <div className="rounded-lg border border-border bg-white px-3 py-2 dark:border-border dark:bg-muted">
+              <span className="block text-muted-foreground">Fields</span>
               <span>{fields.length}</span>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-900">
-              <span className="block text-slate-500">Breakdowns</span>
+            <div className="rounded-lg border border-border bg-white px-3 py-2 dark:border-border dark:bg-muted">
+              <span className="block text-muted-foreground">Breakdowns</span>
               <span>{breakdowns.length}</span>
             </div>
           </div>
         </header>
 
         <form onSubmit={handleRun} className="grid gap-5 lg:grid-cols-[420px_1fr]">
-          <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <section className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
             <div className="mb-4 flex items-center gap-2">
               <SlidersHorizontal className="h-5 w-5 text-blue-600" />
               <h2 className="text-base font-black">إعداد التقرير</h2>
@@ -446,7 +446,7 @@ const MediaBuyingReports: React.FC = () => {
                           "inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-black transition",
                           mode === item.value
                             ? "border-blue-600 bg-blue-600 text-white"
-                            : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200",
+                            : "border-slate-200 bg-white text-foreground hover:border-blue-300 dark:border-border dark:bg-muted dark:text-muted-foreground",
                         ].join(" ")}
                       >
                         <Icon className="h-4 w-4" />
@@ -463,7 +463,7 @@ const MediaBuyingReports: React.FC = () => {
                   value={level}
                   onChange={(event) => setLevel(event.target.value as ReportLevel)}
                   disabled={mode === "sync"}
-                  className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950"
+                  className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-60 dark:border-border dark:bg-muted"
                 >
                   {reportLevels.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -475,7 +475,7 @@ const MediaBuyingReports: React.FC = () => {
 
               <div>
                 <span className="mb-2 block text-sm font-black">التاريخ</span>
-                <div className="mb-3 inline-flex rounded-lg border border-slate-200 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-950">
+                <div className="mb-3 inline-flex rounded-lg border border-border bg-muted p-1 dark:border-border dark:bg-muted">
                   {[
                     { value: "preset", label: "Preset" },
                     { value: "range", label: "Range" },
@@ -487,7 +487,7 @@ const MediaBuyingReports: React.FC = () => {
                       className={[
                         "rounded-md px-3 py-1.5 text-xs font-black",
                         dateMode === item.value
-                          ? "bg-white text-slate-950 shadow-sm dark:bg-slate-800 dark:text-white"
+                          ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
                           : "text-slate-500",
                       ].join(" ")}
                     >
@@ -500,7 +500,7 @@ const MediaBuyingReports: React.FC = () => {
                   <select
                     value={datePreset}
                     onChange={(event) => setDatePreset(event.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                   >
                     {datePresets.map((preset) => (
                       <option key={preset.value} value={preset.value}>
@@ -511,19 +511,19 @@ const MediaBuyingReports: React.FC = () => {
                 ) : (
                   <div className="grid gap-2 sm:grid-cols-2">
                     <label className="flex flex-col gap-1">
-                      <span className="text-xs font-bold text-slate-500">من</span>
+                      <span className="text-xs font-bold text-muted-foreground">من</span>
                       <DateInput
                         value={since}
                         onChange={(event) => setSince(event.target.value)}
-                        className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                        className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                       />
                     </label>
                     <label className="flex flex-col gap-1">
-                      <span className="text-xs font-bold text-slate-500">إلى</span>
+                      <span className="text-xs font-bold text-muted-foreground">إلى</span>
                       <DateInput
                         value={until}
                         onChange={(event) => setUntil(event.target.value)}
-                        className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                        className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                       />
                     </label>
                   </div>
@@ -538,7 +538,7 @@ const MediaBuyingReports: React.FC = () => {
                     onChange={(event) =>
                       setSyncBreakdown(event.target.value as FacebookPerformanceBreakdown)
                     }
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-950"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
                   >
                     {syncBreakdownOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -565,11 +565,11 @@ const MediaBuyingReports: React.FC = () => {
           </section>
 
           <section className="flex flex-col gap-5">
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <h2 className="text-base font-black">الحقول والـ breakdowns</h2>
-                  <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                  <p className="mt-1 text-sm font-semibold text-muted-foreground dark:text-muted-foreground">
                     Async يمرر الاختيارات كما هي إلى Meta Insights. Sync preview يستخدم
                     endpoint التحليل الحالي.
                   </p>
@@ -577,7 +577,7 @@ const MediaBuyingReports: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setFields(defaultFields)}
-                  className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:border-blue-300 dark:border-slate-700 dark:text-slate-200"
+                  className="rounded-lg border border-border px-3 py-2 text-xs font-black text-foreground hover:border-blue-300 dark:border-border dark:text-muted-foreground"
                 >
                   الحقول الافتراضية
                 </button>
@@ -590,13 +590,13 @@ const MediaBuyingReports: React.FC = () => {
                     {visibleFields.map((field) => (
                       <label
                         key={field.value}
-                        className="flex min-h-10 items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-black dark:border-slate-700"
+                        className="flex min-h-10 items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-black dark:border-border"
                       >
                         <input
                           type="checkbox"
                           checked={fields.includes(field.value)}
                           onChange={() => toggleField(field.value)}
-                          className="h-4 w-4 rounded border-slate-300 text-blue-600"
+                          className="h-4 w-4 rounded border-border text-blue-600"
                         />
                         <span>{field.label}</span>
                       </label>
@@ -610,13 +610,13 @@ const MediaBuyingReports: React.FC = () => {
                     {breakdownOptions.map((breakdown) => (
                       <label
                         key={breakdown.value}
-                        className="flex min-h-10 items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-black dark:border-slate-700"
+                        className="flex min-h-10 items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-black dark:border-border"
                       >
                         <input
                           type="checkbox"
                           checked={breakdowns.includes(breakdown.value)}
                           onChange={() => toggleBreakdown(breakdown.value)}
-                          className="h-4 w-4 rounded border-slate-300 text-blue-600"
+                          className="h-4 w-4 rounded border-border text-blue-600"
                         />
                         <span>{breakdown.label}</span>
                       </label>
@@ -627,17 +627,17 @@ const MediaBuyingReports: React.FC = () => {
             </div>
 
             {error ? (
-              <div className="flex gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-bold text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200">
+              <div className="flex gap-2 rounded-xl border border-destructive bg-destructive/10 p-4 text-sm font-bold text-destructive dark:border-destructive/60 dark:bg-destructive/40 dark:text-destructive">
                 <AlertTriangle className="mt-0.5 h-5 w-5 flex-none" />
                 <span>{error}</span>
               </div>
             ) : null}
 
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <div className="flex flex-col gap-3 border-b border-slate-200 p-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+            <div className="rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+              <div className="flex flex-col gap-3 border-b border-border p-4 dark:border-border sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <h2 className="text-base font-black">حالة التشغيل</h2>
-                  <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                  <p className="mt-1 text-sm font-semibold text-muted-foreground dark:text-muted-foreground">
                     {selectedAdAccount?.name || "لا يوجد حساب محدد"}
                   </p>
                 </div>
@@ -647,7 +647,7 @@ const MediaBuyingReports: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => fetchStatus()}
-                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-black dark:border-slate-700"
+                        className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-black dark:border-border"
                       >
                         <RefreshCw className="h-4 w-4" />
                         تحديث الحالة
@@ -655,7 +655,7 @@ const MediaBuyingReports: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => fetchResults()}
-                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-black dark:border-slate-700"
+                        className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-black dark:border-border"
                       >
                         <Table2 className="h-4 w-4" />
                         جلب النتائج
@@ -666,7 +666,7 @@ const MediaBuyingReports: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => downloadCsv(resultRows, tableFields)}
-                      className="inline-flex items-center gap-2 rounded-lg bg-slate-950 px-3 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950"
+                      className="inline-flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-xs font-black text-white dark:bg-white dark:text-foreground"
                     >
                       <Download className="h-4 w-4" />
                       CSV
@@ -678,41 +678,41 @@ const MediaBuyingReports: React.FC = () => {
               <div className="p-4">
                 {asyncRun ? (
                   <div className="grid gap-3 md:grid-cols-4">
-                    <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                      <p className="text-xs font-black text-slate-500">Report run</p>
+                    <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                      <p className="text-xs font-black text-muted-foreground">Report run</p>
                       <p className="mt-1 break-all text-sm font-bold">
                         {asyncRun.reportRunId}
                       </p>
                     </div>
-                    <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                      <p className="text-xs font-black text-slate-500">Status</p>
+                    <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                      <p className="text-xs font-black text-muted-foreground">Status</p>
                       <p className="mt-1 inline-flex items-center gap-2 text-sm font-bold">
                         {activeStatus?.status === "Job Completed" ? (
-                          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                          <CheckCircle2 className="h-4 w-4 text-success" />
                         ) : polling ? (
                           <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
                         ) : (
-                          <Clock3 className="h-4 w-4 text-slate-500" />
+                          <Clock3 className="h-4 w-4 text-muted-foreground" />
                         )}
                         {statusText}
                       </p>
                     </div>
-                    <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                      <p className="text-xs font-black text-slate-500">Progress</p>
+                    <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                      <p className="text-xs font-black text-muted-foreground">Progress</p>
                       <p className="mt-1 text-sm font-bold">
                         {activeStatus?.percentComplete ?? 0}%
                       </p>
                     </div>
-                    <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                      <p className="text-xs font-black text-slate-500">Rows</p>
+                    <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                      <p className="text-xs font-black text-muted-foreground">Rows</p>
                       <p className="mt-1 text-sm font-bold">{resultRows.length}</p>
                     </div>
                   </div>
                 ) : (
                   <div className="flex min-h-[150px] items-center justify-center text-center">
                     <div>
-                      <CalendarDays className="mx-auto h-8 w-8 text-slate-400" />
-                      <p className="mt-3 text-sm font-bold text-slate-500">
+                      <CalendarDays className="mx-auto h-8 w-8 text-muted-foreground" />
+                      <p className="mt-3 text-sm font-bold text-muted-foreground">
                         شغّل تقريرًا لعرض الحالة والنتائج.
                       </p>
                     </div>
@@ -720,7 +720,7 @@ const MediaBuyingReports: React.FC = () => {
                 )}
 
                 {statusHasV25Error ? (
-                  <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm font-bold text-amber-800 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-200">
+                  <div className="mt-4 rounded-lg border border-warning bg-warning/10 p-3 text-sm font-bold text-warning dark:border-warning/60 dark:bg-warning/40 dark:text-warning">
                     <p>Meta async error fields</p>
                     <div className="mt-2 grid gap-2 sm:grid-cols-3">
                       <span>code: {activeStatus?.errorCode || "-"}</span>
@@ -733,17 +733,17 @@ const MediaBuyingReports: React.FC = () => {
             </div>
 
             {syncReport ? (
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <div className="border-b border-slate-200 p-4 dark:border-slate-800">
+              <div className="rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+                <div className="border-b border-border p-4 dark:border-border">
                   <h2 className="text-base font-black">Sync preview</h2>
-                  <p className="mt-1 text-sm font-semibold text-slate-500">
+                  <p className="mt-1 text-sm font-semibold text-muted-foreground">
                     {syncReport.rows.length} breakdown rows / source{" "}
                     {syncReport.meta?.source || "META"}
                   </p>
                 </div>
                 <div className="grid gap-3 p-4 md:grid-cols-4">
-                  <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                    <p className="text-xs font-black text-slate-500">Spend</p>
+                  <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                    <p className="text-xs font-black text-muted-foreground">Spend</p>
                     <p className="mt-1 text-sm font-bold">
                       {formatCurrency(
                         syncReport.totals.spend,
@@ -751,20 +751,20 @@ const MediaBuyingReports: React.FC = () => {
                       )}
                     </p>
                   </div>
-                  <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                    <p className="text-xs font-black text-slate-500">Purchases</p>
+                  <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                    <p className="text-xs font-black text-muted-foreground">Purchases</p>
                     <p className="mt-1 text-sm font-bold">
                       {formatNumber(syncReport.totals.purchases)}
                     </p>
                   </div>
-                  <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                    <p className="text-xs font-black text-slate-500">CTR</p>
+                  <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                    <p className="text-xs font-black text-muted-foreground">CTR</p>
                     <p className="mt-1 text-sm font-bold">
                       {(syncReport.totals.ctr || 0).toFixed(2)}%
                     </p>
                   </div>
-                  <div className="rounded-lg bg-slate-50 p-3 dark:bg-slate-950">
-                    <p className="text-xs font-black text-slate-500">ROAS</p>
+                  <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                    <p className="text-xs font-black text-muted-foreground">ROAS</p>
                     <p className="mt-1 text-sm font-bold">
                       {(syncReport.totals.roas || 0).toFixed(2)}x
                     </p>
@@ -774,16 +774,16 @@ const MediaBuyingReports: React.FC = () => {
             ) : null}
 
             {resultRows.length > 0 ? (
-              <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <div className="border-b border-slate-200 p-4 dark:border-slate-800">
+              <div className="overflow-hidden rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+                <div className="border-b border-border p-4 dark:border-border">
                   <h2 className="text-base font-black">نتائج async</h2>
-                  <p className="mt-1 text-sm font-semibold text-slate-500">
+                  <p className="mt-1 text-sm font-semibold text-muted-foreground">
                     أول {resultRows.length} صف من Meta.
                   </p>
                 </div>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-slate-200 text-left text-sm dark:divide-slate-800">
-                    <thead className="bg-slate-50 text-xs font-black uppercase text-slate-500 dark:bg-slate-950">
+                  <table className="min-w-full divide-y divide-border text-left text-sm dark:divide-border">
+                    <thead className="bg-slate-50 text-xs font-black uppercase text-muted-foreground dark:bg-muted">
                       <tr>
                         {tableFields.map((field) => (
                           <th key={field} className="px-3 py-3">
@@ -792,13 +792,13 @@ const MediaBuyingReports: React.FC = () => {
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    <tbody className="divide-y divide-border dark:divide-border">
                       {resultRows.slice(0, 50).map((row, index) => (
                         <tr key={`${asyncRun?.reportRunId}-${index}`}>
                           {tableFields.map((field) => (
                             <td
                               key={`${index}-${field}`}
-                              className="max-w-[260px] truncate px-3 py-3 font-semibold text-slate-700 dark:text-slate-200"
+                              className="max-w-[260px] truncate px-3 py-3 font-semibold text-foreground dark:text-muted-foreground"
                               title={getCellValue(row, field)}
                             >
                               {getCellValue(row, field)}

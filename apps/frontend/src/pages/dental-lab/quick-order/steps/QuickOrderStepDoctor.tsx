@@ -26,7 +26,7 @@ export function QuickOrderStepDoctor({
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+        <p className="text-sm text-foreground dark:text-muted-foreground font-medium">
           اختر الطبيب أو العيادة المرسلة لأمر الشغل:
         </p>
         {!showNewDoctor && (
@@ -49,9 +49,9 @@ export function QuickOrderStepDoctor({
       )}
 
       <div className="relative">
-        <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-gray-400" />
+        <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground" />
         <input
-          className={`${inputCls} pr-9`}
+          className={`${inputCls} pe-9`}
           placeholder="بحث باسم الطبيب، العيادة، أو رقم الهاتف..."
           value={doctorSearch}
           onChange={(e) => onDoctorSearchChange(e.target.value)}
@@ -76,17 +76,17 @@ export function QuickOrderStepDoctor({
               </div>
             </div>
             <div className="text-end">
-              <span className="text-[11px] text-gray-500 dark:text-gray-400">الرصيد المستحق: </span>
-              <span className="font-bold text-sm text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+              <span className="text-[11px] text-muted-foreground">الرصيد المستحق: </span>
+              <span className="font-bold text-sm text-warning dark:text-warning font-mono tabular-nums">
                 {fmtMoney(selectedDoctor.outstanding)} ج.م
               </span>
             </div>
           </div>
 
           {selectedDoctor.creditExceeded && (
-            <div className="mt-3 p-2.5 rounded-lg bg-red-100 dark:bg-red-900/40 border border-red-200 dark:border-red-800 text-xs text-red-800 dark:text-red-200 flex items-center justify-between gap-2">
+            <div className="mt-3 p-2.5 rounded-lg bg-destructive dark:bg-destructive/40 border border-destructive dark:border-destructive text-xs text-destructive dark:text-destructive flex items-center justify-between gap-2">
               <div className="flex items-center gap-1.5">
-                <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
+                <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
                 <span>
                   تحذير: الطبيب تجاوز حد الائتمان المحدد ({fmtMoney(selectedDoctor.creditLimit)} ج.م)
                 </span>
@@ -96,7 +96,7 @@ export function QuickOrderStepDoctor({
                   type="checkbox"
                   checked={bypassCreditCheck}
                   onChange={(e) => onBypassCreditCheckChange(e.target.checked)}
-                  className="rounded text-red-600 focus:ring-red-500"
+                  className="rounded text-destructive focus:ring-destructive"
                 />
                 موافقة على الاستثناء
               </label>
@@ -106,11 +106,11 @@ export function QuickOrderStepDoctor({
           {/* تحديد الطبيب المعالج داخل العيادة / المركز */}
           <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-800/60">
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-bold text-gray-800 dark:text-gray-200 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
                 <Stethoscope className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>الطبيب المعالج داخل العيادة / المركز:</span>
               </label>
-              <span className="text-[10px] text-gray-500">يظهر في كارتة الحالة وتفاصيل الفاتورة</span>
+              <span className="text-[10px] text-muted-foreground">يظهر في كارتة الحالة وتفاصيل الفاتورة</span>
             </div>
 
             {Array.isArray(selectedDoctor.doctors) &&
@@ -165,10 +165,10 @@ export function QuickOrderStepDoctor({
 
       {doctorsLoading ? (
         <div className="flex justify-center py-8">
-          <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+          <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
         </div>
       ) : filteredDoctors.length === 0 ? (
-        <div className="text-center py-6 text-sm text-gray-400">لا يوجد أطباء مطابقين للبحث</div>
+        <div className="text-center py-6 text-sm text-muted-foreground">لا يوجد أطباء مطابقين للبحث</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[40vh] overflow-y-auto">
           {filteredDoctors.map((doc) => (

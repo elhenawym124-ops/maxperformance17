@@ -61,7 +61,7 @@ export function WorkTypeRevenueView() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-end gap-3">
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.from")}
           </label>
           <DateInput
@@ -70,7 +70,7 @@ export function WorkTypeRevenueView() {
           />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("dentalLab.reports.to")}
           </label>
           <DateInput
@@ -80,7 +80,7 @@ export function WorkTypeRevenueView() {
         </div>
         <button
           onClick={load}
-          className="flex items-center gap-1.5 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="flex items-center gap-1.5 px-3 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50"
         >
           <RefreshCw className="w-4 h-4" />
           {t("dentalLab.common.refresh")}
@@ -93,8 +93,8 @@ export function WorkTypeRevenueView() {
         <EmptyState message={t("dentalLab.common.noData")} />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-          <div className="lg:col-span-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 p-4">
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+          <div className="lg:col-span-2 rounded-xl border border-border dark:border-border bg-card/50 p-4">
+            <h4 className="text-sm font-semibold text-foreground mb-3">
               {t("dentalLab.reports.revenueByTypeChart")}
             </h4>
             <ResponsiveContainer
@@ -158,7 +158,7 @@ export function WorkTypeRevenueView() {
                   {rows.map((r) => (
                     <tr
                       key={r.workType ?? "—"}
-                      className="border-b dark:border-gray-700 last:border-b-0"
+                      className="border-b dark:border-border last:border-b-0"
                     >
                       <td className={`${tdCls} font-medium`}>{r.workType || "—"}</td>
                       <td className={`${tdCls} font-mono tabular-nums`}>
@@ -168,12 +168,12 @@ export function WorkTypeRevenueView() {
                         {fmtMoney(r.total)}
                       </td>
                       <td
-                        className={`${tdCls} text-emerald-600 dark:text-emerald-400 font-mono tabular-nums`}
+                        className={`${tdCls} text-success dark:text-success font-mono tabular-nums`}
                       >
                         {fmtMoney(r.paid)}
                       </td>
                       <td
-                        className={`${tdCls} text-rose-600 dark:text-rose-400 font-mono tabular-nums`}
+                        className={`${tdCls} text-destructive dark:text-destructive font-mono tabular-nums`}
                       >
                         {fmtMoney(r.remaining)}
                       </td>

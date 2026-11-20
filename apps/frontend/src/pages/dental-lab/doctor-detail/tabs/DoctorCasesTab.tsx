@@ -47,11 +47,11 @@ export function DoctorCasesTab({
   return (
     <div className="space-y-4">
       {/* Search and Filter Chips */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-xl border dark:border-gray-700">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card p-3 sm:p-4 rounded-xl border dark:border-border">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-gray-400" />
+          <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 right-3 text-muted-foreground" />
           <input
-            className={`${MODAL_INPUT_CLS} pr-9 text-sm`}
+            className={`${MODAL_INPUT_CLS} pe-9 text-sm`}
             placeholder="ابحث باسم المريض، رقم الحالة، نوع الشغل..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -72,7 +72,7 @@ export function DoctorCasesTab({
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all min-h-[36px] ${
                 statusFilter === f.id
                   ? "bg-blue-600 text-white"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200"
+                  : "bg-muted text-muted-foreground hover:bg-muted"
               }`}
             >
               {f.label}
@@ -83,11 +83,11 @@ export function DoctorCasesTab({
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
         </div>
       ) : filteredCases.length === 0 ? (
-        <div className="p-10 text-center bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-          <Layers className="w-10 h-10 mx-auto mb-3 text-gray-400" />
+        <div className="p-10 text-center bg-card rounded-xl border dark:border-border">
+          <Layers className="w-10 h-10 mx-auto mb-3 text-muted-foreground" />
           <p className="text-gray-500 font-medium">لا توجد حالات مسجلة لهذا الطبيب بالمعايير الحالية</p>
           <button
             onClick={onOpenQuickOrder}
@@ -97,11 +97,11 @@ export function DoctorCasesTab({
           </button>
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden shadow-sm">
+        <div className="bg-card rounded-xl border dark:border-border overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border-b dark:border-gray-700 text-right">
+                <tr className="bg-gray-50 dark:bg-muted text-muted-foreground border-b dark:border-border text-right">
                   <th className="py-3 px-3.5">رقم الحالة</th>
                   <th className="py-3 px-3.5">المريض</th>
                   <th className="py-3 px-3.5">نوع الشغل</th>
@@ -113,15 +113,15 @@ export function DoctorCasesTab({
                   <th className="py-3 px-3.5 text-center">الإجراء</th>
                 </tr>
               </thead>
-              <tbody className="divide-y dark:divide-gray-700">
+              <tbody className="divide-y dark:divide-border">
                 {filteredCases.map((c) => {
                   const st = CASE_STATUS_MAP[c.status as keyof typeof CASE_STATUS_MAP] || {
                     label: c.status,
-                    color: "bg-gray-100 text-gray-700",
+                    color: "bg-gray-100 text-foreground",
                   };
                   const pr = PRIORITY_CONFIG[c.priority as keyof typeof PRIORITY_CONFIG] || {
                     label: c.priority,
-                    color: "bg-gray-100 text-gray-700",
+                    color: "bg-gray-100 text-foreground",
                   };
                   const isOverdue =
                     c.dueDate &&
@@ -132,7 +132,7 @@ export function DoctorCasesTab({
                   return (
                     <tr
                       key={c.id}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                      className="hover:bg-muted/50/50 transition-colors"
                     >
                       <td className="py-3 px-3.5 font-bold font-mono">
                         <Link
@@ -143,17 +143,17 @@ export function DoctorCasesTab({
                         </Link>
                       </td>
                       <td className="py-3 px-3.5">
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{c.patientName}</p>
+                        <p className="font-medium text-foreground">{c.patientName}</p>
                         {c.patientPhone && (
-                          <p className="text-xs text-gray-400 font-mono" dir="ltr">
+                          <p className="text-xs text-muted-foreground font-mono" dir="ltr">
                             {c.patientPhone}
                           </p>
                         )}
                       </td>
                       <td className="py-3 px-3.5 font-medium">{c.workTypeName || "—"}</td>
-                      <td className="py-3 px-3.5 text-xs text-gray-500 font-mono">
+                      <td className="py-3 px-3.5 text-xs text-muted-foreground font-mono">
                         {c.shade ? <span className="font-semibold">{c.shade}</span> : "—"}
-                        {c.teeth && <span className="mr-1 text-gray-400">({c.teeth})</span>}
+                        {c.teeth && <span className="me-1 text-muted-foreground">({c.teeth})</span>}
                       </td>
                       <td className="py-3 px-3.5">
                         <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${st.color}`}>
@@ -166,10 +166,10 @@ export function DoctorCasesTab({
                         </span>
                       </td>
                       <td className="py-3 px-3.5 text-xs font-mono tabular-nums">
-                        <span className={isOverdue ? "text-red-600 font-bold" : "text-gray-600 dark:text-gray-300"}>
+                        <span className={isOverdue ? "text-red-600 font-bold" : "text-muted-foreground"}>
                           {fmtDate(c.dueDate)}
                         </span>
-                        {isOverdue && <span className="mr-1 text-[10px] text-red-500 block font-sans">متأخر</span>}
+                        {isOverdue && <span className="me-1 text-[10px] text-destructive block font-sans">متأخر</span>}
                       </td>
                       <td className="py-3 px-3.5 font-semibold font-mono tabular-nums">
                         {fmtMoney(c.priceSnapshot ?? 0)} ج.م

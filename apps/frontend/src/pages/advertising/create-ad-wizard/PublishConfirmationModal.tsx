@@ -179,7 +179,7 @@ export const PublishConfirmationModal: React.FC<
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-muted p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="publish-confirm-title"
@@ -188,22 +188,22 @@ export const PublishConfirmationModal: React.FC<
       <div
         ref={publishDialogRef}
         tabIndex={-1}
-        className="max-h-[90vh] w-full max-w-3xl overflow-y-auto overscroll-contain rounded-3xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-slate-800"
+        className="max-h-[90vh] w-full max-w-3xl overflow-y-auto overscroll-contain rounded-xl bg-white dark:bg-muted shadow-2xl border border-border dark:border-border"
       >
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 dark:border-slate-800 px-6 py-5">
+        <div className="flex items-start justify-between gap-4 border-b border-border dark:border-border px-6 py-5">
           <div>
             <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
               {isEn ? "Pre-Publish Meta Review" : "مراجعة قبل الإرسال إلى Meta"}
             </p>
             <h3
               id="publish-confirm-title"
-              className="mt-1 text-2xl font-bold text-slate-950 dark:text-white"
+              className="mt-1 text-2xl font-bold text-foreground dark:text-white"
             >
               {isEn
                 ? "Confirm Real Ad Publishing"
                 : "تأكيد إنشاء الإعلان الحقيقي"}
             </h3>
-            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            <p className="mt-2 text-sm leading-6 text-foreground dark:text-muted-foreground">
               {isEn
                 ? "This step will create and send the Campaign, Ad Set, and Ad directly to Meta Ads Manager. Review the account, budget, and status before confirming."
                 : "هذه الخطوة سترسل Campaign وAd Set وAd إلى Ads Manager. راجع الحساب والميزانية والحالة قبل التأكيد."}
@@ -216,7 +216,7 @@ export const PublishConfirmationModal: React.FC<
             aria-label={
               isEn ? "Close publish confirmation" : "إغلاق شاشة تأكيد النشر"
             }
-            className="rounded-full p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -227,12 +227,12 @@ export const PublishConfirmationModal: React.FC<
             {confirmationRows.map(([label, value]) => (
               <div
                 key={label}
-                className="rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 px-4 py-3"
+                className="rounded-xl border border-border bg-muted dark:border-border dark:bg-muted px-4 py-3"
               >
-                <div className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground dark:text-muted-foreground">
                   {label}
                 </div>
-                <div className="mt-1 break-words text-sm font-semibold text-slate-950 dark:text-white">
+                <div className="mt-1 break-words text-sm font-semibold text-foreground dark:text-white">
                   {value}
                 </div>
               </div>
@@ -240,13 +240,13 @@ export const PublishConfirmationModal: React.FC<
           </div>
 
           {formData.status === "ACTIVE" ? (
-            <div className="rounded-2xl border border-red-200 bg-red-50 dark:border-red-900/60 dark:bg-red-950/40 px-4 py-3 text-sm leading-6 text-red-800 dark:text-red-200">
+            <div className="rounded-xl border border-destructive bg-destructive/10 dark:border-destructive/60 dark:bg-destructive/40 px-4 py-3 text-sm leading-6 text-destructive dark:text-destructive">
               {isEn
                 ? "Ad status is set to ACTIVE, which means spending may start immediately upon Meta approval. For a new test, PAUSED is recommended so you can review in Ads Manager first."
                 : "الإعلان مضبوط على ACTIVE، يعني ممكن يبدأ الصرف بعد موافقة Meta. الأفضل لأول تجربة إنتاج يكون PAUSED ثم يتم تفعيله من Ads Manager بعد المراجعة."}
             </div>
           ) : (
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 dark:border-emerald-900/60 dark:bg-emerald-950/40 px-4 py-3 text-sm leading-6 text-emerald-800 dark:text-emerald-200">
+            <div className="rounded-xl border border-success bg-success/10 dark:border-success/60 dark:bg-success/40 px-4 py-3 text-sm leading-6 text-success dark:text-success">
               {isEn
                 ? "Current status is PAUSED (recommended safe mode): The ad will be created without spending immediately."
                 : "الوضع الحالي PAUSED، وده الاختيار الآمن: سيتم إنشاء الإعلان بدون تشغيل الصرف مباشرة."}
@@ -254,7 +254,7 @@ export const PublishConfirmationModal: React.FC<
           )}
 
           {selectedRemoteAdAccount?.billingHealth?.isAccountUsable === false && (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 dark:border-amber-900/60 dark:bg-amber-950/40 px-4 py-3 text-sm leading-6 text-amber-800 dark:text-amber-200">
+            <div className="rounded-xl border border-warning bg-warning/10 dark:border-warning/60 dark:bg-warning/40 px-4 py-3 text-sm leading-6 text-warning dark:text-warning">
               {isEn
                 ? "Meta indicates that the account might not be fully usable: "
                 : "Meta يشير أن الحساب قد لا يكون جاهزا بالكامل: "}
@@ -263,7 +263,7 @@ export const PublishConfirmationModal: React.FC<
             </div>
           )}
 
-          <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-800/80 px-4 py-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
+          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-white dark:border-border dark:bg-muted px-4 py-3 text-sm leading-6 text-foreground dark:text-muted-foreground">
             <input
               type="checkbox"
               name="confirmAdAccount"
@@ -271,13 +271,13 @@ export const PublishConfirmationModal: React.FC<
               onChange={(event) =>
                 setPublishAccountConfirmed(event.target.checked)
               }
-              className="mt-1 h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus-visible:ring-blue-500"
+              className="mt-1 h-4 w-4 rounded border-border dark:border-border text-blue-600 focus-visible:ring-blue-500"
             />
             <span>
               {isEn
                 ? "I confirm that the selected ad account is the intended account for this ad: "
                 : "أؤكد أن الحساب المختار هو الحساب المقصود لإنشاء الإعلان: "}
-              <strong className="mx-1 text-slate-950 dark:text-white">
+              <strong className="mx-1 text-foreground dark:text-white">
                 {selectedAdAccountName}
               </strong>
               <span translate="no">act_{selectedAdAccountId}</span>.
@@ -285,7 +285,7 @@ export const PublishConfirmationModal: React.FC<
           </label>
 
           {formData.status === "ACTIVE" && (
-            <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-red-200 bg-red-50 dark:border-red-900/60 dark:bg-red-950/40 px-4 py-3 text-sm leading-6 text-red-800 dark:text-red-200">
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-destructive bg-destructive/10 dark:border-destructive/60 dark:bg-destructive/40 px-4 py-3 text-sm leading-6 text-destructive dark:text-destructive">
               <input
                 type="checkbox"
                 name="confirmActivePublish"
@@ -293,7 +293,7 @@ export const PublishConfirmationModal: React.FC<
                 onChange={(event) =>
                   setActivePublishConfirmed(event.target.checked)
                 }
-                className="mt-1 h-4 w-4 rounded border-red-300 dark:border-red-700 text-red-600 focus-visible:ring-red-500"
+                className="mt-1 h-4 w-4 rounded border-destructive dark:border-destructive text-destructive focus-visible:ring-red-500"
               />
               <span>
                 {isEn
@@ -304,12 +304,12 @@ export const PublishConfirmationModal: React.FC<
           )}
         </div>
 
-        <div className="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/90 px-6 py-5 sm:flex-row sm:justify-end">
+        <div className="flex flex-col-reverse gap-3 border-t border-border bg-muted dark:border-border dark:bg-muted px-6 py-5 sm:flex-row sm:justify-end">
           <button
             type="button"
             onClick={closePublishConfirmation}
             disabled={loading}
-            className="rounded-xl border border-slate-300 bg-white dark:border-slate-700 dark:bg-slate-800 px-5 py-3 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl border border-border bg-white dark:border-border dark:bg-muted px-5 py-3 text-sm font-semibold text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isEn ? "Back to Review" : "رجوع للمراجعة"}
           </button>
@@ -317,7 +317,7 @@ export const PublishConfirmationModal: React.FC<
             type="button"
             onClick={() => void handleSubmit()}
             disabled={publishConfirmDisabled}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-success px-6 py-3 text-sm font-semibold text-white hover:bg-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? (
               <>

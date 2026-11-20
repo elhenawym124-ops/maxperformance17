@@ -17,12 +17,12 @@ export const WorkTypeModalFooter: React.FC<WorkTypeModalFooterProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex justify-end gap-3 p-4 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 shrink-0">
+    <div className="flex justify-end gap-3 p-4 border-t dark:border-border bg-muted dark:bg-muted shrink-0">
       <button
         type="button"
         onClick={onClose}
         disabled={saving}
-        className="px-4 py-2 text-gray-700 dark:text-gray-300 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 text-sm"
+        className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted disabled:opacity-50 text-sm"
       >
         {t("dentalLab.common.cancel")}
       </button>

@@ -35,14 +35,14 @@ export const TechnicianTable: React.FC<TechnicianTableProps> = ({
   if (loading) {
     return (
       <div className="flex justify-center py-16">
-        <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   if (rows.length === 0) {
     return (
-      <div className="p-12 text-center text-gray-400 dark:text-gray-500">
+      <div className="p-12 text-center text-muted-foreground/80">
         <Users className="w-10 h-10 mx-auto mb-3" />
         {t("dentalLab.common.noResults")}
       </div>

@@ -122,7 +122,7 @@ export const CreativeStudioControlPanel: React.FC<CreativeStudioControlPanelProp
   };
 
   return (
-    <div className="h-full flex flex-col bg-slate-50/50 dark:bg-slate-950/40 border-l border-slate-200/80 dark:border-slate-800 overflow-hidden select-none">
+    <div className="h-full flex flex-col bg-muted dark:bg-muted border-l border-border dark:border-border overflow-hidden select-none">
       {/* Top Action Bar */}
       <CreativeStudioTopBar
         selectedProduct={selectedProduct}
@@ -176,8 +176,8 @@ export const CreativeStudioControlPanel: React.FC<CreativeStudioControlPanelProp
                 isGenerating={isGenerating}
               />
             ) : (
-              <div className="p-8 text-center text-xs text-slate-400">
-                <Sparkles className="w-6 h-6 mx-auto mb-2 text-indigo-400" />
+              <div className="p-8 text-center text-xs text-muted-foreground">
+                <Sparkles className="w-6 h-6 mx-auto mb-2 text-primary" />
                 اختر منتجاً من الشريط العلوي ليقوم المخرج الإبداعي باقتراح زوايا تسويقية مخصصة له.
               </div>
             )}

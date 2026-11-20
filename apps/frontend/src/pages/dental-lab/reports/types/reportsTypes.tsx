@@ -29,13 +29,13 @@ export const monthStartISO = () => {
 };
 
 export const inputCls =
-  "w-full border rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100";
+  "w-full border rounded-lg px-3 py-2 text-sm bg-card dark:border-border dark:text-muted-foreground";
 export const dateCls =
-  "border rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 max-w-[160px] font-mono";
+  "border rounded-lg px-3 py-2 text-sm bg-card dark:border-border dark:text-muted-foreground max-w-[160px] font-mono";
 export const tableWrap =
-  "overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-xl";
+  "overflow-x-auto border border-border dark:border-border rounded-xl";
 export const thCls =
-  "text-right py-2.5 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/60";
+  "text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground bg-muted dark:bg-muted";
 export const tdCls = "py-2.5 px-3 text-sm";
 export const chartText = { fontSize: 11, fill: "#6b7280" };
 
@@ -45,7 +45,7 @@ export function Skeleton({ rows = 4 }: { rows?: number }) {
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="h-10 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse"
+          className="h-10 rounded-lg bg-muted dark:bg-muted animate-pulse"
         />
       ))}
     </div>
@@ -55,10 +55,10 @@ export function Skeleton({ rows = 4 }: { rows?: number }) {
 export function EmptyState({ message }: { message: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
-      <div className="w-12 h-12 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-3">
-        <FileText className="w-5 h-5 text-gray-400" />
+      <div className="w-12 h-12 rounded-xl bg-muted dark:bg-muted flex items-center justify-center mb-3">
+        <FileText className="w-5 h-5 text-muted-foreground" />
       </div>
-      <p className="text-sm text-gray-500 dark:text-gray-400">{message}</p>
+      <p className="text-sm text-muted-foreground">{message}</p>
     </div>
   );
 }
