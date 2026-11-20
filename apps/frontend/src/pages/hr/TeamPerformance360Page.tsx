@@ -15,8 +15,9 @@ import { PolarisTeamPerformance360View } from "./PolarisTeamPerformance360View";
 export const TeamPerformance360Page: React.FC = () => {
   const [searchParams] = useSearchParams();
   const isPolaris =
-    searchParams.get("layout") === "polaris" ||
-    sessionStorage.getItem("maxp_session_layout") === "polaris";
+    searchParams.get("layout") !== "legacy" &&
+    (typeof window === "undefined" ||
+      sessionStorage.getItem("maxp_session_layout") !== "legacy");
 
   const {
     loading,

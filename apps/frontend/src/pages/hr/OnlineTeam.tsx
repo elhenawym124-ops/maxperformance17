@@ -61,7 +61,7 @@ export const OnlineTeam: React.FC = () => {
     typeof window !== "undefined"
       ? sessionStorage.getItem("maxp_session_layout")
       : null;
-  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+  const isPolaris = urlLayout !== "legacy" && sessionLayout !== "legacy";
 
   const { socket, isConnected } = useSocket();
 

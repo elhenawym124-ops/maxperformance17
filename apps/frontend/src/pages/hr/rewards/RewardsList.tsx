@@ -15,8 +15,9 @@ const RewardsList: React.FC = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const isPolaris =
-    searchParams.get("layout") === "polaris" ||
-    sessionStorage.getItem("maxp_session_layout") === "polaris";
+    searchParams.get("layout") !== "legacy" &&
+    (typeof window === "undefined" ||
+      sessionStorage.getItem("maxp_session_layout") !== "legacy");
 
   const {
     navigate,

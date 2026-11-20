@@ -42,8 +42,9 @@ const SalaryHistory: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isPolaris =
-    searchParams.get("layout") === "polaris" ||
-    sessionStorage.getItem("maxp_session_layout") === "polaris";
+    searchParams.get("layout") !== "legacy" &&
+    (typeof window === "undefined" ||
+      sessionStorage.getItem("maxp_session_layout") !== "legacy");
   const [history, setHistory] = useState<SalaryHistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState<string>("ALL");
