@@ -105,7 +105,7 @@ export const PolarisEmployeesView: React.FC<PolarisEmployeesViewProps> = ({
         title={t("employees.pageTitle") || "الموظفون"}
         badges={
           <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-muted text-muted-foreground tabular-nums">
-            {pagination.total} {t("employees.employeeCountLabel") || "موظف"}
+            {pagination.total} {t("employees.employeeCountLabel", "موظف")}
           </span>
         }
         actions={
@@ -265,25 +265,25 @@ export const PolarisEmployeesView: React.FC<PolarisEmployeesViewProps> = ({
               <TableHeader className="bg-muted/30 border-b border-border/70">
                 <TableRow className="hover:bg-transparent">
                   <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.employee")}
+                    {t("employees.employee", "الموظف")}
                   </TableHead>
                   <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.department")}
+                    {t("employees.department", "القسم")}
                   </TableHead>
                   <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.position")}
+                    {t("employees.position", "المسمى الوظيفي")}
                   </TableHead>
                   <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.contact")}
+                    {t("employees.contact", "بيانات الاتصال")}
                   </TableHead>
                   <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.contract")}
+                    {t("employees.contract", "نوع العقد")}
                   </TableHead>
                   <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.status")}
+                    {t("employees.status", "الحالة")}
                   </TableHead>
                   <TableHead className="text-center text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.actions")}
+                    {t("employees.actions", "الإجراءات")}
                   </TableHead>
                 </TableRow>
               </TableHeader>
