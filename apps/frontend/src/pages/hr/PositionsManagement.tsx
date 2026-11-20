@@ -1,4 +1,6 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
+import { PolarisPositionsView } from "./PolarisPositionsView";
 import {
   usePositionsController,
   PositionsHeader,
@@ -9,6 +11,14 @@ import {
 } from "./positions-management/index";
 
 const PositionsManagement: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     positions,
     departments,
@@ -42,38 +52,63 @@ const PositionsManagement: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 w-full pb-8" dir="rtl">
-      {/* Header */}
-      <PositionsHeader
-        onBack={handleNavigateBack}
-        onNewPosition={() => {
-          form.reset({
-            title: "",
-            description: "",
-            code: "",
-            level: 1,
-            departmentId: "",
-            minSalary: undefined,
-            maxSalary: undefined,
-          });
-          setIsCreateDialogOpen(true);
-        }}
-      />
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisPositionsView
+          positions={positions}
+          filteredPositions={filteredPositions}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          onEdit={handleEdit}
+          onDelete={openDeleteDialog}
+          onNewPosition={() => {
+            form.reset({
+              title: "",
+              description: "",
+              code: "",
+              level: 1,
+              departmentId: "",
+              minSalary: undefined,
+              maxSalary: undefined,
+            });
+            setIsCreateDialogOpen(true);
+          }}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header */}
+          <PositionsHeader
+            onBack={handleNavigateBack}
+            onNewPosition={() => {
+              form.reset({
+                title: "",
+                description: "",
+                code: "",
+                level: 1,
+                departmentId: "",
+                minSalary: undefined,
+                maxSalary: undefined,
+              });
+              setIsCreateDialogOpen(true);
+            }}
+          />
 
-      {/* Search */}
-      <PositionsSearchBar
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-      />
+          {/* Search */}
+          <PositionsSearchBar
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
 
-      {/* Positions Grid */}
-      <PositionsGrid
-        positions={filteredPositions}
-        searchTerm={searchTerm}
-        onEdit={handleEdit}
-        onDelete={openDeleteDialog}
-        onNewPosition={() => setIsCreateDialogOpen(true)}
-      />
+          {/* Positions Grid */}
+          <PositionsGrid
+            positions={filteredPositions}
+            searchTerm={searchTerm}
+            onEdit={handleEdit}
+            onDelete={openDeleteDialog}
+            onNewPosition={() => setIsCreateDialogOpen(true)}
+          />
+        </div>
+      )}
 
       {/* Create Dialog */}
       <PositionFormDialog

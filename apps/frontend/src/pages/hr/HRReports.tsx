@@ -1,5 +1,7 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Tabs } from "@/components/ui/tabs";
+import { PolarisHRReportsView } from "./PolarisHRReportsView";
 import {
   useHRReportsController,
   HRReportsHeader,
@@ -19,6 +21,14 @@ import {
 } from "./hr-reports/index";
 
 export const HRReports: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     loading,
     activeTab,
@@ -36,6 +46,28 @@ export const HRReports: React.FC = () => {
     fetchReport,
     handleExport,
   } = useHRReportsController();
+
+  if (isPolaris) {
+    return (
+      <PolarisHRReportsView
+        loading={loading}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
+        selectedYear={selectedYear}
+        setSelectedYear={setSelectedYear}
+        attendanceReport={attendanceReport}
+        leaveReport={leaveReport}
+        payrollReport={payrollReport}
+        warningReport={warningReport}
+        trainingReport={trainingReport}
+        performanceReport={performanceReport}
+        fetchReport={fetchReport}
+        handleExport={handleExport}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6 w-full pb-8" dir="rtl">

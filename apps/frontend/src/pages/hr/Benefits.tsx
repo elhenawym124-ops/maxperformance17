@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { PolarisBenefitsView } from "./PolarisBenefitsView";
 import {
   useBenefitsController,
   BenefitsHeader,
@@ -11,6 +12,14 @@ import {
 
 export const Benefits: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     benefits,
     loading,
@@ -56,30 +65,50 @@ export const Benefits: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 w-full pb-8" dir="rtl">
-      {/* Header */}
-      <BenefitsHeader onAddNew={openCreateDialog} />
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisBenefitsView
+          benefits={benefits}
+          loading={loading}
+          pagination={pagination}
+          page={page}
+          setPage={setPage}
+          search={search}
+          setSearch={setSearch}
+          typeFilter={typeFilter}
+          setTypeFilter={setTypeFilter}
+          onSelectBenefit={(id) => navigate(`/hr/benefits/${id}`)}
+          onEditBenefit={openEditDialog}
+          onDeleteBenefit={handleDelete}
+          onAddNew={openCreateDialog}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header */}
+          <BenefitsHeader onAddNew={openCreateDialog} />
 
-      {/* Filters */}
-      <BenefitsFilters
-        search={search}
-        setSearch={setSearch}
-        typeFilter={typeFilter}
-        setTypeFilter={setTypeFilter}
-      />
+          {/* Filters */}
+          <BenefitsFilters
+            search={search}
+            setSearch={setSearch}
+            typeFilter={typeFilter}
+            setTypeFilter={setTypeFilter}
+          />
 
-      {/* Benefits Grid */}
-      <BenefitsGrid
-        benefits={benefits}
-        loading={loading}
-        pagination={pagination}
-        page={page}
-        setPage={setPage}
-        onSelectBenefit={(id) => navigate(`/hr/benefits/${id}`)}
-        onEditBenefit={openEditDialog}
-        onDeleteBenefit={handleDelete}
-        onAddNew={openCreateDialog}
-      />
+          {/* Benefits Grid */}
+          <BenefitsGrid
+            benefits={benefits}
+            loading={loading}
+            pagination={pagination}
+            page={page}
+            setPage={setPage}
+            onSelectBenefit={(id) => navigate(`/hr/benefits/${id}`)}
+            onEditBenefit={openEditDialog}
+            onDeleteBenefit={handleDelete}
+            onAddNew={openCreateDialog}
+          />
+        </div>
+      )}
 
       {/* Create / Edit Dialog */}
       <BenefitCreateDialog
