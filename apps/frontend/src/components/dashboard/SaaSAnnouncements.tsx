@@ -37,9 +37,9 @@ const SaaSAnnouncements: React.FC<SaaSAnnouncementsProps> = ({
         return {
           icon: Sparkles,
           label: "جديد",
-          badgeClass: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
-          iconColor: "text-purple-600 dark:text-purple-400",
-          cardBorder: "border-purple-500/20 hover:border-purple-500/40",
+          badgeClass: "bg-primary/10 text-primary border-primary/20",
+          iconColor: "text-primary",
+          cardBorder: "border-primary/20 hover:border-primary/40",
         };
       case "alert":
         return {

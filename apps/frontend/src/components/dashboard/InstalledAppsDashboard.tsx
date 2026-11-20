@@ -69,16 +69,8 @@ const APP_ROUTE_MAP: Record<string, string> = {
   'order-preparation-hold': '/orders/preparation?pageSize=96&activeStage=ON_HOLD_PREP',
 };
 
-const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  COMMUNICATION: { bg: 'bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-500/20' },
-  ECOMMERCE: { bg: 'bg-primary/10', text: 'text-primary', border: 'border-primary/20' },
-  MARKETING: { bg: 'bg-purple-500/10', text: 'text-purple-600 dark:text-purple-400', border: 'border-purple-500/20' },
-  ORDER_OPS: { bg: 'bg-amber-500/10', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-500/20' },
-  MEDICAL: { bg: 'bg-rose-500/10', text: 'text-rose-600 dark:text-rose-400', border: 'border-rose-500/20' },
-  AI: { bg: 'bg-primary/10', text: 'text-primary', border: 'border-primary/20' },
-  ANALYTICS: { bg: 'bg-cyan-500/10', text: 'text-cyan-600 dark:text-cyan-400', border: 'border-cyan-500/20' },
-  HR: { bg: 'bg-pink-500/10', text: 'text-pink-600 dark:text-pink-400', border: 'border-pink-500/20' },
-};
+/* Category badges are neutral Polaris badges - the category filter chips above carry selection state */
+const CATEGORY_BADGE_CLASSES = 'bg-muted/50 text-muted-foreground border-border/60';
 
 export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
   installedApps,
@@ -271,11 +263,6 @@ export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
           {filteredApps.map((app) => {
             const isTrial = app.status?.toUpperCase() === 'TRIAL';
             const route = APP_ROUTE_MAP[app.slug] || `/apps/${app.slug}`;
-            const catColor = CATEGORY_COLORS[app.category?.toUpperCase() || ''] || {
-              bg: 'bg-muted/50',
-              text: 'text-muted-foreground',
-              border: 'border-border/60',
-            };
 
             return (
               <div
@@ -294,7 +281,7 @@ export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
                         </h4>
                         <div className="flex items-center gap-1.5 mt-0.5">
                           <span
-                            className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${catColor.bg} ${catColor.text} ${catColor.border}`}
+                            className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${CATEGORY_BADGE_CLASSES}`}
                           >
                             {app.category || 'أداة'}
                           </span>

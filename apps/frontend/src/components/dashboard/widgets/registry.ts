@@ -73,7 +73,7 @@ export const widgetRegistry: WidgetDefinition[] = [
     id: "whatsapp",
     titleKey: "companyDashboard.widgets.whatsapp.title",
     icon: ChatBubbleLeftRightIcon,
-    color: "#25D366",
+    color: "var(--color-success)",
     priority: 2,
     colSpan: 2,
     href: "/whatsapp",

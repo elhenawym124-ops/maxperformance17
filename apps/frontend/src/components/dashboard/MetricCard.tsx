@@ -40,10 +40,10 @@ type MetricCardProps = MetricWithSparkline | MetricWithTrend | MetricWithBar | M
 const accentColors: Record<string, { bg: string; text: string; sparkline: string }> = {
   emerald: { bg: "from-emerald-500 to-emerald-400", text: "text-emerald-600 dark:text-emerald-400", sparkline: "var(--color-success)" },
   blue: { bg: "from-primary to-primary/80", text: "text-primary", sparkline: "var(--color-primary)" },
-  violet: { bg: "from-purple-500 to-purple-400", text: "text-purple-600 dark:text-purple-400", sparkline: "var(--color-primary)" },
+  violet: { bg: "from-primary to-primary/80", text: "text-primary", sparkline: "var(--color-primary)" },
   amber: { bg: "from-amber-500 to-amber-400", text: "text-amber-600 dark:text-amber-400", sparkline: "var(--color-warning)" },
-  cyan: { bg: "from-cyan-500 to-cyan-400", text: "text-cyan-600 dark:text-cyan-400", sparkline: "var(--color-primary)" },
-  rose: { bg: "from-rose-500 to-rose-400", text: "text-rose-600 dark:text-rose-400", sparkline: "var(--color-destructive)" },
+  cyan: { bg: "from-primary to-primary/80", text: "text-primary", sparkline: "var(--color-primary)" },
+  rose: { bg: "bg-destructive", text: "text-destructive", sparkline: "var(--color-destructive)" },
 };
 
 export function MetricCard(props: MetricCardProps) {
@@ -148,7 +148,7 @@ export function MetricCard(props: MetricCardProps) {
                 "inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-semibold border",
                 p.trend.positive
                   ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                  : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+                  : "bg-destructive/10 text-destructive border-destructive/20",
               )}
               dir={isRtl ? "rtl" : "ltr"}
             >
@@ -202,7 +202,7 @@ export function MetricCard(props: MetricCardProps) {
                 "inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-semibold border",
                 p.trend.positive
                   ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                  : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+                  : "bg-destructive/10 text-destructive border-destructive/20",
               )}
               dir={isRtl ? "rtl" : "ltr"}
             >

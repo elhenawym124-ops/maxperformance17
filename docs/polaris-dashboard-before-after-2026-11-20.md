@@ -66,11 +66,20 @@
 | `DashboardActivityFeed.tsx` | الـ7 hex ← 5 توكنز دلالية (`--color-primary/success/warning/info/destructive`)؛ نبضة «لايف» بقيت لأنها حالة نظامية حقيقية (عدد websocket) |
 | `surfaceStyles.ts` | **حُذف** (كود ميت) |
 
-### 4.4 ما بقي عمدًا (برا نطاق الموجة — blast radius)
+### 4.4 الموجة 2 — إغلاق المتبقي (نفس اليوم)
 
-- `MetricCard.tsx` accent map (بنفسجي/روز gradients): مستهلكه الوحيد **ProcurementDashboard** (وحدة خارج الداشبورد) — موجة لاحقة مستقلة. شارات الاتجاه emerald/rose فيه دلالة حالة (صح/خطأ) سليمة ومنتشرة ك convention في المنصة كلها.
-- `SaaSAnnouncements` purple + `InstalledAppsDashboard` فئات + `registry.ts` whatsapp hex + `DashboardExportMenu` rose: موجات تلوية على نفس النمط.
+- **`MetricCard.tsx`:** خريطة الأكسنت — violet/cyan → primary، rose → destructive، وشارات الاتجاه rose → destructive tokens.
+- **`SaaSAnnouncements.tsx`:** كارت «جديد» البنفسجي → primary tokens (Flag #2 ميت).
+- **`InstalledAppsDashboard.tsx`:** قوس قزح الفئات الثمانية (purple/rose/cyan/pink) → شارة Polaris محايدة واحدة — الفلاتر فوقها هي التي تحمل حالة الاختيار.
+- **`registry.ts`:** whatsapp `#25D366` → `var(--color-success)` · **`AppWidgetCard/Mini`:** حالات error rose → destructive + `bg-gray-400` → `bg-muted-foreground/60`.
+- **`DashboardExportMenu.tsx`:** أيقونة PDF rose → destructive · **`InsightsPanel.tsx`:** 10 fallback hexes خاملة → vars نظيفة.
+- **باج تاريخي اتصلح:** `RevenueTrendChart.tsx:34` كان ينهار `data.some` على null والاختبار يتوقع empty state — `(data ?? []).some` → **jest 30/30**.
+- **النتيجة:** صفر مخالفات palette خام في مجلدات الداشبورد كاملة (مسح grep آلي).
+
+### 4.5 ما بقي فعلاً (خارج نطاق الداشبورد)
+
 - نصوص عربية hardcoded في السويتشر (`لوحة التخصص والأعمال`): i18n موجة مستقلة.
+- `divide-x-reverse` المنتشرة في وحدات أخرى (admin/hr/store): برا نطاق الداشبورد.
 
 ## 5. المتوقع (ما سيراه التاجر)
 

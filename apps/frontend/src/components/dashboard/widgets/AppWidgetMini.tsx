@@ -44,8 +44,8 @@ export function AppWidgetMini({ widget, data }: Props) {
                 "w-1.5 h-1.5 rounded-full shrink-0",
                 data.status === "active" && "bg-emerald-500",
                 data.status === "warning" && "bg-amber-500",
-                data.status === "error" && "bg-rose-500",
-                data.status === "inactive" && "bg-gray-400",
+                data.status === "error" && "bg-destructive",
+                data.status === "inactive" && "bg-muted-foreground/60",
               )}
             />
           )}

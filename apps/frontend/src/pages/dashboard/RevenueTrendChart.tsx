@@ -31,7 +31,7 @@ export default function RevenueTrendChart({
   formatRevenue,
 }: RevenueTrendChartProps) {
   const [view, setView] = useState<ChartView>("revenue");
-  const hasOrders = data.some((d) => d.orders !== undefined);
+  const hasOrders = (data ?? []).some((d) => d.orders !== undefined);
 
   const chartData = useMemo(() => {
     if (!data || data.length === 0) return [];

@@ -229,28 +229,28 @@ function generateInsights(
 
 function toneBg(tone: Insight["tone"]): string {
   switch (tone) {
-    case "positive": return "color-mix(in srgb, var(--color-success, #10b981) 14%, transparent)";
-    case "negative": return "color-mix(in srgb, var(--color-destructive, #ef4444) 14%, transparent)";
-    case "warning": return "color-mix(in srgb, var(--color-warning, #f59e0b) 14%, transparent)";
-    default: return "color-mix(in srgb, var(--color-primary, #6366f1) 14%, transparent)";
+    case "positive": return "color-mix(in srgb, var(--color-success) 14%, transparent)";
+    case "negative": return "color-mix(in srgb, var(--color-destructive) 14%, transparent)";
+    case "warning": return "color-mix(in srgb, var(--color-warning) 14%, transparent)";
+    default: return "color-mix(in srgb, var(--color-primary) 14%, transparent)";
   }
 }
 
 function toneBorder(tone: Insight["tone"]): string {
   switch (tone) {
-    case "positive": return "color-mix(in srgb, var(--color-success, #10b981) 30%, transparent)";
-    case "negative": return "color-mix(in srgb, var(--color-destructive, #ef4444) 30%, transparent)";
-    case "warning": return "color-mix(in srgb, var(--color-warning, #f59e0b) 30%, transparent)";
-    default: return "color-mix(in srgb, var(--color-primary, #6366f1) 30%, transparent)";
+    case "positive": return "color-mix(in srgb, var(--color-success) 30%, transparent)";
+    case "negative": return "color-mix(in srgb, var(--color-destructive) 30%, transparent)";
+    case "warning": return "color-mix(in srgb, var(--color-warning) 30%, transparent)";
+    default: return "color-mix(in srgb, var(--color-primary) 30%, transparent)";
   }
 }
 
 function toneFg(tone: Insight["tone"]): string {
   switch (tone) {
-    case "positive": return "var(--color-success, #10b981)";
-    case "negative": return "var(--color-destructive, #ef4444)";
-    case "warning": return "var(--color-warning, #f59e0b)";
-    default: return "var(--color-primary, #6366f1)";
+    case "positive": return "var(--color-success)";
+    case "negative": return "var(--color-destructive)";
+    case "warning": return "var(--color-warning)";
+    default: return "var(--color-primary)";
   }
 }
 

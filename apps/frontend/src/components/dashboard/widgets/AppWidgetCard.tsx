@@ -33,7 +33,7 @@ export function AppWidgetCard({ widget, data }: Props) {
             "absolute top-3 end-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border",
             data.status === "active" && "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
             data.status === "warning" && "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-            data.status === "error" && "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+            data.status === "error" && "bg-destructive/10 text-destructive border-destructive/20",
             data.status === "inactive" && "bg-muted text-muted-foreground border-border/50",
           )}
         >
@@ -42,7 +42,7 @@ export function AppWidgetCard({ widget, data }: Props) {
               "w-1.5 h-1.5 rounded-full",
               data.status === "active" && "bg-emerald-500",
               data.status === "warning" && "bg-amber-500",
-              data.status === "error" && "bg-rose-500",
+              data.status === "error" && "bg-destructive",
               data.status === "inactive" && "bg-muted-foreground/60",
             )}
           />
@@ -73,7 +73,7 @@ export function AppWidgetCard({ widget, data }: Props) {
                   <span
                     className={cn(
                       "text-[10px] font-bold tabular-nums",
-                      m.trend.positive ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400",
+                      m.trend.positive ? "text-emerald-600 dark:text-emerald-400" : "text-destructive",
                     )}
                   >
                     {m.trend.value}

@@ -84,7 +84,7 @@ export function DashboardExportMenu({ dashboard, periodLabel, disabled }: Props)
           <span>{t("companyDashboard.export.excel")}</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handlePDF} className="flex items-center gap-2 cursor-pointer rounded-lg px-2.5 py-1.5 hover:bg-muted/60">
-          <FileText className="w-3.5 h-3.5 text-rose-500" />
+          <FileText className="w-3.5 h-3.5 text-destructive" />
           <span>{t("companyDashboard.export.pdf")}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
