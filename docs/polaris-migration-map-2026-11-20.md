@@ -105,18 +105,32 @@
 - **فخ Track A مسدود:** صفحات اللاندينج/storefront تبقى محكومة بSections 0–12 — الفحص الآلي يستبعدها من عداد Polaris.
 - **فخ تثبيت polaris-react مسدود:** Section 16.4 يحظر حزم Shopify الرسمية (App Bridge) — الكاليبر يُنفذ بالتوكنز وshadcn/Radix الموجودين.
 
-## 6. برنامج الموجات (ترتيب التنفيذ)
+## 6. برنامج الموجات — سجل التنفيذ (2026-11-20، جلسة التلقائي)
 
-| # | الموجة | النطاق | الحجم التقديري |
-|---|--------|--------|----------------|
-| 0 | أداة التدقيق `audit-polaris-track.cjs` + قفل بقايا الداشبورد (ExportMenu/Chart axes) | صغير |
-| 1 | super-admin-dashboard + tasks + reports + Analytics | ~1,400 مخالفة |
-| 2 | customers + settings (Recipe C الإعدادات أول مرة) | ~1,900 |
-| 3 | admin (تابات + داشبوردات فرعية) | ~800 |
-| 4 | products subdirs + returns + inventory + treasury | ~1,350 |
-| 5 | تخصصات: dental-lab → radiology/lab → advertising | ~4,100 |
-| 6 | affiliates + marketing + marketplace + owner/merchants | ~1,800 |
-| 7 | super-admin الباقي + employee + بوابات | ~1,900 |
-| 🟡 | hr + orders — تنسيق مع antigravity (chassis موجود، الباقي توكنز) | ~3,500 |
+| # | الموجة | النطاق | كومت لايف | النتيجة |
+|---|--------|--------|-----------|---------|
+| 0a | أدوات: `audit-polaris-track.cjs` + `polaris-tokenize.cjs` + بقايا الداشبورد | `3c66a3319` | dashboards 70% |
+| 0b | إغلاق الأزواج الهجينة + em-dash ظاهرة | `ba7df5b1c` | 87% |
+| 0c | ألوان ودجتس → vars | `b0f821e2c` | hex صفر |
+| 1 | tasks + reports + Analytics + super-admin-dashboard (178 ملف + 7 wraps) | `751d05f56` | 44% نظيف |
+| 2 | customers + settings (312 ملف + 4 wraps: CustomerList/Lists/Details/Settings) | `aa3284497` | 47% |
+| 3 | pages/admin (198 ملف — التابات المدمجة بلا wrap عمدًا) | `54d1cf6e7` | 43%، radius/phys صفر |
+| 4 | products subdirs + returns + inventory + treasury (126 ملف) | `e8221e305` | 58% |
+| 5 | dental-lab + radiology + lab + advertising (452 ملف) | `0a9f75934` | jest **42/42** |
+| 6 | affiliates + marketing + marketplace + owner + merchants (177 ملف) | `d71408236` | baseline مثبت |
+| 7 | super-admin + employee + shipping/courier/wholesale portals + broadcast (265 ملف) | `95da695c6` | اختبار acceptance كان مقفولًا على `"amber"` خام → حدث للتوكن `"warning"` |
 
-**كل موجة تسلّم:** أرقام قبل/بعد + Score + screenshots مقارنة + push عبر البوابة.
+**الحصيلة العالمية:** 33% → **41% نظيف** (114,250 → **61,787** مخالفة). صفر regressions — كل فشل مُقابل بـstash-comparison على HEAD نظيف.
+
+### الموجات المتبقية (8+)
+| النطاق | مخالفات | ملاحظة |
+|--------|---------|--------|
+| `pages/hr` 🟡 | ~12,260 | antigravity scope — تنسيق |
+| `pages/orders` 🟡 | ~4,789 | antigravity scope |
+| `pages/shipping` + shipping-ops بقايا | ~1,700 | |
+| `pages/whatsapp` + inbox toolbars | ~1,600 | توكنز فقط (Section 15، بلا track) |
+| `pages/manufacturing` | ~1,550 | |
+| `components/{advertising,store,procurement,layout,orders,tasks,...}` | ~5,500 | |
+| `pages/conversations` + inbox areas | ~850 | |
+| بقايا palette معقدة في الموجات 1-7 (hex charts، أنماط مركبة) | ~5,000 | جولات residual |
+| em-dash (9.G) في التعليقات والنصوص | ~1,200 | مراجعة يدوية لكل حالة (تعليقات = مقبولة) |
