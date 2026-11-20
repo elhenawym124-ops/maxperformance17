@@ -128,12 +128,20 @@
 | 8 | shipping + manufacturing + comments + support + tickets + automation | 184 ملف | `aaec19c6b` لايف | jest 11/11 |
 | 9 | whatsapp + conversations + facebook-inbox/tasks components (توكنز فقط) | 225 ملف | `81931b634` لايف | baseline مثبت |
 | 10 | advertising/store/procurement components | 81 ملف | `914ec8315` لايف | baseline مثبت |
-| 11 | **pages/hr** (متممة لchassis antigravity) | 440 ملف | `e443ace07` **محتوم محليًا — push عند تحرر قفل opencode** | jest baseline مطابق |
-| 12 | pages/orders | 527 ملف | مؤجل — claim مرفوض exit 3 (بلا pipe هذه المرة) | dry-run جاهز |
+| 11 | **pages/hr** (متممة لchassis antigravity) | 440 ملف | `e443ace07` لايف | baseline مطابق |
+| 12 | **pages/orders + components/orders** (2 جولات + إصلاح سكربت) | 264 ملف | `567ff7ef3` لايف | **87% نظيف — palette=1** |
 
-**الحصيلة بعد الجولة الثانية:** **44% نظيف** (50,444 مخالفة — −56% من الأساس). **درسان بروتوكوليان مسجلان:** (1) فخ exit الـpipe ضرب تاني: `claim | tail -1 && cmd` مرر exit تيّل = tokenizer تسلل لنطاق قفل حائز (نطاق opencode backend خالص = صفر تداخل فعلي، لكن الانضباط يقي) — العلاج: تحقق exit مباشر بلا pipe (أعطى exit 3 صحيحًا لاحقًا). (2) الكومت المحلي الفوري بمسارات صريحة يحمي من الابتلاع وقت وجود جلسة موازية نشطة.
+### الجولة الثالثة — قالب الshell + موجة 13 + المعاينة الحية
+| البند | كومت | النتيجة |
+|-------|------|---------|
+| **قالب الـshell الحقيقي**: `sidebarLayout='polaris'` مثبت على شركة المعاينة (SQL) — PolarisSidebar النصي بمجموعات + توب بار بحث مركزي = أناتومي Shopify admin كاملة | DB مباشر | لقطات قبل/بعد صارخة |
+| **موجة 13**: جيب `blue-*` كان ناقص من RE_CHROMA → أضيف + جولة 2 (886 ملف) | `c50d28bac` لايف | 49% نظيف |
+| **تليين funnel التحليلات**: `/50` صلب → `/10` tint + `/30` border | `9c4ee09e2` لايف | لقطة بعد مؤكدة |
+| **i18n**: مفاتيح tabs ظهرت خام في المعاينة → merge-translations → ترجمة سليمة | `e57a46a83` لايف | اكتُشف بالمعاينة الحية |
 
-**مستبعد عمدًا:** `components/layout` (shared shell — blast radius كامل المنصة)، `components/orders` (احتمال تصادم مع شغل orders)، `pages/public` (Track A).
+**الحصيلة التراكمية النهائية:** **49% نظيف · 35,081 مخالفة (−69% من 114,250) · ~3,800 ملف مرمّز · 14 chassis wrap · صفر regressions نهائي (كل فشل baseline مُثبت بالstash).**
+
+**دروس السكربت المضمّنة:** (3) `["']` بادئة في capture تُستهلك بالاستبدال → فقدان quotes → 59 suite crash؛ العلاج lookbehind `(?<=[\s"'])` + فرع `^` مع مجموعات بديلة. (4) الاختبارات المقفولة على hue خام (orange/green/yellow/blue) بتتحدّث للتوكنز لا للكود.
 
 ### الموجات المتبقية (8+)
 | النطاق | مخالفات | ملاحظة |
