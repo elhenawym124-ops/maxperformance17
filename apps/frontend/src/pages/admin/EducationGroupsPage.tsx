@@ -90,6 +90,9 @@ export interface EducationGroup {
   endTime?: string | null;
   room?: string | null;
   status: "OPEN" | "FULL" | "IN_PROGRESS" | "COMPLETED" | "ARCHIVED";
+  startDate?: string | null;
+  endDate?: string | null;
+  autoGenerateSessions?: boolean;
   notes?: string | null;
   createdAt?: string;
   isFull?: boolean;
@@ -115,6 +118,7 @@ export interface GroupSessionItem {
   sessionDate: string;
   topic?: string;
   homework?: string;
+  status?: string;
   presentCount: number;
   absentCount: number;
   totalCount: number;
@@ -386,6 +390,8 @@ export default function EducationGroupsPage({
   };
 
   const handleStartNewGroup = () => {
+    const today = new Date().toISOString().split("T")[0];
+    const threeMonthsLater = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     setEditingGroup({
       name: "",
       code: `GRP-${101 + groups.length}`,
@@ -394,6 +400,9 @@ export default function EducationGroupsPage({
       feeAmount: 0,
       teacherRateType: "PERCENTAGE",
       teacherRateValue: 0,
+      startDate: today,
+      endDate: threeMonthsLater,
+      autoGenerateSessions: true,
       scheduleDays: ["SATURDAY", "TUESDAY"],
       scheduleSlots: [
         { dayOfWeek: "SATURDAY", startTime: "17:00", endTime: "18:30", room: "" },
@@ -417,6 +426,9 @@ export default function EducationGroupsPage({
         }));
     setEditingGroup({
       ...g,
+      startDate: g.startDate ? String(g.startDate).split("T")[0] : "",
+      endDate: g.endDate ? String(g.endDate).split("T")[0] : "",
+      autoGenerateSessions: false,
       scheduleSlots: slots,
     });
     setGroupModalOpen(true);
@@ -527,6 +539,62 @@ export default function EducationGroupsPage({
     }
   };
 
+  const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
+
+  const handleGenerateSessions = async (g: EducationGroup) => {
+    if (!g.startDate || !g.endDate) {
+      toast.info(isEn ? "Please edit the group and set start/end dates first" : "يرجى تعديل المجموعة وتحديد تاريخ البداية والنهاية أولاً");
+      handleStartEditGroup(g);
+      return;
+    }
+    try {
+      const res = await fetch(api(`groups/${g.id}/generate-sessions`), {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({
+          startDate: g.startDate,
+          endDate: g.endDate,
+          teacherId: g.teacherId,
+          scheduleSlots: g.scheduleSlots,
+          scheduleDays: g.scheduleDays,
+          clearFutureScheduled: true,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(data.message || (isEn ? `Generated ${data.count} sessions successfully` : `تم توليد ${data.count} حصة بنجاح`));
+        if (activeGroup?.id === g.id) {
+          fetchGroupDetails(g.id);
+        }
+        fetchData();
+      } else {
+        toast.error(data.error || (isEn ? "Failed to generate sessions" : "فشل توليد الحصص"));
+      }
+    } catch {
+      toast.error(isEn ? "Error generating sessions" : "حدث خطأ أثناء توليد الحصص");
+    }
+  };
+
+  const handleOpenAttendanceForSession = (session: GroupSessionItem) => {
+    const activeMembers = groupDetails?.members?.filter((m) => m.status === "ACTIVE") || [];
+    if (!activeGroup || activeMembers.length === 0) {
+      toast.info(isEn ? "No active students enrolled to record attendance" : "لا يوجد طلاب منتظمين في المجموعة لتسجيل الحضور");
+      return;
+    }
+    const initialRecords: Record<string, { status: "PRESENT" | "ABSENT" | "EXCUSED"; notes: string }> = {};
+    activeMembers.forEach((m) => {
+      initialRecords[m.studentId] = { status: "PRESENT", notes: "" };
+    });
+    setAttendanceRecords(initialRecords);
+    setSelectedSessionId(session.id);
+    if (session.sessionDate) {
+      setSessionDate(session.sessionDate.split("T")[0]);
+    }
+    setSessionTopic(session.topic || "");
+    setSessionHomework(session.homework || "");
+    setAttendanceModalOpen(true);
+  };
+
   const handleOpenAttendanceModal = () => {
     const activeMembers = groupDetails?.members?.filter((m) => m.status === "ACTIVE") || [];
     if (!activeGroup || activeMembers.length === 0) {
@@ -540,6 +608,7 @@ export default function EducationGroupsPage({
         initialRecords[m.studentId] = { status: "PRESENT", notes: "" };
       });
     setAttendanceRecords(initialRecords);
+    setSelectedSessionId(null);
     setAttendanceModalOpen(true);
   };
 
@@ -558,6 +627,7 @@ export default function EducationGroupsPage({
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({
+          sessionId: selectedSessionId || undefined,
           sessionDate,
           teacherId: activeGroup.teacherId,
           topic: sessionTopic,
@@ -570,6 +640,7 @@ export default function EducationGroupsPage({
       if (data.success) {
         toast.success(isEn ? "Session and attendance logged successfully" : "تم توثيق المحاضرة وتسجيل الحضور وإشعار أولياء الأمور بنجاح");
         setAttendanceModalOpen(false);
+        setSelectedSessionId(null);
         setSessionTopic("");
         setSessionHomework("");
         fetchGroupDetails(activeGroup.id);
@@ -853,6 +924,15 @@ export default function EducationGroupsPage({
                     <div className="flex items-center gap-1">
                       <button
                         type="button"
+                        onClick={() => handleGenerateSessions(group)}
+                        className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                        aria-label={isEn ? "Generate Sessions" : "توليد الحصص"}
+                        title={isEn ? "Generate Sessions" : "توليد الحصص المجدولة للمجموعة"}
+                      >
+                        <Calendar className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
                         onClick={() => handleStartEditGroup(group)}
                         className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
                         aria-label={t("education.common.edit", isEn ? "Edit Group" : "تعديل المجموعة")} title={t("education.common.edit", isEn ? "Edit Group" : "تعديل المجموعة")}
@@ -1085,6 +1165,15 @@ export default function EducationGroupsPage({
                           className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors"
                         >
                           {t("education.groups.manageGroup", isEn ? "Manage Group" : "إدارة المجموعة")}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleGenerateSessions(g)}
+                          className="p-1.5 text-muted-foreground hover:text-primary rounded-lg"
+                          aria-label={isEn ? "Generate Sessions" : "توليد الحصص"}
+                          title={isEn ? "Generate Sessions" : "توليد الحصص المجدولة للمجموعة"}
+                        >
+                          <Calendar className="w-3.5 h-3.5" />
                         </button>
                         <button
                           type="button"
@@ -1330,14 +1419,24 @@ export default function EducationGroupsPage({
                     <div className="text-xs font-semibold text-foreground">
                       {t("education.groups.attendanceLogsTitle", isEn ? "Session Logs & Group Attendance" : "سجلات المحاضرات والحضور الجماعي")}
                     </div>
-                    <button
-                      type="button"
-                      onClick={handleOpenAttendanceModal}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-success transition-all shadow-xs"
-                    >
-                      <UserCheck className="w-3.5 h-3.5" />
-                      {t("education.groups.logNewSessionBtn", isEn ? "Log New Session & Attendance" : "تسجيل محاضرة وحضور جديد")}
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => activeGroup && handleGenerateSessions(activeGroup)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted hover:bg-muted/80 text-foreground rounded-lg text-xs font-semibold transition-all shadow-xs border border-border"
+                      >
+                        <Calendar className="w-3.5 h-3.5 text-primary" />
+                        {isEn ? "Generate Sessions" : "توليد الحصص"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleOpenAttendanceModal}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-success transition-all shadow-xs"
+                      >
+                        <UserCheck className="w-3.5 h-3.5" />
+                        {t("education.groups.logNewSessionBtn", isEn ? "Log New Session & Attendance" : "تسجيل محاضرة وحضور جديد")}
+                      </button>
+                    </div>
                   </div>
 
                   {groupDetails?.sessions?.length === 0 ? (
@@ -1345,52 +1444,97 @@ export default function EducationGroupsPage({
                       <p className="text-xs text-muted-foreground">
                         {t("education.groups.noSessionsYet", isEn ? "No sessions or attendance recorded for this group yet." : "لم يتم تسجيل أي محاضرات أو حضور للجروب حتى الآن.")}
                       </p>
-                      <button
-                        type="button"
-                        onClick={handleOpenAttendanceModal}
-                        className="text-xs text-success font-semibold hover:underline"
-                      >
-                        {t("education.groups.clickToLogFirstSession", isEn ? "Click here to log the first session" : "اضغط هنا لتسجيل أول محاضرة")}
-                      </button>
+                      <div className="flex items-center justify-center gap-3 pt-2">
+                        <button
+                          type="button"
+                          onClick={() => activeGroup && handleGenerateSessions(activeGroup)}
+                          className="text-xs text-primary font-semibold hover:underline inline-flex items-center gap-1"
+                        >
+                          <Calendar className="w-3 h-3" />
+                          {isEn ? "Generate schedule sessions" : "توليد جدول الحصص تلقائياً"}
+                        </button>
+                        <span>•</span>
+                        <button
+                          type="button"
+                          onClick={handleOpenAttendanceModal}
+                          className="text-xs text-success font-semibold hover:underline"
+                        >
+                          {t("education.groups.clickToLogFirstSession", isEn ? "Click here to log the first session" : "اضغط هنا لتسجيل أول محاضرة")}
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      {groupDetails?.sessions?.map((session) => (
-                        <div
-                          key={session.id}
-                          className="bg-muted/40 rounded-xl p-3 space-y-2 text-xs shadow-xs"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-bold text-foreground">
-                              {session.topic || (isEn ? "Regular Group Session" : "محاضرة دورية للمجموعة")}
-                            </span>
-                            <span className="font-mono text-[11px] text-muted-foreground">
-                              {(() => {
-                                const d = new Date(session.sessionDate);
-                                return isNaN(d.getTime()) ? (session.sessionDate || "—") : d.toLocaleDateString(isEn ? "en-US" : "ar-EG");
-                              })()}
-                            </span>
-                          </div>
-
-                          {session.homework && (
-                            <div className="text-[11px] text-muted-foreground bg-muted/50 p-2 rounded-lg">
-                              <strong>{t("education.groups.homeworkLabel", isEn ? "Homework:" : "الواجب:")}</strong> {session.homework}
+                      {groupDetails?.sessions?.map((session) => {
+                        const isScheduled = session.status === "SCHEDULED";
+                        return (
+                          <div
+                            key={session.id}
+                            className={`rounded-xl p-3 space-y-2 text-xs shadow-xs border ${
+                              isScheduled
+                                ? "bg-blue-500/5 border-blue-500/20"
+                                : "bg-muted/40 border-border/60"
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-foreground">
+                                  {session.topic || (isEn ? "Regular Group Session" : "محاضرة دورية للمجموعة")}
+                                </span>
+                                {isScheduled ? (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-600 border border-blue-500/20">
+                                    {isEn ? "Scheduled" : "مجدولة"}
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                                    {isEn ? "Completed" : "مكتملة"}
+                                  </span>
+                                )}
+                              </div>
+                              <span className="font-mono text-[11px] text-muted-foreground">
+                                {(() => {
+                                  const d = new Date(session.sessionDate);
+                                  return isNaN(d.getTime()) ? (session.sessionDate || "—") : d.toLocaleDateString(isEn ? "en-US" : "ar-EG");
+                                })()}
+                              </span>
                             </div>
-                          )}
 
-                          <div className="flex items-center justify-between text-[11px] pt-1 border-t border-border/60">
-                            <span className="text-emerald-600 font-semibold">
-                              {t("education.groups.present", isEn ? "Present" : "حضور")}: {session.presentCount}
-                            </span>
-                            <span className="text-red-600 font-semibold">
-                              {t("education.groups.absent", isEn ? "Absent" : "غياب")}: {session.absentCount}
-                            </span>
-                            <span className="text-muted-foreground">
-                              {t("education.groups.totalEnrolledLabel", isEn ? "Total Enrolled" : "إجمالي المقيدين")}: {session.totalCount}
-                            </span>
+                            {session.homework && (
+                              <div className="text-[11px] text-muted-foreground bg-muted/50 p-2 rounded-lg">
+                                <strong>{t("education.groups.homeworkLabel", isEn ? "Homework:" : "الواجب:")}</strong> {session.homework}
+                              </div>
+                            )}
+
+                            {isScheduled ? (
+                              <div className="flex items-center justify-between text-[11px] pt-1 border-t border-border/60">
+                                <span className="text-muted-foreground">
+                                  {session.notes || (isEn ? "Upcoming scheduled lecture" : "موعد محاضرة قادمة")}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleOpenAttendanceForSession(session)}
+                                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-primary/90 transition-all shadow-xs"
+                                >
+                                  <UserCheck className="w-3 h-3" />
+                                  <span>{isEn ? "Log Attendance" : "تسجيل الحضور الآن"}</span>
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-between text-[11px] pt-1 border-t border-border/60">
+                                <span className="text-emerald-600 font-semibold">
+                                  {t("education.groups.present", isEn ? "Present" : "حضور")}: {session.presentCount}
+                                </span>
+                                <span className="text-red-600 font-semibold">
+                                  {t("education.groups.absent", isEn ? "Absent" : "غياب")}: {session.absentCount}
+                                </span>
+                                <span className="text-muted-foreground">
+                                  {t("education.groups.totalEnrolledLabel", isEn ? "Total Enrolled" : "إجمالي المقيدين")}: {session.totalCount}
+                                </span>
+                              </div>
+                            )}
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -1596,7 +1740,7 @@ export default function EducationGroupsPage({
                   />
                 </div>
 
-                <div className="space-y-1 sm:col-span-2">
+                <div className="space-y-1">
                   <label className="font-semibold text-foreground">
                     {t("education.groups.fieldCapacity", isEn ? "Capacity (Maximum Students) *" : "الطاقة الاستيعابية (الحد الأقصى) *")}
                   </label>
@@ -1625,6 +1769,29 @@ export default function EducationGroupsPage({
                       </option>
                     ))}
                   </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-semibold text-foreground">
+                    {isEn ? "Course Start Date" : "تاريخ بداية الكورس / المجموعة"}
+                  </label>
+                  <input
+                    type="date"
+                    value={editingGroup.startDate ? String(editingGroup.startDate).split("T")[0] : ""}
+                    onChange={(e) => setEditingGroup({ ...editingGroup, startDate: e.target.value })}
+                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="font-semibold text-foreground">
+                    {isEn ? "Course End Date" : "تاريخ نهاية الكورس / المجموعة"}
+                  </label>
+                  <input
+                    type="date"
+                    value={editingGroup.endDate ? String(editingGroup.endDate).split("T")[0] : ""}
+                    onChange={(e) => setEditingGroup({ ...editingGroup, endDate: e.target.value })}
+                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
+                  />
                 </div>
               </div>
 
@@ -1831,6 +1998,20 @@ export default function EducationGroupsPage({
                   placeholder={t("education.groups.roomPlaceholder", isEn ? "Room 3, 2nd Floor or Zoom link" : "مثال: قاعة 3 - الدور الثاني أو رابط Zoom")}
                   className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
                 />
+              </div>
+
+              {/* Auto Generate Toggle */}
+              <div className="flex items-center gap-2.5 bg-primary/5 p-3 rounded-xl border border-primary/20">
+                <input
+                  type="checkbox"
+                  id="autoGenSessions"
+                  checked={!!editingGroup.autoGenerateSessions}
+                  onChange={(e) => setEditingGroup({ ...editingGroup, autoGenerateSessions: e.target.checked })}
+                  className="rounded border-input text-primary focus:ring-primary size-4"
+                />
+                <label htmlFor="autoGenSessions" className="text-xs font-semibold text-foreground cursor-pointer select-none">
+                  {isEn ? "Auto-generate scheduled sessions for this period and assign to teacher" : "توليد جدول الحصص تلقائياً لهذه الفترة وتعيينها للمدرس"}
+                </label>
               </div>
 
               <div className="flex items-center justify-end gap-2 pt-4 border-t border-border">

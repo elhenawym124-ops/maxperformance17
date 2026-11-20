@@ -81,7 +81,9 @@ const STATEMENTS = [
   `CREATE INDEX IF NOT EXISTS "idx_edu_group_att_group" ON "education_group_attendance"("groupId")`,
   `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "scheduleSlots" JSONB DEFAULT '[]'::jsonb;`,
   `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "ageFrom" INTEGER;`,
-  `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "ageTo" INTEGER;`
+  `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "ageTo" INTEGER;`,
+  `CREATE INDEX IF NOT EXISTS "idx_edu_group_sessions_teacher" ON "education_group_sessions"("teacherId");`,
+  `CREATE INDEX IF NOT EXISTS "idx_edu_group_sessions_date" ON "education_group_sessions"("sessionDate");`
 ];
 
 const ensureTablesExist = async (prisma) => {

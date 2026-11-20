@@ -20,6 +20,7 @@ router.post('/:id/transfer-member', requireDbPermission('education.groups.manage
 
 // Sessions & Bulk Attendance
 router.post('/:id/sessions', requireDbPermission('education.sessions.manage'), controller.recordSession);
+router.post('/:id/generate-sessions', requireDbPermission('education.groups.manage'), controller.generateSessions);
 
 // Financials & Teacher Settlement
 router.get('/:id/financials', requireDbPermission('education.financials.view'), controller.getFinancials);

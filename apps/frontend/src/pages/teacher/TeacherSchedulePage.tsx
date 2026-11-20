@@ -20,6 +20,9 @@ interface Session {
   plannedDuration: number;
   actualDuration: number | null;
   status: "SCHEDULED" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
+  sessionType?: "PRIVATE" | "GROUP";
+  groupName?: string;
+  room?: string;
   student: { firstName: string; lastName: string; phone?: string };
   subject: { name: string };
   enrollment?: { remainingHours: number };
@@ -246,6 +249,11 @@ export default function TeacherSchedulePage() {
                         <h3 className="text-xs font-semibold text-foreground">
                           {session.student?.firstName || ""} {session.student?.lastName || ""}
                         </h3>
+                        {session.sessionType === "GROUP" && (
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono border bg-purple-500/10 text-purple-600 border-purple-500/20">
+                            مجموعة
+                          </span>
+                        )}
                         {renderStatusBadge(session.status)}
                       </div>
 
@@ -273,6 +281,14 @@ export default function TeacherSchedulePage() {
                             minute: "2-digit",
                           })}
                         </span>
+                        {session.room && (
+                          <>
+                            <span>•</span>
+                            <span className="text-[10px] text-muted-foreground/80">
+                              القاعة: {session.room}
+                            </span>
+                          </>
+                        )}
                         {session.enrollment && (
                           <>
                             <span>•</span>

@@ -165,7 +165,7 @@ const getById = async (req, res) => {
       ORDER BY m."status" ASC, m."joinedAt" ASC
     `, id, companyId);
 
-    // Fetch recent sessions
+    // Fetch sessions (both scheduled and completed, ordered chronologically)
     const sessions = await prisma.$queryRawUnsafe(`
       SELECT 
         s.*,
@@ -176,8 +176,8 @@ const getById = async (req, res) => {
       LEFT JOIN "education_group_attendance" a ON a."sessionId" = s.id AND a."companyId" = s."companyId"
       WHERE s."groupId" = $1 AND s."companyId" = $2
       GROUP BY s.id
-      ORDER BY s."sessionDate" DESC
-      LIMIT 20
+      ORDER BY s."sessionDate" ASC
+      LIMIT 200
     `, id, companyId);
 
     return res.json({
@@ -338,7 +338,37 @@ const create = async (req, res) => {
       ageTo ? parseInt(ageTo, 10) : null
     );
 
-    return res.json({ success: true, data: { id, branchId: branchId || null, classroomId: classroomId || null, message: 'تم إنشاء المجموعة بنجاح' } });
+    let generationResult = null;
+    if (req.body.autoGenerateSessions && startDate && endDate) {
+      try {
+        generationResult = await generateGroupSessionsInternal({
+          prisma,
+          companyId,
+          groupId: id,
+          startDate,
+          endDate,
+          teacherId,
+          scheduleSlots: safeSlots,
+          scheduleDays: derivedDays,
+          startTime: primaryStartTime,
+          endTime: primaryEndTime,
+          clearFutureScheduled: true
+        });
+      } catch (genErr) {
+        console.warn('[EducationGroups] Auto session generation warning on create:', genErr.message);
+      }
+    }
+
+    return res.json({
+      success: true,
+      data: {
+        id,
+        branchId: branchId || null,
+        classroomId: classroomId || null,
+        generatedSessionsCount: generationResult?.count || 0,
+        message: 'تم إنشاء المجموعة بنجاح'
+      }
+    });
   } catch (err) {
     console.error('[EducationGroups] create error:', err);
     return res.status(500).json({ success: false, error: err.message });
@@ -473,7 +503,32 @@ const update = async (req, res) => {
       companyId
     );
 
-    return res.json({ success: true, message: 'تم تحديث المجموعة بنجاح' });
+    let generationResult = null;
+    if (req.body.autoGenerateSessions && (startDate || endDate)) {
+      try {
+        generationResult = await generateGroupSessionsInternal({
+          prisma,
+          companyId,
+          groupId: id,
+          startDate,
+          endDate,
+          teacherId,
+          scheduleSlots: safeSlots,
+          scheduleDays: derivedDays,
+          startTime: primaryStartTime,
+          endTime: primaryEndTime,
+          clearFutureScheduled: true
+        });
+      } catch (genErr) {
+        console.warn('[EducationGroups] Auto session generation warning on update:', genErr.message);
+      }
+    }
+
+    return res.json({
+      success: true,
+      generatedSessionsCount: generationResult?.count,
+      message: 'تم تحديث المجموعة بنجاح'
+    });
   } catch (err) {
     console.error('[EducationGroups] update error:', err);
     return res.status(500).json({ success: false, error: err.message });
@@ -773,25 +828,53 @@ const recordSession = async (req, res) => {
       return res.status(404).json({ success: false, error: 'المجموعة غير موجودة' });
     }
 
-    const sessionId = generateSessionId();
+    let sessionId = req.body.sessionId;
     const date = sessionDate ? new Date(sessionDate) : new Date();
 
-    await prisma.$executeRawUnsafe(`
-      INSERT INTO "education_group_sessions" (
-        "id", "companyId", "groupId", "teacherId", "sessionDate", "topic", "homework", "status", "notes", "createdAt"
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, 'COMPLETED', $8, NOW()
-      )
-    `,
-      sessionId,
-      companyId,
-      groupId,
-      teacherId || null,
-      date,
-      topic || null,
-      homework || null,
-      notes || null
-    );
+    if (sessionId) {
+      const existingSession = await prisma.$queryRawUnsafe(`
+        SELECT id FROM "education_group_sessions" WHERE id = $1 AND "groupId" = $2 AND "companyId" = $3
+      `, sessionId, groupId, companyId);
+      if (existingSession && existingSession.length > 0) {
+        await prisma.$executeRawUnsafe(`
+          UPDATE "education_group_sessions"
+          SET "status" = 'COMPLETED',
+              "teacherId" = COALESCE($1, "teacherId"),
+              "topic" = COALESCE($2, "topic"),
+              "homework" = COALESCE($3, "homework"),
+              "notes" = COALESCE($4, "notes"),
+              "sessionDate" = $5
+          WHERE id = $6 AND "companyId" = $7
+        `, teacherId || null, topic || null, homework || null, notes || null, date, sessionId, companyId);
+      } else {
+        sessionId = null;
+      }
+    }
+
+    if (!sessionId) {
+      sessionId = generateSessionId();
+      await prisma.$executeRawUnsafe(`
+        INSERT INTO "education_group_sessions" (
+          "id", "companyId", "groupId", "teacherId", "sessionDate", "topic", "homework", "status", "notes", "createdAt"
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, 'COMPLETED', $8, NOW()
+        )
+      `,
+        sessionId,
+        companyId,
+        groupId,
+        teacherId || null,
+        date,
+        topic || null,
+        homework || null,
+        notes || null
+      );
+    } else {
+      // Clear previous attendance for this session if re-recording/updating
+      await prisma.$executeRawUnsafe(`
+        DELETE FROM "education_group_attendance" WHERE "sessionId" = $1 AND "companyId" = $2
+      `, sessionId, companyId);
+    }
 
     // Insert attendance records (tenant-verified students only)
     if (Array.isArray(attendanceList) && attendanceList.length > 0) {
@@ -947,6 +1030,280 @@ const getFinancials = async (req, res) => {
   }
 };
 
+const DAY_NAME_TO_INDEX = {
+  'SUNDAY': 0, 'SUN': 0, '0': 0, 'الأحد': 0, 'الاحد': 0,
+  'MONDAY': 1, 'MON': 1, '1': 1, 'الاثنين': 1, 'الإثنين': 1,
+  'TUESDAY': 2, 'TUE': 2, '2': 2, 'الثلاثاء': 2,
+  'WEDNESDAY': 3, 'WED': 3, '3': 3, 'الأربعاء': 3, 'الاربعاء': 3,
+  'THURSDAY': 4, 'THU': 4, '4': 4, 'الخميس': 4,
+  'FRIDAY': 5, 'FRI': 5, '5': 5, 'الجمعة': 5,
+  'SATURDAY': 6, 'SAT': 6, '6': 6, 'السبت': 6
+};
+
+const generateGroupSessionsInternal = async ({
+  prisma,
+  companyId,
+  groupId,
+  startDate,
+  endDate,
+  teacherId,
+  scheduleSlots,
+  scheduleDays,
+  startTime,
+  endTime,
+  clearFutureScheduled = true
+}) => {
+  const groupRows = await prisma.$queryRawUnsafe(`
+    SELECT * FROM "education_groups" WHERE id = $1 AND "companyId" = $2
+  `, groupId, companyId);
+  if (!groupRows || groupRows.length === 0) {
+    throw new Error('المجموعة غير موجودة');
+  }
+  const group = groupRows[0];
+
+  const effectiveTeacherId = teacherId || group.teacherId;
+  const effectiveStart = startDate ? new Date(startDate) : (group.startDate ? new Date(group.startDate) : null);
+  const effectiveEnd = endDate ? new Date(endDate) : (group.endDate ? new Date(group.endDate) : null);
+
+  if (!effectiveStart || isNaN(effectiveStart.getTime())) {
+    throw new Error('تاريخ بداية المجموعة مطلوب لتوليد الحصص');
+  }
+  if (!effectiveEnd || isNaN(effectiveEnd.getTime())) {
+    throw new Error('تاريخ نهاية المجموعة مطلوب لتوليد الحصص');
+  }
+  if (effectiveEnd < effectiveStart) {
+    throw new Error('تاريخ النهاية يجب أن يكون بعد تاريخ البداية');
+  }
+
+  const diffDays = Math.ceil((effectiveEnd.getTime() - effectiveStart.getTime()) / (1000 * 60 * 60 * 24));
+  if (diffDays > 366) {
+    throw new Error('الفترة الزمنية القصوى لتوليد الحصص هي سنة واحدة');
+  }
+
+  // Update group record with startDate and endDate
+  await prisma.$executeRawUnsafe(`
+    UPDATE "education_groups"
+    SET "startDate" = $1, "endDate" = $2, "updatedAt" = NOW()
+    WHERE id = $3 AND "companyId" = $4
+  `, effectiveStart, effectiveEnd, groupId, companyId);
+
+  // Parse slots
+  let slots = [];
+  if (Array.isArray(scheduleSlots) && scheduleSlots.length > 0) {
+    slots = scheduleSlots;
+  } else if (typeof scheduleSlots === 'string' && scheduleSlots.trim()) {
+    try { slots = JSON.parse(scheduleSlots); } catch (_) {}
+  }
+  if (slots.length === 0 && group.scheduleSlots) {
+    try {
+      slots = typeof group.scheduleSlots === 'string' ? JSON.parse(group.scheduleSlots) : group.scheduleSlots;
+    } catch (_) {}
+  }
+  if (!Array.isArray(slots) || slots.length === 0) {
+    let days = scheduleDays || group.scheduleDays;
+    if (typeof days === 'string') {
+      try { days = JSON.parse(days); } catch (_) { days = []; }
+    }
+    if (Array.isArray(days) && days.length > 0) {
+      const defaultStart = startTime || group.startTime || '17:00';
+      const defaultEnd = endTime || group.endTime || '18:30';
+      slots = days.map(d => ({
+        dayOfWeek: d,
+        startTime: defaultStart,
+        endTime: defaultEnd,
+        room: group.room || ''
+      }));
+    }
+  }
+
+  if (!slots || slots.length === 0) {
+    throw new Error('يجب تحديد جدول مواعيد وأيام للمجموعة لتوليد الحصص');
+  }
+
+  const normalizedSlots = [];
+  for (const slot of slots) {
+    const rawDay = String(slot.dayOfWeek || slot.day || '').trim().toUpperCase();
+    const dayIdx = DAY_NAME_TO_INDEX[rawDay];
+    if (dayIdx !== undefined) {
+      normalizedSlots.push({
+        dayIdx,
+        startTime: slot.startTime || group.startTime || '17:00',
+        endTime: slot.endTime || group.endTime || '18:30',
+        room: slot.room || group.room || ''
+      });
+    }
+  }
+
+  if (normalizedSlots.length === 0) {
+    throw new Error('أيام الجدول المحددة غير صالحة');
+  }
+
+  const now = new Date();
+  if (clearFutureScheduled) {
+    await prisma.$executeRawUnsafe(`
+      DELETE FROM "education_group_sessions"
+      WHERE "groupId" = $1 AND "companyId" = $2 AND "status" = 'SCHEDULED' AND "sessionDate" >= $3
+    `, groupId, companyId, now);
+  }
+
+  const existingRows = await prisma.$queryRawUnsafe(`
+    SELECT "sessionDate" FROM "education_group_sessions"
+    WHERE "groupId" = $1 AND "companyId" = $2
+  `, groupId, companyId);
+  const existingDatesSet = new Set(
+    existingRows.map(r => new Date(r.sessionDate).toISOString().slice(0, 10))
+  );
+
+  const countCompletedRows = await prisma.$queryRawUnsafe(`
+    SELECT COUNT(id) AS cnt FROM "education_group_sessions"
+    WHERE "groupId" = $1 AND "companyId" = $2 AND "status" = 'COMPLETED'
+  `, groupId, companyId);
+  let lectureNumber = 1 + Number(countCompletedRows[0]?.cnt || 0);
+
+  const sessionsToCreate = [];
+  const conflicts = [];
+  const current = new Date(effectiveStart);
+  current.setHours(0, 0, 0, 0);
+  const endLimit = new Date(effectiveEnd);
+  endLimit.setHours(23, 59, 59, 999);
+
+  let loopSafety = 0;
+  while (current <= endLimit && loopSafety < 366) {
+    loopSafety++;
+    const currentDayIdx = current.getDay();
+    const matchingSlots = normalizedSlots.filter(s => s.dayIdx === currentDayIdx);
+
+    for (const slot of matchingSlots) {
+      const dateStr = current.toISOString().slice(0, 10);
+      if (existingDatesSet.has(dateStr) && !clearFutureScheduled) {
+        continue;
+      }
+
+      const [startHour, startMin] = (slot.startTime || '17:00').split(':').map(n => parseInt(n, 10) || 0);
+      const [endHour, endMin] = (slot.endTime || '18:30').split(':').map(n => parseInt(n, 10) || 0);
+
+      const sessionDateTime = new Date(current);
+      sessionDateTime.setHours(startHour, startMin, 0, 0);
+
+      const sessionEndDateTime = new Date(current);
+      sessionEndDateTime.setHours(endHour, endMin, 0, 0);
+
+      if (effectiveTeacherId) {
+        try {
+          const conflictPrivate = await prisma.educationSession.findFirst({
+            where: {
+              companyId,
+              teacherId: effectiveTeacherId,
+              status: { not: 'CANCELLED' },
+              scheduledAt: {
+                gte: new Date(sessionDateTime.getTime() - 30 * 60000),
+                lte: new Date(sessionEndDateTime.getTime() + 30 * 60000)
+              }
+            },
+            include: { student: { select: { firstName: true, lastName: true } } }
+          });
+
+          if (conflictPrivate) {
+            const pStart = new Date(conflictPrivate.scheduledAt);
+            const pEnd = new Date(pStart.getTime() + (conflictPrivate.plannedDuration || 60) * 60000);
+            if (sessionDateTime < pEnd && sessionEndDateTime > pStart) {
+              conflicts.push({
+                date: sessionDateTime,
+                conflictWith: `حصة خاصة مع الطالب ${conflictPrivate.student?.firstName || ''} ${conflictPrivate.student?.lastName || ''}`.trim()
+              });
+            }
+          }
+        } catch (_) {}
+      }
+
+      const sessionId = generateSessionId();
+      sessionsToCreate.push({
+        id: sessionId,
+        companyId,
+        groupId,
+        teacherId: effectiveTeacherId || null,
+        sessionDate: sessionDateTime,
+        topic: `المحاضرة ${lectureNumber}`,
+        homework: null,
+        status: sessionDateTime < now ? 'COMPLETED' : 'SCHEDULED',
+        notes: slot.room ? `القاعة: ${slot.room}` : null
+      });
+
+      lectureNumber++;
+    }
+
+    current.setDate(current.getDate() + 1);
+  }
+
+  for (const s of sessionsToCreate) {
+    await prisma.$executeRawUnsafe(`
+      INSERT INTO "education_group_sessions" (
+        "id", "companyId", "groupId", "teacherId", "sessionDate", "topic", "homework", "status", "notes", "createdAt"
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, NOW()
+      )
+    `,
+      s.id,
+      s.companyId,
+      s.groupId,
+      s.teacherId,
+      s.sessionDate,
+      s.topic,
+      s.homework,
+      s.status,
+      s.notes
+    );
+  }
+
+  return {
+    success: true,
+    count: sessionsToCreate.length,
+    conflicts,
+    message: `تم توليد ${sessionsToCreate.length} حصة بنجاح للمجموعة`
+  };
+};
+
+const generateSessions = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id: groupId } = req.params;
+    const {
+      startDate,
+      endDate,
+      teacherId,
+      scheduleSlots,
+      scheduleDays,
+      startTime,
+      endTime,
+      clearFutureScheduled
+    } = req.body;
+
+    const prisma = getSharedPrismaClient();
+    await ensureTablesExist(prisma);
+
+    const result = await generateGroupSessionsInternal({
+      prisma,
+      companyId,
+      groupId,
+      startDate,
+      endDate,
+      teacherId,
+      scheduleSlots,
+      scheduleDays,
+      startTime,
+      endTime,
+      clearFutureScheduled: clearFutureScheduled !== false
+    });
+
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    console.error('[EducationGroups] generateSessions error:', err);
+    return res.status(400).json({ success: false, error: err.message });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
@@ -957,5 +1314,7 @@ module.exports = {
   removeMember,
   transferMember,
   recordSession,
-  getFinancials
+  getFinancials,
+  generateSessions,
+  generateGroupSessionsInternal
 };
