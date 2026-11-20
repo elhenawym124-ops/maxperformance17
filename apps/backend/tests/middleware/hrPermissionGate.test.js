@@ -69,6 +69,16 @@ describe('hrPermissionGate', () => {
     expect(permissionService.getUserPermissions).not.toHaveBeenCalled();
   });
 
+  it('يطابق الدور المخصّص للمدير عند تحقق الصلاحية (حراسات requireRole القديمة)', async () => {
+    permissionService.getUserPermissions.mockResolvedValue(['hr.payroll']);
+    const req = { path: '/payroll', user: { id: 'u1', companyId: 'c1', role: 'TRIAL_HR_MANAGER' } };
+    const res = makeRes();
+    const next = jest.fn();
+    await gate(req, res, next);
+    expect(next).toHaveBeenCalled();
+    expect(req.user.role).toBe('MANAGER');
+  });
+
   it('لا يغيّر سلوك مسارات HR الأخرى', async () => {
     const { next } = await run({ path: '/departments', permissions: [] });
     expect(next).toHaveBeenCalled();

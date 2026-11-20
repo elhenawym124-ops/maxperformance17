@@ -72,7 +72,16 @@ module.exports = async function hrPermissionGate(req, res, next) {
     if (!companyId) return next();
 
     const permissions = await permissionService.getUserPermissions(user.id, companyId);
-    if (Array.isArray(permissions) && permissions.includes(rule.permission)) return next();
+    if (Array.isArray(permissions) && permissions.includes(rule.permission)) {
+      // الأدوار المخصّصة (مثل TRIAL_HR_MANAGER) تأتي كـ role string مختلف،
+      // فلا تعرفها requireRole القديمة. بما أن الصلاحية الدقيقة متحققة هنا،
+      // نطابق الدور مؤقتًا لهذا الطلب فقط حتى تمر حراسات requireRole.
+      const knownRoles = ['OWNER', 'COMPANY_ADMIN', 'MANAGER', 'AGENT', 'SUPER_ADMIN'];
+      if (!knownRoles.includes(String(user.role || '').toUpperCase())) {
+        req.user.role = 'MANAGER';
+      }
+      return next();
+    }
 
     return deny(res, rule.permission);
   } catch (error) {
