@@ -122,6 +122,19 @@
 
 **الحصيلة العالمية:** 33% → **41% نظيف** (114,250 → **61,787** مخالفة). صفر regressions — كل فشل مُقابل بـstash-comparison على HEAD نظيف.
 
+### الجولة الثانية التلقائية («كمل») — موجات 8-12
+| # | الموجة | النطاق | كومت | النتيجة |
+|---|--------|--------|------|---------|
+| 8 | shipping + manufacturing + comments + support + tickets + automation | 184 ملف | `aaec19c6b` لايف | jest 11/11 |
+| 9 | whatsapp + conversations + facebook-inbox/tasks components (توكنز فقط) | 225 ملف | `81931b634` لايف | baseline مثبت |
+| 10 | advertising/store/procurement components | 81 ملف | `914ec8315` لايف | baseline مثبت |
+| 11 | **pages/hr** (متممة لchassis antigravity) | 440 ملف | `e443ace07` **محتوم محليًا — push عند تحرر قفل opencode** | jest baseline مطابق |
+| 12 | pages/orders | 527 ملف | مؤجل — claim مرفوض exit 3 (بلا pipe هذه المرة) | dry-run جاهز |
+
+**الحصيلة بعد الجولة الثانية:** **44% نظيف** (50,444 مخالفة — −56% من الأساس). **درسان بروتوكوليان مسجلان:** (1) فخ exit الـpipe ضرب تاني: `claim | tail -1 && cmd` مرر exit تيّل = tokenizer تسلل لنطاق قفل حائز (نطاق opencode backend خالص = صفر تداخل فعلي، لكن الانضباط يقي) — العلاج: تحقق exit مباشر بلا pipe (أعطى exit 3 صحيحًا لاحقًا). (2) الكومت المحلي الفوري بمسارات صريحة يحمي من الابتلاع وقت وجود جلسة موازية نشطة.
+
+**مستبعد عمدًا:** `components/layout` (shared shell — blast radius كامل المنصة)، `components/orders` (احتمال تصادم مع شغل orders)، `pages/public` (Track A).
+
 ### الموجات المتبقية (8+)
 | النطاق | مخالفات | ملاحظة |
 |--------|---------|--------|
