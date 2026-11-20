@@ -117,7 +117,7 @@ export const CopilotSessionsList: React.FC<CopilotSessionsListProps> = ({
 
                 <div className="flex items-center gap-1 shrink-0">
                   {isActive && (
-                    <span className="flex items-center gap-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 text-[9px] font-semibold font-mono tabular-nums">
+                    <span className="flex items-center gap-1 rounded-md bg-success/10 text-success dark:text-success border border-success/20 px-1.5 py-0.5 text-[9px] font-semibold font-mono tabular-nums">
                       <CheckCircle2 className="size-2.5" />
                       النشطة
                     </span>

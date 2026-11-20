@@ -137,17 +137,17 @@ const FacebookAdsAccountContextPanel: React.FC<
 
   if (compact) {
     return (
-      <section className="rounded-lg border border-slate-200 bg-white p-2 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <section className="rounded-lg border border-border bg-white p-2 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
                 <BuildingOfficeIcon className="h-4 w-4" />
                 Meta Ads
               </span>
               {selectedAdAccount && (
                 <>
-                  <span className="truncate text-slate-900 dark:text-white">
+                  <span className="truncate text-foreground dark:text-white">
                     {selectedAdAccount.name}
                   </span>
                   <span>Business: {selectedBusinessName}</span>
@@ -156,7 +156,7 @@ const FacebookAdsAccountContextPanel: React.FC<
                     Pages: {assetsLoading ? "..." : pagesMeta?.counts?.ready || 0}
                   </span>
                   {(billingHealth?.warnings || []).length > 0 && (
-                    <span className="text-amber-700 dark:text-amber-200">
+                    <span className="text-amber-700 dark:text-warning">
                       Warnings: {billingHealth?.warnings?.length || 0}
                     </span>
                   )}
@@ -164,7 +164,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               )}
             </div>
             {selectedBusinessId && (
-              <p className="mt-1 truncate text-[11px] font-semibold text-slate-400">
+              <p className="mt-1 truncate text-[11px] font-semibold text-muted-foreground">
                 Business ID: {selectedBusinessId} / Account ID:{" "}
                 {selectedAdAccountId}
               </p>
@@ -180,7 +180,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               value={selectedAdAccountId}
               onChange={(event) => setSelectedAdAccountId(event.target.value)}
               disabled={loading || adAccounts.length === 0}
-              className="h-9 min-w-0 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950 dark:text-white sm:w-[360px]"
+              className="h-9 min-w-0 rounded-md border border-border bg-white px-3 text-sm text-foreground shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white sm:w-[360px]"
             >
               <option value="">
                 {loading ? "جاري تحميل الحسابات..." : "اختر حساباً إعلانياً"}
@@ -214,7 +214,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               disabled={loading}
               title="تحديث الحسابات الإعلانية من Meta"
               aria-label="تحديث الحسابات الإعلانية من Meta"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-white text-foreground hover:bg-muted disabled:opacity-60 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             >
               <ArrowPathIcon className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             </button>
@@ -222,13 +222,13 @@ const FacebookAdsAccountContextPanel: React.FC<
         </div>
 
         {error && (
-          <div className="mt-2 rounded-md border border-red-200 bg-red-50 p-2 text-sm text-red-700">
+          <div className="mt-2 rounded-md border border-destructive bg-destructive/10 p-2 text-sm text-destructive">
             {typeof error === "string" ? error : String(error)}
           </div>
         )}
 
         {!loading && adAccounts.length === 0 && !error && (
-          <div className="mt-2 rounded-md border border-amber-200 bg-amber-50 p-2 text-sm text-amber-800">
+          <div className="mt-2 rounded-md border border-warning bg-warning/10 p-2 text-sm text-warning">
             لا توجد حسابات إعلانية ظاهرة لهذا التوكن.
           </div>
         )}
@@ -237,29 +237,29 @@ const FacebookAdsAccountContextPanel: React.FC<
   }
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground dark:text-muted-foreground">
             <BuildingOfficeIcon className="h-5 w-5" />
             سياق Meta Ads الحالي
           </div>
-          <h2 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
+          <h2 className="mt-2 text-xl font-bold text-foreground dark:text-white">
             {selectedAdAccount?.name || "اختر الحساب الإعلاني"}
           </h2>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
             كل المزامنة والتقارير على هذه الصفحة ستتم على الحساب المحدد فقط.
           </p>
           {selectedAdAccount && (
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold">
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+              <span className="rounded-full bg-muted px-3 py-1 text-foreground dark:bg-muted dark:text-muted-foreground">
                 Business: {selectedBusinessName}
               </span>
               <span className="rounded-full bg-blue-50 px-3 py-1 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200">
                 Ad Account: {selectedAdAccountId}
               </span>
               {selectedBusinessId && (
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                <span className="rounded-full bg-muted px-3 py-1 text-foreground dark:bg-muted dark:text-muted-foreground">
                   Business ID: {selectedBusinessId}
                 </span>
               )}
@@ -271,15 +271,15 @@ const FacebookAdsAccountContextPanel: React.FC<
           <div className="flex flex-col gap-1">
             <label
               htmlFor="facebook-ad-account-select"
-              className="text-xs font-bold text-slate-500 dark:text-slate-400"
+              className="text-xs font-bold text-muted-foreground dark:text-muted-foreground"
             >
               الحساب الإعلاني
             </label>
             <div className="mb-1 flex flex-wrap gap-1 text-[11px] font-bold">
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-600">
+              <span className="rounded-full bg-muted px-2 py-0.5 text-foreground">
                 Businesses: {businessGroups.length}
               </span>
-              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-emerald-700">
+              <span className="rounded-full bg-success/10 px-2 py-0.5 text-success">
                 محفوظة: {savedAccountsCount}
               </span>
               <span className="rounded-full bg-blue-50 px-2 py-0.5 text-blue-700">
@@ -291,7 +291,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               value={selectedAdAccountId}
               onChange={(event) => setSelectedAdAccountId(event.target.value)}
               disabled={loading || adAccounts.length === 0}
-              className="min-w-[280px] rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+              className="min-w-[280px] rounded-xl border border-border bg-white px-4 py-2.5 text-sm text-foreground shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white"
               aria-describedby="facebook-ad-account-help"
             >
               <option value="">
@@ -333,7 +333,7 @@ const FacebookAdsAccountContextPanel: React.FC<
             onClick={refreshAdAccounts}
             disabled={loading}
             aria-label="تحديث الحسابات الإعلانية من Meta"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-60 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
           >
             <ArrowPathIcon className={`h-5 w-5 ${loading ? "animate-spin" : ""}`} />
             تحديث الحسابات
@@ -342,13 +342,13 @@ const FacebookAdsAccountContextPanel: React.FC<
       </div>
 
       {error && (
-        <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="mt-4 rounded-xl border border-destructive bg-destructive/10 p-3 text-sm text-destructive">
           {typeof error === "string" ? error : String(error)}
         </div>
       )}
 
       {!loading && adAccounts.length === 0 && !error && (
-        <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+        <div className="mt-4 rounded-xl border border-warning bg-warning/10 p-3 text-sm text-warning">
           لا توجد حسابات إعلانية ظاهرة لهذا التوكن. اربط حساب Facebook بصلاحيات
           `ads_read` و`ads_management` ثم أعد المحاولة.
         </div>
@@ -360,60 +360,60 @@ const FacebookAdsAccountContextPanel: React.FC<
             compact ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-4"
           }`}
         >
-          <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/70">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl bg-muted p-4 dark:bg-muted">
+            <p className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">
               Business
             </p>
-            <p className="mt-1 truncate text-sm font-bold text-slate-950 dark:text-white">
+            <p className="mt-1 truncate text-sm font-bold text-foreground dark:text-white">
               {selectedAdAccount.business?.name ||
                 billingHealth?.business?.name ||
                 "غير ظاهر من Meta"}
             </p>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
               {selectedAdAccount.business?.id ||
                 billingHealth?.business?.id ||
                 "business_management قد يكون مطلوب"}
             </p>
           </div>
 
-          <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/70">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl bg-muted p-4 dark:bg-muted">
+            <p className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">
               حالة الحساب
             </p>
-            <p className="mt-1 text-sm font-bold text-slate-950 dark:text-white">
+            <p className="mt-1 text-sm font-bold text-foreground dark:text-white">
               {billingHealth?.accountStatusLabel || "غير متاح"}
             </p>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
               العملة: {currency}
             </p>
           </div>
 
-          <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/70">
+          <div className="rounded-xl bg-muted p-4 dark:bg-muted">
             <div className="flex items-center gap-2">
               <CreditCardIcon className="h-5 w-5 text-blue-500" />
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">
                 الدفع
               </p>
             </div>
-            <p className="mt-1 text-sm font-bold text-slate-950 dark:text-white">
+            <p className="mt-1 text-sm font-bold text-foreground dark:text-white">
               {billingHealth?.hasFundingSource ? "وسيلة دفع ظاهرة" : "غير ظاهر"}
             </p>
-            <p className="mt-1 truncate text-xs text-slate-500">
+            <p className="mt-1 truncate text-xs text-muted-foreground">
               {billingHealth?.fundingSourceDisplay || "لا نعرض بيانات بطاقة حساسة"}
             </p>
           </div>
 
-          <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/70">
+          <div className="rounded-xl bg-muted p-4 dark:bg-muted">
             <div className="flex items-center gap-2">
-              <BanknotesIcon className="h-5 w-5 text-emerald-500" />
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+              <BanknotesIcon className="h-5 w-5 text-success" />
+              <p className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">
                 الصرف والحدود
               </p>
             </div>
-            <p className="mt-1 text-sm font-bold text-slate-950 dark:text-white">
+            <p className="mt-1 text-sm font-bold text-foreground dark:text-white">
               {formatCurrency(billingHealth?.amountSpent, currency)}
             </p>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
               حد الحساب: {formatCurrency(billingHealth?.spendCap, currency)}
             </p>
           </div>
@@ -425,10 +425,10 @@ const FacebookAdsAccountContextPanel: React.FC<
           <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-700">
             Pixels: {assetsLoading ? "..." : pixels.length}
           </span>
-          <span className="rounded-full bg-emerald-50 px-3 py-1 font-medium text-emerald-700">
+          <span className="rounded-full bg-success/10 px-3 py-1 font-medium text-success">
             Pages جاهزة: {assetsLoading ? "..." : pagesMeta?.counts?.ready || 0}
           </span>
-          <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-700">
+          <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
             Account ID: {selectedAdAccountId}
           </span>
         </div>
@@ -439,7 +439,7 @@ const FacebookAdsAccountContextPanel: React.FC<
           {billingHealth?.warnings?.map((warning) => (
             <div
               key={warning.code}
-              className="flex gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800"
+              className="flex gap-2 rounded-xl border border-warning bg-warning/10 p-3 text-sm text-warning"
             >
               <ExclamationTriangleIcon className="mt-0.5 h-5 w-5 flex-none" />
               <span>{warning.message}</span>

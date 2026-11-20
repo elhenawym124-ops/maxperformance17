@@ -50,7 +50,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
                 </span>
               </div>
 
-              <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-medium">
+              <div className="flex justify-between text-success dark:text-success font-medium">
                 <span>قيمة الدفعة الحالية:</span>
                 <span className="font-bold font-mono tabular-nums">
                   -{formatCurrency(currentPaymentAmount)}
@@ -67,7 +67,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
                       balanceAfterPayment < 0
                         ? "text-blue-600 dark:text-blue-400"
                         : balanceAfterPayment === 0
-                        ? "text-emerald-600 dark:text-emerald-400"
+                        ? "text-emerald-600 dark:text-success"
                         : "text-primary"
                     }`}
                   >
@@ -109,7 +109,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
               <Button
                 type="submit"
                 disabled={saving}
-                className="w-full h-12 text-base rounded-xl font-bold active:scale-[0.98] transition-transform duration-100 shadow-md bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="w-full h-12 text-base rounded-xl font-bold active:scale-[0.98] transition-transform duration-100 shadow-md bg-success hover:bg-success text-white"
               >
                 {saving ? (
                   <LoadingSpinner size="sm" />
@@ -136,7 +136,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
       <div className="fixed bottom-0 inset-x-0 z-40 bg-background/95 backdrop-blur-md border-t border-border/80 p-3 flex items-center justify-between shadow-2xl md:hidden">
         <div className="flex flex-col">
           <span className="text-[11px] text-muted-foreground">المبلغ المنصرف:</span>
-          <span className="text-lg font-black font-mono text-emerald-600 tabular-nums">
+          <span className="text-lg font-black font-mono text-success tabular-nums">
             {formatCurrency(currentPaymentAmount)}
           </span>
         </div>
@@ -154,7 +154,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
           <Button
             type="submit"
             disabled={saving}
-            className="rounded-xl px-5 font-bold shadow-md text-white bg-emerald-600 hover:bg-emerald-700"
+            className="rounded-xl px-5 font-bold shadow-md text-white bg-success hover:bg-success"
           >
             {saving ? <LoadingSpinner size="sm" /> : <Save className="size-4 me-1" />}
             {isEditing ? "حفظ التعديلات" : "صرف السند"}

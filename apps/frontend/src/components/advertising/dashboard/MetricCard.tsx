@@ -12,20 +12,20 @@ const TONE_STYLES = {
     accent: "text-blue-600 dark:text-blue-400",
   },
   purchases: {
-    iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-    accent: "text-emerald-600 dark:text-emerald-400",
+    iconBg: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+    accent: "text-emerald-600 dark:text-success",
   },
   results: {
-    iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-    accent: "text-emerald-600 dark:text-emerald-400",
+    iconBg: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+    accent: "text-emerald-600 dark:text-success",
   },
   roas: {
-    iconBg: "bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20",
-    accent: "text-violet-600 dark:text-violet-400",
+    iconBg: "bg-violet-500/10 text-primary dark:text-primary border border-primary/20",
+    accent: "text-violet-600 dark:text-primary",
   },
   cpa: {
-    iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
-    accent: "text-amber-600 dark:text-amber-400",
+    iconBg: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+    accent: "text-amber-600 dark:text-warning",
   },
 };
 
@@ -75,8 +75,8 @@ export default function MetricCard({
             className={cn(
               "inline-flex items-center gap-0.5 text-[11px] font-semibold font-mono tabular-nums px-1.5 py-0.5 rounded-md",
               tag.isPositive
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
-                : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
+                ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
+                : "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
             )}
           >
             {tag.isPositive ? (

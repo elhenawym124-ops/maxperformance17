@@ -108,7 +108,7 @@ export const StoreProductPickerModal: React.FC<StoreProductPickerModalProps> = (
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xs p-4 animate-in fade-in duration-150">
-      <div className="w-full max-w-2xl rounded-2xl bg-card shadow-2xl border border-border/70 overflow-hidden flex flex-col max-h-[85vh]">
+      <div className="w-full max-w-2xl rounded-xl bg-card shadow-2xl border border-border/70 overflow-hidden flex flex-col max-h-[85vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/60 bg-muted/20">
           <div className="flex items-center gap-2.5">
@@ -145,7 +145,7 @@ export const StoreProductPickerModal: React.FC<StoreProductPickerModalProps> = (
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={isEn ? "Search by product name..." : "ابحث باسم المنتج..."}
-              className="w-full rounded-lg border border-border/70 bg-muted/20 pr-10 pl-4 py-2 text-xs font-medium text-foreground placeholder:text-muted-foreground focus:bg-card focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full rounded-lg border border-border/70 bg-muted/20 pe-10 ps-4 py-2 text-xs font-medium text-foreground placeholder:text-muted-foreground focus:bg-card focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </form>
         </div>
@@ -172,7 +172,7 @@ export const StoreProductPickerModal: React.FC<StoreProductPickerModalProps> = (
                   key={product.id}
                   className="flex items-center justify-between py-3 px-2 hover:bg-muted/30 rounded-lg transition group"
                 >
-                  <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div className="flex items-center gap-3 min-w-0 pe-2">
                     <div className="h-12 w-12 rounded-lg border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center">
                       {imgUrl ? (
                         <img
@@ -189,7 +189,7 @@ export const StoreProductPickerModal: React.FC<StoreProductPickerModalProps> = (
                         {product.name}
                       </p>
                       <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                        <span className="text-xs font-bold text-success dark:text-success font-mono tabular-nums">
                           {Number(product.price || 0).toLocaleString()} {isEn ? "EGP" : "ج.م"}
                         </span>
                         {product.category && (

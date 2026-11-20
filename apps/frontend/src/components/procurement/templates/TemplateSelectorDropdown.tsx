@@ -54,11 +54,11 @@ interface TemplateSelectorDropdownProps {
 }
 
 const templateIcons: Record<ProcurementTemplateId, React.ReactNode> = {
-  commercial_factory: <Factory className="size-4 text-red-600" />,
-  compact_eco: <Leaf className="size-4 text-emerald-600" />,
-  official_tax: <ShieldCheck className="size-4 text-slate-800" />,
+  commercial_factory: <Factory className="size-4 text-destructive" />,
+  compact_eco: <Leaf className="size-4 text-success" />,
+  official_tax: <ShieldCheck className="size-4 text-foreground" />,
   modern_minimal: <Sparkles className="size-4 text-blue-600" />,
-  goods_receipt: <Boxes className="size-4 text-amber-600" />,
+  goods_receipt: <Boxes className="size-4 text-warning" />,
 };
 
 export const TemplateSelectorDropdown: React.FC<TemplateSelectorDropdownProps> = ({
@@ -287,7 +287,7 @@ export const TemplateSelectorDropdown: React.FC<TemplateSelectorDropdownProps> =
           </DialogHeader>
 
           {/* Scaled Preview Frame: Guaranteed No-Squish Container */}
-          <div className="my-2 p-3 sm:p-6 bg-slate-200/80 rounded-xl overflow-x-auto overflow-y-auto flex justify-center min-h-[460px]">
+          <div className="my-2 p-3 sm:p-6 bg-muted rounded-xl overflow-x-auto overflow-y-auto flex justify-center min-h-[460px]">
             <div
               style={{
                 transform: `scale(${zoomScale})`,
@@ -296,7 +296,7 @@ export const TemplateSelectorDropdown: React.FC<TemplateSelectorDropdownProps> =
                 minWidth: "794px",
                 marginBottom: zoomScale < 1 ? `-${Math.round((1 - zoomScale) * 800)}px` : 0,
               }}
-              className="bg-white shadow-2xl rounded-sm transition-transform duration-150 ease-out border border-slate-300"
+              className="bg-white shadow-2xl rounded-sm transition-transform duration-150 ease-out border border-border"
             >
               {renderPreviewContent()}
             </div>

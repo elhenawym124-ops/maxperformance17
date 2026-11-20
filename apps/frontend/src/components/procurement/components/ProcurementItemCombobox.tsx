@@ -254,9 +254,9 @@ export const ProcurementItemCombobox: React.FC<ProcurementItemComboboxProps> = (
                     setIsOpen(false);
                     onAddNewProduct(value.trim());
                   }}
-                  className="w-full flex items-center gap-2 p-2.5 text-xs rounded-lg text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/15 border border-emerald-500/30 bg-emerald-500/10 transition-colors text-start font-semibold shadow-sm"
+                  className="w-full flex items-center gap-2 p-2.5 text-xs rounded-lg text-success dark:text-success hover:bg-success/15 border border-success/30 bg-success/10 transition-colors text-start font-semibold shadow-sm"
                 >
-                  <Plus className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                  <Plus className="size-4 shrink-0 text-success dark:text-success" />
                   <span className="truncate">
                     غير مسجل بالمخزن — اضغط لإضافة <strong>«{value.trim()}»</strong> كمنتج جديد
                   </span>
@@ -288,7 +288,7 @@ export const ProcurementItemCombobox: React.FC<ProcurementItemComboboxProps> = (
                       setIsOpen(false);
                       onAddNewProduct(value.trim());
                     }}
-                    className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 text-xs rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-colors shadow-sm"
+                    className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 text-xs rounded-md bg-success hover:bg-success text-white font-medium transition-colors shadow-sm"
                   >
                     <Plus className="size-3.5" />
                     إضافة «{value.trim()}» كمنتج جديد في المخزن الآن
@@ -356,8 +356,8 @@ export const ProcurementItemCombobox: React.FC<ProcurementItemComboboxProps> = (
                             <span
                               className={`text-[10px] font-mono px-1 rounded ${
                                 v.stock > 0
-                                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                  : "bg-red-500/10 text-red-500"
+                                  ? "bg-emerald-500/10 text-success dark:text-success"
+                                  : "bg-red-500/10 text-destructive"
                               }`}
                             >
                               مخزون: {v.stock}

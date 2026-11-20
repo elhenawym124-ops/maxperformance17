@@ -152,14 +152,14 @@ export const SupplierFormModal: React.FC<SupplierFormModalProps> = ({
                 formData.tags.map((tag, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-md text-xs font-medium border border-zinc-200 dark:border-zinc-700"
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-muted dark:bg-muted text-foreground dark:text-muted-foreground rounded-md text-xs font-medium border border-border dark:border-border"
                   >
-                    <Tag className="size-3 text-zinc-400" />
+                    <Tag className="size-3 text-muted-foreground" />
                     {tag}
                     <button
                       type="button"
                       onClick={() => onRemoveTag(tag)}
-                      className="ms-1 text-zinc-400 hover:text-rose-500 transition-colors"
+                      className="ms-1 text-muted-foreground hover:text-destructive transition-colors"
                     >
                       <X className="size-3" />
                     </button>

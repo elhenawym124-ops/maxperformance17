@@ -170,7 +170,7 @@ export const GovernoratesSelector: React.FC<GovernoratesSelectorProps> = ({
           <button
             type="button"
             onClick={clearAll}
-            className="px-2.5 py-1 text-xs font-medium border border-rose-500/20 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+            className="px-2.5 py-1 text-xs font-medium border border-destructive/20 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
           >
             {t("storeBranches.deselectAll")}
           </button>
@@ -186,7 +186,7 @@ export const GovernoratesSelector: React.FC<GovernoratesSelectorProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={t("storeBranches.searchGovernorates")}
-            className="w-full pr-9 pl-8 py-2 text-xs bg-background border border-border/70 text-foreground rounded-xl placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all"
+            className="w-full pe-9 ps-8 py-2 text-xs bg-background border border-border/70 text-foreground rounded-xl placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all"
           />
           {searchTerm && (
             <button

@@ -709,7 +709,7 @@ export const PurchaseOrderDetail: React.FC = () => {
                         <TableCell className="text-center font-mono font-bold tabular-nums">
                           {formatCurrency(inv.totalAmount, { locale: i18n.language })}
                         </TableCell>
-                        <TableCell className="text-center font-mono text-emerald-600 font-semibold tabular-nums">
+                        <TableCell className="text-center font-mono text-success font-semibold tabular-nums">
                           {formatCurrency(inv.paidAmount, { locale: i18n.language })}
                         </TableCell>
                         <TableCell className="text-center font-mono text-destructive font-bold tabular-nums">

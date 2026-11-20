@@ -25,7 +25,7 @@ export const BranchModal: React.FC<BranchModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-150"
       dir="rtl"
     >
-      <div className="bg-card border border-border/70 text-card-foreground shadow-2xl rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
+      <div className="bg-card border border-border/70 text-card-foreground shadow-2xl rounded-xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/60 bg-muted/20">
           <div className="flex items-center gap-2.5">
@@ -81,7 +81,7 @@ export const BranchModal: React.FC<BranchModalProps> = ({
                 onChange={(e) =>
                   onChange({ ...branch, address: e.target.value })
                 }
-                className="w-full pr-9 pl-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all"
+                className="w-full pe-9 ps-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all"
                 placeholder={t("storeBranches.addressPlaceholder")}
               />
             </div>
@@ -116,7 +116,7 @@ export const BranchModal: React.FC<BranchModalProps> = ({
                     onChange({ ...branch, phone: e.target.value })
                   }
                   dir="ltr"
-                  className="w-full pr-9 pl-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all text-right font-mono tabular-nums"
+                  className="w-full pe-9 ps-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all text-right font-mono tabular-nums"
                   placeholder={t("storeBranches.phonePlaceholder")}
                 />
               </div>
@@ -135,7 +135,7 @@ export const BranchModal: React.FC<BranchModalProps> = ({
                     onChange({ ...branch, email: e.target.value })
                   }
                   dir="ltr"
-                  className="w-full pr-9 pl-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all text-right"
+                  className="w-full pe-9 ps-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all text-right"
                   placeholder="branch@example.com"
                 />
               </div>
@@ -155,7 +155,7 @@ export const BranchModal: React.FC<BranchModalProps> = ({
                 onChange={(e) =>
                   onChange({ ...branch, workingHours: e.target.value })
                 }
-                className="w-full pr-9 pl-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all font-mono tabular-nums"
+                className="w-full pe-9 ps-3.5 py-2 text-xs bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary transition-all font-mono tabular-nums"
                 placeholder={t("storeBranches.workingHoursPlaceholder")}
               />
             </div>

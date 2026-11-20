@@ -23,9 +23,9 @@ interface OrdersReportTabProps {
 const statusMap: Record<string, { label: string; className: string }> = {
   DRAFT: { label: 'مسودة', className: 'bg-muted text-muted-foreground' },
   ORDERED: { label: 'تم الطلب', className: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
-  PARTIALLY_RECEIVED: { label: 'مستلم جزئياً', className: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
-  RECEIVED: { label: 'مستلم بالكامل', className: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' },
-  CANCELLED: { label: 'ملغي', className: 'bg-rose-500/10 text-rose-600 border-rose-500/20' },
+  PARTIALLY_RECEIVED: { label: 'مستلم جزئياً', className: 'bg-amber-500/10 text-warning border-warning/20' },
+  RECEIVED: { label: 'مستلم بالكامل', className: 'bg-emerald-500/10 text-success border-success/20' },
+  CANCELLED: { label: 'ملغي', className: 'bg-rose-500/10 text-destructive border-destructive/20' },
 };
 
 export const OrdersReportTab: React.FC<OrdersReportTabProps> = ({ orders, summary, loading }) => {

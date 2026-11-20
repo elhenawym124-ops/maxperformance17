@@ -125,16 +125,16 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-5xl w-full max-h-[90vh] overflow-hidden border border-transparent dark:border-gray-700 shadow-2xl flex flex-col">
+      <div className="bg-card rounded-lg max-w-5xl w-full max-h-[90vh] overflow-hidden border border-transparent dark:border-border shadow-2xl flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-border dark:border-border">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-foreground">
               {isEditing ? t("storeShipping.modalEditTitle") : t("storeShipping.modalAddTitle")}
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="text-gray-400 hover:text-foreground dark:hover:text-muted-foreground transition-colors"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
@@ -146,7 +146,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
               onClick={() => setActiveTab("basic")}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === "basic"
                 ? "bg-indigo-600 text-white"
-                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
                 }`}
             >
               {t("storeShipping.basicInfo")}
@@ -155,7 +155,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
               onClick={() => setActiveTab("advanced")}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === "advanced"
                 ? "bg-indigo-600 text-white"
-                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
                 }`}
             >
               {t("storeShipping.advancedSettings")}
@@ -170,7 +170,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
 
               {/* Governorates Selector */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   {t("storeShipping.governorates")} <span className="text-red-500">*</span>
                 </label>
                 <GovernoratesSelector
@@ -182,7 +182,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
 
               {/* Delivery Time */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   {t("storeShipping.deliveryTime")} <span className="text-red-500">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-3">
@@ -191,14 +191,14 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                       key={option.value}
                       onClick={() => handleDeliveryTimeTypeChange(option.value)}
                       className={`p-3 rounded-lg border-2 text-right transition-all ${zone.deliveryTimeType === option.value
-                        ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30"
-                        : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                        ? "border-indigo-600 bg-primary/10 dark:bg-primary/30"
+                        : "border-gray-200 dark:border-border hover:border-border"
                         }`}
                     >
-                      <div className="font-medium text-gray-900 dark:text-white">
+                      <div className="font-medium text-foreground">
                         {option.label}
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      <div className="text-xs text-muted-foreground mt-1">
                         {option.description}
                       </div>
                     </button>
@@ -212,31 +212,31 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                     onChange={(e) =>
                       onChange({ ...zone, deliveryTime: e.target.value })
                     }
-                    className="mt-3 w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="mt-3 w-full px-3 py-2 bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder={t("storeShipping.deliveryTimePlaceholder")}
                   />
                 )}
               </div>
 
-              <hr className="border-gray-200 dark:border-gray-700 my-6" />
+              <hr className="border-gray-200 dark:border-border my-6" />
 
               {/* Pricing Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <label className="block text-sm font-medium text-foreground mb-3">
                   {t("storeShipping.pricingType")} <span className="text-red-500">*</span>
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <button
                     onClick={() => handlePricingTypeChange("flat")}
                     className={`p-4 rounded-lg border-2 text-right transition-all ${zone.pricingType === "flat"
-                      ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30"
-                      : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                      ? "border-indigo-600 bg-primary/10 dark:bg-primary/30"
+                      : "border-gray-200 dark:border-border hover:border-border"
                       }`}
                   >
-                    <div className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <div className="font-semibold text-foreground mb-1">
                       {t("storeShipping.flatRate")}
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="text-sm text-foreground dark:text-muted-foreground">
                       سعر واحد لجميع الطلبات بغض النظر عن الوزن أو القيمة
                     </div>
                   </button>
@@ -244,14 +244,14 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                   <button
                     onClick={() => handlePricingTypeChange("tiered")}
                     className={`p-4 rounded-lg border-2 text-right transition-all ${zone.pricingType === "tiered"
-                      ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30"
-                      : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                      ? "border-indigo-600 bg-primary/10 dark:bg-primary/30"
+                      : "border-gray-200 dark:border-border hover:border-border"
                       }`}
                   >
-                    <div className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <div className="font-semibold text-foreground mb-1">
                       {t("storeShipping.tieredPricing")}
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="text-sm text-foreground dark:text-muted-foreground">
                       أسعار مختلفة حسب الوزن أو قيمة الطلب
                     </div>
                   </button>
@@ -261,7 +261,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
               {/* Flat Pricing */}
               {zone.pricingType === "flat" && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     {t("storeShipping.price")} <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -275,7 +275,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                         price: parseFloat(e.target.value) || 0,
                       })
                     }
-                    className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder={t("storeShipping.price")}
                   />
                 </div>
@@ -285,12 +285,12 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
               {zone.pricingType === "tiered" && (
                 <div>
                   <div className="flex justify-between items-center mb-3">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="text-sm font-medium text-foreground">
                       {t("storeShipping.tieredPricing")} <span className="text-red-500">*</span>
                     </label>
                     <button
                       onClick={addPricingTier}
-                      className="px-3 py-1.5 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700 flex items-center gap-1"
+                      className="px-3 py-1.5 bg-primary text-white text-sm rounded-md hover:bg-primary flex items-center gap-1"
                     >
                       <PlusIcon className="h-4 w-4" />
                       {t("storeShipping.addTier")}
@@ -311,17 +311,17 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                     {zone.pricingTiers?.map((tier, index) => (
                       <div
                         key={index}
-                        className="p-4 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg"
+                        className="p-4 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg"
                       >
                         <div className="flex justify-between items-start mb-3">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                          <span className="text-sm font-medium text-foreground">
                             {t("storeShipping.addTier")} {index + 1}
                           </span>
                           {zone.pricingTiers &&
                             zone.pricingTiers.length > 1 && (
                               <button
                                 onClick={() => removePricingTier(index)}
-                                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                                className="text-red-600 dark:text-destructive hover:text-destructive dark:hover:text-destructive"
                               >
                                 <TrashIcon className="h-4 w-4" />
                               </button>
@@ -330,7 +330,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
 
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                           <div>
-                            <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                               {t("storeShipping.tierFrom")}
                             </label>
                             <input
@@ -344,12 +344,12 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                                   minWeight: parseFloat(e.target.value) || 0,
                                 })
                               }
-                              className="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-2 py-1.5 text-sm bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                               {t("storeShipping.tierTo")}
                             </label>
                             <input
@@ -363,12 +363,12 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                                   maxWeight: parseFloat(e.target.value) || 0,
                                 })
                               }
-                              className="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-2 py-1.5 text-sm bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                               {t("storeShipping.tierPrice")}{" "}
                               <span className="text-red-500">*</span>
                             </label>
@@ -383,14 +383,14 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                                   price: parseFloat(e.target.value) || 0,
                                 })
                               }
-                              className="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-2 py-1.5 text-sm bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                           </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 mt-3">
                           <div>
-                            <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                               {t("storeShipping.tierFrom")}
                             </label>
                             <input
@@ -405,13 +405,13 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                                     parseFloat(e.target.value) || undefined,
                                 })
                               }
-                              className="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-2 py-1.5 text-sm bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                               placeholder="اختياري"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs text-foreground dark:text-muted-foreground mb-1">
                               {t("storeShipping.tierTo")}
                             </label>
                             <input
@@ -426,7 +426,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                                     parseFloat(e.target.value) || undefined,
                                 })
                               }
-                              className="w-full px-2 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-2 py-1.5 text-sm bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                               placeholder="اختياري"
                             />
                           </div>
@@ -443,7 +443,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
             <div className="space-y-6">
               {/* Free Shipping Threshold */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   {t("storeShipping.freeShippingTag")}
                 </label>
                 <input
@@ -458,17 +458,17 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                         parseFloat(e.target.value) || undefined,
                     })
                   }
-                  className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="500"
                 />
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-xs text-muted-foreground">
                   إذا كانت قيمة الطلب أكبر من هذا المبلغ، سيكون الشحن مجاني.
                   اتركه فارغاً لتعطيل الشحن المجاني.
                 </p>
               </div>
 
               {/* Active Status */}
-              <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+              <div className="flex items-center gap-3 p-4 bg-muted dark:bg-muted rounded-lg">
                 <input
                   type="checkbox"
                   id="zoneActive"
@@ -476,16 +476,16 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                   onChange={(e) =>
                     onChange({ ...zone, isActive: e.target.checked })
                   }
-                  className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700"
+                  className="h-5 w-5 text-primary focus:ring-primary border-border rounded bg-card"
                 />
                 <div>
                   <label
                     htmlFor="zoneActive"
-                    className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer"
+                    className="text-sm font-medium text-foreground cursor-pointer"
                   >
                     {t("storeShipping.active")}
                   </label>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     عند التعطيل، لن تظهر هذه المنطقة للعملاء
                   </p>
                 </div>
@@ -495,11 +495,11 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+        <div className="p-6 border-t border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex justify-between items-center">
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-foreground dark:text-muted-foreground">
               {!isValid() && (
-                <span className="text-red-600 dark:text-red-400">
+                <span className="text-red-600 dark:text-destructive">
                   ⚠️ {t("storeShipping.nameRequired")}
                 </span>
               )}
@@ -507,7 +507,7 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
             <div className="flex gap-3">
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium"
+                className="px-6 py-2.5 bg-muted text-foreground rounded-md hover:bg-muted dark:hover:bg-muted transition-colors font-medium"
               >
                 {t("storeShipping.cancel")}
               </button>
@@ -515,8 +515,8 @@ export const ShippingModalV2: React.FC<ShippingModalV2Props> = ({
                 onClick={onSave}
                 disabled={!isValid()}
                 className={`px-6 py-2.5 rounded-md transition-colors font-medium shadow-lg ${isValid()
-                  ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                  : "bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-500 cursor-not-allowed"
+                  ? "bg-indigo-600 text-white hover:bg-primary"
+                  : "bg-gray-300 dark:bg-muted text-muted-foreground dark:text-muted-foreground cursor-not-allowed"
                   }`}
               >
                 {isEditing ? t("storeShipping.save") : t("storeShipping.addZone")}

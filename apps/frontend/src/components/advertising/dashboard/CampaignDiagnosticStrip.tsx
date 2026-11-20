@@ -45,10 +45,10 @@ export default function CampaignDiagnosticStrip({
           className={[
             "rounded-lg px-2 py-1 text-[10px] font-black",
             item.tone === "good"
-              ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/35 dark:text-emerald-200"
+              ? "bg-emerald-50 text-success dark:bg-success/35 dark:text-success"
               : item.tone === "bad"
-                ? "bg-red-50 text-red-700 dark:bg-red-950/35 dark:text-red-200"
-                : "bg-amber-50 text-amber-700 dark:bg-amber-950/35 dark:text-amber-200",
+                ? "bg-red-50 text-destructive dark:bg-destructive/35 dark:text-destructive"
+                : "bg-amber-50 text-warning dark:bg-warning/35 dark:text-warning",
           ].join(" ")}
         >
           {item.label}: {item.value}

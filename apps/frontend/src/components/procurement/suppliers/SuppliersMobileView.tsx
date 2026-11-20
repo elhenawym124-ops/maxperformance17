@@ -76,13 +76,13 @@ export const SuppliersMobileView: React.FC<SuppliersMobileViewProps> = ({
                     {parseTags(supplier.tags).slice(0, 2).map((tag, idx) => (
                       <span
                         key={idx}
-                        className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200/60 dark:border-zinc-700"
+                        className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border"
                       >
                         {tag}
                       </span>
                     ))}
                     {parseTags(supplier.tags).length > 2 && (
-                      <span className="text-[10px] text-zinc-400 font-mono">
+                      <span className="text-[10px] text-muted-foreground font-mono">
                         +{parseTags(supplier.tags).length - 2}
                       </span>
                     )}

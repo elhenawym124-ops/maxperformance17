@@ -44,7 +44,7 @@ export const ShippingModal: React.FC<ShippingModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-150"
       dir="rtl"
     >
-      <div className="bg-card border border-border/70 text-card-foreground shadow-2xl rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
+      <div className="bg-card border border-border/70 text-card-foreground shadow-2xl rounded-xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/60 bg-muted/20">
           <div className="flex items-center gap-2.5">
@@ -119,7 +119,7 @@ export const ShippingModal: React.FC<ShippingModalProps> = ({
                       <button
                         type="button"
                         onClick={() => onRemoveGovernorate(idx)}
-                        className="text-muted-foreground hover:text-rose-500 transition-colors p-0.5"
+                        className="text-muted-foreground hover:text-destructive transition-colors p-0.5"
                         aria-label={`إزالة ${gov}`}
                       >
                         <XCircle className="w-3.5 h-3.5" />

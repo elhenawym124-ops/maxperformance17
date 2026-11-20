@@ -72,7 +72,7 @@ export const InvoiceItemsTable: React.FC<InvoiceItemsTableProps> = ({
           </div>
 
           <span className="text-xs text-muted-foreground hidden sm:inline-flex items-center gap-1">
-            <Lightbulb className="size-3.5 text-amber-500 shrink-0" />
+            <Lightbulb className="size-3.5 text-warning shrink-0" />
             <span>
               اضغط{" "}
               <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">
@@ -142,7 +142,7 @@ export const InvoiceItemsTable: React.FC<InvoiceItemsTableProps> = ({
                       <button
                         type="button"
                         onClick={() => handleOpenQuickAddProduct(index, item.productName)}
-                        className="text-[11px] text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 mt-1 font-medium transition-colors"
+                        className="text-[11px] text-warning dark:text-warning hover:underline flex items-center gap-1 mt-1 font-medium transition-colors"
                       >
                         <AlertCircle className="size-3 shrink-0" />
                         <span>غير مسجل بالمخزن — اضغط هنا لإضافته كمنتج جديد</span>
@@ -215,7 +215,7 @@ export const InvoiceItemsTable: React.FC<InvoiceItemsTableProps> = ({
                       variant="ghost"
                       size="icon"
                       onClick={() => removeItem(index)}
-                      className="text-red-500 hover:text-red-600 hover:bg-red-500/10 rounded-xl"
+                      className="text-red-500 hover:text-destructive hover:bg-destructive/10 rounded-xl"
                     >
                       <Trash2 className="size-4" />
                     </Button>
@@ -242,7 +242,7 @@ export const InvoiceItemsTable: React.FC<InvoiceItemsTableProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => removeItem(index)}
-                  className="text-red-500 hover:bg-red-500/10 h-7 px-2"
+                  className="text-red-500 hover:bg-destructive/10 h-7 px-2"
                 >
                   <Trash2 className="size-3.5 me-1" /> حذف
                 </Button>
@@ -270,7 +270,7 @@ export const InvoiceItemsTable: React.FC<InvoiceItemsTableProps> = ({
                   <button
                     type="button"
                     onClick={() => handleOpenQuickAddProduct(index, item.productName)}
-                    className="text-[11px] text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 mt-1 font-medium transition-colors"
+                    className="text-[11px] text-warning dark:text-warning hover:underline flex items-center gap-1 mt-1 font-medium transition-colors"
                   >
                     <AlertCircle className="size-3 shrink-0" />
                     <span>غير مسجل بالمخزن — اضغط لإضافته كمنتج جديد</span>
@@ -339,7 +339,7 @@ export const InvoiceItemsTable: React.FC<InvoiceItemsTableProps> = ({
             type="button"
             variant="outline"
             onClick={() => handleOpenQuickAddProduct(-1, "")}
-            className="w-full sm:w-auto rounded-xl gap-2 active:scale-[0.98] transition-transform duration-100 text-sm h-10 font-semibold border-emerald-500/40 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/20"
+            className="w-full sm:w-auto rounded-xl gap-2 active:scale-[0.98] transition-transform duration-100 text-sm h-10 font-semibold border-success/40 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/20"
           >
             <Plus className="size-4" />
             إضافة منتج جديد للمخزن

@@ -467,7 +467,7 @@ export const PurchaseInvoiceDetail: React.FC = () => {
                   {formatCurrency(invoice.totalAmount, { locale: i18n.language })}
                 </span>
               </div>
-              <div className="flex justify-between items-baseline text-xs text-emerald-600">
+              <div className="flex justify-between items-baseline text-xs text-success">
                 <span>المدفوع:</span>
                 <span className="font-bold font-mono tabular-nums">
                   {formatCurrency(invoice.paidAmount, { locale: i18n.language })}
@@ -587,7 +587,7 @@ export const PurchaseInvoiceDetail: React.FC = () => {
                 </div>
               )}
               {Number(invoice.taxAmount) > 0 && (
-                <div className="flex justify-between text-emerald-600">
+                <div className="flex justify-between text-success">
                   <span>{t("procurement.purchaseInvoiceDetail.taxAmount", "الضرائب:")}</span>
                   <span className="font-mono font-medium tabular-nums">
                     +{formatCurrency(invoice.taxAmount, { locale: i18n.language })}
@@ -610,7 +610,7 @@ export const PurchaseInvoiceDetail: React.FC = () => {
                   {formatCurrency(invoice.totalAmount, { locale: i18n.language })}
                 </span>
               </div>
-              <div className="flex justify-between text-emerald-600 font-semibold">
+              <div className="flex justify-between text-success font-semibold">
                 <span>{t("procurement.purchaseInvoiceDetail.paidAmount", "المدفوع:")}</span>
                 <span className="font-mono tabular-nums">
                   {formatCurrency(invoice.paidAmount, { locale: i18n.language })}
@@ -676,7 +676,7 @@ export const PurchaseInvoiceDetail: React.FC = () => {
                         <TableCell className="tabular-nums">
                           {formatShortDate(pmt.paymentDate, i18n.language)}
                         </TableCell>
-                        <TableCell className="text-center font-mono font-bold text-emerald-600 tabular-nums">
+                        <TableCell className="text-center font-mono font-bold text-success tabular-nums">
                           {formatCurrency(pmt.amount, { locale: i18n.language })}
                         </TableCell>
                         <TableCell className="text-center">

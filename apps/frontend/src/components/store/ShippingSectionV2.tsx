@@ -248,10 +248,10 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
     <div>
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             {t("storeShipping.shippingZonesTitle")}
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {t("storeShipping.shippingZonesSubtitle")}
           </p>
         </div>
@@ -260,7 +260,7 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
             onClick={() => setShowAnalytics(!showAnalytics)}
             className={`px-4 py-2 rounded-md flex items-center gap-2 transition-colors ${showAnalytics
               ? "bg-indigo-600 text-white"
-              : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+              : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
               }`}
           >
             <ChartBarIcon className="h-5 w-5" />
@@ -268,7 +268,7 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
           </button>
           <button
             onClick={onAdd}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center gap-2"
+            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary flex items-center gap-2"
           >
             <PlusIcon className="h-5 w-5" />
             {t("storeShipping.addZone")}
@@ -277,10 +277,10 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
       </div>
 
       {/* Shipping Strategy Card */}
-      <div className="mb-6 p-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
+      <div className="mb-6 p-5 bg-card border border-border dark:border-border rounded-lg shadow-sm">
         <div className="flex items-center gap-3 mb-4">
-          <TruckIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <TruckIcon className="h-6 w-6 text-primary" />
+          <h3 className="text-lg font-semibold text-foreground">
             استراتيجية تسعير الشحن
           </h3>
         </div>
@@ -294,14 +294,14 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
               })
             }
             className={`p-4 rounded-xl border-2 text-right transition-all ${!promotionSettings.flatShippingEnabled
-                ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20"
-                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                ? "border-indigo-600 bg-primary/10 dark:bg-primary/20"
+                : "border-gray-200 dark:border-border hover:border-border"
               }`}
           >
-            <div className="font-bold text-gray-900 dark:text-white mb-1 text-base">
+            <div className="font-bold text-foreground mb-1 text-base">
               تسعير مخصص حسب المناطق
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="text-sm text-muted-foreground">
               يتم استخدام الأسعار المحددة لكل منطقة أدناه. يتيح لك تحديد تكلفة
               مختلفة لكل محافظة.
             </div>
@@ -315,14 +315,14 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
               })
             }
             className={`p-4 rounded-xl border-2 text-right transition-all ${promotionSettings.flatShippingEnabled
-                ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20"
-                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                ? "border-indigo-600 bg-primary/10 dark:bg-primary/20"
+                : "border-gray-200 dark:border-border hover:border-border"
               }`}
           >
-            <div className="font-bold text-gray-900 dark:text-white mb-1 text-base">
+            <div className="font-bold text-foreground mb-1 text-base">
               سعر شحن موحد لجميع المحافظات
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="text-sm text-muted-foreground">
               سيتم تجاهل أسعار المناطق واستخدام سعر ثابت لجميع العملاء في جميع أنحاء
               الجمهورية.
             </div>
@@ -330,9 +330,9 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
         </div>
 
         {promotionSettings.flatShippingEnabled && (
-          <div className="mt-4 flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-100 dark:border-gray-800">
+          <div className="mt-4 flex items-center gap-4 p-4 bg-muted dark:bg-muted rounded-lg border border-border dark:border-border">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 قيمة الشحن الموحد (ج.م)
               </label>
               <input
@@ -344,10 +344,10 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                     flatShippingFee: parseFloat(e.target.value) || 0,
                   })
                 }
-                className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400 mt-6 md:block hidden">
+            <div className="text-sm text-muted-foreground mt-6 md:block hidden">
               سيظهر هذا السعر لجميع العملاء عند إتمام الطلب.
             </div>
           </div>
@@ -356,42 +356,42 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
 
       {/* Analytics Panel */}
       {showAnalytics && (
-        <div className="mb-6 p-6 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 border border-indigo-200 dark:border-indigo-800 rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <ChartBarIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+        <div className="mb-6 p-6 bg-gradient-to-br from-primary to-blue-50 dark:from-primary/20 dark:to-blue-900/20 border border-primary dark:border-primary rounded-lg">
+          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+            <ChartBarIcon className="h-5 w-5 text-primary" />
             {t("storeShipping.coverageAnalysis")}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+            <div className="bg-card p-4 rounded-lg border border-border dark:border-border">
+              <div className="text-2xl font-bold text-primary">
                 {analytics.totalZones}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 {t("storeShipping.zonesCount")}
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+            <div className="bg-card p-4 rounded-lg border border-border dark:border-border">
+              <div className="text-2xl font-bold text-success dark:text-success">
                 {analytics.activeZones}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 {t("storeShipping.activeZones")}
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div className="bg-card p-4 rounded-lg border border-border dark:border-border">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                 {analytics.coveragePercent}%
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 نسبة التغطية
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+            <div className="bg-card p-4 rounded-lg border border-border dark:border-border">
+              <div className="text-2xl font-bold text-warning dark:text-warning">
                 {analytics.uncoveredGovs.length}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 محافظات غير مغطاة
               </div>
             </div>
@@ -402,11 +402,11 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
             analytics.uncoveredGovs.length > 0) && (
               <div className="space-y-3">
                 {analytics.duplicates.length > 0 && (
-                  <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
+                  <div className="bg-yellow-50 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg p-3">
                     <div className="flex items-start gap-2">
-                      <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                      <ExclamationTriangleIcon className="h-5 w-5 text-warning dark:text-warning flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-yellow-900 dark:text-yellow-300">
+                        <p className="text-sm font-medium text-warning dark:text-warning">
                           تحذير: محافظات مكررة في أكثر من منطقة (
                           {analytics.duplicates.length})
                         </p>
@@ -418,14 +418,14 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                             return gov ? (
                               <span
                                 key={id}
-                                className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 text-xs rounded"
+                                className="px-2 py-1 bg-warning dark:bg-warning/40 text-warning dark:text-warning text-xs rounded"
                               >
                                 {gov.nameAr}
                               </span>
                             ) : null;
                           })}
                           {analytics.duplicates.length > 5 && (
-                            <span className="px-2 py-1 bg-yellow-200 dark:bg-yellow-900/60 text-yellow-900 dark:text-yellow-200 text-xs rounded font-medium">
+                            <span className="px-2 py-1 bg-warning dark:bg-warning/60 text-warning dark:text-warning text-xs rounded font-medium">
                               +{analytics.duplicates.length - 5}
                             </span>
                           )}
@@ -436,24 +436,24 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                 )}
 
                 {analytics.uncoveredGovs.length > 0 && (
-                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                  <div className="bg-red-50 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-lg p-3">
                     <div className="flex items-start gap-2">
-                      <ExclamationTriangleIcon className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                      <ExclamationTriangleIcon className="h-5 w-5 text-destructive dark:text-destructive flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-red-900 dark:text-red-300">
+                        <p className="text-sm font-medium text-destructive dark:text-destructive">
                           محافظات غير مغطاة ({analytics.uncoveredGovs.length})
                         </p>
                         <div className="flex flex-wrap gap-1 mt-2">
                           {analytics.uncoveredGovs.slice(0, 8).map((gov) => (
                             <span
                               key={gov.id}
-                              className="px-2 py-1 bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 text-xs rounded"
+                              className="px-2 py-1 bg-destructive dark:bg-destructive/40 text-destructive dark:text-destructive text-xs rounded"
                             >
                               {gov.nameAr}
                             </span>
                           ))}
                           {analytics.uncoveredGovs.length > 8 && (
-                            <span className="px-2 py-1 bg-red-200 dark:bg-red-900/60 text-red-900 dark:text-red-200 text-xs rounded font-medium">
+                            <span className="px-2 py-1 bg-destructive dark:bg-destructive/60 text-destructive dark:text-destructive text-xs rounded font-medium">
                               +{analytics.uncoveredGovs.length - 8}
                             </span>
                           )}
@@ -470,18 +470,18 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
       {/* Search and Filter */}
       <div className="mb-4 flex gap-3">
         <div className="flex-1 relative">
-          <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="ابحث عن منطقة أو محافظة..."
-            className="w-full pr-10 pl-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pe-10 ps-3 py-2 bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <FunnelIcon className="h-5 w-5 text-gray-400" />
+          <FunnelIcon className="h-5 w-5 text-muted-foreground" />
           <select
             value={filterStatus}
             onChange={(e) =>
@@ -489,7 +489,7 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                 e.target.value as "all" | "active" | "inactive",
               )
             }
-            className="px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="px-3 py-2 bg-card border border-border text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="all">{t("storeShipping.allZones")}</option>
             <option value="active">{t("storeShipping.activeOnly")}</option>
@@ -508,16 +508,16 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
 
       {/* Zones List */}
       {filteredZones.length === 0 ? (
-        <div className="text-center py-12 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-transparent dark:border-gray-700">
-          <TruckIcon className="h-12 w-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">
+        <div className="text-center py-12 bg-muted dark:bg-muted rounded-lg border border-transparent dark:border-border">
+          <TruckIcon className="h-12 w-12 text-muted-foreground/80 mx-auto mb-4" />
+          <p className="text-muted-foreground">
             {searchTerm || filterStatus !== "all"
               ? t("storeShipping.noZones")
               : t("storeShipping.noZonesDesc")}
           </p>
           <button
             onClick={onAdd}
-            className="mt-4 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium"
+            className="mt-4 text-primary hover:text-primary dark:hover:text-primary font-medium"
           >
             {t("storeShipping.addZone")}
           </button>
@@ -569,29 +569,29 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
             return (
               <div
                 key={zone.id}
-                className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-all"
+                className="bg-card border border-border dark:border-border rounded-lg p-5 hover:shadow-lg transition-all"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <div className="text-lg font-semibold text-foreground">
                         {zone.name || t("storeShipping.zoneName")}
                       </div>
                       <span
                         className={`px-2.5 py-1 text-xs font-medium rounded-full ${zone.isActive
-                          ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400"
-                          : "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400"
+                          ? "bg-green-100 dark:bg-success/30 text-success dark:text-success"
+                          : "bg-red-100 dark:bg-destructive/30 text-destructive dark:text-destructive"
                           }`}
                       >
                         {zone.isActive ? t("storeShipping.active") : t("storeShipping.inactive")}
                       </span>
                       {zone.pricingType === "tiered" && (
-                        <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-400">
+                        <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-primary dark:bg-primary/30 text-primary dark:text-primary">
                           {t("storeShipping.tieredPricing")}
                         </span>
                       )}
                       {zone.freeShippingThreshold && (
-                        <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400">
+                        <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-warning dark:bg-warning/30 text-warning dark:text-warning">
                           {t("storeShipping.freeShippingTag")} {zone.freeShippingThreshold} ج.م
                         </span>
                       )}
@@ -603,13 +603,13 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                         {displayNames.slice(0, 8).map((name, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-md"
+                            className="px-2.5 py-1 bg-muted text-foreground text-xs rounded-md"
                           >
                             {name}
                           </span>
                         ))}
                         {displayNames.length > 8 && (
-                          <span className="px-2.5 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 text-xs rounded-md font-medium">
+                          <span className="px-2.5 py-1 bg-muted dark:bg-muted text-foreground dark:text-muted-foreground text-xs rounded-md font-medium">
                             +{displayNames.length - 8}
                           </span>
                         )}
@@ -617,19 +617,19 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                     )}
                   </div>
 
-                  <div className="text-left mr-4">
+                  <div className="text-left me-4">
                     {zone.pricingType === "flat" ? (
-                      <div className="flex items-center text-xl font-bold text-indigo-600 dark:text-indigo-400">
-                        <CurrencyDollarIcon className="h-6 w-6 ml-1" />
+                      <div className="flex items-center text-xl font-bold text-primary">
+                        <CurrencyDollarIcon className="h-6 w-6 ms-1" />
                         {zone.price} ج.م
                       </div>
                     ) : (
-                      <div className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">
+                      <div className="text-sm text-primary font-medium">
                         {zone.pricingTiers?.length || 0}
                       </div>
                     )}
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      <ClockIcon className="h-4 w-4 ml-1" />
+                    <div className="flex items-center text-sm text-foreground dark:text-muted-foreground mt-1">
+                      <ClockIcon className="h-4 w-4 ms-1" />
                       {zone.deliveryTime}
                     </div>
                   </div>
@@ -639,27 +639,27 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                 {zone.pricingType === "tiered" &&
                   zone.pricingTiers &&
                   zone.pricingTiers.length > 0 && (
-                    <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-                      <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <div className="mb-4 p-3 bg-muted dark:bg-muted rounded-lg">
+                      <div className="text-xs font-medium text-foreground mb-2">
                         {t("storeShipping.tieredPricing")}:
                       </div>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {zone.pricingTiers.slice(0, 3).map((tier, idx) => (
                           <div
                             key={idx}
-                            className="text-xs bg-white dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-700"
+                            className="text-xs bg-card p-2 rounded border border-border dark:border-border"
                           >
-                            <div className="text-gray-600 dark:text-gray-400">
+                            <div className="text-gray-600 dark:text-muted-foreground">
                               {tier.minWeight || 0} - {tier.maxWeight || "∞"}{" "}
                               كجم
                             </div>
-                            <div className="font-bold text-indigo-600 dark:text-indigo-400">
+                            <div className="font-bold text-primary">
                               {tier.price} ج.م
                             </div>
                           </div>
                         ))}
                         {zone.pricingTiers.length > 3 && (
-                          <div className="text-xs bg-gray-100 dark:bg-gray-700 p-2 rounded flex items-center justify-center text-gray-600 dark:text-gray-400">
+                          <div className="text-xs bg-muted p-2 rounded flex items-center justify-center text-foreground dark:text-muted-foreground">
                             +{zone.pricingTiers.length - 3}
                           </div>
                         )}
@@ -671,21 +671,21 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <button
                     onClick={() => handleOpenMethods(zone)}
-                    className="px-3 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-300 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/40 flex items-center justify-center transition-colors gap-1"
+                    className="px-3 py-2 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded-md hover:bg-primary dark:hover:bg-primary/40 flex items-center justify-center transition-colors gap-1"
                   >
                     <TruckIcon className="h-4 w-4" />
                     {t("storeShipping.shippingMethodsTitle")}
                   </button>
                   <button
                     onClick={() => onEdit(zone)}
-                    className="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center transition-colors gap-1"
+                    className="px-3 py-2 bg-muted text-foreground rounded-md hover:bg-muted dark:hover:bg-muted flex items-center justify-center transition-colors gap-1"
                   >
                     <PencilIcon className="h-4 w-4" />
                     {t("storeShipping.edit")}
                   </button>
                   <button
                     onClick={() => onDelete(zone.id)}
-                    className="px-3 py-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-md hover:bg-red-100 dark:hover:bg-red-900/30 flex items-center justify-center transition-colors gap-1"
+                    className="px-3 py-2 bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive rounded-md hover:bg-destructive dark:hover:bg-destructive/30 flex items-center justify-center transition-colors gap-1"
                   >
                     <TrashIcon className="h-4 w-4" />
                     {t("storeShipping.delete")}

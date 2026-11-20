@@ -64,11 +64,11 @@ interface ProcurementSettingsData {
 }
 
 const templateIcons: Record<ProcurementTemplateId, React.ReactNode> = {
-  commercial_factory: <Factory className="size-4 text-red-600" />,
-  compact_eco: <Leaf className="size-4 text-emerald-600" />,
-  official_tax: <ShieldCheck className="size-4 text-slate-800" />,
+  commercial_factory: <Factory className="size-4 text-destructive" />,
+  compact_eco: <Leaf className="size-4 text-success" />,
+  official_tax: <ShieldCheck className="size-4 text-foreground" />,
   modern_minimal: <Sparkles className="size-4 text-blue-600" />,
-  goods_receipt: <Boxes className="size-4 text-amber-600" />,
+  goods_receipt: <Boxes className="size-4 text-warning" />,
 };
 
 const samplePreviewData: NormalizedProcurementData = {
@@ -348,8 +348,8 @@ export const ProcurementSettings: React.FC = () => {
               <h1 className="text-lg sm:text-xl font-black tracking-tight text-foreground">
                 استوديو قوالب وطباعة فواتير المشتريات
               </h1>
-              <Badge variant="outline" className="text-[10px] bg-emerald-50 text-emerald-700 border-emerald-200 gap-1 font-semibold">
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <Badge variant="outline" className="text-[10px] bg-success/10 text-success border-success gap-1 font-semibold">
+                <span className="size-1.5 rounded-full bg-success animate-pulse" />
                 معاينة مباشرة في الوقت الفعلي
               </Badge>
             </div>
@@ -390,8 +390,8 @@ export const ProcurementSettings: React.FC = () => {
       )}
 
       {successMessage && (
-        <div className="flex items-center gap-2 p-3 text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl text-xs print:hidden">
-          <CheckCircle2 className="size-4 shrink-0 text-emerald-600" />
+        <div className="flex items-center gap-2 p-3 text-success bg-success/10 border border-success rounded-xl text-xs print:hidden">
+          <CheckCircle2 className="size-4 shrink-0 text-success" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -483,7 +483,7 @@ export const ProcurementSettings: React.FC = () => {
                         <Badge
                           variant={tmpl.isEco ? "default" : "outline"}
                           className={`text-[9px] px-1.5 py-0 h-4 ${
-                            tmpl.isEco ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                            tmpl.isEco ? "bg-emerald-600 hover:bg-success" : ""
                           }`}
                         >
                           {tmpl.paperSizeLabelAr}
@@ -727,7 +727,7 @@ export const ProcurementSettings: React.FC = () => {
               <Badge
                 variant={currentTmplObj.isEco ? "default" : "secondary"}
                 className={`text-[10px] px-2 py-0 h-5 ${
-                  currentTmplObj.isEco ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                  currentTmplObj.isEco ? "bg-emerald-600 hover:bg-success" : ""
                 }`}
               >
                 {currentTmplObj.paperSizeLabelAr}
@@ -795,7 +795,7 @@ export const ProcurementSettings: React.FC = () => {
           </div>
 
           {/* Interactive Live Canvas Board (No Popups!) */}
-          <div className="p-4 sm:p-8 bg-slate-200/90 dark:bg-slate-900/60 rounded-2xl border border-slate-300 dark:border-slate-800 overflow-x-auto flex justify-center min-h-[640px] shadow-inner">
+          <div className="p-4 sm:p-8 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border overflow-x-auto flex justify-center min-h-[640px] shadow-inner">
             <div
               style={{
                 transform: `scale(${zoomScale})`,
@@ -804,7 +804,7 @@ export const ProcurementSettings: React.FC = () => {
                 minWidth: "794px",
                 marginBottom: zoomScale < 1 ? `-${Math.round((1 - zoomScale) * 850)}px` : 0,
               }}
-              className="bg-white shadow-2xl rounded-sm transition-transform duration-150 ease-out border border-slate-300"
+              className="bg-white shadow-2xl rounded-sm transition-transform duration-150 ease-out border border-border"
             >
               {renderLiveTemplate()}
             </div>

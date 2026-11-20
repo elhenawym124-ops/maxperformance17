@@ -214,8 +214,8 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
                   onClick={() => navigate(`/advertising/facebook-ads/ads/${row.ad.id}`)}
                   className={`group relative flex flex-col justify-between rounded-xl border p-3 text-start transition-all hover:shadow-md cursor-pointer ${
                     isKill
-                      ? "border-rose-500/20 bg-rose-500/5 hover:border-rose-500/40"
-                      : "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40"
+                      ? "border-rose-500/20 bg-destructive/5 hover:border-destructive/40"
+                      : "border-emerald-500/20 bg-success/5 hover:border-success/40"
                   }`}
                 >
                   <div>
@@ -223,8 +223,8 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
                       <span
                         className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-semibold ${
                           isKill
-                            ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
-                            : "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                            ? "bg-rose-500/15 text-destructive dark:text-destructive"
+                            : "bg-emerald-500/15 text-success dark:text-success"
                         }`}
                       >
                         {row.decision.label}
@@ -247,7 +247,7 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
                     <div className="grid grid-cols-3 gap-1 text-xs font-semibold text-foreground font-mono tabular-nums" dir="ltr">
                       <div>
                         <span className="block text-[11px] font-normal text-muted-foreground">ROAS</span>
-                        <span className={roas >= 2 ? "text-emerald-600 dark:text-emerald-400 font-bold" : ""}>{formatNumber(roas, 2)}x</span>
+                        <span className={roas >= 2 ? "text-emerald-600 dark:text-success font-bold" : ""}>{formatNumber(roas, 2)}x</span>
                       </div>
                       <div>
                         <span className="block text-[11px] font-normal text-muted-foreground">CPA</span>
@@ -261,7 +261,7 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
 
                     <div className="mt-2.5">
                       {isExecuted ? (
-                        <span className="inline-flex w-full items-center justify-center gap-1 rounded-lg bg-emerald-500/10 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="inline-flex w-full items-center justify-center gap-1 rounded-lg bg-success/10 py-1.5 text-xs font-semibold text-success dark:text-success border border-success/20">
                           <CheckCircle2 className="h-3.5 w-3.5" />
                           {isEn ? "Action Executed" : "تم تنفيذ القرار بنجاح"}
                         </span>
@@ -272,8 +272,8 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
                           onClick={(e) => handleExecuteDecision(e, row, isKill ? "kill" : "scale")}
                           className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 px-3 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer ${
                             isKill
-                              ? "bg-rose-600 hover:bg-rose-700 active:scale-[0.98]"
-                              : "bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98]"
+                              ? "bg-rose-600 hover:bg-destructive active:scale-[0.98]"
+                              : "bg-emerald-600 hover:bg-success active:scale-[0.98]"
                           } disabled:opacity-50`}
                         >
                           {isLoading ? (
@@ -299,7 +299,7 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
         ) : (
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 rounded-xl border border-border/60 bg-muted/30 p-3.5 sm:px-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-success/10 text-success dark:text-success">
                 <CheckCircle2 className="h-4 w-4" />
               </span>
               <div>
@@ -340,15 +340,15 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
           {activeRecs.slice(0, 2).map((item) => (
             <div
               key={`${item.title}-${item.priority}`}
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 sm:px-4 shadow-xs"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 rounded-xl border border-warning/20 bg-warning/5 p-3 sm:px-4 shadow-xs"
             >
               <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-warning/15 text-warning dark:text-warning">
                   <AlertTriangle className="h-4 w-4" />
                 </span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="rounded-md bg-amber-500/15 px-1.5 py-0.5 text-xs font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                    <span className="rounded-md bg-warning/15 px-1.5 py-0.5 text-xs font-semibold text-warning dark:text-warning border border-warning/20">
                       {item.priority === "HIGH" ? (isEn ? "High Priority" : "أولوية عالية") : item.priority}
                     </span>
                     <h3 className="truncate text-xs font-semibold text-foreground">
@@ -366,7 +366,7 @@ const DecisionSummarySection: React.FC<DecisionSummarySectionProps> = ({
                   <button
                     type="button"
                     onClick={() => navigate("/advertising/facebook-pixel")}
-                    className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-amber-600 px-3 text-xs font-semibold text-white shadow-xs hover:bg-amber-700 transition-all cursor-pointer"
+                    className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-warning px-3 text-xs font-semibold text-white shadow-xs hover:bg-warning transition-all cursor-pointer"
                   >
                     <span>{isEn ? "Diagnose & Connect" : "فحص وربط البيكسل"}</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />

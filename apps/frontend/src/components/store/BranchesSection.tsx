@@ -49,7 +49,7 @@ export const BranchesSection: React.FC<BranchesSectionProps> = ({
 
       {/* Empty State or Grid */}
       {branches.length === 0 ? (
-        <div className="text-center py-12 px-4 rounded-2xl border border-dashed border-border/80 bg-muted/20">
+        <div className="text-center py-12 px-4 rounded-xl border border-dashed border-border/80 bg-muted/20">
           <Building2 className="w-10 h-10 text-muted-foreground/40 mx-auto mb-2.5" />
           <p className="text-xs font-medium text-foreground">
             {t("storeBranches.noBranches")}
@@ -85,8 +85,8 @@ export const BranchesSection: React.FC<BranchesSectionProps> = ({
                   <span
                     className={`px-2 py-0.5 text-[10px] font-medium rounded-md border ${
                       branch.isActive
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                        : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                        ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                        : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                     }`}
                   >
                     {branch.isActive
@@ -135,7 +135,7 @@ export const BranchesSection: React.FC<BranchesSectionProps> = ({
                 </button>
                 <button
                   onClick={() => onDelete(branch.id)}
-                  className="py-1.5 px-2.5 text-xs font-medium border border-rose-500/20 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 rounded-lg flex items-center justify-center transition-colors"
+                  className="py-1.5 px-2.5 text-xs font-medium border border-destructive/20 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-lg flex items-center justify-center transition-colors"
                   title={t("storeBranches.delete")}
                   aria-label={t("storeBranches.delete")}
                 >

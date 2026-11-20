@@ -89,7 +89,7 @@ export const InvoicePaymentSection: React.FC<InvoicePaymentSectionProps> = ({
             </div>
 
             {totals.itemDiscounts > 0 && (
-              <div className="flex justify-between text-red-500">
+              <div className="flex justify-between text-destructive">
                 <span>
                   {t("procurement.purchaseInvoiceForm.itemDiscountsLabel", "خصم البنود:")}
                 </span>
@@ -100,7 +100,7 @@ export const InvoicePaymentSection: React.FC<InvoicePaymentSectionProps> = ({
             )}
 
             {totals.totalTax > 0 && (
-              <div className="flex justify-between text-emerald-600">
+              <div className="flex justify-between text-success">
                 <span>{t("procurement.purchaseInvoiceForm.totalTaxLabel", "الضرائب:")}</span>
                 <span className="font-semibold font-mono tabular-nums">
                   +{formatCurrency(totals.totalTax)}

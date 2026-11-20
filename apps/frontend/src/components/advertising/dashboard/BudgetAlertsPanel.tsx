@@ -300,9 +300,9 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
   if (loading) {
     return (
       <section className="grid gap-3 xl:grid-cols-[0.9fr_1.1fr] opacity-60">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 text-center dark:border-slate-800 dark:bg-slate-900">
+        <div className="rounded-xl border border-border bg-white p-6 text-center dark:border-border dark:bg-muted">
           <RefreshCw className="mx-auto h-6 w-6 animate-spin text-blue-500" />
-          <p className="mt-2 text-xs font-bold text-slate-500">
+          <p className="mt-2 text-xs font-bold text-muted-foreground">
             {isEn ? "Loading alert rules..." : "جاري تحميل قواعد التنبيهات..."}
           </p>
         </div>
@@ -312,7 +312,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
 
   return (
     <section className="grid gap-3 xl:grid-cols-[0.9fr_1.1fr]">
-      <div className="rounded-xl border border-blue-200 bg-white p-3 shadow-sm dark:border-blue-900/50 dark:bg-slate-900">
+      <div className="rounded-xl border border-blue-200 bg-white p-3 shadow-sm dark:border-blue-900/50 dark:bg-muted">
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 text-xs font-black text-blue-700 dark:text-blue-300">
@@ -322,7 +322,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
             <h2 className="mt-1 text-base font-black">
               {isEn ? "Ad Budget Alerts" : "تنبيهات رصيد الإعلانات"}
             </h2>
-            <p className="mt-1 text-xs font-bold leading-5 text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-xs font-bold leading-5 text-muted-foreground dark:text-muted-foreground">
               {isEn
                 ? "Monitor ad account balance and spend caps, or a specific campaign budget, and send WhatsApp alerts upon reaching thresholds."
                 : "راقب رصيد الحساب وحد إنفاقه، أو المتبقي من ميزانية حملة محددة، وابعث رسالة WhatsApp عند الوصول للحد المختار."}
@@ -387,7 +387,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
 
         {budgetAlertForm.scope === "CAMPAIGN" ? (
           <label className="mt-2 block">
-            <span className="mb-1 block text-[11px] font-black text-slate-500">
+            <span className="mb-1 block text-[11px] font-black text-muted-foreground">
               {isEn ? "Campaign" : "الحملة"}
             </span>
             <select
@@ -395,7 +395,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               onChange={(event) =>
                 updateBudgetAlertForm({ campaignId: event.target.value })
               }
-              className="h-9 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs font-bold text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
             >
               <option value="">{isEn ? "Select Campaign" : "اختار حملة"}</option>
               {campaigns.map((campaign) => (
@@ -409,7 +409,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
 
         <div className="mt-2 grid gap-2 md:grid-cols-2">
           <label className="block">
-            <span className="mb-1 block text-[11px] font-black text-slate-500">
+            <span className="mb-1 block text-[11px] font-black text-muted-foreground">
               {isEn ? "Alert Threshold Amount" : "قيمة التنبيه"}
             </span>
             <input
@@ -421,11 +421,11 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               onChange={(event) =>
                 updateBudgetAlertForm({ thresholdAmount: event.target.value })
               }
-              className="h-9 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs font-bold text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-100 disabled:text-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:disabled:bg-slate-800"
+              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-muted disabled:text-muted-foreground dark:border-border dark:bg-muted dark:text-white dark:disabled:bg-muted"
             />
           </label>
           <label className="block">
-            <span className="mb-1 block text-[11px] font-black text-slate-500">
+            <span className="mb-1 block text-[11px] font-black text-muted-foreground">
               {isEn ? "Cooldown (minutes)" : "منع التكرار بالدقائق"}
             </span>
             <input
@@ -436,13 +436,13 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               onChange={(event) =>
                 updateBudgetAlertForm({ cooldownMinutes: event.target.value })
               }
-              className="h-9 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs font-bold text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
             />
           </label>
         </div>
 
         <label className="mt-2 block">
-          <span className="mb-1 block text-[11px] font-black text-slate-500">
+          <span className="mb-1 block text-[11px] font-black text-muted-foreground">
             {isEn ? "Recipient WhatsApp Numbers" : "أرقام WhatsApp المستقبلة"}
           </span>
           <textarea
@@ -452,7 +452,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               updateBudgetAlertForm({ recipientPhones: event.target.value })
             }
             placeholder={isEn ? "e.g.: 01000000000\n01200000000" : "مثال: 01000000000\n01200000000"}
-            className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs font-bold text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+            className="w-full rounded-lg border border-border bg-white px-2.5 py-2 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
           />
         </label>
 
@@ -469,26 +469,26 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
         </button>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-xl border border-border bg-white p-3 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex items-center justify-between gap-2">
           <div>
             <h2 className="text-base font-black">
               {isEn ? "Active Alerts" : "التنبيهات المفعلة"}
             </h2>
-            <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               {isEn
                 ? "Auto-checked every 15 minutes, with cooldown prevention."
                 : "يتم الفحص تلقائياً كل 15 دقيقة، مع منع تكرار الرسائل لنفس الحد."}
             </p>
           </div>
-          <span className="rounded-full bg-slate-100 px-2 py-1 text-[11px] font-black text-slate-600 dark:bg-slate-800 dark:text-slate-200">
+          <span className="rounded-full bg-muted px-2 py-1 text-[11px] font-black text-foreground dark:bg-muted dark:text-muted-foreground">
             {formatNumber(selectedAccountAlertRules.length)} {isEn ? "rules" : "قواعد"}
           </span>
         </div>
 
         <div className="mt-3 grid gap-2">
           {selectedAccountAlertRules.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-200 p-5 text-center text-xs font-bold text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="rounded-xl border border-dashed border-border p-5 text-center text-xs font-bold text-muted-foreground dark:border-border dark:text-muted-foreground">
               {isEn
                 ? "No alerts yet. Set a threshold like 100 and an alert will be sent when reached."
                 : "لا توجد تنبيهات بعد. أضف حد مثل 100 جنيه وسيتم الإرسال عند الوصول له."}
@@ -497,7 +497,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
             selectedAccountAlertRules.map((rule) => (
               <article
                 key={rule.id}
-                className="rounded-xl border border-slate-200 p-2.5 dark:border-slate-800"
+                className="rounded-xl border border-border p-2.5 dark:border-border"
               >
                 <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0">
@@ -509,8 +509,8 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
                         className={[
                           "rounded-full px-2 py-0.5 text-[11px] font-black",
                           rule.isEnabled
-                            ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/35 dark:text-emerald-200"
-                            : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300",
+                            ? "bg-emerald-50 text-success dark:bg-success/35 dark:text-success"
+                            : "bg-slate-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground",
                         ].join(" ")}
                       >
                         {rule.isEnabled ? (isEn ? "Active" : "مفعل") : (isEn ? "Paused" : "متوقف")}
@@ -519,7 +519,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
                         {getBudgetAlertMetricLabel(rule.metric, isEn)}
                       </span>
                     </div>
-                    <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-bold text-slate-500 dark:text-slate-400">
+                    <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-bold text-muted-foreground dark:text-muted-foreground">
                       <span>
                         {isEn ? "Threshold:" : "الحد:"} {formatCurrency(rule.thresholdAmount, rule.currency)}
                       </span>
@@ -545,14 +545,14 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
                     <button
                       type="button"
                       onClick={() => handleToggleBudgetAlert(rule)}
-                      className="inline-flex h-8 items-center justify-center rounded-lg border border-slate-300 px-2 text-[11px] font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+                      className="inline-flex h-8 items-center justify-center rounded-lg border border-border px-2 text-[11px] font-black text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                     >
                       {rule.isEnabled ? (isEn ? "Pause" : "إيقاف") : (isEn ? "Enable" : "تفعيل")}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDeleteBudgetAlert(rule.id)}
-                      className="inline-flex h-8 items-center justify-center gap-1 rounded-lg border border-red-200 px-2 text-[11px] font-black text-red-700 hover:bg-red-50 dark:border-red-900/60 dark:text-red-200 dark:hover:bg-red-950/30"
+                      className="inline-flex h-8 items-center justify-center gap-1 rounded-lg border border-destructive px-2 text-[11px] font-black text-destructive hover:bg-destructive/10 dark:border-destructive/60 dark:text-destructive dark:hover:bg-destructive/30"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                       {isEn ? "Delete" : "حذف"}
@@ -565,15 +565,15 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
         </div>
 
         {budgetAlertLogs.length ? (
-          <div className="mt-3 rounded-xl bg-slate-50 p-2 dark:bg-slate-950">
-            <h3 className="mb-2 text-xs font-black text-slate-500 dark:text-slate-300">
+          <div className="mt-3 rounded-xl bg-muted p-2 dark:bg-muted">
+            <h3 className="mb-2 text-xs font-black text-muted-foreground dark:text-muted-foreground">
               {isEn ? "Recent WhatsApp Messages" : "آخر رسائل WhatsApp"}
             </h3>
             <div className="grid gap-1.5">
               {budgetAlertLogs.slice(0, 4).map((log) => (
                 <div
                   key={log.id}
-                  className="flex flex-col gap-1 rounded-lg bg-white px-2 py-1.5 text-[11px] font-bold text-slate-600 dark:bg-slate-900 dark:text-slate-300 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-1 rounded-lg bg-white px-2 py-1.5 text-[11px] font-bold text-foreground dark:bg-muted dark:text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
                 >
                   <span className="truncate">
                     {getBudgetAlertMetricLabel(log.metric, isEn)} → {log.recipientPhone}
@@ -581,8 +581,8 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
                   <span
                     className={
                       log.status === "SENT"
-                        ? "text-emerald-600 dark:text-emerald-300"
-                        : "text-red-600 dark:text-red-300"
+                        ? "text-emerald-600 dark:text-success"
+                        : "text-red-600 dark:text-destructive"
                     }
                   >
                     {log.status} · {formatDate(log.createdAt)}

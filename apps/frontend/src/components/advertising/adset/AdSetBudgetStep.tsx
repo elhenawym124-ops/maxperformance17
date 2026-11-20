@@ -129,19 +129,19 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
     <div className="space-y-6">
       {/* Budget Configuration */}
       <div>
-        <label className="block text-sm font-bold text-gray-900 dark:text-white mb-1.5 flex items-center gap-2">
-          <BanknotesIcon className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+        <label className="block text-sm font-bold text-foreground mb-1.5 flex items-center gap-2">
+          <BanknotesIcon className="w-5 h-5 text-info dark:text-info" />
           <span>الميزانية ونظام الإنفاق (Budget & Spending)</span>
         </label>
 
         {isCboCampaign ? (
           <div className="space-y-3">
-            <div className="p-4 bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800/40 rounded-xl space-y-1.5">
-              <div className="flex items-center gap-2 font-bold text-sm text-purple-900 dark:text-purple-200">
-                <SparklesIcon className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <div className="p-4 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary/40 rounded-xl space-y-1.5">
+              <div className="flex items-center gap-2 font-bold text-sm text-primary dark:text-primary">
+                <SparklesIcon className="w-4 h-4 text-primary dark:text-primary" />
                 <span>ميزانية الحملة Advantage+ مفعلة (CBO)</span>
               </div>
-              <p className="text-xs text-purple-700 dark:text-purple-300">
+              <p className="text-xs text-primary dark:text-primary">
                 هذه الحملة تستخدم توزيع الميزانية الذكي على مستوى الحملة بالكامل
                 {campaignBudgetText ? ` (${campaignBudgetText})` : ""}.
                 سيقوم نظام ميتا بتوزيع الإنفاق تلقائياً على المجموعات الأكثر تحقيقاً للمبيعات.
@@ -149,24 +149,24 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
             </div>
 
             {/* v26.0: Ad Set Spend Limits under CBO */}
-            <div className="p-3.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-2.5">
+            <div className="p-3.5 bg-card border border-border dark:border-border rounded-xl space-y-2.5">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
+                  <h4 className="text-xs sm:text-sm font-bold text-foreground">
                     حدود إنفاق المجموعة الإعلانية (Ad Set Spend Limits)
                   </h4>
-                  <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
                     اختياري: التحكم في وتيرة إنفاق هذه المجموعة ضمن ميزانية CBO
                   </p>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 font-bold">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-info dark:bg-info/60 text-info dark:text-info font-bold">
                   v26.0
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-[11px] font-semibold text-foreground mb-1">
                     الحد اليومي الأدنى للإنفاق (ج.م)
                   </label>
                   <input
@@ -180,15 +180,15 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                       )
                     }
                     placeholder="مثال: 50 (ضمان حد أدنى)"
-                    className="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-xs font-semibold text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500"
+                    className="w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-foreground focus:ring-2 focus:ring-info"
                   />
-                  <p className="text-[10px] text-gray-400 mt-0.5">
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
                     يضمن حصول المجموعة على هذا الإنفاق على الأقل يومياً
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-[11px] font-semibold text-foreground mb-1">
                     سقف الإنفاق اليومي الأقصى (ج.م)
                   </label>
                   <input
@@ -202,9 +202,9 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                       )
                     }
                     placeholder="مثال: 300 (منع الاحتكار)"
-                    className="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-xs font-semibold text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500"
+                    className="w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-foreground focus:ring-2 focus:ring-info"
                   />
-                  <p className="text-[10px] text-gray-400 mt-0.5">
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
                     يمنع المجموعة من استهلاك أكثر من هذا المبلغ يومياً
                   </p>
                 </div>
@@ -215,7 +215,7 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
           <div className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-xs font-semibold text-foreground mb-1">
                   نوع الميزانية *
                 </label>
                 <select
@@ -223,7 +223,7 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                   onChange={(e) =>
                     onBudgetTypeChange(e.target.value as "DAILY" | "LIFETIME")
                   }
-                  className="w-full px-3.5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-semibold text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border dark:border-border rounded-xl text-xs sm:text-sm font-semibold text-foreground focus:ring-2 focus:ring-info"
                 >
                   <option value="DAILY">ميزانية يومية (Daily Budget)</option>
                   <option value="LIFETIME">ميزانية إجمالية طوال المدة (Lifetime Budget)</option>
@@ -231,7 +231,7 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-xs font-semibold text-foreground mb-1">
                   مبلغ الميزانية (ج.م) *
                 </label>
                 <input
@@ -241,11 +241,11 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                   value={budgetAmount || ""}
                   onChange={(e) => onBudgetAmountChange(Number(e.target.value))}
                   placeholder="مثال: 500"
-                  className="w-full px-3.5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-semibold text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border dark:border-border rounded-xl text-xs sm:text-sm font-semibold text-foreground focus:ring-2 focus:ring-info"
                 />
               </div>
             </div>
-            <p className="text-[11px] text-gray-500 dark:text-gray-400">
+            <p className="text-[11px] text-muted-foreground">
               * سيتم إنفاق هذا المبلغ وفق وتيرة المزاد اليومي لحسابك الإعلاني.
             </p>
           </div>
@@ -253,39 +253,39 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
       </div>
 
       {/* Schedule & Timing */}
-      <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-        <label className="block text-sm font-bold text-gray-900 dark:text-white mb-1.5 flex items-center gap-2">
-          <CalendarDaysIcon className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+      <div className="pt-4 border-t border-border dark:border-border">
+        <label className="block text-sm font-bold text-foreground mb-1.5 flex items-center gap-2">
+          <CalendarDaysIcon className="w-5 h-5 text-info dark:text-info" />
           <span>الجدولة وتوقيت الإطلاق (Schedule)</span>
         </label>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+        <p className="text-xs text-muted-foreground mb-3">
           حدد موعد بدء تشغيل المجموعة الإعلانية (بالتوقيت المحلي للقاهرة)
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               تاريخ وتوقيت البدء
             </label>
             <input
               type="datetime-local"
               value={startTime}
               onChange={(e) => onStartTimeChange(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl text-xs sm:text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500"
+              className="w-full px-3.5 py-2.5 bg-card border border-border dark:border-border rounded-xl text-xs sm:text-sm text-foreground focus:ring-2 focus:ring-info"
             />
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <label className="block text-xs font-semibold text-foreground">
                 تاريخ وتوقيت الانتهاء
               </label>
-              <label className="text-[11px] text-gray-500 dark:text-gray-400 flex items-center gap-1.5 cursor-pointer">
+              <label className="text-[11px] text-muted-foreground flex items-center gap-1.5 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={hasEndDate}
                   onChange={(e) => onHasEndDateChange(e.target.checked)}
-                  className="w-3.5 h-3.5 text-cyan-600 rounded cursor-pointer"
+                  className="w-3.5 h-3.5 text-info rounded cursor-pointer"
                 />
                 <span>تحديد موعد انتهاء</span>
               </label>
@@ -295,10 +295,10 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
               disabled={!hasEndDate}
               value={endTime}
               onChange={(e) => onEndTimeChange(e.target.value)}
-              className={`w-full px-3.5 py-2.5 bg-white dark:bg-gray-800 border rounded-xl text-xs sm:text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 ${
+              className={`w-full px-3.5 py-2.5 bg-card border rounded-xl text-xs sm:text-sm text-foreground focus:ring-2 focus:ring-info ${
                 hasEndDate
-                  ? "border-gray-300 dark:border-gray-700"
-                  : "border-gray-200 dark:border-gray-800 opacity-50 cursor-not-allowed"
+                  ? "border-gray-300 dark:border-border"
+                  : "border-gray-200 dark:border-border opacity-50 cursor-not-allowed"
               }`}
             />
           </div>
@@ -306,12 +306,12 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
       </div>
 
       {/* Cost Control & Bid Strategy */}
-      <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-        <label className="block text-sm font-bold text-gray-900 dark:text-white mb-1.5 flex items-center gap-2">
-          <AdjustmentsHorizontalIcon className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+      <div className="pt-4 border-t border-border dark:border-border">
+        <label className="block text-sm font-bold text-foreground mb-1.5 flex items-center gap-2">
+          <AdjustmentsHorizontalIcon className="w-5 h-5 text-info dark:text-info" />
           <span>استراتيجية التحكم بالتكلفة والمزايدة (Bid Strategy)</span>
         </label>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+        <p className="text-xs text-muted-foreground mb-3">
           التحكم في تكلفة الشراء أو ترك النظام للمزايدة التلقائية للحصول على أكبر عدد من المبيعات
         </p>
 
@@ -324,8 +324,8 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                 onClick={() => onBidStrategyChange(bs.id)}
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? "border-cyan-600 bg-cyan-50/50 dark:bg-cyan-950/20 dark:border-cyan-400 shadow-xs"
-                    : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/60 bg-white dark:bg-gray-800"
+                    ? "border-cyan-600 bg-info/50 dark:bg-info/20 dark:border-info shadow-xs"
+                    : "border-gray-200 dark:border-border hover:bg-muted dark:hover:bg-muted bg-card"
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -335,32 +335,32 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                       name="bid_strategy"
                       checked={isSelected}
                       onChange={() => onBidStrategyChange(bs.id)}
-                      className="w-4 h-4 text-cyan-600 focus:ring-cyan-500 cursor-pointer"
+                      className="w-4 h-4 text-info focus:ring-info cursor-pointer"
                     />
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white">
+                        <span className="font-bold text-xs sm:text-sm text-foreground">
                           {bs.title}
                         </span>
                         {bs.badge && (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 font-semibold">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-info dark:bg-info/60 text-info dark:text-info font-semibold">
                             {bs.badge}
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">
                         {bs.description}
                       </p>
                     </div>
                   </div>
                   {isSelected && (
-                    <CheckCircleIcon className="w-5 h-5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                    <CheckCircleIcon className="w-5 h-5 text-info dark:text-info shrink-0" />
                   )}
                 </div>
 
                 {isSelected && bs.hasInput && (
-                  <div className="mt-3 pt-3 border-t border-cyan-100 dark:border-cyan-900/40 flex items-center gap-3">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 shrink-0">
+                  <div className="mt-3 pt-3 border-t border-info dark:border-info/40 flex items-center gap-3">
+                    <label className="text-xs font-semibold text-foreground shrink-0">
                       {bs.inputLabel || "الحد الأقصى المستهدف (ج.م):"}
                     </label>
                     <input
@@ -374,10 +374,10 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                         )
                       }
                       placeholder={bs.inputPlaceholder || "مثال: 70"}
-                      className="w-36 px-3 py-1.5 bg-white dark:bg-gray-900 border border-cyan-400 rounded-lg text-xs font-bold text-gray-900 dark:text-white"
+                      className="w-36 px-3 py-1.5 bg-white dark:bg-muted border border-info rounded-lg text-xs font-bold text-foreground"
                       onClick={(e) => e.stopPropagation()}
                     />
-                    <span className="text-[11px] text-gray-400">
+                    <span className="text-[11px] text-muted-foreground">
                       {bs.hint || "(سيتوقف الإعلان إذا زادت تكلفة النتيجة عن هذا المبلغ)"}
                     </span>
                   </div>
@@ -389,11 +389,11 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
       </div>
 
       {/* Attribution Settings */}
-      <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-        <label className="block text-sm font-bold text-gray-900 dark:text-white mb-1.5">
+      <div className="pt-4 border-t border-border dark:border-border">
+        <label className="block text-sm font-bold text-foreground mb-1.5">
           إعدادات نافذة الإسناد (Attribution Setting)
         </label>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+        <p className="text-xs text-muted-foreground mb-3">
           الفترة الزمنية التي يقوم البيكسل بنسب عملية الشراء فيها إلى هذا الإعلان
         </p>
 
@@ -407,19 +407,19 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
                 onClick={() => onAttributionWindowChange(win.id)}
                 className={`text-right p-3 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? "border-cyan-600 bg-cyan-50/50 dark:bg-cyan-950/20 dark:border-cyan-400 shadow-xs"
-                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 bg-white dark:bg-gray-800"
+                    ? "border-cyan-600 bg-info/50 dark:bg-info/20 dark:border-info shadow-xs"
+                    : "border-gray-200 dark:border-border hover:border-border bg-card"
                 }`}
               >
                 <div className="flex items-center justify-between gap-1 mb-1">
-                  <span className="font-bold text-xs text-gray-900 dark:text-white">
+                  <span className="font-bold text-xs text-foreground">
                     {win.title}
                   </span>
                   {isSelected && (
-                    <CheckCircleIcon className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                    <CheckCircleIcon className="w-4 h-4 text-info dark:text-info shrink-0" />
                   )}
                 </div>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                <p className="text-[11px] text-muted-foreground">
                   {win.description}
                 </p>
               </button>
@@ -429,16 +429,16 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
       </div>
 
       {/* Dynamic Creative Option */}
-      <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-        <div className="p-4 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-950/20 dark:to-blue-950/20 rounded-xl border border-cyan-200 dark:border-cyan-800/50 flex items-center justify-between gap-3">
+      <div className="pt-4 border-t border-border dark:border-border">
+        <div className="p-4 bg-gradient-to-r from-info to-blue-50 dark:from-info/20 dark:to-blue-950/20 rounded-xl border border-info dark:border-info/50 flex items-center justify-between gap-3">
           <div className="space-y-0.5">
             <div className="flex items-center gap-2">
-              <SparklesIcon className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-              <span className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white">
+              <SparklesIcon className="w-4 h-4 text-info dark:text-info" />
+              <span className="font-bold text-xs sm:text-sm text-foreground">
                 التوليف الإبداعي الديناميكي (Dynamic Creative / DCO)
               </span>
             </div>
-            <p className="text-xs text-gray-600 dark:text-gray-300">
+            <p className="text-xs text-muted-foreground">
               السماح لميتا باختبار تركيبات مختلفة من الصور والنصوص والعناوين وتوليد النسخة الأفضل لكل عميل تلقائياً
             </p>
           </div>
@@ -449,7 +449,7 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
               onChange={(e) => onDynamicCreativeChange(e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-hidden rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
+            <div className="w-11 h-6 bg-muted peer-focus:outline-hidden rounded-full peer dark:bg-muted peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
           </label>
         </div>
       </div>

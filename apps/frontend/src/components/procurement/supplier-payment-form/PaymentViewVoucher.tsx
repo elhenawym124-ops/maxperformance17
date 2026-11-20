@@ -106,19 +106,19 @@ export const PaymentViewVoucher: React.FC<PaymentViewVoucherProps> = ({
           </div>
 
           {/* Voucher Amount Highlights */}
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20 flex flex-wrap items-center justify-between gap-4">
+          <div className="p-5 rounded-xl bg-gradient-to-r from-success/10 via-success/5 to-transparent border border-success/20 flex flex-wrap items-center justify-between gap-4">
             <div className="space-y-1">
-              <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+              <span className="text-xs text-success dark:text-success font-medium">
                 المبلغ المنصرف للمورد:
               </span>
-              <div className="text-3xl sm:text-4xl font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <div className="text-3xl sm:text-4xl font-black font-mono text-success dark:text-success tabular-nums">
                 {formatCurrency(existingPayment.amount)}
               </div>
             </div>
             <div className="text-right space-y-1">
               <span className="text-xs text-muted-foreground font-medium">طريقة الصرف:</span>
               <div className="text-base font-bold text-foreground flex items-center gap-1.5 justify-end">
-                <CheckCircle2 className="size-4 text-emerald-600" />
+                <CheckCircle2 className="size-4 text-success" />
                 {PAYMENT_METHODS.find((m) => m.value === existingPayment.paymentMethod)?.label ||
                   existingPayment.paymentMethod}
               </div>
@@ -166,7 +166,7 @@ export const PaymentViewVoucher: React.FC<PaymentViewVoucherProps> = ({
                 </>
               ) : (
                 <div className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                  <Clock className="size-4 text-amber-500" />
+                  <Clock className="size-4 text-warning" />
                   سداد عام على حساب المورد (دفعة تحت الحساب)
                 </div>
               )}

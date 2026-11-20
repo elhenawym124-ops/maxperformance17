@@ -392,14 +392,14 @@ const getIssueTone = (
 
 const getIssueContainerClassName = (tone: "error" | "warning" | null): string => {
   if (tone === "error") {
-    return "border-red-300 bg-red-50/80 dark:border-red-900 dark:bg-red-950/20";
+    return "border-red-300 bg-destructive/80 dark:border-destructive dark:bg-destructive/20";
   }
 
   if (tone === "warning") {
-    return "border-amber-300 bg-amber-50/80 dark:border-amber-900 dark:bg-amber-950/20";
+    return "border-amber-300 bg-warning/80 dark:border-warning dark:bg-warning/20";
   }
 
-  return "border-gray-200 bg-gray-50/80 dark:border-gray-700 dark:bg-gray-900/30";
+  return "border-gray-200 bg-muted dark:border-border dark:bg-muted";
 };
 
 const ValidationIssueList: React.FC<{
@@ -416,8 +416,8 @@ const ValidationIssueList: React.FC<{
           key={`${issue.fieldKey}-${issue.itemIndex ?? "section"}-${index}`}
           className={`rounded-lg border px-3 py-2 text-xs leading-6 ${
             issue.severity === "error"
-              ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300"
-              : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300"
+              ? "border-red-200 bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/30 dark:text-destructive"
+              : "border-amber-200 bg-warning/10 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning"
           }`}
         >
           {issue.message}
@@ -443,14 +443,14 @@ const ValidationSummaryCard: React.FC<{
 
   return (
     <div
-      className={`rounded-2xl border p-4 ${getIssueContainerClassName(tone)}`}
+      className={`rounded-xl border p-4 ${getIssueContainerClassName(tone)}`}
     >
       <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
         <div className="space-y-1">
-          <div className="text-sm font-semibold text-gray-900 dark:text-white">
+          <div className="text-sm font-semibold text-foreground">
             {title}
           </div>
-          <p className="text-xs leading-6 text-gray-600 dark:text-gray-300">
+          <p className="text-xs leading-6 text-muted-foreground">
             {errorCount > 0
               ? `يوجد ${errorCount} أخطاء تمنع الحفظ${
                   warningCount > 0 ? `، بالإضافة إلى ${warningCount} تحذير.` : "."
@@ -460,12 +460,12 @@ const ValidationSummaryCard: React.FC<{
         </div>
         <div className="flex flex-wrap gap-2 text-xs font-semibold">
           {errorCount > 0 ? (
-            <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
+            <span className="rounded-full border border-destructive bg-destructive/10 px-3 py-1 text-destructive dark:border-destructive dark:bg-destructive/30 dark:text-destructive">
               {errorCount} Errors
             </span>
           ) : null}
           {warningCount > 0 ? (
-            <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300">
+            <span className="rounded-full border border-warning bg-warning/10 px-3 py-1 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning">
               {warningCount} Warnings
             </span>
           ) : null}
@@ -475,7 +475,7 @@ const ValidationSummaryCard: React.FC<{
       <div className="mt-3 space-y-2">
         <ValidationIssueList issues={visibleIssues} />
         {issues.length > visibleIssues.length ? (
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-muted-foreground">
             + {issues.length - visibleIssues.length} ملاحظات إضافية داخل هذه الصفحة.
           </p>
         ) : null}
@@ -513,16 +513,16 @@ const PageMapCard: React.FC<{
       aria-pressed={selected}
       className={`rounded-[24px] border p-4 text-right transition-all ${
         selected
-          ? "border-indigo-500 bg-white shadow-[0_24px_60px_-42px_rgba(79,70,229,0.55)] dark:border-indigo-400 dark:bg-gray-900/90"
-          : "border-gray-200 bg-white/80 hover:border-indigo-200 hover:bg-white dark:border-gray-700 dark:bg-gray-900/50 dark:hover:border-indigo-800"
+          ? "border-indigo-500 bg-white shadow-[0_24px_60px_-42px_rgba(79,70,229,0.55)] dark:border-primary dark:bg-muted"
+          : "border-gray-200 bg-white/80 hover:border-primary hover:bg-white dark:border-border dark:bg-muted dark:hover:border-primary"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <span
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
             selected
-              ? "bg-indigo-600 text-white dark:bg-indigo-500"
-              : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+              ? "bg-indigo-600 text-white dark:bg-primary"
+              : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
           }`}
         >
           <Icon className="h-5 w-5" />
@@ -530,16 +530,16 @@ const PageMapCard: React.FC<{
 
         <div className="flex flex-wrap justify-end gap-2">
           {selected ? (
-            <span className="rounded-full bg-indigo-600 px-2.5 py-1 text-[11px] font-bold text-white dark:bg-indigo-500">
+            <span className="rounded-full bg-primary px-2.5 py-1 text-[11px] font-bold text-white dark:bg-primary">
               الصفحة الحالية
             </span>
           ) : null}
           {card.isCustomized ? (
-            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-700 dark:border-indigo-900 dark:bg-indigo-950/30 dark:text-indigo-300">
+            <span className="rounded-full border border-primary bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary dark:border-primary dark:bg-primary/30 dark:text-primary">
               مخصصة
             </span>
           ) : (
-            <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-semibold text-gray-600 dark:border-gray-700 dark:bg-gray-800/70 dark:text-gray-300">
+            <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-[11px] font-semibold text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
               افتراضية
             </span>
           )}
@@ -547,8 +547,8 @@ const PageMapCard: React.FC<{
             <span
               className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
                 card.errorCount > 0
-                  ? "border border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300"
-                  : "border border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300"
+                  ? "border border-destructive bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/30 dark:text-destructive"
+                  : "border border-warning bg-warning/10 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning"
               }`}
             >
               {card.errorCount > 0
@@ -560,28 +560,28 @@ const PageMapCard: React.FC<{
       </div>
 
       <div className="mt-4">
-        <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
+        <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
           {card.stage}
         </div>
-        <div className="mt-2 text-base font-bold text-gray-900 dark:text-white">
+        <div className="mt-2 text-base font-bold text-foreground">
           {card.label}
         </div>
-        <p className="mt-2 text-xs leading-6 text-gray-600 dark:text-gray-300">
+        <p className="mt-2 text-xs leading-6 text-muted-foreground">
           {card.description}
         </p>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-semibold">
-        <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-300">
+        <span className="rounded-full border border-success bg-success/10 px-2.5 py-1 text-success dark:border-success dark:bg-success/30 dark:text-success">
           {card.currentCount} أقسام ظاهرة
         </span>
         {card.hiddenCount > 0 ? (
-          <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-gray-600 dark:border-gray-700 dark:bg-gray-800/70 dark:text-gray-300">
+          <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
             {card.hiddenCount} مخفية
           </span>
         ) : null}
         {card.optionalCount > 0 ? (
-          <span className="rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-sky-700 dark:border-sky-900 dark:bg-sky-950/30 dark:text-sky-300">
+          <span className="rounded-full border border-info bg-info/10 px-2.5 py-1 text-info dark:border-info dark:bg-info/30 dark:text-info">
             {card.optionalCount} متاحة للإضافة
           </span>
         ) : null}
@@ -592,13 +592,13 @@ const PageMapCard: React.FC<{
           card.previewSections.map((sectionLabel, index) => (
             <span
               key={`${card.pageKey}-${sectionLabel}-${index}`}
-              className="rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[11px] font-medium text-gray-600 dark:border-gray-700 dark:bg-gray-950/40 dark:text-gray-300"
+              className="rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-medium text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
             >
               {sectionLabel}
             </span>
           ))
         ) : (
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-muted-foreground">
             لا توجد أقسام ظاهرة في هذه الصفحة حاليًا.
           </span>
         )}
@@ -878,7 +878,7 @@ const getDisplaySections = (
 };
 
 const FIELD_INPUT_CLASSNAME =
-  "w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-md text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500";
+  "w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary";
 
 const FIELD_TEXTAREA_CLASSNAME = `${FIELD_INPUT_CLASSNAME} min-h-[88px]`;
 
@@ -1011,9 +1011,9 @@ const TargetReferenceControl: React.FC<{
   };
 
   return (
-    <div className="space-y-3 rounded-xl border border-dashed border-gray-200 p-3 dark:border-gray-700">
+    <div className="space-y-3 rounded-xl border border-dashed border-border p-3 dark:border-border">
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-1 block text-sm font-medium text-foreground">
           نوع Target
         </label>
         <select
@@ -1033,7 +1033,7 @@ const TargetReferenceControl: React.FC<{
 
       {parsedTarget.kind === "category" ? (
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             التصنيف المستهدف
           </label>
           {categories.length > 0 ? (
@@ -1078,7 +1078,7 @@ const TargetReferenceControl: React.FC<{
 
       {parsedTarget.kind === "product" ? (
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             المنتج المستهدف
           </label>
           {products.length > 0 ? (
@@ -1123,7 +1123,7 @@ const TargetReferenceControl: React.FC<{
 
       {parsedTarget.kind === "custom" ? (
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             Target مخصص
           </label>
           <input
@@ -1136,19 +1136,19 @@ const TargetReferenceControl: React.FC<{
         </div>
       ) : null}
 
-      <p className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+      <p className="text-xs leading-6 text-muted-foreground">
         {catalogLoading
           ? "جارِ تحميل منتجات وتصنيفات المتجر الحالية..."
           : "يمكنك الاختيار من بيانات المتجر الحالية أو الاحتفاظ بقيمة مخصصة عند الحاجة."}
       </p>
       {parsedTarget.kind === "product" && matchedProduct ? (
-        <div className="rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-600 dark:bg-gray-800/60 dark:text-gray-300">
+        <div className="rounded-lg bg-muted px-3 py-2 text-xs text-foreground dark:bg-muted dark:text-muted-foreground">
           المنتج الحالي: {matchedProduct.name}
           {matchedProduct.categoryName ? ` • ${matchedProduct.categoryName}` : ""}
         </div>
       ) : null}
       {parsedTarget.kind === "category" && matchedCategory ? (
-        <div className="rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-600 dark:bg-gray-800/60 dark:text-gray-300">
+        <div className="rounded-lg bg-muted px-3 py-2 text-xs text-foreground dark:bg-muted dark:text-muted-foreground">
           التصنيف الحالي: {matchedCategory.name}
         </div>
       ) : null}
@@ -1178,7 +1178,7 @@ const StructuredItemActions: React.FC<{
       type="button"
       aria-label={`نسخ ${itemLabel} ${index + 1}`}
       onClick={onDuplicate}
-      className="rounded-md border border-indigo-200 px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"
+      className="rounded-md border border-primary px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
     >
       نسخ
     </button>
@@ -1189,8 +1189,8 @@ const StructuredItemActions: React.FC<{
       disabled={isFirst}
       className={`rounded-md border px-3 py-1.5 text-xs font-semibold ${
         isFirst
-          ? "border-gray-200 text-gray-400 dark:border-gray-800 dark:text-gray-600"
-          : "border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/60"
+          ? "border-gray-200 text-muted-foreground dark:border-border dark:text-foreground"
+          : "border-gray-200 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
       }`}
     >
       لأعلى
@@ -1202,8 +1202,8 @@ const StructuredItemActions: React.FC<{
       disabled={isLast}
       className={`rounded-md border px-3 py-1.5 text-xs font-semibold ${
         isLast
-          ? "border-gray-200 text-gray-400 dark:border-gray-800 dark:text-gray-600"
-          : "border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/60"
+          ? "border-gray-200 text-muted-foreground dark:border-border dark:text-foreground"
+          : "border-gray-200 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
       }`}
     >
       لأسفل
@@ -1212,7 +1212,7 @@ const StructuredItemActions: React.FC<{
       type="button"
       aria-label={`حذف ${itemLabel} ${index + 1}`}
       onClick={onDelete}
-      className="rounded-md border border-red-200 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-300 dark:hover:bg-red-950/30"
+      className="rounded-md border border-destructive px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10 dark:border-destructive dark:text-destructive dark:hover:bg-destructive/30"
     >
       حذف
     </button>
@@ -1227,11 +1227,11 @@ type QuickFixAction = {
 
 const QUICK_FIX_CLASSNAMES: Record<NonNullable<QuickFixAction["tone"]>, string> = {
   neutral:
-    "border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30",
+    "border-indigo-200 text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30",
   warning:
-    "border-amber-200 text-amber-700 hover:bg-amber-50 dark:border-amber-900 dark:text-amber-300 dark:hover:bg-amber-950/30",
+    "border-amber-200 text-warning hover:bg-warning/10 dark:border-warning dark:text-warning dark:hover:bg-warning/30",
   danger:
-    "border-red-200 text-red-700 hover:bg-red-50 dark:border-red-900 dark:text-red-300 dark:hover:bg-red-950/30",
+    "border-red-200 text-destructive hover:bg-destructive/10 dark:border-destructive dark:text-destructive dark:hover:bg-destructive/30",
 };
 
 const QuickFixActions: React.FC<{
@@ -1339,7 +1339,7 @@ const LookbookCardsEditor: React.FC<{
 
   return (
     <div className="space-y-3">
-      <p className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+      <p className="text-xs leading-6 text-muted-foreground">
         {catalogLoading
           ? "جارِ تحميل تصنيفات المتجر الحالية..."
           : categories.length > 0
@@ -1384,7 +1384,7 @@ const LookbookCardsEditor: React.FC<{
             className={`rounded-xl border p-4 ${getIssueContainerClassName(tone)}`}
           >
             <div className="mb-3 flex items-center justify-between gap-3">
-              <div className="text-sm font-semibold text-gray-900 dark:text-white">
+              <div className="text-sm font-semibold text-foreground">
                 بطاقة #{index + 1}
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -1393,7 +1393,7 @@ const LookbookCardsEditor: React.FC<{
                     type="button"
                     aria-label={`تعبئة البطاقة ${index + 1} من التصنيف`}
                     onClick={() => handleAutofillFromCategory(index)}
-                    className="rounded-md border border-amber-200 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-50 dark:border-amber-900 dark:text-amber-300 dark:hover:bg-amber-950/30"
+                    className="rounded-md border border-warning px-3 py-1.5 text-xs font-semibold text-warning hover:bg-warning/10 dark:border-warning dark:text-warning dark:hover:bg-warning/30"
                   >
                     تعبئة تلقائية
                   </button>
@@ -1417,7 +1417,7 @@ const LookbookCardsEditor: React.FC<{
             </div>
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   التصنيف
                 </label>
                 {categories.length > 0 ? (
@@ -1441,7 +1441,7 @@ const LookbookCardsEditor: React.FC<{
                 {categories.length === 0 ||
                 !findMatchingCategoryOption(categories, card.categoryKey) ? (
                   <div className={categories.length > 0 ? "mt-3" : ""}>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="mb-1 block text-sm font-medium text-foreground">
                       مفتاح التصنيف
                     </label>
                     <input
@@ -1457,7 +1457,7 @@ const LookbookCardsEditor: React.FC<{
                 ) : null}
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   عنوان البطاقة
                 </label>
                 <input
@@ -1469,7 +1469,7 @@ const LookbookCardsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   الوصف القصير
                 </label>
                 <textarea
@@ -1484,7 +1484,7 @@ const LookbookCardsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   الـ Mood
                 </label>
                 <input
@@ -1496,12 +1496,12 @@ const LookbookCardsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   رابط الصورة
                 </label>
                 <div className="space-y-2">
                   {card.image ? (
-                    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-950/50">
+                    <div className="overflow-hidden rounded-xl border border-border bg-white dark:border-border dark:bg-muted">
                       <img
                         src={card.image}
                         alt={card.title || `بطاقة ${index + 1}`}
@@ -1509,7 +1509,7 @@ const LookbookCardsEditor: React.FC<{
                       />
                     </div>
                   ) : (
-                    <div className="flex h-32 items-center justify-center rounded-xl border border-dashed border-gray-300 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                    <div className="flex h-32 items-center justify-center rounded-xl border border-dashed border-border text-xs text-muted-foreground dark:border-border dark:text-muted-foreground">
                       لا توجد صورة محددة لهذه البطاقة
                     </div>
                   )}
@@ -1518,7 +1518,7 @@ const LookbookCardsEditor: React.FC<{
                       type="button"
                       aria-label={`اختيار صورة البطاقة ${index + 1}`}
                       onClick={() => setImagePickerCardIndex(index)}
-                      className="rounded-md border border-indigo-200 px-3 py-2 text-xs font-semibold text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"
+                      className="rounded-md border border-primary px-3 py-2 text-xs font-semibold text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
                     >
                       اختيار من الحافظة
                     </button>
@@ -1533,7 +1533,7 @@ const LookbookCardsEditor: React.FC<{
                 </div>
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   رابط البطاقة
                 </label>
                 <input
@@ -1551,7 +1551,7 @@ const LookbookCardsEditor: React.FC<{
           );
         })
       ) : (
-        <div className="rounded-xl border border-dashed border-gray-300 p-4 text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+        <div className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground dark:border-border dark:text-muted-foreground">
           لا توجد بطاقات مخصصة حتى الآن. سيعتمد القسم على التصنيفات الحالية تلقائيًا ما لم تضيفي بطاقات هنا.
         </div>
       )}
@@ -1571,7 +1571,7 @@ const LookbookCardsEditor: React.FC<{
             },
           ])
         }
-        className="rounded-md border border-indigo-200 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"
+        className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
       >
         + إضافة بطاقة Lookbook
       </button>
@@ -1635,7 +1635,7 @@ const SizeGuideRowsEditor: React.FC<{
 
   return (
     <div className="space-y-3">
-      <p className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+      <p className="text-xs leading-6 text-muted-foreground">
         اختاري الـ Target من المنتجات أو التصنيفات الحالية لتفادي كتابة الـ slug يدويًا.
       </p>
       {rows.length > 0 ? (
@@ -1729,7 +1729,7 @@ const SizeGuideRowsEditor: React.FC<{
             className={`rounded-xl border p-4 ${getIssueContainerClassName(tone)}`}
           >
             <div className="mb-3 flex items-center justify-between gap-3">
-              <div className="text-sm font-semibold text-gray-900 dark:text-white">
+              <div className="text-sm font-semibold text-foreground">
                 صف مقاس #{index + 1}
               </div>
               <StructuredItemActions
@@ -1759,7 +1759,7 @@ const SizeGuideRowsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   EU
                 </label>
                 <input
@@ -1771,7 +1771,7 @@ const SizeGuideRowsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   UK
                 </label>
                 <input
@@ -1783,7 +1783,7 @@ const SizeGuideRowsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   US
                 </label>
                 <input
@@ -1795,7 +1795,7 @@ const SizeGuideRowsEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   CM
                 </label>
                 <input
@@ -1813,7 +1813,7 @@ const SizeGuideRowsEditor: React.FC<{
           );
         })
       ) : (
-        <div className="rounded-xl border border-dashed border-gray-300 p-4 text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+        <div className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground dark:border-border dark:text-muted-foreground">
           أضيفي صفوف المقاسات هنا. كل صف يمكن ربطه بـ
           {" "}
           <code>default</code>
@@ -1836,7 +1836,7 @@ const SizeGuideRowsEditor: React.FC<{
             { target: "default", eu: "", uk: "", us: "", cm: "" },
           ])
         }
-        className="rounded-md border border-indigo-200 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"
+        className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
       >
         + إضافة صف مقاس
       </button>
@@ -1902,7 +1902,7 @@ const SizeGuideOverridesEditor: React.FC<{
 
   return (
     <div className="space-y-3">
-      <p className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+      <p className="text-xs leading-6 text-muted-foreground">
         نفس المنطق هنا: default أو تصنيف أو منتج من بيانات المتجر الحالية، مع دعم القيم المخصصة لو كانت محفوظة مسبقًا.
       </p>
       {overrides.length > 0 ? (
@@ -1992,7 +1992,7 @@ const SizeGuideOverridesEditor: React.FC<{
             className={`rounded-xl border p-4 ${getIssueContainerClassName(tone)}`}
           >
             <div className="mb-3 flex items-center justify-between gap-3">
-              <div className="text-sm font-semibold text-gray-900 dark:text-white">
+              <div className="text-sm font-semibold text-foreground">
                 تخصيص عنوان #{index + 1}
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -2001,7 +2001,7 @@ const SizeGuideOverridesEditor: React.FC<{
                     type="button"
                     aria-label={`تعبئة تخصيص ${index + 1} تلقائيًا`}
                     onClick={() => applyAutofill(index)}
-                    className="rounded-md border border-amber-200 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-50 dark:border-amber-900 dark:text-amber-300 dark:hover:bg-amber-950/30"
+                    className="rounded-md border border-warning px-3 py-1.5 text-xs font-semibold text-warning hover:bg-warning/10 dark:border-warning dark:text-warning dark:hover:bg-warning/30"
                   >
                     تعبئة تلقائية
                   </button>
@@ -2047,7 +2047,7 @@ const SizeGuideOverridesEditor: React.FC<{
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   العنوان
                 </label>
                 <input
@@ -2059,7 +2059,7 @@ const SizeGuideOverridesEditor: React.FC<{
                 />
               </div>
               <div className="lg:col-span-2">
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   الوصف
                 </label>
                 <textarea
@@ -2074,7 +2074,7 @@ const SizeGuideOverridesEditor: React.FC<{
                 />
               </div>
               <div className="lg:col-span-2">
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="mb-1 block text-sm font-medium text-foreground">
                   الملاحظة
                 </label>
                 <textarea
@@ -2093,7 +2093,7 @@ const SizeGuideOverridesEditor: React.FC<{
           );
         })
       ) : (
-        <div className="rounded-xl border border-dashed border-gray-300 p-4 text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+        <div className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground dark:border-border dark:text-muted-foreground">
           أضيفي عناوين أو ملاحظات مخصصة لكل target عند الحاجة، وإلا سيُستخدم النص العام للقسم.
         </div>
       )}
@@ -2106,7 +2106,7 @@ const SizeGuideOverridesEditor: React.FC<{
             { target: "default", title: "", subtitle: "", note: "" },
           ])
         }
-        className="rounded-md border border-indigo-200 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"
+        className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
       >
         + إضافة تخصيص عنوان
       </button>
@@ -2203,16 +2203,16 @@ const SortableSection: React.FC<SortableSectionProps> = ({
     <div
       ref={handleSectionRef}
       style={style}
-      className={`rounded-2xl border p-4 transition-colors ${
+      className={`rounded-xl border p-4 transition-colors ${
         isFocused
-          ? "ring-2 ring-amber-400 ring-offset-2 ring-offset-white dark:ring-amber-300 dark:ring-offset-gray-950 shadow-lg"
+          ? "ring-2 ring-warning ring-offset-2 ring-offset-white dark:ring-warning dark:ring-offset-gray-950 shadow-lg"
           : ""
       } ${
         enabled
           ? sectionTone
             ? `${getIssueContainerClassName(sectionTone)} shadow-sm`
-            : "border-indigo-200 bg-indigo-50/50 dark:border-indigo-900 dark:bg-indigo-950/20 shadow-sm"
-          : "border-gray-200 bg-gray-50/70 dark:border-gray-700 dark:bg-gray-900/20"
+            : "border-indigo-200 bg-primary/50 dark:border-primary dark:bg-primary/20 shadow-sm"
+          : "border-gray-200 bg-muted dark:border-border dark:bg-muted"
       }`}
     >
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -2220,29 +2220,29 @@ const SortableSection: React.FC<SortableSectionProps> = ({
           <div
             {...attributes}
             {...listeners}
-            className={`cursor-grab active:cursor-grabbing p-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 ${
+            className={`cursor-grab active:cursor-grabbing p-1.5 rounded-md hover:bg-muted ${
               !enabled ? "opacity-30 cursor-not-allowed" : ""
             }`}
           >
-            <Bars3Icon className="w-5 h-5 text-gray-400" />
+            <Bars3Icon className="w-5 h-5 text-muted-foreground" />
           </div>
           <div className="space-y-1">
-            <div className="text-sm font-semibold text-gray-900 dark:text-white">
+            <div className="text-sm font-semibold text-foreground">
               {getSectionDisplayLabel(section)}
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+            <div className="text-xs text-muted-foreground">
               المفتاح: {sectionType}
               {currentVariant ? ` • variant: ${currentVariant}` : ""}
             </div>
             {validationIssues.length > 0 ? (
               <div className="flex flex-wrap gap-2 pt-1 text-xs font-semibold">
                 {validationIssues.some((issue) => issue.severity === "error") ? (
-                  <span className="rounded-full border border-red-200 bg-red-50 px-2.5 py-1 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
+                  <span className="rounded-full border border-destructive bg-destructive/10 px-2.5 py-1 text-destructive dark:border-destructive dark:bg-destructive/30 dark:text-destructive">
                     أخطاء: {validationIssues.filter((issue) => issue.severity === "error").length}
                   </span>
                 ) : null}
                 {validationIssues.some((issue) => issue.severity === "warning") ? (
-                  <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300">
+                  <span className="rounded-full border border-warning bg-warning/10 px-2.5 py-1 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning">
                     تحذيرات: {validationIssues.filter((issue) => issue.severity === "warning").length}
                   </span>
                 ) : null}
@@ -2252,24 +2252,24 @@ const SortableSection: React.FC<SortableSectionProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <label className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
             <input
               type="checkbox"
               checked={enabled}
               onChange={(event) => handleToggleSection(section, event.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
             />
             ظاهر
           </label>
-          <div className="flex border-l border-gray-200 dark:border-gray-700 ml-2 pl-2 gap-1">
+          <div className="flex border-l border-border dark:border-border ms-2 ps-2 gap-1">
             <button
               type="button"
               onClick={() => handleMoveSection(sectionKey, "up")}
               disabled={!enabled || isFirst}
               className={`p-2 rounded-md ${
                 !enabled || isFirst
-                  ? "bg-gray-200/50 text-gray-400 dark:bg-gray-700/50"
-                  : "bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                  ? "bg-gray-200/50 text-muted-foreground dark:bg-muted"
+                  : "bg-white text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               }`}
               title="تحريك للأعلى"
             >
@@ -2281,8 +2281,8 @@ const SortableSection: React.FC<SortableSectionProps> = ({
               disabled={!enabled || isLast}
               className={`p-2 rounded-md ${
                 !enabled || isLast
-                  ? "bg-gray-200/50 text-gray-400 dark:bg-gray-700/50"
-                  : "bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                  ? "bg-gray-200/50 text-muted-foreground dark:bg-muted"
+                  : "bg-white text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               }`}
               title="تحريك للأسفل"
             >
@@ -2293,7 +2293,7 @@ const SortableSection: React.FC<SortableSectionProps> = ({
       </div>
 
       {enabled && editorConfig ? (
-        <div className="mt-4 pt-4 border-t border-indigo-100 dark:border-indigo-900/70 space-y-4">
+        <div className="mt-4 pt-4 border-t border-primary dark:border-primary/70 space-y-4">
           <ValidationSummaryCard
             title={`مراجعة قسم ${getSectionDisplayLabel(section)}`}
             issues={validationIssues}
@@ -2301,14 +2301,14 @@ const SortableSection: React.FC<SortableSectionProps> = ({
           />
 
           {editorConfig.note ? (
-            <p className="text-xs leading-6 text-gray-500 dark:text-gray-400">{editorConfig.note}</p>
+            <p className="text-xs leading-6 text-muted-foreground">{editorConfig.note}</p>
           ) : null}
 
           {editorConfig.variants && editorConfig.variants.length > 0 ? (
             <div className="space-y-2">
               <label
                 htmlFor={`${selectedPage}-${sectionKey}-variant`}
-                className="block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground"
               >
                 النسخة البصرية
               </label>
@@ -2316,7 +2316,7 @@ const SortableSection: React.FC<SortableSectionProps> = ({
                 id={`${selectedPage}-${sectionKey}-variant`}
                 value={currentVariant}
                 onChange={(event) => handleSectionVariantChange(section, event.target.value)}
-                className="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-md text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 {editorConfig.variants.map((variantOption) => (
                   <option key={variantOption.value} value={variantOption.value}>
@@ -2375,7 +2375,7 @@ const SortableSection: React.FC<SortableSectionProps> = ({
                   <div key={field.key} className={field.type === "textarea" ? "lg:col-span-2" : ""}>
                     <label
                       htmlFor={fieldId}
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                      className="block text-sm font-medium text-foreground mb-1"
                     >
                       {field.label}
                     </label>
@@ -2412,9 +2412,9 @@ const SortableSection: React.FC<SortableSectionProps> = ({
                           onChange={(event) =>
                             handleSectionSettingChange(section, field, event.target.checked)
                           }
-                          className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
+                          className="h-5 w-5 rounded border-border text-primary focus:ring-primary dark:border-border dark:bg-muted"
                         />
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                        <span className="text-sm text-muted-foreground">
                           {field.placeholder || "تفعيل"}
                         </span>
                       </div>
@@ -2430,7 +2430,7 @@ const SortableSection: React.FC<SortableSectionProps> = ({
                       />
                     )}
                     {field.helperText ? (
-                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{field.helperText}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{field.helperText}</p>
                     ) : null}
                     <ValidationIssueList issues={fieldLevelIssues} />
                   </div>
@@ -2966,13 +2966,13 @@ export const StorefrontPageSectionsEditor: React.FC<
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card rounded-xl border border-border dark:border-border p-6">
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
         <div className="space-y-2">
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+          <h4 className="text-sm font-semibold text-foreground">
             محرر الصفحات والأقسام
           </h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             يمكنك هنا تخصيص الصفحات الأساسية والإضافية، وإعادة ترتيب الأقسام أو إنشاء صفحات عامة جديدة بدون بناء قالب منفصل.
           </p>
         </div>
@@ -2983,7 +2983,7 @@ export const StorefrontPageSectionsEditor: React.FC<
             disabled={!history.canUndo}
             aria-label="تراجع عن آخر تعديل"
             title="تراجع (Ctrl+Z)"
-            className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
           >
             <ArrowUturnLeftIcon className="h-4 w-4" />
             تراجع
@@ -2994,7 +2994,7 @@ export const StorefrontPageSectionsEditor: React.FC<
             disabled={!history.canRedo}
             aria-label="إعادة آخر تعديل"
             title="إعادة (Ctrl+Shift+Z)"
-            className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
           >
             <ArrowUturnRightIcon className="h-4 w-4" />
             إعادة
@@ -3003,85 +3003,85 @@ export const StorefrontPageSectionsEditor: React.FC<
         <button
           type="button"
           onClick={handleResetPage}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold border border-border text-foreground hover:bg-muted"
         >
           <ArrowPathIcon className="w-4 h-4" />
           إعادة صفحة {getPageLabel(selectedPage)}
         </button>
       </div>
 
-      <div className="mt-5 overflow-hidden rounded-[28px] border border-gray-200 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,247,255,0.98),rgba(237,245,255,0.96))] shadow-sm dark:border-gray-700 dark:bg-[linear-gradient(135deg,rgba(17,24,39,0.94),rgba(17,24,39,0.9),rgba(30,41,59,0.92))]">
+      <div className="mt-5 overflow-hidden rounded-[28px] border border-border bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,247,255,0.98),rgba(237,245,255,0.96))] shadow-sm dark:border-border dark:bg-[linear-gradient(135deg,rgba(17,24,39,0.94),rgba(17,24,39,0.9),rgba(30,41,59,0.92))]">
         <div className="grid gap-6 p-5 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] xl:p-6">
           <div className="space-y-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-3 py-1 text-[11px] font-bold text-white dark:bg-indigo-500">
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-[11px] font-bold text-white dark:bg-primary">
                 خريطة أجزاء الموقع
               </div>
-              <h5 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h5 className="text-lg font-bold text-foreground">
                 شوف رحلة الزبون من أول الصفحة الرئيسية لحد الدفع
               </h5>
-              <p className="max-w-3xl text-sm leading-7 text-gray-600 dark:text-gray-300">
+              <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
                 اختَر أي صفحة من الخريطة لتعرف وظيفتها، عدد أقسامها، وما إذا
                 كانت تحتاج مراجعة قبل الحفظ.
               </p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              <div className="rounded-2xl border border-white/80 bg-white/80 p-4 dark:border-gray-700/80 dark:bg-gray-900/50">
-                <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+              <div className="rounded-xl border border-white/80 bg-white/80 p-4 dark:border-border dark:bg-muted">
+                <div className="text-xs font-medium text-muted-foreground">
                   عدد الصفحات
                 </div>
-                <div className="mt-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mt-2 text-sm font-semibold text-foreground">
                   {pageMapCards.length} صفحات
                 </div>
               </div>
-              <div className="rounded-2xl border border-white/80 bg-white/80 p-4 dark:border-gray-700/80 dark:bg-gray-900/50">
-                <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+              <div className="rounded-xl border border-white/80 bg-white/80 p-4 dark:border-border dark:bg-muted">
+                <div className="text-xs font-medium text-muted-foreground">
                   الأقسام الظاهرة
                 </div>
-                <div className="mt-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mt-2 text-sm font-semibold text-foreground">
                   {totalVisibleSections} قسم
                 </div>
               </div>
-              <div className="rounded-2xl border border-white/80 bg-white/80 p-4 dark:border-gray-700/80 dark:bg-gray-900/50">
-                <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+              <div className="rounded-xl border border-white/80 bg-white/80 p-4 dark:border-border dark:bg-muted">
+                <div className="text-xs font-medium text-muted-foreground">
                   صفحات مخصصة
                 </div>
-                <div className="mt-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mt-2 text-sm font-semibold text-foreground">
                   {customizedPagesCount} صفحات
                 </div>
               </div>
-              <div className="rounded-2xl border border-white/80 bg-white/80 p-4 dark:border-gray-700/80 dark:bg-gray-900/50">
-                <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+              <div className="rounded-xl border border-white/80 bg-white/80 p-4 dark:border-border dark:bg-muted">
+                <div className="text-xs font-medium text-muted-foreground">
                   تحتاج مراجعة
                 </div>
-                <div className="mt-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mt-2 text-sm font-semibold text-foreground">
                   {pagesWithIssuesCount} صفحات
                 </div>
               </div>
             </div>
 
             {selectedPageCard ? (
-              <div className="rounded-[24px] border border-indigo-200 bg-white/90 p-4 dark:border-indigo-900/70 dark:bg-gray-900/60">
+              <div className="rounded-[24px] border border-primary bg-white/90 p-4 dark:border-primary/70 dark:bg-muted">
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">
+                    <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
                       الصفحة المفتوحة الآن
                     </div>
-                    <div className="mt-2 text-base font-bold text-gray-900 dark:text-white">
+                    <div className="mt-2 text-base font-bold text-foreground">
                       {selectedPageCard.label}
                     </div>
-                    <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">
                       {selectedPageCard.description}
                     </p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 text-xs font-semibold">
-                    <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-indigo-700 dark:border-indigo-900 dark:bg-indigo-950/30 dark:text-indigo-300">
+                    <span className="rounded-full border border-primary bg-primary/10 px-3 py-1 text-primary dark:border-primary dark:bg-primary/30 dark:text-primary">
                       {selectedPageCard.currentCount} أقسام ظاهرة
                     </span>
                     {selectedPageCard.hiddenCount > 0 ? (
-                      <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-gray-600 dark:border-gray-700 dark:bg-gray-800/70 dark:text-gray-300">
+                      <span className="rounded-full border border-border bg-muted px-3 py-1 text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                         {selectedPageCard.hiddenCount} مخفية
                       </span>
                     ) : null}
@@ -3089,8 +3089,8 @@ export const StorefrontPageSectionsEditor: React.FC<
                       <span
                         className={`rounded-full px-3 py-1 ${
                           selectedPageCard.errorCount > 0
-                            ? "border border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300"
-                            : "border border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300"
+                            ? "border border-destructive bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/30 dark:text-destructive"
+                            : "border border-warning bg-warning/10 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning"
                         }`}
                       >
                         {selectedPageCard.issueCount} ملاحظات
@@ -3103,17 +3103,17 @@ export const StorefrontPageSectionsEditor: React.FC<
           </div>
 
           {primaryJourneyCards.length > 0 ? (
-            <div className="rounded-[24px] border border-white/70 bg-white/70 p-4 dark:border-gray-700/70 dark:bg-gray-900/50">
+            <div className="rounded-[24px] border border-white/70 bg-white/70 p-4 dark:border-border dark:bg-muted">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="text-sm font-semibold text-foreground">
                     الرحلة الأساسية
                   </div>
-                  <div className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+                  <div className="text-xs leading-6 text-muted-foreground">
                     هذا هو التسلسل الطبيعي لرحلة الشراء داخل المتجر.
                   </div>
                 </div>
-                <span className="rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-bold text-gray-600 dark:border-gray-700 dark:bg-gray-950/40 dark:text-gray-300">
+                <span className="rounded-full border border-border bg-white px-3 py-1 text-[11px] font-bold text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                   اختصار سريع
                 </span>
               </div>
@@ -3126,14 +3126,14 @@ export const StorefrontPageSectionsEditor: React.FC<
                       onClick={() => setSelectedPage(card.pageKey)}
                       className={`rounded-full px-3 py-2 text-xs font-semibold transition-colors ${
                         selectedPage === card.pageKey
-                          ? "bg-indigo-600 text-white dark:bg-indigo-500"
-                          : "border border-gray-200 bg-white text-gray-700 hover:border-indigo-200 hover:text-indigo-700 dark:border-gray-700 dark:bg-gray-950/40 dark:text-gray-200 dark:hover:border-indigo-800 dark:hover:text-indigo-300"
+                          ? "bg-indigo-600 text-white dark:bg-primary"
+                          : "border border-border bg-white text-foreground hover:border-primary hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-primary dark:hover:text-primary"
                       }`}
                     >
                       {card.label}
                     </button>
                     {index < primaryJourneyCards.length - 1 ? (
-                      <span className="text-gray-300 dark:text-gray-600">•</span>
+                      <span className="text-gray-300 dark:text-foreground">•</span>
                     ) : null}
                   </React.Fragment>
                 ))}
@@ -3142,15 +3142,15 @@ export const StorefrontPageSectionsEditor: React.FC<
           ) : null}
         </div>
 
-        <div className="border-t border-gray-200/80 bg-white/60 p-5 dark:border-gray-700/80 dark:bg-gray-950/20">
+        <div className="border-t border-border bg-white/60 p-5 dark:border-border dark:bg-muted">
           {primaryJourneyCards.length > 0 ? (
             <div>
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div>
-                  <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="text-sm font-semibold text-foreground">
                     صفحات رحلة الشراء
                   </div>
-                  <div className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+                  <div className="text-xs leading-6 text-muted-foreground">
                     الرئيسية، المتجر، المنتج، السلة، والدفع.
                   </div>
                 </div>
@@ -3171,10 +3171,10 @@ export const StorefrontPageSectionsEditor: React.FC<
           {supportJourneyCards.length > 0 ? (
             <div className={primaryJourneyCards.length > 0 ? "mt-5" : ""}>
               <div className="mb-3">
-                <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="text-sm font-semibold text-foreground">
                   صفحات داعمة
                 </div>
-                <div className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+                <div className="text-xs leading-6 text-muted-foreground">
                   صفحات تخدم العروض، التصنيفات، الإلهام، والمعلومات المساندة.
                 </div>
               </div>
@@ -3194,10 +3194,10 @@ export const StorefrontPageSectionsEditor: React.FC<
           {extraJourneyCards.length > 0 ? (
             <div className="mt-5">
               <div className="mb-3">
-                <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="text-sm font-semibold text-foreground">
                   صفحات إضافية
                 </div>
-                <div className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+                <div className="text-xs leading-6 text-muted-foreground">
                   صفحات مخصصة أُضيفت فوق الصفحات القياسية للقالب.
                 </div>
               </div>
@@ -3217,7 +3217,7 @@ export const StorefrontPageSectionsEditor: React.FC<
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           اختيار الصفحة
         </span>
         {pageMapCards.map((card) => {
@@ -3231,8 +3231,8 @@ export const StorefrontPageSectionsEditor: React.FC<
                 selectedPage === card.pageKey
                   ? "bg-indigo-600 text-white"
                   : isCorePage
-                    ? "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-                    : "bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/40"
+                    ? "bg-gray-100 text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
+                    : "bg-indigo-50 text-primary hover:bg-primary dark:bg-primary/40 dark:text-primary dark:hover:bg-primary/40"
               }`}
             >
               <span className="inline-flex items-center gap-2">
@@ -3245,8 +3245,8 @@ export const StorefrontPageSectionsEditor: React.FC<
                       selectedPage === card.pageKey
                         ? "bg-white/20 text-white"
                         : card.errorCount > 0
-                          ? "bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-300"
-                          : "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"
+                          ? "bg-red-50 text-destructive dark:bg-destructive/30 dark:text-destructive"
+                          : "bg-amber-50 text-warning dark:bg-warning/30 dark:text-warning"
                     }`}
                   >
                     {card.issueCount}
@@ -3280,7 +3280,7 @@ export const StorefrontPageSectionsEditor: React.FC<
                 setSelectedPage(slug as StorefrontPageKey);
               }
             }}
-            className="rounded-full border border-dashed border-gray-300 px-4 py-2 text-sm font-semibold text-gray-500 transition-colors hover:border-indigo-500 hover:text-indigo-500"
+            className="rounded-full border border-dashed border-border px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary"
           >
             + إضافة صفحة جديدة
           </button>
@@ -3295,40 +3295,40 @@ export const StorefrontPageSectionsEditor: React.FC<
       </div>
 
       {selectedPage === "pdp" && availablePdpShortcuts.length > 0 ? (
-        <div className="mt-5 rounded-2xl border border-indigo-100 bg-indigo-50/70 p-4 dark:border-indigo-900/60 dark:bg-indigo-950/20">
+        <div className="mt-5 rounded-xl border border-primary bg-primary/70 p-4 dark:border-primary/60 dark:bg-primary/20">
           <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <h5 className="text-sm font-semibold text-gray-900 dark:text-white">
+              <h5 className="text-sm font-semibold text-foreground">
                 اختصارات صفحة المنتج
               </h5>
-              <p className="mt-1 text-xs leading-6 text-gray-600 dark:text-gray-300">
+              <p className="mt-1 text-xs leading-6 text-muted-foreground">
                 استخدم هذه الاختصارات للتنقل السريع بين أهم أجزاء قالب صفحة المنتج أثناء التعديل.
               </p>
             </div>
-            <div className="text-xs text-indigo-700 dark:text-indigo-300">
+            <div className="text-xs text-primary dark:text-primary">
               يتم التمرير مباشرة إلى القسم المختار داخل المحرر.
             </div>
           </div>
 
           {pdpCheckoutDisplayEntry ? (
-            <div className="mt-4 rounded-2xl border border-indigo-100 bg-white/90 p-4 dark:border-indigo-900/70 dark:bg-gray-900/50">
+            <div className="mt-4 rounded-xl border border-primary bg-white/90 p-4 dark:border-primary/70 dark:bg-muted">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                    <span className="text-sm font-semibold text-foreground">
                       حالة الشيك أوت داخل صفحة المنتج
                     </span>
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
                         isPdpCheckoutVisible
-                          ? "border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-300"
-                          : "border border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300"
+                          ? "border border-success bg-success/10 text-success dark:border-success dark:bg-success/30 dark:text-success"
+                          : "border border-warning bg-warning/10 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning"
                       }`}
                     >
                       {isPdpCheckoutVisible ? "ظاهر الآن" : "غير ظاهر حاليًا"}
                     </span>
                   </div>
-                  <p className="text-xs leading-6 text-gray-600 dark:text-gray-300">
+                  <p className="text-xs leading-6 text-muted-foreground">
                     عند التفعيل سيظهر مسار Checkout مدمج داخل صفحة المنتج ويعيد استخدام نفس نموذج الدفع الحالي بدون تكرار في منطق الطلب.
                   </p>
                 </div>
@@ -3344,8 +3344,8 @@ export const StorefrontPageSectionsEditor: React.FC<
                     }
                     className={`rounded-md border px-3 py-2 text-xs font-semibold ${
                       isPdpCheckoutVisible
-                        ? "border-amber-200 text-amber-700 hover:bg-amber-50 dark:border-amber-900 dark:text-amber-300 dark:hover:bg-amber-950/30"
-                        : "border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-950/30"
+                        ? "border-amber-200 text-warning hover:bg-warning/10 dark:border-warning dark:text-warning dark:hover:bg-warning/30"
+                        : "border-indigo-200 text-primary hover:bg-primary/10 dark:border-primary dark:text-primary dark:hover:bg-primary/30"
                     }`}
                   >
                     {isPdpCheckoutVisible ? "إخفاء الشيك أوت" : "إظهار الشيك أوت"}
@@ -3355,7 +3355,7 @@ export const StorefrontPageSectionsEditor: React.FC<
                     <button
                       type="button"
                       onClick={() => handleFocusSectionShortcut(PDP_CHECKOUT_SECTION_ID)}
-                      className="rounded-md border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                      className="rounded-md border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                     >
                       الانتقال للقسم
                     </button>
@@ -3374,10 +3374,10 @@ export const StorefrontPageSectionsEditor: React.FC<
                   key={shortcut.type}
                   type="button"
                   onClick={() => handleFocusSectionShortcut(shortcut.type)}
-                  className={`rounded-2xl border px-4 py-3 text-right transition-colors ${
+                  className={`rounded-xl border px-4 py-3 text-right transition-colors ${
                     isActiveShortcut
-                      ? "border-indigo-500 bg-white text-indigo-700 shadow-sm dark:border-indigo-400 dark:bg-indigo-950/40 dark:text-indigo-200"
-                      : "border-transparent bg-white/80 text-gray-700 hover:border-indigo-200 hover:bg-white dark:bg-gray-900/40 dark:text-gray-200 dark:hover:border-indigo-800"
+                      ? "border-indigo-500 bg-white text-primary shadow-sm dark:border-primary dark:bg-primary/40 dark:text-primary"
+                      : "border-transparent bg-white/80 text-foreground hover:border-primary hover:bg-white dark:bg-muted dark:text-muted-foreground dark:hover:border-primary"
                   }`}
                 >
                   <div className="text-sm font-semibold">{shortcut.label}</div>

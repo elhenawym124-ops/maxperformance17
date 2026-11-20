@@ -104,13 +104,13 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 px-4 py-6 flex items-center justify-center">
-      <div className="w-full max-w-5xl max-h-[85vh] overflow-hidden rounded-3xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl">
-        <div className="flex items-center justify-between gap-4 px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+      <div className="w-full max-w-5xl max-h-[85vh] overflow-hidden rounded-xl bg-white dark:bg-muted border border-border dark:border-border shadow-2xl">
+        <div className="flex items-center justify-between gap-4 px-6 py-5 border-b border-border dark:border-border">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-foreground">
               {title || "اختيار صورة"}
             </h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm text-muted-foreground">
               {description ||
                 "اختر صورة محفوظة أو ارفع صورة جديدة لتستخدمها مباشرة في القسم."}
             </p>
@@ -119,7 +119,7 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="rounded-full p-2 text-muted-foreground hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             aria-label="إغلاق نافذة الصور"
           >
             <svg
@@ -138,8 +138,8 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
           </button>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50/70 dark:bg-gray-950/30">
-          <div className="text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
+          <div className="text-sm text-muted-foreground">
             {images.length > 0
               ? `${images.length} صورة متاحة`
               : "لا توجد صور محفوظة بعد"}
@@ -158,8 +158,8 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
               htmlFor={uploadInputId}
               className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold cursor-pointer ${
                 isUploading
-                  ? "bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
-                  : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  ? "bg-gray-200 text-muted-foreground dark:bg-muted dark:text-muted-foreground"
+                  : "bg-indigo-600 text-white hover:bg-primary"
               }`}
             >
               {isUploading ? "جاري الرفع..." : uploadLabel || "رفع صورة جديدة"}
@@ -171,19 +171,19 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
-                <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-b-2 border-indigo-600" />
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-b-2 border-primary" />
+                <p className="text-sm text-muted-foreground">
                   جاري تحميل الصور...
                 </p>
               </div>
             </div>
           ) : images.length === 0 ? (
-            <div className="flex items-center justify-center h-64 rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-950/20 text-center">
+            <div className="flex items-center justify-center h-64 rounded-xl border border-dashed border-border dark:border-border bg-muted dark:bg-muted text-center">
               <div className="space-y-2 px-6">
-                <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                <div className="text-lg font-semibold text-foreground">
                   {emptyTitle || "لا توجد صور محفوظة بعد"}
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   {emptyDescription ||
                     "استخدم زر «رفع صورة جديدة» لإضافة صورك وربطها بالقسم مباشرة."}
                 </p>
@@ -202,13 +202,13 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
                       onSelectImage(image.url);
                       onClose();
                     }}
-                    className={`overflow-hidden rounded-3xl border text-right transition-all ${
+                    className={`overflow-hidden rounded-xl border text-right transition-all ${
                       isSelected
-                        ? "border-indigo-500 ring-2 ring-indigo-200 dark:ring-indigo-900"
-                        : "border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700"
+                        ? "border-indigo-500 ring-2 ring-primary dark:ring-primary"
+                        : "border-gray-200 dark:border-border hover:border-primary dark:hover:border-primary"
                     }`}
                   >
-                    <div className="aspect-[16/10] bg-gray-100 dark:bg-gray-800">
+                    <div className="aspect-[16/10] bg-muted dark:bg-muted">
                       <img
                         src={image.url}
                         alt={image.filename}
@@ -216,10 +216,10 @@ const StorefrontImagePickerModal: React.FC<StorefrontImagePickerModalProps> = ({
                       />
                     </div>
                     <div className="p-4 space-y-1">
-                      <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                      <div className="text-sm font-semibold text-foreground truncate">
                         {image.filename}
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      <div className="text-xs text-muted-foreground truncate">
                         {image.url}
                       </div>
                     </div>

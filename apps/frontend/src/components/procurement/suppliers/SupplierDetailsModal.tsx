@@ -68,7 +68,7 @@ export const SupplierDetailsModal: React.FC<SupplierDetailsModalProps> = ({
                   parseTags(supplier.tags).map((tag, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200/60 dark:border-zinc-700"
+                      className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border"
                     >
                       {tag}
                     </span>

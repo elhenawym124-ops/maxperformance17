@@ -325,9 +325,9 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
   const currentFilteredCampaignCount = filteredCampaigns.length;
 
   return (
-    <section className="rounded-xl border border-slate-200/80 bg-white shadow-xs dark:border-slate-800/80 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white shadow-xs dark:border-border dark:bg-muted">
       {/* Integrated Unified Toolbar */}
-      <div className="border-b border-slate-200/80 p-3 sm:p-4 dark:border-slate-800/80">
+      <div className="border-b border-border p-3 sm:p-4 dark:border-border">
         <div className="flex flex-col gap-3">
           {/* Status Segmented Control & Summary Counter */}
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -342,7 +342,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                     className={`inline-flex items-center rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
                       isSelected
                         ? "bg-blue-600 text-white shadow-xs shadow-blue-500/25"
-                        : "border border-slate-200/90 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 dark:hover:bg-slate-800"
+                        : "border border-border bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                     }`}
                   >
                     {chip.label}
@@ -351,8 +351,8 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
               })}
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400">
-              <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-extrabold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+            <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground dark:text-muted-foreground">
+              <span className="rounded-md bg-muted px-2 py-0.5 text-xs font-extrabold text-foreground dark:bg-muted dark:text-muted-foreground">
                 {formatNumber(currentFilteredCampaignCount)} {isEn ? "campaigns" : "حملة"}
               </span>
               <span>•</span>
@@ -363,7 +363,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
           {/* Search, Sort, and Collapsible Filter Controls */}
           <div className="grid gap-2.5 sm:grid-cols-[1fr_auto_auto]">
             <div className="relative min-w-0">
-              <Search className="pointer-events-none absolute bottom-2.5 end-3 h-4 w-4 text-slate-400" />
+              <Search className="pointer-events-none absolute bottom-2.5 end-3 h-4 w-4 text-muted-foreground" />
               <input
                 type="search"
                 value={filters.searchTerm}
@@ -373,7 +373,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                     ? "Search campaigns by name, objective, or Meta ID..."
                     : "ابحث باسم الحملة، الهدف الإعلاني، أو Meta ID..."
                 }
-                className="h-9 w-full rounded-xl border border-slate-200/90 bg-white px-3 pe-9 text-xs font-semibold text-slate-800 shadow-2xs outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                className="h-9 w-full rounded-xl border border-border bg-white px-3 pe-9 text-xs font-semibold text-foreground shadow-2xs outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-muted-foreground"
               />
             </div>
 
@@ -393,7 +393,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
               className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border px-3 text-xs font-bold shadow-2xs transition-all ${
                 showExtraFilters
                   ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200"
-                  : "border-slate-200/90 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
+                  : "border-slate-200/90 bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               }`}
             >
               <SlidersHorizontal className="h-3.5 w-3.5" />
@@ -402,7 +402,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
           </div>
 
           {showExtraFilters && (
-            <div className="grid gap-2.5 sm:grid-cols-2 pt-2.5 border-t border-slate-100 dark:border-slate-800">
+            <div className="grid gap-2.5 sm:grid-cols-2 pt-2.5 border-t border-border dark:border-border">
               <SelectFilter
                 icon={Target}
                 label={isEn ? "Objective" : "الهدف الإعلاني"}
@@ -438,13 +438,13 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
       {/* Campaigns Listing */}
       {campaigns.length === 0 ? (
         <div className="flex flex-col items-center gap-3 p-6 sm:p-12 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300 shadow-xs">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300 shadow-xs">
             <Megaphone className="h-6 w-6" />
           </div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-base font-bold text-foreground dark:text-white">
             {isEn ? "No campaigns in this account yet" : "لا توجد حملات في هذا الحساب بعد"}
           </h3>
-          <p className="text-xs text-slate-500 max-w-sm">
+          <p className="text-xs text-muted-foreground max-w-sm">
             {isEn
               ? "Start launching your first product ad campaign or sync your existing campaigns from Meta."
               : "ابدأ بإطلاق أول حملة إعلانية لمنتجاتك أو قم بمزامنة حملاتك الحالية من Meta."}
@@ -461,11 +461,11 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
         </div>
       ) : currentVisibleCampaignCount === 0 ? (
         <div className="flex flex-col items-center gap-3 p-6 sm:p-12 text-center">
-          <Search className="h-10 w-10 text-slate-300 dark:text-slate-600" />
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <Search className="h-10 w-10 text-muted-foreground dark:text-foreground" />
+          <h3 className="text-base font-bold text-foreground dark:text-white">
             {isEn ? "No matching campaigns" : "لا توجد حملات مطابقة"}
           </h3>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-muted-foreground">
             {isEn
               ? "Try adjusting your search query or switching delivery status filters."
               : "جرب تعديل كلمة البحث أو تغيير فلتر حالة التسليم."}
@@ -473,7 +473,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
           <button
             type="button"
             onClick={() => updateFilters(defaultFilters)}
-            className="rounded-xl border border-slate-300 px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 transition-all"
+            className="rounded-xl border border-border px-4 py-2 text-xs font-bold text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted transition-all"
           >
             {isEn ? "Reset All Filters" : "إعادة ضبط جميع الفلاتر"}
           </button>
@@ -481,7 +481,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
       ) : (
         <div>
           {/* Desktop Table Header - Columns for Vertical Scanning */}
-          <div className="hidden lg:grid grid-cols-12 items-center gap-2.5 border-b border-slate-200/80 bg-slate-50/90 px-4 py-2 text-xs font-bold text-slate-500 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-400">
+          <div className="hidden lg:grid grid-cols-12 items-center gap-2.5 border-b border-border bg-muted px-4 py-2 text-xs font-bold text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
             <div className="col-span-4 flex items-center gap-2">
               <span>{isEn ? "Campaign & Status" : "الحملة والحالة"}</span>
             </div>
@@ -509,7 +509,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
           </div>
 
           {/* Campaigns Row List */}
-          <div className="divide-y divide-slate-100 dark:divide-slate-800/80">
+          <div className="divide-y divide-border dark:divide-border">
             {visibleCampaigns.map((campaign) => {
               const performance = getCampaignPerformance(campaign);
               const decision = getHealthDecision(performance);
@@ -527,7 +527,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
               return (
                 <article
                   key={campaign.id}
-                  className="p-3 sm:px-4 sm:py-3 transition-colors hover:bg-blue-50/20 dark:hover:bg-slate-800/30"
+                  className="p-3 sm:px-4 sm:py-3 transition-colors hover:bg-blue-50/20 dark:hover:bg-muted"
                 >
                   {/* Desktop Grid Layout (lg+) */}
                   <div className="hidden lg:grid grid-cols-12 items-center gap-2.5">
@@ -539,7 +539,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                         disabled={isToggling}
                         title={isActive ? (isEn ? "Pause Campaign" : "إيقاف الحملة") : (isEn ? "Resume Campaign" : "تنشيط الحملة")}
                         className={`relative mt-0.5 inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
-                          isActive ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700"
+                          isActive ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
                         }`}
                       >
                         {isToggling ? (
@@ -560,7 +560,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                           <button
                             type="button"
                             onClick={() => handleOpenQuickView(campaign)}
-                            className="truncate text-start text-xs font-bold text-slate-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400 transition-colors"
+                            className="truncate text-start text-xs font-bold text-foreground hover:text-blue-600 dark:text-white dark:hover:text-blue-400 transition-colors"
                             title={isEn ? `Quick View: ${campaign.name}` : `ملخص وتشخيص: ${campaign.name}`}
                           >
                             {campaign.name}
@@ -571,22 +571,22 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                             </span>
                           )}
                           {!isActive && (
-                            <span className="shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 text-[11px] font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                            <span className="shrink-0 rounded-md bg-muted px-1.5 py-0.5 text-[11px] font-bold text-muted-foreground dark:bg-muted dark:text-muted-foreground">
                               {isEn ? "Paused" : "متوقف"}
                             </span>
                           )}
                         </div>
 
                         {/* Metadata sub-row */}
-                        <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-slate-500 dark:text-slate-400">
-                          <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground dark:text-muted-foreground">
+                          <span className="font-semibold text-foreground dark:text-muted-foreground">
                             {getObjectiveLabel(campaign.objective)}
                           </span>
                           {!campaign.facebookCampaignId && (
                             <>
                               <span>•</span>
-                              <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 font-bold">
-                                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500" />
+                              <span className="inline-flex items-center gap-1 text-warning dark:text-warning font-bold">
+                                <span className="inline-block h-1.5 w-1.5 rounded-full bg-warning" />
                                 {isEn ? "Local" : "محلي"}
                               </span>
                             </>
@@ -596,7 +596,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                               <span>•</span>
                               <span
                                 title={blockerText}
-                                className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 dark:text-amber-400"
+                                className="inline-flex items-center gap-1 text-xs font-bold text-warning dark:text-warning"
                               >
                                 <PauseCircle className="h-3 w-3 shrink-0" />
                                 <span className="truncate max-w-[180px]">
@@ -619,7 +619,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                             type="number"
                             value={editBudgetValue}
                             onChange={(e) => setEditBudgetValue(e.target.value)}
-                            className="h-6 w-20 rounded-md border border-blue-400 bg-white px-1 text-xs font-semibold tabular-nums text-slate-900 outline-none dark:bg-slate-900 dark:text-white"
+                            className="h-6 w-20 rounded-md border border-blue-400 bg-white px-1 text-xs font-semibold tabular-nums text-foreground outline-none dark:bg-muted dark:text-white"
                             autoFocus
                             onKeyDown={(e) => {
                               if (e.key === "Enter") handleSaveBudget(campaign);
@@ -630,28 +630,28 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                             type="button"
                             onClick={() => handleSaveBudget(campaign)}
                             disabled={savingBudget}
-                            className="rounded p-0.5 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40"
+                            className="rounded p-0.5 text-success hover:bg-success/10 dark:hover:bg-success/40"
                           >
                             <Check className="h-3.5 w-3.5" />
                           </button>
                           <button
                             type="button"
                             onClick={cancelEditBudget}
-                            className="rounded p-0.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                            className="rounded p-0.5 text-muted-foreground hover:bg-muted dark:hover:bg-muted"
                           >
                             <X className="h-3.5 w-3.5" />
                           </button>
                         </div>
                       ) : (
-                        <div className="group/b flex items-center gap-1.5 rounded-lg border border-slate-200/70 bg-slate-50/60 px-2 py-0.5 dark:border-slate-800 dark:bg-slate-800/40" dir="ltr">
-                          <span className="text-xs font-bold tabular-nums text-slate-900 dark:text-white">
+                        <div className="group/b flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2 py-0.5 dark:border-border dark:bg-muted" dir="ltr">
+                          <span className="text-xs font-bold tabular-nums text-foreground dark:text-white">
                             {formatCurrency(currentBudget, selectedCurrency)}
                           </span>
                           <button
                             type="button"
                             onClick={() => startEditBudget(campaign.id, currentBudget)}
                             title={isEn ? "Edit Budget" : "تعديل الميزانية"}
-                            className="rounded p-0.5 text-slate-400 opacity-0 group-hover/b:opacity-100 hover:text-blue-600 transition-all"
+                            className="rounded p-0.5 text-muted-foreground opacity-0 group-hover/b:opacity-100 hover:text-blue-600 transition-all"
                           >
                             <Edit2 className="h-3 w-3" />
                           </button>
@@ -661,21 +661,21 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
 
                     {/* Col 7: Spend */}
                     <div className="col-span-1 text-center" dir="ltr">
-                      <span className="text-xs font-bold tabular-nums text-slate-900 dark:text-white">
+                      <span className="text-xs font-bold tabular-nums text-foreground dark:text-white">
                         {formatCurrency(performance?.spend || 0, selectedCurrency)}
                       </span>
                     </div>
 
                     {/* Col 8: Purchases */}
                     <div className="col-span-1 text-center" dir="ltr">
-                      <span className="text-xs font-bold tabular-nums text-slate-900 dark:text-white">
+                      <span className="text-xs font-bold tabular-nums text-foreground dark:text-white">
                         {formatNumber(performance?.purchases || 0)}
                       </span>
                     </div>
 
                     {/* Col 9: CPA */}
                     <div className="col-span-1 text-center" dir="ltr">
-                      <span className="text-xs font-bold tabular-nums text-slate-900 dark:text-white">
+                      <span className="text-xs font-bold tabular-nums text-foreground dark:text-white">
                         {formatCurrency(performance?.cpa || 0, selectedCurrency)}
                       </span>
                     </div>
@@ -685,7 +685,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                       <span
                         className={`text-xs font-black tabular-nums ${
                           (performance?.roas || 0) >= 2
-                            ? "text-emerald-600 dark:text-emerald-400"
+                            ? "text-emerald-600 dark:text-success"
                             : "text-slate-900 dark:text-white"
                         }`}
                       >
@@ -694,9 +694,9 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                     </div>
 
                     {/* Col 11: Hook / Freq */}
-                    <div className="col-span-1 text-center text-xs font-semibold tabular-nums text-slate-600 dark:text-slate-400" dir="ltr">
+                    <div className="col-span-1 text-center text-xs font-semibold tabular-nums text-foreground dark:text-muted-foreground" dir="ltr">
                       <span>{formatPercentage(performance?.ctr || 0)}</span>
-                      <span className="mx-0.5 text-slate-300 dark:text-slate-600">/</span>
+                      <span className="mx-0.5 text-muted-foreground dark:text-foreground">/</span>
                       <span>{formatNumber(performance?.frequency || 0, 1)}x</span>
                     </div>
 
@@ -706,7 +706,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                         type="button"
                         onClick={() => handleOpenQuickView(campaign)}
                         title={isEn ? "Quick View, Edit & Diagnostics" : "عرض ملخص وتشخيص وتعديل الحملة"}
-                        className="inline-flex h-7 items-center justify-center gap-1 rounded-lg border border-slate-200/90 bg-white px-2.5 text-xs font-bold text-slate-700 shadow-2xs hover:border-blue-500 hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-all active:scale-[0.97]"
+                        className="inline-flex h-7 items-center justify-center gap-1 rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground shadow-2xs hover:border-blue-500 hover:text-blue-600 dark:border-border dark:bg-muted dark:text-muted-foreground transition-all active:scale-[0.97]"
                       >
                         <span>{isEn ? "Details" : "تفاصيل"}</span>
                         <ArrowUpRight className="h-3 w-3" />
@@ -723,7 +723,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                         onClick={() => handleToggleStatus(campaign)}
                         disabled={isToggling}
                         className={`relative mt-0.5 inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out ${
-                          isActive ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700"
+                          isActive ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
                         }`}
                       >
                         {isToggling ? (
@@ -744,7 +744,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                           <button
                             type="button"
                             onClick={() => handleOpenQuickView(campaign)}
-                            className="text-start text-xs font-bold text-slate-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400 transition-colors"
+                            className="text-start text-xs font-bold text-foreground hover:text-blue-600 dark:text-white dark:hover:text-blue-400 transition-colors"
                           >
                             {campaign.name}
                           </button>
@@ -754,13 +754,13 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                             </span>
                           )}
                           {!isActive && (
-                            <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[11px] font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                            <span className="rounded-md bg-muted px-1.5 py-0.5 text-[11px] font-bold text-muted-foreground dark:bg-muted dark:text-muted-foreground">
                               {isEn ? "Paused" : "متوقف"}
                             </span>
                           )}
                         </div>
 
-                        <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-slate-500 dark:text-slate-400">
+                        <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground dark:text-muted-foreground">
                           <span>{getObjectiveLabel(campaign.objective)}</span>
                           {!campaign.facebookCampaignId && (
                             <>
@@ -773,49 +773,49 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                     </div>
 
                     {/* Single-depth metric row for mobile */}
-                    <div className="grid grid-cols-4 gap-1.5 rounded-lg border border-slate-200/70 bg-slate-50/50 p-2 text-center text-xs dark:border-slate-800 dark:bg-slate-800/30" dir="ltr">
+                    <div className="grid grid-cols-4 gap-1.5 rounded-lg border border-border bg-muted p-2 text-center text-xs dark:border-border dark:bg-muted" dir="ltr">
                       <div>
-                        <span className="block text-[11px] text-slate-400">{isEn ? "Spend" : "الإنفاق"}</span>
-                        <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+                        <span className="block text-[11px] text-muted-foreground">{isEn ? "Spend" : "الإنفاق"}</span>
+                        <span className="font-bold tabular-nums text-foreground dark:text-white">
                           {formatCurrency(performance?.spend || 0, selectedCurrency)}
                         </span>
                       </div>
                       <div>
-                        <span className="block text-[11px] text-slate-400">{isEn ? "Purchases" : "المبيعات"}</span>
-                        <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+                        <span className="block text-[11px] text-muted-foreground">{isEn ? "Purchases" : "المبيعات"}</span>
+                        <span className="font-bold tabular-nums text-foreground dark:text-white">
                           {formatNumber(performance?.purchases || 0)}
                         </span>
                       </div>
                       <div>
-                        <span className="block text-[11px] text-slate-400">ROAS</span>
+                        <span className="block text-[11px] text-muted-foreground">ROAS</span>
                         <span
                           className={`font-black tabular-nums ${
-                            (performance?.roas || 0) >= 2 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-900 dark:text-white"
+                            (performance?.roas || 0) >= 2 ? "text-emerald-600 dark:text-success" : "text-slate-900 dark:text-white"
                           }`}
                         >
                           {formatNumber(performance?.roas || 0, 2)}x
                         </span>
                       </div>
                       <div>
-                        <span className="block text-[11px] text-slate-400">CPA</span>
-                        <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+                        <span className="block text-[11px] text-muted-foreground">CPA</span>
+                        <span className="font-bold tabular-nums text-foreground dark:text-white">
                           {formatCurrency(performance?.cpa || 0, selectedCurrency)}
                         </span>
                       </div>
                     </div>
 
                     {/* Mobile Footer with Details Link */}
-                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
-                      <div className="text-xs text-slate-500" dir="ltr">
+                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-border dark:border-border">
+                      <div className="text-xs text-muted-foreground" dir="ltr">
                         <span>{isEn ? "Budget: " : "الميزانية: "}</span>
-                        <span className="font-bold text-slate-900 dark:text-white">
+                        <span className="font-bold text-foreground dark:text-white">
                           {formatCurrency(currentBudget, selectedCurrency)}
                         </span>
                       </div>
                       <button
                         type="button"
                         onClick={() => handleOpenQuickView(campaign)}
-                        className="inline-flex h-7 items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 text-xs font-bold text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 active:scale-[0.97]"
+                        className="inline-flex h-7 items-center gap-1 rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground active:scale-[0.97]"
                       >
                         <span>{isEn ? "Details" : "تفاصيل"}</span>
                         <ArrowUpRight className="h-3 w-3" />
@@ -830,11 +830,11 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
       )}
 
       {currentVisibleCampaignCount < currentFilteredCampaignCount && (
-        <div className="border-t border-slate-100 p-3 text-center dark:border-slate-800">
+        <div className="border-t border-border p-3 text-center dark:border-border">
           <button
             type="button"
             onClick={() => setVisibleLimit((current) => current + PAGE_SIZE)}
-            className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800 transition-all"
+            className="rounded-xl border border-border px-4 py-2 text-xs font-bold text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted transition-all"
           >
             {isEn ? "Show More Campaigns" : "عرض المزيد من الحملات"}
           </button>

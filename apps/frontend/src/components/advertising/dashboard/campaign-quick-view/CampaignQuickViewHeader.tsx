@@ -46,7 +46,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
   onClose,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/90 bg-slate-50/70 px-4 py-3 sm:px-6 dark:border-slate-800/90 dark:bg-slate-900/50">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-muted px-4 py-3 sm:px-6 dark:border-border dark:bg-muted">
       <div className="flex min-w-0 flex-1 items-center gap-3">
         {/* Quick Status Toggle Switch */}
         <button
@@ -63,7 +63,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
               : "تنشيط الحملة"
           }
           className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/20 active:scale-[0.97] ${
-            campaignStatus === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700"
+            campaignStatus === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
           }`}
         >
           {togglingStatus ? (
@@ -91,7 +91,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
               value={campaignName}
               onChange={(e) => setCampaignName(e.target.value)}
               placeholder={isEn ? "Campaign Name" : "اسم الحملة الإعلانية"}
-              className="w-full max-w-md truncate rounded-lg border border-transparent bg-transparent px-1 py-0.5 text-sm font-extrabold text-slate-900 outline-none transition-colors hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 dark:text-white dark:hover:border-slate-700 dark:focus:bg-slate-900"
+              className="w-full max-w-md truncate rounded-lg border border-transparent bg-transparent px-1 py-0.5 text-sm font-extrabold text-foreground outline-none transition-colors hover:border-border focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 dark:text-white dark:hover:border-border dark:focus:bg-muted"
             />
             <span
               className={`shrink-0 rounded-md px-2 py-0.5 text-xs font-bold ${deliveryBadgeClass}`}
@@ -103,17 +103,17 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
                 type="button"
                 onClick={onCopyMetaId}
                 title={isEn ? "Copy Meta Campaign ID" : "نسخ معرّف الحملة على Meta"}
-                className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2 py-0.5 text-[11px] font-semibold tabular-nums text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+                className="inline-flex items-center gap-1 rounded-md border border-border bg-white px-2 py-0.5 text-[11px] font-semibold tabular-nums text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
               >
                 <span>ID: {facebookCampaignId}</span>
                 {copiedId ? (
-                  <CheckCheck className="h-3 w-3 text-emerald-600" />
+                  <CheckCheck className="h-3 w-3 text-success" />
                 ) : (
-                  <Copy className="h-3 w-3 text-slate-400" />
+                  <Copy className="h-3 w-3 text-muted-foreground" />
                 )}
               </button>
             ) : (
-              <span className="rounded-md bg-amber-50 px-2 py-0.5 text-[11px] font-bold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
+              <span className="rounded-md bg-warning/10 px-2 py-0.5 text-[11px] font-bold text-warning dark:bg-warning/40 dark:text-warning">
                 {isEn ? "Local Only" : "مسودة محلية"}
               </span>
             )}
@@ -132,7 +132,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
               ? "Refresh live telemetry from Meta"
               : "تحديث الإحصائيات اللحظية من Meta"
           }
-          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-blue-400 disabled:opacity-50 transition-all active:scale-[0.97]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:text-blue-600 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:text-blue-400 disabled:opacity-50 transition-all active:scale-[0.97]"
         >
           <RotateCw
             className={`h-4 w-4 ${loadingDetails ? "animate-spin text-blue-600" : ""}`}
@@ -144,7 +144,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
             target="_blank"
             rel="noreferrer"
             title={isEn ? "Open in Meta Ads Manager" : "فتح في مدير إعلانات Meta"}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-blue-400"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:text-blue-600 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:text-blue-400"
           >
             <ExternalLink className="h-4 w-4" />
           </a>
@@ -153,7 +153,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
           type="button"
           onClick={onClose}
           aria-label={isEn ? "Close dialog" : "إغلاق النافذة"}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:bg-muted hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
         >
           <X className="h-4 w-4" />
         </button>

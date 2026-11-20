@@ -78,13 +78,13 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
                       {parseTags(supplier.tags).slice(0, 2).map((tag, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200/60 dark:border-zinc-700"
+                          className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border"
                         >
                           {tag}
                         </span>
                       ))}
                       {parseTags(supplier.tags).length > 2 && (
-                        <span className="text-[10px] text-zinc-400 font-mono">
+                        <span className="text-[10px] text-muted-foreground font-mono">
                           +{parseTags(supplier.tags).length - 2}
                         </span>
                       )}
@@ -99,14 +99,14 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
                       <span className="text-amber-500 font-semibold">
                         {formatCurrency(supplier.currentBalance, { locale: i18n.language })}
                       </span>
-                      <span className="text-[10px] text-amber-500/80 font-normal">مستحق للمورد</span>
+                      <span className="text-[10px] text-warning/80 font-normal">مستحق للمورد</span>
                     </div>
                   ) : Number(supplier.currentBalance) < 0 ? (
                     <div className="flex flex-col items-end">
                       <span className="text-sky-400 font-semibold">
                         {formatCurrency(Math.abs(supplier.currentBalance), { locale: i18n.language })}
                       </span>
-                      <span className="text-[10px] text-sky-400/80 font-normal">دفعة مقدمة</span>
+                      <span className="text-[10px] text-info/80 font-normal">دفعة مقدمة</span>
                     </div>
                   ) : (
                     <span className="text-muted-foreground font-mono">

@@ -182,12 +182,12 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-3 sm:px-4 sm:py-2.5 text-white shadow-xl transition-all duration-200 hover:scale-105 hover:shadow-blue-500/25 active:scale-95"
+            className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 via-primary to-primary p-3 sm:px-4 sm:py-2.5 text-white shadow-xl transition-all duration-200 hover:scale-105 hover:shadow-blue-500/25 active:scale-95"
             aria-label="مساعد الميديا باير بالذكاء الاصطناعي"
           >
             <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success" />
             </span>
             <Bot className="h-5 w-5 transition-transform group-hover:rotate-12" />
             <div className="hidden sm:block text-right">
@@ -198,7 +198,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                 DeepSeek Copilot
               </span>
             </div>
-            <Sparkles className="hidden sm:inline h-3.5 w-3.5 text-amber-300 animate-pulse" />
+            <Sparkles className="hidden sm:inline h-3.5 w-3.5 text-warning animate-pulse" />
           </button>
         )}
       </div>
@@ -207,20 +207,20 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
       {isOpen && (
         <div
           dir="rtl"
-          className="fixed bottom-6 left-6 z-50 flex h-[640px] max-h-[85vh] w-[94vw] sm:w-[450px] flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-2xl backdrop-blur-xl transition-all duration-300 dark:border-slate-800 dark:bg-slate-900"
+          className="fixed bottom-6 left-6 z-50 flex h-[640px] max-h-[85vh] w-[94vw] sm:w-[450px] flex-col overflow-hidden rounded-xl border border-border bg-white shadow-2xl backdrop-blur-xl transition-all duration-300 dark:border-border dark:bg-muted"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-blue-50/80 via-indigo-50/40 to-purple-50/80 p-3.5 dark:border-slate-800 dark:from-slate-800/80 dark:to-slate-900/80">
+          <div className="flex items-center justify-between border-b border-border bg-gradient-to-r from-blue-50/80 via-primary/40 to-primary/80 p-3.5 dark:border-border dark:from-slate-800/80 dark:to-slate-900/80">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-primary text-white shadow-md">
                 <Bot className="h-5 w-5" />
               </div>
               <div className="overflow-hidden">
                 <div className="flex items-center gap-1.5">
-                  <h3 className="text-xs font-black text-slate-900 dark:text-white">
+                  <h3 className="text-xs font-black text-foreground dark:text-white">
                     Facebook Media Buyer
                   </h3>
-                  <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-bold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+                  <span className="rounded-full bg-success px-1.5 py-0.5 text-[9px] font-bold text-success dark:bg-success dark:text-success">
                     أونلاين
                   </span>
                 </div>
@@ -239,11 +239,11 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                     type="button"
                     onClick={handleCopySessionId}
                     title={copiedSessionId ? "تم نسخ المعرف!" : "نسخ معرف الجلسة للمراجعة والدعم"}
-                    className="p-1 rounded-md text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                    className="p-1 rounded-md text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-muted transition-colors cursor-pointer"
                     aria-label="نسخ معرف الجلسة"
                   >
                     {copiedSessionId ? (
-                      <Check className="h-3 w-3 text-emerald-500" />
+                      <Check className="h-3 w-3 text-success" />
                     ) : (
                       <Copy className="h-3 w-3" />
                     )}
@@ -274,7 +274,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                 className={`relative rounded-xl p-2 transition-colors ${
                   showSessionsList
                     ? "bg-blue-600 text-white"
-                    : "text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                    : "text-slate-400 hover:bg-muted hover:text-foreground dark:hover:bg-muted dark:hover:text-muted-foreground"
                 }`}
               >
                 <History className="h-4 w-4" />
@@ -289,7 +289,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                 type="button"
                 onClick={() => setIsOpen(false)}
                 title="إغلاق"
-                className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                className="rounded-xl p-2 text-muted-foreground hover:bg-muted hover:text-foreground dark:hover:bg-muted dark:hover:text-muted-foreground"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -317,7 +317,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
             <>
               {/* Quick Suggestion Chips */}
               {activeSession.messages.length <= 2 && (
-                <div className="flex gap-2 overflow-x-auto border-b border-slate-100 p-2.5 scrollbar-none dark:border-slate-800">
+                <div className="flex gap-2 overflow-x-auto border-b border-border p-2.5 scrollbar-none dark:border-border">
                   {QUICK_PROMPTS.map((item, idx) => (
                     <button
                       key={idx}
@@ -344,21 +344,21 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                       }`}
                     >
                       <div
-                        className={`max-w-[88%] rounded-2xl p-3.5 text-xs leading-relaxed ${
+                        className={`max-w-[88%] rounded-xl p-3.5 text-xs leading-relaxed ${
                           msg.sender === "user"
                             ? "rounded-tr-none bg-blue-600 text-white shadow-sm"
-                            : "rounded-tl-none border border-slate-100 bg-slate-50 text-slate-800 shadow-sm dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-100"
+                            : "rounded-tl-none border border-border bg-muted text-foreground shadow-sm dark:border-border dark:bg-muted dark:text-muted-foreground"
                         }`}
                       >
                         {/* Tool Calls execution chips */}
                         {msg.toolCalls && msg.toolCalls.length > 0 && (
-                          <div className="mb-2.5 flex flex-wrap gap-1.5 border-b border-slate-200/60 pb-2 dark:border-slate-700/60">
+                          <div className="mb-2.5 flex flex-wrap gap-1.5 border-b border-border pb-2 dark:border-border">
                             {msg.toolCalls.map((tc, idx) => (
                               <span
                                 key={idx}
-                                className="inline-flex items-center gap-1 rounded-md bg-white/80 px-2 py-0.5 text-[10px] font-bold text-slate-600 shadow-xs dark:bg-slate-900 dark:text-slate-300"
+                                className="inline-flex items-center gap-1 rounded-md bg-white/80 px-2 py-0.5 text-[10px] font-bold text-foreground shadow-xs dark:bg-muted dark:text-muted-foreground"
                               >
-                                <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                                <CheckCircle2 className="h-3 w-3 text-success" />
                                 {tc.tool === "facebook_ad_analyze_product"
                                   ? "فحص اقتصاديات المنتج"
                                   : tc.tool === "product_search"
@@ -379,13 +379,13 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
 
                         {/* Interactive Draft Cards */}
                         {drafts.length > 0 && (
-                          <div className="mt-3 space-y-2 border-t border-slate-200/80 pt-2.5 dark:border-slate-700">
-                            <div className="flex items-center justify-between text-[11px] font-black text-slate-700 dark:text-slate-300">
+                          <div className="mt-3 space-y-2 border-t border-border pt-2.5 dark:border-border">
+                            <div className="flex items-center justify-between text-[11px] font-black text-foreground dark:text-muted-foreground">
                               <span className="flex items-center gap-1">
                                 <Layers className="h-3.5 w-3.5 text-blue-500" />
                                 المسودات المنشأة ({drafts.length} زوايا تسويقية):
                               </span>
-                              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-800 dark:bg-amber-950 dark:text-amber-200">
+                              <span className="rounded bg-warning px-1.5 py-0.5 text-[9px] font-bold text-warning dark:bg-warning dark:text-warning">
                                 مسودة (DRAFT)
                               </span>
                             </div>
@@ -393,10 +393,10 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                             {drafts.map((draft) => (
                               <div
                                 key={draft.draft_id}
-                                className="rounded-xl border border-slate-200 bg-white p-2.5 shadow-xs dark:border-slate-700 dark:bg-slate-900"
+                                className="rounded-xl border border-border bg-white p-2.5 shadow-xs dark:border-border dark:bg-muted"
                               >
                                 <div className="flex items-center justify-between">
-                                  <span className="text-[11px] font-black text-slate-900 dark:text-white">
+                                  <span className="text-[11px] font-black text-foreground dark:text-white">
                                     {draft.headline}
                                   </span>
                                   <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[9px] font-bold text-blue-600 dark:bg-blue-950 dark:text-blue-300">
@@ -408,12 +408,12 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                                   </span>
                                 </div>
 
-                                <p className="mt-1 line-clamp-2 text-[10px] text-slate-500 dark:text-slate-400">
+                                <p className="mt-1 line-clamp-2 text-[10px] text-muted-foreground dark:text-muted-foreground">
                                   {draft.primary_text}
                                 </p>
 
-                                <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-1 dark:border-slate-800">
-                                  <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300">
+                                <div className="mt-2 flex items-center justify-between border-t border-border pt-1 dark:border-border">
+                                  <span className="text-[10px] font-bold text-foreground dark:text-muted-foreground">
                                     الميزانية: {draft.budget_amount} ج.م/يوم
                                   </span>
                                   <button
@@ -422,8 +422,8 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                                     onClick={() => handlePublishDraft(draft.draft_id)}
                                     className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[10px] font-bold text-white shadow-xs active:scale-95 disabled:opacity-50 ${
                                       publishedDraftIds.has(draft.draft_id)
-                                        ? "bg-slate-700 hover:bg-slate-700 text-slate-300 cursor-default"
-                                        : "bg-emerald-600 hover:bg-emerald-700"
+                                        ? "bg-slate-700 hover:bg-muted text-muted-foreground cursor-default"
+                                        : "bg-emerald-600 hover:bg-success"
                                     }`}
                                   >
                                     {publishingDraftId === draft.draft_id ? (
@@ -433,7 +433,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                                       </>
                                     ) : publishedDraftIds.has(draft.draft_id) ? (
                                       <>
-                                        <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                                        <CheckCircle2 className="h-3 w-3 text-success" />
                                         تم النشر في فيسبوك
                                       </>
                                     ) : (
@@ -449,7 +449,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                           </div>
                         )}
                       </div>
-                      <span className="mt-1 px-1 text-[9px] text-slate-400">
+                      <span className="mt-1 px-1 text-[9px] text-muted-foreground">
                         {formatMsgTime(msg.timestamp)}
                       </span>
                     </div>
@@ -457,7 +457,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                 })}
 
                 {loading && (
-                  <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+                  <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
                     <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-300">
                       <Loader2 className="h-4 w-4 animate-spin" />
                     </div>
@@ -468,9 +468,9 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
               </div>
 
               {/* Guardrail Guarantee & Input */}
-              <div className="border-t border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-900/80">
-                <div className="mb-2 flex items-center gap-1 text-[10px] text-slate-500 dark:text-slate-400">
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
+              <div className="border-t border-border bg-muted p-3 dark:border-border dark:bg-muted">
+                <div className="mb-2 flex items-center gap-1 text-[10px] text-muted-foreground dark:text-muted-foreground">
+                  <ShieldCheck className="h-3.5 w-3.5 text-success" />
                   <span>
                     ضمان الأمان: لن يتم تفعيل أو خصم أي ميزانية إلا بعد موافقتك واعتماد الحملة.
                   </span>
@@ -490,7 +490,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                     onChange={(e) => setInputMessage(e.target.value)}
                     placeholder="اطلب إعلاناً لمنتج، ميزانية، أو خطة تسويقية..."
                     disabled={loading}
-                    className="flex-1 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-blue-950"
+                    className="flex-1 rounded-xl border border-border bg-white px-3.5 py-2.5 text-xs text-foreground placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white dark:focus:ring-blue-950"
                   />
                   <button
                     type="submit"

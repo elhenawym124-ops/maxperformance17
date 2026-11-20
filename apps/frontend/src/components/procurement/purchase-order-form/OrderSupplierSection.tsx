@@ -103,7 +103,7 @@ export const OrderSupplierSection: React.FC<OrderSupplierSectionProps> = ({
 
             {/* Dropdown Menu with Instant Search */}
             {supplierSearchOpen && (
-              <div className="absolute top-full start-0 min-w-full sm:min-w-[380px] md:min-w-[420px] max-w-[calc(100vw-2rem)] z-50 mt-1.5 rounded-xl border border-border bg-white dark:bg-zinc-900 shadow-2xl p-2 space-y-2 text-popover-foreground animate-in fade-in-0 zoom-in-95">
+              <div className="absolute top-full start-0 min-w-full sm:min-w-[380px] md:min-w-[420px] max-w-[calc(100vw-2rem)] z-50 mt-1.5 rounded-xl border border-border bg-white dark:bg-muted shadow-2xl p-2 space-y-2 text-popover-foreground animate-in fade-in-0 zoom-in-95">
                 <div className="relative">
                   <Search className="absolute end-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                   <Input
@@ -182,8 +182,8 @@ export const OrderSupplierSection: React.FC<OrderSupplierSectionProps> = ({
                             <span
                               className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-medium shrink-0 tabular-nums ${
                                 Number(s.currentBalance) > 0
-                                  ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                                  : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                  ? "bg-amber-500/10 text-warning dark:text-warning"
+                                  : "bg-emerald-500/10 text-success dark:text-success"
                               }`}
                             >
                               رصيد: {formatCurrency(s.currentBalance)}
@@ -199,7 +199,7 @@ export const OrderSupplierSection: React.FC<OrderSupplierSectionProps> = ({
 
             {selectedSupplier && selectedSupplier.currentBalance !== undefined && (
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-muted/60 px-2.5 py-1.5 rounded-xl mt-1 font-medium border border-border/40">
-                <AlertCircle className="size-3.5 shrink-0 text-amber-500" />
+                <AlertCircle className="size-3.5 shrink-0 text-warning" />
                 <span>
                   الرصيد الحالي:{" "}
                   <strong className="font-bold text-foreground font-mono tabular-nums">

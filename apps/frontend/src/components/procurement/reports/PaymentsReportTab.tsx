@@ -50,7 +50,7 @@ export const PaymentsReportTab: React.FC<PaymentsReportTabProps> = ({ payments, 
               key={m}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/50 bg-card text-xs"
             >
-              <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+              <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20">
                 {methodMap[m] || m}
               </Badge>
               <span className="font-bold tabular-nums">{val.count}</span>
@@ -112,7 +112,7 @@ export const PaymentsReportTab: React.FC<PaymentsReportTabProps> = ({ payments, 
                     <TableCell className="text-xs font-mono text-muted-foreground text-start">
                       {p.referenceNumber || '—'}
                     </TableCell>
-                    <TableCell className="text-end tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
+                    <TableCell className="text-end tabular-nums font-bold text-success dark:text-success">
                       {formatCurrency(p.amount || 0)}
                     </TableCell>
                   </TableRow>
@@ -125,7 +125,7 @@ export const PaymentsReportTab: React.FC<PaymentsReportTabProps> = ({ payments, 
                   <TableCell colSpan={6} className="text-start">
                     الإجمالي العام ({totalCount} سداد):
                   </TableCell>
-                  <TableCell className="text-end font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+                  <TableCell className="text-end font-bold tabular-nums text-success dark:text-success">
                     {formatCurrency(totalAmount)}
                   </TableCell>
                 </TableRow>

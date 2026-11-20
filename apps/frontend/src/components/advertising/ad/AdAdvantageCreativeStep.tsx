@@ -89,7 +89,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {/* Image Enhancements */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <Image className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-foreground">
@@ -112,7 +112,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Text Optimizations */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <AlignLeft className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-foreground">
@@ -135,7 +135,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Music Enhancement */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <Music className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-foreground">
@@ -158,7 +158,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Video Highlights / Templates */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <Film className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-foreground">
@@ -186,7 +186,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Generative Expand (v26) */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <Maximize2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <div className="flex items-center gap-1.5">
@@ -212,7 +212,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Adaptive Visual Touchups (v26) */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <Sun className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <div className="flex items-center gap-1.5">
@@ -238,7 +238,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Social Proof & Relevant Comments (v26) */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <MessageSquare className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <div className="flex items-center gap-1.5">
@@ -264,7 +264,7 @@ export const AdAdvantageCreativeStep: React.FC<AdAdvantageCreativeStepProps> = (
 
           {/* Product Price & Discount Badge Overlay (v26) */}
           <div className="flex items-start justify-between p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/20 transition">
-            <div className="flex items-start gap-2.5 pr-1">
+            <div className="flex items-start gap-2.5 pe-1">
               <Tag className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <div className="flex items-center gap-1.5">

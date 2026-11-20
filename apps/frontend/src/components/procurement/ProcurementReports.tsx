@@ -289,7 +289,7 @@ export default function ProcurementReports() {
 
       {/* Date inversion warning */}
       {isDateInverted && (
-        <div className="flex items-center gap-2 p-3 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs">
+        <div className="flex items-center gap-2 p-3 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive text-xs">
           <AlertTriangle className="size-4 shrink-0" />
           <span>تنبيه: تاريخ النهاية يسبق تاريخ البداية. يرجى تصحيح نطاق التاريخ لعرض التقرير.</span>
         </div>
@@ -424,7 +424,7 @@ export default function ProcurementReports() {
 
       {/* Error Banner */}
       {error && (
-        <div className="flex items-center justify-between p-3.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs">
+        <div className="flex items-center justify-between p-3.5 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive text-xs">
           <span>{error}</span>
           <Button variant="ghost" size="sm" onClick={fetchCurrentReport} className="h-7 text-xs">
             إعادة المحاولة

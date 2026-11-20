@@ -27,10 +27,10 @@ interface InvoicesReportTabProps {
 }
 
 const statusMap: Record<string, { label: string; className: string }> = {
-  PENDING: { label: 'معلقة', className: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
+  PENDING: { label: 'معلقة', className: 'bg-amber-500/10 text-warning border-warning/20' },
   PARTIALLY_PAID: { label: 'مدفوعة جزئياً', className: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
-  PAID: { label: 'مدفوعة بالكامل', className: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' },
-  CANCELLED: { label: 'ملغاة', className: 'bg-rose-500/10 text-rose-600 border-rose-500/20' },
+  PAID: { label: 'مدفوعة بالكامل', className: 'bg-emerald-500/10 text-success border-success/20' },
+  CANCELLED: { label: 'ملغاة', className: 'bg-rose-500/10 text-destructive border-destructive/20' },
 };
 
 export const InvoicesReportTab: React.FC<InvoicesReportTabProps> = ({ invoices, summary, loading }) => {
@@ -111,10 +111,10 @@ export const InvoicesReportTab: React.FC<InvoicesReportTabProps> = ({ invoices, 
                       <TableCell className="text-end tabular-nums font-semibold">
                         {formatCurrency(inv.totalAmount || 0)}
                       </TableCell>
-                      <TableCell className="text-end tabular-nums text-emerald-600 dark:text-emerald-400">
+                      <TableCell className="text-end tabular-nums text-success dark:text-success">
                         {formatCurrency(inv.paidAmount || 0)}
                       </TableCell>
-                      <TableCell className="text-end tabular-nums font-bold text-rose-500">
+                      <TableCell className="text-end tabular-nums font-bold text-destructive">
                         {formatCurrency(inv.remainingAmount || 0)}
                       </TableCell>
                       <TableCell className="text-center">
@@ -134,8 +134,8 @@ export const InvoicesReportTab: React.FC<InvoicesReportTabProps> = ({ invoices, 
                     الإجمالي العام ({totalCount} فاتورة):
                   </TableCell>
                   <TableCell className="text-end tabular-nums">{formatCurrency(totalAmount)}</TableCell>
-                  <TableCell className="text-end tabular-nums text-emerald-600 dark:text-emerald-400">{formatCurrency(totalPaid)}</TableCell>
-                  <TableCell className="text-end tabular-nums text-rose-500">{formatCurrency(totalPending)}</TableCell>
+                  <TableCell className="text-end tabular-nums text-success dark:text-success">{formatCurrency(totalPaid)}</TableCell>
+                  <TableCell className="text-end tabular-nums text-destructive">{formatCurrency(totalPending)}</TableCell>
                   <TableCell />
                 </TableRow>
               </TableFooter>

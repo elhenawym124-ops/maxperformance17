@@ -94,7 +94,7 @@ export const CustomerLifecycleStrategySelector: React.FC<CustomerLifecycleStrate
             className={cn(
               "size-4 text-muted-foreground transition-transform duration-200 shrink-0",
               isOpen && "rotate-180",
-              isEn ? "ml-2" : "mr-2",
+              isEn ? "ms-2" : "me-2",
             )}
           />
         </button>

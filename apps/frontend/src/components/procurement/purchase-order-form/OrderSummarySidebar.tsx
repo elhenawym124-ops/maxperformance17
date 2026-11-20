@@ -57,7 +57,7 @@ export const OrderSummarySidebar: React.FC<OrderSummarySidebarProps> = ({
               </div>
 
               {totals.itemDiscounts > 0 && (
-                <div className="flex justify-between text-red-500">
+                <div className="flex justify-between text-destructive">
                   <span>
                     {t("procurement.purchaseOrderForm.itemDiscountsLabel", "خصم البنود:")}
                   </span>
@@ -68,7 +68,7 @@ export const OrderSummarySidebar: React.FC<OrderSummarySidebarProps> = ({
               )}
 
               {totals.totalTax > 0 && (
-                <div className="flex justify-between text-emerald-600">
+                <div className="flex justify-between text-success">
                   <span>{t("procurement.purchaseOrderForm.totalTaxLabel", "الضرائب:")}</span>
                   <span className="font-semibold font-mono tabular-nums">
                     +{formatCurrency(totals.totalTax)}

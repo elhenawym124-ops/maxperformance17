@@ -48,7 +48,7 @@ const StorefrontHomeContentEditor: React.FC<StorefrontHomeContentEditorProps> = 
   const getFieldId = (field: string) => `${fieldIdPrefix}-${field}`;
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-5 text-foreground shadow-none space-y-5">
+    <div className="rounded-xl border border-border/70 bg-card p-5 text-foreground shadow-none space-y-5">
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 border-b border-border/60 pb-4">
         <div className="flex items-start gap-3">
           <div className="flex size-9 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary shrink-0 mt-0.5">
@@ -69,7 +69,7 @@ const StorefrontHomeContentEditor: React.FC<StorefrontHomeContentEditorProps> = 
           disabled={!hasOverrides}
           className={`inline-flex h-9 items-center gap-1.5 px-3.5 rounded-xl text-xs font-semibold transition-all active:scale-[0.98] ${
             hasOverrides
-              ? "border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/15"
+              ? "border border-warning/30 bg-warning/10 text-warning dark:text-warning hover:bg-warning/15"
               : "border border-border/70 bg-muted/40 text-muted-foreground opacity-50 cursor-not-allowed"
           }`}
         >

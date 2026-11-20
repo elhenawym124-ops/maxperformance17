@@ -232,7 +232,7 @@ const FacebookAdsModuleNav: React.FC<FacebookAdsModuleNavProps> = ({
   return (
     <nav
       aria-label="Meta Ads module navigation"
-      className="relative rounded-2xl border border-border/70 bg-card/95 backdrop-blur-md p-1.5 shadow-xs"
+      className="relative rounded-xl border border-border/70 bg-card/95 backdrop-blur-md p-1.5 shadow-xs"
     >
       <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
         {navItems.map((item) => {
@@ -295,7 +295,7 @@ const FacebookAdsModuleNav: React.FC<FacebookAdsModuleNavProps> = ({
       {isToolsOpen ? (
         <div
           id="facebook-ads-tools-launcher"
-          className="absolute end-1.5 top-[calc(100%+0.5rem)] z-30 w-[min(780px,calc(100vw-2rem))] rounded-2xl border border-border/70 bg-card/98 backdrop-blur-xl p-4 text-foreground shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
+          className="absolute end-1.5 top-[calc(100%+0.5rem)] z-30 w-[min(780px,calc(100vw-2rem))] rounded-xl border border-border/70 bg-card/98 backdrop-blur-xl p-4 text-foreground shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
         >
           <div className="grid gap-4 md:grid-cols-3">
             {toolGroups.map((group) => {

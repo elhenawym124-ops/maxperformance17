@@ -174,7 +174,7 @@ export const ProcurementCatalogModal: React.FC<ProcurementCatalogModalProps> = (
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col p-0 overflow-hidden sm:rounded-2xl border-border/80 bg-background/95 backdrop-blur-md">
+      <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col p-0 overflow-hidden sm:rounded-xl border-border/80 bg-background/95 backdrop-blur-md">
         {/* Header with Search */}
         <DialogHeader className="p-4 sm:p-5 border-b border-border/60 pb-4 space-y-3">
           <div className="flex items-center justify-between">
@@ -234,7 +234,7 @@ export const ProcurementCatalogModal: React.FC<ProcurementCatalogModalProps> = (
               return (
                 <div
                   key={group.productId}
-                  className="rounded-2xl border border-border/70 bg-card/70 overflow-hidden shadow-xs transition-all"
+                  className="rounded-xl border border-border/70 bg-card/70 overflow-hidden shadow-xs transition-all"
                 >
                   {/* Parent Product Header */}
                   <div className="p-3 sm:p-3.5 flex items-center justify-between gap-3 bg-muted/20">
@@ -414,8 +414,8 @@ export const ProcurementCatalogModal: React.FC<ProcurementCatalogModalProps> = (
                                   <span
                                     className={`px-1.5 py-0.2 rounded font-mono text-[10px] ${
                                       v.stock > 0
-                                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                        : "bg-red-500/10 text-red-500"
+                                        ? "bg-emerald-500/10 text-success dark:text-success"
+                                        : "bg-red-500/10 text-destructive"
                                     }`}
                                   >
                                     المخزون: {v.stock}

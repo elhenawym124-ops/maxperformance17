@@ -593,13 +593,13 @@ export const CampaignQuickViewModal: React.FC<CampaignQuickViewModalProps> = ({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-3 sm:p-5 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-muted p-3 sm:p-5 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div
-        className="flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950"
+        className="flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-border bg-white shadow-2xl dark:border-border dark:bg-muted"
         dir={isEn ? "ltr" : "rtl"}
       >
         <CampaignQuickViewHeader
@@ -622,14 +622,14 @@ export const CampaignQuickViewModal: React.FC<CampaignQuickViewModalProps> = ({
         />
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1 border-b border-slate-200/80 bg-white px-4 pt-2 dark:border-slate-800 dark:bg-slate-950 sm:px-6">
+        <div className="flex items-center gap-1 border-b border-border bg-white px-4 pt-2 dark:border-border dark:bg-muted sm:px-6">
           <button
             type="button"
             onClick={() => setActiveTab("summary")}
             className={`inline-flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
               activeTab === "summary"
                 ? "border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-400"
-                : "border-transparent text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                : "border-transparent text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
             }`}
           >
             <BarChart3 className="h-4 w-4" />
@@ -641,18 +641,18 @@ export const CampaignQuickViewModal: React.FC<CampaignQuickViewModalProps> = ({
             onClick={() => setActiveTab("weaknesses")}
             className={`inline-flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
               activeTab === "weaknesses"
-                ? "border-amber-600 text-amber-600 dark:border-amber-500 dark:text-amber-400"
-                : "border-transparent text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                ? "border-amber-600 text-warning dark:border-warning dark:text-warning"
+                : "border-transparent text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
             }`}
           >
             <ShieldAlert className="h-4 w-4" />
             <span>{isEn ? "Weakness & Audit" : "نقاط الضعف والتشخيص"}</span>
             {criticalWeaknessesCount > 0 ? (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-black text-white">
+              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-black text-white">
                 {criticalWeaknessesCount}
               </span>
             ) : warningWeaknessesCount > 0 ? (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-black text-white">
+              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-warning px-1 text-[10px] font-black text-white">
                 {warningWeaknessesCount}
               </span>
             ) : null}
@@ -664,12 +664,12 @@ export const CampaignQuickViewModal: React.FC<CampaignQuickViewModalProps> = ({
             className={`inline-flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
               activeTab === "structure"
                 ? "border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-400"
-                : "border-transparent text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                : "border-transparent text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
             }`}
           >
             <Layers className="h-4 w-4" />
             <span>{isEn ? "Ad Sets & Targeting" : "المجموعات وتعديل الاستهداف"}</span>
-            <span className="rounded-md bg-slate-100 px-1.5 py-0.2 text-[10px] font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+            <span className="rounded-md bg-muted px-1.5 py-0.2 text-[10px] font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
               {activeCampaign.adSets?.length || 0}
             </span>
           </button>

@@ -69,7 +69,7 @@ export const AdDestinationTrackingStep: React.FC<AdDestinationTrackingStepProps>
               value={formData.linkUrl || ""}
               onChange={(e) => updateFormData({ linkUrl: e.target.value })}
               placeholder="https://swan.maxp.online/products/offer-1"
-              className="w-full rounded-lg border border-border/70 bg-card px-3.5 py-2.5 pl-10 text-xs font-mono font-medium text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary text-left"
+              className="w-full rounded-lg border border-border/70 bg-card px-3.5 py-2.5 ps-10 text-xs font-mono font-medium text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary text-left"
             />
             <Globe className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           </div>

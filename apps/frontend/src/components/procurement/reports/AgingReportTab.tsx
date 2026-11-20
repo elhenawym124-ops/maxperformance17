@@ -45,11 +45,11 @@ export const AgingReportTab: React.FC<AgingReportTabProps> = ({ data, loading })
   }
 
   const buckets = [
-    { key: 'current', label: 'غير متأخر (جارٍ)', data: data.current, color: 'text-emerald-600 dark:text-emerald-400', badgeClass: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' },
+    { key: 'current', label: 'غير متأخر (جارٍ)', data: data.current, color: 'text-emerald-600 dark:text-success', badgeClass: 'bg-emerald-500/10 text-success border-success/20' },
     { key: 'days30', label: '1 - 30 يوم', data: data.days30, color: 'text-blue-600 dark:text-blue-400', badgeClass: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
-    { key: 'days60', label: '31 - 60 يوم', data: data.days60, color: 'text-amber-600 dark:text-amber-400', badgeClass: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
-    { key: 'days90', label: '61 - 90 يوم', data: data.days90, color: 'text-orange-600 dark:text-orange-400', badgeClass: 'bg-orange-500/10 text-orange-600 border-orange-500/20' },
-    { key: 'over90', label: '+90 يوم', data: data.over90, color: 'text-rose-600 dark:text-rose-400', badgeClass: 'bg-rose-500/10 text-rose-600 border-rose-500/20' },
+    { key: 'days60', label: '31 - 60 يوم', data: data.days60, color: 'text-amber-600 dark:text-warning', badgeClass: 'bg-amber-500/10 text-warning border-warning/20' },
+    { key: 'days90', label: '61 - 90 يوم', data: data.days90, color: 'text-orange-600 dark:text-warning', badgeClass: 'bg-orange-500/10 text-warning border-warning/20' },
+    { key: 'over90', label: '+90 يوم', data: data.over90, color: 'text-rose-600 dark:text-destructive', badgeClass: 'bg-rose-500/10 text-destructive border-destructive/20' },
   ];
 
   // Flatten all invoices for detailed view
@@ -146,7 +146,7 @@ export const AgingReportTab: React.FC<AgingReportTabProps> = ({ data, loading })
                   <TableCell colSpan={5} className="text-start">
                     إجمالي الديون المعلقة ({totalCount} فاتورة):
                   </TableCell>
-                  <TableCell className="text-end font-bold tabular-nums text-rose-500">
+                  <TableCell className="text-end font-bold tabular-nums text-destructive">
                     {formatCurrency(totalOutstanding)}
                   </TableCell>
                 </TableRow>

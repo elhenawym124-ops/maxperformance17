@@ -201,7 +201,7 @@ export default function SupplierDetails() {
   if (error || !supplier) {
     return (
       <div className="p-6 text-center space-y-4">
-        <AlertCircle className="size-10 text-rose-500 mx-auto" />
+        <AlertCircle className="size-10 text-destructive mx-auto" />
         <h2 className="text-lg font-semibold">{error || 'المورد غير موجود'}</h2>
         <div className="flex items-center justify-center gap-2">
           <Button variant="default" onClick={fetchSupplierDetails}>
@@ -272,7 +272,7 @@ export default function SupplierDetails() {
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-2xl font-bold">كشف حساب مورد: {supplier.name}</h1>
-            <div className="text-xs space-y-0.5 mt-1 text-gray-700">
+            <div className="text-xs space-y-0.5 mt-1 text-foreground">
               {supplier.contactPerson && <div>المسؤول: {supplier.contactPerson}</div>}
               {supplier.phone && <div>الهاتف: {supplier.phone}</div>}
               {supplier.taxNumber && <div>الرقم الضريبي: {supplier.taxNumber}</div>}
@@ -308,7 +308,7 @@ export default function SupplierDetails() {
                   {parseTags(supplier.tags).map((tag, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700"
+                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border"
                     >
                       {tag}
                     </span>
@@ -383,7 +383,7 @@ export default function SupplierDetails() {
                 {parseTags(supplier.tags).map((tag, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200/60 dark:border-zinc-700"
+                    className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border"
                   >
                     {tag}
                   </span>
@@ -412,7 +412,7 @@ export default function SupplierDetails() {
               ? 'text-amber-500' 
               : supplier.currentBalance < 0 
                 ? 'text-sky-500' 
-                : 'text-zinc-600 dark:text-zinc-400'
+                : 'text-zinc-600 dark:text-muted-foreground'
           }`}>
             {formatCurrency(supplier.currentBalance || 0)}
           </div>
@@ -442,19 +442,19 @@ export default function SupplierDetails() {
           </div>
           <div className="rounded-lg border border-border/50 bg-card/60 p-3">
             <span className="text-xs text-muted-foreground">31 - 60 يوم</span>
-            <div className="text-lg font-semibold tabular-nums mt-1 text-amber-500">
+            <div className="text-lg font-semibold tabular-nums mt-1 text-warning">
               {formatCurrency(aging?.days31To60 || 0)}
             </div>
           </div>
           <div className="rounded-lg border border-border/50 bg-card/60 p-3">
             <span className="text-xs text-muted-foreground">61 - 90 يوم</span>
-            <div className="text-lg font-semibold tabular-nums mt-1 text-orange-500">
+            <div className="text-lg font-semibold tabular-nums mt-1 text-warning">
               {formatCurrency(aging?.days61To90 || 0)}
             </div>
           </div>
           <div className="rounded-lg border border-border/50 bg-card/60 p-3">
             <span className="text-xs text-muted-foreground">+90 يوم</span>
-            <div className="text-lg font-semibold tabular-nums mt-1 text-rose-500">
+            <div className="text-lg font-semibold tabular-nums mt-1 text-destructive">
               {formatCurrency(aging?.days90Plus || 0)}
             </div>
           </div>
@@ -512,12 +512,12 @@ export default function SupplierDetails() {
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         {entry.type === 'INVOICE' && (
-                          <Badge variant="outline" className="bg-amber-500/10 text-amber-500 border-amber-500/20 text-xs">
+                          <Badge variant="outline" className="bg-amber-500/10 text-warning border-warning/20 text-xs">
                             فاتورة مشتريات
                           </Badge>
                         )}
                         {entry.type === 'PAYMENT' && (
-                          <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-xs">
+                          <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20 text-xs">
                             دفعة نقدية
                           </Badge>
                         )}
@@ -536,7 +536,7 @@ export default function SupplierDetails() {
                       <td className="px-4 py-3 tabular-nums text-left font-medium">
                         {entry.debit > 0 ? formatCurrency(entry.debit) : '—'}
                       </td>
-                      <td className="px-4 py-3 tabular-nums text-left font-medium text-emerald-500">
+                      <td className="px-4 py-3 tabular-nums text-left font-medium text-success">
                         {entry.credit > 0 ? formatCurrency(entry.credit) : '—'}
                       </td>
                       <td className="px-4 py-3 tabular-nums text-left font-bold">

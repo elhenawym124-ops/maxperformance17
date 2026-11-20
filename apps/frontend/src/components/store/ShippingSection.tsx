@@ -56,7 +56,7 @@ export const ShippingSection: React.FC<ShippingSectionProps> = ({
 
       {/* Empty State or List */}
       {zones.length === 0 ? (
-        <div className="text-center py-12 px-4 rounded-2xl border border-dashed border-border/80 bg-muted/20">
+        <div className="text-center py-12 px-4 rounded-xl border border-dashed border-border/80 bg-muted/20">
           <Truck className="w-10 h-10 text-muted-foreground/40 mx-auto mb-2.5" />
           <p className="text-xs font-medium text-foreground">
             لا توجد مناطق شحن مضافة حتى الآن
@@ -95,8 +95,8 @@ export const ShippingSection: React.FC<ShippingSectionProps> = ({
                     <span
                       className={`px-2 py-0.5 text-[10px] font-medium rounded-md border ${
                         zone.isActive
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                          : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                       }`}
                     >
                       {zone.isActive ? "نشط" : "غير نشط"}
@@ -120,11 +120,11 @@ export const ShippingSection: React.FC<ShippingSectionProps> = ({
                 <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-2 sm:pt-0 border-border/50">
                   <div className="text-right sm:text-left space-y-0.5">
                     <div className="flex items-center text-xs font-bold text-foreground font-mono tabular-nums">
-                      <Banknote className="w-3.5 h-3.5 ml-1 text-primary" />
+                      <Banknote className="w-3.5 h-3.5 ms-1 text-primary" />
                       <span>{zone.price} ج.م</span>
                     </div>
                     <div className="flex items-center text-[11px] text-muted-foreground font-mono tabular-nums">
-                      <Clock className="w-3 h-3 ml-1 text-muted-foreground/70" />
+                      <Clock className="w-3 h-3 ms-1 text-muted-foreground/70" />
                       <span>{zone.deliveryTime}</span>
                     </div>
                   </div>
@@ -139,7 +139,7 @@ export const ShippingSection: React.FC<ShippingSectionProps> = ({
                     </button>
                     <button
                       onClick={() => onDelete(zone.id)}
-                      className="p-1.5 text-xs font-medium border border-rose-500/20 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 rounded-lg flex items-center justify-center transition-colors"
+                      className="p-1.5 text-xs font-medium border border-destructive/20 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-lg flex items-center justify-center transition-colors"
                       title="حذف المنطقة"
                       aria-label="حذف المنطقة"
                     >

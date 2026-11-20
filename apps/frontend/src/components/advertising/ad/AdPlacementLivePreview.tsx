@@ -31,7 +31,7 @@ export const AdPlacementLivePreview: React.FC<AdPlacementLivePreviewProps> = ({
   const ctaLabel = formData.callToAction || "ORDER_NOW";
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-4.5 space-y-4 text-foreground shadow-none">
+    <div className="rounded-xl border border-border/70 bg-card p-4.5 space-y-4 text-foreground shadow-none">
       <div className="flex items-center justify-between border-b border-border/60 pb-3 gap-2 flex-wrap">
         <div className="flex items-center gap-2.5">
           <div className="flex size-8 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary">
@@ -76,7 +76,7 @@ export const AdPlacementLivePreview: React.FC<AdPlacementLivePreviewProps> = ({
       <div className="flex justify-center pt-1">
         {placement === "FEED" ? (
           /* Facebook Feed Mockup */
-          <div className="w-full max-w-sm rounded-2xl border border-border/70 bg-card shadow-lg overflow-hidden text-right">
+          <div className="w-full max-w-sm rounded-xl border border-border/70 bg-card shadow-lg overflow-hidden text-right">
             {/* Post Header */}
             <div className="flex items-center justify-between p-3.5 border-b border-border/40">
               <div className="flex items-center gap-2.5">
@@ -115,7 +115,7 @@ export const AdPlacementLivePreview: React.FC<AdPlacementLivePreviewProps> = ({
 
             {/* Post CTA Bar */}
             <div className="flex items-center justify-between bg-muted/20 px-3.5 py-2.5 border-b border-border/40">
-              <div className="min-w-0 pr-2">
+              <div className="min-w-0 pe-2">
                 <p className="text-[10px] text-muted-foreground font-mono uppercase truncate tabular-nums">
                   {formData.displayLink || "SWAN.MAXP.ONLINE"}
                 </p>
@@ -147,13 +147,13 @@ export const AdPlacementLivePreview: React.FC<AdPlacementLivePreviewProps> = ({
           </div>
         ) : (
           /* Reels / Stories 9:16 Mockup */
-          <div className="w-full max-w-[280px] h-[480px] rounded-2xl border border-border/80 bg-zinc-950 text-zinc-100 relative overflow-hidden shadow-2xl flex flex-col justify-between p-4">
+          <div className="w-full max-w-[280px] h-[480px] rounded-xl border border-border/80 bg-muted text-muted-foreground relative overflow-hidden shadow-2xl flex flex-col justify-between p-4">
             {formData.imagePreview ? (
               <img src={formData.imagePreview} alt="Reels Preview" className="absolute inset-0 w-full h-full object-cover opacity-85" />
             ) : formData.videoPreview ? (
               <video src={formData.videoPreview} className="absolute inset-0 w-full h-full object-cover opacity-85" autoPlay loop muted />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-xs text-zinc-400">
+              <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground">
                 {isEn ? "Reels preview placeholder" : "معاينة تصميم الريلز"}
               </div>
             )}
@@ -166,18 +166,18 @@ export const AdPlacementLivePreview: React.FC<AdPlacementLivePreviewProps> = ({
                 </div>
                 <div>
                   <p className="font-bold text-[11px] leading-tight text-white">{pageName}</p>
-                  <p className="text-[9px] text-zinc-300">{isEn ? "Sponsored" : "مُموَّل"}</p>
+                  <p className="text-[9px] text-muted-foreground">{isEn ? "Sponsored" : "مُموَّل"}</p>
                 </div>
               </div>
-              <MoreHorizontal className="size-4 text-zinc-300" />
+              <MoreHorizontal className="size-4 text-muted-foreground" />
             </div>
 
             {/* Right side interaction icons */}
             <div className="absolute right-3 bottom-24 flex flex-col items-center gap-4 z-10 text-white/90">
-              <Heart className="size-5 hover:text-rose-500 transition cursor-pointer" />
+              <Heart className="size-5 hover:text-destructive transition cursor-pointer" />
               <MessageCircle className="size-5 hover:text-primary transition cursor-pointer" />
               <Share2 className="size-5 hover:text-primary transition cursor-pointer" />
-              <Bookmark className="size-5 hover:text-amber-400 transition cursor-pointer" />
+              <Bookmark className="size-5 hover:text-warning transition cursor-pointer" />
             </div>
 
             {/* Bottom Content & CTA */}
@@ -185,8 +185,8 @@ export const AdPlacementLivePreview: React.FC<AdPlacementLivePreviewProps> = ({
               <p className="text-xs font-semibold text-white line-clamp-2 drop-shadow-md">
                 {primaryText}
               </p>
-              <div className="rounded-xl bg-white/95 text-zinc-900 p-2.5 flex items-center justify-between shadow-md">
-                <span className="text-xs font-bold truncate pr-1 text-zinc-900">{headline}</span>
+              <div className="rounded-xl bg-white/95 text-foreground p-2.5 flex items-center justify-between shadow-md">
+                <span className="text-xs font-bold truncate pe-1 text-foreground">{headline}</span>
                 <span className="shrink-0 rounded-lg bg-primary text-primary-foreground px-2.5 py-1 text-[11px] font-bold font-mono tabular-nums">
                   {ctaLabel.replace(/_/g, " ")}
                 </span>

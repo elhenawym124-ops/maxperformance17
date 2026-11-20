@@ -183,7 +183,7 @@ const PurchaseInvoices: React.FC = () => {
       </div>
 
       {error && (
-        <div className="flex items-center justify-between p-3.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs">
+        <div className="flex items-center justify-between p-3.5 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive text-xs">
           <div className="flex items-center gap-2">
             <AlertCircle className="size-4 shrink-0" />
             <span>{error}</span>
@@ -271,7 +271,7 @@ const PurchaseInvoices: React.FC = () => {
                   <TableCell className="text-end tabular-nums font-medium">
                     {formatCurrency(invoice.totalAmount, { locale: i18n.language })}
                   </TableCell>
-                  <TableCell className="text-end tabular-nums font-medium text-emerald-600">
+                  <TableCell className="text-end tabular-nums font-medium text-success">
                     {formatCurrency(invoice.paidAmount, { locale: i18n.language })}
                   </TableCell>
                   <TableCell className="text-end tabular-nums font-medium text-destructive">

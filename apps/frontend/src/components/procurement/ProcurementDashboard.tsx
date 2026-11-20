@@ -102,7 +102,7 @@ const ProcurementDashboard: React.FC = () => {
   if (error && !data) {
     return (
       <div className="p-6 text-center space-y-4 max-w-md mx-auto my-12" dir={isRtl ? "rtl" : "ltr"}>
-        <AlertCircle className="size-10 text-rose-500 mx-auto" />
+        <AlertCircle className="size-10 text-destructive mx-auto" />
         <h2 className="text-lg font-semibold">{error}</h2>
         <Button variant="outline" onClick={fetchDashboardData} className="gap-2">
           <RefreshCw className="size-4" />
@@ -205,7 +205,7 @@ const ProcurementDashboard: React.FC = () => {
             <span className="text-xs font-medium text-muted-foreground block mb-1">
               {t("procurement.dashboard.totalPaid")}
             </span>
-            <div className="text-2xl font-mono tabular-nums font-bold tracking-tight text-emerald-600 dark:text-emerald-400">
+            <div className="text-2xl font-mono tabular-nums font-bold tracking-tight text-success dark:text-success">
               {formatCurrency(summary.totalPaidAmount, { locale: i18n.language })}
             </div>
           </CardContent>
@@ -219,7 +219,7 @@ const ProcurementDashboard: React.FC = () => {
             <span className="text-xs font-medium text-muted-foreground block mb-1">
               {t("procurement.dashboard.pendingAmount")}
             </span>
-            <div className="text-2xl font-mono tabular-nums font-bold tracking-tight text-rose-600 dark:text-rose-400">
+            <div className="text-2xl font-mono tabular-nums font-bold tracking-tight text-destructive dark:text-destructive">
               {formatCurrency(summary.totalPendingAmount, { locale: i18n.language })}
             </div>
           </CardContent>
@@ -366,10 +366,10 @@ const ProcurementDashboard: React.FC = () => {
                       <TableCell className="text-end tabular-nums font-medium">
                         {formatCurrency(invoice.totalAmount, { locale: i18n.language })}
                       </TableCell>
-                      <TableCell className="text-end tabular-nums text-emerald-600 dark:text-emerald-400">
+                      <TableCell className="text-end tabular-nums text-success dark:text-success">
                         {formatCurrency(invoice.paidAmount, { locale: i18n.language })}
                       </TableCell>
-                      <TableCell className="text-end tabular-nums font-semibold text-rose-500">
+                      <TableCell className="text-end tabular-nums font-semibold text-destructive">
                         {formatCurrency(invoice.remainingAmount, { locale: i18n.language })}
                       </TableCell>
                       <TableCell className="text-center">

@@ -188,8 +188,8 @@ export const AdSetConversionStep: React.FC<AdSetConversionStepProps> = ({
         </p>
 
         {pixels.length === 0 && !loadingPixels ? (
-          <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+          <div className="p-3 bg-warning/10 border border-warning/20 rounded-xl text-xs text-warning dark:text-warning flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4 shrink-0 text-warning dark:text-warning" />
             <span>لم يتم العثور على بيكسل مسجل في هذا الحساب، يمكنك اختيار حدث عام أو ربط البيكسل من إعدادات الربط.</span>
           </div>
         ) : (

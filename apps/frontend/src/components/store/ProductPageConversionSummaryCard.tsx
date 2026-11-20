@@ -17,10 +17,10 @@ const STATUS_TONE_CLASSES: Record<
   string
 > = {
   active:
-    "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    "border-emerald-500/20 bg-success/10 text-success dark:text-success",
   inactive: "border-border/70 bg-muted/40 text-muted-foreground",
   warning:
-    "border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    "border-amber-500/20 bg-warning/10 text-warning dark:text-warning",
 };
 
 export default function ProductPageConversionSummaryCard({
@@ -34,7 +34,7 @@ export default function ProductPageConversionSummaryCard({
 }: ProductPageConversionSummaryCardProps) {
   return (
     <section
-      className="overflow-hidden rounded-2xl border border-border/70 bg-card p-5 shadow-sm text-card-foreground"
+      className="overflow-hidden rounded-xl border border-border/70 bg-card p-5 shadow-sm text-card-foreground"
       dir="rtl"
     >
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
@@ -84,7 +84,7 @@ export default function ProductPageConversionSummaryCard({
                 <div
                   className={`w-2 h-2 rounded-full ${
                     item.enabled
-                      ? "bg-emerald-500 ring-2 ring-emerald-500/20"
+                      ? "bg-emerald-500 ring-2 ring-success/20"
                       : "bg-muted-foreground/40"
                   }`}
                 />
@@ -99,7 +99,7 @@ export default function ProductPageConversionSummaryCard({
             <span
               className={`inline-flex shrink-0 items-center rounded-md px-2 py-0.5 text-[10px] font-mono font-medium border ${
                 item.enabled
-                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                  ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                   : "bg-muted text-muted-foreground border-border/50"
               }`}
             >

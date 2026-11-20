@@ -80,7 +80,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
 }) => {
   if (loadingDetails) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-slate-400">
+      <div className="flex flex-col items-center justify-center p-8 text-muted-foreground">
         <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
         <span className="mt-2 text-xs">
           {isEn ? "Loading ad sets structure..." : "جاري تحميل تفاصيل المجموعات الإعلانية..."}
@@ -91,12 +91,12 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
 
   if (!activeCampaign.adSets || activeCampaign.adSets.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 p-8 text-center dark:border-slate-800">
-        <Layers className="h-8 w-8 text-slate-400" />
-        <h4 className="mt-2 text-sm font-bold text-slate-900 dark:text-white">
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border p-8 text-center dark:border-border">
+        <Layers className="h-8 w-8 text-muted-foreground" />
+        <h4 className="mt-2 text-sm font-bold text-foreground dark:text-white">
           {isEn ? "No Ad Sets in this Campaign" : "لا توجد مجموعات إعلانية في هذه الحملة"}
         </h4>
-        <p className="mt-1 max-w-sm text-xs text-slate-500">
+        <p className="mt-1 max-w-sm text-xs text-muted-foreground">
           {isEn
             ? "A campaign requires at least one active Ad Set and Ad creative to start delivering impressions on Meta."
             : "تحتاج الحملة إلى مجموعة إعلانية واحدة وإعلان نشط على الأقل لتبدأ بالظهور والتسليم الفعلي."}
@@ -127,7 +127,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
             className={`rounded-xl border transition-all ${
               isEditingThisAdSet
                 ? "border-blue-500 bg-blue-50/20 shadow-md ring-1 ring-blue-500/20 dark:border-blue-500 dark:bg-blue-950/20"
-                : "border-slate-200/90 bg-white p-3.5 shadow-2xs dark:border-slate-800 dark:bg-slate-900"
+                : "border-slate-200/90 bg-white p-3.5 shadow-2xs dark:border-border dark:bg-muted"
             }`}
           >
             {/* Regular Display Mode */}
@@ -146,7 +146,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                             : isEn ? "Activate ad set" : "تفعيل المجموعة الإعلانية"
                         }
                         className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-blue-500/20 active:scale-[0.97] disabled:opacity-50 ${
-                          adSet.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700"
+                          adSet.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
                         }`}
                       >
                         <span
@@ -157,21 +157,21 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           }`}
                         />
                       </button>
-                      <span className="text-xs font-black text-slate-900 dark:text-white">
+                      <span className="text-xs font-black text-foreground dark:text-white">
                         {adSet.name}
                       </span>
                       <span
                         className={`rounded-md px-1.5 py-0.2 text-[10px] font-bold ${
                           adSet.status === "ACTIVE"
-                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
-                            : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                            ? "bg-emerald-100 text-success dark:bg-success/40 dark:text-success"
+                            : "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                         }`}
                       >
                         {adSet.status === "ACTIVE" ? (isEn ? "Active" : "نشط") : (isEn ? "Paused" : "متوقف")}
                       </span>
                     </div>
 
-                    <div className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-slate-500">
+                    <div className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
                       {adSet.budgetAmount > 0 && (
                         <span className="font-semibold tabular-nums" dir="ltr">
                           {formatCurrency(adSet.budgetAmount, selectedCurrency)} ({adSet.budgetType})
@@ -188,7 +188,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                       {adSet.facebookAdSetId && (
                         <>
                           <span>•</span>
-                          <span className="text-[10px] font-semibold tabular-nums text-slate-400" dir="ltr">
+                          <span className="text-[10px] font-semibold tabular-nums text-muted-foreground" dir="ltr">
                             ID: {adSet.facebookAdSetId}
                           </span>
                         </>
@@ -200,7 +200,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                   <button
                     type="button"
                     onClick={() => onStartEditAdSet(adSet)}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-blue-800 dark:hover:bg-blue-950/40 dark:hover:text-blue-300 transition-all active:scale-[0.97]"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-bold text-foreground hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-blue-800 dark:hover:bg-blue-950/40 dark:hover:text-blue-300 transition-all active:scale-[0.97]"
                   >
                     <SlidersHorizontal className="h-3 w-3 text-blue-600 dark:text-blue-400" />
                     <span>{isEn ? "Edit Targeting & Data" : "تعديل الاستهداف والمجموعة"}</span>
@@ -208,10 +208,10 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                 </div>
 
                 {/* Targeting Overview Strip */}
-                <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-slate-100 bg-slate-50/60 p-2.5 text-xs dark:border-slate-800/60 dark:bg-slate-950/30">
+                <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-border bg-muted p-2.5 text-xs dark:border-border dark:bg-muted">
                   {/* Demographics Pill */}
-                  <div className="flex items-center gap-1 text-slate-600 dark:text-slate-400">
-                    <Users className="h-3.5 w-3.5 text-slate-400" />
+                  <div className="flex items-center gap-1 text-foreground dark:text-muted-foreground">
+                    <Users className="h-3.5 w-3.5 text-muted-foreground" />
                     <span className="font-bold">
                       {parsedGenderList.length === 2
                         ? isEn ? "All Genders" : "الجميع (رجال ونساء)"
@@ -224,16 +224,16 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                     </span>
                   </div>
 
-                  <span className="text-slate-300 dark:text-slate-700">•</span>
+                  <span className="text-slate-300 dark:text-foreground">•</span>
 
                   {/* Geographic Locations Summary */}
                   <div className="flex flex-wrap items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5 text-slate-400" />
-                    <span className="text-[11px] text-slate-500">
+                    <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="text-[11px] text-muted-foreground">
                       {isEn ? "Targeting:" : "المحافظات:"}
                     </span>
                     {parsedLocations.length === 0 ? (
-                      <span className="rounded-md bg-slate-200/60 px-1.5 py-0.5 text-[10px] font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      <span className="rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
                         {isEn ? "All Egypt (Broad)" : "كافة محافظات مصر (استهداف عام)"}
                       </span>
                     ) : (
@@ -247,7 +247,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           </span>
                         ))}
                         {parsedLocations.length > 4 && (
-                          <span className="rounded-md bg-slate-200/60 px-1.5 py-0.5 text-[10px] font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                          <span className="rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
                             +{parsedLocations.length - 4} {isEn ? "more" : "أخرى"}
                           </span>
                         )}
@@ -258,8 +258,8 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
 
                 {/* Creatives / Ads nested in Ad Set */}
                 {adSet.ads && adSet.ads.length > 0 && (
-                  <div className="mt-2.5 border-t border-slate-100 pt-2 dark:border-slate-800">
-                    <span className="block text-[11px] font-bold text-slate-500 mb-1.5">
+                  <div className="mt-2.5 border-t border-border pt-2 dark:border-border">
+                    <span className="block text-[11px] font-bold text-muted-foreground mb-1.5">
                       {isEn
                         ? `Creatives inside Ad Set (${adSet.ads.length}):`
                         : `الإعلانات داخل المجموعة (${adSet.ads.length}):`}
@@ -268,7 +268,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                       {adSet.ads.map((ad: any, aIdx: number) => (
                         <div
                           key={ad.id || aIdx}
-                          className="flex items-center justify-between gap-2 rounded-lg border border-slate-200/60 bg-slate-50/50 p-2 text-xs dark:border-slate-800 dark:bg-slate-900/50"
+                          className="flex items-center justify-between gap-2 rounded-lg border border-border bg-muted p-2 text-xs dark:border-border dark:bg-muted"
                         >
                           <div className="flex items-center gap-2 min-w-0">
                             <button
@@ -281,7 +281,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                                   : isEn ? "Activate ad creative" : "تفعيل الإعلان"
                               }
                               className={`relative inline-flex h-4 w-7 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none active:scale-[0.96] disabled:opacity-50 ${
-                                ad.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700"
+                                ad.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
                               }`}
                             >
                               <span
@@ -292,11 +292,11 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                                 }`}
                               />
                             </button>
-                            <span className="font-bold text-slate-900 dark:text-white truncate">
+                            <span className="font-bold text-foreground dark:text-white truncate">
                               {ad.name}
                             </span>
                             {ad.primaryText && (
-                              <span className="text-[11px] text-slate-500 truncate max-w-xs hidden sm:inline">
+                              <span className="text-[11px] text-muted-foreground truncate max-w-xs hidden sm:inline">
                                 "{ad.primaryText}"
                               </span>
                             )}
@@ -304,8 +304,8 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           <span
                             className={`shrink-0 rounded-md px-1.5 py-0.2 text-[10px] font-bold ${
                               ad.status === "ACTIVE"
-                                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
-                                : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                                ? "bg-emerald-100 text-success dark:bg-success/40 dark:text-success"
+                                : "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                             }`}
                           >
                             {ad.status === "ACTIVE" ? (isEn ? "Active" : "نشط") : (isEn ? "Paused" : "متوقف")}
@@ -325,14 +325,14 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                 <div className="flex items-center justify-between border-b border-blue-200/85 pb-2.5 dark:border-blue-900/50">
                   <div className="flex items-center gap-2">
                     <SlidersHorizontal className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                    <h4 className="text-xs font-black text-slate-900 dark:text-white">
+                    <h4 className="text-xs font-black text-foreground dark:text-white">
                       {isEn ? "Edit Ad Set & Audience Targeting" : "تعديل إعدادات واستهداف المجموعة"}
                     </h4>
                   </div>
                   <button
                     type="button"
                     onClick={onCancelEditAdSet}
-                    className="text-xs font-bold text-slate-400 hover:text-slate-700 dark:hover:text-white"
+                    className="text-xs font-bold text-muted-foreground hover:text-foreground dark:hover:text-white"
                   >
                     {isEn ? "Cancel" : "إلغاء"}
                   </button>
@@ -341,19 +341,19 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                 {/* Name & Budget Row */}
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1 block text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                    <label className="mb-1 block text-[11px] font-bold text-foreground dark:text-muted-foreground">
                       {isEn ? "Ad Set Name" : "اسم المجموعة الإعلانية"}
                     </label>
                     <input
                       type="text"
                       value={adSetName}
                       onChange={(e) => setAdSetName(e.target.value)}
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-900 shadow-2xs outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                      className="w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground shadow-2xs outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
                     />
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                    <label className="mb-1 block text-[11px] font-bold text-foreground dark:text-muted-foreground">
                       {isEn ? `Ad Set Budget (${selectedCurrency})` : `ميزانية المجموعة (${selectedCurrency})`}
                     </label>
                     {isCboCampaign ? (
@@ -367,7 +367,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                         step="10"
                         value={adSetBudget}
                         onChange={(e) => setAdSetBudget(Number(e.target.value) || 0)}
-                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold tabular-nums text-slate-900 shadow-2xs outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                        className="w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold tabular-nums text-foreground shadow-2xs outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
                         placeholder={isEn ? "Set budget" : "تحديد الميزانية"}
                       />
                     )}
@@ -375,10 +375,10 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                 </div>
 
                 {/* Demographics: Age & Gender */}
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 rounded-xl border border-slate-200/80 bg-white p-3 dark:border-slate-800 dark:bg-slate-950/60">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 rounded-xl border border-border bg-white p-3 dark:border-border dark:bg-muted">
                   {/* Age Range */}
                   <div>
-                    <label className="mb-1.5 flex items-center justify-between text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                    <label className="mb-1.5 flex items-center justify-between text-[11px] font-bold text-foreground dark:text-muted-foreground">
                       <span>{isEn ? "Target Age Range" : "الفئة العمرية المستهدفة"}</span>
                       <span className="tabular-nums font-black text-blue-600 dark:text-blue-400">
                         {adSetAgeMin} - {adSetAgeMax} {isEn ? "years" : "سنة"}
@@ -386,26 +386,26 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                     </label>
                     <div className="flex items-center gap-2">
                       <div className="flex-1">
-                        <span className="mb-0.5 block text-[10px] text-slate-400">{isEn ? "Min Age" : "من عمر"}</span>
+                        <span className="mb-0.5 block text-[10px] text-muted-foreground">{isEn ? "Min Age" : "من عمر"}</span>
                         <input
                           type="number"
                           min="18"
                           max="65"
                           value={adSetAgeMin}
                           onChange={(e) => setAdSetAgeMin(Number(e.target.value) || 18)}
-                          className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-slate-900 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                          className="w-full rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-foreground outline-none focus:border-blue-500 dark:border-border dark:bg-muted dark:text-white"
                         />
                       </div>
-                      <span className="mt-4 text-slate-400">-</span>
+                      <span className="mt-4 text-muted-foreground">-</span>
                       <div className="flex-1">
-                        <span className="mb-0.5 block text-[10px] text-slate-400">{isEn ? "Max Age" : "إلى عمر"}</span>
+                        <span className="mb-0.5 block text-[10px] text-muted-foreground">{isEn ? "Max Age" : "إلى عمر"}</span>
                         <input
                           type="number"
                           min="18"
                           max="65"
                           value={adSetAgeMax}
                           onChange={(e) => setAdSetAgeMax(Number(e.target.value) || 65)}
-                          className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-slate-900 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                          className="w-full rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-foreground outline-none focus:border-blue-500 dark:border-border dark:bg-muted dark:text-white"
                         />
                       </div>
                     </div>
@@ -413,17 +413,17 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
 
                   {/* Gender Segmented Switch */}
                   <div>
-                    <label className="mb-1.5 block text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                    <label className="mb-1.5 block text-[11px] font-bold text-foreground dark:text-muted-foreground">
                       {isEn ? "Target Gender" : "الجنس المستهدف"}
                     </label>
-                    <div className="inline-flex w-full rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs font-bold dark:border-slate-800 dark:bg-slate-900">
+                    <div className="inline-flex w-full rounded-lg border border-border bg-muted p-0.5 text-xs font-bold dark:border-border dark:bg-muted">
                       <button
                         type="button"
                         onClick={() => setAdSetGenders(["1", "2"])}
                         className={`flex-1 rounded-md py-1.5 transition-all ${
                           adSetGenders.length === 2
                             ? "bg-blue-600 text-white shadow-2xs font-black"
-                            : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                            : "text-slate-600 hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
                         }`}
                       >
                         {isEn ? "All" : "الجميع"}
@@ -434,7 +434,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                         className={`flex-1 rounded-md py-1.5 transition-all ${
                           adSetGenders.length === 1 && adSetGenders[0] === "1"
                             ? "bg-blue-600 text-white shadow-2xs font-black"
-                            : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                            : "text-slate-600 hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
                         }`}
                       >
                         {isEn ? "Men" : "رجال"}
@@ -445,7 +445,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                         className={`flex-1 rounded-md py-1.5 transition-all ${
                           adSetGenders.length === 1 && adSetGenders[0] === "2"
                             ? "bg-blue-600 text-white shadow-2xs font-black"
-                            : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                            : "text-slate-600 hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
                         }`}
                       >
                         {isEn ? "Women" : "نساء"}
@@ -455,11 +455,11 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                 </div>
 
                 {/* Geographic Locations Picker */}
-                <div className="space-y-2 rounded-xl border border-slate-200/80 bg-white p-3 dark:border-slate-800 dark:bg-slate-950/60">
+                <div className="space-y-2 rounded-xl border border-border bg-white p-3 dark:border-border dark:bg-muted">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5">
                       <MapPin className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
-                      <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200">
+                      <span className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
                         {isEn ? "Target Locations (Governorates)" : "المحافظات المستهدفة (مصر)"}
                       </span>
                       <span className="rounded-md bg-blue-100 px-1.5 py-0.2 text-[10px] font-black text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
@@ -474,14 +474,14 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                       <button
                         type="button"
                         onClick={onSelectAllEgypt}
-                        className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                        className="rounded-md border border-border bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                       >
                         {isEn ? "All Egypt (20)" : "كل المحافظات"}
                       </button>
                       <button
                         type="button"
                         onClick={onSelectGreaterCairo}
-                        className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                        className="rounded-md border border-border bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                       >
                         {isEn ? "Greater Cairo" : "القاهرة الكبرى"}
                       </button>
@@ -489,7 +489,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                         <button
                           type="button"
                           onClick={onClearLocations}
-                          className="rounded-md border border-red-200 bg-red-50 px-2 py-0.5 text-[10px] font-bold text-red-700 hover:bg-red-100 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300"
+                          className="rounded-md border border-destructive bg-destructive/10 px-2 py-0.5 text-[10px] font-bold text-destructive hover:bg-destructive dark:border-destructive/60 dark:bg-destructive/40 dark:text-destructive"
                         >
                           {isEn ? "Clear All" : "مسح الكل"}
                         </button>
@@ -497,14 +497,14 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                     </div>
                   </div>
 
-                  <p className="text-[10px] text-slate-400">
+                  <p className="text-[10px] text-muted-foreground">
                     {isEn
                       ? "Click governorates to include or exclude. Leaving empty targets all of Egypt."
                       : "اضغط على اسم المحافظة لتحديدها أو استبعادها. تركها فارغة يستهدف كافة أنحاء مصر تلقائياً."}
                   </p>
 
                   {/* Clickable governorates grid */}
-                  <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-1.5 rounded-lg border border-slate-100 bg-slate-50/50 dark:border-slate-800/80 dark:bg-slate-900/40">
+                  <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-1.5 rounded-lg border border-border bg-muted dark:border-border dark:bg-muted">
                     {EGYPT_GOVERNORATES.map((gov) => {
                       const isSelected = adSetLocations.includes(gov.key);
                       return (
@@ -515,7 +515,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           className={`rounded-md px-2 py-1 text-[11px] font-semibold transition-all active:scale-[0.96] ${
                             isSelected
                               ? "bg-blue-600 text-white shadow-2xs font-bold ring-1 ring-blue-600"
-                              : "border border-slate-200/90 bg-white text-slate-700 hover:border-slate-300 dark:border-slate-700/80 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-600"
+                              : "border border-border bg-white text-foreground hover:border-border dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border"
                           }`}
                         >
                           {gov.name}
@@ -531,7 +531,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                     type="button"
                     onClick={onCancelEditAdSet}
                     disabled={savingAdSet}
-                    className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+                    className="rounded-xl border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                   >
                     {isEn ? "Cancel" : "إلغاء"}
                   </button>

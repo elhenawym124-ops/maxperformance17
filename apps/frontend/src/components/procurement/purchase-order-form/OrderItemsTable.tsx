@@ -184,7 +184,7 @@ export const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
                       variant="ghost"
                       size="icon"
                       onClick={() => removeItem(index)}
-                      className="text-red-500 hover:text-red-600 hover:bg-red-500/10 rounded-lg"
+                      className="text-red-500 hover:text-destructive hover:bg-destructive/10 rounded-lg"
                     >
                       <Trash2 className="size-4" />
                     </Button>
@@ -211,7 +211,7 @@ export const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => removeItem(index)}
-                  className="text-red-500 hover:bg-red-500/10 h-7 px-2"
+                  className="text-red-500 hover:bg-destructive/10 h-7 px-2"
                 >
                   <Trash2 className="size-3.5 me-1" /> حذف
                 </Button>

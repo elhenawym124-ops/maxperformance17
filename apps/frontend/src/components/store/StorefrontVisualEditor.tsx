@@ -228,10 +228,10 @@ const SortableSectionRow: React.FC<{
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className={`rounded-3xl border bg-white p-3 shadow-sm transition ${
+      className={`rounded-xl border bg-white p-3 shadow-sm transition ${
         selected
           ? "border-gray-900 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.8)]"
-          : "border-gray-200 hover:border-gray-300"
+          : "border-gray-200 hover:border-border"
       } ${isDragging ? "opacity-70" : ""}`}
     >
       <div className="flex items-start gap-3">
@@ -241,17 +241,17 @@ const SortableSectionRow: React.FC<{
           className="flex min-w-0 flex-1 items-start gap-3 text-right"
         >
           <span
-            className={`mt-1 inline-flex h-10 w-10 items-center justify-center rounded-2xl ${
-              selected ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500"
+            className={`mt-1 inline-flex h-10 w-10 items-center justify-center rounded-xl ${
+              selected ? "bg-gray-900 text-white" : "bg-gray-100 text-muted-foreground"
             }`}
           >
             <Squares2X2Icon className="h-5 w-5" />
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-semibold text-gray-900">
+            <span className="block truncate text-sm font-semibold text-foreground">
               {getStorefrontSectionLabel(getSectionType(section))}
             </span>
-            <span className="mt-1 block text-xs leading-5 text-gray-500">
+            <span className="mt-1 block text-xs leading-5 text-muted-foreground">
               {manifest?.note || "اختاريه لتعديل المحتوى والإعدادات من اللوحة اليسرى."}
             </span>
           </span>
@@ -262,7 +262,7 @@ const SortableSectionRow: React.FC<{
             type="button"
             {...attributes}
             {...listeners}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-gray-200 text-gray-500 hover:bg-gray-50"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border text-muted-foreground hover:bg-muted"
             aria-label={`إعادة ترتيب ${getStorefrontSectionLabel(getSectionType(section))}`}
           >
             <Bars3Icon className="h-5 w-5" />
@@ -270,7 +270,7 @@ const SortableSectionRow: React.FC<{
           <button
             type="button"
             onClick={onRemove}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-red-100 text-red-500 hover:bg-red-50"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-destructive text-destructive hover:bg-destructive/10"
             aria-label={`حذف ${getStorefrontSectionLabel(getSectionType(section))}`}
           >
             <TrashIcon className="h-5 w-5" />
@@ -296,7 +296,7 @@ const PreviewShellInner: React.FC<{
 
   if (!activePage) {
     return (
-      <div className="rounded-[2rem] border border-dashed border-gray-300 bg-white px-6 py-12 text-center text-sm text-gray-500">
+      <div className="rounded-[2rem] border border-dashed border-border bg-white px-6 py-12 text-center text-sm text-muted-foreground">
         لا توجد أقسام مفعلة لهذه الصفحة حاليًا.
       </div>
     );
@@ -312,7 +312,7 @@ const PreviewShellInner: React.FC<{
       <div className="border-b border-border/70 bg-background/95 px-5 py-4 backdrop-blur">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-foreground text-background">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-foreground text-background">
               {scopedTheme.name.charAt(0)}
             </span>
             <div>
@@ -336,21 +336,21 @@ const PreviewShellInner: React.FC<{
 
       <div className="bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.88),_rgba(226,232,240,0.55)_55%,_rgba(241,245,249,0.85))] p-4 md:p-5">
         <div className="space-y-1 px-2 pb-4 text-right">
-          <div className="text-sm font-black text-gray-900">
+          <div className="text-sm font-black text-foreground">
             {activePageKey === "home" ? "بناء الصفحة الرئيسية" : `تخصيص صفحة (${activePageKey})`}
           </div>
-          <div className="text-sm text-gray-500">اضغطي على أي قسم داخل المعاينة لتعديل النصوص والصور والترتيب مباشرة.</div>
+          <div className="text-sm text-muted-foreground">اضغطي على أي قسم داخل المعاينة لتعديل النصوص والصور والترتيب مباشرة.</div>
         </div>
 
         <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 shadow-[0_28px_90px_-60px_rgba(15,23,42,0.55)] backdrop-blur">
-          <div className="border-b border-gray-200/80 bg-gray-50/90 px-5 py-3">
+          <div className="border-b border-border bg-muted px-5 py-3">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-rose-400" />
-                <span className="h-3 w-3 rounded-full bg-amber-400" />
-                <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                <span className="h-3 w-3 rounded-full bg-destructive" />
+                <span className="h-3 w-3 rounded-full bg-warning" />
+                <span className="h-3 w-3 rounded-full bg-success" />
               </div>
-              <div className="rounded-full border border-gray-200 bg-white px-4 py-1 text-xs font-semibold text-gray-500">
+              <div className="rounded-full border border-border bg-white px-4 py-1 text-xs font-semibold text-muted-foreground">
                 {deviceMode === "mobile" ? "معاينة الهاتف" : "معاينة الكمبيوتر"}
               </div>
             </div>
@@ -396,11 +396,11 @@ const PreviewShellInner: React.FC<{
                     </div>
 
                     <div className="pointer-events-none absolute start-6 top-6 z-30 flex flex-wrap items-center gap-2">
-                      <span className="rounded-full bg-white/92 px-3 py-1 text-[11px] font-black tracking-[0.18em] text-gray-900 shadow-sm backdrop-blur uppercase">
+                      <span className="rounded-full bg-white/92 px-3 py-1 text-[11px] font-black tracking-[0.18em] text-foreground shadow-sm backdrop-blur uppercase">
                         {sectionLabel}
                       </span>
                       {selected ? (
-                        <span className="rounded-full bg-gray-900 px-3 py-1 text-[11px] font-bold text-white shadow-sm">
+                        <span className="rounded-full bg-muted px-3 py-1 text-[11px] font-bold text-white shadow-sm">
                           محدد
                         </span>
                       ) : null}
@@ -874,19 +874,19 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
   };
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-gray-200 bg-[linear-gradient(180deg,#ffffff,#f8fafc)] shadow-[0_24px_90px_-62px_rgba(15,23,42,0.65)] dark:border-gray-700 dark:bg-gray-900">
-      <div className="border-b border-gray-200 bg-white/90 px-5 py-5 backdrop-blur dark:border-gray-700 dark:bg-gray-900/95">
+    <div className="overflow-hidden rounded-[2rem] border border-border bg-[linear-gradient(180deg,#ffffff,#f8fafc)] shadow-[0_24px_90px_-62px_rgba(15,23,42,0.65)] dark:border-border dark:bg-muted">
+      <div className="border-b border-border bg-white/90 px-5 py-5 backdrop-blur dark:border-border dark:bg-muted">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-bold text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs font-bold text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
               <SparklesIcon className="h-4 w-4" />
               المحرر المرئي
             </div>
             <div>
-              <h4 className="text-lg font-black text-gray-900 dark:text-white">
+              <h4 className="text-lg font-black text-foreground">
                 محرر الصفحة الرئيسية المباشر
               </h4>
-              <p className="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
                 نفس فكرة الشاشة اللي طلبتها: مكونات على اليمين، معاينة في المنتصف، وإعدادات القسم المحدد على اليسار.
               </p>
             </div>
@@ -900,7 +900,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                 disabled={!history.canUndo}
                 aria-label="تراجع عن آخر تعديل"
                 title="تراجع (Ctrl+Z)"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-white px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               >
                 <ArrowUturnLeftIcon className="h-4 w-4" />
                 تراجع
@@ -911,7 +911,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                 disabled={!history.canRedo}
                 aria-label="إعادة آخر تعديل"
                 title="إعادة (Ctrl+Shift+Z)"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-white px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               >
                 <ArrowUturnRightIcon className="h-4 w-4" />
                 إعادة
@@ -920,10 +920,10 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
             <button
               type="button"
               onClick={() => setDeviceMode("desktop")}
-              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold ${
+              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold ${
                 deviceMode === "desktop"
                   ? "bg-gray-900 text-white"
-                  : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                  : "border border-border bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
               }`}
             >
               <ComputerDesktopIcon className="h-4 w-4" />
@@ -932,10 +932,10 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
             <button
               type="button"
               onClick={() => setDeviceMode("mobile")}
-              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold ${
+              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold ${
                 deviceMode === "mobile"
                   ? "bg-gray-900 text-white"
-                  : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                  : "border border-border bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
               }`}
             >
               <DevicePhoneMobileIcon className="h-4 w-4" />
@@ -958,8 +958,8 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
               onClick={() => setActivePageKey(page.id)}
               className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition-colors ${
                 activePageKey === page.id
-                  ? "bg-gray-900 text-white shadow-sm dark:bg-white dark:text-gray-900"
-                  : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  ? "bg-gray-900 text-white shadow-sm dark:bg-white dark:text-foreground"
+                  : "border border-border bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
               }`}
             >
               <span>{page.icon}</span>
@@ -969,14 +969,14 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
         </div>
 
         {/* Mobile App Segmented Tabs (Preview | Sections | Settings) */}
-        <div className="mt-3 flex items-center gap-1 rounded-2xl bg-gray-100 p-1 dark:bg-gray-800 xl:hidden">
+        <div className="mt-3 flex items-center gap-1 rounded-xl bg-muted p-1 dark:bg-muted xl:hidden">
           <button
             type="button"
             onClick={() => setMobileTab("preview")}
             className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition-all ${
               mobileTab === "preview"
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-900 dark:text-white"
-                : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
+                : "text-gray-500 hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
             }`}
           >
             <EyeIcon className="h-4 w-4" />
@@ -987,8 +987,8 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
             onClick={() => setMobileTab("sections")}
             className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition-all ${
               mobileTab === "sections"
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-900 dark:text-white"
-                : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
+                : "text-gray-500 hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
             }`}
           >
             <Squares2X2Icon className="h-4 w-4" />
@@ -999,8 +999,8 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
             onClick={() => setMobileTab("settings")}
             className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-black transition-all ${
               mobileTab === "settings"
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-900 dark:text-white"
-                : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
+                : "text-gray-500 hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
             }`}
           >
             <AdjustmentsHorizontalIcon className="h-4 w-4" />
@@ -1009,7 +1009,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
         </div>
 
         {homeValidationIssues.length > 0 ? (
-          <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-6 text-amber-800 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-200">
+          <div className="mt-4 rounded-xl border border-warning bg-warning/10 px-4 py-3 text-xs leading-6 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning">
             توجد {homeValidationIssues.length} ملاحظات على الصفحة الرئيسية. يمكنكِ تعديل الأقسام من هنا، ثم مراجعة التنبيهات قبل الحفظ النهائي.
           </div>
         ) : null}
@@ -1018,28 +1018,28 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
       <div className="grid gap-0 xl:grid-cols-[320px_minmax(0,1fr)_290px]" dir="ltr">
         <aside
           dir="rtl"
-          className={`order-2 border-t border-gray-200 bg-white px-4 py-4 dark:border-gray-700 dark:bg-gray-900 xl:order-1 xl:block xl:border-e xl:border-t-0 ${
+          className={`order-2 border-t border-border bg-white px-4 py-4 dark:border-border dark:bg-muted xl:order-1 xl:block xl:border-e xl:border-t-0 ${
             mobileTab === "settings" ? "block" : "hidden xl:block"
           }`}
         >
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-black text-gray-900 dark:text-white">الإعدادات</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">القسم المحدد داخل المعاينة</div>
+                <div className="text-sm font-black text-foreground">الإعدادات</div>
+                <div className="text-xs text-muted-foreground">القسم المحدد داخل المعاينة</div>
               </div>
-              <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+              <span className="rounded-full bg-muted px-3 py-1 text-xs font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
                 {selectedSection ? "نشط" : "اختيار"}
               </span>
             </div>
 
             {selectedSection ? (
               <div className="space-y-4">
-                <div className="rounded-[1.5rem] border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/60">
-                  <div className="text-sm font-black text-gray-900 dark:text-white">
+                <div className="rounded-[1.5rem] border border-border bg-muted p-4 dark:border-border dark:bg-muted">
+                  <div className="text-sm font-black text-foreground">
                     {getStorefrontSectionLabel(selectedSectionType)}
                   </div>
-                  <div className="mt-1 text-xs leading-6 text-gray-500 dark:text-gray-400">
+                  <div className="mt-1 text-xs leading-6 text-muted-foreground">
                     {selectedSectionManifest?.note ||
                       "يمكنك تعديل محتوى القسم وشكله بسرعة من نفس اللوحة."}
                   </div>
@@ -1048,7 +1048,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                     <button
                       type="button"
                       onClick={() => handleMoveSection("up")}
-                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-white dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-900"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-white dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                     >
                       <ChevronUpIcon className="h-4 w-4" />
                       فوق
@@ -1056,7 +1056,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                     <button
                       type="button"
                       onClick={() => handleMoveSection("down")}
-                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-white dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-900"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-white dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                     >
                       <ChevronDownIcon className="h-4 w-4" />
                       تحت
@@ -1064,7 +1064,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRemoveSection(getSectionKey(selectedSection))}
-                      className="col-span-2 inline-flex items-center justify-center gap-2 rounded-2xl border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-300 dark:hover:bg-red-950/30"
+                      className="col-span-2 inline-flex items-center justify-center gap-2 rounded-xl border border-destructive px-3 py-2 text-xs font-semibold text-destructive hover:bg-destructive/10 dark:border-destructive dark:text-destructive dark:hover:bg-destructive/30"
                     >
                       <EyeSlashIcon className="h-4 w-4" />
                       إخفاء القسم من الصفحة
@@ -1073,14 +1073,14 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                 </div>
 
                 {selectedSectionManifest?.variants?.length ? (
-                  <div className="rounded-[1.5rem] border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900/60">
-                    <label className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+                  <div className="rounded-[1.5rem] border border-border bg-white p-4 dark:border-border dark:bg-muted">
+                    <label className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
                       شكل العرض
                     </label>
                     <select
                       value={getSectionVariant(selectedSection)}
                       onChange={(event) => handleVariantChange(event.target.value)}
-                      className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
+                      className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-border dark:border-border dark:bg-muted dark:text-muted-foreground"
                     >
                       <option value="">الوضع الافتراضي للقالب</option>
                       {selectedSectionManifest.variants.map((variant) => (
@@ -1097,9 +1097,9 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                     {selectedSectionManifest.fields.map((field) => (
                       <div
                         key={`${selectedSectionType}-${field.key}`}
-                        className="rounded-[1.5rem] border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900/60"
+                        className="rounded-[1.5rem] border border-border bg-white p-4 dark:border-border dark:bg-muted"
                       >
-                        <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+                        <label className="mb-2 block text-sm font-semibold text-foreground">
                           {field.label}
                         </label>
 
@@ -1111,7 +1111,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                               handleSectionFieldChange(field, event.target.value)
                             }
                             placeholder={field.placeholder}
-                            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
+                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-border dark:border-border dark:bg-muted dark:text-muted-foreground"
                           />
                         ) : field.type === "select" ? (
                           <select
@@ -1119,7 +1119,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                             onChange={(event) =>
                               handleSectionFieldChange(field, event.target.value)
                             }
-                            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
+                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-border dark:border-border dark:bg-muted dark:text-muted-foreground"
                           >
                             <option value="">اختيار من القائمة</option>
                             {field.options?.map((option) => (
@@ -1136,7 +1136,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                               handleSectionFieldChange(field, event.target.value)
                             }
                             placeholder={field.placeholder}
-                            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
+                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-border dark:border-border dark:bg-muted dark:text-muted-foreground"
                           />
                         )}
 
@@ -1146,16 +1146,16 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                           <button
                             type="button"
                             onClick={onOpenHeroImagePicker}
-                            className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-950"
+                            className="mt-3 inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                           >
                             <PhotoIcon className="h-4 w-4" />
                             اختيار أو رفع صورة
                           </button>
                         ) : null}
 
-                        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+                        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground">
                           {contentManagedFieldKeys.has(field.key) ? (
-                            <span className="rounded-full bg-gray-100 px-2.5 py-1 font-bold dark:bg-gray-800">
+                            <span className="rounded-full bg-muted px-2.5 py-1 font-bold dark:bg-muted">
                               محتوى مباشر
                             </span>
                           ) : null}
@@ -1165,13 +1165,13 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-[1.5rem] border border-dashed border-gray-300 bg-white p-5 text-sm leading-7 text-gray-500 dark:border-gray-700 dark:bg-gray-900/60 dark:text-gray-400">
+                  <div className="rounded-[1.5rem] border border-dashed border-border bg-white p-5 text-sm leading-7 text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                     هذا القسم لا يملك حقولًا مباشرة داخل المحرر الحالي، لكن يمكنك تحديده وإعادة ترتيبه أو استخدام الإعدادات المتقدمة بالأسفل.
                   </div>
                 )}
               </div>
             ) : (
-              <div className="rounded-[1.5rem] border border-dashed border-gray-300 bg-white p-5 text-sm leading-7 text-gray-500 dark:border-gray-700 dark:bg-gray-900/60 dark:text-gray-400">
+              <div className="rounded-[1.5rem] border border-dashed border-border bg-white p-5 text-sm leading-7 text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                 اختاري قسمًا من المعاينة أو من قائمة المكونات حتى تظهر إعداداته هنا.
               </div>
             )}
@@ -1180,7 +1180,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
 
         <main
           dir="rtl"
-          className={`order-1 min-w-0 border-t border-gray-200 bg-gray-50/70 px-4 py-4 dark:border-gray-700 dark:bg-gray-950/40 xl:order-2 xl:block xl:border-t-0 ${
+          className={`order-1 min-w-0 border-t border-border bg-muted px-4 py-4 dark:border-border dark:bg-muted xl:order-2 xl:block xl:border-t-0 ${
             mobileTab === "preview" ? "block" : "hidden xl:block"
           }`}
         >
@@ -1200,29 +1200,29 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
 
         <aside
           dir="rtl"
-          className={`order-3 border-t border-gray-200 bg-white px-4 py-4 dark:border-gray-700 dark:bg-gray-900 xl:block xl:border-s xl:border-t-0 ${
+          className={`order-3 border-t border-border bg-white px-4 py-4 dark:border-border dark:bg-muted xl:block xl:border-s xl:border-t-0 ${
             mobileTab === "sections" ? "block" : "hidden xl:block"
           }`}
         >
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <div className="text-sm font-black text-gray-900 dark:text-white">المكونات</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">رتبي الأقسام أو أضيفي أقسامًا جاهزة</div>
+                <div className="text-sm font-black text-foreground">المكونات</div>
+                <div className="text-xs text-muted-foreground">رتبي الأقسام أو أضيفي أقسامًا جاهزة</div>
               </div>
-              <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+              <span className="rounded-full bg-muted px-3 py-1 text-xs font-bold text-foreground dark:bg-muted dark:text-muted-foreground">
                 {homeSections.length} أقسام
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 rounded-[1.5rem] bg-gray-100 p-1 dark:bg-gray-800">
+            <div className="grid grid-cols-2 gap-2 rounded-[1.5rem] bg-muted p-1 dark:bg-muted">
               <button
                 type="button"
                 onClick={() => setSidebarMode("current")}
                 className={`rounded-[1.2rem] px-3 py-2 text-sm font-semibold ${
                   sidebarMode === "current"
-                    ? "bg-white text-gray-900 shadow-sm dark:bg-gray-900 dark:text-white"
-                    : "text-gray-500 dark:text-gray-400"
+                    ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
+                    : "text-muted-foreground"
                 }`}
               >
                 العناصر الحالية
@@ -1232,8 +1232,8 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                 onClick={() => setSidebarMode("library")}
                 className={`rounded-[1.2rem] px-3 py-2 text-sm font-semibold ${
                   sidebarMode === "library"
-                    ? "bg-white text-gray-900 shadow-sm dark:bg-gray-900 dark:text-white"
-                    : "text-gray-500 dark:text-gray-400"
+                    ? "bg-white text-foreground shadow-sm dark:bg-muted dark:text-white"
+                    : "text-muted-foreground"
                 }`}
               >
                 الأقسام الجاهزة
@@ -1265,7 +1265,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                   </SortableContext>
                 </DndContext>
               ) : (
-                <div className="rounded-[1.5rem] border border-dashed border-gray-300 bg-gray-50 p-5 text-sm leading-7 text-gray-500 dark:border-gray-700 dark:bg-gray-800/60 dark:text-gray-400">
+                <div className="rounded-[1.5rem] border border-dashed border-border bg-muted p-5 text-sm leading-7 text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                   لا توجد أقسام حالية في الصفحة الرئيسية. افتحي &quot;الأقسام الجاهزة&quot; لإضافة أول قسم.
                 </div>
               )
@@ -1276,17 +1276,17 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                     key={section.type}
                     type="button"
                     onClick={() => handleAddSection(section.type)}
-                    className="w-full rounded-[1.5rem] border border-gray-200 bg-white p-4 text-right shadow-sm transition hover:border-gray-900 hover:shadow-[0_16px_38px_-28px_rgba(15,23,42,0.7)] dark:border-gray-700 dark:bg-gray-900/60"
+                    className="w-full rounded-[1.5rem] border border-border bg-white p-4 text-right shadow-sm transition hover:border-border hover:shadow-[0_16px_38px_-28px_rgba(15,23,42,0.7)] dark:border-border dark:bg-muted"
                   >
                     <div className="flex items-start gap-3">
-                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
                         <PlusIcon className="h-5 w-5" />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block text-sm font-black text-gray-900 dark:text-white">
+                        <span className="block text-sm font-black text-foreground">
                           {section.label}
                         </span>
-                        <span className="mt-1 block text-xs leading-5 text-gray-500 dark:text-gray-400">
+                        <span className="mt-1 block text-xs leading-5 text-muted-foreground">
                           {section.note}
                         </span>
                       </span>
@@ -1295,17 +1295,17 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
                 ))}
               </div>
             ) : (
-              <div className="rounded-[1.5rem] border border-dashed border-gray-300 bg-gray-50 p-5 text-sm leading-7 text-gray-500 dark:border-gray-700 dark:bg-gray-800/60 dark:text-gray-400">
+              <div className="rounded-[1.5rem] border border-dashed border-border bg-muted p-5 text-sm leading-7 text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                 كل الأقسام الجاهزة الموجودة في المكتبة مضافة بالفعل داخل الصفحة.
               </div>
             )}
 
-            <div className="rounded-[1.5rem] border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
-              <div className="flex items-center gap-2 text-sm font-black text-gray-900 dark:text-white">
-                <PaintBrushIcon className="h-5 w-5 text-gray-500" />
+            <div className="rounded-[1.5rem] border border-border bg-muted p-4 dark:border-border dark:bg-muted">
+              <div className="flex items-center gap-2 text-sm font-black text-foreground">
+                <PaintBrushIcon className="h-5 w-5 text-muted-foreground" />
                 ملاحظات سريعة
               </div>
-              <div className="mt-3 space-y-2 text-xs leading-6 text-gray-500 dark:text-gray-400">
+              <div className="mt-3 space-y-2 text-xs leading-6 text-muted-foreground">
                 <div>اسحبي البطاقات لإعادة ترتيب الأقسام بنفس فكرة الصورة المرجعية.</div>
                 <div>الضغط على أي قسم داخل المعاينة يفتح إعداداته فورًا.</div>
                 <div>حفظ التعديلات يتم من أزرار الحفظ الموجودة أعلى هذه الصفحة.</div>

@@ -18,7 +18,7 @@ export const CampaignQuickViewFooter: React.FC<CampaignQuickViewFooterProps> = (
   onSaveChanges,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200/90 bg-slate-50/70 px-4 py-3 sm:px-6 dark:border-slate-800/90 dark:bg-slate-900/50">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border bg-muted px-4 py-3 sm:px-6 dark:border-border dark:bg-muted">
       <Link
         to={fullDetailsUrl}
         className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400"
@@ -33,7 +33,7 @@ export const CampaignQuickViewFooter: React.FC<CampaignQuickViewFooterProps> = (
         <button
           type="button"
           onClick={onClose}
-          className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+          className="rounded-xl border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
         >
           {isEn ? "Close" : "إغلاق"}
         </button>

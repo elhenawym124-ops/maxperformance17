@@ -85,7 +85,7 @@ export const SuppliersReportTab: React.FC<SuppliersReportTabProps> = ({ data, lo
                   <TableCell className="text-center tabular-nums text-xs">
                     {row.totalPayments}
                   </TableCell>
-                  <TableCell className="text-end tabular-nums text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                  <TableCell className="text-end tabular-nums text-xs font-medium text-success dark:text-success">
                     {formatCurrency(row.totalPaidAmount || 0)}
                   </TableCell>
                   <TableCell className="text-end tabular-nums font-bold">
@@ -108,7 +108,7 @@ export const SuppliersReportTab: React.FC<SuppliersReportTabProps> = ({ data, lo
                 <TableCell className="text-center tabular-nums">{totalInvoices}</TableCell>
                 <TableCell className="text-end tabular-nums">{formatCurrency(totalInvoiceAmount)}</TableCell>
                 <TableCell className="text-center tabular-nums">{totalPayments}</TableCell>
-                <TableCell className="text-end tabular-nums text-emerald-600 dark:text-emerald-400">{formatCurrency(totalPaidAmount)}</TableCell>
+                <TableCell className="text-end tabular-nums text-success dark:text-success">{formatCurrency(totalPaidAmount)}</TableCell>
                 <TableCell className="text-end tabular-nums">{formatCurrency(totalBalance)}</TableCell>
               </TableRow>
             </TableFooter>

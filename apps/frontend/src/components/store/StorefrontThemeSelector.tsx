@@ -243,7 +243,7 @@ const StorefrontThemeSelector: React.FC<StorefrontThemeSelectorProps> = ({
         headerAside={
           <div className="flex flex-wrap justify-end gap-2">
             {currentTheme ? (
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+              <span className="rounded-full bg-success px-3 py-1 text-xs font-semibold text-success dark:bg-success/30 dark:text-success">
                 المطبق الآن: {currentTheme.name}
               </span>
             ) : null}
@@ -267,7 +267,7 @@ const StorefrontThemeSelector: React.FC<StorefrontThemeSelectorProps> = ({
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="ابحث باسم القالب أو الفئة أو الوصف"
-              className="h-11 rounded-[18px] bg-background pr-10"
+              className="h-11 rounded-[18px] bg-background pe-10"
             />
           </div>
 
@@ -382,7 +382,7 @@ const StorefrontThemeSelector: React.FC<StorefrontThemeSelectorProps> = ({
                       <div className="min-w-0 space-y-3">
                         <div className="flex flex-wrap justify-end gap-2">
                           {catalogTheme.isCurrentTheme ? (
-                            <span className="rounded-full bg-emerald-100 px-3 py-1 text-[0.72rem] font-semibold text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+                            <span className="rounded-full bg-success px-3 py-1 text-[0.72rem] font-semibold text-success dark:bg-success/30 dark:text-success">
                               مطبق الآن
                             </span>
                           ) : null}
@@ -394,13 +394,13 @@ const StorefrontThemeSelector: React.FC<StorefrontThemeSelectorProps> = ({
                           ) : null}
 
                           {catalogTheme.isOwned && !catalogTheme.isCurrentTheme ? (
-                            <span className="rounded-full bg-sky-100 px-3 py-1 text-[0.72rem] font-semibold text-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+                            <span className="rounded-full bg-info px-3 py-1 text-[0.72rem] font-semibold text-info dark:bg-info/30 dark:text-info">
                               مملوك لديك
                             </span>
                           ) : null}
 
                           {catalogTheme.isFeatured ? (
-                            <span className="rounded-full bg-amber-100 px-3 py-1 text-[0.72rem] font-semibold text-amber-800 dark:bg-amber-950/30 dark:text-amber-300">
+                            <span className="rounded-full bg-warning px-3 py-1 text-[0.72rem] font-semibold text-warning dark:bg-warning/30 dark:text-warning">
                               مميز
                             </span>
                           ) : null}
@@ -444,10 +444,10 @@ const StorefrontThemeSelector: React.FC<StorefrontThemeSelectorProps> = ({
                         className="flex h-44 items-end justify-between p-4"
                         style={{ background: previewGradient }}
                       >
-                        <span className="rounded-full bg-white/80 px-3 py-1 text-[0.72rem] font-semibold text-slate-900 shadow-sm backdrop-blur">
+                        <span className="rounded-full bg-white/80 px-3 py-1 text-[0.72rem] font-semibold text-foreground shadow-sm backdrop-blur">
                           {catalogTheme.category.secondary.label}
                         </span>
-                        <span className="rounded-full bg-slate-900/15 px-3 py-1 text-[0.72rem] font-medium text-white shadow-sm backdrop-blur">
+                        <span className="rounded-full bg-muted px-3 py-1 text-[0.72rem] font-medium text-white shadow-sm backdrop-blur">
                           {catalogTheme.pageStats.totalSections} قسم
                         </span>
                       </div>
@@ -468,19 +468,19 @@ const StorefrontThemeSelector: React.FC<StorefrontThemeSelectorProps> = ({
                     </span>
 
                     {catalogTheme.requiresPurchase ? (
-                      <span className="rounded-full bg-amber-100 px-3 py-1 text-[0.72rem] font-semibold text-amber-800 dark:bg-amber-950/30 dark:text-amber-300">
+                      <span className="rounded-full bg-warning px-3 py-1 text-[0.72rem] font-semibold text-warning dark:bg-warning/30 dark:text-warning">
                         يحتاج شراء أولًا
                       </span>
                     ) : null}
 
                     {catalogTheme.requiresActivation ? (
-                      <span className="rounded-full bg-violet-100 px-3 py-1 text-[0.72rem] font-semibold text-violet-800 dark:bg-violet-950/30 dark:text-violet-300">
+                      <span className="rounded-full bg-primary px-3 py-1 text-[0.72rem] font-semibold text-primary dark:bg-primary/30 dark:text-primary">
                         يحتاج تفعيلًا
                       </span>
                     ) : null}
 
                     {catalogTheme.installationStatus === "TRIAL" && trialEndsLabel ? (
-                      <span className="rounded-full bg-sky-100 px-3 py-1 text-[0.72rem] font-semibold text-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+                      <span className="rounded-full bg-info px-3 py-1 text-[0.72rem] font-semibold text-info dark:bg-info/30 dark:text-info">
                         تجربة حتى {trialEndsLabel}
                       </span>
                     ) : null}

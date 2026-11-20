@@ -58,7 +58,7 @@ const StorefrontPreviewModal: React.FC<StorefrontPreviewModalProps> = ({
       />
 
       {/* Modal Container */}
-      <div className="relative flex h-full w-full max-w-6xl 2xl:max-w-7xl flex-col overflow-hidden rounded-2xl border border-border/70 bg-card text-foreground shadow-2xl">
+      <div className="relative flex h-full w-full max-w-6xl 2xl:max-w-7xl flex-col overflow-hidden rounded-xl border border-border/70 bg-card text-foreground shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border/60 bg-card px-4 py-3 sm:px-5">
           <div className="flex items-center gap-3">
@@ -144,9 +144,9 @@ const StorefrontPreviewModal: React.FC<StorefrontPreviewModalProps> = ({
         {/* Browser Chrome Simulator */}
         <div className="flex items-center border-b border-border/60 bg-muted/20 px-4 py-2">
           <div className="flex gap-1.5">
-            <div className="size-2.5 rounded-full bg-rose-500/80" />
-            <div className="size-2.5 rounded-full bg-amber-500/80" />
-            <div className="size-2.5 rounded-full bg-emerald-500/80" />
+            <div className="size-2.5 rounded-full bg-destructive/80" />
+            <div className="size-2.5 rounded-full bg-warning/80" />
+            <div className="size-2.5 rounded-full bg-success/80" />
           </div>
           <div className="mx-4 flex-1 truncate rounded-lg border border-border/60 bg-card px-3 py-1 text-center font-mono text-xs text-muted-foreground tabular-nums">
             {previewUrl}
