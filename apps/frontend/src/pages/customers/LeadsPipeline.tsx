@@ -60,15 +60,15 @@ const STAGE_KEYS = new Set(STAGES.map((s) => s.key));
 const PRIORITY_STYLES: Record<string, { label: string; cls: string }> = {
   HOT: {
     label: "ساخن",
-    cls: "bg-red-100 text-red-700 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20",
+    cls: "bg-red-100 text-destructive border-destructive dark:bg-destructive/10 dark:text-destructive dark:border-destructive/20",
   },
   WARM: {
     label: "دافئ",
-    cls: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20",
+    cls: "bg-amber-100 text-warning border-warning dark:bg-warning/10 dark:text-warning dark:border-warning/20",
   },
   COLD: {
     label: "بارد",
-    cls: "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-500/10 dark:text-slate-400 dark:border-slate-500/20",
+    cls: "bg-slate-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border",
   },
 };
 
@@ -217,7 +217,7 @@ const LeadsPipeline: React.FC = () => {
           )}
         </div>
         {c.dealValue != null && Number(c.dealValue) > 0 && (
-          <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="flex items-center gap-1 text-[11px] font-bold text-success dark:text-success tabular-nums">
             <Banknote className="h-3 w-3 shrink-0" />
             <span dir="ltr">{Number(c.dealValue).toLocaleString("en-US")} ج.م</span>
           </div>
@@ -249,7 +249,7 @@ const LeadsPipeline: React.FC = () => {
               target="_blank"
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="p-1 rounded-lg text-muted-foreground hover:text-green-600 hover:bg-green-500/10 transition-colors"
+              className="p-1 rounded-lg text-muted-foreground hover:text-success hover:bg-success/10 transition-colors"
               title="واتساب"
             >
               <MessageCircle className="w-3 h-3" />
@@ -328,7 +328,7 @@ const LeadsPipeline: React.FC = () => {
           <span
             className={`shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold border tabular-nums whitespace-nowrap ${
               analytics.conversionRate > 0
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                 : "bg-muted/40 text-muted-foreground border-border/70"
             }`}
           >
@@ -346,7 +346,7 @@ const LeadsPipeline: React.FC = () => {
             </span>
           )}
           {analytics.money && analytics.money.expectedThisMonth > 0 && (
-            <span className="shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 tabular-nums whitespace-nowrap">
+            <span className="shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-success/10 text-success dark:text-success border border-success/20 tabular-nums whitespace-nowrap">
               <span dir="ltr">متوقع الشهر {analytics.money.expectedThisMonth.toLocaleString("en-US")} ج.م</span>
             </span>
           )}
@@ -360,7 +360,7 @@ const LeadsPipeline: React.FC = () => {
 
       {/* Inline error banner */}
       {error && (
-        <div className="flex items-center gap-2 bg-destructive/10 border border-destructive/20 text-destructive rounded-2xl px-4 py-2.5 text-xs font-semibold">
+        <div className="flex items-center gap-2 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl px-4 py-2.5 text-xs font-semibold">
           <AlertTriangle className="h-4 w-4 shrink-0" />
           {error}
         </div>
@@ -372,7 +372,7 @@ const LeadsPipeline: React.FC = () => {
           {STAGES.slice(0, 5).map((s) => (
             <div
               key={s.key}
-              className="w-60 shrink-0 rounded-2xl border border-border/70 bg-muted/20 p-3 space-y-2 animate-pulse"
+              className="w-60 shrink-0 rounded-xl border border-border/70 bg-muted/20 p-3 space-y-2 animate-pulse"
             >
               <div className="h-4 w-1/2 rounded bg-muted/60" />
               <div className="h-16 w-full rounded-xl bg-muted/30" />
@@ -403,7 +403,7 @@ const LeadsPipeline: React.FC = () => {
                   e.preventDefault();
                   handleDrop(stage.key);
                 }}
-                className={`w-60 shrink-0 rounded-2xl border border-t-2 border-border/70 bg-card shadow-2xs flex flex-col ${
+                className={`w-60 shrink-0 rounded-xl border border-t-2 border-border/70 bg-card shadow-2xs flex flex-col ${
                   stage.border
                 } ${stage.muted ? "opacity-70" : ""} ${
                   isDragOver
@@ -422,7 +422,7 @@ const LeadsPipeline: React.FC = () => {
                 </div>
                 {stageMoney > 0 && (
                   <div
-                    className="px-3 pb-1.5 pt-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 tabular-nums"
+                    className="px-3 pb-1.5 pt-1 text-[10px] font-bold text-success dark:text-success tabular-nums"
                     dir="ltr"
                   >
                     {stageMoney.toLocaleString("en-US")} ج.م

@@ -12,18 +12,18 @@ export const ClaritySetupStepsDetails: React.FC<ClaritySetupStepsDetailsProps> =
 
   return (
     <details
-      className="group rounded-xl border border-gray-100 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800"
+      className="group rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted"
       open={!hasSaved}
     >
-      <summary className="flex cursor-pointer items-center gap-2 p-4 text-sm font-semibold text-gray-800 dark:text-gray-200">
-        <InformationCircleIcon className="h-5 w-5 text-indigo-500" aria-hidden="true" />
+      <summary className="flex cursor-pointer items-center gap-2 p-4 text-sm font-semibold text-foreground dark:text-muted-foreground">
+        <InformationCircleIcon className="h-5 w-5 text-primary" aria-hidden="true" />
         {t('clarity.setupSteps', 'خطوات الربط')}
       </summary>
-      <div className="space-y-3 border-t border-gray-100 px-4 pb-4 pt-3 dark:border-slate-700">
+      <div className="space-y-3 border-t border-border px-4 pb-4 pt-3 dark:border-border">
         {SETUP_STEPS.map((step) => (
           <div
             key={step.step}
-            className="flex gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800"
+            className="flex gap-3 rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted"
           >
             <div
               className={`${step.color} flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white`}
@@ -31,10 +31,10 @@ export const ClaritySetupStepsDetails: React.FC<ClaritySetupStepsDetailsProps> =
               {step.step}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+              <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                 {t(step.titleKey, step.title)}
               </p>
-              <p className="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 {t(step.descKey, step.desc)}
               </p>
               {step.link ? (
@@ -52,8 +52,8 @@ export const ClaritySetupStepsDetails: React.FC<ClaritySetupStepsDetailsProps> =
           </div>
         ))}
 
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-slate-700 dark:bg-slate-800/60">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+        <div className="rounded-xl border border-border bg-muted p-4 dark:border-border dark:bg-muted">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             {t('clarity.usefulLinks', 'روابط مفيدة')}
           </p>
           <div className="space-y-2">

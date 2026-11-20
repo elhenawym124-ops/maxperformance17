@@ -21,13 +21,13 @@ export function SettingsLoadingState({
   return (
     <div
       dir={getDirection()}
-      className="flex min-h-[420px] flex-col items-center justify-center rounded-[28px] border border-slate-200/70 bg-white/80 px-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/60 dark:shadow-none"
+      className="flex min-h-[420px] flex-col items-center justify-center rounded-[28px] border border-border bg-white/80 px-6 text-center shadow-sm dark:border-border dark:bg-muted dark:shadow-none"
     >
-      <div className="flex size-16 items-center justify-center rounded-full border border-sky-200 bg-sky-50 text-sky-600 dark:border-sky-500/30 dark:bg-sky-950/40 dark:text-sky-300">
+      <div className="flex size-16 items-center justify-center rounded-full border border-info bg-info/10 text-info dark:border-info/30 dark:bg-info/40 dark:text-info">
         <Loader2 className="size-8 animate-spin" />
       </div>
-      <p className="mt-4 text-base font-semibold text-slate-800 dark:text-slate-100">{title}</p>
-      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>
+      <p className="mt-4 text-base font-semibold text-foreground dark:text-muted-foreground">{title}</p>
+      <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">{description}</p>
     </div>
   );
 }
@@ -49,15 +49,15 @@ export function SettingsStatusAlert({
       className={cn(
         "border px-4 py-3",
         message.type === "success"
-          ? "border-emerald-200 bg-emerald-50/90 text-emerald-950 dark:border-emerald-800/80 dark:bg-emerald-950/40 dark:text-emerald-200"
-          : "border-rose-200 bg-rose-50/90 text-rose-950 dark:border-rose-800/80 dark:bg-rose-950/40 dark:text-rose-200",
+          ? "border-emerald-200 bg-success/90 text-success dark:border-success/80 dark:bg-success/40 dark:text-success"
+          : "border-rose-200 bg-destructive/90 text-destructive dark:border-destructive/80 dark:bg-destructive/40 dark:text-destructive",
       )}
     >
       <div className="flex items-start gap-3">
         {message.type === "success" ? (
-          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success dark:text-success" />
         ) : (
-          <AlertCircle className="mt-0.5 size-5 shrink-0 text-rose-600 dark:text-rose-400" />
+          <AlertCircle className="mt-0.5 size-5 shrink-0 text-destructive dark:text-destructive" />
         )}
         <div className="flex-1">
           <AlertTitle className="text-sm font-semibold">
@@ -67,8 +67,8 @@ export function SettingsStatusAlert({
             className={cn(
               "mt-1 text-sm",
               message.type === "success"
-                ? "text-emerald-900/80 dark:text-emerald-300/90"
-                : "text-rose-900/80 dark:text-rose-300/90",
+                ? "text-emerald-900/80 dark:text-success/90"
+                : "text-rose-900/80 dark:text-destructive/90",
             )}
           >
             {message.text}
@@ -78,7 +78,7 @@ export function SettingsStatusAlert({
           <button
             type="button"
             onClick={onDismiss}
-            className="rounded-full p-1 text-slate-400 transition hover:bg-white/80 hover:text-slate-600 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+            className="rounded-full p-1 text-muted-foreground transition hover:bg-white/80 hover:text-foreground dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-muted-foreground"
             aria-label={t("settingsPrimitives.alertClose")}
           >
             <span aria-hidden="true" className="block text-sm leading-none">
@@ -109,7 +109,7 @@ export function SettingsSection({
   return (
     <section
       className={cn(
-        "rounded-[24px] border border-slate-200/70 bg-white/80 p-5 shadow-sm shadow-slate-200/30 dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-none",
+        "rounded-[24px] border border-border bg-white/80 p-5 shadow-sm shadow-slate-200/30 dark:border-border dark:bg-muted dark:shadow-none",
         surfaceClassName,
       )}
     >
@@ -117,20 +117,20 @@ export function SettingsSection({
         <div className="flex items-start gap-3">
           <div
             className={cn(
-              "flex size-11 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset",
+              "flex size-11 shrink-0 items-center justify-center rounded-xl ring-1 ring-inset",
               accentClassName,
             )}
           >
             <Icon className="size-5" />
           </div>
           <div className="space-y-1">
-            <h2 className="text-lg font-bold text-slate-950 dark:text-slate-100">{title}</h2>
-            <p className="text-sm leading-6 text-slate-500 dark:text-slate-400">{description}</p>
+            <h2 className="text-lg font-bold text-foreground dark:text-muted-foreground">{title}</h2>
+            <p className="text-sm leading-6 text-muted-foreground dark:text-muted-foreground">{description}</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-5 space-y-5 text-slate-900 dark:text-slate-100">{children}</div>
+      <div className="mt-5 space-y-5 text-foreground dark:text-muted-foreground">{children}</div>
     </section>
   );
 }
@@ -144,7 +144,7 @@ export function SettingsPageShell({
 }) {
   return (
     <div dir={getDirection()} className={cn("space-y-5 text-right", className)}>
-      <div className="overflow-hidden rounded-[28px] border border-slate-200/70 bg-white shadow-sm shadow-slate-200/30 dark:border-slate-800 dark:bg-slate-950 dark:shadow-none">
+      <div className="overflow-hidden rounded-[28px] border border-border bg-white shadow-sm shadow-slate-200/30 dark:border-border dark:bg-muted dark:shadow-none">
         {children}
       </div>
     </div>
@@ -177,15 +177,15 @@ export function SettingsPageHero({
   return (
     <div
       className={cn(
-        "relative overflow-hidden border-b border-slate-200/70 px-6 py-7",
+        "relative overflow-hidden border-b border-border px-6 py-7",
         "bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.18),_transparent_38%),linear-gradient(135deg,_rgba(248,250,252,0.98),_rgba(239,246,255,0.88))]",
         "dark:border-slate-800 dark:bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.12),_transparent_40%),linear-gradient(135deg,_rgba(15,23,42,0.95),_rgba(30,41,59,0.9))]",
         gradientClassName,
       )}
     >
-      <div className="absolute left-0 top-0 h-32 w-32 -translate-x-1/3 -translate-y-1/4 rounded-full bg-sky-200/30 blur-3xl dark:bg-sky-500/10" />
+      <div className="absolute left-0 top-0 h-32 w-32 -translate-x-1/3 -translate-y-1/4 rounded-full bg-info/30 blur-3xl dark:bg-info/10" />
       <div className="relative space-y-4">
-        <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/85 px-3 py-1 text-xs font-semibold text-sky-700 shadow-sm dark:border-sky-500/30 dark:bg-sky-950/60 dark:text-sky-300">
+        <div className="inline-flex items-center gap-2 rounded-full border border-info bg-white/85 px-3 py-1 text-xs font-semibold text-info shadow-sm dark:border-info/30 dark:bg-info/60 dark:text-info">
           <Icon className="size-3.5" />
           {badgeLabel}
         </div>
@@ -197,10 +197,10 @@ export function SettingsPageHero({
           )}
         >
           <div className="space-y-2">
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
+            <h1 className="text-3xl font-extrabold tracking-tight text-foreground dark:text-muted-foreground">
               {title}
             </h1>
-            <p className="max-w-3xl text-sm leading-7 text-slate-600 sm:text-base dark:text-slate-300">
+            <p className="max-w-3xl text-sm leading-7 text-foreground sm:text-base dark:text-muted-foreground">
               {description}
             </p>
           </div>
@@ -208,15 +208,15 @@ export function SettingsPageHero({
         </div>
 
         {summaryItems?.length ? (
-          <div className="flex flex-wrap gap-3 text-xs font-medium text-slate-600 dark:text-slate-300">
+          <div className="flex flex-wrap gap-3 text-xs font-medium text-foreground dark:text-muted-foreground">
             {summaryItems.map((item) => (
               <div
                 key={`${item.label}-${String(item.value)}`}
-                className="rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300"
+                className="rounded-full border border-border bg-white/80 px-3 py-1.5 dark:border-border dark:bg-muted dark:text-muted-foreground"
               >
                 {item.label}:{" "}
                 <span
-                  className="font-bold text-slate-950 dark:text-slate-50"
+                  className="font-bold text-foreground dark:text-muted-foreground"
                   dir={item.valueDir || getDirection()}
                 >
                   {item.value}

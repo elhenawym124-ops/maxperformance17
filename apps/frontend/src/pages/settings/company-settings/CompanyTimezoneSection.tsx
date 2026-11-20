@@ -34,16 +34,16 @@ export const CompanyTimezoneSection: React.FC<CompanyTimezoneSectionProps> = ({
   formatDate,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-8">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-        <ClockIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-2" />
+    <div className="bg-card shadow rounded-lg p-6 mb-8">
+      <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center">
+        <ClockIcon className="h-6 w-6 text-primary me-2" />
         إعدادات الوقت والتاريخ
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label
             htmlFor="company-timezone"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-medium text-foreground mb-2"
           >
             المنطقة الزمنية للشركة
           </label>
@@ -53,7 +53,7 @@ export const CompanyTimezoneSection: React.FC<CompanyTimezoneSectionProps> = ({
             autoComplete="off"
             value={timezone}
             onChange={(e) => handleTimezoneChange(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary bg-card text-foreground"
           >
             <optgroup label="الخليج العربي">
               <option value="Asia/Riyadh">الرياض - السعودية (GMT+3)</option>
@@ -82,28 +82,28 @@ export const CompanyTimezoneSection: React.FC<CompanyTimezoneSectionProps> = ({
               <option value="UTC">توقيت عالمي (UTC)</option>
             </optgroup>
           </select>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-xs text-muted-foreground">
             سيتم استخدام هذا التوقيت في التقارير والحسابات اليومية
           </p>
         </div>
         <div>
-          <span className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <span className="block text-sm font-medium text-foreground mb-2">
             توقيت الشركة الحالي
           </span>
-          <div className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md p-3 flex items-center justify-between">
+          <div className="bg-gray-50 dark:bg-muted border border-border rounded-md p-3 flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+              <p className="text-sm text-foreground dark:text-muted-foreground mb-1">
                 الساعة الآن:
               </p>
-              <p className="text-2xl font-mono font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
+              <p className="text-2xl font-mono font-bold text-primary tabular-nums">
                 {formatTimeWithZone(currentTime, timezone)}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-gray-500 dark:text-gray-400 font-mono">
+              <p className="text-xs text-muted-foreground font-mono">
                 {timezone}
               </p>
-              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mt-1">
+              <p className="text-xs font-medium text-foreground mt-1">
                 {new Intl.DateTimeFormat("ar-EG", {
                   weekday: "long",
                   year: "numeric",
@@ -116,7 +116,7 @@ export const CompanyTimezoneSection: React.FC<CompanyTimezoneSectionProps> = ({
           </div>
         </div>
         <div>
-          <span className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <span className="block text-sm font-medium text-foreground mb-2">
             تنسيق التاريخ
           </span>
           <div className="space-y-2">
@@ -130,30 +130,30 @@ export const CompanyTimezoneSection: React.FC<CompanyTimezoneSectionProps> = ({
                   checked={dateFormat === format}
                   onChange={(e) => setDateFormat(e.target.value as DateFormatType)}
                   disabled={dateFormatLoading}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600"
+                  className="h-4 w-4 text-primary focus:ring-primary border-border"
                 />
-                <span className="mr-2 text-sm text-gray-700 dark:text-gray-300">
+                <span className="me-2 text-sm text-foreground">
                   {DATE_FORMAT_LABELS[format]}
                 </span>
               </label>
             ))}
           </div>
           {dateFormatError && (
-            <p className="text-xs text-red-600 mt-1">{dateFormatError}</p>
+            <p className="text-xs text-destructive mt-1">{dateFormatError}</p>
           )}
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-xs text-muted-foreground mt-2">
             التنسيق المختار: {DATE_FORMAT_LABELS[dateFormat] || dateFormat}
           </p>
         </div>
         <div>
-          <span className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <span className="block text-sm font-medium text-foreground mb-2">
             معاينة التاريخ
           </span>
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-            <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          <div className="bg-gray-50 dark:bg-muted rounded-lg p-4">
+            <div className="text-sm text-muted-foreground mb-2">
               التاريخ الحالي:
             </div>
-            <div className="text-lg font-semibold text-gray-900 dark:text-white font-mono tabular-nums">
+            <div className="text-lg font-semibold text-foreground font-mono tabular-nums">
               {formatDate(new Date())}
             </div>
           </div>

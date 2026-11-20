@@ -24,24 +24,24 @@ export const LoyaltyTiersHeader: React.FC<LoyaltyTiersHeaderProps> = ({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-foreground">
             مستويات العملاء (Tiers)
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             تعريف شرائح العملاء ومميزات كل مستوى (VIP, Gold, etc.)
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={onRefresh}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-foreground hover:bg-muted/50 transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
             تحديث
           </button>
           <button
             onClick={onOpenPresetModal}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-foreground hover:bg-muted/50 transition-colors"
             title="إنشاء مستويات من قالب جاهز"
           >
             <Trophy className="w-4 h-4" />
@@ -49,7 +49,7 @@ export const LoyaltyTiersHeader: React.FC<LoyaltyTiersHeaderProps> = ({
           </button>
           <button
             onClick={onOpenNewTierModal}
-            className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium shadow-sm transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium shadow-sm transition-colors"
           >
             <Plus className="w-4 h-4" />
             مستوى جديد
@@ -58,15 +58,15 @@ export const LoyaltyTiersHeader: React.FC<LoyaltyTiersHeaderProps> = ({
       </div>
 
       {/* 🆕 تفعيل نظام المستويات — مستقل عن الخصم التلقائي */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-3 border border-purple-200 dark:border-purple-700">
+      <div className="bg-card p-4 rounded-lg shadow-sm space-y-3 border border-primary dark:border-primary">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Crown className="h-5 w-5 text-purple-500 shrink-0" />
+            <Crown className="h-5 w-5 text-primary shrink-0" />
             <div>
-              <h4 className="text-base font-bold text-gray-900 dark:text-gray-100">
+              <h4 className="text-base font-bold text-foreground">
                 تفعيل نظام المستويات
               </h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 شغّل المستويات عشان يطبّق خصم/مزايا المستوى على الأوردر (مستقل عن الخصم التلقائي).
               </p>
             </div>
@@ -77,20 +77,20 @@ export const LoyaltyTiersHeader: React.FC<LoyaltyTiersHeaderProps> = ({
               checked={tiersEnabled}
               disabled={tiersToggleSaving}
               onChange={(e) => onToggleTiersEnabled(e.target.checked)}
-              className="h-5 w-5 accent-purple-600 cursor-pointer"
+              className="h-5 w-5 accent-primary cursor-pointer"
             />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-foreground">
               {tiersEnabled ? "مفعّل" : "متوقف"}
             </span>
           </label>
         </div>
-        {tiersToggleSaving && <Loader2 className="h-4 w-4 animate-spin text-purple-500" />}
+        {tiersToggleSaving && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
         {tiersToggleMsg && (
           <p
             className={`text-sm font-medium ${
               tiersToggleMsg.includes("✓")
-                ? "text-emerald-600 dark:text-emerald-400"
-                : "text-red-600 dark:text-red-400"
+                ? "text-emerald-600 dark:text-success"
+                : "text-red-600 dark:text-destructive"
             }`}
           >
             {tiersToggleMsg}

@@ -60,11 +60,11 @@ const LoyaltyAnalytics: React.FC = () => {
   const getProgramIcon = (type: string) => {
     switch (type) {
       case "POINTS":
-        return <Star className="w-4 h-4 text-amber-500" />;
+        return <Star className="w-4 h-4 text-warning" />;
       case "TIER":
         return <Award className="w-4 h-4 text-primary" />;
       case "CASHBACK":
-        return <DollarSign className="w-4 h-4 text-emerald-500" />;
+        return <DollarSign className="w-4 h-4 text-success" />;
       case "REFERRAL":
         return <Users className="w-4 h-4 text-blue-500" />;
       default:
@@ -136,7 +136,7 @@ const LoyaltyAnalytics: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-xl p-4 shadow-sm space-y-1">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground">متوسط رصيد النقاط</span>
-            <Star className="w-4 h-4 text-amber-500/70" />
+            <Star className="w-4 h-4 text-warning/70" />
           </div>
           <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
             {avgPoints.toLocaleString("ar-EG")}
@@ -158,7 +158,7 @@ const LoyaltyAnalytics: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-xl p-4 shadow-sm space-y-1">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground">إجمالي الكاش باك المسترد</span>
-            <DollarSign className="w-4 h-4 text-emerald-500/70" />
+            <DollarSign className="w-4 h-4 text-success/70" />
           </div>
           <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
             {stats?.totalCashback ? stats.totalCashback.toLocaleString("ar-EG") : "0"} <span className="text-xs font-normal text-muted-foreground">ج.م</span>
@@ -201,7 +201,7 @@ const LoyaltyAnalytics: React.FC = () => {
           </div>
 
           {Number(systemAnalytics.preActivationCustomers || 0) > 0 && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-warning/10 border border-warning/20 text-warning dark:text-warning text-xs">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>
                 يوجد {systemAnalytics.preActivationCustomers} عميل لديهم طلبات استلمت قبل تفعيل النظام — لا يتاح لهم كوبون خصم تلقائي.

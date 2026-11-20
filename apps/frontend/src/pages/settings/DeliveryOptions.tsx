@@ -58,7 +58,7 @@ const DeliveryOptions: React.FC = () => {
               type="button"
               size="lg"
               onClick={openCreateDialog}
-              className="rounded-2xl bg-foreground text-background hover:bg-foreground/90 gap-2 font-semibold"
+              className="rounded-xl bg-foreground text-background hover:bg-foreground/90 gap-2 font-semibold"
             >
               <Plus className="size-4" />
               إضافة خيار جديد

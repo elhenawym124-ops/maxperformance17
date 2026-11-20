@@ -209,7 +209,7 @@ export const SecuritySettings: React.FC = () => {
                 key={item.label}
                 className={cn(
                   'flex items-center gap-2 text-sm',
-                  item.passed ? 'text-green-600 dark:text-green-400' : 'text-muted-foreground',
+                  item.passed ? 'text-green-600 dark:text-success' : 'text-muted-foreground',
                 )}
               >
                 <span

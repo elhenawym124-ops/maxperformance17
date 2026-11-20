@@ -17,18 +17,18 @@ export const TurboSettingsHeader: React.FC<TurboSettingsHeaderProps> = ({
 }) => {
   return (
     <div className="mb-8">
-      <div className="flex items-center gap-3 mb-4 text-sm text-gray-500 dark:text-gray-400">
+      <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground">
         <button
           onClick={onNavigateShippingCompanies}
-          className="flex items-center hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+          className="flex items-center hover:text-foreground dark:hover:text-muted-foreground transition-colors"
         >
-          <ArrowLeftIcon className="h-4 w-4 ml-1" />
+          <ArrowLeftIcon className="h-4 w-4 ms-1" />
           شركات الشحن
         </button>
         <span>/</span>
         <button
           onClick={onNavigateStoreSettings}
-          className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+          className="hover:text-gray-900 dark:hover:text-muted-foreground transition-colors"
         >
           {t("turbo.k_24")}
         </button>
@@ -36,17 +36,17 @@ export const TurboSettingsHeader: React.FC<TurboSettingsHeaderProps> = ({
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
-            <RocketLaunchIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 ml-3" />
+          <h1 className="text-3xl font-bold text-foreground flex items-center">
+            <RocketLaunchIcon className="h-8 w-8 text-primary ms-3" />
             {t("turbo.k_25")}
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-foreground dark:text-muted-foreground">
             {t("turbo.k_26")}
           </p>
         </div>
         <button
           onClick={onNavigateStatusMapping}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/40 font-medium text-sm transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary/10 dark:bg-primary/40 border border-primary dark:border-primary text-primary dark:text-primary rounded-lg hover:bg-primary dark:hover:bg-primary/40 font-medium text-sm transition-colors shadow-sm"
         >
           <ArrowsRightLeftIcon className="h-4 w-4" />
           <span>ربط حالات Turbo بالنظام</span>

@@ -25,7 +25,7 @@ export function StatusCardEdit({
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-semibold text-foreground mb-1">
             الاسم
           </label>
           <input
@@ -37,11 +37,11 @@ export function StatusCardEdit({
                 name: e.target.value,
               })
             }
-            className="w-full px-3 py-2 border dark:border-gray-600 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-semibold text-foreground mb-1">
             الاسم بالإنجليزية
           </label>
           <input
@@ -53,14 +53,14 @@ export function StatusCardEdit({
                 nameEn: e.target.value,
               })
             }
-            className="w-full px-3 py-2 border dark:border-gray-600 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-semibold text-foreground mb-1">
             اللون
           </label>
           <div className="flex flex-wrap gap-2">
@@ -81,7 +81,7 @@ export function StatusCardEdit({
           </div>
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-xs font-semibold text-foreground mb-1">
             ربط بحالة النظام
           </label>
           <select
@@ -92,7 +92,7 @@ export function StatusCardEdit({
                 mapsToSystem: e.target.value,
               })
             }
-            className="w-full px-3 py-2 border dark:border-gray-600 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
           >
             <option value="">-- بدون ربط --</option>
             {SYSTEM_STATUSES.map((s) => (
@@ -102,7 +102,7 @@ export function StatusCardEdit({
             ))}
           </select>
           {isUnmappedCustomStatus && (
-            <p className="mt-1 flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400">
+            <p className="mt-1 flex items-center gap-1 text-[11px] text-warning dark:text-warning">
               <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
               حالة مخصصة بدون ربط بحالة نظام لا يمكن تطبيقها على أي طلب — اختر ربطًا.
             </p>
@@ -123,7 +123,7 @@ export function StatusCardEdit({
             }
             className="w-4 h-4 text-blue-600 rounded"
           />
-          <span className="text-xs text-gray-700 dark:text-gray-300">
+          <span className="text-xs text-foreground">
             إشعار العميل
           </span>
         </label>
@@ -139,7 +139,7 @@ export function StatusCardEdit({
             }
             className="w-4 h-4 text-blue-600 rounded"
           />
-          <span className="text-xs text-gray-700 dark:text-gray-300">
+          <span className="text-xs text-foreground">
             إشعار الإدارة
           </span>
         </label>
@@ -149,7 +149,7 @@ export function StatusCardEdit({
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+          className="px-4 py-2 text-xs font-semibold text-foreground dark:text-muted-foreground hover:bg-muted rounded-lg transition"
         >
           <X className="w-4 h-4" />
         </button>

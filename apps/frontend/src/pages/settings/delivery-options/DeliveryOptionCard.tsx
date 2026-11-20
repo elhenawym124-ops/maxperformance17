@@ -30,7 +30,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
             {option.isDefault && (
               <Badge
                 variant="outline"
-                className="border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-300 gap-1"
+                className="border-amber-200 bg-warning/10 text-warning dark:border-warning/30 dark:bg-warning/40 dark:text-warning gap-1"
               >
                 <Star className="size-3.5 fill-current" />
                 الافتراضي
@@ -40,7 +40,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
               variant="outline"
               className={cn(
                 option.isActive
-                  ? 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-300'
+                  ? 'border-emerald-200 bg-success/10 text-success dark:border-success/30 dark:bg-success/40 dark:text-success'
                   : 'border-border bg-muted text-muted-foreground',
               )}
             >
@@ -55,7 +55,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
           </p>
 
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-border/70 bg-muted/30 p-4">
+            <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 وقت التوصيل
               </p>
@@ -65,7 +65,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/70 bg-muted/30 p-4">
+            <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 السعر
               </p>
@@ -74,7 +74,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/70 bg-muted/30 p-4">
+            <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 ترتيب العرض
               </p>
@@ -107,7 +107,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
             <Button
               type="button"
               variant="outline"
-              className="flex-1 rounded-2xl gap-1.5"
+              className="flex-1 rounded-xl gap-1.5"
               onClick={() => onEdit(option)}
             >
               <Pencil className="size-4" />
@@ -116,7 +116,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
             <Button
               type="button"
               variant="destructive"
-              className="rounded-2xl gap-1.5"
+              className="rounded-xl gap-1.5"
               onClick={() => onDelete(option.id)}
               aria-label={`حذف ${option.name}`}
             >

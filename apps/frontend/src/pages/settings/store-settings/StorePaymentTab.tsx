@@ -26,7 +26,7 @@ export const StorePaymentTab: React.FC<StorePaymentTabProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="inline-flex items-center gap-1 rounded-2xl border border-gray-100 bg-white p-1 shadow-sm dark:border-gray-700 dark:bg-gray-800/80">
+      <div className="inline-flex items-center gap-1 rounded-xl border border-border bg-white p-1 shadow-sm dark:border-border dark:bg-muted">
         {PAYMENT_SUB_TABS.map((tab) => {
           const isActive = activeSubTab === tab.id;
           const Icon = tab.icon;
@@ -38,8 +38,8 @@ export const StorePaymentTab: React.FC<StorePaymentTabProps> = ({
               aria-pressed={isActive}
               className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
                 isActive
-                  ? "bg-indigo-600 text-white shadow-sm shadow-indigo-600/20"
-                  : "text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/40"
+                  ? "bg-indigo-600 text-white shadow-sm shadow-primary/20"
+                  : "text-gray-600 hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               }`}
             >
               <Icon className="w-4 h-4" />

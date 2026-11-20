@@ -59,7 +59,7 @@ export const CustomerPointsCenter: React.FC = () => {
   if (isLoading && records.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[420px]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-purple-600 border-t-transparent" />
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       </div>
     );
   }

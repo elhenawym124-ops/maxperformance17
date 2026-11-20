@@ -201,27 +201,27 @@ const ClarityAnalyticsPanel: React.FC<Props> = ({ projectId, apiToken }) => {
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className={`rounded-xl border p-3 bg-card shadow-2xs ${deadClickPct > 10 ? 'border-rose-500/30 bg-rose-500/5' : 'border-border/70'}`}>
+            <div className={`rounded-xl border p-3 bg-card shadow-2xs ${deadClickPct > 10 ? 'border-rose-500/30 bg-destructive/5' : 'border-border/70'}`}>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <MousePointerClick className={`h-4 w-4 ${deadClickPct > 10 ? 'text-rose-500' : 'text-primary'}`} aria-hidden="true" />
                 <span>{t('clarity.analytics.deadClicks', 'نقرات ميتة')}</span>
               </div>
-              <p className={`mt-1 text-lg font-bold font-mono tabular-nums ${deadClickPct > 10 ? 'text-rose-600 dark:text-rose-400' : 'text-foreground'}`}>{deadClickTotal}</p>
+              <p className={`mt-1 text-lg font-bold font-mono tabular-nums ${deadClickPct > 10 ? 'text-rose-600 dark:text-destructive' : 'text-foreground'}`}>{deadClickTotal}</p>
               <p className="text-[10px] font-mono tabular-nums text-muted-foreground">{t('clarity.analytics.percentOfSessions', '{{pct}}% من الجلسات', { pct: deadClickPct })}</p>
             </div>
 
-            <div className={`rounded-xl border p-3 bg-card shadow-2xs ${rageClickPct > 10 ? 'border-rose-500/30 bg-rose-500/5' : 'border-border/70'}`}>
+            <div className={`rounded-xl border p-3 bg-card shadow-2xs ${rageClickPct > 10 ? 'border-rose-500/30 bg-destructive/5' : 'border-border/70'}`}>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Flame className={`h-4 w-4 ${rageClickPct > 10 ? 'text-rose-500' : 'text-amber-500'}`} aria-hidden="true" />
                 <span>{t('clarity.analytics.rageClicks', 'نقرات غضب')}</span>
               </div>
-              <p className={`mt-1 text-lg font-bold font-mono tabular-nums ${rageClickPct > 10 ? 'text-rose-600 dark:text-rose-400' : 'text-foreground'}`}>{rageClickTotal}</p>
+              <p className={`mt-1 text-lg font-bold font-mono tabular-nums ${rageClickPct > 10 ? 'text-rose-600 dark:text-destructive' : 'text-foreground'}`}>{rageClickTotal}</p>
               <p className="text-[10px] font-mono tabular-nums text-muted-foreground">{t('clarity.analytics.percentOfSessions', '{{pct}}% من الجلسات', { pct: rageClickPct })}</p>
             </div>
 
             <div className="rounded-xl border border-border/70 bg-card p-3 shadow-2xs">
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <RotateCcw className="h-4 w-4 text-amber-500" aria-hidden="true" />
+                <RotateCcw className="h-4 w-4 text-warning" aria-hidden="true" />
                 <span>{t('clarity.analytics.quickbacks', 'عودة سريعة')}</span>
               </div>
               <p className="mt-1 text-lg font-bold font-mono tabular-nums text-foreground">{quickbackTotal}</p>
@@ -230,7 +230,7 @@ const ClarityAnalyticsPanel: React.FC<Props> = ({ projectId, apiToken }) => {
 
             <div className="rounded-xl border border-border/70 bg-card p-3 shadow-2xs">
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <AlertTriangle className="h-4 w-4 text-amber-500" aria-hidden="true" />
+                <AlertTriangle className="h-4 w-4 text-warning" aria-hidden="true" />
                 <span>{t('clarity.analytics.scriptErrors', 'أخطاء السكريبت')}</span>
               </div>
               <p className="mt-1 text-lg font-bold font-mono tabular-nums text-foreground">{scriptErrorTotal}</p>

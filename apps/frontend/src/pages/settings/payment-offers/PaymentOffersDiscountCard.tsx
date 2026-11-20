@@ -16,12 +16,12 @@ export const PaymentOffersDiscountCard: React.FC<PaymentOffersDiscountCardProps>
   update,
 }) => {
   return (
-    <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-800/60 dark:bg-emerald-950/20">
+    <div className="rounded-xl border border-success bg-success/70 p-4 dark:border-success/60 dark:bg-success/20">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-foreground flex items-center gap-1.5">
             <span>خصم الدفع الإلكتروني</span>
-            <Gift className="size-4 text-emerald-600 dark:text-emerald-400" />
+            <Gift className="size-4 text-success dark:text-success" />
           </p>
           <p className="mt-0.5 text-xs text-muted-foreground">
             لو العميل دفع بالبطاقة أو بالمحفظة الإلكترونية، يحصل على خصم على قيمة المنتجات. فعّل الخصم وحدد نسبته بالأسفل.

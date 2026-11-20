@@ -100,7 +100,7 @@ export const CustomerOccasionsFormDialog: React.FC<CustomerOccasionsFormDialogPr
                 </SelectContent>
               </Select>
               {form.recurrence === 'yearly' && (
-                <p className="text-[11px] text-amber-600 dark:text-amber-400">
+                <p className="text-[11px] text-warning dark:text-warning">
                   التكرار السنوي يكرر الإرسال في نفس اليوم والشهر الميلادي
                 </p>
               )}
@@ -127,7 +127,7 @@ export const CustomerOccasionsFormDialog: React.FC<CustomerOccasionsFormDialogPr
                 variant="outline"
                 size="sm"
                 onClick={onOpenMetaModal}
-                className="h-7 gap-1 rounded-md text-xs border-emerald-300 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300"
+                className="h-7 gap-1 rounded-md text-xs border-success text-success hover:bg-success/10 dark:border-success dark:text-success"
               >
                 <FileText className="h-3 w-3" />
                 اختيار قالب معتمد

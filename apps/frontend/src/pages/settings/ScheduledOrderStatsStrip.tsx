@@ -38,9 +38,9 @@ export const ScheduledOrderStatsStrip: React.FC<ScheduledOrderStatsStripProps> =
       <div className="p-3 rounded-md border border-border/60 bg-card">
         <div className="flex items-center justify-between text-muted-foreground">
           <span className="text-[11px] font-medium">قادمة (7 أيام)</span>
-          <TrendingUp className="h-4 w-4 text-emerald-500" />
+          <TrendingUp className="h-4 w-4 text-success" />
         </div>
-        <div className="mt-1 text-base sm:text-lg font-bold font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+        <div className="mt-1 text-base sm:text-lg font-bold font-mono text-success dark:text-success tabular-nums">
           {(stats?.upcoming ?? 0).toLocaleString()}
         </div>
       </div>

@@ -15,12 +15,12 @@ export const QualityTierBadge: React.FC<{ tier: string }> = ({ tier }) => {
 };
 
 export const RatingBadge: React.FC<{ rating?: string }> = ({ rating }) => {
-  if (!rating || rating === "UNKNOWN") return <span className="text-xs text-gray-400">-</span>;
+  if (!rating || rating === "UNKNOWN") return <span className="text-xs text-muted-foreground">-</span>;
   const colors: Record<string, string> = {
-    EXCELLENT: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+    EXCELLENT: "bg-green-100 text-success dark:bg-success/30 dark:text-success",
     GOOD: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-    AVERAGE: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
-    BAD: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+    AVERAGE: "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning",
+    BAD: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
   };
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${colors[rating] || ""}`}>
@@ -39,9 +39,9 @@ export const StatCard: React.FC<{
 }> = ({ icon: Icon, label, value, sub, color, onClick }) => (
   <div
     onClick={onClick}
-    className={`bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 ${
+    className={`bg-card rounded-xl p-5 shadow-sm border border-border dark:border-border ${
       onClick
-        ? "cursor-pointer hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 transition-all"
+        ? "cursor-pointer hover:shadow-md hover:border-border transition-all"
         : ""
     }`}
   >
@@ -49,10 +49,10 @@ export const StatCard: React.FC<{
       <div className="p-2.5 rounded-lg" style={{ backgroundColor: color + "20" }}>
         <Icon className="h-5 w-5" style={{ color }} />
       </div>
-      {sub && <span className="text-xs text-gray-400">{sub}</span>}
+      {sub && <span className="text-xs text-muted-foreground">{sub}</span>}
     </div>
-    <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-    <p className="text-2xl font-bold text-gray-900 dark:text-white mt-0.5 font-mono tabular-nums">
+    <p className="text-sm text-muted-foreground">{label}</p>
+    <p className="text-2xl font-bold text-foreground mt-0.5 font-mono tabular-nums">
       {typeof value === "number" ? value.toLocaleString("ar-EG") : value}
     </p>
   </div>

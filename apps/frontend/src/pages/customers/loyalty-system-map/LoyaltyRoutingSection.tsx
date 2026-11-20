@@ -24,23 +24,23 @@ export const LoyaltyRoutingSection: React.FC<LoyaltyRoutingSectionProps> = ({
   openChannelDialog,
 }) => {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">
+    <div className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
+      <h3 className="mb-1 text-lg font-bold text-foreground">
         توجيه الرسائل (WhatsApp Routing)
       </h3>
-      <p className="mb-4 text-xs text-gray-500 dark:text-gray-400">
+      <p className="mb-4 text-xs text-muted-foreground">
         المصدر الحالي للإرسال مأخوذ من جلسات واتساب المتصلة — أي قيمة غير مؤكدة تُعرض
         «غير محدد» ولا تُخمَّن.
       </p>
 
-      <div className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+      <div className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-border p-4 dark:border-border">
         <div
           className={`flex h-10 w-10 items-center justify-center rounded-lg ${
             routing.key === "meta"
-              ? "bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400"
+              ? "bg-sky-100 text-info dark:bg-info/40 dark:text-info"
               : routing.key === "wa"
-                ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400"
-                : "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                ? "bg-emerald-100 text-success dark:bg-success/40 dark:text-success"
+                : "bg-gray-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground"
           }`}
         >
           {routing.key === "meta" ? (
@@ -52,15 +52,15 @@ export const LoyaltyRoutingSection: React.FC<LoyaltyRoutingSectionProps> = ({
           )}
         </div>
         <div>
-          <p className="text-sm font-bold text-gray-900 dark:text-white">
+          <p className="text-sm font-bold text-foreground">
             المصدر الافتراضي للإرسال: {routing.label}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400" dir="ltr">
+          <p className="text-xs text-muted-foreground" dir="ltr">
             {normalizeDigits(routing.desc) || "لا توجد بيانات"}
           </p>
         </div>
         {routing.key === "unknown" && (
-          <span className="ms-auto rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
+          <span className="ms-auto rounded-full bg-warning px-3 py-1 text-xs font-semibold text-warning dark:bg-warning/40 dark:text-warning">
             تحتاج ربط جلسة واتساب من الإعدادات
           </span>
         )}
@@ -69,7 +69,7 @@ export const LoyaltyRoutingSection: React.FC<LoyaltyRoutingSectionProps> = ({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-200 text-right text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
+            <tr className="border-b border-border text-right text-xs text-muted-foreground dark:border-border dark:text-muted-foreground">
               <th className="py-2 pe-4 font-semibold">الأداة</th>
               <th className="py-2 pe-4 font-semibold">المصدر</th>
             </tr>
@@ -78,12 +78,12 @@ export const LoyaltyRoutingSection: React.FC<LoyaltyRoutingSectionProps> = ({
             {routingTools.map((row) => (
               <tr
                 key={row.route}
-                className="border-b border-gray-100 last:border-0 dark:border-gray-800"
+                className="border-b border-border last:border-0 dark:border-border"
               >
                 <td className="py-2.5 pe-4">
                   <Link
                     to={row.route}
-                    className="font-medium text-gray-800 hover:text-purple-600 dark:text-gray-200"
+                    className="font-medium text-foreground hover:text-primary dark:text-muted-foreground"
                   >
                     {row.tool}
                   </Link>
@@ -94,7 +94,7 @@ export const LoyaltyRoutingSection: React.FC<LoyaltyRoutingSectionProps> = ({
                     {row.editable && (
                       <button
                         onClick={openChannelDialog}
-                        className="inline-flex items-center gap-1 rounded-md border border-gray-300 px-2 py-0.5 text-[10px] font-semibold text-gray-500 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-0.5 text-[10px] font-semibold text-muted-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                       >
                         <ExternalLink className="h-3 w-3" />
                         تعديل
@@ -107,10 +107,10 @@ export const LoyaltyRoutingSection: React.FC<LoyaltyRoutingSectionProps> = ({
           </tbody>
         </table>
       </div>
-      <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-400">
+      <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
         <Info className="h-3.5 w-3.5" />
         المصدر الافتراضي بيتحدد من جلسة الواتساب المتصلة — عدّله من
-        <Link to="/whatsapp/settings" className="ms-1 font-medium text-purple-600 hover:underline dark:text-purple-400">
+        <Link to="/whatsapp/settings" className="ms-1 font-medium text-primary hover:underline dark:text-primary">
           إعدادات واتساب
         </Link>
         . قناة عيد الميلاد لها إعداد خاص قابل للتعديل من هنا.

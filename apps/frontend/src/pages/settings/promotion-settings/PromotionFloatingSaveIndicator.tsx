@@ -20,8 +20,8 @@ export function PromotionFloatingSaveIndicator({
       className={cn(
         "pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border px-4 py-2 text-xs font-bold shadow-lg transition-colors",
         saveState === "saving"
-          ? "border-amber-200 bg-amber-50/95 text-amber-800"
-          : "border-emerald-200 bg-emerald-50/95 text-emerald-800",
+          ? "border-amber-200 bg-warning/95 text-warning"
+          : "border-emerald-200 bg-success/95 text-success",
       )}
     >
       <span className="flex items-center gap-2">

@@ -24,7 +24,7 @@ export const DeliveryOptionsEmptyState: React.FC<DeliveryOptionsEmptyStateProps>
       <Button
         type="button"
         onClick={onOpenCreateDialog}
-        className="mt-6 rounded-2xl bg-foreground text-background hover:bg-foreground/90 font-semibold gap-2"
+        className="mt-6 rounded-xl bg-foreground text-background hover:bg-foreground/90 font-semibold gap-2"
       >
         <Plus className="size-4" />
         إضافة أول خيار

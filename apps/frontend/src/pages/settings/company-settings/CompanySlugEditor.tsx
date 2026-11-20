@@ -27,21 +27,21 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
   companyName,
 }) => {
   return (
-    <div className="col-span-1 md:col-span-2 border-t border-gray-100 dark:border-gray-700 pt-4 mt-2">
+    <div className="col-span-1 md:col-span-2 border-t border-border dark:border-border pt-4 mt-2">
       {editingSlug ? (
         <label
           htmlFor="company-slug-input"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          className="block text-sm font-medium text-foreground mb-1"
         >
           رابط الشركة (Slug){" "}
-          <span className="text-xs text-gray-500 font-normal">
+          <span className="text-xs text-muted-foreground font-normal">
             - يستخدم في روابط المتجر ودعوات المسوقين
           </span>
         </label>
       ) : (
-        <span className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <span className="block text-sm font-medium text-foreground mb-1">
           رابط الشركة (Slug){" "}
-          <span className="text-xs text-gray-500 font-normal">
+          <span className="text-xs text-muted-foreground font-normal">
             - يستخدم في روابط المتجر ودعوات المسوقين
           </span>
         </span>
@@ -49,7 +49,7 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
       {editingSlug ? (
         <div className="mt-1 flex items-center space-x-2 space-x-reverse">
           <div className="flex-1 flex items-center">
-            <span className="text-gray-500 bg-gray-50 border border-l-0 border-gray-300 rounded-r-md px-3 py-2 text-sm">
+            <span className="text-gray-500 bg-muted border border-l-0 border-border rounded-r-md px-3 py-2 text-sm">
               {window.location.host}/
             </span>
             <input
@@ -63,7 +63,7 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
                   e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""),
                 )
               }
-              className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-l-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white dir-ltr"
+              className="flex-1 px-3 py-2 border border-border rounded-l-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary bg-card text-foreground dir-ltr"
               placeholder="company-name"
               disabled={savingSlug}
               style={{ direction: "ltr" }}
@@ -80,7 +80,7 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
               setSlug(smartSlug);
             }}
             title="توليد تلقائي من اسم الشركة"
-            className="p-2 bg-indigo-50 text-indigo-600 rounded-md hover:bg-indigo-100"
+            className="p-2 bg-primary/10 text-primary rounded-md hover:bg-primary"
             type="button"
           >
             <SparklesIcon className="h-5 w-5" />
@@ -89,7 +89,7 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
             type="button"
             onClick={handleSlugSave}
             disabled={savingSlug || !slug.trim()}
-            className="px-3 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:bg-gray-400"
+            className="px-3 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary disabled:bg-muted"
           >
             {savingSlug ? "..." : "حفظ"}
           </button>
@@ -100,18 +100,18 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
               setSlug(companySlug || "");
             }}
             disabled={savingSlug}
-            className="px-3 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-md hover:bg-gray-400"
+            className="px-3 py-2 bg-muted dark:bg-muted text-foreground text-sm font-medium rounded-md hover:bg-muted"
           >
             إلغاء
           </button>
         </div>
       ) : (
-        <div className="mt-1 flex items-center justify-between bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="mt-1 flex items-center justify-between bg-muted dark:bg-muted p-3 rounded-lg border border-border dark:border-border">
           <div
-            className="flex items-center text-gray-700 dark:text-gray-300 font-mono text-sm"
+            className="flex items-center text-foreground font-mono text-sm"
             dir="ltr"
           >
-            <GlobeAltIcon className="h-4 w-4 mr-2" />
+            <GlobeAltIcon className="h-4 w-4 me-2" />
             {companySlug ? `${companySlug}` : "لم يتم التعيين!"}
           </div>
           <button
@@ -128,13 +128,13 @@ export const CompanySlugEditor: React.FC<CompanySlugEditorProps> = ({
               }
               setEditingSlug(true);
             }}
-            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 text-sm font-medium"
+            className="text-primary hover:text-primary text-sm font-medium"
           >
             {companySlug ? "تغيير" : "إعداد ذكي"}
           </button>
         </div>
       )}
-      <div className="mt-1.5 flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-500">
+      <div className="mt-1.5 flex items-center gap-1.5 text-xs text-warning dark:text-warning">
         <ExclamationTriangleIcon className="h-4 w-4 shrink-0" />
         <span>تغيير الرابط قد يؤدي لتعطل الروابط القديمة التي قمت بمشاركتها.</span>
       </div>

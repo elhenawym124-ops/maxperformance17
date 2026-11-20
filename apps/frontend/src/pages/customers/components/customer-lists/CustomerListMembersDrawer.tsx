@@ -70,7 +70,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
                 value={memberSearch}
                 onChange={(e) => onMemberSearchChange(e.target.value)}
                 placeholder="ابحث في الأعضاء..."
-                className="h-10 rounded-full border-[color:var(--shell-control-border)] pr-9"
+                className="h-10 rounded-full border-[color:var(--shell-control-border)] pe-9"
               />
             </div>
             <Button
@@ -91,14 +91,14 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
               ))}
             </div>
           ) : members.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-[color:var(--shell-control-border)] px-6 py-12 text-center">
+            <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[color:var(--shell-control-border)] px-6 py-12 text-center">
               <Users className="size-8 text-[color:var(--color-muted-foreground)] opacity-40" />
               <p className="text-sm text-[color:var(--color-muted-foreground)]">
                 لا يوجد عملاء في هذه القائمة
               </p>
             </div>
           ) : (
-            <div className="rounded-2xl border border-[color:var(--shell-control-border)]">
+            <div className="rounded-xl border border-[color:var(--shell-control-border)]">
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
@@ -133,7 +133,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
                       </TableCell>
                       <TableCell dir="ltr" className="text-sm font-medium tabular-nums font-mono">
                         {(m.totalSpent ?? 0).toLocaleString("ar-EG")}
-                        <span className="mr-1 text-xs text-[color:var(--color-muted-foreground)]">ج.م</span>
+                        <span className="me-1 text-xs text-[color:var(--color-muted-foreground)]">ج.م</span>
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-col gap-1">

@@ -15,11 +15,11 @@ export function OrderStatusHeader({
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
           <Tag className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
           إدارة حالات الطلبات
         </h1>
-        <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-1">
+        <p className="text-sm sm:text-base text-muted-foreground mt-1">
           إدارة وتخصيص حالات الطلبات، الدفع، الشحن، ومراحل التجهيز.
         </p>
       </div>
@@ -28,7 +28,7 @@ export function OrderStatusHeader({
           type="button"
           onClick={onInitializeDefaults}
           disabled={syncing}
-          className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl disabled:opacity-50 text-xs font-semibold shadow-xs transition"
+          className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-success hover:bg-success text-white rounded-xl disabled:opacity-50 text-xs font-semibold shadow-xs transition"
           title="تهيئة جميع الحالات الافتراضية (الطلبات، الدفع، الشحن، التجهيز)"
         >
           {syncing ? (

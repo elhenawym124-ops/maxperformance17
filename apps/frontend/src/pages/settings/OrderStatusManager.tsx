@@ -73,9 +73,9 @@ const OrderStatusManager: React.FC = () => {
       )}
 
       {filteredStatuses.length === 0 && !loading && (
-        <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
-          <Tag className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400 text-sm">لا توجد حالات</p>
+        <div className="text-center py-12 bg-muted dark:bg-muted rounded-xl border border-dashed border-border dark:border-border">
+          <Tag className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
+          <p className="text-muted-foreground text-sm">لا توجد حالات</p>
           <button
             type="button"
             onClick={() => setShowAddModal(true)}

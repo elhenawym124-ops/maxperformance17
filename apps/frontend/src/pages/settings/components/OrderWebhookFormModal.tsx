@@ -135,7 +135,7 @@ export const OrderWebhookFormModal: React.FC<OrderWebhookFormModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-sm animate-in fade-in">
-      <div className="bg-card border border-border/80 rounded-2xl w-full max-w-lg p-5 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 text-xs font-sans">
+      <div className="bg-card border border-border/80 rounded-xl w-full max-w-lg p-5 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 text-xs font-sans">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
           <div className="flex items-center gap-2.5">
@@ -212,7 +212,7 @@ export const OrderWebhookFormModal: React.FC<OrderWebhookFormModalProps> = ({
                 value={formSecret}
                 onChange={(e) => setFormSecret(e.target.value)}
                 dir="ltr"
-                className="w-full pl-8 pr-3 py-2 rounded-xl border border-border/70 bg-card text-foreground focus:ring-1 focus:ring-primary/40 focus:border-primary/50 focus:outline-none font-mono text-[11px] shadow-xs"
+                className="w-full ps-8 pe-3 py-2 rounded-xl border border-border/70 bg-card text-foreground focus:ring-1 focus:ring-primary/40 focus:border-primary/50 focus:outline-none font-mono text-[11px] shadow-xs"
               />
               <button
                 type="button"

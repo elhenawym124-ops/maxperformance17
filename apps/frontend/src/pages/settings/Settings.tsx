@@ -51,11 +51,11 @@ const Settings: React.FC = () => {
   const ActiveComponent = activeTabConfig.component;
 
   return (
-    <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
+    <div className="polaris-track w-full px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="flex items-center text-3xl font-bold text-foreground">
-            <SettingsIcon className="mr-3 h-8 w-8 text-primary" />
+            <SettingsIcon className="me-3 h-8 w-8 text-primary" />
             {t('settings.title', 'الإعدادات')}
           </h1>
           <p className="mt-2 text-muted-foreground">
@@ -65,7 +65,7 @@ const Settings: React.FC = () => {
       </div>
 
       {/* MOB-015: Single-depth rule: no box-in-box under 768px */}
-      <div className="md:rounded-3xl md:border md:border-border md:bg-card">
+      <div className="md:rounded-xl md:border md:border-border md:bg-card">
         <ActiveComponent />
       </div>
     </div>

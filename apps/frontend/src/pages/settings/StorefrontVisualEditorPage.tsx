@@ -371,7 +371,7 @@ const StorefrontVisualEditorPage: React.FC = () => {
   if (loading && !storefrontSettings) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-xl">
+        <div className="rounded-xl border border-border bg-card p-8 text-center shadow-xl">
           <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-b-2 border-primary" />
           <p className="text-sm font-black text-foreground">
             جاري تجهيز استوديو التصميم البصري 2026...

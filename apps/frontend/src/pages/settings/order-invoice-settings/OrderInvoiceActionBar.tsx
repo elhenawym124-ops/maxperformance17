@@ -29,13 +29,13 @@ export function OrderInvoiceActionBar({
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col gap-4 rounded-[24px] border border-slate-200/70 bg-slate-50/70 p-5 xl:flex-row xl:items-center xl:justify-between dark:border-slate-800 dark:bg-slate-900/60">
+    <div className="flex flex-col gap-4 rounded-[24px] border border-border bg-muted p-5 xl:flex-row xl:items-center xl:justify-between dark:border-border dark:bg-muted">
       <div className="grid gap-3 sm:grid-cols-3 xl:flex xl:flex-wrap">
         <Button
           type="button"
           variant="outline"
           size="lg"
-          className="rounded-2xl"
+          className="rounded-xl"
           onClick={() => navigate("/orders/invoices")}
         >
           <FileText className="size-4" />
@@ -45,7 +45,7 @@ export function OrderInvoiceActionBar({
           type="button"
           variant="outline"
           size="lg"
-          className="rounded-2xl"
+          className="rounded-xl"
           onClick={() => navigate("/orders/invoices/print-multiple")}
         >
           <Printer className="size-4" />
@@ -55,7 +55,7 @@ export function OrderInvoiceActionBar({
           type="button"
           variant="outline"
           size="lg"
-          className="rounded-2xl"
+          className="rounded-xl"
           onClick={() => navigate("/settings/orders?tab=preparation")}
         >
           <Workflow className="size-4" />
@@ -68,7 +68,7 @@ export function OrderInvoiceActionBar({
           type="button"
           variant="outline"
           size="lg"
-          className="rounded-2xl"
+          className="rounded-xl"
           onClick={onRefresh}
           disabled={saving}
         >
@@ -79,7 +79,7 @@ export function OrderInvoiceActionBar({
           type="button"
           variant="outline"
           size="lg"
-          className="rounded-2xl border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300"
+          className="rounded-xl border-warning bg-warning/10 text-warning hover:bg-warning hover:text-warning dark:border-warning dark:bg-warning/40 dark:text-warning"
           onClick={onResetInvoice}
           disabled={saving}
         >
@@ -89,7 +89,7 @@ export function OrderInvoiceActionBar({
         <Button
           type="button"
           size="lg"
-          className="rounded-2xl bg-slate-950 text-white hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-700"
+          className="rounded-xl bg-muted text-white hover:bg-muted dark:bg-primary dark:hover:bg-primary"
           onClick={onSaveAll}
           disabled={saving}
         >

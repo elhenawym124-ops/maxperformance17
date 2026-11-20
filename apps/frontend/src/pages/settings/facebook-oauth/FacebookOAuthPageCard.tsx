@@ -79,14 +79,14 @@ export const FacebookOAuthPageCard: React.FC<FacebookOAuthPageCardProps> = ({
               </span>
             )}
             {page.disconnectedAt && !isConnected && (
-              <span className="font-mono tabular-nums text-amber-600 dark:text-amber-400">
+              <span className="font-mono tabular-nums text-warning dark:text-warning">
                 {t("facebookOAuth.disconnectedAt", { date: formatDate(page.disconnectedAt) })}
               </span>
             )}
           </div>
 
           {page.healthMessage && (
-            <p className="mt-1 flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400">
+            <p className="mt-1 flex items-center gap-1 text-[11px] text-warning dark:text-warning">
               <AlertCircle className="h-3 w-3 shrink-0" />
               {page.healthMessage}
             </p>
@@ -99,9 +99,9 @@ export const FacebookOAuthPageCard: React.FC<FacebookOAuthPageCardProps> = ({
         <span
           className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
             isConnected && !needsReconnect
-              ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+              ? "bg-emerald-500/15 text-success dark:text-success"
               : needsReconnect
-                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                ? "bg-amber-500/15 text-warning dark:text-warning"
                 : "bg-muted text-muted-foreground"
           }`}
         >
@@ -115,7 +115,7 @@ export const FacebookOAuthPageCard: React.FC<FacebookOAuthPageCardProps> = ({
         {page.attribution === "stale" && (
           <span
             title={t("facebookOAuth.attributionStaleHint")}
-            className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-300 cursor-help"
+            className="rounded-full bg-warning/15 px-2 py-0.5 text-[10px] font-medium text-warning dark:text-warning cursor-help"
           >
             {t("facebookOAuth.attributionStale", "مربوطة بحساب مختلف")}
           </span>
@@ -136,7 +136,7 @@ export const FacebookOAuthPageCard: React.FC<FacebookOAuthPageCardProps> = ({
             size="sm"
             onClick={() => onReconnect(page.id)}
             disabled={loading}
-            className="h-7 w-7 p-0 text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-700 dark:text-emerald-400"
+            className="h-7 w-7 p-0 text-success hover:bg-success/10 hover:text-success dark:text-success"
             title={t("facebookOAuth.reconnectTooltip", "إعادة الربط")}
           >
             <RefreshCw className="h-3.5 w-3.5" />

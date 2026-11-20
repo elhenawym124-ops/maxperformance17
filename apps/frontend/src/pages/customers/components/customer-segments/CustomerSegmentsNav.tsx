@@ -21,7 +21,7 @@ export const CustomerSegmentsNav: React.FC<CustomerSegmentsNavProps> = ({
   onTabChange,
 }) => {
   return (
-    <div className="flex gap-1 bg-gray-100/80 dark:bg-gray-800/80 p-1 rounded-xl border border-gray-200/60 dark:border-gray-700/60 overflow-x-auto shadow-2xs">
+    <div className="flex gap-1 bg-muted dark:bg-muted p-1 rounded-xl border border-border dark:border-border overflow-x-auto shadow-2xs">
       {SEGMENT_TABS.map((tab) => (
         <button
           key={tab.key}
@@ -29,8 +29,8 @@ export const CustomerSegmentsNav: React.FC<CustomerSegmentsNavProps> = ({
           onClick={() => onTabChange(tab.key)}
           className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
             activeTab === tab.key
-              ? "bg-white dark:bg-gray-900 text-gray-950 dark:text-white shadow-xs"
-              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              ? "bg-white dark:bg-muted text-foreground dark:text-white shadow-xs"
+              : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
           }`}
         >
           <tab.icon className="h-3.5 w-3.5" />

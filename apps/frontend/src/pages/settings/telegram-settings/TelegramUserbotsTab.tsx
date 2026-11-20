@@ -71,7 +71,7 @@ export function TelegramUserbotsTab({
           <button
             type="button"
             onClick={() => setShowAddUserbotForm(true)}
-            className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-emerald-700"
+            className="flex items-center gap-2 rounded-xl bg-success px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-success"
           >
             <UserIcon className="h-4 w-4" />
             <span>+ Add New Userbot</span>
@@ -81,10 +81,10 @@ export function TelegramUserbotsTab({
 
       {/* Helper Banner */}
       <div
-        className={`rounded-2xl border p-4 ${
+        className={`rounded-xl border p-4 ${
           derivedTheme === "dark"
-            ? "border-emerald-900/60 bg-emerald-950/20 text-emerald-300"
-            : "border-emerald-100 bg-emerald-50/60 text-emerald-800"
+            ? "border-emerald-900/60 bg-success/20 text-success"
+            : "border-emerald-100 bg-success/60 text-success"
         }`}
       >
         <p className="text-xs leading-relaxed">
@@ -94,7 +94,7 @@ export function TelegramUserbotsTab({
             href="https://my.telegram.org/apps"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold underline transition hover:text-emerald-600"
+            className="font-bold underline transition hover:text-success"
           >
             my.telegram.org/apps
           </a>
@@ -106,23 +106,23 @@ export function TelegramUserbotsTab({
       <div className="space-y-3">
         {userbots.length === 0 && !showAddUserbotForm && (
           <div
-            className={`rounded-2xl border-2 border-dashed py-12 text-center ${
+            className={`rounded-xl border-2 border-dashed py-12 text-center ${
               derivedTheme === "dark"
-                ? "border-slate-800 bg-slate-900/40 text-slate-400"
-                : "border-slate-200 bg-slate-50/60 text-slate-500"
+                ? "border-slate-800 bg-muted text-muted-foreground"
+                : "border-slate-200 bg-muted text-muted-foreground"
             }`}
           >
-            <UserIcon className="mx-auto mb-3 h-10 w-10 text-slate-400" />
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            <UserIcon className="mx-auto mb-3 h-10 w-10 text-muted-foreground" />
+            <h3 className="text-sm font-bold text-foreground dark:text-white">
               No Userbots Connected
             </h3>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
               Add your first Telegram userbot session to handle direct conversations.
             </p>
             <button
               type="button"
               onClick={() => setShowAddUserbotForm(true)}
-              className="mt-3 text-xs font-semibold text-emerald-600 hover:underline dark:text-emerald-400"
+              className="mt-3 text-xs font-semibold text-success hover:underline dark:text-success"
             >
               Add Userbot
             </button>
@@ -132,9 +132,9 @@ export function TelegramUserbotsTab({
         {userbots.map((userbot) => (
           <div
             key={userbot.id}
-            className={`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-2xl border p-4 shadow-xs transition-colors ${
+            className={`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border p-4 shadow-xs transition-colors ${
               derivedTheme === "dark"
-                ? "border-slate-800 bg-slate-900"
+                ? "border-slate-800 bg-muted"
                 : "border-slate-200/80 bg-white"
             }`}
           >
@@ -142,8 +142,8 @@ export function TelegramUserbotsTab({
               <div
                 className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                   derivedTheme === "dark"
-                    ? "bg-emerald-950/50 text-emerald-400"
-                    : "bg-emerald-100 text-emerald-600"
+                    ? "bg-emerald-950/50 text-success"
+                    : "bg-emerald-100 text-success"
                 }`}
               >
                 <UserIcon className="h-5 w-5" />
@@ -156,21 +156,21 @@ export function TelegramUserbotsTab({
                 >
                   {userbot.label || "Telegram Userbot"}
                 </h3>
-                <div className="flex flex-wrap items-center gap-2 pt-0.5 text-xs text-slate-500">
+                <div className="flex flex-wrap items-center gap-2 pt-0.5 text-xs text-muted-foreground">
                   <span className="font-mono tabular-nums">
                     API ID: {userbot.apiId ? `***${userbot.apiId.slice(-4)}` : "Not set"}
                   </span>
                   {userbot.sessionString ? (
-                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                    <span className="rounded-full bg-success/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-success dark:bg-success/40 dark:text-success">
                       Connected
                     </span>
                   ) : (
-                    <span className="rounded-full bg-amber-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
+                    <span className="rounded-full bg-warning/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-warning dark:bg-warning/40 dark:text-warning">
                       Not Connected
                     </span>
                   )}
                   {userbot.inboxEnabled && userbot.sessionString && (
-                    <span className="rounded-full bg-sky-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-sky-700 dark:bg-sky-950/40 dark:text-sky-300">
+                    <span className="rounded-full bg-info/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-info dark:bg-info/40 dark:text-info">
                       Inbox
                     </span>
                   )}
@@ -185,8 +185,8 @@ export function TelegramUserbotsTab({
                   onClick={() => onToggleInbox(userbot)}
                   className={`rounded-xl px-3 py-1.5 font-mono text-[10px] font-bold transition-colors ${
                     userbot.inboxEnabled
-                      ? "border border-sky-200 bg-sky-50 text-sky-700 hover:bg-sky-100 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-300"
-                      : "border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                      ? "border border-info bg-info/10 text-info hover:bg-info dark:border-info dark:bg-info/40 dark:text-info"
+                      : "border border-border bg-muted text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                   }`}
                 >
                   {userbot.inboxEnabled ? "Inbox ON" : "Inbox OFF"}
@@ -197,7 +197,7 @@ export function TelegramUserbotsTab({
                   type="button"
                   onClick={() => onAskReconnect(userbot)}
                   disabled={isLoading}
-                  className="rounded-xl border border-sky-200 px-3.5 py-1.5 text-xs font-semibold text-sky-600 transition hover:bg-sky-50 dark:border-sky-800 dark:text-sky-400 dark:hover:bg-sky-950/30"
+                  className="rounded-xl border border-info px-3.5 py-1.5 text-xs font-semibold text-info transition hover:bg-info/10 dark:border-info dark:text-info dark:hover:bg-info/30"
                 >
                   Connect
                 </button>
@@ -206,7 +206,7 @@ export function TelegramUserbotsTab({
                 type="button"
                 onClick={() => onDeleteUserbot(userbot.id)}
                 disabled={isLoading}
-                className="rounded-xl border border-slate-200 px-3.5 py-1.5 text-xs font-semibold text-rose-600 transition hover:border-rose-200 hover:bg-rose-50 dark:border-slate-800 dark:text-rose-400 dark:hover:bg-rose-950/30"
+                className="rounded-xl border border-border px-3.5 py-1.5 text-xs font-semibold text-destructive transition hover:border-destructive hover:bg-destructive/10 dark:border-border dark:text-destructive dark:hover:bg-destructive/30"
               >
                 Delete
               </button>

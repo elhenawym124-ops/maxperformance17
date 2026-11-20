@@ -248,7 +248,7 @@ const LeadsList: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="البحث بالاسم، الهاتف أو البريد..."
-              className="w-full pr-9 pl-3 py-2 text-xs border border-border/70 rounded-xl bg-muted/20 text-foreground placeholder:text-muted-foreground focus:outline-hidden"
+              className="w-full pe-9 ps-3 py-2 text-xs border border-border/70 rounded-xl bg-muted/20 text-foreground placeholder:text-muted-foreground focus:outline-hidden"
             />
           </div>
         </form>
@@ -266,7 +266,7 @@ const LeadsList: React.FC = () => {
           <RotateCcw className="h-6 w-6 animate-spin text-muted-foreground" />
         </div>
       ) : customers.length === 0 ? (
-        <div className="bg-card border border-border/70 rounded-2xl p-12 text-center shadow-2xs">
+        <div className="bg-card border border-border/70 rounded-xl p-12 text-center shadow-2xs">
           <div className="h-12 w-12 rounded-full bg-muted/40 flex items-center justify-center text-muted-foreground mx-auto mb-3">
             <Users className="h-6 w-6" />
           </div>

@@ -29,23 +29,23 @@ export const LoyaltyMapCanvas: React.FC<LoyaltyMapCanvasProps> = ({
   setTimelineLog,
 }) => {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h2 className="text-lg font-bold text-foreground">
             خريطة الأدوات
           </h2>
-          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-xs text-muted-foreground">
             كل عقدة بحجم متساوٍ — اللون يعبر عن الحالة فقط. الأسهم تمثل التدفق الزمني.
           </p>
         </div>
         <div className="flex items-center gap-4 text-xs">
-          <span className="flex items-center gap-1.5 text-gray-500">
-            <span className="inline-block h-0.5 w-6 rounded bg-slate-400" />
+          <span className="flex items-center gap-1.5 text-muted-foreground">
+            <span className="inline-block h-0.5 w-6 rounded bg-muted" />
             تدفق زمني
           </span>
-          <span className="flex items-center gap-1.5 text-gray-500">
-            <span className="inline-block h-0.5 w-6 rounded bg-amber-400" />
+          <span className="flex items-center gap-1.5 text-muted-foreground">
+            <span className="inline-block h-0.5 w-6 rounded bg-warning" />
             حلقة إعادة استهداف
           </span>
         </div>
@@ -104,20 +104,20 @@ export const LoyaltyMapCanvas: React.FC<LoyaltyMapCanvasProps> = ({
               const tl = timelineStages.find((t) => t.id === stage.id);
               return (
                 <div key={stage.id} className="space-y-3">
-                  <div className="rounded-lg border border-dashed border-gray-300 px-2 py-1.5 dark:border-gray-600">
-                    <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                  <div className="rounded-lg border border-dashed border-border px-2 py-1.5 dark:border-border">
+                    <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-muted-foreground">
                       <stage.icon className="h-3.5 w-3.5" />
                       {stage.label}
                     </div>
                     {tl && (
-                      <div className="mt-1 flex items-center justify-center gap-1 text-[10px] text-gray-400 dark:text-gray-500">
+                      <div className="mt-1 flex items-center justify-center gap-1 text-[10px] text-muted-foreground/80">
                         <span className="truncate">
                           {tl.date ? `${tl.dateLabel}: ${tl.date}` : tl.note || "غير محدد"}
                         </span>
                         <button
                           onClick={() => setTimelineLog(tl)}
                           title="سجل الأحداث"
-                          className="shrink-0 rounded p-0.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                          className="shrink-0 rounded p-0.5 text-muted-foreground hover:bg-muted hover:text-foreground dark:hover:bg-muted dark:hover:text-muted-foreground"
                         >
                           <History className="h-3 w-3" />
                         </button>
@@ -134,7 +134,7 @@ export const LoyaltyMapCanvas: React.FC<LoyaltyMapCanvasProps> = ({
                         ref={(el) => {
                           nodeRefs.current[node.id] = el;
                         }}
-                        className={`h-[132px] cursor-pointer rounded-xl border-2 ${sm.border} bg-white p-3 transition-shadow hover:shadow-md dark:bg-gray-800`}
+                        className={`h-[132px] cursor-pointer rounded-xl border-2 ${sm.border} bg-white p-3 transition-shadow hover:shadow-md dark:bg-muted`}
                         role="button"
                         tabIndex={0}
                         onClick={() => setSelectedNode(node)}
@@ -159,10 +159,10 @@ export const LoyaltyMapCanvas: React.FC<LoyaltyMapCanvasProps> = ({
                               {sm.label}
                             </span>
                           </div>
-                          <p className="mt-2 text-sm font-bold leading-tight text-gray-900 dark:text-gray-100">
+                          <p className="mt-2 text-sm font-bold leading-tight text-foreground">
                             {node.label}
                           </p>
-                          <p className="mt-1 line-clamp-2 text-[11px] leading-tight text-gray-500 dark:text-gray-400">
+                          <p className="mt-1 line-clamp-2 text-[11px] leading-tight text-muted-foreground">
                             {node.summary}
                           </p>
                           {node.chips && node.chips.length > 0 ? (
@@ -170,7 +170,7 @@ export const LoyaltyMapCanvas: React.FC<LoyaltyMapCanvasProps> = ({
                               {node.chips.map((c) => (
                                 <span
                                   key={c}
-                                  className="rounded bg-gray-100 px-1.5 py-0.5 text-[9px] font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                                  className="rounded bg-muted px-1.5 py-0.5 text-[9px] font-medium text-muted-foreground dark:bg-muted dark:text-muted-foreground"
                                 >
                                   {c}
                                 </span>
@@ -188,20 +188,20 @@ export const LoyaltyMapCanvas: React.FC<LoyaltyMapCanvasProps> = ({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-900/40">
-        <span className="text-xs font-bold text-gray-500 dark:text-gray-400">
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-border bg-muted px-4 py-3 dark:border-border dark:bg-muted">
+        <span className="text-xs font-bold text-muted-foreground">
           دليل الحالات:
         </span>
         {(["active", "inactive", "warning", "unknown"] as NodeStatus[]).map((s) => (
           <span
             key={s}
-            className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-300"
+            className="flex items-center gap-1.5 text-xs text-muted-foreground"
           >
             <span className={`h-2.5 w-2.5 rounded-full ${STATUS_META[s].dot}`} />
             {STATUS_META[s].label}
           </span>
         ))}
-        <span className="ms-auto flex items-center gap-1.5 text-xs text-gray-400">
+        <span className="ms-auto flex items-center gap-1.5 text-xs text-muted-foreground">
           <Info className="h-3.5 w-3.5" />
           كل عقدة = أداة واحدة في قسم العملاء
         </span>

@@ -55,13 +55,13 @@ const AutoDiscountAnalytics: React.FC = () => {
       label: "عملاء عندهم كوبون خصم",
       value: data?.appliedCustomers ?? 0,
       icon: Users,
-      color: "text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/40",
+      color: "text-emerald-600 bg-success dark:text-success dark:bg-success/40",
     },
     {
       label: "كوبونات متاحة",
       value: data?.activeVouchers ?? 0,
       icon: BadgePercent,
-      color: "text-amber-600 bg-amber-100 dark:text-amber-400 dark:bg-amber-900/40",
+      color: "text-amber-600 bg-warning dark:text-warning dark:bg-warning/40",
     },
     {
       label: "كوبونات مستخدمة",
@@ -73,28 +73,28 @@ const AutoDiscountAnalytics: React.FC = () => {
       label: "اتحولت كاش باك",
       value: data?.convertedVouchers ?? 0,
       icon: RefreshCcw,
-      color: "text-purple-600 bg-purple-100 dark:text-purple-400 dark:bg-purple-900/40",
+      color: "text-purple-600 bg-primary dark:text-primary dark:bg-primary/40",
     },
     {
       label: "كوبونات منتهية",
       value: data?.expiredVouchers ?? 0,
       icon: Clock,
-      color: "text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-800",
+      color: "text-gray-600 bg-muted dark:text-muted-foreground dark:bg-muted",
     },
     {
       label: "أوردرات مستلمة مستنية كوبون",
       value: data?.waitingForDelivery ?? 0,
       icon: FileClock,
-      color: "text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900/40",
+      color: "text-orange-600 bg-warning dark:text-warning dark:bg-warning/40",
     },
   ];
 
   return (
-    <div className="rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-900/10 p-4">
+    <div className="rounded-lg border border-success dark:border-success bg-success/40 dark:bg-success/10 p-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <BadgePercent className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+          <BadgePercent className="h-4 w-4 text-success dark:text-success" />
+          <h4 className="text-sm font-semibold text-foreground">
             تحليل نظام الخصم التلقائي
           </h4>
         </div>
@@ -102,7 +102,7 @@ const AutoDiscountAnalytics: React.FC = () => {
           onClick={load}
           disabled={loading}
           title="تحديث"
-          className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50"
+          className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md border border-border text-muted-foreground hover:bg-muted disabled:opacity-50"
         >
           {loading ? (
             <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -118,12 +118,12 @@ const AutoDiscountAnalytics: React.FC = () => {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="h-24 rounded-lg bg-gray-100 dark:bg-gray-700/40 animate-pulse"
+              className="h-24 rounded-lg bg-muted/40 animate-pulse"
             />
           ))}
         </div>
       ) : !isAutoDiscount ? (
-        <p className="text-sm text-gray-500 dark:text-gray-400 py-2">
+        <p className="text-sm text-muted-foreground py-2">
           فعّل نظام الخصم التلقائي لعرض التحليلات (عدد العملاء بالكوبونات ومراحل الكوبون).
         </p>
       ) : (
@@ -132,17 +132,17 @@ const AutoDiscountAnalytics: React.FC = () => {
             {cards.map((c) => (
               <div
                 key={c.label}
-                className="rounded-lg border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-gray-800/60"
+                className="rounded-lg border border-border dark:border-border p-3 bg-card/60"
               >
                 <div
                   className={`inline-flex items-center justify-center h-7 w-7 rounded-md ${c.color} mb-2`}
                 >
                   <c.icon className="h-4 w-4" />
                 </div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                <p className="text-2xl font-bold text-foreground">
                   {c.value.toLocaleString()}
                 </p>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                <p className="text-[11px] text-muted-foreground">
                   {c.label}
                 </p>
               </div>
@@ -150,7 +150,7 @@ const AutoDiscountAnalytics: React.FC = () => {
           </div>
 
           {(data?.preActivationCustomers ?? 0) > 0 && (
-            <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-3 text-xs text-muted-foreground">
               ⚠️{" "}
               {data.preActivationCustomers} عميل عندهم أوردرات اتسلمت قبل تفعيل
               النظام — مش بياخدوا كوبون خصم تلقائي ("قبل تفعيل النظام").

@@ -27,16 +27,16 @@ export const CustomerDeleteModal: React.FC<CustomerDeleteModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 max-w-md w-full shadow-2xl border border-zinc-200 dark:border-zinc-800">
+      <div className="bg-white dark:bg-muted rounded-xl p-6 max-w-md w-full shadow-2xl border border-border dark:border-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-rose-100 dark:bg-rose-950/40 rounded-xl text-rose-600 dark:text-rose-400">
+          <div className="p-2 bg-destructive dark:bg-destructive/40 rounded-xl text-destructive dark:text-destructive">
             <ExclamationTriangleIcon className="h-5 w-5" />
           </div>
-          <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
+          <h3 className="text-base sm:text-lg font-bold text-foreground dark:text-white">
             {t("customers.deleteConfirmTitle")}
           </h3>
         </div>
-        <p className="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm mb-6 leading-relaxed">
+        <p className="text-zinc-600 dark:text-muted-foreground text-xs sm:text-sm mb-6 leading-relaxed">
           {t("customers.deleteConfirmMessage", { name: customerName })}
           <br />
           <span className="text-rose-600 font-medium text-xs mt-1 block">
@@ -48,7 +48,7 @@ export const CustomerDeleteModal: React.FC<CustomerDeleteModalProps> = ({
             type="button"
             onClick={onClose}
             disabled={isDeleting}
-            className="px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+            className="px-4 py-2 border border-border dark:border-border rounded-lg text-xs sm:text-sm font-medium text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted"
           >
             إلغاء
           </button>
@@ -56,7 +56,7 @@ export const CustomerDeleteModal: React.FC<CustomerDeleteModalProps> = ({
             type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 disabled:opacity-50 text-xs sm:text-sm font-semibold inline-flex items-center gap-2 transition-all active:scale-[0.98]"
+            className="px-4 py-2 bg-destructive text-white rounded-lg hover:bg-destructive disabled:opacity-50 text-xs sm:text-sm font-semibold inline-flex items-center gap-2 transition-all active:scale-[0.98]"
           >
             {isDeleting ? (
               <>

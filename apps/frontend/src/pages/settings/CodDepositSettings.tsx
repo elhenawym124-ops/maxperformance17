@@ -92,7 +92,7 @@ const CodDepositSettings: React.FC = () => {
             </h1>
             <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold font-mono tabular-nums ${
               enabled
-                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                ? 'bg-emerald-500/10 text-success dark:text-success'
                 : 'bg-muted text-muted-foreground'
             }`}>
               <ShieldCheck className="h-3 w-3" />
@@ -149,7 +149,7 @@ const CodDepositSettings: React.FC = () => {
                   Deposit Policy
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed pr-8">
+              <p className="text-xs text-muted-foreground leading-relaxed pe-8">
                 {t('settings.k_47')}
               </p>
             </div>

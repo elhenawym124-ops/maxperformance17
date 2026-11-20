@@ -114,7 +114,7 @@ export const OvertimeManagementTab: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث بالموظف أو السبب..."
-              className="w-full pr-8 pl-3 py-1.5 text-xs bg-background border border-border/60 rounded-md outline-none focus:ring-1 focus:ring-primary"
+              className="w-full pe-8 ps-3 py-1.5 text-xs bg-background border border-border/60 rounded-md outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
           <div className="flex items-center gap-1">
@@ -213,7 +213,7 @@ export const OvertimeManagementTab: React.FC = () => {
                       {session.deviceType === "OFFICE" ? (
                         <Badge
                           variant="outline"
-                          className="gap-1 border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-[11px]"
+                          className="gap-1 border-success/30 bg-success/10 text-success text-[11px]"
                         >
                           <Building2 className="h-3 w-3" />
                           <span>مكتب</span>
@@ -221,7 +221,7 @@ export const OvertimeManagementTab: React.FC = () => {
                       ) : (
                         <Badge
                           variant="outline"
-                          className="gap-1 border-amber-500/30 bg-amber-500/10 text-amber-600 text-[11px]"
+                          className="gap-1 border-warning/30 bg-warning/10 text-warning text-[11px]"
                         >
                           <Laptop className="h-3 w-3" />
                           <span>شخصي (خارج المقر)</span>
@@ -249,17 +249,17 @@ export const OvertimeManagementTab: React.FC = () => {
                     {/* Status */}
                     <td className="py-2.5 px-3">
                       {session.status === "PENDING" && (
-                        <Badge variant="outline" className="border-amber-500/40 text-amber-500 bg-amber-500/10 text-[10px]">
+                        <Badge variant="outline" className="border-amber-500/40 text-warning bg-warning/10 text-[10px]">
                           بانتظار الاعتماد
                         </Badge>
                       )}
                       {session.status === "APPROVED" && (
-                        <Badge variant="outline" className="border-emerald-500/40 text-emerald-500 bg-emerald-500/10 text-[10px]">
+                        <Badge variant="outline" className="border-emerald-500/40 text-success bg-success/10 text-[10px]">
                           معتمدة
                         </Badge>
                       )}
                       {session.status === "REJECTED" && (
-                        <Badge variant="outline" className="border-rose-500/40 text-rose-500 bg-rose-500/10 text-[10px]">
+                        <Badge variant="outline" className="border-rose-500/40 text-destructive bg-destructive/10 text-[10px]">
                           مرفوضة
                         </Badge>
                       )}
@@ -277,7 +277,7 @@ export const OvertimeManagementTab: React.FC = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="h-7 px-2 text-[11px] gap-1 border-emerald-500/40 text-emerald-600 hover:bg-emerald-500/10"
+                            className="h-7 px-2 text-[11px] gap-1 border-success/40 text-success hover:bg-success/10"
                             disabled={actionId === session.id}
                             onClick={() => handleUpdateStatus(session.id, "APPROVED")}
                           >
@@ -287,7 +287,7 @@ export const OvertimeManagementTab: React.FC = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="h-7 px-2 text-[11px] gap-1 border-rose-500/40 text-rose-600 hover:bg-rose-500/10"
+                            className="h-7 px-2 text-[11px] gap-1 border-destructive/40 text-destructive hover:bg-destructive/10"
                             disabled={actionId === session.id}
                             onClick={() => handleUpdateStatus(session.id, "REJECTED")}
                           >

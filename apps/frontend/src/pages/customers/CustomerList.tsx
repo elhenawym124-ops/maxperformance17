@@ -22,7 +22,7 @@ const CustomerList: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-4 sm:space-y-5">
+      <div className="polaris-track space-y-4 sm:space-y-5">
         {/* Header */}
         <CustomerListHeader
           totalCount={ctrl.pagination.total}
@@ -54,7 +54,7 @@ const CustomerList: React.FC = () => {
 
         {/* Error Message */}
         {ctrl.error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg text-xs sm:text-sm">
+          <div className="bg-red-50 dark:bg-destructive/20 border border-destructive dark:border-destructive text-destructive dark:text-destructive px-4 py-3 rounded-lg text-xs sm:text-sm">
             {ctrl.error}
           </div>
         )}

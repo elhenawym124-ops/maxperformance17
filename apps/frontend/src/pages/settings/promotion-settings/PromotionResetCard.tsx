@@ -22,15 +22,15 @@ export function PromotionResetCard({ onReset }: PromotionResetCardProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-4 rounded-[24px] border border-slate-200/70 bg-white/80 p-5 shadow-xs sm:flex-row sm:items-center dark:border-slate-800 dark:bg-slate-900/70">
-      <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200/70 dark:bg-rose-950/40 dark:text-rose-300 dark:ring-rose-500/30">
+    <div className="flex flex-col gap-4 rounded-[24px] border border-border bg-white/80 p-5 shadow-xs sm:flex-row sm:items-center dark:border-border dark:bg-muted">
+      <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-destructive/10 text-destructive ring-1 ring-inset ring-destructive/70 dark:bg-destructive/40 dark:text-destructive dark:ring-destructive/30">
         <RotateCcw className="size-5" />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-bold text-slate-950 dark:text-slate-100">
+        <p className="text-sm font-bold text-foreground dark:text-muted-foreground">
           {t("promotionSettings.resetTitle")}
         </p>
-        <p className="text-xs leading-5 text-slate-500 dark:text-slate-400">
+        <p className="text-xs leading-5 text-muted-foreground dark:text-muted-foreground">
           {t("promotionSettings.resetDesc")}
         </p>
       </div>
@@ -38,7 +38,7 @@ export function PromotionResetCard({ onReset }: PromotionResetCardProps) {
         <AlertDialogTrigger
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "rounded-xl border-rose-200 text-rose-700 hover:bg-rose-50 hover:text-rose-800 dark:border-rose-900/60 dark:text-rose-300 dark:hover:bg-rose-950/50",
+            "rounded-xl border-destructive text-destructive hover:bg-destructive/10 hover:text-destructive dark:border-destructive/60 dark:text-destructive dark:hover:bg-destructive/50",
           )}
         >
           <RotateCcw className="size-4" />
@@ -59,7 +59,7 @@ export function PromotionResetCard({ onReset }: PromotionResetCardProps) {
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={onReset}
-              className="bg-rose-700 text-white hover:bg-rose-800"
+              className="bg-rose-700 text-white hover:bg-destructive"
             >
               {t("promotionSettings.resetModalConfirm")}
             </AlertDialogAction>

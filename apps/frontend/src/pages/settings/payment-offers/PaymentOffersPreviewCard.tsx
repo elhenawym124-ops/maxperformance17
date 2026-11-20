@@ -16,10 +16,10 @@ export const PaymentOffersPreviewCard: React.FC<PaymentOffersPreviewCardProps> =
   sampleOrderTotal,
 }) => {
   return (
-    <div className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 dark:border-indigo-900/40 dark:bg-indigo-950/20 space-y-3.5">
+    <div className="rounded-xl border border-primary bg-primary/40 p-4 dark:border-primary/40 dark:bg-primary/20 space-y-3.5">
       <div className="flex items-center gap-2">
-        <Info className="size-4 text-indigo-600 dark:text-indigo-400" />
-        <span className="text-xs font-bold text-indigo-900 dark:text-indigo-200">
+        <Info className="size-4 text-primary" />
+        <span className="text-xs font-bold text-primary dark:text-primary">
           معاينة تجربة العميل في المتجر
         </span>
       </div>
@@ -39,12 +39,12 @@ export const PaymentOffersPreviewCard: React.FC<PaymentOffersPreviewCardProps> =
           </div>
 
           {form.walletEnabled && form.walletNumber.trim() ? (
-            <div className="flex items-center justify-between p-2 rounded border border-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 dark:border-emerald-800">
-              <span className="flex items-center gap-1.5 font-bold text-emerald-900 dark:text-emerald-100">
-                <Smartphone className="size-3.5 text-emerald-700 dark:text-emerald-300" />
+            <div className="flex items-center justify-between p-2 rounded border border-success bg-success/80 dark:bg-success/40 dark:border-success">
+              <span className="flex items-center gap-1.5 font-bold text-success dark:text-success">
+                <Smartphone className="size-3.5 text-success dark:text-success" />
                 الدفع بالمحفظة
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
+              <span className="inline-flex items-center gap-1 rounded-full bg-success px-2 py-0.5 text-[10px] font-bold text-success dark:bg-success/60 dark:text-success">
                 <Gift className="size-3" />
                 خصم <span className="font-mono tabular-nums">{form.discountPercent}%</span>
               </span>
@@ -52,12 +52,12 @@ export const PaymentOffersPreviewCard: React.FC<PaymentOffersPreviewCardProps> =
           ) : null}
 
           {form.cardEnabled ? (
-            <div className="flex items-center justify-between p-2 rounded border border-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 dark:border-emerald-800">
-              <span className="flex items-center gap-1.5 font-bold text-emerald-900 dark:text-emerald-100">
-                <CreditCard className="size-3.5 text-emerald-700 dark:text-emerald-300" />
+            <div className="flex items-center justify-between p-2 rounded border border-success bg-success/80 dark:bg-success/40 dark:border-success">
+              <span className="flex items-center gap-1.5 font-bold text-success dark:text-success">
+                <CreditCard className="size-3.5 text-success dark:text-success" />
                 بطاقة ائتمان
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
+              <span className="inline-flex items-center gap-1 rounded-full bg-success px-2 py-0.5 text-[10px] font-bold text-success dark:bg-success/60 dark:text-success">
                 <Gift className="size-3" />
                 خصم <span className="font-mono tabular-nums">{form.discountPercent}%</span>
               </span>
@@ -74,7 +74,7 @@ export const PaymentOffersPreviewCard: React.FC<PaymentOffersPreviewCardProps> =
             <span className="font-sans">إجمالي المنتجات:</span>
             <span className="tabular-nums">{sampleOrderSubtotal} ج.م</span>
           </div>
-          <div className="flex justify-between text-emerald-600 font-bold">
+          <div className="flex justify-between text-success font-bold">
             <span className="font-sans">
               خصم الدفع الإلكتروني (<span className="tabular-nums">{form.discountPercent}%</span>):
             </span>

@@ -33,9 +33,9 @@ export const CustomerWhatsAppCampaignProgress: React.FC<CustomerWhatsAppCampaign
               <Activity className="h-3.5 w-3.5 animate-spin" />
             </div>
           ) : isCompleted ? (
-            <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            <CheckCircle2 className="h-5 w-5 text-success dark:text-success" />
           ) : (
-            <AlertTriangle className="h-5 w-5 text-amber-500" />
+            <AlertTriangle className="h-5 w-5 text-warning" />
           )}
 
           <h3 className="text-sm font-semibold text-foreground">
@@ -87,8 +87,8 @@ export const CustomerWhatsAppCampaignProgress: React.FC<CustomerWhatsAppCampaign
           </span>
         </div>
 
-        <div className="rounded-md border border-emerald-500/20 bg-emerald-500/5 p-2.5 text-center">
-          <span className="font-mono text-base font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+        <div className="rounded-md border border-success/20 bg-success/5 p-2.5 text-center">
+          <span className="font-mono text-base font-bold tabular-nums text-success dark:text-success">
             {campaign.sent}
           </span>
           <span className="block text-[10px] text-muted-foreground">

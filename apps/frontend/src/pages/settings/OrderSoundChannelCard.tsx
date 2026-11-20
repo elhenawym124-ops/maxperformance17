@@ -42,8 +42,8 @@ export const OrderSoundChannelCard: React.FC<OrderSoundChannelCardProps> = ({
             <span
               className={`p-1.5 rounded-md ${
                 isAmber
-                  ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                  : "bg-teal-500/10 text-teal-600 dark:text-teal-400"
+                  ? "bg-amber-500/10 text-warning dark:text-warning"
+                  : "bg-teal-500/10 text-success dark:text-success"
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -52,14 +52,14 @@ export const OrderSoundChannelCard: React.FC<OrderSoundChannelCardProps> = ({
             <span
               className={`text-[10px] px-1.5 py-0.5 rounded font-mono uppercase ${
                 isAmber
-                  ? "bg-amber-500/10 text-amber-700 dark:text-amber-300"
-                  : "bg-teal-500/10 text-teal-700 dark:text-teal-300"
+                  ? "bg-amber-500/10 text-warning dark:text-warning"
+                  : "bg-teal-500/10 text-success dark:text-success"
               }`}
             >
               {badge}
             </span>
           </div>
-          <p className="text-xs text-muted-foreground leading-relaxed pr-8">{description}</p>
+          <p className="text-xs text-muted-foreground leading-relaxed pe-8">{description}</p>
         </div>
 
         <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-1">

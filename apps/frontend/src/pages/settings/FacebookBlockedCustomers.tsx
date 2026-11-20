@@ -193,7 +193,7 @@ const FacebookBlockedCustomers: React.FC = () => {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
-          <AlertTriangle className="h-8 w-8 text-amber-500" />
+          <AlertTriangle className="h-8 w-8 text-warning" />
           <p className="text-xs font-mono">{t("facebookBlocked.mustLogin")}</p>
         </div>
       </div>
@@ -269,7 +269,7 @@ const FacebookBlockedCustomers: React.FC = () => {
       </div>
 
       {success && (
-        <div className="flex items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+        <div className="flex items-center justify-between rounded-lg border border-success/30 bg-success/10 p-3 text-xs font-medium text-success dark:text-success">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 shrink-0" />
             <span>{success}</span>
@@ -360,7 +360,7 @@ const FacebookBlockedCustomers: React.FC = () => {
                           selectedPageId,
                         )
                       }
-                      className="inline-flex h-7.5 items-center gap-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 transition-colors hover:bg-emerald-500/20 active:scale-[0.98]"
+                      className="inline-flex h-7.5 items-center gap-1 rounded-lg border border-success/30 bg-success/10 px-2.5 text-[11px] font-medium text-success dark:text-success transition-colors hover:bg-success/20 active:scale-[0.98]"
                     >
                       <CheckCircle2 className="h-3.5 w-3.5" />
                       <span>{t("facebookBlocked.unblock")}</span>

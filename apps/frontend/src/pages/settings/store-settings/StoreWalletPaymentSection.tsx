@@ -6,13 +6,13 @@ import {
 } from "../../../services/storefrontSettingsService";
 
 const PAYMENT_CARD_CLS =
-  "bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 space-y-5 shadow-sm";
+  "bg-card/80 rounded-xl border border-border dark:border-border p-6 space-y-5 shadow-sm";
 const PAYMENT_LABEL_CLS =
-  "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1.5";
+  "block text-xs font-medium text-muted-foreground mb-1.5";
 const PAYMENT_INPUT_CLS =
-  "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-gray-900 placeholder:text-slate-400 shadow-sm transition-colors focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-500 dark:focus:ring-indigo-900/30";
+  "w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-foreground placeholder:text-slate-400 shadow-sm transition-colors focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:bg-muted dark:border-border dark:text-white dark:placeholder:text-gray-500 dark:focus:border-primary dark:focus:ring-primary/30";
 const PAYMENT_PRIMARY_BTN_CLS =
-  "inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm shadow-indigo-600/20";
+  "inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-primary text-white hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm shadow-primary/20";
 
 interface StoreWalletPaymentSectionProps {
   settings: StorefrontSettings;
@@ -205,12 +205,12 @@ export const StoreWalletPaymentSection: React.FC<StoreWalletPaymentSectionProps>
 
   return (
     <div className={PAYMENT_CARD_CLS}>
-      <div className="flex flex-col gap-3 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 dark:border-indigo-800/50 dark:bg-indigo-950/20 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-xl border border-primary bg-primary/60 p-4 dark:border-primary/50 dark:bg-primary/20 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-semibold text-gray-900 dark:text-white">
+          <p className="text-sm font-semibold text-foreground">
             تفعيل طريقة الدفع بالمحفظة
           </p>
-          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-xs text-muted-foreground">
             اظهر خيار «محفظة إلكترونية» للعملاء أثناء إتمام الطلب.
           </p>
         </div>
@@ -221,13 +221,13 @@ export const StoreWalletPaymentSection: React.FC<StoreWalletPaymentSectionProps>
           aria-pressed={isWalletActive}
           className={`inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all select-none ${
             isWalletActive
-              ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 shadow-sm shadow-emerald-600/10"
-              : "border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-500 dark:hover:bg-gray-700/40"
+              ? "border-emerald-500 bg-success/10 dark:bg-success/30 text-success dark:text-success shadow-sm shadow-success/10"
+              : "border-border text-muted-foreground hover:border-border hover:bg-muted dark:hover:border-border dark:hover:bg-muted"
           }`}
         >
           <span
             className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-              isWalletActive ? "bg-emerald-500" : "bg-gray-300 dark:bg-gray-600"
+              isWalletActive ? "bg-emerald-500" : "bg-gray-300 dark:bg-muted"
             }`}
           >
             <span
@@ -240,7 +240,7 @@ export const StoreWalletPaymentSection: React.FC<StoreWalletPaymentSectionProps>
           <span
             className={`text-xs font-bold ${
               isWalletActive
-                ? "text-emerald-600 dark:text-emerald-400"
+                ? "text-emerald-600 dark:text-success"
                 : "text-gray-400"
             }`}
           >
@@ -250,10 +250,10 @@ export const StoreWalletPaymentSection: React.FC<StoreWalletPaymentSectionProps>
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-foreground">
           الدفع بالمحفظة (تحويل + رفع إيصال)
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">
+        <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
           يظهر للعميل في صفحة الشيك أوت خيار تحويل المبلغ على رقم محفظة ثم رفع
           صورة الإيصال. فعّل خيار «محفظة إلكترونية» من الزرار بالأعلى، واكتب رقم
           المحفظة واسم المستلم.

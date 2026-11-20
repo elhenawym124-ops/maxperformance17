@@ -4,8 +4,8 @@ import { Building2, ShieldCheck } from "lucide-react";
 export const AuthorizedDevicesRulesBanner: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <div className="p-3.5 rounded-lg border border-emerald-500/20 bg-emerald-500/5 flex items-start gap-3">
-        <div className="p-2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mt-0.5">
+      <div className="p-3.5 rounded-lg border border-success/20 bg-success/5 flex items-start gap-3">
+        <div className="p-2 rounded bg-success/10 text-success dark:text-success mt-0.5">
           <Building2 className="w-4 h-4" />
         </div>
         <div className="text-xs space-y-1">
@@ -16,8 +16,8 @@ export const AuthorizedDevicesRulesBanner: React.FC = () => {
         </div>
       </div>
 
-      <div className="p-3.5 rounded-lg border border-amber-500/20 bg-amber-500/5 flex items-start gap-3">
-        <div className="p-2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 mt-0.5">
+      <div className="p-3.5 rounded-lg border border-warning/20 bg-warning/5 flex items-start gap-3">
+        <div className="p-2 rounded bg-warning/10 text-warning dark:text-warning mt-0.5">
           <ShieldCheck className="w-4 h-4" />
         </div>
         <div className="text-xs space-y-1">

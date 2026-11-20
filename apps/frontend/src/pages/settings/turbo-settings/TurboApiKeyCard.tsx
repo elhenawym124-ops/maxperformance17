@@ -26,10 +26,10 @@ export const TurboApiKeyCard: React.FC<TurboApiKeyCardProps> = ({
   onTestConnection,
 }) => {
   return (
-    <div className="border-t dark:border-gray-700 pt-6">
+    <div className="border-t dark:border-border pt-6">
       <div className="flex items-center mb-4">
-        <KeyIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400 ml-2" />
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+        <KeyIcon className="h-5 w-5 text-primary ms-2" />
+        <h3 className="text-lg font-medium text-foreground">
           Turbo API Key
         </h3>
       </div>
@@ -37,7 +37,7 @@ export const TurboApiKeyCard: React.FC<TurboApiKeyCardProps> = ({
       <div className="space-y-4">
         {hasApiKey && maskedApiKey && (
           <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-            <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+            <p className="text-sm text-foreground mb-2">
               {t("turbo.k_27")}
             </p>
             <div className="flex items-center justify-between">
@@ -57,7 +57,7 @@ export const TurboApiKeyCard: React.FC<TurboApiKeyCardProps> = ({
 
         {(showApiKey || !hasApiKey) && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               {hasApiKey ? t("turbo.k_16") : "Turbo API Key"}
             </label>
             <input
@@ -65,15 +65,15 @@ export const TurboApiKeyCard: React.FC<TurboApiKeyCardProps> = ({
               value={apiKey}
               onChange={(e) => onChangeApiKey(e.target.value)}
               placeholder={t("turbo.k_17")}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400"
+              className="w-full px-4 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:border-primary dark:focus:border-primary"
             />
-            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-2 text-xs text-muted-foreground">
               {t("turbo.k_28")}{" "}
               <a
                 href="https://portal.turbo-eg.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-indigo-600 dark:text-indigo-400 hover:underline"
+                className="text-primary hover:underline"
               >
                 {t("turbo.k_29")}
               </a>
@@ -85,9 +85,9 @@ export const TurboApiKeyCard: React.FC<TurboApiKeyCardProps> = ({
           type="button"
           onClick={onTestConnection}
           disabled={saving || (!apiKey && !hasApiKey)}
-          className="inline-flex items-center px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium transition-colors"
+          className="inline-flex items-center px-4 py-2 bg-muted dark:bg-muted text-white rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium transition-colors"
         >
-          <InformationCircleIcon className="h-4 w-4 ml-1" />
+          <InformationCircleIcon className="h-4 w-4 ms-1" />
           {t("turbo.k_30")}
         </button>
       </div>

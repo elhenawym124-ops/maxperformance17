@@ -22,10 +22,10 @@ export function SmartRepliesToggleCard({
 
   return (
     <div
-      className={`rounded-2xl shadow-xs border p-4 sm:p-5 transition-all duration-200 ${
+      className={`rounded-xl shadow-xs border p-4 sm:p-5 transition-all duration-200 ${
         enabled
-          ? "bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-600/60 shadow-emerald-500/5"
-          : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+          ? "bg-emerald-50/40 dark:bg-success/20 border-success dark:border-success/60 shadow-success/5"
+          : "bg-card border-border dark:border-border"
       }`}
     >
       <div className="flex items-center justify-between gap-3">
@@ -33,17 +33,17 @@ export function SmartRepliesToggleCard({
           <div
             className={`p-2 sm:p-2.5 rounded-xl shrink-0 transition-colors ${
               enabled
-                ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/60 dark:text-emerald-400"
-                : "bg-gray-100 text-gray-400 dark:bg-gray-700 dark:text-gray-500"
+                ? "bg-emerald-100 text-success dark:bg-success/60 dark:text-success"
+                : "bg-gray-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground"
             }`}
           >
             <SparklesIcon className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
           <div className="min-w-0">
-            <h3 className="font-bold text-gray-900 dark:text-white text-sm sm:text-base truncate">
+            <h3 className="font-bold text-foreground text-sm sm:text-base truncate">
               {t("smartReplies.enableTitle") || "الردود التلقائية"}
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 hidden xs:block truncate">
+            <p className="text-xs text-muted-foreground mt-0.5 hidden xs:block truncate">
               {enabled
                 ? t("smartReplies.enableDesc") ||
                   "القوالب مفعلة وتعمل تلقائياً عند مطابقة الكلمات"
@@ -57,15 +57,15 @@ export function SmartRepliesToggleCard({
           <span
             className={`text-[11px] sm:text-xs font-semibold px-2.5 py-0.5 sm:py-1 rounded-full flex items-center gap-1.5 transition-colors ${
               enabled
-                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-                : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+                ? "bg-emerald-100 text-success dark:bg-success/60 dark:text-success border border-success dark:border-success"
+                : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground border border-border"
             }`}
           >
             <span
               className={`w-1.5 h-1.5 rounded-full transition-colors ${
                 enabled
                   ? "bg-emerald-500 animate-pulse"
-                  : "bg-gray-400 dark:bg-gray-500"
+                  : "bg-gray-400 dark:bg-muted"
               }`}
             />
             {enabled
@@ -79,10 +79,10 @@ export function SmartRepliesToggleCard({
             aria-checked={enabled}
             onClick={onToggleEnable}
             dir="ltr"
-            className={`relative inline-flex h-7 w-12 sm:w-14 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${
+            className={`relative inline-flex h-7 w-12 sm:w-14 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${
               enabled
-                ? "bg-emerald-600 dark:bg-emerald-500 shadow-xs"
-                : "bg-gray-300 dark:bg-gray-700"
+                ? "bg-emerald-600 dark:bg-success shadow-xs"
+                : "bg-gray-300 dark:bg-muted"
             }`}
           >
             <span className="sr-only">
@@ -102,16 +102,16 @@ export function SmartRepliesToggleCard({
       <div
         className={`mt-4 pt-3 border-t transition-opacity ${
           enabled
-            ? "border-emerald-200/70 dark:border-emerald-800/60"
-            : "border-gray-200 dark:border-gray-700 opacity-60"
+            ? "border-emerald-200/70 dark:border-success/60"
+            : "border-gray-200 dark:border-border opacity-60"
         }`}
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
+            <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
               المنصات المدعومة للرد التلقائي:
             </span>
-            <span className="text-[11px] text-gray-400 sm:hidden">
+            <span className="text-[11px] text-muted-foreground sm:hidden">
               (اسحب للتمرير ↔)
             </span>
           </div>

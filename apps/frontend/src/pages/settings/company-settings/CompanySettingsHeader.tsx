@@ -30,16 +30,16 @@ export const CompanySettingsHeader: React.FC<CompanySettingsHeaderProps> = ({
   return (
     <div className="mb-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-foreground">
           إعدادات الشركة
         </h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-1 text-sm text-muted-foreground">
           إدارة إعدادات الشركة والاشتراكات
         </p>
       </div>
 
       {/* Tabs Header */}
-      <div className="border-b border-gray-200 dark:border-gray-700">
+      <div className="border-b border-border dark:border-border">
         <nav
           className="-mb-px flex space-x-8 space-x-reverse"
           aria-label="Tabs"
@@ -54,19 +54,19 @@ export const CompanySettingsHeader: React.FC<CompanySettingsHeaderProps> = ({
                 onClick={() => onTabChange(tab.id)}
                 className={`${
                   isActive
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-border dark:text-muted-foreground dark:hover:text-muted-foreground"
                 } group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200`}
               >
                 <Icon
                   className={`${
                     isActive
-                      ? "text-indigo-500 dark:text-indigo-400"
-                      : "text-gray-400 group-hover:text-gray-500 dark:text-gray-500"
-                  } -ml-0.5 mr-2 h-5 w-5`}
+                      ? "text-indigo-500 dark:text-primary"
+                      : "text-gray-400 group-hover:text-muted-foreground dark:text-muted-foreground"
+                  } -ms-0.5 me-2 h-5 w-5`}
                   aria-hidden="true"
                 />
-                <span className="mr-2">{tab.label}</span>
+                <span className="me-2">{tab.label}</span>
               </button>
             );
           })}

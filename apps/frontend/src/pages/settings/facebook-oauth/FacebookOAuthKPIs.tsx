@@ -22,7 +22,7 @@ export const FacebookOAuthKPIs: React.FC<FacebookOAuthKPIsProps> = ({
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {/* 1. Connected Pages */}
       <div className="flex items-center gap-3 rounded-lg border border-border/60 bg-card p-3 shadow-sm">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-success/10 text-success dark:text-success">
           <CheckCircle2 className="h-4 w-4" />
         </div>
         <div className="min-w-0 flex-1">
@@ -33,7 +33,7 @@ export const FacebookOAuthKPIs: React.FC<FacebookOAuthKPIsProps> = ({
             <span className="font-mono text-lg font-semibold tabular-nums text-foreground">
               {connectedPagesCount}
             </span>
-            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+            <span className="text-[10px] text-success dark:text-success font-medium">
               {t("common.active", "نشطة")}
             </span>
           </div>
@@ -45,7 +45,7 @@ export const FacebookOAuthKPIs: React.FC<FacebookOAuthKPIsProps> = ({
         <div
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md ${
             disconnectedPagesCount > 0
-              ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+              ? "bg-amber-500/10 text-warning dark:text-warning"
               : "bg-muted text-muted-foreground"
           }`}
         >
@@ -60,7 +60,7 @@ export const FacebookOAuthKPIs: React.FC<FacebookOAuthKPIsProps> = ({
               {disconnectedPagesCount}
             </span>
             {disconnectedPagesCount > 0 ? (
-              <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">
+              <span className="text-[10px] text-warning dark:text-warning font-medium">
                 {t("facebookOAuth.needsReconnect", "تحتاج إعادة ربط")}
               </span>
             ) : (

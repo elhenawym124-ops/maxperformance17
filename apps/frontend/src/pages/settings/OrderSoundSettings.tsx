@@ -178,7 +178,7 @@ export const OrderSoundSettings: React.FC = () => {
     return (
       <div className="flex items-center justify-center p-12 text-muted-foreground">
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span className="mr-2 text-xs font-medium">جاري تحميل إعدادات الصوت...</span>
+        <span className="me-2 text-xs font-medium">جاري تحميل إعدادات الصوت...</span>
       </div>
     );
   }
@@ -221,8 +221,8 @@ export const OrderSoundSettings: React.FC = () => {
             <span
               className={`text-xs px-2 py-1 rounded font-medium ${
                 feedback.type === "error"
-                  ? "bg-rose-500/10 text-rose-600 dark:text-rose-400"
-                  : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  ? "bg-rose-500/10 text-destructive dark:text-destructive"
+                  : "bg-emerald-500/10 text-success dark:text-success"
               }`}
             >
               {feedback.message}
@@ -266,7 +266,7 @@ export const OrderSoundSettings: React.FC = () => {
               {sound.enabled ? `${sound.volume}%` : "معطل"}
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded font-mono ${
-              sound.enabled ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+              sound.enabled ? "bg-emerald-500/10 text-success dark:text-success" : "bg-muted text-muted-foreground"
             }`}>
               {sound.enabled ? sound.pattern : "Muted"}
             </span>
@@ -283,7 +283,7 @@ export const OrderSoundSettings: React.FC = () => {
               {incompleteSound.enabled ? `${incompleteSound.volume}%` : "معطل"}
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded font-mono ${
-              incompleteSound.enabled ? "bg-teal-500/10 text-teal-600 dark:text-teal-400" : "bg-muted text-muted-foreground"
+              incompleteSound.enabled ? "bg-teal-500/10 text-success dark:text-success" : "bg-muted text-muted-foreground"
             }`}>
               {incompleteSound.enabled ? incompleteSound.pattern : "Muted"}
             </span>
@@ -297,7 +297,7 @@ export const OrderSoundSettings: React.FC = () => {
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-base font-bold text-foreground">متصل ومباشر</span>
-            <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
+            <span className="text-[10px] font-mono text-success dark:text-success">
               Live Socket
             </span>
           </div>

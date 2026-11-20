@@ -28,9 +28,9 @@ export function TelegramAddBotModal({
 
   return (
     <div
-      className={`rounded-2xl border p-6 shadow-sm transition-all ${
+      className={`rounded-xl border p-6 shadow-sm transition-all ${
         derivedTheme === "dark"
-          ? "border-slate-800 bg-slate-900"
+          ? "border-slate-800 bg-muted"
           : "border-slate-200 bg-white"
       }`}
     >
@@ -46,7 +46,7 @@ export function TelegramAddBotModal({
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-200"
+          className="text-slate-400 transition-colors hover:text-foreground dark:hover:text-muted-foreground"
         >
           <XCircleIcon className="h-6 w-6" />
         </button>
@@ -66,10 +66,10 @@ export function TelegramAddBotModal({
             value={newBotLabel}
             onChange={(e) => setNewBotLabel(e.target.value)}
             placeholder="e.g. Sales Bot, Support Team"
-            className={`w-full rounded-xl border p-3 text-xs outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500 ${
+            className={`w-full rounded-xl border p-3 text-xs outline-none transition focus:border-info focus:ring-1 focus:ring-info ${
               derivedTheme === "dark"
-                ? "border-slate-700 bg-slate-800 text-white placeholder-slate-500"
-                : "border-slate-300 bg-white text-slate-900 placeholder-slate-400"
+                ? "border-slate-700 bg-muted text-white placeholder-muted"
+                : "border-slate-300 bg-white text-foreground placeholder-muted"
             }`}
           />
         </div>
@@ -86,10 +86,10 @@ export function TelegramAddBotModal({
             value={newBotToken}
             onChange={(e) => setNewBotToken(e.target.value)}
             placeholder="123456789:ABCdefGHIjklMNOpqrsTUVwxyz"
-            className={`w-full rounded-xl border p-3 font-mono text-xs outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500 ${
+            className={`w-full rounded-xl border p-3 font-mono text-xs outline-none transition focus:border-info focus:ring-1 focus:ring-info ${
               derivedTheme === "dark"
-                ? "border-slate-700 bg-slate-800 text-white placeholder-slate-500"
-                : "border-slate-300 bg-white text-slate-900 placeholder-slate-400"
+                ? "border-slate-700 bg-muted text-white placeholder-muted"
+                : "border-slate-300 bg-white text-foreground placeholder-muted"
             }`}
           />
         </div>
@@ -100,8 +100,8 @@ export function TelegramAddBotModal({
             disabled={isLoading || !newBotToken}
             className={`flex-1 rounded-xl py-2.5 text-xs font-semibold text-white transition-all ${
               isLoading || !newBotToken
-                ? "cursor-not-allowed bg-sky-300 dark:bg-sky-900/50"
-                : "bg-sky-600 hover:bg-sky-700 shadow-xs"
+                ? "cursor-not-allowed bg-info dark:bg-info/50"
+                : "bg-sky-600 hover:bg-info shadow-xs"
             }`}
           >
             {isLoading ? "Connecting..." : "Connect Bot"}
@@ -110,7 +110,7 @@ export function TelegramAddBotModal({
             type="button"
             onClick={onClose}
             disabled={isLoading}
-            className="rounded-xl border border-slate-300 px-5 py-2.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+            className="rounded-xl border border-border px-5 py-2.5 text-xs font-semibold text-foreground transition hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
           >
             Cancel
           </button>

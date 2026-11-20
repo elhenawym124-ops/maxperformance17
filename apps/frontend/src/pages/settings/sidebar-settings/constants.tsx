@@ -30,14 +30,14 @@ export const getRoleLabel = (
 };
 
 export const ROLE_COLORS: Record<string, string> = {
-  SUPER_ADMIN: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
-  COMPANY_ADMIN: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
-  OWNER: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+  SUPER_ADMIN: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
+  COMPANY_ADMIN: "bg-purple-100 text-primary dark:bg-primary/30 dark:text-primary",
+  OWNER: "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning",
   MANAGER: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
-  AGENT: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-  AFFILIATE: "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300",
-  MERCHANT: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300",
-  CUSTOMER: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300",
+  AGENT: "bg-green-100 text-success dark:bg-success/30 dark:text-success",
+  AFFILIATE: "bg-teal-100 text-success dark:bg-success/30 dark:text-success",
+  MERCHANT: "bg-indigo-100 text-primary dark:bg-primary/30 dark:text-primary",
+  CUSTOMER: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground",
 };
 
 export const CATEGORY_MAP: Record<string, string> = {
@@ -185,18 +185,18 @@ export const CATEGORY_ICONS: Record<string, React.ElementType> = {
 };
 
 export const CATEGORY_COLORS: Record<string, string> = {
-  main: "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300 ring-sky-200 dark:ring-sky-800",
-  communication: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 ring-emerald-200 dark:ring-emerald-800",
-  sales: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300 ring-violet-200 dark:ring-violet-800",
-  analytics: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 ring-amber-200 dark:ring-amber-800",
+  main: "bg-sky-100 text-info dark:bg-info/30 dark:text-info ring-info dark:ring-info",
+  communication: "bg-emerald-100 text-success dark:bg-success/30 dark:text-success ring-success dark:ring-success",
+  sales: "bg-violet-100 text-primary dark:bg-primary/30 dark:text-primary ring-primary dark:ring-primary",
+  analytics: "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning ring-warning dark:ring-warning",
   customers: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 ring-blue-200 dark:ring-blue-800",
-  procurement: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 ring-orange-200 dark:ring-orange-800",
-  marketing: "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300 ring-pink-200 dark:ring-pink-800",
-  inventory: "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300 ring-teal-200 dark:ring-teal-800",
-  employees: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 ring-cyan-200 dark:ring-cyan-800",
-  management: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 ring-indigo-200 dark:ring-indigo-800",
-  operations: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 ring-rose-200 dark:ring-rose-800",
-  support: "bg-lime-100 text-lime-700 dark:bg-lime-900/30 dark:text-lime-300 ring-lime-200 dark:ring-lime-800",
-  system: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 ring-gray-200 dark:ring-gray-700",
-  finance: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300 ring-yellow-200 dark:ring-yellow-800",
+  procurement: "bg-orange-100 text-warning dark:bg-warning/30 dark:text-warning ring-warning dark:ring-warning",
+  marketing: "bg-pink-100 text-primary dark:bg-primary/30 dark:text-primary ring-primary dark:ring-primary",
+  inventory: "bg-teal-100 text-success dark:bg-success/30 dark:text-success ring-success dark:ring-success",
+  employees: "bg-cyan-100 text-info dark:bg-info/30 dark:text-info ring-info dark:ring-info",
+  management: "bg-indigo-100 text-primary dark:bg-primary/30 dark:text-primary ring-primary dark:ring-primary",
+  operations: "bg-rose-100 text-destructive dark:bg-destructive/30 dark:text-destructive ring-destructive dark:ring-destructive",
+  support: "bg-lime-100 text-success dark:bg-success/30 dark:text-success ring-success dark:ring-success",
+  system: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground ring-border dark:ring-border",
+  finance: "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning ring-warning dark:ring-warning",
 };

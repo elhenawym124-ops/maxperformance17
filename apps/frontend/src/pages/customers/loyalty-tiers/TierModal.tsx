@@ -29,15 +29,15 @@ export const TierModal: React.FC<TierModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl">
-        <div className="sticky top-0 bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between z-10">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+      <div className="bg-card rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl">
+        <div className="sticky top-0 bg-card px-6 py-4 border-b border-border dark:border-border flex items-center justify-between z-10">
+          <h2 className="text-xl font-bold text-foreground">
             {editingTier.id ? "تعديل المستوى" : "إنشاء مستوى جديد"}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+            className="p-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
@@ -46,7 +46,7 @@ export const TierModal: React.FC<TierModalProps> = ({
         <form onSubmit={onSave} className="p-6 space-y-6">
           {!editingTier.id && (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 برنامج الولاء
               </label>
               <select
@@ -55,7 +55,7 @@ export const TierModal: React.FC<TierModalProps> = ({
                   setEditingTier({ ...editingTier, programId: e.target.value })
                 }
                 required
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
               >
                 <option value="">اختر برنامج الولاء</option>
                 {programs.map((p) => (
@@ -69,7 +69,7 @@ export const TierModal: React.FC<TierModalProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 الاسم (بالأجنبية)
               </label>
               <input
@@ -79,12 +79,12 @@ export const TierModal: React.FC<TierModalProps> = ({
                 onChange={(e) =>
                   setEditingTier({ ...editingTier, name: e.target.value })
                 }
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
                 placeholder="e.g. VIP"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 الاسم (بالعربية)
               </label>
               <input
@@ -94,7 +94,7 @@ export const TierModal: React.FC<TierModalProps> = ({
                 onChange={(e) =>
                   setEditingTier({ ...editingTier, nameAr: e.target.value })
                 }
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-right"
+                className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-right"
                 placeholder="مثلاً: كبار الشخصيات"
               />
             </div>
@@ -102,7 +102,7 @@ export const TierModal: React.FC<TierModalProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 الحد الأدنى للنقاط
               </label>
               <input
@@ -116,11 +116,11 @@ export const TierModal: React.FC<TierModalProps> = ({
                     minPoints: Number(e.target.value),
                   })
                 }
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 الحد الأقصى للنقاط (اختياري)
               </label>
               <input
@@ -133,7 +133,7 @@ export const TierModal: React.FC<TierModalProps> = ({
                     maxPoints: e.target.value ? Number(e.target.value) : undefined,
                   })
                 }
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
               />
             </div>
           </div>
@@ -148,7 +148,7 @@ export const TierModal: React.FC<TierModalProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 لون المستوى
               </label>
               <div className="flex items-center gap-3">
@@ -158,15 +158,15 @@ export const TierModal: React.FC<TierModalProps> = ({
                   onChange={(e) =>
                     setEditingTier({ ...editingTier, color: e.target.value })
                   }
-                  className="w-12 h-10 p-1 rounded border border-gray-200 cursor-pointer"
+                  className="w-12 h-10 p-1 rounded border border-border cursor-pointer"
                 />
-                <div className="flex-1 text-sm text-gray-500">
+                <div className="flex-1 text-sm text-muted-foreground">
                   اختر لوناً يعبر عن المستوى
                 </div>
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 الأيقونة
               </label>
               <select
@@ -174,7 +174,7 @@ export const TierModal: React.FC<TierModalProps> = ({
                 onChange={(e) =>
                   setEditingTier({ ...editingTier, icon: e.target.value })
                 }
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
               >
                 <option value="crown">تاج (Crown)</option>
                 <option value="medal">ميدالية (Medal)</option>
@@ -191,18 +191,18 @@ export const TierModal: React.FC<TierModalProps> = ({
             setEditingTier={setEditingTier}
           />
 
-          <div className="flex gap-3 pt-4 border-t border-gray-100 dark:border-gray-700 sticky bottom-0 bg-white dark:bg-gray-800 pb-2">
+          <div className="flex gap-3 pt-4 border-t border-border dark:border-border sticky bottom-0 bg-card pb-2">
             <button
               type="submit"
               disabled={isSaving}
-              className="flex-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white py-2 rounded-lg font-bold transition-all shadow-lg shadow-purple-200 dark:shadow-none"
+              className="flex-1 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white py-2 rounded-lg font-bold transition-all shadow-lg shadow-primary dark:shadow-none"
             >
               {isSaving ? "جاري الحفظ..." : "حفظ التغييرات"}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+              className="px-6 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted"
             >
               إلغاء
             </button>

@@ -51,13 +51,13 @@ const TelegramSettings: React.FC = () => {
   } = useTelegramSettingsController();
 
   if (isChecking) {
-    return <div className="p-8 text-center text-sm text-slate-500">Loading Telegram Status...</div>;
+    return <div className="p-8 text-center text-sm text-muted-foreground">Loading Telegram Status...</div>;
   }
 
   return (
     <div
       className={`p-6 w-full ${
-        derivedTheme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+        derivedTheme === "dark" ? "bg-gray-900 text-white" : "bg-white text-foreground"
       }`}
     >
       <TelegramSettingsHeader

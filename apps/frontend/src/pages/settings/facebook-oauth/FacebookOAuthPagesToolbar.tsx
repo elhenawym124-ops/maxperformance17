@@ -51,7 +51,7 @@ export const FacebookOAuthPagesToolbar: React.FC<FacebookOAuthPagesToolbarProps>
           size="sm"
           onClick={onReconnectSelected}
           disabled={loading || selectedReconnectableCount === 0}
-          className="h-7 gap-1 border-emerald-500/30 text-[11px] font-medium text-emerald-700 hover:bg-emerald-500/10 dark:text-emerald-400"
+          className="h-7 gap-1 border-success/30 text-[11px] font-medium text-success hover:bg-success/10 dark:text-success"
         >
           <RefreshCw className="h-3 w-3" />
           {t("facebookOAuth.reconnectSelected", "إعادة ربط المحدد")}

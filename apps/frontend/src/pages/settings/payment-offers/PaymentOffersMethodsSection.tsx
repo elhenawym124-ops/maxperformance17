@@ -34,8 +34,8 @@ export const PaymentOffersMethodsSection: React.FC<PaymentOffersMethodsSectionPr
       </div>
 
       {!hasElectronicMethodActive && (
-        <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50/80 p-3.5 text-xs text-amber-900 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-200">
-          <AlertTriangle className="size-5 shrink-0 text-amber-600 dark:text-amber-400" />
+        <div className="flex items-start gap-2.5 rounded-xl border border-warning bg-warning/80 p-3.5 text-xs text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning">
+          <AlertTriangle className="size-5 shrink-0 text-warning dark:text-warning" />
           <div className="leading-relaxed">
             <strong>تنبيه:</strong> حتى يظهر الخصم لعملائك في المتجر، يجب إدخال رقم المحفظة بالأسفل أو تفعيل البطاقة البنكية.
           </div>
@@ -46,7 +46,7 @@ export const PaymentOffersMethodsSection: React.FC<PaymentOffersMethodsSectionPr
       <div className="rounded-xl border border-border p-4 space-y-4 bg-muted/20">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="flex size-9 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+            <div className="flex size-9 items-center justify-center rounded-lg bg-success text-success dark:bg-success dark:text-success">
               <Smartphone className="size-5" />
             </div>
             <div>
@@ -113,7 +113,7 @@ export const PaymentOffersMethodsSection: React.FC<PaymentOffersMethodsSectionPr
       <div className="rounded-xl border border-border p-4 space-y-3 bg-muted/20">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="flex size-9 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+            <div className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary dark:bg-primary dark:text-primary">
               <CreditCard className="size-5" />
             </div>
             <div>
@@ -134,14 +134,14 @@ export const PaymentOffersMethodsSection: React.FC<PaymentOffersMethodsSectionPr
         </div>
 
         {!form.hasGatewayConfig && form.cardEnabled ? (
-          <div className="flex items-center justify-between gap-3 rounded-lg bg-amber-50 p-3 text-xs text-amber-800 dark:bg-amber-950/30 dark:text-amber-300 border border-amber-200/60 dark:border-amber-900/50">
+          <div className="flex items-center justify-between gap-3 rounded-lg bg-warning/10 p-3 text-xs text-warning dark:bg-warning/30 dark:text-warning border border-warning/60 dark:border-warning/50">
             <span>
               لم تُدخل مفاتيح بوابة Kashier بعد. يمكنك إعدادها من صفحة إعدادات المتجر.
             </span>
             <button
               type="button"
               onClick={() => navigate('/settings/store')}
-              className="font-bold underline shrink-0 hover:text-amber-900"
+              className="font-bold underline shrink-0 hover:text-warning"
             >
               إعداد البوابة
             </button>

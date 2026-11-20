@@ -108,7 +108,7 @@ const InstagramSettings: React.FC = () => {
       {/* Top Header */}
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-border/70 pb-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-pink-500/20 bg-pink-500/10 text-pink-600 dark:text-pink-400 shadow-xs">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary dark:text-primary shadow-xs">
             <Instagram className="h-5 w-5" />
           </div>
           <div>
@@ -142,10 +142,10 @@ const InstagramSettings: React.FC = () => {
       </header>
 
       {/* Info Ribbon */}
-      <div className="flex items-start gap-2.5 rounded-lg border border-pink-500/20 bg-pink-500/5 p-3.5 text-xs text-foreground">
-        <AlertCircle className="h-4 w-4 text-pink-500 shrink-0 mt-0.5" />
+      <div className="flex items-start gap-2.5 rounded-lg border border-primary/20 bg-primary/5 p-3.5 text-xs text-foreground">
+        <AlertCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <p className="font-semibold text-pink-600 dark:text-pink-400">
+          <p className="font-semibold text-primary dark:text-primary">
             {t("instagramSettings.howToConnect", "كيفية ربط وتحديث حساب انستجرام؟")}
           </p>
           <p className="text-muted-foreground text-[11px] leading-relaxed">
@@ -171,7 +171,7 @@ const InstagramSettings: React.FC = () => {
           <span>جاري تحميل حسابات انستجرام المتصلة...</span>
         </div>
       ) : error ? (
-        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-xs text-red-600 dark:text-red-400 text-center">
+        <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-xs text-destructive dark:text-destructive text-center">
           {error}
         </div>
       ) : accounts.length === 0 ? (
@@ -209,7 +209,7 @@ const InstagramSettings: React.FC = () => {
                 className="p-4 hover:bg-muted/30 transition-colors flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs"
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg border border-pink-500/20 bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center shrink-0">
+                  <div className="h-10 w-10 rounded-lg border border-primary/20 bg-primary/10 text-primary dark:text-primary flex items-center justify-center shrink-0">
                     <Instagram className="h-5 w-5" />
                   </div>
                   <div className="space-y-0.5">
@@ -227,7 +227,7 @@ const InstagramSettings: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2 self-end sm:self-center">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-success/20 bg-success/10 px-2.5 py-0.5 text-[11px] font-medium text-success dark:text-success">
                     <CheckCircle2 className="h-3 w-3" />
                     <span>{t("instagramSettings.connected", "متصل ونشط")}</span>
                   </span>

@@ -7,11 +7,11 @@ import {
 } from "@heroicons/react/24/outline";
 
 const PAYMENT_CARD_CLS =
-  "bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 space-y-5 shadow-sm";
+  "bg-card/80 rounded-xl border border-border dark:border-border p-6 space-y-5 shadow-sm";
 const PAYMENT_LABEL_CLS =
-  "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1.5";
+  "block text-xs font-medium text-muted-foreground mb-1.5";
 const PAYMENT_INPUT_CLS =
-  "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-gray-900 placeholder:text-slate-400 shadow-sm transition-colors focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-500 dark:focus:ring-indigo-900/30";
+  "w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-foreground placeholder:text-slate-400 shadow-sm transition-colors focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:bg-muted dark:border-border dark:text-white dark:placeholder:text-gray-500 dark:focus:border-primary dark:focus:ring-primary/30";
 
 export interface KashierGatewayConfig {
   merchantId: string;
@@ -45,10 +45,10 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
       <div className={PAYMENT_CARD_CLS}>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h4 className="text-base font-semibold text-gray-900 dark:text-white">
+            <h4 className="text-base font-semibold text-foreground">
               بيانات الاعتماد (Credentials)
             </h4>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               أدخل مفاتيح التاجر من لوحة تحكم Kashier.
             </p>
           </div>
@@ -56,7 +56,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
             <button
               type="button"
               onClick={() => setIsEditing(false)}
-              className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0"
+              className="text-xs font-semibold text-primary hover:underline shrink-0"
             >
               إلغاء التعديل
             </button>
@@ -82,7 +82,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
                 type={showApiKey ? "text" : "password"}
                 value={gatewayConfig.apiKey}
                 onChange={(e) => handleConfigChange("apiKey", e.target.value)}
-                className={`${PAYMENT_INPUT_CLS} pl-10 font-mono`}
+                className={`${PAYMENT_INPUT_CLS} ps-10 font-mono`}
                 placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
                 dir="ltr"
               />
@@ -90,7 +90,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
                 type="button"
                 tabIndex={-1}
                 onClick={() => setShowApiKey((prev) => !prev)}
-                className="absolute inset-y-0 left-0 px-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+                className="absolute inset-y-0 left-0 px-3 flex items-center text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
                 aria-label={showApiKey ? "إخفاء المفتاح" : "إظهار المفتاح"}
               >
                 {showApiKey ? (
@@ -110,7 +110,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
                 onChange={(e) =>
                   handleConfigChange("secretKey", e.target.value)
                 }
-                className={`${PAYMENT_INPUT_CLS} pl-10 font-mono`}
+                className={`${PAYMENT_INPUT_CLS} ps-10 font-mono`}
                 placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                 dir="ltr"
               />
@@ -118,7 +118,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
                 type="button"
                 tabIndex={-1}
                 onClick={() => setShowSecretKey((prev) => !prev)}
-                className="absolute inset-y-0 left-0 px-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+                className="absolute inset-y-0 left-0 px-3 flex items-center text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
                 aria-label={showSecretKey ? "إخفاء المفتاح" : "إظهار المفتاح"}
               >
                 {showSecretKey ? (
@@ -147,12 +147,12 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
 
   return (
     <div className={PAYMENT_CARD_CLS}>
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border dark:border-border pb-4">
         <div>
-          <h4 className="text-base font-semibold text-gray-900 dark:text-white">
+          <h4 className="text-base font-semibold text-foreground">
             بيانات الاعتماد (Credentials)
           </h4>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             تفاصيل الاتصال النشط ببوابة دفع Kashier.
           </p>
         </div>
@@ -160,7 +160,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
           <button
             type="button"
             onClick={() => setIsEditing(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200 shadow-sm dark:bg-gray-900/50 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-900 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-muted text-foreground hover:bg-muted border border-border shadow-sm dark:bg-muted dark:text-muted-foreground dark:border-border dark:hover:bg-muted transition-colors"
           >
             <PencilIcon className="w-3.5 h-3.5" />
             تعديل البيانات
@@ -168,7 +168,7 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
           <button
             type="button"
             onClick={handleDelete}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-red-50 text-red-700 hover:bg-red-100 border border-red-100 dark:bg-red-950/20 dark:text-red-400 dark:border-red-900/50 dark:hover:bg-red-950/30 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-destructive/10 text-destructive hover:bg-destructive border border-destructive dark:bg-destructive/20 dark:text-destructive dark:border-destructive/50 dark:hover:bg-destructive/30 transition-colors"
           >
             <TrashIcon className="w-3.5 h-3.5" />
             إزالة الإعدادات
@@ -178,40 +178,40 @@ export const StoreKashierCredentialsCard: React.FC<StoreKashierCredentialsCardPr
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="space-y-1.5">
-          <span className="text-xs font-medium text-gray-400 dark:text-gray-500 block">
+          <span className="text-xs font-medium text-muted-foreground/80 block">
             Merchant ID
           </span>
-          <span className="text-sm font-semibold text-gray-900 dark:text-white font-mono bg-gray-50 dark:bg-gray-900/50 px-2.5 py-1.5 rounded-lg border border-gray-100 dark:border-gray-800/80 inline-block">
+          <span className="text-sm font-semibold text-foreground font-mono bg-muted dark:bg-muted px-2.5 py-1.5 rounded-lg border border-border dark:border-border inline-block">
             {gatewayConfig.merchantId}
           </span>
         </div>
         <div className="space-y-1.5">
-          <span className="text-xs font-medium text-gray-400 dark:text-gray-500 block">
+          <span className="text-xs font-medium text-muted-foreground/80 block">
             الوضع (Mode)
           </span>
           <span
             className={`text-xs font-semibold px-2.5 py-1.5 rounded-lg inline-block uppercase ${
               gatewayConfig.mode === "live"
-                ? "bg-green-50 text-green-700 border border-green-200 dark:bg-green-950/20 dark:text-green-400 dark:border-green-900/50"
-                : "bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50"
+                ? "bg-green-50 text-success border border-success dark:bg-success/20 dark:text-success dark:border-success/50"
+                : "bg-amber-50 text-warning border border-warning dark:bg-warning/20 dark:text-warning dark:border-warning/50"
             }`}
           >
             {gatewayConfig.mode === "live" ? "Live" : "Test (Sandbox)"}
           </span>
         </div>
         <div className="space-y-1.5">
-          <span className="text-xs font-medium text-gray-400 dark:text-gray-500 block">
+          <span className="text-xs font-medium text-muted-foreground/80 block">
             API Key
           </span>
-          <span className="text-sm font-semibold text-gray-900 dark:text-white font-mono bg-gray-50 dark:bg-gray-900/50 px-2.5 py-1.5 rounded-lg border border-gray-100 dark:border-gray-800/80 inline-block">
+          <span className="text-sm font-semibold text-foreground font-mono bg-muted dark:bg-muted px-2.5 py-1.5 rounded-lg border border-border dark:border-border inline-block">
             {gatewayConfig.apiKey}
           </span>
         </div>
         <div className="space-y-1.5">
-          <span className="text-xs font-medium text-gray-400 dark:text-gray-500 block">
+          <span className="text-xs font-medium text-muted-foreground/80 block">
             Secret Key
           </span>
-          <span className="text-sm font-semibold text-gray-900 dark:text-white font-mono bg-gray-50 dark:bg-gray-900/50 px-2.5 py-1.5 rounded-lg border border-gray-100 dark:border-gray-800/80 inline-block">
+          <span className="text-sm font-semibold text-foreground font-mono bg-muted dark:bg-muted px-2.5 py-1.5 rounded-lg border border-border dark:border-border inline-block">
             {gatewayConfig.secretKey}
           </span>
         </div>

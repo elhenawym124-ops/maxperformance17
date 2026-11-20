@@ -35,7 +35,7 @@ export const CreateCustomerBlockRuleCard: React.FC<CreateCustomerBlockRuleCardPr
   return (
     <aside className="rounded-xl border border-border bg-card p-5 h-fit">
       <h3 className="flex items-center gap-2 text-base font-semibold text-foreground border-b border-border/50 pb-3">
-        <ShieldAlert className="size-5 text-red-500 shrink-0" />
+        <ShieldAlert className="size-5 text-destructive shrink-0" />
         {t('customerBlocks.k_50', 'إضافة عميل لقائمة الحظر')}
       </h3>
 
@@ -164,7 +164,7 @@ export const CreateCustomerBlockRuleCard: React.FC<CreateCustomerBlockRuleCardPr
         <Button
           type="submit"
           disabled={isCreating}
-          className="w-full bg-red-600 hover:bg-red-700 text-white gap-2 font-semibold"
+          className="w-full bg-destructive hover:bg-destructive text-white gap-2 font-semibold"
         >
           {isCreating ? (
             <Loader2 className="size-4 animate-spin" />

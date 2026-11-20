@@ -43,7 +43,7 @@ export function SlipTabContent({
           title={t("orderInvoiceSettings.k_41")}
           description={t("orderInvoiceSettings.k_42")}
           accentClassName="bg-blue-50 text-blue-700 ring-blue-200/70 dark:bg-blue-950/40 dark:text-blue-300"
-          surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+          surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
@@ -145,7 +145,7 @@ export function SlipTabContent({
                 onChange={(e) =>
                   onUpdateSlip({ accentColor: e.target.value })
                 }
-                className="size-11 cursor-pointer rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-slate-800"
+                className="size-11 cursor-pointer rounded-xl border border-border bg-white p-1 dark:border-border dark:bg-muted"
               />
               <Input
                 value={slip.accentColor}
@@ -163,8 +163,8 @@ export function SlipTabContent({
           icon={FileSpreadsheet}
           title={t("orderInvoiceSettings.k_31")}
           description={t("orderInvoiceSettings.k_32")}
-          accentClassName="bg-amber-50 text-amber-700 ring-amber-200/70 dark:bg-amber-950/40 dark:text-amber-300"
-          surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+          accentClassName="bg-amber-50 text-warning ring-warning/70 dark:bg-warning/40 dark:text-warning"
+          surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <div className="space-y-3">
             {slipFlags.map(([key, label]) => (
@@ -187,8 +187,8 @@ export function SlipTabContent({
         icon={ScanText}
         title="تعليمات التشغيل وملاحظات التجهيز"
         description="توجيهات تظهر للمجهز داخل مستند التجهيز لتسهيل إعداد وتغليف الشحنة بدقة."
-        accentClassName="bg-slate-100 text-slate-800 ring-slate-200 dark:bg-slate-800 dark:text-slate-200"
-        surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+        accentClassName="bg-slate-100 text-foreground ring-border dark:bg-muted dark:text-muted-foreground"
+        surfaceClassName="bg-white/90 dark:bg-muted"
       >
         <div className="grid gap-5 xl:grid-cols-2">
           <div className="space-y-2">
@@ -202,7 +202,7 @@ export function SlipTabContent({
               onChange={(e) =>
                 onUpdateSlip({ preparationInstructions: e.target.value })
               }
-              className="rounded-2xl"
+              className="rounded-xl"
               placeholder="اكتب تعليمات التجهيز التي تظهر للمجهز..."
             />
           </div>
@@ -218,7 +218,7 @@ export function SlipTabContent({
               onChange={(e) =>
                 onUpdateSlip({ footerNote: e.target.value })
               }
-              className="rounded-2xl"
+              className="rounded-xl"
               placeholder="ملاحظة ختامية في أسفل مستند التجهيز..."
             />
           </div>

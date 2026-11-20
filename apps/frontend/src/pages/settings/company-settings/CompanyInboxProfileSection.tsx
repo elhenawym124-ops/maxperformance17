@@ -105,18 +105,18 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-8 border border-gray-100 dark:border-gray-700">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100 dark:border-gray-700">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
-          <ChatBubbleLeftRightIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-2" />
+    <div className="bg-card shadow rounded-lg p-6 mb-8 border border-border dark:border-border">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-border dark:border-border">
+        <h2 className="text-xl font-semibold text-foreground flex items-center">
+          <ChatBubbleLeftRightIcon className="h-6 w-6 text-primary me-2" />
           طبيعة واجهة صندوق المحادثات ونشاط الشركة
         </h2>
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary dark:bg-primary dark:text-primary">
           تحكم فوري ودقيق
         </span>
       </div>
 
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+      <p className="text-sm text-muted-foreground mb-6">
         حدد تخصص شركتك الرسمي وطبيعة التجربة التي تظهر لفريق العمل داخل صندوق محادثات فيسبوك وواتساب، لضمان ظهور الأدوات المناسبة (الديمو داي للتعليم، الكشوفات للعيادات، الكتالوج للمتاجر).
       </p>
 
@@ -125,7 +125,7 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
         <div>
           <label
             htmlFor="company-business-specialty"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-medium text-foreground mb-2"
           >
             تخصص الشركة المسجل في المنصة
           </label>
@@ -134,7 +134,7 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
             value={businessSpecialtyId || ""}
             onChange={(e) => handleSpecialtyChange(e.target.value)}
             disabled={savingSpecialty || loadingSpecialties}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+            className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary disabled:bg-muted disabled:cursor-not-allowed bg-card text-foreground text-sm"
           >
             <option value="">بدون تخصص محدد (تلقائي)</option>
             {specialties.map((item) => (
@@ -145,12 +145,12 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
           </select>
           {savingSpecialty && (
             <p className="mt-1.5 text-xs text-blue-600 flex items-center">
-              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-1.5"></span>
+              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 me-1.5"></span>
               جاري حفظ التخصص...
             </p>
           )}
           {currentSpecialtyName && (
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1.5">
+            <p className="text-xs text-muted-foreground/80 mt-1.5">
               التخصص الحالي: {currentSpecialtyName}
             </p>
           )}
@@ -160,7 +160,7 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
         <div>
           <label
             htmlFor="company-inbox-profile"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-medium text-foreground mb-2"
           >
             واجهة صندوق المحادثات المخصصة (Inbox Experience)
           </label>
@@ -169,7 +169,7 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
             value={inboxVerticalProfile || "auto"}
             onChange={(e) => handleInboxProfileChange(e.target.value)}
             disabled={savingInboxProfile}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+            className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary disabled:bg-muted disabled:cursor-not-allowed bg-card text-foreground text-sm"
           >
             {INBOX_PROFILES.map((p) => (
               <option key={p.id} value={p.id}>
@@ -179,11 +179,11 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
           </select>
           {savingInboxProfile && (
             <p className="mt-1.5 text-xs text-blue-600 flex items-center">
-              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-1.5"></span>
+              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 me-1.5"></span>
               جاري حفظ إعداد الواجهة...
             </p>
           )}
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1.5">
+          <p className="text-xs text-muted-foreground/80 mt-1.5">
             {INBOX_PROFILES.find((p) => p.id === (inboxVerticalProfile || "auto"))?.description}
           </p>
         </div>

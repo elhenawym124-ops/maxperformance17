@@ -185,20 +185,20 @@ const LoyaltyPrograms: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "ACTIVE":
-        return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+        return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
       case "INACTIVE":
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400";
+        return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
       case "DRAFT":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400";
+        return "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-foreground";
     }
   };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -208,24 +208,24 @@ const LoyaltyPrograms: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-foreground">
             برامج النقاط
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             إدارة أنظمة النقاط والمكافآت (Loyalty Programs)
           </p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={fetchPrograms}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-foreground hover:bg-muted/50"
           >
             <RefreshCw className="w-4 h-4" />
             تحديث
           </button>
           <button
             onClick={() => handleOpenModal()}
-            className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium"
+            className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium"
           >
             <Plus className="w-4 h-4" />
             برنامج جديد
@@ -234,17 +234,17 @@ const LoyaltyPrograms: React.FC = () => {
       </div>
 
       {programs.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-          <Gift className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+        <div className="text-center py-12 bg-card rounded-xl border border-border dark:border-border">
+          <Gift className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">
             لا توجد برامج ولاء
           </h3>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
+          <p className="text-muted-foreground mb-4">
             أنشئ برنامج نقاط لتشجيع العملاء على الشراء
           </p>
           <button
             onClick={() => handleOpenModal()}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700"
+            className="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary"
           >
             إنشاء برنامج جديد
           </button>
@@ -254,11 +254,11 @@ const LoyaltyPrograms: React.FC = () => {
           {programs.map((program) => (
             <div
               key={program.id}
-              className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-purple-500/50 transition-colors"
+              className="bg-card rounded-xl p-6 border border-border dark:border-border hover:border-primary/50 transition-colors"
             >
               <div className="flex items-start justify-between mb-4">
                 <div
-                  className={`p-2 ${program.status === "ACTIVE" ? "bg-purple-100 text-purple-600 dark:bg-purple-900/30" : "bg-gray-100 text-gray-600 dark:bg-gray-800"} rounded-lg`}
+                  className={`p-2 ${program.status === "ACTIVE" ? "bg-purple-100 text-primary dark:bg-primary/30" : "bg-gray-100 text-foreground dark:bg-muted"} rounded-lg`}
                 >
                   {getProgramIcon(program.type)}
                 </div>
@@ -273,10 +273,10 @@ const LoyaltyPrograms: React.FC = () => {
                 </span>
               </div>
 
-              <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">
+              <h3 className="font-bold text-lg text-foreground mb-2">
                 {program.nameAr || program.name}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                 {program.description}
               </p>
 
@@ -293,7 +293,7 @@ const LoyaltyPrograms: React.FC = () => {
                   return (
                     <>
                       {rules.rewards?.points && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-yellow-50 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-500 text-xs font-medium">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-warning/10 text-warning dark:bg-warning/20 dark:text-warning text-xs font-medium">
                           <Star className="w-3 h-3" /> نقاط
                         </span>
                       )}
@@ -303,7 +303,7 @@ const LoyaltyPrograms: React.FC = () => {
                         </span>
                       )}
                       {rules.rewards?.discount && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-500 text-xs font-medium">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-success/10 text-success dark:bg-success/20 dark:text-success text-xs font-medium">
                           <Tag className="w-3 h-3" /> خصم %
                           {rules.discountPercent}
                         </span>
@@ -313,28 +313,28 @@ const LoyaltyPrograms: React.FC = () => {
                 })()}
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-gray-100 dark:border-gray-700">
+              <div className="space-y-3 pt-4 border-t border-border dark:border-border">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     معدل اكتساب النقاط:
                   </span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="font-medium text-foreground">
                     {program.pointsPerPurchase} نقطة / {program.pointsPerAmount || 1} عملة
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     عدد المشتركين:
                   </span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="font-medium text-foreground">
                     {program.customersCount}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     صلاحية النقاط (شهر):
                   </span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="font-medium text-foreground">
                     {program.expiryMonths}
                   </span>
                 </div>
@@ -343,14 +343,14 @@ const LoyaltyPrograms: React.FC = () => {
               <div className="flex gap-2 mt-6">
                 <button
                   onClick={() => handleOpenModal(program)}
-                  className="flex-1 px-3 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-lg text-sm font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-3 py-2 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded-lg text-sm font-medium hover:bg-primary dark:hover:bg-primary/30 transition-colors flex items-center justify-center gap-2"
                 >
                   <Edit className="w-4 h-4" />
                   تعديل
                 </button>
                 <button
                   onClick={() => handleDelete(program.id)}
-                  className="px-3 py-2 text-gray-400 hover:text-red-500 transition-colors"
+                  className="px-3 py-2 text-muted-foreground hover:text-destructive transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -363,16 +363,16 @@ const LoyaltyPrograms: React.FC = () => {
       {/* Create/Edit Modal */}
       {isModalOpen && editingProgram && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl">
-            <div className="sticky top-0 bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between z-10">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-card rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl">
+            <div className="sticky top-0 bg-card px-6 py-4 border-b border-border dark:border-border flex items-center justify-between z-10">
+              <h2 className="text-xl font-bold text-foreground">
                 {editingProgram.id
                   ? "تعديل برنامج الولاء"
                   : "إنشاء برنامج ولاء جديد"}
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                className="p-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
               >
                 <Trash2 className="w-6 h-6 rotate-45" />
               </button>
@@ -381,7 +381,7 @@ const LoyaltyPrograms: React.FC = () => {
             <form onSubmit={handleSave} className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="text-sm font-medium text-foreground">
                     اسم البرنامج (بالأجنبية)
                   </label>
                   <input
@@ -394,12 +394,12 @@ const LoyaltyPrograms: React.FC = () => {
                         name: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
                     placeholder="e.g. Platinum Points"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="text-sm font-medium text-foreground">
                     اسم البرنامج (بالعربية)
                   </label>
                   <input
@@ -412,14 +412,14 @@ const LoyaltyPrograms: React.FC = () => {
                         nameAr: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-right"
+                    className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-right"
                     placeholder="مثلاً: البرنامج البلاتيني"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="text-sm font-medium text-foreground">
                   وصف البرنامج
                 </label>
                 <textarea
@@ -430,14 +430,14 @@ const LoyaltyPrograms: React.FC = () => {
                       description: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 h-24"
+                  className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted h-24"
                   placeholder="اشرح كيف يمكن للعملاء كسب النقاط..."
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="text-sm font-medium text-foreground">
                     نوع البرنامج
                   </label>
                   <select
@@ -448,7 +448,7 @@ const LoyaltyPrograms: React.FC = () => {
                         type: e.target.value as any,
                       })
                     }
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
                   >
                     <option value="POINTS">نقاط (Points)</option>
                     <option value="TIERS">مستويات (Tiers)</option>
@@ -457,7 +457,7 @@ const LoyaltyPrograms: React.FC = () => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="text-sm font-medium text-foreground">
                     الحالة
                   </label>
                   <select
@@ -468,7 +468,7 @@ const LoyaltyPrograms: React.FC = () => {
                         status: e.target.value as any,
                       })
                     }
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
+                    className="w-full px-4 py-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted"
                   >
                     <option value="ACTIVE">نشط</option>
                     <option value="INACTIVE">غير نشط</option>
@@ -477,23 +477,23 @@ const LoyaltyPrograms: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-xl space-y-4 border border-purple-100 dark:border-purple-900/30">
-                <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Gift className="w-4 h-4 text-purple-600" />
+              <div className="bg-purple-50 dark:bg-primary/20 p-4 rounded-xl space-y-4 border border-primary dark:border-primary/30">
+                <h4 className="font-bold text-foreground flex items-center gap-2">
+                  <Gift className="w-4 h-4 text-primary" />
                   تكوين المكافآت (Rewards Config)
                 </h4>
                 <div className="space-y-4">
                   {/* Points Reward Toggle */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white dark:bg-gray-800 rounded-lg text-yellow-500">
+                      <div className="p-2 bg-card rounded-lg text-warning">
                         <Star className="w-4 h-4" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        <p className="text-sm font-medium text-foreground">
                           تفعيل نظام النقاط
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           كسب نقاط مقابل كل عملية شراء
                         </p>
                       </div>
@@ -512,7 +512,7 @@ const LoyaltyPrograms: React.FC = () => {
                           },
                         })
                       }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editingProgram.rules?.rewards?.points ? "bg-purple-600" : "bg-gray-200 dark:bg-gray-700"}`}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editingProgram.rules?.rewards?.points ? "bg-purple-600" : "bg-gray-200 dark:bg-muted"}`}
                     >
                       <span
                         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${editingProgram.rules?.rewards?.points ? "translate-x-6" : "translate-x-1"}`}
@@ -523,14 +523,14 @@ const LoyaltyPrograms: React.FC = () => {
                   {/* Free Shipping Reward Toggle */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white dark:bg-gray-800 rounded-lg text-blue-500">
+                      <div className="p-2 bg-card rounded-lg text-blue-500">
                         <Truck className="w-4 h-4" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        <p className="text-sm font-medium text-foreground">
                           شحن مجاني
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           عرض شحن مجاني للمشتركين
                         </p>
                       </div>
@@ -550,7 +550,7 @@ const LoyaltyPrograms: React.FC = () => {
                           },
                         })
                       }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editingProgram.rules?.rewards?.freeShipping ? "bg-purple-600" : "bg-gray-200 dark:bg-gray-700"}`}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editingProgram.rules?.rewards?.freeShipping ? "bg-purple-600" : "bg-gray-200 dark:bg-muted"}`}
                     >
                       <span
                         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${editingProgram.rules?.rewards?.freeShipping ? "translate-x-6" : "translate-x-1"}`}
@@ -559,8 +559,8 @@ const LoyaltyPrograms: React.FC = () => {
                   </div>
 
                   {editingProgram.rules?.rewards?.freeShipping && (
-                    <div className="mr-12 animate-in fade-in slide-in-from-right-2 duration-200">
-                      <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">
+                    <div className="me-12 animate-in fade-in slide-in-from-right-2 duration-200">
+                      <label className="text-xs text-muted-foreground block mb-1">
                         الحد الأدنى للطلب (0 = بدون حد)
                       </label>
                       <input
@@ -575,7 +575,7 @@ const LoyaltyPrograms: React.FC = () => {
                             },
                           })
                         }
-                        className="w-full max-w-[200px] px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"
+                        className="w-full max-w-[200px] px-3 py-1.5 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-sm"
                       />
                     </div>
                   )}
@@ -583,14 +583,14 @@ const LoyaltyPrograms: React.FC = () => {
                   {/* Discount Reward Toggle */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white dark:bg-gray-800 rounded-lg text-green-500">
+                      <div className="p-2 bg-card rounded-lg text-success">
                         <Tag className="w-4 h-4" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        <p className="text-sm font-medium text-foreground">
                           خصم خاص
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           منح خصم مئوي عند الشراء
                         </p>
                       </div>
@@ -609,7 +609,7 @@ const LoyaltyPrograms: React.FC = () => {
                           },
                         })
                       }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editingProgram.rules?.rewards?.discount ? "bg-purple-600" : "bg-gray-200 dark:bg-gray-700"}`}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${editingProgram.rules?.rewards?.discount ? "bg-purple-600" : "bg-gray-200 dark:bg-muted"}`}
                     >
                       <span
                         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${editingProgram.rules?.rewards?.discount ? "translate-x-6" : "translate-x-1"}`}
@@ -618,8 +618,8 @@ const LoyaltyPrograms: React.FC = () => {
                   </div>
 
                   {editingProgram.rules?.rewards?.discount && (
-                    <div className="mr-12 animate-in fade-in slide-in-from-right-2 duration-200">
-                      <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">
+                    <div className="me-12 animate-in fade-in slide-in-from-right-2 duration-200">
+                      <label className="text-xs text-muted-foreground block mb-1">
                         نسبة الخصم (%)
                       </label>
                       <div className="relative max-w-[200px]">
@@ -635,9 +635,9 @@ const LoyaltyPrograms: React.FC = () => {
                               },
                             })
                           }
-                          className="w-full px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm pr-8"
+                          className="w-full px-3 py-1.5 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-sm pe-8"
                         />
-                        <Percent className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                        <Percent className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                       </div>
                     </div>
                   )}
@@ -653,18 +653,18 @@ const LoyaltyPrograms: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-100 dark:border-gray-700 sticky bottom-0 bg-white dark:bg-gray-800 pb-2">
+              <div className="flex gap-3 pt-4 border-t border-border dark:border-border sticky bottom-0 bg-card pb-2">
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white py-2 rounded-lg font-bold transition-all shadow-lg shadow-purple-200 dark:shadow-none"
+                  className="flex-1 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white py-2 rounded-lg font-bold transition-all shadow-lg shadow-primary dark:shadow-none"
                 >
                   {isSaving ? "جاري الحفظ..." : "حفظ التغييرات"}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-6 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-6 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   إلغاء
                 </button>

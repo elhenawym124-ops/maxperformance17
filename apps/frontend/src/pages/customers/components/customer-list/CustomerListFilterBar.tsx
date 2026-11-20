@@ -34,18 +34,18 @@ export const CustomerListFilterBar: React.FC<CustomerListFilterBarProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="bg-white dark:bg-zinc-900 p-3 sm:p-3.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xs">
+    <div className="bg-white dark:bg-muted p-3 sm:p-3.5 rounded-xl border border-border dark:border-border shadow-2xs">
       <div className="flex flex-col sm:flex-row gap-2.5">
         {/* Search */}
         <form onSubmit={onSearchSubmit} className="flex-1">
           <div className="relative">
-            <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400 dark:text-zinc-500" />
+            <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={t("customers.searchPlaceholder")}
-              className="block w-full pr-9 pl-3 py-2 text-xs sm:text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50/50 dark:bg-zinc-800/60 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 transition-all shadow-2xs"
+              className="block w-full pe-9 ps-3 py-2 text-xs sm:text-sm border border-border dark:border-border rounded-lg bg-muted dark:bg-muted text-foreground dark:text-muted-foreground placeholder-muted dark:placeholder-muted focus:outline-none focus:ring-1 focus:ring-border dark:focus:ring-border focus:border-border dark:focus:border-border transition-all shadow-2xs"
             />
           </div>
         </form>
@@ -56,8 +56,8 @@ export const CustomerListFilterBar: React.FC<CustomerListFilterBarProps> = ({
           onClick={onToggleWithOrders}
           className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-medium transition-all duration-150 active:scale-[0.97] shrink-0 shadow-2xs ${
             showOnlyWithOrders
-              ? "border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 font-semibold"
-              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700"
+              ? "border-zinc-900 dark:border-border text-foreground dark:text-muted-foreground bg-muted dark:bg-muted font-semibold"
+              : "border-zinc-200 dark:border-border text-foreground dark:text-muted-foreground bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted"
           }`}
         >
           {showOnlyWithOrders ? (
@@ -80,7 +80,7 @@ export const CustomerListFilterBar: React.FC<CustomerListFilterBarProps> = ({
               e.target.value as "" | "AVAILABLE" | "PRE_ACTIVATION",
             )
           }
-          className="px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs sm:text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+          className="px-3 py-2 rounded-lg border border-border dark:border-border text-xs sm:text-sm bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-border dark:focus:ring-border"
         >
           <option value="">كل الخصومات</option>
           <option value="AVAILABLE">خصم متاح</option>
@@ -92,7 +92,7 @@ export const CustomerListFilterBar: React.FC<CustomerListFilterBarProps> = ({
           <select
             value={selectedTag}
             onChange={(e) => onTagFilterChange(e.target.value)}
-            className="px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs sm:text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+            className="px-3 py-2 rounded-lg border border-border dark:border-border text-xs sm:text-sm bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-border dark:focus:ring-border"
           >
             <option value="">{t("customers.allTags")}</option>
             {availableTags.map((tag) => (
@@ -107,7 +107,7 @@ export const CustomerListFilterBar: React.FC<CustomerListFilterBarProps> = ({
         <select
           value={selectedTag.startsWith("nps_") ? selectedTag : ""}
           onChange={(e) => onTagFilterChange(e.target.value)}
-          className="px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs sm:text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+          className="px-3 py-2 rounded-lg border border-border dark:border-border text-xs sm:text-sm bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-border dark:focus:ring-border"
           title="فلترة حسب تقييم NPS"
         >
           <option value="">كل تقييمات NPS</option>

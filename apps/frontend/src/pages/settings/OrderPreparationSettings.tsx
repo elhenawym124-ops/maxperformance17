@@ -32,8 +32,8 @@ const OrderPreparationSettings: React.FC = () => {
     return (
       <div className="flex min-h-[320px] items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500" />
-          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-warning border-t-orange-500" />
+          <p className="mt-4 text-sm text-muted-foreground dark:text-muted-foreground">
             جاري تحميل إعدادات تجهيز الطلبات...
           </p>
         </div>
@@ -51,26 +51,26 @@ const OrderPreparationSettings: React.FC = () => {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="w-full justify-start gap-0 rounded-2xl border border-slate-200/80 bg-slate-50 p-1 dark:border-slate-800 dark:bg-slate-900/90">
+        <TabsList className="w-full justify-start gap-0 rounded-xl border border-border bg-muted p-1 dark:border-border dark:bg-muted">
           <TabsTrigger
             value="pipeline"
             className="flex-1 data-[state=active]:bg-white data-[state=active]:shadow-xs dark:data-[state=active]:bg-slate-800"
           >
-            <CubeIcon className="ml-2 h-4 w-4" />
+            <CubeIcon className="ms-2 h-4 w-4" />
             <span>مسار التجهيز</span>
           </TabsTrigger>
           <TabsTrigger
             value="quality"
             className="flex-1 data-[state=active]:bg-white data-[state=active]:shadow-xs dark:data-[state=active]:bg-slate-800"
           >
-            <ShieldCheckIcon className="ml-2 h-4 w-4" />
+            <ShieldCheckIcon className="ms-2 h-4 w-4" />
             <span>المخزون والجودة</span>
           </TabsTrigger>
           <TabsTrigger
             value="document"
             className="flex-1 data-[state=active]:bg-white data-[state=active]:shadow-xs dark:data-[state=active]:bg-slate-800"
           >
-            <DocumentTextIcon className="ml-2 h-4 w-4" />
+            <DocumentTextIcon className="ms-2 h-4 w-4" />
             <span>ورقة التجهيز</span>
           </TabsTrigger>
         </TabsList>

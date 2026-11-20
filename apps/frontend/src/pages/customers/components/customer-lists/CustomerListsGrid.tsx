@@ -46,7 +46,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm"
+            className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm"
           >
             <Skeleton className="mb-3 h-5 w-1/3" />
             <Skeleton className="mb-2 h-4 w-full" />
@@ -60,8 +60,8 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
 
   if (lists.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-6 py-16 text-center sm:rounded-3xl">
-        <div className="flex size-14 items-center justify-center rounded-2xl bg-[color:color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] text-[color:var(--color-primary)]">
+      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-6 py-16 text-center sm:rounded-xl">
+        <div className="flex size-14 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] text-[color:var(--color-primary)]">
           <Layers className="size-7" />
         </div>
         <div className="space-y-1">
@@ -86,7 +86,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
       {lists.map((list) => (
         <div
           key={list.id}
-          className="group flex flex-col rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-raised sm:rounded-3xl"
+          className="group flex flex-col rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-raised sm:rounded-xl"
         >
           <div className="mb-3 flex items-start justify-between gap-2">
             <div className="flex min-w-0 items-center gap-3">
@@ -125,7 +125,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
             <span className="text-sm text-[color:var(--color-muted-foreground)]">عميل</span>
             {!list.isDefault && list.isStale ? (
               <span
-                className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300"
+                className="inline-flex items-center gap-1 rounded-full bg-warning px-2 py-0.5 text-[10px] font-medium text-warning dark:bg-warning/30 dark:text-warning"
                 title="لم يتم تحديث هذا العدد منذ أكثر من 7 أيام"
               >
                 <Clock className="size-3" /> قديم
@@ -186,7 +186,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="mr-auto rounded-full text-destructive hover:text-destructive"
+                  className="me-auto rounded-full text-destructive hover:text-destructive"
                   onClick={() => onDeleteRequest(list)}
                   aria-label="حذف"
                 >

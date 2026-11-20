@@ -13,11 +13,11 @@ export const CustomerListsHeader: React.FC<CustomerListsHeaderProps> = ({
   onCreate,
 }) => {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-3xl sm:shadow-raised">
+    <div className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised">
       <div className="flex flex-col gap-4 px-4 py-4 sm:gap-5 sm:px-6 sm:py-5 lg:px-7">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex min-w-0 items-start gap-2 sm:gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] sm:size-12 sm:rounded-2xl">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] sm:size-12 sm:rounded-xl">
               <Layers className="size-5 sm:size-6" />
             </div>
             <div className="min-w-0 space-y-1 sm:space-y-2">

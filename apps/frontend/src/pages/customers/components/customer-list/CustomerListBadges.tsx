@@ -22,17 +22,17 @@ export const getStatusBadge = (
   if (!statusOption) return null;
 
   const colorClasses: Record<string, string> = {
-    yellow: "bg-yellow-100 text-yellow-800",
-    green: "bg-green-100 text-green-800",
-    gray: "bg-gray-100 text-gray-800",
-    purple: "bg-purple-100 text-purple-800",
-    red: "bg-red-100 text-red-800",
+    yellow: "bg-yellow-100 text-warning",
+    green: "bg-green-100 text-success",
+    gray: "bg-gray-100 text-foreground",
+    purple: "bg-purple-100 text-primary",
+    red: "bg-red-100 text-destructive",
   };
 
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-        colorClasses[statusOption.color] || "bg-gray-100 text-gray-800"
+        colorClasses[statusOption.color] || "bg-gray-100 text-foreground"
       }`}
     >
       {statusOption.label}
@@ -46,7 +46,7 @@ export const getRatingBadge = (rating: string | undefined, deliveryRate?: number
   switch (r) {
     case "excellent":
       return (
-        <span className="ml-2 text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 px-2 py-0.5 rounded-full ring-1 ring-emerald-600/20 font-medium inline-flex items-center gap-1">
+        <span className="ms-2 text-xs bg-success text-success dark:bg-success/40 dark:text-success px-2 py-0.5 rounded-full ring-1 ring-success/20 font-medium inline-flex items-center gap-1">
           <span>عميل ممتاز</span>
           {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
             <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
@@ -55,7 +55,7 @@ export const getRatingBadge = (rating: string | undefined, deliveryRate?: number
       );
     case "good":
       return (
-        <span className="ml-2 text-xs bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300 px-2 py-0.5 rounded-full ring-1 ring-sky-600/20 font-medium inline-flex items-center gap-1">
+        <span className="ms-2 text-xs bg-info text-info dark:bg-info/40 dark:text-info px-2 py-0.5 rounded-full ring-1 ring-info/20 font-medium inline-flex items-center gap-1">
           <span>عميل جيد</span>
           {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
             <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
@@ -64,7 +64,7 @@ export const getRatingBadge = (rating: string | undefined, deliveryRate?: number
       );
     case "average":
       return (
-        <span className="ml-2 text-xs bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 px-2 py-0.5 rounded-full ring-1 ring-amber-600/20 font-medium inline-flex items-center gap-1">
+        <span className="ms-2 text-xs bg-warning text-warning dark:bg-warning/40 dark:text-warning px-2 py-0.5 rounded-full ring-1 ring-warning/20 font-medium inline-flex items-center gap-1">
           <span>عميل متوسط</span>
           {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
             <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
@@ -74,7 +74,7 @@ export const getRatingBadge = (rating: string | undefined, deliveryRate?: number
     case "poor":
     case "bad":
       return (
-        <span className="ml-2 text-xs bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 px-2 py-0.5 rounded-full ring-1 ring-rose-600/20 font-medium inline-flex items-center gap-1">
+        <span className="ms-2 text-xs bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive px-2 py-0.5 rounded-full ring-1 ring-destructive/20 font-medium inline-flex items-center gap-1">
           <span>عميل ضعيف</span>
           {deliveryRate !== undefined && deliveryRate !== null && (
             <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
@@ -91,7 +91,7 @@ export const getAutoDiscountBadge = (status: string | null | undefined) => {
   if (status === "AVAILABLE") {
     return (
       <span
-        className="mr-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+        className="me-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-success text-success dark:bg-success/30 dark:text-success"
         title="عند العميل كوبون خصم فعّال على أوردره الجاي"
       >
         خصم متاح
@@ -101,7 +101,7 @@ export const getAutoDiscountBadge = (status: string | null | undefined) => {
   if (status === "PRE_ACTIVATION") {
     return (
       <span
-        className="mr-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+        className="me-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground dark:bg-muted dark:text-muted-foreground"
         title="طلب قبل تفعيل نظام الولاء — الخصم التلقائي مش بيطبق عليه"
       >
         قبل تفعيل النظام
@@ -119,7 +119,7 @@ export const getTierBadge = (
   const color = tier.color || "#6366f1";
   return (
     <span
-      className="mr-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
+      className="me-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
       style={{ backgroundColor: color + "1A", color, border: `1px solid ${color}40` }}
       title={`مستوى الولاء: ${label}`}
     >

@@ -222,7 +222,7 @@ export const FacebookSystemUserTokenCard: React.FC<FacebookSystemUserTokenCardPr
           {loading ? (
             <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
           ) : effective ? (
-            <span className="shrink-0 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:text-emerald-300">
+            <span className="shrink-0 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-medium text-success dark:text-success">
               {effective.source === "TENANT"
                 ? t("facebookSystemUser.activeTenant", "فعّال — الشركة")
                 : t("facebookSystemUser.activeCentral", "فعّال — مركزي")}
@@ -336,7 +336,7 @@ export const FacebookSystemUserTokenCard: React.FC<FacebookSystemUserTokenCardPr
 
           {message && (
             <p
-              className={`text-xs font-medium ${message.kind === "ok" ? "text-emerald-600 dark:text-emerald-400" : "text-destructive"}`}
+              className={`text-xs font-medium ${message.kind === "ok" ? "text-emerald-600 dark:text-success" : "text-destructive"}`}
             >
               {message.text}
             </p>

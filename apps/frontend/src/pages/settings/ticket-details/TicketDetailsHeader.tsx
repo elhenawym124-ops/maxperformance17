@@ -14,13 +14,13 @@ export const TicketDetailsHeader: React.FC<TicketDetailsHeaderProps> = ({
     <div className="flex items-center justify-between mb-6">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors"
+        className="flex items-center gap-2 text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white transition-colors"
       >
         <ArrowLeftIcon className="w-4 h-4" />
         العودة لإعدادات Turbo
       </button>
 
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h1 className="text-2xl font-bold text-foreground">
         تذكرة <span className="font-mono tabular-nums">#{ticketId}</span>
       </h1>
     </div>

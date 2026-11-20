@@ -32,27 +32,27 @@ export const StorePromotionRelatedNav: React.FC<StorePromotionRelatedNavProps> =
             key={tool.to}
             to={tool.to}
             className={cn(
-              "group flex min-w-[240px] shrink-0 items-start gap-2.5 rounded-2xl border px-3.5 py-3 transition hover:-translate-y-px sm:min-w-0",
+              "group flex min-w-[240px] shrink-0 items-start gap-2.5 rounded-xl border px-3.5 py-3 transition hover:-translate-y-px sm:min-w-0",
               isCurrent
-                ? "border-amber-400/80 bg-amber-50/70 shadow-xs dark:border-amber-600/70 dark:bg-amber-950/30"
-                : "border-slate-200/70 bg-white/85 hover:border-slate-300 hover:shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:hover:border-slate-700"
+                ? "border-amber-400/80 bg-warning/70 shadow-xs dark:border-warning/70 dark:bg-warning/30"
+                : "border-slate-200/70 bg-white/85 hover:border-border hover:shadow-sm dark:border-border dark:bg-muted dark:hover:border-border"
             )}
           >
             <span
               className={cn(
                 "flex size-9 shrink-0 items-center justify-center rounded-xl ring-1 ring-inset transition",
                 isCurrent
-                  ? "bg-amber-100 text-amber-800 ring-amber-300/80 dark:bg-amber-900/50 dark:text-amber-200 dark:ring-amber-700"
-                  : "bg-slate-50 text-slate-600 ring-slate-200/70 group-hover:bg-white dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700 dark:group-hover:bg-slate-700"
+                  ? "bg-amber-100 text-warning ring-warning/80 dark:bg-warning/50 dark:text-warning dark:ring-warning"
+                  : "bg-slate-50 text-foreground ring-border group-hover:bg-white dark:bg-muted dark:text-muted-foreground dark:ring-border dark:group-hover:bg-muted"
               )}
             >
               <Icon className="size-4" />
             </span>
             <span className="min-w-0">
-              <span className="block text-sm font-bold text-slate-950 dark:text-slate-100">
+              <span className="block text-sm font-bold text-foreground dark:text-muted-foreground">
                 {tool.label}
               </span>
-              <span className="block text-xs text-slate-500 dark:text-slate-400">{tool.desc}</span>
+              <span className="block text-xs text-muted-foreground dark:text-muted-foreground">{tool.desc}</span>
             </span>
           </Link>
         );

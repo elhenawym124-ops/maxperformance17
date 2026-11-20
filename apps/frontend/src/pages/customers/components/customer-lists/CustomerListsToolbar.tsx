@@ -27,7 +27,7 @@ export const CustomerListsToolbar: React.FC<CustomerListsToolbarProps> = ({
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث في القوائم..."
-          className="h-10 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] pr-9"
+          className="h-10 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] pe-9"
         />
       </div>
       <div className="flex items-center gap-2">

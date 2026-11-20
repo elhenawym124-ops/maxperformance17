@@ -41,17 +41,17 @@ export const StoreSettingsHeader: React.FC<StoreSettingsHeaderProps> = ({
     <>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl font-extrabold text-foreground tracking-tight">
             {pageTitle}
           </h2>
-          <p className="mt-2 text-base text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-base text-muted-foreground">
             {pageDescription}
           </p>
         </div>
       </div>
 
       {!hideNavigation ? (
-        <div className="border-b border-gray-200 dark:border-gray-700/60 pb-1 mb-6">
+        <div className="border-b border-border dark:border-border pb-1 mb-6">
           <nav className="flex space-x-2 rtl:space-x-reverse overflow-x-auto no-scrollbar py-1">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
@@ -65,14 +65,14 @@ export const StoreSettingsHeader: React.FC<StoreSettingsHeaderProps> = ({
                     flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 whitespace-nowrap shrink-0
                     ${
                       isActive
-                        ? "bg-indigo-600 text-white shadow-sm shadow-indigo-200 dark:shadow-none"
-                        : "bg-gray-100/80 dark:bg-gray-800/60 text-gray-600 dark:text-gray-300 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-white"
+                        ? "bg-indigo-600 text-white shadow-sm shadow-primary dark:shadow-none"
+                        : "bg-gray-100/80 dark:bg-muted text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground dark:hover:text-white"
                     }
                   `}
                 >
                   <Icon
                     className={`h-4 w-4 ${
-                      isActive ? "text-white" : "text-gray-500 dark:text-gray-400"
+                      isActive ? "text-white" : "text-muted-foreground"
                     }`}
                   />
                   <span>{tab.label}</span>

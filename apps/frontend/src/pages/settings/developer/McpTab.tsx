@@ -209,10 +209,10 @@ const McpTab: React.FC = () => {
           data-testid="mcp-unavailable-banner"
           role="status"
           aria-live="polite"
-          className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3"
+          className="rounded-lg border border-warning/40 bg-warning/10 p-3"
         >
           <div className="flex flex-wrap items-center gap-2">
-            <ExclamationTriangleIcon className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <ExclamationTriangleIcon className="h-4 w-4 text-warning dark:text-warning" />
             <p className="text-sm font-semibold text-foreground">{s.mcp.unavailableTitle}</p>
             <Badge variant="secondary" className="text-[10px]">
               {s.mcp.unavailableBadge}

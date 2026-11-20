@@ -302,7 +302,7 @@ const CustomerEdit: React.FC = () => {
       )}
 
       {successMessage && (
-        <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-emerald-600 dark:text-emerald-400">
+        <div className="flex items-center gap-2 rounded-lg border border-success/30 bg-success/10 p-3 text-success dark:text-success">
           <CheckCircle2 className="h-4 w-4 shrink-0" />
           <span>{successMessage}</span>
         </div>
@@ -378,14 +378,14 @@ const CustomerEdit: React.FC = () => {
         <section className="space-y-3">
           <div className="flex items-center justify-between border-b border-border/60 pb-1.5">
             <div className="flex items-center gap-1.5 text-muted-foreground font-semibold uppercase tracking-wider text-[11px]">
-              <Phone className="h-3.5 w-3.5 text-emerald-500" />
+              <Phone className="h-3.5 w-3.5 text-success" />
               <span>الاتصال وأرقام الواتساب</span>
             </div>
             {formData.phone && !formData.whatsappPhone && (
               <button
                 type="button"
                 onClick={copyPhoneToWhatsApp}
-                className="inline-flex items-center gap-1 text-[11px] text-emerald-600 hover:text-emerald-500 font-medium bg-emerald-500/10 px-2 py-0.5 rounded transition-colors"
+                className="inline-flex items-center gap-1 text-[11px] text-success hover:text-success font-medium bg-success/10 px-2 py-0.5 rounded transition-colors"
               >
                 <Copy className="h-2.5 w-2.5" />
                 <span>نسخ الهاتف للواتساب</span>
@@ -407,7 +407,7 @@ const CustomerEdit: React.FC = () => {
             </div>
             <div>
               <label className="block mb-1 font-medium text-foreground flex items-center justify-between">
-                <span className="flex items-center gap-1 text-emerald-600 font-semibold">
+                <span className="flex items-center gap-1 text-success font-semibold">
                   <MessageCircle className="h-3 w-3" />
                   رقم الواتساب (WhatsApp)
                 </span>
@@ -416,7 +416,7 @@ const CustomerEdit: React.FC = () => {
                     href={`https://wa.me/${formData.whatsappPhone.replace(/[^0-9]/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] text-emerald-600 hover:underline flex items-center gap-0.5"
+                    className="text-[10px] text-success hover:underline flex items-center gap-0.5"
                   >
                     <span>فتح محادثة واتساب</span>
                     <ExternalLink className="h-2.5 w-2.5" />
@@ -429,7 +429,7 @@ const CustomerEdit: React.FC = () => {
                 value={formData.whatsappPhone}
                 onChange={handleChange}
                 dir="ltr"
-                className="w-full px-3 py-1.5 rounded-md border border-emerald-500/40 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono text-right"
+                className="w-full px-3 py-1.5 rounded-md border border-success/40 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-success font-mono text-right"
                 placeholder="01xxxxxxxxx"
               />
             </div>
@@ -491,7 +491,7 @@ const CustomerEdit: React.FC = () => {
                   data-1p-ignore="true"
                   minLength={6}
                   dir="ltr"
-                  className="w-full pl-9 pr-3 py-1.5 rounded-md border border-border/70 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary font-mono"
+                  className="w-full ps-9 pe-3 py-1.5 rounded-md border border-border/70 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary font-mono"
                   placeholder="اتركها فارغة للإبقاء على كلمة المرور الحالية بدون تغيير"
                 />
                 <button
@@ -509,7 +509,7 @@ const CustomerEdit: React.FC = () => {
         {/* Section 3: Status, Stage & Priority */}
         <section className="space-y-3">
           <div className="flex items-center gap-1.5 border-b border-border/60 pb-1.5 text-muted-foreground font-semibold uppercase tracking-wider text-[11px]">
-            <Target className="h-3.5 w-3.5 text-purple-500" />
+            <Target className="h-3.5 w-3.5 text-primary" />
             <span>حالة العميل، مرحلة المتابعة والمسار البيعي</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -533,7 +533,7 @@ const CustomerEdit: React.FC = () => {
                 name="leadStage"
                 value={formData.leadStage}
                 onChange={handleChange}
-                className="w-full px-3 py-1.5 rounded-md border border-purple-500/40 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-purple-500 font-medium"
+                className="w-full px-3 py-1.5 rounded-md border border-primary/40 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary font-medium"
               >
                 <option value="NEW_LEAD">عميل محتمل جديد (New Lead)</option>
                 <option value="CONTACTED">تم التواصل المبدئي (Contacted)</option>
@@ -548,7 +548,7 @@ const CustomerEdit: React.FC = () => {
             </div>
             <div>
               <label className="block mb-1 font-medium text-foreground flex items-center gap-1">
-                <Flame className="h-3 w-3 text-amber-500" />
+                <Flame className="h-3 w-3 text-warning" />
                 درجة حرارة واهتمام العميل
               </label>
               <select
@@ -610,7 +610,7 @@ const CustomerEdit: React.FC = () => {
         {/* Section 4: Inquiries & Interests regarding work */}
         <section className="space-y-3">
           <div className="flex items-center gap-1.5 border-b border-border/60 pb-1.5 text-muted-foreground font-semibold uppercase tracking-wider text-[11px]">
-            <HelpCircle className="h-3.5 w-3.5 text-amber-500" />
+            <HelpCircle className="h-3.5 w-3.5 text-warning" />
             <span>اهتمامات العميل وكل ما سأل عنه بخصوص الشغل</span>
           </div>
           <div className="space-y-3">
@@ -626,7 +626,7 @@ const CustomerEdit: React.FC = () => {
               />
               <div className="mt-1.5 flex flex-wrap gap-1">
                 <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                  <Sparkles className="h-3 w-3 text-amber-500" />
+                  <Sparkles className="h-3 w-3 text-warning" />
                   اقتراحات سريعة:
                 </span>
                 {INTEREST_SUGGESTIONS.map((item, idx) => (
@@ -645,7 +645,7 @@ const CustomerEdit: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label className="block mb-1 font-medium text-foreground flex items-center gap-1">
-                  <DollarSign className="h-3 w-3 text-emerald-500" />
+                  <DollarSign className="h-3 w-3 text-success" />
                   الميزانية التقريبية المتوقعة أو حجم الطلب
                 </label>
                 <input
@@ -768,7 +768,7 @@ const CustomerEdit: React.FC = () => {
         {/* Section 6: Address & General Notes */}
         <section className="space-y-3">
           <div className="flex items-center gap-1.5 border-b border-border/60 pb-1.5 text-muted-foreground font-semibold uppercase tracking-wider text-[11px]">
-            <MapPin className="h-3.5 w-3.5 text-zinc-500" />
+            <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
             <span>العنوان والملاحظات العامة</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

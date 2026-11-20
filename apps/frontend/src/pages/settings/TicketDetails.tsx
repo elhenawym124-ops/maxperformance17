@@ -49,7 +49,7 @@ const TicketDetails: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-50 p-6 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+    <div className="bg-gray-50 p-6 text-foreground dark:bg-muted dark:text-muted-foreground">
       <div className="w-full">
         <TicketDetailsHeader
           ticketId={ticket.id}

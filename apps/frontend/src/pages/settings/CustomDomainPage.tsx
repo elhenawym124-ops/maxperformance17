@@ -251,7 +251,7 @@ export const CustomDomainPage: React.FC = () => {
           />
 
           {/* Step 3: Domain Connection, Verification Tools & Diagnostics */}
-          <div className="p-3.5 sm:p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xs space-y-3">
+          <div className="p-3.5 sm:p-4 rounded-xl border border-border dark:border-border bg-card shadow-xs space-y-3">
             <div className="flex items-center justify-between gap-2">
               <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                 <span className="shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-mono">
@@ -264,9 +264,9 @@ export const CustomDomainPage: React.FC = () => {
                 <span
                   className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                     dnsStatus?.success
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                       : dnsStatus && !dnsStatus.success
-                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                        ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                         : "bg-muted text-muted-foreground border-border/60"
                   }`}
                 >
@@ -314,7 +314,7 @@ export const CustomDomainPage: React.FC = () => {
                       value={customDomain}
                       onChange={(e) => setCustomDomain(e.target.value)}
                       placeholder="store.yourdomain.com"
-                      className="w-full ps-16 pe-3 py-2 text-xs font-mono rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary shadow-xs"
+                      className="w-full ps-16 pe-3 py-2 text-xs font-mono rounded-lg border border-border bg-card text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary shadow-xs"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           handleCustomDomainSave();
@@ -387,7 +387,7 @@ export const CustomDomainPage: React.FC = () => {
             ) : (
               /* B: Domain Connected Card with Full Action Toolset */
               <div className="space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-gray-100 dark:border-gray-700/60 bg-gray-50/70 dark:bg-gray-900/40">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
                       <Globe className="h-5 w-5" />
@@ -457,15 +457,15 @@ export const CustomDomainPage: React.FC = () => {
                   <div
                     className={`p-3.5 rounded-xl border space-y-2 text-xs ${
                       dnsStatus.success
-                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/25"
-                        : "bg-amber-500/10 text-amber-800 dark:text-amber-200 border-amber-500/25"
+                        ? "bg-emerald-500/10 text-success dark:text-success border-success/25"
+                        : "bg-amber-500/10 text-warning dark:text-warning border-warning/25"
                     }`}
                   >
                     <div className="flex items-start gap-2.5">
                       {dnsStatus.success ? (
-                        <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-4 w-4 text-success shrink-0 mt-0.5" />
                       ) : (
-                        <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                        <AlertTriangle className="h-4 w-4 text-warning shrink-0 mt-0.5" />
                       )}
                       <div className="flex-1 space-y-1">
                         <p className="font-semibold text-xs">
@@ -480,7 +480,7 @@ export const CustomDomainPage: React.FC = () => {
                           </p>
                         )}
                         {!dnsStatus.success && (
-                          <div className="pt-2 border-t border-amber-500/20 text-[11px] space-y-1">
+                          <div className="pt-2 border-t border-warning/20 text-[11px] space-y-1">
                             <p className="font-semibold">نصائح سريعة لحل المشكلة:</p>
                             <ul className="list-disc list-inside space-y-0.5 opacity-90">
                               <li>تأكد من حفظ سجل DNS في لوحة تحكم مزود الدومين (Hostinger / GoDaddy / Namecheap / Cloudflare).</li>
@@ -499,7 +499,7 @@ export const CustomDomainPage: React.FC = () => {
 
           {/* Step 4: FAQ & Value Props */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            <div className="p-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xs space-y-2">
+            <div className="p-3.5 rounded-xl border border-border dark:border-border bg-card shadow-xs space-y-2">
               <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
                 <HelpCircle className="h-3.5 w-3.5 text-primary" />
                 <span>{t("customDomain.whyCustomDomain")}</span>
@@ -512,7 +512,7 @@ export const CustomDomainPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-xs space-y-2">
+            <div className="p-3.5 rounded-xl border border-border dark:border-border bg-card shadow-xs space-y-2">
               <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
                 <HelpCircle className="h-3.5 w-3.5 text-primary" />
                 <span>{t("customDomain.faqTitle")}</span>

@@ -16,18 +16,18 @@ export const OrderPreparationSlipLivePreview: React.FC<OrderPreparationSlipLiveP
   slipDocument,
 }) => {
   return (
-    <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90 xl:sticky xl:top-4 xl:self-start">
+    <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted xl:sticky xl:top-4 xl:self-start">
       <CardHeader>
-        <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+        <CardTitle className="text-lg font-bold text-foreground dark:text-white">
           معاينة
         </CardTitle>
-        <CardDescription className="text-slate-500 dark:text-slate-400">
+        <CardDescription className="text-slate-500 dark:text-muted-foreground">
           شكل ورقة التجهيز بعد الطباعة
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div
-          className="overflow-hidden rounded-xl border border-slate-200/90 bg-white p-6 shadow-xs"
+          className="overflow-hidden rounded-xl border border-border bg-white p-6 shadow-xs"
           style={{
             backgroundColor: "#ffffff",
             color: "#1e293b",
@@ -46,18 +46,18 @@ export const OrderPreparationSlipLivePreview: React.FC<OrderPreparationSlipLiveP
               {slipDocument.documentTitle}
             </h3>
             {slipDocument.showCompanyName && (
-              <p className="mt-1 text-xs text-slate-600">
+              <p className="mt-1 text-xs text-foreground">
                 اسم الشركة: متجر ماكس بيرفورمانس
               </p>
             )}
-            <p className="mt-0.5 text-xs text-slate-400">
+            <p className="mt-0.5 text-xs text-muted-foreground">
               {slipDocument.documentSubtitle}
             </p>
           </div>
 
           {/* Instructions */}
           {slipDocument.preparationInstructions && (
-            <div className="mb-4 rounded-lg border border-amber-200/80 bg-amber-50/80 p-2.5 text-xs text-amber-900">
+            <div className="mb-4 rounded-lg border border-warning/80 bg-warning/80 p-2.5 text-xs text-warning">
               <span className="font-bold">تعليمات التجهيز: </span>
               <span>{slipDocument.preparationInstructions}</span>
             </div>
@@ -92,35 +92,35 @@ export const OrderPreparationSlipLivePreview: React.FC<OrderPreparationSlipLiveP
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-slate-100">
+              <tr className="border-b border-border">
                 {slipDocument.showItemSku && (
-                  <td className="p-1.5 font-mono text-[11px] text-slate-500">
+                  <td className="p-1.5 font-mono text-[11px] text-muted-foreground">
                     SKU-001
                   </td>
                 )}
                 {slipDocument.showItemDetails && (
-                  <td className="p-1.5 font-medium text-slate-800">
+                  <td className="p-1.5 font-medium text-foreground">
                     حذاء كلاسيكي أنيق
                   </td>
                 )}
                 {slipDocument.showItemColor && (
-                  <td className="p-1.5 text-slate-600">رصاصي</td>
+                  <td className="p-1.5 text-foreground">رصاصي</td>
                 )}
                 {slipDocument.showItemSize && (
-                  <td className="p-1.5 font-mono tabular-nums text-slate-600">
+                  <td className="p-1.5 font-mono tabular-nums text-foreground">
                     37
                   </td>
                 )}
-                <td className="p-1.5 font-mono tabular-nums text-slate-800">
+                <td className="p-1.5 font-mono tabular-nums text-foreground">
                   1
                 </td>
                 {slipDocument.showItemPrice && (
-                  <td className="p-1.5 font-mono tabular-nums text-slate-700">
+                  <td className="p-1.5 font-mono tabular-nums text-foreground">
                     720 ج.م
                   </td>
                 )}
                 {slipDocument.showItemTotal && (
-                  <td className="p-1.5 font-mono tabular-nums font-bold text-slate-900">
+                  <td className="p-1.5 font-mono tabular-nums font-bold text-foreground">
                     720 ج.م
                   </td>
                 )}
@@ -130,16 +130,16 @@ export const OrderPreparationSlipLivePreview: React.FC<OrderPreparationSlipLiveP
 
           {/* Financial Summary */}
           {slipDocument.showFinancialSummary && (
-            <div className="mt-3 space-y-0.5 border-t border-slate-100 pt-2 text-xs">
-              <div className="flex justify-between text-slate-600">
+            <div className="mt-3 space-y-0.5 border-t border-border pt-2 text-xs">
+              <div className="flex justify-between text-foreground">
                 <span>المجموع الفرعي</span>
                 <span className="font-mono tabular-nums">720 ج.م</span>
               </div>
-              <div className="flex justify-between text-slate-600">
+              <div className="flex justify-between text-foreground">
                 <span>الشحن</span>
                 <span className="font-mono tabular-nums">110 ج.م</span>
               </div>
-              <div className="flex justify-between font-bold text-slate-900">
+              <div className="flex justify-between font-bold text-foreground">
                 <span>الإجمالي</span>
                 <span className="font-mono tabular-nums">830 ج.م</span>
               </div>
@@ -148,7 +148,7 @@ export const OrderPreparationSlipLivePreview: React.FC<OrderPreparationSlipLiveP
 
           {/* Payment Summary */}
           {slipDocument.showPaymentSummary && (
-            <div className="mt-2.5 rounded-lg border border-emerald-200/80 bg-emerald-50/70 p-2 text-xs text-emerald-900">
+            <div className="mt-2.5 rounded-lg border border-success/80 bg-success/70 p-2 text-xs text-success">
               <span className="font-bold">الدفع: </span>
               <span className="font-mono tabular-nums">830 ج.م</span>
               <span> عند الاستلام</span>
@@ -156,7 +156,7 @@ export const OrderPreparationSlipLivePreview: React.FC<OrderPreparationSlipLiveP
           )}
 
           {/* Footer Note */}
-          <div className="mt-4 border-t border-slate-100 pt-2 text-[11px] text-slate-400">
+          <div className="mt-4 border-t border-border pt-2 text-[11px] text-muted-foreground">
             {slipDocument.footerNote}
           </div>
         </div>

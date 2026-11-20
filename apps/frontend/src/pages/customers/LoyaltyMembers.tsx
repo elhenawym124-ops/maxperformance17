@@ -283,20 +283,20 @@ const LoyaltyMembers: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "ACTIVE":
-        return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+        return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
       case "INACTIVE":
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400";
+        return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
       case "SUSPENDED":
-        return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
+        return "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-foreground";
     }
   };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -306,24 +306,24 @@ const LoyaltyMembers: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-foreground">
             أعضاء الولاء
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             قائمة العملاء المشتركين في برامج النقاط والمكافآت
           </p>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsEnrollModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             إضافة عضو
           </button>
           <button
             onClick={fetchCustomers}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-foreground hover:bg-muted/50"
           >
             <RefreshCw className="w-4 h-4" />
             تحديث
@@ -334,99 +334,99 @@ const LoyaltyMembers: React.FC = () => {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="البحث باسم العميل، البريد، أو الهاتف..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pr-10 pl-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-right"
+            className="w-full pe-10 ps-4 py-2.5 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary text-right"
           />
         </div>
-        <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+        <button className="flex items-center gap-2 px-4 py-2.5 border border-border rounded-lg text-sm font-medium text-foreground hover:bg-muted/50 bg-card shadow-sm">
           <Filter className="w-4 h-4" />
           فلترة متقدمة
         </button>
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm">
+      <div className="bg-card rounded-xl border border-border dark:border-border overflow-hidden shadow-sm">
         {customers.length === 0 ? (
           <div className="text-center py-12">
-            <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+            <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">
               لا يوجد عملاء
             </h3>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-muted-foreground">
               لا توجد نتائج تطابق بحثك
             </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800/50">
+            <table className="min-w-full divide-y divide-border dark:divide-border">
+              <thead className="bg-gray-50 dark:bg-muted">
                 <tr>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     العميل
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     البرنامج
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     النقاط
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     المستوى
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     الحالة
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     آخر نشاط
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     إجراءات
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-card divide-y divide-border dark:divide-border">
                 {customers.map((record) => (
                   <tr
                     key={record.id}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    className="hover:bg-muted/50/50 transition-colors"
                   >
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <div className="font-medium text-foreground">
                           {record.customer.firstName} {record.customer.lastName}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                        <div className="text-xs text-muted-foreground mt-0.5">
                           {record.customer.email}
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <div className="flex items-center gap-2 justify-end">
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
+                        <span className="text-sm text-foreground">
                           {record.program.nameAr || record.program.name}
                         </span>
-                        <span className="p-1 rounded bg-gray-100 dark:bg-gray-700">
+                        <span className="p-1 rounded bg-muted">
                           {getProgramIcon(record.program.type)}
                         </span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <div className="flex items-center gap-1.5 justify-end">
-                        <span className="font-bold text-gray-900 dark:text-white">
+                        <span className="font-bold text-foreground">
                           {record.currentPoints.toLocaleString()}
                         </span>
-                        <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="w-4 h-4 text-warning fill-warning" />
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       {record.tier ? (
                         <div className="flex items-center gap-2 justify-end">
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          <span className="text-sm font-medium text-foreground">
                             {record.tier.nameAr || record.tier.name}
                           </span>
                           <span style={{ color: record.tier.color }}>
@@ -434,7 +434,7 @@ const LoyaltyMembers: React.FC = () => {
                           </span>
                         </div>
                       ) : (
-                        <span className="text-sm text-gray-400">-</span>
+                        <span className="text-sm text-muted-foreground">-</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
@@ -448,7 +448,7 @@ const LoyaltyMembers: React.FC = () => {
                             : "معلق"}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500 dark:text-gray-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-muted-foreground">
                       {new Date(record.lastActivity).toLocaleDateString(
                         "ar-EG",
                       )}
@@ -457,7 +457,7 @@ const LoyaltyMembers: React.FC = () => {
                       <div className="flex gap-3 justify-end">
                         <Link
                           to={`/customers/${record.customer.id}`}
-                          className="text-gray-400 hover:text-purple-600 transition-colors"
+                          className="text-gray-400 hover:text-primary transition-colors"
                           title="عرض التفاصيل"
                         >
                           <Eye className="w-4 h-4" />
@@ -476,7 +476,7 @@ const LoyaltyMembers: React.FC = () => {
                           <button
                             onClick={() => handleSendCard(record)}
                             disabled={sendingCardId === record.id}
-                            className="text-gray-400 hover:text-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-wait"
+                            className="text-gray-400 hover:text-success transition-colors disabled:opacity-50 disabled:cursor-wait"
                             title="إرسال كارت العضوية"
                           >
                             <Send className={`w-4 h-4 ${sendingCardId === record.id ? "animate-pulse" : ""}`} />
@@ -492,14 +492,14 @@ const LoyaltyMembers: React.FC = () => {
         )}
 
         {/* Pagination */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-          <div className="text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-border dark:border-border bg-muted dark:bg-muted">
+          <div className="text-sm text-muted-foreground">
             عرض{" "}
-            <span className="font-semibold text-gray-700 dark:text-gray-200">
+            <span className="font-semibold text-foreground">
               {customers.length.toLocaleString()}
             </span>{" "}
             من{" "}
-            <span className="font-semibold text-gray-700 dark:text-gray-200">
+            <span className="font-semibold text-foreground">
               {total.toLocaleString()}
             </span>{" "}
             عميل
@@ -512,7 +512,7 @@ const LoyaltyMembers: React.FC = () => {
                 setPageSize(nextSize);
                 loadCustomers(1, searchQuery, nextSize);
               }}
-              className="px-2 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none"
+              className="px-2 py-1.5 border border-border rounded-lg bg-card text-sm text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
             >
               {[10, 25, 50, 100].map((s) => (
                 <option key={s} value={s}>
@@ -523,17 +523,17 @@ const LoyaltyMembers: React.FC = () => {
             <button
               onClick={() => loadCustomers(page - 1, searchQuery)}
               disabled={page <= 1}
-              className="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1.5 text-sm font-medium text-foreground border border-border rounded-lg bg-card hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               السابق
             </button>
-            <span className="text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
+            <span className="text-sm text-muted-foreground whitespace-nowrap">
               صفحة {page} من {Math.max(totalPages, 1)}
             </span>
             <button
               onClick={() => loadCustomers(page + 1, searchQuery)}
               disabled={page >= totalPages}
-              className="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1.5 text-sm font-medium text-foreground border border-border rounded-lg bg-card hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               التالي
             </button>
@@ -544,47 +544,47 @@ const LoyaltyMembers: React.FC = () => {
       {/* Adjustment Modal */}
       {isAdjustModalOpen && selectedRecord && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white text-right">
+          <div className="bg-card rounded-xl shadow-xl w-full max-w-md border border-border dark:border-border overflow-hidden">
+            <div className="p-6 border-b border-border dark:border-border bg-muted dark:bg-muted">
+              <h3 className="text-lg font-bold text-foreground text-right">
                 تعديل نقاط العميل
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-right mt-1">
-                العميل: <span className="font-semibold text-gray-700 dark:text-gray-300">{selectedRecord.customer.firstName} {selectedRecord.customer.lastName}</span>
+              <p className="text-sm text-muted-foreground text-right mt-1">
+                العميل: <span className="font-semibold text-foreground">{selectedRecord.customer.firstName} {selectedRecord.customer.lastName}</span>
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-right mt-1">
-                البرنامج: <span className="font-semibold text-gray-700 dark:text-gray-300">{selectedRecord.program.nameAr || selectedRecord.program.name}</span>
+              <p className="text-sm text-muted-foreground text-right mt-1">
+                البرنامج: <span className="font-semibold text-foreground">{selectedRecord.program.nameAr || selectedRecord.program.name}</span>
               </p>
-              <div className="mt-4 flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">الرصيد الحالي:</span>
+              <div className="mt-4 flex items-center justify-between p-3 bg-white dark:bg-muted rounded-lg border border-border dark:border-border">
+                <span className="text-sm font-medium text-foreground dark:text-muted-foreground">الرصيد الحالي:</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-lg font-bold text-gray-900 dark:text-white">
+                  <span className="text-lg font-bold text-foreground">
                     {selectedRecord.currentPoints.toLocaleString()}
                   </span>
-                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  <Star className="w-5 h-5 text-warning fill-warning" />
                 </div>
               </div>
             </div>
 
             <div className="p-6 space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 text-right mb-2">
+                <label className="block text-sm font-medium text-foreground text-right mb-2">
                   مقدار النقاط للتعديل
                 </label>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setAdjustmentPoints(prev => Math.abs(prev) * -1)}
                     className={`flex-1 flex justify-center items-center py-2.5 rounded-lg border transition-all ${adjustmentPoints < 0 
-                      ? 'bg-red-50 border-red-500 text-red-700 dark:bg-red-900/30' 
-                      : 'border-gray-300 text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800'}`}
+                      ? 'bg-red-50 border-destructive text-destructive dark:bg-destructive/30' 
+                      : 'border-gray-300 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted'}`}
                   >
                     خصم نقاط
                   </button>
                   <button
                     onClick={() => setAdjustmentPoints(prev => Math.abs(prev))}
                     className={`flex-1 flex justify-center items-center py-2.5 rounded-lg border transition-all ${adjustmentPoints >= 0 
-                      ? 'bg-green-50 border-green-500 text-green-700 dark:bg-green-900/30' 
-                      : 'border-gray-300 text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800'}`}
+                      ? 'bg-green-50 border-success text-success dark:bg-success/30' 
+                      : 'border-gray-300 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted'}`}
                   >
                     إضافة نقاط
                   </button>
@@ -600,10 +600,10 @@ const LoyaltyMembers: React.FC = () => {
                       const val = Math.abs(Number(e.target.value));
                       setAdjustmentPoints(adjustmentPoints < 0 ? -val : val);
                     }}
-                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-right focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none font-medium"
+                    className="w-full px-4 py-2.5 border border-border rounded-lg bg-white dark:bg-muted text-foreground text-right focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-medium"
                   />
                   {adjustmentPoints < 0 && Math.abs(adjustmentPoints) > selectedRecord.currentPoints && (
-                    <p className="mt-1.5 text-xs text-red-500 text-right">
+                    <p className="mt-1.5 text-xs text-destructive text-right">
                       تنبيه: لا يمكن خصم نقاط أكثر من الرصيد الحالي للعميل!
                     </p>
                   )}
@@ -611,22 +611,22 @@ const LoyaltyMembers: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 text-right mb-1">
+                <label className="block text-sm font-medium text-foreground text-right mb-1">
                   سبب التعديل (إلزامي)
                 </label>
                 <textarea
                   value={adjustmentReason}
                   onChange={(e) => setAdjustmentReason(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-right focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none resize-none min-h-[100px]"
+                  className="w-full px-4 py-3 border border-border rounded-lg bg-white dark:bg-muted text-foreground text-right focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none min-h-[100px]"
                   placeholder="الرجاء كتابة سبب التعديل بوضوح..."
                 />
               </div>
             </div>
 
-            <div className="p-6 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center rounded-b-xl border-t border-gray-200 dark:border-gray-700">
+            <div className="p-6 bg-muted dark:bg-muted flex justify-between items-center rounded-b-xl border-t border-border dark:border-border">
               <div className="text-sm font-medium">
                  صافي الرصيد بعد العملية: 
-                 <span className={`mr-2 font-bold ${(selectedRecord.currentPoints + adjustmentPoints) < 0 ? 'text-red-500' : 'text-indigo-600 dark:text-indigo-400'}`}>
+                 <span className={`me-2 font-bold ${(selectedRecord.currentPoints + adjustmentPoints) < 0 ? 'text-red-500' : 'text-primary'}`}>
                    {(selectedRecord.currentPoints + (adjustmentPoints || 0)).toLocaleString()}
                  </span>
               </div>
@@ -637,14 +637,14 @@ const LoyaltyMembers: React.FC = () => {
                     setAdjustmentPoints(0);
                     setAdjustmentReason("");
                   }}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-300 dark:border-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors border border-border"
                 >
                   إلغاء
                 </button>
                 <button
                   onClick={handleAdjustPoints}
                   disabled={isSubmitting || adjustmentPoints === 0 || !adjustmentReason.trim() || (adjustmentPoints < 0 && Math.abs(adjustmentPoints) > selectedRecord.currentPoints)}
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-all shadow-sm"
+                  className="px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-all shadow-sm"
                 >
                   {isSubmitting ? "جاري الحفظ..." : "تأكيد التعديل"}
                 </button>
@@ -656,12 +656,12 @@ const LoyaltyMembers: React.FC = () => {
       {/* Enroll Modal */}
       {isEnrollModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white text-right">
+          <div className="bg-card rounded-xl shadow-xl w-full max-w-md border border-border dark:border-border overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="p-6 border-b border-border dark:border-border bg-muted dark:bg-muted">
+              <h3 className="text-lg font-bold text-foreground text-right">
                 إضافة عضو جديد للولاء
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-right mt-1">
+              <p className="text-sm text-muted-foreground text-right mt-1">
                 ابحث عن العميل وسجله في أحد برامج النقاط أو المستويات النشطة
               </p>
             </div>
@@ -669,11 +669,11 @@ const LoyaltyMembers: React.FC = () => {
             <div className="p-6 space-y-5 overflow-y-auto">
               {/* Customer Search */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 text-right mb-2">
+                <label className="block text-sm font-medium text-foreground text-right mb-2">
                   العميل
                 </label>
                 <div className="relative">
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input
                     type="text"
                     value={customerSearch}
@@ -682,13 +682,13 @@ const LoyaltyMembers: React.FC = () => {
                       setSelectedCustomerId("");
                     }}
                     placeholder="ابحث بالاسم أو الهاتف..."
-                    className="w-full pr-10 pl-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-right"
+                    className="w-full pe-10 ps-4 py-2.5 border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary text-right"
                   />
                   {/* Search Results Dropdown */}
                   {customerSearch.trim().length >= 2 && !selectedCustomerId && (
-                    <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                    <div className="absolute z-10 w-full mt-1 bg-card border border-border dark:border-border rounded-lg shadow-lg max-h-48 overflow-y-auto">
                       {isSearching ? (
-                        <div className="p-4 text-center text-sm text-gray-500">جاري البحث...</div>
+                        <div className="p-4 text-center text-sm text-muted-foreground">جاري البحث...</div>
                       ) : searchResults.length > 0 ? (
                         searchResults.map((c) => (
                           <div
@@ -698,14 +698,14 @@ const LoyaltyMembers: React.FC = () => {
                               setCustomerSearch(`${c.firstName} ${c.lastName}`);
                               setSearchResults([]);
                             }}
-                            className="p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b border-gray-100 dark:border-gray-700/50 last:border-0 text-right"
+                            className="p-3 hover:bg-muted/50 cursor-pointer border-b border-border dark:border-border last:border-0 text-right"
                           >
-                            <div className="font-medium text-gray-900 dark:text-white">{c.firstName} {c.lastName}</div>
-                            <div className="text-xs text-gray-500">{c.phone || c.email}</div>
+                            <div className="font-medium text-foreground">{c.firstName} {c.lastName}</div>
+                            <div className="text-xs text-muted-foreground">{c.phone || c.email}</div>
                           </div>
                         ))
                       ) : (
-                        <div className="p-4 text-center text-sm text-gray-500">لا يوجد نتائج</div>
+                        <div className="p-4 text-center text-sm text-muted-foreground">لا يوجد نتائج</div>
                       )}
                     </div>
                   )}
@@ -714,13 +714,13 @@ const LoyaltyMembers: React.FC = () => {
 
               {/* Program Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 text-right mb-2">
+                <label className="block text-sm font-medium text-foreground text-right mb-2">
                   برنامج الولاء
                 </label>
                 <select
                   value={selectedProgramId}
                   onChange={(e) => setSelectedProgramId(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-right"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary text-right"
                   dir="rtl"
                 >
                   <option value="">-- اختر البرنامج --</option>
@@ -732,7 +732,7 @@ const LoyaltyMembers: React.FC = () => {
 
               {/* Initial Points */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 text-right mb-2">
+                <label className="block text-sm font-medium text-foreground text-right mb-2">
                   رصيد افتتاحي (اختياري)
                 </label>
                 <div className="relative">
@@ -742,16 +742,16 @@ const LoyaltyMembers: React.FC = () => {
                     placeholder="0"
                     value={initialPoints || ''}
                     onChange={(e) => setInitialPoints(Number(e.target.value))}
-                    className="w-full pr-4 pl-10 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-right font-medium"
+                    className="w-full pe-4 ps-10 py-2.5 border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary text-right font-medium"
                   />
                   <div className="absolute left-3 top-1/2 -translate-y-1/2">
-                    <Star className="w-5 h-5 text-yellow-500 fill-yellow-500 opacity-50" />
+                    <Star className="w-5 h-5 text-warning fill-warning opacity-50" />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 bg-gray-50 dark:bg-gray-800/50 flex justify-end items-center rounded-b-xl border-t border-gray-200 dark:border-gray-700 gap-3">
+            <div className="p-6 bg-muted dark:bg-muted flex justify-end items-center rounded-b-xl border-t border-border dark:border-border gap-3">
               <button
                 onClick={() => {
                   setIsEnrollModalOpen(false);
@@ -760,14 +760,14 @@ const LoyaltyMembers: React.FC = () => {
                   setInitialPoints(0);
                   setCustomerSearch("");
                 }}
-                className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-300 dark:border-gray-600"
+                className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted rounded-lg transition-colors border border-border"
               >
                 إلغاء
               </button>
               <button
                 onClick={handleEnrollCustomer}
                 disabled={isEnrolling || !selectedCustomerId || !selectedProgramId}
-                className="px-5 py-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-all shadow-sm"
+                className="px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-all shadow-sm"
               >
                 {isEnrolling ? "جاري التسجيل..." : "تأكيد التسجيل"}
               </button>

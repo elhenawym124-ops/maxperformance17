@@ -24,8 +24,8 @@ export function TelegramUserbot2faStep({
 }: TelegramUserbot2faStepProps) {
   return (
     <>
-      <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-900/60 dark:bg-rose-950/20">
-        <p className="text-xs text-rose-800 dark:text-rose-200 leading-relaxed">
+      <div className="rounded-xl border border-destructive bg-destructive/10 p-4 dark:border-destructive/60 dark:bg-destructive/20">
+        <p className="text-xs text-destructive dark:text-destructive leading-relaxed">
           Two-Step Verification is enabled on this account. Please enter your cloud password.
         </p>
       </div>
@@ -43,17 +43,17 @@ export function TelegramUserbot2faStep({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Your 2FA Password"
-            className={`w-full rounded-xl border p-3 text-xs pr-12 outline-none transition focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 ${
+            className={`w-full rounded-xl border p-3 text-xs pe-12 outline-none transition focus:border-success focus:ring-1 focus:ring-success ${
               derivedTheme === "dark"
-                ? "border-slate-700 bg-slate-800 text-white placeholder-slate-500"
-                : "border-slate-300 bg-white text-slate-900 placeholder-slate-400"
+                ? "border-slate-700 bg-muted text-white placeholder-muted"
+                : "border-slate-300 bg-white text-foreground placeholder-muted"
             }`}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           >
             {showPassword ? <EyeSlashIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
           </button>
@@ -66,8 +66,8 @@ export function TelegramUserbot2faStep({
           disabled={isLoading || !password}
           className={`flex-1 rounded-xl py-2.5 text-xs font-semibold text-white transition-all ${
             isLoading || !password
-              ? "cursor-not-allowed bg-emerald-300 dark:bg-emerald-900/50"
-              : "bg-emerald-600 hover:bg-emerald-700 shadow-xs"
+              ? "cursor-not-allowed bg-success dark:bg-success/50"
+              : "bg-emerald-600 hover:bg-success shadow-xs"
           }`}
         >
           {isLoading ? "Verifying..." : "Complete Login"}
@@ -76,7 +76,7 @@ export function TelegramUserbot2faStep({
           type="button"
           onClick={onResetForm}
           disabled={isLoading}
-          className="rounded-xl border border-slate-300 px-5 py-2.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+          className="rounded-xl border border-border px-5 py-2.5 text-xs font-semibold text-foreground transition hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
         >
           Cancel
         </button>

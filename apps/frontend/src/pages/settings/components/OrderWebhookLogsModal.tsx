@@ -52,7 +52,7 @@ export const OrderWebhookLogsModal: React.FC<OrderWebhookLogsModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-sm animate-in fade-in">
-      <div className="bg-card border border-border/80 rounded-2xl w-full max-w-2xl p-5 sm:p-6 shadow-2xl space-y-4 max-h-[85vh] flex flex-col animate-in zoom-in-95 text-xs font-sans">
+      <div className="bg-card border border-border/80 rounded-xl w-full max-w-2xl p-5 sm:p-6 shadow-2xl space-y-4 max-h-[85vh] flex flex-col animate-in zoom-in-95 text-xs font-sans">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
           <div className="flex items-center gap-2.5 min-w-0">
@@ -78,7 +78,7 @@ export const OrderWebhookLogsModal: React.FC<OrderWebhookLogsModalProps> = ({
         </div>
 
         {/* Logs List */}
-        <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+        <div className="flex-1 overflow-y-auto space-y-2 pe-1">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12 text-muted-foreground space-y-2">
               <div className="w-7 h-7 rounded-full border-2 border-primary border-t-transparent animate-spin" />
@@ -99,7 +99,7 @@ export const OrderWebhookLogsModal: React.FC<OrderWebhookLogsModalProps> = ({
                     <span
                       className={`px-2 py-0.5 rounded-full font-bold text-[10px] border ${
                         log.isSuccess
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                           : "bg-destructive/10 text-destructive border-destructive/20"
                       }`}
                     >

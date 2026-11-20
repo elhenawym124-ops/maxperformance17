@@ -49,7 +49,7 @@ const CustomerJourneyTab: React.FC<{ customerId: string }> = ({ customerId }) =>
   const statusBadge = (status: string) => {
     if (status === "ACTIVE")
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-success text-success dark:bg-success/40 dark:text-success">
           <Send className="h-3 w-3" /> نشطة
         </span>
       );
@@ -60,7 +60,7 @@ const CustomerJourneyTab: React.FC<{ customerId: string }> = ({ customerId }) =>
         </span>
       );
     return (
-      <span className="inline-flex px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+      <span className="inline-flex px-2 py-0.5 rounded-full text-xs bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
         ملغاة
       </span>
     );
@@ -70,21 +70,21 @@ const CustomerJourneyTab: React.FC<{ customerId: string }> = ({ customerId }) =>
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-fuchsia-500" />
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+          <Sparkles className="h-4 w-4 text-primary" />
+          <h4 className="text-sm font-semibold text-foreground">
             رحلة العميل (Customer Journey)
           </h4>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={load}
-            className="inline-flex items-center gap-1 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="inline-flex items-center gap-1 px-3 py-2 border border-border text-foreground rounded-lg text-sm hover:bg-muted"
           >
             <RefreshCw className="h-4 w-4" /> تحديث
           </button>
           <Link
             to="/whatsapp/customer-journey"
-            className="inline-flex items-center gap-1 px-3 py-2 bg-fuchsia-600 text-white rounded-lg text-sm hover:bg-fuchsia-700"
+            className="inline-flex items-center gap-1 px-3 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary"
           >
             إدارة الرحلات <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -93,17 +93,17 @@ const CustomerJourneyTab: React.FC<{ customerId: string }> = ({ customerId }) =>
 
       {loading ? (
         <div className="py-10 flex justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-fuchsia-500" />
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : journeys.length === 0 ? (
-        <div className="text-center py-8 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-          <Sparkles className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
+        <div className="text-center py-8 bg-card rounded-lg border border-border dark:border-border">
+          <Sparkles className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+          <p className="text-muted-foreground text-sm">
             هذا العميل مش مسجّل في أي رحلة حالياً
           </p>
           <Link
             to="/whatsapp/customer-journey"
-            className="inline-block mt-3 text-sm text-fuchsia-600 hover:underline"
+            className="inline-block mt-3 text-sm text-primary hover:underline"
           >
             تصفح الرحلات وإضافة العميل
           </Link>
@@ -113,24 +113,24 @@ const CustomerJourneyTab: React.FC<{ customerId: string }> = ({ customerId }) =>
           {journeys.map((j) => (
             <div
               key={j.id}
-              className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 flex-wrap gap-3"
+              className="flex items-center justify-between p-4 bg-card rounded-lg border border-border dark:border-border flex-wrap gap-3"
             >
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-lg bg-fuchsia-100 dark:bg-fuchsia-900/40 flex items-center justify-center text-fuchsia-600 dark:text-fuchsia-400">
+                <div className="h-9 w-9 rounded-lg bg-primary dark:bg-primary/40 flex items-center justify-center text-primary dark:text-primary">
                   <Sparkles className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-gray-100">
+                  <p className="font-medium text-foreground">
                     {j.flow?.name || "رحلة بدون اسم"}
                   </p>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
                     {statusBadge(j.status)}
                     {j.order?.orderNumber && (
-                      <span className="inline-flex items-center gap-1 text-xs text-gray-500">
+                      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                         <ShoppingBag className="h-3 w-3" /> # {j.order.orderNumber}
                       </span>
                     )}
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                       الخطوة {j.currentStep} •{" "}
                       {j.nextSendAt
                         ? `الإرسال القادم ${formatDate(j.nextSendAt)}`

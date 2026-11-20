@@ -36,8 +36,8 @@ import {
 
 const methodBadgeClass = (method: string) =>
   method === "GET"
-    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-    : "bg-amber-50 text-amber-700 border-amber-200";
+    ? "bg-emerald-50 text-success border-success"
+    : "bg-amber-50 text-warning border-warning";
 
 const ApiDocsTab: React.FC = () => {
   const { i18n } = useTranslation();

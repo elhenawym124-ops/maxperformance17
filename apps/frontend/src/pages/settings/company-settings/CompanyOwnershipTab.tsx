@@ -25,18 +25,18 @@ export const CompanyOwnershipTab: React.FC<CompanyOwnershipTabProps> = ({
   handleTransferOwnership,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border-2 border-red-100 dark:border-red-900/30">
-      <h2 className="text-xl font-semibold text-red-600 dark:text-red-400 mb-6 flex items-center">
-        <ShieldCheckIcon className="h-6 w-6 mr-2" />
+    <div className="bg-card shadow rounded-lg p-6 border-2 border-destructive dark:border-destructive/30">
+      <h2 className="text-xl font-semibold text-destructive dark:text-destructive mb-6 flex items-center">
+        <ShieldCheckIcon className="h-6 w-6 me-2" />
         نقل ملكية الشركة
       </h2>
 
-      <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-6 border border-red-200 dark:border-red-800">
-        <div className="flex items-center gap-2 text-red-800 dark:text-red-200 font-medium mb-2">
-          <ExclamationTriangleIcon className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
+      <div className="bg-red-50 dark:bg-destructive/20 p-4 rounded-lg mb-6 border border-destructive dark:border-destructive">
+        <div className="flex items-center gap-2 text-destructive dark:text-destructive font-medium mb-2">
+          <ExclamationTriangleIcon className="h-5 w-5 shrink-0 text-destructive dark:text-destructive" />
           <span>منطقة خطر!</span>
         </div>
-        <div className="text-sm text-red-700 dark:text-red-300">
+        <div className="text-sm text-destructive dark:text-destructive">
           نقل الملكية إجراء نهائي لا يمكن التراجع عنه. عند نقل الملكية لموظف آخر:
           <ul className="list-disc list-inside mt-2 space-y-1">
             <li>ستفقد صلاحيات المالك وتصبح مديراً (Admin) فقط.</li>
@@ -51,7 +51,7 @@ export const CompanyOwnershipTab: React.FC<CompanyOwnershipTabProps> = ({
       <div className="max-w-xl">
         <label
           htmlFor="company-transfer-owner"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           اختر المالك الجديد
         </label>
@@ -61,7 +61,7 @@ export const CompanyOwnershipTab: React.FC<CompanyOwnershipTabProps> = ({
           autoComplete="off"
           value={selectedNewOwner}
           onChange={(e) => setSelectedNewOwner(e.target.value)}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white"
+          className="mt-1 block w-full ps-3 pe-10 py-2 text-base border-border focus:outline-none focus:ring-destructive focus:border-destructive sm:text-sm rounded-md bg-card dark:border-border text-foreground"
         >
           <option value="">اختر مستخدم...</option>
           {users.map((u) => {
@@ -83,7 +83,7 @@ export const CompanyOwnershipTab: React.FC<CompanyOwnershipTabProps> = ({
               type="button"
               onClick={() => setShowTransferConfirm(true)}
               disabled={!selectedNewOwner}
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-destructive hover:bg-destructive focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-destructive disabled:bg-muted dark:disabled:bg-muted disabled:cursor-not-allowed"
             >
               نقل الملكية
             </button>
@@ -93,7 +93,7 @@ export const CompanyOwnershipTab: React.FC<CompanyOwnershipTabProps> = ({
                 type="button"
                 onClick={handleTransferOwnership}
                 disabled={transferring}
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-destructive hover:bg-destructive focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-destructive disabled:opacity-50"
               >
                 {transferring ? "جاري النقل..." : "تأكيد النقل النهائي"}
               </button>
@@ -101,7 +101,7 @@ export const CompanyOwnershipTab: React.FC<CompanyOwnershipTabProps> = ({
                 type="button"
                 onClick={() => setShowTransferConfirm(false)}
                 disabled={transferring}
-                className="inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex justify-center py-2 px-4 border border-border shadow-sm text-sm font-medium rounded-md text-foreground bg-card hover:bg-muted dark:hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
               >
                 إلغاء
               </button>

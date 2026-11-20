@@ -201,7 +201,7 @@ export const OrderWebhookSettings: React.FC = () => {
             <span className="text-base font-bold font-mono text-foreground tabular-nums">
               {totalSuccessCount}
             </span>
-            <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
+            <span className="text-[10px] font-mono text-success dark:text-success">
               Delivered
             </span>
           </div>
@@ -223,7 +223,7 @@ export const OrderWebhookSettings: React.FC = () => {
       {loading ? (
         <div className="flex items-center justify-center p-12 bg-card border border-border/70 rounded-xl text-muted-foreground">
           <RefreshCw className="w-5 h-5 animate-spin" />
-          <span className="mr-2 text-xs font-medium">جاري فحص إعدادات الويب هوك...</span>
+          <span className="me-2 text-xs font-medium">جاري فحص إعدادات الويب هوك...</span>
         </div>
       ) : webhooks.length === 0 ? (
         <div className="text-center py-12 px-4 bg-card border border-dashed border-border/80 rounded-xl space-y-3">
@@ -267,14 +267,14 @@ export const OrderWebhookSettings: React.FC = () => {
         <div
           className={`border rounded-xl p-3.5 space-y-1.5 text-xs transition animate-in fade-in ${
             testResult.isSuccess
-              ? "bg-emerald-500/5 border-emerald-500/30 text-emerald-950 dark:text-emerald-200"
+              ? "bg-emerald-500/5 border-success/30 text-success dark:text-success"
               : "bg-destructive/5 border-destructive/30 text-destructive"
           }`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 font-semibold">
               {testResult.isSuccess ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                <CheckCircle2 className="w-4 h-4 text-success" />
               ) : (
                 <XCircle className="w-4 h-4 text-destructive" />
               )}

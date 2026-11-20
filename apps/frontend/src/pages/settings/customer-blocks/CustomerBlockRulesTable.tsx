@@ -42,7 +42,7 @@ export const CustomerBlockRulesTable: React.FC<CustomerBlockRulesTableProps> = (
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder={t('customerBlocks.k_29', 'بحث بالهاتف أو البريد...')}
-              className="pr-9"
+              className="pe-9"
             />
           </div>
           <Button
@@ -85,7 +85,7 @@ export const CustomerBlockRulesTable: React.FC<CustomerBlockRulesTableProps> = (
                     {rule.phone || '—'}
                   </td>
                   <td className="px-3 py-3">
-                    <span className="rounded-full bg-red-500/10 px-2.5 py-1 text-xs font-semibold text-red-600 dark:text-red-400">
+                    <span className="rounded-full bg-destructive/10 px-2.5 py-1 text-xs font-semibold text-destructive dark:text-destructive">
                       {getActionLabel(rule.action)}
                     </span>
                   </td>

@@ -53,7 +53,7 @@ export const CustomerWhatsAppAudienceCard: React.FC<CustomerWhatsAppAudienceCard
   return (
     <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
       <div className="flex items-center gap-2 border-b border-border/50 pb-3">
-        <Users className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+        <Users className="h-4 w-4 text-success dark:text-success" />
         <h3 className="text-sm font-semibold text-foreground">
           {t("whatsappNotify.audienceTarget", "تحديد شريحة الجمهور المستهدفة")}
         </h3>
@@ -71,7 +71,7 @@ export const CustomerWhatsAppAudienceCard: React.FC<CustomerWhatsAppAudienceCard
               onClick={() => onAudienceChange(opt.value)}
               className={`flex flex-col text-start p-3 rounded-lg border transition-colors ${
                 isSelected
-                  ? "border-emerald-500/60 bg-emerald-500/10 text-foreground dark:bg-emerald-500/15"
+                  ? "border-emerald-500/60 bg-success/10 text-foreground dark:bg-success/15"
                   : "border-border/60 bg-muted/20 hover:border-border hover:bg-muted/40 text-muted-foreground"
               }`}
             >
@@ -79,12 +79,12 @@ export const CustomerWhatsAppAudienceCard: React.FC<CustomerWhatsAppAudienceCard
                 <Icon
                   className={`h-4 w-4 ${
                     isSelected
-                      ? "text-emerald-600 dark:text-emerald-400"
+                      ? "text-emerald-600 dark:text-success"
                       : "text-muted-foreground"
                   }`}
                 />
                 {isSelected && (
-                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <span className="h-2 w-2 rounded-full bg-success" />
                 )}
               </div>
               <span className="text-xs font-semibold text-foreground">
@@ -100,7 +100,7 @@ export const CustomerWhatsAppAudienceCard: React.FC<CustomerWhatsAppAudienceCard
 
       {/* Days Input for New Customers */}
       {audience === "newCustomers" && (
-        <div className="flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/5 p-2.5">
+        <div className="flex items-center gap-2 rounded-md border border-success/30 bg-success/5 p-2.5">
           <span className="text-xs text-foreground font-medium">
             {t("whatsappNotify.joinedInLast", "انضموا خلال آخر:")}
           </span>
@@ -121,7 +121,7 @@ export const CustomerWhatsAppAudienceCard: React.FC<CustomerWhatsAppAudienceCard
       {/* Audience Counter Summary */}
       <div className="flex items-center justify-between rounded-md border border-border/50 bg-muted/30 p-3">
         <div className="flex items-center gap-2">
-          <BarChart2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <BarChart2 className="h-4 w-4 text-success dark:text-success" />
           <div>
             <p className="text-[11px] font-semibold text-foreground">
               {t("whatsappNotify.willSendTo", "إجمالي المستلمين المتوقع")}

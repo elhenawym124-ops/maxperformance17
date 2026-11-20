@@ -44,7 +44,7 @@ export const StorePagesHeader: React.FC<StorePagesHeaderProps> = ({
             onClick={onGeneratePolicies}
             className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-card px-3.5 py-2 text-xs md:text-sm font-semibold text-foreground transition hover:bg-muted/60 active:scale-95"
           >
-            <ShieldCheck className="size-4 text-emerald-500" />
+            <ShieldCheck className="size-4 text-success" />
             <span>{generatePoliciesLabel}</span>
           </button>
         )}

@@ -55,7 +55,7 @@ export const CustomerDetailsTabsNav: React.FC<CustomerDetailsTabsNavProps> = ({
   ];
 
   return (
-    <div className="border-b border-zinc-200 dark:border-zinc-800 overflow-x-auto no-scrollbar">
+    <div className="border-b border-border dark:border-border overflow-x-auto no-scrollbar">
       <nav className="flex -mb-px">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.key;
@@ -65,8 +65,8 @@ export const CustomerDetailsTabsNav: React.FC<CustomerDetailsTabsNavProps> = ({
               onClick={() => onTabChange(tab.key)}
               className={`flex items-center gap-2 px-4 sm:px-6 py-3.5 text-xs sm:text-sm font-medium border-b-2 whitespace-nowrap transition-all duration-150 active:scale-[0.98] ${
                 isActive
-                  ? "border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100 font-semibold"
-                  : "border-transparent text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:border-zinc-300 dark:hover:border-zinc-700"
+                  ? "border-zinc-900 text-foreground dark:border-border dark:text-muted-foreground font-semibold"
+                  : "border-transparent text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground hover:border-border dark:hover:border-border"
               }`}
             >
               <tab.icon className="h-4 w-4" />

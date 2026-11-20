@@ -93,7 +93,7 @@ const TemplateStatsPanel: React.FC<Props> = ({ templates, title, description, co
                 <div className="flex items-center gap-3">
                     {!loading && stats.length > 0 && (
                         <div className="hidden items-center gap-4 text-xs text-[color:var(--color-muted-foreground)] md:flex">
-                            <span className="flex items-center gap-1"><TrendingUp className="h-3.5 w-3.5 text-emerald-600" /> وصول {overallRate}%</span>
+                            <span className="flex items-center gap-1"><TrendingUp className="h-3.5 w-3.5 text-success" /> وصول {overallRate}%</span>
                             <span className="flex items-center gap-1"><MessageCircle className="h-3.5 w-3.5" /> {totalSent.toLocaleString('ar-EG')} رسالة</span>
                             <span className="flex items-center gap-1"><Wallet className="h-3.5 w-3.5" /> {totalCost.toFixed(2)} ج</span>
                         </div>
@@ -148,7 +148,7 @@ const TemplateStatsPanel: React.FC<Props> = ({ templates, title, description, co
                                                     <TooltipProvider delayDuration={200}>
                                                         <Tooltip>
                                                             <TooltipTrigger asChild>
-                                                                <Badge variant="outline" className={Number(s.deliveryRate) >= 90 ? 'border-emerald-300 text-emerald-700 dark:text-emerald-400' : Number(s.deliveryRate) >= 70 ? 'border-amber-300 text-amber-700 dark:text-amber-400' : 'border-destructive/40 text-destructive'}>
+                                                                <Badge variant="outline" className={Number(s.deliveryRate) >= 90 ? 'border-emerald-300 text-success dark:text-success' : Number(s.deliveryRate) >= 70 ? 'border-amber-300 text-warning dark:text-warning' : 'border-destructive/40 text-destructive'}>
                                                                     {s.deliveryRate}%
                                                                 </Badge>
                                                             </TooltipTrigger>

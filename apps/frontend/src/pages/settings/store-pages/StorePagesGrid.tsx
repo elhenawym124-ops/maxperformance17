@@ -56,7 +56,7 @@ export const StorePagesGrid: React.FC<StorePagesGridProps> = ({
                     title={page.isActive ? translate('storePages.deactivateButton') : translate('storePages.activateButton')}
                   >
                     {page.isActive ? (
-                      <Eye className="size-4 text-emerald-500" />
+                      <Eye className="size-4 text-success" />
                     ) : (
                       <EyeOff className="size-4 text-muted-foreground" />
                     )}

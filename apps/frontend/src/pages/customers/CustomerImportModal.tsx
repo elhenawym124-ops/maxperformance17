@@ -272,17 +272,17 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
     >
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col z-10"
+        className="relative bg-card rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col z-10"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+        <div className="flex items-center justify-between p-4 border-b dark:border-border">
+          <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
             <ArrowUpTrayIcon className="h-5 w-5" />
             {t("customers.import.title")}
           </h2>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-gray-500"
+            className="text-gray-400 hover:text-muted-foreground"
           >
             <XMarkIcon className="h-6 w-6" />
           </button>
@@ -293,7 +293,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
           
           {/* Tab Selector */}
           {!result && (
-            <div className="flex border-b border-gray-200 dark:border-gray-700 mb-2">
+            <div className="flex border-b border-border dark:border-border mb-2">
               <button
                 type="button"
                 onClick={() => {
@@ -303,8 +303,8 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                 }}
                 className={`py-2 px-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === "file"
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 {t("customers.import.tabFile")}
@@ -318,8 +318,8 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                 }}
                 className={`py-2 px-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === "paste"
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 {t("customers.import.tabPaste")}
@@ -332,7 +332,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
             <>
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center cursor-pointer hover:border-indigo-500 transition-colors"
+                className="border-2 border-dashed border-border rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors"
               >
                 <input
                   ref={fileInputRef}
@@ -341,11 +341,11 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <DocumentArrowUpIcon className="h-12 w-12 mx-auto text-gray-400" />
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                <DocumentArrowUpIcon className="h-12 w-12 mx-auto text-muted-foreground" />
+                <p className="mt-2 text-sm text-muted-foreground">
                   {file ? file.name : (t("customers.import.clickOrDrag") as string)}
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t("customers.import.requiredColumns") as string}
                 </p>
               </div>
@@ -353,7 +353,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
               {/* Download Template */}
               <button
                 onClick={downloadTemplate}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-primary bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg hover:bg-primary dark:hover:bg-primary/40 transition-colors"
               >
                 <ArrowDownTrayIcon className="h-4 w-4" />
                 {t("customers.import.downloadTemplate")}
@@ -369,12 +369,12 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                 onChange={(e) => setPastedText(e.target.value)}
                 placeholder={t("customers.import.pastePlaceholder") as string}
                 rows={6}
-                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 text-sm font-mono"
+                className="w-full p-3 border border-border rounded-lg bg-card text-foreground placeholder-muted focus:ring-primary focus:border-primary text-sm font-mono"
               />
               <button
                 type="button"
                 onClick={handlePasteParse}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
               >
                 {t("customers.import.parseButton")}
               </button>
@@ -383,14 +383,14 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
 
           {/* Preview */}
           {parsedData.length > 0 && !result && (
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+            <div className="bg-gray-50 dark:bg-muted rounded-lg p-4">
+              <p className="text-sm font-medium text-foreground mb-2">
                 {t("customers.import.foundCount", { count: parsedData.length })}
               </p>
               <div className="max-h-40 overflow-y-auto">
                 <table className="min-w-full text-sm">
                   <thead>
-                    <tr className="text-gray-500 dark:text-gray-400">
+                    <tr className="text-muted-foreground">
                       <th className="text-right py-1 px-2">الاسم</th>
                       <th className="text-right py-1 px-2">{t("common.phone")}</th>
                       <th className="text-right py-1 px-2">{t("common.email")}</th>
@@ -398,7 +398,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                   </thead>
                   <tbody>
                     {parsedData.slice(0, 5).map((c, i) => (
-                      <tr key={i} className="text-gray-800 dark:text-gray-200">
+                      <tr key={i} className="text-gray-800 dark:text-muted-foreground">
                         <td className="py-1 px-2">
                           {c.firstName} {c.lastName}
                         </td>
@@ -409,7 +409,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                   </tbody>
                 </table>
                 {parsedData.length > 5 && (
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-muted-foreground mt-2">
                     ... {t("common.and")} {parsedData.length - 5} {t("common.otherItems")}
                   </p>
                 )}
@@ -420,8 +420,8 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
           {/* Success Result */}
           {result?.success && (
             <div className="text-center py-8">
-              <CheckCircleIcon className="h-16 w-16 mx-auto text-green-500" />
-              <p className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
+              <CheckCircleIcon className="h-16 w-16 mx-auto text-success" />
+              <p className="mt-4 text-lg font-medium text-foreground">
                 {t("customers.import.success", { count: result.count })}
               </p>
             </div>
@@ -429,7 +429,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
 
           {/* Error */}
           {error && (
-            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-lg">
+            <div className="flex items-center gap-2 p-3 bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive rounded-lg">
               <ExclamationTriangleIcon className="h-5 w-5" />
               {error}
             </div>
@@ -437,10 +437,10 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end gap-3 p-4 border-t dark:border-gray-700">
+        <div className="flex justify-end gap-3 p-4 border-t dark:border-border">
           <button
             onClick={handleClose}
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600"
+            className="px-4 py-2 text-sm font-medium text-foreground bg-card border border-border rounded-md hover:bg-muted dark:hover:bg-muted"
           >
             {result ? t("common.close") : t("common.cancel")}
           </button>
@@ -448,12 +448,12 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
             <button
               onClick={handleImport}
               disabled={parsedData.length === 0 || isLoading}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
                   <svg
-                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                    className="animate-spin -ms-1 me-2 h-4 w-4 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                   >
@@ -475,7 +475,7 @@ const CustomerImportModal: React.FC<CustomerImportModalProps> = ({
                 </>
               ) : (
                 <>
-                  <ArrowUpTrayIcon className="h-4 w-4 ml-2" />
+                  <ArrowUpTrayIcon className="h-4 w-4 ms-2" />
                   {t("customers.import.importButton", { count: parsedData.length }) as string}
                 </>
               )}

@@ -21,7 +21,7 @@ export const CustomerActivityTab: React.FC<CustomerActivityTabProps> = ({
 
   if (!activities || activities.length === 0) {
     return (
-      <p className="text-center text-xs sm:text-sm text-zinc-500 py-8">
+      <p className="text-center text-xs sm:text-sm text-muted-foreground py-8">
         {t("customers.noActivity", "لا يوجد نشاط لهذا العميل")}
       </p>
     );
@@ -29,11 +29,11 @@ export const CustomerActivityTab: React.FC<CustomerActivityTabProps> = ({
 
   return (
     <div>
-      <ol className="relative space-y-6 border-r-2 border-zinc-200 dark:border-zinc-800 pr-6 mr-3">
+      <ol className="relative space-y-6 border-r-2 border-border dark:border-border pe-6 me-3">
         {activities.map((act, index) => (
           <li key={act.id || index} className="relative">
             <span
-              className={`absolute -right-[31px] top-1.5 h-3.5 w-3.5 rounded-full ring-4 ring-white dark:ring-zinc-900 ${
+              className={`absolute -right-[31px] top-1.5 h-3.5 w-3.5 rounded-full ring-4 ring-white dark:ring-border ${
                 act.type === "order"
                   ? "bg-indigo-500"
                   : act.type === "conversation"
@@ -44,32 +44,32 @@ export const CustomerActivityTab: React.FC<CustomerActivityTabProps> = ({
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 {act.type === "order" ? (
-                  <ShoppingBagIcon className="h-4 w-4 text-indigo-500" />
+                  <ShoppingBagIcon className="h-4 w-4 text-primary" />
                 ) : act.type === "conversation" ? (
-                  <ChatBubbleLeftRightIcon className="h-4 w-4 text-teal-500" />
+                  <ChatBubbleLeftRightIcon className="h-4 w-4 text-success" />
                 ) : (
-                  <DocumentTextIcon className="h-4 w-4 text-amber-500" />
+                  <DocumentTextIcon className="h-4 w-4 text-warning" />
                 )}
-                <span className="font-semibold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100">
+                <span className="font-semibold text-xs sm:text-sm text-foreground dark:text-muted-foreground">
                   {act.title}
                 </span>
                 {act.status && (
-                  <span className="px-2 py-0.5 rounded-full text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700">
+                  <span className="px-2 py-0.5 rounded-full text-xs bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border">
                     {act.status}
                   </span>
                 )}
                 {typeof act.value === "number" && (
-                  <span className="text-xs sm:text-sm font-semibold font-mono tabular-nums text-zinc-700 dark:text-zinc-300">
+                  <span className="text-xs sm:text-sm font-semibold font-mono tabular-nums text-foreground dark:text-muted-foreground">
                     {formatCurrency(act.value)}
                   </span>
                 )}
               </div>
-              <span className="text-xs text-zinc-400 font-mono tabular-nums">
+              <span className="text-xs text-muted-foreground font-mono tabular-nums">
                 {formatDate(act.timestamp)}
               </span>
             </div>
             {act.content && (
-              <p className="mt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="mt-1 text-xs sm:text-sm text-foreground dark:text-muted-foreground">
                 {act.content}
                 {act.author ? ` — ${act.author}` : ""}
               </p>

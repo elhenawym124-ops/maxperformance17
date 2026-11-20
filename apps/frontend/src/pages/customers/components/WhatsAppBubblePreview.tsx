@@ -52,10 +52,10 @@ const WhatsAppBubblePreview: React.FC<Props> = ({
     }, [content, variables]);
 
     return (
-        <div className={`overflow-hidden rounded-2xl border border-[color:var(--color-border)] ${className}`}>
+        <div className={`overflow-hidden rounded-xl border border-[color:var(--color-border)] ${className}`}>
             {/* شريط محادثة واتساب */}
             <div className="flex items-center gap-2 border-b border-[color:var(--color-border)] bg-[color:var(--color-muted)] px-4 py-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600/15 text-emerald-700 dark:text-emerald-400">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-success/15 text-success dark:text-success">
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
                         <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a13 13 0 0 1-5.7-5c-.4-.7-.9-1.6-.9-2.5 0-.9.5-1.4.7-1.6.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .5.4l.8 1.8c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6a8.2 8.2 0 0 0 3.7 3.2c.3.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.7.8c.3.2.3.3.3.5 0 .1 0 .4-.2.8Z" />
                     </svg>
@@ -74,14 +74,14 @@ const WhatsAppBubblePreview: React.FC<Props> = ({
                     backgroundSize: '18px 18px',
                 }}
             >
-                <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-white p-3 shadow-sm dark:bg-zinc-800">
+                <div className="max-w-[85%] rounded-xl rounded-tl-md bg-white p-3 shadow-sm dark:bg-muted">
                     {mediaUrl ? (
                         <img src={mediaUrl} alt="مرفق" className="mb-2 max-h-44 w-full rounded-xl object-cover" />
                     ) : null}
-                    <p className="whitespace-pre-wrap break-words text-[13px] leading-relaxed text-zinc-800 dark:text-zinc-100">
-                        {rendered || <span className="italic text-zinc-400">اكتب الرسالة لتظهر المعاينة هنا…</span>}
+                    <p className="whitespace-pre-wrap break-words text-[13px] leading-relaxed text-foreground dark:text-muted-foreground">
+                        {rendered || <span className="italic text-muted-foreground">اكتب الرسالة لتظهر المعاينة هنا…</span>}
                     </p>
-                    <p className="mt-1 text-left text-[10px] text-zinc-400">١٢:٠٠ ✓✓</p>
+                    <p className="mt-1 text-left text-[10px] text-muted-foreground">١٢:٠٠ ✓✓</p>
                 </div>
             </div>
         </div>

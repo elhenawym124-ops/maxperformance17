@@ -9,31 +9,31 @@ import { ClarityFeature, ClaritySetupStep, ClarityUsefulLink } from './types';
 
 export const FEATURES: ClarityFeature[] = [
   {
-    icon: <FireIcon className="h-6 w-6 text-orange-500" />,
+    icon: <FireIcon className="h-6 w-6 text-warning" />,
     titleKey: 'clarity.feature.heatmaps',
     title: 'خرائط الحرارة',
     subtitle: 'Heatmaps',
     descKey: 'clarity.feature.heatmaps.desc',
     desc: 'شوف إيه الأجزاء اللي الزبائن بيضغطوا عليها أكتر في متجرك وإيه اللي ملقوش فيه.',
-    color: 'border-orange-100 bg-orange-50 dark:border-orange-800/30 dark:bg-orange-900/20',
+    color: 'border-orange-100 bg-warning/10 dark:border-warning/30 dark:bg-warning/20',
   },
   {
-    icon: <PlayCircleIcon className="h-6 w-6 text-violet-500" />,
+    icon: <PlayCircleIcon className="h-6 w-6 text-primary" />,
     titleKey: 'clarity.feature.recordings',
     title: 'تسجيل الجلسات',
     subtitle: 'Session Recordings',
     descKey: 'clarity.feature.recordings.desc',
     desc: 'شاهد فيديو كامل لرحلة الزبون من دخول المتجر لحد ما اشترى أو خرج.',
-    color: 'border-violet-100 bg-violet-50 dark:border-violet-800/30 dark:bg-violet-900/20',
+    color: 'border-violet-100 bg-primary/10 dark:border-primary/30 dark:bg-primary/20',
   },
   {
-    icon: <CursorArrowRaysIcon className="h-6 w-6 text-red-500" />,
+    icon: <CursorArrowRaysIcon className="h-6 w-6 text-destructive" />,
     titleKey: 'clarity.feature.rageClicks',
     title: 'نقرات الإحباط',
     subtitle: 'Rage & Dead Clicks',
     descKey: 'clarity.feature.rageClicks.desc',
     desc: 'اعرف امتى الزبون اتضايق أو ضغط على حاجة مش شغالة وصلحها بسرعة.',
-    color: 'border-red-100 bg-red-50 dark:border-red-800/30 dark:bg-red-900/20',
+    color: 'border-red-100 bg-destructive/10 dark:border-destructive/30 dark:bg-destructive/20',
   },
   {
     icon: <FunnelIcon className="h-6 w-6 text-blue-500" />,

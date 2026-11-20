@@ -20,9 +20,9 @@ export function StatusPill({
         "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
         active
           ? warn
-            ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
-            : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
-          : "bg-slate-200/80 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+            ? "bg-amber-100 text-warning dark:bg-warning/60 dark:text-warning"
+            : "bg-emerald-100 text-success dark:bg-success/60 dark:text-success"
+          : "bg-slate-200/80 text-foreground dark:bg-muted dark:text-muted-foreground",
       )}
     >
       <span

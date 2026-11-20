@@ -21,7 +21,7 @@ export const CustomerWhatsAppNotifyHeader: React.FC<CustomerWhatsAppNotifyHeader
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/50 pb-4">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10 text-success dark:bg-success/20 dark:text-success">
           <MessageSquare className="h-5 w-5" />
         </div>
         <div>
@@ -41,8 +41,8 @@ export const CustomerWhatsAppNotifyHeader: React.FC<CustomerWhatsAppNotifyHeader
         {sessionsLoading ? (
           <div className="h-8 w-32 bg-muted/60 rounded-full animate-pulse" />
         ) : connectedSession ? (
-          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-medium text-success dark:text-success">
+            <span className="h-2 w-2 rounded-full bg-success animate-pulse" />
             <span className="font-mono tabular-nums font-semibold">
               {connectedSession.phoneNumber}
             </span>

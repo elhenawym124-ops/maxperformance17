@@ -38,21 +38,21 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
     customer.totalOrdersCount ?? stats.totalOrdersCount ?? stats.ordersCount;
 
   return (
-    <div className="rounded-2xl border border-zinc-200/70 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 sm:px-5 py-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-3">
+    <div className="rounded-xl border border-border dark:border-border bg-white dark:bg-muted px-4 sm:px-5 py-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-3">
       {/* Delivery Reliability */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-success/10 dark:bg-success/40 flex items-center justify-center text-success dark:text-success shrink-0">
           <CheckCircleIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             نسبة الاستلام
           </p>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+            <span className="text-lg font-bold text-foreground dark:text-white tabular-nums">
               {deliveryRate}%
             </span>
-            <span className="text-[10px] text-zinc-400 tabular-nums whitespace-nowrap">
+            <span className="text-[10px] text-muted-foreground tabular-nums whitespace-nowrap">
               ({deliveredCount} من {totalOrders})
             </span>
           </div>
@@ -61,14 +61,14 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
 
       {/* Orders count */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="h-8 w-8 rounded-full bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-primary/10 dark:bg-primary/40 flex items-center justify-center text-primary shrink-0">
           <ShoppingBagIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             {t("sidebar.orders")}
           </p>
-          <p className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+          <p className="text-lg font-bold text-foreground dark:text-white tabular-nums">
             {stats.ordersCount}
           </p>
         </div>
@@ -76,14 +76,14 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
 
       {/* Conversations count */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="h-8 w-8 rounded-full bg-teal-50 dark:bg-teal-950/40 flex items-center justify-center text-teal-600 dark:text-teal-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-success/10 dark:bg-success/40 flex items-center justify-center text-success dark:text-success shrink-0">
           <ChatBubbleLeftRightIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             {t("sidebar.conversations")}
           </p>
-          <p className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+          <p className="text-lg font-bold text-foreground dark:text-white tabular-nums">
             {stats.conversationsCount}
           </p>
         </div>
@@ -91,14 +91,14 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
 
       {/* Total spent */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="h-8 w-8 rounded-full bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-warning/10 dark:bg-warning/40 flex items-center justify-center text-warning dark:text-warning shrink-0">
           <CurrencyDollarIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             {t("customers.totalSpent")}
           </p>
-          <p className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+          <p className="text-lg font-bold text-foreground dark:text-white tabular-nums">
             {formatCurrency(stats.totalSpent)}
           </p>
         </div>
@@ -106,14 +106,14 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
 
       {/* Average order */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="h-8 w-8 rounded-full bg-purple-50 dark:bg-purple-950/40 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-primary/10 dark:bg-primary/40 flex items-center justify-center text-primary dark:text-primary shrink-0">
           <ChartBarIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             {t("customers.averageOrder")}
           </p>
-          <p className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+          <p className="text-lg font-bold text-foreground dark:text-white tabular-nums">
             {formatCurrency(stats.averageOrderValue)}
           </p>
         </div>
@@ -121,14 +121,14 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
 
       {/* Loyalty points */}
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="h-8 w-8 rounded-full bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-warning/10 dark:bg-warning/40 flex items-center justify-center text-warning dark:text-warning shrink-0">
           <StarIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             نقاط الولاء
           </p>
-          <p className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+          <p className="text-lg font-bold text-foreground dark:text-white tabular-nums">
             {loyaltyPoints}
           </p>
         </div>
@@ -136,18 +136,18 @@ export const CustomerDetailsStats: React.FC<CustomerDetailsStatsProps> = ({
 
       {/* Cashback & wallet */}
       <div className="flex items-center gap-2.5 min-w-0 col-span-2 sm:col-span-1">
-        <div className="h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+        <div className="h-8 w-8 rounded-full bg-success/10 dark:bg-success/40 flex items-center justify-center text-success dark:text-success shrink-0">
           <BanknotesIcon className="h-4 w-4" />
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium leading-tight">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium leading-tight">
             الكاش باك المحقق
           </p>
           <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-zinc-900 dark:text-white tabular-nums">
+            <span className="text-lg font-bold text-foreground dark:text-white tabular-nums">
               {formatCurrency(cashbackAmount)}
             </span>
-            <span className="text-[10px] text-zinc-400 tabular-nums whitespace-nowrap">
+            <span className="text-[10px] text-muted-foreground tabular-nums whitespace-nowrap">
               المحفظة: {formatCurrency(walletBalance)}
             </span>
           </div>

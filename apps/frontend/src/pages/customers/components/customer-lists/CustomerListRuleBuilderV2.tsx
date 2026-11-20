@@ -237,7 +237,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                   </span>
 
                   {group.rules.length > 1 && (
-                    <div className="flex items-center gap-1.5 mr-2">
+                    <div className="flex items-center gap-1.5 me-2">
                       <button
                         type="button"
                         onClick={() => handleGroupOperatorChange(gIdx, "AND")}
@@ -585,7 +585,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
       {/* ── Exclusions Section ── */}
       <div className="space-y-4 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/20 p-4">
         <div className="flex items-center gap-2 border-b border-[color:var(--shell-control-border)]/60 pb-2">
-          <AlertCircle className="size-4 text-amber-500" />
+          <AlertCircle className="size-4 text-warning" />
           <span className="font-semibold text-sm text-[color:var(--color-foreground)]">
             شروط وقواعد الاستبعاد (Exclusions)
           </span>

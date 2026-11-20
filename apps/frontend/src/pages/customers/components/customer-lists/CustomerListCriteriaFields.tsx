@@ -147,7 +147,7 @@ const ProductCriteriaPicker: React.FC<ProductCriteriaPickerProps> = ({
             }}
             onFocus={() => setDropdownOpen(true)}
             placeholder="ابحث بالاسم أو الـ SKU..."
-            className="h-10 pr-9 pl-9"
+            className="h-10 pe-9 ps-9"
           />
           {loading && (
             <Loader2 className="absolute left-3 top-1/2 size-4 -translate-y-1/2 animate-spin text-[color:var(--color-muted-foreground)]" />
@@ -321,7 +321,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
   return (
     <>
       {formCriteria.type !== "preset" ? (
-        <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4">
+        <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4">
           {formCriteriaType === "purchasedProduct" && (
             <ProductCriteriaPicker
               selectedProducts={formCriteria.products || []}
@@ -531,7 +531,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
           )}
         </div>
       ) : (
-        <div className="flex items-center gap-2 rounded-2xl border border-[color:color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] px-4 py-3">
+        <div className="flex items-center gap-2 rounded-xl border border-[color:color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] px-4 py-3">
           {(() => {
             const preset = SMART_PRESETS.find((p) => p.value === formCriteria.preset);
             return (
@@ -552,7 +552,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
       )}
 
       {/* Exclusion window: Contacted recently */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
             <Label>استثناء المراسَلين حديثاً</Label>
@@ -587,7 +587,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
       </div>
 
       {/* Exclusion window: Product Purchase */}
-      <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4 space-y-3">
+      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4 space-y-3">
         <div className="space-y-1">
           <Label className="flex items-center gap-2">
             <ShoppingBag className="size-4 text-[color:var(--color-primary)]" />

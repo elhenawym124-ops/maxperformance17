@@ -53,19 +53,19 @@ export const LoyaltyNodeDetailSheet: React.FC<LoyaltyNodeDetailSheetProps> = ({
 
               {nodeDetails[selectedNode.id] && (
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-900/40">
-                    <p className="text-[10px] font-semibold uppercase text-gray-400">
+                  <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                    <p className="text-[10px] font-semibold uppercase text-muted-foreground">
                       العملاء / الحجم
                     </p>
-                    <p className="mt-1 text-sm font-bold text-gray-900 dark:text-gray-100">
+                    <p className="mt-1 text-sm font-bold text-foreground">
                       {nodeDetails[selectedNode.id].count}
                     </p>
                   </div>
-                  <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-900/40">
-                    <p className="text-[10px] font-semibold uppercase text-gray-400">
+                  <div className="rounded-lg bg-muted p-3 dark:bg-muted">
+                    <p className="text-[10px] font-semibold uppercase text-muted-foreground">
                       آخر نشاط
                     </p>
-                    <p className="mt-1 text-sm font-bold text-gray-900 dark:text-gray-100">
+                    <p className="mt-1 text-sm font-bold text-foreground">
                       {nodeDetails[selectedNode.id].lastActivity}
                     </p>
                   </div>
@@ -77,7 +77,7 @@ export const LoyaltyNodeDetailSheet: React.FC<LoyaltyNodeDetailSheetProps> = ({
                   {selectedNode.chips.map((c) => (
                     <span
                       key={c}
-                      className="rounded bg-gray-100 px-1.5 py-0.5 text-[9px] font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                      className="rounded bg-muted px-1.5 py-0.5 text-[9px] font-medium text-muted-foreground dark:bg-muted dark:text-muted-foreground"
                     >
                       {c}
                     </span>
@@ -92,7 +92,7 @@ export const LoyaltyNodeDetailSheet: React.FC<LoyaltyNodeDetailSheetProps> = ({
                   const detail = nodeDetails[selectedNode.id];
                   navigate(detail?.route || selectedNode.route);
                 }}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-semibold text-white hover:bg-fuchsia-700"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary"
               >
                 <ExternalLink className="h-4 w-4" />
                 افتح الأداة

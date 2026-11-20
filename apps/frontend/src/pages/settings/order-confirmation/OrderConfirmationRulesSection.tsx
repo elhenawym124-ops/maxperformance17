@@ -29,14 +29,14 @@ export function OrderConfirmationRulesSection({
   onChangeConfirmStatus,
 }: OrderConfirmationRulesSectionProps) {
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-5">
+    <div className="rounded-xl border border-border bg-white p-5 shadow-xs dark:border-border dark:bg-muted space-y-5">
       {/* Switch Row */}
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-base font-bold text-foreground dark:text-white">
             تفعيل التأكيد
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground">
             عند التفعيل سيتم إظهار الطلبات التي تطابق القواعد أدناه في طابور التأكيد.
           </p>
         </div>
@@ -46,8 +46,8 @@ export function OrderConfirmationRulesSection({
           aria-checked={enabled}
           aria-label="تفعيل التأكيد"
           onClick={onToggleEnabled}
-          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2 ${
-            enabled ? "bg-indigo-600" : "bg-slate-300 dark:bg-slate-700"
+          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${
+            enabled ? "bg-indigo-600" : "bg-slate-300 dark:bg-muted"
           }`}
         >
           <span
@@ -60,20 +60,20 @@ export function OrderConfirmationRulesSection({
 
       {/* Sources Checkboxes */}
       <div className="space-y-2">
-        <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200">
+        <h4 className="text-xs font-bold text-foreground dark:text-muted-foreground">
           مصادر تحتاج تأكيد
         </h4>
         <div className="flex flex-wrap gap-2.5">
           {SOURCE_OPTIONS.map((source) => (
             <label
               key={source.value}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200/80 bg-slate-50/50 px-3 py-1.5 text-xs font-medium text-slate-800 transition hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             >
               <input
                 type="checkbox"
                 checked={requireSourceTypes.includes(source.value)}
                 onChange={() => onToggleArrayValue("requireSourceTypes", source.value)}
-                className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                className="rounded border-border text-primary focus:ring-primary"
               />
               <span>{source.label}</span>
             </label>
@@ -83,33 +83,33 @@ export function OrderConfirmationRulesSection({
 
       {/* Require Statuses Checkboxes */}
       <div className="space-y-2">
-        <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200">
+        <h4 className="text-xs font-bold text-foreground dark:text-muted-foreground">
           حالات تحتاج تأكيد (طابور التأكيد)
         </h4>
         <div className="flex flex-wrap gap-2.5">
           {REQUIRE_STATUS_OPTIONS.map((status) => (
             <label
               key={status.value}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200/80 bg-slate-50/50 px-3 py-1.5 text-xs font-medium text-slate-800 transition hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             >
               <input
                 type="checkbox"
                 checked={requireStatuses.includes(status.value)}
                 onChange={() => onToggleArrayValue("requireStatuses", status.value)}
-                className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                className="rounded border-border text-primary focus:ring-primary"
               />
               <span>{status.label}</span>
             </label>
           ))}
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="text-xs text-muted-foreground dark:text-muted-foreground">
           الطلبات التي ما زالت في مرحلة التأكيد فقط (يُستبعد تلقائياً أي طلب تم شحنه أو تسليمه أو إلغاؤه).
         </p>
       </div>
 
       {/* Match Mode Radio Cards */}
       <div className="space-y-2">
-        <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200">
+        <h4 className="text-xs font-bold text-foreground dark:text-muted-foreground">
           طريقة المطابقة
         </h4>
         <div className="grid grid-cols-1 gap-2.5 md:grid-cols-2">
@@ -120,8 +120,8 @@ export function OrderConfirmationRulesSection({
                 key={mode.value}
                 className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-colors ${
                   isSelected
-                    ? "border-indigo-300 bg-indigo-50/40 dark:border-indigo-700 dark:bg-indigo-950/20"
-                    : "border-slate-200/80 bg-white hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800/60"
+                    ? "border-indigo-300 bg-primary/40 dark:border-primary dark:bg-primary/20"
+                    : "border-slate-200/80 bg-white hover:bg-muted dark:border-border dark:bg-muted dark:hover:bg-muted"
                 }`}
               >
                 <input
@@ -129,13 +129,13 @@ export function OrderConfirmationRulesSection({
                   name="matchMode"
                   checked={isSelected}
                   onChange={() => onChangeMatchMode(mode.value)}
-                  className="mt-0.5 text-indigo-600 focus:ring-indigo-500"
+                  className="mt-0.5 text-primary focus:ring-primary"
                 />
                 <div>
-                  <div className="text-xs font-bold text-slate-900 dark:text-white">
+                  <div className="text-xs font-bold text-foreground dark:text-white">
                     {mode.label}
                   </div>
-                  <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="mt-0.5 text-xs text-muted-foreground dark:text-muted-foreground">
                     {mode.description}
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export function OrderConfirmationRulesSection({
             );
           })}
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="text-xs text-muted-foreground dark:text-muted-foreground">
           اختر &quot;مطابقة أي شرط&quot; لعرض الطلبات التي تطابق المصدر أو الحالة، أو &quot;مطابقة كل الشروط&quot; لفرض تطابق الاثنين معاً.
         </p>
       </div>
@@ -151,13 +151,13 @@ export function OrderConfirmationRulesSection({
       {/* Target Status Select */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-900 dark:text-slate-200">
+          <label className="block text-xs font-bold text-foreground dark:text-muted-foreground">
             الحالة بعد التأكيد
           </label>
           <select
             value={confirmStatus}
             onChange={(e) => onChangeConfirmStatus(e.target.value)}
-            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 transition focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="w-full rounded-xl border border-border bg-white px-3 py-2 text-xs text-foreground transition focus:border-primary focus:outline-none dark:border-border dark:bg-muted dark:text-white"
           >
             {CONFIRM_TARGET_STATUS_OPTIONS.map((status) => (
               <option key={status.value} value={status.value}>

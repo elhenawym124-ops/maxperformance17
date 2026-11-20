@@ -179,7 +179,7 @@ export const FacebookOAuthImportProgress: React.FC<
       <div
         role="status"
         aria-live="polite"
-        className={`mt-4 flex w-full max-w-md items-start gap-2 rounded-md border border-emerald-500/20 bg-emerald-500/5 p-2.5 text-start text-[11px] text-emerald-700 dark:text-emerald-300 ${className}`}
+        className={`mt-4 flex w-full max-w-md items-start gap-2 rounded-md border border-success/20 bg-success/5 p-2.5 text-start text-[11px] text-success dark:text-success ${className}`}
       >
         <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
         <p className="leading-normal">
@@ -188,7 +188,7 @@ export const FacebookOAuthImportProgress: React.FC<
             defaultValue: "تم ربط {{count}} صفحة",
           })}
           {progress.skipped > 0 && (
-            <span className="block text-emerald-600/80 dark:text-emerald-400/80">
+            <span className="block text-success/80 dark:text-success/80">
               {t("facebookOAuth.importSkippedPages" as any, {
                 count: progress.skipped,
                 defaultValue: "{{count}} صفحة متخطاة (مربوطة بحساب آخر)",
@@ -196,7 +196,7 @@ export const FacebookOAuthImportProgress: React.FC<
             </span>
           )}
           {progress.failed > 0 && (
-            <span className="block text-amber-600 dark:text-amber-400">
+            <span className="block text-warning dark:text-warning">
               {t("facebookOAuth.importFailedPages" as any, {
                 count: progress.failed,
                 defaultValue: "{{count}} صفحة فشلت",

@@ -85,17 +85,17 @@ export function useConversionToolPageController() {
 
   const saveIndicator =
     saving || isFieldSaving ? (
-      <span className="flex items-center gap-1.5 text-[11px] font-black text-indigo-700 dark:text-indigo-300">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-500" />
+      <span className="flex items-center gap-1.5 text-[11px] font-black text-primary dark:text-primary">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
         {t("storeConversionSettings.savingIndicator")}
       </span>
     ) : lastSavedAt ? (
-      <span className="flex items-center gap-1.5 text-[11px] font-black text-emerald-700 dark:text-emerald-300">
+      <span className="flex items-center gap-1.5 text-[11px] font-black text-success dark:text-success">
         <Check className="h-3.5 w-3.5" />
         {t("storeConversionSettings.savedIndicator")}
       </span>
     ) : (
-      <span className="text-[11px] font-bold text-gray-400 dark:text-gray-500">
+      <span className="text-[11px] font-bold text-muted-foreground/80">
         {t("storeConversionSettings.autoSaveLabel")}
       </span>
     );

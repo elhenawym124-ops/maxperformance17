@@ -40,13 +40,13 @@ export const OrderWebhookItemCard: React.FC<OrderWebhookItemCardProps> = ({
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <div className="bg-card border border-border/80 rounded-2xl p-4 sm:p-5 space-y-3.5 transition-all hover:border-primary/40 shadow-xs font-sans">
+    <div className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 space-y-3.5 transition-all hover:border-primary/40 shadow-xs font-sans">
       {/* Top Header Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3">
         <div className="flex items-center gap-2.5 min-w-0">
           <span
             className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-              wh.isActive ? "bg-emerald-500 ring-4 ring-emerald-500/20" : "bg-muted-foreground/40"
+              wh.isActive ? "bg-emerald-500 ring-4 ring-success/20" : "bg-muted-foreground/40"
             }`}
           />
           <div className="min-w-0">
@@ -71,7 +71,7 @@ export const OrderWebhookItemCard: React.FC<OrderWebhookItemCardProps> = ({
             onClick={() => onToggleActive(wh)}
             className={`text-[11px] px-2.5 py-1 rounded-lg font-medium border transition ${
               wh.isActive
-                ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                ? "bg-emerald-500/10 border-success/30 text-success dark:text-success"
                 : "bg-muted/40 border-border/70 text-muted-foreground hover:bg-muted/60"
             }`}
           >
@@ -81,7 +81,7 @@ export const OrderWebhookItemCard: React.FC<OrderWebhookItemCardProps> = ({
             type="button"
             onClick={() => onTest(wh)}
             disabled={isTesting}
-            className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg font-medium bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 transition disabled:opacity-50"
+            className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg font-medium bg-warning/10 hover:bg-warning/20 border border-warning/30 text-warning dark:text-warning transition disabled:opacity-50"
             title="إرسال طلب تجريبي"
           >
             {isTesting ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3" />}
@@ -142,7 +142,7 @@ export const OrderWebhookItemCard: React.FC<OrderWebhookItemCardProps> = ({
             title="نسخ السيكريت"
           >
             {isCopied ? (
-              <Check className="w-3.5 h-3.5 text-emerald-500" />
+              <Check className="w-3.5 h-3.5 text-success" />
             ) : (
               <Copy className="w-3.5 h-3.5" />
             )}
@@ -160,7 +160,7 @@ export const OrderWebhookItemCard: React.FC<OrderWebhookItemCardProps> = ({
               <span
                 className={`font-mono font-bold px-1.5 py-0.2 rounded ${
                   wh.lastStatusCode >= 200 && wh.lastStatusCode < 300
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                    ? "bg-emerald-500/10 text-success dark:text-success"
                     : "bg-destructive/10 text-destructive"
                 }`}
               >
@@ -172,7 +172,7 @@ export const OrderWebhookItemCard: React.FC<OrderWebhookItemCardProps> = ({
           </span>
 
           <span className="flex items-center gap-1 font-mono tabular-nums">
-            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{wh.successCount}</span>{" "}
+            <span className="text-emerald-600 dark:text-success font-semibold">{wh.successCount}</span>{" "}
             ناجح / <span className="text-destructive font-semibold">{wh.failureCount}</span> فاشل
           </span>
         </div>

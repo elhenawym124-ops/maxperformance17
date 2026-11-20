@@ -37,16 +37,16 @@ export function PromotionRelatedNav() {
           <Link
             key={tool.to}
             to={tool.to}
-            className="group flex min-w-[240px] shrink-0 items-start gap-2.5 rounded-2xl border border-slate-200/70 bg-white/85 px-3.5 py-3 transition hover:-translate-y-px hover:border-slate-300 hover:shadow-xs sm:min-w-0 dark:border-slate-800 dark:bg-slate-900/70 dark:hover:border-slate-700"
+            className="group flex min-w-[240px] shrink-0 items-start gap-2.5 rounded-xl border border-border bg-white/85 px-3.5 py-3 transition hover:-translate-y-px hover:border-border hover:shadow-xs sm:min-w-0 dark:border-border dark:bg-muted dark:hover:border-border"
           >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-600 ring-1 ring-inset ring-slate-200/70 transition group-hover:bg-white dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700 dark:group-hover:bg-slate-700">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground ring-1 ring-inset ring-border transition group-hover:bg-white dark:bg-muted dark:text-muted-foreground dark:ring-border dark:group-hover:bg-muted">
               <Icon className="size-4" />
             </span>
             <span className="min-w-0">
-              <span className="block text-sm font-bold text-slate-950 dark:text-slate-100">
+              <span className="block text-sm font-bold text-foreground dark:text-muted-foreground">
                 {tool.label}
               </span>
-              <span className="block text-xs text-slate-500 dark:text-slate-400">
+              <span className="block text-xs text-muted-foreground dark:text-muted-foreground">
                 {tool.desc}
               </span>
             </span>

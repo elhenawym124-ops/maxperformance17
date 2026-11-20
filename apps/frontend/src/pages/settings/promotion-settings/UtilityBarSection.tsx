@@ -22,7 +22,7 @@ export function UtilityBarSection({
       isOn={hideUtilityBar}
       accentClassName={{
         sectionBorder: "border-amber-200/80",
-        iconActive: "bg-amber-50 text-amber-700 ring-amber-200/70",
+        iconActive: "bg-amber-50 text-warning ring-warning/70",
       }}
       pill={
         <StatusPill

@@ -26,7 +26,7 @@ export const LightPreviewScope: React.FC<{ children: React.ReactNode; className?
   return (
     <div
       style={mode === "pinned" ? LIGHT_PREVIEW_TOKENS : undefined}
-      className={`bg-white text-gray-900 ${className}`}
+      className={`bg-white text-foreground ${className}`}
     >
       {children}
     </div>

@@ -92,7 +92,7 @@ export const DiscountApprovalSettings: React.FC = () => {
             <span className="text-xs font-semibold text-foreground">اعتماد وحظر الخصومات</span>
           </div>
           <h2 className="text-base font-semibold text-foreground flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-amber-500" />
+            <ShieldAlert className="w-4 h-4 text-warning" />
             سياسة حظر واعتماد الخصومات
           </h2>
           <p className="text-xs text-muted-foreground">
@@ -130,7 +130,7 @@ export const DiscountApprovalSettings: React.FC = () => {
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.2 rounded border ${
               requireDiscountApproval
-                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                 : "bg-muted text-muted-foreground border-border/60"
             }`}>
               {requireDiscountApproval ? "نشط" : "معطل"}
@@ -141,7 +141,7 @@ export const DiscountApprovalSettings: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-lg p-3">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>الكوبونات التلقائية</span>
-            <Ban className="w-3.5 h-3.5 text-rose-500" />
+            <Ban className="w-3.5 h-3.5 text-destructive" />
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-sm font-bold text-foreground">
@@ -149,7 +149,7 @@ export const DiscountApprovalSettings: React.FC = () => {
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.2 rounded border ${
               disableAutoDiscounts
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                 : "bg-muted text-muted-foreground border-border/60"
             }`}>
               {disableAutoDiscounts ? "محمي" : "مفتوح"}
@@ -160,7 +160,7 @@ export const DiscountApprovalSettings: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-lg p-3">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>مستوى حماية الهامش</span>
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+            <ShieldCheck className="w-3.5 h-3.5 text-success" />
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-sm font-bold font-mono text-foreground tabular-nums">
@@ -179,7 +179,7 @@ export const DiscountApprovalSettings: React.FC = () => {
         <div className="p-4 sm:p-5 flex items-start justify-between gap-4 transition-colors hover:bg-muted/15">
           <div className="space-y-1 flex-1">
             <div className="flex items-center gap-2">
-              <span className="p-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              <span className="p-1 rounded-md bg-warning/10 text-warning dark:text-warning border border-warning/20">
                 <Percent className="w-3.5 h-3.5" />
               </span>
               <label
@@ -188,11 +188,11 @@ export const DiscountApprovalSettings: React.FC = () => {
               >
                 اعتماد الخصومات اليدوية فقط
               </label>
-              <span className="text-[10px] px-1.5 py-0.2 rounded font-mono uppercase bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+              <span className="text-[10px] px-1.5 py-0.2 rounded font-mono uppercase bg-warning/10 text-warning dark:text-warning border border-warning/20">
                 Manual Approval
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-7">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-7">
               الخصومات اليدوية اللي بيدخلها الموظف بتحتاج اعتماد. خصم الدفع الإلكتروني ونقاط الولاء والعروض التلقائية بتتطبق فورًا ومش بتوقف الأوردر.
             </p>
           </div>
@@ -213,7 +213,7 @@ export const DiscountApprovalSettings: React.FC = () => {
         <div className="p-4 sm:p-5 flex items-start justify-between gap-4 transition-colors hover:bg-muted/15">
           <div className="space-y-1 flex-1">
             <div className="flex items-center gap-2">
-              <span className="p-1 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+              <span className="p-1 rounded-md bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
                 <Ban className="w-3.5 h-3.5" />
               </span>
               <label
@@ -222,11 +222,11 @@ export const DiscountApprovalSettings: React.FC = () => {
               >
                 إيقاف تطبيق الكوبونات والعروض التلقائية بالمتجر بدون موافقة مسبقة
               </label>
-              <span className="text-[10px] px-1.5 py-0.2 rounded font-mono uppercase bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20">
+              <span className="text-[10px] px-1.5 py-0.2 rounded font-mono uppercase bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
                 Block Auto-Apply
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-7">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-7">
               يمنع السلة وواجهة المتجر من خصم الكوبونات التلقائية والعروض الترويجية بشكل خفي وتلقائي بدون مراجعة بشرية، مما يحمي هوامش أرباحك الصافية.
             </p>
           </div>

@@ -26,19 +26,19 @@ export const TicketInfoCard: React.FC<TicketInfoCardProps> = ({
   onRateTicket,
 }) => {
   return (
-    <div className="mb-6 rounded-lg bg-white p-6 shadow dark:bg-gray-900 dark:shadow-black/20">
+    <div className="mb-6 rounded-lg bg-white p-6 shadow dark:bg-muted dark:shadow-black/20">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <ChatBubbleLeftRightIcon className="w-6 h-6 text-indigo-600" />
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <ChatBubbleLeftRightIcon className="w-6 h-6 text-primary" />
+          <h2 className="text-lg font-semibold text-foreground">
             معلومات التذكرة
           </h2>
         </div>
 
         <div className="flex items-center gap-3">
           {/* Rating Component */}
-          <div className="flex items-center gap-1 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 rounded-xl px-2.5 py-1">
-            <span className="text-xs font-semibold text-amber-900 dark:text-amber-200 ml-1">
+          <div className="flex items-center gap-1 bg-warning/80 dark:bg-warning/30 border border-warning dark:border-warning/60 rounded-xl px-2.5 py-1">
+            <span className="text-xs font-semibold text-warning dark:text-warning ms-1">
               {currentRating ? (
                 <>
                   التقييم (<span className="font-mono tabular-nums">{currentRating}</span>/5):
@@ -53,13 +53,13 @@ export const TicketInfoCard: React.FC<TicketInfoCardProps> = ({
                 type="button"
                 disabled={submittingRating}
                 onClick={() => onRateTicket(star)}
-                className="p-0.5 text-amber-500 hover:scale-110 transition disabled:opacity-50"
+                className="p-0.5 text-warning hover:scale-110 transition disabled:opacity-50"
                 title={`تقييم ${star} من 5 نجوم`}
               >
                 {currentRating && currentRating >= star ? (
-                  <StarSolidIcon className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  <StarSolidIcon className="h-4 w-4 fill-warning text-warning" />
                 ) : (
-                  <StarOutlineIcon className="h-4 w-4 text-amber-400 hover:text-amber-500" />
+                  <StarOutlineIcon className="h-4 w-4 text-warning hover:text-warning" />
                 )}
               </button>
             ))}
@@ -76,7 +76,7 @@ export const TicketInfoCard: React.FC<TicketInfoCardProps> = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <ClockIcon className="w-4 h-4" />
           تاريخ الإنشاء:{" "}
           <span className="font-mono tabular-nums">{formatDate(ticket.created_at)}</span>
@@ -84,10 +84,10 @@ export const TicketInfoCard: React.FC<TicketInfoCardProps> = ({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-2 block text-sm font-medium text-foreground">
           وصف المشكلة
         </label>
-        <p className="rounded-lg bg-gray-50 p-4 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
+        <p className="rounded-lg bg-muted p-4 text-foreground dark:bg-muted dark:text-muted-foreground">
           {ticket.description}
         </p>
       </div>

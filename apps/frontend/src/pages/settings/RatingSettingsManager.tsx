@@ -20,7 +20,7 @@ const RatingSettingsManager: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-slate-500 dark:text-slate-400">
+      <div className="p-8 text-center text-muted-foreground dark:text-muted-foreground">
         جاري تحميل الإعدادات...
       </div>
     );

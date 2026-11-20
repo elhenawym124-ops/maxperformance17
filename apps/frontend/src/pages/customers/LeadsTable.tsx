@@ -54,15 +54,15 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
     switch (rating) {
       case 'EXCELLENT':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">
-            <Sparkles className="w-3 h-3 text-purple-500" />
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold bg-primary/10 text-primary dark:text-primary px-2 py-0.5 rounded-full border border-primary/20">
+            <Sparkles className="w-3 h-3 text-primary" />
             <span>ممتاز</span>
           </span>
         );
       case 'GOOD':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold bg-success/10 text-success dark:text-success px-2 py-0.5 rounded-full border border-success/20">
+            <CheckCircle className="w-3 h-3 text-success" />
             <span>جيد</span>
           </span>
         );
@@ -88,9 +88,9 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; class: string }> = {
       LEAD: { label: 'عميل محتمل', class: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' },
-      ACTIVE: { label: 'عميل', class: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' },
-      INACTIVE: { label: 'غير نشط', class: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20' },
-      BLOCKED: { label: 'محجوب', class: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20' },
+      ACTIVE: { label: 'عميل', class: 'bg-emerald-500/10 text-success dark:text-success border-success/20' },
+      INACTIVE: { label: 'غير نشط', class: 'bg-slate-500/10 text-foreground dark:text-muted-foreground border-border' },
+      BLOCKED: { label: 'محجوب', class: 'bg-red-500/10 text-destructive dark:text-destructive border-destructive/20' },
     };
     const s = statusMap[status] || { label: status, class: 'bg-muted/40 text-muted-foreground border-border/70' };
     return (
@@ -111,7 +111,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
 
   return (
     <div className="space-y-3">
-      <div className="hidden md:block overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+      <div className="hidden md:block overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
         <table className="w-full text-xs">
           <thead className="bg-muted/40 border-b border-border/70 text-muted-foreground">
             <tr>

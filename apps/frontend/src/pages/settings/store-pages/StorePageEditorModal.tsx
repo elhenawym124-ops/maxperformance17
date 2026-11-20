@@ -39,7 +39,7 @@ export const StorePageEditorModal: React.FC<StorePageEditorModalProps> = ({
         <div
           role="dialog"
           aria-modal="true"
-          className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-border/70 bg-card text-foreground shadow-2xl transition-all"
+          className="relative w-full max-w-4xl overflow-hidden rounded-xl border border-border/70 bg-card text-foreground shadow-2xl transition-all"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border/50 bg-muted/20 px-5 py-4 sm:px-6">

@@ -36,11 +36,11 @@ export function OrderConfirmationEligibleUsersCard({
   onToggleEligibleUser,
 }: OrderConfirmationEligibleUsersCardProps) {
   return (
-    <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 space-y-4 dark:border-indigo-900/60 dark:bg-indigo-950/20">
+    <div className="rounded-xl border border-primary bg-primary/60 p-4 space-y-4 dark:border-primary/60 dark:bg-primary/20">
       <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
         <div className="max-w-3xl">
-          <h4 className="font-semibold text-gray-900 dark:text-white">الموظفون المؤهلون للتوزيع</h4>
-          <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+          <h4 className="font-semibold text-foreground">الموظفون المؤهلون للتوزيع</h4>
+          <p className="mt-1 text-xs text-foreground dark:text-muted-foreground">
             هذه القائمة هي بوابة التوزيع النهائية. اختر كل المؤهلين، أو قيّد التوزيع على أسماء محددة فقط.
           </p>
         </div>
@@ -48,7 +48,7 @@ export function OrderConfirmationEligibleUsersCard({
           className={`rounded-full px-3 py-1 text-xs font-semibold tabular-nums ${
             isRestrictedToSpecificUsers
               ? "bg-indigo-600 text-white"
-              : "border border-indigo-200 bg-white text-indigo-700 dark:border-indigo-800 dark:bg-gray-900 dark:text-indigo-300"
+              : "border border-primary bg-white text-primary dark:border-primary dark:bg-muted dark:text-primary"
           }`}
         >
           {isRestrictedToSpecificUsers
@@ -58,7 +58,7 @@ export function OrderConfirmationEligibleUsersCard({
       </div>
 
       {!distributionEnabled && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-900/60 dark:bg-amber-950/30 dark:text-amber-200">
+        <div className="rounded-lg border border-warning bg-warning/10 px-3 py-2 text-xs text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning">
           التوزيع التلقائي غير مفعل حالياً. يمكنك تجهيز القائمة الآن، لكنها لن تُستخدم إلا بعد تفعيل التوزيع.
         </div>
       )}
@@ -69,14 +69,14 @@ export function OrderConfirmationEligibleUsersCard({
           onClick={onAllowAllEligibleUsers}
           className={`rounded-xl border p-3 text-right transition-colors ${
             !isRestrictedToSpecificUsers
-              ? "border-indigo-300 bg-white shadow-xs dark:bg-gray-900"
-              : "border-gray-200 bg-white/60 hover:bg-white dark:border-gray-700 dark:bg-gray-900/50"
+              ? "border-indigo-300 bg-white shadow-xs dark:bg-muted"
+              : "border-gray-200 bg-white/60 hover:bg-white dark:border-border dark:bg-muted"
           }`}
         >
-          <span className="block text-sm font-semibold text-gray-900 dark:text-white">
+          <span className="block text-sm font-semibold text-foreground">
             كل المؤهلين حسب الدور
           </span>
-          <span className="mt-1 block text-xs text-gray-500">
+          <span className="mt-1 block text-xs text-muted-foreground">
             أي مدير أو موظف ضمن الأدوار المختارة يدخل في التوزيع.
           </span>
         </button>
@@ -85,14 +85,14 @@ export function OrderConfirmationEligibleUsersCard({
           onClick={onRestrictToSpecificUsers}
           className={`rounded-xl border p-3 text-right transition-colors ${
             isRestrictedToSpecificUsers
-              ? "border-indigo-300 bg-white shadow-xs dark:bg-gray-900"
-              : "border-gray-200 bg-white/60 hover:bg-white dark:border-gray-700 dark:bg-gray-900/50"
+              ? "border-indigo-300 bg-white shadow-xs dark:bg-muted"
+              : "border-gray-200 bg-white/60 hover:bg-white dark:border-border dark:bg-muted"
           }`}
         >
-          <span className="block text-sm font-semibold text-gray-900 dark:text-white">
+          <span className="block text-sm font-semibold text-foreground">
             موظفون محددون فقط
           </span>
-          <span className="mt-1 block text-xs text-gray-500">
+          <span className="mt-1 block text-xs text-muted-foreground">
             الأسماء المحددة هنا فقط هي التي ستدخل في الاختيار الآلي.
           </span>
         </button>
@@ -103,14 +103,14 @@ export function OrderConfirmationEligibleUsersCard({
           value={eligibleUserSearch}
           onChange={(e) => setEligibleUserSearch(e.target.value)}
           placeholder="ابحث باسم الموظف، البريد، الدور، أو الحالة"
-          className="w-full rounded-lg border border-indigo-100 bg-white px-3 py-2 text-sm lg:max-w-md dark:border-indigo-900/60 dark:bg-gray-900"
+          className="w-full rounded-lg border border-primary bg-white px-3 py-2 text-sm lg:max-w-md dark:border-primary/60 dark:bg-muted"
         />
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={onSelectFilteredEligibleUsers}
             disabled={filteredEligibleUsers.length === 0}
-            className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs text-white transition hover:bg-indigo-700 disabled:opacity-50"
+            className="rounded-lg bg-primary px-3 py-1.5 text-xs text-white transition hover:bg-primary disabled:opacity-50"
           >
             تحديد نتائج البحث
           </button>
@@ -118,7 +118,7 @@ export function OrderConfirmationEligibleUsersCard({
             <button
               type="button"
               onClick={onRemoveHiddenEligibleUsers}
-              className="rounded-lg bg-amber-100 px-3 py-1.5 text-xs text-amber-800 transition hover:bg-amber-200"
+              className="rounded-lg bg-warning px-3 py-1.5 text-xs text-warning transition hover:bg-warning"
             >
               إزالة {hiddenEligibleUserIdsCount} اختيار غير ظاهر
             </button>
@@ -129,14 +129,14 @@ export function OrderConfirmationEligibleUsersCard({
       {isRestrictedToSpecificUsers && (
         <div className="flex flex-wrap gap-2">
           {selectedDistributionUsers.length === 0 ? (
-            <span className="text-xs text-amber-700 dark:text-amber-300">
+            <span className="text-xs text-warning dark:text-warning">
               يوجد اختيارات محفوظة لكنها غير ظاهرة ضمن الأدوار الحالية.
             </span>
           ) : (
             selectedDistributionUsers.map((user) => (
               <span
                 key={user.id}
-                className="rounded-full border border-indigo-100 bg-white px-3 py-1 text-xs text-indigo-700 dark:border-indigo-900 dark:bg-gray-900 dark:text-indigo-300"
+                className="rounded-full border border-primary bg-white px-3 py-1 text-xs text-primary dark:border-primary dark:bg-muted dark:text-primary"
               >
                 {formatUserLabel(user)}
               </span>
@@ -146,11 +146,11 @@ export function OrderConfirmationEligibleUsersCard({
       )}
 
       {eligibleUsers.length === 0 ? (
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-muted-foreground">
           لا يوجد مستخدمون متاحون ضمن الأدوار المختارة حالياً. جرّب إضافة دور من الأدوار المسموحة ثم احفظ.
         </div>
       ) : filteredEligibleUsers.length === 0 ? (
-        <div className="text-xs text-gray-500">لا توجد نتائج مطابقة للبحث الحالي.</div>
+        <div className="text-xs text-muted-foreground">لا توجد نتائج مطابقة للبحث الحالي.</div>
       ) : (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {filteredEligibleUsers.map((user) => (
@@ -158,21 +158,21 @@ export function OrderConfirmationEligibleUsersCard({
               key={user.id}
               className={`flex items-start gap-2 rounded-lg border p-3 text-sm transition-colors cursor-pointer ${
                 visuallyIncludedUserIds.has(user.id)
-                  ? "border-indigo-300 bg-white dark:bg-gray-900"
-                  : "border-gray-200 bg-white/70 dark:border-gray-700 dark:bg-gray-900/60"
+                  ? "border-indigo-300 bg-white dark:bg-muted"
+                  : "border-gray-200 bg-white/70 dark:border-border dark:bg-muted"
               }`}
             >
               <input
                 type="checkbox"
                 checked={visuallyIncludedUserIds.has(user.id)}
                 onChange={() => onToggleEligibleUser(user.id)}
-                className="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                className="mt-1 rounded border-border text-primary focus:ring-primary"
               />
               <span>
-                <span className="block font-medium text-gray-900 dark:text-white">
+                <span className="block font-medium text-foreground">
                   {formatUserLabel(user)}
                 </span>
-                <span className="block text-xs text-gray-500">
+                <span className="block text-xs text-muted-foreground">
                   {formatRoleLabel(user.role)} • {formatAvailabilityLabel(user.availability)}
                 </span>
               </span>

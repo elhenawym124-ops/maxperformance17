@@ -37,7 +37,7 @@ export function TelegramBotsTab({
           <button
             type="button"
             onClick={() => setShowAddForm(true)}
-            className="flex items-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-sky-700"
+            className="flex items-center gap-2 rounded-xl bg-info px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-info"
           >
             <span>+ Add New Bot</span>
           </button>
@@ -46,10 +46,10 @@ export function TelegramBotsTab({
 
       {/* Helper Banner */}
       <div
-        className={`rounded-2xl border p-4 ${
+        className={`rounded-xl border p-4 ${
           derivedTheme === "dark"
-            ? "border-sky-900/60 bg-sky-950/20 text-sky-300"
-            : "border-sky-100 bg-sky-50/60 text-sky-800"
+            ? "border-sky-900/60 bg-info/20 text-info"
+            : "border-sky-100 bg-info/60 text-info"
         }`}
       >
         <p className="text-xs leading-relaxed">
@@ -59,7 +59,7 @@ export function TelegramBotsTab({
             href="https://t.me/BotFather"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold underline transition hover:text-sky-600"
+            className="font-bold underline transition hover:text-info"
           >
             @BotFather
           </a>
@@ -71,23 +71,23 @@ export function TelegramBotsTab({
       <div className="space-y-3">
         {bots.length === 0 && !showAddForm && (
           <div
-            className={`rounded-2xl border-2 border-dashed py-12 text-center ${
+            className={`rounded-xl border-2 border-dashed py-12 text-center ${
               derivedTheme === "dark"
-                ? "border-slate-800 bg-slate-900/40 text-slate-400"
-                : "border-slate-200 bg-slate-50/60 text-slate-500"
+                ? "border-slate-800 bg-muted text-muted-foreground"
+                : "border-slate-200 bg-muted text-muted-foreground"
             }`}
           >
-            <CpuChipIcon className="mx-auto mb-3 h-10 w-10 text-slate-400" />
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            <CpuChipIcon className="mx-auto mb-3 h-10 w-10 text-muted-foreground" />
+            <h3 className="text-sm font-bold text-foreground dark:text-white">
               No Bots Connected
             </h3>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
               Add your first Telegram bot to activate automated message delivery.
             </p>
             <button
               type="button"
               onClick={() => setShowAddForm(true)}
-              className="mt-3 text-xs font-semibold text-sky-600 hover:underline dark:text-sky-400"
+              className="mt-3 text-xs font-semibold text-info hover:underline dark:text-info"
             >
               Connect a Bot
             </button>
@@ -97,9 +97,9 @@ export function TelegramBotsTab({
         {bots.map((bot) => (
           <div
             key={bot.id}
-            className={`flex items-center justify-between rounded-2xl border p-4 shadow-xs transition-colors ${
+            className={`flex items-center justify-between rounded-xl border p-4 shadow-xs transition-colors ${
               derivedTheme === "dark"
-                ? "border-slate-800 bg-slate-900"
+                ? "border-slate-800 bg-muted"
                 : "border-slate-200/80 bg-white"
             }`}
           >
@@ -107,8 +107,8 @@ export function TelegramBotsTab({
               <div
                 className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                   derivedTheme === "dark"
-                    ? "bg-sky-950/50 text-sky-400"
-                    : "bg-sky-100 text-sky-600"
+                    ? "bg-sky-950/50 text-info"
+                    : "bg-sky-100 text-info"
                 }`}
               >
                 <CpuChipIcon className="h-5 w-5" />
@@ -121,14 +121,14 @@ export function TelegramBotsTab({
                 >
                   {bot.label}
                 </h3>
-                <div className="flex items-center gap-2 pt-0.5 text-xs text-slate-500">
+                <div className="flex items-center gap-2 pt-0.5 text-xs text-muted-foreground">
                   <span className="font-mono tabular-nums">@{bot.username || "unknown_bot"}</span>
                   {bot.running ? (
-                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                    <span className="rounded-full bg-success/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-success dark:bg-success/40 dark:text-success">
                       Running
                     </span>
                   ) : (
-                    <span className="rounded-full bg-rose-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-rose-700 dark:bg-rose-950/40 dark:text-rose-300">
+                    <span className="rounded-full bg-destructive/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-destructive dark:bg-destructive/40 dark:text-destructive">
                       Stopped
                     </span>
                   )}
@@ -139,7 +139,7 @@ export function TelegramBotsTab({
               type="button"
               onClick={() => onDisconnect(bot.id)}
               disabled={isLoading}
-              className="rounded-xl border border-slate-200 px-3.5 py-1.5 text-xs font-semibold text-rose-600 transition hover:border-rose-200 hover:bg-rose-50 dark:border-slate-800 dark:text-rose-400 dark:hover:bg-rose-950/30"
+              className="rounded-xl border border-border px-3.5 py-1.5 text-xs font-semibold text-destructive transition hover:border-destructive hover:bg-destructive/10 dark:border-border dark:text-destructive dark:hover:bg-destructive/30"
             >
               Disconnect
             </button>

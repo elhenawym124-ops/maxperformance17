@@ -45,7 +45,7 @@ export function FreeShippingSection({
       isOn={freeShippingEnabled}
       accentClassName={{
         sectionBorder: "border-emerald-200/80",
-        iconActive: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
+        iconActive: "bg-emerald-50 text-success ring-success/70",
       }}
       pill={
         <StatusPill
@@ -65,7 +65,7 @@ export function FreeShippingSection({
         <div className="space-y-2">
           <Label
             htmlFor="freeShippingThreshold"
-            className="text-sm font-semibold text-slate-900 dark:text-slate-200"
+            className="text-sm font-semibold text-foreground dark:text-muted-foreground"
           >
             {t("promotionSettings.freeShippingThreshold")}
           </Label>
@@ -91,25 +91,25 @@ export function FreeShippingSection({
               aria-invalid={thresholdError}
               aria-describedby="freeShippingThresholdHint freeShippingThresholdError"
               className={cn(
-                "h-11 rounded-xl bg-white/90 font-semibold tabular-nums ltr:pr-14 rtl:pl-14 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-100",
+                "h-11 rounded-xl bg-white/90 font-semibold tabular-nums ltr:pe-14 rtl:ps-14 dark:border-border dark:bg-muted dark:text-muted-foreground",
                 !freeShippingEnabled && lockedFieldsClass,
                 thresholdError && "border-rose-300 focus-visible:ring-rose-200",
               )}
             />
-            <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-md bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600 ltr:right-3 rtl:left-3 dark:bg-slate-800 dark:text-slate-300">
+            <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-md bg-muted px-2 py-0.5 text-xs font-bold text-foreground ltr:right-3 rtl:left-3 dark:bg-muted dark:text-muted-foreground">
               {t("promotionSettings.currency")}
             </span>
           </div>
           <p
             id="freeShippingThresholdHint"
-            className="text-xs leading-5 text-slate-500 dark:text-slate-400"
+            className="text-xs leading-5 text-muted-foreground dark:text-muted-foreground"
           >
             {t("promotionSettings.freeShippingThresholdDesc")}
           </p>
           {thresholdError ? (
             <p
               id="freeShippingThresholdError"
-              className="text-xs font-bold text-rose-700 dark:text-rose-400"
+              className="text-xs font-bold text-destructive dark:text-destructive"
             >
               {t("promotionSettings.thresholdMaxError")}
             </p>
@@ -119,7 +119,7 @@ export function FreeShippingSection({
         <div className="space-y-2">
           <Label
             htmlFor="freeShippingMessage"
-            className="text-sm font-semibold text-slate-900 dark:text-slate-200"
+            className="text-sm font-semibold text-foreground dark:text-muted-foreground"
           >
             {t("promotionSettings.freeShippingMessage")}
           </Label>
@@ -131,7 +131,7 @@ export function FreeShippingSection({
               onUpdateFree({ freeShippingMessage: event.target.value })
             }
             className={cn(
-              "min-h-[104px] rounded-xl border-slate-200 bg-white/90 text-sm font-semibold leading-7 text-slate-950 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-100",
+              "min-h-[104px] rounded-xl border-border bg-white/90 text-sm font-semibold leading-7 text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
               !freeShippingEnabled && lockedFieldsClass,
             )}
           />
@@ -141,15 +141,15 @@ export function FreeShippingSection({
               variant="outline"
               size="sm"
               onClick={insertAmountToken}
-              className="rounded-lg border-dashed text-xs font-bold text-slate-600 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+              className="rounded-lg border-dashed text-xs font-bold text-foreground dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
             >
               <Plus className="size-3.5" />
               {t("promotionSettings.insertToken")}
             </Button>
-            <p className="text-xs leading-5 text-slate-500 dark:text-slate-400">
+            <p className="text-xs leading-5 text-muted-foreground dark:text-muted-foreground">
               {msgHelpParts[0]}
               <code
-                className="mx-1 rounded-md border border-slate-200 bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-bold text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                className="mx-1 rounded-md border border-border bg-muted px-1.5 py-0.5 font-mono text-[11px] font-bold text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
                 dir="ltr"
               >
                 {AMOUNT_TOKEN}
@@ -163,10 +163,10 @@ export function FreeShippingSection({
       {/* Live Storefront Bar Preview */}
       <div className="space-y-2">
         <div className="flex flex-wrap items-baseline gap-2.5">
-          <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+          <p className="text-xs font-bold text-foreground dark:text-muted-foreground">
             {t("promotionSettings.previewTitle")}
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground">
             {t("promotionSettings.previewNote")}
           </p>
         </div>
@@ -174,8 +174,8 @@ export function FreeShippingSection({
           className={cn(
             "flex items-center gap-2.5 rounded-xl border px-4 py-2.5 transition-colors",
             preview.live
-              ? "border-slate-950 bg-slate-950 text-white dark:border-slate-800 dark:bg-slate-900"
-              : "border-dashed border-slate-300 bg-slate-50/80 text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400",
+              ? "border-slate-950 bg-muted text-white dark:border-border dark:bg-muted"
+              : "border-dashed border-border bg-muted text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
           )}
         >
           <Truck className="size-4 shrink-0" />
@@ -186,8 +186,8 @@ export function FreeShippingSection({
             className={cn(
               "shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
               preview.live
-                ? "bg-white/15 text-slate-200"
-                : "bg-slate-200/70 text-slate-500 dark:bg-slate-800 dark:text-slate-400",
+                ? "bg-white/15 text-muted-foreground"
+                : "bg-slate-200/70 text-muted-foreground dark:bg-muted dark:text-muted-foreground",
             )}
           >
             {t("promotionSettings.storeBadge")}
@@ -196,7 +196,7 @@ export function FreeShippingSection({
       </div>
 
       {/* Sync with Free Shipping Bar Notice */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-200/80 bg-emerald-50/70 p-3.5 text-xs text-emerald-950 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-200">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-success/80 bg-success/70 p-3.5 text-xs text-success dark:border-success/30 dark:bg-success/40 dark:text-success">
         <div className="flex items-center gap-2">
           <span
             className={cn(
@@ -212,7 +212,7 @@ export function FreeShippingSection({
         </div>
         <Link
           to="/settings/store/tools/freeShippingBar"
-          className="inline-flex items-center gap-1.5 font-bold text-emerald-800 underline underline-offset-4 hover:text-emerald-950 dark:text-emerald-300 dark:hover:text-emerald-200"
+          className="inline-flex items-center gap-1.5 font-bold text-success underline underline-offset-4 hover:text-success dark:text-success dark:hover:text-success"
         >
           <span>تخصيص أداة شريط الشحن المجاني</span>
           <ExternalLink className="size-3.5" />

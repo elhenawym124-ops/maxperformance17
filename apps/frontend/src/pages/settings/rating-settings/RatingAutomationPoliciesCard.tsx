@@ -14,13 +14,13 @@ export const RatingAutomationPoliciesCard: React.FC<RatingAutomationPoliciesCard
   onChange,
 }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xs border border-slate-200 dark:border-slate-800">
-      <div className="p-6 border-b border-slate-100 dark:border-slate-800">
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-slate-400" />
+    <div className="bg-white dark:bg-muted rounded-xl shadow-xs border border-border dark:border-border">
+      <div className="p-6 border-b border-border dark:border-border">
+        <h2 className="text-xl font-bold text-foreground dark:text-white flex items-center gap-2">
+          <AlertTriangle className="h-5 w-5 text-muted-foreground" />
           الأتمتة (Automations)
         </h2>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
           إجراءات تلقائية بناءً على تقييم العملاء.
         </p>
       </div>
@@ -28,14 +28,14 @@ export const RatingAutomationPoliciesCard: React.FC<RatingAutomationPoliciesCard
       <div className="p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-medium text-slate-900 dark:text-white">
+            <h3 className="font-medium text-foreground dark:text-white">
               الموافقة التلقائية لـ "الممتازين"
             </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               قبول طلبات الإرجاع تلقائياً إذا كان العميل ممتاز.
             </p>
           </div>
-          <div className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+          <div className="relative inline-block w-12 me-2 align-middle select-none transition duration-200 ease-in">
             <input
               type="checkbox"
               checked={autoApproveExcellent}
@@ -45,7 +45,7 @@ export const RatingAutomationPoliciesCard: React.FC<RatingAutomationPoliciesCard
             />
             <label
               className={`toggle-label block overflow-hidden h-6 rounded-full cursor-pointer ${
-                autoApproveExcellent ? "bg-blue-600" : "bg-slate-300 dark:bg-slate-600"
+                autoApproveExcellent ? "bg-blue-600" : "bg-slate-300 dark:bg-muted"
               }`}
             ></label>
           </div>
@@ -53,14 +53,14 @@ export const RatingAutomationPoliciesCard: React.FC<RatingAutomationPoliciesCard
 
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-medium text-slate-900 dark:text-white">
+            <h3 className="font-medium text-foreground dark:text-white">
               الرفض التلقائي/مراجعة يدوية لـ "الضعفاء"
             </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               تحويل طلبات العملاء ذوي التقييم الضعيف للمراجعة اليدوية دائماً (Risk Protection).
             </p>
           </div>
-          <div className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+          <div className="relative inline-block w-12 me-2 align-middle select-none transition duration-200 ease-in">
             <input
               type="checkbox"
               checked={autoRejectBad}
@@ -70,7 +70,7 @@ export const RatingAutomationPoliciesCard: React.FC<RatingAutomationPoliciesCard
             />
             <label
               className={`toggle-label block overflow-hidden h-6 rounded-full cursor-pointer ${
-                autoRejectBad ? "bg-blue-600" : "bg-slate-300 dark:bg-slate-600"
+                autoRejectBad ? "bg-blue-600" : "bg-slate-300 dark:bg-muted"
               }`}
             ></label>
           </div>

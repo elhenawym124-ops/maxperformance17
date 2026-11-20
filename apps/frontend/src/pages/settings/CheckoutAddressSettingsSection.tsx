@@ -109,7 +109,7 @@ const CheckoutAddressSettingsSection: React.FC<{
 
   if (!loaded) {
     return (
-      <div className="bg-card border border-border/80 rounded-2xl p-6 shadow-sm animate-pulse space-y-3 font-sans">
+      <div className="bg-card border border-border/80 rounded-xl p-6 shadow-sm animate-pulse space-y-3 font-sans">
         <div className="h-4 w-48 bg-muted rounded-md" />
         <div className="h-8 w-full bg-muted/50 rounded-xl" />
       </div>
@@ -158,7 +158,7 @@ const CheckoutAddressSettingsSection: React.FC<{
   );
 
   return (
-    <div className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 shadow-sm space-y-5 font-sans text-xs">
+    <div className="bg-card border border-border/80 rounded-xl p-5 sm:p-6 shadow-sm space-y-5 font-sans text-xs">
       {/* Section Header */}
       <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4">
         <div className="flex items-start gap-3">

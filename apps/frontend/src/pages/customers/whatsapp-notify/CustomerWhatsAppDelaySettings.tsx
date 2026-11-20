@@ -45,7 +45,7 @@ export const CustomerWhatsAppDelaySettings: React.FC<CustomerWhatsAppDelaySettin
   return (
     <div className="space-y-3 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
       <div className="flex items-center gap-2 border-b border-border/50 pb-2.5">
-        <Clock className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+        <Clock className="h-4 w-4 text-success dark:text-success" />
         <h4 className="text-xs font-semibold text-foreground">
           {t("whatsappNotify.delaySettings", "إعدادات الفاصل الزمني بين الرسائل")}
         </h4>
@@ -111,7 +111,7 @@ export const CustomerWhatsAppDelaySettings: React.FC<CustomerWhatsAppDelaySettin
         <Button
           onClick={onSend}
           disabled={sending || !hasConnectedSession || !hasMessage}
-          className="w-full h-9 gap-2 bg-emerald-600 text-xs font-semibold text-white hover:bg-emerald-700 shadow-sm"
+          className="w-full h-9 gap-2 bg-success text-xs font-semibold text-white hover:bg-success shadow-sm"
         >
           <Send className={`h-4 w-4 ${sending ? "animate-pulse" : ""}`} />
           {sending

@@ -35,7 +35,7 @@ export const CustomerOccasionsList: React.FC<CustomerOccasionsListProps> = ({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث باسم المناسبة..."
-          className="h-8 rounded-lg pr-8 text-xs"
+          className="h-8 rounded-lg pe-8 text-xs"
         />
       </div>
 

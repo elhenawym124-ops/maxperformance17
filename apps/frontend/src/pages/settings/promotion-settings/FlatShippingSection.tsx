@@ -33,7 +33,7 @@ export function FlatShippingSection({
       isOn={flatShippingEnabled}
       accentClassName={{
         sectionBorder: "border-sky-200/80",
-        iconActive: "bg-sky-50 text-sky-700 ring-sky-200/70",
+        iconActive: "bg-sky-50 text-info ring-info/70",
       }}
       pill={
         <StatusPill
@@ -53,7 +53,7 @@ export function FlatShippingSection({
         <div className="space-y-2">
           <Label
             htmlFor="flatShippingFee"
-            className="text-sm font-semibold text-slate-900 dark:text-slate-200"
+            className="text-sm font-semibold text-foreground dark:text-muted-foreground"
           >
             {t("promotionSettings.flatShippingFee")}
           </Label>
@@ -79,43 +79,43 @@ export function FlatShippingSection({
               aria-invalid={feeError}
               aria-describedby="flatShippingFeeHint flatShippingFeeError"
               className={cn(
-                "h-11 rounded-xl bg-white/90 font-semibold tabular-nums ltr:pr-14 rtl:pl-14 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-100",
+                "h-11 rounded-xl bg-white/90 font-semibold tabular-nums ltr:pe-14 rtl:ps-14 dark:border-border dark:bg-muted dark:text-muted-foreground",
                 !flatShippingEnabled && lockedFieldsClass,
                 feeError && "border-rose-300 focus-visible:ring-rose-200",
               )}
             />
-            <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-md bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600 ltr:right-3 rtl:left-3 dark:bg-slate-800 dark:text-slate-300">
+            <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-md bg-muted px-2 py-0.5 text-xs font-bold text-foreground ltr:right-3 rtl:left-3 dark:bg-muted dark:text-muted-foreground">
               {t("promotionSettings.currency")}
             </span>
           </div>
           <p
             id="flatShippingFeeHint"
-            className="text-xs leading-5 text-slate-500 dark:text-slate-400"
+            className="text-xs leading-5 text-muted-foreground dark:text-muted-foreground"
           >
             {t("promotionSettings.flatShippingFeeDesc")}
           </p>
           {feeError ? (
             <p
               id="flatShippingFeeError"
-              className="text-xs font-bold text-rose-700 dark:text-rose-400"
+              className="text-xs font-bold text-destructive dark:text-destructive"
             >
               {t("promotionSettings.feeMaxError")}
             </p>
           ) : null}
         </div>
 
-        <details className="group rounded-xl border border-slate-200/70 bg-slate-50/70 px-4 py-3 dark:border-slate-800 dark:bg-slate-950/60">
-          <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-bold text-slate-950 dark:text-slate-100 [&::-webkit-details-marker]:hidden">
-            <ChevronDown className="size-4 text-slate-500 transition-transform group-open:rotate-180 dark:text-slate-400" />
+        <details className="group rounded-xl border border-border bg-muted px-4 py-3 dark:border-border dark:bg-muted">
+          <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-bold text-foreground dark:text-muted-foreground [&::-webkit-details-marker]:hidden">
+            <ChevronDown className="size-4 text-muted-foreground transition-transform group-open:rotate-180 dark:text-muted-foreground" />
             {t("promotionSettings.flatShippingWhenToUse")}
           </summary>
           <ul className="mt-2 space-y-1.5">
-            <li className="flex gap-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-              <Check className="mt-1 size-4 shrink-0 text-sky-700 dark:text-sky-400" />
+            <li className="flex gap-2 text-sm leading-6 text-muted-foreground dark:text-muted-foreground">
+              <Check className="mt-1 size-4 shrink-0 text-info dark:text-info" />
               {t("promotionSettings.flatShippingUseCase1")}
             </li>
-            <li className="flex gap-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-              <Check className="mt-1 size-4 shrink-0 text-sky-700 dark:text-sky-400" />
+            <li className="flex gap-2 text-sm leading-6 text-muted-foreground dark:text-muted-foreground">
+              <Check className="mt-1 size-4 shrink-0 text-info dark:text-info" />
               {t("promotionSettings.flatShippingUseCase2")}
             </li>
           </ul>

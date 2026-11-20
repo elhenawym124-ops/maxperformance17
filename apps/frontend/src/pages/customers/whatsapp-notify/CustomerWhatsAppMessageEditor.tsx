@@ -66,7 +66,7 @@ export const CustomerWhatsAppMessageEditor: React.FC<CustomerWhatsAppMessageEdit
     <div className="space-y-4 rounded-lg border border-border/60 bg-card p-4 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/50 pb-3">
         <div className="flex items-center gap-2">
-          <Send className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <Send className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold text-foreground">
             {t("whatsappNotify.notificationContent", "محتوى الرسالة والصياغة")}
           </h3>
@@ -112,7 +112,7 @@ export const CustomerWhatsAppMessageEditor: React.FC<CustomerWhatsAppMessageEdit
 
         <div className="flex items-center justify-between px-0.5 text-[11px] text-muted-foreground">
           <div className="flex items-center gap-1.5 font-mono tabular-nums">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-success" />
             <span>{t("whatsappNotify.charCount", { count: message.length })}</span>
           </div>
 
@@ -137,14 +137,14 @@ export const CustomerWhatsAppMessageEditor: React.FC<CustomerWhatsAppMessageEdit
         <button
           type="button"
           onClick={() => insertVariable("{customerName}")}
-          className="rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono font-medium text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300"
+          className="rounded border border-success/30 bg-success/10 px-2 py-0.5 text-[10px] font-mono font-medium text-success hover:bg-success/20 dark:text-success"
         >
           + {`{customerName}`}
         </button>
         <button
           type="button"
           onClick={() => insertVariable("{coupon_code}")}
-          className="rounded border border-purple-500/30 bg-purple-500/10 px-2 py-0.5 text-[10px] font-mono font-medium text-purple-700 hover:bg-purple-500/20 dark:text-purple-300"
+          className="rounded border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-mono font-medium text-primary hover:bg-primary/20 dark:text-primary"
         >
           + {`{coupon_code}`}
         </button>

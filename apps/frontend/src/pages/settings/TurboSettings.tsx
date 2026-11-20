@@ -28,10 +28,10 @@ const TurboSettings: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-96 dark:bg-gray-900">
+      <div className="flex items-center justify-center h-96 dark:bg-muted">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary dark:border-primary mx-auto"></div>
+          <p className="mt-4 text-foreground dark:text-muted-foreground">
             {t("turbo.k_23")}
           </p>
         </div>
@@ -40,7 +40,7 @@ const TurboSettings: React.FC = () => {
   }
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 py-8 dark:bg-gray-900 min-h-screen">
+    <div className="w-full px-4 sm:px-6 lg:px-8 py-8 dark:bg-muted min-h-screen">
       <TurboSettingsHeader
         t={t}
         onNavigateShippingCompanies={() => navigate("/shipping-companies")}
@@ -48,7 +48,7 @@ const TurboSettings: React.FC = () => {
         onNavigateStatusMapping={() => navigate("/settings/turbo/status-mapping")}
       />
 
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 space-y-6 border border-gray-200 dark:border-gray-700">
+      <div className="bg-card shadow rounded-lg p-6 space-y-6 border border-border dark:border-border">
         <TurboStatusCard
           t={t}
           enabled={settings.turboEnabled}

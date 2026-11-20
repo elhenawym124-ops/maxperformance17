@@ -23,27 +23,27 @@ export function ToolCard({
   const categoryStyle = CATEGORY_STYLES[page.id] || CATEGORY_STYLES["product-conversion"];
 
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white transition-all duration-200 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/95 dark:hover:border-indigo-700/80">
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-white transition-all duration-200 hover:-translate-y-1 hover:border-primary hover:shadow-md dark:border-border dark:bg-muted dark:hover:border-primary/80">
       {/* Header: Icon + Title + Quick Toggle */}
       <div className="p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3">
             <div
-              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200/60 shadow-xs dark:border-slate-700/50 ${categoryStyle.iconBg} ${categoryStyle.iconColor}`}
+              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border shadow-xs dark:border-border ${categoryStyle.iconBg} ${categoryStyle.iconColor}`}
             >
               <ToolIcon className="h-5 w-5" />
             </div>
             <div className="space-y-1">
               <Link
                 to={`/settings/store/tools/${tool.key}`}
-                className="font-bold text-slate-900 transition-colors hover:text-indigo-600 dark:text-white dark:hover:text-indigo-400"
+                className="font-bold text-foreground transition-colors hover:text-primary dark:text-white dark:hover:text-primary"
               >
                 <h3 className="text-sm font-extrabold tracking-tight sm:text-base">
                   {toolLabel}
                 </h3>
               </Link>
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-400">
+                <span className="rounded-md border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                   {placementText}
                 </span>
                 <span
@@ -76,12 +76,12 @@ export function ToolCard({
                 if (!available || isSaving) return;
                 onToggle(!enabled);
               }}
-              className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2 ${
+              className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${
                 !available
-                  ? "cursor-not-allowed bg-slate-200 opacity-60 dark:bg-slate-800"
+                  ? "cursor-not-allowed bg-muted opacity-60 dark:bg-muted"
                   : enabled
-                  ? "bg-emerald-500 hover:bg-emerald-600"
-                  : "bg-slate-300 hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600"
+                  ? "bg-emerald-500 hover:bg-success"
+                  : "bg-slate-300 hover:bg-muted dark:bg-muted dark:hover:bg-muted"
               }`}
             >
               {isSaving ? (
@@ -100,7 +100,7 @@ export function ToolCard({
         </div>
 
         {/* Marketing Benefit Description */}
-        <p className="mt-3 line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+        <p className="mt-3 line-clamp-2 text-xs leading-5 text-muted-foreground dark:text-muted-foreground">
           {toolBenefit}
         </p>
       </div>
@@ -110,14 +110,14 @@ export function ToolCard({
         to={`/settings/store/tools/${tool.key}`}
         className="block px-4 pb-3 sm:px-5"
       >
-        <div className="overflow-hidden rounded-xl border border-slate-200/90 bg-slate-100/70 dark:border-slate-800 dark:bg-slate-950/70">
-          <div className="flex items-center justify-between border-b border-slate-200/70 bg-white/80 px-2.5 py-1.5 backdrop-blur-xs dark:border-slate-800 dark:bg-slate-900/80">
+        <div className="overflow-hidden rounded-xl border border-border bg-muted dark:border-border dark:bg-muted">
+          <div className="flex items-center justify-between border-b border-border bg-white/80 px-2.5 py-1.5 backdrop-blur-xs dark:border-border dark:bg-muted">
             <div className="flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
-              <span className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
-              <span className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
+              <span className="h-1.5 w-1.5 rounded-full bg-muted dark:bg-muted" />
+              <span className="h-1.5 w-1.5 rounded-full bg-muted dark:bg-muted" />
+              <span className="h-1.5 w-1.5 rounded-full bg-muted dark:bg-muted" />
             </div>
-            <span className="text-[9px] font-semibold text-slate-400 dark:text-slate-500">
+            <span className="text-[9px] font-semibold text-muted-foreground dark:text-muted-foreground">
               معاينة حية للمتجر
             </span>
             <div className="w-6" />
@@ -129,8 +129,8 @@ export function ToolCard({
             </div>
 
             {!available && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 p-2 text-center backdrop-blur-xs dark:bg-slate-950/80">
-                <span className="rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-bold text-amber-800 dark:bg-amber-900/60 dark:text-amber-300">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 p-2 text-center backdrop-blur-xs dark:bg-muted">
+                <span className="rounded-full bg-warning px-2.5 py-1 text-[11px] font-bold text-warning dark:bg-warning/60 dark:text-warning">
                   يتطلب {STORE_CONVERSION_APP_LABELS[tool.appSlug]}
                 </span>
               </div>
@@ -140,24 +140,24 @@ export function ToolCard({
       </Link>
 
       {/* Card Footer: Status & Customization CTA */}
-      <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50/70 px-4 py-3 dark:border-slate-800/80 dark:bg-slate-900/40 sm:px-5">
+      <div className="flex items-center justify-between border-t border-border bg-muted px-4 py-3 dark:border-border dark:bg-muted sm:px-5">
         <div className="flex items-center gap-1.5">
           <span
             className={`h-2 w-2 rounded-full ${
               !available
                 ? "bg-amber-400"
                 : enabled
-                ? "bg-emerald-500 shadow-xs shadow-emerald-500/50"
-                : "bg-slate-300 dark:bg-slate-700"
+                ? "bg-emerald-500 shadow-xs shadow-success/50"
+                : "bg-slate-300 dark:bg-muted"
             }`}
           />
           <span
             className={`text-xs font-bold ${
               !available
-                ? "text-amber-700 dark:text-amber-300"
+                ? "text-amber-700 dark:text-warning"
                 : enabled
-                ? "text-emerald-700 dark:text-emerald-400"
-                : "text-slate-400 dark:text-slate-500"
+                ? "text-emerald-700 dark:text-success"
+                : "text-slate-400 dark:text-muted-foreground"
             }`}
           >
             {!available ? "غير متوفرة" : enabled ? "نشطة بالمتجر" : "معطّلة"}
@@ -166,7 +166,7 @@ export function ToolCard({
 
         <Link
           to={`/settings/store/tools/${tool.key}`}
-          className="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 transition-transform group-hover:text-indigo-700 dark:text-indigo-400 dark:group-hover:text-indigo-300"
+          className="inline-flex items-center gap-1 text-xs font-bold text-primary transition-transform group-hover:text-primary dark:text-primary dark:group-hover:text-primary"
         >
           <span>تخصيص وإعدادات</span>
           <ForwardChevron className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[-2px] rtl:group-hover:translate-x-[-2px]" />

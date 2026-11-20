@@ -38,12 +38,12 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
   return (
     <div className="space-y-6">
       {/* Stock Policies Card */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             سياسات المخزون
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             كيف يتعامل النظام مع توفر المنتجات والتحويل بين المخازن
           </CardDescription>
         </CardHeader>
@@ -82,12 +82,12 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
       </Card>
 
       {/* QC Checklist Card */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             فحص الجودة
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             متى يتم تفعيل مراجعة الجودة، وما هي العناصر الإلزامية قبل التغليف
           </CardDescription>
         </CardHeader>
@@ -100,17 +100,17 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
           />
 
           {settings.enableQcChecklist && (
-            <div className="grid grid-cols-2 gap-3 rounded-2xl border border-slate-200/90 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-950/50 md:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 rounded-xl border border-border bg-muted p-4 dark:border-border dark:bg-muted md:grid-cols-3">
               {QC_ITEMS.map((item) => (
                 <label
                   key={item.key}
-                  className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200/80 bg-white px-3 py-2.5 text-sm transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800/80"
+                  className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-white px-3 py-2.5 text-sm transition hover:bg-muted dark:border-border dark:bg-muted dark:hover:bg-muted"
                 >
                   <Switch
                     checked={settings.qcChecks[item.key]}
                     onCheckedChange={(v) => onUpdateQcCheck(item.key, v)}
                   />
-                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                  <span className="text-xs font-semibold text-foreground dark:text-muted-foreground">
                     {item.label}
                   </span>
                 </label>
@@ -121,12 +121,12 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
       </Card>
 
       {/* Bulk Actions Policies Card */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             الإجراءات الجماعية
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             تحديد ما الذي يمكن لفريق المخزن تنفيذه دفعة واحدة من الصفحة التشغيلية
           </CardDescription>
         </CardHeader>
@@ -153,12 +153,12 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
       </Card>
 
       {/* Notifications & SLAs Card */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             الإشعارات ومؤشرات التأخير
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             تنبيهات العميل والفريق، والحدود الزمنية لمراقبة بطء التنفيذ داخل المخزن
           </CardDescription>
         </CardHeader>
@@ -182,11 +182,11 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
             onChange={(v) => onUpdateSetting("notifyOnReadyToShip", v)}
           />
 
-          <Separator className="my-2 border-slate-200/80 dark:border-slate-800" />
+          <Separator className="my-2 border-border dark:border-border" />
 
           <div className="grid gap-4 md:grid-cols-3">
             <div className="space-y-1.5">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 SLA التجهيز (ساعة)
               </Label>
               <Input
@@ -198,7 +198,7 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 SLA التغليف (ساعة)
               </Label>
               <Input
@@ -210,7 +210,7 @@ export const OrderPreparationQualityTab: React.FC<OrderPreparationQualityTabProp
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 SLA التسليم للشحن (ساعة)
               </Label>
               <Input

@@ -169,7 +169,7 @@ export const LateCancellationSettings: React.FC = () => {
     return (
       <div className="flex items-center justify-center p-12 text-muted-foreground">
         <RotateCw className="w-5 h-5 animate-spin" />
-        <span className="mr-2 text-xs font-medium">جاري تحميل إعدادات الإلغاء المتأخر...</span>
+        <span className="me-2 text-xs font-medium">جاري تحميل إعدادات الإلغاء المتأخر...</span>
       </div>
     );
   }
@@ -187,7 +187,7 @@ export const LateCancellationSettings: React.FC = () => {
             <span className="text-xs font-semibold text-foreground">اعتراض الإلغاء المتأخر</span>
           </div>
           <h2 className="text-base font-semibold text-foreground flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-rose-500" />
+            <ShieldAlert className="w-4 h-4 text-destructive" />
             نظام اعتراض الإلغاء المتأخر (Late Cancellation Intercept)
           </h2>
           <p className="text-xs text-muted-foreground">
@@ -234,7 +234,7 @@ export const LateCancellationSettings: React.FC = () => {
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded font-mono ${
               settings.lateCancellationInterceptEnabled
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                ? "bg-emerald-500/10 text-success dark:text-success"
                 : "bg-muted text-muted-foreground"
             }`}>
               {settings.lateCancellationInterceptEnabled ? "Online" : "Off"}
@@ -275,7 +275,7 @@ export const LateCancellationSettings: React.FC = () => {
         <div className="p-4 sm:p-5 flex items-start justify-between gap-4 transition-colors hover:bg-muted/15">
           <div className="space-y-1 flex-1">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
+              <span className="p-1.5 rounded-md bg-destructive/10 text-destructive dark:text-destructive">
                 <ShieldAlert className="w-4 h-4" />
               </span>
               <label
@@ -284,13 +284,13 @@ export const LateCancellationSettings: React.FC = () => {
               >
                 تفعيل نظام اعتراض الإلغاء المتأخر
               </label>
-              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono uppercase bg-rose-500/10 text-rose-700 dark:text-rose-300">
+              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono uppercase bg-destructive/10 text-destructive dark:text-destructive">
                 Intercept Gateway
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-8">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-8">
               عند طلب العميل أو المشرف إلغاء طلب وصل لمرحلة التجهيز أو التغليف، يتم نقله تلقائياً إلى حالة{" "}
-              <span className="font-semibold text-foreground underline decoration-rose-500/40">
+              <span className="font-semibold text-foreground underline decoration-destructive/40">
                 «إلغاء قيد التنفيذ»
               </span>{" "}
               بدلاً من إلغائه نهائياً، لتفادي خروج الشحنة مع المندوب قبل استردادها من المخزن.
@@ -369,7 +369,7 @@ export const LateCancellationSettings: React.FC = () => {
           </div>
 
           {settings.lateCancellationTargetStatuses.length === 0 && (
-            <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 flex items-center gap-2">
+            <div className="p-2.5 rounded-lg bg-warning/10 border border-warning/20 text-xs text-warning dark:text-warning flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>تحذير: لم تحدد أي حالة مستهدفة — لن يتم اعتراض أي طلب حتى تختار حالة تشغيلية واحدة على الأقل.</span>
             </div>

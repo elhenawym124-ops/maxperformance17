@@ -117,8 +117,8 @@ const BirthdayWhatsAppNotify: React.FC = () => {
     return (
       <div className="mx-auto w-full max-w-6xl space-y-4 p-4 md:p-6">
         <Skeleton className="h-10 w-64 rounded-xl" />
-        <Skeleton className="h-48 rounded-2xl" />
-        <Skeleton className="h-64 rounded-2xl" />
+        <Skeleton className="h-48 rounded-xl" />
+        <Skeleton className="h-64 rounded-xl" />
       </div>
     );
   }
@@ -151,23 +151,23 @@ const BirthdayWhatsAppNotify: React.FC = () => {
       <Tabs defaultValue="audience" className="space-y-5">
         <TabsList className="rounded-full p-1">
           <TabsTrigger value="audience" className="rounded-full">
-            <Users className="ml-1 h-4 w-4" />
+            <Users className="ms-1 h-4 w-4" />
             أعياد الميلاد
-            <Badge variant="secondary" className="mr-2 rounded-full">{todayList.length}</Badge>
+            <Badge variant="secondary" className="me-2 rounded-full">{todayList.length}</Badge>
           </TabsTrigger>
           <TabsTrigger value="message" className="rounded-full">
-            <Gift className="ml-1 h-4 w-4" />
+            <Gift className="ms-1 h-4 w-4" />
             الرسالة والإعدادات
           </TabsTrigger>
           <TabsTrigger value="stats" className="rounded-full">
-            <BarChart3 className="ml-1 h-4 w-4" />
+            <BarChart3 className="ms-1 h-4 w-4" />
             الأداء
           </TabsTrigger>
         </TabsList>
 
         {/* ═══ أعياد اليوم والقادمة ═══ */}
         <TabsContent value="audience" className="space-y-5">
-          <BirthdaySection title="أعياد النهارده" icon={<Sparkles className="h-4 w-4 text-amber-500" />} list={todayList} loading={loading} emptyText="مفيش عميلة عندها عيد ميلاد النهارده — سجلي تواريخ الميلاد من صفحة العميلة" highlight />
+          <BirthdaySection title="أعياد النهارده" icon={<Sparkles className="h-4 w-4 text-warning" />} list={todayList} loading={loading} emptyText="مفيش عميلة عندها عيد ميلاد النهارده — سجلي تواريخ الميلاد من صفحة العميلة" highlight />
           <BirthdaySection title="القادمة خلال 30 يوم" icon={<CalendarDays className="h-4 w-4" />} list={upcomingList.slice(0, 15)} loading={loading} emptyText="مفيش أعياد قريبة" />
         </TabsContent>
 
@@ -203,7 +203,7 @@ const BirthdayWhatsAppNotify: React.FC = () => {
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <Label>نص التهنئة</Label>
-                  <Button type="button" variant="outline" size="sm" onClick={() => setMetaModalOpen(true)} className="rounded-full border-emerald-300 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300">
+                  <Button type="button" variant="outline" size="sm" onClick={() => setMetaModalOpen(true)} className="rounded-full border-success text-success hover:bg-success/10 dark:border-success dark:text-success">
                     <LayoutTemplate className="h-3.5 w-3.5" />
                     اختيار قالب ميتا
                   </Button>
@@ -216,7 +216,7 @@ const BirthdayWhatsAppNotify: React.FC = () => {
                 <WhatsAppBubblePreview content={settings.messageTemplate} variables={{ coupon_code: settings.couponCode }} headerLabel="سوان" />
 
                 {/* اختبار تجريبي */}
-                <div className="space-y-3 rounded-2xl border border-[color:var(--color-border)] p-4">
+                <div className="space-y-3 rounded-xl border border-[color:var(--color-border)] p-4">
                   <div className="flex items-center gap-2">
                     <Send className="h-4 w-4 text-[color:var(--color-primary)]" />
                     <h4 className="text-sm font-semibold">تجربة على رقمك</h4>
@@ -303,7 +303,7 @@ const BirthdaySection: React.FC<{
                     {c.birthDate
                       ? new Date(c.birthDate).toLocaleDateString('ar-EG', { day: 'numeric', month: 'long' })
                       : '—'}
-                    {highlight && <Badge variant="outline" className="mr-2 rounded-full border-amber-300 text-amber-700 dark:text-amber-400">النهارده 🎉</Badge>}
+                    {highlight && <Badge variant="outline" className="me-2 rounded-full border-warning text-warning dark:text-warning">النهارده 🎉</Badge>}
                   </TableCell>
                 </TableRow>
               ))}

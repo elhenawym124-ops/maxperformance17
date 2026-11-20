@@ -49,18 +49,18 @@ const OrderConfirmationSettings: React.FC = () => {
   } = useOrderConfirmationSettingsController();
 
   if (loading) {
-    return <div className="p-6 text-sm text-slate-500">جاري التحميل...</div>;
+    return <div className="p-6 text-sm text-muted-foreground">جاري التحميل...</div>;
   }
 
   if (!settings) {
-    return <div className="p-6 text-sm text-slate-500">تعذر تحميل الإعدادات</div>;
+    return <div className="p-6 text-sm text-muted-foreground">تعذر تحميل الإعدادات</div>;
   }
 
   return (
     <div className="space-y-6" dir="rtl">
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">إعدادات التأكيد والتوزيع</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <h2 className="text-xl font-bold text-foreground">إعدادات التأكيد والتوزيع</h2>
+        <p className="text-sm text-muted-foreground">
           تحكم في قواعد التأكيد الآلي وتوزيع الطلبات على الفريق.
         </p>
       </div>
@@ -77,7 +77,7 @@ const OrderConfirmationSettings: React.FC = () => {
         onChangeConfirmStatus={(status) => setSettings({ ...settings, confirmStatus: status })}
       />
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 space-y-4">
+      <div className="bg-card rounded-xl border border-border dark:border-border p-4 space-y-4">
         <OrderConfirmationDistributionSection
           distributionEnabled={settings.distributionEnabled}
           distributionStrategy={settings.distributionStrategy}

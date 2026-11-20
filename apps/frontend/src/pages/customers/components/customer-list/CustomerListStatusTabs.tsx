@@ -18,7 +18,7 @@ export const CustomerListStatusTabs: React.FC<CustomerListStatusTabsProps> = ({
   ];
 
   return (
-    <div className="bg-zinc-100/80 dark:bg-zinc-800/60 p-1 rounded-lg border border-zinc-200/60 dark:border-zinc-700/50 flex items-center gap-1 overflow-x-auto no-scrollbar">
+    <div className="bg-zinc-100/80 dark:bg-muted p-1 rounded-lg border border-border dark:border-border flex items-center gap-1 overflow-x-auto no-scrollbar">
       {tabs.map((tab) => {
         const isActive = currentStatus === tab.id;
         return (
@@ -28,8 +28,8 @@ export const CustomerListStatusTabs: React.FC<CustomerListStatusTabsProps> = ({
             onClick={() => onStatusChange(tab.id)}
             className={`px-3 py-1 rounded-md text-xs whitespace-nowrap transition-all duration-150 active:scale-[0.97] flex items-center gap-1.5 ${
               isActive
-                ? "bg-white dark:bg-zinc-900 text-zinc-950 dark:text-zinc-50 shadow-xs font-semibold"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-700/60 font-medium"
+                ? "bg-white dark:bg-muted text-foreground dark:text-muted-foreground shadow-xs font-semibold"
+                : "text-zinc-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted font-medium"
             }`}
           >
             <span>{tab.label}</span>

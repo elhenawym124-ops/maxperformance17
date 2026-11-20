@@ -588,13 +588,13 @@ export function useLoyaltySystemMapController() {
       label: "العملاء المشتركين",
       value: fmt(totalCustomers),
       icon: Users,
-      tone: "bg-green-100 text-green-600 dark:bg-green-900/40 dark:text-green-400",
+      tone: "bg-green-100 text-success dark:bg-success/40 dark:text-success",
     },
     {
       label: "متوسط النقاط للعميل",
       value: fmt(avgPoints),
       icon: Coins,
-      tone: "bg-yellow-100 text-yellow-600 dark:bg-yellow-900/40 dark:text-yellow-400",
+      tone: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning",
     },
     {
       label: "نسبة الاستبدال",
@@ -606,7 +606,7 @@ export function useLoyaltySystemMapController() {
       label: "إجمالي الكاش باك",
       value: `${fmt(totalCashback)} ج.م`,
       icon: Award,
-      tone: "bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400",
+      tone: "bg-pink-100 text-primary dark:bg-primary/40 dark:text-primary",
     },
   ];
 

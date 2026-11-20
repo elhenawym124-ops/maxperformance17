@@ -55,14 +55,14 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
     <div className="space-y-3">
       {/* Success Notification */}
       {success && (
-        <div className="flex items-start justify-between gap-3 rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-3 text-emerald-700 dark:text-emerald-300">
+        <div className="flex items-start justify-between gap-3 rounded-lg border border-success/20 bg-success/10 p-3 text-success dark:text-success">
           <div className="flex items-center gap-2.5">
-            <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-success dark:text-success" />
             <p className="text-xs sm:text-sm font-medium whitespace-pre-line">{success}</p>
           </div>
           <button
             onClick={onDismissSuccess}
-            className="rounded p-1 text-emerald-600 hover:bg-emerald-500/20 dark:text-emerald-400"
+            className="rounded p-1 text-success hover:bg-success/20 dark:text-success"
             aria-label="Dismiss"
           >
             <X className="h-4 w-4" />
@@ -89,22 +89,22 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
 
       {/* Skipped Pages Warning */}
       {skippedPages.length > 0 && (
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4">
+        <div className="rounded-lg border border-warning/30 bg-warning/10 p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-2.5">
-              <ShieldAlert className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />
+              <ShieldAlert className="h-5 w-5 shrink-0 text-warning dark:text-warning mt-0.5" />
               <div>
-                <h4 className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+                <h4 className="text-sm font-semibold text-warning dark:text-warning">
                   {t("facebookOAuth.skippedPagesTitle", { count: skippedPages.length })}
                 </h4>
-                <p className="mt-0.5 text-xs text-amber-800/90 dark:text-amber-300">
+                <p className="mt-0.5 text-xs text-warning/90 dark:text-warning">
                   {t("facebookOAuth.skippedPagesDesc")}
                 </p>
               </div>
             </div>
             <button
               onClick={onResolveSkipped}
-              className="rounded p-1 text-amber-600 hover:bg-amber-500/20 dark:text-amber-400"
+              className="rounded p-1 text-warning hover:bg-warning/20 dark:text-warning"
               aria-label="Dismiss"
             >
               <X className="h-4 w-4" />
@@ -115,10 +115,10 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
             {skippedPages.map((page) => (
               <div
                 key={page.pageId}
-                className="flex items-center justify-between gap-3 rounded-md border border-amber-500/20 bg-background/80 p-2.5"
+                className="flex items-center justify-between gap-3 rounded-md border border-warning/20 bg-background/80 p-2.5"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-amber-500/15 text-amber-600 dark:text-amber-400">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-warning/15 text-warning dark:text-warning">
                     <MessageSquare className="h-3.5 w-3.5" />
                   </div>
                   <div className="min-w-0">
@@ -132,7 +132,7 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-300">
+                  <span className="rounded-full bg-warning/15 px-2 py-0.5 text-[10px] font-medium text-warning dark:text-warning">
                     {t("facebookOAuth.skippedPageBoundToOther")}
                   </span>
                   {canForceClaim && (
@@ -153,15 +153,15 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
             ))}
           </div>
 
-          <div className="mt-3 flex items-center justify-between border-t border-amber-500/20 pt-2.5">
-            <p className="text-[11px] text-amber-800/80 dark:text-amber-300/80">
+          <div className="mt-3 flex items-center justify-between border-t border-warning/20 pt-2.5">
+            <p className="text-[11px] text-warning/80 dark:text-warning/80">
               {t("facebookOAuth.skippedPagesNote")}
             </p>
             <Button
               variant="outline"
               size="sm"
               onClick={onResolveSkipped}
-              className="h-7 text-xs font-medium text-amber-800 dark:text-amber-200"
+              className="h-7 text-xs font-medium text-warning dark:text-warning"
             >
               {t("facebookOAuth.skippedPagesAcknowledge")}
             </Button>
@@ -171,19 +171,19 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
 
       {/* Zero Page Grants Guided Alert */}
       {noPageGrants && (
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4">
+        <div className="rounded-lg border border-warning/30 bg-warning/10 p-4">
           <div className="flex items-start gap-2.5">
-            <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />
+            <AlertTriangle className="h-5 w-5 shrink-0 text-warning dark:text-warning mt-0.5" />
             <div className="space-y-1.5 flex-1">
-              <h4 className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+              <h4 className="text-sm font-semibold text-warning dark:text-warning">
                 {t("facebookOAuth.noPageGrantsTitle")}
               </h4>
-              <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+              <p className="text-xs text-warning dark:text-warning leading-relaxed">
                 {t("facebookOAuth.noPageGrantsMessage")}
               </p>
 
               {affectedCompanies.length > 0 && (
-                <p className="text-[11px] text-amber-700 dark:text-amber-400 font-medium">
+                <p className="text-[11px] text-warning dark:text-warning font-medium">
                   {t("facebookOAuth.reconsentWarningCompanies", {
                     companies: affectedCompanies
                       .map((c) => c.companyName)

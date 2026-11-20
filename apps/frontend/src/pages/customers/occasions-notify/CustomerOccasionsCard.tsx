@@ -44,7 +44,7 @@ export const CustomerOccasionsCard: React.FC<CustomerOccasionsCardProps> = ({
           </span>
           <span className="text-muted-foreground/80">{RECURRENCE_LABEL[o.recurrence] || o.recurrence}</span>
           {o.metaTemplateName && (
-            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+            <span className="inline-flex items-center gap-1 text-success dark:text-success">
               <FileCheck2 className="h-3 w-3" />
               قالب معتمد
             </span>

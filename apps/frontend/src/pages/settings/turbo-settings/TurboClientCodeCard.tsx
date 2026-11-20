@@ -14,10 +14,10 @@ export const TurboClientCodeCard: React.FC<TurboClientCodeCardProps> = ({
   onChangeClientCode,
 }) => {
   return (
-    <div className="border-t dark:border-gray-700 pt-6">
+    <div className="border-t dark:border-border pt-6">
       <div className="flex items-center mb-4">
-        <KeyIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400 ml-2" />
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+        <KeyIcon className="h-5 w-5 text-primary ms-2" />
+        <h3 className="text-lg font-medium text-foreground">
           Main Client Code
         </h3>
       </div>
@@ -30,9 +30,9 @@ export const TurboClientCodeCard: React.FC<TurboClientCodeCardProps> = ({
             onChangeClientCode(e.target.value ? parseInt(e.target.value, 10) : null)
           }
           placeholder="37321"
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 font-mono tabular-nums"
+          className="w-full px-4 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:border-primary dark:focus:border-primary font-mono tabular-nums"
         />
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+        <p className="text-xs text-muted-foreground">
           {t("turbo.k_31")}
         </p>
       </div>

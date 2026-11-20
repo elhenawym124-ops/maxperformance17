@@ -48,16 +48,16 @@ export function OrderConfirmationCustomRulesSection({
       {/* 1. Region Rules */}
       <div className="space-y-3">
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-white">قواعد المناطق</label>
-          <p className="text-xs text-gray-500">اختر محافظة أو أكثر من قائمة منسدلة، ثم حدد فريق التوزيع لها.</p>
+          <label className="block text-sm font-medium mb-1 text-foreground">قواعد المناطق</label>
+          <p className="text-xs text-muted-foreground">اختر محافظة أو أكثر من قائمة منسدلة، ثم حدد فريق التوزيع لها.</p>
         </div>
         {regionRules.length === 0 ? (
-          <div className="text-xs text-gray-500">لا توجد قواعد مناطق بعد.</div>
+          <div className="text-xs text-muted-foreground">لا توجد قواعد مناطق بعد.</div>
         ) : (
           regionRules.map((rule, index) => (
             <div
               key={`region-${index}`}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 space-y-2 bg-white dark:bg-gray-900/50"
+              className="border border-border dark:border-border rounded-lg p-3 space-y-2 bg-white dark:bg-muted"
             >
               <div className="space-y-2">
                 <MultiSelectDropdown
@@ -79,7 +79,7 @@ export function OrderConfirmationCustomRulesSection({
                 <button
                   type="button"
                   onClick={() => onRemoveRegionRule(index)}
-                  className="text-xs text-red-600 hover:underline dark:text-red-400"
+                  className="text-xs text-destructive hover:underline dark:text-destructive"
                 >
                   حذف
                 </button>
@@ -90,7 +90,7 @@ export function OrderConfirmationCustomRulesSection({
         <button
           type="button"
           onClick={onAddRegionRule}
-          className="text-xs font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+          className="text-xs font-medium text-primary hover:underline dark:text-primary"
         >
           إضافة قاعدة منطقة
         </button>
@@ -99,16 +99,16 @@ export function OrderConfirmationCustomRulesSection({
       {/* 2. Product Specialty Rules */}
       <div className="space-y-3">
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-white">قواعد التخصيص حسب المنتج</label>
-          <p className="text-xs text-gray-500">اختر منتج أو أكثر وحدد الموظفين المسؤولين عنهم.</p>
+          <label className="block text-sm font-medium mb-1 text-foreground">قواعد التخصيص حسب المنتج</label>
+          <p className="text-xs text-muted-foreground">اختر منتج أو أكثر وحدد الموظفين المسؤولين عنهم.</p>
         </div>
         {productRules.length === 0 ? (
-          <div className="text-xs text-gray-500">لا توجد قواعد منتجات بعد.</div>
+          <div className="text-xs text-muted-foreground">لا توجد قواعد منتجات بعد.</div>
         ) : (
           productRules.map((rule, index) => (
             <div
               key={`product-${index}`}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 space-y-2 bg-white dark:bg-gray-900/50"
+              className="border border-border dark:border-border rounded-lg p-3 space-y-2 bg-white dark:bg-muted"
             >
               <div className="space-y-2">
                 <MultiSelectDropdown
@@ -130,7 +130,7 @@ export function OrderConfirmationCustomRulesSection({
                 <button
                   type="button"
                   onClick={() => onRemoveProductRule(index)}
-                  className="text-xs text-red-600 hover:underline dark:text-red-400"
+                  className="text-xs text-destructive hover:underline dark:text-destructive"
                 >
                   حذف
                 </button>
@@ -141,7 +141,7 @@ export function OrderConfirmationCustomRulesSection({
         <button
           type="button"
           onClick={onAddProductRule}
-          className="text-xs font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+          className="text-xs font-medium text-primary hover:underline dark:text-primary"
         >
           إضافة قاعدة منتج
         </button>
@@ -150,16 +150,16 @@ export function OrderConfirmationCustomRulesSection({
       {/* 3. Order Value Rules */}
       <div className="space-y-3">
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-white">قواعد التخصيص حسب قيمة الأوردر</label>
-          <p className="text-xs text-gray-500">حدد مدى قيمة الطلب، ثم الموظفين المناسبين له.</p>
+          <label className="block text-sm font-medium mb-1 text-foreground">قواعد التخصيص حسب قيمة الأوردر</label>
+          <p className="text-xs text-muted-foreground">حدد مدى قيمة الطلب، ثم الموظفين المناسبين له.</p>
         </div>
         {orderValueRules.length === 0 ? (
-          <div className="text-xs text-gray-500">لا توجد قواعد لقيمة الأوردر بعد.</div>
+          <div className="text-xs text-muted-foreground">لا توجد قواعد لقيمة الأوردر بعد.</div>
         ) : (
           orderValueRules.map((rule, index) => (
             <div
               key={`value-${index}`}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 space-y-2 bg-white dark:bg-gray-900/50"
+              className="border border-border dark:border-border rounded-lg p-3 space-y-2 bg-white dark:bg-muted"
             >
               <div className="grid grid-cols-2 gap-2">
                 <input
@@ -167,14 +167,14 @@ export function OrderConfirmationCustomRulesSection({
                   onChange={(e) => onUpdateValueRule(index, { minTotal: e.target.value })}
                   inputMode="decimal"
                   placeholder="من قيمة"
-                  className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-sm font-mono tabular-nums"
+                  className="px-3 py-2 border border-border rounded-lg bg-white dark:bg-muted text-sm font-mono tabular-nums"
                 />
                 <input
                   value={rule.maxTotal}
                   onChange={(e) => onUpdateValueRule(index, { maxTotal: e.target.value })}
                   inputMode="decimal"
                   placeholder="إلى قيمة"
-                  className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-sm font-mono tabular-nums"
+                  className="px-3 py-2 border border-border rounded-lg bg-white dark:bg-muted text-sm font-mono tabular-nums"
                 />
               </div>
               <MultiSelectDropdown
@@ -188,7 +188,7 @@ export function OrderConfirmationCustomRulesSection({
                 <button
                   type="button"
                   onClick={() => onRemoveValueRule(index)}
-                  className="text-xs text-red-600 hover:underline dark:text-red-400"
+                  className="text-xs text-destructive hover:underline dark:text-destructive"
                 >
                   حذف
                 </button>
@@ -199,7 +199,7 @@ export function OrderConfirmationCustomRulesSection({
         <button
           type="button"
           onClick={onAddValueRule}
-          className="text-xs font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+          className="text-xs font-medium text-primary hover:underline dark:text-primary"
         >
           إضافة قاعدة قيمة
         </button>

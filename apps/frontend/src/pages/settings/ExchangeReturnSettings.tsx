@@ -113,7 +113,7 @@ export const ExchangeReturnSettings: React.FC = () => {
     return (
       <div className="flex items-center justify-center p-12 text-muted-foreground">
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span className="mr-2 text-xs font-medium">جاري تحميل سياسة الاستبدال والمرتجع...</span>
+        <span className="me-2 text-xs font-medium">جاري تحميل سياسة الاستبدال والمرتجع...</span>
       </div>
     );
   }
@@ -163,7 +163,7 @@ export const ExchangeReturnSettings: React.FC = () => {
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded font-mono ${
               policy.requirePreviousOrder
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                ? "bg-emerald-500/10 text-success dark:text-success"
                 : "bg-muted text-muted-foreground"
             }`}>
               {policy.requirePreviousOrder ? "Strict" : "Open"}
@@ -204,17 +204,17 @@ export const ExchangeReturnSettings: React.FC = () => {
         <div className="p-4 sm:p-5 flex items-start justify-between gap-4 transition-colors hover:bg-muted/15">
           <div className="space-y-1 flex-1">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <span className="p-1.5 rounded-md bg-success/10 text-success dark:text-success">
                 <ShieldCheck className="w-4 h-4" />
               </span>
               <label htmlFor="req-prev-toggle" className="text-sm font-semibold text-foreground cursor-pointer">
                 اشتراط وجود طلب شراء سابق ومسلّم للعميل
               </label>
-              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono uppercase bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono uppercase bg-success/10 text-success dark:text-success">
                 Purchase Verification
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-8">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-8">
               يمنع أي مسوق أو موظف دعم من إنشاء طلب استبدال أو مرتجع وهمي لأي رقم هاتف لا يمتلك طلباً مسلماً بالفعل في سجلات المتجر.
             </p>
           </div>

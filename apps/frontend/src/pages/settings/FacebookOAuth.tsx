@@ -53,7 +53,7 @@ const FacebookOAuth: React.FC = () => {
     return (
       <div className="flex h-64 items-center justify-center">
         <div className="text-center">
-          <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-amber-500" />
+          <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-warning" />
           <p className="text-sm text-muted-foreground">
             {t("facebookOAuth.mustLogin", "يجب تسجيل الدخول أولاً")}
           </p>

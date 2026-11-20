@@ -89,30 +89,30 @@ const PointsSettingsPage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   const inputCls =
-    "w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500";
+    "w-full px-4 py-2.5 bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary";
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-foreground">
             إعدادات النقاط
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             إعدادات عامة على مستوى الشركة — تُطبَّق على جميع أنظمة الولاء
           </p>
         </div>
         <button
           onClick={handleSave}
           disabled={isSaving}
-          className="flex items-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-6 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
         >
           {isSaving ? (
             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -124,17 +124,17 @@ const PointsSettingsPage: React.FC = () => {
       </div>
 
       {/* Main Settings Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+      <div className="bg-card rounded-xl border border-border dark:border-border shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg text-purple-600 dark:text-purple-400">
+            <div className="p-2 bg-primary dark:bg-primary/30 rounded-lg text-primary dark:text-primary">
               <Coins className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="text-lg font-semibold text-foreground">
                 قواعد كسب واستبدال النقاط
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 التحكم في آلية احتساب النقاط ومعدلات الاستبدال
               </p>
             </div>
@@ -143,7 +143,7 @@ const PointsSettingsPage: React.FC = () => {
 
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               كل عملية شراء بمبلغ (عملة)
             </label>
             <input
@@ -154,11 +154,11 @@ const PointsSettingsPage: React.FC = () => {
               onChange={(e) => updateField("pointsPerAmount", Number(e.target.value))}
               className={inputCls}
             />
-            <p className="mt-1.5 text-xs text-gray-500">مثال: 1 تعني كل 1 عملة.</p>
+            <p className="mt-1.5 text-xs text-muted-foreground">مثال: 1 تعني كل 1 عملة.</p>
           </div>
 
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               تساوي (نقاط)
             </label>
             <input
@@ -169,13 +169,13 @@ const PointsSettingsPage: React.FC = () => {
               onChange={(e) => updateField("pointsPerPurchase", Number(e.target.value))}
               className={inputCls}
             />
-            <p className="mt-1.5 text-xs text-gray-500">
+            <p className="mt-1.5 text-xs text-muted-foreground">
               النقاط المكتسبة مقابل المبلغ السابق.
             </p>
           </div>
 
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               النقاط المكتسبة لكل إحالة ناجحة
             </label>
             <input
@@ -188,7 +188,7 @@ const PointsSettingsPage: React.FC = () => {
           </div>
 
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               معدل الاستبدال (1 عملة = كم نقطة؟)
             </label>
             <input
@@ -199,13 +199,13 @@ const PointsSettingsPage: React.FC = () => {
               placeholder="مثال: 100 = كل 100 نقطة تخصم 1 عملة"
               className={inputCls}
             />
-            <p className="mt-1.5 text-xs text-gray-500">
+            <p className="mt-1.5 text-xs text-muted-foreground">
               مثال: 100 يعادل أن كل 100 نقطة تخصم 1 عملة.
             </p>
           </div>
 
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               الحد الأدنى للنقاط لبدء الاستبدال
             </label>
             <input
@@ -218,7 +218,7 @@ const PointsSettingsPage: React.FC = () => {
           </div>
 
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               أقصى نقاط بالطلب الواحد
             </label>
             <input
@@ -229,13 +229,13 @@ const PointsSettingsPage: React.FC = () => {
               placeholder="0 = بدون حد"
               className={inputCls}
             />
-            <p className="mt-1.5 text-xs text-gray-500">
+            <p className="mt-1.5 text-xs text-muted-foreground">
               اتركه 0 إذا كنت لا تريد وضع حد أقصى.
             </p>
           </div>
 
           <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               صلاحية النقاط (بالأشهر)
             </label>
             <input

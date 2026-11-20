@@ -38,18 +38,18 @@ export const AuthorizedDeviceRow: React.FC<AuthorizedDeviceRowProps> = ({
   const renderClientIcon = (clientType: string) => {
     switch (clientType?.toUpperCase()) {
       case "DESKTOP":
-        return <Laptop className="w-4 h-4 text-sky-500" />;
+        return <Laptop className="w-4 h-4 text-info" />;
       case "MOBILE":
-        return <Smartphone className="w-4 h-4 text-emerald-500" />;
+        return <Smartphone className="w-4 h-4 text-success" />;
       default:
-        return <Globe className="w-4 h-4 text-violet-500" />;
+        return <Globe className="w-4 h-4 text-primary" />;
     }
   };
 
   return (
     <tr
       className={`hover:bg-muted/20 transition-colors ${
-        !device.isApproved ? "opacity-60 bg-red-500/5" : ""
+        !device.isApproved ? "opacity-60 bg-destructive/5" : ""
       }`}
     >
       {/* Device Name & OS */}
@@ -97,7 +97,7 @@ export const AuthorizedDeviceRow: React.FC<AuthorizedDeviceRowProps> = ({
             title="نسخ البصمة"
           >
             {copiedId === device.id ? (
-              <Check className="w-3.5 h-3.5 text-emerald-500" />
+              <Check className="w-3.5 h-3.5 text-success" />
             ) : (
               <Copy className="w-3.5 h-3.5" />
             )}
@@ -113,8 +113,8 @@ export const AuthorizedDeviceRow: React.FC<AuthorizedDeviceRowProps> = ({
           disabled={isUpdating}
           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all border ${
             isOffice
-              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-              : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+              ? "bg-emerald-500/10 text-success dark:text-success border-success/30 hover:bg-success/20"
+              : "bg-amber-500/10 text-warning dark:text-warning border-warning/30 hover:bg-warning/20"
           }`}
           title="اضغط للتبديل بين مكتب وشخصي"
         >

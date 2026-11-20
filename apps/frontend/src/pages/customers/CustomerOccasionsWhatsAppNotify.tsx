@@ -70,7 +70,7 @@ const CustomerOccasionsWhatsAppNotify: React.FC = () => {
           <TabsTrigger value="occasions" className="h-7 rounded-md text-xs gap-1.5 data-[state=active]:bg-background">
             <CalendarDays className="h-3.5 w-3.5" />
             <span>المناسبات</span>
-            <Badge variant="secondary" className="mr-1.5 h-4 rounded-full px-1.5 text-[10px] font-mono tabular-nums">
+            <Badge variant="secondary" className="me-1.5 h-4 rounded-full px-1.5 text-[10px] font-mono tabular-nums">
               {occasions.length}
             </Badge>
           </TabsTrigger>

@@ -7,10 +7,10 @@ interface StatusBadgeProps {
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   const map: Record<string, string> = {
-    scheduled: "bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/40 dark:text-fuchsia-300",
-    sent: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-    failed: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-    inactive: "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-300",
+    scheduled: "bg-fuchsia-100 text-primary dark:bg-primary/40 dark:text-primary",
+    sent: "bg-emerald-100 text-success dark:bg-success/40 dark:text-success",
+    failed: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive",
+    inactive: "bg-gray-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground",
     unknown: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
   };
   const icons: Record<string, React.ReactNode> = {

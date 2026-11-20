@@ -135,11 +135,11 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto animate-in fade-in duration-200"
       dir="rtl"
     >
-      <div className="relative w-full max-w-lg rounded-2xl border border-border/80 bg-card p-6 shadow-xl text-foreground space-y-4">
+      <div className="relative w-full max-w-lg rounded-xl border border-border/80 bg-card p-6 shadow-xl text-foreground space-y-4">
         {/* Header */}
         <div className="flex items-start justify-between gap-3 border-b border-border/60 pb-3.5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-success/10 border border-success/20 text-success dark:text-success">
               <ShoppingBag className="h-5 w-5" />
             </div>
             <div>
@@ -177,7 +177,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                 <span className="text-border">|</span>
                 <span>مفقودة: <strong className="text-foreground">{lostTotal.toLocaleString()}</strong></span>
                 <span className="text-border">|</span>
-                <span className="text-emerald-600 dark:text-emerald-400">بهاتف العميل: <strong>{readyPhoneTotal.toLocaleString()}</strong></span>
+                <span className="text-emerald-600 dark:text-success">بهاتف العميل: <strong>{readyPhoneTotal.toLocaleString()}</strong></span>
                 {(summary?.noPhoneCount ?? 0) > 0 && (
                   <>
                     <span className="text-border">|</span>
@@ -198,7 +198,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                   onClick={() => setScope("all")}
                   className={`flex flex-col items-center justify-center p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
                     scope === "all"
-                      ? "border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold shadow-2xs"
+                      ? "border-emerald-500 bg-success/10 text-success dark:text-success font-bold shadow-2xs"
                       : "border-border/70 bg-background hover:bg-muted/40 text-foreground"
                   }`}
                 >
@@ -213,7 +213,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                   onClick={() => setScope("active")}
                   className={`flex flex-col items-center justify-center p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
                     scope === "active"
-                      ? "border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold shadow-2xs"
+                      ? "border-emerald-500 bg-success/10 text-success dark:text-success font-bold shadow-2xs"
                       : "border-border/70 bg-background hover:bg-muted/40 text-foreground"
                   }`}
                 >
@@ -228,7 +228,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                   onClick={() => setScope("lost")}
                   className={`flex flex-col items-center justify-center p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
                     scope === "lost"
-                      ? "border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold shadow-2xs"
+                      ? "border-emerald-500 bg-success/10 text-success dark:text-success font-bold shadow-2xs"
                       : "border-border/70 bg-background hover:bg-muted/40 text-foreground"
                   }`}
                 >
@@ -247,7 +247,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                   type="checkbox"
                   checked={includeNoPhone}
                   onChange={(e) => setIncludeNoPhone(e.target.checked)}
-                  className="mt-0.5 rounded border-border text-emerald-600 focus:ring-emerald-500"
+                  className="mt-0.5 rounded border-border text-success focus:ring-success"
                 />
                 <div>
                   <span className="font-semibold text-foreground">
@@ -267,7 +267,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                   type="checkbox"
                   checked={force}
                   onChange={(e) => setForce(e.target.checked)}
-                  className="mt-0.5 rounded border-border text-emerald-600 focus:ring-emerald-500"
+                  className="mt-0.5 rounded border-border text-success focus:ring-success"
                 />
                 <div>
                   <span className="font-semibold text-foreground">
@@ -281,7 +281,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
             </div>
 
             {/* Explanation Warning */}
-            <div className="flex items-start gap-2 p-2.5 rounded-lg border border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 text-[11px]">
+            <div className="flex items-start gap-2 p-2.5 rounded-lg border border-success/30 bg-success/5 text-success dark:text-success text-[11px]">
               <Info className="h-4 w-4 shrink-0 mt-0.5" />
               <span>
                 عند التأكيد، ستتحول هذه السلال تلقائياً إلى طلبات برقم طلب رسمي وبحالة «قيد الانتظار» PENDING، وتُحذف السلال من تابة غير المكتملة وتظهر في تابة قيد الانتظار.
@@ -292,8 +292,8 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
           /* Result View */
           <div className="space-y-4 text-xs">
             {result.convertedCount > 0 ? (
-              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 space-y-2 text-center">
-                <div className="flex justify-center text-emerald-600 dark:text-emerald-400">
+              <div className="rounded-xl border border-success/30 bg-success/10 p-4 space-y-2 text-center">
+                <div className="flex justify-center text-success dark:text-success">
                   <CheckCircle2 className="h-10 w-10 animate-in zoom-in-75 duration-200" />
                 </div>
                 <h3 className="text-sm font-bold text-foreground">
@@ -304,8 +304,8 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                 </p>
               </div>
             ) : (
-              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 space-y-2 text-center">
-                <div className="flex justify-center text-amber-600 dark:text-amber-400">
+              <div className="rounded-xl border border-warning/30 bg-warning/10 p-4 space-y-2 text-center">
+                <div className="flex justify-center text-warning dark:text-warning">
                   <AlertTriangle className="h-10 w-10" />
                 </div>
                 <h3 className="text-sm font-bold text-foreground">
@@ -316,8 +316,8 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
 
             {/* Skipped Details */}
             {result.skippedDuplicatesCount > 0 && (
-              <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 space-y-1.5">
-                <div className="flex items-center gap-1.5 font-semibold text-amber-700 dark:text-amber-300">
+              <div className="rounded-xl border border-warning/30 bg-warning/5 p-3 space-y-1.5">
+                <div className="flex items-center gap-1.5 font-semibold text-warning dark:text-warning">
                   <AlertTriangle className="h-4 w-4" />
                   <span>تم تخطي {result.skippedDuplicatesCount} سلة لوجود طلبات سابقة خلال 48 ساعة</span>
                 </div>
@@ -355,7 +355,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                 type="button"
                 onClick={handleStartConversion}
                 disabled={converting || targetCount === 0}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 text-xs font-semibold shadow-xs disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-[0.98] cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-success hover:bg-success text-white px-5 py-2 text-xs font-semibold shadow-xs disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-[0.98] cursor-pointer"
               >
                 {converting ? (
                   <>
@@ -379,7 +379,7 @@ export const ConvertIncompleteOrdersModal: React.FC<ConvertIncompleteOrdersModal
                     handleReset();
                     setForce(true);
                   }}
-                  className="rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300 px-3.5 py-1.5 text-xs font-medium hover:bg-amber-500/20 transition-all cursor-pointer"
+                  className="rounded-lg border border-warning/40 bg-warning/10 text-warning dark:text-warning px-3.5 py-1.5 text-xs font-medium hover:bg-warning/20 transition-all cursor-pointer"
                 >
                   إعادة المحاولة مع فرض التحويل
                 </button>

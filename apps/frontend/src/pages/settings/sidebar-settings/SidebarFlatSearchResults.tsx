@@ -28,17 +28,17 @@ export function SidebarFlatSearchResults({
 
   return (
     <div className="space-y-2">
-      <h3 className="mb-3 text-sm font-semibold text-gray-500 dark:text-gray-400">
+      <h3 className="mb-3 text-sm font-semibold text-muted-foreground">
         {t("sidebar.sidebarSearchResults", { count: flatItems.length })}
       </h3>
       {flatItems.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 py-12 text-gray-400 dark:border-gray-800">
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-12 text-muted-foreground dark:border-border">
           <MagnifyingGlassIcon className="mb-3 h-10 w-10 opacity-40" />
           <p className="text-sm">{t("sidebar.sidebarNoSearchResults")}</p>
           <button
             type="button"
             onClick={onClearSearch}
-            className="mt-2 text-xs font-medium text-indigo-500 transition hover:underline"
+            className="mt-2 text-xs font-medium text-primary transition hover:underline"
           >
             {t("sidebar.sidebarClearSearch")}
           </button>
@@ -54,13 +54,13 @@ export function SidebarFlatSearchResults({
           return (
             <div
               key={`${sectionId}-${itemId}`}
-              className="flex items-center justify-between rounded-xl border border-gray-200/80 bg-white p-3 shadow-xs dark:border-gray-800 dark:bg-gray-900"
+              className="flex items-center justify-between rounded-xl border border-border bg-white p-3 shadow-xs dark:border-border dark:bg-muted"
             >
-              <div className="ml-3 min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+              <div className="ms-3 min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-foreground">
                   {item.label || itemDef?.label || itemId}
                 </p>
-                <p className="truncate text-xs text-gray-500 dark:text-gray-400">
+                <p className="truncate text-xs text-muted-foreground">
                   {sectionTitle}
                 </p>
               </div>

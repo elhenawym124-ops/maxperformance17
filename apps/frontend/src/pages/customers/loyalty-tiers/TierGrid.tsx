@@ -31,9 +31,9 @@ export const TierGrid: React.FC<TierGridProps> = ({
   return (
     <div className="space-y-6">
       {/* 🌍 شريط تصفية المستويات حسب المحافظات */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-        <div className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200">
-          <MapPin className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-card p-4 rounded-xl border border-border dark:border-border shadow-sm">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground dark:text-muted-foreground">
+          <MapPin className="w-4 h-4 text-primary dark:text-primary" />
           <span>تصفية المستويات حسب النطاق الجغرافي:</span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -43,7 +43,7 @@ export const TierGrid: React.FC<TierGridProps> = ({
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               selectedGovFilter === "ALL"
                 ? "bg-purple-600 text-white shadow-sm"
-                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
             الكل ({tiers.length})
@@ -54,7 +54,7 @@ export const TierGrid: React.FC<TierGridProps> = ({
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               selectedGovFilter === "GLOBAL"
                 ? "bg-purple-600 text-white shadow-sm"
-                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
             🌐 عام لكافة المحافظات (
@@ -73,7 +73,7 @@ export const TierGrid: React.FC<TierGridProps> = ({
                 : selectedGovFilter
             }
             onChange={(e) => setSelectedGovFilter(e.target.value || "ALL")}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-xs font-medium text-gray-800 dark:text-gray-200"
+            className="px-3 py-1.5 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-xs font-medium text-foreground dark:text-muted-foreground"
           >
             <option value="">اختر محافظة معينة...</option>
             {EGYPT_GOVERNORATES.map((gov) => {
@@ -92,9 +92,9 @@ export const TierGrid: React.FC<TierGridProps> = ({
       </div>
 
       {displayedTiers.length === 0 ? (
-        <div className="text-center py-10 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-          <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-2" />
-          <p className="text-gray-600 dark:text-gray-300 text-sm">
+        <div className="text-center py-10 bg-card rounded-xl border border-border dark:border-border">
+          <MapPin className="w-10 h-10 text-muted-foreground mx-auto mb-2" />
+          <p className="text-muted-foreground text-sm">
             لا توجد مستويات مطابقة لهذا النطاق الجغرافي
           </p>
         </div>

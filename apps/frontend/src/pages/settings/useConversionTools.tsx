@@ -88,8 +88,8 @@ export const ToggleSwitch = ({
     onClick={onToggle}
     className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors ${
       checked
-        ? "bg-emerald-600 dark:bg-emerald-500"
-        : "bg-gray-300 dark:bg-gray-700"
+        ? "bg-emerald-600 dark:bg-success"
+        : "bg-gray-300 dark:bg-muted"
     } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
   >
     <span

@@ -43,8 +43,8 @@ export const RECURRENCE_LABEL: Record<string, string> = {
 
 export const STATUS_META: Record<string, { label: string; cls: string }> = {
   scheduled: { label: 'مجدولة', cls: 'border-blue-300 text-blue-700 dark:border-blue-700 dark:text-blue-400' },
-  draft: { label: 'مسودة', cls: 'border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400' },
-  sent: { label: 'أُرسلت', cls: 'border-emerald-300 text-emerald-700 dark:border-emerald-700 dark:text-emerald-400' },
+  draft: { label: 'مسودة', cls: 'border-zinc-300 text-foreground dark:border-border dark:text-muted-foreground' },
+  sent: { label: 'أُرسلت', cls: 'border-emerald-300 text-success dark:border-success dark:text-success' },
   cancelled: { label: 'موقوفة', cls: 'border-destructive/40 text-destructive' },
 };
 

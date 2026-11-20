@@ -143,7 +143,7 @@ export const BostaSettings: React.FC = () => {
         <div
           className={`p-3.5 rounded-lg border transition-colors flex flex-wrap items-center justify-between gap-4 ${
             settings.bostaEnabled
-              ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-950 dark:text-emerald-100"
+              ? "bg-emerald-500/10 border-success/20 text-success dark:text-success"
               : "bg-muted/30 border-border/70 text-foreground"
           }`}
         >
@@ -151,7 +151,7 @@ export const BostaSettings: React.FC = () => {
             <div
               className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                 settings.bostaEnabled
-                  ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                  ? "bg-emerald-500/20 text-success dark:text-success"
                   : "bg-muted text-muted-foreground"
               }`}
             >
@@ -198,7 +198,7 @@ export const BostaSettings: React.FC = () => {
               <div className="bg-muted/20 p-3 rounded-lg border border-border/60 flex flex-wrap items-center justify-between gap-3">
                 <div className="space-y-1">
                   <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-success" />
                     <span>المفتاح الحالي مخزن ومشفر بأمان في النظام:</span>
                   </p>
                   <code className="text-xs font-mono tabular-nums text-foreground bg-background border border-border/70 px-2 py-0.5 rounded inline-block" dir="ltr">
@@ -228,7 +228,7 @@ export const BostaSettings: React.FC = () => {
                     onChange={(e) => setSettings({ ...settings, bostaApiKey: e.target.value })}
                     placeholder="bosta_live_..."
                     dir="ltr"
-                    className="w-full bg-background border border-border/80 text-foreground text-xs font-mono rounded-lg pr-9 pl-3 py-2 focus:outline-hidden focus:ring-1 focus:ring-primary shadow-2xs"
+                    className="w-full bg-background border border-border/80 text-foreground text-xs font-mono rounded-lg pe-9 ps-3 py-2 focus:outline-hidden focus:ring-1 focus:ring-primary shadow-2xs"
                   />
                 </div>
                 <p className="text-[11px] text-muted-foreground">
@@ -256,7 +256,7 @@ export const BostaSettings: React.FC = () => {
                 }
                 placeholder="Bearer Token للتحقق من هوية إشعارات Bosta Webhook"
                 dir="ltr"
-                className="w-full bg-background border border-border/80 text-foreground text-xs font-mono rounded-lg pl-9 pr-3 py-2 focus:outline-hidden focus:ring-1 focus:ring-primary shadow-2xs"
+                className="w-full bg-background border border-border/80 text-foreground text-xs font-mono rounded-lg ps-9 pe-3 py-2 focus:outline-hidden focus:ring-1 focus:ring-primary shadow-2xs"
               />
               <button
                 type="button"

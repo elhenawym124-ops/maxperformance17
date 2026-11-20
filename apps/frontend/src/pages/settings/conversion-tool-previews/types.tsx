@@ -36,14 +36,14 @@ export const formatEgp = (value: number) => `${value.toLocaleString("ar-EG")} ج
 
 export const MiniThumb = ({ className = "" }: { className?: string }) => (
   <div
-    className={`flex shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-300 ${className}`}
+    className={`flex shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground ${className}`}
   >
     <ShoppingBag className="h-4 w-4" />
   </div>
 );
 
 export const Stars = () => (
-  <span className="flex items-center gap-0.5 text-amber-400">
+  <span className="flex items-center gap-0.5 text-warning">
     {[0, 1, 2, 3, 4].map((index) => (
       <Star key={index} className="h-3 w-3 fill-current" />
     ))}

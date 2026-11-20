@@ -155,7 +155,7 @@ export const TaskEscalationSettings: React.FC = () => {
     <div className="max-w-4xl mx-auto p-4 sm:p-6 space-y-6" dir="rtl">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-start gap-3">
-          <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+          <div className="p-2.5 rounded-xl bg-warning/10 text-warning dark:text-warning border border-warning/20">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div>
@@ -217,8 +217,8 @@ export const TaskEscalationSettings: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-lg border border-amber-500/30 bg-amber-500/5 space-y-2">
-            <div className="flex items-center gap-2 text-xs font-bold text-amber-700 dark:text-amber-400">
+          <div className="p-4 rounded-lg border border-warning/30 bg-warning/5 space-y-2">
+            <div className="flex items-center gap-2 text-xs font-bold text-warning dark:text-warning">
               <UserCheck className="w-4 h-4" />
               <span>المستوى 1 — تذكير المكلَّف</span>
             </div>
@@ -236,9 +236,9 @@ export const TaskEscalationSettings: React.FC = () => {
             <p className="text-[11px] text-muted-foreground">القنوات: داخل التطبيق + إشعار دفع</p>
           </div>
 
-          <div className="p-4 rounded-lg border border-orange-500/30 bg-orange-500/5 space-y-2">
+          <div className="p-4 rounded-lg border border-warning/30 bg-warning/5 space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <span className="flex items-center gap-1.5 text-xs font-bold text-orange-700 dark:text-orange-400">
+              <span className="flex items-center gap-1.5 text-xs font-bold text-warning dark:text-warning">
                 <Users className="w-4 h-4" />
                 <span>المستوى 2 — مدير المشروع</span>
               </span>
@@ -336,7 +336,7 @@ export const TaskEscalationSettings: React.FC = () => {
 
           <label className="flex items-center justify-between text-xs text-foreground cursor-pointer">
             <span className="flex items-center gap-2">
-              <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+              <MessageSquare className="w-3.5 h-3.5 text-success" />
               رسائل واتساب (للمستويين 2 و3)
             </span>
             <input

@@ -61,9 +61,9 @@ export function TelegramUserbotWizard({
 
   return (
     <div
-      className={`rounded-2xl border p-6 shadow-sm transition-all ${
+      className={`rounded-xl border p-6 shadow-sm transition-all ${
         derivedTheme === "dark"
-          ? "border-slate-800 bg-slate-900"
+          ? "border-slate-800 bg-muted"
           : "border-slate-200 bg-white"
       }`}
     >
@@ -82,7 +82,7 @@ export function TelegramUserbotWizard({
           type="button"
           onClick={onResetForm}
           aria-label="Close"
-          className="text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-200"
+          className="text-slate-400 transition-colors hover:text-foreground dark:hover:text-muted-foreground"
         >
           <XCircleIcon className="h-6 w-6" />
         </button>

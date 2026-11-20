@@ -30,14 +30,14 @@ const PaymentOffersSettings: React.FC = () => {
       <PaymentOffersHeader />
 
       {loading ? (
-        <div className="bg-card rounded-2xl border border-border p-6 shadow-xs">
+        <div className="bg-card rounded-xl border border-border p-6 shadow-xs">
           <p className="text-sm text-muted-foreground">
             جارٍ تحميل إعدادات عروض الدفع...
           </p>
         </div>
       ) : (
         <div className="space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-5 shadow-xs">
+          <div className="bg-card rounded-xl border border-border p-6 space-y-5 shadow-xs">
             <PaymentOffersDiscountCard form={form} update={update} />
 
             {form.discountEnabled && (

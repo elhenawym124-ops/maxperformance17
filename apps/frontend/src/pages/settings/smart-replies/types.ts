@@ -43,11 +43,11 @@ export const ALL_CHANNELS: ChannelConfig[] = [
     label: "واتساب (WhatsApp)",
     shortLabel: "واتساب",
     activeClass:
-      "bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-700 shadow-xs",
+      "bg-emerald-100 text-success border-success dark:bg-success/70 dark:text-success dark:border-success shadow-xs",
     inactiveClass:
-      "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-750",
+      "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
-      "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/80",
+      "bg-emerald-50 text-success dark:bg-success/60 dark:text-success border-success/80 dark:border-success/80",
   },
   {
     id: "FACEBOOK",
@@ -56,7 +56,7 @@ export const ALL_CHANNELS: ChannelConfig[] = [
     activeClass:
       "bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/70 dark:text-blue-300 dark:border-blue-700 shadow-xs",
     inactiveClass:
-      "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-750",
+      "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
       "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200/80 dark:border-blue-800/80",
   },
@@ -65,43 +65,43 @@ export const ALL_CHANNELS: ChannelConfig[] = [
     label: "إنستغرام (Instagram)",
     shortLabel: "إنستغرام",
     activeClass:
-      "bg-fuchsia-100 text-fuchsia-800 border-fuchsia-300 dark:bg-fuchsia-950/70 dark:text-fuchsia-300 dark:border-fuchsia-700 shadow-xs",
+      "bg-fuchsia-100 text-primary border-primary dark:bg-primary/70 dark:text-primary dark:border-primary shadow-xs",
     inactiveClass:
-      "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-750",
+      "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
-      "bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-950/60 dark:text-fuchsia-300 border-fuchsia-200/80 dark:border-fuchsia-800/80",
+      "bg-fuchsia-50 text-primary dark:bg-primary/60 dark:text-primary border-primary/80 dark:border-primary/80",
   },
   {
     id: "TIKTOK",
     label: "تيك توك (TikTok)",
     shortLabel: "تيك توك",
     activeClass:
-      "bg-neutral-900 text-white border-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:border-neutral-300 shadow-xs",
+      "bg-neutral-900 text-white border-border dark:bg-muted dark:text-foreground dark:border-border shadow-xs",
     inactiveClass:
-      "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-750",
+      "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
-      "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 border-neutral-300 dark:border-neutral-700",
+      "bg-neutral-100 text-foreground dark:bg-muted dark:text-muted-foreground border-border dark:border-border",
   },
   {
     id: "TELEGRAM_USER",
     label: "تلجرام - حساب شخصي (User)",
     shortLabel: "تلجرام يوزر",
     activeClass:
-      "bg-sky-100 text-sky-800 border-sky-300 dark:bg-sky-950/70 dark:text-sky-300 dark:border-sky-700 shadow-xs",
+      "bg-sky-100 text-info border-info dark:bg-info/70 dark:text-info dark:border-info shadow-xs",
     inactiveClass:
-      "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-750",
+      "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
-      "bg-sky-50 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300 border-sky-200/80 dark:border-sky-800/80",
+      "bg-sky-50 text-info dark:bg-info/60 dark:text-info border-info/80 dark:border-info/80",
   },
   {
     id: "TELEGRAM_BOT",
     label: "تلجرام - بوت (Bot)",
     shortLabel: "تلجرام بوت",
     activeClass:
-      "bg-cyan-100 text-cyan-800 border-cyan-300 dark:bg-cyan-950/70 dark:text-cyan-300 dark:border-cyan-700 shadow-xs",
+      "bg-cyan-100 text-info border-info dark:bg-info/70 dark:text-info dark:border-info shadow-xs",
     inactiveClass:
-      "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-750",
+      "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
-      "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200/80 dark:border-cyan-800/80",
+      "bg-cyan-50 text-info dark:bg-info/60 dark:text-info border-info/80 dark:border-info/80",
   },
 ];

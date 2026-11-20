@@ -32,8 +32,8 @@ export const CustomerOccasionsChannelStatus: React.FC<CustomerOccasionsChannelSt
         <span
           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
             hasBaileys
-              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+              ? 'bg-emerald-500/10 text-success dark:text-success'
+              : 'bg-amber-500/10 text-warning dark:text-warning'
           }`}
         >
           {hasBaileys ? (

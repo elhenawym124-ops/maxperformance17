@@ -64,9 +64,9 @@ export function SidebarFlatView({
         return (
           <div
             key={sectionId}
-            className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-900"
+            className="overflow-hidden rounded-xl border border-border bg-white shadow-xs dark:border-border dark:bg-muted"
           >
-            <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50/80 px-4 py-3 dark:border-gray-800 dark:bg-gray-800/60">
+            <div className="flex items-center justify-between border-b border-border bg-muted px-4 py-3 dark:border-border dark:bg-muted">
               <div className="flex min-w-0 flex-1 items-center gap-3">
                 <button
                   type="button"
@@ -74,14 +74,14 @@ export function SidebarFlatView({
                   className="flex items-center gap-2 text-right"
                 >
                   <ChevronLeftIcon
-                    className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
+                    className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${
                       isExpanded ? "" : "-rotate-90"
                     }`}
                   />
-                  <span className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                  <span className="text-sm font-bold text-foreground">
                     {sectionTitle}
                   </span>
-                  <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-mono tabular-nums text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-mono tabular-nums text-foreground dark:bg-muted dark:text-muted-foreground">
                     {entries.length}
                   </span>
                 </button>
@@ -91,7 +91,7 @@ export function SidebarFlatView({
                       <span
                         key={role}
                         className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium ${
-                          ROLE_COLORS[role] || "bg-gray-100 text-gray-700"
+                          ROLE_COLORS[role] || "bg-gray-100 text-foreground"
                         }`}
                       >
                         {getRoleLabel(t, role)}
@@ -105,7 +105,7 @@ export function SidebarFlatView({
                   type="button"
                   onClick={() => onMoveSection(sectionId, "up")}
                   disabled={sectionIdx === 0}
-                  className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-200 hover:text-gray-600 disabled:opacity-30 dark:hover:bg-gray-700"
+                  className="rounded-lg p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:opacity-30 dark:hover:bg-muted"
                   title={t("sidebar.sidebarMoveUp")}
                 >
                   <ArrowUpIcon className="h-3.5 w-3.5" />
@@ -114,12 +114,12 @@ export function SidebarFlatView({
                   type="button"
                   onClick={() => onMoveSection(sectionId, "down")}
                   disabled={sectionIdx === visibleEntries.length - 1}
-                  className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-200 hover:text-gray-600 disabled:opacity-30 dark:hover:bg-gray-700"
+                  className="rounded-lg p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:opacity-30 dark:hover:bg-muted"
                   title={t("sidebar.sidebarMoveDown")}
                 >
                   <ArrowDownIcon className="h-3.5 w-3.5" />
                 </button>
-                <div className="mx-1 h-5 w-px bg-gray-200 dark:bg-gray-700" />
+                <div className="mx-1 h-5 w-px bg-muted dark:bg-muted" />
                 <Switch
                   checked={section.visible}
                   onCheckedChange={(checked) =>
@@ -140,7 +140,7 @@ export function SidebarFlatView({
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <div className="divide-y divide-gray-100 dark:divide-gray-800">
+                  <div className="divide-y divide-border dark:divide-border">
                     {entries.map(([itemId, item], itemIdx) => {
                       const itemDef = sectionDef?.items.find(
                         (i: SidebarItem) =>
@@ -167,16 +167,16 @@ export function SidebarFlatView({
                       );
                     })}
 
-                    <div className="bg-gray-50/50 px-4 py-2.5 dark:bg-gray-800/30">
+                    <div className="bg-gray-50/50 px-4 py-2.5 dark:bg-muted">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                          <ShieldCheckIcon className="ml-1 inline h-3.5 w-3.5" />
+                        <span className="text-xs font-medium text-muted-foreground">
+                          <ShieldCheckIcon className="ms-1 inline h-3.5 w-3.5" />
                           {t("sidebar.sidebarSectionRoles")}
                         </span>
                         <button
                           type="button"
                           onClick={() => toggleRoleSectionExpand(sectionId, onToggleRoleExpand)}
-                          className="text-xs font-medium text-indigo-500 transition hover:text-indigo-700 dark:text-indigo-400"
+                          className="text-xs font-medium text-primary transition hover:text-primary dark:text-primary"
                         >
                           {expandedItemRoles[`section-${sectionId}`]
                             ? t("sidebar.sidebarHideRoles")
@@ -203,7 +203,7 @@ export function SidebarFlatView({
                                     className={`rounded-lg px-2 py-1 text-xs font-medium transition ${
                                       isSelected
                                         ? "bg-indigo-500 text-white shadow-xs"
-                                        : "bg-white text-gray-600 ring-1 ring-gray-200 hover:ring-indigo-300 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700"
+                                        : "bg-white text-foreground ring-1 ring-border hover:ring-primary dark:bg-muted dark:text-muted-foreground dark:ring-border"
                                     }`}
                                   >
                                     {getRoleLabel(t, role)}

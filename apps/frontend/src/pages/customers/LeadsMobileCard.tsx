@@ -17,15 +17,15 @@ export const LEAD_STAGE_LABELS: Record<string, string> = {
 const PRIORITY_STYLES: Record<string, { label: string; cls: string }> = {
   HOT: {
     label: "ساخن",
-    cls: "bg-red-100 text-red-700 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20",
+    cls: "bg-red-100 text-destructive border-destructive dark:bg-destructive/10 dark:text-destructive dark:border-destructive/20",
   },
   WARM: {
     label: "دافئ",
-    cls: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20",
+    cls: "bg-amber-100 text-warning border-warning dark:bg-warning/10 dark:text-warning dark:border-warning/20",
   },
   COLD: {
     label: "بارد",
-    cls: "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-500/10 dark:text-slate-400 dark:border-slate-500/20",
+    cls: "bg-slate-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border",
   },
 };
 
@@ -114,7 +114,7 @@ export const LeadsMobileCard: React.FC<LeadsMobileCardProps> = ({
               e.stopPropagation();
               window.open(`https://wa.me/${digits}`, "_blank");
             }}
-            className="p-1.5 rounded-lg text-muted-foreground hover:text-green-600 hover:bg-green-500/10 transition-colors"
+            className="p-1.5 rounded-lg text-muted-foreground hover:text-success hover:bg-success/10 transition-colors"
             title="واتساب"
             aria-label="واتساب"
           >

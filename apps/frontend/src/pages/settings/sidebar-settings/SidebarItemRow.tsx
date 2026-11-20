@@ -43,21 +43,21 @@ export function SidebarItemRow({
   const itemKey = `${sectionId}-${itemId}`;
 
   return (
-    <div className="group px-4 py-2.5 transition hover:bg-gray-50/70 dark:hover:bg-gray-800/40">
+    <div className="group px-4 py-2.5 transition hover:bg-muted dark:hover:bg-muted">
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-2.5">
-          <Bars3Icon className="h-4 w-4 shrink-0 text-gray-300 transition group-hover:text-gray-500 dark:text-gray-600" />
+          <Bars3Icon className="h-4 w-4 shrink-0 text-muted-foreground transition group-hover:text-muted-foreground dark:text-foreground" />
           <div className="min-w-0 flex-1">
             <p
               className={`truncate text-sm font-medium ${
                 item.visible
-                  ? "text-gray-900 dark:text-gray-100"
-                  : "text-gray-400 line-through dark:text-gray-500"
+                  ? "text-foreground"
+                  : "text-gray-400 line-through dark:text-muted-foreground"
               }`}
             >
               {item.label || itemDef?.label || itemId}
             </p>
-            <p className="truncate text-xs text-gray-400 dark:text-gray-500 font-mono">
+            <p className="truncate text-xs text-muted-foreground/80 font-mono">
               {itemDef?.to || itemId}
             </p>
           </div>
@@ -67,14 +67,14 @@ export function SidebarItemRow({
                 <span
                   key={role}
                   className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium ${
-                    ROLE_COLORS[role] || "bg-gray-100 text-gray-700"
+                    ROLE_COLORS[role] || "bg-gray-100 text-foreground"
                   }`}
                 >
                   {getRoleLabel(t, role)}
                 </span>
               ))}
               {itemRoles.length > 2 && (
-                <span className="text-[10px] font-mono tabular-nums text-gray-400">
+                <span className="text-[10px] font-mono tabular-nums text-muted-foreground">
                   +{itemRoles.length - 2}
                 </span>
               )}
@@ -87,7 +87,7 @@ export function SidebarItemRow({
             type="button"
             onClick={() => onMoveItem(sectionId, itemId, "up")}
             disabled={itemIdx === 0}
-            className="rounded-lg p-1 text-gray-400 opacity-0 transition hover:bg-gray-200 hover:text-gray-600 group-hover:opacity-100 disabled:opacity-0 dark:hover:bg-gray-700"
+            className="rounded-lg p-1 text-muted-foreground opacity-0 transition hover:bg-muted hover:text-foreground group-hover:opacity-100 disabled:opacity-0 dark:hover:bg-muted"
             title={t("sidebar.sidebarMoveUp")}
           >
             <ArrowUpIcon className="h-3 w-3" />
@@ -96,7 +96,7 @@ export function SidebarItemRow({
             type="button"
             onClick={() => onMoveItem(sectionId, itemId, "down")}
             disabled={itemIdx === totalItems - 1}
-            className="rounded-lg p-1 text-gray-400 opacity-0 transition hover:bg-gray-200 hover:text-gray-600 group-hover:opacity-100 disabled:opacity-0 dark:hover:bg-gray-700"
+            className="rounded-lg p-1 text-muted-foreground opacity-0 transition hover:bg-muted hover:text-foreground group-hover:opacity-100 disabled:opacity-0 dark:hover:bg-muted"
             title={t("sidebar.sidebarMoveDown")}
           >
             <ArrowDownIcon className="h-3 w-3" />
@@ -113,8 +113,8 @@ export function SidebarItemRow({
             onClick={() => onToggleRoleExpand(itemKey)}
             className={`rounded-lg p-1.5 transition ${
               isRolesExpanded || itemRoles.length > 0
-                ? "text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
-                : "text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                ? "text-indigo-500 hover:bg-primary/10 dark:hover:bg-primary/40"
+                : "text-gray-300 hover:bg-muted dark:hover:bg-muted"
             }`}
             title={t("sidebar.sidebarRolePermissions")}
           >
@@ -132,9 +132,9 @@ export function SidebarItemRow({
             transition={{ duration: 0.15 }}
             className="overflow-hidden"
           >
-            <div className="mb-2 mt-3 mr-9 rounded-xl border border-indigo-100 bg-indigo-50/50 p-3 dark:border-indigo-900/30 dark:bg-indigo-950/20">
+            <div className="mb-2 mt-3 me-9 rounded-xl border border-primary bg-primary/50 p-3 dark:border-primary/30 dark:bg-primary/20">
               <div className="mb-1.5 flex items-center justify-between">
-                <span className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+                <span className="text-xs font-semibold text-primary dark:text-primary">
                   {t("sidebar.sidebarRoleFor", {
                     label: item.label || itemDef?.label || itemId,
                   })}
@@ -151,7 +151,7 @@ export function SidebarItemRow({
                       className={`rounded-lg px-2 py-1 text-xs font-medium transition ${
                         isSelected
                           ? "bg-indigo-500 text-white shadow-xs"
-                          : "bg-white text-gray-600 ring-1 ring-gray-200 hover:ring-indigo-300 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700"
+                          : "bg-white text-foreground ring-1 ring-border hover:ring-primary dark:bg-muted dark:text-muted-foreground dark:ring-border"
                       }`}
                     >
                       {getRoleLabel(t, role)}
@@ -160,7 +160,7 @@ export function SidebarItemRow({
                 })}
               </div>
               {itemRoles.length === 0 && (
-                <p className="mt-1.5 text-[10px] text-indigo-400">
+                <p className="mt-1.5 text-[10px] text-primary">
                   {t("sidebar.sidebarRoleNoRestriction")}
                 </p>
               )}

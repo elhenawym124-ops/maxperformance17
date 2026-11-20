@@ -40,7 +40,7 @@ export const CustomerWhatsAppProductDrawer: React.FC<CustomerWhatsAppProductDraw
             placeholder={t("whatsappNotify.searchProduct", "بحث في كتالوج المنتجات...")}
             value={productSearch}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="h-8 pr-8 text-xs"
+            className="h-8 pe-8 text-xs"
           />
         </div>
         <button
@@ -77,7 +77,7 @@ export const CustomerWhatsAppProductDrawer: React.FC<CustomerWhatsAppProductDraw
                 key={product.id}
                 type="button"
                 onClick={() => onSelectProduct(product)}
-                className="flex items-center gap-2 rounded-md border border-border/50 bg-card p-2 text-start hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-colors"
+                className="flex items-center gap-2 rounded-md border border-border/50 bg-card p-2 text-start hover:border-success/50 hover:bg-success/5 transition-colors"
               >
                 {hasImg ? (
                   <img
@@ -94,7 +94,7 @@ export const CustomerWhatsAppProductDrawer: React.FC<CustomerWhatsAppProductDraw
                   <p className="truncate text-xs font-semibold text-foreground">
                     {product.name}
                   </p>
-                  <p className="font-mono text-[10px] tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
+                  <p className="font-mono text-[10px] tabular-nums font-bold text-success dark:text-success">
                     {formatCurrency(price)}
                   </p>
                 </div>

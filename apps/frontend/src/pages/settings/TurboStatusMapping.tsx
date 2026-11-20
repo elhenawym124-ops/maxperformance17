@@ -208,7 +208,7 @@ export const TurboStatusMapping: React.FC = () => {
         <div className="space-y-6">
           {Object.entries(TURBO_STATUS_GROUP_MAP).map(([groupName, group]) => (
             <div key={groupName} className="space-y-2.5">
-              <h3 className="text-xs font-semibold text-foreground px-1 border-r-2 border-primary pr-2">
+              <h3 className="text-xs font-semibold text-foreground px-1 border-r-2 border-primary pe-2">
                 {group.labelAr}
               </h3>
               <div className="space-y-1.5">

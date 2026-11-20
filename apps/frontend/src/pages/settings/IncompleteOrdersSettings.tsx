@@ -98,7 +98,7 @@ export default function IncompleteOrdersSettings() {
       <div className="border border-border/70 bg-muted/20 px-4 py-2.5 rounded-lg flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1.5 text-muted-foreground font-medium">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-block w-2 h-2 rounded-full bg-success animate-pulse" />
             نظام استعادة السلال المتروكة
           </span>
           <span className="text-border">|</span>
@@ -198,7 +198,7 @@ export default function IncompleteOrdersSettings() {
                 </p>
                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold font-mono ${
                   autoConvertIncomplete
-                    ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
+                    ? "bg-emerald-500/15 text-success dark:text-success border border-success/30"
                     : "bg-muted text-muted-foreground border border-border/70"
                 }`}>
                   {autoConvertIncomplete ? "مفعل" : "غير مفعل"}

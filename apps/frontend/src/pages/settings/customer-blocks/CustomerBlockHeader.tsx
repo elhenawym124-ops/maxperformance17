@@ -16,7 +16,7 @@ export const CustomerBlockHeader: React.FC<CustomerBlockHeaderProps> = ({
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
           <h2 className="flex items-center gap-2 text-xl font-semibold text-foreground">
-            <Ban className="size-6 text-red-500 shrink-0" />
+            <Ban className="size-6 text-destructive shrink-0" />
             {t('customerBlocks.k_35', 'إعدادات حظر العملاء والقائمة السوداء')}
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -26,7 +26,7 @@ export const CustomerBlockHeader: React.FC<CustomerBlockHeaderProps> = ({
             )}
           </p>
         </div>
-        <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-300">
+        <div className="flex items-center gap-2 rounded-lg border border-destructive bg-destructive/10 px-4 py-2 text-sm font-semibold text-destructive dark:border-destructive/50 dark:bg-destructive/40 dark:text-destructive">
           <span className="font-mono tabular-nums">{activeRulesCount}</span>
           <span>{t('customerBlocks.k_37', 'عميل محظور حالياً')}</span>
         </div>

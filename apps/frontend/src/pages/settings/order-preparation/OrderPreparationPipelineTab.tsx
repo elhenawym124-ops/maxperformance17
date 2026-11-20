@@ -47,12 +47,12 @@ export const OrderPreparationPipelineTab: React.FC<OrderPreparationPipelineTabPr
   return (
     <div className="space-y-6">
       {/* Pipeline Stages Card */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             مسار التجهيز
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             المراحل التي يمر بها الطلب من التأكيد حتى التسليم لشركة الشحن
           </CardDescription>
         </CardHeader>
@@ -67,7 +67,7 @@ export const OrderPreparationPipelineTab: React.FC<OrderPreparationPipelineTabPr
                   {stage.label}
                 </div>
                 {idx < PIPELINE_STAGES.length - 1 && (
-                  <div className="text-slate-300 dark:text-slate-600">
+                  <div className="text-slate-300 dark:text-foreground">
                     <svg
                       className="h-4 w-4 rtl:rotate-180"
                       fill="none"
@@ -87,21 +87,21 @@ export const OrderPreparationPipelineTab: React.FC<OrderPreparationPipelineTabPr
             ))}
           </div>
 
-          <Separator className="my-6 border-slate-200/80 dark:border-slate-800" />
+          <Separator className="my-6 border-border dark:border-border" />
 
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 أول مرحلة
               </Label>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                 الحالة التي يبدأ منها الطلب عندما يدخل صفحة التجهيز
               </p>
               <Select
                 value={startingStatus}
                 onValueChange={(v) => onUpdateSetting("startingStatus", v)}
               >
-                <SelectTrigger className="border-slate-200 dark:border-slate-800">
+                <SelectTrigger className="border-slate-200 dark:border-border">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -115,17 +115,17 @@ export const OrderPreparationPipelineTab: React.FC<OrderPreparationPipelineTabPr
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 حالة التسليم للشحن
               </Label>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                 الحالة التي عندما يصل إليها الطلب يصبح جاهزاً للتسليم لشركة الشحن
               </p>
               <Select
                 value={handoffStatus}
                 onValueChange={(v) => onUpdateSetting("handoffStatus", v)}
               >
-                <SelectTrigger className="border-slate-200 dark:border-slate-800">
+                <SelectTrigger className="border-slate-200 dark:border-border">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -142,26 +142,26 @@ export const OrderPreparationPipelineTab: React.FC<OrderPreparationPipelineTabPr
       </Card>
 
       {/* Warehouse Assignment Card */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             المخزن
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             إعدادات المخزن الافتراضي لصفحة التجهيز
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 المخزن الافتراضي
               </Label>
               <Select
                 value={defaultWarehouseId}
                 onValueChange={(v) => onUpdateSetting("defaultWarehouseId", v)}
               >
-                <SelectTrigger className="border-slate-200 dark:border-slate-800">
+                <SelectTrigger className="border-slate-200 dark:border-border">
                   <SelectValue placeholder="بدون مخزن افتراضي" />
                 </SelectTrigger>
                 <SelectContent>

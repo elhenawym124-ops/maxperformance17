@@ -10,13 +10,13 @@ export const TicketConversationCard: React.FC<TicketConversationCardProps> = ({
   messages,
 }) => {
   return (
-    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-900 dark:shadow-black/20">
+    <div className="rounded-lg bg-white p-6 shadow dark:bg-muted dark:shadow-black/20">
       <div className="flex items-center gap-3 mb-6">
-        <ChatBubbleLeftRightIcon className="w-6 h-6 text-indigo-600" />
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <ChatBubbleLeftRightIcon className="w-6 h-6 text-primary" />
+        <h2 className="text-lg font-semibold text-foreground">
           المحادثة
         </h2>
-        <span className="text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+        <span className="text-sm text-muted-foreground font-mono tabular-nums">
           ({messages?.length || 0} رسالة)
         </span>
       </div>
@@ -45,7 +45,7 @@ export const TicketConversationCard: React.FC<TicketConversationCardProps> = ({
                 <div
                   className={`max-w-[70%] ${
                     isClient
-                      ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
+                      ? "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                       : "bg-indigo-600 text-white"
                   } rounded-lg p-4`}
                 >
@@ -55,12 +55,12 @@ export const TicketConversationCard: React.FC<TicketConversationCardProps> = ({
                     <span className="text-sm font-medium">{senderName}</span>
                     {isClient ? (
                       roleName && (
-                        <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                        <span className="rounded bg-muted px-2 py-1 text-xs text-foreground dark:bg-muted dark:text-muted-foreground">
                           {roleName}
                         </span>
                       )
                     ) : (
-                      <span className="text-xs px-2 py-1 rounded bg-indigo-500 text-indigo-100 font-medium">
+                      <span className="text-xs px-2 py-1 rounded bg-primary text-primary font-medium">
                         خدمة العملاء
                       </span>
                     )}
@@ -75,7 +75,7 @@ export const TicketConversationCard: React.FC<TicketConversationCardProps> = ({
                   <p
                     className={`text-xs mt-2 font-mono tabular-nums ${
                       isClient
-                        ? "text-gray-500 dark:text-gray-400"
+                        ? "text-muted-foreground"
                         : "text-indigo-200"
                     }`}
                   >
@@ -87,8 +87,8 @@ export const TicketConversationCard: React.FC<TicketConversationCardProps> = ({
           })}
         </div>
       ) : (
-        <div className="py-8 text-center text-gray-500 dark:text-gray-400">
-          <ChatBubbleLeftRightIcon className="mx-auto mb-4 h-12 w-12 text-gray-300 dark:text-gray-600" />
+        <div className="py-8 text-center text-muted-foreground">
+          <ChatBubbleLeftRightIcon className="mx-auto mb-4 h-12 w-12 text-muted-foreground dark:text-foreground" />
           <p>لا توجد رسائل في هذه التذكرة</p>
         </div>
       )}

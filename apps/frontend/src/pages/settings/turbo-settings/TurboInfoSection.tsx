@@ -8,13 +8,13 @@ interface TurboInfoSectionProps {
 
 export const TurboInfoSection: React.FC<TurboInfoSectionProps> = ({ t }) => {
   return (
-    <div className="border-t dark:border-gray-700 pt-6">
-      <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+    <div className="border-t dark:border-border pt-6">
+      <div className="bg-indigo-50 dark:bg-primary/20 p-4 rounded-lg border border-primary dark:border-primary">
         <div className="flex items-start">
-          <InformationCircleIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400 ml-2 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-indigo-800 dark:text-indigo-300">
+          <InformationCircleIcon className="h-5 w-5 text-primary ms-2 mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-primary dark:text-primary">
             <h4 className="font-medium mb-2">{t("turbo.k_18")}</h4>
-            <ul className="list-disc list-inside space-y-1 text-indigo-700 dark:text-indigo-400">
+            <ul className="list-disc list-inside space-y-1 text-primary dark:text-primary">
               <li>{t("turbo.k_19")}</li>
               <li>{t("turbo.k_41")}</li>
               <li>{t("turbo.k_44")}</li>

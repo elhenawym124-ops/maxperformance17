@@ -50,7 +50,7 @@ const OrderInvoiceSettings: React.FC<{ isEmbedded?: boolean }> = ({
   if (loading) {
     if (isEmbedded) {
       return (
-        <div className="p-4 text-center text-slate-500">
+        <div className="p-4 text-center text-muted-foreground">
           {t("orderInvoiceSettings.k_33")}
         </div>
       );
@@ -113,7 +113,7 @@ const OrderInvoiceSettings: React.FC<{ isEmbedded?: boolean }> = ({
         >
           <TabsList
             variant="line"
-            className="h-auto w-full !grid grid-cols-1 gap-2 rounded-none border-b border-slate-200/70 bg-transparent p-0 pb-3 sm:grid-cols-2 xl:grid-cols-3 dark:border-slate-800"
+            className="h-auto w-full !grid grid-cols-1 gap-2 rounded-none border-b border-border bg-transparent p-0 pb-3 sm:grid-cols-2 xl:grid-cols-3 dark:border-border"
           >
             {[
               {
@@ -143,7 +143,7 @@ const OrderInvoiceSettings: React.FC<{ isEmbedded?: boolean }> = ({
                   key={entry.value}
                   value={entry.value}
                   className={cn(
-                    "group min-h-[74px] w-full rounded-2xl border px-4 py-3 text-right text-sm font-semibold transition-colors",
+                    "group min-h-[74px] w-full rounded-xl border px-4 py-3 text-right text-sm font-semibold transition-colors",
                     isActive
                       ? "!border-slate-900 !bg-slate-900 !text-white shadow-sm dark:!border-slate-100 dark:!bg-slate-100 dark:!text-slate-900"
                       : "!border-transparent !bg-slate-50/65 !text-slate-500 hover:!border-slate-200 hover:!bg-slate-50 dark:!bg-slate-900/60 dark:!text-slate-400"
@@ -154,8 +154,8 @@ const OrderInvoiceSettings: React.FC<{ isEmbedded?: boolean }> = ({
                       className={cn(
                         "mt-0.5 rounded-xl p-2 ring-1 transition",
                         isActive
-                          ? "bg-white/10 text-white ring-white/15 dark:bg-slate-900/10 dark:text-slate-900"
-                          : "bg-white/90 text-slate-700 ring-slate-200/80 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700"
+                          ? "bg-white/10 text-white ring-white/15 dark:bg-muted dark:text-foreground"
+                          : "bg-white/90 text-foreground ring-border dark:bg-muted dark:text-muted-foreground dark:ring-border"
                       )}
                     >
                       <Icon className="size-4.5" />
@@ -166,8 +166,8 @@ const OrderInvoiceSettings: React.FC<{ isEmbedded?: boolean }> = ({
                         className={cn(
                           "mt-1 text-xs font-medium leading-5",
                           isActive
-                            ? "text-slate-200 dark:text-slate-700"
-                            : "text-slate-400 dark:text-slate-500"
+                            ? "text-slate-200 dark:text-foreground"
+                            : "text-slate-400 dark:text-muted-foreground"
                         )}
                       >
                         {entry.description}

@@ -88,12 +88,12 @@ export const CodDepositOrdersReport: React.FC = () => {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-16 border border-dashed border-border/70 rounded-2xl bg-card p-6">
+        <div className="text-center py-16 border border-dashed border-border/70 rounded-xl bg-card p-6">
           <Coins className="h-10 w-10 mx-auto mb-2 text-muted-foreground/40" />
           <p className="text-xs text-muted-foreground">{t('settings.k_33')}</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+        <div className="overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
           <table className="w-full text-xs">
             <thead className="bg-muted/40 border-b border-border/70 text-muted-foreground">
               <tr>
@@ -124,12 +124,12 @@ export const CodDepositOrdersReport: React.FC = () => {
                   <td className="px-4 py-3 text-muted-foreground font-medium">{o.orderStatus}</td>
                   <td className="px-4 py-3">
                     {o.isPaid ? (
-                      <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold text-[11px]">
+                      <span className="inline-flex items-center gap-1 text-success dark:text-success font-semibold text-[11px]">
                         <CheckCircle2 className="h-3.5 w-3.5" />
                         {t('settings.k_31')}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 font-semibold text-[11px]">
+                      <span className="inline-flex items-center gap-1 text-warning dark:text-warning font-semibold text-[11px]">
                         <Clock className="h-3.5 w-3.5" />
                         {t('settings.k_49')}
                       </span>

@@ -75,18 +75,18 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
   return (
     <div className="grid gap-6 xl:grid-cols-2">
       {/* Settings Form Column */}
-      <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+      <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+          <CardTitle className="text-lg font-bold text-foreground dark:text-white">
             إعدادات ورقة التجهيز
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             تحكم في شكل المستند الذي يخرج عند طباعة ورقة التجهيز
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
           <div className="space-y-1.5">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               عنوان المستند
             </Label>
             <Input
@@ -96,7 +96,7 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               الوصف المختصر
             </Label>
             <Input
@@ -105,18 +105,18 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
             />
           </div>
 
-          <Separator className="border-slate-200/80 dark:border-slate-800" />
+          <Separator className="border-slate-200/80 dark:border-border" />
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 مقاس الصفحة
               </Label>
               <Select
                 value={slipDocument.pageSize}
                 onValueChange={(v: "A4" | "A5") => onUpdateSlip("pageSize", v)}
               >
-                <SelectTrigger className="border-slate-200 dark:border-slate-800">
+                <SelectTrigger className="border-slate-200 dark:border-border">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -127,7 +127,7 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 اتجاه الصفحة
               </Label>
               <Select
@@ -136,7 +136,7 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
                   onUpdateSlip("pageOrientation", v)
                 }
               >
-                <SelectTrigger className="border-slate-200 dark:border-slate-800">
+                <SelectTrigger className="border-slate-200 dark:border-border">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -148,7 +148,7 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               اللون الرئيسي
             </Label>
             <div className="flex items-center gap-3">
@@ -166,10 +166,10 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
             </div>
           </div>
 
-          <Separator className="border-slate-200/80 dark:border-slate-800" />
+          <Separator className="border-slate-200/80 dark:border-border" />
 
           <div className="space-y-3">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               الأعمدة الظاهرة
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -185,17 +185,17 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
             </div>
           </div>
 
-          <Separator className="border-slate-200/80 dark:border-slate-800" />
+          <Separator className="border-slate-200/80 dark:border-border" />
 
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               أعمدة المنتجات
             </Label>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
               {ITEM_COLUMNS.map((item) => (
                 <label
                   key={item.key}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200/80 bg-white px-3 py-2 text-xs font-semibold text-slate-800 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800/80"
+                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-white px-3 py-2 text-xs font-semibold text-foreground transition hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                 >
                   <Switch
                     checked={slipDocument[item.key]}
@@ -207,10 +207,10 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
             </div>
           </div>
 
-          <Separator className="border-slate-200/80 dark:border-slate-800" />
+          <Separator className="border-slate-200/80 dark:border-border" />
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               تعليمات التجهيز
             </Label>
             <Textarea
@@ -221,7 +221,7 @@ export const OrderPreparationSlipTab: React.FC<OrderPreparationSlipTabProps> = (
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <Label className="text-xs font-bold text-foreground dark:text-muted-foreground">
               نص الفوتر
             </Label>
             <Textarea

@@ -33,9 +33,9 @@ export interface ListMember {
 }
 
 export const RFM_TIER_META: Record<string, { label: string; cls: string }> = {
-  gold: { label: "ذهبي", cls: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300" },
-  silver: { label: "فضي", cls: "bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200" },
-  bronze: { label: "برونزي", cls: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300" },
+  gold: { label: "ذهبي", cls: "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning" },
+  silver: { label: "فضي", cls: "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  bronze: { label: "برونزي", cls: "bg-orange-100 text-warning dark:bg-warning/30 dark:text-warning" },
   lead: { label: "عادي", cls: "bg-[color:var(--color-muted)] text-[color:var(--color-muted-foreground)]" },
 };
 

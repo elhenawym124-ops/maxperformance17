@@ -31,23 +31,23 @@ export function PromoSection({
   return (
     <section
       className={cn(
-        "rounded-[24px] border bg-white/80 p-5 shadow-xs transition-colors dark:bg-slate-900/70 dark:shadow-none",
-        isOn ? accentClassName.sectionBorder : "border-slate-200/70 dark:border-slate-800",
+        "rounded-[24px] border bg-white/80 p-5 shadow-xs transition-colors dark:bg-muted dark:shadow-none",
+        isOn ? accentClassName.sectionBorder : "border-slate-200/70 dark:border-border",
       )}
     >
       <div className="flex flex-wrap items-center gap-3">
         <div
           className={cn(
-            "flex size-11 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset transition-colors",
+            "flex size-11 shrink-0 items-center justify-center rounded-xl ring-1 ring-inset transition-colors",
             isOn
               ? accentClassName.iconActive
-              : "bg-slate-50 text-slate-500 ring-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-700",
+              : "bg-slate-50 text-muted-foreground ring-border dark:bg-muted dark:text-muted-foreground dark:ring-border",
           )}
         >
           <Icon className="size-5" />
         </div>
         <div className="flex min-w-0 flex-wrap items-center gap-2.5">
-          <h2 className="text-base font-bold text-slate-950 dark:text-slate-100">{title}</h2>
+          <h2 className="text-base font-bold text-foreground dark:text-muted-foreground">{title}</h2>
           {pill}
         </div>
         <div className="ms-auto flex items-center gap-3">
@@ -59,8 +59,8 @@ export function PromoSection({
           />
         </div>
       </div>
-      <p className="mt-2.5 text-sm leading-6 text-slate-500 dark:text-slate-400">{description}</p>
-      {children ? <div className="mt-5 space-y-4 text-slate-900 dark:text-slate-100">{children}</div> : null}
+      <p className="mt-2.5 text-sm leading-6 text-muted-foreground dark:text-muted-foreground">{description}</p>
+      {children ? <div className="mt-5 space-y-4 text-foreground dark:text-muted-foreground">{children}</div> : null}
     </section>
   );
 }

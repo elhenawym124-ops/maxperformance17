@@ -396,13 +396,13 @@ export const useCustomerDetailsController = () => {
 
   const getStatusBadge = (status: string) => {
     const colors: Record<string, string> = {
-      LEAD: "bg-yellow-100 text-yellow-800",
-      ACTIVE: "bg-green-100 text-green-800",
-      INACTIVE: "bg-gray-100 text-gray-800",
-      VIP: "bg-purple-100 text-purple-800",
-      BLOCKED: "bg-red-100 text-red-800",
+      LEAD: "bg-yellow-100 text-warning",
+      ACTIVE: "bg-green-100 text-success",
+      INACTIVE: "bg-gray-100 text-foreground",
+      VIP: "bg-purple-100 text-primary",
+      BLOCKED: "bg-red-100 text-destructive",
     };
-    return colors[status] || "bg-gray-100 text-gray-800";
+    return colors[status] || "bg-gray-100 text-foreground";
   };
 
   const handleMerged = () => {

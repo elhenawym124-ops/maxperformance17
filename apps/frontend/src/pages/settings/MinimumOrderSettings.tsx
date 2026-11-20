@@ -219,7 +219,7 @@ export default function MinimumOrderSettings() {
                     })
                   }
                   disabled={!settings.minimumOrderEnabled}
-                  className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 pl-14 text-xs text-foreground font-mono tabular-nums focus:border-primary focus:outline-hidden focus:ring-1 focus:ring-primary disabled:opacity-50"
+                  className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 ps-14 text-xs text-foreground font-mono tabular-nums focus:border-primary focus:outline-hidden focus:ring-1 focus:ring-primary disabled:opacity-50"
                 />
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-mono text-muted-foreground">
                   ج.م
@@ -262,10 +262,10 @@ export default function MinimumOrderSettings() {
           </div>
 
           {settings.minimumOrderEnabled && (
-            <div className="flex items-start gap-2.5 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs">
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+            <div className="flex items-start gap-2.5 rounded-lg border border-warning/30 bg-warning/10 p-3 text-xs">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
               <div className="space-y-0.5">
-                <p className="font-semibold text-amber-500">
+                <p className="font-semibold text-warning">
                   معاينة حية لرسالة السلة
                 </p>
                 <p className="text-foreground/90 text-xs">

@@ -24,14 +24,14 @@ export const StorePromotionGeneralSection: React.FC<StorePromotionGeneralSection
         icon={Gift}
         title={t("storePromotionSettings.enablePromo")}
         description={t("storePromotionSettings.enablePromoDesc")}
-        accentClassName="bg-amber-50 text-amber-700 ring-amber-200/70 dark:bg-amber-950/40 dark:text-amber-300 dark:ring-amber-500/30"
+        accentClassName="bg-amber-50 text-warning ring-warning/70 dark:bg-warning/40 dark:text-warning dark:ring-warning/30"
       >
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+            <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.enablePromo")}
             </Label>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.enablePromoDesc")}
             </p>
           </div>
@@ -46,14 +46,14 @@ export const StorePromotionGeneralSection: React.FC<StorePromotionGeneralSection
         icon={ShoppingCart}
         title={t("storePromotionSettings.disableOtherDiscounts")}
         description={t("storePromotionSettings.disableOtherDiscountsDesc")}
-        accentClassName="bg-rose-50 text-rose-700 ring-rose-200/70 dark:bg-rose-950/40 dark:text-rose-300 dark:ring-rose-500/30"
+        accentClassName="bg-rose-50 text-destructive ring-destructive/70 dark:bg-destructive/40 dark:text-destructive dark:ring-destructive/30"
       >
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+            <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.disableOtherDiscounts")}
             </Label>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.disableOtherDiscountsDesc")}
             </p>
           </div>
@@ -64,8 +64,8 @@ export const StorePromotionGeneralSection: React.FC<StorePromotionGeneralSection
         </div>
 
         {promotion.disableOtherDiscounts && (
-          <div className="mt-3 rounded-lg border border-amber-200/80 bg-amber-50/80 p-3 text-amber-900 dark:border-amber-800/60 dark:bg-amber-950/40 dark:text-amber-200 text-xs sm:text-sm flex items-start gap-2.5">
-            <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <div className="mt-3 rounded-lg border border-warning/80 bg-warning/80 p-3 text-warning dark:border-warning/60 dark:bg-warning/40 dark:text-warning text-xs sm:text-sm flex items-start gap-2.5">
+            <AlertCircle className="h-4 w-4 text-warning dark:text-warning shrink-0 mt-0.5" />
             <p>{t("storePromotionSettings.disableOtherDiscountsAlert")}</p>
           </div>
         )}
@@ -75,13 +75,13 @@ export const StorePromotionGeneralSection: React.FC<StorePromotionGeneralSection
         icon={Tag}
         title={t("storePromotionSettings.promoTitle")}
         description={t("storePromotionSettings.promoTitleDesc")}
-        accentClassName="bg-sky-50 text-sky-700 ring-sky-200/70 dark:bg-sky-950/40 dark:text-sky-300 dark:ring-sky-500/30"
+        accentClassName="bg-sky-50 text-info ring-info/70 dark:bg-info/40 dark:text-info dark:ring-info/30"
       >
         <Input
           value={promotion.title}
           onChange={(e) => onChange({ title: e.target.value })}
           placeholder={t("storePromotionSettings.promoTitlePlaceholder")}
-          className="max-w-md bg-white text-slate-900 border-slate-200 dark:bg-slate-950 dark:text-slate-100 dark:border-slate-700 dark:placeholder:text-slate-500 font-medium"
+          className="max-w-md bg-white text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border dark:placeholder:text-slate-500 font-medium"
         />
       </SettingsSection>
 
@@ -89,29 +89,29 @@ export const StorePromotionGeneralSection: React.FC<StorePromotionGeneralSection
         icon={Calendar}
         title={t("storePromotionSettings.promoDate")}
         description={t("storePromotionSettings.promoDateDesc")}
-        accentClassName="bg-violet-50 text-violet-700 ring-violet-200/70 dark:bg-violet-950/40 dark:text-violet-300 dark:ring-violet-500/30"
+        accentClassName="bg-violet-50 text-primary ring-primary/70 dark:bg-primary/40 dark:text-primary dark:ring-primary/30"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+            <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.from")}
             </Label>
             <Input
               type="datetime-local"
               value={promotion.startDate}
               onChange={(e) => onChange({ startDate: e.target.value })}
-              className="bg-white text-slate-900 border-slate-200 dark:bg-slate-950 dark:text-slate-100 dark:border-slate-700 font-medium dark:[color-scheme:dark]"
+              className="bg-white text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border font-medium dark:[color-scheme:dark]"
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+            <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.to")}
             </Label>
             <Input
               type="datetime-local"
               value={promotion.endDate}
               onChange={(e) => onChange({ endDate: e.target.value })}
-              className="bg-white text-slate-900 border-slate-200 dark:bg-slate-950 dark:text-slate-100 dark:border-slate-700 font-medium dark:[color-scheme:dark]"
+              className="bg-white text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border font-medium dark:[color-scheme:dark]"
             />
           </div>
         </div>

@@ -33,8 +33,8 @@ export function PrintTabContent({
         icon={FileOutput}
         title={t("orderInvoiceSettings.k_22")}
         description={t("orderInvoiceSettings.k_23")}
-        accentClassName="bg-cyan-50 text-cyan-700 ring-cyan-200/70 dark:bg-cyan-950/40 dark:text-cyan-300"
-        surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+        accentClassName="bg-cyan-50 text-info ring-info/70 dark:bg-info/40 dark:text-info"
+        surfaceClassName="bg-white/90 dark:bg-muted"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
@@ -126,8 +126,8 @@ export function PrintTabContent({
         icon={Palette}
         title={t("orderInvoiceSettings.k_27")}
         description={t("orderInvoiceSettings.k_28")}
-        accentClassName="bg-violet-50 text-violet-700 ring-violet-200/70 dark:bg-violet-950/40 dark:text-violet-300"
-        surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+        accentClassName="bg-violet-50 text-primary ring-primary/70 dark:bg-primary/40 dark:text-primary"
+        surfaceClassName="bg-white/90 dark:bg-muted"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
@@ -142,7 +142,7 @@ export function PrintTabContent({
                 onChange={(e) =>
                   onUpdateInvoice({ primaryColor: e.target.value })
                 }
-                className="size-11 cursor-pointer rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-slate-800"
+                className="size-11 cursor-pointer rounded-xl border border-border bg-white p-1 dark:border-border dark:bg-muted"
               />
               <Input
                 value={invoice.primaryColor}
@@ -166,7 +166,7 @@ export function PrintTabContent({
                 onChange={(e) =>
                   onUpdateInvoice({ secondaryColor: e.target.value })
                 }
-                className="size-11 cursor-pointer rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-slate-800"
+                className="size-11 cursor-pointer rounded-xl border border-border bg-white p-1 dark:border-border dark:bg-muted"
               />
               <Input
                 value={invoice.secondaryColor}

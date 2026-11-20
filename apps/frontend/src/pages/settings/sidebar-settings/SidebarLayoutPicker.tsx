@@ -52,9 +52,9 @@ export function SidebarLayoutPicker({
   ];
 
   return (
-    <div className="mb-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-xs dark:border-gray-800 dark:bg-gray-900">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
-        <PaintBrushIcon className="h-4 w-4 text-indigo-500" />
+    <div className="mb-6 rounded-xl border border-border bg-white p-4 shadow-xs dark:border-border dark:bg-muted">
+      <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
+        <PaintBrushIcon className="h-4 w-4 text-primary" />
         {t("sidebar.sidebarLayout")}
       </h3>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
@@ -67,24 +67,24 @@ export function SidebarLayoutPicker({
               onClick={() => onSelectLayout(isSelected ? null : opt.id)}
               className={`relative rounded-xl border p-3 text-right transition-all duration-150 ${
                 isSelected
-                  ? "border-indigo-500 bg-indigo-50/70 shadow-xs dark:border-indigo-500 dark:bg-indigo-950/40"
-                  : "border-gray-200 bg-white hover:border-gray-300 dark:border-gray-800 dark:bg-gray-800/60 dark:hover:border-gray-700"
+                  ? "border-indigo-500 bg-primary/70 shadow-xs dark:border-primary dark:bg-primary/40"
+                  : "border-gray-200 bg-white hover:border-border dark:border-border dark:bg-muted dark:hover:border-border"
               }`}
             >
               <div
                 className={`text-xs font-semibold ${
                   isSelected
-                    ? "text-indigo-700 dark:text-indigo-300"
-                    : "text-gray-900 dark:text-gray-100"
+                    ? "text-indigo-700 dark:text-primary"
+                    : "text-foreground"
                 }`}
               >
                 {opt.label}
               </div>
-              <div className="mt-0.5 text-[10px] leading-relaxed text-gray-500 dark:text-gray-400">
+              <div className="mt-0.5 text-[10px] leading-relaxed text-muted-foreground">
                 {opt.desc}
               </div>
               {isSelected && (
-                <CheckCircleIcon className="absolute left-1.5 top-1.5 h-3.5 w-3.5 text-indigo-500" />
+                <CheckCircleIcon className="absolute left-1.5 top-1.5 h-3.5 w-3.5 text-primary" />
               )}
             </button>
           );
@@ -93,7 +93,7 @@ export function SidebarLayoutPicker({
           <button
             type="button"
             onClick={() => onSelectLayout(null)}
-            className="col-span-full mt-1 text-xs text-gray-400 transition hover:text-gray-600 dark:hover:text-gray-300"
+            className="col-span-full mt-1 text-xs text-muted-foreground transition hover:text-foreground dark:hover:text-muted-foreground"
           >
             {t("sidebar.sidebarResetLayout")}
           </button>

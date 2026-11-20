@@ -98,12 +98,12 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
         <div className="flex items-center gap-4">
           <Link
             to="/customers"
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            className="text-gray-500 hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
           >
             <ArrowRightIcon className="h-5 w-5" />
           </Link>
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">
               {customer.firstName} {customer.lastName}
             </h1>
             <div className="flex gap-2 mt-1 items-center flex-wrap">
@@ -133,9 +133,9 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
           {customer.phone && (
             <button
               onClick={onStartWhatsApp}
-              className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-green-300 dark:border-green-800 rounded-lg text-xs sm:text-sm font-medium text-green-700 dark:text-green-300 bg-white dark:bg-green-950/20 hover:bg-green-50 dark:hover:bg-green-900/30 transition-all duration-150 active:scale-[0.97]"
+              className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-success dark:border-success rounded-lg text-xs sm:text-sm font-medium text-success dark:text-success bg-white dark:bg-success/20 hover:bg-success/10 dark:hover:bg-success/30 transition-all duration-150 active:scale-[0.97]"
             >
-              <ChatBubbleLeftRightIcon className="h-4 w-4 ml-1.5" />
+              <ChatBubbleLeftRightIcon className="h-4 w-4 ms-1.5" />
               WhatsApp
             </button>
           )}
@@ -145,20 +145,20 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
             <button
               onClick={onOpenQuickOrder}
               disabled={!customer.phone && !customer.id}
-              className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 border border-transparent hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50 transition-all duration-150 active:scale-[0.97]"
+              className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-white bg-muted dark:bg-muted dark:text-foreground border border-transparent hover:bg-muted dark:hover:bg-muted disabled:opacity-50 transition-all duration-150 active:scale-[0.97]"
             >
-              <ShoppingBagIcon className="h-4 w-4 ml-1.5" />
+              <ShoppingBagIcon className="h-4 w-4 ms-1.5" />
               أوردر سريع
             </button>
           )}
 
           {/* Lead Assignee (admin only) */}
           {isAdmin && onAssignLead && (
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
-              <UserCircleIcon className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 border border-border dark:border-border rounded-lg bg-card">
+              <UserCircleIcon className="h-4 w-4 text-muted-foreground shrink-0" />
               <label
                 htmlFor="lead-assignee-select"
-                className="text-[11px] font-semibold text-gray-500 dark:text-gray-400 whitespace-nowrap"
+                className="text-[11px] font-semibold text-muted-foreground whitespace-nowrap"
               >
                 المسؤول عن الليد
               </label>
@@ -168,7 +168,7 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
                 onFocus={onAssigneeFocus}
                 onChange={(e) => onAssignLead(e.target.value || null)}
                 disabled={isAssigning}
-                className="text-xs font-medium text-gray-700 dark:text-gray-200 bg-transparent focus:outline-none disabled:opacity-50 max-w-[9rem] truncate cursor-pointer"
+                className="text-xs font-medium text-foreground bg-transparent focus:outline-none disabled:opacity-50 max-w-[9rem] truncate cursor-pointer"
               >
                 <option value="">غير مُسند</option>
                 {(companyUsers || []).map((u) => (
@@ -185,17 +185,17 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
               <button
                 onClick={onUnblock}
                 disabled={isUnblocking}
-                className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-red-300 dark:border-red-800 rounded-lg text-xs sm:text-sm font-medium text-red-700 dark:text-red-300 bg-white dark:bg-red-950/20 hover:bg-red-50 dark:hover:bg-red-900/30 disabled:opacity-50 transition-all duration-150 active:scale-[0.97]"
+                className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-destructive dark:border-destructive rounded-lg text-xs sm:text-sm font-medium text-destructive dark:text-destructive bg-white dark:bg-destructive/20 hover:bg-destructive/10 dark:hover:bg-destructive/30 disabled:opacity-50 transition-all duration-150 active:scale-[0.97]"
               >
-                <CheckCircleIcon className="h-4 w-4 ml-1.5" />
+                <CheckCircleIcon className="h-4 w-4 ms-1.5" />
                 {isUnblocking ? "جاري فك الحظر..." : "فك الحظر"}
               </button>
             ) : (
               <button
                 onClick={onOpenBlockModal}
-                className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-red-300 dark:border-red-800 rounded-lg text-xs sm:text-sm font-medium text-red-700 dark:text-red-300 bg-white dark:bg-red-950/20 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all duration-150 active:scale-[0.97]"
+                className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-destructive dark:border-destructive rounded-lg text-xs sm:text-sm font-medium text-destructive dark:text-destructive bg-white dark:bg-destructive/20 hover:bg-destructive/10 dark:hover:bg-destructive/30 transition-all duration-150 active:scale-[0.97]"
               >
-                <NoSymbolIcon className="h-4 w-4 ml-1.5" />
+                <NoSymbolIcon className="h-4 w-4 ms-1.5" />
                 حظر العميل
               </button>
             ))}
@@ -208,9 +208,9 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
               title={
                 isAdmin ? "دمج عميل مكرر في هذا العميل" : "متاح للمدير فقط"
               }
-              className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 active:scale-[0.97]"
+              className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-border dark:border-border rounded-lg text-xs sm:text-sm font-medium text-foreground bg-transparent hover:bg-muted dark:hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 active:scale-[0.97]"
             >
-              <GitMerge className="h-4 w-4 ml-1.5" />
+              <GitMerge className="h-4 w-4 ms-1.5" />
               دمج مكرر
             </button>
           )}
@@ -218,27 +218,27 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
           {/* Export Button */}
           <button
             onClick={onExport}
-            className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-150 active:scale-[0.97]"
+            className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-border dark:border-border rounded-lg text-xs sm:text-sm font-medium text-foreground bg-card hover:bg-muted/50 transition-all duration-150 active:scale-[0.97]"
           >
-            <ArrowDownTrayIcon className="h-4 w-4 ml-1.5" />
+            <ArrowDownTrayIcon className="h-4 w-4 ms-1.5" />
             {t("common.export")}
           </button>
 
           {/* Edit Button */}
           <button
             onClick={() => navigate(`/customers/${customer.id}/edit`)}
-            className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-150 active:scale-[0.97]"
+            className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-border dark:border-border rounded-lg text-xs sm:text-sm font-medium text-foreground bg-card hover:bg-muted/50 transition-all duration-150 active:scale-[0.97]"
           >
-            <PencilIcon className="h-4 w-4 ml-1.5" />
+            <PencilIcon className="h-4 w-4 ms-1.5" />
             {t("common.edit")}
           </button>
 
           {/* Delete Button */}
           <button
             onClick={onOpenDeleteModal}
-            className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-red-300 dark:border-red-800 rounded-lg text-xs sm:text-sm font-medium text-red-700 dark:text-red-300 bg-white dark:bg-red-950/20 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all duration-150 active:scale-[0.97]"
+            className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-destructive dark:border-destructive rounded-lg text-xs sm:text-sm font-medium text-destructive dark:text-destructive bg-white dark:bg-destructive/20 hover:bg-destructive/10 dark:hover:bg-destructive/30 transition-all duration-150 active:scale-[0.97]"
           >
-            <TrashIcon className="h-4 w-4 ml-1.5" />
+            <TrashIcon className="h-4 w-4 ms-1.5" />
             {t("common.delete")}
           </button>
         </div>
@@ -246,14 +246,14 @@ export const CustomerDetailsHeader: React.FC<CustomerDetailsHeaderProps> = ({
 
       {/* Quick order success chip */}
       {orderSuccess && (
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-success dark:text-success bg-success/10 dark:bg-success/20 border border-success dark:border-success">
           <CheckCircleIcon className="h-4 w-4" />
           تم إنشاء الأوردر بنجاح
         </div>
       )}
 
       {isCustomerBlocked && activeBlockRule && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+        <div className="rounded-xl border border-destructive bg-destructive/10 p-4 text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive">
           <div className="flex items-start gap-3">
             <NoSymbolIcon className="mt-0.5 h-5 w-5 shrink-0" />
             <div>

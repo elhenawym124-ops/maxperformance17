@@ -47,8 +47,8 @@ export function InvoiceTabContent({
           icon={Settings2}
           title={t("orderInvoiceSettings.k_6")}
           description={t("orderInvoiceSettings.k_7")}
-          accentClassName="bg-sky-50 text-sky-700 ring-sky-200/70 dark:bg-sky-950/40 dark:text-sky-300"
-          surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+          accentClassName="bg-sky-50 text-info ring-info/70 dark:bg-info/40 dark:text-info"
+          surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <ToggleCard
             title={t("orderInvoiceSettings.k_8")}
@@ -122,11 +122,11 @@ export function InvoiceTabContent({
             </div>
           </div>
 
-          <div className="rounded-[20px] border border-dashed border-sky-200 bg-sky-50/80 p-4 dark:border-sky-800 dark:bg-sky-950/20">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700 dark:text-sky-300">
+          <div className="rounded-[20px] border border-dashed border-info bg-info/80 p-4 dark:border-info dark:bg-info/20">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-info dark:text-info">
               معاينة رقم الفاتورة
             </p>
-            <p className="mt-2 text-sm font-bold font-mono tabular-nums text-slate-950 dark:text-slate-100" dir="ltr">
+            <p className="mt-2 text-sm font-bold font-mono tabular-nums text-foreground dark:text-muted-foreground" dir="ltr">
               {invoice.invoicePrefix || "INV"}-20260429-000001
             </p>
           </div>
@@ -137,8 +137,8 @@ export function InvoiceTabContent({
           icon={ScanText}
           title={t("orderInvoiceSettings.k_11")}
           description={t("orderInvoiceSettings.k_12")}
-          accentClassName="bg-indigo-50 text-indigo-700 ring-indigo-200/70 dark:bg-indigo-950/40 dark:text-indigo-300"
-          surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+          accentClassName="bg-indigo-50 text-primary ring-primary/70 dark:bg-primary/40 dark:text-primary"
+          surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
@@ -187,7 +187,7 @@ export function InvoiceTabContent({
               onChange={(e) =>
                 onUpdateInvoice({ defaultTerms: e.target.value })
               }
-              className="rounded-2xl"
+              className="rounded-xl"
             />
           </div>
 
@@ -202,7 +202,7 @@ export function InvoiceTabContent({
               onChange={(e) =>
                 onUpdateInvoice({ defaultNotes: e.target.value })
               }
-              className="rounded-2xl"
+              className="rounded-xl"
             />
           </div>
         </SettingsSection>
@@ -214,8 +214,8 @@ export function InvoiceTabContent({
           icon={Palette}
           title={t("orderInvoiceSettings.k_13")}
           description={t("orderInvoiceSettings.k_14")}
-          accentClassName="bg-emerald-50 text-emerald-700 ring-emerald-200/70 dark:bg-emerald-950/40 dark:text-emerald-300"
-          surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+          accentClassName="bg-emerald-50 text-success ring-success/70 dark:bg-success/40 dark:text-success"
+          surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <div className="space-y-3">
             {invoiceFlags.map(([key, label]) => (
@@ -232,7 +232,7 @@ export function InvoiceTabContent({
           </div>
 
           <div className="space-y-3 pt-2">
-            <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <p className="text-xs font-semibold text-foreground dark:text-muted-foreground">
               إعدادات الباركود
             </p>
             {barcodeFlags.map(([key, label]) => (
@@ -254,8 +254,8 @@ export function InvoiceTabContent({
           icon={Mail}
           title={t("orderInvoiceSettings.k_16")}
           description={t("orderInvoiceSettings.k_17")}
-          accentClassName="bg-amber-50 text-amber-700 ring-amber-200/70 dark:bg-amber-950/40 dark:text-amber-300"
-          surfaceClassName="bg-white/90 dark:bg-slate-900/60"
+          accentClassName="bg-amber-50 text-warning ring-warning/70 dark:bg-warning/40 dark:text-warning"
+          surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <ToggleCard
             title={t("orderInvoiceSettings.k_18")}
@@ -291,7 +291,7 @@ export function InvoiceTabContent({
               onChange={(e) =>
                 onUpdateInvoice({ emailBody: e.target.value })
               }
-              className="rounded-2xl"
+              className="rounded-xl"
             />
           </div>
         </SettingsSection>

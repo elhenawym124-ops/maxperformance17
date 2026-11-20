@@ -128,11 +128,11 @@ export const DEFAULT_SETTINGS: PreparationSettingsState = {
 
 export const PIPELINE_STAGES = [
   { key: "CONFIRMED", label: "مؤكد", color: "text-blue-600 bg-blue-50 border-blue-200" },
-  { key: "PENDING_PREPARATION", label: "في انتظار التجهيز", color: "text-amber-600 bg-amber-50 border-amber-200" },
-  { key: "PREPARING", label: "قيد التجهيز", color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
-  { key: "QUALITY_CHECK", label: "فحص الجودة", color: "text-cyan-600 bg-cyan-50 border-cyan-200" },
-  { key: "PACKAGED", label: "تم التغليف", color: "text-violet-600 bg-violet-50 border-violet-200" },
-  { key: "READY_TO_SHIP", label: "جاهز للشحن", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+  { key: "PENDING_PREPARATION", label: "في انتظار التجهيز", color: "text-amber-600 bg-warning/10 border-warning" },
+  { key: "PREPARING", label: "قيد التجهيز", color: "text-indigo-600 bg-primary/10 border-primary" },
+  { key: "QUALITY_CHECK", label: "فحص الجودة", color: "text-cyan-600 bg-info/10 border-info" },
+  { key: "PACKAGED", label: "تم التغليف", color: "text-violet-600 bg-primary/10 border-primary" },
+  { key: "READY_TO_SHIP", label: "جاهز للشحن", color: "text-emerald-600 bg-success/10 border-success" },
 ];
 
 export const buildSettingsState = (

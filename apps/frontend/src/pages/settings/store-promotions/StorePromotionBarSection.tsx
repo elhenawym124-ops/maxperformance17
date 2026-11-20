@@ -30,15 +30,15 @@ export const StorePromotionBarSection: React.FC<StorePromotionBarSectionProps> =
       icon={PanelTop}
       title={t("storePromotionSettings.barSettings")}
       description={t("storePromotionSettings.barSettingsDesc")}
-      accentClassName="bg-amber-50 text-amber-700 ring-amber-200/70 dark:bg-amber-950/40 dark:text-amber-300 dark:ring-amber-500/30"
+      accentClassName="bg-amber-50 text-warning ring-warning/70 dark:bg-warning/40 dark:text-warning dark:ring-warning/30"
     >
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+            <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.showBar")}
             </Label>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.showBarDesc")}
             </p>
           </div>
@@ -52,10 +52,10 @@ export const StorePromotionBarSection: React.FC<StorePromotionBarSectionProps> =
 
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+            <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.stickyBar")}
             </Label>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               {t("storePromotionSettings.stickyBarDesc")}
             </p>
           </div>
@@ -68,17 +68,17 @@ export const StorePromotionBarSection: React.FC<StorePromotionBarSectionProps> =
         <Separator className="dark:bg-slate-800" />
 
         <div className="space-y-2">
-          <Label className="text-sm font-semibold text-slate-900 dark:text-slate-200">
+          <Label className="text-sm font-semibold text-foreground dark:text-muted-foreground">
             {t("storePromotionSettings.barPages")}
           </Label>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground">
             {t("storePromotionSettings.barPagesDesc")}
           </p>
           <Select
             value={promotion.barPages}
             onValueChange={(val) => onChange({ barPages: val })}
           >
-            <SelectTrigger className="max-w-xs bg-white text-slate-900 border-slate-200 dark:bg-slate-950 dark:text-slate-100 dark:border-slate-700 font-medium">
+            <SelectTrigger className="max-w-xs bg-white text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border font-medium">
               <SelectValue>
                 {promotion.barPages === "shop"
                   ? t("storePromotionSettings.shopOnly")
@@ -89,17 +89,17 @@ export const StorePromotionBarSection: React.FC<StorePromotionBarSectionProps> =
                       : t("storePromotionSettings.allPages")}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="dark:bg-slate-950 dark:border-slate-800">
-              <SelectItem value="all" className="dark:text-slate-100 dark:focus:bg-slate-800">
+            <SelectContent className="dark:bg-slate-950 dark:border-border">
+              <SelectItem value="all" className="dark:text-slate-100 dark:focus:bg-muted">
                 {t("storePromotionSettings.allPages")}
               </SelectItem>
-              <SelectItem value="shop" className="dark:text-slate-100 dark:focus:bg-slate-800">
+              <SelectItem value="shop" className="dark:text-slate-100 dark:focus:bg-muted">
                 {t("storePromotionSettings.shopOnly")}
               </SelectItem>
-              <SelectItem value="product" className="dark:text-slate-100 dark:focus:bg-slate-800">
+              <SelectItem value="product" className="dark:text-slate-100 dark:focus:bg-muted">
                 {t("storePromotionSettings.productOnly")}
               </SelectItem>
-              <SelectItem value="checkout" className="dark:text-slate-100 dark:focus:bg-slate-800">
+              <SelectItem value="checkout" className="dark:text-slate-100 dark:focus:bg-muted">
                 {t("storePromotionSettings.checkoutOnly")}
               </SelectItem>
             </SelectContent>

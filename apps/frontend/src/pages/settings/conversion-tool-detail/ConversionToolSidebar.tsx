@@ -44,37 +44,37 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
   return (
     <aside className="space-y-4 lg:sticky lg:top-6">
       {/* Tool Identity Card */}
-      <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+      <div className="space-y-3 rounded-xl border border-border bg-white p-5 dark:border-border dark:bg-muted">
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary dark:text-primary">
           <Icon className="h-5 w-5" />
         </span>
         <div className="space-y-1.5">
-          <h1 className="text-xl font-black tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-xl font-black tracking-tight text-foreground">
             {toolLabel}
           </h1>
-          <p className="text-xs leading-6 text-gray-600 dark:text-gray-300">
+          <p className="text-xs leading-6 text-muted-foreground">
             {toolBenefit}
           </p>
         </div>
-        <span className="inline-block rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-black text-gray-600 dark:bg-gray-900 dark:text-gray-300">
+        <span className="inline-block rounded-full bg-muted px-2.5 py-1 text-[10px] font-black text-foreground dark:bg-muted dark:text-muted-foreground">
           {STORE_CONVERSION_APP_LABELS[tool.appSlug]}
         </span>
       </div>
 
       {/* Tool State & Toggle */}
-      <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
+      <div className="space-y-3 rounded-xl border border-border bg-white p-5 dark:border-border dark:bg-muted">
         <div className="flex items-center justify-between gap-3">
           <div className="space-y-0.5">
-            <p className="text-sm font-black text-gray-900 dark:text-white">
+            <p className="text-sm font-black text-foreground">
               {t("storeConversionSettings.toolState")}
             </p>
             <p
               className={`text-[11px] font-black ${
                 !availability.available
-                  ? "text-amber-700 dark:text-amber-300"
+                  ? "text-amber-700 dark:text-warning"
                   : enabled
-                    ? "text-emerald-700 dark:text-emerald-300"
-                    : "text-gray-400 dark:text-gray-500"
+                    ? "text-emerald-700 dark:text-success"
+                    : "text-muted-foreground/80"
               }`}
             >
               {availability.available
@@ -93,7 +93,7 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
         </div>
 
         {!enabled && availability.available ? (
-          <p className="flex items-start gap-1.5 rounded-lg bg-gray-50 px-3 py-2 text-[11px] leading-5 text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+          <p className="flex items-start gap-1.5 rounded-lg bg-muted px-3 py-2 text-[11px] leading-5 text-muted-foreground dark:bg-muted dark:text-muted-foreground">
             <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             {t("storeConversionSettings.generalEnabledNote", {
               app: STORE_CONVERSION_APP_LABELS[tool.appSlug],
@@ -102,12 +102,12 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
         ) : null}
 
         {tool.key === "freeShippingBar" ? (
-          <div className="rounded-lg bg-emerald-50/70 p-3 text-[11px] leading-5 text-emerald-950 dark:bg-emerald-950/40 dark:text-emerald-200">
+          <div className="rounded-lg bg-success/70 p-3 text-[11px] leading-5 text-success dark:bg-success/40 dark:text-success">
             <span className="font-bold">ملاحظة التزامن: </span>
             الحد المالي وحالة التفعيل هنا متزامنة تلقائيًا مع صفحة{" "}
             <Link
               to="/settings/store?tab=promotion"
-              className="font-black underline underline-offset-2 hover:text-emerald-800"
+              className="font-black underline underline-offset-2 hover:text-success"
             >
               إعدادات الترويج والشحن
             </Link>
@@ -118,25 +118,25 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
 
       {/* Bought Together Special Upsell Helper */}
       {tool.key === "boughtTogether" ? (
-        <div className="space-y-3 rounded-xl border border-amber-200/90 bg-amber-50/80 p-4 text-xs text-amber-950 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-200">
-          <div className="flex items-center gap-2 font-black text-amber-900 dark:text-amber-100">
-            <Sparkles className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+        <div className="space-y-3 rounded-xl border border-warning/90 bg-warning/80 p-4 text-xs text-warning dark:border-warning/60 dark:bg-warning/40 dark:text-warning">
+          <div className="flex items-center gap-2 font-black text-warning dark:text-warning">
+            <Sparkles className="h-4 w-4 text-warning dark:text-warning" />
             <span>كيف يتم ربط وتحديد منتجات الباقة (Bought Together)؟</span>
           </div>
-          <p className="text-[11px] leading-5 text-amber-800/90 dark:text-amber-300/90">
+          <p className="text-[11px] leading-5 text-warning/90 dark:text-warning/90">
             تعرض هذه الأداة في المتجر باقة ترويجية جاهزة للمنتج مع خيارات تحديد القطع وزر إضافة الباقة دفعة واحدة. المنتجات المعروضة داخل الباقة يتم تحديدها من خلال <strong>ربط المنتجات التكميلية (Cross-sell / Related)</strong> لكل صنف في الكتالوج.
           </p>
           <div className="flex flex-wrap items-center gap-2 pt-1">
             <Link
               to="/settings/upsell"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 px-3.5 py-2 text-xs font-black text-white shadow-xs transition hover:bg-amber-700 active:scale-95"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-warning px-3.5 py-2 text-xs font-black text-white shadow-xs transition hover:bg-warning active:scale-95"
             >
               <span>إدارة وربط منتجات الباقات (Upsell Hub)</span>
               <ExternalLink className="h-3 w-3" />
             </Link>
             <Link
               to="/products"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 py-2 text-xs font-bold text-amber-900 shadow-xs transition hover:bg-amber-50 dark:border-amber-700 dark:bg-gray-900 dark:text-amber-200"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-warning bg-white px-3 py-2 text-xs font-bold text-warning shadow-xs transition hover:bg-warning/10 dark:border-warning dark:bg-muted dark:text-warning"
             >
               <span>كتالوج المنتجات</span>
             </Link>
@@ -146,23 +146,23 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
 
       {/* Tool Actions */}
       {tool.actions?.length ? (
-        <div className="space-y-3 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 dark:border-indigo-900/50 dark:bg-indigo-950/30">
+        <div className="space-y-3 rounded-xl border border-primary bg-primary/60 p-4 dark:border-primary/50 dark:bg-primary/30">
           {tool.actions.map((action) => (
             <div key={action.to} className="space-y-2">
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1">
-                  <h4 className="text-xs font-black text-indigo-950 dark:text-indigo-200">
+                  <h4 className="text-xs font-black text-primary dark:text-primary">
                     {action.label}
                   </h4>
                   {action.description ? (
-                    <p className="text-[11px] leading-5 text-indigo-800/80 dark:text-indigo-300/80">
+                    <p className="text-[11px] leading-5 text-primary/80 dark:text-primary/80">
                       {action.description}
                     </p>
                   ) : null}
                 </div>
                 <Link
                   to={action.to}
-                  className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-black text-white shadow-xs transition hover:bg-indigo-700 active:scale-95"
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-black text-white shadow-xs transition hover:bg-primary active:scale-95"
                 >
                   <span>فتح</span>
                   <ExternalLink className="h-3 w-3" />
@@ -175,8 +175,8 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
 
       {/* Configuration Fields */}
       {tool.fields?.length ? (
-        <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-          <p className="text-sm font-black text-gray-900 dark:text-white">
+        <div className="space-y-3 rounded-xl border border-border bg-white p-5 dark:border-border dark:bg-muted">
+          <p className="text-sm font-black text-foreground">
             {t("storeConversionSettings.fieldsTitle")}
           </p>
           {tool.fields.map((field) => {
@@ -185,13 +185,13 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
 
             return (
               <label key={field.key} className="block space-y-1.5">
-                <span className="block text-xs font-black text-gray-800 dark:text-gray-100">
+                <span className="block text-xs font-black text-foreground dark:text-muted-foreground">
                   {t(`storeConversionSettings.field.${field.key}.label`, {
                     defaultValue: field.label,
                   })}
                 </span>
                 {field.description ? (
-                  <span className="block text-[11px] leading-5 text-gray-500 dark:text-gray-400">
+                  <span className="block text-[11px] leading-5 text-muted-foreground">
                     {t(`storeConversionSettings.field.${field.key}.description`, {
                       defaultValue: field.description,
                     })}
@@ -205,7 +205,7 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
                       onChange={(event) =>
                         onFieldSave(field, event.currentTarget.value)
                       }
-                      className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 text-xs font-bold text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+                      className="h-10 w-full rounded-lg border border-border bg-white px-3 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white"
                     >
                       {field.options?.map((opt) => (
                         <option key={opt.value} value={opt.value}>
@@ -222,7 +222,7 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
                       onBlur={(event) =>
                         onFieldSave(field, event.currentTarget.value)
                       }
-                      className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 text-xs font-bold text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+                      className="h-10 w-full rounded-lg border border-border bg-white px-3 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white"
                     />
                   ) : (
                     <input
@@ -233,11 +233,11 @@ export const ConversionToolSidebar: React.FC<ConversionToolSidebarProps> = ({
                       onBlur={(event) =>
                         onFieldSave(field, event.currentTarget.value)
                       }
-                      className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm font-bold text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-950 dark:text-white tabular-nums font-mono"
+                      className="h-10 w-full rounded-lg border border-border bg-white px-3 text-sm font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white tabular-nums font-mono"
                     />
                   )}
                   {field.suffix ? (
-                    <span className="text-xs font-black text-gray-500 dark:text-gray-400">
+                    <span className="text-xs font-black text-muted-foreground">
                       {field.suffix}
                     </span>
                   ) : null}

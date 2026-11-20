@@ -18,17 +18,17 @@ export const OrderPreparationHeader: React.FC<OrderPreparationHeaderProps> = ({
   defaultWarehouseName,
 }) => {
   return (
-    <Card className="border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900/90">
+    <Card className="border-slate-200/80 bg-white dark:border-border dark:bg-muted">
       <CardHeader className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-300 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700 dark:border-orange-900/60 dark:bg-orange-950/40 dark:text-orange-300">
+          <div className="inline-flex items-center gap-2 rounded-full border border-warning bg-warning/10 px-3 py-1 text-xs font-semibold text-warning dark:border-warning/60 dark:bg-warning/40 dark:text-warning">
             <CubeIcon className="h-4 w-4" />
             <span>Fulfillment Settings</span>
           </div>
-          <CardTitle className="mt-3 text-2xl font-bold text-slate-900 dark:text-white">
+          <CardTitle className="mt-3 text-2xl font-bold text-foreground dark:text-white">
             إعدادات تجهيز الطلبات
           </CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400">
+          <CardDescription className="text-slate-500 dark:text-muted-foreground">
             تحكم في قواعد تشغيل صفحة التجهيز، سياسات المخزون، فحص الجودة، والإجراءات الجماعية الخاصة بالمخزن.
           </CardDescription>
         </div>
@@ -45,7 +45,7 @@ export const OrderPreparationHeader: React.FC<OrderPreparationHeaderProps> = ({
             />
             <span>{enabled ? "المسار مفعل" : "المسار متوقف"}</span>
           </Badge>
-          <span className="text-xs text-slate-500 dark:text-slate-400">
+          <span className="text-xs text-muted-foreground dark:text-muted-foreground">
             {defaultWarehouseName}
           </span>
         </div>

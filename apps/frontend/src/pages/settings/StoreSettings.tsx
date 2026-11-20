@@ -30,7 +30,7 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
   if (ctrl.loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -46,7 +46,7 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
       />
 
       <main className="w-full">
-        <div className="bg-white dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl border border-gray-100 dark:border-gray-700/50 p-6 lg:p-8 shadow-xl shadow-gray-200/20 dark:shadow-none min-h-[600px]">
+        <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border dark:border-border p-6 lg:p-8 shadow-xl shadow-gray-200/20 dark:shadow-none min-h-[600px]">
           {ctrl.activeTab === "branches" ? (
             <StoreBranchesTab
               branches={ctrl.branches}

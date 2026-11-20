@@ -35,7 +35,7 @@ const CustomerDetails: React.FC = () => {
         </p>
         <Link
           to="/customers"
-          className="text-zinc-900 dark:text-zinc-100 hover:underline mt-4 inline-block text-xs font-semibold"
+          className="text-zinc-900 dark:text-muted-foreground hover:underline mt-4 inline-block text-xs font-semibold"
         >
           {ctrl.t("common.backToList")}
         </Link>
@@ -44,7 +44,7 @@ const CustomerDetails: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="polaris-track space-y-6">
       {/* Header */}
       <CustomerDetailsHeader
         customer={ctrl.customer}

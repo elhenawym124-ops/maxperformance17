@@ -43,7 +43,7 @@ export const CustomerBlockConfigSection: React.FC<CustomerBlockConfigSectionProp
             type="checkbox"
             checked={settings.enabled}
             onChange={updateBoolean('enabled')}
-            className="size-4 rounded border-input text-red-600 focus:ring-red-500"
+            className="size-4 rounded border-input text-destructive focus:ring-destructive"
           />
           {t('customerBlocks.k_40', 'تفعيل نظام الحظر')}
         </label>
@@ -66,7 +66,7 @@ export const CustomerBlockConfigSection: React.FC<CustomerBlockConfigSectionProp
               type="checkbox"
               checked={Boolean(settings[key as keyof CustomerBlockSettingsShape])}
               onChange={updateBoolean(key as keyof CustomerBlockSettingsShape)}
-              className="size-4 rounded border-input text-red-600 focus:ring-red-500"
+              className="size-4 rounded border-input text-destructive focus:ring-destructive"
             />
           </label>
         ))}
@@ -114,7 +114,7 @@ export const CustomerBlockConfigSection: React.FC<CustomerBlockConfigSectionProp
                   type="checkbox"
                   checked={Boolean(settings[key as keyof CustomerBlockSettingsShape])}
                   onChange={updateBoolean(key as keyof CustomerBlockSettingsShape)}
-                  className="size-4 rounded border-input text-red-600 focus:ring-red-500"
+                  className="size-4 rounded border-input text-destructive focus:ring-destructive"
                 />
                 {label}
               </label>
@@ -164,7 +164,7 @@ export const CustomerBlockConfigSection: React.FC<CustomerBlockConfigSectionProp
           type="button"
           onClick={handleSaveSettings}
           disabled={isSaving}
-          className="bg-red-600 hover:bg-red-700 text-white gap-2 font-semibold"
+          className="bg-red-600 hover:bg-destructive text-white gap-2 font-semibold"
         >
           {isSaving ? (
             <Loader2 className="size-4 animate-spin" />

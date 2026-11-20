@@ -143,7 +143,7 @@ export const OrderColumnsSettings: React.FC = () => {
     return (
       <div className="flex items-center justify-center p-12 text-muted-foreground">
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span className="mr-2 text-xs font-medium">جاري تحميل إعدادات الأعمدة...</span>
+        <span className="me-2 text-xs font-medium">جاري تحميل إعدادات الأعمدة...</span>
       </div>
     );
   }
@@ -214,7 +214,7 @@ export const OrderColumnsSettings: React.FC = () => {
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded font-mono ${
               showSearchInHeader
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                ? "bg-emerald-500/10 text-success dark:text-success"
                 : "bg-muted text-muted-foreground"
             }`}>
               {showSearchInHeader ? "Active" : "Hidden"}
@@ -266,7 +266,7 @@ export const OrderColumnsSettings: React.FC = () => {
                 Top Nav Search
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-8">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-8">
               إتاحة حقل البحث عن أرقام الطلبات وأسماء العملاء فورياً من الشريط العلوي الثابت للوحة التحكم دون الحاجة للدخول لصفحة الطلبات أولاً.
             </p>
           </div>

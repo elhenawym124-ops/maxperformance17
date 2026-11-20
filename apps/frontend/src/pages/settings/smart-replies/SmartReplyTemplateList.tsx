@@ -68,34 +68,34 @@ export function SmartReplyTemplateList({
   return (
     <div
       ref={containerRef}
-      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xs border border-gray-200 dark:border-gray-700 overflow-hidden"
+      className="bg-card rounded-xl shadow-xs border border-border dark:border-border overflow-hidden"
     >
-      <div className="p-3.5 sm:p-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+      <div className="p-3.5 sm:p-5 border-b border-border dark:border-border flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             {t("smartReplies.templates") || "قوالب الردود"}
           </h2>
-          <span className="text-xs px-2.5 py-0.5 font-semibold font-mono tabular-nums bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+          <span className="text-xs px-2.5 py-0.5 font-semibold font-mono tabular-nums bg-muted text-muted-foreground rounded-full">
             {templates.length}
           </span>
         </div>
       </div>
 
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="divide-y divide-border dark:divide-border">
         {templatesToRender.length === 0 ? (
-          <div className="p-8 sm:p-12 text-center text-gray-500 dark:text-gray-400">
-            <ChatBubbleLeftRightIcon className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-gray-400 mb-3 opacity-60" />
-            <p className="font-semibold text-gray-800 dark:text-gray-200 text-sm sm:text-base">
+          <div className="p-8 sm:p-12 text-center text-muted-foreground">
+            <ChatBubbleLeftRightIcon className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-muted-foreground mb-3 opacity-60" />
+            <p className="font-semibold text-foreground dark:text-muted-foreground text-sm sm:text-base">
               {t("smartReplies.noRules") || "لا توجد قوالب ردود بعد"}
             </p>
-            <p className="text-xs sm:text-sm mt-1 max-w-md mx-auto text-gray-500">
+            <p className="text-xs sm:text-sm mt-1 max-w-md mx-auto text-muted-foreground">
               {t("smartReplies.noRulesDesc") ||
                 "أضف قوالب الردود التلقائية لتسهيل وسرعة الرد على العملاء فور إرسالهم للرسائل"}
             </p>
             <button
               type="button"
               onClick={onAddTemplate}
-              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-xs"
+              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary/90 active:scale-95 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-xs"
             >
               <PlusIcon className="h-4 w-4" />
               <span>{t("smartReplies.addRule") || "إضافة قالب جديد"}</span>

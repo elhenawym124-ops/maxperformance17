@@ -51,19 +51,19 @@ export default function StoreConversionSettingsPage({
 
   return (
     <div className="max-w-5xl space-y-8" dir={getDirection()}>
-      <header className="space-y-4 border-b border-gray-200 pb-6 dark:border-gray-800">
+      <header className="space-y-4 border-b border-border pb-6 dark:border-border">
         <div className="space-y-2">
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">
+          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-primary dark:text-primary">
             {t("storeConversionSettings.pageHeader") as string}
           </p>
-          <h1 className="text-3xl font-black tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-black tracking-tight text-foreground">
             {t(page.title) as string}
           </h1>
         </div>
-        <p className="max-w-3xl text-sm leading-7 text-gray-600 dark:text-gray-300">
+        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
           {t(page.description) as string}
         </p>
-        <div className="space-y-1 text-xs text-gray-500 dark:text-gray-400">
+        <div className="space-y-1 text-xs text-muted-foreground">
           <p>{headerStatusLabel}</p>
           {!loading ? <p>{sourceSummary}</p> : null}
         </div>
@@ -71,7 +71,7 @@ export default function StoreConversionSettingsPage({
 
       <nav
         aria-label="Store conversion navigation"
-        className="border-b border-gray-200 pb-4 dark:border-gray-800"
+        className="border-b border-border pb-4 dark:border-border"
       >
         <div className="flex gap-6 overflow-x-auto text-sm">
           {STORE_CONVERSION_PAGES.map((entry) => (
@@ -81,8 +81,8 @@ export default function StoreConversionSettingsPage({
               className={({ isActive }) =>
                 `whitespace-nowrap border-b pb-2 font-bold transition-colors ${
                   isActive
-                    ? "border-gray-900 text-gray-900 dark:border-white dark:text-white"
-                    : "border-transparent text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                    ? "border-gray-900 text-foreground dark:border-white dark:text-white"
+                    : "border-transparent text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
                 }`
               }
             >
@@ -95,20 +95,20 @@ export default function StoreConversionSettingsPage({
       {page.sections.map((section) => (
         <section
           key={section.title}
-          className="space-y-4 border-b border-gray-200 pb-8 dark:border-gray-800"
+          className="space-y-4 border-b border-border pb-8 dark:border-border"
         >
           <div className="space-y-2">
-            <h2 className="text-xl font-black text-gray-900 dark:text-white">
+            <h2 className="text-xl font-black text-foreground">
               {t(section.title) as string}
             </h2>
             {section.description ? (
-              <p className="text-sm leading-7 text-gray-600 dark:text-gray-300">
+              <p className="text-sm leading-7 text-muted-foreground">
                 {t(section.description, { defaultValue: section.description })}
               </p>
             ) : null}
           </div>
 
-          <div className="divide-y divide-gray-200 dark:divide-gray-800">
+          <div className="divide-y divide-border dark:divide-border">
             {section.tools.map((tool) => {
               const availability = getToolAvailability(tool);
               const enabled = getToolEnabled(tool);
@@ -130,14 +130,14 @@ export default function StoreConversionSettingsPage({
                   className="grid gap-4 py-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center"
                 >
                   <div className="space-y-1">
-                    <p className="text-sm font-bold text-gray-900 dark:text-white">
+                    <p className="text-sm font-bold text-foreground">
                       {toolLabel}
                     </p>
-                    <p className="text-xs leading-6 text-gray-500 dark:text-gray-400">
+                    <p className="text-xs leading-6 text-muted-foreground">
                       {toolDescription}
                     </p>
                     {!availability.available ? (
-                      <p className="text-xs font-bold text-amber-700 dark:text-amber-300">
+                      <p className="text-xs font-bold text-warning dark:text-warning">
                         {availability.note}
                       </p>
                     ) : null}
@@ -154,15 +154,15 @@ export default function StoreConversionSettingsPage({
                           return (
                             <label
                               key={`${field.key}-${String(fieldValue)}`}
-                              className="block rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-900/60"
+                              className="block rounded-lg border border-border bg-muted p-3 dark:border-border dark:bg-muted"
                             >
-                              <span className="block text-xs font-black text-gray-800 dark:text-gray-100">
+                              <span className="block text-xs font-black text-foreground dark:text-muted-foreground">
                                 {t(`storeConversionSettings.field.${field.key}.label`, {
                                   defaultValue: field.label,
                                 })}
                               </span>
                               {field.description ? (
-                                <span className="mt-1 block text-[11px] leading-5 text-gray-500 dark:text-gray-400">
+                                <span className="mt-1 block text-[11px] leading-5 text-muted-foreground">
                                   {t(
                                     `storeConversionSettings.field.${field.key}.description`,
                                     { defaultValue: field.description },
@@ -187,15 +187,15 @@ export default function StoreConversionSettingsPage({
                                       event.currentTarget.value,
                                     )
                                   }
-                                  className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm font-bold text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+                                  className="h-10 w-full rounded-lg border border-border bg-white px-3 text-sm font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white"
                                 />
                                 {field.suffix ? (
-                                  <span className="text-xs font-black text-gray-500 dark:text-gray-400">
+                                  <span className="text-xs font-black text-muted-foreground">
                                     {field.suffix}
                                   </span>
                                 ) : null}
                                 {fieldSaving ? (
-                                  <span className="text-[11px] font-bold text-indigo-700 dark:text-indigo-300">
+                                  <span className="text-[11px] font-bold text-primary dark:text-primary">
                                     {t("storeConversionSettings.savingField")}
                                   </span>
                                 ) : null}
@@ -211,12 +211,12 @@ export default function StoreConversionSettingsPage({
                     <span
                       className={`text-xs font-black ${
                         saving
-                          ? "text-indigo-700 dark:text-indigo-300"
+                          ? "text-indigo-700 dark:text-primary"
                           : isToolFieldSaving
-                            ? "text-indigo-700 dark:text-indigo-300"
+                            ? "text-indigo-700 dark:text-primary"
                           : enabled
-                            ? "text-emerald-700 dark:text-emerald-300"
-                            : "text-gray-400 dark:text-gray-500"
+                            ? "text-emerald-700 dark:text-success"
+                            : "text-muted-foreground/80"
                       }`}
                     >
                       {saving || isToolFieldSaving

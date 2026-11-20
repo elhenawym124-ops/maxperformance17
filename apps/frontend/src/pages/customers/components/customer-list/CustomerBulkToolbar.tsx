@@ -15,15 +15,15 @@ export const CustomerBulkToolbar: React.FC<CustomerBulkToolbarProps> = ({
   if (selectedCount === 0) return null;
 
   return (
-    <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 px-4 py-3 rounded-lg flex items-center justify-between">
+    <div className="bg-indigo-50 dark:bg-primary/20 border border-primary dark:border-primary px-4 py-3 rounded-lg flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <span className="text-indigo-700 dark:text-indigo-300 font-medium text-xs sm:text-sm">
+        <span className="text-indigo-700 dark:text-primary font-medium text-xs sm:text-sm">
           {t("customers.selectedCount", { count: selectedCount })}
         </span>
         <button
           type="button"
           onClick={onCancel}
-          className="text-xs sm:text-sm text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium"
+          className="text-xs sm:text-sm text-primary hover:text-primary dark:text-primary font-medium"
         >
           {t("customers.cancelSelection")}
         </button>

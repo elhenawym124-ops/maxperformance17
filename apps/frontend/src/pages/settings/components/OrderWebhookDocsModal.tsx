@@ -35,7 +35,7 @@ export const OrderWebhookDocsModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-sm animate-in fade-in">
-      <div className="bg-card border border-border/80 rounded-2xl w-full max-w-3xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden text-xs font-sans">
+      <div className="bg-card border border-border/80 rounded-xl w-full max-w-3xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden text-xs font-sans">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border/60 bg-muted/20">
           <div className="flex items-center gap-2.5">
@@ -138,7 +138,7 @@ export const OrderWebhookDocsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-card border border-border/70 hover:bg-muted text-foreground transition shadow-xs"
                 >
                   {copiedSection === "payload_json" ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    <Check className="w-3.5 h-3.5 text-success" />
                   ) : (
                     <Copy className="w-3.5 h-3.5 text-muted-foreground" />
                   )}
@@ -146,7 +146,7 @@ export const OrderWebhookDocsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 </button>
               </div>
 
-              <pre className="p-3.5 rounded-xl bg-zinc-950 text-zinc-100 font-mono text-[11px] overflow-x-auto max-h-[55vh] select-all leading-relaxed border border-border/40">
+              <pre className="p-3.5 rounded-xl bg-muted text-muted-foreground font-mono text-[11px] overflow-x-auto max-h-[55vh] select-all leading-relaxed border border-border/40">
                 {JSON.stringify(SAMPLE_WEBHOOK_PAYLOAD, null, 2)}
               </pre>
             </div>
@@ -216,7 +216,7 @@ export const OrderWebhookDocsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 </div>
 
                 {codeLang === "node" && (
-                  <pre className="p-3.5 rounded-xl bg-zinc-950 text-zinc-100 font-mono text-[11px] overflow-x-auto select-all leading-relaxed border border-border/40">
+                  <pre className="p-3.5 rounded-xl bg-muted text-muted-foreground font-mono text-[11px] overflow-x-auto select-all leading-relaxed border border-border/40">
 {`const crypto = require('crypto');
 
 function verifyMaxPWebhook(rawBody, signatureHeader, secret) {
@@ -229,7 +229,7 @@ function verifyMaxPWebhook(rawBody, signatureHeader, secret) {
                 )}
 
                 {codeLang === "python" && (
-                  <pre className="p-3.5 rounded-xl bg-zinc-950 text-zinc-100 font-mono text-[11px] overflow-x-auto select-all leading-relaxed border border-border/40">
+                  <pre className="p-3.5 rounded-xl bg-muted text-muted-foreground font-mono text-[11px] overflow-x-auto select-all leading-relaxed border border-border/40">
 {`import hmac
 import hashlib
 
@@ -242,7 +242,7 @@ def verify_maxp_webhook(raw_body_bytes: bytes, signature_header: str, secret: st
                 )}
 
                 {codeLang === "php" && (
-                  <pre className="p-3.5 rounded-xl bg-zinc-950 text-zinc-100 font-mono text-[11px] overflow-x-auto select-all leading-relaxed border border-border/40">
+                  <pre className="p-3.5 rounded-xl bg-muted text-muted-foreground font-mono text-[11px] overflow-x-auto select-all leading-relaxed border border-border/40">
 {`function verifyMaxPWebhook($rawBody, $signatureHeader, $secret) {
     $cleanSecret = str_replace('whsec_', '', $secret);
     $signature = str_replace('sha256=', '', $signatureHeader);

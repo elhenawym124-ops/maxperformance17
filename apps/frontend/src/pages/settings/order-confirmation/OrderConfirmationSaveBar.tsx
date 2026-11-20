@@ -12,7 +12,7 @@ export function OrderConfirmationSaveBar({ saving, onSave }: OrderConfirmationSa
         type="button"
         onClick={onSave}
         disabled={saving}
-        className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold transition-colors disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+        className="px-6 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-semibold transition-colors disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-primary/50"
       >
         {saving ? "جاري الحفظ..." : "حفظ الإعدادات"}
       </button>

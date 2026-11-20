@@ -52,7 +52,7 @@ export const EasyWarehouseSettings: React.FC = () => {
     return (
       <div className="flex items-center justify-center p-12 text-muted-foreground">
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span className="mr-2 text-xs font-medium">جاري تحميل إعدادات المستودع...</span>
+        <span className="me-2 text-xs font-medium">جاري تحميل إعدادات المستودع...</span>
       </div>
     );
   }
@@ -101,7 +101,7 @@ export const EasyWarehouseSettings: React.FC = () => {
               {enabled ? "مفعل تلقائياً" : "معطل"}
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded font-mono ${
-              enabled ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
+              enabled ? "bg-emerald-500/10 text-success dark:text-success" : "bg-muted text-muted-foreground"
             }`}>
               {enabled ? "Auto-Import" : "Manual Only"}
             </span>
@@ -149,7 +149,7 @@ export const EasyWarehouseSettings: React.FC = () => {
                 Instant SKU Creation
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-8">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-8">
               عند تفعيل هذا الخيار، إذا ورد أي طلب يحتوي على منتج جديد غير مسجل مسبقاً في كتالوج المنتجات، يقوم النظام بإنشاء صنف جديد تلقائياً بالاسم والسعر المحدد في الطلب، دون تعطيل مسار البيع.
             </p>
           </div>
@@ -172,7 +172,7 @@ export const EasyWarehouseSettings: React.FC = () => {
             <Info className="w-4 h-4 text-primary" />
             <span>كيف يعمل وضع المستودع السهل في المتجر والمخزن؟</span>
           </div>
-          <ul className="space-y-1.5 list-disc list-inside pr-1 leading-relaxed">
+          <ul className="space-y-1.5 list-disc list-inside pe-1 leading-relaxed">
             <li>يمنع فشل أو رفض الطلبات الخارجية والواردة عبر الـ Webhook أو ملفات Excel حتى لو لم تكن المنتجات مضافة بالكتالوج.</li>
             <li>يتم توليد رمز تسلسلي فريد (SKU) لكل منتج جديد مستورد تلقائياً لتسهيل جرد المخزون لاحقاً.</li>
             <li>يمكن لمدير المتجر تعديل تكلفة المنتج، صوره، ومخزونه في أي وقت لاحق من شاشة كتالوج المنتجات.</li>

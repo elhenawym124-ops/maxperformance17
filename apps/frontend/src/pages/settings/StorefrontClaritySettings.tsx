@@ -36,7 +36,7 @@ const StorefrontClaritySettings: React.FC = () => {
         aria-label={t('clarity.loading', 'جاري التحميل')}
       >
         <div
-          className="h-8 w-8 motion-safe:animate-spin rounded-full border-2 border-gray-200 border-t-indigo-600"
+          className="h-8 w-8 motion-safe:animate-spin rounded-full border-2 border-border border-t-indigo-600"
           aria-hidden="true"
         />
       </div>

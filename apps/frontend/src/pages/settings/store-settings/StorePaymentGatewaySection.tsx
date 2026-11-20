@@ -12,9 +12,9 @@ import {
 } from "./StoreKashierCredentialsCard";
 
 const PAYMENT_CARD_CLS =
-  "bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 space-y-5 shadow-sm";
+  "bg-card/80 rounded-xl border border-border dark:border-border p-6 space-y-5 shadow-sm";
 const PAYMENT_PRIMARY_BTN_CLS =
-  "inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm shadow-indigo-600/20";
+  "inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-primary text-white hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm shadow-primary/20";
 
 interface StorePaymentGatewaySectionProps {
   settings: StorefrontSettings;
@@ -270,39 +270,39 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+            <h3 className="text-2xl font-bold text-foreground tracking-tight">
               إعدادات بوابة الدفع - Kashier
             </h3>
             <span
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
                 connectionStatus === "connected"
-                  ? "bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
+                  ? "bg-green-50 text-success border-success dark:bg-success/20 dark:text-success dark:border-success"
                   : connectionStatus === "testing"
-                  ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:text-amber-400 dark:border-amber-800"
-                  : "bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800"
+                  ? "bg-amber-50 text-warning border-warning dark:bg-warning/20 dark:text-warning dark:border-warning"
+                  : "bg-red-50 text-destructive border-destructive dark:bg-destructive/20 dark:text-destructive dark:border-destructive"
               }`}
             >
               {connectionStatus === "connected" && (
                 <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
                   متصل
                 </>
               )}
               {connectionStatus === "testing" && (
                 <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse"></span>
                   جاري الاختبار...
                 </>
               )}
               {connectionStatus === "disconnected" && (
                 <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-destructive"></span>
                   غير متصل
                 </>
               )}
             </span>
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">
+          <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
             أدخل مفاتيح Kashier لتفعيل الدفع بالبطاقات في متجرك.
           </p>
         </div>
@@ -311,7 +311,7 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
             <button
               onClick={testConnection}
               disabled={connectionStatus === "testing" || loading}
-              className="px-4 py-2 rounded-xl text-sm font-medium bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 shadow-sm dark:bg-gray-800 dark:text-indigo-400 dark:border-indigo-700 dark:hover:bg-gray-700 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 rounded-xl text-sm font-medium bg-white text-primary border border-primary hover:bg-primary/10 shadow-sm dark:bg-muted dark:text-primary dark:border-primary dark:hover:bg-muted disabled:opacity-50 transition-colors"
             >
               {connectionStatus === "testing"
                 ? "جاري الاختبار..."
@@ -322,12 +322,12 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
       </div>
 
       {/* COD Toggle Card */}
-      <div className="flex flex-col gap-3 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 dark:border-indigo-800/50 dark:bg-indigo-950/20 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-xl border border-primary bg-primary/60 p-4 dark:border-primary/50 dark:bg-primary/20 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-semibold text-gray-900 dark:text-white">
+          <p className="text-sm font-semibold text-foreground">
             تفعيل الدفع عند الاستلام (كاش)
           </p>
-          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-xs text-muted-foreground">
             إظهار خيار «الدفع نقدًا عند الاستلام» للعملاء أثناء إتمام الطلب في المتجر.
           </p>
         </div>
@@ -338,15 +338,15 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
           aria-pressed={enabledMethods.includes("cod")}
           className={`inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all select-none disabled:opacity-60 ${
             enabledMethods.includes("cod")
-              ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 shadow-sm shadow-emerald-600/10"
-              : "border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-500 dark:hover:bg-gray-700/40"
+              ? "border-emerald-500 bg-success/10 dark:bg-success/30 text-success dark:text-success shadow-sm shadow-success/10"
+              : "border-border text-muted-foreground hover:border-border hover:bg-muted dark:hover:border-border dark:hover:bg-muted"
           }`}
         >
           <span
             className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
               enabledMethods.includes("cod")
                 ? "bg-emerald-500"
-                : "bg-gray-300 dark:bg-gray-600"
+                : "bg-gray-300 dark:bg-muted"
             }`}
           >
             <span
@@ -361,7 +361,7 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
           <span
             className={`text-xs font-bold ${
               enabledMethods.includes("cod")
-                ? "text-emerald-600 dark:text-emerald-400"
+                ? "text-emerald-600 dark:text-success"
                 : "text-gray-400"
             }`}
           >
@@ -378,10 +378,10 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
         <div
           className={`flex items-center gap-2 text-sm ${
             connectionStatus === "connected"
-              ? "text-green-600 dark:text-green-400"
+              ? "text-green-600 dark:text-success"
               : connectionStatus === "disconnected"
-              ? "text-red-600 dark:text-red-400"
-              : "text-amber-600 dark:text-amber-400"
+              ? "text-red-600 dark:text-destructive"
+              : "text-amber-600 dark:text-warning"
           }`}
         >
           {connectionStatus === "connected" ? (
@@ -406,10 +406,10 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
       {/* Enabled Card Payment Method */}
       <div className={PAYMENT_CARD_CLS}>
         <div>
-          <h4 className="text-base font-semibold text-gray-900 dark:text-white">
+          <h4 className="text-base font-semibold text-foreground">
             طرق الدفع المفعّلة
           </h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             حدد الطرق التي ستظهر للعملاء أثناء إتمام الطلب.
           </p>
         </div>
@@ -426,13 +426,13 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
                 aria-pressed={isOn}
                 className={`inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all select-none disabled:opacity-60 ${
                   isOn
-                    ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 shadow-sm shadow-emerald-600/10"
-                    : "border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-500 dark:hover:bg-gray-700/40"
+                    ? "border-emerald-500 bg-success/10 dark:bg-success/30 text-success dark:text-success shadow-sm shadow-success/10"
+                    : "border-border text-muted-foreground hover:border-border hover:bg-muted dark:hover:border-border dark:hover:bg-muted"
                 }`}
               >
                 <span
                   className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                    isOn ? "bg-emerald-500" : "bg-gray-300 dark:bg-gray-600"
+                    isOn ? "bg-emerald-500" : "bg-gray-300 dark:bg-muted"
                   }`}
                 >
                   <span
@@ -445,7 +445,7 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
                 <span
                   className={`text-xs font-bold ${
                     isOn
-                      ? "text-emerald-600 dark:text-emerald-400"
+                      ? "text-emerald-600 dark:text-success"
                       : "text-gray-400"
                   }`}
                 >
@@ -459,7 +459,7 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
             );
           })}
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+        <p className="text-xs text-muted-foreground">
           اختر طرق الدفع التي تريد إظهارها للعملاء.
         </p>
       </div>
@@ -469,7 +469,7 @@ export const StorePaymentGatewaySection: React.FC<StorePaymentGatewaySectionProp
           <button
             type="button"
             onClick={() => setIsEditing(false)}
-            className="px-6 py-2.5 rounded-xl text-sm font-semibold bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors"
+            className="px-6 py-2.5 rounded-xl text-sm font-semibold bg-white text-foreground border border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border dark:hover:bg-muted transition-colors"
           >
             إلغاء
           </button>

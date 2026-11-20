@@ -155,7 +155,7 @@ export const OrderNumberingSettings: React.FC = () => {
             </span>
             <span className={`text-[10px] font-medium px-1.5 py-0.2 rounded border ${
               settings.enableSequentialOrders
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                 : "bg-muted text-muted-foreground border-border/60"
             }`}>
               {settings.enableSequentialOrders ? "Sequential" : "Random"}
@@ -179,7 +179,7 @@ export const OrderNumberingSettings: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-lg p-3">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>الرقم القادم في العداد</span>
-            <Hash className="w-3.5 h-3.5 text-amber-500" />
+            <Hash className="w-3.5 h-3.5 text-warning" />
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-sm font-bold font-mono text-foreground tabular-nums">
@@ -206,7 +206,7 @@ export const OrderNumberingSettings: React.FC = () => {
                 Auto Sequence
               </span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed pr-7">
+            <p className="text-xs text-muted-foreground leading-relaxed pe-7">
               توليد أرقام متتالية سهلة الحفظ والمتابعة (مثل: ORD-1001) بدلاً من الأكواد العشوائية الطويلة لتسهيل خدمة العملاء.
             </p>
           </div>
@@ -308,13 +308,13 @@ export const OrderNumberingSettings: React.FC = () => {
               onClick={() => setApplyToPastOrders(true)}
               className={`flex items-start gap-2.5 p-3 rounded-lg border text-right transition-all cursor-pointer active:scale-[0.98] ${
                 applyToPastOrders
-                  ? "border-amber-500 bg-amber-500/10 text-foreground font-medium shadow-2xs"
+                  ? "border-amber-500 bg-warning/10 text-foreground font-medium shadow-2xs"
                   : "border-border/70 bg-card text-muted-foreground hover:bg-muted/40 hover:text-foreground"
               }`}
             >
               <div className="space-y-0.5 min-w-0">
                 <span className="text-xs font-semibold text-foreground block">تحديث كافة الطلبات السابقة</span>
-                <span className="text-[11px] text-amber-700 dark:text-amber-300 block leading-relaxed">
+                <span className="text-[11px] text-warning dark:text-warning block leading-relaxed">
                   تنبيه: سيتم استبدال أرقام جميع الطلبات السابقة في النظام لتتوافق مع البادئة والترقيم الجديد.
                 </span>
               </div>

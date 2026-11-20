@@ -26,15 +26,15 @@ export const LoyaltyMapKpiCards: React.FC<LoyaltyMapKpiCardsProps> = ({
         {kpiCards.map((k) => (
           <div
             key={k.label}
-            className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+            className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted"
           >
             <div
               className={`mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg ${k.tone}`}
             >
               <k.icon className="h-5 w-5" />
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{k.label}</p>
-            <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-gray-900 dark:text-white">
+            <p className="text-sm text-muted-foreground">{k.label}</p>
+            <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-foreground">
               {k.value}
             </p>
           </div>
@@ -42,13 +42,13 @@ export const LoyaltyMapKpiCards: React.FC<LoyaltyMapKpiCardsProps> = ({
       </div>
 
       {cashbackConflict && (
-        <div className="flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-900/20">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+        <div className="flex items-start gap-3 rounded-xl border border-warning bg-warning/10 p-4 dark:border-warning dark:bg-warning/20">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-warning" />
           <div className="text-sm">
-            <p className="font-bold text-amber-800 dark:text-amber-200">
+            <p className="font-bold text-warning dark:text-warning">
               تناقض مؤكد في بيانات الكاش باك
             </p>
-            <p className="mt-1 text-amber-700 dark:text-amber-300">
+            <p className="mt-1 text-warning dark:text-warning">
               إجمالي الكاش باك <span className="font-mono tabular-nums">{fmt(totalCashback)}</span> ج.م، لكن صفحة «أداء البرامج التفصيلي»
               تعرض 0 (0 مشترك / 0 نقطة / 0 تحويل كاش باك). عُرض على عقدة «تحليلات الولاء»
               بحالة متضاربة لحين مراجعة المصدرين.

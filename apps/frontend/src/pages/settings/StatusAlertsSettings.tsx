@@ -513,7 +513,7 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
           {savedNotice && (
             <span
               data-testid="status-alert-saved-badge"
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-success/10 text-success dark:text-success border border-success/20"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               {savedNotice}
@@ -563,7 +563,7 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
             <span
               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border ${
                 testResult.inApp
-                  ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                  ? "bg-emerald-500/10 text-success border-success/20"
                   : "bg-muted text-muted-foreground border-border"
               }`}
             >
@@ -572,8 +572,8 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
             <span
               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border ${
                 testResult.whatsapp?.success
-                  ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20"
+                  ? "bg-emerald-500/10 text-success border-success/20"
+                  : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
               }`}
             >
               واتساب:{" "}
@@ -585,8 +585,8 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
               <span
                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border ${
                   testResult.telegram.success
-                    ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20"
+                    ? "bg-emerald-500/10 text-success border-success/20"
+                    : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                 }`}
               >
                 تيليجرام:{" "}
@@ -742,8 +742,8 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
                   <span
                     className={`text-[10px] px-1.5 py-0.5 rounded border ${
                       channelStatus.whatsapp.available
-                        ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
-                        : "bg-amber-500/10 text-amber-700 border-amber-500/20"
+                        ? "bg-emerald-500/10 text-success border-success/20"
+                        : "bg-amber-500/10 text-warning border-warning/20"
                     }`}
                   >
                     {channelStatus.whatsapp.available ? "متصل" : "غير متصل"}
@@ -774,7 +774,7 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
                   <span
                     className={`text-[10px] px-1.5 py-0.5 rounded border ${
                       channelStatus.telegram.available
-                        ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                        ? "bg-emerald-500/10 text-success border-success/20"
                         : "bg-muted text-muted-foreground border-border"
                     }`}
                   >
@@ -966,7 +966,7 @@ export const StatusAlertsSettings: React.FC<StatusAlertsSettingsProps> = ({
             </div>
           ) : (
             <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+              <AlertTriangle className="w-3.5 h-3.5 text-warning" />
               <span>
                 لا توجد أرقام يدوية مضافة — سيتم الإرسال لأرقام المالك والأدوار المختارة تلقائياً
               </span>

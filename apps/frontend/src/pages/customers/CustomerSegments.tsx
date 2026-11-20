@@ -71,7 +71,7 @@ export const CustomerSegments: React.FC = () => {
         <CustomerSegmentsHeader onRefresh={() => void fetchAll()} />
         <CustomerSegmentsNav activeTab={activeTab} onTabChange={setActiveTab} />
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600" />
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
         </div>
       </div>
     );

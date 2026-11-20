@@ -246,7 +246,7 @@ const CustomerCreate: React.FC = () => {
       )}
 
       {successMessage && (
-        <div className="flex items-center gap-2.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-medium text-emerald-500">
+        <div className="flex items-center gap-2.5 rounded-lg border border-success/30 bg-success/10 p-4 text-xs font-medium text-success">
           <CheckCircle2 className="h-4 w-4 shrink-0" />
           <span>{successMessage}</span>
         </div>
@@ -334,14 +334,14 @@ const CustomerCreate: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-border/60 pb-3">
             <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-emerald-500" />
+              <Phone className="h-4 w-4 text-success" />
               <h3 className="text-xs font-semibold text-foreground">بيانات الاتصال وأرقام الواتساب والهاتف</h3>
             </div>
             {formData.phone && !formData.whatsappPhone && (
               <button
                 type="button"
                 onClick={copyPhoneToWhatsApp}
-                className="inline-flex items-center gap-1 text-[11px] text-emerald-600 hover:text-emerald-500 font-medium bg-emerald-500/10 px-2.5 py-1 rounded-md transition-colors"
+                className="inline-flex items-center gap-1 text-[11px] text-success hover:text-success font-medium bg-success/10 px-2.5 py-1 rounded-md transition-colors"
               >
                 <Copy className="h-3 w-3" />
                 <span>نسخ رقم الهاتف إلى الواتساب</span>
@@ -370,7 +370,7 @@ const CustomerCreate: React.FC = () => {
             {/* WhatsApp Phone */}
             <div>
               <label className="mb-1.5 block text-xs text-muted-foreground font-medium flex items-center justify-between">
-                <span className="flex items-center gap-1 text-emerald-600 font-semibold">
+                <span className="flex items-center gap-1 text-success font-semibold">
                   <MessageCircle className="h-3.5 w-3.5" />
                   رقم الواتساب (WhatsApp)
                 </span>
@@ -379,7 +379,7 @@ const CustomerCreate: React.FC = () => {
                     href={`https://wa.me/${formData.whatsappPhone.replace(/[^0-9]/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] text-emerald-600 hover:underline flex items-center gap-0.5"
+                    className="text-[10px] text-success hover:underline flex items-center gap-0.5"
                   >
                     <span>تجربة واتساب</span>
                     <ExternalLink className="h-2.5 w-2.5" />
@@ -394,7 +394,7 @@ const CustomerCreate: React.FC = () => {
                   onChange={handleChange}
                   placeholder="01xxxxxxxxx"
                   dir="ltr"
-                  className="w-full rounded-lg border border-emerald-500/40 bg-background px-3.5 py-2 font-mono text-xs text-foreground placeholder:text-muted-foreground focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 text-right"
+                  className="w-full rounded-lg border border-success/40 bg-background px-3.5 py-2 font-mono text-xs text-foreground placeholder:text-muted-foreground focus:border-success focus:outline-none focus:ring-1 focus:ring-success text-right"
                 />
               </div>
             </div>
@@ -475,7 +475,7 @@ const CustomerCreate: React.FC = () => {
                     data-1p-ignore="true"
                     minLength={6}
                     placeholder="أدخل كلمة مرور العميل (6 أحرف على الأقل)"
-                    className="w-full rounded-lg border border-border/70 bg-background px-3.5 py-2 pl-10 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-border/70 bg-background px-3.5 py-2 ps-10 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                   />
                   <button
                     type="button"
@@ -493,7 +493,7 @@ const CustomerCreate: React.FC = () => {
         {/* Section 3: Customer Status, Stage & Pipeline */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 border-b border-border/60 pb-3">
-            <Target className="h-4 w-4 text-purple-500" />
+            <Target className="h-4 w-4 text-primary" />
             <h3 className="text-xs font-semibold text-foreground">حالة العميل، مرحلة المتابعة والمسار البيعي</h3>
           </div>
 
@@ -521,7 +521,7 @@ const CustomerCreate: React.FC = () => {
                 name="leadStage"
                 value={formData.leadStage}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-purple-500/40 bg-background px-3 py-2 text-xs text-foreground focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 font-medium"
+                className="w-full rounded-lg border border-primary/40 bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary font-medium"
               >
                 <option value="NEW_LEAD">عميل محتمل جديد (New Lead)</option>
                 <option value="CONTACTED">تم التواصل المبدئي (Contacted)</option>
@@ -538,7 +538,7 @@ const CustomerCreate: React.FC = () => {
             {/* Lead Priority / Temperature */}
             <div>
               <label className="mb-1.5 block text-xs text-muted-foreground font-medium flex items-center gap-1">
-                <Flame className="h-3.5 w-3.5 text-amber-500" />
+                <Flame className="h-3.5 w-3.5 text-warning" />
                 درجة حرارة واهتمام العميل
               </label>
               <select
@@ -606,7 +606,7 @@ const CustomerCreate: React.FC = () => {
         {/* Section 4: Customer Inquiries, Interests & Work Details */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 border-b border-border/60 pb-3">
-            <HelpCircle className="h-4 w-4 text-amber-500" />
+            <HelpCircle className="h-4 w-4 text-warning" />
             <h3 className="text-xs font-semibold text-foreground">
               اهتمامات العميل وكل ما سأل عنه بخصوص الشغل والخدمات
             </h3>
@@ -628,7 +628,7 @@ const CustomerCreate: React.FC = () => {
               />
               <div className="mt-2 flex flex-wrap gap-1.5">
                 <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                  <Sparkles className="h-3 w-3 text-amber-500" />
+                  <Sparkles className="h-3 w-3 text-warning" />
                   اقتراحات سريعة:
                 </span>
                 {INTEREST_SUGGESTIONS.map((item, idx) => (
@@ -647,7 +647,7 @@ const CustomerCreate: React.FC = () => {
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1.5 block text-xs text-muted-foreground font-medium flex items-center gap-1">
-                  <DollarSign className="h-3.5 w-3.5 text-emerald-500" />
+                  <DollarSign className="h-3.5 w-3.5 text-success" />
                   الميزانية التقريبية المتوقعة أو حجم الطلب
                 </label>
                 <input
@@ -735,7 +735,7 @@ const CustomerCreate: React.FC = () => {
         {/* Section 6: Address & General Notes */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 border-b border-border/60 pb-3">
-            <MapPin className="h-4 w-4 text-zinc-500" />
+            <MapPin className="h-4 w-4 text-muted-foreground" />
             <h3 className="text-xs font-semibold text-foreground">العنوان والملاحظات العامة</h3>
           </div>
 

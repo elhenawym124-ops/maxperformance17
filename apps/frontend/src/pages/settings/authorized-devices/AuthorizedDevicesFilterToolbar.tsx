@@ -30,7 +30,7 @@ export const AuthorizedDevicesFilterToolbar: React.FC<AuthorizedDevicesFilterToo
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="بحث بالموظف أو اسم الجهاز أو البصمة…"
-          className="pr-9 h-9 text-xs"
+          className="pe-9 h-9 text-xs"
         />
       </div>
 

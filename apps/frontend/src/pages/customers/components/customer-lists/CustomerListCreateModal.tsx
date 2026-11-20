@@ -189,7 +189,7 @@ export const CustomerListCreateModal: React.FC<CustomerListCreateModalProps> = (
           )}
 
           {/* Live count preview */}
-          <div className="flex items-center justify-between rounded-2xl border border-[color:color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] px-4 py-3">
+          <div className="flex items-center justify-between rounded-xl border border-[color:color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] px-4 py-3">
             <div className="flex items-center gap-2">
               <Users className="size-4 text-[color:var(--color-primary)]" />
               <span className="text-sm font-medium text-[color:var(--color-foreground)]">عدد العملاء المتوقع</span>

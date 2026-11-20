@@ -29,7 +29,7 @@ export function StatusCard({
   onToggleAllowEdit,
 }: StatusCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700/80 p-4 shadow-xs hover:shadow-sm transition-shadow">
+    <div className="bg-card rounded-xl border border-border dark:border-border p-4 shadow-xs hover:shadow-sm transition-shadow">
       {isEditing && editingStatus ? (
         <StatusCardEdit
           editingStatus={editingStatus}

@@ -22,10 +22,10 @@ export function OrderConfirmationDistributionSection({
       {/* Distribution Toggle Switch */}
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-base font-bold text-foreground dark:text-white">
             تفعيل التوزيع التلقائي
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground">
             عند التفعيل سيتم توزيع الطلبات المؤكدة تلقائياً على أعضاء الفريق المؤهلين.
           </p>
         </div>
@@ -35,8 +35,8 @@ export function OrderConfirmationDistributionSection({
           aria-checked={distributionEnabled}
           aria-label="تفعيل التوزيع التلقائي"
           onClick={onToggleDistributionEnabled}
-          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2 ${
-            distributionEnabled ? "bg-indigo-600" : "bg-slate-300 dark:bg-slate-700"
+          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 ${
+            distributionEnabled ? "bg-indigo-600" : "bg-slate-300 dark:bg-muted"
           }`}
         >
           <span
@@ -52,13 +52,13 @@ export function OrderConfirmationDistributionSection({
       {/* Strategy and Roles */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-900 dark:text-slate-200">
+          <label className="block text-xs font-bold text-foreground dark:text-muted-foreground">
             طريقة التوزيع
           </label>
           <select
             value={distributionStrategy}
             onChange={(e) => onChangeStrategy(e.target.value)}
-            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 transition focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="w-full rounded-xl border border-border bg-white px-3 py-2 text-xs text-foreground transition focus:border-primary focus:outline-none dark:border-border dark:bg-muted dark:text-white"
           >
             <option value="round_robin">توزيع متساوي (Round Robin)</option>
             <option value="by_region">حسب المنطقة</option>
@@ -69,20 +69,20 @@ export function OrderConfirmationDistributionSection({
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-900 dark:text-slate-200">
+          <label className="block text-xs font-bold text-foreground dark:text-muted-foreground">
             الأدوار المسموحة بالتوزيع
           </label>
           <div className="flex flex-wrap gap-2 pt-1">
             {ROLE_OPTIONS.map((role) => (
               <label
                 key={role.value}
-                className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200/80 bg-slate-50/50 px-3 py-1.5 text-xs font-medium text-slate-800 transition hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-200 dark:hover:bg-slate-800"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               >
                 <input
                   type="checkbox"
                   checked={eligibleRoles.includes(role.value)}
                   onChange={() => onToggleRole(role.value)}
-                  className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                  className="rounded border-border text-primary focus:ring-primary"
                 />
                 <span>{role.label}</span>
               </label>

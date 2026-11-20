@@ -59,7 +59,7 @@ export default function MetaTemplatesModal({ open, onClose, onPick, title }: Pro
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
             <div
-                className="max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-3xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-background)] shadow-2xl"
+                className="max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-background)] shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex items-center justify-between border-b border-[color:var(--shell-control-border)] p-4">
@@ -77,27 +77,27 @@ export default function MetaTemplatesModal({ open, onClose, onPick, title }: Pro
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="ابحث بالاسم أو نوع الحدث..."
-                        className="mb-3 w-full rounded-xl border border-[color:var(--shell-control-border)] bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500/40"
+                        className="mb-3 w-full rounded-xl border border-[color:var(--shell-control-border)] bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-success/40"
                     />
                     {loading ? (
                         <div className="flex justify-center py-10">
-                            <span className="size-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+                            <span className="size-8 animate-spin rounded-full border-2 border-success border-t-transparent" />
                         </div>
                     ) : error ? (
-                        <p className="py-8 text-center text-sm text-red-500">{error}</p>
+                        <p className="py-8 text-center text-sm text-destructive">{error}</p>
                     ) : filtered.length === 0 ? (
                         <p className="py-8 text-center text-sm text-[color:var(--color-muted-foreground)]">لا توجد قوالب ميتا معتمدة بعد</p>
                     ) : (
-                        <div className="max-h-[50vh] space-y-2 overflow-y-auto pl-1">
+                        <div className="max-h-[50vh] space-y-2 overflow-y-auto ps-1">
                             {filtered.map((t) => (
                                 <button
                                     key={t.id}
                                     onClick={() => { onPick(t.content || '', t); onClose(); }}
-                                    className="w-full rounded-2xl border border-[color:var(--shell-control-border)] p-3 text-right transition-colors hover:border-emerald-500/60 hover:bg-emerald-500/5"
+                                    className="w-full rounded-xl border border-[color:var(--shell-control-border)] p-3 text-right transition-colors hover:border-success/60 hover:bg-success/5"
                                 >
                                     <div className="flex items-center justify-between gap-2">
                                         <span className="font-bold">{t.name || t.metaTemplateName}</span>
-                                        <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-600">
+                                        <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold text-success">
                                             ✓ معتمد
                                         </span>
                                     </div>

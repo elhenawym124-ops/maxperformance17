@@ -3,7 +3,7 @@ import PromotionSettings from "../PromotionSettings";
 
 export const StorePromotionTab: React.FC = () => {
   return (
-    <div className="bg-gray-50/50 dark:bg-gray-900/30 rounded-2xl p-6 border border-gray-100 dark:border-gray-800">
+    <div className="bg-gray-50/50 dark:bg-muted rounded-xl p-6 border border-border dark:border-border">
       <PromotionSettings />
     </div>
   );

@@ -207,11 +207,11 @@ const ProductOffersRedesign: React.FC = () => {
       <Tabs defaultValue="compose" className="space-y-5">
         <TabsList className="rounded-full p-1">
           <TabsTrigger value="compose" className="rounded-full">
-            <Send className="ml-1 h-4 w-4" />
+            <Send className="ms-1 h-4 w-4" />
             إنشاء عرض
           </TabsTrigger>
           <TabsTrigger value="stats" className="rounded-full">
-            <BarChart3 className="ml-1 h-4 w-4" />
+            <BarChart3 className="ms-1 h-4 w-4" />
             التقارير
           </TabsTrigger>
         </TabsList>
@@ -231,14 +231,14 @@ const ProductOffersRedesign: React.FC = () => {
                 <CardContent className="space-y-3">
                   <div className="relative">
                     <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[color:var(--color-muted-foreground)]" />
-                    <Input value={productSearch} onChange={(e) => { setProductSearch(e.target.value); loadProducts(e.target.value); }} placeholder="ابحثي بالاسم…" className="rounded-xl pr-9" />
+                    <Input value={productSearch} onChange={(e) => { setProductSearch(e.target.value); loadProducts(e.target.value); }} placeholder="ابحثي بالاسم…" className="rounded-xl pe-9" />
                   </div>
                   {productsLoading ? (
                     <div className="space-y-2">{[...Array(3)].map((_, i) => <Skeleton key={i} className="h-14 rounded-xl" />)}</div>
                   ) : filteredProducts.length === 0 ? (
                     <p className="py-6 text-center text-sm text-[color:var(--color-muted-foreground)]">مفيش منتجات مطابقة</p>
                   ) : (
-                    <div className="max-h-64 space-y-1.5 overflow-y-auto pr-1">
+                    <div className="max-h-64 space-y-1.5 overflow-y-auto pe-1">
                       {filteredProducts.slice(0, 30).map((p) => (
                         <button
                           key={p.id}
@@ -278,7 +278,7 @@ const ProductOffersRedesign: React.FC = () => {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex justify-end">
-                    <Button type="button" variant="outline" size="sm" onClick={() => setMetaModalOpen(true)} className="rounded-full border-emerald-300 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300">
+                    <Button type="button" variant="outline" size="sm" onClick={() => setMetaModalOpen(true)} className="rounded-full border-success text-success hover:bg-success/10 dark:border-success dark:text-success">
                       <LayoutTemplate className="h-3.5 w-3.5" />
                       اختيار قالب ميتا
                     </Button>
@@ -383,7 +383,7 @@ const ProductOffersRedesign: React.FC = () => {
                         </SelectContent>
                       </Select>
                     ) : (
-                      <p className="rounded-xl bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+                      <p className="rounded-xl bg-warning/10 px-3 py-2 text-xs text-warning dark:text-warning">
                         مفيش جلسة متصلة — الإرسال هيشتغل بقناة Meta لو متاحة
                       </p>
                     )}

@@ -40,17 +40,17 @@ export const StorePagesMetrics: React.FC<StorePagesMetricsProps> = ({
 
         <div className="rounded-lg border border-border/40 bg-background/60 p-2.5 shadow-xs">
           <div className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-            <Eye className="size-3.5 text-emerald-500" />
+            <Eye className="size-3.5 text-success" />
             <span>الصفحات النشطة</span>
           </div>
-          <div className="mt-1 text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <div className="mt-1 text-lg font-bold font-mono tabular-nums text-success dark:text-success">
             {metrics.active}
           </div>
         </div>
 
         <div className="rounded-lg border border-border/40 bg-background/60 p-2.5 shadow-xs">
           <div className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-            <LayoutTemplate className="size-3.5 text-indigo-500" />
+            <LayoutTemplate className="size-3.5 text-primary" />
             <span>ظاهرة في الفوتر</span>
           </div>
           <div className="mt-1 text-lg font-bold font-mono tabular-nums text-foreground">
@@ -60,7 +60,7 @@ export const StorePagesMetrics: React.FC<StorePagesMetricsProps> = ({
 
         <div className="rounded-lg border border-border/40 bg-background/60 p-2.5 shadow-xs">
           <div className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-            <Menu className="size-3.5 text-amber-500" />
+            <Menu className="size-3.5 text-warning" />
             <span>ظاهرة في القائمة</span>
           </div>
           <div className="mt-1 text-lg font-bold font-mono tabular-nums text-foreground">
@@ -77,7 +77,7 @@ export const StorePagesMetrics: React.FC<StorePagesMetricsProps> = ({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="بحث بالاسم أو الرابط..."
-            className="w-full rounded-lg border border-border/50 bg-background py-1.5 pl-9 pr-3 text-xs md:text-sm text-foreground outline-none transition focus:border-primary/50 focus:ring-1 focus:ring-primary/20 rtl:pl-3 rtl:pr-9"
+            className="w-full rounded-lg border border-border/50 bg-background py-1.5 ps-9 pe-3 text-xs md:text-sm text-foreground outline-none transition focus:border-primary/50 focus:ring-1 focus:ring-primary/20 rtl:ps-3 rtl:pe-9"
           />
         </div>
 

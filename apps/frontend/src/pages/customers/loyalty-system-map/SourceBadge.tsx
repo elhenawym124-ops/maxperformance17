@@ -13,7 +13,7 @@ export const SourceBadge: React.FC<SourceBadgeProps> = ({ source }) => {
   if (source.key === "meta") {
     return (
       <span
-        className={`${base} bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300`}
+        className={`${base} bg-info text-info dark:bg-info/40 dark:text-info`}
         title={normalizeDigits(source.desc)}
       >
         <Cloud className="h-3 w-3" />
@@ -24,7 +24,7 @@ export const SourceBadge: React.FC<SourceBadgeProps> = ({ source }) => {
   if (source.key === "wa") {
     return (
       <span
-        className={`${base} bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300`}
+        className={`${base} bg-success text-success dark:bg-success/40 dark:text-success`}
         title={normalizeDigits(source.desc)}
       >
         <Smartphone className="h-3 w-3" />
@@ -34,7 +34,7 @@ export const SourceBadge: React.FC<SourceBadgeProps> = ({ source }) => {
   }
   return (
     <span
-      className={`${base} bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-300`}
+      className={`${base} bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground`}
       title={normalizeDigits(source.desc)}
     >
       <HelpCircle className="h-3 w-3" />

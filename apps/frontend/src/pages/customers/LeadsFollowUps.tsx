@@ -40,15 +40,15 @@ const STAGE_LABELS: Record<string, string> = {
 const PRIORITY_STYLES: Record<string, { label: string; cls: string }> = {
   HOT: {
     label: "ساخن",
-    cls: "bg-red-100 text-red-700 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20",
+    cls: "bg-red-100 text-destructive border-destructive dark:bg-destructive/10 dark:text-destructive dark:border-destructive/20",
   },
   WARM: {
     label: "دافئ",
-    cls: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20",
+    cls: "bg-amber-100 text-warning border-warning dark:bg-warning/10 dark:text-warning dark:border-warning/20",
   },
   COLD: {
     label: "بارد",
-    cls: "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-500/10 dark:text-slate-400 dark:border-slate-500/20",
+    cls: "bg-slate-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border",
   },
 };
 
@@ -190,7 +190,7 @@ const LeadsFollowUps: React.FC = () => {
 
       {/* Error state */}
       {error && (
-        <div className="flex items-center justify-between gap-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-2xl px-4 py-3 text-xs font-semibold">
+        <div className="flex items-center justify-between gap-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl px-4 py-3 text-xs font-semibold">
           <span className="flex items-center gap-2">
             <AlertTriangle className="h-4 w-4 shrink-0" />
             {error}
@@ -211,7 +211,7 @@ const LeadsFollowUps: React.FC = () => {
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-border/70 bg-card shadow-2xs p-4 space-y-3 animate-pulse"
+              className="rounded-xl border border-border/70 bg-card shadow-2xs p-4 space-y-3 animate-pulse"
             >
               <div className="h-4 w-1/3 rounded bg-muted/60" />
               <div className="h-3 w-1/4 rounded bg-muted/40" />
@@ -221,7 +221,7 @@ const LeadsFollowUps: React.FC = () => {
         </div>
       ) : leads.length === 0 ? (
         /* Empty state per bucket */
-        <div className="bg-card border border-border/70 rounded-2xl p-12 text-center shadow-2xs">
+        <div className="bg-card border border-border/70 rounded-xl p-12 text-center shadow-2xs">
           <div className="h-12 w-12 rounded-full bg-muted/40 flex items-center justify-center text-muted-foreground mx-auto mb-3">
             <CalendarClock className="h-6 w-6" />
           </div>
@@ -246,7 +246,7 @@ const LeadsFollowUps: React.FC = () => {
             return (
               <div
                 key={lead.id}
-                className="rounded-2xl border border-border/70 bg-card shadow-2xs p-4 flex flex-col gap-3 min-w-0"
+                className="rounded-xl border border-border/70 bg-card shadow-2xs p-4 flex flex-col gap-3 min-w-0"
               >
                 {/* Name + priority */}
                 <div className="flex items-start justify-between gap-2 min-w-0">
@@ -304,7 +304,7 @@ const LeadsFollowUps: React.FC = () => {
                         href={`https://wa.me/${digits}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-1.5 rounded-lg text-muted-foreground hover:text-green-600 hover:bg-green-500/10 transition-colors"
+                        className="p-1.5 rounded-lg text-muted-foreground hover:text-success hover:bg-success/10 transition-colors"
                         title="واتساب"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
@@ -315,7 +315,7 @@ const LeadsFollowUps: React.FC = () => {
                     type="button"
                     onClick={() => handlePostpone(lead)}
                     disabled={postponingId === lead.id}
-                    className="mr-auto inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-card border border-border/70 text-foreground hover:bg-muted/30 transition-all shadow-2xs active:scale-[0.97] disabled:opacity-50"
+                    className="me-auto inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-card border border-border/70 text-foreground hover:bg-muted/30 transition-all shadow-2xs active:scale-[0.97] disabled:opacity-50"
                   >
                     <Clock className={`h-3.5 w-3.5 ${postponingId === lead.id ? "animate-spin" : ""}`} />
                     <span>تأجيل يوم</span>
@@ -337,7 +337,7 @@ const LeadsFollowUps: React.FC = () => {
 
       {/* Inline success toast */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white shadow-lg">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-success text-white shadow-lg">
           {toast}
         </div>
       )}

@@ -193,7 +193,7 @@ export const ScheduledOrderSettings: React.FC = () => {
         <div
           className={`p-2.5 border-b flex items-center gap-2 text-xs font-medium shrink-0 ${
             message.type === "success"
-              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+              ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
               : "bg-destructive/10 text-destructive border-destructive/20"
           }`}
         >

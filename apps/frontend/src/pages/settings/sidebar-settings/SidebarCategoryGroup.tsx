@@ -37,22 +37,22 @@ export const SidebarCategoryGroup = React.memo<SidebarCategoryGroupProps>(
     const CatIcon = CATEGORY_ICONS[category] || Squares2X2Icon;
     const categoryColor =
       CATEGORY_COLORS[category] ||
-      "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 ring-gray-200 dark:ring-gray-700";
+      "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground ring-border dark:ring-border";
     const allSectionsVisible = sections.every(({ section }) => section.visible);
 
     return (
-      <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-900">
-        <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-l from-gray-50/70 to-white px-4 py-3 dark:border-gray-800 dark:from-gray-800/60 dark:to-gray-900">
+      <div className="overflow-hidden rounded-xl border border-border bg-white shadow-xs dark:border-border dark:bg-muted">
+        <div className="flex items-center justify-between border-b border-border bg-gradient-to-l from-gray-50/70 to-white px-4 py-3 dark:border-border dark:from-gray-800/60 dark:to-gray-900">
           <div className="flex items-center gap-2">
             <span className={`rounded-xl p-1.5 ring-1 ${categoryColor}`}>
               <CatIcon className="h-4 w-4" />
             </span>
-            <span className="text-sm font-bold text-gray-900 dark:text-gray-100">
+            <span className="text-sm font-bold text-foreground">
               {t(
                 `sidebar.category${category.charAt(0).toUpperCase()}${category.slice(1)}`
               )}
             </span>
-            <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-mono tabular-nums text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-mono tabular-nums text-foreground dark:bg-muted dark:text-muted-foreground">
               {t("sidebar.sidebarSectionsCount", { count: sections.length })}
             </span>
           </div>
@@ -66,7 +66,7 @@ export const SidebarCategoryGroup = React.memo<SidebarCategoryGroupProps>(
             size="sm"
           />
         </div>
-        <div className="divide-y divide-gray-100 dark:divide-gray-800">
+        <div className="divide-y divide-border dark:divide-border">
           {sections.map(({ sectionId, section }) => {
             const sectionDef = sidebarSections.find(
               (s: SidebarSection) => s.id === sectionId
@@ -80,18 +80,18 @@ export const SidebarCategoryGroup = React.memo<SidebarCategoryGroupProps>(
                 <button
                   type="button"
                   onClick={() => onToggleExpand(sectionId)}
-                  className="flex w-full items-center justify-between px-4 py-2.5 text-right transition hover:bg-gray-50/60 dark:hover:bg-gray-800/40"
+                  className="flex w-full items-center justify-between px-4 py-2.5 text-right transition hover:bg-muted dark:hover:bg-muted"
                 >
                   <div className="flex min-w-0 flex-1 items-center gap-2">
                     <ChevronLeftIcon
-                      className={`h-3.5 w-3.5 shrink-0 text-gray-400 transition-transform duration-200 ${
+                      className={`h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 ${
                         isExpanded ? "" : "-rotate-90"
                       }`}
                     />
-                    <span className="truncate text-sm font-medium text-gray-800 dark:text-gray-200">
+                    <span className="truncate text-sm font-medium text-foreground dark:text-muted-foreground">
                       {sectionTitle}
                     </span>
-                    <span className="shrink-0 rounded-full bg-gray-100 px-1.5 py-0.5 text-[10px] font-mono tabular-nums text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                    <span className="shrink-0 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground dark:bg-muted dark:text-muted-foreground">
                       {entries.length}
                     </span>
                   </div>
@@ -118,7 +118,7 @@ export const SidebarCategoryGroup = React.memo<SidebarCategoryGroupProps>(
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="border-t border-gray-100 dark:border-gray-800">
+                      <div className="border-t border-border dark:border-border">
                         {entries.map(([itemId, item]) => {
                           const itemDef = sectionDef?.items.find(
                             (i: SidebarItem) =>
@@ -127,14 +127,14 @@ export const SidebarCategoryGroup = React.memo<SidebarCategoryGroupProps>(
                           return (
                             <div
                               key={itemId}
-                              className="flex items-center justify-between px-6 py-2 transition hover:bg-gray-50/50 dark:hover:bg-gray-800/20"
+                              className="flex items-center justify-between px-6 py-2 transition hover:bg-muted dark:hover:bg-muted"
                             >
-                              <div className="ml-2 min-w-0 flex-1">
+                              <div className="ms-2 min-w-0 flex-1">
                                 <p
                                   className={`truncate text-xs font-medium ${
                                     item.visible
-                                      ? "text-gray-700 dark:text-gray-300"
-                                      : "text-gray-400 line-through dark:text-gray-500"
+                                      ? "text-foreground"
+                                      : "text-gray-400 line-through dark:text-muted-foreground"
                                   }`}
                                 >
                                   {item.label || itemDef?.label || itemId}

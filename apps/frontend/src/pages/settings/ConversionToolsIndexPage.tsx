@@ -72,7 +72,7 @@ export default function ConversionToolsIndexPage() {
           {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
-              className="h-64 animate-pulse rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
+              className="h-64 animate-pulse rounded-xl border border-border bg-muted dark:border-border dark:bg-muted"
             />
           ))}
         </div>

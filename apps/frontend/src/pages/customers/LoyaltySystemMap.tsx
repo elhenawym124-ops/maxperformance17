@@ -17,8 +17,8 @@ const LoyaltySystemMap: React.FC = () => {
   if (ctrl.loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="flex flex-col items-center gap-3 text-gray-400">
-          <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
+        <div className="flex flex-col items-center gap-3 text-muted-foreground">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <p className="text-sm">جاري تحميل خريطة نظام الولاء...</p>
         </div>
       </div>
@@ -28,16 +28,16 @@ const LoyaltySystemMap: React.FC = () => {
   if (ctrl.loadFailed || !ctrl.data) {
     return (
       <div className="mx-auto max-w-xl py-20 text-center">
-        <AlertTriangle className="mx-auto mb-4 h-10 w-10 text-amber-500" />
-        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+        <AlertTriangle className="mx-auto mb-4 h-10 w-10 text-warning" />
+        <h2 className="text-lg font-bold text-foreground">
           تعذر تحميل بيانات النظام
         </h2>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-muted-foreground">
           حدث خطأ أثناء جلب بيانات الخريطة. أعد المحاولة.
         </p>
         <button
           onClick={ctrl.load}
-          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700"
+          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary"
         >
           <RefreshCw className="h-4 w-4" />
           إعادة المحاولة
