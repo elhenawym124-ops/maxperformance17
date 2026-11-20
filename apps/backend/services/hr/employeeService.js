@@ -1403,7 +1403,7 @@ class EmployeeService {
           this.prisma.employee.count({ where: activeWhere }),
           this.prisma.employee.findMany({
             where: activeWhere,
-            select: { departmentId: true, departmentRelation: { select: { name: true } } },
+            select: { departmentId: true, department: { select: { name: true } } },
           }),
           this.prisma.employee.findMany({
             where: activeWhere,
@@ -1423,8 +1423,8 @@ class EmployeeService {
               email: true,
               avatar: true,
               contractType: true,
-              departmentRelation: { select: { name: true } },
-              positionRelation: { select: { title: true } },
+              department: { select: { name: true } },
+              position: { select: { title: true } },
             },
           }),
           this.prisma.employee.findMany({
@@ -1435,7 +1435,7 @@ class EmployeeService {
 
         const deptMap = new Map();
         byDepartmentRaw.forEach((e) => {
-          const name = e.departmentRelation?.name || 'غير محدد';
+          const name = e.department?.name || 'غير محدد';
           deptMap.set(name, (deptMap.get(name) || 0) + 1);
         });
         const byDepartment = [...deptMap.entries()].map(([name, count]) => ({ name, count }));
