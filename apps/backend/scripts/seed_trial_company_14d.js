@@ -298,6 +298,10 @@ async function main() {
     const emp = existing
       ? await prisma.employee.update({ where: { id: existing.id }, data })
       : await prisma.employee.create({ data: { companyId: company.id, ...data } });
+    // Legacy HR dashboard counters read User.employeeNumber — keep both records in sync.
+    if (userId) {
+      await prisma.user.update({ where: { id: userId }, data: { employeeNumber } }).catch(() => {});
+    }
     employees.push(emp);
   }
   report.push(`OK   HR employees -> ${employees.length}`);

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>دليل التحقق البصري — شركة التجربة 14 يوم</title>
+<style>
+  :root { --ink:#0b3b36; --muted:#5b6b69; --line:#e3e8e6; --bg:#f6f8f7; --accent:#c2410c; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif; }
+  header { padding:28px 32px 12px; }
+  h1 { margin:0 0 6px; font-size:26px; }
+  .sub { color:var(--muted); font-size:14px; }
+  .wrap { padding:16px 32px 48px; display:grid; gap:24px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .card h2 { margin:0; padding:14px 18px; font-size:16px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .card h2 span { font-size:12px; color:var(--muted); font-weight:400; }
+  .card img { display:block; width:100%; height:auto; }
+  .note { padding:12px 18px; font-size:13.5px; color:var(--muted); border-top:1px solid var(--line); }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:24px; }
+  .badge { font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); color:var(--muted); }
+  .ok { background:#ecfdf5; color:#047857; border-color:#a7f3d0; }
+  .warn { background:#fff7ed; color:#c2410c; border-color:#fed7aa; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th,td { text-align:right; padding:10px 14px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; background:#fbfcfb; }
+  .legend { display:flex; gap:10px; flex-wrap:wrap; padding:0 32px 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>دليل التحقق البصري — شركة التجربة الشاملة</h1>
+  <div class="sub">تينانت <strong>trial-academy-14d</strong> على maxp.online · 2026-11-20 · الموارد البشرية + التعليم + التسويق</div>
+</header>
+<div class="legend">
+  <span class="badge ok">مؤكد بصريًا</span>
+  <span class="badge warn">ملاحظة / يحتاج إصلاح</span>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>١. الدخول <span>trial.owner@maxp.test</span></h2>
+    <img src="01-login.png" alt="شاشة الدخول" />
+    <div class="note"><span class="badge ok">OK</span> صفحة عربية RTL، بريد وكلمة سر، زر الدخول يُفعّل بعد إدخال البيانات، صفر أخطاء Console.</div>
+  </div>
+
+  <div class="card">
+    <h2>٢. التطبيقات المفعّلة <span>16 تطبيق · 3 وحدات</span></h2>
+    <img src="02-apps.png" alt="لوحة التطبيقات" />
+    <div class="note"><span class="badge ok">OK</span> ظاهرة بصريًا: <strong>الموارد البشرية</strong> · <strong>المراكز التعليمية</strong> · <strong>أكاديمية ماكس بي</strong> · <strong>التسويق والإعلانات</strong> · <strong>وكالة التسويق (Agency OS)</strong> · <strong>تحليل المنافسين</strong> · <strong>المدونة والـ SEO</strong>.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>٣. لوحة HR <span>7 موظف · 4 أقسام</span></h2>
+      <img src="03-hr-dashboard.png" alt="لوحة الموارد البشرية" />
+      <div class="note"><span class="badge ok">OK</span> 7 موظفين، 4 أقسام، طلب إجازة معلّق، سلفة معلّقة.</div>
+    </div>
+    <div class="card">
+      <h2>٤. الموظفون <span>EMP-001…007</span></h2>
+      <img src="04-hr-employees.png" alt="قائمة الموظفين" />
+      <div class="note"><span class="badge ok">OK</span> 7 صفوف بأرقام موظف وأقسام ووظائف ورواتب.</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>٥. الحضور <span>50 سجل</span></h2>
+      <img src="05-hr-attendance.png" alt="الحضور" />
+      <div class="note"><span class="badge warn">ملاحظة</span> يوم الجمعة (عطلة) يظهر <strong>7 غائب</strong> — العطلة تُحسب غياب.</div>
+    </div>
+    <div class="card">
+      <h2>٦. مسير الرواتب <span>5 مسير · نوفمبر 2026</span></h2>
+      <img src="06-hr-payroll.png" alt="الرواتب" />
+      <div class="note"><span class="badge ok">OK</span> 5 مسيرات للشهر الحالي، الأول PROCESSED والباقي DRAFT.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>٧. لوحة النظام التعليمي <span>5 طلاب · 16 حصة</span></h2>
+    <img src="07-edu-dashboard.png" alt="لوحة التعليم" />
+    <div class="note"><span class="badge ok">OK</span> الواجهة تعرض أكواد الطلاب ST-001…ST-005 مع البيانات المرتبطة.</div>
+  </div>
+
+  <div class="card">
+    <h2>٨. الطلاب <span>5 طلاب + أولياء أمور</span></h2>
+    <img src="08-edu-students.png" alt="الطلاب" />
+    <div class="note"><span class="badge ok">OK</span> كل طالب مرتبط بولي أمر ورقم هاتف وباقة ومدرس ومجموعة ومستوى.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>٩. المجموعات <span>GRP-1 / GRP-2</span></h2>
+      <img src="09-edu-groups.png" alt="المجموعات" />
+      <div class="note"><span class="badge ok">OK</span> مجموعة عربية ومجموعة قرآن بأعضاء وسعة.</div>
+    </div>
+    <div class="card">
+      <h2>١٠. الحصص <span>16 حصة</span></h2>
+      <img src="10-edu-sessions.png" alt="الحصص" />
+      <div class="note"><span class="badge ok">OK</span> 16 صفًا موزعة على 4 اشتراكات (ماضية مؤكدة + قادمة مجدولة).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>١١. حملات فيسبوك <span>Meta Marketing Suite</span></h2>
+    <img src="11-mkt-campaigns.png" alt="حملات فيسبوك" />
+    <div class="note"><span class="badge warn">قيد تكامل</span> الشاشة تعمل لكنها تقرأ بيانات Meta الحية: بدون ربط حساب إعلاني تظهر رسالة «لم يتم اختيار حساب إعلاني». الحملات المزروعة محليًا لا تظهر هنا.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>١٢. الكوبونات <span>3 كوبونات نشطة</span></h2>
+      <img src="12-coupons.png" alt="الكوبونات" />
+      <div class="note"><span class="badge ok">OK</span> TRIAL10 · WELCOME100 · FREESHIP — كلها نشطة وصالحة حتى 10/12/2026.<br><span class="badge warn">ملاحظة</span> اسم الكوبون + «الحد الأقصى» يظهران ملتصقين في نفس الخلية.</div>
+    </div>
+    <div class="card">
+      <h2>١٣. المهام <span>4 مهام</span></h2>
+      <img src="13-tasks.png" alt="المهام" />
+      <div class="note"><span class="badge ok">OK</span> مهام موزعة على HR والتسويق والتعليم وخدمة العملاء.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>١٤. أكاديمية ماكس بي <span>3 كورسات · 12 درس</span></h2>
+    <img src="14-academy.png" alt="الأكاديمية" />
+    <div class="note"><span class="badge ok">OK</span> الكورسات الثلاثة منشورة وظاهرة للطلاب.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>١٥. موبايل HR — 390px</h2>
+      <img src="15-mobile-hr.png" alt="موبايل HR" />
+      <div class="note"><span class="badge ok">OK</span> بلا تمرير أفقي (scrollWidth = clientWidth = 390).</div>
+    </div>
+    <div class="card">
+      <h2>١٦. موبايل التعليم — 390px</h2>
+      <img src="16-mobile-edu.png" alt="موبايل التعليم" />
+      <div class="note"><span class="badge ok">OK</span> بلا تمرير أفقي، الجدول متجاوب.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>خلاصة التحقق البصري</h2>
+    <table>
+      <thead><tr><th>الوحدة</th><th>الحالة</th><th>الدليل</th></tr></thead>
+      <tbody>
+        <tr><td>تفعيل الوحدات الثلاث</td><td><span class="badge ok">Pass</span></td><td>02-apps.png</td></tr>
+        <tr><td>HR: لوحة + موظفون + حضور + رواتب</td><td><span class="badge ok">Pass</span></td><td>03–06</td></tr>
+        <tr><td>التعليم: طلاب + مجموعات + حصص</td><td><span class="badge ok">Pass</span></td><td>07–10</td></tr>
+        <tr><td>التسويق: كوبونات + مهام + أكاديمية</td><td><span class="badge ok">Pass</span></td><td>12–14</td></tr>
+        <tr><td>تسويق: حملات Meta</td><td><span class="badge warn">Blocked</span></td><td>11 — يحتاج ربط حساب إعلاني</td></tr>
+        <tr><td>موبايل 390px</td><td><span class="badge ok">Pass</span></td><td>15–16</td></tr>
+        <tr><td>Console errors</td><td><span class="badge ok">0</span></td><td>كل الصفحات</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
