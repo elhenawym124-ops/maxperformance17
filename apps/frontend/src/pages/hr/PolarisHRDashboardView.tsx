@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Users, Clock, FileText, ChevronLeft, ArrowUpRight } from "lucide-react";
-import { ShopifyPageHeader } from "../orders/ShopifyPageHeader";
+import { ShopifyPageHeader } from "@/components/layout/ShopifyPageHeader";
 import { Button } from "../../components/ui/button";
 import type { DashboardData } from "./hr-dashboard/types";
 import {

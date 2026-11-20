@@ -1,6 +1,6 @@
 import React from "react";
 import { Key, Webhook, FileCode2, Plus } from "lucide-react";
-import { ShopifyPageHeader } from "../orders/ShopifyPageHeader";
+import { ShopifyPageHeader } from "@/components/layout/ShopifyPageHeader";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import type { HRApiTab, HRApiKey, HRWebhook } from "./hr-api-integrations/types";

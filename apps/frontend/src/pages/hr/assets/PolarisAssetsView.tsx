@@ -9,7 +9,7 @@ import {
   BarChart3,
   Box,
 } from "lucide-react";
-import { ShopifyPageHeader } from "../../orders/ShopifyPageHeader";
+import { ShopifyPageHeader } from "@/components/layout/ShopifyPageHeader";
 import { Card, CardContent } from "../../../components/ui/card";
 import { Button } from "../../../components/ui/button";
 import AssetList from "./AssetList";

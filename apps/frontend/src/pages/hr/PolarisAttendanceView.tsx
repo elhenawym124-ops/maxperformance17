@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Clock, Download, ChartBarIcon, AlertCircle } from "lucide-react";
+import { Clock, Download, BarChart3, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShopifyPageHeader } from "@/components/layout/ShopifyPageHeader";
 import {
@@ -141,7 +141,7 @@ export const PolarisAttendanceView: React.FC<PolarisAttendanceViewProps> = ({
                 showStats ? "bg-primary/10 border-primary text-primary" : "bg-card text-foreground"
               }`}
             >
-              <ChartBarIcon className="h-3.5 w-3.5" />
+              <BarChart3 className="h-3.5 w-3.5" />
               <span>الإحصائيات</span>
             </Button>
 

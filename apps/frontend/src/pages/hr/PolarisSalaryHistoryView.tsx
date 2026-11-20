@@ -12,7 +12,7 @@ import {
   Search,
   Filter,
 } from "lucide-react";
-import { ShopifyPageHeader } from "../orders/ShopifyPageHeader";
+import { ShopifyPageHeader } from "@/components/layout/ShopifyPageHeader";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";

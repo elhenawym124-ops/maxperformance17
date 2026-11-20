@@ -6,7 +6,7 @@ import {
   Plus,
   Play,
   RotateCcw,
-  ChartBarIcon,
+  BarChart3,
   Calculator,
   CheckCircle,
 } from "lucide-react";
@@ -146,7 +146,7 @@ export const PolarisPayrollView: React.FC<PolarisPayrollViewProps> = ({
                     showKpi ? "bg-primary/10 border-primary text-primary" : "bg-card text-foreground"
                   }`}
                 >
-                  <ChartBarIcon className="h-3.5 w-3.5" />
+                  <BarChart3 className="h-3.5 w-3.5" />
                   <span>المؤشرات المالية</span>
                 </Button>
 
