@@ -1,7 +1,9 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { RefreshCw, Search, ShieldAlert } from "lucide-react";
 import TeamExecutiveSummary from "./components/TeamExecutiveSummary";
 import EmployeeMonitorDetails from "./EmployeeMonitorDetails";
+import { PolarisMonitorDashboardView } from "./PolarisMonitorDashboardView";
 import {
   TeamMemberSummary,
   useMonitorDashboardController,
@@ -14,6 +16,14 @@ import {
 export type { TeamMemberSummary };
 
 export const MonitorDashboard: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     isManagerOrHR,
     isSuperOrOwner,
@@ -71,6 +81,38 @@ export const MonitorDashboard: React.FC = () => {
           employeeName: m.employeeName,
         }))}
         onSelectEmployeeProp={(id) => setSelectedEmployeeId(id)}
+      />
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisMonitorDashboardView
+        loading={loading}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        statusFilter={statusFilter}
+        setStatusFilter={setStatusFilter}
+        sortField={sortField}
+        sortDirection={sortDirection}
+        teamMembers={teamMembers}
+        selectedEmployeeId={selectedEmployeeId}
+        setSelectedEmployeeId={setSelectedEmployeeId}
+        visibleAlerts={visibleAlerts}
+        archiving={archiving}
+        archiveSuccess={archiveSuccess}
+        stats={stats}
+        isToday={isToday}
+        yesterdayStr={yesterdayStr}
+        handleDateStep={handleDateStep}
+        handleSort={handleSort}
+        handleDismissAlert={handleDismissAlert}
+        fetchData={fetchData}
+        handleTriggerArchive={handleTriggerArchive}
+        sortedMembers={sortedMembers}
+        isSuperOrOwner={isSuperOrOwner}
       />
     );
   }

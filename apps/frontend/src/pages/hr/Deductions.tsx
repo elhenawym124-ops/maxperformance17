@@ -1,5 +1,7 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { PolarisDeductionsView } from "./PolarisDeductionsView";
 import {
   useDeductionsController,
   DeductionsHeader,
@@ -11,6 +13,14 @@ import {
 } from "./deductions/index";
 
 export const Deductions: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     filteredDeductions,
     loading,
@@ -51,37 +61,63 @@ export const Deductions: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 w-full pb-8">
-      {/* Header */}
-      <DeductionsHeader onAddNew={openNewDeductionModal} />
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisDeductionsView
+          deductions={filteredDeductions}
+          stats={stats}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          filterStatus={filterStatus}
+          setFilterStatus={setFilterStatus}
+          filterType={filterType}
+          setFilterType={setFilterType}
+          filterMonth={filterMonth}
+          setFilterMonth={setFilterMonth}
+          filterYear={filterYear}
+          setFilterYear={setFilterYear}
+          onAddNew={openNewDeductionModal}
+          onViewDetails={(deduction) => {
+            setSelectedDeduction(deduction);
+            setShowDetailsModal(true);
+          }}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header */}
+          <DeductionsHeader onAddNew={openNewDeductionModal} />
 
-      {/* Stats Cards */}
-      <DeductionStatsCards stats={stats} />
+          {/* Stats Cards */}
+          <DeductionStatsCards stats={stats} />
 
-      {/* Filters */}
-      <DeductionFilters
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        filterStatus={filterStatus}
-        setFilterStatus={setFilterStatus}
-        filterType={filterType}
-        setFilterType={setFilterType}
-        filterMonth={filterMonth}
-        setFilterMonth={setFilterMonth}
-        filterYear={filterYear}
-        setFilterYear={setFilterYear}
-      />
+          {/* Filters */}
+          <DeductionFilters
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+            filterType={filterType}
+            setFilterType={setFilterType}
+            filterMonth={filterMonth}
+            setFilterMonth={setFilterMonth}
+            filterYear={filterYear}
+            setFilterYear={setFilterYear}
+          />
 
-      {/* Deductions Table */}
-      <DeductionTable
-        deductions={filteredDeductions}
-        onViewDetails={(deduction) => {
-          setSelectedDeduction(deduction);
-          setShowDetailsModal(true);
-        }}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+          {/* Deductions Table */}
+          <DeductionTable
+            deductions={filteredDeductions}
+            onViewDetails={(deduction) => {
+              setSelectedDeduction(deduction);
+              setShowDetailsModal(true);
+            }}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </div>
+      )}
 
       {/* Create / Edit Modal */}
       <DeductionCreateModal

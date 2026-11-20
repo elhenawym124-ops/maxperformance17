@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Users,
@@ -13,6 +14,7 @@ import useSocket from "../../hooks/useSocket";
 import api from "../../services/api";
 import { toast } from "sonner";
 import { OnlineEmployee, OnlineEmployeeCard } from "./OnlineEmployeeCard";
+import { PolarisOnlineTeamView } from "./PolarisOnlineTeamView";
 
 interface OnlineTeamResponse {
   data?: {
@@ -53,6 +55,14 @@ const formatSince = (iso: string | null): string => {
 
 export const OnlineTeam: React.FC = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const { socket, isConnected } = useSocket();
 
   const [employees, setEmployees] = useState<OnlineEmployee[]>([]);
@@ -157,6 +167,24 @@ export const OnlineTeam: React.FC = () => {
     () => decoratedEmployees.filter((e) => e.isOnline).length,
     [decoratedEmployees],
   );
+
+  if (isPolaris) {
+    return (
+      <PolarisOnlineTeamView
+        loading={loading}
+        refreshing={refreshing}
+        search={search}
+        setSearch={setSearch}
+        tab={tab}
+        setTab={setTab}
+        onlineCount={onlineCount}
+        totalEmployees={decoratedEmployees.length}
+        filteredEmployees={filtered}
+        fetchOnlineTeam={fetchOnlineTeam}
+        currentUserId={currentUserId}
+      />
+    );
+  }
 
   return (
     <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-background" dir="rtl">

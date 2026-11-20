@@ -12,10 +12,11 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "sonner";
 import { tToast } from "../../utils/i18n-toast";
+import { PolarisPerformanceReviewsView } from "./PolarisPerformanceReviewsView";
 
 interface PerformanceReview {
   id: string;
@@ -38,6 +39,14 @@ interface PerformanceReview {
 const PerformanceReviews: React.FC = () => {
   const { employeeId } = useParams<{ employeeId?: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const [reviews, setReviews] = useState<PerformanceReview[]>([]);
   const [employees, setEmployees] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -134,6 +143,28 @@ const PerformanceReviews: React.FC = () => {
       <div className="flex items-center justify-center h-96">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisPerformanceReviewsView
+        loading={loading}
+        reviews={reviews}
+        employees={employees}
+        loadingEmployees={loadingEmployees}
+        onNavigateNew={(empId) =>
+          navigate(
+            empId
+              ? `/hr/performance-reviews/new?employeeId=${empId}`
+              : "/hr/performance-reviews/new",
+          )
+        }
+        onNavigateDetails={(id) => navigate(`/hr/performance-reviews/${id}`)}
+        onDelete={handleDelete}
+        getEmployeeName={getEmployeeName}
+        getRatingColor={getRatingColor}
+      />
     );
   }
 
