@@ -195,9 +195,15 @@ class BenefitService {
 
       if (!employee) {
         console.error(`❌ Employee not found: ${employeeId} in company ${companyId}`);
-        throw new Error('الموظف غير موجود');
+        const notFound = new Error('الموظف غير موجود');
+        notFound.statusCode = 404;
+        throw notFound;
       }
-      if (!benefit) throw new Error('الميزة غير موجودة');
+      if (!benefit) {
+        const notFound = new Error('الميزة غير موجودة');
+        notFound.statusCode = 404;
+        throw notFound;
+      }
 
       // تحقق مما إذا كان الموظف مشتركاً بالفعل في هذه الميزة ولها حالة نشطة
       const existingEnrollment = await this.prisma.benefitEnrollment.findFirst({
@@ -209,8 +215,16 @@ class BenefitService {
       });
 
       if (existingEnrollment) {
-        throw new Error('الموظف مشترك بالفعل في هذه الميزة وحالة اشتراكه نشطة');
+        const conflict = new Error('الموظف مشترك بالفعل في هذه الميزة وحالة اشتراكه نشطة');
+        conflict.statusCode = 409;
+        throw conflict;
       }
+
+      // تاريخ البداية: الافتراضي اليوم — كان غيابه ينتج Invalid Date و500
+      const parsedStart = data.startDate ? new Date(data.startDate) : null;
+      const startDate =
+        parsedStart && !Number.isNaN(parsedStart.getTime()) ? parsedStart : new Date();
+      const parsedEnd = data.endDate ? new Date(data.endDate) : null;
 
       const enrollment = await this.prisma.benefitEnrollment.create({
         data: {
@@ -218,8 +232,8 @@ class BenefitService {
           employeeRelId: employee.id,
           userId: employee.userId || '',
           benefitId,
-          startDate: new Date(data.startDate),
-          endDate: data.endDate ? new Date(data.endDate) : null,
+          startDate,
+          endDate: parsedEnd && !Number.isNaN(parsedEnd.getTime()) ? parsedEnd : null,
           status: data.status || 'ACTIVE',
           notes: data.notes
         },

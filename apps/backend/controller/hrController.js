@@ -5475,7 +5475,9 @@ async function enrollEmployee(req, res) {
     res.status(201).json({ success: true, enrollment });
   } catch (error) {
     console.error("❌ Error enrolling employee:", error);
-    res.status(500).json({ error: error.message || "حدث خطأ أثناء الاشتراك" });
+    res
+      .status(error.statusCode || 500)
+      .json({ error: error.message || "حدث خطأ أثناء الاشتراك" });
   }
 }
 
