@@ -159,6 +159,11 @@ if (cmd === 'status') {
   const agent = flags.agent || defaultAgent();
   const note = flags.note || '';
   const commit = flags.commit || '';
+  const lk = readLock(root);
+  if (lk && isActive(lk) && lk.agent !== agent && !flags.force) {
+    console.error(`lock owned by another agent: ${lk.agent} (task: ${lk.task}). Use --force only if you are certain.`);
+    process.exit(4);
+  }
   clearLock(root);
   logEvent({ agent, event: 'release', repo: root, note, commit });
   console.log(`released lock on ${root}`);
