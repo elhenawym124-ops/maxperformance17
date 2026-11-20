@@ -373,6 +373,25 @@ describe("Layout mobile account visibility", () => {
     ).toBeInTheDocument();
   });
 
+  it("keeps the bottom dock out of full-height conversation routes", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/facebook-inbox"]}>
+        <Layout>
+          <div>Inbox body</div>
+        </Layout>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector(".business-shell-main")).toBeInTheDocument();
+    });
+
+    expect(container.querySelector(".admin-bottom-nav")).not.toBeInTheDocument();
+    expect(
+      container.querySelector(".business-shell-with-mobile-dock"),
+    ).not.toBeInTheDocument();
+  });
+
   it("renders company monogram letter fallback when company has no custom logo", async () => {
     mockUseAuth.mockReturnValue({
       user: {
