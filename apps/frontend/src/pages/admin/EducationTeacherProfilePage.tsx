@@ -80,12 +80,12 @@ export default function EducationTeacherProfilePage() {
       case "CONFIRMED":
         return {
           label: isEn ? "Confirmed" : "مؤكدة",
-          badge: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+          badge: "bg-emerald-500/10 text-success dark:text-success border-success/20",
         };
       case "CANCELLED":
         return {
           label: isEn ? "Cancelled" : "ملغية",
-          badge: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+          badge: "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20",
         };
       default:
         return {
@@ -182,7 +182,7 @@ export default function EducationTeacherProfilePage() {
             <div className="flex-1 min-w-0 space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-xl font-bold tracking-tight text-foreground">{teacher.name || (isEn ? "Instructor" : "المهندس")}</h1>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${teacher.isActive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"}`}>
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${teacher.isActive ? "bg-emerald-500/10 text-success dark:text-success border-success/20" : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"}`}>
                   {teacher.isActive
                     ? t("education.teachers.activeAvailable", isEn ? "Active & Available" : "نشط ومتاح")
                     : t("education.teachers.temporarilyDisabled", isEn ? "Temporarily Disabled" : "معطل مؤقتاً")}
@@ -263,9 +263,9 @@ export default function EducationTeacherProfilePage() {
           <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-xs space-y-1">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{t("education.teachers.confirmedSessions", isEn ? "Confirmed Sessions" : "الحصص المؤكدة")}</span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{confirmedCount}</div>
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">{confirmedCount}</div>
             <div className="text-[11px] text-muted-foreground">
               {t("education.teachers.completedSuccessfully", isEn ? "completed successfully" : "تم تنفيذها بنجاح")}
             </div>
@@ -273,9 +273,9 @@ export default function EducationTeacherProfilePage() {
           <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-xs space-y-1">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{t("education.teachers.cancelledSessions", isEn ? "Cancelled Sessions" : "الحصص الملغية")}</span>
-              <XCircle className="w-4 h-4 text-rose-500" />
+              <XCircle className="w-4 h-4 text-destructive" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">{cancelledCount}</div>
+            <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">{cancelledCount}</div>
             <div className="text-[11px] text-muted-foreground">
               {t("education.teachers.cancelledByParties", isEn ? "cancelled sessions" : "ملغاة من الأطراف")}
             </div>
@@ -383,12 +383,12 @@ export default function EducationTeacherProfilePage() {
                       <td className="py-3 px-4 font-mono tabular-nums text-foreground">{p.totalSessions}</td>
                       <td className="py-3 px-4 font-mono tabular-nums text-foreground">{p.totalHours} {t("education.common.hour", isEn ? "hrs" : "س")}</td>
                       <td className="py-3 px-4 font-mono tabular-nums text-foreground">{p.grossAmount.toLocaleString()} {t("education.common.egp", isEn ? "EGP" : "ج.م")}</td>
-                      <td className="py-3 px-4 font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                      <td className="py-3 px-4 font-mono tabular-nums text-destructive dark:text-destructive">
                         {p.deductions > 0 ? `-${p.deductions.toLocaleString()} ${t("education.common.egp", isEn ? "EGP" : "ج.م")}` : "—"}
                       </td>
                       <td className="py-3 px-4 font-mono tabular-nums font-bold text-foreground">{p.netAmount.toLocaleString()} {t("education.common.egp", isEn ? "EGP" : "ج.م")}</td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${p.status === "PAID" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"}`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${p.status === "PAID" ? "bg-emerald-500/10 text-success dark:text-success border-success/20" : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"}`}>
                           {p.status === "PAID"
                             ? t("education.payments.paid", isEn ? "Paid" : "تم الصرف")
                             : t("education.payments.pending", isEn ? "Pending" : "معلق")}

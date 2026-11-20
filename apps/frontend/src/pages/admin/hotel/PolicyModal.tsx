@@ -56,18 +56,18 @@ export default function PolicyModal({
         <div>
           <h3 className="text-sm font-medium mb-2">⏰ أوقات الدخول والخروج</h3>
           <div className="grid grid-cols-2 gap-2">
-            <div><label className="text-xs text-gray-500">تسجيل الوصول</label><input className={INPUT_CLS} value={form.checkInTime} onChange={e => setForm({ ...form, checkInTime: e.target.value })} /></div>
-            <div><label className="text-xs text-gray-500">تسجيل المغادرة</label><input className={INPUT_CLS} value={form.checkOutTime} onChange={e => setForm({ ...form, checkOutTime: e.target.value })} /></div>
-            <div><label className="text-xs text-gray-500">رسوم الدخول المبكر</label><input type="number" className={INPUT_CLS} value={form.earlyCheckInFee} onChange={e => setForm({ ...form, earlyCheckInFee: +e.target.value })} /></div>
-            <div><label className="text-xs text-gray-500">رسوم المغادرة المتأخرة</label><input type="number" className={INPUT_CLS} value={form.lateCheckOutFee} onChange={e => setForm({ ...form, lateCheckOutFee: +e.target.value })} /></div>
+            <div><label className="text-xs text-muted-foreground">تسجيل الوصول</label><input className={INPUT_CLS} value={form.checkInTime} onChange={e => setForm({ ...form, checkInTime: e.target.value })} /></div>
+            <div><label className="text-xs text-muted-foreground">تسجيل المغادرة</label><input className={INPUT_CLS} value={form.checkOutTime} onChange={e => setForm({ ...form, checkOutTime: e.target.value })} /></div>
+            <div><label className="text-xs text-muted-foreground">رسوم الدخول المبكر</label><input type="number" className={INPUT_CLS} value={form.earlyCheckInFee} onChange={e => setForm({ ...form, earlyCheckInFee: +e.target.value })} /></div>
+            <div><label className="text-xs text-muted-foreground">رسوم المغادرة المتأخرة</label><input type="number" className={INPUT_CLS} value={form.lateCheckOutFee} onChange={e => setForm({ ...form, lateCheckOutFee: +e.target.value })} /></div>
           </div>
         </div>
 
         <div>
           <h3 className="text-sm font-medium mb-2">📋 سياسة الإلغاء</h3>
           <div className="grid grid-cols-2 gap-2">
-            <div><label className="text-xs text-gray-500">أيام الإلغاء المجاني</label><input type="number" className={INPUT_CLS} value={form.cancelFreeBefore} onChange={e => setForm({ ...form, cancelFreeBefore: +e.target.value })} /></div>
-            <div><label className="text-xs text-gray-500">نسبة الغرامة (%)</label><input type="number" className={INPUT_CLS} value={form.cancelPenaltyPct} onChange={e => setForm({ ...form, cancelPenaltyPct: +e.target.value })} /></div>
+            <div><label className="text-xs text-muted-foreground">أيام الإلغاء المجاني</label><input type="number" className={INPUT_CLS} value={form.cancelFreeBefore} onChange={e => setForm({ ...form, cancelFreeBefore: +e.target.value })} /></div>
+            <div><label className="text-xs text-muted-foreground">نسبة الغرامة (%)</label><input type="number" className={INPUT_CLS} value={form.cancelPenaltyPct} onChange={e => setForm({ ...form, cancelPenaltyPct: +e.target.value })} /></div>
           </div>
         </div>
 
@@ -78,8 +78,8 @@ export default function PolicyModal({
               <input type="checkbox" checked={form.childrenAllowed} onChange={e => setForm({ ...form, childrenAllowed: e.target.checked })} />
               مسموح بوجود أطفال
             </label>
-            <div className="pr-6">
-              <label className="text-xs text-gray-500">سعر السرير الإضافي</label>
+            <div className="pe-6">
+              <label className="text-xs text-muted-foreground">سعر السرير الإضافي</label>
               <input type="number" className={INPUT_CLS} value={form.extraBedPrice} onChange={e => setForm({ ...form, extraBedPrice: +e.target.value })} />
             </div>
           </div>
@@ -97,14 +97,14 @@ export default function PolicyModal({
               الزوار مسموح بهم
             </label>
             {form.visitorsAllowed && (
-              <div className="pr-6">
-                <label className="text-xs text-gray-500">أوقات الزيارة</label>
+              <div className="pe-6">
+                <label className="text-xs text-muted-foreground">أوقات الزيارة</label>
                 <input className={INPUT_CLS} value={form.visitorsHours} onChange={e => setForm({ ...form, visitorsHours: e.target.value })} />
               </div>
             )}
             <div className="grid grid-cols-2 gap-2">
-              <div><label className="text-xs text-gray-500">هدوء من</label><input className={INPUT_CLS} value={form.quietHoursFrom} onChange={e => setForm({ ...form, quietHoursFrom: e.target.value })} /></div>
-              <div><label className="text-xs text-gray-500">هدوء إلى</label><input className={INPUT_CLS} value={form.quietHoursTo} onChange={e => setForm({ ...form, quietHoursTo: e.target.value })} /></div>
+              <div><label className="text-xs text-muted-foreground">هدوء من</label><input className={INPUT_CLS} value={form.quietHoursFrom} onChange={e => setForm({ ...form, quietHoursFrom: e.target.value })} /></div>
+              <div><label className="text-xs text-muted-foreground">هدوء إلى</label><input className={INPUT_CLS} value={form.quietHoursTo} onChange={e => setForm({ ...form, quietHoursTo: e.target.value })} /></div>
             </div>
           </div>
         </div>

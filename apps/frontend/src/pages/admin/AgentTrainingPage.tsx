@@ -141,15 +141,15 @@ export default function AgentTrainingPage() {
 
         {/* Success / Result Panel */}
         {lastResult && (
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 sm:p-5 space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+          <div className="rounded-xl border border-success/30 bg-success/5 p-4 sm:p-5 space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-success dark:text-success">
               <CheckCircle2 className="w-4 h-4" />
               <span>{`تم استخراج وتثبيت ${lastResult.saved} حقيقة معرفية بنجاح`}</span>
             </div>
             <ul className="space-y-1.5 divide-y divide-border/40">
               {lastResult.statements.map((s, i) => (
                 <li key={i} className="text-xs text-foreground flex items-start gap-2 pt-1.5 first:pt-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-success mt-1.5 shrink-0" />
                   <span className="leading-relaxed">{s.statement}</span>
                 </li>
               ))}

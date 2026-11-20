@@ -161,7 +161,7 @@ export const HotelFolioRatesTab: React.FC<HotelFolioRatesTabProps> = ({
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] border ${
                           s.isActive
-                            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                             : "bg-muted text-muted-foreground border-border/40"
                         }`}
                       >

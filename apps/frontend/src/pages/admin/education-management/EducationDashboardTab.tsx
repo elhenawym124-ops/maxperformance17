@@ -232,7 +232,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
   return (
     <div className="space-y-4 sm:space-y-6" dir={isEn ? "ltr" : "rtl"}>
       {/* 1. Quick Command Action Bar */}
-      <div className="bg-gradient-to-r from-card via-card to-muted/40 border border-border/80 rounded-2xl p-3.5 sm:p-4 shadow-xs">
+      <div className="bg-gradient-to-r from-card via-card to-muted/40 border border-border/80 rounded-xl p-3.5 sm:p-4 shadow-xs">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0">
@@ -311,7 +311,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               to="/admin/education/teacher-payments"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl border border-border/80 bg-background hover:bg-muted text-xs font-medium text-foreground transition-colors"
             >
-              <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+              <DollarSign className="w-3.5 h-3.5 text-success" />
               {isEn ? "Instructor Payments" : "مرتبات المهندسين"}
             </Link>
           </div>
@@ -336,49 +336,49 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
             label: isEn ? "Packages" : "الباقات المتاحة",
             value: stats.totalPackages,
             icon: Gift,
-            color: "text-purple-600 dark:text-purple-400 bg-purple-500/10 border-purple-500/20",
+            color: "text-purple-600 dark:text-primary bg-primary/10 border-primary/20",
             tab: "packages" as TabId,
           },
           {
             label: isEn ? "Students" : "الطلاب المسجلين",
             value: stats.totalStudents,
             icon: Users,
-            color: "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+            color: "text-emerald-600 dark:text-success bg-success/10 border-success/20",
             tab: "students" as TabId,
           },
           {
             label: isEn ? "Instructors" : "المهندسين",
             value: stats.totalTeachers,
             icon: GraduationCap,
-            color: "text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/20",
+            color: "text-amber-600 dark:text-warning bg-warning/10 border-warning/20",
             tab: "teachers" as TabId,
           },
           {
             label: isEn ? "Active Enrollments" : "تسجيلات سارية",
             value: stats.activeEnrollments,
             icon: Layers,
-            color: "text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+            color: "text-primary bg-primary/10 border-primary/20",
             tab: "enrollments" as TabId,
           },
           {
             label: isEn ? "Today's Sessions" : "حصص اليوم",
             value: stats.sessionsToday,
             icon: Clock,
-            color: "text-sky-600 dark:text-sky-400 bg-sky-500/10 border-sky-500/20",
+            color: "text-sky-600 dark:text-info bg-info/10 border-info/20",
             tab: "sessions" as TabId,
           },
           {
             label: isEn ? "Scheduled" : "حصص مجدولة",
             value: stats.scheduledSessions,
             icon: Calendar,
-            color: "text-orange-600 dark:text-orange-400 bg-orange-500/10 border-orange-500/20",
+            color: "text-orange-600 dark:text-warning bg-warning/10 border-warning/20",
             tab: "sessions" as TabId,
           },
           {
             label: isEn ? "Confirmed Sessions" : "حصص مؤكدة",
             value: stats.totalSessions,
             icon: CheckCircle2,
-            color: "text-teal-600 dark:text-teal-400 bg-teal-500/10 border-teal-500/20",
+            color: "text-teal-600 dark:text-success bg-success/10 border-success/20",
             tab: "sessions" as TabId,
           },
         ].map((c, i) => (
@@ -413,15 +413,15 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Low Hours Alert */}
           {lowHoursEnrollments.length > 0 && (
-            <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-3.5 space-y-2">
+            <div className="bg-rose-500/10 border border-destructive/20 rounded-xl p-3.5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-rose-700 dark:text-rose-300 flex items-center gap-1.5">
-                  <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+                <span className="text-xs font-bold text-destructive dark:text-destructive flex items-center gap-1.5">
+                  <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
                   {isEn
                     ? "Low Hours Balance (< 2h)"
                     : "باقات قاربت على النفاد (أقل من ساعتين)"}
                 </span>
-                <span className="font-mono text-xs font-bold bg-rose-500/20 text-rose-700 dark:text-rose-300 px-2 py-0.5 rounded-full">
+                <span className="font-mono text-xs font-bold bg-destructive/20 text-destructive dark:text-destructive px-2 py-0.5 rounded-full">
                   {lowHoursEnrollments.length}
                 </span>
               </div>
@@ -429,7 +429,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 {lowHoursEnrollments.slice(0, 3).map((e) => (
                   <div
                     key={e.id}
-                    className="flex items-center justify-between p-2 rounded-lg bg-background/80 text-xs border border-rose-500/20"
+                    className="flex items-center justify-between p-2 rounded-lg bg-background/80 text-xs border border-destructive/20"
                   >
                     <button
                       type="button"
@@ -446,7 +446,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                         : (isEn ? "Student" : "طالب")}
                     </button>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="font-bold text-rose-600 dark:text-rose-400 text-[11px]">
+                      <span className="font-bold text-destructive dark:text-destructive text-[11px]">
                         {e.remainingHours} {isEn ? "hrs" : "س"}
                       </span>
                       <button
@@ -455,7 +455,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                           setActiveDrawer(null);
                           setEnrollmentModal?.({ studentId: e.studentId });
                         }}
-                        className="px-2 py-0.5 bg-rose-600 hover:bg-rose-700 text-white rounded text-[10px] font-semibold"
+                        className="px-2 py-0.5 bg-destructive hover:bg-destructive text-white rounded text-[10px] font-semibold"
                       >
                         {isEn ? "Renew" : "تجديد"}
                       </button>
@@ -468,13 +468,13 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
 
           {/* Unassigned Instructors Alert */}
           {unassignedEnrollments.length > 0 && (
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 space-y-2">
+            <div className="bg-amber-500/10 border border-warning/20 rounded-xl p-3.5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
-                  <GraduationCap className="w-4 h-4 text-amber-600 shrink-0" />
+                <span className="text-xs font-bold text-warning dark:text-warning flex items-center gap-1.5">
+                  <GraduationCap className="w-4 h-4 text-warning shrink-0" />
                   {isEn ? "Unassigned Instructors" : "اشتراكات بدون مهندس"}
                 </span>
-                <span className="font-mono text-xs font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full">
+                <span className="font-mono text-xs font-bold bg-warning/20 text-warning dark:text-warning px-2 py-0.5 rounded-full">
                   {unassignedEnrollments.length}
                 </span>
               </div>
@@ -482,7 +482,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 {unassignedEnrollments.slice(0, 3).map((e) => (
                   <div
                     key={e.id}
-                    className="flex items-center justify-between p-2 rounded-lg bg-background/80 text-xs border border-amber-500/20"
+                    className="flex items-center justify-between p-2 rounded-lg bg-background/80 text-xs border border-warning/20"
                   >
                     <span className="font-medium text-foreground truncate">
                       {e.student
@@ -495,7 +495,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                         setActiveDrawer(null);
                         setEnrollmentModal?.(e);
                       }}
-                      className="px-2 py-0.5 bg-amber-600 hover:bg-amber-700 text-white rounded text-[10px] font-semibold shrink-0"
+                      className="px-2 py-0.5 bg-warning hover:bg-warning text-white rounded text-[10px] font-semibold shrink-0"
                     >
                       {isEn ? "Assign Instructor" : "تعيين مهندس"}
                     </button>
@@ -507,15 +507,15 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
 
           {/* Overdue / Need Confirmation Alert */}
           {overdueSessions.length > 0 && (
-            <div className="bg-sky-500/10 border border-sky-500/20 rounded-xl p-3.5 space-y-2">
+            <div className="bg-sky-500/10 border border-info/20 rounded-xl p-3.5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-sky-700 dark:text-sky-300 flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-sky-600 shrink-0" />
+                <span className="text-xs font-bold text-info dark:text-info flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-info shrink-0" />
                   {isEn
                     ? "Pending Confirmation"
                     : "حصص بحاجة لتأكيد الحضور"}
                 </span>
-                <span className="font-mono text-xs font-bold bg-sky-500/20 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full">
+                <span className="font-mono text-xs font-bold bg-info/20 text-info dark:text-info px-2 py-0.5 rounded-full">
                   {overdueSessions.length}
                 </span>
               </div>
@@ -523,7 +523,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 {overdueSessions.slice(0, 3).map((s) => (
                   <div
                     key={s.id}
-                    className="flex items-center justify-between p-2 rounded-lg bg-background/80 text-xs border border-sky-500/20"
+                    className="flex items-center justify-between p-2 rounded-lg bg-background/80 text-xs border border-info/20"
                   >
                     <span className="font-medium text-foreground truncate">
                       {s.student?.firstName} • {s.subject?.name}
@@ -546,7 +546,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
       {/* 4. Main Two-Column Command Center Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
         {/* Left Column (7 cols): Live Sessions Timeline & Hub */}
-        <div className="lg:col-span-7 bg-card border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+        <div className="lg:col-span-7 bg-card border border-border/80 rounded-xl p-4 sm:p-5 shadow-xs space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3.5">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-primary shrink-0" />
@@ -619,7 +619,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 }
                 value={sessionSearch}
                 onChange={(e) => setSessionSearch(e.target.value)}
-                className={`w-full bg-background border border-input rounded-xl ${isEn ? "pl-9 pr-8" : "pr-9 pl-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
+                className={`w-full bg-background border border-input rounded-xl ${isEn ? "ps-9 pe-8" : "pe-9 ps-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
               />
               {sessionSearch && (
                 <button
@@ -636,7 +636,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
           )}
 
           {/* Sessions List */}
-          <div className="space-y-2.5 max-h-[520px] overflow-y-auto pr-1.5">
+          <div className="space-y-2.5 max-h-[520px] overflow-y-auto pe-1.5">
             {filteredSessions.map((s) => {
               const { time } = formatSafeDateTime(s.scheduledAt, isEn);
               return (
@@ -697,7 +697,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                       </span>
 
                       <span className="flex items-center gap-1">
-                        <GraduationCap className="w-3 h-3 text-amber-600 shrink-0" />
+                        <GraduationCap className="w-3 h-3 text-warning shrink-0" />
                         {s.teacher ? (
                           <button
                             type="button"
@@ -734,7 +734,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                           <button
                             type="button"
                             onClick={() => handleCancelSession?.(s.id)}
-                            className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 text-[11px] font-medium"
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-destructive/10 hover:bg-destructive/20 text-destructive dark:text-destructive border border-destructive/20 text-[11px] font-medium"
                             aria-label={isEn ? "Cancel session" : "إلغاء الحصة"} title={isEn ? "Cancel session" : "إلغاء الحصة"}
                           >
                             <XCircle className="w-3 h-3" />
@@ -771,10 +771,10 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
         </div>
 
         {/* Right Column (5 cols): Instructors Workload & Roster */}
-        <div className="lg:col-span-5 bg-card border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+        <div className="lg:col-span-5 bg-card border border-border/80 rounded-xl p-4 sm:p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
             <div className="flex items-center gap-2">
-              <GraduationCap className="w-5 h-5 text-amber-600 shrink-0" />
+              <GraduationCap className="w-5 h-5 text-warning shrink-0" />
               <div>
                 <h3 className="text-sm font-bold text-foreground">
                   {isEn ? "Instructors & Workload" : "لوحة المهندسين وساعات العمل"}
@@ -795,7 +795,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               }
               value={teacherSearch}
               onChange={(e) => setTeacherSearch(e.target.value)}
-              className={`w-full bg-background border border-input rounded-xl ${isEn ? "pl-9 pr-8" : "pr-9 pl-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
+              className={`w-full bg-background border border-input rounded-xl ${isEn ? "ps-9 pe-8" : "pe-9 ps-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
             />
             {teacherSearch && (
               <button
@@ -811,7 +811,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
           </div>
 
           {/* Instructors List */}
-          <div className="space-y-2.5 max-h-[520px] overflow-y-auto pr-1.5">
+          <div className="space-y-2.5 max-h-[520px] overflow-y-auto pe-1.5">
             {filteredTeachers.map((teacher) => {
               const assignedCount = enrollments.filter(
                 (e) => e.teacherId === teacher.id
@@ -832,7 +832,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-9 h-9 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/20 shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-warning/10 text-warning dark:text-warning flex items-center justify-center font-bold text-xs border border-warning/20 shrink-0">
                         {(teacher.name || "?").charAt(0)}
                       </div>
                       <div className="min-w-0">
@@ -851,7 +851,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                         <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground mt-0.5">
                           <span>{assignedCount} {isEn ? "students" : "طالب"}</span>
                           <span>•</span>
-                          <span className="text-amber-600 dark:text-amber-400 font-medium ">
+                          <span className="text-amber-600 dark:text-warning font-medium ">
                             {teacherUpcoming} {isEn ? "upcoming" : "حصة قادمة"}
                           </span>
                         </div>
@@ -895,7 +895,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                           href={whatsappUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="p-1 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 border border-emerald-500/20"
+                          className="p-1 rounded-md bg-success/10 hover:bg-success/20 text-success border border-success/20"
                           title="WhatsApp"
                         >
                           <MessageCircle className="w-3 h-3" />
@@ -937,10 +937,10 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
       </div>
 
       {/* 5. Active Students & Enrollments Directory */}
-      <div className="bg-card border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+      <div className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3.5">
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-emerald-600 shrink-0" />
+            <Users className="w-5 h-5 text-success shrink-0" />
             <div>
               <h3 className="text-sm font-bold text-foreground">
                 {isEn ? "Students & Active Package Balances" : "دليل الطلاب ورصيد الباقات النشطة"}
@@ -959,7 +959,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                   }
                   value={studentSearch}
                   onChange={(e) => setStudentSearch(e.target.value)}
-                  className={`w-full bg-background border border-input rounded-xl ${isEn ? "pl-9 pr-8" : "pr-9 pl-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
+                  className={`w-full bg-background border border-input rounded-xl ${isEn ? "ps-9 pe-8" : "pe-9 ps-8"} py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary`}
                 />
                 {studentSearch && (
                   <button
@@ -1012,7 +1012,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-9 h-9 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs border border-emerald-500/20 shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-success/10 text-success dark:text-success flex items-center justify-center font-bold text-xs border border-success/20 shrink-0">
                       {(student.firstName || "?").charAt(0)}
                     </div>
                     <div className="min-w-0">
@@ -1085,7 +1085,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                         href={whatsappUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-1 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 border border-emerald-500/20"
+                        className="p-1 rounded-md bg-success/10 hover:bg-success/20 text-success border border-success/20"
                         title="WhatsApp"
                       >
                         <MessageCircle className="w-3 h-3" />

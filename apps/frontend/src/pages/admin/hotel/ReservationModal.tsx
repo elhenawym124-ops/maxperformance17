@@ -93,18 +93,18 @@ export default function ReservationModal({
           <input className={INPUT_CLS} placeholder="الإيميل" value={form.customerEmail} onChange={e => setForm({ ...form, customerEmail: e.target.value })} />
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="text-sm text-gray-500">تاريخ الوصول</label><DateInput className={INPUT_CLS} value={form.checkIn} onChange={e => setForm({ ...form, checkIn: e.target.value })} /></div>
-          <div><label className="text-sm text-gray-500">تاريخ المغادرة</label><DateInput className={INPUT_CLS} value={form.checkOut} onChange={e => setForm({ ...form, checkOut: e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">تاريخ الوصول</label><DateInput className={INPUT_CLS} value={form.checkIn} onChange={e => setForm({ ...form, checkIn: e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">تاريخ المغادرة</label><DateInput className={INPUT_CLS} value={form.checkOut} onChange={e => setForm({ ...form, checkOut: e.target.value })} /></div>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="text-sm text-gray-500">البالغين</label><input type="number" className={INPUT_CLS} value={form.adults} onChange={e => setForm({ ...form, adults: +e.target.value })} /></div>
-          <div><label className="text-sm text-gray-500">الأطفال</label><input type="number" className={INPUT_CLS} value={form.children} onChange={e => setForm({ ...form, children: +e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">البالغين</label><input type="number" className={INPUT_CLS} value={form.adults} onChange={e => setForm({ ...form, adults: +e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">الأطفال</label><input type="number" className={INPUT_CLS} value={form.children} onChange={e => setForm({ ...form, children: +e.target.value })} /></div>
         </div>
 
         <button className={`${BTN_GHOST} w-full`} onClick={checkAvail}>التحقق من التوفر</button>
         {avail.length > 0 && (
           <div className="border rounded-lg p-3 space-y-2">
-            <p className="text-sm font-medium text-green-600">الغرف المتاحة (اضغط لإضافة):</p>
+            <p className="text-sm font-medium text-success">الغرف المتاحة (اضغط لإضافة):</p>
               {avail.map((a: any) => {
                 let displayPrice = a.effectivePrice;
                 let priceLabel = 'ليلة';
@@ -117,7 +117,7 @@ export default function ReservationModal({
                 <button
                   key={a.roomType.id}
                   type="button"
-                  className="w-full flex justify-between items-center text-sm border-b pb-1 text-right hover:bg-gray-50 dark:hover:bg-gray-800 px-2 py-1 rounded transition"
+                  className="w-full flex justify-between items-center text-sm border-b pb-1 text-right hover:bg-muted dark:hover:bg-muted px-2 py-1 rounded transition"
                   onClick={() => {
                     const existing = form.rooms.find(r => r.roomTypeId === a.roomType.id);
                     if (existing) {
@@ -140,7 +140,7 @@ export default function ReservationModal({
                   <div>
                     <span>{a.roomType.nameAr || a.roomType.name} ({a.availableRooms} متاحة)</span>
                     {a.pricingTiers && a.pricingTiers.length > 0 && (
-                      <div className="text-xs text-gray-400">{a.pricingTiers.map((t: any) => t.guests + '=' + t.price + 'ج.م').join(' | ')}</div>
+                      <div className="text-xs text-muted-foreground">{a.pricingTiers.map((t: any) => t.guests + '=' + t.price + 'ج.م').join(' | ')}</div>
                     )}
                   </div>
                   <span className="font-bold">{displayPrice} ج.م/{priceLabel}</span>
@@ -172,16 +172,16 @@ export default function ReservationModal({
           <p className="text-sm font-medium mb-2">الدفع المقدم:</p>
           <div className="flex items-center gap-2 mb-2">
             <input type="checkbox" id="depositRequired" checked={form.depositRequired} onChange={e => setForm({ ...form, depositRequired: e.target.checked })} />
-            <label htmlFor="depositRequired" className="text-sm text-gray-500">مطلوب دفعة مقدمة</label>
+            <label htmlFor="depositRequired" className="text-sm text-muted-foreground">مطلوب دفعة مقدمة</label>
           </div>
           {form.depositRequired && (
-            <div className="grid grid-cols-3 gap-2 pr-6">
-              <div><label className="text-sm text-gray-500">المبلغ</label><input type="number" className={INPUT_CLS} value={form.depositAmount} onChange={e => setForm({ ...form, depositAmount: +e.target.value })} /></div>
+            <div className="grid grid-cols-3 gap-2 pe-6">
+              <div><label className="text-sm text-muted-foreground">المبلغ</label><input type="number" className={INPUT_CLS} value={form.depositAmount} onChange={e => setForm({ ...form, depositAmount: +e.target.value })} /></div>
               <div className="flex items-center gap-2 mt-5">
                 <input type="checkbox" id="depositPaid" checked={form.depositPaid} onChange={e => setForm({ ...form, depositPaid: e.target.checked })} />
-                <label htmlFor="depositPaid" className="text-sm text-gray-500">تم الدفع</label>
+                <label htmlFor="depositPaid" className="text-sm text-muted-foreground">تم الدفع</label>
               </div>
-              <div><label className="text-sm text-gray-500">طريقة الدفع</label>
+              <div><label className="text-sm text-muted-foreground">طريقة الدفع</label>
                 <select className={INPUT_CLS} value={form.paymentMethod} onChange={e => setForm({ ...form, paymentMethod: e.target.value })}>
                   <option value="">اختر</option><option value="vodafone_cash">فودافون كاش</option><option value="instapay">انستا باي</option><option value="cib_topup">CIB توب أب</option><option value="card">بطاقة</option><option value="other">أخرى</option>
                 </select>

@@ -15,7 +15,7 @@ export default function ServiceDetailModal({ service, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className={`${MODAL_CONTENT_CLS} max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border/80 rounded-2xl shadow-2xl text-foreground font-sans`}
+        className={`${MODAL_CONTENT_CLS} max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border/80 rounded-xl shadow-2xl text-foreground font-sans`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -32,8 +32,8 @@ export default function ServiceDetailModal({ service, onClose }: Props) {
                 <span
                   className={`px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                     service.isActive
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                      : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                      : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                   }`}
                 >
                   {service.isActive ? "نشط" : "غير نشط"}
@@ -100,7 +100,7 @@ export default function ServiceDetailModal({ service, onClose }: Props) {
                   >
                     {ds.doctor?.title} {ds.doctor?.name}
                     {ds.fee ? (
-                      <span className="font-mono tabular-nums mr-1">
+                      <span className="font-mono tabular-nums me-1">
                         {" "}
                         — {ds.fee} ج.م
                       </span>
@@ -135,8 +135,8 @@ export default function ServiceDetailModal({ service, onClose }: Props) {
                       <span
                         className={`text-[11px] px-2 py-0.5 rounded-full border ${
                           b.isActive
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                            : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                            : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                         }`}
                       >
                         {b.isActive ? "متاحة" : "غير متاحة"}
@@ -152,7 +152,7 @@ export default function ServiceDetailModal({ service, onClose }: Props) {
                           >
                             {pkg.count} جلسات — {pkg.price} ج.م
                             {pkg.originalPrice && (
-                              <span className="line-through mr-1 text-muted-foreground text-[11px]">
+                              <span className="line-through me-1 text-muted-foreground text-[11px]">
                                 {pkg.originalPrice} ج.م
                               </span>
                             )}

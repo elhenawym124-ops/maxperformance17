@@ -48,24 +48,24 @@ export default function PriceTierModal({
 
   return (
     <Modal title={`تسعير حسب عدد النزلاء - ${roomType.nameAr || roomType.name}`} onClose={onClose}>
-      <p className="text-sm text-gray-500 mb-4">حدد سعر كل عدد من النزلاء. النظام هيستخدم السعر المطابق لعدد الضيوف تلقائياً.</p>
+      <p className="text-sm text-muted-foreground mb-4">حدد سعر كل عدد من النزلاء. النظام هيستخدم السعر المطابق لعدد الضيوف تلقائياً.</p>
       <div className="space-y-3 max-h-[60vh] overflow-y-auto">
         {[1, 2, 3, 4].map(n => {
           const tier = tiers.find(t => t.guests === n);
           return (
-            <div key={n} className="flex items-center gap-3 border dark:border-gray-700 rounded-lg p-3">
+            <div key={n} className="flex items-center gap-3 border dark:border-border rounded-lg p-3">
               <span className="text-sm font-medium w-24">{n} {n === 1 ? 'نزيل' : 'نزلاء'}</span>
               <input type="number" className={INPUT_CLS}
                 placeholder="السعر"
                 value={tier?.price ?? ""}
                 onChange={e => { const v = +e.target.value; if (v > 0) upsertTier(n, v); else removeTier(n); }}
               />
-              <span className="text-sm text-gray-400">ج.م/ليلة</span>
+              <span className="text-sm text-muted-foreground">ج.م/ليلة</span>
             </div>
           );
         })}
         <div className="border-t pt-3 mt-3">
-          <p className="text-xs text-gray-400">إذا تركت حقل فارغ للسعر، معناه إنه غير متوفر لهذا العدد من النزلاء (النظام هيستخدم الـ basePrice كبديل).</p>
+          <p className="text-xs text-muted-foreground">إذا تركت حقل فارغ للسعر، معناه إنه غير متوفر لهذا العدد من النزلاء (النظام هيستخدم الـ basePrice كبديل).</p>
         </div>
       </div>
       <div className="flex justify-end gap-2 mt-6">

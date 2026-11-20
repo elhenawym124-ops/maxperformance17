@@ -44,8 +44,8 @@ export default function RateModal({
         </select>
         <input className={INPUT_CLS} placeholder="المسمى (مثل: الموسم الصيفي)" value={form.label} onChange={e => setForm({ ...form, label: e.target.value })} />
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="text-sm text-gray-500">من تاريخ</label><DateInput className={INPUT_CLS} value={form.dateFrom} onChange={e => setForm({ ...form, dateFrom: e.target.value })} /></div>
-          <div><label className="text-sm text-gray-500">إلى تاريخ</label><DateInput className={INPUT_CLS} value={form.dateTo} onChange={e => setForm({ ...form, dateTo: e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">من تاريخ</label><DateInput className={INPUT_CLS} value={form.dateFrom} onChange={e => setForm({ ...form, dateFrom: e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">إلى تاريخ</label><DateInput className={INPUT_CLS} value={form.dateTo} onChange={e => setForm({ ...form, dateTo: e.target.value })} /></div>
         </div>
         <input type="number" className={INPUT_CLS} placeholder="السعر لليلة" value={form.price} onChange={e => setForm({ ...form, price: +e.target.value })} />
       </div>

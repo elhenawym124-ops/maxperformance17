@@ -212,12 +212,12 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
   const isRtl = i18n.dir() === "rtl";
 
   return (
-    <div className={`p-4 md:p-6 w-full text-slate-900 dark:text-slate-100 bg-background ${isRtl ? "rtl" : "ltr"}`}>
+    <div className={`p-4 md:p-6 w-full text-foreground dark:text-muted-foreground bg-background ${isRtl ? "rtl" : "ltr"}`}>
 
 
       {/* Notifications */}
       {error && (
-        <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 rounded-xl p-4 mb-6 flex justify-between items-center text-sm">
+        <div className="bg-red-50 dark:bg-destructive/20 border border-destructive dark:border-destructive/50 text-destructive dark:text-destructive rounded-xl p-4 mb-6 flex justify-between items-center text-sm">
           <div className="flex items-center gap-2">
             <AlertTriangle className="size-4 flex-shrink-0" />
             <span>{error}</span>
@@ -228,7 +228,7 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
         </div>
       )}
       {notice && (
-        <div className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-xl p-4 mb-6 flex justify-between items-center text-sm">
+        <div className="bg-emerald-50 dark:bg-success/20 border border-success dark:border-success/50 text-success dark:text-success rounded-xl p-4 mb-6 flex justify-between items-center text-sm">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="size-4 flex-shrink-0" />
             <span>{notice}</span>
@@ -240,15 +240,15 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
       )}
 
       {/* Modern Tabs Menu */}
-      <div className="flex border-b border-slate-200 dark:border-slate-800 mb-6 overflow-x-auto gap-2">
+      <div className="flex border-b border-border dark:border-border mb-6 overflow-x-auto gap-2">
         {(t("agenticRagLab.embeddings.tabs", { returnObjects: true }) as string[]).map((label, idx) => (
           <button
             key={label}
             onClick={() => handleTabChange(idx + 1)}
             className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all whitespace-nowrap ${
               tabIndex === idx + 1
-                ? "border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400"
-                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+                ? "border-indigo-600 text-primary dark:border-primary"
+                : "border-transparent text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
             }`}
           >
             {label}
@@ -268,19 +268,19 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
               { label: tr("agenticRagLab.embeddings.products.missingText"), value: productsStats?.missingTextEmbedding || 0 },
               { label: tr("agenticRagLab.embeddings.products.missingImage"), value: productsStats?.missingImageEmbedding || 0 },
             ].map((stat, idx) => (
-              <div key={idx} className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl p-4 flex flex-col justify-between min-h-[80px]">
-                <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{stat.label}</span>
-                <span className="text-xl font-bold mt-1 text-slate-850 dark:text-slate-100">
+              <div key={idx} className="border border-border dark:border-border bg-white dark:bg-muted rounded-xl p-4 flex flex-col justify-between min-h-[80px]">
+                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">{stat.label}</span>
+                <span className="text-xl font-bold mt-1 text-foreground dark:text-muted-foreground">
                   {productsLoading ? "..." : stat.value}
                 </span>
               </div>
             ))}
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex justify-between items-center gap-4 flex-wrap">
               <h3 className="text-lg font-bold flex items-center gap-2">
-                <Database className="size-5 text-indigo-650" />
+                <Database className="size-5 text-primary" />
                 <span>{tr("agenticRagLab.embeddings.products.heading")}</span>
               </h3>
               <Button
@@ -288,7 +288,7 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
                 size="sm"
                 onClick={() => runProductBackfill()}
                 disabled={productsBackfillBusy}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium flex items-center gap-1.5"
+                className="bg-primary hover:bg-primary/90 text-white font-medium flex items-center gap-1.5"
               >
                 {productsBackfillBusy ? (
                   <Loader2 className="size-3.5 animate-spin" />
@@ -300,10 +300,10 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-border dark:border-border">
               <table className="w-full text-sm text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 uppercase">
+                  <tr className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-xs font-semibold text-muted-foreground uppercase">
                     <th className="px-4 py-3">{tr("agenticRagLab.embeddings.products.product")}</th>
                     <th className="px-4 py-3">{tr("agenticRagLab.embeddings.products.sku")}</th>
                     <th className="px-4 py-3">{tr("agenticRagLab.embeddings.products.status")}</th>
@@ -312,29 +312,29 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
                     <th className="px-4 py-3 text-right">{tr("agenticRagLab.embeddings.products.actions")}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tbody className="divide-y divide-border dark:divide-border">
                   {products.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="text-center py-6 text-slate-400">
+                      <td colSpan={6} className="text-center py-6 text-muted-foreground">
                         {productsLoading ? tr("agenticRagLab.embeddings.products.loading") : tr("agenticRagLab.embeddings.products.empty")}
                       </td>
                     </tr>
                   ) : (
                     products.map((product) => (
-                      <tr key={product.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-950/10">
+                      <tr key={product.id} className="hover:bg-slate-50/50 dark:hover:bg-muted">
                         <td className="px-4 py-3.5">
                           <div className="flex items-center gap-2.5">
                             {product.mainImage ? (
-                              <img src={product.mainImage} alt={product.name} className="size-9 rounded-lg object-cover border border-slate-100 dark:border-slate-850" />
+                              <img src={product.mainImage} alt={product.name} className="size-9 rounded-lg object-cover border border-border dark:border-border" />
                             ) : (
-                              <div className="size-9 bg-slate-100 dark:bg-slate-850 rounded-lg flex items-center justify-center text-[10px] text-slate-400">{tr("agenticRagLab.embeddings.products.noImage")}</div>
+                              <div className="size-9 bg-muted dark:bg-muted rounded-lg flex items-center justify-center text-[10px] text-muted-foreground">{tr("agenticRagLab.embeddings.products.noImage")}</div>
                             )}
-                            <span className="font-semibold text-slate-800 dark:text-slate-200 text-xs truncate max-w-[200px]">
+                            <span className="font-semibold text-foreground dark:text-muted-foreground text-xs truncate max-w-[200px]">
                               {product.name}
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-3.5 text-xs text-slate-500 font-mono">{product.sku}</td>
+                        <td className="px-4 py-3.5 text-xs text-muted-foreground font-mono">{product.sku}</td>
                         <td className="px-4 py-3.5">
                           <Badge variant={product.isActive ? "success" : "secondary"} className="text-[10px]">
                             {product.isActive ? tr("agenticRagLab.embeddings.products.active") : tr("agenticRagLab.embeddings.products.inactive")}
@@ -364,7 +364,7 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
                             variant="outline"
                             disabled={productsBackfillBusy || (product.hasTextEmbedding && product.hasImageEmbedding)}
                             onClick={() => runProductBackfill(product.id)}
-                            className="text-xs h-7 px-2.5 rounded-lg border-slate-200 dark:border-slate-800"
+                            className="text-xs h-7 px-2.5 rounded-lg border-border dark:border-border"
                           >
                             {tr("agenticRagLab.embeddings.products.generateEmbedding")}
                           </Button>
@@ -410,10 +410,10 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
 
       {/* TAB 2: FAQs */}
       {tabIndex === 2 && (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 shadow-sm space-y-4">
           <div className="flex justify-between items-center gap-4 flex-wrap">
             <h3 className="text-lg font-bold flex items-center gap-2">
-              <HelpCircle className="size-5 text-indigo-650" />
+              <HelpCircle className="size-5 text-primary" />
               <span>{tr("agenticRagLab.embeddings.faqs.heading")}</span>
             </h3>
             <Button
@@ -426,16 +426,16 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
               {faqBackfillBusy ? (
                 <Loader2 className="size-3.5 animate-spin" />
               ) : (
-                <Sparkles className="size-3.5 text-indigo-600 dark:text-indigo-400" />
+                <Sparkles className="size-3.5 text-primary" />
               )}
               <span>{tr("agenticRagLab.embeddings.faqs.backfill")}</span>
             </Button>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="overflow-x-auto rounded-xl border border-border dark:border-border">
             <table className="w-full text-sm text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 uppercase">
+                <tr className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-xs font-semibold text-muted-foreground uppercase">
                   <th className="px-4 py-3">{tr("agenticRagLab.embeddings.faqs.id")}</th>
                   <th className="px-4 py-3">{tr("agenticRagLab.embeddings.faqs.question")}</th>
                   <th className="px-4 py-3">{tr("agenticRagLab.embeddings.faqs.category")}</th>
@@ -443,18 +443,18 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
                   <th className="px-4 py-3 text-right">{tr("agenticRagLab.embeddings.faqs.embedding")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {faqItems.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="text-center py-6 text-slate-400">
+                    <td colSpan={5} className="text-center py-6 text-muted-foreground">
                       {faqLoading ? tr("agenticRagLab.embeddings.faqs.loading") : tr("agenticRagLab.embeddings.faqs.empty")}
                     </td>
                   </tr>
                 ) : (
                   faqItems.map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-950/10">
-                      <td className="px-4 py-3 text-xs text-slate-500 font-mono">{item.id.slice(0, 8)}</td>
-                      <td className="px-4 py-3 text-xs font-semibold text-slate-800 dark:text-slate-200">{item.question}</td>
+                    <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-muted">
+                      <td className="px-4 py-3 text-xs text-muted-foreground font-mono">{item.id.slice(0, 8)}</td>
+                      <td className="px-4 py-3 text-xs font-semibold text-foreground dark:text-muted-foreground">{item.question}</td>
                       <td className="px-4 py-3">
                         <Badge variant="outline" className="text-[10px]">{item.category}</Badge>
                       </td>
@@ -479,10 +479,10 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
 
       {/* TAB 3: Policies */}
       {tabIndex === 3 && (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 shadow-sm space-y-4">
           <div className="flex justify-between items-center gap-4 flex-wrap">
             <h3 className="text-lg font-bold flex items-center gap-2">
-              <FileText className="size-5 text-indigo-650" />
+              <FileText className="size-5 text-primary" />
               <span>{tr("agenticRagLab.embeddings.policies.heading")}</span>
             </h3>
             <Button
@@ -495,16 +495,16 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
               {policyBackfillBusy ? (
                 <Loader2 className="size-3.5 animate-spin" />
               ) : (
-                <Sparkles className="size-3.5 text-indigo-600 dark:text-indigo-400" />
+                <Sparkles className="size-3.5 text-primary" />
               )}
               <span>{tr("agenticRagLab.embeddings.policies.backfill")}</span>
             </Button>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="overflow-x-auto rounded-xl border border-border dark:border-border">
             <table className="w-full text-sm text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 uppercase">
+                <tr className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-xs font-semibold text-muted-foreground uppercase">
                   <th className="px-4 py-3">{tr("agenticRagLab.embeddings.policies.title")}</th>
                   <th className="px-4 py-3">{tr("agenticRagLab.embeddings.policies.category")}</th>
                   <th className="px-4 py-3">{tr("agenticRagLab.embeddings.policies.status")}</th>
@@ -513,17 +513,17 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
                   <th className="px-4 py-3 text-right">{tr("agenticRagLab.embeddings.policies.embedding")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {policyItems.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-6 text-slate-400">
+                    <td colSpan={6} className="text-center py-6 text-muted-foreground">
                       {policyLoading ? tr("agenticRagLab.embeddings.policies.loading") : tr("agenticRagLab.embeddings.policies.empty")}
                     </td>
                   </tr>
                 ) : (
                   policyItems.map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-950/10">
-                      <td className="px-4 py-3 text-xs font-semibold text-slate-800 dark:text-slate-200">{item.title}</td>
+                    <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-muted">
+                      <td className="px-4 py-3 text-xs font-semibold text-foreground dark:text-muted-foreground">{item.title}</td>
                       <td className="px-4 py-3">
                         <Badge variant="outline" className="text-[10px]">{item.category}</Badge>
                       </td>
@@ -532,10 +532,10 @@ const AgenticRAGLab: React.FC<AgenticRAGLabProps> = ({ companyId }) => {
                           {item.isActive ? tr("agenticRagLab.embeddings.policies.active") : tr("agenticRagLab.embeddings.policies.inactive")}
                         </Badge>
                       </td>
-                      <td className="px-4 py-3 text-xs text-slate-500">
+                      <td className="px-4 py-3 text-xs text-muted-foreground">
                         {item.effectiveAt ? new Date(item.effectiveAt).toLocaleDateString() : "-"}
                       </td>
-                      <td className="px-4 py-3 text-xs text-slate-500">
+                      <td className="px-4 py-3 text-xs text-muted-foreground">
                         {item.expiresAt ? new Date(item.expiresAt).toLocaleDateString() : "-"}
                       </td>
                       <td className="px-4 py-3 text-right">

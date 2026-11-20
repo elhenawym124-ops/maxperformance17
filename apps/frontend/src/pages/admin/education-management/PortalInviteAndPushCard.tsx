@@ -96,7 +96,7 @@ export const PortalInviteAndPushCard: React.FC<PortalInviteAndPushCardProps> = (
   return (
     <section
       aria-label={cardTitle}
-      className="bg-card border border-border/80 rounded-2xl p-4 sm:p-5 space-y-4 shadow-2xs"
+      className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 space-y-4 shadow-2xs"
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/50 pb-3">
         <div className="flex items-center gap-2 min-w-0">

@@ -45,8 +45,8 @@ export default function PropertyModal({
         <input className={INPUT_CLS} placeholder="الإيميل" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
         <textarea className={INPUT_CLS} placeholder="الوصف" rows={3} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="text-sm text-gray-500">وقت الوصول</label><input className={INPUT_CLS} value={form.checkInTime} onChange={e => setForm({ ...form, checkInTime: e.target.value })} /></div>
-          <div><label className="text-sm text-gray-500">وقت المغادرة</label><input className={INPUT_CLS} value={form.checkOutTime} onChange={e => setForm({ ...form, checkOutTime: e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">وقت الوصول</label><input className={INPUT_CLS} value={form.checkInTime} onChange={e => setForm({ ...form, checkInTime: e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">وقت المغادرة</label><input className={INPUT_CLS} value={form.checkOutTime} onChange={e => setForm({ ...form, checkOutTime: e.target.value })} /></div>
         </div>
       </div>
       <div className="flex justify-end gap-2 mt-6">

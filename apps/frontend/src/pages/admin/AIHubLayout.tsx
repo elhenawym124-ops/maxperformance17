@@ -164,7 +164,7 @@ export default function AIHubLayout() {
                 AI Hub
               </span>
               {isSuper && (
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20">
                   Super Admin
                 </span>
               )}
@@ -206,7 +206,7 @@ export default function AIHubLayout() {
               ))}
             </select>
             {!selectedCompanyId && currentTab === "test" && (
-              <span className="text-xs text-amber-600 dark:text-amber-400 font-mono">{t("aiHub.companyRequired", "يرجى اختيار شركة أولاً")}</span>
+              <span className="text-xs text-warning dark:text-warning font-mono">{t("aiHub.companyRequired", "يرجى اختيار شركة أولاً")}</span>
             )}
           </div>
         )}
@@ -216,7 +216,7 @@ export default function AIHubLayout() {
       <div className="flex-1 bg-background overflow-hidden flex flex-col min-h-0">
         <React.Suspense fallback={
           <div className="flex h-[400px] items-center justify-center text-muted-foreground text-xs font-mono">
-            <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin mr-2" />
+            <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin me-2" />
             جاري تهيئة مساحة العمل...
           </div>
         }>

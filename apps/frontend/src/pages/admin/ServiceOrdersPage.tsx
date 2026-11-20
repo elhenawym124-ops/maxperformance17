@@ -29,17 +29,17 @@ const STATUS_MAP: Record<string, { label: string; color: string; badge: string }
   },
   IN_PROGRESS: {
     label: "قيد التنفيذ",
-    color: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
+    color: "bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning",
     badge: "bg-amber-500"
   },
   COMPLETED: {
     label: "مكتمل",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
+    color: "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success",
     badge: "bg-emerald-500"
   },
   CANCELLED: {
     label: "ملغي",
-    color: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800",
+    color: "bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive",
     badge: "bg-rose-500"
   },
 };
@@ -47,22 +47,22 @@ const STATUS_MAP: Record<string, { label: string; color: string; badge: string }
 const PAYMENT_STATUS_MAP: Record<string, { label: string; color: string; badge: string }> = {
   UNPAID: {
     label: "غير مدفوع",
-    color: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300",
+    color: "bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive",
     badge: "bg-rose-500"
   },
   PARTIALLY_PAID: {
     label: "عربون / جزئي",
-    color: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300",
+    color: "bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning",
     badge: "bg-amber-500"
   },
   PAID: {
     label: "مدفوع بالكامل",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300",
+    color: "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success",
     badge: "bg-emerald-500"
   },
   REFUNDED: {
     label: "مسترد",
-    color: "bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300",
+    color: "bg-gray-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground",
     badge: "bg-gray-400"
   }
 };
@@ -322,7 +322,7 @@ export default function ServiceOrdersPage() {
 
   if (loading && orders.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-gray-500">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-muted-foreground">
         <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
         <p className="text-sm font-medium">جاري تحميل طلبات الخدمات...</p>
       </div>
@@ -332,15 +332,15 @@ export default function ServiceOrdersPage() {
   return (
     <div className="p-3 sm:p-6 max-w-7xl mx-auto space-y-4 sm:space-y-6 rtl" dir="rtl">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-border dark:border-border">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
             <span>طلبات الخدمات</span>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 font-bold">
               {orders.length}
             </span>
           </h1>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             إدارة رحلة طلبات الخدمات، المرفقات الصوتية والمرئية، التحصيل المالي والفواتير، وتكليف فريق العمل.
           </p>
         </div>
@@ -349,17 +349,17 @@ export default function ServiceOrdersPage() {
         <div className="flex items-center gap-2 flex-wrap">
           <Link
             to="/admin/services/settings"
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 shadow-xs transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-card text-foreground border border-border dark:border-border hover:bg-muted shadow-xs transition-colors"
             title="إعدادات فريق العمل، الواتساب، والفواتير"
           >
-            <Settings className="w-3.5 h-3.5 text-gray-600" />
+            <Settings className="w-3.5 h-3.5 text-foreground" />
             <span>الإعدادات</span>
           </Link>
 
           <button
             type="button"
             onClick={copyPublicLink}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 shadow-xs transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-card text-foreground border border-border dark:border-border hover:bg-muted shadow-xs transition-colors"
             title="نسخ رابط صفحة طلب الخدمة للعملاء"
           >
             <Copy className="w-3.5 h-3.5 text-primary-600" />
@@ -368,9 +368,9 @@ export default function ServiceOrdersPage() {
 
           <Link
             to="/admin/services"
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 shadow-xs transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-card text-foreground border border-border dark:border-border hover:bg-muted shadow-xs transition-colors"
           >
-            <Layers className="w-3.5 h-3.5 text-indigo-600" />
+            <Layers className="w-3.5 h-3.5 text-primary" />
             <span>كتالوج الخدمات</span>
           </Link>
 
@@ -389,24 +389,24 @@ export default function ServiceOrdersPage() {
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3.5">
         <div
           onClick={() => { setStatusFilter("ALL"); setPaymentFilter("ALL"); }}
-          className={`p-3 rounded-2xl border cursor-pointer transition-all ${
+          className={`p-3 rounded-xl border cursor-pointer transition-all ${
             statusFilter === "ALL" && paymentFilter === "ALL"
               ? "bg-primary-50/70 border-primary-300 dark:bg-primary-950/40 dark:border-primary-800 shadow-xs"
-              : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300"
+              : "bg-card border-border dark:border-border hover:border-border"
           }`}
         >
-          <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400 block">إجمالي الطلبات</span>
-          <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mt-0.5 block">
+          <span className="text-[11px] font-medium text-muted-foreground block">إجمالي الطلبات</span>
+          <span className="text-lg sm:text-xl font-bold text-foreground mt-0.5 block">
             {stats.total}
           </span>
         </div>
 
         <div
           onClick={() => setStatusFilter("NEW")}
-          className={`p-3 rounded-2xl border cursor-pointer transition-all ${
+          className={`p-3 rounded-xl border cursor-pointer transition-all ${
             statusFilter === "NEW"
               ? "bg-blue-50/70 border-blue-300 dark:bg-blue-950/40 dark:border-blue-800 shadow-xs"
-              : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300"
+              : "bg-card border-border dark:border-border hover:border-border"
           }`}
         >
           <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400 block">طلبات جديدة</span>
@@ -417,60 +417,60 @@ export default function ServiceOrdersPage() {
 
         <div
           onClick={() => setStatusFilter("IN_PROGRESS")}
-          className={`p-3 rounded-2xl border cursor-pointer transition-all ${
+          className={`p-3 rounded-xl border cursor-pointer transition-all ${
             statusFilter === "IN_PROGRESS"
-              ? "bg-amber-50/70 border-amber-300 dark:bg-amber-950/40 dark:border-amber-800 shadow-xs"
-              : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300"
+              ? "bg-amber-50/70 border-warning dark:bg-warning/40 dark:border-warning shadow-xs"
+              : "bg-card border-border dark:border-border hover:border-border"
           }`}
         >
-          <span className="text-[11px] font-medium text-amber-600 dark:text-amber-400 block">قيد التنفيذ</span>
-          <span className="text-lg sm:text-xl font-bold text-amber-700 dark:text-amber-300 mt-0.5 block">
+          <span className="text-[11px] font-medium text-warning dark:text-warning block">قيد التنفيذ</span>
+          <span className="text-lg sm:text-xl font-bold text-warning dark:text-warning mt-0.5 block">
             {stats.inProgress}
           </span>
         </div>
 
         <div
           onClick={() => setStatusFilter("COMPLETED")}
-          className={`p-3 rounded-2xl border cursor-pointer transition-all ${
+          className={`p-3 rounded-xl border cursor-pointer transition-all ${
             statusFilter === "COMPLETED"
-              ? "bg-emerald-50/70 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800 shadow-xs"
-              : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300"
+              ? "bg-emerald-50/70 border-success dark:bg-success/40 dark:border-success shadow-xs"
+              : "bg-card border-border dark:border-border hover:border-border"
           }`}
         >
-          <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 block">مكتملة</span>
-          <span className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 mt-0.5 block">
+          <span className="text-[11px] font-medium text-success dark:text-success block">مكتملة</span>
+          <span className="text-lg sm:text-xl font-bold text-success dark:text-success mt-0.5 block">
             {stats.completed}
           </span>
         </div>
 
         <div
           onClick={() => setPaymentFilter(paymentFilter === "UNPAID" ? "ALL" : "UNPAID")}
-          className={`p-3 rounded-2xl border cursor-pointer transition-all ${
+          className={`p-3 rounded-xl border cursor-pointer transition-all ${
             paymentFilter === "UNPAID"
-              ? "bg-rose-50/70 border-rose-300 dark:bg-rose-950/40 dark:border-rose-800 shadow-xs"
-              : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300"
+              ? "bg-rose-50/70 border-destructive dark:bg-destructive/40 dark:border-destructive shadow-xs"
+              : "bg-card border-border dark:border-border hover:border-border"
           }`}
         >
-          <span className="text-[11px] font-medium text-rose-600 dark:text-rose-400 block">بانتظار التحصيل</span>
-          <span className="text-lg sm:text-xl font-bold text-rose-700 dark:text-rose-300 mt-0.5 block">
+          <span className="text-[11px] font-medium text-destructive dark:text-destructive block">بانتظار التحصيل</span>
+          <span className="text-lg sm:text-xl font-bold text-destructive dark:text-destructive mt-0.5 block">
             {stats.unpaidCount} طلب
           </span>
         </div>
       </div>
 
       {/* Search Bar & Filters */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white dark:bg-gray-800 p-3 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xs">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-card p-3 rounded-xl border border-border dark:border-border shadow-xs">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="بحث برقم الطلب، الفاتورة، العميل، الهاتف، الخدمة، أو المسؤول..."
-            className="w-full pr-9 pl-3 py-2 text-xs sm:text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-800 dark:text-gray-200 outline-hidden focus:ring-2 focus:ring-primary-500"
+            className="w-full pe-9 ps-3 py-2 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground outline-hidden focus:ring-2 focus:ring-primary-500"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery("")} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+            <button onClick={() => setSearchQuery("")} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
               <X className="w-3.5 h-3.5" />
             </button>
           )}
@@ -491,7 +491,7 @@ export default function ServiceOrdersPage() {
               className={`px-3 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all ${
                 statusFilter === tab.id
                   ? "bg-primary-600 text-white shadow-xs"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200"
+                  : "bg-muted text-muted-foreground hover:bg-muted"
               }`}
             >
               {tab.label}
@@ -502,12 +502,12 @@ export default function ServiceOrdersPage() {
 
       {/* Orders List */}
       {filteredOrders.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 sm:p-12 text-center space-y-3">
-          <FileText className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto" />
-          <h3 className="text-base font-bold text-gray-800 dark:text-gray-200">
+        <div className="bg-card rounded-xl border border-border dark:border-border p-8 sm:p-12 text-center space-y-3">
+          <FileText className="w-12 h-12 text-muted-foreground dark:text-foreground mx-auto" />
+          <h3 className="text-base font-bold text-foreground dark:text-muted-foreground">
             {orders.length === 0 ? "لا توجد طلبات خدمات بعد" : "لا توجد نتائج مطابقة للبحث"}
           </h3>
-          <p className="text-xs text-gray-400 max-w-md mx-auto">
+          <p className="text-xs text-muted-foreground max-w-md mx-auto">
             {orders.length === 0
               ? "يمكنك البدء بإنشاء أول طلب خدمة يدوي، أو نسخ رابط صفحة الطلبات لمشاركتها مع عملائك عبر منصات التواصل."
               : "جرّب تغيير كلمات البحث أو إعادة ضبط فلتر الحالات للوصول إلى طلبات أخرى."}
@@ -535,7 +535,7 @@ export default function ServiceOrdersPage() {
               <div
                 key={o.id}
                 onClick={() => navigate(`/admin/service-orders/${o.id}`)}
-                className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 hover:border-primary-300 dark:hover:border-primary-700 shadow-xs hover:shadow-md transition-all cursor-pointer space-y-3"
+                className="bg-card rounded-xl border border-border dark:border-border p-4 hover:border-primary-300 dark:hover:border-primary-700 shadow-xs hover:shadow-md transition-all cursor-pointer space-y-3"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   {/* Left Info */}
@@ -546,13 +546,13 @@ export default function ServiceOrdersPage() {
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="text-xs font-mono font-bold text-gray-400 dark:text-gray-500">
+                        <span className="text-xs font-mono font-bold text-muted-foreground/80">
                           {shortId}
                         </span>
-                        <span className="font-bold text-gray-900 dark:text-white text-sm">
+                        <span className="font-bold text-foreground text-sm">
                           {o.customerName}
                         </span>
-                        <span className="text-xs text-gray-400" dir="ltr">
+                        <span className="text-xs text-muted-foreground" dir="ltr">
                           {o.phone}
                         </span>
 
@@ -569,15 +569,15 @@ export default function ServiceOrdersPage() {
                         </span>
                       </div>
 
-                      <div className="text-xs text-gray-600 dark:text-gray-300 flex items-center gap-2 flex-wrap">
+                      <div className="text-xs text-muted-foreground flex items-center gap-2 flex-wrap">
                         <span className="font-semibold text-primary-700 dark:text-primary-400">
                           {o.service?.name || "خدمة"}
                         </span>
                         {o.payment?.totalAmount > 0 && (
-                          <span className="font-bold text-gray-800 dark:text-gray-200">
+                          <span className="font-bold text-foreground dark:text-muted-foreground">
                             • {o.payment.totalAmount} ج.م
                             {o.payment.paidAmount > 0 && (
-                              <span className="text-emerald-600 dark:text-emerald-400 font-normal mr-1">
+                              <span className="text-emerald-600 dark:text-success font-normal me-1">
                                 (مدفوع: {o.payment.paidAmount} ج.م)
                               </span>
                             )}
@@ -591,16 +591,16 @@ export default function ServiceOrdersPage() {
                       </div>
 
                       {/* Meta Badges */}
-                      <div className="flex items-center gap-2 mt-2 text-[11px] text-gray-400 flex-wrap">
+                      <div className="flex items-center gap-2 mt-2 text-[11px] text-muted-foreground flex-wrap">
                         <span>{new Date(o.createdAt).toLocaleDateString("ar-EG")}</span>
                         {audioCount > 0 && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-50 text-purple-700 dark:bg-purple-950/40 rounded-md font-medium">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary dark:bg-primary/40 rounded-md font-medium">
                             <Music className="w-3 h-3" />
                             {audioCount} صوت
                           </span>
                         )}
                         {videoCount > 0 && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-rose-50 text-rose-700 dark:bg-rose-950/40 rounded-md font-medium">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-destructive/10 text-destructive dark:bg-destructive/40 rounded-md font-medium">
                             <Video className="w-3 h-3" />
                             {videoCount} فيديو
                           </span>
@@ -611,7 +611,7 @@ export default function ServiceOrdersPage() {
                           </span>
                         )}
                         {o.assignedTo && (
-                          <span className="inline-flex items-center gap-1 text-gray-600 dark:text-gray-300 font-medium">
+                          <span className="inline-flex items-center gap-1 text-muted-foreground font-medium">
                             <UserCheck className="w-3 h-3 text-primary-600" />
                             المسؤول: {o.assignedTo}
                           </span>
@@ -629,14 +629,14 @@ export default function ServiceOrdersPage() {
                       type="button"
                       onClick={(e) => openWhatsAppChat(o, e)}
                       title="محادثة واتساب سريعة"
-                      className="flex items-center gap-1 px-2.5 py-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/40 rounded-xl text-xs font-semibold"
+                      className="flex items-center gap-1 px-2.5 py-1.5 bg-success/10 text-success hover:bg-success dark:bg-success/40 rounded-xl text-xs font-semibold"
                     >
                       <MessageCircle className="w-3.5 h-3.5" />
                       <span>واتساب</span>
                     </button>
 
                     <select
-                      className="border rounded-xl px-2.5 py-1 text-xs font-medium dark:bg-gray-700 dark:border-gray-600 min-h-[36px]"
+                      className="border rounded-xl px-2.5 py-1 text-xs font-medium dark:bg-muted dark:border-border min-h-[36px]"
                       value={o.status}
                       onChange={(e) => updateStatus(o.id, e.target.value, e)}
                     >
@@ -649,7 +649,7 @@ export default function ServiceOrdersPage() {
 
                     <Link
                       to={`/admin/service-orders/${o.id}`}
-                      className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-xl text-xs font-semibold"
+                      className="flex items-center gap-1 px-3 py-1.5 bg-muted hover:bg-muted dark:bg-muted text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold"
                       title="عرض تفاصيل الطلب الكاملة"
                     >
                       <span>تفاصيل</span>
@@ -659,7 +659,7 @@ export default function ServiceOrdersPage() {
                     <button
                       type="button"
                       onClick={(e) => deleteOrder(o.id, e)}
-                      className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl"
+                      className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-xl"
                       title="حذف الطلب"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -679,23 +679,23 @@ export default function ServiceOrdersPage() {
           onClick={() => setShowCreateModal(false)}
         >
           <div
-            className="bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-6 w-full max-w-2xl shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto my-auto"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-2xl shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto my-auto"
             onClick={(e) => e.stopPropagation()}
             dir="rtl"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-700">
+            <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-950 text-primary-600 flex items-center justify-center">
                   <Plus className="w-4 h-4" />
                 </div>
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+                <h2 className="text-base sm:text-lg font-bold text-foreground">
                   تسجيل طلب خدمة جديد يدويًا
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setShowCreateModal(false)}
-                className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg"
+                className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -703,7 +703,7 @@ export default function ServiceOrdersPage() {
 
             <form onSubmit={handleCreateOrder} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                <label className="text-xs font-semibold text-foreground">
                   اختر الخدمة <span className="text-rose-500">*</span>
                 </label>
                 <select
@@ -717,7 +717,7 @@ export default function ServiceOrdersPage() {
                       totalAmount: sel?.price ? String(sel.price) : createForm.totalAmount
                     });
                   }}
-                  className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50"
+                  className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted"
                 >
                   <option value="">-- اختر الخدمة المطلوبة --</option>
                   {services.map((s) => (
@@ -730,7 +730,7 @@ export default function ServiceOrdersPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <label className="text-xs font-semibold text-foreground">
                     اسم العميل <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -739,12 +739,12 @@ export default function ServiceOrdersPage() {
                     placeholder="الاسم الكامل للعميل"
                     value={createForm.customerName}
                     onChange={(e) => setCreateForm({ ...createForm, customerName: e.target.value })}
-                    className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50"
+                    className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <label className="text-xs font-semibold text-foreground">
                     رقم الهاتف (واتساب) <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -753,42 +753,42 @@ export default function ServiceOrdersPage() {
                     placeholder="مثال: 01012345678"
                     value={createForm.phone}
                     onChange={(e) => setCreateForm({ ...createForm, phone: e.target.value })}
-                    className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50"
+                    className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted"
                     dir="ltr"
                   />
                 </div>
               </div>
 
               {/* Financial Inputs */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 rounded-2xl bg-gray-50 dark:bg-gray-900/40 border border-gray-100 dark:border-gray-700">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">السعر المتفق عليه (ج.م):</label>
+                  <label className="text-xs font-semibold text-foreground">السعر المتفق عليه (ج.م):</label>
                   <input
                     type="number"
                     placeholder="مثال: 1500"
                     value={createForm.totalAmount}
                     onChange={(e) => setCreateForm({ ...createForm, totalAmount: e.target.value })}
-                    className="w-full p-2 text-xs rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+                    className="w-full p-2 text-xs rounded-lg border border-border dark:border-border bg-card"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">المدفوع الآن (العربون):</label>
+                  <label className="text-xs font-semibold text-foreground">المدفوع الآن (العربون):</label>
                   <input
                     type="number"
                     placeholder="مثال: 500"
                     value={createForm.paidAmount}
                     onChange={(e) => setCreateForm({ ...createForm, paidAmount: e.target.value })}
-                    className="w-full p-2 text-xs rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+                    className="w-full p-2 text-xs rounded-lg border border-border dark:border-border bg-card"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">طريقة التحصيل:</label>
+                  <label className="text-xs font-semibold text-foreground">طريقة التحصيل:</label>
                   <select
                     value={createForm.paymentMethod}
                     onChange={(e) => setCreateForm({ ...createForm, paymentMethod: e.target.value })}
-                    className="w-full p-2 text-xs rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+                    className="w-full p-2 text-xs rounded-lg border border-border dark:border-border bg-card"
                   >
                     <option value="VODAFONE_CASH">فودافون كاش / محافظ</option>
                     <option value="INSTAPAY">إنستاباي (InstaPay)</option>
@@ -799,7 +799,7 @@ export default function ServiceOrdersPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                <label className="text-xs font-semibold text-foreground">
                   تفاصيل ومتطلبات الطلب
                 </label>
                 <textarea
@@ -807,12 +807,12 @@ export default function ServiceOrdersPage() {
                   placeholder="وصف تفاصيل الخدمة المتفق عليها، الشروط الخاصة..."
                   value={createForm.description}
                   onChange={(e) => setCreateForm({ ...createForm, description: e.target.value })}
-                  className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50"
+                  className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted"
                 />
               </div>
 
               {/* Media upload */}
-              <div className="pt-2 border-t border-gray-100 dark:border-gray-700">
+              <div className="pt-2 border-t border-border dark:border-border">
                 <MediaUploadZone
                   files={createFiles}
                   onChange={setCreateFiles}
@@ -821,9 +821,9 @@ export default function ServiceOrdersPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-border dark:border-border">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <label className="text-xs font-semibold text-foreground">
                     ملاحظات داخلية (خاصة بالإدارة)
                   </label>
                   <input
@@ -831,18 +831,18 @@ export default function ServiceOrdersPage() {
                     placeholder="ملاحظات لا يراها العميل"
                     value={createForm.notes}
                     onChange={(e) => setCreateForm({ ...createForm, notes: e.target.value })}
-                    className="w-full p-2.5 text-xs rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50"
+                    className="w-full p-2.5 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  <label className="text-xs font-semibold text-foreground">
                     الموظف أو المنفّذ المسؤول
                   </label>
                   <select
                     value={createForm.assignedTo}
                     onChange={(e) => setCreateForm({ ...createForm, assignedTo: e.target.value })}
-                    className="w-full p-2.5 text-xs rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50"
+                    className="w-full p-2.5 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted"
                   >
                     <option value="">-- اختيار مسؤول (أو اتركه للتكليف التلقائي) --</option>
                     {teamMembers.map((m) => (
@@ -855,11 +855,11 @@ export default function ServiceOrdersPage() {
               </div>
 
               {/* Modal Actions */}
-              <div className="flex justify-end gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
+              <div className="flex justify-end gap-2 pt-3 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 text-xs font-semibold rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100"
+                  className="px-4 py-2 text-xs font-semibold rounded-xl text-muted-foreground hover:bg-muted"
                 >
                   إلغاء
                 </button>

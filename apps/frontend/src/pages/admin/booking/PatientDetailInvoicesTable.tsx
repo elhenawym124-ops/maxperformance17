@@ -46,13 +46,13 @@ export default function PatientDetailInvoicesTable({
           <p className="text-[11px] text-muted-foreground">عدد الزيارات</p>
         </div>
         <div className="bg-muted/30 border border-border/60 rounded-xl p-3">
-          <p className="text-base sm:text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <p className="text-base sm:text-lg font-bold font-mono tabular-nums text-success dark:text-success">
             {fmtMoney(financialSummary?.totalPaid)}
           </p>
           <p className="text-[11px] text-muted-foreground">إجمالي المسدد</p>
         </div>
         <div className="bg-muted/30 border border-border/60 rounded-xl p-3">
-          <p className="text-base sm:text-lg font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+          <p className="text-base sm:text-lg font-bold font-mono tabular-nums text-destructive dark:text-destructive">
             {fmtMoney(financialSummary?.outstanding)}
           </p>
           <p className="text-[11px] text-muted-foreground">المبلغ المتبقي</p>
@@ -87,10 +87,10 @@ export default function PatientDetailInvoicesTable({
                       {String(inv.createdAt).split("T")[0]}
                     </td>
                     <td className="py-2.5 px-3 font-mono tabular-nums font-semibold">{fmtMoney(inv.total)}</td>
-                    <td className="py-2.5 px-3 font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                    <td className="py-2.5 px-3 font-mono tabular-nums text-success dark:text-success">
                       {fmtMoney(inv.amountPaid)}
                     </td>
-                    <td className="py-2.5 px-3 font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                    <td className="py-2.5 px-3 font-mono tabular-nums text-destructive dark:text-destructive">
                       {fmtMoney(inv.remaining)}
                     </td>
                     <td className="py-2.5 px-3">

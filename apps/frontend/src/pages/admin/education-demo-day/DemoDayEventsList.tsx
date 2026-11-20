@@ -44,8 +44,8 @@ export function DemoDayEventsList({
 
   if (!events.length) {
     return (
-      <div className="p-8 sm:p-12 text-center rounded-2xl border border-dashed border-border bg-card/50 space-y-3">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center mx-auto">
+      <div className="p-8 sm:p-12 text-center rounded-xl border border-dashed border-border bg-card/50 space-y-3">
+        <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center mx-auto">
           <Calendar className="w-6 h-6" />
         </div>
         <div className="space-y-1">
@@ -89,7 +89,7 @@ export function DemoDayEventsList({
       case "IN_PROGRESS":
         return {
           label: isEn ? "Live Now" : "جاري الآن",
-          cls: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 animate-pulse",
+          cls: "bg-emerald-500/10 text-success dark:text-success border-success/20 animate-pulse",
         };
       case "COMPLETED":
         return {
@@ -120,7 +120,7 @@ export function DemoDayEventsList({
           <div
             key={evt.id}
             onClick={() => onSelectEvent(evt.id)}
-            className={`group p-4 bg-card rounded-2xl border transition-all cursor-pointer flex flex-col justify-between gap-3.5 shadow-2xs hover:shadow-xs relative overflow-hidden ${
+            className={`group p-4 bg-card rounded-xl border transition-all cursor-pointer flex flex-col justify-between gap-3.5 shadow-2xs hover:shadow-xs relative overflow-hidden ${
               isSelected
                 ? "border-primary ring-1 ring-primary bg-primary/2"
                 : "border-border/80 hover:border-primary/40"
@@ -203,12 +203,12 @@ export function DemoDayEventsList({
                 <span className="inline-flex items-center gap-1">
                   {evt.locationType === "ONLINE" ? (
                     <>
-                      <Link2 className="w-3 h-3 text-purple-500" />
+                      <Link2 className="w-3 h-3 text-primary" />
                       <span>{isEn ? "Online (Webinar/Room)" : "أونلاين"}</span>
                     </>
                   ) : (
                     <>
-                      <MapPin className="w-3 h-3 text-emerald-500 shrink-0" />
+                      <MapPin className="w-3 h-3 text-success shrink-0" />
                       <span className="truncate max-w-[160px]" title={evt.branchName ? `${evt.branchName}${evt.room ? ` - ${evt.room}` : ""}` : (evt.room || "")}>
                         {evt.branchName ? `${evt.branchName}${evt.room ? ` - ${evt.room}` : ""}` : (evt.room || (isEn ? "In-Person Center" : "حضوري بالمقر"))}
                       </span>
@@ -232,7 +232,7 @@ export function DemoDayEventsList({
                 </span>
                 <span className="font-mono tabular-nums text-foreground">
                   {total} / {capacity}
-                  <span className="text-[10px] text-muted-foreground mr-1">({fillPercent}%)</span>
+                  <span className="text-[10px] text-muted-foreground me-1">({fillPercent}%)</span>
                 </span>
               </div>
 
@@ -252,7 +252,7 @@ export function DemoDayEventsList({
 
               {/* Converted Leads Stats */}
               <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-0.5">
-                <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+                <span className="flex items-center gap-1 text-success dark:text-success font-medium">
                   <UserCheck className="w-3 h-3" />
                   {isEn ? `${converted} Converted Students` : `${converted} تم تحويلهم لطلاب`}
                 </span>

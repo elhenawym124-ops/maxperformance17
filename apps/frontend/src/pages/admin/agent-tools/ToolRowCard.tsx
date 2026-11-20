@@ -58,9 +58,9 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
     <div
       onClick={() => onInspect(tool)}
       className={cn(
-        "group relative flex items-center justify-between gap-3 rounded-2xl border px-3.5 py-3 transition-all duration-200 cursor-pointer",
+        "group relative flex items-center justify-between gap-3 rounded-xl border px-3.5 py-3 transition-all duration-200 cursor-pointer",
         isEquipped
-          ? "border-border/80 border-s-4 border-s-emerald-500 bg-card hover:border-emerald-500/40 shadow-xs"
+          ? "border-border/80 border-s-4 border-s-emerald-500 bg-card hover:border-success/40 shadow-xs"
           : "border-border/50 border-s-4 border-s-muted-foreground/30 bg-card/40 opacity-85 hover:opacity-100 hover:border-border hover:bg-card/70"
       )}
     >
@@ -71,9 +71,9 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
           className={cn(
             "flex size-10 shrink-0 items-center justify-center rounded-xl border text-base shadow-2xs transition-transform group-hover:scale-105",
             isEquipped
-              ? "border-emerald-500/30 bg-emerald-500/10 text-foreground"
+              ? "border-emerald-500/30 bg-success/10 text-foreground"
               : isWrite
-              ? "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+              ? "border-amber-500/30 bg-warning/10 text-warning dark:text-warning"
               : "border-border/50 bg-muted/40 text-muted-foreground"
           )}
         >
@@ -92,8 +92,8 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
 
             {/* Installed / Equipped Status Badge */}
             {isEquipped ? (
-              <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-2 py-0.2 text-[0.65rem] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                <CheckCircle2 className="size-2.5 text-emerald-500" />
+              <span className="inline-flex items-center gap-1 rounded-md bg-success/15 px-2 py-0.2 text-[0.65rem] font-bold text-success dark:text-success border border-success/30">
+                <CheckCircle2 className="size-2.5 text-success" />
                 <span>مجهزة</span>
               </span>
             ) : (
@@ -105,12 +105,12 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
 
             {/* Side-effect Badge (Read vs Write) */}
             {isWrite ? (
-              <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              <span className="inline-flex items-center gap-1 rounded-md bg-warning/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-warning dark:text-warning border border-warning/20">
                 <Lock className="size-2.5" />
                 <span>تنفيذ/كتابة</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 rounded-md bg-sky-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-sky-600 dark:text-sky-400 border border-sky-500/20">
+              <span className="inline-flex items-center gap-1 rounded-md bg-info/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-info dark:text-info border border-info/20">
                 <Unlock className="size-2.5" />
                 <span>استعلام/قراءة</span>
               </span>
@@ -118,12 +118,12 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
 
             {/* Approval Badge */}
             {isSupervised ? (
-              <span className="inline-flex items-center gap-0.5 rounded-md bg-amber-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-amber-600 dark:text-amber-400 border border-amber-500/20 hidden sm:inline-flex">
+              <span className="inline-flex items-center gap-0.5 rounded-md bg-warning/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-warning dark:text-warning border border-warning/20 hidden sm:inline-flex">
                 <ShieldAlert className="size-2.5" />
                 <span>موافقة بشرية</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-0.5 rounded-md bg-emerald-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hidden sm:inline-flex">
+              <span className="inline-flex items-center gap-0.5 rounded-md bg-success/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-success dark:text-success border border-success/20 hidden sm:inline-flex">
                 <Zap className="size-2.5" />
                 <span>تنفيذ ذاتي</span>
               </span>
@@ -136,7 +136,7 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
 
             {/* Source Protocol Tag */}
             {tool.source === "mcp" && (
-              <span className="rounded-md bg-violet-500/10 px-1.5 py-0.2 text-[0.65rem] font-mono font-bold text-violet-600 dark:text-violet-400 border border-violet-500/20">
+              <span className="rounded-md bg-primary/10 px-1.5 py-0.2 text-[0.65rem] font-mono font-bold text-primary dark:text-primary border border-primary/20">
                 MCP
               </span>
             )}
@@ -170,7 +170,7 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
                 </span>
               ))}
             </div>
-            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mr-0.5">
+            <span className="text-xs font-semibold text-success dark:text-success me-0.5">
               {equippedAgents.length} {equippedAgents.length === 1 ? "وكيل" : "وكلاء"}
             </span>
           </div>
@@ -223,7 +223,7 @@ export const ToolRowCard: React.FC<ToolRowCardProps> = ({
         <button
           type="button"
           onClick={() => onTestSandbox(tool)}
-          className="p-1.5 rounded-lg text-muted-foreground hover:text-emerald-500 hover:bg-emerald-500/10 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-muted-foreground hover:text-success hover:bg-success/10 transition-colors cursor-pointer"
           title="تشغيل تجريبي في الـ Sandbox"
         >
           <Play className="size-3.5" />

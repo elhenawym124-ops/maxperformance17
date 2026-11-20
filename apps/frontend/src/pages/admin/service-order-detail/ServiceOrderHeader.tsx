@@ -31,18 +31,18 @@ export const ServiceOrderHeader: React.FC<ServiceOrderHeaderProps> = ({
   onDelete,
 }) => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-gray-200 dark:border-gray-700">
+    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-border dark:border-border">
       <div className="flex items-center gap-2.5">
         <Link
           to="/admin/service-orders"
-          className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl transition-colors shadow-xs"
+          className="p-2 text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white bg-card border border-border dark:border-border rounded-xl transition-colors shadow-xs"
           title="العودة لقائمة الطلبات"
         >
           <ArrowRight className="w-5 h-5" />
         </Link>
         <div>
           <div className="flex items-center gap-2 flex-wrap">
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">
               طلب خدمة {shortId}
             </h1>
             <span
@@ -60,7 +60,7 @@ export const ServiceOrderHeader: React.FC<ServiceOrderHeaderProps> = ({
               {currentPaymentStatus.label}
             </span>
           </div>
-          <p className="text-xs text-gray-400 flex items-center gap-1.5 mt-0.5">
+          <p className="text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5">
             <Calendar className="w-3.5 h-3.5" />
             تم التقديم:{" "}
             {new Date(order.createdAt).toLocaleString("ar-EG", {
@@ -76,7 +76,7 @@ export const ServiceOrderHeader: React.FC<ServiceOrderHeaderProps> = ({
         <select
           value={order.status}
           onChange={(e) => updateStatus(e.target.value)}
-          className="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-xs focus:ring-2 focus:ring-primary-500 outline-hidden transition-all"
+          className="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-xl border border-border bg-card text-foreground dark:text-muted-foreground shadow-xs focus:ring-2 focus:ring-primary-500 outline-hidden transition-all"
         >
           {Object.entries(STATUS_MAP).map(([key, val]) => (
             <option key={key} value={key}>
@@ -88,7 +88,7 @@ export const ServiceOrderHeader: React.FC<ServiceOrderHeaderProps> = ({
         <button
           type="button"
           onClick={onOpenInvoice}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 rounded-xl transition-colors shadow-xs"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 hover:bg-primary rounded-xl transition-colors shadow-xs"
           title="عرض وطباعة الفاتورة"
         >
           <Receipt className="w-4 h-4" />
@@ -98,7 +98,7 @@ export const ServiceOrderHeader: React.FC<ServiceOrderHeaderProps> = ({
         <button
           type="button"
           onClick={onOpenWhatsApp}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 rounded-xl transition-colors shadow-xs"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-success dark:text-success bg-success/10 dark:bg-success/40 hover:bg-success rounded-xl transition-colors shadow-xs"
           title="مراسلة واتساب من النظام"
         >
           <MessageCircle className="w-4 h-4" />
@@ -108,7 +108,7 @@ export const ServiceOrderHeader: React.FC<ServiceOrderHeaderProps> = ({
         <button
           type="button"
           onClick={onDelete}
-          className="p-2 text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 rounded-xl transition-colors shadow-xs"
+          className="p-2 text-destructive hover:text-destructive bg-destructive/10 hover:bg-destructive dark:bg-destructive/40 dark:text-destructive rounded-xl transition-colors shadow-xs"
           title="حذف الطلب"
         >
           <Trash2 className="w-4 h-4" />

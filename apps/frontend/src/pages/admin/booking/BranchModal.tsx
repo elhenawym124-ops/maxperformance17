@@ -127,7 +127,7 @@ export default function BranchModal({ branch, onClose, onSave }: Props) {
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4" onClick={onClose}>
-      <div className="bg-card border border-border/80 rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
+      <div className="bg-card border border-border/80 rounded-xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/60 bg-muted/20 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-primary/10 text-primary border border-primary/20">
@@ -297,7 +297,7 @@ export default function BranchModal({ branch, onClose, onSave }: Props) {
               </div>
             </div>
             <div>
-              <span className="text-xs font-medium text-pink-600 dark:text-pink-400 mb-1.5 block">أيام السيدات</span>
+              <span className="text-xs font-medium text-primary dark:text-primary mb-1.5 block">أيام السيدات</span>
               <div className="flex flex-wrap gap-1.5">
                 {DAYS.map(d => {
                   const isWorkingDay = (form.workingDays || "").split(",").includes(d.value);
@@ -307,7 +307,7 @@ export default function BranchModal({ branch, onClose, onSave }: Props) {
                       title={!isWorkingDay ? "يجب اختيار هذا اليوم كأحد أيام العمل أولاً" : ""}
                       className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
                         isSelected
-                          ? "bg-pink-600 text-white border-pink-600 shadow-xs"
+                          ? "bg-pink-600 text-white border-primary shadow-xs"
                           : "bg-background border-border/70 text-muted-foreground hover:text-foreground hover:bg-muted/40"
                       }`}>{d.label}</button>
                   );

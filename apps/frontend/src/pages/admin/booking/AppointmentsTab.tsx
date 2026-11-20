@@ -164,7 +164,7 @@ export default function AppointmentsTab({
               <span className="bg-muted text-muted-foreground font-mono tabular-nums px-2 py-0.5 rounded-md">{a.startTime}</span>
               {a.serviceName && <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-md font-medium">{a.serviceName}</span>}
               {a.createdByName && (
-                <span className={`px-2 py-0.5 rounded-md text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-primary dark:text-primary' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'}`}>
                   {a.createdByType === 'ai_service' ? 'وكيل ذكي' : 'موظف'}: {a.createdByName}
                 </span>
               )}
@@ -172,11 +172,11 @@ export default function AppointmentsTab({
             <div className="flex items-center gap-1.5 pt-1 border-t border-border/60">
               {a.status === "pending" && (
                 <>
-                  <button onClick={() => confirmAndUpdate(a.id, "confirmed", "مؤكد")} disabled={updatingId === a.id} className="text-xs px-2.5 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-md hover:bg-emerald-500/20 disabled:opacity-50 flex items-center gap-1">
+                  <button onClick={() => confirmAndUpdate(a.id, "confirmed", "مؤكد")} disabled={updatingId === a.id} className="text-xs px-2.5 py-1 bg-success/10 text-success dark:text-success border border-success/20 rounded-md hover:bg-success/20 disabled:opacity-50 flex items-center gap-1">
                     <Check className="w-3 h-3" />
                     <span>تأكيد</span>
                   </button>
-                  <button onClick={() => confirmAndUpdate(a.id, "cancelled", "ملغي")} disabled={updatingId === a.id} className="text-xs px-2.5 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-md hover:bg-rose-500/20 disabled:opacity-50 flex items-center gap-1">
+                  <button onClick={() => confirmAndUpdate(a.id, "cancelled", "ملغي")} disabled={updatingId === a.id} className="text-xs px-2.5 py-1 bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 rounded-md hover:bg-destructive/20 disabled:opacity-50 flex items-center gap-1">
                     <X className="w-3 h-3" />
                     <span>إلغاء</span>
                   </button>
@@ -199,7 +199,7 @@ export default function AppointmentsTab({
                 </button>
               )}
               {a.patientId && !a.paymentStatus && (
-                <button onClick={() => createInvoiceFor(a)} className="text-xs px-2.5 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-md hover:bg-emerald-500/20 flex items-center gap-1">
+                <button onClick={() => createInvoiceFor(a)} className="text-xs px-2.5 py-1 bg-success/10 text-success dark:text-success border border-success/20 rounded-md hover:bg-success/20 flex items-center gap-1">
                   <Plus className="w-3 h-3" />
                   <span>فاتورة</span>
                 </button>
@@ -253,7 +253,7 @@ export default function AppointmentsTab({
                 <td className="py-2.5 px-3 font-mono tabular-nums text-muted-foreground">{a.startTime}</td>
                 <td className="py-2.5 px-3">
                   {a.createdByName ? (
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'}`}>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-primary dark:text-primary' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'}`}>
                       <span className="text-[9px] opacity-70">{a.createdByType === 'ai_service' ? 'وكيل' : 'موظف'}</span>
                       <span>{a.createdByName}</span>
                     </span>
@@ -268,8 +268,8 @@ export default function AppointmentsTab({
                   <div className="flex items-center justify-end gap-1">
                     {a.status === "pending" && (
                       <>
-                        <button onClick={() => confirmAndUpdate(a.id, "confirmed", "مؤكد")} disabled={updatingId === a.id} className="p-1 text-emerald-600 hover:bg-emerald-500/10 rounded transition-colors disabled:opacity-50" title="تأكيد"><Check className="w-4 h-4" /></button>
-                        <button onClick={() => confirmAndUpdate(a.id, "cancelled", "ملغي")} disabled={updatingId === a.id} className="p-1 text-rose-600 hover:bg-rose-500/10 rounded transition-colors disabled:opacity-50" title="إلغاء"><X className="w-4 h-4" /></button>
+                        <button onClick={() => confirmAndUpdate(a.id, "confirmed", "مؤكد")} disabled={updatingId === a.id} className="p-1 text-success hover:bg-success/10 rounded transition-colors disabled:opacity-50" title="تأكيد"><Check className="w-4 h-4" /></button>
+                        <button onClick={() => confirmAndUpdate(a.id, "cancelled", "ملغي")} disabled={updatingId === a.id} className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors disabled:opacity-50" title="إلغاء"><X className="w-4 h-4" /></button>
                       </>
                     )}
                     {a.status === "confirmed" && (
@@ -280,7 +280,7 @@ export default function AppointmentsTab({
                       <button onClick={() => onViewPatient(a.patientId!)} className="p-1 text-primary hover:bg-primary/10 rounded transition-colors" title="فتح ملف المريض"><ArrowRight className="w-4 h-4" /></button>
                     )}
                     {a.patientId && !a.paymentStatus && (
-                      <button onClick={() => createInvoiceFor(a)} className="p-1 text-emerald-600 hover:bg-emerald-500/10 rounded transition-colors" title="إنشاء فاتورة"><Plus className="w-4 h-4" /></button>
+                      <button onClick={() => createInvoiceFor(a)} className="p-1 text-success hover:bg-success/10 rounded transition-colors" title="إنشاء فاتورة"><Plus className="w-4 h-4" /></button>
                     )}
                   </div>
                 </td>

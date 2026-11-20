@@ -51,8 +51,8 @@ export const AgentArchivedCard: React.FC<AgentArchivedCardProps> = ({
   };
 
   return (
-    <div className="max-w-md mx-auto my-12 p-6 bg-card border border-border rounded-2xl text-center space-y-5 shadow-sm">
-      <div className="size-14 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto text-2xl">
+    <div className="max-w-md mx-auto my-12 p-6 bg-card border border-border rounded-xl text-center space-y-5 shadow-sm">
+      <div className="size-14 rounded-full bg-warning/10 text-warning flex items-center justify-center mx-auto text-2xl">
         {draftIcon || "🤖"}
       </div>
       <div className="space-y-1">

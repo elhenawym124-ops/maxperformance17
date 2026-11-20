@@ -166,7 +166,7 @@ export default function PatientDetailBasicInfoCard({
             {diseases.map((d, i) => (
               <span
                 key={i}
-                className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md font-medium"
+                className="text-xs bg-warning/10 text-warning dark:text-warning border border-warning/20 px-2 py-0.5 rounded-md font-medium"
               >
                 {d}
               </span>

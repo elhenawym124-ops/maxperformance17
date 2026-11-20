@@ -65,7 +65,7 @@ export const HotelTabsNav: React.FC<HotelTabsNavProps> = ({
         <div className="relative w-full sm:w-48">
           <Search className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
-            className="w-full h-8 border border-border rounded-lg pr-8 pl-2.5 text-xs bg-card text-foreground placeholder:text-muted-foreground outline-none"
+            className="w-full h-8 border border-border rounded-lg pe-8 ps-2.5 text-xs bg-card text-foreground placeholder:text-muted-foreground outline-none"
             placeholder="بحث..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}

@@ -44,7 +44,7 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
           <div className="relative flex-1 sm:w-64">
             <Search className={`w-3.5 h-3.5 absolute ${isEn ? "left-3" : "right-3"} top-2.5 text-muted-foreground`} />
             <input
-              className={`bg-background border border-input rounded-lg ${isEn ? "pl-9 pr-3" : "pr-9 pl-3"} py-1.5 text-xs text-foreground w-full focus:outline-none focus:ring-1 focus:ring-primary`}
+              className={`bg-background border border-input rounded-lg ${isEn ? "ps-9 pe-3" : "pe-9 ps-3"} py-1.5 text-xs text-foreground w-full focus:outline-none focus:ring-1 focus:ring-primary`}
               placeholder={t("education.subjects.search", isEn ? "Search subjects..." : "بحث في المواد...")}
               value={subjectSearch}
               onChange={(e) => setSubjectSearch(e.target.value)}
@@ -77,8 +77,8 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
               <span
                 className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
                   s.isActive
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                    : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                 }`}
               >
                 {s.isActive
@@ -93,7 +93,7 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
             )}
             <div className="flex items-center justify-between text-xs pt-1 border-t border-border/40">
               <span className="text-muted-foreground">{t("education.subjects.price", isEn ? "Subject Price:" : "سعر المادة:")}</span>
-              <span className="tabular-nums font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="tabular-nums font-semibold text-success dark:text-success">
                 {typeof s.price === "number" && s.price > 0
                   ? t("education.subjects.priceWithCurrency", { price: s.price.toLocaleString(), defaultValue: isEn ? `${s.price.toLocaleString()} EGP` : `${s.price.toLocaleString()} ج.م` })
                   : (isEn ? "0 EGP" : "0 ج.م")}
@@ -113,8 +113,8 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
                 onClick={() => handleToggleSubject(s.id, s.isActive)}
                 className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-md transition-colors border ${
                   s.isActive
-                    ? "text-red-600 dark:text-red-400 border-red-500/20 hover:bg-red-500/10"
-                    : "text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/10"
+                    ? "text-red-600 dark:text-destructive border-destructive/20 hover:bg-destructive/10"
+                    : "text-emerald-600 dark:text-success border-success/20 hover:bg-success/10"
                 }`}
               >
                 <Check className="w-3.5 h-3.5" />
@@ -125,7 +125,7 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
               <button
                 type="button"
                 onClick={() => handleDeleteSubject(s.id)}
-                className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
                 aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")} title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -170,7 +170,7 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
                   </td>
                   <td className={CELL_CLS + " font-mono tabular-nums text-foreground"}>
                     {typeof s.price === "number" && s.price > 0 ? (
-                      <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                      <span className="font-semibold text-success dark:text-success">
                         {t("education.subjects.priceWithCurrency", { price: s.price.toLocaleString(), defaultValue: isEn ? `${s.price.toLocaleString()} EGP` : `${s.price.toLocaleString()} ج.م` })}
                       </span>
                     ) : (
@@ -181,8 +181,8 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                         s.isActive
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                          : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                          : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                       }`}
                     >
                       {s.isActive
@@ -205,8 +205,8 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
                         onClick={() => handleToggleSubject(s.id, s.isActive)}
                         className={`p-1.5 rounded-md transition-colors ${
                           s.isActive
-                            ? "text-red-600 dark:text-red-400 hover:bg-red-500/10"
-                            : "text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10"
+                            ? "text-red-600 dark:text-destructive hover:bg-destructive/10"
+                            : "text-emerald-600 dark:text-success hover:bg-success/10"
                         }`}
                         aria-label={s.isActive ? t("education.actions.deactivate", isEn ? "Deactivate" : "تعطيل") : t("education.actions.activate", isEn ? "Activate" : "تفعيل")} title={s.isActive ? t("education.actions.deactivate", isEn ? "Deactivate" : "تعطيل") : t("education.actions.activate", isEn ? "Activate" : "تفعيل")}
                       >
@@ -215,7 +215,7 @@ export const EducationSubjectsTab: React.FC<EducationSubjectsTabProps> = ({
                       <button
                         type="button"
                         onClick={() => handleDeleteSubject(s.id)}
-                        className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                        className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
                         aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")} title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
                       >
                         <Trash2 className="w-3.5 h-3.5" />

@@ -45,8 +45,8 @@ export default function WebChatWidgetPage() {
               {t("aiHub.widget.title", "أداة المحادثة المباشرة للموقع الإلكتروني")}
             </h1>
           </div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-success" />
             تضمين بلمسة واحدة
           </span>
         </div>
@@ -127,7 +127,7 @@ export default function WebChatWidgetPage() {
                 onClick={copy}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-border/80 bg-background px-2.5 py-1 text-xs font-medium text-foreground hover:bg-muted/40 transition-colors shadow-xs active:scale-97 cursor-pointer"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
                 {copied ? t("aiHub.widget.copied", "تم النسخ بنجاح") : t("aiHub.widget.copy", "نسخ الكود")}
               </button>
             </div>

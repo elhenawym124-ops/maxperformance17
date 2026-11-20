@@ -202,18 +202,18 @@ const AIAgentSandboxPage: React.FC = () => {
 
       {/* Skills Bar — shows skill names the agent uses in a single horizontal swipeable strip */}
       {agentSkillDetails.length > 0 && (
-        <div className="px-3 py-1.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
-          <div className="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">
-            <Sparkles className="size-3 text-purple-500" />
+        <div className="px-3 py-1.5 border-b border-border dark:border-border bg-muted dark:bg-muted flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
+          <div className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex-shrink-0">
+            <Sparkles className="size-3 text-primary" />
             <span>المهارات</span>
           </div>
-          <div className="h-3 w-px bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+          <div className="h-3 w-px bg-muted dark:bg-muted flex-shrink-0" />
           <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto no-scrollbar py-0.5">
             {agentSkillDetails.map((skill) => (
               <span
                 key={skill.id}
                 title={skill.description || skill.id}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border bg-purple-50 border-purple-200 text-purple-700 dark:bg-purple-950/30 dark:border-purple-800 dark:text-purple-400 whitespace-nowrap transition-colors hover:bg-purple-100 dark:hover:bg-purple-950/50 cursor-default shrink-0"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border bg-primary/10 border-primary text-primary dark:bg-primary/30 dark:border-primary dark:text-primary whitespace-nowrap transition-colors hover:bg-primary dark:hover:bg-primary/50 cursor-default shrink-0"
               >
                 <Sparkles className="size-2.5" />
                 {skill.displayName || skill.id}
@@ -252,7 +252,7 @@ const AIAgentSandboxPage: React.FC = () => {
               onClick={() => setIsSessionDrawerOpen(false)}
             />
             {/* Drawer Content */}
-            <div className="relative z-10 w-80 max-w-[85vw] h-full bg-white dark:bg-slate-900 shadow-2xl flex flex-col border-r border-slate-200 dark:border-slate-800 animate-in slide-in-from-right duration-200" dir="rtl">
+            <div className="relative z-10 w-80 max-w-[85vw] h-full bg-white dark:bg-muted shadow-2xl flex flex-col border-r border-border dark:border-border animate-in slide-in-from-right duration-200" dir="rtl">
               <SessionList
                 sessions={sessions}
                 activeSessionId={activeSessionId}
@@ -322,11 +322,11 @@ const AIAgentSandboxPage: React.FC = () => {
 
       {/* Export Session Modal overlay */}
       {exportDialogOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm select-none">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-sm w-full p-5 shadow-xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm select-none">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-5 shadow-xl space-y-4">
             <div>
-              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">Export Session</h4>
-              <p className="text-xs text-slate-500 mt-1">
+              <h4 className="text-sm font-bold text-foreground dark:text-muted-foreground">Export Session</h4>
+              <p className="text-xs text-muted-foreground mt-1">
                 Choose the export format for the current chat session.
               </p>
             </div>
@@ -335,7 +335,7 @@ const AIAgentSandboxPage: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setExportDialogOpen(false)}
-                className="h-8 border-slate-200 dark:border-slate-800"
+                className="h-8 border-border dark:border-border"
               >
                 Cancel
               </Button>
@@ -343,7 +343,7 @@ const AIAgentSandboxPage: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => handleExport("json")}
-                className="h-8 border-slate-200 dark:border-slate-805"
+                className="h-8 border-border dark:border-border"
               >
                 JSON
               </Button>
@@ -351,7 +351,7 @@ const AIAgentSandboxPage: React.FC = () => {
                 variant="default"
                 size="sm"
                 onClick={() => handleExport("markdown")}
-                className="h-8 bg-indigo-600 hover:bg-indigo-700 text-white font-medium"
+                className="h-8 bg-primary hover:bg-primary/90 text-white font-medium"
               >
                 Markdown
               </Button>
@@ -362,15 +362,15 @@ const AIAgentSandboxPage: React.FC = () => {
 
       {/* Agent Profile Modal */}
       {agentProfileDialogOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm select-none">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full p-5 shadow-xl max-h-[85vh] flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm select-none">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-2xl w-full p-5 shadow-xl max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between mb-4">
-              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">Agent Profile</h4>
+              <h4 className="text-sm font-bold text-foreground dark:text-muted-foreground">Agent Profile</h4>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setAgentProfileDialogOpen(false)}
-                className="size-7 text-slate-400 hover:text-slate-700"
+                className="size-7 text-muted-foreground hover:text-foreground"
               >
                 <X className="size-4" />
               </Button>
@@ -384,16 +384,16 @@ const AIAgentSandboxPage: React.FC = () => {
 
       {/* Alerts Snackbar notification */}
       {snackbar.open && (
-        <div className="fixed bottom-4 right-4 z-50 bg-slate-900 text-white dark:bg-slate-800 dark:text-white rounded-xl shadow-lg p-3 text-xs flex items-center gap-2 animate-bounce">
+        <div className="fixed bottom-4 right-4 z-50 bg-muted text-white dark:bg-muted dark:text-white rounded-xl shadow-lg p-3 text-xs flex items-center gap-2 animate-bounce">
           {snackbar.severity === "success" ? (
-            <CheckCircle2 className="size-4 text-emerald-450" />
+            <CheckCircle2 className="size-4 text-success" />
           ) : (
-            <AlertTriangle className="size-4 text-red-500" />
+            <AlertTriangle className="size-4 text-destructive" />
           )}
           <span>{snackbar.message}</span>
           <button
             onClick={() => setSnackbar((s) => ({ ...s, open: false }))}
-            className="ml-2 hover:opacity-75"
+            className="ms-2 hover:opacity-75"
           >
             <X className="size-3.5" />
           </button>
@@ -402,13 +402,13 @@ const AIAgentSandboxPage: React.FC = () => {
 
       {/* Major Errors Snackbar */}
       {error && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-600 text-white rounded-xl shadow-xl px-4 py-2.5 text-xs flex items-center gap-3">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-destructive text-white rounded-xl shadow-xl px-4 py-2.5 text-xs flex items-center gap-3">
           <AlertTriangle className="size-4 flex-shrink-0" />
           <span>{error}</span>
           <Button
             size="xs"
             variant="outline"
-            className="h-7 text-[10px] bg-red-700 text-white border-red-500 hover:bg-red-850"
+            className="h-7 text-[10px] bg-destructive text-white border-destructive hover:bg-destructive"
             onClick={() => window.location.reload()}
           >
             Retry

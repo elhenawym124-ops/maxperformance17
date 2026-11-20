@@ -326,7 +326,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                   </button>
                 </div>
                 {studentError && (
-                  <p className="text-[11px] text-red-500 font-medium">{studentError}</p>
+                  <p className="text-[11px] text-destructive font-medium">{studentError}</p>
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div>
@@ -423,8 +423,8 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 </select>
 
                 {activeStudents.length === 0 && !enrollment?.id && (
-                  <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs space-y-2">
-                    <div className="flex items-center gap-1.5 font-semibold text-amber-600 dark:text-amber-400">
+                  <div className="p-3 bg-warning/10 border border-warning/20 rounded-lg text-xs space-y-2">
+                    <div className="flex items-center gap-1.5 font-semibold text-warning dark:text-warning">
                       <AlertTriangle className="w-4 h-4 shrink-0" />
                       <span>{t("education.enrollments.noStudentsAlert", isEn ? "No students registered in the system yet." : "لا يوجد أي طلاب مسجلين في النظام بعد.")}</span>
                     </div>
@@ -497,7 +497,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 ))}
             </select>
             {filteredTeachers.length === 0 && form.packageId && (
-              <p className="text-[11px] text-amber-500 mt-1">
+              <p className="text-[11px] text-warning mt-1">
                 {enableSubjects
                   ? t("education.enrollments.unassignedNotice", isEn ? "No teachers for this subject. Please add a teacher with a rate for this subject first." : "لا يوجد مدرسين لهذه المادة. أضف مدرساً مع سعر للمادة أولاً.")
                   : t("education.enrollments.noActiveInstructors", isEn ? "No active teachers found. Please add a teacher first." : "لا يوجد مدرسين نشطين حالياً. أضف مدرساً أولاً.")}
@@ -513,7 +513,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 <span>{isEn ? "Discounts & Promotions" : "نظام الخصومات والعروض"}</span>
               </div>
               {studentSiblingCount > 1 && (
-                <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <span className="text-[10px] font-semibold text-warning dark:text-warning bg-warning/10 border border-warning/20 px-2 py-0.5 rounded-full flex items-center gap-1">
                   <span>{isEn ? `Student has ${studentSiblingCount - 1} sibling(s)` : `طالب له ${studentSiblingCount - 1} إخوة مسجلين`}</span>
                 </span>
               )}
@@ -583,7 +583,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               {promoMessage && (
                 <span
                   className={`text-[11px] font-semibold truncate ${
-                    promoMessage.isError ? "text-red-500" : "text-emerald-600 dark:text-emerald-400"
+                    promoMessage.isError ? "text-red-500" : "text-emerald-600 dark:text-success"
                   }`}
                 >
                   {promoMessage.text}
@@ -592,12 +592,12 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             </div>
 
             {basePrice > 0 && (
-              <div className="flex items-center justify-between p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs mt-1">
+              <div className="flex items-center justify-between p-2 rounded-lg bg-success/10 border border-success/20 text-xs mt-1">
                 <span className="text-muted-foreground">{isEn ? "Final Payable:" : "المبلغ النهائي بعد الخصم:"}</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                <span className="font-bold text-success dark:text-success font-mono">
                   {financial.finalAmount.toLocaleString()} ج.م
                   {financial.discountAmount > 0 && (
-                    <span className="text-[10px] text-muted-foreground font-normal mr-1.5">
+                    <span className="text-[10px] text-muted-foreground font-normal me-1.5">
                       (خصم: {financial.discountAmount.toLocaleString()} ج.م)
                     </span>
                   )}
@@ -749,7 +749,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
 
         {/* Modal Footer */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-3 border-t border-border/80">
-          <div className="text-[11px] text-amber-500 font-medium">
+          <div className="text-[11px] text-warning font-medium">
             {!form.studentId && !form.packageId
               ? (isEn ? "* Please select student and package to enable saving" : "* يرجى اختيار الطالب والباقة لتفعيل الحفظ")
               : !form.studentId

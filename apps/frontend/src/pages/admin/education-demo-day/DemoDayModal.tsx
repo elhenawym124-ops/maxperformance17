@@ -178,7 +178,7 @@ export function DemoDayModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-xs">
-      <div className="relative w-full max-w-xl bg-card border border-border/80 shadow-2xl rounded-2xl flex flex-col max-h-[92vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-xl bg-card border border-border/80 shadow-2xl rounded-xl flex flex-col max-h-[92vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/60 bg-muted/20">
           <div className="flex items-center gap-2.5">

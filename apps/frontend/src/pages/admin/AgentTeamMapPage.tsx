@@ -77,14 +77,14 @@ export default function AgentTeamMapPage() {
         subtitle={t("agentTeamMap.subtitle")}
         icon={<GitBranch className="size-7" />}
         actions={<>
-          <Button variant="outline" asChild className="backdrop-blur-sm"><RouterLink to="/admin/ai-agents"><ExternalLink className="mr-1 size-4" />{t("agentTeamMap.manageFiles")}</RouterLink></Button>
+          <Button variant="outline" asChild className="backdrop-blur-sm"><RouterLink to="/admin/ai-agents"><ExternalLink className="me-1 size-4" />{t("agentTeamMap.manageFiles")}</RouterLink></Button>
           <Button variant="ghost" size="icon" onClick={loadTree} className="backdrop-blur-sm">{loading ? <LoadingSpinner size="sm" /> : <RefreshCw className="size-5" />}</Button>
         </>}
       />
 
       {error && (
         <div
-          className="mb-4 rounded-2xl border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive backdrop-blur-sm"
+          className="mb-4 rounded-xl border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive backdrop-blur-sm"
           role="alert"
         >
           <div className="flex items-center justify-between">
@@ -97,7 +97,7 @@ export default function AgentTeamMapPage() {
       )}
 
       <div
-        className="min-h-[560px] overflow-auto rounded-2xl border bg-card/60 p-4 backdrop-blur-xl md:p-8"
+        className="min-h-[560px] overflow-auto rounded-xl border bg-card/60 p-4 backdrop-blur-xl md:p-8"
       >
         {loading ? (
           <div className="grid min-h-[420px] place-items-center">
@@ -156,7 +156,7 @@ function AgentCard({ node, depth }: { node: AgentNode; depth: number }) {
 
   return (
     <div
-      className="min-h-[126px] w-[240px] rounded-2xl border-[1.5px] p-4 backdrop-blur-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+      className="min-h-[126px] w-[240px] rounded-xl border-[1.5px] p-4 backdrop-blur-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
       style={{
         borderColor: tone.border,
         backgroundColor: isDark ? `${tone.bg}22` : `${tone.bg}cc`,
@@ -196,7 +196,7 @@ function AgentCard({ node, depth }: { node: AgentNode; depth: number }) {
         </p>
         <Button variant="link" size="sm" asChild className="backdrop-blur-sm">
           <RouterLink to={`/admin/agent-profiles?agent=${node.id}`}>
-            <ExternalLink className="mr-1 size-3.5" />
+            <ExternalLink className="me-1 size-3.5" />
             {t("agentTeamMap.openAgent")}
           </RouterLink>
         </Button>

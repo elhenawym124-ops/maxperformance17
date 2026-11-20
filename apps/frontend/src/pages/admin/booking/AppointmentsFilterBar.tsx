@@ -75,7 +75,7 @@ export const AppointmentsFilterBar: React.FC<AppointmentsFilterBarProps> = ({
             <input
               type="text"
               placeholder="بحث باسم العميل أو الهاتف..."
-              className={`${MODAL_INPUT_CLS} pr-8${filters.search ? " pl-8" : ""} w-48 sm:w-64 text-xs sm:text-sm`}
+              className={`${MODAL_INPUT_CLS} pe-8${filters.search ? " ps-8" : ""} w-48 sm:w-64 text-xs sm:text-sm`}
               value={filters.search}
               onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
             />
@@ -232,16 +232,16 @@ export const AppointmentsFilterBar: React.FC<AppointmentsFilterBarProps> = ({
       {/* Bulk action bar */}
       {selectedIds.size > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 p-2 bg-primary/10 border border-primary/20 rounded-lg text-xs">
-          <span className="font-semibold text-primary ml-2 font-mono tabular-nums">{selectedIds.size} موعد محدد:</span>
+          <span className="font-semibold text-primary ms-2 font-mono tabular-nums">{selectedIds.size} موعد محدد:</span>
           <button
             onClick={() => onBulkUpdateStatus("confirmed")}
-            className="px-2 py-1 rounded font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors"
+            className="px-2 py-1 rounded font-medium bg-success/10 text-success dark:text-success border border-success/20 hover:bg-success/20 transition-colors"
           >
             تأكيد
           </button>
           <button
             onClick={() => onBulkUpdateStatus("cancelled")}
-            className="px-2 py-1 rounded font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors"
+            className="px-2 py-1 rounded font-medium bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 hover:bg-destructive/20 transition-colors"
           >
             إلغاء
           </button>
@@ -260,7 +260,7 @@ export const AppointmentsFilterBar: React.FC<AppointmentsFilterBarProps> = ({
           <span className="w-px h-3.5 bg-border/70 mx-1"></span>
           <button
             onClick={onBulkDelete}
-            className="px-2 py-1 rounded font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors"
+            className="px-2 py-1 rounded font-medium bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 hover:bg-destructive/20 transition-colors"
           >
             حذف
           </button>

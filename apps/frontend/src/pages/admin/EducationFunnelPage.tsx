@@ -69,21 +69,21 @@ const getEventLabels = (isEn: boolean): Record<string, string> => ({
 
 const EVENT_COLORS: Record<string, string> = {
   education_enrollment_created: "text-blue-600 dark:text-blue-400",
-  education_session_scheduled: "text-amber-600 dark:text-amber-400",
-  education_session_confirmed: "text-emerald-600 dark:text-emerald-400",
-  education_session_cancelled: "text-red-600 dark:text-red-400",
-  education_session_reminder: "text-purple-600 dark:text-purple-400",
-  education_enrollment_low_hours: "text-orange-600 dark:text-orange-400",
-  education_enrollment_expiring: "text-rose-600 dark:text-rose-400",
-  education_session_scheduled_teacher: "text-indigo-600 dark:text-indigo-400",
-  education_session_cancelled_teacher: "text-rose-600 dark:text-rose-400",
-  education_session_reminder_teacher: "text-violet-600 dark:text-violet-400",
-  education_enrollment_created_staff: "text-teal-600 dark:text-teal-400",
-  education_demo_day_registered: "text-purple-600 dark:text-purple-400",
+  education_session_scheduled: "text-amber-600 dark:text-warning",
+  education_session_confirmed: "text-emerald-600 dark:text-success",
+  education_session_cancelled: "text-red-600 dark:text-destructive",
+  education_session_reminder: "text-purple-600 dark:text-primary",
+  education_enrollment_low_hours: "text-orange-600 dark:text-warning",
+  education_enrollment_expiring: "text-rose-600 dark:text-destructive",
+  education_session_scheduled_teacher: "text-primary",
+  education_session_cancelled_teacher: "text-rose-600 dark:text-destructive",
+  education_session_reminder_teacher: "text-violet-600 dark:text-primary",
+  education_enrollment_created_staff: "text-teal-600 dark:text-success",
+  education_demo_day_registered: "text-purple-600 dark:text-primary",
   education_demo_day_reminder_24h: "text-blue-600 dark:text-blue-400",
-  education_demo_day_reminder_2h: "text-amber-600 dark:text-amber-400",
-  education_demo_day_attended_feedback: "text-emerald-600 dark:text-emerald-400",
-  education_demo_day_no_show: "text-rose-600 dark:text-rose-400",
+  education_demo_day_reminder_2h: "text-amber-600 dark:text-warning",
+  education_demo_day_attended_feedback: "text-emerald-600 dark:text-success",
+  education_demo_day_no_show: "text-rose-600 dark:text-destructive",
 };
 
 const getPeriodLabels = (isEn: boolean): Record<string, string> => ({
@@ -322,7 +322,7 @@ export default function EducationFunnelPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/80">
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success dark:text-success border border-success/20">
                 <Sparkles className="w-3.5 h-3.5" />
                 {t("education.funnel.badge", isEn ? "WhatsApp Notification Templates & Funnel" : "مركز قوالب رسائل الواتساب")}
               </span>
@@ -375,7 +375,7 @@ export default function EducationFunnelPage() {
 
             <a
               href="/admin/education/reports"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-semibold hover:bg-purple-500/20 transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary/30 bg-primary/10 text-primary dark:text-primary text-xs font-semibold hover:bg-primary/20 transition-colors shadow-xs"
               title={isEn ? "Open Dedicated Education Reports & Attribution" : "فتح تقارير الأكاديمية ومصادر الحملات"}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -396,9 +396,9 @@ export default function EducationFunnelPage() {
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <MessageSquare className="w-4 h-4 text-success dark:text-success" />
             <span>{t("education.funnel.tabTemplates", isEn ? "WhatsApp Templates" : "قوالب رسائل الواتساب")}</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-bold">
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-success/10 text-success dark:text-success font-mono font-bold">
               16 {t("education.funnel.templatesCount", isEn ? "templates" : "قوالب")}
             </span>
           </button>
@@ -430,9 +430,9 @@ export default function EducationFunnelPage() {
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            <Target className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <Target className="w-4 h-4 text-primary dark:text-primary" />
             <span>{t("education.funnel.tabAttribution", isEn ? "Campaign Attribution" : "تتبع مصادر الحملات والإعلانات")}</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono font-bold">
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-primary/10 text-primary dark:text-primary font-mono font-bold">
               {attribution?.summary?.totalLeads ?? 0} {t("education.funnel.leads", isEn ? "leads" : "ليد")}
             </span>
           </button>
@@ -446,10 +446,10 @@ export default function EducationFunnelPage() {
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            <Clock className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <Clock className="w-4 h-4 text-primary dark:text-primary" />
             <span>{t("education.funnel.tabLogs", isEn ? "Notification Logs" : "سجل الإشعارات المرسلة")}</span>
             {activeLogs.length > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono font-bold">
+              <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-primary/10 text-primary dark:text-primary font-mono font-bold">
                 {activeLogs.length} {t("education.funnel.recordsCount", isEn ? "logs" : "سجل")}
               </span>
             )}
@@ -458,14 +458,14 @@ export default function EducationFunnelPage() {
 
         {/* Error Banner */}
         {fetchError && (
-          <div className="p-3.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive flex items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>{fetchError}</span>
             </div>
             <button
               onClick={() => loadAll(false)}
-              className="px-2.5 py-1 bg-red-600 text-white rounded-md font-semibold hover:bg-red-700 transition-colors shrink-0"
+              className="px-2.5 py-1 bg-destructive text-white rounded-md font-semibold hover:bg-destructive transition-colors shrink-0"
             >
               {t("education.common.retry", isEn ? "Retry" : "إعادة المحاولة")}
             </button>
@@ -475,9 +475,9 @@ export default function EducationFunnelPage() {
         {/* VIEW 1: WhatsApp Template Center */}
         {activeView === "templates" && (
           <div className="space-y-4">
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="rounded-xl border border-success/20 bg-success/5 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-2 text-foreground">
-                <Bell className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <Bell className="w-4 h-4 text-success dark:text-success shrink-0" />
                 <span>
                   {t(
                     "education.funnel.templateNotice",
@@ -491,14 +491,14 @@ export default function EducationFunnelPage() {
                 <button
                   type="button"
                   onClick={() => changeView("funnel")}
-                  className="text-emerald-700 dark:text-emerald-300 font-medium hover:underline text-xs"
+                  className="text-emerald-700 dark:text-success font-medium hover:underline text-xs"
                 >
                   {t("education.funnel.viewFunnelStats", isEn ? "View Funnel Analytics →" : "عرض إحصائيات الفانل ←")}
                 </button>
               </div>
             </div>
 
-            <div className="bg-background rounded-2xl border border-border/60 shadow-xs overflow-hidden">
+            <div className="bg-background rounded-xl border border-border/60 shadow-xs overflow-hidden">
               <TemplateCenter config={educationScopeConfig} />
             </div>
           </div>
@@ -539,11 +539,11 @@ export default function EducationFunnelPage() {
                   <div className="bg-card border border-border/80 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{t("education.funnel.registeredStudents", isEn ? "Registered Students" : "الطلاب المسجلين")}</div>
-                      <div className="text-xl font-bold text-indigo-600 dark:text-indigo-400 font-mono tabular-nums">
+                      <div className="text-xl font-bold text-primary font-mono tabular-nums">
                         {activeFunnel?.funnel?.totalStudents ?? 0}
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
                       <GraduationCap className="w-4 h-4" />
                     </div>
                   </div>
@@ -551,11 +551,11 @@ export default function EducationFunnelPage() {
                   <div className="bg-card border border-border/80 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{t("education.funnel.packagesEnrollments", isEn ? "Packages & Enrollments" : "الباقات والتسجيلات")}</div>
-                      <div className="text-xl font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+                      <div className="text-xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                         {activeFunnel?.funnel?.totalEnrollments ?? 0}
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center border border-purple-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
                       <BookOpen className="w-4 h-4" />
                     </div>
                   </div>
@@ -563,11 +563,11 @@ export default function EducationFunnelPage() {
                   <div className="bg-card border border-border/80 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{t("education.funnel.scheduledSessions", isEn ? "Scheduled Sessions" : "حصص مجدولة")}</div>
-                      <div className="text-xl font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+                      <div className="text-xl font-bold text-warning dark:text-warning font-mono tabular-nums">
                         {activeFunnel?.funnel?.scheduledSessions ?? 0}
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center border border-amber-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-warning/10 text-warning dark:text-warning flex items-center justify-center border border-warning/20">
                       <Clock className="w-4 h-4" />
                     </div>
                   </div>
@@ -575,11 +575,11 @@ export default function EducationFunnelPage() {
                   <div className="bg-card border border-border/80 rounded-xl p-3.5 flex items-center justify-between shadow-xs col-span-2 sm:col-span-1">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{t("education.funnel.confirmedSessions", isEn ? "Confirmed Sessions" : "حصص مؤكدة")}</div>
-                      <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                      <div className="text-xl font-bold text-success dark:text-success font-mono tabular-nums">
                         {activeFunnel?.funnel?.confirmedSessions ?? 0}
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center border border-success/20">
                       <CheckCircle2 className="w-4 h-4" />
                     </div>
                   </div>
@@ -587,14 +587,14 @@ export default function EducationFunnelPage() {
 
                 {/* Demo Day Telemetry Ribbon */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="bg-card border border-purple-500/30 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
+                  <div className="bg-card border border-primary/30 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{isEn ? "Demo Day Registered Leads" : "مسجلو الديمو داي (Leads)"}</div>
-                      <div className="text-xl font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+                      <div className="text-xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                         {activeFunnel?.funnel?.totalDemoAttendees ?? 0}
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center border border-purple-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
                       <Users className="w-4 h-4" />
                     </div>
                   </div>
@@ -612,15 +612,15 @@ export default function EducationFunnelPage() {
                     </div>
                   </div>
 
-                  <div className="bg-card border border-emerald-500/30 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
+                  <div className="bg-card border border-success/30 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{isEn ? "Converted to Paying Students" : "المحولون لاشتراكات مدفوعة"}</div>
-                      <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums flex items-baseline gap-1">
+                      <div className="text-xl font-bold text-success dark:text-success font-mono tabular-nums flex items-baseline gap-1">
                         <span>{activeFunnel?.funnel?.convertedDemoAttendees ?? 0}</span>
                         <span className="text-xs text-muted-foreground font-normal">({activeFunnel?.conversion?.demoConversionRate ?? "0.0"}%)</span>
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center border border-success/20">
                       <GraduationCap className="w-4 h-4" />
                     </div>
                   </div>
@@ -644,7 +644,7 @@ export default function EducationFunnelPage() {
                         </div>
                       </div>
                       <div className="bg-muted/30 border border-border/60 rounded-lg p-3 text-center">
-                        <div className="text-xl font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+                        <div className="text-xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                           {asPercent(activeFunnel?.conversion?.studentsToEnrollments)}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
@@ -652,7 +652,7 @@ export default function EducationFunnelPage() {
                         </div>
                       </div>
                       <div className="bg-muted/30 border border-border/60 rounded-lg p-3 text-center">
-                        <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                        <div className="text-xl font-bold text-success dark:text-success font-mono tabular-nums">
                           {asPercent(activeFunnel?.conversion?.completionRate)}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
@@ -665,12 +665,12 @@ export default function EducationFunnelPage() {
                   {/* Repeat & Retention */}
                   <div className="bg-card border border-border/80 rounded-xl p-4 shadow-xs space-y-3">
                     <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
-                      <Repeat className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      <Repeat className="w-4 h-4 text-success dark:text-success" />
                       {t("education.funnel.repeatAndRetention", isEn ? "Repeat Purchases & Loyalty" : "تكرار الشراء والولاء")}
                     </div>
                     <div className="grid grid-cols-2 gap-2 pt-1">
                       <div className="bg-muted/30 border border-border/60 rounded-lg p-3 text-center">
-                        <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                        <div className="text-xl font-bold text-success dark:text-success font-mono tabular-nums">
                           {asNumber(activeFunnel?.repeat?.studentsWithMultipleEnrollments)}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
@@ -678,7 +678,7 @@ export default function EducationFunnelPage() {
                         </div>
                       </div>
                       <div className="bg-muted/30 border border-border/60 rounded-lg p-3 text-center">
-                        <div className="text-xl font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+                        <div className="text-xl font-bold text-warning dark:text-warning font-mono tabular-nums">
                           {asNumber(activeFunnel?.repeat?.totalEnrolledStudents)}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
@@ -731,13 +731,13 @@ export default function EducationFunnelPage() {
                           {sending ? (isEn ? "Sending..." : "جاري الإرسال...") : (isEn ? "Send Test" : "إرسال تجريبي")}
                         </button>
                         {testStatus === "success" && (
-                          <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400">
+                          <span className="inline-flex items-center gap-1 text-[11px] text-success dark:text-success">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             {testMessage}
                           </span>
                         )}
                         {testStatus === "error" && (
-                          <div className="w-full mt-2 p-2.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div className="w-full mt-2 p-2.5 rounded-lg border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div className="flex items-center gap-1.5">
                               <AlertCircle className="w-4 h-4 shrink-0" />
                               <span className="leading-relaxed">{testMessage}</span>
@@ -747,7 +747,7 @@ export default function EducationFunnelPage() {
                                 href="/whatsapp"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-600 text-white rounded-md font-medium text-[11px] hover:bg-red-700 transition-colors shrink-0"
+                                className="inline-flex items-center gap-1 px-2.5 py-1 bg-destructive text-white rounded-md font-medium text-[11px] hover:bg-destructive transition-colors shrink-0"
                               >
                                 <span>{isEn ? "Connect WhatsApp" : "ربط واتساب"}</span>
                                 <ExternalLink className="w-3 h-3" />
@@ -761,11 +761,11 @@ export default function EducationFunnelPage() {
                 </div>
 
                 {/* Campaign & Messaging Lead Attribution Section */}
-                <div className="bg-card border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+                <div className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 shadow-xs space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 pb-3">
                     <div>
                       <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                        <Sparkles className="w-4 h-4 text-primary dark:text-primary" />
                         {isEn ? "Messaging & Ad Campaign Attribution Analysis" : "تحليل مصادر الليد وحملات الرسائل الإعلانية"}
                       </h3>
                       <p className="text-xs text-muted-foreground mt-0.5">
@@ -778,7 +778,7 @@ export default function EducationFunnelPage() {
                       <span className="px-2 py-1 rounded-md bg-muted text-muted-foreground">
                         {isEn ? "Total Leads:" : "إجمالي الليدات:"} <strong className="text-foreground">{attribution?.summary?.totalLeads ?? 0}</strong>
                       </span>
-                      <span className="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                      <span className="px-2 py-1 rounded-md bg-success/10 text-success dark:text-success">
                         {isEn ? "Revenue:" : "الإيراد:"} <strong className="font-bold">{attribution?.summary?.totalRevenue ?? 0} ج.م</strong>
                       </span>
                     </div>
@@ -801,14 +801,14 @@ export default function EducationFunnelPage() {
                     </div>
                     <div className="p-3 rounded-xl bg-muted/30 border border-border/60">
                       <div className="text-[11px] text-muted-foreground">{isEn ? "Enrolled Paying Students" : "الطلاب المشتركين فعلياً"}</div>
-                      <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5 flex items-baseline gap-1">
+                      <div className="text-lg font-bold text-success dark:text-success font-mono tabular-nums mt-0.5 flex items-baseline gap-1">
                         <span>{attribution?.summary?.totalConverted ?? 0}</span>
                         <span className="text-[10px] text-muted-foreground font-normal">({attribution?.summary?.overallConversionRate ?? 0}%)</span>
                       </div>
                     </div>
                     <div className="p-3 rounded-xl bg-muted/30 border border-border/60">
                       <div className="text-[11px] text-muted-foreground">{isEn ? "Direct Generated Revenue" : "الإيرادات المحصلة"}</div>
-                      <div className="text-lg font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums mt-0.5">
+                      <div className="text-lg font-bold text-primary dark:text-primary font-mono tabular-nums mt-0.5">
                         {attribution?.summary?.totalRevenue ?? 0} ج.م
                       </div>
                     </div>
@@ -845,7 +845,7 @@ export default function EducationFunnelPage() {
                                 <td className="py-2.5 px-3">
                                   <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium ${
                                     camp.channel === "WHATSAPP"
-                                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                                      ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                                       : camp.channel === "FACEBOOK" || camp.channel === "MESSENGER"
                                       ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                                       : "bg-muted text-muted-foreground border border-border"
@@ -856,9 +856,9 @@ export default function EducationFunnelPage() {
                                 <td className="py-2.5 px-3 text-center font-mono font-bold">{camp.leadsCount}</td>
                                 <td className="py-2.5 px-3 text-center font-mono tabular-nums">
                                   <span className="text-blue-600 dark:text-blue-400 font-bold">{camp.attendedCount}</span>
-                                  <span className="text-[10px] text-muted-foreground mr-1">({camp.attendanceRate}%)</span>
+                                  <span className="text-[10px] text-muted-foreground me-1">({camp.attendanceRate}%)</span>
                                 </td>
-                                <td className="py-2.5 px-3 text-center font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-bold">
+                                <td className="py-2.5 px-3 text-center font-mono tabular-nums text-success dark:text-success font-bold">
                                   {camp.convertedCount}
                                 </td>
                                 <td className="py-2.5 px-3 text-center font-mono font-bold">
@@ -920,9 +920,9 @@ export default function EducationFunnelPage() {
         {activeView === "attribution" && (
           <div className="space-y-4">
             {/* Header Attribution Banner */}
-            <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-2.5 text-foreground">
-                <Target className="w-5 h-5 text-purple-600 dark:text-purple-400 shrink-0" />
+                <Target className="w-5 h-5 text-primary dark:text-primary shrink-0" />
                 <div>
                   <h2 className="text-sm font-bold text-foreground">
                     {isEn ? "Lead & Campaign Attribution Engine" : "محرك تتبع مصادر الليدات والحملات الإعلانية"}
@@ -938,7 +938,7 @@ export default function EducationFunnelPage() {
               <div className="flex items-center gap-2 shrink-0 flex-wrap">
                 <a
                   href="/admin/education/demo-day"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-semibold transition-colors shadow-2xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-white font-semibold transition-colors shadow-2xs"
                 >
                   <Users className="w-3.5 h-3.5" />
                   <span>{isEn ? "View Demo Day Attendees" : "عرض مسجلي الديمو داي"}</span>
@@ -949,7 +949,7 @@ export default function EducationFunnelPage() {
                   onClick={() => changeView("templates")}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-background hover:bg-muted font-semibold transition-colors text-foreground"
                 >
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <MessageSquare className="w-3.5 h-3.5 text-success dark:text-success" />
                   <span>{isEn ? "WhatsApp Automation" : "أتمتة الواتساب"}</span>
                 </button>
               </div>
@@ -980,7 +980,7 @@ export default function EducationFunnelPage() {
 
               <div className="p-4 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
                 <div className="text-[11px] text-muted-foreground font-medium">{isEn ? "Converted to Enrolled" : "تحولوا لطلاب مقيدين"}</div>
-                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums flex items-baseline gap-1.5">
+                <div className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums flex items-baseline gap-1.5">
                   <span>{attribution?.summary?.totalConverted ?? 0}</span>
                   <span className="text-xs text-muted-foreground font-normal">({attribution?.summary?.overallConversionRate ?? 0}%)</span>
                 </div>
@@ -991,7 +991,7 @@ export default function EducationFunnelPage() {
 
               <div className="p-4 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
                 <div className="text-[11px] text-muted-foreground font-medium">{isEn ? "Direct Generated Revenue" : "العائد المالي المباشر"}</div>
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+                <div className="text-2xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                   {attribution?.summary?.totalRevenue ?? 0} ج.م
                 </div>
                 <div className="text-[10px] text-muted-foreground">
@@ -1001,11 +1001,11 @@ export default function EducationFunnelPage() {
             </div>
 
             {/* Detailed Campaigns Table Card */}
-            <div className="bg-card border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+            <div className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 shadow-xs space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 pb-3">
                 <div>
                   <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                    <Sparkles className="w-4 h-4 text-primary dark:text-primary" />
                     {isEn ? "Campaign & Ad Breakdown" : "تفصيل الحملات والإعلانات ومعدلات التحويل"}
                   </h3>
                   <p className="text-xs text-muted-foreground mt-0.5">
@@ -1046,7 +1046,7 @@ export default function EducationFunnelPage() {
                             <td className="py-2.5 px-3">
                               <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium ${
                                 camp.channel === "WHATSAPP"
-                                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                                  ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                                   : camp.channel === "FACEBOOK" || camp.channel === "MESSENGER"
                                   ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                                   : "bg-muted text-muted-foreground border border-border"
@@ -1057,9 +1057,9 @@ export default function EducationFunnelPage() {
                             <td className="py-2.5 px-3 text-center font-mono font-bold">{camp.leadsCount}</td>
                             <td className="py-2.5 px-3 text-center font-mono tabular-nums">
                               <span className="text-blue-600 dark:text-blue-400 font-bold">{camp.attendedCount}</span>
-                              <span className="text-[10px] text-muted-foreground mr-1">({camp.attendanceRate}%)</span>
+                              <span className="text-[10px] text-muted-foreground me-1">({camp.attendanceRate}%)</span>
                             </td>
-                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-bold">
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-success dark:text-success font-bold">
                               {camp.convertedCount}
                             </td>
                             <td className="py-2.5 px-3 text-center font-mono font-bold">
@@ -1109,7 +1109,7 @@ export default function EducationFunnelPage() {
                   <Search className={`w-3.5 h-3.5 absolute top-1/2 -translate-y-1/2 text-muted-foreground ${isEn ? "left-2.5" : "right-2.5"}`} />
                   <input
                     className={`bg-background border border-input rounded-lg py-1 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary w-36 sm:w-44 font-mono tabular-nums ${
-                      isEn ? "pl-8 pr-2.5" : "pr-8 pl-2.5"
+                      isEn ? "ps-8 pe-2.5" : "pe-8 ps-2.5"
                     }`}
                     placeholder={t("education.funnel.searchPhonePrompt", isEn ? "Search by phone..." : "بحث برقم الهاتف...")}
                     value={phoneSearch}
@@ -1197,8 +1197,8 @@ export default function EducationFunnelPage() {
                           <span
                             className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium border ${
                               log.success
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                                : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                                ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                                : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                             }`}
                           >
                             {log.success ? (

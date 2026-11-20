@@ -239,11 +239,11 @@ export function ConvertLeadModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-background/80 backdrop-blur-xs">
-      <div className="bg-card border border-border rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="bg-card border border-border rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-border/80 bg-muted/20">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <div className="p-2.5 rounded-xl bg-success/10 text-success dark:text-success border border-success/20">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
@@ -392,7 +392,7 @@ export function ConvertLeadModal({
           {/* Section 2: Package & Course Billing */}
           <div className="space-y-3 p-3.5 rounded-xl border border-border/70 bg-card/60">
             <div className="flex items-center gap-2 text-xs font-bold text-foreground border-b border-border/50 pb-2">
-              <DollarSign className="w-4 h-4 text-emerald-600" />
+              <DollarSign className="w-4 h-4 text-success" />
               <span>{isEn ? "Package & Course Pricing" : "الباقة الدراسية والرسوم المالية"}</span>
             </div>
 
@@ -493,12 +493,12 @@ export function ConvertLeadModal({
 
             {/* Financial Summary Pill */}
             {basePrice > 0 && (
-              <div className="flex items-center justify-between p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs">
+              <div className="flex items-center justify-between p-2.5 rounded-lg bg-success/10 border border-success/20 text-xs">
                 <span className="text-muted-foreground">{isEn ? "Final Payable Amount:" : "المبلغ الإجمالي بعد الخصم:"}</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-sm">
+                <span className="font-bold text-success dark:text-success font-mono text-sm">
                   {financial.finalAmount.toLocaleString()} ج.م
                   {financial.discountAmount > 0 && (
-                    <span className="text-[10px] text-muted-foreground font-normal mr-2">
+                    <span className="text-[10px] text-muted-foreground font-normal me-2">
                       (خصم: {financial.discountAmount.toLocaleString()} ج.م)
                     </span>
                   )}
@@ -636,7 +636,7 @@ export function ConvertLeadModal({
           <div className="space-y-3 p-3.5 rounded-xl border border-border/70 bg-card/60">
             <div className="flex items-center justify-between border-b border-border/50 pb-2">
               <div className="flex items-center gap-2 text-xs font-bold text-foreground">
-                <KeyRound className="w-4 h-4 text-amber-500" />
+                <KeyRound className="w-4 h-4 text-warning" />
                 <span>{isEn ? "Student Account Credentials" : "توليد اسم المستخدم وكلمة المرور للطالب"}</span>
               </div>
               <button
@@ -687,7 +687,7 @@ export function ConvertLeadModal({
                 onClick={handleCopyCredentials}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border border-border bg-background hover:bg-muted text-foreground transition-colors"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? (isEn ? "Copied!" : "تم النسخ!") : isEn ? "Copy Login Info" : "نسخ بيانات الدخول"}</span>
               </button>
             </div>

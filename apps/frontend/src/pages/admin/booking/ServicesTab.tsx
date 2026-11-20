@@ -79,7 +79,7 @@ export default function ServicesTab({
           <div className="relative">
             <Search className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/70" />
             <input
-              className="border border-border/70 rounded-lg pr-8 pl-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56 bg-card text-foreground shadow-sm hover:border-border transition-colors focus:outline-none focus:ring-1 focus:ring-primary/40"
+              className="border border-border/70 rounded-lg pe-8 ps-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56 bg-card text-foreground shadow-sm hover:border-border transition-colors focus:outline-none focus:ring-1 focus:ring-primary/40"
               placeholder="بحث بالخدمة..."
               value={search}
               onChange={e => onSearchChange(e.target.value)}
@@ -162,8 +162,8 @@ export default function ServicesTab({
                 <span
                   className={`px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${
                     s.isActive
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
-                      : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
+                      : "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20"
                   }`}
                 >
                   {s.isActive ? "نشط" : "غير نشط"}
@@ -221,7 +221,7 @@ export default function ServicesTab({
               {bs.map(b => (b.packages || []).length > 0 && (
                 <div key={b.id || b.branchId} className="pt-1">
                   {b.packages!.map((pkg, i) => (
-                    <div key={i} className="text-[11px] bg-primary/5 text-primary border border-primary/20 inline-block px-2 py-0.5 rounded ml-1 mb-1 font-mono tabular-nums">
+                    <div key={i} className="text-[11px] bg-primary/5 text-primary border border-primary/20 inline-block px-2 py-0.5 rounded ms-1 mb-1 font-mono tabular-nums">
                       {pkg.count} جلسات — {pkg.price} ج.م ({b.branch?.name || b.branchId})
                     </div>
                   ))}
@@ -247,8 +247,8 @@ export default function ServicesTab({
                   onClick={() => onToggleActive(s.id, s.isActive)}
                   className={`text-xs px-2.5 py-1 rounded-md transition-colors ${
                     s.isActive
-                      ? "bg-rose-500/10 text-rose-600 hover:bg-rose-500/20"
-                      : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                      ? "bg-rose-500/10 text-destructive hover:bg-destructive/20"
+                      : "bg-emerald-500/10 text-success hover:bg-success/20"
                   }`}
                 >
                   {s.isActive ? "تعطيل" : "تفعيل"}

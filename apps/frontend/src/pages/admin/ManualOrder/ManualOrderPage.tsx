@@ -406,7 +406,7 @@ const ManualOrderPage = () => {
 
   if (accessLoading) {
     return (
-      <div className="flex h-screen items-center justify-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="flex h-screen items-center justify-center text-sm text-muted-foreground dark:text-muted-foreground">
         {isEn ? "Checking subscription..." : "جاري التحقق من الاشتراك..."}
       </div>
     );
@@ -415,11 +415,11 @@ const ManualOrderPage = () => {
   if (access?.subscription === "NONE") {
     return (
       <div className="flex h-screen items-center justify-center p-4">
-        <div className="max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="max-w-md rounded-xl border border-border bg-white p-8 text-center shadow-sm dark:border-border dark:bg-muted">
+          <h2 className="text-lg font-bold text-foreground">
             {t("manualOrder.title", isEn ? "Manual Orders" : "الطلبات اليدوية")}
           </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-foreground dark:text-muted-foreground">
             {isEn
               ? "This feature requires activating a dedicated app. Activate the 'Manual Orders' app from the app store to proceed."
               : "هذه الميزة تتطلب تفعيل تطبيق مخصص. فعّل تطبيق \"الطلبات اليدوية\" من متجر التطبيقات للمتابعة."}
@@ -431,11 +431,11 @@ const ManualOrderPage = () => {
 
   return (
     <div
-      className="relative flex h-[calc(100dvh-64px)] min-h-[560px] flex-col overflow-y-auto bg-slate-50/70 p-2.5 dark:bg-gray-950 sm:p-3 lg:h-[calc(100dvh-64px)]"
+      className="relative flex h-[calc(100dvh-64px)] min-h-[560px] flex-col overflow-y-auto bg-muted p-2.5 dark:bg-muted sm:p-3 lg:h-[calc(100dvh-64px)]"
       dir={isEn ? "ltr" : "rtl"}
     >
       {access?.subscription === "EXPIRED" ? (
-        <div className="mb-2.5 shrink-0 rounded-xl border border-amber-200/80 bg-amber-50/80 px-3.5 py-2.5 text-xs text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-200 shadow-2xs">
+        <div className="mb-2.5 shrink-0 rounded-xl border border-warning/80 bg-warning/80 px-3.5 py-2.5 text-xs text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning shadow-2xs">
           {isEn ? (
             <>
               Your Manual Orders subscription has expired. You can still create new orders, but if your wallet balance is zero, they will be <b className="font-semibold">held (hidden)</b> on the orders page until you renew.
@@ -451,28 +451,28 @@ const ManualOrderPage = () => {
       <header className="mb-2.5 flex shrink-0 items-center justify-between gap-3 px-1">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <h1 className="text-base font-bold tracking-tight text-slate-950 dark:text-white sm:text-lg">
+            <h1 className="text-base font-bold tracking-tight text-foreground dark:text-white sm:text-lg">
               {pageTitle}
             </h1>
-            <span className="hidden sm:inline-flex items-center rounded-md border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 px-2 py-0.5 text-[10px] font-mono text-slate-500">
+            <span className="hidden sm:inline-flex items-center rounded-md border border-border dark:border-border bg-white dark:bg-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
               POS v2
             </span>
           </div>
-          <p className="mt-0.5 max-w-2xl text-xs text-slate-500 dark:text-slate-400 truncate">
+          <p className="mt-0.5 max-w-2xl text-xs text-muted-foreground dark:text-muted-foreground truncate">
             {pageSubtitle}
           </p>
         </div>
 
         <button
           onClick={() => setShowShortcuts((prev) => !prev)}
-          className="shrink-0 rounded-lg border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-1.5 text-slate-500 transition-all hover:bg-slate-50 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 shadow-2xs active:scale-[0.98]"
+          className="shrink-0 rounded-lg border border-border dark:border-border bg-white dark:bg-muted p-1.5 text-muted-foreground transition-all hover:bg-muted hover:text-foreground dark:text-muted-foreground dark:hover:bg-muted shadow-2xs active:scale-[0.98]"
           title={`${t("manualOrder.keyboardShortcuts", isEn ? "Keyboard Shortcuts" : "اختصارات لوحة المفاتيح")} (F1)`}
         >
           <InformationCircleIcon className="h-4 w-4" />
         </button>
       </header>
 
-      <div className="mb-2.5 grid shrink-0 grid-cols-3 gap-1.5 rounded-xl border border-slate-200/80 bg-white p-1 shadow-2xs dark:border-gray-800 dark:bg-gray-900 lg:hidden">
+      <div className="mb-2.5 grid shrink-0 grid-cols-3 gap-1.5 rounded-xl border border-border bg-white p-1 shadow-2xs dark:border-border dark:bg-muted lg:hidden">
         {mobilePanels.map((panel) => {
           const Icon = panel.icon;
           const isActive = activeMobilePanel === panel.id;
@@ -484,8 +484,8 @@ const ManualOrderPage = () => {
               onClick={() => setActiveMobilePanel(panel.id)}
               className={`flex min-h-10 items-center justify-center gap-1.5 rounded-lg px-2 text-xs font-semibold transition-all ${
                 isActive
-                  ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xs"
-                  : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-gray-800"
+                  ? "bg-slate-900 text-white dark:bg-white dark:text-foreground shadow-2xs"
+                  : "text-slate-600 hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               }`}
             >
               <Icon className="h-3.5 w-3.5 shrink-0" />
@@ -494,8 +494,8 @@ const ManualOrderPage = () => {
                 <span
                   className={`inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-mono ${
                     isActive
-                      ? "bg-white/20 text-white dark:bg-black/10 dark:text-slate-900"
-                      : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      ? "bg-white/20 text-white dark:bg-black/10 dark:text-foreground"
+                      : "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                   }`}
                 >
                   {panel.count}
@@ -509,15 +509,15 @@ const ManualOrderPage = () => {
       {/* Shortcuts Modal */}
       {showShortcuts && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 dark:bg-gray-900/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/50 dark:bg-muted backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setShowShortcuts(false)}
         >
           <div
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-sm w-full overflow-hidden"
+            className="bg-card rounded-xl shadow-2xl max-w-sm w-full overflow-hidden"
             onClick={(e) => e.stopPropagation()}
             dir={isEn ? "ltr" : "rtl"}
           >
-            <div className="p-4 border-b bg-gray-50 dark:bg-gray-900">
+            <div className="p-4 border-b bg-muted dark:bg-muted">
               <h3 className="font-bold">
                 {t("manualOrder.keyboardShortcuts", isEn ? "Keyboard Shortcuts" : "اختصارات لوحة المفاتيح")}
               </h3>
@@ -542,7 +542,7 @@ const ManualOrderPage = () => {
               </div>
             </div>
 
-            <div className="p-4 border-t bg-gray-50 dark:bg-gray-900">
+            <div className="p-4 border-t bg-muted dark:bg-muted">
               <button
                 onClick={() => setShowShortcuts(false)}
                 className="w-full py-2 bg-blue-600 text-white rounded-lg"

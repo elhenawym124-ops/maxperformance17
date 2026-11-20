@@ -217,7 +217,7 @@ export default function EducationFlowsPage() {
   };
 
   return (
-    <div className="flex flex-col h-full w-full bg-slate-50 dark:bg-slate-950 overflow-hidden select-none">
+    <div className="flex flex-col h-full w-full bg-muted dark:bg-muted overflow-hidden select-none">
       {/* 1. Customer.io / ManyChat Style Top Control Bar */}
       <EducationFlowTopBar
         viewMode={viewMode}
@@ -270,8 +270,8 @@ export default function EducationFlowsPage() {
       {/* 5. Create New Flow Modal */}
       {isNewFlowModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="w-full max-w-md rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 text-right space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div className="w-full max-w-md rounded-xl bg-white dark:bg-muted border border-border dark:border-border shadow-2xl p-6 text-right space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
                   <Workflow className="w-4 h-4" />
@@ -297,7 +297,7 @@ export default function EducationFlowsPage() {
                   value={newFlowName}
                   onChange={(e) => setNewFlowName(e.target.value)}
                   placeholder="مثال: مسار ورشة الروبوتكس واستعادة المهتمين"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
               </div>
 
@@ -308,7 +308,7 @@ export default function EducationFlowsPage() {
                 <select
                   value={newFlowCategory}
                   onChange={(e) => setNewFlowCategory(e.target.value as FlowCategory)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
                 >
                   <option value="demo_booking">حجز الديمو داي وورش العمل</option>
                   <option value="attendance">تذكيرات الحضور ومعالجة الغياب</option>
@@ -324,7 +324,7 @@ export default function EducationFlowsPage() {
                 <select
                   value={newFlowChannel}
                   onChange={(e) => setNewFlowChannel(e.target.value as EducationChannelType)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
                 >
                   <option value="WHATSAPP_WABA">واتساب رسمي معتمد (Meta Cloud API)</option>
                   <option value="WHATSAPP_BAILEYS">واتساب ويب عادي (Baileys QR)</option>
@@ -334,11 +334,11 @@ export default function EducationFlowsPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setIsNewFlowModalOpen(false)}
-                className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs text-muted-foreground hover:text-foreground"
+                className="px-3 py-1.5 rounded-lg border border-border dark:border-border text-xs text-muted-foreground hover:text-foreground"
               >
                 إلغاء
               </button>

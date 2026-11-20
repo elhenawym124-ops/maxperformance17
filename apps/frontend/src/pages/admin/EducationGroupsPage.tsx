@@ -651,7 +651,7 @@ export default function EducationGroupsPage({
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
-        <div className="bg-card border border-border/70 p-4 rounded-2xl shadow-sm space-y-1">
+        <div className="bg-card border border-border/70 p-4 rounded-xl shadow-sm space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{t("education.groups.totalGroups", isEn ? "Total Groups" : "إجمالي المجموعات")}</span>
             <Layers className="w-4 h-4 text-blue-500" />
@@ -662,21 +662,21 @@ export default function EducationGroupsPage({
           </div>
         </div>
 
-        <div className="bg-card border border-border/70 p-4 rounded-2xl shadow-sm space-y-1">
+        <div className="bg-card border border-border/70 p-4 rounded-xl shadow-sm space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{t("education.groups.enrolledStudents", isEn ? "Enrolled Students" : "الطلاب المسجلين")}</span>
-            <GraduationCap className="w-4 h-4 text-emerald-500" />
+            <GraduationCap className="w-4 h-4 text-success" />
           </div>
           <div className="text-2xl font-bold text-foreground">{stats.totalStudentsEnrolled}</div>
-          <div className="text-[11px] text-emerald-600 font-medium">
+          <div className="text-[11px] text-success font-medium">
             {t("education.groups.activeInClasses", isEn ? "Active students in groups" : "طالب منتظم بالفصول")}
           </div>
         </div>
 
-        <div className="bg-card border border-border/70 p-4 rounded-2xl shadow-sm space-y-1">
+        <div className="bg-card border border-border/70 p-4 rounded-xl shadow-sm space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{t("education.groups.occupancyRate", isEn ? "Occupancy Rate" : "نسبة الإشغال")}</span>
-            <Sparkles className="w-4 h-4 text-amber-500" />
+            <Sparkles className="w-4 h-4 text-warning" />
           </div>
           <div className="text-2xl font-bold text-foreground">{stats.capacityRatio}%</div>
           <div className="w-full bg-muted rounded-full h-1.5 mt-1 overflow-hidden">
@@ -689,10 +689,10 @@ export default function EducationGroupsPage({
           </div>
         </div>
 
-        <div className="bg-card border border-border/70 p-4 rounded-2xl shadow-sm space-y-1">
+        <div className="bg-card border border-border/70 p-4 rounded-xl shadow-sm space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{t("education.groups.waitingLists", isEn ? "Waiting Lists" : "قوائم الانتظار")}</span>
-            <Clock className="w-4 h-4 text-purple-500" />
+            <Clock className="w-4 h-4 text-primary" />
           </div>
           <div className="text-2xl font-bold text-foreground">{stats.totalWaitingList}</div>
           <div className="text-[11px] text-muted-foreground">
@@ -702,7 +702,7 @@ export default function EducationGroupsPage({
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-card border border-border/70 p-3.5 rounded-2xl shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <div className="bg-card border border-border/70 p-3.5 rounded-xl shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
         <div className="flex flex-1 items-center gap-2.5 flex-wrap">
           <div className="relative min-w-[200px] flex-1">
             <Search className={`w-4 h-4 text-muted-foreground absolute top-1/2 -translate-y-1/2 ${isEn ? "left-3" : "right-3"}`} />
@@ -712,7 +712,7 @@ export default function EducationGroupsPage({
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("education.groups.searchPlaceholder", isEn ? "Search by group name or code..." : "ابحث باسم المجموعة أو الكود...")}
               className={`w-full bg-background border border-input rounded-xl py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary ${
-                isEn ? "pl-9 pr-3" : "pr-9 pl-3"
+                isEn ? "ps-9 pe-3" : "pe-9 ps-3"
               }`}
             />
           </div>
@@ -790,8 +790,8 @@ export default function EducationGroupsPage({
           <span className="text-xs">{t("education.groups.loadingGroups", isEn ? "Loading study groups..." : "جاري تحميل المجموعات الدراسية...")}</span>
         </div>
       ) : filteredGroups.length === 0 ? (
-        <div className="bg-card border border-border/80 rounded-2xl p-12 text-center space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary mx-auto flex items-center justify-center">
+        <div className="bg-card border border-border/80 rounded-xl p-12 text-center space-y-4">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary mx-auto flex items-center justify-center">
             <Users className="w-6 h-6" />
           </div>
           <div className="space-y-1">
@@ -821,7 +821,7 @@ export default function EducationGroupsPage({
             return (
               <div
                 key={group.id}
-                className="bg-card border border-border/80 hover:border-primary/40 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4 relative group"
+                className="bg-card border border-border/80 hover:border-primary/40 rounded-xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4 relative group"
               >
                 {/* Header */}
                 <div className="space-y-2">
@@ -834,9 +834,9 @@ export default function EducationGroupsPage({
                         <span
                           className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                             group.status === "OPEN"
-                              ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                              ? "bg-emerald-500/10 text-success border border-success/20"
                               : group.status === "FULL"
-                              ? "bg-amber-500/10 text-amber-600 border border-amber-500/20"
+                              ? "bg-amber-500/10 text-warning border border-warning/20"
                               : "bg-blue-500/10 text-blue-600 border border-blue-500/20"
                           }`}
                         >
@@ -862,7 +862,7 @@ export default function EducationGroupsPage({
                       <button
                         type="button"
                         onClick={() => handleDeleteGroup(group.id, group.name)}
-                        className="p-1.5 text-muted-foreground hover:text-red-600 hover:bg-red-500/10 rounded-lg transition-colors"
+                        className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
                         aria-label={t("education.common.delete", isEn ? "Delete Group" : "حذف المجموعة")} title={t("education.common.delete", isEn ? "Delete Group" : "حذف المجموعة")}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -986,7 +986,7 @@ export default function EducationGroupsPage({
                     onClick={() => handleOpenGroupDetails(group, "attendance")}
                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-muted/60 hover:bg-muted text-foreground text-xs font-semibold gap-1 transition-colors"
                   >
-                    <UserCheck className="w-4 h-4 text-emerald-500" />
+                    <UserCheck className="w-4 h-4 text-success" />
                     <span>{t("education.groups.attendanceBtn", isEn ? "Attendance" : "تسجيل الحضور")}</span>
                   </button>
 
@@ -995,7 +995,7 @@ export default function EducationGroupsPage({
                     onClick={() => handleOpenGroupDetails(group, "financials")}
                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-muted/60 hover:bg-muted text-foreground text-xs font-semibold gap-1 transition-colors"
                   >
-                    <DollarSign className="w-4 h-4 text-amber-500" />
+                    <DollarSign className="w-4 h-4 text-warning" />
                     <span>{t("education.groups.financialsBtn", isEn ? "Financials" : "الحسابات")}</span>
                   </button>
                 </div>
@@ -1005,7 +1005,7 @@ export default function EducationGroupsPage({
         </div>
       ) : (
         /* Table View */
-        <div className="bg-card border border-border/80 rounded-2xl shadow-sm overflow-hidden">
+        <div className="bg-card border border-border/80 rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className={`w-full text-xs ${isEn ? "text-left" : "text-right"}`}>
               <thead className="bg-muted/70 text-muted-foreground font-semibold border-b border-border">
@@ -1064,9 +1064,9 @@ export default function EducationGroupsPage({
                       <span
                         className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                           g.status === "OPEN"
-                            ? "bg-emerald-500/10 text-emerald-600"
+                            ? "bg-emerald-500/10 text-success"
                             : g.status === "FULL"
-                            ? "bg-amber-500/10 text-amber-600"
+                            ? "bg-amber-500/10 text-warning"
                             : "bg-blue-500/10 text-blue-600"
                         }`}
                       >
@@ -1096,7 +1096,7 @@ export default function EducationGroupsPage({
                         <button
                           type="button"
                           onClick={() => handleDeleteGroup(g.id, g.name)}
-                          className="p-1.5 text-muted-foreground hover:text-red-600 rounded-lg"
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-lg"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -1226,7 +1226,7 @@ export default function EducationGroupsPage({
                         onChange={(e) => setMemberSearch(e.target.value)}
                         placeholder={t("education.groups.searchStudentPrompt", isEn ? "Search student by name, code, or phone..." : "بحث عن طالب بالاسم، الكود، أو رقم الهاتف...")}
                         className={`w-full bg-background border border-input rounded-xl py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary ${
-                          isEn ? "pl-8 pr-3" : "pr-8 pl-3"
+                          isEn ? "ps-8 pe-3" : "pe-8 ps-3"
                         }`}
                       />
                     </div>
@@ -1267,8 +1267,8 @@ export default function EducationGroupsPage({
                               <span
                                 className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
                                   member.status === "ACTIVE"
-                                    ? "bg-emerald-500/10 text-emerald-600"
-                                    : "bg-purple-500/10 text-purple-600"
+                                    ? "bg-emerald-500/10 text-success"
+                                    : "bg-purple-500/10 text-primary"
                                 }`}
                               >
                                 {member.status === "ACTIVE"
@@ -1286,8 +1286,8 @@ export default function EducationGroupsPage({
                             <span
                               className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
                                 member.paymentStatus === "PAID"
-                                  ? "bg-emerald-500/10 text-emerald-600"
-                                  : "bg-red-500/10 text-red-600"
+                                  ? "bg-emerald-500/10 text-success"
+                                  : "bg-red-500/10 text-destructive"
                               }`}
                             >
                               {member.paymentStatus === "PAID"
@@ -1310,7 +1310,7 @@ export default function EducationGroupsPage({
                             <button
                               type="button"
                               onClick={() => handleRemoveMember(member.studentId, member.studentName)}
-                              className="p-1.5 text-muted-foreground hover:text-red-600 hover:bg-red-500/10 rounded-lg transition-colors"
+                              className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
                               aria-label={t("education.groups.removeBtn", isEn ? "Remove from group" : "إزالة من المجموعة")} title={t("education.groups.removeBtn", isEn ? "Remove from group" : "إزالة من المجموعة")}
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -1333,7 +1333,7 @@ export default function EducationGroupsPage({
                     <button
                       type="button"
                       onClick={handleOpenAttendanceModal}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-emerald-700 transition-all shadow-xs"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-success transition-all shadow-xs"
                     >
                       <UserCheck className="w-3.5 h-3.5" />
                       {t("education.groups.logNewSessionBtn", isEn ? "Log New Session & Attendance" : "تسجيل محاضرة وحضور جديد")}
@@ -1348,7 +1348,7 @@ export default function EducationGroupsPage({
                       <button
                         type="button"
                         onClick={handleOpenAttendanceModal}
-                        className="text-xs text-emerald-600 font-semibold hover:underline"
+                        className="text-xs text-success font-semibold hover:underline"
                       >
                         {t("education.groups.clickToLogFirstSession", isEn ? "Click here to log the first session" : "اضغط هنا لتسجيل أول محاضرة")}
                       </button>
@@ -1400,13 +1400,13 @@ export default function EducationGroupsPage({
               {drawerTab === "financials" && (
                 <div className="space-y-4">
                   {financialsError ? (
-                    <div className="p-4 rounded-xl bg-rose-500/10 space-y-2 text-center">
-                      <p className="text-xs font-semibold text-rose-600 dark:text-rose-400">{financialsError}</p>
+                    <div className="p-4 rounded-xl bg-destructive/10 space-y-2 text-center">
+                      <p className="text-xs font-semibold text-destructive dark:text-destructive">{financialsError}</p>
                       {activeGroup?.id && (
                         <button
                           type="button"
                           onClick={() => fetchGroupFinancials(activeGroup.id)}
-                          className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition-colors"
+                          className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-destructive text-white hover:bg-destructive transition-colors"
                         >
                           {isEn ? "Retry" : "إعادة المحاولة"}
                         </button>
@@ -1450,10 +1450,10 @@ export default function EducationGroupsPage({
                         </div>
 
                         <div className="bg-emerald-500/10 p-3 rounded-xl space-y-1">
-                          <span className="text-emerald-700 dark:text-emerald-300 font-semibold">
+                          <span className="text-emerald-700 dark:text-success font-semibold">
                             {t("education.groups.centerProfit", isEn ? "Center Net Profit" : "صافي ربح السنتر")}
                           </span>
-                          <div className="text-xl font-bold text-emerald-700 dark:text-emerald-300 ">
+                          <div className="text-xl font-bold text-success dark:text-success ">
                             {financialsData.centerProfit} {t("education.common.egp", isEn ? "EGP" : "ج")}
                           </div>
                           <span className="text-[10px] text-muted-foreground">
@@ -1489,7 +1489,7 @@ export default function EducationGroupsPage({
       {/* Modal 1: Create / Edit Group */}
       {groupModalOpen && editingGroup && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" dir={isEn ? "ltr" : "rtl"}>
-          <div className="bg-card border border-border rounded-2xl shadow-2xl p-6 w-full max-w-xl mx-auto space-y-4 max-h-[90vh] overflow-y-auto font-sans">
+          <div className="bg-card border border-border rounded-xl shadow-2xl p-6 w-full max-w-xl mx-auto space-y-4 max-h-[90vh] overflow-y-auto font-sans">
             <div className="flex items-center justify-between pb-3 border-b border-border">
               <h3 className="text-base font-bold text-foreground">
                 {editingGroup.id
@@ -1553,7 +1553,7 @@ export default function EducationGroupsPage({
                       ))}
                     </select>
                     {subjects.length === 0 && (
-                      <span className="text-[10px] text-amber-600 dark:text-amber-400 block">
+                      <span className="text-[10px] text-warning dark:text-warning block">
                         {t("education.groups.noSubjectsAlert", isEn ? "No subjects registered yet. Add a subject first." : "لا توجد مواد مسجلة بعد. أضف مادة أولاً من تبويب المواد.")}
                       </span>
                     )}
@@ -1858,7 +1858,7 @@ export default function EducationGroupsPage({
       {/* Modal 2: Enroll Student in Active Group */}
       {enrollModalOpen && activeGroup && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" dir={isEn ? "ltr" : "rtl"}>
-          <div className="bg-card border border-border rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-4 font-sans">
+          <div className="bg-card border border-border rounded-xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-4 font-sans">
             <div className="flex items-center justify-between pb-3 border-b border-border">
               <h3 className="text-base font-bold text-foreground">
                 {t("education.groups.enrollInGroupTitle", isEn ? "Enroll Student in" : "تسجيل طالب في")} ({activeGroup.name})
@@ -1885,7 +1885,7 @@ export default function EducationGroupsPage({
                     onChange={(e) => setEnrollStudentFilter(e.target.value)}
                     placeholder={t("education.groups.searchStudentPrompt", isEn ? "Search by name, phone, or code..." : "ابحث عن طالب بالاسم، الهاتف، أو الكود...")}
                     className={`w-full bg-background border border-input rounded-xl py-1.5 text-xs text-foreground focus:ring-1 focus:ring-primary ${
-                      isEn ? "pl-8 pr-3" : "pr-8 pl-3"
+                      isEn ? "ps-8 pe-3" : "pe-8 ps-3"
                     }`}
                   />
                 </div>
@@ -1941,7 +1941,7 @@ export default function EducationGroupsPage({
               </div>
 
               {activeGroup.activeMembers >= activeGroup.capacity && (
-                <div className="p-3 bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 rounded-xl text-xs space-y-1">
+                <div className="p-3 bg-warning/10 border border-warning/20 text-warning dark:text-warning rounded-xl text-xs space-y-1">
                   <strong>{t("education.common.warning", isEn ? "Notice:" : "تنبيه:")}</strong>{" "}
                   {isEn
                     ? `Group has reached maximum capacity (${activeGroup.capacity} students). Student will automatically be placed on the Waiting List.`
@@ -1972,7 +1972,7 @@ export default function EducationGroupsPage({
       {/* Modal 3: Transfer Student to another group */}
       {transferModalOpen && transferStudent && activeGroup && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" dir={isEn ? "ltr" : "rtl"}>
-          <div className="bg-card border border-border rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-4 font-sans">
+          <div className="bg-card border border-border rounded-xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-4 font-sans">
             <div className="flex items-center justify-between pb-3 border-b border-border">
               <h3 className="text-base font-bold text-foreground">
                 {t("education.groups.transferStudentTitle", isEn ? "Transfer Student" : "نقل الطالب")} ({transferStudent.studentName})
@@ -2037,7 +2037,7 @@ export default function EducationGroupsPage({
       {/* Modal 4: Bulk Session & Attendance Logger */}
       {attendanceModalOpen && activeGroup && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" dir={isEn ? "ltr" : "rtl"}>
-          <div className="bg-card border border-border rounded-2xl shadow-2xl p-6 w-full max-w-2xl mx-auto space-y-4 max-h-[90vh] overflow-y-auto font-sans">
+          <div className="bg-card border border-border rounded-xl shadow-2xl p-6 w-full max-w-2xl mx-auto space-y-4 max-h-[90vh] overflow-y-auto font-sans">
             <div className="flex items-center justify-between pb-3 border-b border-border">
               <div>
                 <h3 className="text-base font-bold text-foreground">
@@ -2105,10 +2105,10 @@ export default function EducationGroupsPage({
                     <span className="font-bold text-foreground">
                       {t("education.groups.rosterChecklist", isEn ? "Attendance Roster:" : "كشف حضور الطلاب:")}
                     </span>
-                    <span className="text-[11px] font-semibold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] font-semibold text-success bg-success/10 px-2 py-0.5 rounded-full">
                       {t("education.groups.present", isEn ? "Present" : "حاضر")}: {Object.values(attendanceRecords).filter((r) => r.status === "PRESENT").length}
                     </span>
-                    <span className="text-[11px] font-semibold text-red-600 bg-red-500/10 px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] font-semibold text-destructive bg-destructive/10 px-2 py-0.5 rounded-full">
                       {t("education.groups.absent", isEn ? "Absent" : "غائب")}: {Object.values(attendanceRecords).filter((r) => r.status === "ABSENT").length}
                     </span>
                   </div>
@@ -2122,7 +2122,7 @@ export default function EducationGroupsPage({
                         });
                         setAttendanceRecords(updated);
                       }}
-                      className="px-2.5 py-1 bg-emerald-500/10 text-emerald-600 rounded-lg text-[11px] font-semibold hover:bg-emerald-500/20"
+                      className="px-2.5 py-1 bg-success/10 text-success rounded-lg text-[11px] font-semibold hover:bg-success/20"
                     >
                       {t("education.groups.markAllPresent", isEn ? "Mark All Present" : "تحضير الكل")}
                     </button>
@@ -2135,7 +2135,7 @@ export default function EducationGroupsPage({
                         });
                         setAttendanceRecords(updated);
                       }}
-                      className="px-2.5 py-1 bg-red-500/10 text-red-600 rounded-lg text-[11px] font-semibold hover:bg-red-500/20"
+                      className="px-2.5 py-1 bg-destructive/10 text-destructive rounded-lg text-[11px] font-semibold hover:bg-destructive/20"
                     >
                       {t("education.groups.markAllAbsent", isEn ? "Mark All Absent" : "تغييب الكل")}
                     </button>
@@ -2218,7 +2218,7 @@ export default function EducationGroupsPage({
               </div>
 
               {/* WhatsApp Notification toggle */}
-              <div className="flex items-center gap-2 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+              <div className="flex items-center gap-2 p-3 bg-success/10 border border-success/20 rounded-xl">
                 <input
                   type="checkbox"
                   id="whatsappToggle"
@@ -2226,7 +2226,7 @@ export default function EducationGroupsPage({
                   onChange={(e) => setNotifyWhatsApp(e.target.checked)}
                   className="rounded text-primary focus:ring-primary w-4 h-4 cursor-pointer"
                 />
-                <label htmlFor="whatsappToggle" className="cursor-pointer font-medium text-emerald-800 dark:text-emerald-300">
+                <label htmlFor="whatsappToggle" className="cursor-pointer font-medium text-success dark:text-success">
                   {t(
                     "education.groups.whatsappNotifyDesc",
                     isEn
@@ -2246,7 +2246,7 @@ export default function EducationGroupsPage({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-emerald-700 shadow-md shadow-primary/20"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-success shadow-md shadow-primary/20"
                 >
                   {t("education.groups.saveAttendanceBtn", isEn ? "Save Session & Attendance" : "حفظ المحاضرة والحضور")}
                 </button>

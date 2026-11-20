@@ -241,11 +241,11 @@ export default function PatientDetailPage({ patientId }: { patientId?: string })
                 </div>
                 <div className="p-3.5 space-y-1">
                   <span className="text-xs text-muted-foreground">المسدد</span>
-                  <div className="text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{fmtMoney(patient.financialSummary?.totalPaid)}</div>
+                  <div className="text-lg font-bold font-mono tabular-nums text-success dark:text-success">{fmtMoney(patient.financialSummary?.totalPaid)}</div>
                 </div>
                 <div className="p-3.5 space-y-1">
                   <span className="text-xs text-muted-foreground">المتبقي</span>
-                  <div className="text-lg font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">{fmtMoney(patient.financialSummary?.outstanding)}</div>
+                  <div className="text-lg font-bold font-mono tabular-nums text-destructive dark:text-destructive">{fmtMoney(patient.financialSummary?.outstanding)}</div>
                 </div>
               </div>
 
@@ -273,8 +273,8 @@ export default function PatientDetailPage({ patientId }: { patientId?: string })
                             <td className="py-2.5 px-3 font-mono text-muted-foreground">{String(inv.createdAt).split("T")[0]}</td>
                             <td className="py-2.5 px-3 font-mono font-semibold">{fmtMoney(inv.total)}</td>
                             <td className="py-2.5 px-3 font-mono text-muted-foreground">{fmtMoney(inv.discount)}</td>
-                            <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400 font-semibold">{fmtMoney(inv.amountPaid)}</td>
-                            <td className="py-2.5 px-3 font-mono text-rose-600 dark:text-rose-400 font-semibold">{fmtMoney(inv.remaining)}</td>
+                            <td className="py-2.5 px-3 font-mono text-success dark:text-success font-semibold">{fmtMoney(inv.amountPaid)}</td>
+                            <td className="py-2.5 px-3 font-mono text-destructive dark:text-destructive font-semibold">{fmtMoney(inv.remaining)}</td>
                             <td className="py-2.5 px-3">
                               <span className={`px-2 py-0.5 rounded-md text-[11px] font-medium border ${INVOICE_STATUS_MAP[inv.status]?.color || "bg-muted text-muted-foreground border-border/60"}`}>
                                 {INVOICE_STATUS_MAP[inv.status]?.label || inv.status}
@@ -301,13 +301,13 @@ export default function PatientDetailPage({ patientId }: { patientId?: string })
                 {diseases && (
                   <div>
                     <p className="text-xs font-semibold text-muted-foreground mb-1.5">الأمراض المزمنة</p>
-                    <div className="flex flex-wrap gap-1.5">{diseases.map((d, i) => <span key={i} className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded-md">{d}</span>)}</div>
+                    <div className="flex flex-wrap gap-1.5">{diseases.map((d, i) => <span key={i} className="text-xs bg-warning/10 text-warning dark:text-warning border border-warning/20 px-2.5 py-0.5 rounded-md">{d}</span>)}</div>
                   </div>
                 )}
                 {allergies && (
                   <div>
                     <p className="text-xs font-semibold text-muted-foreground mb-1.5">الحساسية والموانع</p>
-                    <div className="flex flex-wrap gap-1.5">{allergies.map((a, i) => <span key={i} className="text-xs bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 px-2.5 py-0.5 rounded-md">{a}</span>)}</div>
+                    <div className="flex flex-wrap gap-1.5">{allergies.map((a, i) => <span key={i} className="text-xs bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 px-2.5 py-0.5 rounded-md">{a}</span>)}</div>
                   </div>
                 )}
               </div>

@@ -64,11 +64,11 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150">
-      <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+      <div className="w-full max-w-md bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/40">
+        <div className="p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center">
               <Smartphone className="w-4 h-4" />
             </div>
             <h3 className="text-xs sm:text-sm font-bold text-foreground">
@@ -78,7 +78,7 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted"
           >
             <X className="w-4 h-4" />
           </button>
@@ -90,8 +90,8 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
             <div
               className={`p-3 rounded-xl border text-xs flex items-center gap-2 ${
                 feedback.success
-                  ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400'
-                  : 'bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400'
+                  ? 'bg-emerald-500/10 border-success/20 text-success dark:text-success'
+                  : 'bg-rose-500/10 border-destructive/20 text-destructive dark:text-destructive'
               }`}
             >
               <span>{feedback.msg}</span>
@@ -108,7 +108,7 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="01012345678"
-              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+              className="w-full p-2.5 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
 
@@ -119,7 +119,7 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
             <select
               value={selectedEvent}
               onChange={(e) => setSelectedEvent(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+              className="w-full p-2.5 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
             >
               <option value="education_session_reminder">تذكير بموعد الديمو داي (قبل 24 ساعة)</option>
               <option value="education_enrollment_created">تأكيد الاشتراك وتفعيل الباقة</option>
@@ -130,11 +130,11 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-2 bg-slate-50/50 dark:bg-slate-800/40">
+        <div className="p-4 border-t border-border dark:border-border flex items-center justify-end gap-2 bg-muted dark:bg-muted">
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs text-muted-foreground hover:text-foreground"
+            className="px-3 py-1.5 rounded-lg border border-border dark:border-border text-xs text-muted-foreground hover:text-foreground"
           >
             إلغاء
           </button>
@@ -142,7 +142,7 @@ export const EducationFlowTestModal: React.FC<EducationFlowTestModalProps> = ({
             type="button"
             disabled={isSending}
             onClick={handleSend}
-            className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-xs disabled:opacity-50"
+            className="px-4 py-1.5 rounded-lg bg-success text-white text-xs font-bold hover:bg-success transition-all flex items-center gap-1.5 shadow-xs disabled:opacity-50"
           >
             <Send className="w-3.5 h-3.5" />
             <span>{isSending ? 'جاري الإرسال...' : 'إرسال الآن'}</span>

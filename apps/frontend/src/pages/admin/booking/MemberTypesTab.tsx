@@ -145,7 +145,7 @@ export default function MemberTypesTab() {
                     <td className="py-2.5 px-3">
                       <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-medium ${
                         t.isActive
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                           : "bg-muted text-muted-foreground"
                       }`}>
                         {t.isActive ? "نشط" : "معطل"}
@@ -179,7 +179,7 @@ export default function MemberTypesTab() {
 
       {modal && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setModal(null)}>
-          <div className="bg-card border border-border/70 rounded-2xl shadow-xl w-full max-w-md p-5 text-foreground space-y-4" onClick={e => e.stopPropagation()}>
+          <div className="bg-card border border-border/70 rounded-xl shadow-xl w-full max-w-md p-5 text-foreground space-y-4" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-border/70 pb-3">
               <h3 className="text-sm font-bold text-foreground">
                 {modal.id ? "تعديل نوع العضوية" : "نوع عضوية جديد"}

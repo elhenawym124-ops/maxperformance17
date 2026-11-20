@@ -103,9 +103,9 @@ export default function DashboardTab({ branches, doctors, appointments, selected
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {[
           { label: "مواعيد اليوم", value: stats.todayAppointments.length, icon: CalendarDays, color: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
-          { label: "بانتظار التأكيد", value: stats.pendingCount, icon: Clock, color: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
-          { label: "مؤكدة", value: stats.confirmedCount, icon: Check, color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
-          { label: "الأطباء النشطون", value: stats.totalDoctors, icon: Users, color: "text-purple-500 bg-purple-500/10 border-purple-500/20" },
+          { label: "بانتظار التأكيد", value: stats.pendingCount, icon: Clock, color: "text-amber-500 bg-warning/10 border-warning/20" },
+          { label: "مؤكدة", value: stats.confirmedCount, icon: Check, color: "text-emerald-500 bg-success/10 border-success/20" },
+          { label: "الأطباء النشطون", value: stats.totalDoctors, icon: Users, color: "text-purple-500 bg-primary/10 border-primary/20" },
         ].map((c, i) => (
           <div key={i} className="bg-card rounded-xl border border-border/70 p-4 shadow-sm flex items-center gap-3.5 transition-all hover:border-border">
             <div className={`p-2.5 rounded-xl border ${c.color} shrink-0`}>
@@ -123,10 +123,10 @@ export default function DashboardTab({ branches, doctors, appointments, selected
       {financials && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {[
-            { label: `الإيراد (${period === "today" ? "اليوم" : period === "week" ? "7 أيام" : "الشهر"})`, value: financials.totalRevenue, icon: Wallet, color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
-            { label: "المحصّل الفعلي", value: financials.collected, icon: Banknote, color: "text-teal-500 bg-teal-500/10 border-teal-500/20" },
-            { label: "المتبقي الآجل", value: financials.outstanding, icon: Wallet, color: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
-            { label: "فواتير غير مسددة", value: financials.unpaidInvoices, icon: Banknote, color: "text-rose-500 bg-rose-500/10 border-rose-500/20" },
+            { label: `الإيراد (${period === "today" ? "اليوم" : period === "week" ? "7 أيام" : "الشهر"})`, value: financials.totalRevenue, icon: Wallet, color: "text-emerald-500 bg-success/10 border-success/20" },
+            { label: "المحصّل الفعلي", value: financials.collected, icon: Banknote, color: "text-teal-500 bg-success/10 border-success/20" },
+            { label: "المتبقي الآجل", value: financials.outstanding, icon: Wallet, color: "text-amber-500 bg-warning/10 border-warning/20" },
+            { label: "فواتير غير مسددة", value: financials.unpaidInvoices, icon: Banknote, color: "text-rose-500 bg-destructive/10 border-destructive/20" },
           ].map((c, i) => (
             <div key={i} className="bg-card rounded-xl border border-border/70 p-4 shadow-sm flex items-center gap-3.5 transition-all hover:border-border">
               <div className={`p-2.5 rounded-xl border ${c.color} shrink-0`}>
@@ -135,7 +135,7 @@ export default function DashboardTab({ branches, doctors, appointments, selected
               <div className="min-w-0">
                 <p className="text-2xl font-bold font-mono tabular-nums text-foreground tracking-tight">
                   {Number(c.value || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  <span className="text-xs font-normal text-muted-foreground mr-1">ج.م</span>
+                  <span className="text-xs font-normal text-muted-foreground me-1">ج.م</span>
                 </p>
                 <p className="text-xs text-muted-foreground truncate mt-0.5">{c.label}</p>
               </div>
@@ -154,7 +154,7 @@ export default function DashboardTab({ branches, doctors, appointments, selected
               <span className="text-xs text-foreground">ذكور: <strong className="font-mono tabular-nums">{stats.maleCount}</strong></span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
               <span className="text-xs text-foreground">إناث: <strong className="font-mono tabular-nums">{stats.femaleCount}</strong></span>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function DashboardTab({ branches, doctors, appointments, selected
                   <p className="text-muted-foreground mt-0.5">إجمالي الملفات</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{patientStats.newPatients}</p>
+                  <p className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">{patientStats.newPatients}</p>
                   <p className="text-muted-foreground mt-0.5">مرضى جدد</p>
                 </div>
                 <div>

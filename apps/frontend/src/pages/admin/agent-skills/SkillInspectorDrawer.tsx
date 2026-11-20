@@ -95,11 +95,11 @@ const renderMarkdownInstructions = (text: string) => {
         renderedElements.push(
           <div
             key={`code-${i}`}
-            className="my-3 rounded-xl bg-zinc-950 p-3.5 border border-zinc-800 text-zinc-100 font-mono text-xs overflow-auto"
+            className="my-3 rounded-xl bg-muted p-3.5 border border-border text-muted-foreground font-mono text-xs overflow-auto"
             dir="ltr"
           >
             {codeLang && (
-              <div className="text-[10px] text-zinc-500 uppercase font-bold border-b border-zinc-800 pb-1 mb-2">
+              <div className="text-[10px] text-muted-foreground uppercase font-bold border-b border-border pb-1 mb-2">
                 {codeLang}
               </div>
             )}
@@ -159,7 +159,7 @@ const renderMarkdownInstructions = (text: string) => {
     if (line.trim().startsWith("- ") || line.trim().startsWith("* ")) {
       const cleanLine = line.trim().substring(2);
       renderedElements.push(
-        <ul key={`ul-${i}`} className="list-disc list-inside mr-2 my-1 text-xs text-muted-foreground leading-relaxed">
+        <ul key={`ul-${i}`} className="list-disc list-inside me-2 my-1 text-xs text-muted-foreground leading-relaxed">
           <li>{parseInlineMarkdown(cleanLine)}</li>
         </ul>
       );
@@ -272,7 +272,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
               {isSupervised ? (
                 <Badge
                   variant="outline"
-                  className="gap-1 border-amber-500/30 bg-amber-500/10 text-xs text-amber-600 dark:text-amber-400"
+                  className="gap-1 border-warning/30 bg-warning/10 text-xs text-warning dark:text-warning"
                 >
                   <ShieldAlert className="size-3" />
                   <span>تتطلب موافقة التاجر</span>
@@ -280,7 +280,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
               ) : (
                 <Badge
                   variant="outline"
-                  className="gap-1 border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-600 dark:text-emerald-400"
+                  className="gap-1 border-success/30 bg-success/10 text-xs text-success dark:text-success"
                 >
                   <Zap className="size-3" />
                   <span>تشغيل ذاتي (Autonomous)</span>
@@ -304,7 +304,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
                 variant="default"
                 size="xs"
                 onClick={handleLaunchSandbox}
-                className="h-7 text-xs gap-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs"
+                className="h-7 text-xs gap-1 bg-success hover:bg-success text-white font-bold shadow-xs"
                 title="تجربة المهارة داخل الـ Sandbox"
               >
                 <Play className="size-3 fill-current" />
@@ -413,7 +413,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
                         <div className="flex items-center gap-2">
                           <div className={cn(
                             "flex size-6 items-center justify-center rounded-lg text-xs",
-                            isWrite ? "bg-amber-500/10 text-amber-600" : "bg-blue-500/10 text-blue-600"
+                            isWrite ? "bg-amber-500/10 text-warning" : "bg-blue-500/10 text-blue-600"
                           )}>
                             {isWrite ? <Zap className="size-3" /> : <Eye className="size-3" />}
                           </div>
@@ -424,7 +424,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
 
                         <div className="flex items-center gap-1">
                           {isWrite ? (
-                            <Badge variant="outline" className="h-5 text-[0.65rem] border-amber-500/30 text-amber-600">
+                            <Badge variant="outline" className="h-5 text-[0.65rem] border-warning/30 text-warning">
                               إجراء وتنفيذ
                             </Badge>
                           ) : (
@@ -434,7 +434,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
                           )}
 
                           {reqApproval && (
-                            <Badge variant="outline" className="h-5 text-[0.65rem] border-rose-500/30 text-rose-600">
+                            <Badge variant="outline" className="h-5 text-[0.65rem] border-destructive/30 text-destructive">
                               موافقة التاجر
                             </Badge>
                           )}
@@ -502,7 +502,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
                           <Loader2 className="size-3.5 animate-spin" />
                         ) : isEquipped ? (
                           <>
-                            <Check className="size-3.5 ml-1" />
+                            <Check className="size-3.5 ms-1" />
                             <span>مجهز بالمهارة</span>
                           </>
                         ) : (

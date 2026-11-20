@@ -591,7 +591,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
             </div>
 
             {isSelfGuardian ? (
-              <div className={`p-2.5 rounded-lg border text-xs flex items-center gap-2 ${form.phone?.trim() ? "border-primary/30 bg-primary/5 text-primary" : "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"}`}>
+              <div className={`p-2.5 rounded-lg border text-xs flex items-center gap-2 ${form.phone?.trim() ? "border-primary/30 bg-primary/5 text-primary" : "border-amber-500/40 bg-warning/10 text-warning dark:text-warning"}`}>
                 <User className="w-4 h-4 shrink-0" />
                 <span>{t("education.students.selfGuardianNotice", isEn ? "Student will be automatically registered as their own guardian with their phone numbers." : "سيتم تسجيل الطالب كولي أمر نفسه تلقائياً بأرقام هواتفه (الأساسي والإضافي).")}</span>
               </div>
@@ -680,7 +680,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
                 <div className="relative">
                   <input
                     type="text"
-                    className={INPUT_CLS + (isEn ? " pl-9 pr-8" : " pr-9 pl-8")}
+                    className={INPUT_CLS + (isEn ? " ps-9 pe-8" : " pe-9 ps-8")}
                     placeholder={t("education.students.searchGuardianPlaceholder", isEn ? "Search guardian by name or phone..." : "ابحث عن ولي أمر بالاسم أو الهاتف...")}
                     value={customerSearch}
                     onChange={(e) => {
@@ -736,7 +736,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
                               {c.firstName} {c.lastName || ""}
                             </span>
                             {c.phone && (
-                              <span className={`text-muted-foreground ${isEn ? "ml-2" : "mr-2"} font-mono text-[11px]`}>
+                              <span className={`text-muted-foreground ${isEn ? "ms-2" : "me-2"} font-mono text-[11px]`}>
                                 ({c.phone}{c.phone2 ? ` / ${c.phone2}` : ""})
                               </span>
                             )}
@@ -833,7 +833,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
                     <span>{t("education.students.parentPassword", isEn ? "Password" : "كلمة المرور")}</span>
                   </span>
                   {guardianPassword && (
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-medium">
+                    <span className="text-[10px] text-success dark:text-success font-mono font-medium">
                       {isEn ? "Active" : "جاهزة"}
                     </span>
                   )}
@@ -850,7 +850,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
             </div>
 
             {generatedCredentials && (
-              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-between">
+              <div className="p-2.5 rounded-lg bg-success/10 border border-success/20 text-success dark:text-success text-xs flex items-center justify-between">
                 <div className="space-y-0.5">
                   <div className="font-semibold">{isEn ? "Generated Login Credentials for Guardian:" : "بيانات الدخول المعتمدة لولي الأمر:"}</div>
                   <div className="font-mono text-[11px]">
@@ -860,7 +860,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
                 <button
                   type="button"
                   onClick={handleCopyCredentials}
-                  className="px-2 py-1 rounded bg-emerald-600 text-white text-[11px] font-medium hover:bg-emerald-700"
+                  className="px-2 py-1 rounded bg-success text-white text-[11px] font-medium hover:bg-success"
                 >
                   {isEn ? "Copy" : "نسخ البيانات"}
                 </button>

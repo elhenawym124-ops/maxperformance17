@@ -43,7 +43,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
   isSavingCloud,
 }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-2.5 sm:px-6 sticky top-0 z-30 shadow-xs">
+    <div className="bg-white dark:bg-muted border-b border-border dark:border-border px-4 py-2.5 sm:px-6 sticky top-0 z-30 shadow-xs">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Left: Breadcrumbs & View Toggle */}
         <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
             <button
               type="button"
               onClick={() => onToggleViewMode('list')}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-xs font-bold text-foreground hover:bg-muted dark:hover:bg-muted transition-colors shadow-2xs"
             >
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-0" />
               <span>دليل المسارات</span>
@@ -69,8 +69,8 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
                   ? currentFlowTitle || 'محرر مسار الأتمتة'
                   : 'مسارات رسائل النظام التعليمي'}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-success/10 text-success dark:text-success border border-success/20 text-[10px] font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
                 Live نشط
               </span>
             </div>
@@ -84,7 +84,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
 
         {/* Center: Stage Switcher Tabs (Only in Canvas Mode) */}
         {viewMode === 'canvas' && (
-          <div className="flex items-center overflow-x-auto bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200/80 dark:border-slate-700/60 scrollbar-none">
+          <div className="flex items-center overflow-x-auto bg-muted dark:bg-muted p-1 rounded-xl border border-border dark:border-border scrollbar-none">
             {SUB_JOURNEYS.map((j) => {
               const active = activeCategory === j.id;
               return (
@@ -94,7 +94,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
                   onClick={() => onSelectCategory(j.id)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                     active
-                      ? 'bg-white dark:bg-slate-900 text-foreground shadow-xs font-bold'
+                      ? 'bg-white dark:bg-muted text-foreground shadow-xs font-bold'
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
@@ -108,13 +108,13 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
         {/* Right: View Mode Toggle, Zoom Controls & Actions */}
         <div className="flex items-center gap-2 self-end lg:self-auto">
           {/* View Mode Toggle Pill */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-0.5 border border-slate-200 dark:border-slate-700">
+          <div className="flex items-center bg-muted dark:bg-muted rounded-xl p-0.5 border border-border dark:border-border">
             <button
               type="button"
               onClick={() => onToggleViewMode('list')}
               className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                 viewMode === 'list'
-                  ? 'bg-white dark:bg-slate-900 text-foreground shadow-xs font-bold'
+                  ? 'bg-white dark:bg-muted text-foreground shadow-xs font-bold'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -127,7 +127,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
               onClick={() => onToggleViewMode('canvas')}
               className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                 viewMode === 'canvas'
-                  ? 'bg-white dark:bg-slate-900 text-foreground shadow-xs font-bold'
+                  ? 'bg-white dark:bg-muted text-foreground shadow-xs font-bold'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -138,11 +138,11 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
 
           {/* Zoom Controls (Canvas Mode Only) */}
           {viewMode === 'canvas' && (
-            <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-0.5">
+            <div className="flex items-center bg-muted dark:bg-muted rounded-xl border border-border dark:border-border p-0.5">
               <button
                 type="button"
                 onClick={onZoomOut}
-                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white dark:hover:bg-slate-900 transition-all"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white dark:hover:bg-muted transition-all"
                 title="تصغير"
               >
                 <ZoomOut className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
               <button
                 type="button"
                 onClick={onZoomIn}
-                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white dark:hover:bg-slate-900 transition-all"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white dark:hover:bg-muted transition-all"
                 title="تكبير"
               >
                 <ZoomIn className="w-3.5 h-3.5" />
@@ -161,7 +161,7 @@ export const EducationFlowTopBar: React.FC<EducationFlowTopBarProps> = ({
               <button
                 type="button"
                 onClick={onZoomReset}
-                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white dark:hover:bg-slate-900 transition-all border-r border-slate-200 dark:border-slate-700"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white dark:hover:bg-muted transition-all border-r border-border dark:border-border"
                 title="ملاءمة الشاشة"
               >
                 <Maximize2 className="w-3.5 h-3.5" />

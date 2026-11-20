@@ -96,7 +96,7 @@ export default function PatientDetailModal({ patientId, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className={`${MODAL_CONTENT_CLS} max-h-[92vh] overflow-y-auto bg-card border border-border/80 rounded-2xl shadow-2xl text-foreground font-sans max-w-3xl`}
+        className={`${MODAL_CONTENT_CLS} max-h-[92vh] overflow-y-auto bg-card border border-border/80 rounded-xl shadow-2xl text-foreground font-sans max-w-3xl`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -191,7 +191,7 @@ export default function PatientDetailModal({ patientId, onClose }: Props) {
                       <p className="text-xs font-semibold text-foreground mb-1.5">الأمراض المزمنة الموثقة:</p>
                       <div className="flex flex-wrap gap-1">
                         {diseases.map((d, i) => (
-                          <span key={i} className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md">
+                          <span key={i} className="text-xs bg-warning/10 text-warning dark:text-warning border border-warning/20 px-2 py-0.5 rounded-md">
                             {d}
                           </span>
                         ))}

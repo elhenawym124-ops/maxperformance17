@@ -76,7 +76,7 @@ export const AgentProfilesSidebar: React.FC<AgentProfilesSidebarProps> = ({
             placeholder={t("agentProfiles.sidebar.search", "بحث...")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="h-8 pr-8 text-xs"
+            className="h-8 pe-8 text-xs"
           />
         </div>
       </div>

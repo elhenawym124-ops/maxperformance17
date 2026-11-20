@@ -81,7 +81,7 @@ export const HotelReservationsTab: React.FC<HotelReservationsTabProps> = ({
               <Button
                 size="sm"
                 variant="outline"
-                className="h-7 text-xs text-emerald-600 border-emerald-500/30"
+                className="h-7 text-xs text-success border-success/30"
                 onClick={async () => {
                   await hotelApi.reservations.updateStatus(r.id, "CHECKED_IN");
                   void loadAll();

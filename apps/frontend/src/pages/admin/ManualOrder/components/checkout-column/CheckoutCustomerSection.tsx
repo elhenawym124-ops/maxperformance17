@@ -69,22 +69,22 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
 }) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-        <UserIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+      <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+        <UserIcon className="w-5 h-5 text-muted-foreground" />
         {t("manualOrder.k_90")}
       </h3>
 
       <div className="relative">
-        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs text-muted-foreground mb-1">
           {t("manualOrder.k_91")}{" "}
-          <span className="text-red-500 dark:text-red-400">*</span>
+          <span className="text-red-500 dark:text-destructive">*</span>
         </label>
         <div className="relative">
           <input
             type="text"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 text-right dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 text-right dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
             placeholder="01xxxxxxxxx"
             dir="ltr"
           />
@@ -98,8 +98,8 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
         <div
           className={`rounded-lg border p-3 text-sm ${
             customerBlock?.blocked
-              ? "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300"
-              : "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-200"
+              ? "border-red-200 bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive"
+              : "border-amber-200 bg-warning/10 text-warning dark:border-warning dark:bg-warning/20 dark:text-warning"
           }`}
         >
           <div className="flex items-start gap-2">
@@ -123,7 +123,7 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
                     onChange={(event) =>
                       setAllowBlockedCustomerOverride(event.target.checked)
                     }
-                    className="h-4 w-4 rounded border-red-300 text-red-600 focus:ring-red-500"
+                    className="h-4 w-4 rounded border-destructive text-destructive focus:ring-destructive"
                   />
                   {t("manualOrder.k_92")}
                 </label>
@@ -135,34 +135,34 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("manualOrder.k_93")}{" "}
-            <span className="text-red-500 dark:text-red-400">*</span>
+            <span className="text-red-500 dark:text-destructive">*</span>
           </label>
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
           />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("manualOrder.k_94")}
           </label>
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs text-muted-foreground mb-1">
           {t("manualOrder.k_95")}{" "}
-          <span className="text-red-500 dark:text-red-400">*</span>
+          <span className="text-red-500 dark:text-destructive">*</span>
         </label>
         {canUseTurboLocationLookups ? (
           <GovernorateAreaSearch
@@ -193,14 +193,14 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
           />
         )}
         {loadingGovernments && (
-          <p className="mt-1 text-[11px] text-gray-400 dark:text-gray-500">
+          <p className="mt-1 text-[11px] text-muted-foreground/80">
             {t("manualOrder.k_96")}
           </p>
         )}
       </div>
 
       <div>
-        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs text-muted-foreground mb-1">
           {t("manualOrder.k_97")}
         </label>
         {availableAreas.length > 0 ? (
@@ -223,28 +223,28 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
             type="text"
             value={area}
             onChange={(e) => setArea(e.target.value)}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
             placeholder={
               governorate ? t("manualOrder.k_69") : t("manualOrder.k_70")
             }
           />
         )}
-        <p className="mt-1 text-[11px] text-gray-400 dark:text-gray-500">
+        <p className="mt-1 text-[11px] text-muted-foreground/80">
           {t("manualOrder.k_98")}
         </p>
       </div>
 
       <div className="relative">
-        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs text-muted-foreground mb-1">
           {t("manualOrder.k_99")}
         </label>
         <textarea
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 h-20 resize-none dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+          className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 h-20 resize-none dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
           placeholder={t("manualOrder.k_8")}
         />
-        <MapPinIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-8" />
+        <MapPinIcon className="w-5 h-5 text-muted-foreground/80 absolute left-3 top-8" />
       </div>
     </div>
   );

@@ -125,7 +125,7 @@ export default function ServiceOrdersSettingsPage() {
                 إعدادات مسارات العمل وقنوات التحصيل
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/30 px-2 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-success" />
                 {assignedStagesCount} / 3 مراحل مكلفة
               </span>
             </div>
@@ -177,7 +177,7 @@ export default function ServiceOrdersSettingsPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">واتساب الإشعارات</span>
-            <MessageCircle className="size-3.5 text-emerald-500" />
+            <MessageCircle className="size-3.5 text-success" />
           </div>
           <div className="text-sm font-bold text-foreground truncate mt-1">{activeSessionName}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">جلسة الإرسال النشطة</p>
@@ -186,7 +186,7 @@ export default function ServiceOrdersSettingsPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">بادئة الفواتير</span>
-            <Receipt className="size-3.5 text-purple-500" />
+            <Receipt className="size-3.5 text-primary" />
           </div>
           <div className="text-sm font-bold font-mono text-foreground mt-1" dir="ltr">{settings.invoicePrefix}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">تسلسل الأرقام</p>

@@ -40,7 +40,7 @@ export const AgentActionConfirmModals: React.FC<AgentActionConfirmModalsProps> =
       >
         <DialogContent className="sm:max-w-sm text-right" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600 text-base">
+            <DialogTitle className="flex items-center gap-2 text-warning text-base">
               <Archive className="size-4" />
               {t("agentProfiles.archive.title", "أرشفة الوكيل")}
             </DialogTitle>
@@ -73,15 +73,15 @@ export const AgentActionConfirmModals: React.FC<AgentActionConfirmModalsProps> =
               {t("common.cancel", "إلغاء")}
             </Button>
             <Button
-              className="bg-amber-600 hover:bg-amber-700 text-white"
+              className="bg-amber-600 hover:bg-warning text-white"
               size="sm"
               onClick={onArchive}
               disabled={deleting}
             >
               {deleting ? (
-                <Loader2 className="ml-1 size-3 animate-spin" />
+                <Loader2 className="ms-1 size-3 animate-spin" />
               ) : (
-                <Archive className="ml-1 size-3.5" />
+                <Archive className="ms-1 size-3.5" />
               )}
               {deleting
                 ? t("agentProfiles.archive.archiving", "جارٍ الأرشفة...")
@@ -139,9 +139,9 @@ export const AgentActionConfirmModals: React.FC<AgentActionConfirmModalsProps> =
               disabled={deleting}
             >
               {deleting ? (
-                <Loader2 className="ml-1 size-3 animate-spin" />
+                <Loader2 className="ms-1 size-3 animate-spin" />
               ) : (
-                <Trash2 className="ml-1 size-3.5" />
+                <Trash2 className="ms-1 size-3.5" />
               )}
               {deleting
                 ? t("agentProfiles.delete.deleting", "جارٍ الحذف...")

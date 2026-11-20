@@ -151,13 +151,13 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
       {/* Header bar */}
       <div className="flex flex-wrap items-center justify-between gap-2.5">
         <div className="flex items-center gap-2 min-w-0">
-          <Tag className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" aria-hidden="true" />
+          <Tag className="w-4 h-4 text-success dark:text-success shrink-0" aria-hidden="true" />
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <h4 className="text-xs font-bold text-foreground truncate">
                 {isEn ? "Dynamic Custom Discounts & Offers" : "نظام الخصومات والعروض المخصصة"}
               </h4>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 tabular-nums shrink-0">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-success/10 text-success dark:text-success border border-success/20 tabular-nums shrink-0">
                 {isEn ? `${activeCount}/${discounts.length} Active` : `${activeCount}/${discounts.length} مفعل`}
               </span>
             </div>
@@ -210,20 +210,20 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
                         className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold font-mono ${
                           isPercentage
                             ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
-                            : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                            : "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                         }`}
                       >
                         {isPercentage ? <Percent className="w-2.5 h-2.5" /> : <Banknote className="w-2.5 h-2.5" />}
                         {discount.value} {isPercentage ? "%" : isEn ? "EGP" : "ج.م"}
                       </span>
                       {discount.code && (
-                        <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                        <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-mono bg-primary/10 text-primary dark:text-primary border border-primary/20">
                           {isEn ? "Code: " : "كود: "}
                           {discount.code}
                         </span>
                       )}
                       {discount.minSiblings && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] bg-warning/10 text-warning dark:text-warning border border-warning/20">
                           <Users className="w-2.5 h-2.5" />
                           {isEn ? `Siblings (${discount.minSiblings}+)` : `للأخوة (${discount.minSiblings}+)`}
                         </span>
@@ -251,7 +251,7 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
                     <button
                       type="button"
                       onClick={() => setDeleteConfirmId(discount.id)}
-                      className="p-1.5 rounded-lg text-muted-foreground hover:text-red-600 hover:bg-red-500/10 transition-colors"
+                      className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                       title={isEn ? "Delete discount" : "حذف الخصم"}
                       aria-label={isEn ? "Delete discount" : "حذف الخصم"}
                     >
@@ -274,8 +274,8 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
 
       {/* Delete Confirmation Inline Popover / Dialog */}
       {deleteConfirmId && (
-        <div className="p-3 rounded-xl border border-red-500/30 bg-red-500/5 flex items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-red-600 dark:text-red-400 font-medium">
+        <div className="p-3 rounded-xl border border-destructive/30 bg-destructive/5 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-destructive dark:text-destructive font-medium">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{isEn ? "Are you sure you want to delete this discount?" : "هل أنت متأكد من حذف قاعدة الخصم هذه؟"}</span>
           </div>
@@ -291,7 +291,7 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
               type="button"
               disabled={submitting}
               onClick={() => handleDelete(deleteConfirmId)}
-              className="px-2.5 py-1 text-xs rounded-lg bg-red-600 text-white hover:bg-red-700 font-semibold transition-all active:scale-[0.98]"
+              className="px-2.5 py-1 text-xs rounded-lg bg-destructive text-white hover:bg-destructive font-semibold transition-all active:scale-[0.98]"
             >
               {submitting ? "..." : isEn ? "Delete" : "تأكيد الحذف"}
             </button>
@@ -497,8 +497,8 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
               </div>
 
               {/* Real-time Simulator Preview */}
-              <div className="p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-xs space-y-1">
-                <div className="flex items-center gap-1.5 font-bold text-emerald-700 dark:text-emerald-400">
+              <div className="p-3 rounded-xl bg-success/5 border border-success/20 text-xs space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-success dark:text-success">
                   <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                   <span>{isEn ? "Live Calculation Preview" : "معاينة حية للحساب"}</span>
                 </div>

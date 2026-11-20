@@ -36,7 +36,7 @@ export const SkillTelemetryBar: React.FC<SkillTelemetryBarProps> = ({
         </div>
         <div className="flex items-baseline gap-1.5 mt-0.5">
           <span className="text-xl font-bold font-mono tabular-nums text-foreground">{totalSkills}</span>
-          <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded border border-emerald-500/20">
+          <span className="text-[10px] font-mono text-success dark:text-success bg-success/10 px-1.5 py-0.2 rounded border border-success/20">
             جاهزة
           </span>
         </div>
@@ -64,11 +64,11 @@ export const SkillTelemetryBar: React.FC<SkillTelemetryBarProps> = ({
       <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">الرقابة التجارية</span>
-          <ShieldAlert className="size-3.5 text-amber-500" />
+          <ShieldAlert className="size-3.5 text-warning" />
         </div>
         <div className="flex items-baseline gap-1.5 mt-0.5">
           <span className="text-xl font-bold font-mono tabular-nums text-foreground">{autonomousCount}</span>
-          <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 bg-amber-500/10 px-1.5 py-0.2 rounded border border-amber-500/20 tabular-nums">
+          <span className="text-[10px] font-mono text-warning dark:text-warning bg-warning/10 px-1.5 py-0.2 rounded border border-warning/20 tabular-nums">
             {approvalCount} بموافقة
           </span>
         </div>
@@ -81,7 +81,7 @@ export const SkillTelemetryBar: React.FC<SkillTelemetryBarProps> = ({
       <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">الأدوات المتصلة</span>
-          <Wrench className="size-3.5 text-purple-500" />
+          <Wrench className="size-3.5 text-primary" />
         </div>
         <div className="flex items-baseline gap-1.5 mt-0.5">
           <span className="text-xl font-bold font-mono tabular-nums text-foreground">{uniqueToolsCount}</span>

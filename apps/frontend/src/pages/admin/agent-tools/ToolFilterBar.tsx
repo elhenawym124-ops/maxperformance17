@@ -68,7 +68,7 @@ export const ToolFilterBar: React.FC<ToolFilterBarProps> = ({
       {/* 1. Diagnostics Banner */}
       <div className="flex items-center justify-between rounded-xl bg-card border border-border/70 px-3.5 py-2 text-xs font-mono shadow-xs">
         <div className="flex items-center gap-2">
-          <AlertTriangle className="size-3.5 text-amber-500 shrink-0" />
+          <AlertTriangle className="size-3.5 text-warning shrink-0" />
           <span className="font-semibold text-foreground">
             تشخيص الأدوات: {totalCount} أداة برمجية معتمدة ({equippedCount} مجهزة للوكلاء)
           </span>
@@ -100,13 +100,13 @@ export const ToolFilterBar: React.FC<ToolFilterBarProps> = ({
               className={cn(
                 "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer active:scale-[0.98]",
                 installFilter === "installed"
-                  ? "bg-card text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-xs font-semibold"
+                  ? "bg-card text-success dark:text-success border border-success/30 shadow-xs font-semibold"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
               <span>المجهزة</span>
-              <span className="font-mono text-[10px] px-1 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <span className="font-mono text-[10px] px-1 py-0.2 rounded bg-success/10 text-success dark:text-success tabular-nums">
                 {equippedCount}
               </span>
             </button>
@@ -166,7 +166,7 @@ export const ToolFilterBar: React.FC<ToolFilterBarProps> = ({
               className={cn(
                 "inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-medium transition-all cursor-pointer active:scale-[0.98]",
                 sideEffectFilter === "read"
-                  ? "bg-card text-sky-600 dark:text-sky-400 shadow-xs font-semibold border border-sky-500/30"
+                  ? "bg-card text-info dark:text-info shadow-xs font-semibold border border-info/30"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -179,7 +179,7 @@ export const ToolFilterBar: React.FC<ToolFilterBarProps> = ({
               className={cn(
                 "inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-medium transition-all cursor-pointer active:scale-[0.98]",
                 sideEffectFilter === "write"
-                  ? "bg-card text-amber-600 dark:text-amber-400 shadow-xs font-semibold border border-amber-500/30"
+                  ? "bg-card text-warning dark:text-warning shadow-xs font-semibold border border-warning/30"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -198,7 +198,7 @@ export const ToolFilterBar: React.FC<ToolFilterBarProps> = ({
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               placeholder="بحث في أسماء ووظائف الأدوات..."
-              className="h-8 border-border/80 bg-background/50 pr-8 pl-7 text-xs focus-visible:ring-1 font-mono"
+              className="h-8 border-border/80 bg-background/50 pe-8 ps-7 text-xs focus-visible:ring-1 font-mono"
             />
             {query && (
               <button

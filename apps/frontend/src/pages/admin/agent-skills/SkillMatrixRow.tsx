@@ -61,7 +61,7 @@ export const SkillMatrixRow: React.FC<SkillMatrixRowProps> = ({
         {isSupervised ? (
           <Badge
             variant="outline"
-            className="gap-1 border-amber-500/30 bg-amber-500/10 text-[10px] font-mono text-amber-600 dark:text-amber-400"
+            className="gap-1 border-warning/30 bg-warning/10 text-[10px] font-mono text-warning dark:text-warning"
           >
             <ShieldAlert className="size-2.5" />
             <span>موافقة</span>
@@ -69,7 +69,7 @@ export const SkillMatrixRow: React.FC<SkillMatrixRowProps> = ({
         ) : (
           <Badge
             variant="outline"
-            className="gap-1 border-emerald-500/30 bg-emerald-500/10 text-[10px] font-mono text-emerald-600 dark:text-emerald-400"
+            className="gap-1 border-success/30 bg-success/10 text-[10px] font-mono text-success dark:text-success"
           >
             <Zap className="size-2.5" />
             <span>ذاتي</span>
@@ -80,7 +80,7 @@ export const SkillMatrixRow: React.FC<SkillMatrixRowProps> = ({
       {/* Allowed Tools Count */}
       <td className="py-2.5 px-3 hidden md:table-cell text-center">
         <span className="font-mono tabular-nums text-foreground font-semibold">{allowedTools.length}</span>
-        <span className="text-[10px] text-muted-foreground mr-1">أداة</span>
+        <span className="text-[10px] text-muted-foreground me-1">أداة</span>
       </td>
 
       {/* Equipped Agents */}
@@ -116,7 +116,7 @@ export const SkillMatrixRow: React.FC<SkillMatrixRowProps> = ({
             onClick={() => onInspect(skill)}
             className="h-7 px-2 text-[11px] text-muted-foreground hover:text-foreground active:scale-[0.98]"
           >
-            <Eye className="size-3 ml-1" />
+            <Eye className="size-3 ms-1" />
             <span className="hidden sm:inline">فحص</span>
           </Button>
 
@@ -134,7 +134,7 @@ export const SkillMatrixRow: React.FC<SkillMatrixRowProps> = ({
             variant="ghost"
             size="icon-sm"
             onClick={() => onTestSandbox(skill)}
-            className="h-7 w-7 text-emerald-600 hover:bg-emerald-500/10 rounded-md active:scale-[0.98]"
+            className="h-7 w-7 text-success hover:bg-success/10 rounded-md active:scale-[0.98]"
             title="اختبار في Sandbox"
           >
             <Play className="size-3" />

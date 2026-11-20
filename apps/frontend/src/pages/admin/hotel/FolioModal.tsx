@@ -58,11 +58,11 @@ export default function FolioModal({
 
         {catalog.length > 0 && (
           <div>
-            <label className="text-sm text-gray-500 mb-1 block">اختيار من كتالوج الخدمات:</label>
+            <label className="text-sm text-muted-foreground mb-1 block">اختيار من كتالوج الخدمات:</label>
             <div className="max-h-32 overflow-y-auto border rounded-lg p-2 space-y-1">
               {catalog.map(s => (
                 <button key={s.id} type="button" onClick={() => pickService(s)}
-                  className={`w-full text-right px-2 py-1 text-sm rounded transition ${form.serviceId === s.id ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}>
+                  className={`w-full text-right px-2 py-1 text-sm rounded transition ${form.serviceId === s.id ? 'bg-blue-100 text-blue-700' : 'hover:bg-muted'}`}>
                   {s.nameAr || s.name} - {s.price} ج.م
                 </button>
               ))}

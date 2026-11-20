@@ -129,7 +129,7 @@ export default function FormsBuilderPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">إجمالي الزيارات</span>
-            <MousePointerClick className="size-3.5 text-purple-500" />
+            <MousePointerClick className="size-3.5 text-primary" />
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">{totalViews.toLocaleString()}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">زيارة فريدة مسجلة</p>
@@ -138,9 +138,9 @@ export default function FormsBuilderPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">إجمالي التسجيلات</span>
-            <Users className="size-3.5 text-emerald-500" />
+            <Users className="size-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{totalSubs.toLocaleString()}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">{totalSubs.toLocaleString()}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">بيانات عميل مؤكدة</p>
         </div>
 
@@ -163,10 +163,10 @@ export default function FormsBuilderPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث في أسماء وروابط النماذج..."
-              className="w-full pr-8 pl-3 py-1 bg-background/50 border border-border/70 rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary font-mono"
+              className="w-full pe-8 ps-3 py-1 bg-background/50 border border-border/70 rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary font-mono"
             />
           </div>
-          <span className="text-[11px] text-muted-foreground font-mono tabular-nums mr-auto">{filtered.length} نموذج</span>
+          <span className="text-[11px] text-muted-foreground font-mono tabular-nums me-auto">{filtered.length} نموذج</span>
         </div>
 
         <div className="overflow-x-auto">
@@ -199,7 +199,7 @@ export default function FormsBuilderPage() {
                         dir="ltr"
                         title="نسخ الرابط"
                       >
-                        {copiedSlug === form.slug ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                        {copiedSlug === form.slug ? <Check className="size-3 text-success" /> : <Copy className="size-3" />}
                         /forms/{form.slug}
                       </button>
                     </td>
@@ -207,7 +207,7 @@ export default function FormsBuilderPage() {
                     <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-foreground">{subs}</td>
                     <td className="py-2.5 px-3 text-center font-mono tabular-nums text-blue-600 dark:text-blue-400">{conv}%</td>
                     <td className="py-2.5 px-3 text-center">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${form.isActive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" : "bg-muted text-muted-foreground border-border"}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${form.isActive ? "bg-emerald-500/10 text-success dark:text-success border-success/20" : "bg-muted text-muted-foreground border-border"}`}>
                         {form.isActive ? "نشط" : "معطل"}
                       </span>
                     </td>
@@ -215,7 +215,7 @@ export default function FormsBuilderPage() {
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={() => { setEditForm(form); setModalOpen(true); }} className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60" title="تعديل"><FileText className="size-3.5" /></button>
                         <a href={`/forms/${form.slug}${user?.companyId ? `?companyId=${user.companyId}` : ""}`} target="_blank" rel="noopener noreferrer" className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60" title="فتح"><ExternalLink className="size-3.5" /></a>
-                        <button onClick={() => handleDelete(form)} className="p-1 rounded-md text-rose-500 hover:text-rose-700 hover:bg-rose-500/10" title="حذف"><Trash2 className="size-3.5" /></button>
+                        <button onClick={() => handleDelete(form)} className="p-1 rounded-md text-destructive hover:text-destructive hover:bg-destructive/10" title="حذف"><Trash2 className="size-3.5" /></button>
                       </div>
                     </td>
                   </tr>

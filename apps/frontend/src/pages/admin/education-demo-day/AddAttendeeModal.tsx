@@ -68,11 +68,11 @@ export function AddAttendeeModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-xs">
-      <div className="bg-card border border-border rounded-2xl w-full max-w-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-card border border-border rounded-xl w-full max-w-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-border/80">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+            <div className="p-2 rounded-xl bg-primary/10 text-primary dark:text-primary border border-primary/20">
               <UserPlus className="w-4 h-4" />
             </div>
             <div>

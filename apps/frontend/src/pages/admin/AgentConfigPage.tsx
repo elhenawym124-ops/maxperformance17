@@ -105,7 +105,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, onToggle }) => {
               variant="outline"
               className="h-5 text-[0.65rem]"
             >
-              {skill.readOnly ? <Lock className="mr-0.5 size-3" /> : <Pencil className="mr-0.5 size-3" />}
+              {skill.readOnly ? <Lock className="me-0.5 size-3" /> : <Pencil className="me-0.5 size-3" />}
               {skill.readOnly ? "قراءة فقط" : "يعدّل بيانات"}
             </Badge>
             {paramCount > 0 && (
@@ -247,9 +247,9 @@ const AgentConfigPage: React.FC = () => {
           className="rounded-lg px-6"
         >
           {saving ? (
-            <LoadingSpinner size="sm" color="white" className="mr-2" />
+            <LoadingSpinner size="sm" color="white" className="me-2" />
           ) : (
-            <Save className="mr-2 size-4" />
+            <Save className="me-2 size-4" />
           )}
           {saving ? "جاري الحفظ..." : "حفظ التغييرات"}
         </Button>
@@ -383,7 +383,7 @@ const AgentConfigPage: React.FC = () => {
                 disabled={!newRule.trim()}
                 className="whitespace-nowrap"
               >
-                <Plus className="mr-1 size-4" />
+                <Plus className="me-1 size-4" />
                 إضافة
               </Button>
             </div>
@@ -410,7 +410,7 @@ const AgentConfigPage: React.FC = () => {
                   variant={enabledCount > 0 ? "outline" : "secondary"}
                   className="shrink-0"
                 >
-                  <CheckCircle2 className="mr-1 size-3.5" />
+                  <CheckCircle2 className="me-1 size-3.5" />
                   {`${enabledCount} / ${totalCount} مفعّل`}
                 </Badge>
                 <Button
@@ -457,9 +457,9 @@ const AgentConfigPage: React.FC = () => {
           className="rounded-lg px-8"
         >
           {saving ? (
-            <LoadingSpinner size="sm" color="white" className="mr-2" />
+            <LoadingSpinner size="sm" color="white" className="me-2" />
           ) : (
-            <Save className="mr-2 size-4" />
+            <Save className="me-2 size-4" />
           )}
           {saving ? "جاري الحفظ..." : "حفظ جميع التغييرات"}
         </Button>

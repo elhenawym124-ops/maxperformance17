@@ -32,7 +32,7 @@ export default function ServiceBranchPackagesEditor({
         <span>الفروع المقدمة فيها الخدمة والباقات</span>
       </label>
       {!hasBranches && (
-        <p className="text-xs text-amber-600 dark:text-amber-400 mb-2">
+        <p className="text-xs text-warning dark:text-warning mb-2">
           يرجى تحديد فرع واحد على الأقل لتقديم الخدمة
         </p>
       )}

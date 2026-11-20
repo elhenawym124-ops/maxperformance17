@@ -97,7 +97,7 @@ export default function DoctorAvailabilityModal({ doctor, onClose, onSaved }: Pr
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4" onClick={onClose}>
-      <div className="bg-card border border-border/80 rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
+      <div className="bg-card border border-border/80 rounded-xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/60 bg-muted/20 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-primary/10 text-primary border border-primary/20">
@@ -136,7 +136,7 @@ export default function DoctorAvailabilityModal({ doctor, onClose, onSaved }: Pr
                   <button
                     type="button"
                     onClick={() => toggleAll(true)}
-                    className="px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors"
+                    className="px-3 py-1 text-xs font-medium text-success dark:text-success bg-success/10 border border-success/20 rounded-lg hover:bg-success/20 transition-colors"
                   >
                     تفعيل كل الأيام
                   </button>
@@ -186,7 +186,7 @@ export default function DoctorAvailabilityModal({ doctor, onClose, onSaved }: Pr
                       <span
                         className={`text-[11px] font-medium px-2.5 py-0.5 rounded-full shrink-0 ${
                           s.isAvailable
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                             : "bg-muted text-muted-foreground border border-border/60"
                         }`}
                       >

@@ -150,8 +150,8 @@ const OrderWorkflow: React.FC<OrderWorkflowProps> = ({ isEmbedded }) => {
 
         {/* Warning Banner if disabled */}
         {!config?.enabled && !loading && (
-          <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center gap-3 text-amber-800 dark:text-amber-300 text-xs">
-            <AlertTriangle className="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" />
+          <div className="p-3.5 bg-warning/10 border border-warning/20 rounded-xl flex items-center gap-3 text-warning dark:text-warning text-xs">
+            <AlertTriangle className="w-5 h-5 shrink-0 text-warning dark:text-warning" />
             <p>{t('orderSettings.k_143')}</p>
           </div>
         )}
@@ -196,8 +196,8 @@ const OrderWorkflow: React.FC<OrderWorkflowProps> = ({ isEmbedded }) => {
                     <TabErrorBoundary tabLabel={t('orderSettings.k_27')}>
                       <div className="space-y-6">
                         {config?.enabled && !hasTransitions && (
-                          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 flex gap-2.5 text-amber-800 dark:text-amber-300 text-xs">
-                            <ShieldCheck className="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" />
+                          <div className="p-3.5 rounded-xl bg-warning/10 border border-warning/20 flex gap-2.5 text-warning dark:text-warning text-xs">
+                            <ShieldCheck className="w-5 h-5 shrink-0 text-warning dark:text-warning" />
                             <div>
                               <p className="font-bold mb-0.5">{t('orderSettings.k_36')}</p>
                               <p>{t('orderSettings.k_37')}<strong>{t('orderSettings.k_28')}</strong>{t('orderSettings.k_38')}</p>

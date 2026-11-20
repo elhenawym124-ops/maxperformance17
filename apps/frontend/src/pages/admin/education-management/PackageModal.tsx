@@ -117,7 +117,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({
                 onClick={() => setForm({ ...form, packageType: "PRIVATE" })}
                 className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                   form.packageType === "PRIVATE"
-                    ? "bg-purple-600 text-white border-purple-600 shadow-xs"
+                    ? "bg-purple-600 text-white border-primary shadow-xs"
                     : "bg-card border-border text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -126,7 +126,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({
               </button>
             </div>
             {form.packageType === "PRIVATE" && (
-              <p className="text-[11px] text-purple-600 dark:text-purple-400 font-medium pt-0.5">
+              <p className="text-[11px] text-primary dark:text-primary font-medium pt-0.5">
                 {isEn
                   ? "⭐ Private 1-on-1 package: Dedicated instructor, personalized curriculum & flexible scheduling."
                   : "⭐ نظام الحصص البرايفت: طالب واحد مع المدرس، خطة مخصصة بالكامل ومواعيد مرنة."}

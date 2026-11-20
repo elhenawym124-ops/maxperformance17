@@ -95,13 +95,13 @@ export const SessionList: React.FC<SessionListProps> = ({
 
   return (
     <div
-      className="self-stretch flex flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-all duration-300 overflow-hidden"
+      className="self-stretch flex flex-col border-r border-border dark:border-border bg-white dark:bg-muted transition-all duration-300 overflow-hidden"
       style={{ width: collapsed ? 0 : width, minWidth: collapsed ? 0 : width }}
     >
       {/* Header & Add Button */}
-      <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 space-y-2.5">
+      <div className="p-3.5 border-b border-border dark:border-border space-y-2.5">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
             Sessions
           </span>
           <div className="flex items-center gap-1">
@@ -109,7 +109,7 @@ export const SessionList: React.FC<SessionListProps> = ({
               size="icon"
               variant="ghost"
               onClick={onCreateSession}
-              className="size-7 hover:bg-slate-50 dark:hover:bg-slate-805 text-indigo-600 dark:text-indigo-400 cursor-pointer"
+              className="size-7 hover:bg-muted dark:hover:bg-muted text-primary cursor-pointer"
               title="New Session"
             >
               <Plus className="size-4" />
@@ -119,7 +119,7 @@ export const SessionList: React.FC<SessionListProps> = ({
                 size="icon"
                 variant="ghost"
                 onClick={onClose}
-                className="size-7 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                className="size-7 hover:bg-muted dark:hover:bg-muted text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground cursor-pointer"
                 title="Close"
               >
                 <X className="size-4" />
@@ -130,39 +130,39 @@ export const SessionList: React.FC<SessionListProps> = ({
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-2.5 top-2.5 size-3.5 text-slate-400 pointer-events-none" />
+          <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground pointer-events-none" />
           <Input
             type="text"
             placeholder="Search sessions..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-8 text-xs h-8 dark:bg-slate-950 dark:border-slate-800 focus-visible:ring-indigo-650"
+            className="ps-8 text-xs h-8 dark:bg-muted dark:border-border focus-visible:ring-indigo-650"
           />
         </div>
       </div>
 
       {/* Session Scroll Area */}
-      <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60 p-1 space-y-1">
+      <div className="flex-1 overflow-y-auto divide-y divide-border dark:divide-border p-1 space-y-1">
         {isSessionsLoading && (
           <div className="px-3 py-4 space-y-2.5">
-            <div className="h-9 bg-slate-50 dark:bg-slate-950/40 rounded-lg animate-pulse" />
-            <div className="h-9 bg-slate-50 dark:bg-slate-950/40 rounded-lg animate-pulse" />
-            <div className="h-9 bg-slate-50 dark:bg-slate-950/40 rounded-lg animate-pulse" />
+            <div className="h-9 bg-muted dark:bg-muted rounded-lg animate-pulse" />
+            <div className="h-9 bg-muted dark:bg-muted rounded-lg animate-pulse" />
+            <div className="h-9 bg-muted dark:bg-muted rounded-lg animate-pulse" />
           </div>
         )}
 
         {!isSessionsLoading && sortedSessions.length === 0 && sessions.length > 0 && (
           <div className="p-6 text-center space-y-2">
-            <Search className="size-8 text-slate-300 dark:text-slate-700 mx-auto" />
-            <p className="text-xs text-slate-500 font-semibold">No matches found</p>
+            <Search className="size-8 text-muted-foreground dark:text-foreground mx-auto" />
+            <p className="text-xs text-muted-foreground font-semibold">No matches found</p>
           </div>
         )}
 
         {!isSessionsLoading && sortedSessions.length === 0 && sessions.length === 0 && (
           <div className="p-6 text-center space-y-2">
-            <MessageSquare className="size-8 text-slate-300 dark:text-slate-700 mx-auto" />
-            <p className="text-xs text-slate-500 font-semibold">No sessions yet</p>
-            <p className="text-[10px] text-slate-400">Click + to start a session</p>
+            <MessageSquare className="size-8 text-muted-foreground dark:text-foreground mx-auto" />
+            <p className="text-xs text-muted-foreground font-semibold">No sessions yet</p>
+            <p className="text-[10px] text-muted-foreground">Click + to start a session</p>
           </div>
         )}
 
@@ -181,8 +181,8 @@ export const SessionList: React.FC<SessionListProps> = ({
               onDoubleClick={() => handleDoubleClick(session)}
               className={`p-2.5 rounded-lg cursor-pointer transition-all duration-150 relative group ${
                 isActive
-                  ? "bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50"
-                  : "hover:bg-slate-50 dark:hover:bg-slate-950 border border-transparent"
+                  ? "bg-indigo-50 dark:bg-primary/40 border border-primary dark:border-primary/50"
+                  : "hover:bg-slate-50 dark:hover:bg-muted border border-transparent"
               }`}
             >
               <div className="flex items-center justify-between gap-1.5">
@@ -206,11 +206,11 @@ export const SessionList: React.FC<SessionListProps> = ({
                       if (e.key === "Escape") setEditingId(null);
                     }}
                     autoFocus
-                    className="flex-1 text-xs bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded px-1.5 py-0.5 outline-none font-medium text-slate-850 dark:text-slate-100 focus:ring-1 focus:ring-indigo-650"
+                    className="flex-1 text-xs bg-white dark:bg-muted border border-border dark:border-border rounded px-1.5 py-0.5 outline-none font-medium text-foreground dark:text-muted-foreground focus:ring-1 focus:ring-primary"
                   />
                 ) : (
                   <span className={`flex-1 text-xs truncate font-medium ${
-                    isActive ? "text-indigo-700 dark:text-indigo-400 font-bold" : "text-slate-700 dark:text-slate-350"
+                    isActive ? "text-indigo-700 dark:text-primary font-bold" : "text-slate-700 dark:text-muted-foreground"
                   }`}>
                     {session.title}
                   </span>
@@ -230,12 +230,12 @@ export const SessionList: React.FC<SessionListProps> = ({
                     setCopiedSessionId(session.id);
                     setTimeout(() => setCopiedSessionId(null), 2000);
                   }}
-                  className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-opacity flex-shrink-0 p-0.5"
+                  className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-primary transition-opacity flex-shrink-0 p-0.5"
                   title="نسخ رابط المحادثة"
                   aria-label="نسخ رابط المحادثة"
                 >
                   {copiedSessionId === session.id ? (
-                    <Check className="size-3.5 text-emerald-500" />
+                    <Check className="size-3.5 text-success" />
                   ) : (
                     <Link2 className="size-3.5" />
                   )}
@@ -246,7 +246,7 @@ export const SessionList: React.FC<SessionListProps> = ({
                     e.stopPropagation();
                     setDeleteConfirmId(session.id);
                   }}
-                  className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition-opacity flex-shrink-0"
+                  className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity flex-shrink-0"
                   title="Delete session"
                 >
                   <Trash2 className="size-3.5" />
@@ -254,29 +254,29 @@ export const SessionList: React.FC<SessionListProps> = ({
               </div>
 
               {/* Meta details */}
-              <div className="flex items-center gap-2 mt-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-semibold select-none">
+              <div className="flex items-center gap-2 mt-1.5 text-[10px] text-muted-foreground dark:text-muted-foreground font-semibold select-none">
                 {isSuper ? (
                   <>
                 <span>{session.messageCount} msgs</span>
-                <span className="w-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-full" />
+                <span className="w-1 h-1 bg-muted dark:bg-muted rounded-full" />
                 <span>{session.toolCallCount} tools</span>
 
                 {score !== undefined && (
                   <>
-                    <span className="w-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-full" />
+                    <span className="w-1 h-1 bg-muted dark:bg-muted rounded-full" />
                     <div className="flex items-center gap-0.5">
-                      <Star className={`size-3 ${score >= 80 ? "fill-yellow-400 text-yellow-400" : ""}`} />
+                      <Star className={`size-3 ${score >= 80 ? "fill-yellow-400 text-warning" : ""}`} />
                       <span>{score}</span>
                     </div>
                   </>
                 )}
 
-                <span className="ml-auto font-mono text-[9px] text-slate-400 dark:text-slate-500">
+                <span className="ms-auto font-mono text-[9px] text-muted-foreground dark:text-muted-foreground">
                   {formatCost(session.totalCost)}
                 </span>
                   </>
                 ) : (
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate">
+                  <span className="text-[10px] text-muted-foreground dark:text-muted-foreground truncate">
                     {session.messages?.slice(-1)[0]?.role === "user"
                       ? session.messages.slice(-1)[0].content.slice(0, 50) + (session.messages.slice(-1)[0].content.length > 50 ? "..." : "")
                       : session.messages?.slice(-2, -1)[0]?.content.slice(0, 50) || ""}
@@ -290,11 +290,11 @@ export const SessionList: React.FC<SessionListProps> = ({
 
       {/* Lightweight Delete Confirm Modal */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-sm w-full p-5 shadow-xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-5 shadow-xl space-y-4">
             <div>
-              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">Delete Session?</h4>
-              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              <h4 className="text-sm font-bold text-foreground dark:text-muted-foreground">Delete Session?</h4>
+              <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
                 This will permanently delete this session and all its messages. This action cannot be undone.
               </p>
             </div>
@@ -303,7 +303,7 @@ export const SessionList: React.FC<SessionListProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => setDeleteConfirmId(null)}
-                className="h-8 border-slate-200 dark:border-slate-800"
+                className="h-8 border-border dark:border-border"
               >
                 Cancel
               </Button>

@@ -113,7 +113,7 @@ export const AssignSkillModal: React.FC<AssignSkillModalProps> = ({
             placeholder="بحث في الوكلاء..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pr-9 h-9 text-xs"
+            className="pe-9 h-9 text-xs"
           />
         </div>
 

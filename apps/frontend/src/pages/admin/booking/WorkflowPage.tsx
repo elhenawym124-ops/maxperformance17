@@ -157,7 +157,7 @@ export default function WorkflowPage() {
           <div className="relative">
             <CalendarDays className="w-3.5 h-3.5 absolute right-2.5 top-2.5 text-muted-foreground" />
             <DateInput
-              className="border border-border/70 rounded-xl pr-8 pl-3 py-1.5 text-xs font-mono tabular-nums bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
+              className="border border-border/70 rounded-xl pe-8 ps-3 py-1.5 text-xs font-mono tabular-nums bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
@@ -304,7 +304,7 @@ export default function WorkflowPage() {
                             onClick={() => advanceBooking(row)}
                             disabled={busyId === row.id}
                             title={`الخطوة التالية: ${bookingLabel(nextBooking(row)) || nextBooking(row)}`}
-                            className="p-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 disabled:opacity-40 transition-colors"
+                            className="p-1 rounded-lg bg-success/10 text-success dark:text-success border border-success/20 hover:bg-success/20 disabled:opacity-40 transition-colors"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" />
                           </button>
@@ -326,7 +326,7 @@ export default function WorkflowPage() {
                             title={row.deliveredWithoutReport ? "إلغاء التسليم بدون تقرير" : "تسليم بدون تقرير"}
                             className={`p-1 rounded-lg border transition-colors ${
                               row.deliveredWithoutReport
-                                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                                ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                                 : "bg-muted text-muted-foreground border-border/70 hover:bg-muted/80"
                             }`}
                           >
@@ -340,7 +340,7 @@ export default function WorkflowPage() {
                             title={row.resultDelivered ? "إلغاء تسليم النتيجة" : "تسليم النتيجة"}
                             className={`p-1 rounded-lg border transition-colors ${
                               row.resultDelivered
-                                ? "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20"
+                                ? "bg-teal-500/10 text-success dark:text-success border-success/20"
                                 : "bg-muted text-muted-foreground border-border/70 hover:bg-muted/80"
                             }`}
                           >
@@ -351,7 +351,7 @@ export default function WorkflowPage() {
                           onClick={() => missBooking(row)}
                           disabled={busyId === row.id}
                           title="تسجيل عدم الحضور"
-                          className="p-1 rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 hover:bg-amber-500/20 disabled:opacity-40 transition-colors"
+                          className="p-1 rounded-lg bg-warning/10 text-warning border border-warning/20 hover:bg-warning/20 disabled:opacity-40 transition-colors"
                         >
                           <Ban className="w-3.5 h-3.5" />
                         </button>

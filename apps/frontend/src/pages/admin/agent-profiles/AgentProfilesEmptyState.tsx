@@ -63,7 +63,7 @@ export const AgentProfilesEmptyState: React.FC<AgentProfilesEmptyStateProps> = (
         className="h-8 text-xs"
         onClick={onOpenCreate}
       >
-        <Plus className="size-3.5 ml-1" />
+        <Plus className="size-3.5 ms-1" />
         {t("agentProfiles.sidebar.addTitle", "إضافة وكيل ذكي")}
       </Button>
     </div>

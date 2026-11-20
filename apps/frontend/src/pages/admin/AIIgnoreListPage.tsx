@@ -79,7 +79,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
   return (
     <div className="space-y-4">
       {!companyId && (
-        <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
           <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
           <AlertTitle>{t("aiHub.ignoreList.tabLabel")}</AlertTitle>
           <AlertDescription>{t("aiHub.ignoreList.companyRequired")}</AlertDescription>
@@ -92,7 +92,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
         title={t("aiHub.ignoreList.title")}
         description={t("aiHub.ignoreList.description")}
       >
-        <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
           <Bot className="size-4 text-[color:var(--color-primary)]" />
           <AlertTitle>{t("aiHub.ignoreList.ignoreListTitle")}</AlertTitle>
           <AlertDescription>
@@ -160,7 +160,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
             {t("common.loading")}
           </div>
         ) : entries.length === 0 ? (
-          <Alert className="rounded-2xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+          <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
             <Users className="size-4 text-[color:var(--color-primary)]" />
             <AlertTitle>{t("aiHub.ignoreList.ignoreListTitle")}</AlertTitle>
             <AlertDescription>{t("aiHub.ignoreList.empty")}</AlertDescription>
@@ -253,7 +253,7 @@ const StatTile: React.FC<{ label: string; value: number; loading?: boolean }> = 
   value,
   loading,
 }) => (
-  <div className="rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3">
+  <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3">
     <p className="text-xs uppercase tracking-wide text-[color:var(--color-muted-foreground)]">
       {label}
     </p>
@@ -271,11 +271,11 @@ const IgnoreEntryRow: React.FC<{
   const { t } = useTranslation();
   return (
     <div
-      className="flex items-center justify-between gap-3 rounded-2xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3"
+      className="flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3"
       data-testid="wa-ignore-row"
     >
       <div className="flex items-start gap-3">
-        <div className="mt-0.5 rounded-full bg-emerald-500/10 p-2 text-emerald-600">
+        <div className="mt-0.5 rounded-full bg-success/10 p-2 text-success">
           <Phone className="size-4" />
         </div>
         <div className="space-y-0.5">
@@ -394,7 +394,7 @@ const AddNumberDialog: React.FC<{
             />
           </div>
           {error ? (
-            <Alert className="rounded-2xl border-rose-300 bg-rose-50 text-rose-700">
+            <Alert className="rounded-xl border-destructive bg-destructive/10 text-destructive">
               <AlertCircle className="size-4" />
               <AlertDescription>{error}</AlertDescription>
             </Alert>
@@ -501,7 +501,7 @@ const BulkImportDialog: React.FC<{
             {count} {count === 1 ? "entry" : "entries"} ready
           </p>
           {error ? (
-            <Alert className="rounded-2xl border-rose-300 bg-rose-50 text-rose-700">
+            <Alert className="rounded-xl border-destructive bg-destructive/10 text-destructive">
               <AlertCircle className="size-4" />
               <AlertDescription>{error}</AlertDescription>
             </Alert>

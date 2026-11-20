@@ -284,10 +284,10 @@ export interface BookingInvoice {
 }
 
 export const INVOICE_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  UNPAID: { label: "غير مسددة", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
-  PARTIAL: { label: "مسدد جزئياً", color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  PAID: { label: "مسددة", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" },
-  REFUNDED: { label: "ملغاة", color: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300" },
+  UNPAID: { label: "غير مسددة", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  PARTIAL: { label: "مسدد جزئياً", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  PAID: { label: "مسددة", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  REFUNDED: { label: "ملغاة", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };
 
 export const PAYMENT_METHODS = ["CASH", "CARD", "CREDIT", "VODAFONE_CASH", "PAYMOB", "INSTAPAY", "FAWRY", "VOUCHER", "REFERRAL"];
@@ -297,28 +297,28 @@ export const PAYMENT_METHOD_LABEL: Record<string, string> = {
 };
 
 export const PATIENT_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  ACTIVE: { label: "نشط", color: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300" },
-  INACTIVE: { label: "غير نشط", color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300" },
-  REVIEW: { label: "قيد المراجعة", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
+  ACTIVE: { label: "نشط", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  INACTIVE: { label: "غير نشط", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  REVIEW: { label: "قيد المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
 };
 
 export const BOOKING_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  UNCONFIRMED: { label: "غير مؤكد", color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300" },
-  CONFIRMED: { label: "مؤكد", color: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300" },
+  UNCONFIRMED: { label: "غير مؤكد", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
+  CONFIRMED: { label: "مؤكد", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   CHECKED_IN: { label: "تم الحضور", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
-  PROCEDURE_STARTED: { label: "بدأ الكشف", color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  PROCEDURE_COMPLETED: { label: "اكتمل الكشف", color: "bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300" },
-  CHECKED_OUT: { label: "غادر", color: "bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-300" },
-  CANCELLED: { label: "ملغي", color: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300" },
-  MISSED: { label: "لم يحضر", color: "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300" },
+  PROCEDURE_STARTED: { label: "بدأ الكشف", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  PROCEDURE_COMPLETED: { label: "اكتمل الكشف", color: "bg-violet-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  CHECKED_OUT: { label: "غادر", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
+  CANCELLED: { label: "ملغي", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  MISSED: { label: "لم يحضر", color: "bg-orange-100 text-warning dark:bg-warning/40 dark:text-warning" },
 };
 
 export const REPORT_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  PENDING: { label: "بانتظار التقارير", color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300" },
+  PENDING: { label: "بانتظار التقارير", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   NOTES_IN_PROGRESS: { label: "كتابة الملاحظات", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
-  NOTES_COMPLETED: { label: "اكتملت الملاحظات", color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  UNDER_REVIEW: { label: "قيد المراجعة", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  APPROVED: { label: "معتمد", color: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300" },
+  NOTES_COMPLETED: { label: "اكتملت الملاحظات", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  UNDER_REVIEW: { label: "قيد المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  APPROVED: { label: "معتمد", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export interface ReferringPhysician {
@@ -360,15 +360,15 @@ export interface CashierShift {
 }
 
 export const STATUS_MAP: Record<string, { label: string; color: string }> = {
-  pending: { label: "قيد الانتظار", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300" },
-  confirmed: { label: "مؤكد", color: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300" },
+  pending: { label: "قيد الانتظار", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
+  confirmed: { label: "مؤكد", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   completed: { label: "مكتمل", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
-  cancelled: { label: "ملغي", color: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300" },
-  no_show: { label: "لم يحضر", color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300" },
+  cancelled: { label: "ملغي", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  no_show: { label: "لم يحضر", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };
 
-export const MODAL_CONTENT_CLS = "bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
-export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100";
+export const MODAL_CONTENT_CLS = "bg-white dark:bg-muted rounded-xl shadow-2xl p-6 w-full max-w-xl mx-4";
+export const MODAL_INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground";
 
 export const DAYS = [
   { value: "sat", label: "السبت" }, { value: "sun", label: "الأحد" },

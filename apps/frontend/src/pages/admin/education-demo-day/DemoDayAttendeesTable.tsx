@@ -58,8 +58,8 @@ export function DemoDayAttendeesTable({
 
   if (!attendees.length) {
     return (
-      <div className="p-8 sm:p-12 text-center rounded-2xl border border-dashed border-border bg-card/50 space-y-2.5">
-        <div className="w-10 h-10 rounded-2xl bg-muted text-muted-foreground flex items-center justify-center mx-auto">
+      <div className="p-8 sm:p-12 text-center rounded-xl border border-dashed border-border bg-card/50 space-y-2.5">
+        <div className="w-10 h-10 rounded-xl bg-muted text-muted-foreground flex items-center justify-center mx-auto">
           <Users className="w-5 h-5" />
         </div>
         <p className="text-xs text-muted-foreground font-medium">
@@ -83,16 +83,16 @@ export function DemoDayAttendeesTable({
   const attendanceSelectCls = (att: DemoDayAttendee) =>
     `text-[11px] font-semibold px-2 py-1 rounded-lg w-full focus:outline-none cursor-pointer transition-colors ${
       att.attendanceStatus === "ATTENDED"
-        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+        ? "bg-emerald-500/10 text-success dark:text-success"
         : att.attendanceStatus === "ABSENT"
-        ? "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+        ? "bg-rose-500/10 text-destructive dark:text-destructive"
         : "bg-muted text-muted-foreground"
     }`;
 
   const leadSelectCls = (att: DemoDayAttendee) =>
     `text-[11px] font-semibold px-2 py-1 rounded-lg w-full focus:outline-none cursor-pointer transition-colors ${
       att.conversionStatus === "CONVERTED"
-        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold"
+        ? "bg-emerald-500/10 text-success dark:text-success font-bold"
         : att.conversionStatus === "NOT_INTERESTED"
         ? "bg-muted text-muted-foreground"
         : "bg-blue-500/10 text-blue-600 dark:text-blue-400"
@@ -104,7 +104,7 @@ export function DemoDayAttendeesTable({
       onClick={() => openWhatsApp(att.phone, att.studentName)}
       title={isEn ? "Chat on WhatsApp" : "مراسلة عبر واتساب"}
       aria-label={isEn ? `Chat with ${att.studentName} on WhatsApp` : `مراسلة ${att.studentName} عبر واتساب`}
-      className={`p-1 rounded-lg text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${size}`}
+      className={`p-1 rounded-lg text-success dark:text-success hover:bg-success/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${size}`}
     >
       <MessageSquare className="w-3.5 h-3.5" />
     </button>
@@ -123,7 +123,7 @@ export function DemoDayAttendeesTable({
         <span>{isEn ? "Convert" : "تحويل لطالب"}</span>
       </button>
     ) : (
-      <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold px-2 py-0.5">
+      <span className="inline-flex items-center gap-1 text-[11px] text-success dark:text-success font-semibold px-2 py-0.5">
         <CheckCircle2 className="w-3.5 h-3.5" />
         {isEn ? "Enrolled" : "مشترك"}
       </span>
@@ -144,7 +144,7 @@ export function DemoDayAttendeesTable({
   return (
     <>
       {/* Desktop table (md+) */}
-      <div className="hidden md:block w-full overflow-hidden rounded-2xl border border-border/80 bg-card shadow-2xs">
+      <div className="hidden md:block w-full overflow-hidden rounded-xl border border-border/80 bg-card shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-right divide-y divide-border/60">
             <thead className="bg-muted/40 text-muted-foreground text-[11px] font-semibold">
@@ -168,7 +168,7 @@ export function DemoDayAttendeesTable({
                         <div className="font-bold text-foreground flex items-center gap-1.5">
                           <span>{att.studentName}</span>
                           {isConverted && (
-                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-success/10 text-success dark:text-success">
                               {isEn ? "Student" : "طالب مقيد"}
                             </span>
                           )}
@@ -182,7 +182,7 @@ export function DemoDayAttendeesTable({
                           const attr = parseAttribution(att.notes, att.leadSource);
                           if (!attr) return null;
                           return (
-                            <div className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 font-medium">
+                            <div className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] bg-primary/10 text-primary dark:text-primary font-medium">
                               <span>{attr.source === "WHATSAPP" ? "💬 واتساب" : attr.source === "FACEBOOK" ? "⚡ فيسبوك" : attr.source === "MESSENGER" ? "💬 ماسنجر" : "🌐 الموقع"}</span>
                               {attr.campaign && <span>• {attr.campaign}</span>}
                               {attr.adId && <span className="font-mono text-[9px] text-muted-foreground opacity-80">({attr.adId})</span>}
@@ -270,7 +270,7 @@ export function DemoDayAttendeesTable({
       </div>
 
       {/* Mobile cards (< md) */}
-      <div className="md:hidden rounded-2xl border border-border/80 bg-card shadow-2xs divide-y divide-border/40">
+      <div className="md:hidden rounded-xl border border-border/80 bg-card shadow-2xs divide-y divide-border/40">
         {attendees.map((att) => {
           const isConverted = att.conversionStatus === "CONVERTED";
           return (
@@ -280,7 +280,7 @@ export function DemoDayAttendeesTable({
                   <div className="font-bold text-foreground flex items-center gap-1.5 flex-wrap">
                     <span className="truncate">{att.studentName}</span>
                     {isConverted && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-success/10 text-success dark:text-success">
                         {isEn ? "Student" : "طالب مقيد"}
                       </span>
                     )}
@@ -305,7 +305,7 @@ export function DemoDayAttendeesTable({
                   const attr = parseAttribution(att.notes, att.leadSource);
                   if (!attr) return null;
                   return (
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 font-medium">
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] bg-primary/10 text-primary dark:text-primary font-medium">
                       <span>{attr.source === "WHATSAPP" ? "💬 واتساب" : attr.source === "FACEBOOK" ? "⚡ فيسبوك" : "🌐 الموقع"}</span>
                       {attr.campaign && <span>• {attr.campaign}</span>}
                     </span>

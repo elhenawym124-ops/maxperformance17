@@ -26,8 +26,8 @@ interface Props {
 
 const EXPENSE_SPLIT_LABEL: Record<string, { label: string; color: string }> = {
   PATIENT: { label: "المريض", color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20" },
-  INSURANCE: { label: "التأمين", color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20" },
-  BOTH: { label: "مشترك", color: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20" },
+  INSURANCE: { label: "التأمين", color: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20" },
+  BOTH: { label: "مشترك", color: "bg-teal-500/10 text-success dark:text-success border border-success/20" },
 };
 
 const fmt = (n: number) => Number(n || 0).toFixed(2);
@@ -122,7 +122,7 @@ export default function InvoicesTab({
           <div className="relative">
             <Search className="w-3.5 h-3.5 absolute right-2.5 top-2.5 text-muted-foreground" />
             <input
-              className="border border-border/70 rounded-xl pr-8 pl-3 py-1.5 text-xs w-44 bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
+              className="border border-border/70 rounded-xl pe-8 ps-3 py-1.5 text-xs w-44 bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
               placeholder="بحث برقم الفاتورة أو العميل..."
               value={search}
               onChange={e => onSearchChange(e.target.value)}
@@ -142,7 +142,7 @@ export default function InvoicesTab({
       <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-sm">
         <div className="flex flex-wrap justify-between items-center gap-3">
           <div className="flex items-center gap-3">
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${shift ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "bg-muted text-muted-foreground border border-border/60"}`}>
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${shift ? "bg-emerald-500/10 text-success dark:text-success border border-success/20" : "bg-muted text-muted-foreground border border-border/60"}`}>
               <Wallet className="w-4 h-4" />
             </div>
             <div>
@@ -150,7 +150,7 @@ export default function InvoicesTab({
                 <span className="font-semibold text-xs text-foreground">
                   {shift ? `الشيفت مفتوح — ${shift.cashierName}` : "لا يوجد شيفت مفتوح حالياً"}
                 </span>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${shift ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "bg-muted text-muted-foreground"}`}>
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${shift ? "bg-emerald-500/10 text-success dark:text-success border border-success/20" : "bg-muted text-muted-foreground"}`}>
                   {shift ? "نشط" : "مغلق"}
                 </span>
               </div>
@@ -199,7 +199,7 @@ export default function InvoicesTab({
               <button
                 onClick={openShift}
                 disabled={shiftBusy}
-                className="mt-4 px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors shadow-sm"
+                className="mt-4 px-3 py-1 bg-success text-white text-xs font-medium rounded-lg hover:bg-success disabled:opacity-50 transition-colors shadow-sm"
               >
                 فتح شيفت
               </button>
@@ -246,7 +246,7 @@ export default function InvoicesTab({
                     <td className="py-2.5 px-3 font-mono tabular-nums font-semibold text-foreground">
                       {fmt(inv.net ?? Math.max(0, inv.total - inv.discount + (inv.additionAmount || 0)))}
                     </td>
-                    <td className="py-2.5 px-3 font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-medium">
+                    <td className="py-2.5 px-3 font-mono tabular-nums text-success dark:text-success font-medium">
                       {fmt(inv.amountPaid)}
                     </td>
                     <td className="py-2.5 px-3 font-mono tabular-nums font-semibold text-destructive">
@@ -279,7 +279,7 @@ export default function InvoicesTab({
                         {inv.remaining > 0 && inv.status !== "REFUNDED" && (
                           <button
                             onClick={() => onPay(inv)}
-                            className="p-1 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors"
+                            className="p-1 text-success dark:text-success hover:bg-success/10 rounded-lg transition-colors"
                             title="تسجيل دفعة"
                           >
                             <Banknote className="w-3.5 h-3.5" />

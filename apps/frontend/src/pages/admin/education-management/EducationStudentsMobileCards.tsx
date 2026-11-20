@@ -74,8 +74,8 @@ export const EducationStudentsMobileCards: React.FC<EducationStudentsMobileCards
               <span
                 className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
                   s.isActive
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                    : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                 }`}
               >
                 {s.isActive
@@ -209,8 +209,8 @@ export const EducationStudentsMobileCards: React.FC<EducationStudentsMobileCards
               onClick={() => onToggleStatus(s.id, s.isActive)}
               className={`px-2.5 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                 s.isActive
-                  ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                  : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                  ? "bg-red-500/10 text-destructive hover:bg-destructive/20"
+                  : "bg-emerald-500/10 text-success hover:bg-success/20"
               }`}
             >
               {s.isActive
@@ -221,7 +221,7 @@ export const EducationStudentsMobileCards: React.FC<EducationStudentsMobileCards
             <button
               type="button"
               onClick={() => onDelete(s.id)}
-              className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+              className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
               aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")}
             >
               <Trash2 className="w-3.5 h-3.5" />

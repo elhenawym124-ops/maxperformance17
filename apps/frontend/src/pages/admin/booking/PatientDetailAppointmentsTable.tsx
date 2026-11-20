@@ -78,10 +78,10 @@ export default function PatientDetailAppointmentsTable({ appointments = [] }: Pr
                     {a.paymentRequired || a.paymentStatus ? (
                       <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                         a.paymentStatus === "paid"
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                           : a.paymentStatus === "partial"
-                          ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                          ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                          : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                       }`}>
                         {a.paymentStatus === "paid" ? "مدفوع" : a.paymentStatus === "partial" ? "جزئي" : "غير مدفوع"}
                       </span>

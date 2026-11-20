@@ -57,14 +57,14 @@ export const VERTICAL_CONFIG: Record<
   SkillVertical,
   { labelAr: string; icon: string; accentColor: string }
 > = {
-  all: { labelAr: "الكل", icon: "", accentColor: "from-indigo-500 to-violet-500" },
-  sales: { labelAr: "المبيعات والتجارة", icon: "", accentColor: "from-emerald-500 to-teal-600" },
-  support: { labelAr: "خدمة العملاء والدعم", icon: "", accentColor: "from-blue-500 to-indigo-600" },
-  marketing: { labelAr: "التسويق والحملات", icon: "", accentColor: "from-violet-500 to-purple-600" },
-  medical: { labelAr: "العيادات والمراكز الطبية", icon: "", accentColor: "from-rose-500 to-pink-600" },
-  hotels: { labelAr: "الفنادق والضيافة", icon: "", accentColor: "from-sky-500 to-cyan-600" },
-  education: { labelAr: "التعليم والتدريب", icon: "", accentColor: "from-amber-500 to-orange-600" },
-  inventory: { labelAr: "المخزون والمنتجات", icon: "", accentColor: "from-teal-500 to-emerald-600" },
+  all: { labelAr: "الكل", icon: "", accentColor: "from-indigo-500 to-primary" },
+  sales: { labelAr: "المبيعات والتجارة", icon: "", accentColor: "from-emerald-500 to-success" },
+  support: { labelAr: "خدمة العملاء والدعم", icon: "", accentColor: "from-blue-500 to-primary" },
+  marketing: { labelAr: "التسويق والحملات", icon: "", accentColor: "from-violet-500 to-primary" },
+  medical: { labelAr: "العيادات والمراكز الطبية", icon: "", accentColor: "from-rose-500 to-primary" },
+  hotels: { labelAr: "الفنادق والضيافة", icon: "", accentColor: "from-sky-500 to-info" },
+  education: { labelAr: "التعليم والتدريب", icon: "", accentColor: "from-amber-500 to-warning" },
+  inventory: { labelAr: "المخزون والمنتجات", icon: "", accentColor: "from-teal-500 to-success" },
   management: { labelAr: "الإدارة والعمليات", icon: "", accentColor: "from-slate-600 to-zinc-800" },
   other: { labelAr: "مهارات مخصصة", icon: "", accentColor: "from-slate-500 to-gray-600" },
 };
@@ -76,7 +76,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "عند استفسار العميل عن المنتجات، التردد، أو طلب مساعدة في اختيار المناسب.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-success", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
   },
   "deal-closing": {
     titleAr: "إغلاق الصفقات المتأخرة",
@@ -84,7 +84,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "عند اقتراب العميل من الشراء ولكنه متردد أو يؤجل تأكيد الطلب.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-success", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
   },
   "smart-negotiation": {
     titleAr: "التفاوض الذكي على الأسعار",
@@ -92,7 +92,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "عند طلب العميل تخفيضاً في السعر أو مقارنته بالمنافسين.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-warning", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
   },
   "discount-proposal": {
     titleAr: "مقترحات الخصومات المشروطة",
@@ -100,7 +100,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "عند استحقاق العميل لحافز شراء أو شراء كميات كبيرة.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-warning", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
   },
   "cart-recovery": {
     titleAr: "استرجاع السلات المتروكة",
@@ -108,7 +108,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "عند مغادرة العميل للمتجر أو توقفه قبل تأكيد الشحن.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-success", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
   },
   "upsell-engine": {
     titleAr: "محرك البيع المتقاطع والإضافي",
@@ -116,7 +116,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "بعد اختيار العميل لمنتج رئيسي وقبل الانتهاء من الطلب.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-success", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
   },
   "booking-upsell-packages": {
     titleAr: "باقات الترقية والخدمات الإضافية",
@@ -124,7 +124,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "أثناء تأكيد خطوات الحجز للغرف أو الخدمات المتخصصة.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-success", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
   },
   "smart-followup": {
     titleAr: "المتابعة الاستباقية للعملاء",
@@ -132,7 +132,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "sales",
     triggerAr: "مرور فترة زمنية محددة دون رد من العميل بعد تقديم عرض.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+    badgeColor: { bg: "bg-emerald-500/10", text: "text-emerald-700 dark:text-success", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
   },
   "facebook-sales-conversion": {
     titleAr: "تحويل مبيعات فيسبوك وإنستجرام",
@@ -140,7 +140,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "marketing",
     triggerAr: "وصول تعليق يسأل عن السعر أو تفاصيل إعلان على فيسبوك أو إنستجرام.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-violet-300", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
+    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-primary", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
   },
   "facebook-ad-draft": {
     titleAr: "صياغة نصوص وزوايا الإعلانات",
@@ -148,7 +148,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "marketing",
     triggerAr: "عند رغبة التاجر أو الميديا باير في إطلاق حملة جديدة لمنتج معين.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-violet-300", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
+    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-primary", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
   },
   "social-image-generation": {
     titleAr: "توليد منشورات وصور تسويقية",
@@ -156,7 +156,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "marketing",
     triggerAr: "طلب تصميم صورة ترويجية أو إعلان لمنتج.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-violet-300", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
+    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-primary", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
   },
   "campaign-report": {
     titleAr: "تقارير أداء الحملات الإعلانية",
@@ -164,7 +164,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "marketing",
     triggerAr: "طلب تقرير أداء أسبوعي أو شهري للحملات الممولة.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-violet-300", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
+    badgeColor: { bg: "bg-violet-500/10", text: "text-violet-700 dark:text-primary", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
   },
   "order-confirmation": {
     titleAr: "تأكيد الطلبات وتجهيز الشحن",
@@ -220,7 +220,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "medical",
     triggerAr: "استفسار المريض عن أوقات عيادة دكتور معين أو رغبته في حجز موعد كشف.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-rose-500/10", text: "text-rose-700 dark:text-rose-300", border: "border-rose-500/20", glow: "shadow-rose-500/10" },
+    badgeColor: { bg: "bg-rose-500/10", text: "text-rose-700 dark:text-destructive", border: "border-rose-500/20", glow: "shadow-rose-500/10" },
   },
   "medical-center-management": {
     titleAr: "تشغيل العيادات وجداول الأطباء",
@@ -228,7 +228,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "medical",
     triggerAr: "إدارة العمليات اليومية للعيادة وتحديث جدول الدخول.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-rose-500/10", text: "text-rose-700 dark:text-rose-300", border: "border-rose-500/20", glow: "shadow-rose-500/10" },
+    badgeColor: { bg: "bg-rose-500/10", text: "text-rose-700 dark:text-destructive", border: "border-rose-500/20", glow: "shadow-rose-500/10" },
   },
   "clinic-knowledge-resolver": {
     titleAr: "دليل خدمات العيادات والتحاليل",
@@ -236,7 +236,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "medical",
     triggerAr: "سؤال عن تجهيزات المركز أو الاستعدادات قبل كشف طبي أو فحص معين.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-rose-500/10", text: "text-rose-700 dark:text-rose-300", border: "border-rose-500/20", glow: "shadow-rose-500/10" },
+    badgeColor: { bg: "bg-rose-500/10", text: "text-rose-700 dark:text-destructive", border: "border-rose-500/20", glow: "shadow-rose-500/10" },
   },
   "hotel-booking": {
     titleAr: "حجز وتسكين غرف الفنادق",
@@ -244,7 +244,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "hotels",
     triggerAr: "رغبة النزيل في حجز إقامة لعدد معين من الليالي والأفراد.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-sky-500/10", text: "text-sky-700 dark:text-sky-300", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
+    badgeColor: { bg: "bg-sky-500/10", text: "text-sky-700 dark:text-info", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
   },
   "hotel-info": {
     titleAr: "خدمات وسياسات النزلاء بالفندق",
@@ -252,7 +252,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "hotels",
     triggerAr: "سؤال عن مرافق الفندق، مواعيد الإفطار، أو سياسات الأطفال والحيوانات الأليفة.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-sky-500/10", text: "text-sky-700 dark:text-sky-300", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
+    badgeColor: { bg: "bg-sky-500/10", text: "text-sky-700 dark:text-info", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
   },
   "education-center-info": {
     titleAr: "دليل كورسات وتدريب الأكاديمية",
@@ -260,7 +260,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "education",
     triggerAr: "استفسار ولي الأمر أو الطالب عن تفاصيل ومناهج الدورات التدريبية المتاحة.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-warning", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
   },
   "education-enrollment": {
     titleAr: "تسجيل وقبول الطلاب في المجموعات",
@@ -268,7 +268,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "education",
     triggerAr: "طلب الطالب الانضمام لدورة معينة أو إتمام إجراءات التسجيل.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-warning", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
   },
   "education-session-booking": {
     titleAr: "حجز الجلسات الفردية وورش العمل",
@@ -276,7 +276,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "education",
     triggerAr: "طلب جلسة تعليمية مخصصة أو ورشة عمل في موعد محدد.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-warning", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
   },
   "course-coaching": {
     titleAr: "المتابعة والتحفيز الدراسي المستمر",
@@ -284,7 +284,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "education",
     triggerAr: "متابعة تقدم الطالب أسبوعياً أو عند تعثره في تسليم واجب.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+    badgeColor: { bg: "bg-amber-500/10", text: "text-amber-700 dark:text-warning", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
   },
   "catalog-search": {
     titleAr: "البحث الفوري في الكتالوج والمقاسات",
@@ -292,7 +292,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "inventory",
     triggerAr: "بحث العميل عن منتج محدد بالاسم أو الوصف أو كود القطعة.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-teal-300", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
+    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-success", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
   },
   "low-stock-watch": {
     titleAr: "رادار مراقبة نواقص المخزون",
@@ -300,7 +300,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "inventory",
     triggerAr: "انخفاض الكمية المتاحة لمنتج عن حد إعادة الطلب المحدد.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-teal-300", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
+    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-success", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
   },
   "pricing-review": {
     titleAr: "تدقيق الأسعار وحماية هوامش الربح",
@@ -308,7 +308,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "inventory",
     triggerAr: "تعديل أسعار المنتجات أو إطلاق حملة تخفيضات كبرى.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-teal-300", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
+    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-success", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
   },
   "public-store-builder": {
     titleAr: "تخصيص واجهة المتجر الإلكتروني",
@@ -316,7 +316,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "inventory",
     triggerAr: "تحديث وتجديد تصميم متجر التاجر الإلكتروني.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-teal-300", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
+    badgeColor: { bg: "bg-teal-500/10", text: "text-teal-700 dark:text-success", border: "border-teal-500/20", glow: "shadow-teal-500/10" },
   },
   "read-company-state": {
     titleAr: "لقطة المؤشرات والعمليات اليومية",
@@ -324,7 +324,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "management",
     triggerAr: "طلب المدير أو الوكيل ملخصاً تشغيلياً شاملاً للوضع الحالي.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-slate-300", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
+    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-muted-foreground", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
   },
   "review-agent-performance": {
     titleAr: "تدقيق جودة وردود الوكلاء",
@@ -332,7 +332,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "management",
     triggerAr: "فحص دوري لجودة محادثات الذكاء الاصطناعي وكفاءة فريق العمل.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-slate-300", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
+    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-muted-foreground", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
   },
   "delegate-goal": {
     titleAr: "تفكيك وتفويض الأهداف التجارية",
@@ -340,7 +340,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "management",
     triggerAr: "تحديد هدف أعمال كبير يحتاج مشاركة وكيل المبيعات ووكيل المخزون معاً.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-slate-300", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
+    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-muted-foreground", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
   },
   "hire-agent": {
     titleAr: "تجهيز وتعيين وكيل جديد",
@@ -348,7 +348,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "management",
     triggerAr: "رغبة الإدارة في توظيف وكيل جديد لخدمة قسم مستحدث في المنشأة.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-slate-300", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
+    badgeColor: { bg: "bg-slate-500/10", text: "text-slate-700 dark:text-muted-foreground", border: "border-slate-500/20", glow: "shadow-slate-500/10" },
   },
 };
 
@@ -377,7 +377,7 @@ export const getSkillMeta = (skill: SkillDefinition): SkillMetadataMeta => {
     isApprovalRequired: skill.requiresHumanApproval ?? false,
     badgeColor: {
       bg: "bg-slate-500/10",
-      text: "text-slate-700 dark:text-slate-300",
+      text: "text-slate-700 dark:text-muted-foreground",
       border: "border-slate-500/20",
       glow: "shadow-slate-500/10",
     },

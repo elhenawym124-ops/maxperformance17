@@ -51,17 +51,17 @@ const getStatusConfig = (isEn: boolean): Record<string, { label: string; badge: 
   },
   CONFIRMED: {
     label: isEn ? "Confirmed" : "مؤكدة",
-    badge: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    badge: "bg-emerald-500/10 text-success dark:text-success border-success/20",
     dot: "bg-emerald-500",
   },
   COMPLETED: {
     label: isEn ? "Completed" : "مكتملة",
-    badge: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+    badge: "bg-purple-500/10 text-primary dark:text-primary border-primary/20",
     dot: "bg-purple-500",
   },
   CANCELLED: {
     label: isEn ? "Cancelled" : "ملغية",
-    badge: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+    badge: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20",
     dot: "bg-red-500",
   },
 });
@@ -486,7 +486,7 @@ const EducationCalendarPage: React.FC = () => {
       </div>
 
       {/* Date Navigation & Month/Year Pickers */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-card border border-border/80 rounded-2xl p-3 shadow-xs">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-card border border-border/80 rounded-xl p-3 shadow-xs">
         <div className="flex items-center gap-2">
           <button
             onClick={goToday}
@@ -553,7 +553,7 @@ const EducationCalendarPage: React.FC = () => {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-card border border-border/80 rounded-2xl p-3 shadow-xs space-y-3">
+      <div className="bg-card border border-border/80 rounded-xl p-3 shadow-xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
           {/* Text Search */}
           <div className="relative">
@@ -563,7 +563,7 @@ const EducationCalendarPage: React.FC = () => {
               placeholder={t("education.calendar.searchPlaceholder", isEn ? "Search by student, instructor, subject, topic..." : "بحث بالطالب، المهندس، المادة، الموضوع...")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-background border border-border/80 rounded-xl pr-9 pl-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-xs"
+              className="w-full bg-background border border-border/80 rounded-xl pe-9 ps-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-xs"
             />
           </div>
 
@@ -642,11 +642,11 @@ const EducationCalendarPage: React.FC = () => {
         <div className="bg-card border border-border/80 rounded-xl p-3 flex items-center justify-between shadow-xs">
           <div className="space-y-0.5">
             <div className="text-[11px] text-muted-foreground">{t("education.calendar.confirmedSessions", isEn ? "Confirmed Sessions" : "حصص مؤكدة")}</div>
-            <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <div className="text-lg font-bold text-success dark:text-success font-mono tabular-nums">
               {stats.confirmed}
             </div>
           </div>
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+          <div className="w-8 h-8 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center border border-success/20">
             <CheckCircle2 className="w-4 h-4" />
           </div>
         </div>
@@ -666,18 +666,18 @@ const EducationCalendarPage: React.FC = () => {
         <div className="bg-card border border-border/80 rounded-xl p-3 flex items-center justify-between shadow-xs">
           <div className="space-y-0.5">
             <div className="text-[11px] text-muted-foreground">{t("education.calendar.cancelledSessions", isEn ? "Cancelled Sessions" : "حصص ملغية")}</div>
-            <div className="text-lg font-bold text-red-600 dark:text-red-400 font-mono tabular-nums">
+            <div className="text-lg font-bold text-destructive dark:text-destructive font-mono tabular-nums">
               {stats.cancelled}
             </div>
           </div>
-          <div className="w-8 h-8 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center border border-red-500/20">
+          <div className="w-8 h-8 rounded-lg bg-destructive/10 text-destructive dark:text-destructive flex items-center justify-center border border-destructive/20">
             <XCircle className="w-4 h-4" />
           </div>
         </div>
       </div>
 
       {/* Main Calendar Chassis */}
-      <div className="bg-card border border-border/80 rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs">
         {loading && (
           <div className="p-8 text-center space-y-2">
             <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto" />
@@ -779,7 +779,7 @@ const EducationCalendarPage: React.FC = () => {
                               className={`w-full text-right text-[11px] px-1.5 py-0.5 rounded-md border truncate block transition-transform active:scale-[0.98] ${st.badge}`}
                               title={`${s.scheduledAt.slice(11, 16)} - ${s.student?.firstName || (isEn ? "Student" : "طالب")} (${s.subject?.name || ""})`}
                             >
-                              <span className="font-mono tabular-nums font-semibold ml-1">
+                              <span className="font-mono tabular-nums font-semibold ms-1">
                                 {toLocalTimeStr(s.scheduledAt)}
                               </span>
                               <span>{s.student?.firstName || (isEn ? "Student" : "طالب")}</span>
@@ -996,7 +996,7 @@ const EducationCalendarPage: React.FC = () => {
                                 type="button"
                                 disabled={actionLoading === s.id}
                                 onClick={() => handleConfirmSession(s.id)}
-                                className="inline-flex items-center gap-1 px-2 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-md text-[11px] font-medium hover:bg-emerald-500/20"
+                                className="inline-flex items-center gap-1 px-2 py-1 bg-success/10 text-success dark:text-success border border-success/20 rounded-md text-[11px] font-medium hover:bg-success/20"
                               >
                                 {actionLoading === s.id ? (
                                   <Loader2 className="w-3 h-3 animate-spin" />
@@ -1047,7 +1047,7 @@ const EducationCalendarPage: React.FC = () => {
           onClick={() => setDayOverviewDate(null)}
         >
           <div
-            className="bg-card border border-border/80 rounded-2xl shadow-2xl p-4 sm:p-5 max-w-lg w-full mx-auto space-y-4 max-h-[90vh] overflow-y-auto"
+            className="bg-card border border-border/80 rounded-xl shadow-2xl p-4 sm:p-5 max-w-lg w-full mx-auto space-y-4 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 border-b border-border/80">
@@ -1119,7 +1119,7 @@ const EducationCalendarPage: React.FC = () => {
                                 type="button"
                                 disabled={actionLoading === s.id}
                                 onClick={() => handleConfirmSession(s.id)}
-                                className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 rounded text-[11px] font-medium hover:bg-emerald-500/20"
+                                className="px-2 py-0.5 bg-success/10 text-success rounded text-[11px] font-medium hover:bg-success/20"
                               >
                                 {t("education.calendar.confirmBtn", isEn ? "Confirm" : "تأكيد")}
                               </button>
@@ -1175,7 +1175,7 @@ const EducationCalendarPage: React.FC = () => {
           onClick={() => setSelectedSession(null)}
         >
           <div
-            className="bg-card border border-border/80 rounded-2xl shadow-2xl p-4 sm:p-6 max-w-md w-full mx-auto space-y-4 max-h-[90vh] overflow-y-auto"
+            className="bg-card border border-border/80 rounded-xl shadow-2xl p-4 sm:p-6 max-w-md w-full mx-auto space-y-4 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 border-b border-border/80">
@@ -1288,7 +1288,7 @@ const EducationCalendarPage: React.FC = () => {
                     type="button"
                     disabled={actionLoading === selectedSession.id}
                     onClick={() => handleConfirmSession(selectedSession.id)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-success text-white rounded-lg text-xs font-semibold hover:bg-success shadow-xs"
                   >
                     {actionLoading === selectedSession.id ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />

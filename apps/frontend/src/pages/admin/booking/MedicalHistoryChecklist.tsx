@@ -196,7 +196,7 @@ export default function MedicalHistoryChecklist({ value, onChange, readOnly }: P
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="بحث سريع في الحالات المرضية أو مسببات الحساسية..."
-          className="w-full bg-card border border-border/70 text-foreground text-xs rounded-xl pr-9 pl-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/50 shadow-xs"
+          className="w-full bg-card border border-border/70 text-foreground text-xs rounded-xl pe-9 ps-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/50 shadow-xs"
         />
       </div>
 

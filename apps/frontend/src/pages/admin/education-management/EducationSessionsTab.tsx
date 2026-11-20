@@ -203,7 +203,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                     </span>
                   )}
                   {s.sessionType === "PRIVATE" && (
-                    <span className="font-mono text-[9px] text-purple-600 dark:text-purple-400 bg-purple-500/10 px-1 py-0.5 rounded border border-purple-500/20 shrink-0">
+                    <span className="font-mono text-[9px] text-primary dark:text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20 shrink-0">
                       Private 1-on-1
                     </span>
                   )}
@@ -258,7 +258,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                   <button
                     type="button"
                     onClick={() => handleConfirmSession(s.id)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-md transition-colors border border-emerald-500/20"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-success dark:text-success bg-success/10 hover:bg-success/20 rounded-md transition-colors border border-success/20"
                     aria-label={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")} title={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")}
                   >
                     <Check className="w-3.5 h-3.5" />
@@ -267,7 +267,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                   <button
                     type="button"
                     onClick={() => handleCancelSession(s.id)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-red-600 dark:text-red-400 bg-red-500/10 hover:bg-red-500/20 rounded-md transition-colors border border-red-500/20"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-destructive dark:text-destructive bg-destructive/10 hover:bg-destructive/20 rounded-md transition-colors border border-destructive/20"
                     aria-label={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")} title={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")}
                   >
                     <X className="w-3.5 h-3.5" />
@@ -331,7 +331,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                         </span>
                       )}
                       {s.sessionType === "PRIVATE" && (
-                        <span className="font-mono text-[9px] text-purple-600 dark:text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded border border-purple-500/20" dir="ltr">
+                        <span className="font-mono text-[9px] text-primary dark:text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20" dir="ltr">
                           Private 1-on-1
                         </span>
                       )}
@@ -373,7 +373,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                           <button
                             type="button"
                             onClick={() => handleConfirmSession(s.id)}
-                            className="p-1.5 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 rounded-md transition-colors"
+                            className="p-1.5 text-success dark:text-success hover:bg-success/10 rounded-md transition-colors"
                             aria-label={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")} title={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")}
                           >
                             <Check className="w-3.5 h-3.5" />
@@ -381,7 +381,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                           <button
                             type="button"
                             onClick={() => handleCancelSession(s.id)}
-                            className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                            className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
                             aria-label={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")} title={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")}
                           >
                             <X className="w-3.5 h-3.5" />

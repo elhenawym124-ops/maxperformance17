@@ -134,8 +134,8 @@ export default function EducationManagementPage() {
       ) : activeTab === "logs" ? (
         <EducationLogsTab />
       ) : error ? (
-        <div className="bg-card border border-border/80 rounded-2xl p-12 text-center space-y-3">
-          <div className="w-12 h-12 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 mx-auto flex items-center justify-center border border-red-500/20">
+        <div className="bg-card border border-border/80 rounded-xl p-12 text-center space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-destructive/10 text-destructive dark:text-destructive mx-auto flex items-center justify-center border border-destructive/20">
             <AlertTriangle className="w-6 h-6" />
           </div>
           <h3 className="text-sm font-semibold text-foreground">
@@ -207,7 +207,7 @@ export default function EducationManagementPage() {
                 handleDeleteSubject={handleDeleteSubject}
               />
             ) : (
-              <div className="bg-card border border-border/80 rounded-2xl p-10 text-center space-y-3">
+              <div className="bg-card border border-border/80 rounded-xl p-10 text-center space-y-3">
                 <p className="text-sm font-semibold text-foreground">
                   {isEn ? "Subjects section is disabled in current Courses & Packages mode" : "سيكشن المواد الدراسية غير مفعل في نمط الكورسات والباقات الحالي"}
                 </p>

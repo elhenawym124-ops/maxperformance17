@@ -582,7 +582,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
               onClick={() => handleBulkStatus(true)}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background hover:bg-muted text-foreground border border-border text-xs font-medium rounded-lg transition-colors"
             >
-              <UserCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <UserCheck className="w-3.5 h-3.5 text-success dark:text-success" />
               <span>{isEn ? "Activate" : "تنشيط"}</span>
             </button>
 
@@ -593,7 +593,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
               onClick={() => handleBulkStatus(false)}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background hover:bg-muted text-foreground border border-border text-xs font-medium rounded-lg transition-colors"
             >
-              <UserX className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+              <UserX className="w-3.5 h-3.5 text-destructive dark:text-destructive" />
               <span>{isEn ? "Deactivate" : "إيقاف"}</span>
             </button>
 
@@ -650,7 +650,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
       {/* 3. Empty State or Table */}
       {students.length === 0 && !studentsLoading ? (
         <div
-          className="flex flex-col items-center justify-center p-8 sm:p-12 bg-card border border-border/80 rounded-2xl text-center space-y-3.5"
+          className="flex flex-col items-center justify-center p-8 sm:p-12 bg-card border border-border/80 rounded-xl text-center space-y-3.5"
           dir={isEn ? "ltr" : "rtl"}
         >
           <div className="w-12 h-12 rounded-full bg-muted/80 flex items-center justify-center text-muted-foreground">

@@ -170,19 +170,19 @@ export default function EducationStudentProfilePage() {
       label: t("education.students.statTotalSessions", isEn ? "Total Sessions" : "إجمالي الحصص"),
       value: activeSessions.length,
       icon: BarChart2,
-      color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+      color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20",
     },
     {
       label: t("education.students.statConfirmedSessions", isEn ? "Confirmed Sessions" : "الحصص المؤكدة"),
       value: activeSessions.filter((s) => s.status === "CONFIRMED").length,
       icon: CheckCircle2,
-      color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+      color: "bg-emerald-500/10 text-success dark:text-success border-success/20",
     },
     {
       label: t("education.students.statHoursUtilization", isEn ? "Hours Utilization" : "نسبة استهلاك الساعات"),
       value: totalHours > 0 ? `${pct}%` : "—",
       icon: Clock,
-      color: pct >= 80 ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20" : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+      color: pct >= 80 ? "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20" : "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
     },
   ];
 
@@ -191,7 +191,7 @@ export default function EducationStudentProfilePage() {
       case "CONFIRMED":
         return {
           label: isEn ? "Confirmed" : "مؤكدة",
-          color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+          color: "bg-emerald-500/10 text-success dark:text-success border-success/20",
         };
       case "SCHEDULED":
         return {
@@ -201,7 +201,7 @@ export default function EducationStudentProfilePage() {
       case "CANCELLED":
         return {
           label: isEn ? "Cancelled" : "ملغية",
-          color: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+          color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20",
         };
       default:
         return {
@@ -214,7 +214,7 @@ export default function EducationStudentProfilePage() {
   if (loading) {
     return (
       <div className="w-full h-full min-h-0 flex-1 overflow-y-auto max-w-[1600px] mx-auto p-3.5 sm:p-5 lg:p-6 pb-24 sm:pb-12 space-y-4 sm:space-y-5 font-sans" dir={isEn ? "ltr" : "rtl"}>
-        <div className="bg-card border border-border/80 rounded-2xl p-10 text-center text-xs text-muted-foreground shadow-xs">
+        <div className="bg-card border border-border/80 rounded-xl p-10 text-center text-xs text-muted-foreground shadow-xs">
           {t("education.students.loadingStudent", isEn ? "Loading student profile..." : "جاري تحميل بيانات الطالب...")}
         </div>
       </div>
@@ -234,8 +234,8 @@ export default function EducationStudentProfilePage() {
           </Link>
         </div>
 
-        <div className="bg-card border border-border/80 rounded-2xl p-10 shadow-xs text-center space-y-2">
-          <div className="w-12 h-12 mx-auto rounded-2xl bg-muted/40 text-muted-foreground flex items-center justify-center">
+        <div className="bg-card border border-border/80 rounded-xl p-10 shadow-xs text-center space-y-2">
+          <div className="w-12 h-12 mx-auto rounded-xl bg-muted/40 text-muted-foreground flex items-center justify-center">
             <AlertCircle className="w-6 h-6" />
           </div>
           <h1 className="text-base font-bold text-foreground">
@@ -275,9 +275,9 @@ export default function EducationStudentProfilePage() {
       </div>
 
       {/* Student Profile Header Chassis */}
-      <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-xs space-y-4">
+      <div className="bg-card border border-border/80 rounded-xl p-5 shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-          <div className="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center flex-shrink-0">
+          <div className="w-14 h-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0">
             <User className="w-7 h-7" />
           </div>
           <div className="flex-1 min-w-0 space-y-1">
@@ -294,8 +294,8 @@ export default function EducationStudentProfilePage() {
               <span
                 className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium border ${
                   activeStudent.isActive !== false
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                    : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                 }`}
               >
                 {activeStudent.isActive !== false ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
@@ -393,7 +393,7 @@ export default function EducationStudentProfilePage() {
 
       {/* Parent Portal Access Section */}
       {activeStudent.customer && (
-        <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-xs space-y-4">
+        <div className="bg-card border border-border/80 rounded-xl p-5 shadow-xs space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border/60">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
@@ -407,12 +407,12 @@ export default function EducationStudentProfilePage() {
             </div>
             <div>
               {hasPortalAccess ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success dark:text-success border-success/20">
                   <CheckCircle2 className="w-3 h-3" />
                   {t("education.students.portalEnabled", isEn ? "Enabled" : "مفعّل")}
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning dark:text-warning border-warning/20">
                   <AlertCircle className="w-3 h-3" />
                   {t("education.students.portalNoAccess", isEn ? "No Access" : "لا يوجد دخول")}
                 </span>
@@ -455,8 +455,8 @@ export default function EducationStudentProfilePage() {
               <div
                 className={`text-xs p-2.5 rounded-lg border flex items-center gap-1.5 ${
                   parentCredsMsg.type === "success"
-                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                    : "bg-red-500/10 border-red-500/20 text-red-600 dark:text-red-400"
+                    ? "bg-emerald-500/10 border-success/20 text-success dark:text-success"
+                    : "bg-red-500/10 border-destructive/20 text-destructive dark:text-destructive"
                 }`}
               >
                 {parentCredsMsg.type === "success" ? (
@@ -527,7 +527,7 @@ export default function EducationStudentProfilePage() {
       )}
 
       {/* Tabs Chassis */}
-      <div className="bg-card border border-border/80 rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs">
         <div className="p-3 border-b border-border/80 bg-muted/30 flex items-center gap-2">
           <button
             onClick={() => setTab("enrollments")}
@@ -590,8 +590,8 @@ export default function EducationStudentProfilePage() {
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                           e.paymentStatus === "COMPLETED"
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                            : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                         }`}
                       >
                         {e.paymentStatus === "COMPLETED" ? <CheckCircle2 className="w-3 h-3" /> : <Clock className="w-3 h-3" />}

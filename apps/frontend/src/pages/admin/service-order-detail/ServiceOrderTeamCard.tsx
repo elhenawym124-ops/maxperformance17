@@ -20,9 +20,9 @@ export const ServiceOrderTeamCard: React.FC<ServiceOrderTeamCardProps> = ({
   order,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-xs space-y-4">
-      <div className="flex items-center justify-between pb-2 border-b border-gray-100 dark:border-gray-700/60">
-        <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+    <div className="bg-card rounded-xl border border-border dark:border-border p-4 sm:p-5 shadow-xs space-y-4">
+      <div className="flex items-center justify-between pb-2 border-b border-border dark:border-border">
+        <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
           <Users className="w-4 h-4 text-primary-600" />
           فريق العمل والمسؤول
         </h3>
@@ -36,14 +36,14 @@ export const ServiceOrderTeamCard: React.FC<ServiceOrderTeamCardProps> = ({
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 block">
+        <label className="text-xs font-semibold text-foreground block">
           المسؤول الحالي عن الطلب:
         </label>
         <div className="flex items-center gap-2">
           <select
             value={assignedTo}
             onChange={(e) => setAssignedTo(e.target.value)}
-            className="flex-1 p-2 text-xs rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 text-gray-800 dark:text-gray-200 outline-hidden"
+            className="flex-1 p-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground outline-hidden"
           >
             <option value="">-- غير محدد --</option>
             {teamMembers.map((m) => (
@@ -67,16 +67,16 @@ export const ServiceOrderTeamCard: React.FC<ServiceOrderTeamCardProps> = ({
         </div>
       </div>
 
-      <div className="pt-2 border-t border-gray-100 dark:border-gray-700/60 space-y-1.5 text-xs text-gray-400">
+      <div className="pt-2 border-t border-border dark:border-border space-y-1.5 text-xs text-muted-foreground">
         <div className="flex justify-between">
           <span>تاريخ الإنشاء:</span>
-          <span className="font-medium text-gray-600 dark:text-gray-300 tabular-nums">
+          <span className="font-medium text-muted-foreground tabular-nums">
             {new Date(order.createdAt).toLocaleDateString("ar-EG")}
           </span>
         </div>
         <div className="flex justify-between">
           <span>آخر تحديث:</span>
-          <span className="font-medium text-gray-600 dark:text-gray-300 tabular-nums">
+          <span className="font-medium text-muted-foreground tabular-nums">
             {new Date(order.updatedAt).toLocaleDateString("ar-EG")}
           </span>
         </div>

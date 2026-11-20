@@ -513,7 +513,7 @@ const AIChatPage: React.FC<AIChatPageProps> = ({ companyId, fullHeight }) => {
                 onClick={createSession}
                 className="w-full"
               >
-                <Plus className="mr-1 size-3.5" />
+                <Plus className="me-1 size-3.5" />
                 جديدة
               </Button>
             ) : (

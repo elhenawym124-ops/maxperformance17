@@ -191,19 +191,19 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
         }
       `}</style>
     <div
-      className={`self-stretch flex flex-col border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-all duration-300 overflow-hidden ${
+      className={`self-stretch flex flex-col border-l border-border dark:border-border bg-white dark:bg-muted transition-all duration-300 overflow-hidden ${
         collapsed ? "w-0 min-w-0" : ""
       }`}
       style={collapsed ? undefined : { width, minWidth: width }}
     >
       {/* Tabs Menu */}
-      <div className="flex border-b border-slate-200 dark:border-slate-800 select-none">
+      <div className="flex border-b border-border dark:border-border select-none">
         <button
           onClick={() => setTab(0)}
           className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 border-b-2 transition-all ${
             tab === 0
-              ? "border-indigo-650 text-indigo-650 dark:text-indigo-400 dark:border-indigo-400"
-              : "border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              ? "border-indigo-650 text-primary dark:text-primary dark:border-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           }`}
         >
           <Wrench className="size-3.5" />
@@ -213,8 +213,8 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
           onClick={() => setTab(1)}
           className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 border-b-2 transition-all ${
             tab === 1
-              ? "border-indigo-650 text-indigo-650 dark:text-indigo-400 dark:border-indigo-400"
-              : "border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              ? "border-indigo-650 text-primary dark:text-primary dark:border-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           }`}
         >
           <Activity className="size-3.5" />
@@ -224,8 +224,8 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
           onClick={() => setTab(2)}
           className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 border-b-2 transition-all ${
             tab === 2
-              ? "border-indigo-650 text-indigo-650 dark:text-indigo-400 dark:border-indigo-400"
-              : "border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              ? "border-indigo-650 text-primary dark:text-primary dark:border-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           }`}
         >
           <BookOpen className="size-3.5" />
@@ -240,7 +240,7 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
         {tab === 0 && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                 Agent Tools ({tools.length})
               </span>
               <div className="flex items-center gap-1">
@@ -260,20 +260,20 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                   key={tool.name}
                   className={`p-2.5 rounded-lg border text-xs flex items-center justify-between gap-3 ${
                     tool.sideEffect === "write"
-                      ? "border-amber-200 bg-amber-50/15 dark:border-amber-900/40 dark:bg-amber-950/10"
-                      : "border-slate-100 dark:border-slate-850 bg-slate-50/20 dark:bg-slate-950/10"
+                      ? "border-amber-200 bg-warning/15 dark:border-warning/40 dark:bg-warning/10"
+                      : "border-slate-100 dark:border-border bg-muted dark:bg-muted"
                   }`}
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1">
-                      <span className="font-bold text-slate-800 dark:text-slate-200 truncate">
+                      <span className="font-bold text-foreground dark:text-muted-foreground truncate">
                         {tool.name}
                       </span>
                       {tool.sideEffect === "write" && (
-                        <AlertTriangle className="size-3 text-amber-500 flex-shrink-0" title="This tool modifies data - use with caution" />
+                        <AlertTriangle className="size-3 text-warning flex-shrink-0" title="This tool modifies data - use with caution" />
                       )}
                     </div>
-                    <p className="text-[10px] text-slate-400 dark:text-slate-550 truncate mt-0.5">
+                    <p className="text-[10px] text-muted-foreground dark:text-muted-foreground truncate mt-0.5">
                       {tool.description}
                     </p>
                   </div>
@@ -294,11 +294,11 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
         {tab === 1 && (
           <div className="space-y-3">
             {traceSummary && (
-              <div className="rounded-lg border border-emerald-200/80 bg-emerald-50/40 p-3 text-xs dark:border-emerald-900/50 dark:bg-emerald-950/10">
+              <div className="rounded-lg border border-success/80 bg-success/40 p-3 text-xs dark:border-success/50 dark:bg-success/10">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex min-w-0 items-center gap-1.5">
-                    <Cpu className="size-3.5 flex-shrink-0 text-emerald-650 dark:text-emerald-400" />
-                    <span className="truncate font-bold text-slate-800 dark:text-slate-150">
+                    <Cpu className="size-3.5 flex-shrink-0 text-success dark:text-success" />
+                    <span className="truncate font-bold text-foreground dark:text-muted-foreground">
                       {t("aiHub.sandbox.trace.title")}
                     </span>
                   </div>
@@ -307,36 +307,36 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                   </Badge>
                 </div>
 
-                <div className="mt-2 space-y-1.5 text-[10px] text-slate-600 dark:text-slate-350">
+                <div className="mt-2 space-y-1.5 text-[10px] text-foreground dark:text-muted-foreground">
                   <div className="flex items-start justify-between gap-2">
-                    <span className="font-semibold text-slate-450">{t("aiHub.sandbox.trace.model")}</span>
-                    <span className="min-w-0 break-all text-right font-mono text-slate-750 dark:text-slate-200">
+                    <span className="font-semibold text-muted-foreground">{t("aiHub.sandbox.trace.model")}</span>
+                    <span className="min-w-0 break-all text-right font-mono text-foreground dark:text-muted-foreground">
                       {[traceSummary.provider, traceSummary.model].filter(Boolean).join(" / ") || t("aiHub.sandbox.trace.notAvailable")}
                     </span>
                   </div>
                   <div className="flex items-start justify-between gap-2">
-                    <span className="font-semibold text-slate-450">{t("aiHub.sandbox.trace.intent")}</span>
-                    <span className="min-w-0 break-all text-right font-mono text-slate-750 dark:text-slate-200">
+                    <span className="font-semibold text-muted-foreground">{t("aiHub.sandbox.trace.intent")}</span>
+                    <span className="min-w-0 break-all text-right font-mono text-foreground dark:text-muted-foreground">
                       {intent || t("aiHub.sandbox.trace.notAvailable")}
                       {typeof confidence === "number" ? ` (${Math.round(confidence * 100)}%)` : ""}
                     </span>
                   </div>
                   <div className="flex items-start justify-between gap-2">
-                    <span className="font-semibold text-slate-450">{t("aiHub.sandbox.trace.plannedTool")}</span>
-                    <span className="min-w-0 break-all text-right font-mono text-slate-750 dark:text-slate-200">
+                    <span className="font-semibold text-muted-foreground">{t("aiHub.sandbox.trace.plannedTool")}</span>
+                    <span className="min-w-0 break-all text-right font-mono text-foreground dark:text-muted-foreground">
                       {plannedTool || t("aiHub.sandbox.trace.notAvailable")}
                     </span>
                   </div>
                   <div className="flex items-start justify-between gap-2">
-                    <span className="font-semibold text-slate-450">{t("aiHub.sandbox.trace.executedTools")}</span>
-                    <span className="min-w-0 break-all text-right font-mono text-slate-750 dark:text-slate-200">
+                    <span className="font-semibold text-muted-foreground">{t("aiHub.sandbox.trace.executedTools")}</span>
+                    <span className="min-w-0 break-all text-right font-mono text-foreground dark:text-muted-foreground">
                       {toolNames.length > 0 ? toolNames.join(", ") : t("aiHub.sandbox.trace.none")}
                     </span>
                   </div>
                   {activeSkill && (
                     <div className="flex items-start justify-between gap-2">
-                      <span className="font-semibold text-purple-500">Active Skill</span>
-                      <span className="min-w-0 break-all text-right font-mono text-purple-600 dark:text-purple-400">
+                      <span className="font-semibold text-primary">Active Skill</span>
+                      <span className="min-w-0 break-all text-right font-mono text-primary dark:text-primary">
                         {activeSkill.skillId}
                         {activeSkill.requiresHumanApproval && " (requires approval)"}
                       </span>
@@ -345,8 +345,8 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                 </div>
 
                 {pipelineTrace?.toolPlan?.reason && (
-                  <div className="mt-2 rounded border border-emerald-200/70 bg-white/60 p-2 text-[10px] leading-relaxed text-slate-600 dark:border-emerald-900/50 dark:bg-slate-950/30 dark:text-slate-300">
-                    <Route className="mr-1 inline size-3 text-emerald-650 dark:text-emerald-400" />
+                  <div className="mt-2 rounded border border-success/70 bg-white/60 p-2 text-[10px] leading-relaxed text-foreground dark:border-success/50 dark:bg-muted dark:text-muted-foreground">
+                    <Route className="me-1 inline size-3 text-success dark:text-success" />
                     {pipelineTrace.toolPlan.reason}
                   </div>
                 )}
@@ -354,7 +354,7 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
             )}
 
             <div className="space-y-2">
-              <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider block">
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
                 Activity ({filteredLog.length})
               </span>
 
@@ -366,8 +366,8 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                     onClick={() => setLogFilter(type)}
                     className={`px-1.5 py-0.5 rounded text-[9px] font-bold border transition-colors ${
                       logFilter === type
-                        ? "bg-indigo-600 border-indigo-600 text-white"
-                        : "bg-background border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-350"
+                        ? "bg-indigo-600 border-primary text-white"
+                        : "bg-background border-border dark:border-border text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                     }`}
                   >
                     {type === "all"
@@ -387,7 +387,7 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                 variant="ghost"
                 size="icon"
                 onClick={onClearLog}
-                className="size-7 text-slate-400 hover:text-red-500 hover:bg-slate-50 dark:hover:bg-slate-850"
+                className="size-7 text-muted-foreground hover:text-destructive hover:bg-muted dark:hover:bg-muted"
                 title="Clear Log"
               >
                 <Trash2 className="size-3.5" />
@@ -395,21 +395,21 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
             </div>
 
             {filteredLog.length === 0 && (
-              <p className="text-[11px] text-slate-400 text-center py-6 bg-slate-50/50 dark:bg-slate-955/20 border border-dashed rounded-xl">
+              <p className="text-[11px] text-muted-foreground text-center py-6 bg-muted dark:bg-muted border border-dashed rounded-xl">
                 No activity yet. Start chatting.
               </p>
             )}
 
-            <div className="divide-y divide-slate-100 dark:divide-slate-800/80">
+            <div className="divide-y divide-border dark:divide-border">
               {filteredLog.map((entry) => {
                 const isExpanded = expandedLogId === entry.id;
                 return (
                   <div key={entry.id} className="py-2.5 log-entry-new">
                     <div
                       onClick={() => setExpandedLogId(isExpanded ? null : entry.id)}
-                      className="flex items-center gap-1.5 cursor-pointer text-[11px] select-none hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors"
+                      className="flex items-center gap-1.5 cursor-pointer text-[11px] select-none hover:text-primary dark:hover:text-primary transition-colors"
                     >
-                      <span className="font-mono text-[9px] text-slate-400 dark:text-slate-500 min-w-[42px] flex-shrink-0">
+                      <span className="font-mono text-[9px] text-muted-foreground dark:text-muted-foreground min-w-[42px] flex-shrink-0">
                         {new Date(entry.timestamp).toLocaleTimeString("en-US", {
                           hour: "2-digit",
                           minute: "2-digit",
@@ -418,26 +418,26 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                         })}
                       </span>
                       <span className="flex-shrink-0">{entry.icon}</span>
-                      <span className="font-bold text-slate-750 dark:text-slate-250 truncate flex-1">
+                      <span className="font-bold text-foreground dark:text-muted-foreground truncate flex-1">
                         {entry.title}
                       </span>
                       {entry.latencyMs !== undefined && (
-                        <Badge variant="outline" className="text-[8px] py-0 px-1 text-slate-400 flex-shrink-0 scale-90">
+                        <Badge variant="outline" className="text-[8px] py-0 px-1 text-muted-foreground flex-shrink-0 scale-90">
                           {entry.latencyMs}ms
                         </Badge>
                       )}
                       {isExpanded ? (
-                        <ChevronUp className="size-3.5 text-slate-400 flex-shrink-0" />
+                        <ChevronUp className="size-3.5 text-muted-foreground flex-shrink-0" />
                       ) : (
-                        <ChevronDown className="size-3.5 text-slate-400 flex-shrink-0" />
+                        <ChevronDown className="size-3.5 text-muted-foreground flex-shrink-0" />
                       )}
                     </div>
 
                     {isExpanded && (
-                      <div className="pl-14 pt-1.5 text-[10px] text-slate-500 space-y-1.5 leading-relaxed break-all">
+                      <div className="ps-14 pt-1.5 text-[10px] text-muted-foreground space-y-1.5 leading-relaxed break-all">
                         <p>{entry.details}</p>
                         {entry.metadata && (
-                          <div className="p-2 bg-slate-950 dark:bg-slate-950/70 border border-slate-850 rounded overflow-x-auto text-[9px] font-mono text-slate-300 whitespace-pre-wrap leading-normal">
+                          <div className="p-2 bg-muted dark:bg-muted border border-border rounded overflow-x-auto text-[9px] font-mono text-muted-foreground whitespace-pre-wrap leading-normal">
                             {JSON.stringify(entry.metadata, null, 2)}
                           </div>
                         )}
@@ -456,50 +456,50 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
             {(traceSummary?.pipelineTrace as any)?._compiledSystemPrompt ? (
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                     Actual Prompt from Python
                   </span>
                   <Badge variant="success" className="text-[9px] py-0 px-1.5">
                     Live
                   </Badge>
                 </div>
-                <div className="flex items-center gap-2 text-[9px] text-slate-400 font-mono">
+                <div className="flex items-center gap-2 text-[9px] text-muted-foreground font-mono">
                   <span>{((traceSummary?.pipelineTrace as any)?._compiledSystemPrompt as string).length.toLocaleString()} chars</span>
-                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span className="w-1 h-1 rounded-full bg-muted" />
                   <span>{Math.ceil(((traceSummary?.pipelineTrace as any)?._compiledSystemPrompt as string).length / 3.5).toLocaleString()} tokens</span>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={handleCopy}
-                  className="size-6 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                  className="size-6 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                   title={copied ? "Copied!" : "Copy prompt"}
                 >
-                  {copied ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                  {copied ? <Check className="size-3 text-success" /> : <Copy className="size-3" />}
                 </Button>
-                <div className="p-3 bg-slate-950 dark:bg-slate-950/70 border border-slate-800 rounded-lg overflow-x-auto text-[10px] font-mono text-slate-300 whitespace-pre-wrap leading-relaxed max-h-[60vh] overflow-y-auto">
+                <div className="p-3 bg-muted dark:bg-muted border border-border rounded-lg overflow-x-auto text-[10px] font-mono text-muted-foreground whitespace-pre-wrap leading-relaxed max-h-[60vh] overflow-y-auto">
                   {(traceSummary?.pipelineTrace as any)?._compiledSystemPrompt as string}
                 </div>
               </div>
             ) : (
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider">
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                     Estimated Prompt (no live data yet)
                   </span>
                   <Badge variant="secondary" className="text-[9px] py-0 px-1.5">
                     Compiled
                   </Badge>
                 </div>
-                <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-950/40 rounded-lg p-2 text-[9px]">
-                  <div className="flex items-center gap-2 text-slate-500 font-medium">
+                <div className="flex items-center justify-between bg-muted dark:bg-muted rounded-lg p-2 text-[9px]">
+                  <div className="flex items-center gap-2 text-muted-foreground font-medium">
                     <span>~{approxTokens.toLocaleString()} tokens</span>
-                    <span className="w-1 h-1 rounded-full bg-slate-300" />
+                    <span className="w-1 h-1 rounded-full bg-muted" />
                     <span>{fullText.length.toLocaleString()} chars</span>
                     {modelName && (
                       <>
-                        <span className="w-1 h-1 rounded-full bg-slate-300" />
-                        <span className="font-mono text-slate-400">{modelName}</span>
+                        <span className="w-1 h-1 rounded-full bg-muted" />
+                        <span className="font-mono text-muted-foreground">{modelName}</span>
                       </>
                     )}
                   </div>
@@ -512,29 +512,29 @@ export const InspectorPanel: React.FC<InspectorPanelProps> = ({
                     variant="ghost"
                     size="icon"
                     onClick={handleCopy}
-                    className="size-6 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+                    className="size-6 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                     title={copied ? "Copied!" : "Copy prompt"}
                   >
-                    {copied ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                    {copied ? <Check className="size-3 text-success" /> : <Copy className="size-3" />}
                   </Button>
                 </div>
                 <div className="space-y-1.5">
                   {promptSections.map((section) => {
                     const isCollapsed = collapsedSections.has(section.key);
                     return (
-                      <div key={section.key} className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+                      <div key={section.key} className="rounded-lg border border-border dark:border-border overflow-hidden">
                         <button
                           onClick={() => toggleSection(section.key)}
-                          className="w-full flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold bg-slate-50 dark:bg-slate-950/30 hover:bg-slate-100 dark:hover:bg-slate-950/50 transition-colors select-none"
+                          className="w-full flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold bg-muted dark:bg-muted hover:bg-muted dark:hover:bg-muted transition-colors select-none"
                         >
-                          {isCollapsed ? <ChevronRight className="size-3 text-slate-400" /> : <ChevronDown className="size-3 text-slate-400" />}
+                          {isCollapsed ? <ChevronRight className="size-3 text-muted-foreground" /> : <ChevronDown className="size-3 text-muted-foreground" />}
                           <span className={section.color}>{section.label}</span>
-                          <span className="ml-auto text-[9px] text-slate-400 font-mono">
+                          <span className="ms-auto text-[9px] text-muted-foreground font-mono">
                             {Math.ceil(section.content.length / 3.5).toLocaleString()} tok
                           </span>
                         </button>
                         {!isCollapsed && (
-                          <div className="p-2.5 bg-slate-950 dark:bg-slate-950/70 border-t border-slate-200 dark:border-slate-800 overflow-x-auto text-[10px] font-mono text-slate-300 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
+                          <div className="p-2.5 bg-muted dark:bg-muted border-t border-border dark:border-border overflow-x-auto text-[10px] font-mono text-muted-foreground whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
                             {section.content}
                           </div>
                         )}

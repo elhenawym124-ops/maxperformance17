@@ -145,14 +145,14 @@ const AuditLogViewer: React.FC = () => {
     switch (type) {
       case 'override':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded-md font-bold">
+          <span className="inline-flex items-center gap-1 text-[11px] bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 px-2 py-0.5 rounded-md font-bold">
             <ShieldAlert className="w-3 h-3" />
             {t('orderSettings.k_127', 'تجاوز')}
           </span>
         );
       case 'approval':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md font-bold">
+          <span className="inline-flex items-center gap-1 text-[11px] bg-success/10 text-success dark:text-success border border-success/20 px-2 py-0.5 rounded-md font-bold">
             <CheckCircle2 className="w-3 h-3" />
             {t('orderSettings.k_128', 'معتمد')}
           </span>
@@ -192,7 +192,7 @@ const AuditLogViewer: React.FC = () => {
               value={selectedUserId}
               onChange={(e) => handleEmployeeChange(e.target.value)}
               disabled={loading || loadingEmployees}
-              className="w-full pr-8 pl-3 py-2 rounded-lg border border-border/70 bg-background text-foreground text-xs font-medium cursor-pointer"
+              className="w-full pe-8 ps-3 py-2 rounded-lg border border-border/70 bg-background text-foreground text-xs font-medium cursor-pointer"
             >
               <option value="">{t('orderWorkflow.allEmployees', 'جميع الموظفين (سجل كامل)')}</option>
               {employees.map((emp) => (
@@ -211,7 +211,7 @@ const AuditLogViewer: React.FC = () => {
               value={orderNumber}
               onChange={(e) => setOrderNumber(e.target.value)}
               placeholder={t('orderSettings.k_132', 'البحث برقم الطلب (مثال: 1042)...')}
-              className="w-full pr-8 pl-3 py-2 rounded-lg border border-border/70 bg-background text-foreground font-mono text-xs"
+              className="w-full pe-8 ps-3 py-2 rounded-lg border border-border/70 bg-background text-foreground font-mono text-xs"
             />
           </div>
 
@@ -282,7 +282,7 @@ const AuditLogViewer: React.FC = () => {
                 <span>{t('orderSettings.k_136', 'تم بواسطة:')} <strong className="text-foreground font-medium">{log.user ? `${log.user.firstName || ''} ${log.user.lastName || ''}`.trim() : (log.changedBy || 'النظام')}</strong></span>
               </div>
               {log.approver && (
-                <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+                <div className="flex items-center gap-1 text-success dark:text-success font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>{t('orderSettings.k_137', 'المعتمد:')} {log.approver.firstName} {log.approver.lastName}</span>
                 </div>

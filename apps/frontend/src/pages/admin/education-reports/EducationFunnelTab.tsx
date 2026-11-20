@@ -35,7 +35,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
       count: demoAttendees,
       rate: Math.min(100, Math.round((demoAttendees / baselineCount) * 100)),
       color: "bg-purple-600",
-      textColor: "text-purple-600 dark:text-purple-400",
+      textColor: "text-purple-600 dark:text-primary",
     },
     {
       label: isEn ? "Attended Demo Day (Show-up)" : "حضور الديمو داي الفعلي",
@@ -45,21 +45,21 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
         demoAttendees > 0 ? Math.round((demoAttended / demoAttendees) * 100) : 0
       ),
       color: "bg-indigo-600",
-      textColor: "text-indigo-600 dark:text-indigo-400",
+      textColor: "text-primary",
     },
     {
       label: isEn ? "Enrolled Paying Students" : "الطلاب المشتركين في باقات",
       count: enrolledStudents,
       rate: Math.min(100, Math.round((enrolledStudents / baselineCount) * 100)),
       color: "bg-emerald-600",
-      textColor: "text-emerald-600 dark:text-emerald-400",
+      textColor: "text-emerald-600 dark:text-success",
     },
     {
       label: isEn ? "Completed Sessions" : "الحصص الدراسية المنفذة",
       count: completedSessions,
       rate: funnel?.rates?.completionRate ?? 0,
       color: "bg-teal-600",
-      textColor: "text-teal-600 dark:text-teal-400",
+      textColor: "text-teal-600 dark:text-success",
     },
   ];
 
@@ -68,7 +68,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
       {/* Unified Pipeline + Telemetry Grid (Single Surface - No Cards inside Cards) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:divide-x lg:divide-border/60">
         {/* Left 7 cols: Pipeline Flow (Clean Single Surface) */}
-        <div className="lg:col-span-7 space-y-4 lg:pl-6">
+        <div className="lg:col-span-7 space-y-4 lg:ps-6">
           <div className="flex items-center justify-between pb-2 border-b border-border/60">
             <div>
               <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
@@ -113,10 +113,10 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
         </div>
 
         {/* Right 5 cols: Telemetry & Retention (Flat Telemetry, NO nested card boxes!) */}
-        <div className="lg:col-span-5 space-y-5 lg:pr-4">
+        <div className="lg:col-span-5 space-y-5 lg:pe-4">
           <div className="flex items-center justify-between pb-2 border-b border-border/60">
             <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <TrendingUp className="w-4 h-4 text-success dark:text-success" />
               {isEn ? "Conversion & Retention Rates" : "معدلات التحويل والولاء الأكاديمي"}
             </h3>
             <span className="text-[11px] font-mono text-muted-foreground">KPIs</span>
@@ -140,7 +140,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
               <div className="text-[11px] font-medium text-muted-foreground">
                 {isEn ? "Student to Packages" : "الطلاب لتسجيلات"}
               </div>
-              <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+              <div className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums">
                 {funnel?.rates?.studentsToEnrollments ?? 0}%
               </div>
               <div className="text-[10px] text-muted-foreground">
@@ -152,7 +152,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
               <div className="text-[11px] font-medium text-muted-foreground">
                 {isEn ? "Sessions Completed" : "إنجاز الحصص"}
               </div>
-              <div className="text-2xl font-bold text-teal-600 dark:text-teal-400 font-mono tabular-nums">
+              <div className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums">
                 {funnel?.rates?.completionRate ?? 0}%
               </div>
               <div className="text-[10px] text-muted-foreground">
@@ -164,7 +164,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
               <div className="text-[11px] font-medium text-muted-foreground">
                 {isEn ? "Package Renewals" : "تجديد الباقات"}
               </div>
-              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+              <div className="text-2xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                 {funnel?.rates?.repeatRate ?? 0}%
               </div>
               <div className="text-[10px] text-muted-foreground">
@@ -174,7 +174,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
           </div>
 
           {/* Flat accent callout: NO nested border box! Single hairline accent bar */}
-          <div className="border-r-2 border-primary/70 pr-3 py-1 space-y-1 text-xs">
+          <div className="border-r-2 border-primary/70 pe-3 py-1 space-y-1 text-xs">
             <div className="font-semibold text-foreground flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-primary" />
               <span>{isEn ? "Retention & Lifetime Value" : "تكرار الشراء والاحتفاظ بالطلاب"}</span>

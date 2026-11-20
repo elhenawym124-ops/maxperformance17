@@ -210,7 +210,7 @@ export default function CreateAgentDialog({
             disabled={creating || !newAgentName.trim()}
             className="h-8 text-xs px-4 font-semibold active:scale-[0.98]"
           >
-            {creating ? <Loader2 className="ml-1.5 size-3 animate-spin" /> : <Plus className="ml-1.5 size-3" />}
+            {creating ? <Loader2 className="ms-1.5 size-3 animate-spin" /> : <Plus className="ms-1.5 size-3" />}
             {creating ? t("agentProfiles.create.creating", "جارٍ الإنشاء...") : t("agentProfiles.create.submit", "إنشاء الوكيل")}
           </Button>
         </DialogFooter>

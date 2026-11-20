@@ -123,7 +123,7 @@ export function EducationSectionRow({
         )}
         {isCustomized && !tab.locked && (
           <span
-            className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"
+            className="w-1.5 h-1.5 rounded-full bg-warning shrink-0"
             title={isEn ? "Modified label" : "معدّل — استعادة الاسم الأصلي"}
             aria-label={isEn ? "Modified label" : "معدّل"}
           />

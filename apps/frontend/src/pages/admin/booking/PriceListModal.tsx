@@ -49,7 +49,7 @@ export default function PriceListModal({
       onClick={onClose}
     >
       <div
-        className="bg-card border border-border/70 rounded-2xl shadow-xl w-full max-w-md p-5 text-foreground space-y-4"
+        className="bg-card border border-border/70 rounded-xl shadow-xl w-full max-w-md p-5 text-foreground space-y-4"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-border/70 pb-3">

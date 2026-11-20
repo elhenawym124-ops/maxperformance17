@@ -131,7 +131,7 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
                       {p.name}
                     </h3>
                     {p.packageType === "PRIVATE" ? (
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary dark:text-primary border border-primary/20">
                         <User className="w-2.5 h-2.5" />
                         <span>Private</span>
                       </span>
@@ -151,8 +151,8 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
                 <span
                   className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
                     p.isActive
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                      : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                      : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                   }`}
                 >
                   {p.isActive
@@ -168,7 +168,7 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
                 <span className="bg-muted/60 text-muted-foreground px-2 py-0.5 rounded-md tabular-nums">
                   {t("education.packages.duration", { count: p.sessionDuration, defaultValue: isEn ? `${p.sessionDuration} min/session` : `${p.sessionDuration} دقيقة/حصة` })}
                 </span>
-                <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md tabular-nums font-semibold">
+                <span className="bg-emerald-500/10 text-success dark:text-success border border-success/20 px-2 py-0.5 rounded-md tabular-nums font-semibold">
                   {t("education.packages.priceWithCurrency", { price: p.price, defaultValue: isEn ? `${p.price} EGP` : `${p.price} ج.م` })}
                 </span>
               </div>
@@ -212,8 +212,8 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
                 onClick={() => handleTogglePackage(p.id, p.isActive)}
                 className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${
                   p.isActive
-                    ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                    : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                    ? "bg-red-500/10 text-destructive hover:bg-destructive/20"
+                    : "bg-emerald-500/10 text-success hover:bg-success/20"
                 }`}
               >
                 {p.isActive
@@ -223,7 +223,7 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
               <button
                 type="button"
                 onClick={() => handleDeletePackage(p.id)}
-                className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
                 aria-label={t("education.packages.deletePackage", isEn ? "Delete Package" : "حذف الباقة")} title={t("education.packages.deletePackage", isEn ? "Delete Package" : "حذف الباقة")}
               >
                 <Trash2 className="w-3.5 h-3.5" />

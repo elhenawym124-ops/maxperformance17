@@ -67,7 +67,7 @@ export const ProductMobileListView: React.FC<ProductMobileListViewProps> = ({
         <ShoppingBag className="size-14 text-muted-foreground/50" />
         <p className="font-semibold text-muted-foreground">{t('aiCatalog.empty')}</p>
         <Button variant="outline" onClick={openAddForm}>
-          <Plus className="mr-1 size-4" />
+          <Plus className="me-1 size-4" />
           {t('aiCatalog.addProduct')}
         </Button>
       </div>
@@ -130,7 +130,7 @@ export const ProductMobileListView: React.FC<ProductMobileListViewProps> = ({
                 <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
                   {variantCount > 0 && (
                     <Badge variant="outline" className="text-[0.6rem] tabular-nums">
-                      <Palette className="ml-0.5 size-3" />
+                      <Palette className="ms-0.5 size-3" />
                       {variantCount}
                     </Badge>
                   )}

@@ -170,7 +170,7 @@ export const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
                   value={formData.price}
                   onChange={e => handleField('price', e.target.value)}
                   type="number"
-                  className="pl-8 bg-background/80 dark:bg-black/30 border-border tabular-nums"
+                  className="ps-8 bg-background/80 dark:bg-black/30 border-border tabular-nums"
                   required
                 />
               </div>
@@ -185,7 +185,7 @@ export const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
                   value={formData.stock}
                   onChange={e => handleField('stock', e.target.value)}
                   type="number"
-                  className="pl-8 bg-background/80 dark:bg-black/30 border-border tabular-nums"
+                  className="ps-8 bg-background/80 dark:bg-black/30 border-border tabular-nums"
                 />
               </div>
             </div>
@@ -224,7 +224,7 @@ export const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
               </span>
             </div>
             <Button size="sm" variant="outline" onClick={addVariant}>
-              <Plus className="mr-1 size-3.5" />
+              <Plus className="me-1 size-3.5" />
               {t('aiCatalog.addVariant')}
             </Button>
           </div>

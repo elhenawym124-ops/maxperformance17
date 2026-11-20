@@ -117,7 +117,7 @@ export const AssignToolModal: React.FC<AssignToolModalProps> = ({
             placeholder="بحث في أسماء أو أدوار الوكلاء..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pr-8 text-xs h-8"
+            className="pe-8 text-xs h-8"
           />
         </div>
 
@@ -135,7 +135,7 @@ export const AssignToolModal: React.FC<AssignToolModalProps> = ({
           </Button>
         </div>
 
-        <div className="max-h-[320px] space-y-1.5 overflow-y-auto pr-1">
+        <div className="max-h-[320px] space-y-1.5 overflow-y-auto pe-1">
           {filtered.map((agent) => {
             const checked = selected.has(agent.id);
             const already = agent.allowedTools?.includes(toolName);
@@ -147,7 +147,7 @@ export const AssignToolModal: React.FC<AssignToolModalProps> = ({
                 className={cn(
                   "flex cursor-pointer items-center justify-between rounded-xl border p-2.5 transition-all text-xs",
                   checked
-                    ? "border-emerald-500/50 bg-emerald-500/5 dark:bg-emerald-500/10"
+                    ? "border-emerald-500/50 bg-success/5 dark:bg-success/10"
                     : "border-border hover:bg-muted/40"
                 )}
               >
@@ -156,7 +156,7 @@ export const AssignToolModal: React.FC<AssignToolModalProps> = ({
                     className={cn(
                       "flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors",
                       checked
-                        ? "border-emerald-500 bg-emerald-500 text-white"
+                        ? "border-emerald-500 bg-success text-white"
                         : "border-muted-foreground/50"
                     )}
                   >

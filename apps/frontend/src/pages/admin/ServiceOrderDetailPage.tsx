@@ -67,7 +67,7 @@ export default function ServiceOrderDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-gray-500">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-muted-foreground">
         <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
         <p className="text-sm font-medium">جاري تحميل تفاصيل الطلب...</p>
       </div>

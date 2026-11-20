@@ -19,14 +19,14 @@ export interface DeliveryEntry extends ReportDelivery {
 
 const DELIVERY_STATUS_MAP: Record<string, { label: string; color: string }> = {
   NOT_READY: { label: "غير جاهز", color: "bg-muted text-muted-foreground border-border/70" },
-  READY: { label: "جاهز للتسليم", color: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20" },
-  DELIVERED: { label: "تم التسليم", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" },
+  READY: { label: "جاهز للتسليم", color: "bg-sky-500/10 text-info dark:text-info border-info/20" },
+  DELIVERED: { label: "تم التسليم", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
 };
 
 const PAID_STATUS_MAP: Record<string, { label: string; color: string }> = {
-  PAID: { label: "مدفوع", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" },
-  PARTIAL: { label: "مسدد جزئياً", color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20" },
-  UNPAID: { label: "غير مدفوع", color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20" },
+  PAID: { label: "مدفوع", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
+  PARTIAL: { label: "مسدد جزئياً", color: "bg-amber-500/10 text-warning dark:text-warning border-warning/20" },
+  UNPAID: { label: "غير مدفوع", color: "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20" },
 };
 
 const todayStr = () => {
@@ -191,7 +191,7 @@ export default function OperationsDeliveriesTab() {
                             <button
                               onClick={() => updateStatus(d, "ready")}
                               disabled={busy}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 rounded-lg text-xs font-medium hover:bg-sky-500/20 transition-colors disabled:opacity-50"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-info/10 text-info dark:text-info border border-info/20 rounded-lg text-xs font-medium hover:bg-info/20 transition-colors disabled:opacity-50"
                             >
                               تجهيز
                             </button>
@@ -200,7 +200,7 @@ export default function OperationsDeliveriesTab() {
                             <button
                               onClick={() => updateStatus(d, "delivered")}
                               disabled={busy}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-lg text-xs font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-success/10 text-success dark:text-success border border-success/20 rounded-lg text-xs font-medium hover:bg-success/20 transition-colors disabled:opacity-50"
                             >
                               <Check className="w-3.5 h-3.5" />
                               تسليم

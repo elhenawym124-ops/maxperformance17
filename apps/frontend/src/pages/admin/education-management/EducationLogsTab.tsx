@@ -41,15 +41,15 @@ const getSeverityConfig = (isEn: boolean): Record<string, { label: string; color
   },
   MEDIUM: {
     label: isEn ? "Medium" : "متوسط",
-    color: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+    color: "bg-amber-500/10 text-warning border-warning/20",
   },
   HIGH: {
     label: isEn ? "High" : "هام",
-    color: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+    color: "bg-orange-500/10 text-warning border-warning/20",
   },
   CRITICAL: {
     label: isEn ? "Critical" : "حرج",
-    color: "bg-red-500/10 text-red-500 border-red-500/20",
+    color: "bg-red-500/10 text-destructive border-destructive/20",
   },
 });
 
@@ -68,42 +68,42 @@ const getEntityConfig = (
   TEACHER: {
     label: isEn ? "Teachers" : "المدرسين",
     icon: GraduationCap,
-    color: "text-purple-500 bg-purple-500/10 border-purple-500/20",
+    color: "text-purple-500 bg-primary/10 border-primary/20",
   },
   SESSION: {
     label: isEn ? "Sessions" : "الحصص",
     icon: Clock,
-    color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+    color: "text-emerald-500 bg-success/10 border-success/20",
   },
   ENROLLMENT: {
     label: isEn ? "Enrollments" : "التسجيلات",
     icon: Layers,
-    color: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20",
+    color: "text-indigo-500 bg-primary/10 border-primary/20",
   },
   PACKAGE: {
     label: isEn ? "Packages" : "الباقات",
     icon: Gift,
-    color: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+    color: "text-amber-500 bg-warning/10 border-warning/20",
   },
   SUBJECT: {
     label: isEn ? "Subjects" : "المواد الدراسية",
     icon: BookOpen,
-    color: "text-cyan-500 bg-cyan-500/10 border-cyan-500/20",
+    color: "text-cyan-500 bg-info/10 border-info/20",
   },
   PAYMENT: {
     label: isEn ? "Payroll & Dues" : "المرتبات والمستحقات",
     icon: DollarSign,
-    color: "text-teal-500 bg-teal-500/10 border-teal-500/20",
+    color: "text-teal-500 bg-success/10 border-success/20",
   },
   NOTIFICATION: {
     label: isEn ? "Notifications" : "الإشعارات",
     icon: Bell,
-    color: "text-pink-500 bg-pink-500/10 border-pink-500/20",
+    color: "text-pink-500 bg-primary/10 border-primary/20",
   },
   PORTAL: {
     label: isEn ? "Portals & Login" : "البوابات وتسجيل الدخول",
     icon: Calendar,
-    color: "text-slate-500 bg-slate-500/10 border-slate-500/20",
+    color: "text-slate-500 bg-muted border-border",
   },
   EDUCATION: {
     label: isEn ? "Education System" : "النظام التعليمي",
@@ -337,9 +337,9 @@ export const EducationLogsTab: React.FC = () => {
         <div className="p-3 sm:p-4 rounded-xl bg-card border border-border/80 shadow-xs space-y-1">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>{isEn ? "Today's Activity" : "عمليات اليوم"}</span>
-            <Clock className="w-4 h-4 text-emerald-500" />
+            <Clock className="w-4 h-4 text-success" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold text-emerald-500 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold text-success tabular-nums">
             {stats?.todayLogs ?? 0}
           </div>
         </div>
@@ -357,9 +357,9 @@ export const EducationLogsTab: React.FC = () => {
         <div className="p-3 sm:p-4 rounded-xl bg-card border border-border/80 shadow-xs space-y-1">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>{isEn ? "Students & Subscriptions" : "الطلاب والاشتراكات"}</span>
-            <Users className="w-4 h-4 text-indigo-500" />
+            <Users className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold text-indigo-500 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold text-primary tabular-nums">
             {(stats?.targetTypeCounts?.STUDENT ?? 0) + (stats?.targetTypeCounts?.ENROLLMENT ?? 0)}
           </div>
         </div>
@@ -367,9 +367,9 @@ export const EducationLogsTab: React.FC = () => {
         <div className="p-3 sm:p-4 rounded-xl bg-card border border-border/80 shadow-xs space-y-1">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>{isEn ? "Teachers & Payroll" : "المدرسين والمرتبات"}</span>
-            <GraduationCap className="w-4 h-4 text-purple-500" />
+            <GraduationCap className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold text-purple-500 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold text-primary tabular-nums">
             {(stats?.targetTypeCounts?.TEACHER ?? 0) + (stats?.targetTypeCounts?.PAYMENT ?? 0)}
           </div>
         </div>
@@ -377,9 +377,9 @@ export const EducationLogsTab: React.FC = () => {
         <div className="p-3 sm:p-4 rounded-xl bg-card border border-border/80 shadow-xs space-y-1">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>{isEn ? "Notifications & Funnel" : "الإشعارات والفانل"}</span>
-            <Bell className="w-4 h-4 text-pink-500" />
+            <Bell className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold text-pink-500 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold text-primary tabular-nums">
             {(stats?.targetTypeCounts?.NOTIFICATION ?? 0) + (stats?.targetTypeCounts?.FUNNEL ?? 0)}
           </div>
         </div>
@@ -449,7 +449,7 @@ export const EducationLogsTab: React.FC = () => {
                 setPage(1);
               }}
               placeholder={isEn ? "Search logs (student, subject, teacher, description, actor...)" : "ابحث في السجلات (اسم الطالب، المادة، المدرس، الوصف، المنفذ...)"}
-              className={`w-full py-2 rounded-lg text-xs bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary ${isEn ? "pl-9 pr-3" : "pl-3 pr-9"}`}
+              className={`w-full py-2 rounded-lg text-xs bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary ${isEn ? "ps-9 pe-3" : "ps-3 pe-9"}`}
             />
             {search && (
               <button
@@ -532,7 +532,7 @@ export const EducationLogsTab: React.FC = () => {
 
       {/* Error Alert */}
       {error && (
-        <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs flex items-center gap-2">
+        <div className="p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
           <AlertTriangle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
@@ -585,7 +585,7 @@ export const EducationLogsTab: React.FC = () => {
                         {severity.label}
                       </span>
                       {!log.isSuccess && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-red-500/10 text-red-500 border border-red-500/20">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-destructive/10 text-destructive border border-destructive/20">
                           <XCircle className="w-3 h-3" />
                           {isEn ? "Failed" : "فشل"}
                         </span>
@@ -760,7 +760,7 @@ export const EducationLogsTab: React.FC = () => {
             role="dialog"
             aria-modal="true"
             aria-label={isEn ? "Log details" : "تفاصيل السجل"}
-            className="w-full max-w-2xl bg-card border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in-50 zoom-in-95"
+            className="w-full max-w-2xl bg-card border border-border rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in-50 zoom-in-95"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -816,8 +816,8 @@ export const EducationLogsTab: React.FC = () => {
                   <span
                     className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border ${
                       selectedLog.isSuccess
-                        ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
-                        : "bg-red-500/10 text-red-500 border-red-500/20"
+                        ? "bg-emerald-500/10 text-success border-success/20"
+                        : "bg-red-500/10 text-destructive border-destructive/20"
                     }`}
                   >
                     {selectedLog.isSuccess ? (
@@ -898,7 +898,7 @@ export const EducationLogsTab: React.FC = () => {
                     >
                       {copiedKey === "metadata" ? (
                         <>
-                          <Check className="w-3 h-3 text-emerald-500" />
+                          <Check className="w-3 h-3 text-success" />
                           <span>{isEn ? "Copied" : "تم النسخ"}</span>
                         </>
                       ) : (

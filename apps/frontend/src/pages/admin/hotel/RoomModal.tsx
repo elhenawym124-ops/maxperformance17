@@ -58,12 +58,12 @@ export default function RoomModal({
         <input className={INPUT_CLS} placeholder="رقم الغرفة" value={form.roomNumber} onChange={e => setForm({ ...form, roomNumber: e.target.value })} />
         <input type="number" className={INPUT_CLS} placeholder="الدور" value={form.floor} onChange={e => setForm({ ...form, floor: +e.target.value })} />
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="text-sm text-gray-500">إطلالة</label>
+          <div><label className="text-sm text-muted-foreground">إطلالة</label>
             <select className={INPUT_CLS} value={form.view} onChange={e => setForm({ ...form, view: e.target.value })}>
               <option value="">بدون</option><option value="yard">حديقة</option><option value="mountain">جبل</option><option value="street">شارع</option><option value="sea">بحر</option>
             </select>
           </div>
-          <div><label className="text-sm text-gray-500">الجناح</label>
+          <div><label className="text-sm text-muted-foreground">الجناح</label>
             <select className={INPUT_CLS} value={form.wing} onChange={e => setForm({ ...form, wing: e.target.value })}>
               <option value="">بدون</option><option value="left">أيسر</option><option value="right">أيمن</option><option value="main">رئيسي</option>
             </select>
@@ -71,15 +71,15 @@ export default function RoomModal({
         </div>
         <div className="flex items-center gap-2">
           <input type="checkbox" id="hasExtraBed" checked={form.hasExtraBed} onChange={e => setForm({ ...form, hasExtraBed: e.target.checked })} />
-          <label htmlFor="hasExtraBed" className="text-sm text-gray-500">سرير إضافي</label>
+          <label htmlFor="hasExtraBed" className="text-sm text-muted-foreground">سرير إضافي</label>
         </div>
         {form.hasExtraBed && (
-          <div className="grid grid-cols-2 gap-2 pr-6">
-            <div><label className="text-sm text-gray-500">عدد الأسرة</label><input type="number" className={INPUT_CLS} value={form.extraBedCapacity} onChange={e => setForm({ ...form, extraBedCapacity: +e.target.value })} /></div>
-            <div><label className="text-sm text-gray-500">سعر السرير</label><input type="number" className={INPUT_CLS} value={form.extraBedPrice} onChange={e => setForm({ ...form, extraBedPrice: +e.target.value })} /></div>
+          <div className="grid grid-cols-2 gap-2 pe-6">
+            <div><label className="text-sm text-muted-foreground">عدد الأسرة</label><input type="number" className={INPUT_CLS} value={form.extraBedCapacity} onChange={e => setForm({ ...form, extraBedCapacity: +e.target.value })} /></div>
+            <div><label className="text-sm text-muted-foreground">سعر السرير</label><input type="number" className={INPUT_CLS} value={form.extraBedPrice} onChange={e => setForm({ ...form, extraBedPrice: +e.target.value })} /></div>
           </div>
         )}
-        <div><label className="text-sm text-gray-500">تعديل السعر (للغرفة فقط)</label><input type="number" className={INPUT_CLS} placeholder="سعر خاص لهذه الغرفة" value={form.basePriceOverride ?? ""} onChange={e => setForm({ ...form, basePriceOverride: e.target.value ? +e.target.value : undefined })} /></div>
+        <div><label className="text-sm text-muted-foreground">تعديل السعر (للغرفة فقط)</label><input type="number" className={INPUT_CLS} placeholder="سعر خاص لهذه الغرفة" value={form.basePriceOverride ?? ""} onChange={e => setForm({ ...form, basePriceOverride: e.target.value ? +e.target.value : undefined })} /></div>
       </div>
       <div className="flex justify-end gap-2 mt-6">
         <button className={BTN_GHOST} onClick={onClose}>إلغاء</button>

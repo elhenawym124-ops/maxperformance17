@@ -51,9 +51,9 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
               <span
                 key={ch}
                 title="واتساب سحابي معتمد (Meta Cloud API)"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-700/50"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-success text-success dark:bg-success/60 dark:text-success border border-success/50 dark:border-success/50"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
                 واتساب رسمي WABA
               </span>
             );
@@ -63,7 +63,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
               <span
                 key={ch}
                 title="واتساب ويب عادي (Baileys QR)"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-teal-100 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300 border border-teal-300/50 dark:border-teal-700/50"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-success text-success dark:bg-success/60 dark:text-success border border-success/50 dark:border-success/50"
               >
                 <Smartphone className="w-2.5 h-2.5" />
                 واتساب عادي QR
@@ -87,9 +87,9 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
               <span
                 key={ch}
                 title="إنستجرام دايركت"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-pink-100 text-pink-800 dark:bg-pink-950/60 dark:text-pink-300 border border-pink-300/50 dark:border-pink-700/50"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary text-primary dark:bg-primary/60 dark:text-primary border border-primary/50 dark:border-primary/50"
               >
-                <MessageSquare className="w-2.5 h-2.5 text-pink-600 dark:text-pink-400" />
+                <MessageSquare className="w-2.5 h-2.5 text-primary dark:text-primary" />
                 إنستجرام
               </span>
             );
@@ -99,9 +99,9 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
               <span
                 key={ch}
                 title="إشعار البوابة أولاً لتوفير رسائل واتساب"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-300/50 dark:border-indigo-700/50"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary text-primary dark:bg-primary/60 dark:text-primary border border-primary/50 dark:border-primary/50"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 توفير ذكي (Push First)
               </span>
             );
@@ -113,7 +113,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50 dark:bg-slate-950">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-muted dark:bg-muted">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -135,9 +135,9 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
             <button
               type="button"
               onClick={onOpenTestModal}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-semibold text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-xs font-semibold text-foreground hover:bg-muted dark:hover:bg-muted transition-colors shadow-xs"
             >
-              <Send className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <Send className="w-3.5 h-3.5 text-success dark:text-success" />
               <span>تجربة إرسال حي</span>
             </button>
 
@@ -153,7 +153,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
         </div>
 
         {/* Search & Category Filter Bar */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-white dark:bg-muted p-2.5 rounded-xl border border-border dark:border-border shadow-xs">
           <div className="relative flex-1">
             <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -161,7 +161,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="بحث في أسماء المسارات، المشغلات، أو الوصف..."
-              className="w-full pr-9 pl-4 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="w-full pe-9 ps-4 py-2 text-xs rounded-xl bg-muted dark:bg-muted border border-border dark:border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
@@ -179,8 +179,8 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
                 onClick={() => setSelectedCategory(tab.id as FlowCategory)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                   selectedCategory === tab.id
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted'
                 }`}
               >
                 {tab.label}
@@ -190,11 +190,11 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
         </div>
 
         {/* Flows Table & Cards */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
+        <div className="bg-white dark:bg-muted rounded-xl border border-border dark:border-border shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-right border-collapse">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850/60 text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                <tr className="border-b border-border dark:border-border bg-muted dark:bg-muted text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
                   <th className="py-3 px-4">اسم المسار والمشغل</th>
                   <th className="py-3 px-4">القنوات المفعلة</th>
                   <th className="py-3 px-4 text-center">الطلاب المشاركون</th>
@@ -204,12 +204,12 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
                   <th className="py-3 px-4 text-left">الإجراءات</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs">
+              <tbody className="divide-y divide-border dark:divide-border text-xs">
                 {filteredFlows.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="py-12 text-center text-muted-foreground">
                       <div className="flex flex-col items-center justify-center gap-2">
-                        <Workflow className="w-8 h-8 text-slate-300 dark:text-slate-700" />
+                        <Workflow className="w-8 h-8 text-muted-foreground dark:text-foreground" />
                         <p className="font-semibold text-sm">لم يتم العثور على مسارات مطابقة</p>
                         <p className="text-xs">جرب تغيير كلمات البحث أو التصنيف المحدد</p>
                       </div>
@@ -219,7 +219,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
                   filteredFlows.map((flow) => (
                     <tr
                       key={flow.id}
-                      className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group"
+                      className="hover:bg-slate-50/80 dark:hover:bg-muted transition-colors group"
                     >
                       {/* Name & Trigger */}
                       <td className="py-4 px-4">
@@ -228,7 +228,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
                             <span className="font-bold text-foreground text-sm group-hover:text-primary transition-colors">
                               {flow.name}
                             </span>
-                            <span className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                            <span className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
                               {flow.nodeCount} خطوات
                             </span>
                           </div>
@@ -257,7 +257,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
 
                       {/* Delivery Rate */}
                       <td className="py-4 px-4 text-center">
-                        <div className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold">
+                        <div className="inline-flex items-center gap-1 text-success dark:text-success font-bold">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span className="tabular-nums">{flow.deliveryRate}%</span>
                         </div>
@@ -265,7 +265,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
 
                       {/* Response Rate */}
                       <td className="py-4 px-4 text-center">
-                        <div className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-bold">
+                        <div className="inline-flex items-center gap-1 text-primary font-bold">
                           <TrendingUp className="w-3.5 h-3.5" />
                           <span className="tabular-nums">{flow.responseRate}%</span>
                         </div>
@@ -277,7 +277,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
                           type="button"
                           onClick={() => onToggleFlow(flow.id)}
                           className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                            flow.isEnabled ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-700'
+                            flow.isEnabled ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-muted'
                           }`}
                         >
                           <span
@@ -293,7 +293,7 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
                         <button
                           type="button"
                           onClick={() => onOpenCanvas(flow.id, flow.category)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-bold text-foreground transition-all shadow-2xs hover:text-primary"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-xs font-bold text-foreground transition-all shadow-2xs hover:text-primary"
                         >
                           <span>فتح الكانفاس</span>
                           <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

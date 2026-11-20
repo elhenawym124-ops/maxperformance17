@@ -47,10 +47,10 @@ export default function PaymentModal({ invoice, onClose, onSave, onPayback }: Pr
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4" onClick={onClose}>
-      <div className="bg-card border border-border/80 rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
+      <div className="bg-card border border-border/80 rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/60 bg-muted/20 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className={`p-2 rounded-xl border ${mode === "pay" ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-rose-500/10 text-rose-600 border-rose-500/20"}`}>
+            <div className={`p-2 rounded-xl border ${mode === "pay" ? "bg-emerald-500/10 text-success border-success/20" : "bg-rose-500/10 text-destructive border-destructive/20"}`}>
               {mode === "pay" ? <CreditCard className="w-5 h-5" /> : <RotateCcw className="w-5 h-5" />}
             </div>
             <div>
@@ -157,7 +157,7 @@ export default function PaymentModal({ invoice, onClose, onSave, onPayback }: Pr
 
               <div className="p-3 bg-muted/30 border border-border/70 rounded-xl flex items-center justify-between text-xs font-mono">
                 <span className="font-sans text-muted-foreground">المبلغ المسدد القابل للاسترداد:</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums text-sm">{(invoice.amountPaid || 0).toLocaleString()} ج.م</span>
+                <span className="font-bold text-success dark:text-success tabular-nums text-sm">{(invoice.amountPaid || 0).toLocaleString()} ج.م</span>
               </div>
             </div>
           )}
@@ -171,7 +171,7 @@ export default function PaymentModal({ invoice, onClose, onSave, onPayback }: Pr
             <button
               onClick={handleSave}
               disabled={!valid || busy}
-              className="px-5 py-2 text-xs font-medium bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 shadow-xs transition-colors disabled:opacity-50"
+              className="px-5 py-2 text-xs font-medium bg-success text-white rounded-xl hover:bg-success shadow-xs transition-colors disabled:opacity-50"
             >
               {busy ? "جارٍ الحفظ..." : "تسجيل الدفع"}
             </button>

@@ -117,7 +117,7 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
           />
           <input
             className={`bg-background border border-input rounded-lg ${
-              isEn ? "pl-9 pr-3" : "pr-9 pl-3"
+              isEn ? "ps-9 pe-3" : "pe-9 ps-3"
             } py-1.5 text-xs text-foreground w-full focus:outline-none focus:ring-1 focus:ring-primary`}
             placeholder={t(
               "education.students.search",

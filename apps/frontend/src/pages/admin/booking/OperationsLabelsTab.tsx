@@ -265,7 +265,7 @@ export default function OperationsLabelsTab() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-semibold flex items-center gap-2">
-            <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <FileText className="w-4 h-4 text-success dark:text-success" />
             سجل اللاصقات المطبوعة
             <span className="font-mono text-xs px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border/60">
               {printed.length}
@@ -314,7 +314,7 @@ export default function OperationsLabelsTab() {
       {/* Label Preview Modal */}
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setSelected(null)}>
-          <div className="bg-card border border-border/80 rounded-2xl shadow-2xl p-6 w-full max-w-sm" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-card border border-border/80 rounded-xl shadow-2xl p-6 w-full max-w-sm" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold flex items-center gap-2">
                 <Printer className="w-4 h-4 text-primary" />

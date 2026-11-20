@@ -80,17 +80,17 @@ export const AgentDataConflictsBanner: React.FC<ConflictsBannerProps> = ({
   };
 
   return (
-    <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50/70 p-4 shadow-sm transition-all dark:border-amber-900/60 dark:bg-amber-950/20">
+    <div className="mb-6 rounded-xl border border-warning bg-warning/70 p-4 shadow-sm transition-all dark:border-warning/60 dark:bg-warning/20">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-warning/10 text-warning dark:text-warning">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+            <h3 className="text-sm font-semibold text-warning dark:text-warning">
               تعارضات بيانات الوكيل ({openConflicts.length})
             </h3>
-            <p className="text-xs text-amber-700/80 dark:text-amber-300/80">
+            <p className="text-xs text-warning/80 dark:text-warning/80">
               اكتشف النظام أرقاماً في التعليمات/المهارات تخالف البيانات الحيّة. الأداة تكسب في الرد، ويرجى حسم التعارض أدناه.
             </p>
           </div>
@@ -98,7 +98,7 @@ export const AgentDataConflictsBanner: React.FC<ConflictsBannerProps> = ({
         <button
           type="button"
           onClick={() => setExpanded(!expanded)}
-          className="rounded-lg p-1.5 text-amber-700 hover:bg-amber-200/50 dark:text-amber-300 dark:hover:bg-amber-900/40"
+          className="rounded-lg p-1.5 text-warning hover:bg-warning/50 dark:text-warning dark:hover:bg-warning/40"
           aria-label="Toggle conflicts"
         >
           {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -106,27 +106,27 @@ export const AgentDataConflictsBanner: React.FC<ConflictsBannerProps> = ({
       </div>
 
       {expanded && (
-        <div className="mt-3.5 space-y-2.5 pt-2 border-t border-amber-200/60 dark:border-amber-900/40">
+        <div className="mt-3.5 space-y-2.5 pt-2 border-t border-warning/60 dark:border-warning/40">
           {openConflicts.map((c) => (
             <div
               key={c.id}
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-amber-200 bg-white p-3 dark:border-amber-900/40 dark:bg-zinc-900/80"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-warning bg-white p-3 dark:border-warning/40 dark:bg-muted"
             >
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="rounded bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-900/50 dark:text-amber-300">
+                  <span className="rounded bg-warning px-2 py-0.5 text-xs font-semibold text-warning dark:bg-warning/50 dark:text-warning">
                     {CONFLICT_KEY_LABELS[c.conflictKey] || c.conflictKey}
                   </span>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-muted-foreground dark:text-muted-foreground">
                     المصدر: {c.liveSource}
                   </span>
                 </div>
                 <div className="flex items-center gap-4 text-xs font-medium">
-                  <span className="text-rose-600 dark:text-rose-400">
+                  <span className="text-rose-600 dark:text-destructive">
                     المكتوب: <span className="tabular-nums font-bold">{c.writtenValue}</span>
                   </span>
-                  <span className="text-zinc-300 dark:text-zinc-700">|</span>
-                  <span className="text-emerald-600 dark:text-emerald-400">
+                  <span className="text-zinc-300 dark:text-foreground">|</span>
+                  <span className="text-emerald-600 dark:text-success">
                     الحيّ المسجل: <span className="tabular-nums font-bold">{c.liveValue}</span>
                   </span>
                 </div>
@@ -137,7 +137,7 @@ export const AgentDataConflictsBanner: React.FC<ConflictsBannerProps> = ({
                   type="button"
                   disabled={resolvingId === c.id}
                   onClick={() => handleResolve(c.id, "CORRECT_WRITTEN")}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs font-medium text-zinc-800 hover:bg-zinc-100 disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted disabled:opacity-50 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                 >
                   <Edit3 className="h-3.5 w-3.5 text-blue-500" />
                   صحّح المكتوب ({c.liveValue})
@@ -146,7 +146,7 @@ export const AgentDataConflictsBanner: React.FC<ConflictsBannerProps> = ({
                   type="button"
                   disabled={resolvingId === c.id}
                   onClick={() => handleResolve(c.id, "DATA_IS_RIGHT")}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-success px-2.5 py-1.5 text-xs font-medium text-white hover:bg-success disabled:opacity-50"
                 >
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   الداتا صح

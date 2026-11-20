@@ -55,20 +55,20 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
 }) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-        <BanknotesIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+      <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+        <BanknotesIcon className="w-5 h-5 text-muted-foreground" />
         {t("manualOrder.k_108")}
       </h3>
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("manualOrder.k_109")}
           </label>
           <select
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
           >
             <option value="CASH">{t("manualOrder.k_12")}</option>
             <option value="WALLET">{t("manualOrder.k_13")}</option>
@@ -76,13 +76,13 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
           </select>
         </div>
         <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("manualOrder.k_110")}
           </label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
           >
             <option value="PENDING">{t("manualOrder.k_14")}</option>
             <option value="CONFIRMED">{t("manualOrder.k_15")}</option>
@@ -92,7 +92,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
           </select>
         </div>
         <div className="col-span-2 sm:col-span-1">
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs text-muted-foreground mb-1">
             {t("manualOrder.k_111")}
           </label>
           <select
@@ -108,7 +108,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                 setStatus("CONFIRMED");
               }
             }}
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
           >
             <option value="delivery">{t("manualOrder.k_19")}</option>
             <option value="partial_delivery">
@@ -122,17 +122,17 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
         {isExchangeOrReturn && (
           <div className="col-span-2 space-y-2">
             {phoneDigitsCount < 9 ? (
-              <div className="p-2.5 rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/20 text-xs text-amber-800 dark:text-amber-300 flex items-center gap-2">
-                <ExclamationTriangleIcon className="w-4 h-4 text-amber-600 shrink-0" />
+              <div className="p-2.5 rounded-lg border border-warning dark:border-warning/40 bg-warning/70 dark:bg-warning/20 text-xs text-warning dark:text-warning flex items-center gap-2">
+                <ExclamationTriangleIcon className="w-4 h-4 text-warning shrink-0" />
                 <span>
                   يرجى إدخال رقم هاتف العميل أولاً للتحقق من وجود طلبات سابقة
                   مؤهلة
                 </span>
               </div>
             ) : previousOrderMissing ? (
-              <div className="p-3 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50/80 dark:bg-red-950/30 text-xs text-red-700 dark:text-red-300 space-y-1">
+              <div className="p-3 rounded-lg border border-destructive dark:border-destructive/50 bg-destructive/80 dark:bg-destructive/30 text-xs text-destructive dark:text-destructive space-y-1">
                 <div className="font-semibold flex items-center gap-1.5">
-                  <ExclamationTriangleIcon className="w-4 h-4 text-red-600 shrink-0" />
+                  <ExclamationTriangleIcon className="w-4 h-4 text-destructive shrink-0" />
                   <span>
                     لا يمكن إنشاء طلب {requestType === "return" ? "مرتجع" : "استبدال"}
                   </span>
@@ -162,7 +162,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                 <select
                   value={selectedPreviousOrder}
                   onChange={(e) => setSelectedPreviousOrder(e.target.value)}
-                  className="w-full text-xs border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 py-2"
+                  className="w-full text-xs border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground py-2"
                 >
                   <option value="">
                     {exchangeReturnPolicy?.requireExplicitOrderLink
@@ -178,8 +178,8 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                   ))}
                 </select>
                 {selectedOrderObj && (
-                  <div className="text-[11px] text-gray-600 dark:text-gray-300 bg-white/80 dark:bg-gray-800/80 p-2 rounded border border-gray-200 dark:border-gray-700 space-y-0.5">
-                    <span className="font-semibold text-gray-700 dark:text-gray-200">
+                  <div className="text-[11px] text-muted-foreground bg-white/80 dark:bg-muted p-2 rounded border border-border dark:border-border space-y-0.5">
+                    <span className="font-semibold text-foreground">
                       المنتجات بالطلب السابق:{" "}
                     </span>
                     <span>
@@ -204,7 +204,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
 
       {/* Return Collection Amount */}
       <div>
-        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs text-muted-foreground mb-1">
           {isEn
             ? "💰 Return Collection Amount (Default: Shipping Cost)"
             : "💰 مبلغ التحصيل في حالة المرتجع (افتراضي: مصاريف الشحن)"}
@@ -223,19 +223,19 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                 ? "Shipping cost will be used automatically"
                 : "سيتم استخدام مصاريف الشحن تلقائياً"
             }
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 pe-16"
+            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted pe-16"
             min="0"
             step="1"
           />
           <span
             className={`absolute ${
               isEn ? "end-2" : "start-2"
-            } top-1/2 -translate-y-1/2 text-xs text-gray-400`}
+            } top-1/2 -translate-y-1/2 text-xs text-muted-foreground`}
           >
             {isEn ? "EGP" : "ج.م"}
           </span>
         </div>
-        <p className="text-[10px] text-gray-400 mt-0.5">
+        <p className="text-[10px] text-muted-foreground mt-0.5">
           {isEn
             ? 'This amount appears in the courier system as "Return Collection Amount"'
             : 'هذا المبلغ يظهر في شركة الشحن كـ "مبلغ التحصيل في حالة المرتجع"'}
@@ -243,13 +243,13 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
       </div>
 
       <div>
-        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs text-muted-foreground mb-1">
           {t("manualOrder.k_112")}
         </label>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 h-16 resize-none text-sm dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+          className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 h-16 resize-none text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
           placeholder={t("manualOrder.k_10")}
         />
       </div>

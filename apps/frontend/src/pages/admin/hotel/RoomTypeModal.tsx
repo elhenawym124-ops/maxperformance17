@@ -50,18 +50,18 @@ export default function RoomTypeModal({
         <input className={INPUT_CLS} placeholder="الاسم (مفردة)" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
         <input className={INPUT_CLS} placeholder="الاسم بالعربية" value={form.nameAr} onChange={e => setForm({ ...form, nameAr: e.target.value })} />
         <div className="grid grid-cols-3 gap-2">
-          <div><label className="text-sm text-gray-500">السعة</label><input type="number" className={INPUT_CLS} value={form.capacity} onChange={e => setForm({ ...form, capacity: +e.target.value })} /></div>
-          <div className="col-span-2"><label className="text-sm text-gray-500">السعر الأساسي</label><input type="number" className={INPUT_CLS} value={form.basePrice} onChange={e => setForm({ ...form, basePrice: +e.target.value })} /></div>
+          <div><label className="text-sm text-muted-foreground">السعة</label><input type="number" className={INPUT_CLS} value={form.capacity} onChange={e => setForm({ ...form, capacity: +e.target.value })} /></div>
+          <div className="col-span-2"><label className="text-sm text-muted-foreground">السعر الأساسي</label><input type="number" className={INPUT_CLS} value={form.basePrice} onChange={e => setForm({ ...form, basePrice: +e.target.value })} /></div>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <div><label className="text-sm text-gray-500">نظام التسعير</label>
+          <div><label className="text-sm text-muted-foreground">نظام التسعير</label>
             <select className={INPUT_CLS} value={form.pricingModel} onChange={e => setForm({ ...form, pricingModel: e.target.value })}>
               <option value="PER_ROOM">للغرفة</option>
               <option value="PER_PERSON">للفرد</option>
             </select>
           </div>
           {form.pricingModel === "PER_PERSON" && (
-            <div><label className="text-sm text-gray-500">سعر الفرد الإضافي</label><input type="number" className={INPUT_CLS} value={form.pricePerExtraAdult} onChange={e => setForm({ ...form, pricePerExtraAdult: +e.target.value })} /></div>
+            <div><label className="text-sm text-muted-foreground">سعر الفرد الإضافي</label><input type="number" className={INPUT_CLS} value={form.pricePerExtraAdult} onChange={e => setForm({ ...form, pricePerExtraAdult: +e.target.value })} /></div>
           )}
         </div>
         <input type="number" className={INPUT_CLS} placeholder="عدد الغرف" value={form.totalRooms} onChange={e => setForm({ ...form, totalRooms: +e.target.value })} />

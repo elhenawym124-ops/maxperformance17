@@ -215,8 +215,8 @@ export const GoalsStockSection: React.FC<{ slug?: string }> = ({
   return (
     <div className="space-y-6">
       {saveSuccess && (
-        <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-800 dark:text-emerald-300 text-sm flex items-center gap-2">
-          <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+        <div className="p-3 bg-success/10 border border-success/30 rounded-lg text-success dark:text-success text-sm flex items-center gap-2">
+          <CheckCircle2 className="size-4 text-success shrink-0" />
           <span>تم حفظ إعدادات الأهداف والمخزون وتحديث جدول التشغيل اليومي بنجاح.</span>
         </div>
       )}
@@ -292,7 +292,7 @@ export const GoalsStockSection: React.FC<{ slug?: string }> = ({
               type="checkbox"
               checked={settings.enabled}
               onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
-              className="mt-1 size-4 rounded border-gray-300 text-primary focus:ring-primary"
+              className="mt-1 size-4 rounded border-border text-primary focus:ring-primary"
             />
             <div>
               <span className="text-sm font-medium text-foreground block">
@@ -309,7 +309,7 @@ export const GoalsStockSection: React.FC<{ slug?: string }> = ({
               type="checkbox"
               checked={settings.notify_whatsapp}
               onChange={(e) => setSettings({ ...settings, notify_whatsapp: e.target.checked })}
-              className="mt-1 size-4 rounded border-gray-300 text-primary focus:ring-primary"
+              className="mt-1 size-4 rounded border-border text-primary focus:ring-primary"
             />
             <div>
               <span className="text-sm font-medium text-foreground block">
@@ -556,7 +556,7 @@ export const GoalsStockSection: React.FC<{ slug?: string }> = ({
           <div className="p-4 bg-muted/40 border border-border rounded-xl space-y-3 pt-3 animate-in fade-in">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-emerald-500" />
+                <CheckCircle2 className="size-4 text-success" />
                 نتيجة تنفيذ التقرير المباشر من قاعدة البيانات:
               </span>
               <span className="text-[11px] text-muted-foreground">
@@ -585,7 +585,7 @@ export const GoalsStockSection: React.FC<{ slug?: string }> = ({
 
                 <div className="p-2.5 rounded-lg bg-background border border-border/70">
                   <span className="text-muted-foreground block text-[11px]">أصناف تحت الحد (جديدة):</span>
-                  <span className="text-base font-bold text-amber-500">
+                  <span className="text-base font-bold text-warning">
                     {testResult.dailyReport.metrics.newLowItemsCount}
                   </span>
                   <span className="text-[11px] text-muted-foreground"> صنف</span>

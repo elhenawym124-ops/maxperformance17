@@ -51,7 +51,7 @@ export default function SkillModal({ open, skillId, onClose, skills }: SkillModa
           </div>
 
           <div className="p-3 bg-muted/50 rounded-lg border">
-            <h3 className="text-sm font-semibold mb-1"><Settings className="size-4 inline mr-1 align-middle" /> Skill Configuration</h3>
+            <h3 className="text-sm font-semibold mb-1"><Settings className="size-4 inline me-1 align-middle" /> Skill Configuration</h3>
             <p className="text-sm text-muted-foreground"><strong>ID:</strong> {skill.id}</p>
           </div>
         </div>

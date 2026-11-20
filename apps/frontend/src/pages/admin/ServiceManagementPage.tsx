@@ -168,15 +168,15 @@ export default function ServiceManagementPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">الخدمات النشطة</span>
-            <CheckCircle2 className="size-3.5 text-emerald-500" />
+            <CheckCircle2 className="size-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{activeCount}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">{activeCount}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">متاحة للطلب الفوري</p>
         </div>
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">عينات الأعمال</span>
-            <FileAudio className="size-3.5 text-purple-500" />
+            <FileAudio className="size-3.5 text-primary" />
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">{sampleCount}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">ملف صوتي ومرئي معروض</p>
@@ -229,7 +229,7 @@ export default function ServiceManagementPage() {
                     </div>
                   </div>
                   <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${
-                    s.isActive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" : "bg-muted text-muted-foreground border-border"
+                    s.isActive ? "bg-emerald-500/10 text-success dark:text-success border-success/20" : "bg-muted text-muted-foreground border-border"
                   }`}>
                     {s.isActive ? "نشط" : "معطل"}
                   </span>
@@ -256,7 +256,7 @@ export default function ServiceManagementPage() {
                   <button onClick={() => { setModal(s); setSampleFiles([]); }} className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60" title="تعديل">
                     <Pencil className="size-3.5" />
                   </button>
-                  <button onClick={() => remove(s.id)} className="p-1 rounded-md text-rose-500 hover:text-rose-700 hover:bg-rose-500/10" title="حذف">
+                  <button onClick={() => remove(s.id)} className="p-1 rounded-md text-destructive hover:text-destructive hover:bg-destructive/10" title="حذف">
                     <Trash2 className="size-3.5" />
                   </button>
                 </div>

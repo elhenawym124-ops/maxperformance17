@@ -143,28 +143,28 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
         </div>
 
         <div className="bg-card border border-border/70 rounded-xl p-3 flex items-center gap-3 shadow-2xs">
-          <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-lg bg-success/10 text-success flex items-center justify-center shrink-0">
             <CheckCircle2 className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[11px] text-muted-foreground">
               {isEn ? "Active" : "الكوادر النشطة"}
             </div>
-            <div className="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <div className="text-base font-bold text-success dark:text-success font-mono tabular-nums">
               {activeCount}
             </div>
           </div>
         </div>
 
         <div className="bg-card border border-border/70 rounded-xl p-3 flex items-center gap-3 shadow-2xs">
-          <div className="w-9 h-9 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-lg bg-destructive/10 text-destructive flex items-center justify-center shrink-0">
             <XCircle className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[11px] text-muted-foreground">
               {isEn ? "Inactive" : "معطل / متوقف"}
             </div>
-            <div className="text-base font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+            <div className="text-base font-bold text-destructive dark:text-destructive font-mono tabular-nums">
               {inactiveCount}
             </div>
           </div>
@@ -192,7 +192,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
           <div className="relative flex-1">
             <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground pointer-events-none" />
             <input
-              className="bg-background border border-input rounded-lg pr-9 pl-8 py-2 text-xs text-foreground w-full focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/70"
+              className="bg-background border border-input rounded-lg pe-9 ps-8 py-2 text-xs text-foreground w-full focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/70"
               placeholder={
                 isEn
                   ? "Search by name, phone, qualifications or subject..."
@@ -233,7 +233,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                 onClick={() => setStatusFilter("active")}
                 className={`px-2.5 py-1 rounded-md font-medium transition-all ${
                   statusFilter === "active"
-                    ? "bg-background text-emerald-600 dark:text-emerald-400 shadow-2xs font-semibold"
+                    ? "bg-background text-success dark:text-success shadow-2xs font-semibold"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -244,7 +244,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                 onClick={() => setStatusFilter("inactive")}
                 className={`px-2.5 py-1 rounded-md font-medium transition-all ${
                   statusFilter === "inactive"
-                    ? "bg-background text-rose-600 dark:text-rose-400 shadow-2xs font-semibold"
+                    ? "bg-background text-destructive dark:text-destructive shadow-2xs font-semibold"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -258,7 +258,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                 <select
                   value={subjectFilter}
                   onChange={(e) => setSubjectFilter(e.target.value)}
-                  className="bg-background border border-input rounded-lg pr-3 pl-8 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+                  className="bg-background border border-input rounded-lg pe-3 ps-8 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
                 >
                   <option value="all">{isEn ? "All Subjects" : "جميع المواد"}</option>
                   {subjects.map((s) => (
@@ -351,8 +351,8 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${
                           t.isActive
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                            : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                            : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                         }`}
                       >
                         {t.isActive
@@ -379,7 +379,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                             aria-label={isEn ? "Copy phone" : "نسخ الرقم"} title={isEn ? "Copy phone" : "نسخ الرقم"}
                           >
                             {copiedId === t.id ? (
-                              <Check className="w-3 h-3 text-emerald-500" />
+                              <Check className="w-3 h-3 text-success" />
                             ) : (
                               <Copy className="w-3 h-3" />
                             )}
@@ -392,7 +392,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                       )}
 
                       {t.qualifications && (
-                        <span className={`text-[11px] text-muted-foreground truncate max-w-[200px] ${isEn ? "border-l pl-2" : "border-r pr-2"} border-border/60`}>
+                        <span className={`text-[11px] text-muted-foreground truncate max-w-[200px] ${isEn ? "border-l ps-2" : "border-r pe-2"} border-border/60`}>
                           {t.qualifications}
                         </span>
                       )}
@@ -433,7 +433,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                       href={`https://wa.me/${waPhone}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 text-emerald-600 hover:text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg transition-colors"
+                      className="p-1.5 text-success hover:text-success bg-success/10 hover:bg-success/20 rounded-lg transition-colors"
                       title={isEn ? "Message on WhatsApp" : "مراسلة واتساب"}
                     >
                       <MessageCircle className="w-3.5 h-3.5" />
@@ -466,8 +466,8 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                     onClick={() => handleToggleTeacher(t.id, t.isActive)}
                     className={`inline-flex items-center gap-1 px-2.5 py-1.5 text-xs rounded-lg transition-colors font-medium ${
                       t.isActive
-                        ? "bg-rose-500/10 text-rose-600 hover:bg-rose-500/20"
-                        : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                        ? "bg-rose-500/10 text-destructive hover:bg-destructive/20"
+                        : "bg-emerald-500/10 text-success hover:bg-success/20"
                     }`}
                     aria-label={t.isActive ? (isEn ? "Deactivate Teacher" : "تعطيل المدرس") : (isEn ? "Activate Teacher" : "تفعيل المدرس")} title={t.isActive ? (isEn ? "Deactivate Teacher" : "تعطيل المدرس") : (isEn ? "Activate Teacher" : "تفعيل المدرس")}
                   >
@@ -479,7 +479,7 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                   <button
                     type="button"
                     onClick={() => handleDeleteTeacher(t.id)}
-                    className="p-1.5 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                    className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
                     aria-label={isEn ? "Delete Teacher" : "حذف المدرس"} title={isEn ? "Delete Teacher" : "حذف المدرس"}
                   >
                     <Trash2 className="w-3.5 h-3.5" />

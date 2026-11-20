@@ -273,9 +273,9 @@ export default function AgentProfileHeader({
               <DropdownMenuContent align="end" className="w-56 text-right" dir="rtl">
                 <DropdownMenuItem
                   onClick={onArchive}
-                  className="flex items-start gap-2.5 cursor-pointer py-2 px-2.5 text-xs font-medium rounded-lg text-amber-700 dark:text-amber-400 focus:text-amber-800 focus:bg-amber-50 dark:focus:bg-amber-950/30"
+                  className="flex items-start gap-2.5 cursor-pointer py-2 px-2.5 text-xs font-medium rounded-lg text-warning dark:text-warning focus:text-warning focus:bg-warning/10 dark:focus:bg-warning/30"
                 >
-                  <Archive className="size-4 shrink-0 text-amber-600 mt-0.5" />
+                  <Archive className="size-4 shrink-0 text-warning mt-0.5" />
                   <div className="flex flex-col gap-0.5">
                     <span className="font-semibold">{t("agentProfiles.archive.title", "أرشفة الوكيل")}</span>
                     <span className="text-[10px] text-muted-foreground font-normal leading-tight">
@@ -313,7 +313,7 @@ export default function AgentProfileHeader({
               className="h-8 text-xs px-2.5 sm:px-3 shrink-0"
               onClick={() => setEditing(true)}
             >
-              <PenLine className="size-3.5 ml-1" />
+              <PenLine className="size-3.5 ms-1" />
               <span>{t("agentProfiles.settings.edit", "تعديل")}</span>
             </Button>
           ) : (
@@ -325,9 +325,9 @@ export default function AgentProfileHeader({
                 disabled={profileSaving || !hasUnsavedChanges}
               >
                 {profileSaving ? (
-                  <Loader2 className="size-3.5 animate-spin ml-1" />
+                  <Loader2 className="size-3.5 animate-spin ms-1" />
                 ) : (
-                  <Save className="size-3.5 ml-1" />
+                  <Save className="size-3.5 ms-1" />
                 )}
                 <span>
                   {profileSaving
@@ -343,7 +343,7 @@ export default function AgentProfileHeader({
                   onClick={onDiscard}
                   disabled={profileSaving}
                 >
-                  <X className="size-3.5 ml-1" />
+                  <X className="size-3.5 ms-1" />
                   <span>{t("agentProfiles.header.discard", "تراجع")}</span>
                 </Button>
               )}
@@ -360,7 +360,7 @@ export default function AgentProfileHeader({
             onClick={() => navigate("/admin/agent-chat")}
             title={t("agentProfiles.header.chat", "محادثة الوكيل")}
           >
-            <MessageSquare className="size-3.5 ml-1 text-primary shrink-0" />
+            <MessageSquare className="size-3.5 ms-1 text-primary shrink-0" />
             <span className="hidden sm:inline">{t("agentProfiles.header.chat", "محادثة")}</span>
           </Button>
 
@@ -371,7 +371,7 @@ export default function AgentProfileHeader({
             onClick={() => navigate("/admin/ai-hub?tab=train")}
             title={t("agentProfiles.header.training", "تدريب الوكيل على معلومات المتجر")}
           >
-            <GraduationCap className="size-3.5 ml-1 text-indigo-500 shrink-0" />
+            <GraduationCap className="size-3.5 ms-1 text-primary shrink-0" />
             <span className="hidden sm:inline">{t("agentProfiles.header.training", "التدريب")}</span>
           </Button>
 
@@ -382,7 +382,7 @@ export default function AgentProfileHeader({
             onClick={() => navigate("/admin/ai-hub?tab=routing")}
             title={t("agentProfiles.header.routing", "توزيع وربط القنوات")}
           >
-            <GitFork className="size-3.5 ml-1 text-amber-500 shrink-0" />
+            <GitFork className="size-3.5 ms-1 text-warning shrink-0" />
             <span className="hidden sm:inline">{t("agentProfiles.header.routing", "القنوات")}</span>
           </Button>
 
@@ -403,9 +403,9 @@ export default function AgentProfileHeader({
               <DropdownMenuContent align="end" className="w-56 text-right" dir="rtl">
                 <DropdownMenuItem
                   onClick={onArchive}
-                  className="flex items-start gap-2.5 cursor-pointer py-2 px-2.5 text-xs font-medium rounded-lg text-amber-700 dark:text-amber-400 focus:text-amber-800 focus:bg-amber-50 dark:focus:bg-amber-950/30"
+                  className="flex items-start gap-2.5 cursor-pointer py-2 px-2.5 text-xs font-medium rounded-lg text-warning dark:text-warning focus:text-warning focus:bg-warning/10 dark:focus:bg-warning/30"
                 >
-                  <Archive className="size-4 shrink-0 text-amber-600 mt-0.5" />
+                  <Archive className="size-4 shrink-0 text-warning mt-0.5" />
                   <div className="flex flex-col gap-0.5">
                     <span className="font-semibold">{t("agentProfiles.archive.title", "أرشفة الوكيل")}</span>
                     <span className="text-[10px] text-muted-foreground font-normal leading-tight">
@@ -432,7 +432,7 @@ export default function AgentProfileHeader({
         </div>
 
         {/* Right / End: Refresh */}
-        <div className="flex items-center gap-1 shrink-0 mr-auto">
+        <div className="flex items-center gap-1 shrink-0 me-auto">
           <Button
             variant="ghost"
             size="icon"

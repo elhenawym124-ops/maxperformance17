@@ -33,7 +33,7 @@ export const AgentProfilesTabsBar: React.FC<AgentProfilesTabsBarProps> = ({
       key: "skills",
       label: t("agentProfiles.tabs.skills", "المهارات"),
       count: profile?.skills?.length ?? 0,
-      icon: <Zap className="size-4 text-indigo-500" />,
+      icon: <Zap className="size-4 text-primary" />,
     },
     {
       key: "tools",
@@ -49,7 +49,7 @@ export const AgentProfilesTabsBar: React.FC<AgentProfilesTabsBarProps> = ({
     {
       key: "automation",
       label: t("agentProfiles.tabs.automation", "التشغيل التلقائي"),
-      icon: <Play className="size-4 text-emerald-500" />,
+      icon: <Play className="size-4 text-success" />,
     },
   ];
 

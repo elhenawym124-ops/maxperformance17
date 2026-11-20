@@ -274,11 +274,11 @@ export default function AgentToolsPage({ companyId }: { companyId?: string } = {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-emerald-500" />
+                  <span className="size-2 rounded-full bg-success" />
                   <h3 className="text-xs font-bold text-foreground">
                     الأدوات المجهزة والنشطة للوكلاء
                   </h3>
-                  <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">
+                  <span className="font-mono text-[11px] text-success dark:text-success bg-success/10 px-2 py-0.5 rounded-full font-bold">
                     {equippedList.length}
                   </span>
                 </div>

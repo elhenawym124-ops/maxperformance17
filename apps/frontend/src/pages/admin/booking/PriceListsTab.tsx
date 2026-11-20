@@ -203,7 +203,7 @@ export default function PriceListsTab() {
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <h3 className="font-semibold text-xs text-foreground truncate">{l.name}</h3>
                   {l.isBase && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-medium">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20 font-medium">
                       أساسية
                     </span>
                   )}
@@ -323,7 +323,7 @@ export default function PriceListsTab() {
                         <td className="py-2 px-3 font-medium text-foreground">
                           {service.name}
                           {service.durationMinutes ? (
-                            <span className="text-[10px] text-muted-foreground font-mono tabular-nums mr-1">
+                            <span className="text-[10px] text-muted-foreground font-mono tabular-nums me-1">
                               ({service.durationMinutes} د)
                             </span>
                           ) : null}
@@ -343,9 +343,9 @@ export default function PriceListsTab() {
                         <td className="py-2 px-3 whitespace-nowrap font-mono tabular-nums font-semibold text-foreground">
                           {effective} ج.م
                           {overridden && basePrice !== effective && (
-                            <span className={`text-[10px] mr-1.5 px-1.5 py-0.2 rounded font-medium ${
+                            <span className={`text-[10px] me-1.5 px-1.5 py-0.2 rounded font-medium ${
                               effective < basePrice
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                ? "bg-emerald-500/10 text-success dark:text-success"
                                 : "bg-destructive/10 text-destructive"
                             }`}>
                               {effective < basePrice ? "خصم" : "زيادة"}

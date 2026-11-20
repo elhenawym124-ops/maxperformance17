@@ -143,7 +143,7 @@ export default function ServiceModal({
       onClick={onClose}
     >
       <div
-        className={`${MODAL_CONTENT_CLS} max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border/80 rounded-2xl shadow-2xl text-foreground font-sans`}
+        className={`${MODAL_CONTENT_CLS} max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border/80 rounded-xl shadow-2xl text-foreground font-sans`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

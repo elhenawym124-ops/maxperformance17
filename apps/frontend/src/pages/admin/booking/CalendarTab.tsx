@@ -60,15 +60,15 @@ const shiftDate = (dateStr: string, days: number): string => {
 };
 
 const BLOCK_COLORS: Record<string, string> = {
-  pending: "bg-amber-500/15 border-amber-500/30 text-amber-700 dark:text-amber-300",
-  confirmed: "bg-emerald-500/15 border-emerald-500/30 text-emerald-700 dark:text-emerald-300",
+  pending: "bg-amber-500/15 border-warning/30 text-warning dark:text-warning",
+  confirmed: "bg-emerald-500/15 border-success/30 text-success dark:text-success",
   checked_in: "bg-blue-500/15 border-blue-500/30 text-blue-700 dark:text-blue-300",
-  procedure_started: "bg-indigo-500/15 border-indigo-500/30 text-indigo-700 dark:text-indigo-300",
-  procedure_completed: "bg-violet-500/15 border-violet-500/30 text-violet-700 dark:text-violet-300",
-  checked_out: "bg-teal-500/15 border-teal-500/30 text-teal-700 dark:text-teal-300",
+  procedure_started: "bg-indigo-500/15 border-primary/30 text-primary dark:text-primary",
+  procedure_completed: "bg-violet-500/15 border-primary/30 text-primary dark:text-primary",
+  checked_out: "bg-teal-500/15 border-success/30 text-success dark:text-success",
   completed: "bg-blue-500/15 border-blue-500/30 text-blue-700 dark:text-blue-300",
-  cancelled: "bg-rose-500/15 border-rose-500/30 text-rose-700 dark:text-rose-300",
-  missed: "bg-orange-500/15 border-orange-500/30 text-orange-700 dark:text-orange-300",
+  cancelled: "bg-rose-500/15 border-destructive/30 text-destructive dark:text-destructive",
+  missed: "bg-orange-500/15 border-warning/30 text-warning dark:text-warning",
   no_show: "bg-muted border-border/70 text-muted-foreground",
 };
 

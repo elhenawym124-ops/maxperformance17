@@ -159,7 +159,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
         </div>
 
         {errorMessage && (
-          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-2.5 text-xs text-red-600 dark:text-red-400">
+          <div className="p-3 bg-destructive/10 border border-destructive/30 rounded-xl flex items-start gap-2.5 text-xs text-destructive dark:text-destructive">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <p className="font-semibold">{t("education.sessions.errorSave", isEn ? "Unable to save session" : "تعذر حفظ الحصة")}</p>
@@ -180,7 +180,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
                 onClick={() => setForm({ ...form, sessionType: "PRIVATE" })}
                 className={`p-2 rounded-lg text-xs font-bold transition-all border ${
                   form.sessionType === "PRIVATE"
-                    ? "bg-purple-600 text-white border-purple-600 shadow-xs"
+                    ? "bg-purple-600 text-white border-primary shadow-xs"
                     : "bg-card border-border text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -206,7 +206,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
                 {t("education.enrollments.title", isEn ? "Enrollment / Subscription *" : "التسجيل / الاشتراك *")}
               </label>
               <select
-                className={`${INPUT_CLS} ${fieldErrors.enrollmentId ? "border-red-500 focus:ring-red-500" : ""}`}
+                className={`${INPUT_CLS} ${fieldErrors.enrollmentId ? "border-red-500 focus:ring-destructive" : ""}`}
                 value={form.enrollmentId}
                 onChange={(e) => handleEnrollmentChange(e.target.value)}
               >
@@ -221,7 +221,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
                   ))}
               </select>
               {fieldErrors.enrollmentId && (
-                <p className="text-[11px] text-red-500 font-medium">{fieldErrors.enrollmentId}</p>
+                <p className="text-[11px] text-destructive font-medium">{fieldErrors.enrollmentId}</p>
               )}
               {selectedEnrollment && (
                 <div className="p-2.5 bg-muted/40 border border-border/60 rounded-lg text-xs space-y-1">
@@ -240,7 +240,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
                   </div>
                   <div className="flex items-center justify-between text-[11px]">
                     <span className="text-muted-foreground">{isEn ? "Remaining Balance:" : "الرصيد المتبقي:"}</span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                    <span className="text-emerald-600 dark:text-success font-semibold">
                       {isEn ? `${selectedEnrollment.remainingHours} of ${selectedEnrollment.totalHours} hours` : `${selectedEnrollment.remainingHours} من ${selectedEnrollment.totalHours} ساعة`}
                     </span>
                   </div>
@@ -256,14 +256,14 @@ export const SessionModal: React.FC<SessionModalProps> = ({
                 {isEn ? "Assigned Teacher *" : "المدرس المعين للحصة *"}
               </label>
               {selectedEnrollment?.teacher && (
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
+                <span className="text-[10px] text-success dark:text-success flex items-center gap-1 font-medium">
                   <CheckCircle2 className="w-3 h-3" />
                   {isEn ? "Enrollment Teacher:" : "مدرس التسجيل:"} {selectedEnrollment.teacher.name}
                 </span>
               )}
             </div>
             <select
-              className={`${INPUT_CLS} ${fieldErrors.teacherId ? "border-red-500 focus:ring-red-500" : ""}`}
+              className={`${INPUT_CLS} ${fieldErrors.teacherId ? "border-red-500 focus:ring-destructive" : ""}`}
               value={form.teacherId}
               onChange={(e) => {
                 setForm({ ...form, teacherId: e.target.value });
@@ -279,10 +279,10 @@ export const SessionModal: React.FC<SessionModalProps> = ({
               ))}
             </select>
             {fieldErrors.teacherId && (
-              <p className="text-[11px] text-red-500 font-medium">{fieldErrors.teacherId}</p>
+              <p className="text-[11px] text-destructive font-medium">{fieldErrors.teacherId}</p>
             )}
             {selectedEnrollment && !selectedEnrollment.teacher && (
-              <p className="text-[11px] text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-1">
+              <p className="text-[11px] text-warning dark:text-warning flex items-center gap-1 mt-1">
                 <UserCheck className="w-3.5 h-3.5 shrink-0" />
                 {t("education.sessions.autoAssignTeacherNotice", isEn
                   ? "This enrollment has no assigned teacher yet — the teacher chosen here will be assigned automatically."
@@ -298,7 +298,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
             </label>
             <input
               type="datetime-local"
-              className={`${INPUT_CLS} ${fieldErrors.scheduledAt ? "border-red-500 focus:ring-red-500" : ""}`}
+              className={`${INPUT_CLS} ${fieldErrors.scheduledAt ? "border-red-500 focus:ring-destructive" : ""}`}
               value={form.scheduledAt}
               onChange={(e) => {
                 setForm({ ...form, scheduledAt: e.target.value });
@@ -307,7 +307,7 @@ export const SessionModal: React.FC<SessionModalProps> = ({
               disabled={isEdit && session?.status !== "SCHEDULED"}
             />
             {fieldErrors.scheduledAt && (
-              <p className="text-[11px] text-red-500 font-medium">{fieldErrors.scheduledAt}</p>
+              <p className="text-[11px] text-destructive font-medium">{fieldErrors.scheduledAt}</p>
             )}
           </div>
 

@@ -149,7 +149,7 @@ export function EducationBranchModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-xs">
       <div
-        className="w-full max-w-2xl max-h-[92vh] flex flex-col bg-card border border-border rounded-2xl shadow-xl overflow-hidden"
+        className="w-full max-w-2xl max-h-[92vh] flex flex-col bg-card border border-border rounded-xl shadow-xl overflow-hidden"
         dir={isEn ? "ltr" : "rtl"}
       >
         {/* Header */}

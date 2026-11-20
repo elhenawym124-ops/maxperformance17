@@ -83,7 +83,7 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
         <div className="space-y-6">
           {/* Profile Chassis */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 bg-card border border-border/70 rounded-xl p-5 shadow-sm">
-            <div className="flex items-center gap-4 md:col-span-1 border-b md:border-b-0 md:border-l border-border/60 pb-4 md:pb-0 md:pl-4">
+            <div className="flex items-center gap-4 md:col-span-1 border-b md:border-b-0 md:border-l border-border/60 pb-4 md:pb-0 md:ps-4">
               {doctor.avatarUrl ? (
                 <img src={doctor.avatarUrl} alt={doctor.name} className="w-16 h-16 rounded-xl object-cover border border-border/70 shadow-sm" />
               ) : (
@@ -94,7 +94,7 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
               <div className="space-y-1">
                 <h2 className="text-base font-bold text-foreground">{doctor.title} {doctor.name}</h2>
                 <p className="text-xs text-muted-foreground">{doctor.specialty || "—"}</p>
-                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium border ${doctor.isActive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"}`}>
+                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium border ${doctor.isActive ? "bg-emerald-500/10 text-success dark:text-success border-success/20" : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"}`}>
                   <span className={`w-1.5 h-1.5 rounded-full ${doctor.isActive ? "bg-emerald-500" : "bg-rose-500"}`} />
                   {doctor.isActive ? "نشط" : "غير نشط"}
                 </span>
@@ -152,11 +152,11 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
             </div>
             <div className="p-3.5 space-y-1">
               <span className="text-xs text-muted-foreground">مواعيد قادمة</span>
-              <div className="text-lg font-bold font-mono tabular-nums text-sky-600 dark:text-sky-400">{doctor.stats?.upcoming ?? 0}</div>
+              <div className="text-lg font-bold font-mono tabular-nums text-info dark:text-info">{doctor.stats?.upcoming ?? 0}</div>
             </div>
             <div className="p-3.5 space-y-1">
               <span className="text-xs text-muted-foreground">مكتملة</span>
-              <div className="text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{doctor.stats?.completed ?? 0}</div>
+              <div className="text-lg font-bold font-mono tabular-nums text-success dark:text-success">{doctor.stats?.completed ?? 0}</div>
             </div>
           </div>
 
@@ -168,35 +168,35 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs text-muted-foreground font-mono">
                     <span>نسبة الحضور</span>
-                    <span className="font-semibold text-emerald-600 dark:text-emerald-400">{doctor.stats?.attendanceRate ?? 0}%</span>
+                    <span className="font-semibold text-success dark:text-success">{doctor.stats?.attendanceRate ?? 0}%</span>
                   </div>
                   <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${Math.min(100, doctor.stats?.attendanceRate ?? 0)}%` }} />
+                    <div className="h-full bg-success rounded-full" style={{ width: `${Math.min(100, doctor.stats?.attendanceRate ?? 0)}%` }} />
                   </div>
                 </div>
 
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs text-muted-foreground font-mono">
                     <span>نسبة عدم الحضور</span>
-                    <span className="font-semibold text-rose-600 dark:text-rose-400">{doctor.stats?.noShowRate ?? 0}%</span>
+                    <span className="font-semibold text-destructive dark:text-destructive">{doctor.stats?.noShowRate ?? 0}%</span>
                   </div>
                   <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-rose-500 rounded-full" style={{ width: `${Math.min(100, doctor.stats?.noShowRate ?? 0)}%` }} />
+                    <div className="h-full bg-destructive rounded-full" style={{ width: `${Math.min(100, doctor.stats?.noShowRate ?? 0)}%` }} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2 pt-2 text-center">
                   <div className="bg-muted/30 border border-border/60 rounded-lg p-2">
                     <span className="text-[10px] text-muted-foreground block">مكتمل</span>
-                    <strong className="text-xs font-mono text-emerald-600 dark:text-emerald-400">{doctor.stats?.completed ?? 0}</strong>
+                    <strong className="text-xs font-mono text-success dark:text-success">{doctor.stats?.completed ?? 0}</strong>
                   </div>
                   <div className="bg-muted/30 border border-border/60 rounded-lg p-2">
                     <span className="text-[10px] text-muted-foreground block">انتظار</span>
-                    <strong className="text-xs font-mono text-amber-600 dark:text-amber-400">{doctor.stats?.pending ?? 0}</strong>
+                    <strong className="text-xs font-mono text-warning dark:text-warning">{doctor.stats?.pending ?? 0}</strong>
                   </div>
                   <div className="bg-muted/30 border border-border/60 rounded-lg p-2">
                     <span className="text-[10px] text-muted-foreground block">ملغي</span>
-                    <strong className="text-xs font-mono text-rose-600 dark:text-rose-400">{doctor.stats?.cancelled ?? 0}</strong>
+                    <strong className="text-xs font-mono text-destructive dark:text-destructive">{doctor.stats?.cancelled ?? 0}</strong>
                   </div>
                   <div className="bg-muted/30 border border-border/60 rounded-lg p-2">
                     <span className="text-[10px] text-muted-foreground block">لم يحضر</span>
@@ -215,7 +215,7 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
                 </div>
                 <div className="bg-muted/30 border border-border/60 rounded-lg p-3 space-y-0.5">
                   <span className="text-muted-foreground">المحصل</span>
-                  <p className="font-mono text-sm font-bold text-emerald-600 dark:text-emerald-400">{fmtMoney(doctor.stats?.collected)}</p>
+                  <p className="font-mono text-sm font-bold text-success dark:text-success">{fmtMoney(doctor.stats?.collected)}</p>
                 </div>
                 <div className="bg-muted/30 border border-border/60 rounded-lg p-3 space-y-0.5">
                   <span className="text-muted-foreground">الخصومات</span>
@@ -223,7 +223,7 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
                 </div>
                 <div className="bg-muted/30 border border-border/60 rounded-lg p-3 space-y-0.5">
                   <span className="text-muted-foreground">المتبقي</span>
-                  <p className="font-mono text-sm font-bold text-rose-600 dark:text-rose-400">{fmtMoney(doctor.stats?.outstanding)}</p>
+                  <p className="font-mono text-sm font-bold text-destructive dark:text-destructive">{fmtMoney(doctor.stats?.outstanding)}</p>
                 </div>
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 col-span-2 space-y-0.5">
                   <span className="text-primary font-medium">عمولة الطبيب المستحقة ({doctor.commissionRate != null ? `${doctor.commissionRate}%` : "—"})</span>
@@ -250,7 +250,7 @@ export default function DoctorDetailPage({ doctorId }: { doctorId?: string }) {
                       key={idx}
                       className={`rounded-lg border p-2.5 text-center transition-colors ${
                         slot
-                          ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+                          ? "bg-emerald-500/10 border-success/20 text-success dark:text-success"
                           : "bg-muted/30 border-border/60 text-muted-foreground"
                       }`}
                     >

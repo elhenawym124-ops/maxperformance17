@@ -78,7 +78,7 @@ export default function OperationsTransactionsTab() {
             <input
               type="text"
               placeholder="بحث في الوصف أو الدافع..."
-              className={`${MODAL_INPUT_CLS} pr-8 w-48 sm:w-64 text-sm py-1.5`}
+              className={`${MODAL_INPUT_CLS} pe-8 w-48 sm:w-64 text-sm py-1.5`}
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(1); }}
             />

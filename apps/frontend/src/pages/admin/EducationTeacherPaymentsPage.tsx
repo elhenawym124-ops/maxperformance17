@@ -271,11 +271,11 @@ export default function EducationTeacherPaymentsPage() {
             <div className="text-xs text-muted-foreground">
               {t("education.payments.completedPayments", isEn ? "Completed Payments" : "المدفوعات المكتملة")}
             </div>
-            <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <div className="text-xl font-bold text-success dark:text-success font-mono tabular-nums">
               {stats.paidAmount.toLocaleString()} {t("education.common.egp", isEn ? "EGP" : "ج.م")}
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+          <div className="w-9 h-9 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center border border-success/20">
             <CheckCircle2 className="w-4 h-4" />
           </div>
         </div>
@@ -285,11 +285,11 @@ export default function EducationTeacherPaymentsPage() {
             <div className="text-xs text-muted-foreground">
               {t("education.payments.pendingDues", isEn ? "Pending Dues" : "المستحقات المعلقة")}
             </div>
-            <div className="text-xl font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+            <div className="text-xl font-bold text-warning dark:text-warning font-mono tabular-nums">
               {stats.pendingAmount.toLocaleString()} {t("education.common.egp", isEn ? "EGP" : "ج.م")}
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center border border-amber-500/20">
+          <div className="w-9 h-9 rounded-lg bg-warning/10 text-warning dark:text-warning flex items-center justify-center border border-warning/20">
             <Clock className="w-4 h-4" />
           </div>
         </div>
@@ -353,7 +353,7 @@ export default function EducationTeacherPaymentsPage() {
       </div>
 
       {/* Payments Table */}
-      <div className="bg-card border border-border/80 rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[750px] text-xs">
             <thead>
@@ -412,7 +412,7 @@ export default function EducationTeacherPaymentsPage() {
                     <td className="py-3 px-4 font-mono tabular-nums text-foreground font-medium">
                       {p.grossAmount} {t("education.common.egp", isEn ? "EGP" : "ج.م")}
                     </td>
-                    <td className="py-3 px-4 font-mono tabular-nums text-red-600 dark:text-red-400">
+                    <td className="py-3 px-4 font-mono tabular-nums text-destructive dark:text-destructive">
                       {p.deductions > 0 ? `-${p.deductions} ${t("education.common.egp", isEn ? "EGP" : "ج.م")}` : "—"}
                     </td>
                     <td className="py-3 px-4 font-mono tabular-nums font-bold text-foreground">
@@ -422,10 +422,10 @@ export default function EducationTeacherPaymentsPage() {
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                           isPaid
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                             : isPending
-                            ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                            : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                            ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                            : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                         }`}
                       >
                         {isPaid ? <CheckCircle2 className="w-3 h-3" /> : isPending ? <Clock className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
@@ -440,7 +440,7 @@ export default function EducationTeacherPaymentsPage() {
                       {p.status === "PENDING" && (
                         <button
                           onClick={() => handleMarkPaid(p.id)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-[11px] font-medium hover:bg-emerald-700 shadow-xs transition-colors"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-success text-white rounded-lg text-[11px] font-medium hover:bg-success shadow-xs transition-colors"
                         >
                           <CheckCircle2 className="w-3 h-3" />
                           {t("education.payments.confirmPayment", isEn ? "Confirm Payment" : "تأكيد الدفع")}
@@ -465,7 +465,7 @@ export default function EducationTeacherPaymentsPage() {
           dir={isEn ? "ltr" : "rtl"}
         >
           <div
-            className="bg-card border border-border/80 rounded-2xl shadow-2xl p-4 sm:p-6 w-full max-w-lg mx-auto space-y-4 max-h-[90vh] overflow-y-auto"
+            className="bg-card border border-border/80 rounded-xl shadow-2xl p-4 sm:p-6 w-full max-w-lg mx-auto space-y-4 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 border-b border-border/80">
@@ -558,7 +558,7 @@ export default function EducationTeacherPaymentsPage() {
                 </button>
 
                 {calcError && (
-                  <div className="flex items-start gap-1.5 text-[11px] text-red-600 dark:text-red-400">
+                  <div className="flex items-start gap-1.5 text-[11px] text-destructive dark:text-destructive">
                     <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
                     <span>{calcError}</span>
                   </div>
@@ -593,7 +593,7 @@ export default function EducationTeacherPaymentsPage() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                      <div className="text-lg font-bold font-mono tabular-nums text-success dark:text-success">
                         {calcResult.grossAmount} {t("education.common.egp", isEn ? "EGP" : "ج.م")}
                       </div>
                       <div className="text-[10px] text-muted-foreground">
@@ -631,7 +631,7 @@ export default function EducationTeacherPaymentsPage() {
                 <div className="flex items-center gap-2 pt-2 border-t border-border/80">
                   <button
                     onClick={handleCreatePayment}
-                    className="flex-1 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors text-xs shadow-xs"
+                    className="flex-1 py-2 bg-success text-white font-semibold rounded-lg hover:bg-success transition-colors text-xs shadow-xs"
                   >
                     {t("education.payments.approveAndCreate", isEn ? "Approve & Create Payment" : "اعتماد وإنشاء الدفعة")} (
                     {(calcResult.grossAmount - deductions).toLocaleString()} {t("education.common.egp", isEn ? "EGP" : "ج.م")})

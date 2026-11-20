@@ -413,14 +413,14 @@ export default function AgentSkillsPage({
 
       {/* 2. Main High-Density Skills List (Image 1 Style) with Clear Installed vs Uninstalled Sections */}
       {loading ? (
-        <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-dashed bg-card/40">
+        <div className="flex min-h-[300px] items-center justify-center rounded-xl border border-dashed bg-card/40">
           <div className="flex flex-col items-center gap-2">
             <LoadingSpinner size="lg" />
             <span className="text-xs text-muted-foreground font-mono">جارٍ مزامنة المهارات...</span>
           </div>
         </div>
       ) : filteredSkills.length === 0 ? (
-        <div className="flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-dashed bg-card/30 p-8 text-center">
+        <div className="flex min-h-[220px] flex-col items-center justify-center rounded-xl border border-dashed bg-card/30 p-8 text-center">
           <div className="flex size-10 items-center justify-center rounded-full bg-muted text-muted-foreground mb-2.5">
             <Search className="size-4" />
           </div>
@@ -436,11 +436,11 @@ export default function AgentSkillsPage({
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between pb-1.5 border-b border-border/50">
                 <div className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-emerald-500 shadow-xs" />
+                  <span className="size-2 rounded-full bg-success shadow-xs" />
                   <h3 className="font-bold text-xs sm:text-sm text-foreground">
                     المهارات المثبتة والنشطة للوكلاء
                   </h3>
-                  <span className="font-mono text-[0.7rem] font-bold px-1.5 py-0.2 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                  <span className="font-mono text-[0.7rem] font-bold px-1.5 py-0.2 rounded-md bg-success/10 text-success dark:text-success">
                     {installedSkillsList.length}
                   </span>
                 </div>

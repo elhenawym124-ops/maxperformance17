@@ -117,7 +117,7 @@ const StatusManagement: React.FC<Props> = ({ statuses, onUpdate }) => {
 
             <div className="flex flex-wrap gap-1.5 pt-1 border-t border-border/60">
               {status.isTerminal && (
-                <span className="inline-flex items-center gap-1 text-[11px] bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded-md font-medium">
+                <span className="inline-flex items-center gap-1 text-[11px] bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 px-2 py-0.5 rounded-md font-medium">
                   <Ban className="w-3 h-3" /> {t('orderSettings.k_144')}
                 </span>
               )}
@@ -127,7 +127,7 @@ const StatusManagement: React.FC<Props> = ({ statuses, onUpdate }) => {
                 </span>
               )}
               {status.requiresApprovalToExit && (
-                <span className="inline-flex items-center gap-1 text-[11px] bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md font-medium">
+                <span className="inline-flex items-center gap-1 text-[11px] bg-warning/10 text-warning dark:text-warning border border-warning/20 px-2 py-0.5 rounded-md font-medium">
                   <CheckCircle2 className="w-3 h-3" /> {t('orderSettings.k_146')}
                 </span>
               )}
@@ -144,7 +144,7 @@ const StatusManagement: React.FC<Props> = ({ statuses, onUpdate }) => {
       {/* Modal for Edit/Create */}
       {editingStatus && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-card border border-border/80 rounded-2xl shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-lg bg-card border border-border/80 rounded-xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <h2 className="text-base font-bold text-foreground">
                 {editingStatus.id ? t('orderSettings.k_52') : t('orderSettings.k_53')}
@@ -294,7 +294,7 @@ const StatusManagement: React.FC<Props> = ({ statuses, onUpdate }) => {
       {/* Delete Confirmation Modal */}
       {deleteTarget && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="w-full max-w-sm bg-card border border-border/80 rounded-2xl shadow-2xl p-6 space-y-4">
+          <div className="w-full max-w-sm bg-card border border-border/80 rounded-xl shadow-2xl p-6 space-y-4">
             <h3 className="text-sm font-bold text-destructive">{t('orderSettings.k_69')}</h3>
             <p className="text-xs text-foreground">
               {t('orderSettings.k_150')} <strong className="font-bold">"{deleteTarget.name}"</strong>{t('orderSettings.k_151')}

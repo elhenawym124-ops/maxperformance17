@@ -99,7 +99,7 @@ export default function PatientsTab({
           <div className="relative">
             <Search className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/70" />
             <input
-              className={`${MODAL_INPUT_CLS} pr-8 pl-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56`}
+              className={`${MODAL_INPUT_CLS} pe-8 ps-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56`}
               placeholder="بحث بالاسم أو الهاتف..."
               value={search}
               onChange={e => onSearchChange(e.target.value)}
@@ -176,14 +176,14 @@ export default function PatientsTab({
                     <Pencil className="w-3.5 h-3.5" />
                     <span>تعديل</span>
                   </button>
-                  <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="text-xs px-2.5 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-md hover:bg-amber-500/20 flex items-center gap-1">
+                  <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="text-xs px-2.5 py-1 bg-warning/10 text-warning dark:text-warning rounded-md hover:bg-warning/20 flex items-center gap-1">
                     <GitMerge className="w-3.5 h-3.5" />
                     <span>دمج</span>
                   </button>
-                  <button onClick={() => onToggleActive(p.id, p.isActive)} className={`text-xs px-2.5 py-1 rounded-md ${p.isActive ? "bg-rose-500/10 text-rose-600 hover:bg-rose-500/20" : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"}`}>
+                  <button onClick={() => onToggleActive(p.id, p.isActive)} className={`text-xs px-2.5 py-1 rounded-md ${p.isActive ? "bg-rose-500/10 text-destructive hover:bg-destructive/20" : "bg-emerald-500/10 text-success hover:bg-success/20"}`}>
                     {p.isActive ? "تعطيل" : "تفعيل"}
                   </button>
-                  <button onClick={() => onDelete(p.id)} className="text-xs px-2.5 py-1 bg-rose-500/10 text-rose-600 rounded-md hover:bg-rose-500/20 flex items-center gap-1">
+                  <button onClick={() => onDelete(p.id)} className="text-xs px-2.5 py-1 bg-destructive/10 text-destructive rounded-md hover:bg-destructive/20 flex items-center gap-1">
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>حذف</span>
                   </button>
@@ -225,9 +225,9 @@ export default function PatientsTab({
                         <button onClick={() => onView(p.id)} className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors" title="عرض الملف"><Eye className="w-4 h-4" /></button>
                         <button onClick={() => navigate(`/admin/booking/patients/${p.id}`)} className="p-1 text-primary hover:bg-primary/10 rounded transition-colors" title="فتح صفحة مستقلة"><ExternalLink className="w-4 h-4" /></button>
                         <button onClick={() => onEdit(p)} className="p-1 text-blue-600 hover:bg-blue-500/10 rounded transition-colors" title="تعديل"><Pencil className="w-4 h-4" /></button>
-                        <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="p-1 text-amber-600 hover:bg-amber-500/10 rounded transition-colors" title="دمج"><GitMerge className="w-4 h-4" /></button>
-                        <button onClick={() => onToggleActive(p.id, p.isActive)} className={`p-1 rounded transition-colors ${p.isActive ? "text-rose-500 hover:bg-rose-500/10" : "text-emerald-500 hover:bg-emerald-500/10"}`} title={p.isActive ? "تعطيل" : "تفعيل"}><Check className="w-4 h-4" /></button>
-                        <button onClick={() => onDelete(p.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded transition-colors" title="حذف"><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="p-1 text-warning hover:bg-warning/10 rounded transition-colors" title="دمج"><GitMerge className="w-4 h-4" /></button>
+                        <button onClick={() => onToggleActive(p.id, p.isActive)} className={`p-1 rounded transition-colors ${p.isActive ? "text-rose-500 hover:bg-destructive/10" : "text-emerald-500 hover:bg-success/10"}`} title={p.isActive ? "تعطيل" : "تفعيل"}><Check className="w-4 h-4" /></button>
+                        <button onClick={() => onDelete(p.id)} className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors" title="حذف"><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>
@@ -275,7 +275,7 @@ export default function PatientsTab({
               <button
                 onClick={confirmMerge}
                 disabled={!mergeTargetId || merging}
-                className="px-3.5 py-1.5 bg-amber-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-amber-700 disabled:opacity-50 transition-colors shadow-sm"
+                className="px-3.5 py-1.5 bg-warning text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-warning disabled:opacity-50 transition-colors shadow-sm"
               >
                 {merging ? "جاري الدمج..." : "تأكيد الدمج"}
               </button>

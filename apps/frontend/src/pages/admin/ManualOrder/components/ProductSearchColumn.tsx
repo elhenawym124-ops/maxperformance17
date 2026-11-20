@@ -415,13 +415,13 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
   return (
     <div
-      className="flex flex-col bg-white dark:bg-gray-900 rounded-xl shadow-2xs border border-gray-200/80 dark:border-gray-800 overflow-hidden relative"
+      className="flex flex-col bg-white dark:bg-muted rounded-xl shadow-2xs border border-border dark:border-border overflow-hidden relative"
       style={{ height: "100%", maxHeight: "100%" }}
     >
       {/* Search Header */}
-      <div className="px-4 py-3 border-b border-gray-200/80 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/40">
+      <div className="px-4 py-3 border-b border-border dark:border-border bg-muted dark:bg-muted">
         <div className="flex items-center justify-between mb-2.5">
-          <h2 className="text-xs sm:text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+          <h2 className="text-xs sm:text-sm font-semibold tracking-tight text-foreground">
             {isAffiliateMode ? t('manualOrder.affiliateProducts') : t('manualOrder.products')}
           </h2>
           <button
@@ -429,10 +429,10 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
             onClick={handleRefresh}
             disabled={loading}
             title={t('manualOrder.refreshProducts')}
-            className="p-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors disabled:opacity-50 active:scale-[0.98]"
+            className="p-1 text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white hover:bg-muted dark:hover:bg-muted rounded-md transition-colors disabled:opacity-50 active:scale-[0.98]"
             aria-label={t('manualOrder.refreshProducts')}
           >
-            <ArrowPathIcon className={`w-3.5 h-3.5 ${loading ? "animate-spin text-slate-800 dark:text-slate-200" : ""}`} />
+            <ArrowPathIcon className={`w-3.5 h-3.5 ${loading ? "animate-spin text-foreground dark:text-muted-foreground" : ""}`} />
           </button>
         </div>
         <div className="relative">
@@ -440,7 +440,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
             id="manual-order-product-search"
             type="text"
             placeholder={t('manualOrder.searchPlaceholder')}
-            className="w-full pl-3 pr-9 py-2 text-xs sm:text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-1 focus:ring-gray-400 focus:border-gray-400 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400 outline-none transition-all"
+            className="w-full ps-3 pe-9 py-2 text-xs sm:text-sm border border-border dark:border-border rounded-lg focus:ring-1 focus:ring-border focus:border-border dark:bg-muted dark:text-muted-foreground dark:placeholder-muted outline-none transition-all"
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -449,7 +449,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
               if (e.key === "Enter") fetchProducts(searchQuery);
             }}
           />
-          <MagnifyingGlassIcon className="w-4 h-4 text-gray-400 dark:text-gray-500 absolute right-3 top-2.5 pointer-events-none" />
+          <MagnifyingGlassIcon className="w-4 h-4 text-muted-foreground/80 absolute right-3 top-2.5 pointer-events-none" />
         </div>
       </div>
 
@@ -460,22 +460,22 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg overflow-hidden animate-pulse"
+                className="bg-card border border-border dark:border-border rounded-lg overflow-hidden animate-pulse"
               >
-                <div className="aspect-square bg-gray-200 dark:bg-gray-700" />
+                <div className="aspect-square bg-muted dark:bg-muted" />
                 <div className="p-3 space-y-2">
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  <div className="h-4 bg-muted dark:bg-muted rounded w-3/4" />
+                  <div className="h-4 bg-muted dark:bg-muted rounded w-1/2" />
                   <div className="flex justify-between items-center mt-2">
-                    <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-16" />
-                    <div className="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded-full" />
+                    <div className="h-5 bg-muted dark:bg-muted rounded w-16" />
+                    <div className="h-8 w-8 bg-muted dark:bg-muted rounded-full" />
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : products.length === 0 ? (
-          <div className="text-center py-10 text-gray-400 dark:text-gray-500">
+          <div className="text-center py-10 text-muted-foreground/80">
             <ArchiveBoxIcon className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p>
               {isAffiliateMode
@@ -488,11 +488,11 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
             {products.map((product) => (
               <div
                 key={product.id}
-                className="flex flex-col bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all group cursor-pointer overflow-hidden relative"
+                className="flex flex-col bg-card border border-border dark:border-border rounded-lg hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all group cursor-pointer overflow-hidden relative"
                 onClick={() => handleProductClick(product)}
               >
                 {/* Image - Now larger and on top */}
-                <div className="aspect-square bg-gray-100 dark:bg-gray-700 relative">
+                <div className="aspect-square bg-muted relative">
                     {product.image ? (
                       <img
                         src={buildOptimizedUploadImageUrl(product.image, { width: 300 })}
@@ -501,7 +501,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                         loading="lazy"
                       />
                     ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-300 dark:text-gray-600">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground dark:text-foreground">
                       <ArchiveBoxIcon className="w-12 h-12" />
                     </div>
                   )}
@@ -510,14 +510,14 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
                   {/* Stock Badge */}
                   {product.trackInventory !== false && product.stock <= 5 && (
-                    <div className="absolute top-2 left-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur text-red-600 dark:text-red-400 text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm border border-red-100 dark:border-red-900">
+                    <div className="absolute top-2 left-2 bg-white/90 dark:bg-muted backdrop-blur text-destructive dark:text-destructive text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm border border-destructive dark:border-destructive">
                       {t('manualOrder.k_135')} {product.stock}
                     </div>
                   )}
 
                   {/* Inactive Badge */}
                   {product.isActive === false && (
-                    <div className="absolute top-2 right-2 bg-amber-500/95 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm border border-amber-600 backdrop-blur z-10">
+                    <div className="absolute top-2 right-2 bg-warning/95 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm border border-warning backdrop-blur z-10">
                       {t('manualOrder.inactiveBadge', 'غير نشط')}
                     </div>
                   )}
@@ -534,12 +534,12 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                 <div className="p-3">
                   <div className="flex items-start gap-1.5 mb-1">
                     {product.isActive === false && (
-                      <span className="shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-800">
+                      <span className="shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-warning dark:bg-warning/40 text-warning dark:text-warning border border-warning dark:border-warning">
                         {t('manualOrder.inactiveBadge', 'غير نشط')}
                       </span>
                     )}
                     <h3
-                      className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-2 h-10 leading-snug flex-1"
+                      className="text-sm font-medium text-foreground line-clamp-2 h-10 leading-snug flex-1"
                       title={product.name}
                     >
                       {product.name}
@@ -553,18 +553,18 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                       return (
                         <div className="flex flex-col">
                           <div className="flex items-baseline gap-1.5">
-                            <span className={`text-base font-bold ${wsInfo ? "text-emerald-600 dark:text-emerald-400" : "text-blue-600 dark:text-blue-400"}`}>
+                            <span className={`text-base font-bold ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-blue-400"}`}>
                               {wsInfo ? wsInfo.wholesalePrice : product.price} {t('manualOrder.k_75')}
                             </span>
                             {wsInfo && regularPrice > wsInfo.wholesalePrice && (
-                              <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
+                              <span className="text-xs text-muted-foreground/80 line-through">
                                 {regularPrice}
                               </span>
                             )}
                           </div>
                           {wsInfo && (
                             <span
-                              className="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/40 border border-purple-200 dark:border-purple-800 px-1.5 py-0.5 text-[9px] font-bold text-purple-700 dark:text-purple-300 w-fit mt-0.5"
+                              className="inline-flex items-center rounded-full bg-primary dark:bg-primary/40 border border-primary dark:border-primary px-1.5 py-0.5 text-[9px] font-bold text-primary dark:text-primary w-fit mt-0.5"
                               title={wsInfo.priceListName || 'سعر جملة'}
                             >
                               سعر جملة
@@ -585,7 +585,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                     </button>
                   </div>
 
-                  <div className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 truncate">
+                  <div className="text-[10px] text-muted-foreground/80 mt-1 truncate">
                     SKU: {product.sku || "N/A"}
                   </div>
                 </div>
@@ -597,15 +597,15 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
       {/* Variant Selection Modal */}
       {isModalOpen && selectedProduct && (
-        <div className="absolute inset-0 z-50 bg-black/50 dark:bg-gray-900/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-gray-800 w-full max-w-md rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
-              <div className="flex items-center gap-2 truncate pr-4">
-                <h3 className="font-bold text-gray-900 dark:text-gray-100 truncate">
+        <div className="absolute inset-0 z-50 bg-black/50 dark:bg-muted backdrop-blur-sm flex items-end sm:items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-card w-full max-w-md rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-4 border-b border-border dark:border-border flex justify-between items-center bg-muted dark:bg-muted">
+              <div className="flex items-center gap-2 truncate pe-4">
+                <h3 className="font-bold text-foreground truncate">
                   {selectedProduct.name}
                 </h3>
                 {selectedProduct.isActive === false && (
-                  <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-700">
+                  <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded bg-warning dark:bg-warning/50 text-warning dark:text-warning border border-warning dark:border-warning">
                     {t('manualOrder.inactiveBadge', 'غير نشط')}
                   </span>
                 )}
@@ -615,7 +615,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                   setIsModalOpen(false);
                   setSelectedAttributes({});
                 }}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-gray-500 dark:text-gray-400"
+                className="p-1 hover:bg-muted rounded-full text-muted-foreground"
               >
                 <XMarkIcon className="w-5 h-5" />
               </button>
@@ -623,7 +623,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
             <div className="p-4 max-h-[60vh] overflow-y-auto">
               {selectedProduct.isActive === false && (
-                <div className="mb-4 p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2">
+                <div className="mb-4 p-2.5 bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg text-xs text-warning dark:text-warning flex items-center gap-2">
                   <span className="font-bold">⚠️ تنبيه:</span>
                   <span>{t('manualOrder.inactiveWarningNote', 'هذا المنتج غير نشط حالياً (موقوف).')}</span>
                 </div>
@@ -637,10 +637,10 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
                     return (
                       <div key={attr.name} className="space-y-2">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                        <label className="block text-sm font-semibold text-foreground">
                           {attr.name}
                           {isSelected && (
-                            <span className="text-blue-600 dark:text-blue-400 mr-2">
+                            <span className="text-blue-600 dark:text-blue-400 me-2">
                               : {isSelected}
                             </span>
                           )}
@@ -663,8 +663,8 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                                       isActive
                                         ? "bg-blue-600 dark:bg-blue-500 text-white border-2 border-blue-600 dark:border-blue-500"
                                         : isAvailable
-                                          ? "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border-2 border-gray-200 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20"
-                                          : "bg-gray-100 dark:bg-gray-900 text-gray-400 dark:text-gray-500 border-2 border-gray-100 dark:border-gray-800 cursor-not-allowed line-through"
+                                          ? "bg-card text-foreground border-2 border-border hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                                          : "bg-gray-100 dark:bg-muted text-muted-foreground/80 border-2 border-border dark:border-border cursor-not-allowed line-through"
                                     }
                                 `}
                               >
@@ -688,17 +688,17 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                             return (
                               <div className="flex flex-col">
                                 <div className="flex items-baseline gap-2">
-                                  <span className={`text-lg font-bold ${wsInfo ? "text-emerald-600 dark:text-emerald-400" : "text-blue-600 dark:text-blue-400"}`}>
+                                  <span className={`text-lg font-bold ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-blue-400"}`}>
                                     {wsInfo ? wsInfo.wholesalePrice : matchedVariant.price} {t('manualOrder.k_75')}
                                   </span>
                                   {wsInfo && regPrice > wsInfo.wholesalePrice && (
-                                    <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
+                                    <span className="text-xs text-muted-foreground/80 line-through">
                                       {regPrice}
                                     </span>
                                   )}
                                   {wsInfo && (
                                     <span
-                                      className="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/40 border border-purple-200 dark:border-purple-800 px-1.5 py-0.5 text-[9px] font-bold text-purple-700 dark:text-purple-300"
+                                      className="inline-flex items-center rounded-full bg-primary dark:bg-primary/40 border border-primary dark:border-primary px-1.5 py-0.5 text-[9px] font-bold text-primary dark:text-primary"
                                       title={wsInfo.priceListName || 'سعر جملة'}
                                     >
                                       سعر جملة
@@ -709,7 +709,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                             );
                           })()}
                           <div
-                            className={`text-sm ${isInStock(matchedVariant) ? "text-green-600 dark:text-green-400" : "text-red-500 dark:text-red-400 font-medium"}`}
+                            className={`text-sm ${isInStock(matchedVariant) ? "text-green-600 dark:text-success" : "text-red-500 dark:text-destructive font-medium"}`}
                           >
                             {isInStock(matchedVariant)
                               ? matchedVariant.trackInventory === false
@@ -718,7 +718,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                               : t('manualOrder.outOfStock')}
                           </div>
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-muted-foreground">
                           SKU: {matchedVariant.sku}
                         </div>
                       </div>
@@ -729,7 +729,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                                                     ${
                                                       isInStock(matchedVariant)
                                                         ? "bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600"
-                                                        : "bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                                                        : "bg-gray-300 dark:bg-muted text-muted-foreground cursor-not-allowed"
                                                     }
                                                 `}
                       >
@@ -741,8 +741,8 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
                   {/* Prompt to select remaining attributes */}
                   {!allAttributesSelected && (
-                    <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg text-center text-sm text-gray-500 dark:text-gray-400">
-                      <ChevronRightIcon className="w-4 h-4 inline ml-1" />
+                    <div className="mt-4 p-3 bg-muted dark:bg-muted rounded-lg text-center text-sm text-muted-foreground">
+                      <ChevronRightIcon className="w-4 h-4 inline ms-1" />
                       {t('manualOrder.k_138')}{" "}
                       {productAttributes
                         .filter((a) => !selectedAttributes[a.name])
@@ -762,16 +762,16 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                       className={`w-full flex items-center justify-between p-3 rounded-lg border text-right transition-all
                                                 ${
                                                   isInStock(variant)
-                                                    ? "border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer bg-white dark:bg-gray-700"
-                                                    : "border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 opacity-60 cursor-not-allowed"
+                                                    ? "border-gray-200 dark:border-border hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer bg-card"
+                                                    : "border-gray-100 dark:border-border bg-muted dark:bg-muted opacity-60 cursor-not-allowed"
                                                 }
                                             `}
                     >
                       <div className="flex flex-col items-start">
-                        <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">
+                        <div className="font-medium text-foreground text-sm">
                           {variant.name || t('manualOrder.notSpecified')}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                        <div className="text-xs text-muted-foreground mt-0.5">
                           SKU: {variant.sku}
                         </div>
                       </div>
@@ -782,18 +782,18 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                           return (
                             <div className="flex flex-col items-end">
                               <div className="flex items-baseline gap-1.5">
-                                <span className={`font-bold text-sm ${wsInfo ? "text-emerald-600 dark:text-emerald-400" : "text-blue-600 dark:text-blue-400"}`}>
+                                <span className={`font-bold text-sm ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-blue-400"}`}>
                                   {wsInfo ? wsInfo.wholesalePrice : variant.price} {t('manualOrder.k_75')}
                                 </span>
                                 {wsInfo && regPrice > wsInfo.wholesalePrice && (
-                                  <span className="text-[10px] text-gray-400 dark:text-gray-500 line-through">
+                                  <span className="text-[10px] text-muted-foreground/80 line-through">
                                     {regPrice}
                                   </span>
                                 )}
                               </div>
                               {wsInfo && (
                                 <span
-                                  className="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/40 border border-purple-200 dark:border-purple-800 px-1.5 py-0.5 text-[8px] font-bold text-purple-700 dark:text-purple-300 mt-0.5"
+                                  className="inline-flex items-center rounded-full bg-primary dark:bg-primary/40 border border-primary dark:border-primary px-1.5 py-0.5 text-[8px] font-bold text-primary dark:text-primary mt-0.5"
                                   title={wsInfo.priceListName || 'سعر جملة'}
                                 >
                                   سعر جملة
@@ -803,7 +803,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                           );
                         })()}
                         <div
-                          className={`text-xs mt-0.5 ${isInStock(variant) ? "text-green-600 dark:text-green-400" : "text-red-500 dark:text-red-400 font-medium"}`}
+                          className={`text-xs mt-0.5 ${isInStock(variant) ? "text-green-600 dark:text-success" : "text-red-500 dark:text-destructive font-medium"}`}
                         >
                           {isInStock(variant)
                             ? variant.trackInventory === false

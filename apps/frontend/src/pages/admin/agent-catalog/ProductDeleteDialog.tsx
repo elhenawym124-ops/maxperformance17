@@ -54,7 +54,7 @@ export const ProductDeleteDialog: React.FC<ProductDeleteDialogProps> = ({
               <LoadingSpinner size="sm" color="white" />
             ) : (
               <>
-                <Trash2 className="mr-1 size-4" />
+                <Trash2 className="me-1 size-4" />
                 Delete
               </>
             )}

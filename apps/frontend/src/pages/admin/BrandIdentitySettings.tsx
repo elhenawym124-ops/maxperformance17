@@ -87,7 +87,7 @@ export default function BrandIdentitySettings() {
                 الهوية البصرية ودليل العلامة التجارية
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/30 px-2 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-success" />
                 نشط
               </span>
             </div>

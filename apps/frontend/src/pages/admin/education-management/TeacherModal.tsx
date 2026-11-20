@@ -183,7 +183,7 @@ export const TeacherModal: React.FC<TeacherModalProps> = ({
                   <button
                     type="button"
                     onClick={() => delRate(sr.subjectId)}
-                    className="p-1 text-red-500 hover:bg-red-500/10 rounded"
+                    className="p-1 text-destructive hover:bg-destructive/10 rounded"
                     aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")} title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
                   >
                     <X className="w-3.5 h-3.5" />

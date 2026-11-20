@@ -17,39 +17,39 @@ export const CheckoutShippingSection: React.FC<CheckoutShippingSectionProps> = (
 }) => {
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-        <TruckIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+      <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+        <TruckIcon className="w-5 h-5 text-muted-foreground" />
         {t("manualOrder.k_24")}
       </h3>
 
       {loadingShipping ? (
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <div className="w-4 h-4 border-2 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin" />
           {t("manualOrder.k_100")}
         </div>
       ) : shippingInfo?.zoneId ? (
-        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-3">
+        <div className="bg-green-50 dark:bg-success/20 border border-success dark:border-success rounded-lg p-3">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-green-700 dark:text-green-400">
+            <span className="text-sm text-success dark:text-success">
               {t("manualOrder.k_101")}{shippingInfo.governorate})
             </span>
-            <span className="font-bold text-green-700 dark:text-green-400">
+            <span className="font-bold text-success dark:text-success">
               {shippingInfo.price.toLocaleString()} {t("manualOrder.k_75")}
             </span>
           </div>
-          <div className="text-xs text-green-600 dark:text-green-400 mt-1">
+          <div className="text-xs text-success dark:text-success mt-1">
             {t("manualOrder.k_102")} {shippingInfo.deliveryTime}
           </div>
         </div>
       ) : governorate ? (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3">
-          <div className="flex items-center gap-2 text-sm text-yellow-700 dark:text-yellow-400">
+        <div className="bg-yellow-50 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg p-3">
+          <div className="flex items-center gap-2 text-sm text-warning dark:text-warning">
             <ExclamationTriangleIcon className="w-4 h-4" />
             {t("manualOrder.k_103")}
           </div>
         </div>
       ) : (
-        <div className="text-sm text-gray-400 dark:text-gray-500">
+        <div className="text-sm text-muted-foreground/80">
           {t("manualOrder.k_104")}
         </div>
       )}

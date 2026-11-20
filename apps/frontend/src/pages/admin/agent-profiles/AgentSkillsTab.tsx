@@ -39,7 +39,7 @@ function ToolChip({ name }: { name: string }) {
       className={cn(
         "inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono border",
         isWrite
-          ? "bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-400"
+          ? "bg-amber-500/10 border-warning/20 text-warning dark:text-warning"
           : "bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400"
       )}
     >
@@ -79,7 +79,7 @@ function SkillCard({ skill }: { skill: AgentSkillDetail }) {
         }}
       >
         <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 flex-1">
-          <div className="size-8 sm:size-9 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="size-8 sm:size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
             <Zap className="size-4" />
           </div>
           <div className="min-w-0 flex-1 space-y-1">
@@ -91,12 +91,12 @@ function SkillCard({ skill }: { skill: AgentSkillDetail }) {
                 {skill.id}
               </Badge>
               {requiresApproval ? (
-                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-warning dark:text-warning bg-warning/10 border border-warning/20 px-2 py-0.5 rounded-full">
                   <ShieldAlert className="size-3" />
                   {t("agentProfiles.skills.requiresApproval", "يتطلب موافقة")}
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-success dark:text-success bg-success/10 border border-success/20 px-2 py-0.5 rounded-full">
                   <ShieldCheck className="size-3" />
                   {t("agentProfiles.skills.autonomous", "تنفيذ تلقائي")}
                 </span>
@@ -189,7 +189,7 @@ export default function AgentSkillsTab({ skills, agentName }: AgentSkillsTabProp
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t("agentProfiles.skills.searchPlaceholder", "بحث في المهارات والأدوات...")}
-            className="h-9 sm:h-8 pr-8 text-base sm:text-xs bg-card"
+            className="h-9 sm:h-8 pe-8 text-base sm:text-xs bg-card"
           />
         </div>
 
@@ -200,9 +200,9 @@ export default function AgentSkillsTab({ skills, agentName }: AgentSkillsTabProp
             onClick={() => navigate("/admin/ai-hub?tab=skills")}
             className="h-9 sm:h-8 text-xs gap-1.5 bg-card w-full sm:w-auto justify-center"
           >
-            <SlidersHorizontal className="size-3 text-indigo-500" />
+            <SlidersHorizontal className="size-3 text-primary" />
             <span>{t("agentProfiles.skills.manageSkills", "إدارة المهارات")}</span>
-            <ExternalLink className="size-3 opacity-60 ml-0.5" />
+            <ExternalLink className="size-3 opacity-60 ms-0.5" />
           </Button>
         </div>
       </div>
@@ -230,7 +230,7 @@ export default function AgentSkillsTab({ skills, agentName }: AgentSkillsTabProp
         </div>
       ) : skills.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border/80 bg-card/50 p-8 text-center space-y-3">
-          <div className="size-12 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto">
+          <div className="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
             <Sparkles className="size-6" />
           </div>
           <div className="space-y-1 max-w-sm mx-auto">

@@ -29,10 +29,10 @@ interface DomainRow {
 
 const stateBadge = (state: string) => {
   const map: Record<string, string> = {
-    active: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-    draft: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
+    active: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+    draft: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
     tracked: "bg-muted/40 text-muted-foreground border border-border/60",
-    hidden: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
+    hidden: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
   };
   return map[state] || "bg-muted/40 text-muted-foreground border border-border/60";
 };
@@ -105,7 +105,7 @@ export default function CapabilityCoveragePage() {
 
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-4">
         {error && (
-          <div className="rounded-lg border border-rose-500/20 bg-rose-500/5 p-3 text-xs text-rose-600 dark:text-rose-400">
+          <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive dark:text-destructive">
             {error}
           </div>
         )}
@@ -119,15 +119,15 @@ export default function CapabilityCoveragePage() {
             </div>
             <div className="p-2.5 rounded-lg bg-muted/15 border border-border/60">
               <span className="text-[11px] text-muted-foreground block">القدرات المفعّلة</span>
-              <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">{activeCount}</span>
+              <span className="font-semibold text-success dark:text-success tabular-nums font-mono">{activeCount}</span>
             </div>
             <div className="p-2.5 rounded-lg bg-muted/15 border border-border/60">
               <span className="text-[11px] text-muted-foreground block">مسودات قيد المراجعة</span>
-              <span className="font-semibold text-amber-600 dark:text-amber-400 tabular-nums font-mono">{draftCount}</span>
+              <span className="font-semibold text-warning dark:text-warning tabular-nums font-mono">{draftCount}</span>
             </div>
             <div className="p-2.5 rounded-lg bg-muted/15 border border-border/60">
               <span className="text-[11px] text-muted-foreground block">مسارات متوقفة</span>
-              <span className="font-semibold text-rose-600 dark:text-rose-400 tabular-nums font-mono">{staleCount}</span>
+              <span className="font-semibold text-destructive dark:text-destructive tabular-nums font-mono">{staleCount}</span>
             </div>
           </div>
         </div>
@@ -189,12 +189,12 @@ export default function CapabilityCoveragePage() {
                       <span className="font-mono text-xs font-medium truncate text-foreground">{c.name}</span>
                       <Badge variant="secondary" className={stateBadge(c.exposure_state)}>{c.exposure_state}</Badge>
                       {c.risk_level === "write" && (
-                        <Badge variant="secondary" className="bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20 text-[10px]">
+                        <Badge variant="secondary" className="bg-violet-500/10 text-primary dark:text-primary border border-primary/20 text-[10px]">
                           كتابة
                         </Badge>
                       )}
                       {c.stale && (
-                        <Badge variant="secondary" className="bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 gap-0.5 text-[10px]">
+                        <Badge variant="secondary" className="bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20 gap-0.5 text-[10px]">
                           <AlertTriangle className="w-3 h-3" /> متوقف
                         </Badge>
                       )}
@@ -209,7 +209,7 @@ export default function CapabilityCoveragePage() {
                       </Button>
                     )}
                     {c.exposure_state === "active" && c.source === "auto" && (
-                      <Button size="sm" variant="ghost" className="gap-1 text-xs h-7 text-rose-600 hover:text-rose-700"
+                      <Button size="sm" variant="ghost" className="gap-1 text-xs h-7 text-destructive hover:text-destructive"
                         disabled={busy === c.name} onClick={() => act(c.name, "hide")}>
                         <EyeOff className="w-3.5 h-3.5" /> إخفاء
                       </Button>

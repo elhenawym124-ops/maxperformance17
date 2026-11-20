@@ -153,8 +153,8 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                 <span
                   className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
                     e.isActive !== false
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                      : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                      : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                   }`}
                 >
                   {e.isActive !== false
@@ -169,7 +169,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                   {e.teacher?.name ? (
                     <span className="font-medium text-foreground">{e.teacher.name}</span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-amber-500 font-medium">
+                    <span className="inline-flex items-center gap-1 text-warning font-medium">
                       <AlertTriangle className="w-3 h-3" />
                       {t("education.enrollments.notAssigned", isEn ? "Not Assigned" : "لم يحدد بعد")}
                     </span>
@@ -178,9 +178,9 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                 <span
                   className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                     ["COMPLETED", "PAID"].includes(e.paymentStatus)
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                       : e.paymentStatus === "PENDING"
-                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                      ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                       : "bg-muted/60 text-muted-foreground border-border"
                   }`}
                 >
@@ -197,10 +197,10 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                   <span
                     className={`font-semibold ${
                       remaining < total * 0.2
-                        ? "text-red-600 dark:text-red-400"
+                        ? "text-red-600 dark:text-destructive"
                         : remaining < total * 0.5
-                        ? "text-amber-600 dark:text-amber-400"
-                        : "text-emerald-600 dark:text-emerald-400"
+                        ? "text-amber-600 dark:text-warning"
+                        : "text-emerald-600 dark:text-success"
                     }`}
                   >
                     {t("education.enrollments.remainingProgress", {
@@ -244,8 +244,8 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                   }
                   className={`px-2.5 py-1 text-xs rounded-lg transition-colors ${
                     e.isActive !== false
-                      ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                      : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                      ? "bg-red-500/10 text-destructive hover:bg-destructive/20"
+                      : "bg-emerald-500/10 text-success hover:bg-success/20"
                   }`}
                 >
                   {e.isActive !== false
@@ -255,7 +255,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                 <button
                   type="button"
                   onClick={() => handleDeleteEnrollment(e.id)}
-                  className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                  className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
                   aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")} title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -336,10 +336,10 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                         <span
                           className={`font-mono tabular-nums font-medium ${
                             remaining < total * 0.2
-                              ? "text-red-600 dark:text-red-400"
+                              ? "text-red-600 dark:text-destructive"
                               : remaining < total * 0.5
-                              ? "text-amber-600 dark:text-amber-400"
-                              : "text-emerald-600 dark:text-emerald-400"
+                              ? "text-amber-600 dark:text-warning"
+                              : "text-emerald-600 dark:text-success"
                           }`}
                         >
                           {remaining}/{total}
@@ -386,7 +386,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                         </button>
                       ) : null}
                       {e.discountType && e.discountType !== "NONE" && (
-                        <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-0.5 mt-0.5">
+                        <div className="text-[10px] text-success dark:text-success font-semibold flex items-center gap-0.5 mt-0.5">
                           <Percent className="w-2.5 h-2.5" />
                           <span>{getDiscountLabel(e.discountType)}</span>
                         </div>
@@ -396,9 +396,9 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                           ["COMPLETED", "PAID"].includes(e.paymentStatus)
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                             : e.paymentStatus === "PENDING"
-                            ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                            ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                             : "bg-muted/60 text-muted-foreground border-border"
                         }`}
                       >
@@ -411,8 +411,8 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                           e.isActive !== false
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                            : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                            : "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20"
                         }`}
                       >
                         {e.isActive !== false
@@ -432,7 +432,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                         </button>
                         {!e.teacher?.id && (
                           <span title={isEn ? "Teacher assignment needed" : "مطلوب تعيين مدرس"}>
-                            <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                            <AlertTriangle className="w-3.5 h-3.5 text-warning shrink-0" />
                           </span>
                         )}
                         <button
@@ -445,8 +445,8 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                           }
                           className={`px-2.5 py-1 text-xs rounded-lg transition-colors ${
                             e.isActive !== false
-                              ? "bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                              : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                              ? "bg-red-500/10 text-destructive hover:bg-destructive/20"
+                              : "bg-emerald-500/10 text-success hover:bg-success/20"
                           }`}
                         >
                           {e.isActive !== false
@@ -456,7 +456,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                         <button
                           type="button"
                           onClick={() => handleDeleteEnrollment(e.id)}
-                          className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                          className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
                           aria-label={t("education.actions.delete", isEn ? "Delete" : "حذف")} title={t("education.actions.delete", isEn ? "Delete" : "حذف")}
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -496,7 +496,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
           dir={isEn ? "ltr" : "rtl"}
         >
           <div
-            className="bg-card border border-border rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4"
+            className="bg-card border border-border rounded-xl w-full max-w-md shadow-2xl p-5 space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 border-b border-border/80">
@@ -531,13 +531,13 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
               </div>
               <div>
                 <span className="text-[10px] text-muted-foreground block">{isEn ? "Total Paid:" : "إجمالي المدفوع:"}</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                <span className="font-bold text-success dark:text-success font-mono">
                   {selectedEnrollmentForInstallments.amountPaid || 0} ج.م
                 </span>
               </div>
               <div>
                 <span className="text-[10px] text-muted-foreground block">{isEn ? "Remaining:" : "المتبقي:"}</span>
-                <span className="font-bold text-amber-600 dark:text-amber-400 font-mono">
+                <span className="font-bold text-warning dark:text-warning font-mono">
                   {Math.max(0, (selectedEnrollmentForInstallments.finalAmount || selectedEnrollmentForInstallments.amountPaid || 0) - (selectedEnrollmentForInstallments.amountPaid || 0))} ج.م
                 </span>
               </div>
@@ -567,7 +567,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                         <Calendar className="w-3 h-3" />
                         <span>{isEn ? "Due Date:" : "تاريخ الاستحقاق:"} {inst.dueDate || "-"}</span>
                         {isPaid && inst.paidAt && (
-                          <span className="text-[10px] text-emerald-600 mr-1.5">
+                          <span className="text-[10px] text-success me-1.5">
                             ({isEn ? "Paid on " : "سُدد في "} {inst.paidAt.split("T")[0]})
                           </span>
                         )}
@@ -576,7 +576,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
 
                     <div>
                       {isPaid ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>{isEn ? "Paid" : "مدفوع"}</span>
                         </span>

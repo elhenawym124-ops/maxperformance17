@@ -372,8 +372,8 @@ export default function ChannelRoutingPage() {
     <div dir={isRtl ? "rtl" : "ltr"} className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
-            <GitFork className="size-5 text-indigo-600" />
+          <div className="p-2 rounded-lg bg-primary dark:bg-primary/30">
+            <GitFork className="size-5 text-primary" />
           </div>
           <div>
             <h2 className="text-xl font-bold tracking-tight">{t("aiHub.channelRouting.title")}</h2>
@@ -403,7 +403,7 @@ export default function ChannelRoutingPage() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-base flex items-center gap-2">
-                {agentPaused ? <Pause className="size-4 text-amber-600" /> : <Play className="size-4 text-green-600" />}
+                {agentPaused ? <Pause className="size-4 text-warning" /> : <Play className="size-4 text-success" />}
                 {t("aiHub.channelRouting.agentPause")}
               </CardTitle>
               <CardDescription>
@@ -454,7 +454,7 @@ export default function ChannelRoutingPage() {
               )}
               <div className="flex items-center gap-2">
                 {autoReplyEnabled ? (
-                  <MessageSquare className="size-4 text-green-600" />
+                  <MessageSquare className="size-4 text-success" />
                 ) : (
                   <MessageSquareOff className="size-4 text-muted-foreground" />
                 )}
@@ -490,7 +490,7 @@ export default function ChannelRoutingPage() {
                         return (
                           <TableRow
                             key={`wa-session-${session.id}`}
-                            className={isDirty ? "bg-amber-50/60 dark:bg-amber-950/20" : ""}
+                            className={isDirty ? "bg-amber-50/60 dark:bg-warning/20" : ""}
                           >
                             <TableCell className="font-medium">
                               <div className="flex items-center gap-2.5">
@@ -502,7 +502,7 @@ export default function ChannelRoutingPage() {
                                       {session.name ? ` — ${session.name}` : ""}
                                     </span>
                                     {session.isDefault && (
-                                      <Badge variant="outline" className="text-[10px] py-0 px-1.5 h-4 border-emerald-500/40 text-emerald-600 dark:text-emerald-400">
+                                      <Badge variant="outline" className="text-[10px] py-0 px-1.5 h-4 border-success/40 text-success dark:text-success">
                                         {isRtl ? "افتراضي" : "Default"}
                                       </Badge>
                                     )}
@@ -522,7 +522,7 @@ export default function ChannelRoutingPage() {
                                   )}
                                 </div>
                                 {isDirty && (
-                                  <span className="size-1.5 rounded-full bg-amber-500" title={t("aiHub.channelRouting.modified")} />
+                                  <span className="size-1.5 rounded-full bg-warning" title={t("aiHub.channelRouting.modified")} />
                                 )}
                               </div>
                             </TableCell>
@@ -576,7 +576,7 @@ export default function ChannelRoutingPage() {
                 const isModified = dirtyChannels.has(config.channel);
                 const desc = isRtl ? config.descriptionAr : (config.description || config.descriptionAr);
                 return (
-                  <TableRow key={config.channel} className={isModified ? "bg-amber-50/60 dark:bg-amber-950/20" : ""}>
+                  <TableRow key={config.channel} className={isModified ? "bg-amber-50/60 dark:bg-warning/20" : ""}>
                     <TableCell className="font-medium">
                       <div className="flex items-start gap-2.5">
                         <span className="text-lg leading-tight mt-0.5">{config.icon}</span>
@@ -588,8 +588,8 @@ export default function ChannelRoutingPage() {
                             </span>
                           )}
                           {config.channel === "DASHBOARD" && !config.agentId && (
-                            <span className="inline-flex items-center gap-1.5 text-[11px] text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-200/60 dark:border-amber-900/40 rounded px-1.5 py-0.5 mt-1 font-normal w-fit">
-                              <AlertCircle className="size-3 shrink-0 text-amber-600 dark:text-amber-400" />
+                            <span className="inline-flex items-center gap-1.5 text-[11px] text-warning dark:text-warning bg-warning/10 dark:bg-warning/40 border border-warning/60 dark:border-warning/40 rounded px-1.5 py-0.5 mt-1 font-normal w-fit">
+                              <AlertCircle className="size-3 shrink-0 text-warning dark:text-warning" />
                               {isRtl
                                 ? "مفيش وكيل متعيّن — الرد الافتراضي: المساعد التنفيذي لإدارة المتجر (كريم)"
                                 : "No agent assigned — Default responder: Executive Store Assistant (Karim)"}
@@ -602,7 +602,7 @@ export default function ChannelRoutingPage() {
                           )}
                         </div>
                         {isModified && (
-                          <span className="size-1.5 rounded-full bg-amber-500 mt-1" title={t("aiHub.channelRouting.modified")} />
+                          <span className="size-1.5 rounded-full bg-warning mt-1" title={t("aiHub.channelRouting.modified")} />
                         )}
                       </div>
                     </TableCell>

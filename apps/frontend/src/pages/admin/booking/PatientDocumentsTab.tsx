@@ -10,11 +10,11 @@ const documentTypeLabel = (t: string): string => DOCUMENT_TYPES.find(d => d.valu
 
 const documentTypeColor = (t: string): string => {
   const colors: Record<string, string> = {
-    DRIVING_LICENSE: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
-    INSURANCE: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-    PRESCRIPTION: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-    IMAGE: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
-    VIDEO: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+    DRIVING_LICENSE: "bg-sky-500/10 text-info dark:text-info border-info/20",
+    INSURANCE: "bg-emerald-500/10 text-success dark:text-success border-success/20",
+    PRESCRIPTION: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
+    IMAGE: "bg-indigo-500/10 text-primary border-primary/20",
+    VIDEO: "bg-purple-500/10 text-primary dark:text-primary border-primary/20",
     OTHER: "bg-muted text-muted-foreground border-border/70",
   };
   return colors[t] || "bg-muted text-muted-foreground border-border/70";
@@ -137,7 +137,7 @@ export default function PatientDocumentsTab({ patientId }: Props) {
             key={fileInputKey}
             type="file"
             onChange={onDocFileChange}
-            className="block w-full text-xs text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-semibold hover:file:bg-primary/20 cursor-pointer"
+            className="block w-full text-xs text-muted-foreground file:me-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-semibold hover:file:bg-primary/20 cursor-pointer"
           />
           {docFile && <p className="mt-1 text-xs text-muted-foreground font-mono">الملف المختار: {docFile.name}</p>}
         </div>

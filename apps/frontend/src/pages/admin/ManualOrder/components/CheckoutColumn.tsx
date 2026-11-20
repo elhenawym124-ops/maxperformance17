@@ -228,11 +228,11 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
 
   return (
     <div
-      className="flex flex-col bg-white dark:bg-gray-900 rounded-xl shadow-2xs border border-gray-200/80 dark:border-gray-800 overflow-hidden"
+      className="flex flex-col bg-white dark:bg-muted rounded-xl shadow-2xs border border-border dark:border-border overflow-hidden"
       style={{ height: "100%", maxHeight: "100%" }}
     >
-      <div className="px-4 py-3 border-b border-gray-200/80 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/40">
-        <h2 className="text-xs sm:text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+      <div className="px-4 py-3 border-b border-border dark:border-border bg-muted dark:bg-muted">
+        <h2 className="text-xs sm:text-sm font-semibold tracking-tight text-foreground">
           {t("manualOrder.k_89")}
         </h2>
       </div>
@@ -267,13 +267,13 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
         />
 
         {customer.wholesaleCustomer && (
-          <div className="rounded-xl border border-purple-200/80 bg-purple-50/60 p-3 text-xs dark:border-purple-800/60 dark:bg-purple-950/20">
+          <div className="rounded-xl border border-primary/80 bg-primary/60 p-3 text-xs dark:border-primary/60 dark:bg-primary/20">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-bold text-purple-800 dark:text-purple-300 flex items-center gap-1.5">
+              <span className="font-bold text-primary dark:text-primary flex items-center gap-1.5">
                 <span>🏷️</span>
                 <span>عميل جملة معتمد</span>
               </span>
-              <span className="text-[10px] bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-mono px-2 py-0.5 rounded-full">
+              <span className="text-[10px] bg-primary dark:bg-primary/50 text-primary dark:text-primary font-mono px-2 py-0.5 rounded-full">
                 طلب موزع
               </span>
             </div>
@@ -294,17 +294,17 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
             {customer.wholesaleCustomer.creditLimit > 0 &&
               Number(customer.wholesaleCustomer.currentBalance || 0) + Number(orderState.grandTotal || 0) >
                 Number(customer.wholesaleCustomer.creditLimit || 0) && (
-                <div className="mt-2 pt-2 border-t border-purple-200/60 dark:border-purple-800/60 space-y-1">
-                  <div className="text-[11px] font-semibold text-rose-600 dark:text-rose-400">
+                <div className="mt-2 pt-2 border-t border-primary/60 dark:border-primary/60 space-y-1">
+                  <div className="text-[11px] font-semibold text-destructive dark:text-destructive">
                     ⚠️ إجمالي الطلب يتجاوز الحد الائتماني المتبقي
                   </div>
                   {['OWNER', 'ADMIN', 'COMPANY_ADMIN', 'SUPER_ADMIN'].includes(user?.role || '') && (
-                    <label className="flex items-center gap-1.5 cursor-pointer text-[11px] font-medium text-purple-900 dark:text-purple-200">
+                    <label className="flex items-center gap-1.5 cursor-pointer text-[11px] font-medium text-primary dark:text-primary">
                       <input
                         type="checkbox"
                         checked={customer.allowWholesaleOverdraft}
                         onChange={(e) => customer.setAllowWholesaleOverdraft(e.target.checked)}
-                        className="rounded border-purple-300 text-purple-600 focus:ring-purple-500 size-3.5"
+                        className="rounded border-primary text-primary focus:ring-primary size-3.5"
                       />
                       <span>الموافقة كمسؤول على تجاوز الحد الائتماني</span>
                     </label>
@@ -314,7 +314,7 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
           </div>
         )}
 
-        <hr className="border-gray-100 dark:border-gray-700" />
+        <hr className="border-gray-100 dark:border-border" />
 
         {/* Shipping Info */}
         <CheckoutShippingSection
@@ -324,7 +324,7 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
           t={t}
         />
 
-        <hr className="border-gray-100 dark:border-gray-700" />
+        <hr className="border-gray-100 dark:border-border" />
 
         {/* Coupon & Discount */}
         <CheckoutDiscountsSection
@@ -339,7 +339,7 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
           t={t}
         />
 
-        <hr className="border-gray-100 dark:border-gray-700" />
+        <hr className="border-gray-100 dark:border-border" />
 
         {/* Order Settings */}
         <CheckoutOrderSettingsSection
@@ -366,7 +366,7 @@ const CheckoutColumn: React.FC<CheckoutColumnProps> = ({
           t={t}
         />
 
-        <hr className="border-gray-100 dark:border-gray-700" />
+        <hr className="border-gray-100 dark:border-border" />
 
         {/* Scheduled Order Section */}
         <CheckoutScheduledSection

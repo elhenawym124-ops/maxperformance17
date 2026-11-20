@@ -66,7 +66,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
           <div className="text-[11px] font-medium text-muted-foreground">
             {isEn ? "Converted to Enrolled" : "تحولوا لطلاب مقيدين"}
           </div>
-          <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums flex items-baseline gap-1.5">
+          <div className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums flex items-baseline gap-1.5">
             <span>{summary?.totalConverted ?? 0}</span>
             <span className="text-xs text-muted-foreground font-normal">
               ({summary?.overallConversionRate ?? 0}%)
@@ -116,7 +116,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
               />
               <input
                 className={`bg-muted/30 border border-border/80 rounded-md py-1 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary w-36 sm:w-48 ${
-                  isEn ? "pl-8 pr-2.5" : "pr-8 pl-2.5"
+                  isEn ? "ps-8 pe-2.5" : "pe-8 ps-2.5"
                 }`}
                 placeholder={isEn ? "Search campaign or ad..." : "بحث باسم الحملة أو الإعلان..."}
                 value={searchQuery}
@@ -207,7 +207,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium ${
                           camp.channel === "WHATSAPP"
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                            ? "bg-emerald-500/10 text-success dark:text-success"
                             : camp.channel === "FACEBOOK" || camp.channel === "MESSENGER"
                             ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
                             : "bg-muted text-muted-foreground"
@@ -223,11 +223,11 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
                       <span className="text-blue-600 dark:text-blue-400 font-bold">
                         {camp.attendedCount}
                       </span>
-                      <span className="text-[10px] text-muted-foreground mr-1">
+                      <span className="text-[10px] text-muted-foreground me-1">
                         ({camp.attendanceRate}%)
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-center font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-bold">
+                    <td className="py-2.5 px-3 text-center font-mono tabular-nums text-success dark:text-success font-bold">
                       {camp.convertedCount}
                     </td>
                     <td className="py-2.5 px-3 text-center font-mono font-bold">

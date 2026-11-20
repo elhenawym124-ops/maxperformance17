@@ -182,8 +182,8 @@ export default function AIKnowledgeQuestionsPage() {
           <h1 className="text-sm sm:text-base font-bold tracking-tight text-foreground truncate">
             استفسارات المعرفة
           </h1>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold tabular-nums text-amber-600 dark:text-amber-400 shrink-0">
-            <span className="size-1.5 rounded-full bg-amber-500" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/25 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold tabular-nums text-warning dark:text-warning shrink-0">
+            <span className="size-1.5 rounded-full bg-warning" />
             {pending.length} معلق
           </span>
         </div>
@@ -318,7 +318,7 @@ export default function AIKnowledgeQuestionsPage() {
                       {q.created_at ? `${fmtDate(q.created_at)} • ${fmtTime(q.created_at)}` : ""}
                     </span>
                     {staleDays > 7 && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold tabular-nums bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold tabular-nums bg-warning/10 text-warning dark:text-warning border border-warning/20 shrink-0">
                         معلق {staleDays} يوم
                       </span>
                     )}
@@ -327,8 +327,8 @@ export default function AIKnowledgeQuestionsPage() {
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border shrink-0 ${
                       q.status === "pending"
-                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                        : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                        ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                        : "bg-emerald-500/10 text-success dark:text-success border-success/20"
                     }`}
                   >
                     {q.status === "pending" ? "بانتظار الرد" : "تمت الإجابة"}
@@ -354,8 +354,8 @@ export default function AIKnowledgeQuestionsPage() {
                 )}
 
                 {q.status === "answered" && q.merchant_answer && (
-                  <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-2.5 space-y-1">
-                    <div className="flex items-center justify-between text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                  <div className="bg-emerald-500/5 border border-success/20 rounded-lg p-2.5 space-y-1">
+                    <div className="flex items-center justify-between text-[11px] text-success dark:text-success font-semibold">
                       <span className="flex items-center gap-1">
                         <CheckCircle2 className="size-3.5" />
                         إجابة التاجر المعتمدة

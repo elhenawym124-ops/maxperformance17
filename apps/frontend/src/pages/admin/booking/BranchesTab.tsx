@@ -50,7 +50,7 @@ export default function BranchesTab({
           <div className="relative">
             <Search className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/70" />
             <input
-              className="border border-border/70 rounded-lg pr-8 pl-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56 bg-card text-foreground shadow-sm hover:border-border transition-colors focus:outline-none focus:ring-1 focus:ring-primary/40"
+              className="border border-border/70 rounded-lg pe-8 ps-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56 bg-card text-foreground shadow-sm hover:border-border transition-colors focus:outline-none focus:ring-1 focus:ring-primary/40"
               placeholder="بحث بالاسم أو العنوان..."
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(0); }}
@@ -87,7 +87,7 @@ export default function BranchesTab({
                       </span>
                     )}
                   </div>
-                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${b.isActive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"}`}>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${b.isActive ? "bg-emerald-500/10 text-success dark:text-success border border-success/20" : "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20"}`}>
                     {b.isActive ? "نشط" : "غير نشط"}
                   </span>
                 </div>
@@ -134,10 +134,10 @@ export default function BranchesTab({
                   <button onClick={() => onEdit(b)} className="text-xs px-2.5 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-500/20 flex items-center gap-1">
                     <Pencil className="w-3 h-3" /><span>تعديل</span>
                   </button>
-                  <button onClick={() => onToggleActive(b.id, b.isActive)} className={`text-xs px-2.5 py-1 rounded-md ${b.isActive ? "bg-rose-500/10 text-rose-600 hover:bg-rose-500/20" : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"}`}>
+                  <button onClick={() => onToggleActive(b.id, b.isActive)} className={`text-xs px-2.5 py-1 rounded-md ${b.isActive ? "bg-rose-500/10 text-destructive hover:bg-destructive/20" : "bg-emerald-500/10 text-success hover:bg-success/20"}`}>
                     {b.isActive ? "تعطيل" : "تفعيل"}
                   </button>
-                  <button onClick={() => onDelete(b.id)} className="text-xs px-2.5 py-1 bg-rose-500/10 text-rose-600 rounded-md hover:bg-rose-500/20 flex items-center gap-1">
+                  <button onClick={() => onDelete(b.id)} className="text-xs px-2.5 py-1 bg-destructive/10 text-destructive rounded-md hover:bg-destructive/20 flex items-center gap-1">
                     <Trash2 className="w-3 h-3" /><span>حذف</span>
                   </button>
                 </div>
@@ -198,15 +198,15 @@ export default function BranchesTab({
                       ) : "—"}
                     </td>
                     <td className="py-2.5 px-3">
-                      <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${b.isActive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${b.isActive ? "bg-emerald-500/10 text-success dark:text-success border border-success/20" : "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20"}`}>
                         {b.isActive ? "نشط" : "غير نشط"}
                       </span>
                     </td>
                     <td className="py-2.5 px-3 text-left">
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={() => onEdit(b)} className="p-1 text-blue-600 hover:bg-blue-500/10 rounded transition-colors" title="تعديل"><Pencil className="w-4 h-4" /></button>
-                        <button onClick={() => onToggleActive(b.id, b.isActive)} className={`p-1 rounded transition-colors ${b.isActive ? "text-rose-500 hover:bg-rose-500/10" : "text-emerald-500 hover:bg-emerald-500/10"}`} title={b.isActive ? "تعطيل" : "تفعيل"}><Plus className="w-4 h-4" /></button>
-                        <button onClick={() => onDelete(b.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded transition-colors" title="حذف"><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => onToggleActive(b.id, b.isActive)} className={`p-1 rounded transition-colors ${b.isActive ? "text-rose-500 hover:bg-destructive/10" : "text-emerald-500 hover:bg-success/10"}`} title={b.isActive ? "تعطيل" : "تفعيل"}><Plus className="w-4 h-4" /></button>
+                        <button onClick={() => onDelete(b.id)} className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors" title="حذف"><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>

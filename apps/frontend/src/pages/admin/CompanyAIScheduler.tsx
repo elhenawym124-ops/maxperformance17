@@ -244,16 +244,16 @@ export default function CompanyAIScheduler() {
               style={{ fontFamily: "Cairo, sans-serif" }}
             >
               {isParsing ? (
-                <LoadingSpinner size="sm" color="white" className="ml-2" />
+                <LoadingSpinner size="sm" color="white" className="ms-2" />
               ) : (
-                <Languages className="ml-2 size-4" />
+                <Languages className="ms-2 size-4" />
               )}
               {isParsing ? "جارٍ الترجمة والتحليل..." : "ترجمة وجدولة المهمة"}
             </Button>
 
             {parsedCron && (
               <Badge variant="outline" className="font-mono text-sm">
-                <CalendarClock className="ml-1 size-3.5" />
+                <CalendarClock className="ms-1 size-3.5" />
                 {`Cron: ${parsedCron}`}
               </Badge>
             )}
@@ -324,13 +324,13 @@ export default function CompanyAIScheduler() {
                   <TableCell>
                     {job.lastStatus === "SUCCESS" && (
                       <Badge variant="outline" className="text-success">
-                        <CheckCircle2 className="ml-1 size-3" />
+                        <CheckCircle2 className="ms-1 size-3" />
                         نجح
                       </Badge>
                     )}
                     {job.lastStatus === "FAILED" && (
                       <Badge variant="outline" className="text-destructive">
-                        <AlertCircle className="ml-1 size-3" />
+                        <AlertCircle className="ms-1 size-3" />
                         فشل
                       </Badge>
                     )}

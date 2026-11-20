@@ -244,7 +244,7 @@ export default function EducationDemoDayPage() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-border/80">
         <div className="space-y-1">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">
             <Presentation className="w-3.5 h-3.5" />
             {isEn ? "Demo Day & Open Sessions" : "الديمو داي والفعاليات التجريبية"}
           </span>
@@ -279,7 +279,7 @@ export default function EducationDemoDayPage() {
 
       {/* KPI Telemetry Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <div className="p-3 sm:p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs space-y-1">
+        <div className="p-3 sm:p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
           <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5 text-blue-500" />
             {isEn ? "Total Events" : "إجمالي الفعاليات"}
@@ -289,9 +289,9 @@ export default function EducationDemoDayPage() {
           </div>
         </div>
 
-        <div className="p-3 sm:p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs space-y-1">
+        <div className="p-3 sm:p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
           <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-purple-500" />
+            <Clock className="w-3.5 h-3.5 text-primary" />
             {isEn ? "Upcoming Events" : "الفعاليات القادمة"}
           </span>
           <div className="text-lg sm:text-xl font-bold text-foreground font-mono tabular-nums">
@@ -299,7 +299,7 @@ export default function EducationDemoDayPage() {
           </div>
         </div>
 
-        <div className="p-3 sm:p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs space-y-1">
+        <div className="p-3 sm:p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
           <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
             <Users className="w-3.5 h-3.5 text-primary" />
             {isEn ? "Total Leads (Attendees)" : "إجمالي المسجلين (Leads)"}
@@ -309,9 +309,9 @@ export default function EducationDemoDayPage() {
           </div>
         </div>
 
-        <div className="p-3 sm:p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs space-y-1">
+        <div className="p-3 sm:p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
           <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-success" />
             {isEn ? "Attended Session" : "حضروا الجلسة"}
           </span>
           <div className="text-lg sm:text-xl font-bold text-foreground font-mono tabular-nums">
@@ -319,12 +319,12 @@ export default function EducationDemoDayPage() {
           </div>
         </div>
 
-        <div className="col-span-2 sm:col-span-1 p-3 sm:p-3.5 rounded-2xl bg-card border border-border/80 shadow-2xs space-y-1">
+        <div className="col-span-2 sm:col-span-1 p-3 sm:p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
           <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
-            <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <TrendingUp className="w-3.5 h-3.5 text-success dark:text-success" />
             {isEn ? "Conversion Rate" : "نسبة التحويل لاشتراكات"}
           </span>
-          <div className="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums flex items-baseline gap-1">
+          <div className="text-lg sm:text-xl font-bold text-success dark:text-success font-mono tabular-nums flex items-baseline gap-1">
             <span>{stats.conversionRate}%</span>
             <span className="text-[10px] text-muted-foreground font-normal">
               ({stats.convertedCount} {isEn ? "enrolled" : "مشترك"})
@@ -378,7 +378,7 @@ export default function EducationDemoDayPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={isEn ? "Search events…" : "بحث في الفعاليات…"}
-              className="w-full bg-background border border-input rounded-xl pr-8 pl-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full bg-background border border-input rounded-xl pe-8 ps-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               aria-label={isEn ? "Search events" : "بحث في الفعاليات"}
             />
           </div>
@@ -424,7 +424,7 @@ export default function EducationDemoDayPage() {
         <div className="space-y-4">
           {/* Active Event Banner */}
           {selectedEventDetail ? (
-            <div className="p-4 rounded-2xl bg-card border border-border/80 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div className="p-4 rounded-xl bg-card border border-border/80 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-foreground">
@@ -445,7 +445,7 @@ export default function EducationDemoDayPage() {
                   disabled={broadcasting}
                   onClick={handleBroadcastReminder}
                   aria-label={isEn ? "Broadcast WhatsApp Reminder" : "إرسال تذكير واتساب للمسجلين"}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border border-success/30 bg-success/10 hover:bg-success/20 text-success dark:text-success transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-50"
                 >
                   <Bell className={`w-3.5 h-3.5 ${broadcasting ? "animate-pulse" : ""}`} />
                   <span>{broadcasting ? (isEn ? "Sending…" : "جاري الإرسال…") : (isEn ? "WhatsApp Reminder" : "إرسال تذكير واتساب")}</span>

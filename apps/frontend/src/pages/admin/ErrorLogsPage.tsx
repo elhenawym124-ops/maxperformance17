@@ -68,10 +68,10 @@ const ErrorLogsPage: React.FC = () => {
   });
 
   const getStatusColor = (status?: number) => {
-    if (!status) return "bg-gray-100 text-gray-800";
-    if (status >= 500) return "bg-red-100 text-red-800";
-    if (status >= 400) return "bg-yellow-100 text-yellow-800";
-    return "bg-green-100 text-green-800";
+    if (!status) return "bg-gray-100 text-foreground";
+    if (status >= 500) return "bg-red-100 text-destructive";
+    if (status >= 400) return "bg-yellow-100 text-warning";
+    return "bg-green-100 text-success";
   };
 
   return (
@@ -79,8 +79,8 @@ const ErrorLogsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <ExclamationTriangleIcon className="w-8 h-8 text-red-600" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <ExclamationTriangleIcon className="w-8 h-8 text-destructive" />
             سجل الأخطاء والنظام
           </h1>
           <p className="text-gray-500 mt-1">
@@ -91,27 +91,27 @@ const ErrorLogsPage: React.FC = () => {
         <div className="flex gap-2">
           <button
             onClick={loadLogs}
-            className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="p-2 text-foreground hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
             title="تحديث"
           >
             <ArrowPathIcon className="w-6 h-6" />
           </button>
 
           <div className="relative group">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-border rounded-lg hover:bg-muted text-foreground">
               <ArrowDownTrayIcon className="w-5 h-5" />
               تصدير
             </button>
-            <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 hidden group-hover:block z-10">
+            <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-border hidden group-hover:block z-10">
               <button
                 onClick={handleExportCSV}
-                className="block w-full text-right px-4 py-2 hover:bg-gray-50 text-sm"
+                className="block w-full text-right px-4 py-2 hover:bg-muted text-sm"
               >
                 تصدير كـ CSV
               </button>
               <button
                 onClick={handleExportJSON}
-                className="block w-full text-right px-4 py-2 hover:bg-gray-50 text-sm"
+                className="block w-full text-right px-4 py-2 hover:bg-muted text-sm"
               >
                 تصدير كـ JSON
               </button>
@@ -120,7 +120,7 @@ const ErrorLogsPage: React.FC = () => {
 
           <button
             onClick={handleClearLogs}
-            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100"
+            className="flex items-center gap-2 px-4 py-2 bg-destructive/10 text-destructive border border-destructive rounded-lg hover:bg-destructive"
           >
             <TrashIcon className="w-5 h-5" />
             مسح السجل
@@ -131,34 +131,34 @@ const ErrorLogsPage: React.FC = () => {
       {/* Stats Cards */}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
             <div className="text-gray-500 text-sm mb-1">إجمالي الأخطاء</div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-bold text-foreground">
               {stats.total}
             </div>
           </div>
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
             <div className="text-gray-500 text-sm mb-1">أخطاء آخر 24 ساعة</div>
             <div className="text-2xl font-bold text-blue-600">
               {stats.last24Hours}
             </div>
           </div>
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
             <div className="text-gray-500 text-sm mb-1">
               أكثر مسار فيه أخطاء
             </div>
             <div
-              className="text-lg font-medium text-red-600 truncate"
+              className="text-lg font-medium text-destructive truncate"
               title={stats.mostCommonEndpoint || "لا يوجد"}
             >
               {stats.mostCommonEndpoint || "-"}
             </div>
           </div>
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
             <div className="text-gray-500 text-sm mb-1">
               نوع الخطأ الأكثر شيوعاً
             </div>
-            <div className="text-lg font-medium text-orange-600">
+            <div className="text-lg font-medium text-warning">
               {Object.entries(stats.byType).sort(
                 (a: any, b: any) => b[1] - a[1],
               )[0]?.[0] || "-"}
@@ -170,15 +170,15 @@ const ErrorLogsPage: React.FC = () => {
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[600px]">
         {/* Logs List */}
-        <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-hidden">
-          <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 className="font-semibold text-gray-900">سجل العمليات</h2>
+        <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-border flex flex-col overflow-hidden">
+          <div className="p-4 border-b border-border flex justify-between items-center">
+            <h2 className="font-semibold text-foreground">سجل العمليات</h2>
             <div className="flex items-center gap-2">
-              <FunnelIcon className="w-4 h-4 text-gray-500" />
+              <FunnelIcon className="w-4 h-4 text-muted-foreground" />
               <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                className="text-sm border-none bg-transparent focus:ring-0 text-gray-600 font-medium cursor-pointer"
+                className="text-sm border-none bg-transparent focus:ring-0 text-foreground font-medium cursor-pointer"
               >
                 <option value="all">الكل</option>
                 <option value="server">Server</option>
@@ -191,7 +191,7 @@ const ErrorLogsPage: React.FC = () => {
 
           <div className="overflow-y-auto flex-1 p-2 space-y-2">
             {filteredLogs.length === 0 ? (
-              <div className="text-center py-10 text-gray-500">
+              <div className="text-center py-10 text-muted-foreground">
                 لا توجد سجلات
               </div>
             ) : (
@@ -202,32 +202,32 @@ const ErrorLogsPage: React.FC = () => {
                   className={`p-3 rounded-lg border cursor-pointer transition-all ${
                     selectedLog === log
                       ? "bg-blue-50 border-blue-200 shadow-sm"
-                      : "bg-white border-gray-100 hover:bg-gray-50"
+                      : "bg-white border-border hover:bg-muted"
                   }`}
                 >
                   <div className="flex justify-between items-start mb-1">
                     <span
                       className={`px-2 py-0.5 rounded text-xs font-medium ${
                         log.errorState.errorType === "server"
-                          ? "bg-red-100 text-red-700"
+                          ? "bg-red-100 text-destructive"
                           : log.errorState.errorType === "network"
-                            ? "bg-gray-100 text-gray-700"
+                            ? "bg-gray-100 text-foreground"
                             : log.errorState.errorType === "auth"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-orange-100 text-orange-700"
+                              ? "bg-yellow-100 text-warning"
+                              : "bg-orange-100 text-warning"
                       }`}
                     >
                       {log.errorState.errorType}
                     </span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </span>
                   </div>
-                  <div className="text-sm text-gray-900 font-medium truncate mb-1">
+                  <div className="text-sm text-foreground font-medium truncate mb-1">
                     {log.errorState.errorMessage}
                   </div>
                   {log.errorState.details?.endpoint && (
-                    <div className="text-xs text-gray-500 truncate font-mono">
+                    <div className="text-xs text-muted-foreground truncate font-mono">
                       {log.errorState.details.method}{" "}
                       {log.errorState.details.endpoint}
                     </div>
@@ -239,25 +239,25 @@ const ErrorLogsPage: React.FC = () => {
         </div>
 
         {/* Log Details */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-border overflow-hidden flex flex-col">
           {selectedLog ? (
             <div className="flex-1 flex flex-col h-full overflow-hidden">
-              <div className="p-4 border-b border-gray-200 bg-gray-50">
+              <div className="p-4 border-b border-border bg-muted">
                 <div className="flex items-center gap-2 mb-2">
                   <span
                     className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${
                       selectedLog.errorState.errorType === "server"
-                        ? "bg-red-100 text-red-700 border-red-200"
-                        : "bg-gray-100 text-gray-700 border-gray-200"
+                        ? "bg-red-100 text-destructive border-destructive"
+                        : "bg-gray-100 text-foreground border-border"
                     }`}
                   >
                     {selectedLog.errorState.errorType.toUpperCase()}
                   </span>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-muted-foreground">
                     {new Date(selectedLog.timestamp).toLocaleString()}
                   </span>
                 </div>
-                <h2 className="text-lg font-bold text-gray-900 leading-snug">
+                <h2 className="text-lg font-bold text-foreground leading-snug">
                   {selectedLog.errorState.errorMessage}
                 </h2>
               </div>
@@ -265,20 +265,20 @@ const ErrorLogsPage: React.FC = () => {
               <div className="flex-1 overflow-y-auto p-6 space-y-6">
                 {/* Basic Info */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">
-                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
+                  <div className="p-3 bg-muted rounded-lg border border-border">
+                    <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                       Session ID
                     </div>
-                    <div className="text-sm font-mono text-gray-700">
+                    <div className="text-sm font-mono text-foreground">
                       {selectedLog.sessionId || "-"}
                     </div>
                   </div>
-                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">
-                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
+                  <div className="p-3 bg-muted rounded-lg border border-border">
+                    <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                       User Agent
                     </div>
                     <div
-                      className="text-sm text-gray-700 truncate"
+                      className="text-sm text-foreground truncate"
                       title={selectedLog.userAgent}
                     >
                       {selectedLog.userAgent}
@@ -289,19 +289,19 @@ const ErrorLogsPage: React.FC = () => {
                 {/* Technical Details */}
                 {selectedLog.errorState.details && (
                   <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 pb-2 border-b">
+                    <h3 className="text-sm font-bold text-foreground flex items-center gap-2 pb-2 border-b">
                       تفاصيل الطلب (Request Details)
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="p-3 rounded-lg bg-gray-900 text-gray-300 font-mono text-sm">
-                        <div className="text-xs text-gray-500 mb-1">Method</div>
+                      <div className="p-3 rounded-lg bg-muted text-muted-foreground font-mono text-sm">
+                        <div className="text-xs text-muted-foreground mb-1">Method</div>
                         <span className="text-yellow-400">
                           {selectedLog.errorState.details.method}
                         </span>
                       </div>
-                      <div className="p-3 rounded-lg bg-gray-900 text-gray-300 font-mono text-sm">
-                        <div className="text-xs text-gray-500 mb-1">
+                      <div className="p-3 rounded-lg bg-muted text-muted-foreground font-mono text-sm">
+                        <div className="text-xs text-muted-foreground mb-1">
                           Status Code
                         </div>
                         <span
@@ -315,8 +315,8 @@ const ErrorLogsPage: React.FC = () => {
                           {selectedLog.errorState.details.statusCode || "-"}
                         </span>
                       </div>
-                      <div className="p-3 rounded-lg bg-gray-900 text-gray-300 font-mono text-sm">
-                        <div className="text-xs text-gray-500 mb-1">
+                      <div className="p-3 rounded-lg bg-muted text-muted-foreground font-mono text-sm">
+                        <div className="text-xs text-muted-foreground mb-1">
                           Endpoint
                         </div>
                         <span className="text-blue-300 break-all">
@@ -327,10 +327,10 @@ const ErrorLogsPage: React.FC = () => {
 
                     {selectedLog.errorState.details.requestData && (
                       <div>
-                        <div className="text-xs font-medium text-gray-500 mb-2">
+                        <div className="text-xs font-medium text-muted-foreground mb-2">
                           Request Body
                         </div>
-                        <pre className="bg-gray-900 text-gray-300 p-4 rounded-lg text-xs font-mono overflow-auto max-h-40">
+                        <pre className="bg-gray-900 text-muted-foreground p-4 rounded-lg text-xs font-mono overflow-auto max-h-40">
                           {JSON.stringify(
                             selectedLog.errorState.details.requestData,
                             null,
@@ -342,10 +342,10 @@ const ErrorLogsPage: React.FC = () => {
 
                     {selectedLog.errorState.details.responseData && (
                       <div>
-                        <div className="text-xs font-medium text-gray-500 mb-2">
+                        <div className="text-xs font-medium text-muted-foreground mb-2">
                           Response Body
                         </div>
-                        <pre className="bg-gray-900 text-gray-300 p-4 rounded-lg text-xs font-mono overflow-auto max-h-60 border-l-4 border-red-500">
+                        <pre className="bg-gray-900 text-muted-foreground p-4 rounded-lg text-xs font-mono overflow-auto max-h-60 border-l-4 border-destructive">
                           {typeof selectedLog.errorState.details
                             .responseData === "object"
                             ? JSON.stringify(
@@ -361,10 +361,10 @@ const ErrorLogsPage: React.FC = () => {
                     {selectedLog.errorState.details.stackTrace &&
                       import.meta.env.DEV && (
                         <div>
-                          <div className="text-xs font-medium text-gray-500 mb-2">
+                          <div className="text-xs font-medium text-muted-foreground mb-2">
                             Stack Trace
                           </div>
-                          <pre className="bg-gray-50 text-red-800 p-4 rounded-lg text-[10px] font-mono overflow-auto whitespace-pre max-h-60 border border-gray-200">
+                          <pre className="bg-gray-50 text-destructive p-4 rounded-lg text-[10px] font-mono overflow-auto whitespace-pre max-h-60 border border-border">
                             {selectedLog.errorState.details.stackTrace}
                           </pre>
                         </div>
@@ -374,9 +374,9 @@ const ErrorLogsPage: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="flex-1 flex flex-col justify-center items-center text-gray-400 p-8 text-center">
+            <div className="flex-1 flex flex-col justify-center items-center text-muted-foreground p-8 text-center">
               <ExclamationTriangleIcon className="w-16 h-16 mb-4 opacity-50" />
-              <h3 className="text-lg font-medium text-gray-900">
+              <h3 className="text-lg font-medium text-foreground">
                 لم يتم تحديد خطأ
               </h3>
               <p className="mt-1">

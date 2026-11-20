@@ -51,7 +51,7 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
           {isSupervised ? (
             <Badge
               variant="outline"
-              className="h-5 gap-1 border-amber-500/30 bg-amber-500/10 px-1.5 text-[10px] font-mono font-medium text-amber-600 dark:text-amber-400"
+              className="h-5 gap-1 border-warning/30 bg-warning/10 px-1.5 text-[10px] font-mono font-medium text-warning dark:text-warning"
             >
               <ShieldAlert className="size-2.5" />
               <span>موافقة التاجر</span>
@@ -59,7 +59,7 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
           ) : (
             <Badge
               variant="outline"
-              className="h-5 gap-1 border-emerald-500/30 bg-emerald-500/10 px-1.5 text-[10px] font-mono font-medium text-emerald-600 dark:text-emerald-400"
+              className="h-5 gap-1 border-success/30 bg-success/10 px-1.5 text-[10px] font-mono font-medium text-success dark:text-success"
             >
               <Zap className="size-2.5" />
               <span>تشغيل ذاتي</span>
@@ -92,7 +92,7 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
         <div className="flex items-start gap-1.5">
           <Zap className="size-3 text-primary shrink-0 mt-0.5" />
           <span className="line-clamp-1 leading-snug">
-            <strong className="text-foreground/90 font-medium ml-1">الاستدعاء:</strong>
+            <strong className="text-foreground/90 font-medium ms-1">الاستدعاء:</strong>
             {meta.triggerAr}
           </span>
         </div>
@@ -110,12 +110,12 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
               className={cn(
                 "inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono text-[10px] border",
                 isWrite
-                  ? "bg-amber-500/5 text-amber-700 dark:text-amber-300 border-amber-500/20"
+                  ? "bg-amber-500/5 text-warning dark:text-warning border-warning/20"
                   : "bg-muted/40 text-muted-foreground border-border/70"
               )}
               title={toolDef?.description || tName}
             >
-              {isWrite ? <Zap className="size-2.5 text-amber-500" /> : <Eye className="size-2.5 text-blue-500" />}
+              {isWrite ? <Zap className="size-2.5 text-warning" /> : <Eye className="size-2.5 text-blue-500" />}
               <span className="truncate max-w-[110px]" dir="ltr">{tName}</span>
             </span>
           );
@@ -159,7 +159,7 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
                   </div>
                 ))}
               </div>
-              <span className="text-[11px] font-mono font-medium text-foreground mr-1 tabular-nums">
+              <span className="text-[11px] font-mono font-medium text-foreground me-1 tabular-nums">
                 {equippedAgents.length} {equippedAgents.length === 1 ? "وكيل مجهز" : "وكلاء"}
               </span>
             </div>
@@ -185,7 +185,7 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
             variant="ghost"
             size="icon-xs"
             onClick={() => onTestSandbox(skill)}
-            className="h-7 w-7 text-muted-foreground hover:text-emerald-600 hover:bg-emerald-500/10 rounded-lg active:scale-[0.98]"
+            className="h-7 w-7 text-muted-foreground hover:text-success hover:bg-success/10 rounded-lg active:scale-[0.98]"
             title="تجربة فورية في الـ Sandbox"
           >
             <Play className="size-3.5" />

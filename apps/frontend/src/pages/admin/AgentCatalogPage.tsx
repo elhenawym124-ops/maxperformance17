@@ -139,7 +139,7 @@ export default function AgentCatalogPage() {
                     setSearch(e.target.value);
                     setPage(0);
                   }}
-                  className="pl-8"
+                  className="ps-8"
                 />
               </div>
               <TooltipProvider>
@@ -149,7 +149,7 @@ export default function AgentCatalogPage() {
                       onClick={openAddForm}
                       className="rounded-lg px-6 font-extrabold shadow-[0_4px_14px_rgba(99,102,241,0.25)]"
                     >
-                      <Plus className="mr-1 size-4" />
+                      <Plus className="me-1 size-4" />
                       {t('aiCatalog.addProduct')}
                     </Button>
                   </TooltipTrigger>
@@ -182,7 +182,7 @@ export default function AgentCatalogPage() {
                 setSearch(e.target.value);
                 setPage(0);
               }}
-              className="pl-8"
+              className="ps-8"
             />
           </div>
         </div>

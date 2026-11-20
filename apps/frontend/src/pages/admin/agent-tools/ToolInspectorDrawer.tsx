@@ -117,9 +117,9 @@ export const ToolInspectorDrawer: React.FC<ToolInspectorDrawerProps> = ({
                 className={cn(
                   "flex size-11 shrink-0 items-center justify-center rounded-xl border text-lg shadow-xs",
                   isEquipped
-                    ? "border-emerald-500/40 bg-emerald-500/10 text-foreground"
+                    ? "border-emerald-500/40 bg-success/10 text-foreground"
                     : isWrite
-                    ? "border-amber-500/40 bg-amber-500/10 text-amber-600"
+                    ? "border-amber-500/40 bg-warning/10 text-warning"
                     : "border-border/60 bg-muted/50 text-muted-foreground"
                 )}
               >
@@ -133,7 +133,7 @@ export const ToolInspectorDrawer: React.FC<ToolInspectorDrawerProps> = ({
                 <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                   {/* Equipped Status */}
                   {isEquipped ? (
-                    <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-2 py-0.5 text-[0.65rem] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    <span className="inline-flex items-center gap-1 rounded-md bg-success/15 px-2 py-0.5 text-[0.65rem] font-bold text-success dark:text-success border border-success/30">
                       <CheckCircle2 className="size-3" />
                       <span>مجهزة للوكلاء ({equippedAgents.length})</span>
                     </span>
@@ -146,12 +146,12 @@ export const ToolInspectorDrawer: React.FC<ToolInspectorDrawerProps> = ({
 
                   {/* Side-Effect */}
                   {isWrite ? (
-                    <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 px-2 py-0.5 text-[0.65rem] font-bold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                    <span className="inline-flex items-center gap-1 rounded-md bg-warning/10 px-2 py-0.5 text-[0.65rem] font-bold text-warning dark:text-warning border border-warning/20">
                       <Lock className="size-3" />
                       <span>كتابة وتنفيذ</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 rounded-md bg-sky-500/10 px-2 py-0.5 text-[0.65rem] font-bold text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                    <span className="inline-flex items-center gap-1 rounded-md bg-info/10 px-2 py-0.5 text-[0.65rem] font-bold text-info dark:text-info border border-info/20">
                       <Unlock className="size-3" />
                       <span>استعلام وقراءة</span>
                     </span>
@@ -272,7 +272,7 @@ export const ToolInspectorDrawer: React.FC<ToolInspectorDrawerProps> = ({
                         </td>
                         <td className="py-2 px-2.5">
                           {row.isRequired ? (
-                            <span className="rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 px-1.5 py-0.2 text-[0.65rem] font-sans font-bold border border-rose-500/20">
+                            <span className="rounded bg-destructive/10 text-destructive dark:text-destructive px-1.5 py-0.2 text-[0.65rem] font-sans font-bold border border-destructive/20">
                               إلزامي
                             </span>
                           ) : (
@@ -339,17 +339,17 @@ export const ToolInspectorDrawer: React.FC<ToolInspectorDrawerProps> = ({
 
                     <div className="flex items-center gap-1.5 shrink-0">
                       {agent.autonomy === "blocked" ? (
-                        <span className="inline-flex items-center gap-0.5 rounded-md bg-rose-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-rose-600 border border-rose-500/20">
+                        <span className="inline-flex items-center gap-0.5 rounded-md bg-destructive/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-destructive border border-destructive/20">
                           <Lock className="size-2.5" />
                           <span>معطلة</span>
                         </span>
                       ) : agent.autonomy === "approval" ? (
-                        <span className="inline-flex items-center gap-0.5 rounded-md bg-amber-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-amber-600 border border-amber-500/20">
+                        <span className="inline-flex items-center gap-0.5 rounded-md bg-warning/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-warning border border-warning/20">
                           <ShieldAlert className="size-2.5" />
                           <span>إشراف بشري</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-0.5 rounded-md bg-emerald-500/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-emerald-600 border border-emerald-500/20">
+                        <span className="inline-flex items-center gap-0.5 rounded-md bg-success/10 px-1.5 py-0.2 text-[0.65rem] font-bold text-success border border-success/20">
                           <Zap className="size-2.5" />
                           <span>ذاتي بالكامل</span>
                         </span>
@@ -380,7 +380,7 @@ export const ToolInspectorDrawer: React.FC<ToolInspectorDrawerProps> = ({
           <Button
             type="button"
             onClick={() => onTestSandbox(tool)}
-            className="text-xs h-8 gap-1.5 font-bold bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer shadow-xs"
+            className="text-xs h-8 gap-1.5 font-bold bg-success hover:bg-success text-white cursor-pointer shadow-xs"
           >
             <Play className="size-3.5" />
             <span>تشغيل تجريبي في Sandbox</span>

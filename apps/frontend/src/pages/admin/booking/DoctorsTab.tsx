@@ -61,7 +61,7 @@ export default function DoctorsTab({
           <div className="relative">
             <Search className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/70" />
             <input
-              className="border border-border/70 rounded-lg pr-8 pl-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56 bg-card text-foreground shadow-sm hover:border-border transition-colors focus:outline-none focus:ring-1 focus:ring-primary/40"
+              className="border border-border/70 rounded-lg pe-8 ps-3 py-1.5 text-xs sm:text-sm w-44 sm:w-56 bg-card text-foreground shadow-sm hover:border-border transition-colors focus:outline-none focus:ring-1 focus:ring-primary/40"
               placeholder="بحث بالطبيب أو التخصص..."
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
@@ -103,8 +103,8 @@ export default function DoctorsTab({
                 <span
                   className={`px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap ${
                     d.isActive
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
-                      : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
+                      : "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20"
                   }`}
                 >
                   {d.isActive ? "نشط" : "غير نشط"}
@@ -130,7 +130,7 @@ export default function DoctorsTab({
                 </button>
                 <button
                   onClick={() => setAvailabilityDoctor(d)}
-                  className="text-xs px-2.5 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-md hover:bg-amber-500/20 flex items-center gap-1 transition-colors"
+                  className="text-xs px-2.5 py-1 bg-warning/10 text-warning dark:text-warning rounded-md hover:bg-warning/20 flex items-center gap-1 transition-colors"
                 >
                   <Clock className="w-3 h-3" />
                   <span>الأوقات</span>
@@ -146,15 +146,15 @@ export default function DoctorsTab({
                   onClick={() => onToggleActive(d.id, d.isActive)}
                   className={`text-xs px-2.5 py-1 rounded-md transition-colors ${
                     d.isActive
-                      ? "bg-rose-500/10 text-rose-600 hover:bg-rose-500/20"
-                      : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                      ? "bg-rose-500/10 text-destructive hover:bg-destructive/20"
+                      : "bg-emerald-500/10 text-success hover:bg-success/20"
                   }`}
                 >
                   {d.isActive ? "تعطيل" : "تفعيل"}
                 </button>
                 <button
                   onClick={() => onDelete(d.id)}
-                  className="text-xs px-2.5 py-1 bg-rose-500/10 text-rose-600 rounded-md hover:bg-rose-500/20 flex items-center gap-1 transition-colors"
+                  className="text-xs px-2.5 py-1 bg-destructive/10 text-destructive rounded-md hover:bg-destructive/20 flex items-center gap-1 transition-colors"
                 >
                   <Trash2 className="w-3 h-3" />
                   <span>حذف</span>

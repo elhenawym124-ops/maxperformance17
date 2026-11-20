@@ -110,7 +110,7 @@ export default function AppointmentModal({ appointment, branches, branchDoctors,
   if (appointment?.id && !isEditing) {
     return (
       <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4" onClick={onClose}>
-        <div className="bg-card border border-border/80 rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
+        <div className="bg-card border border-border/80 rounded-xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
           <div className="flex items-center justify-between px-5 py-4 border-b border-border/60 bg-muted/20 shrink-0">
             <div className="flex items-center gap-2.5">
               <div className="p-2 rounded-xl bg-primary/10 text-primary border border-primary/20"><Calendar className="w-5 h-5" /></div>
@@ -172,7 +172,7 @@ export default function AppointmentModal({ appointment, branches, branchDoctors,
   const isEditMode = isEditing || !appointment?.id;
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4" onClick={onClose}>
-      <div className="bg-card border border-border/80 rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
+      <div className="bg-card border border-border/80 rounded-xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden text-card-foreground animate-in fade-in-0 zoom-in-95 duration-150" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/60 bg-muted/20 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-primary/10 text-primary border border-primary/20"><Calendar className="w-5 h-5" /></div>
@@ -189,7 +189,7 @@ export default function AppointmentModal({ appointment, branches, branchDoctors,
             <label className="block text-xs font-medium text-foreground mb-1">البحث عن مريض مسجل (اختياري)</label>
             <div className="relative">
               <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground" />
-              <input className={`${inputCls} pr-9`} placeholder="ابحث بالاسم أو رقم الهاتف..." value={patientSearch} onChange={e => { setPatientSearch(e.target.value); setShowPatientResults(true); }} onFocus={() => setShowPatientResults(true)} />
+              <input className={`${inputCls} pe-9`} placeholder="ابحث بالاسم أو رقم الهاتف..." value={patientSearch} onChange={e => { setPatientSearch(e.target.value); setShowPatientResults(true); }} onFocus={() => setShowPatientResults(true)} />
             </div>
             {showPatientResults && patientResults.length > 0 && (
               <div className="absolute z-20 mt-1 w-full bg-card border border-border rounded-xl shadow-xl max-h-52 overflow-y-auto p-1 divide-y divide-border/40">

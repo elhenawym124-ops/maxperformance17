@@ -101,7 +101,7 @@ export function EducationSettingsTab({ onSaved, onDirtyChange }: EducationSettin
           <div className="h-5 w-64 rounded-lg bg-muted" />
           <div className="h-5 w-28 rounded-lg bg-muted" />
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 space-y-5">
+        <div className="rounded-xl border border-border bg-card p-4 sm:p-5 space-y-5">
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className="space-y-2.5">
               <div className="h-4 w-40 rounded-md bg-muted" />
@@ -147,7 +147,7 @@ export function EducationSettingsTab({ onSaved, onDirtyChange }: EducationSettin
       <div className="space-y-4">
         {/* Single-surface chassis + portal card */}
         <div className="space-y-4">
-          <div className="bg-card border border-border rounded-2xl">
+          <div className="bg-card border border-border rounded-xl">
             {/* 1. Operation mode */}
             <section className="p-4 sm:p-5 border-b border-border/60 space-y-3">
               <SectionHeader icon={GraduationCap}>
@@ -189,7 +189,7 @@ export function EducationSettingsTab({ onSaved, onDirtyChange }: EducationSettin
             <section className="p-4 sm:p-5 border-b border-border/60">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <Presentation className="w-4 h-4 text-purple-500 shrink-0" aria-hidden="true" />
+                  <Presentation className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                   <div className="min-w-0">
                     <h4 className="text-xs font-bold text-foreground">
                       {isEn ? "Demo Day & Trial Sessions" : "سيكشن الديمو داي والفعاليات التجريبية"}
@@ -219,7 +219,7 @@ export function EducationSettingsTab({ onSaved, onDirtyChange }: EducationSettin
             <section className="p-4 sm:p-5 border-b border-border/60">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <Building2 className="w-4 h-4 text-emerald-500 shrink-0" aria-hidden="true" />
+                  <Building2 className="w-4 h-4 text-success shrink-0" aria-hidden="true" />
                   <div className="min-w-0">
                     <h4 className="text-xs font-bold text-foreground">
                       {isEn ? "Branches & Training Classrooms" : "فروع ومقرات المركز والقاعات التدريبية"}
@@ -333,7 +333,7 @@ export function EducationSettingsTab({ onSaved, onDirtyChange }: EducationSettin
       {c.isDirty && (
         <div className="sticky bottom-3 z-20">
           <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card/95 backdrop-blur px-3.5 py-2 shadow-lg">
-            <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+            <span className="text-xs font-semibold text-warning dark:text-warning">
               {isEn ? "Unsaved changes — Ctrl+S to save" : "تعديلات غير محفوظة — Ctrl+S للحفظ"}
             </span>
             <div className="flex items-center gap-2">

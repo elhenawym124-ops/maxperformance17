@@ -188,7 +188,7 @@ export default function EducationBranchesPage() {
         </div>
 
         <div className="p-3 sm:p-4 rounded-xl border border-border bg-card flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center shrink-0">
             <DoorOpen className="w-5 h-5" />
           </div>
           <div>
@@ -202,7 +202,7 @@ export default function EducationBranchesPage() {
         </div>
 
         <div className="p-3 sm:p-4 rounded-xl border border-border bg-card flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center shrink-0">
             <Users className="w-5 h-5" />
           </div>
           <div>
@@ -270,7 +270,7 @@ export default function EducationBranchesPage() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="p-4 rounded-2xl border border-border bg-card animate-pulse space-y-3">
+            <div key={i} className="p-4 rounded-xl border border-border bg-card animate-pulse space-y-3">
               <div className="h-5 bg-muted rounded w-1/3" />
               <div className="h-4 bg-muted/70 rounded w-2/3" />
               <div className="h-4 bg-muted/50 rounded w-1/2" />
@@ -278,8 +278,8 @@ export default function EducationBranchesPage() {
           ))}
         </div>
       ) : filteredBranches.length === 0 ? (
-        <div className="p-10 text-center rounded-2xl border border-dashed border-border bg-card/40 space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-muted/60 text-muted-foreground flex items-center justify-center mx-auto">
+        <div className="p-10 text-center rounded-xl border border-dashed border-border bg-card/40 space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-muted/60 text-muted-foreground flex items-center justify-center mx-auto">
             <Building2 className="w-6 h-6" />
           </div>
           <div>
@@ -318,7 +318,7 @@ export default function EducationBranchesPage() {
             return (
               <div
                 key={branch.id}
-                className="p-4 sm:p-5 rounded-2xl border border-border bg-card hover:border-primary/40 transition-all flex flex-col justify-between space-y-4 shadow-2xs"
+                className="p-4 sm:p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-all flex flex-col justify-between space-y-4 shadow-2xs"
               >
                 {/* Branch Header */}
                 <div className="space-y-2">
@@ -329,8 +329,8 @@ export default function EducationBranchesPage() {
                           {branch.name}
                         </h2>
                         {branch.isActive ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
+                            <span className="w-1.5 h-1.5 rounded-full bg-success" />
                             {isEn ? "Active" : "نشط"}
                           </span>
                         ) : (
@@ -355,7 +355,7 @@ export default function EducationBranchesPage() {
                         title={branch.isActive ? (isEn ? "Deactivate" : "تعطيل الفرع") : (isEn ? "Activate" : "تفعيل الفرع")}
                         className={`p-1.5 rounded-lg transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center ${
                           branch.isActive
-                            ? "text-emerald-600 hover:bg-emerald-500/10"
+                            ? "text-emerald-600 hover:bg-success/10"
                             : "text-muted-foreground hover:bg-muted"
                         }`}
                       >

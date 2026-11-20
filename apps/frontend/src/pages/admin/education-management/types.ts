@@ -214,24 +214,24 @@ export const SESSION_STATUS: Record<string, { label: string; color: string }> = 
   },
   CONFIRMED: {
     label: "مؤكدة",
-    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    color: "bg-emerald-500/10 text-success dark:text-success border-success/20",
   },
   COMPLETED: {
     label: "مكتملة",
-    color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+    color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20",
   },
   CANCELLED: {
     label: "ملغية",
-    color: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+    color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20",
   },
 };
 
 export const getSessionStatus = (status: string, isEn = false): { label: string; color: string } => {
   const map: Record<string, { ar: string; en: string; color: string }> = {
     SCHEDULED: { ar: "مجدولة", en: "Scheduled", color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20" },
-    CONFIRMED: { ar: "مؤكدة", en: "Confirmed", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20" },
-    COMPLETED: { ar: "مكتملة", en: "Completed", color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20" },
-    CANCELLED: { ar: "ملغية", en: "Cancelled", color: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20" },
+    CONFIRMED: { ar: "مؤكدة", en: "Confirmed", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
+    COMPLETED: { ar: "مكتملة", en: "Completed", color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },
+    CANCELLED: { ar: "ملغية", en: "Cancelled", color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20" },
   };
   const item = map[status];
   if (!item) return { label: status, color: "bg-muted text-muted-foreground" };
@@ -239,7 +239,7 @@ export const getSessionStatus = (status: string, isEn = false): { label: string;
 };
 
 export const MODAL_CLS =
-  "bg-card border border-border rounded-2xl shadow-2xl p-4 sm:p-6 w-full max-w-xl mx-auto space-y-4 max-h-[90vh] overflow-y-auto";
+  "bg-card border border-border rounded-xl shadow-2xl p-4 sm:p-6 w-full max-w-xl mx-auto space-y-4 max-h-[90vh] overflow-y-auto";
 export const INPUT_CLS =
   "w-full bg-background border border-input rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary";
 export const CELL_CLS = "py-2.5 px-3 sm:py-3 sm:px-4 text-xs";

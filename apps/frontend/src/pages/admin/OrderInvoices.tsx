@@ -102,27 +102,27 @@ const PAYMENT_STATUS_META: Record<PaymentStatusKey, PaymentStatusMeta> = {
   PAID: {
     labelKey: "orders.orderInvoices_statusPaid",
     className:
-      "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+      "border-emerald-500/20 bg-success/10 text-success dark:text-success",
   },
   PENDING: {
     labelKey: "orders.orderInvoices_statusPending",
     className:
-      "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+      "border-amber-500/20 bg-warning/10 text-warning dark:text-warning",
   },
   CANCELLED: {
     labelKey: "orders.orderInvoices_statusCancelled",
     className:
-      "border-rose-500/20 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+      "border-rose-500/20 bg-destructive/10 text-destructive dark:text-destructive",
   },
   REFUNDED: {
     labelKey: "orders.orderInvoices_statusRefunded",
     className:
-      "border-sky-500/20 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+      "border-sky-500/20 bg-info/10 text-info dark:text-info",
   },
   PARTIALLY_PAID: {
     labelKey: "orders.orderInvoices_statusPartiallyPaid",
     className:
-      "border-orange-500/20 bg-orange-500/10 text-orange-700 dark:text-orange-300",
+      "border-orange-500/20 bg-warning/10 text-warning dark:text-warning",
   },
 };
 
@@ -463,10 +463,10 @@ const OrderInvoices: React.FC = () => {
             <div className="p-3.5 sm:p-4 space-y-1">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                  <span className="size-1.5 rounded-full bg-success" />
                   {t("orders.orderInvoices_paidInvoices")}
                 </span>
-                <CheckCircle2 className="size-3.5 text-emerald-500" />
+                <CheckCircle2 className="size-3.5 text-success" />
               </div>
               <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-foreground">
                 {stats.paidInvoices}
@@ -479,10 +479,10 @@ const OrderInvoices: React.FC = () => {
             <div className="p-3.5 sm:p-4 space-y-1">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <span className="size-1.5 rounded-full bg-amber-500" />
+                  <span className="size-1.5 rounded-full bg-warning" />
                   {t("orders.orderInvoices_pendingInvoices")}
                 </span>
-                <Clock3 className="size-3.5 text-amber-500" />
+                <Clock3 className="size-3.5 text-warning" />
               </div>
               <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-foreground">
                 {stats.pendingInvoices}
@@ -527,7 +527,7 @@ const OrderInvoices: React.FC = () => {
                       }
                     }}
                     placeholder={t("orders.orderInvoices_searchInputPlaceholder")}
-                    className="h-8.5 text-xs pr-8 text-right bg-background/80"
+                    className="h-8.5 text-xs pe-8 text-right bg-background/80"
                   />
                 </div>
 
@@ -576,7 +576,7 @@ const OrderInvoices: React.FC = () => {
                   onClick={handleSearch}
                   className="h-8.5 px-3 text-xs active:scale-[0.98]"
                 >
-                  <Search className="size-3 ml-1" />
+                  <Search className="size-3 ms-1" />
                   {t("orders.orderInvoices_search")}
                 </Button>
 

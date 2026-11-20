@@ -160,7 +160,7 @@ export default function EducationTeacherSchedulePage() {
       case "CONFIRMED":
         return {
           label: isEn ? "Confirmed" : "مؤكدة",
-          color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+          color: "bg-emerald-500/10 text-success dark:text-success border-success/20",
         };
       case "SCHEDULED":
         return {
@@ -170,7 +170,7 @@ export default function EducationTeacherSchedulePage() {
       case "CANCELLED":
         return {
           label: isEn ? "Cancelled" : "ملغية",
-          color: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+          color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20",
         };
       default:
         return {
@@ -232,11 +232,11 @@ export default function EducationTeacherSchedulePage() {
             <div className="text-xs text-muted-foreground">
               {t("education.schedule.confirmed", isEn ? "Confirmed Sessions" : "حصص مؤكدة")}
             </div>
-            <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <div className="text-xl font-bold text-success dark:text-success font-mono tabular-nums">
               {stats.confirmed}
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+          <div className="w-9 h-9 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center border border-success/20">
             <CheckCircle2 className="w-4 h-4" />
           </div>
         </div>
@@ -246,11 +246,11 @@ export default function EducationTeacherSchedulePage() {
             <div className="text-xs text-muted-foreground">
               {t("education.schedule.scheduled", isEn ? "Pending Scheduled Sessions" : "حصص مجدولة بالانتظار")}
             </div>
-            <div className="text-xl font-bold text-sky-600 dark:text-sky-400 font-mono tabular-nums">
+            <div className="text-xl font-bold text-info dark:text-info font-mono tabular-nums">
               {stats.scheduled}
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center border border-sky-500/20">
+          <div className="w-9 h-9 rounded-lg bg-info/10 text-info dark:text-info flex items-center justify-center border border-info/20">
             <Calendar className="w-4 h-4" />
           </div>
         </div>
@@ -310,7 +310,7 @@ export default function EducationTeacherSchedulePage() {
       </div>
 
       {/* Week Calendar Grid */}
-      <div className="bg-card border border-border/80 rounded-2xl overflow-hidden shadow-xs">
+      <div className="bg-card border border-border/80 rounded-xl overflow-hidden shadow-xs">
         <div className="grid grid-cols-1 md:grid-cols-7 divide-y md:divide-y-0 md:divide-x divide-border/60">
           {weekDays.map((day, i) => {
             const daySessions = getSessionsForDay(day);

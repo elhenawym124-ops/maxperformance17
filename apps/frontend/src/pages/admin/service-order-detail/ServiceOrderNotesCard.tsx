@@ -15,13 +15,13 @@ export const ServiceOrderNotesCard: React.FC<ServiceOrderNotesCardProps> = ({
   onSaveNotes,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-xs space-y-3">
+    <div className="bg-card rounded-xl border border-border dark:border-border p-4 sm:p-5 shadow-xs space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+        <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
           <FileText className="w-4 h-4 text-primary-600" />
           الملاحظات الداخلية وسجل المتابعة
         </h3>
-        <span className="text-[11px] text-gray-400">خاصة بفريق العمل</span>
+        <span className="text-[11px] text-muted-foreground">خاصة بفريق العمل</span>
       </div>
 
       <textarea
@@ -29,7 +29,7 @@ export const ServiceOrderNotesCard: React.FC<ServiceOrderNotesCardProps> = ({
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         placeholder="اكتب ملاحظات داخلية لفريق العمل، شروط خاصة، أو تفاصيل المتابعة..."
-        className="w-full p-3 text-xs sm:text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 text-gray-800 dark:text-gray-100 outline-hidden focus:ring-2 focus:ring-primary-500"
+        className="w-full p-3 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground outline-hidden focus:ring-2 focus:ring-primary-500"
       />
 
       <div className="flex justify-end">

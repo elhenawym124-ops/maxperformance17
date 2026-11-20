@@ -130,7 +130,7 @@ export const CreateSkillModal: React.FC<CreateSkillModalProps> = ({
           </Alert>
         )}
 
-        <div className="flex flex-col gap-3.5 max-h-[65vh] overflow-y-auto pr-1">
+        <div className="flex flex-col gap-3.5 max-h-[65vh] overflow-y-auto pe-1">
           <div>
             <label className="mb-1 block text-xs font-bold text-foreground">اسم المهارة</label>
             <Input
@@ -171,7 +171,7 @@ export const CreateSkillModal: React.FC<CreateSkillModalProps> = ({
                 placeholder="بحث في الأدوات المتاحة..."
                 value={toolSearch}
                 onChange={(e) => setToolSearch(e.target.value)}
-                className="pr-8 h-8 text-xs"
+                className="pe-8 h-8 text-xs"
               />
             </div>
             <div className="max-h-[140px] space-y-1 overflow-y-auto rounded-xl border border-border/70 p-2 bg-muted/20">

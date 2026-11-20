@@ -197,7 +197,7 @@ const TransitionRules: React.FC<Props> = ({ statuses, onUpdate }) => {
                     value={employeeSearch}
                     onChange={(e) => setEmployeeSearch(e.target.value)}
                     placeholder={t("orderSettings.k_167")}
-                    className="w-full pr-8 pl-3 py-1.5 text-xs rounded-xl border border-border/70 bg-background text-foreground"
+                    className="w-full pe-8 ps-3 py-1.5 text-xs rounded-xl border border-border/70 bg-background text-foreground"
                   />
                 </div>
 
@@ -288,7 +288,7 @@ const TransitionRules: React.FC<Props> = ({ statuses, onUpdate }) => {
                 <span className="text-primary">{getStatusName(tr.toStatusId)}</span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-1.5 border-r border-border/60 pr-3 mr-3">
+              <div className="flex flex-wrap items-center gap-1.5 border-r border-border/60 pe-3 me-3">
                 {JSON.parse(tr.allowedRoles || "[]").map((role: string) => {
                   const roleObj = availableRoles.find(r => r.value === role);
                   const empObj = employees.find(e => e.id === role);
@@ -299,8 +299,8 @@ const TransitionRules: React.FC<Props> = ({ statuses, onUpdate }) => {
                     </span>
                   );
                 })}
-                {tr.requiresApproval && <ShieldCheck className="w-4 h-4 text-amber-500" title={t("orderSettings.k_96")} />}
-                {tr.allowOverride && <ShieldAlert className="w-4 h-4 text-orange-500" title={t("orderSettings.k_170")} />}
+                {tr.requiresApproval && <ShieldCheck className="w-4 h-4 text-warning" title={t("orderSettings.k_96")} />}
+                {tr.allowOverride && <ShieldAlert className="w-4 h-4 text-warning" title={t("orderSettings.k_170")} />}
               </div>
             </div>
 

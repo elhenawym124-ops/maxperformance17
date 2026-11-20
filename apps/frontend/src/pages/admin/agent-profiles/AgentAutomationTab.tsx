@@ -160,8 +160,8 @@ export const AgentAutomationTab: React.FC<AgentAutomationTabProps> = ({ agent })
           </div>
           {runtimeTotals && (
             <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
-              <span>شغال حالياً: <strong className="text-emerald-600 dark:text-emerald-400">{runtimeTotals.running}</strong></span>
-              <span>في الطابور: <strong className="text-amber-600 dark:text-amber-400">{runtimeTotals.queued}</strong></span>
+              <span>شغال حالياً: <strong className="text-emerald-600 dark:text-success">{runtimeTotals.running}</strong></span>
+              <span>في الطابور: <strong className="text-amber-600 dark:text-warning">{runtimeTotals.queued}</strong></span>
             </div>
           )}
         </div>
@@ -189,14 +189,14 @@ export const AgentAutomationTab: React.FC<AgentAutomationTabProps> = ({ agent })
                 >
                   <span className="text-foreground">{ag.agentId}</span>
                   {isRunning && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
-                      <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-success/15 text-success dark:text-success">
+                      <span className="size-1.5 rounded-full bg-success animate-pulse" />
                       شغال
                     </span>
                   )}
                   {isQueued && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-500/15 text-amber-600 dark:text-amber-400">
-                      <span className="size-1.5 rounded-full bg-amber-500" />
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-warning/15 text-warning dark:text-warning">
+                      <span className="size-1.5 rounded-full bg-warning" />
                       في الطابور
                     </span>
                   )}
@@ -221,7 +221,7 @@ export const AgentAutomationTab: React.FC<AgentAutomationTabProps> = ({ agent })
       {/* Run Now Control Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-border/70 bg-card shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <div className="size-10 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center shrink-0">
             <Play className="size-5 fill-current" />
           </div>
           <div>
@@ -237,7 +237,7 @@ export const AgentAutomationTab: React.FC<AgentAutomationTabProps> = ({ agent })
         <button
           onClick={handleRunNow}
           disabled={running}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50 shadow-sm"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-success hover:bg-success text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50 shadow-sm"
         >
           {running ? (
             <>
@@ -255,8 +255,8 @@ export const AgentAutomationTab: React.FC<AgentAutomationTabProps> = ({ agent })
 
       {/* Run Now Result Alert */}
       {runSummary && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm flex items-start gap-3">
-          <CheckCircle2 className="size-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+        <div className="p-4 bg-success/10 border border-success/30 rounded-xl text-success dark:text-success text-xs sm:text-sm flex items-start gap-3">
+          <CheckCircle2 className="size-5 text-success dark:text-success shrink-0 mt-0.5" />
           <div className="space-y-1">
             <div className="font-semibold">اكتمل التشغيل بنجاح!</div>
             <div className="flex flex-wrap gap-4 text-xs opacity-90">

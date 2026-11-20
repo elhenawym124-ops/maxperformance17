@@ -260,7 +260,7 @@ export default function AgentGuardrailsTab({
         {/* Add Rule Form */}
         <div className="bg-card p-3 sm:p-4 rounded-xl border border-border">
           <h4 className="font-semibold text-sm mb-2.5 flex items-center gap-1.5">
-            <Plus className="size-4 text-green-500" />
+            <Plus className="size-4 text-success" />
             {t("agentProfiles.guardrails.addTitle")}
           </h4>
           
@@ -337,7 +337,7 @@ export default function AgentGuardrailsTab({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="size-8 hover:bg-red-500/10 text-red-500"
+                          className="size-8 hover:bg-destructive/10 text-destructive"
                           onClick={() => setRuleToDelete(rule.id)}
                           aria-label={t("common.delete", "حذف")}
                         >
@@ -368,10 +368,10 @@ export default function AgentGuardrailsTab({
                           <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 border-none text-[10px]">{t("agentProfiles.guardrails.sourceTemplate")}</Badge>
                         )}
                         {rule.source === "merchant_manual" && (
-                          <Badge variant="secondary" className="bg-green-500/10 text-green-500 border-none text-[10px]">{t("agentProfiles.guardrails.sourceManual")}</Badge>
+                          <Badge variant="secondary" className="bg-green-500/10 text-success border-none text-[10px]">{t("agentProfiles.guardrails.sourceManual")}</Badge>
                         )}
                         {rule.source === "correction_auto" && (
-                          <Badge variant="secondary" className="bg-purple-500/10 text-purple-500 border-none text-[10px]">{t("agentProfiles.guardrails.sourceLearning")}</Badge>
+                          <Badge variant="secondary" className="bg-purple-500/10 text-primary border-none text-[10px]">{t("agentProfiles.guardrails.sourceLearning")}</Badge>
                         )}
                       </div>
                     </div>
@@ -403,10 +403,10 @@ export default function AgentGuardrailsTab({
                             <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 border-none">{t("agentProfiles.guardrails.sourceTemplate")}</Badge>
                           )}
                           {rule.source === "merchant_manual" && (
-                            <Badge variant="secondary" className="bg-green-500/10 text-green-500 border-none">{t("agentProfiles.guardrails.sourceManual")}</Badge>
+                            <Badge variant="secondary" className="bg-green-500/10 text-success border-none">{t("agentProfiles.guardrails.sourceManual")}</Badge>
                           )}
                           {rule.source === "correction_auto" && (
-                            <Badge variant="secondary" className="bg-purple-500/10 text-purple-500 border-none">{t("agentProfiles.guardrails.sourceLearning")}</Badge>
+                            <Badge variant="secondary" className="bg-purple-500/10 text-primary border-none">{t("agentProfiles.guardrails.sourceLearning")}</Badge>
                           )}
                         </td>
                         <td className="p-3 text-center align-top">
@@ -428,11 +428,11 @@ export default function AgentGuardrailsTab({
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="size-7 hover:bg-red-500/10"
+                              className="size-7 hover:bg-destructive/10"
                               onClick={() => setRuleToDelete(rule.id)}
                               aria-label={t("common.delete", "حذف")}
                             >
-                              <Trash2 className="size-3.5 text-red-500" />
+                              <Trash2 className="size-3.5 text-destructive" />
                             </Button>
                           </div>
                         </td>
@@ -492,7 +492,7 @@ export default function AgentGuardrailsTab({
               {t("agentProfiles.guardrails.cancel")}
             </Button>
             <Button size="sm" onClick={handleUpdateRuleFields} disabled={savingRule}>
-              {savingRule && <Loader2 className="size-3 animate-spin mr-1.5" />}
+              {savingRule && <Loader2 className="size-3 animate-spin me-1.5" />}
               {t("agentProfiles.guardrails.saveChanges")}
             </Button>
           </DialogFooter>
@@ -501,10 +501,10 @@ export default function AgentGuardrailsTab({
 
       {/* Dialog: Conflict Warning Modal */}
       <Dialog open={conflictWarning !== null} onOpenChange={(open) => !open && setConflictWarning(null)}>
-        <DialogContent className="max-w-md text-right border-amber-500/30" dir="rtl">
+        <DialogContent className="max-w-md text-right border-warning/30" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="text-base font-bold text-amber-600 flex items-center gap-2">
-              <AlertTriangle className="size-5 text-amber-500" />
+            <DialogTitle className="text-base font-bold text-warning flex items-center gap-2">
+              <AlertTriangle className="size-5 text-warning" />
               {t("agentProfiles.guardrails.conflictTitle")}
             </DialogTitle>
           </DialogHeader>
@@ -515,13 +515,13 @@ export default function AgentGuardrailsTab({
                 {t("agentProfiles.guardrails.conflictDesc")}
               </p>
               
-              <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 flex flex-col gap-2">
+              <div className="bg-amber-500/5 border border-warning/20 rounded-lg p-3 flex flex-col gap-2">
                 <div className="flex flex-col gap-0.5">
-                  <span className="font-bold text-amber-600 dark:text-amber-500">{t("agentProfiles.guardrails.conflictOld")}</span>
+                  <span className="font-bold text-warning dark:text-warning">{t("agentProfiles.guardrails.conflictOld")}</span>
                   <span className="text-muted-foreground whitespace-pre-wrap">{conflictWarning.conflictingRule.excuse}</span>
                 </div>
-                <div className="flex flex-col gap-0.5 border-t border-amber-500/10 pt-1.5">
-                  <span className="font-bold text-amber-600 dark:text-amber-500">{t("agentProfiles.guardrails.conflictOldRebuttal")}</span>
+                <div className="flex flex-col gap-0.5 border-t border-warning/10 pt-1.5">
+                  <span className="font-bold text-warning dark:text-warning">{t("agentProfiles.guardrails.conflictOldRebuttal")}</span>
                   <span className="text-muted-foreground whitespace-pre-wrap">{conflictWarning.conflictingRule.rebuttal}</span>
                 </div>
               </div>
@@ -539,12 +539,12 @@ export default function AgentGuardrailsTab({
             </Button>
             <Button
               variant="destructive"
-              className="bg-amber-600 hover:bg-amber-700 text-white"
+              className="bg-amber-600 hover:bg-warning text-white"
               size="sm"
               onClick={() => handleSaveRule(true)}
               disabled={savingRule}
             >
-              {savingRule && <Loader2 className="size-3 animate-spin mr-1.5" />}
+              {savingRule && <Loader2 className="size-3 animate-spin me-1.5" />}
               {t("agentProfiles.guardrails.conflictForceBtn")}
             </Button>
           </DialogFooter>
@@ -568,7 +568,7 @@ export default function AgentGuardrailsTab({
               {t("common.cancel", "إلغاء")}
             </Button>
             <Button variant="destructive" size="sm" onClick={handleDeleteRule} disabled={deletingRule}>
-              {deletingRule && <Loader2 className="size-3 animate-spin mr-1.5" />}
+              {deletingRule && <Loader2 className="size-3 animate-spin me-1.5" />}
               {t("common.delete", "حذف")}
             </Button>
           </DialogFooter>

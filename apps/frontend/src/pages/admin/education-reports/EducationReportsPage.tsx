@@ -89,7 +89,7 @@ export default function EducationReportsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/80">
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary dark:text-primary border border-primary/20">
                 <BarChart3 className="w-3.5 h-3.5" />
                 {isEn ? "Academy Reports & Analytics" : "تقارير الأكاديمية وتحليل الحملات"}
               </span>
@@ -173,14 +173,14 @@ export default function EducationReportsPage() {
 
         {/* Error Banner */}
         {error && (
-          <div className="p-3.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive flex items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
             <button
               onClick={() => loadData(false)}
-              className="px-2.5 py-1 bg-red-600 text-white rounded-md font-semibold hover:bg-red-700 transition-colors shrink-0"
+              className="px-2.5 py-1 bg-destructive text-white rounded-md font-semibold hover:bg-destructive transition-colors shrink-0"
             >
               {isEn ? "Retry" : "إعادة المحاولة"}
             </button>
@@ -223,7 +223,7 @@ export default function EducationReportsPage() {
               href="/admin/education/funnel"
               className="inline-flex items-center gap-1.5 text-foreground hover:text-primary transition-colors font-medium hover:underline"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <MessageSquare className="w-3.5 h-3.5 text-success dark:text-success" />
               <span>{isEn ? "WhatsApp Notification Templates" : "مركز قوالب رسائل وأتمتة الواتساب"}</span>
             </a>
           </div>

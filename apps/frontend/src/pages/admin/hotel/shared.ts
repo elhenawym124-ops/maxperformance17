@@ -160,9 +160,9 @@ export const ROOM_STATUS_LABELS: Record<string, string> = {
 };
 
 export const ROOM_STATUS_COLORS: Record<string, string> = {
-  AVAILABLE: 'bg-green-100 text-green-800', OCCUPIED: 'bg-red-100 text-red-800',
-  MAINTENANCE: 'bg-yellow-100 text-yellow-800', CLEANING: 'bg-blue-100 text-blue-800',
-  RESERVED: 'bg-purple-100 text-purple-800'
+  AVAILABLE: 'bg-green-100 text-success', OCCUPIED: 'bg-red-100 text-destructive',
+  MAINTENANCE: 'bg-yellow-100 text-warning', CLEANING: 'bg-blue-100 text-blue-800',
+  RESERVED: 'bg-purple-100 text-primary'
 };
 
 export const RESERVATION_STATUS_LABELS: Record<string, string> = {
@@ -170,9 +170,9 @@ export const RESERVATION_STATUS_LABELS: Record<string, string> = {
 };
 
 export const RESERVATION_STATUS_COLORS: Record<string, string> = {
-  PENDING: 'bg-yellow-100 text-yellow-800', CONFIRMED: 'bg-blue-100 text-blue-800',
-  CHECKED_IN: 'bg-green-100 text-green-800', CHECKED_OUT: 'bg-gray-100 text-gray-800',
-  CANCELLED: 'bg-red-100 text-red-800', NO_SHOW: 'bg-orange-100 text-orange-800'
+  PENDING: 'bg-yellow-100 text-warning', CONFIRMED: 'bg-blue-100 text-blue-800',
+  CHECKED_IN: 'bg-green-100 text-success', CHECKED_OUT: 'bg-gray-100 text-foreground',
+  CANCELLED: 'bg-red-100 text-destructive', NO_SHOW: 'bg-orange-100 text-warning'
 };
 
 export const FOLIO_TYPE_LABELS: Record<string, string> = {

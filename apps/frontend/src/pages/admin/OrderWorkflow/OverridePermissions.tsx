@@ -204,19 +204,19 @@ const OverridePermissions: React.FC<Props> = ({ config, onUpdate }) => {
         </div>
 
         {/* Warning Policy Box */}
-        <div className="p-6 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-4">
-          <AlertTriangle className="w-8 h-8 text-amber-600 dark:text-amber-400" />
-          <h3 className="text-sm font-bold text-amber-900 dark:text-amber-300">{t('orderSettings.k_124')}</h3>
-          <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+        <div className="p-6 rounded-xl bg-warning/10 border border-warning/20 space-y-4">
+          <AlertTriangle className="w-8 h-8 text-warning dark:text-warning" />
+          <h3 className="text-sm font-bold text-warning dark:text-warning">{t('orderSettings.k_124')}</h3>
+          <p className="text-xs text-warning dark:text-warning leading-relaxed">
             {t('orderSettings.k_162')}
           </p>
-          <div className="space-y-2 pt-2 border-t border-amber-500/20 text-xs text-amber-800 dark:text-amber-300">
+          <div className="space-y-2 pt-2 border-t border-warning/20 text-xs text-warning dark:text-warning">
             <div className="flex gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-warning mt-1.5 shrink-0" />
               <p>{t('orderSettings.k_125')}</p>
             </div>
             <div className="flex gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-warning mt-1.5 shrink-0" />
               <p>{t('orderSettings.k_126')}</p>
             </div>
           </div>

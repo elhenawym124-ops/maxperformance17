@@ -99,7 +99,7 @@ export const ProductTableView: React.FC<ProductTableViewProps> = ({
                     <ShoppingBag className="size-14 text-muted-foreground/50" />
                     <p className="font-semibold text-muted-foreground">{t('aiCatalog.empty')}</p>
                     <Button variant="outline" onClick={openAddForm}>
-                      <Plus className="mr-1 size-4" />
+                      <Plus className="me-1 size-4" />
                       {t('aiCatalog.addProduct')}
                     </Button>
                   </div>
@@ -162,7 +162,7 @@ export const ProductTableView: React.FC<ProductTableViewProps> = ({
                     <TableCell className="text-center">
                       {variantCount > 0 ? (
                         <Badge variant="outline" className="text-[0.7rem] tabular-nums">
-                          <Palette className="mr-0.5 size-3.5" />
+                          <Palette className="me-0.5 size-3.5" />
                           {variantCount}
                         </Badge>
                       ) : (

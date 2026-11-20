@@ -33,17 +33,17 @@ const CartColumn: React.FC<CartColumnProps> = ({
   );
 
     return (
-        <div className="flex flex-col bg-white dark:bg-gray-900 rounded-xl shadow-2xs border border-gray-200/80 dark:border-gray-800 overflow-hidden" style={{ height: '100%', maxHeight: '100%' }}>
-            <div className="px-4 py-3 border-b border-gray-200/80 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/40 flex justify-between items-center">
-                <h2 className="text-xs sm:text-sm font-semibold tracking-tight text-gray-900 dark:text-white">{t('manualOrder.k_72')}{items.length})</h2>
-                <div className="text-xs font-semibold font-mono tabular-nums text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700 px-2.5 py-1 rounded-md shadow-2xs">
+        <div className="flex flex-col bg-white dark:bg-muted rounded-xl shadow-2xs border border-border dark:border-border overflow-hidden" style={{ height: '100%', maxHeight: '100%' }}>
+            <div className="px-4 py-3 border-b border-border dark:border-border bg-muted dark:bg-muted flex justify-between items-center">
+                <h2 className="text-xs sm:text-sm font-semibold tracking-tight text-foreground">{t('manualOrder.k_72')}{items.length})</h2>
+                <div className="text-xs font-semibold font-mono tabular-nums text-foreground bg-muted dark:bg-muted border border-border dark:border-border px-2.5 py-1 rounded-md shadow-2xs">
                     {t('manualOrder.k_77')} {totalAmount.toLocaleString()} {t('manualOrder.k_84')}
                 </div>
             </div>
 
             <div className="flex-1 overflow-y-auto min-h-0 p-2 manual-order-scroll manual-order-column">
                 {items.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-500">
+                    <div className="h-full flex flex-col items-center justify-center text-muted-foreground/80">
                         <CalculatorIcon className="w-12 h-12 mb-2 opacity-50" />
                         <p>{t('manualOrder.k_57')}</p>
                     </div>
@@ -52,14 +52,14 @@ const CartColumn: React.FC<CartColumnProps> = ({
                         {items.map((item) => (
                             <div
                                 key={`${item.productId}-${item.variantId || 'default'}`}
-                                className={`flex gap-3 p-3 bg-white dark:bg-gray-800 border rounded-lg group transition-colors ${item.quantity > item.stock ? 'border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/20' : 'border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600'}`}
+                                className={`flex gap-3 p-3 bg-card border rounded-lg group transition-colors ${item.quantity > item.stock ? 'border-red-300 dark:border-destructive bg-destructive/50 dark:bg-destructive/20' : 'border-gray-100 dark:border-border hover:border-blue-200 dark:hover:border-blue-600'}`}
                             >
                                 {/* Image */}
-                                <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-md overflow-hidden flex-shrink-0">
+                                <div className="w-16 h-16 bg-muted rounded-md overflow-hidden flex-shrink-0">
                                     {item.image ? (
                                         <img src={buildOptimizedUploadImageUrl(item.image, { width: 150 })} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
                                     ) : (
-                                        <div className="w-full h-full bg-gray-200 dark:bg-gray-600" />
+                                        <div className="w-full h-full bg-muted dark:bg-muted" />
                                     )}
                                 </div>
 
@@ -68,11 +68,11 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                     <div className="flex justify-between items-start">
                                         <div className="flex-1 min-w-0">
                                             <div className="flex justify-between items-start gap-1">
-                                                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-1 flex-1">{item.name}</h3>
+                                                <h3 className="text-sm font-medium text-foreground line-clamp-1 flex-1">{item.name}</h3>
                                                 <div className="flex items-center gap-1.5 flex-shrink-0">
                                                     {item.isWholesalePrice && (
                                                         <span
-                                                            className="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/40 border border-purple-200 dark:border-purple-800 px-1.5 py-0.5 text-[9px] font-bold text-purple-700 dark:text-purple-300"
+                                                            className="inline-flex items-center rounded-full bg-primary dark:bg-primary/40 border border-primary dark:border-primary px-1.5 py-0.5 text-[9px] font-bold text-primary dark:text-primary"
                                                             title={item.wholesalePriceListName || 'سعر جملة'}
                                                         >
                                                             سعر جملة
@@ -91,7 +91,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                         </span>
                                                     )}
                                                     {item.size && (
-                                                        <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                                                        <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-foreground dark:bg-muted dark:text-muted-foreground">
                                                             {t('manualOrder.k_86')} {item.size}
                                                         </span>
                                                     )}
@@ -104,7 +104,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                     </div>
                                                 )}
                                             {/* Stock indicator */}
-                                            <div className={`text-[10px] mt-0.5 ${item.quantity > item.stock ? 'text-red-600 dark:text-red-400 font-medium' : 'text-gray-400 dark:text-gray-500'}`}>
+                                            <div className={`text-[10px] mt-0.5 ${item.quantity > item.stock ? 'text-red-600 dark:text-destructive font-medium' : 'text-muted-foreground/80'}`}>
                                                 {item.quantity > item.stock ? (
                                                     <span className="flex items-center gap-1">
                                                         <ExclamationTriangleIcon className="w-3 h-3" />
@@ -117,7 +117,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                         </div>
                                         <button
                                             onClick={() => onRemoveItem(item.productId, item.variantId)}
-                                            className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors flex-shrink-0 mr-2"
+                                            className="text-muted-foreground/80 hover:text-destructive dark:hover:text-destructive transition-colors flex-shrink-0 me-2"
                                         >
                                             <TrashIcon className="w-4 h-4" />
                                         </button>
@@ -126,9 +126,9 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                     <div className="flex flex-col gap-2 mt-2">
                                         <div className="flex items-center gap-4">
                                             {/* Quantity Control */}
-                                            <div className="flex items-center border border-gray-200 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700">
+                                            <div className="flex items-center border border-border rounded-md bg-muted dark:bg-muted">
                                                 <button
-                                                    className="px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 font-bold"
+                                                    className="px-2 py-1 hover:bg-muted dark:hover:bg-muted text-muted-foreground font-bold"
                                                     onClick={() => {
                                                         if (item.quantity > 1) onUpdateItem(item.productId, { quantity: item.quantity - 1 }, item.variantId);
                                                         else onRemoveItem(item.productId, item.variantId);
@@ -143,10 +143,10 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                         const val = parseInt(e.target.value) || 0;
                                                         if (val >= 0) onUpdateItem(item.productId, { quantity: val }, item.variantId);
                                                     }}
-                                                    className="w-12 text-center text-sm bg-transparent dark:text-gray-100 border-none focus:ring-0 p-1"
+                                                    className="w-12 text-center text-sm bg-transparent dark:text-muted-foreground border-none focus:ring-0 p-1"
                                                 />
                                                 <button
-                                                    className="px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 font-bold"
+                                                    className="px-2 py-1 hover:bg-muted dark:hover:bg-muted text-muted-foreground font-bold"
                                                     onClick={() => onUpdateItem(item.productId, { quantity: item.quantity + 1 }, item.variantId)}
                                                 >
                                                     +
@@ -155,7 +155,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
 
                                             {/* Final Price for Member */}
                                             <div className="flex-1">
-                                                <div className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{t('manualOrder.k_74')}</div>
+                                                <div className="text-xs text-muted-foreground mb-0.5">{t('manualOrder.k_74')}</div>
                                                 <div className="relative">
                                                     <input
                                                         type="number"
@@ -165,9 +165,9 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                             const val = parseFloat(e.target.value) || 0;
                                                             onUpdateItem(item.productId, { price: val }, item.variantId);
                                                         }}
-                                                        className={`w-full text-sm border-gray-200 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-2 pl-8 font-bold dark:bg-gray-700 dark:text-gray-100 ${isAffiliate ? 'bg-gray-50 dark:bg-gray-800' : (item.price !== item.originalPrice ? 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-700' : 'text-gray-700 dark:text-gray-300')}`}
+                                                        className={`w-full text-sm border-border rounded-md focus:ring-blue-500 focus:border-blue-500 pe-2 ps-8 font-bold dark:bg-muted dark:text-muted-foreground ${isAffiliate ? 'bg-gray-50 dark:bg-muted' : (item.price !== item.originalPrice ? 'text-orange-600 dark:text-warning bg-warning/10 dark:bg-warning/20 border-warning dark:border-warning' : 'text-foreground')}`}
                                                     />
-                                                    <span className="absolute left-2 top-1.5 text-xs text-gray-400 dark:text-gray-500">{t('manualOrder.k_75')}</span>
+                                                    <span className="absolute left-2 top-1.5 text-xs text-muted-foreground/80">{t('manualOrder.k_75')}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                         {isAffiliate && (
                                             <div className="grid grid-cols-2 gap-2">
                                                 <div>
-                                                    <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">{t('manualOrder.k_76')}</div>
+                                                    <div className="text-[10px] text-muted-foreground mb-0.5">{t('manualOrder.k_76')}</div>
                                                     <div className="relative">
                                                         <input
                                                             type="number"
@@ -188,15 +188,15 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                                     price: item.originalPrice + markup
                                                                 }, item.variantId);
                                                             }}
-                                                            className="w-full text-xs border-blue-200 dark:border-blue-800 rounded-md focus:ring-blue-500 focus:border-blue-500 pr-2 pl-8 font-bold bg-blue-50/50 dark:bg-blue-900/10 text-blue-700 dark:text-blue-300"
+                                                            className="w-full text-xs border-blue-200 dark:border-blue-800 rounded-md focus:ring-blue-500 focus:border-blue-500 pe-2 ps-8 font-bold bg-blue-50/50 dark:bg-blue-900/10 text-blue-700 dark:text-blue-300"
                                                             placeholder="0"
                                                         />
                                                         <span className="absolute left-2 top-1 text-[10px] text-blue-400 dark:text-blue-500">{t('manualOrder.k_75')}</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col justify-end items-end pb-1 pr-1">
-                                                    <div className="text-[10px] text-gray-400 dark:text-gray-500">{t('manualOrder.k_77')}</div>
-                                                    <div className="text-sm font-bold text-gray-700 dark:text-gray-100">
+                                                <div className="flex flex-col justify-end items-end pb-1 pe-1">
+                                                    <div className="text-[10px] text-muted-foreground/80">{t('manualOrder.k_77')}</div>
+                                                    <div className="text-sm font-bold text-foreground dark:text-muted-foreground">
                                                         {(item.price * item.quantity).toLocaleString()} {t('manualOrder.k_75')}
                                                     </div>
                                                 </div>
@@ -204,7 +204,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                         )}
 
                                         {!isAffiliate && item.isWholesalePrice && ['OWNER', 'ADMIN', 'COMPANY_ADMIN', 'SUPER_ADMIN'].includes(user?.role || '') && (
-                                            <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 flex items-center justify-between bg-purple-50/50 dark:bg-purple-950/20 px-2 py-1 rounded border border-purple-100 dark:border-purple-900/40">
+                                            <div className="text-[10px] text-muted-foreground mt-0.5 flex items-center justify-between bg-primary/50 dark:bg-primary/20 px-2 py-1 rounded border border-primary dark:border-primary/40">
                                                 <span>السعر العادي: {item.regularPrice || item.originalPrice} {t('manualOrder.k_75')}</span>
                                                 <button
                                                     type="button"
@@ -214,7 +214,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                             : (item.wholesalePrice || item.originalPrice);
                                                         onUpdateItem(item.productId, { price: targetPrice }, item.variantId);
                                                     }}
-                                                    className="text-purple-600 dark:text-purple-400 font-bold hover:underline"
+                                                    className="text-purple-600 dark:text-primary font-bold hover:underline"
                                                 >
                                                     {item.price === item.wholesalePrice ? 'تبديل للعادي' : 'إعادة للجملة'}
                                                 </button>
@@ -222,7 +222,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                         )}
 
                                         {!isAffiliate && item.price !== item.originalPrice && !item.isWholesalePrice && (
-                                            <div className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 text-right flex justify-end gap-1">
+                                            <div className="text-[10px] text-muted-foreground/80 mt-0.5 text-right flex justify-end gap-1">
                                                 <span>{t('manualOrder.k_78')}{item.originalPrice}</span>
                                                 <button
                                                     className="text-blue-500 dark:text-blue-400 hover:underline"
@@ -234,7 +234,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                         )}
 
                                         {!isAffiliate && (
-                                            <div className="text-sm font-bold text-gray-700 dark:text-gray-100 text-left self-end">
+                                            <div className="text-sm font-bold text-foreground dark:text-muted-foreground text-left self-end">
                                                 {(item.price * item.quantity).toLocaleString()} {t('manualOrder.k_75')}
                                             </div>
                                         )}
@@ -247,10 +247,10 @@ const CartColumn: React.FC<CartColumnProps> = ({
             </div>
 
             {/* Footer / Summary */}
-            <div className="p-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div className="p-4 bg-muted dark:bg-muted border-t border-border dark:border-border">
                 <div className="flex justify-between items-center text-sm mb-2">
-                    <span className="text-gray-600 dark:text-gray-400">{t('manualOrder.k_79')}</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
+                    <span className="text-gray-600 dark:text-muted-foreground">{t('manualOrder.k_79')}</span>
+                    <span className="font-medium text-foreground">{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
                 </div>
                 {isAffiliate && (
                     <div className="flex justify-between items-center text-sm mb-2 text-blue-600 dark:text-blue-400">
@@ -259,7 +259,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                     </div>
                 )}
                 <div className="flex justify-between items-center text-lg font-bold">
-                    <span className="text-gray-800 dark:text-gray-100">{t('manualOrder.k_81')}</span>
+                    <span className="text-gray-800 dark:text-muted-foreground">{t('manualOrder.k_81')}</span>
                     <span className="text-blue-600 dark:text-blue-400">{totalAmount.toLocaleString()}{t('manualOrder.k_75')}</span>
                 </div>
             </div>

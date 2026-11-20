@@ -53,7 +53,7 @@ export const SkillFilterBar: React.FC<SkillFilterBarProps> = ({
       {/* 1. Diagnostics Banner */}
       <div className="flex items-center justify-between rounded-xl bg-card border border-border/70 px-3.5 py-2 text-xs font-mono shadow-xs">
         <div className="flex items-center gap-2">
-          <AlertTriangle className="size-3.5 text-amber-500 shrink-0" />
+          <AlertTriangle className="size-3.5 text-warning shrink-0" />
           <span className="font-semibold text-foreground">
             تشخيص المهارات: {totalCount} مهارة معتمدة ({equippedCount} مجهزة ومفعلة للوكلاء)
           </span>
@@ -85,13 +85,13 @@ export const SkillFilterBar: React.FC<SkillFilterBarProps> = ({
               className={cn(
                 "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer active:scale-[0.98]",
                 installFilter === "installed"
-                  ? "bg-card text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-xs font-semibold"
+                  ? "bg-card text-success dark:text-success border border-success/30 shadow-xs font-semibold"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
               <span>المثبتة</span>
-              <span className="font-mono text-[10px] px-1 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <span className="font-mono text-[10px] px-1 py-0.2 rounded bg-success/10 text-success dark:text-success tabular-nums">
                 {equippedCount}
               </span>
             </button>
@@ -141,7 +141,7 @@ export const SkillFilterBar: React.FC<SkillFilterBarProps> = ({
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               placeholder="بحث في المهارات..."
-              className="h-8 border-border/80 bg-background/50 pr-8 pl-7 text-xs focus-visible:ring-1 font-mono"
+              className="h-8 border-border/80 bg-background/50 pe-8 ps-7 text-xs focus-visible:ring-1 font-mono"
             />
             {query && (
               <button

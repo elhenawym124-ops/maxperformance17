@@ -179,12 +179,12 @@ export default function AgentToolsTab({
         </div>
 
         <div className="rounded-xl border border-border/70 bg-card p-2 sm:p-3.5 flex flex-col sm:flex-row items-center sm:items-center text-center sm:text-start gap-1 sm:gap-3">
-          <div className="size-7 sm:size-10 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+          <div className="size-7 sm:size-10 rounded-lg bg-warning/10 text-warning dark:text-warning flex items-center justify-center shrink-0">
             <ShieldAlert className="size-3.5 sm:size-5" />
           </div>
           <div className="min-w-0">
             <p className="text-[10px] sm:text-xs text-muted-foreground truncate">{t("agentProfiles.tools.writeTools", "أدوات تنفيذ")}</p>
-            <p className="text-base sm:text-xl font-black text-amber-600 dark:text-amber-400">{writeToolsCount}</p>
+            <p className="text-base sm:text-xl font-black text-warning dark:text-warning">{writeToolsCount}</p>
           </div>
         </div>
       </div>
@@ -198,7 +198,7 @@ export default function AgentToolsTab({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t("agentProfiles.tools.searchPlaceholder", "بحث في اسم الأداة أو الوصف...")}
-              className="h-9 sm:h-8 pr-8 text-base sm:text-xs bg-card"
+              className="h-9 sm:h-8 pe-8 text-base sm:text-xs bg-card"
             />
           </div>
 
@@ -230,7 +230,7 @@ export default function AgentToolsTab({
               className={cn(
                 "flex-1 sm:flex-initial px-3 py-1.5 min-h-[34px] sm:min-h-[28px] text-xs rounded-md font-medium transition-all text-center",
                 typeFilter === "write"
-                  ? "bg-card text-amber-600 dark:text-amber-400 shadow-sm font-semibold"
+                  ? "bg-card text-warning dark:text-warning shadow-sm font-semibold"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -247,7 +247,7 @@ export default function AgentToolsTab({
         >
           <SlidersHorizontal className="size-3 text-primary" />
           <span>{t("agentProfiles.tools.manageTools", "إدارة صلاحيات الأدوات")}</span>
-          <ExternalLink className="size-3 opacity-60 ml-0.5" />
+          <ExternalLink className="size-3 opacity-60 ms-0.5" />
         </Button>
       </div>
 
@@ -266,7 +266,7 @@ export default function AgentToolsTab({
                 className={cn(
                   "p-3 sm:p-3.5 rounded-xl border bg-card transition-all duration-150 flex flex-col justify-between gap-2 sm:gap-2.5",
                   isWrite
-                    ? "border-amber-500/20 hover:border-amber-500/40"
+                    ? "border-amber-500/20 hover:border-warning/40"
                     : "border-border/70 hover:border-primary/40"
                 )}
               >
@@ -280,7 +280,7 @@ export default function AgentToolsTab({
                     </div>
 
                     {isWrite ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full shrink-0">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-warning dark:text-warning bg-warning/10 border border-warning/20 px-2 py-0.5 rounded-full shrink-0">
                         <ShieldAlert className="size-2.5" />
                         {t("agentProfiles.tools.sideEffectWrite", "تنفيذ وتعديل")}
                       </span>

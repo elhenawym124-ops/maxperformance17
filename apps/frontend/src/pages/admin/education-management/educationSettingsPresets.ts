@@ -66,7 +66,7 @@ export const PRESETS: EducationPreset[] = [
     desc: "المعلمين، الطلاب، الحصص، والمواد الدراسية",
     descEn: "Teachers, students, lessons, and academic subjects",
     icon: School,
-    iconColor: "text-emerald-600 dark:text-emerald-400",
+    iconColor: "text-emerald-600 dark:text-success",
     systemTitle: "النظام التعليمي والدروس",
     systemTitleEn: "Education & Tutoring System",
     labels: {
@@ -114,7 +114,7 @@ export const PRESETS: EducationPreset[] = [
     desc: "المدربين، الدارسين، البرامج والكورسات",
     descEn: "Trainers, learners, courses, and programs",
     icon: Briefcase,
-    iconColor: "text-purple-600 dark:text-purple-400",
+    iconColor: "text-purple-600 dark:text-primary",
     systemTitle: "أكاديمية التدريب والتطوير",
     systemTitleEn: "Training Academy",
     labels: {
@@ -138,7 +138,7 @@ export const PRESETS: EducationPreset[] = [
     desc: "هيئة التدريس، الطلاب، والمقررات",
     descEn: "Faculty members, students, and curriculum",
     icon: Building2,
-    iconColor: "text-amber-600 dark:text-amber-400",
+    iconColor: "text-amber-600 dark:text-warning",
     systemTitle: "نظام المعهد الأكاديمي",
     systemTitleEn: "Academic Institute System",
     labels: {

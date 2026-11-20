@@ -15,9 +15,9 @@ import supportService from "../../services/supportService";
 import { useAuth } from "../../hooks/useAuthSimple";
 
 const STATUS_CONFIG: Record<string, { label: string; badge: string; icon: React.ElementType }> = {
-  open: { label: "مفتوحة", badge: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20", icon: Clock },
+  open: { label: "مفتوحة", badge: "bg-amber-500/10 text-warning dark:text-warning border-warning/20", icon: Clock },
   in_progress: { label: "قيد المعالجة", badge: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20", icon: AlertCircle },
-  closed: { label: "مغلقة", badge: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20", icon: CheckCircle2 },
+  closed: { label: "مغلقة", badge: "bg-emerald-500/10 text-success dark:text-success border-success/20", icon: CheckCircle2 },
 };
 
 const CATEGORY_NAMES: Record<string, string> = {
@@ -152,10 +152,10 @@ export default function SupportAdmin() {
         <div className="p-3 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">تذاكر مفتوحة</span>
-            <Clock className="size-3.5 text-amber-500" />
+            <Clock className="size-3.5 text-warning" />
           </div>
           <div className="mt-1.5">
-            <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-amber-600 dark:text-amber-400">
+            <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-warning dark:text-warning">
               {openCount}
             </span>
           </div>
@@ -178,10 +178,10 @@ export default function SupportAdmin() {
         <div className="p-3 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">تذاكر مغلقة</span>
-            <CheckCircle2 className="size-3.5 text-emerald-500" />
+            <CheckCircle2 className="size-3.5 text-success" />
           </div>
           <div className="mt-1.5">
-            <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
+            <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-success dark:text-success">
               {closedCount}
             </span>
           </div>
@@ -213,7 +213,7 @@ export default function SupportAdmin() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="بحث برقم التذكرة، الموضوع، أو التاجر..."
-                className="w-full pr-8 pl-3 py-1 bg-background border border-border/70 rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
+                className="w-full pe-8 ps-3 py-1 bg-background border border-border/70 rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
               />
             </div>
 
@@ -241,7 +241,7 @@ export default function SupportAdmin() {
               ))}
             </select>
 
-            <span className="text-[11px] text-muted-foreground font-mono tabular-nums mr-auto">
+            <span className="text-[11px] text-muted-foreground font-mono tabular-nums me-auto">
               {filteredTickets.length} تذكرة
             </span>
           </div>
@@ -325,7 +325,7 @@ export default function SupportAdmin() {
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">{f.answer}</p>
               <div className="flex items-center gap-4 text-xs text-muted-foreground pt-1.5 border-t border-border/50 font-mono tabular-nums">
-                <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-[11px]">
+                <span className="inline-flex items-center gap-1 text-success dark:text-success text-[11px]">
                   <ThumbsUp className="size-3" /> {f.helpful || 0} تقييم إيجابي
                 </span>
                 <span className="inline-flex items-center gap-1 text-muted-foreground text-[11px]">

@@ -183,7 +183,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8 text-muted-foreground text-sm">
-        <RefreshCw className="size-5 animate-spin mr-2" />
+        <RefreshCw className="size-5 animate-spin me-2" />
         جاري تحميل إعدادات المتابعة...
       </div>
     );
@@ -193,7 +193,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
     <div className="space-y-6">
       {/* Alert Notices */}
       {saveSuccess && (
-        <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-600 dark:text-emerald-400 text-sm flex items-center gap-2">
+        <div className="p-3 bg-success/10 border border-success/30 rounded-lg text-success dark:text-success text-sm flex items-center gap-2">
           <CheckCircle2 className="size-4 shrink-0" />
           تم حفظ إعدادات متابعة الشحن بنجاح.
         </div>
@@ -235,7 +235,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
               type="checkbox"
               checked={settings.enabled}
               onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
-              className="mt-1 size-4 rounded border-gray-300 text-primary focus:ring-primary"
+              className="mt-1 size-4 rounded border-border text-primary focus:ring-primary"
             />
             <div>
               <span className="text-sm font-medium text-foreground block">
@@ -252,7 +252,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
               type="checkbox"
               checked={settings.dryRun}
               onChange={(e) => setSettings({ ...settings, dryRun: e.target.checked })}
-              className="mt-1 size-4 rounded border-gray-300 text-primary focus:ring-primary"
+              className="mt-1 size-4 rounded border-border text-primary focus:ring-primary"
             />
             <div>
               <span className="text-sm font-medium text-foreground block">
@@ -357,7 +357,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
               type="checkbox"
               checked={settings.notifyAdmin}
               onChange={(e) => setSettings({ ...settings, notifyAdmin: e.target.checked })}
-              className="size-4 rounded border-gray-300 text-primary"
+              className="size-4 rounded border-border text-primary"
             />
             <span className="font-medium text-foreground">تنبيه الإدارة (واتساب)</span>
           </label>
@@ -367,7 +367,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
               type="checkbox"
               checked={settings.notifyCustomer}
               onChange={(e) => setSettings({ ...settings, notifyCustomer: e.target.checked })}
-              className="size-4 rounded border-gray-300 text-primary"
+              className="size-4 rounded border-border text-primary"
             />
             <span className="font-medium text-foreground">تنبيه العميل (واتساب)</span>
           </label>
@@ -377,10 +377,10 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
               type="checkbox"
               checked={settings.autoTicket}
               onChange={(e) => setSettings({ ...settings, autoTicket: e.target.checked })}
-              className="size-4 rounded border-gray-300 text-primary"
+              className="size-4 rounded border-border text-primary"
             />
             <div className="flex items-center gap-1.5">
-              <Ticket className="size-3.5 text-indigo-500" />
+              <Ticket className="size-3.5 text-primary" />
               <span className="font-medium text-foreground">تذكرة آلية (تربو)</span>
             </div>
           </label>
@@ -410,7 +410,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
         <div className="flex items-center justify-between">
           <div>
             <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <ShieldAlert className="size-4 text-amber-500" />
+              <ShieldAlert className="size-4 text-warning" />
               معاينة الطلبات المتأخرة حالياً ({delayedOrders.length})
             </h4>
             <p className="text-xs text-muted-foreground">
@@ -462,7 +462,7 @@ export const ShippingFollowUpSection: React.FC<{ slug: string }> = ({ slug }) =>
                         {ord.customStatusCode || ord.status}
                       </span>
                     </td>
-                    <td className="py-2 px-3 font-medium text-amber-600 dark:text-amber-400">
+                    <td className="py-2 px-3 font-medium text-warning dark:text-warning">
                       {ord.daysInStatus} يوم
                     </td>
                     <td className="py-2 px-3">
