@@ -3,10 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { ChartBarIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { Grid3X3, LayoutList, ChevronDown } from 'lucide-react';
+import { Grid3X3, LayoutList } from 'lucide-react';
 import AppCard from './AppCard';
 import AppCardSkeleton from './AppCardSkeleton';
-import { AppLaunchpadGrid } from './launchpad/AppLaunchpadGrid';
+import { AppCategoryRail } from './launchpad/AppCategoryRail';
+import { AppNameGrid } from './launchpad/AppNameGrid';
 import { sectionHasVisibleItems } from './helpers';
 import { APP_CATEGORIES, APP_REGISTRY, AppCategory } from '../../../config/appRegistry';
 import type { AppDefinition } from '../../../config/appRegistry';
@@ -241,6 +242,12 @@ const AppDashboardPage: React.FC<AppDashboardPageProps> = ({
     return (Object.keys(APP_CATEGORIES) as AppCategory[]).filter((cat) => usedCategories.has(cat));
   }, [visibleApps]);
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const app of visibleApps) counts[app.category] = (counts[app.category] ?? 0) + 1;
+    return counts;
+  }, [visibleApps]);
+
   const favoriteApps = useMemo(
     () => visibleApps.filter((app) => favorites.includes(app.id)),
     [visibleApps, favorites],
@@ -251,27 +258,6 @@ const AppDashboardPage: React.FC<AppDashboardPageProps> = ({
       <div className="max-w-5xl 2xl:max-w-6xl mx-auto px-2.5 sm:px-6 lg:px-8 pt-2 sm:pt-4 pb-[calc(3rem+env(safe-area-inset-bottom,20px))]">
         {/* Streamlined Top Control Bar: Centered Spotlight Search + Category Filter + View Switcher (No Redundant Title) */}
         <div className="mb-5 sm:mb-7 flex items-center justify-between gap-2 sm:gap-3.5 max-w-3xl mx-auto">
-          {/* Category Filter Dropdown */}
-          <div className="relative inline-flex items-center shrink-0">
-            <select
-              value={selectedCategory}
-              onChange={(e) => updateDashboardParams({ category: e.target.value as any })}
-              className={`appearance-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 rounded-xl py-1.5 ${isRtl ? 'pl-8 pr-3' : 'pr-8 pl-3'} hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors h-9 shadow-xs`}
-              aria-label={String(t('appDashboard.categoryFilterLabel'))}
-            >
-              <option value="all">{t('appDashboard.category.all')}</option>
-              {favoriteApps.length > 0 && (
-                <option value="favorites">{t('appDashboard.category.favorites')} ★</option>
-              )}
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {t(APP_CATEGORIES[cat].nameKey)}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className={`absolute ${isRtl ? 'left-2.5' : 'right-2.5'} size-3.5 text-gray-400 pointer-events-none`} />
-          </div>
-
           {/* Centered Spotlight Search Box */}
           <div className="relative flex-1 max-w-sm sm:max-w-md">
             <label htmlFor="app-dashboard-search" className="sr-only">
@@ -342,6 +328,15 @@ const AppDashboardPage: React.FC<AppDashboardPageProps> = ({
           </div>
         </div>
 
+        <AppCategoryRail
+          categories={categories}
+          selected={selectedCategory}
+          counts={categoryCounts}
+          favoritesCount={favoriteApps.length}
+          total={visibleApps.length}
+          onSelect={(value) => updateDashboardParams({ category: value as any })}
+        />
+
         <div aria-live="polite" aria-atomic="true" className="sr-only">
           {filteredApps.length === 0
             ? t('appDashboard.noResults')
@@ -387,12 +382,7 @@ const AppDashboardPage: React.FC<AppDashboardPageProps> = ({
             </button>
           </div>
         ) : viewMode === 'launchpad' ? (
-          <AppLaunchpadGrid
-            apps={filteredApps}
-            favorites={favorites}
-            onToggleFavorite={toggleFavorite}
-            showPinnedFavorites={selectedCategory === 'all' && !searchQuery.trim()}
-          />
+          <AppNameGrid apps={filteredApps} favorites={favorites} onToggleFavorite={toggleFavorite} />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 @container">
             {filteredApps.map((app, index) => (

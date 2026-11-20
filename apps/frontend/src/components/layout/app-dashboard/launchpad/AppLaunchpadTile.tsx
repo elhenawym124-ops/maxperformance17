@@ -14,7 +14,7 @@ interface AppLaunchpadTileProps {
 
 type TileColor = { bg: string; shadow: string };
 
-const TILE_COLORS: Record<string, TileColor> = {
+export const TILE_COLORS: Record<string, TileColor> = {
   indigo: { bg: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 dark:bg-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white', shadow: 'group-hover:shadow-indigo-500/25' },
   blue: { bg: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 dark:bg-blue-500/20 group-hover:bg-blue-600 group-hover:text-white', shadow: 'group-hover:shadow-blue-500/25' },
   green: { bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 dark:bg-emerald-500/20 group-hover:bg-emerald-600 group-hover:text-white', shadow: 'group-hover:shadow-emerald-500/25' },
@@ -33,7 +33,7 @@ const TILE_COLORS: Record<string, TileColor> = {
   gray: { bg: 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 group-hover:bg-slate-800 group-hover:text-white', shadow: 'group-hover:shadow-slate-500/25' },
 };
 
-const DEFAULT_COLOR: TileColor = {
+export const DEFAULT_TILE_COLOR: TileColor = {
   bg: 'bg-primary/10 text-primary dark:bg-primary/20 group-hover:bg-primary group-hover:text-primary-foreground',
   shadow: 'group-hover:shadow-primary/25',
 };
@@ -45,7 +45,7 @@ export const AppLaunchpadTile: React.FC<AppLaunchpadTileProps> = ({
 }) => {
   const { i18n, t } = useTranslation();
   const prefetch = useRoutePrefetch();
-  const colors = TILE_COLORS[app.color] ?? DEFAULT_COLOR;
+  const colors = TILE_COLORS[app.color] ?? DEFAULT_TILE_COLOR;
   const isRtl = i18n.language?.startsWith('ar') ?? false;
 
   const appName = app.displayName ?? t(app.nameKey);
