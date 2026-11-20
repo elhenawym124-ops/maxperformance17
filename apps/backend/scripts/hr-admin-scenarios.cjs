@@ -42,8 +42,11 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
   const sUpd = shift?.id ? await call('PUT', `/hr/shifts/${shift.id}`, hr, { endTime: '18:00' }) : { status: 0 };
   rec('P5-S4', 'shifts', 'تعديل وردية', sUpd.status === 200, `${sUpd.status} ${sUpd.d?.error || ''}`);
 
-  const sAssign = shift?.id ? await call('POST', '/hr/shifts/assign', hr, { shiftId: shift.id, employeeId: targetUserId, date: plus(1) }) : { status: 0 };
+  const assignDate = plus(20 + (Date.now() % 7));
+  const sAssign = shift?.id ? await call('POST', '/hr/shifts/assign', hr, { shiftId: shift.id, employeeId: targetUserId, date: assignDate }) : { status: 0 };
+  const assignmentId = sAssign.d?.assignment?.id;
   rec('P5-S5', 'shifts', 'إسناد وردية لموظف', [200, 201].includes(sAssign.status), `${sAssign.status} ${sAssign.d?.error || ''}`);
+  if (assignmentId) await call('DELETE', `/hr/shifts/assignments/${assignmentId}`, hr).catch(() => { });
 
   // ── Benefits ──
   const bBody = { name: `ميزة ${TAG} ${stamp}`, type: 'INSURANCE', cost: 1200, description: 'QA' };

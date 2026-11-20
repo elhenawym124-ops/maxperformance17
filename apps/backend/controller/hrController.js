@@ -5223,7 +5223,7 @@ async function createShift(req, res) {
   } catch (error) {
     console.error("❌ Error creating shift:", error);
     res
-      .status(500)
+      .status(error.statusCode || 500)
       .json({ error: error.message || "حدث خطأ أثناء إنشاء المناوبة" });
   }
 }
@@ -5273,7 +5273,7 @@ async function updateShift(req, res) {
   } catch (error) {
     console.error("❌ Error updating shift:", error);
     res
-      .status(500)
+      .status(error.statusCode || 500)
       .json({ error: error.message || "حدث خطأ أثناء تحديث المناوبة" });
   }
 }
@@ -5305,7 +5305,7 @@ async function assignShift(req, res) {
   } catch (error) {
     console.error("❌ Error assigning shift:", error);
     res
-      .status(500)
+      .status(error.statusCode || 500)
       .json({ error: error.message || "حدث خطأ أثناء تعيين المناوبة" });
   }
 }
