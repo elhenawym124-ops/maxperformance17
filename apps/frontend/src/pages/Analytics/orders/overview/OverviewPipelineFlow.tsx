@@ -65,27 +65,27 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
       <div className="w-full bg-muted dark:bg-muted rounded-full h-3 sm:h-3.5 flex overflow-hidden p-0.5 gap-0.5">
         <div
           style={{ width: `${Math.max(2, Number(deliveredPct))}%` }}
-          className="bg-emerald-500 rounded-sm transition-all"
+          className="bg-success rounded-sm transition-all"
           title={`تم التسليم: ${delivered} (${deliveredPct}%)`}
         />
         {Number(inTransitPct) > 0 && (
           <div
             style={{ width: `${Number(inTransitPct)}%` }}
-            className="bg-blue-500 rounded-sm transition-all"
+            className="bg-primary rounded-sm transition-all"
             title={`مع الشحن: ${inTransit} (${inTransitPct}%)`}
           />
         )}
         {Number(processingPct) > 0 && (
           <div
             style={{ width: `${Number(processingPct)}%` }}
-            className="bg-amber-500 rounded-sm transition-all"
+            className="bg-warning rounded-sm transition-all"
             title={`قيد المعالجة والتجهيز: ${processing} (${processingPct}%)`}
           />
         )}
         {Number(dropPct) > 0 && (
           <div
             style={{ width: `${Number(dropPct)}%` }}
-            className="bg-rose-500 rounded-sm transition-all"
+            className="bg-destructive rounded-sm transition-all"
             title={`إلغاء ومرتجع: ${cancelled + returned} (${dropPct}%)`}
           />
         )}
@@ -94,7 +94,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
       {/* Stage Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mt-4">
         {/* Stage 1: الناجحة والمسلمة */}
-        <div className="rounded-lg bg-success/50 dark:bg-success/20 border border-success dark:border-success/30 p-2.5 sm:p-3">
+        <div className="rounded-lg bg-success/10 dark:bg-success/10 border border-success/30 p-2.5 sm:p-3">
           <div className="flex items-center justify-between text-success dark:text-success">
             <span className="text-xs font-semibold">مسلّم ومحصّل</span>
             <CheckCircleIcon className="h-4 w-4" />
@@ -113,7 +113,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
         </div>
 
         {/* Stage 2: مع الشحن / قيد التوصيل */}
-        <div className="rounded-lg bg-primary/50 dark:bg-primary/20 border border-primary dark:border-primary/30 p-2.5 sm:p-3">
+        <div className="rounded-lg bg-primary/10 dark:bg-primary/10 border border-primary/30 p-2.5 sm:p-3">
           <div className="flex items-center justify-between text-primary dark:text-primary">
             <span className="text-xs font-semibold">مع شركة الشحن</span>
             <TruckIcon className="h-4 w-4" />
@@ -132,7 +132,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
         </div>
 
         {/* Stage 3: قيد المتابعة والتجهيز */}
-        <div className="rounded-lg bg-warning/50 dark:bg-warning/20 border border-warning dark:border-warning/30 p-2.5 sm:p-3">
+        <div className="rounded-lg bg-warning/10 dark:bg-warning/10 border border-warning/30 p-2.5 sm:p-3">
           <div className="flex items-center justify-between text-warning dark:text-warning">
             <span className="text-xs font-semibold">قيد التأكيد والتجهيز</span>
             <ArrowPathIcon className="h-4 w-4" />
@@ -151,7 +151,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
         </div>
 
         {/* Stage 4: الهدر والإلغاء */}
-        <div className="rounded-lg bg-destructive/50 dark:bg-destructive/20 border border-destructive dark:border-destructive/30 p-2.5 sm:p-3">
+        <div className="rounded-lg bg-destructive/10 dark:bg-destructive/10 border border-destructive/30 p-2.5 sm:p-3">
           <div className="flex items-center justify-between text-destructive dark:text-destructive">
             <span className="text-xs font-semibold">ملغي ومرتجع (RTO)</span>
             <XCircleIcon className="h-4 w-4" />
