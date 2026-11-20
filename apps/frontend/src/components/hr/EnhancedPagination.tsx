@@ -10,24 +10,39 @@ import {
 } from "@/components/ui/select";
 
 interface EnhancedPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  totalItems: number;
-  onPageChange: (page: number) => void;
-  onPageSizeChange: (size: number) => void;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalItems?: number;
+  onPageChange?: (page: number) => void;
+  onPageSizeChange?: (size: number) => void;
   pageSizeOptions?: number[];
+  // Support legacy or grouped pagination prop
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pagination?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setPagination?: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export const EnhancedPagination: React.FC<EnhancedPaginationProps> = ({
-  currentPage,
-  totalPages,
-  pageSize,
-  totalItems,
-  onPageChange,
-  onPageSizeChange,
+  currentPage: propCurrentPage,
+  totalPages: propTotalPages,
+  pageSize: propPageSize,
+  totalItems: propTotalItems,
+  onPageChange: propOnPageChange,
+  onPageSizeChange: propOnPageSizeChange,
   pageSizeOptions = [10, 20, 50, 100],
+  pagination,
+  setPagination,
 }) => {
+  const currentPage = propCurrentPage ?? pagination?.page ?? 1;
+  const totalPages = propTotalPages ?? pagination?.totalPages ?? 1;
+  const pageSize = propPageSize ?? pagination?.limit ?? 10;
+  const totalItems = propTotalItems ?? pagination?.total ?? 0;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onPageChange = propOnPageChange ?? ((page: number) => setPagination?.((prev: any) => ({ ...prev, page })));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onPageSizeChange = propOnPageSizeChange ?? ((limit: number) => setPagination?.((prev: any) => ({ ...prev, limit, page: 1 })));
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     const maxVisible = 5;
@@ -69,7 +84,7 @@ export const EnhancedPagination: React.FC<EnhancedPaginationProps> = ({
           <span className="text-foreground font-semibold">{totalItems}</span>
         </p>
         <Select
-          value={pageSize.toString()}
+          value={(pageSize ?? 10).toString()}
           onValueChange={(value) => onPageSizeChange(Number(value))}
         >
           <SelectTrigger className="h-8 w-28 rounded-lg border-border/70 bg-card text-xs font-mono tabular-nums">

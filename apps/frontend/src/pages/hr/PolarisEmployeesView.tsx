@@ -308,6 +308,10 @@ export const PolarisEmployeesView: React.FC<PolarisEmployeesViewProps> = ({
         {employees.length > 0 && (
           <div className="px-3 sm:px-4 py-2.5 border-t border-border/70 bg-card">
             <EnhancedPagination
+              currentPage={pagination?.page || 1}
+              totalPages={pagination?.totalPages || 1}
+              pageSize={pagination?.limit || 10}
+              totalItems={pagination?.total || employees.length}
               pagination={pagination}
               setPagination={setPagination}
             />
