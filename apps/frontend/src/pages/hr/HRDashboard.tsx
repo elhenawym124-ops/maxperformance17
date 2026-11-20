@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   useHRDashboardController,
   HRDashboardHero,
@@ -13,8 +14,14 @@ import {
   DepartmentsOverviewCard,
   HRQuickActionsCard,
 } from "./hr-dashboard/index";
+import { PolarisHRDashboardView } from "./PolarisHRDashboardView";
 
 const HRDashboard: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
+
   const {
     loading,
     data,
@@ -38,6 +45,18 @@ const HRDashboard: React.FC = () => {
       <div className="flex items-center justify-center h-96 text-gray-500">
         {error}
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisHRDashboardView
+        data={data}
+        attendanceRate={attendanceRate}
+        handleLeaveAction={handleLeaveAction}
+        handlePermissionAction={handlePermissionAction}
+        handleAdvanceAction={handleAdvanceAction}
+      />
     );
   }
 

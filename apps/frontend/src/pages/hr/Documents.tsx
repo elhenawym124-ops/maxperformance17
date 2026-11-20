@@ -6,7 +6,6 @@ import {
   Trash2,
   CheckCircle,
   XCircle,
-  Calendar,
   AlertCircle,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
@@ -28,11 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "sonner";
 import { tToast } from "../../utils/i18n-toast";
 import { DateInput } from '../../components/ui/DateInput';
+import { PolarisDocumentsView } from "./PolarisDocumentsView";
 
 interface Document {
   id: string;
@@ -49,6 +49,10 @@ interface Document {
 const Documents: React.FC = () => {
   const { employeeId } = useParams<{ employeeId?: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
   const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploadDialog, setUploadDialog] = useState(false);
@@ -165,6 +169,20 @@ const Documents: React.FC = () => {
   };
 
   if (!employeeId) {
+    if (isPolaris) {
+      return (
+        <div className="space-y-4 w-full max-w-full" dir="rtl">
+          <PolarisDocumentsView
+            documents={[]}
+            loading={false}
+            onOpenUpload={() => toast.error("الرجاء اختيار موظف أولاً")}
+            onDelete={() => {}}
+            onVerify={() => {}}
+            onBackToEmployees={() => navigate("/hr/employees")}
+          />
+        </div>
+      );
+    }
     return (
       <div className="space-y-6 w-full pb-8" dir="rtl">
         <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
@@ -181,118 +199,131 @@ const Documents: React.FC = () => {
 
   return (
     <div className="space-y-6 w-full pb-8" dir="rtl">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/70">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">مستندات الموظف</h1>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">إدارة ومتابعة وثائق ومستندات الموظف وصلاحيتها</p>
-        </div>
-        <Button onClick={() => setUploadDialog(true)}>
-          <Upload className="h-4 w-4 ml-2" />
-          رفع مستند
-        </Button>
-      </div>
-
-      {loading ? (
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-      ) : documents.length === 0 ? (
-        <Card>
-          <CardContent className="p-12 text-center">
-            <FileText className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-            <p className="text-gray-500 mb-4">لا توجد مستندات</p>
+      {isPolaris ? (
+        <PolarisDocumentsView
+          documents={documents}
+          loading={loading}
+          onOpenUpload={() => setUploadDialog(true)}
+          onDelete={handleDelete}
+          onVerify={handleVerify}
+          onBackToEmployees={() => navigate("/hr/employees")}
+        />
+      ) : (
+        <>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/70">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">مستندات الموظف</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">إدارة ومتابعة وثائق ومستندات الموظف وصلاحيتها</p>
+            </div>
             <Button onClick={() => setUploadDialog(true)}>
               <Upload className="h-4 w-4 ml-2" />
-              رفع أول مستند
+              رفع مستند
             </Button>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {documents.map((doc) => (
-            <Card
-              key={doc.id}
-              className={isExpired(doc.expiryDate) ? "border-red-500" : ""}
-            >
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <FileText className="h-8 w-8 text-blue-500" />
-                  <div className="flex gap-2">
-                    {doc.isVerified ? (
-                      <CheckCircle className="h-5 w-5 text-green-500" />
-                    ) : (
-                      <XCircle className="h-5 w-5 text-gray-400" />
-                    )}
-                  </div>
-                </div>
-                <CardTitle className="text-lg">{doc.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">النوع:</span>
-                    <Badge>{doc.type}</Badge>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">الحجم:</span>
-                    <span>{formatFileSize(doc.fileSize)}</span>
-                  </div>
-                  {doc.expiryDate && (
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-500">تاريخ الانتهاء:</span>
-                      <div className="flex items-center gap-2">
-                        {isExpired(doc.expiryDate) && (
-                          <AlertCircle className="h-4 w-4 text-red-500" />
-                        )}
-                        {isExpiringSoon(doc.expiryDate) &&
-                          !isExpired(doc.expiryDate) && (
-                            <AlertCircle className="h-4 w-4 text-yellow-500" />
-                          )}
-                        <span
-                          className={
-                            isExpired(doc.expiryDate) ? "text-red-500" : ""
-                          }
-                        >
-                          {new Date(doc.expiryDate).toLocaleDateString("ar-EG")}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  <div className="flex gap-2 mt-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(doc.fileUrl, "_blank")}
-                      className="flex-1"
-                    >
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل
-                    </Button>
-                    {!doc.isVerified && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleVerify(doc.id)}
-                        className="flex-1"
-                      >
-                        <CheckCircle className="h-4 w-4 ml-2" />
-                        تحقق
-                      </Button>
-                    )}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDelete(doc.id)}
-                      className="text-red-500"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
+          </div>
+
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </div>
+          ) : documents.length === 0 ? (
+            <Card>
+              <CardContent className="p-12 text-center">
+                <FileText className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                <p className="text-gray-500 mb-4">لا توجد مستندات</p>
+                <Button onClick={() => setUploadDialog(true)}>
+                  <Upload className="h-4 w-4 ml-2" />
+                  رفع أول مستند
+                </Button>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {documents.map((doc) => (
+                <Card
+                  key={doc.id}
+                  className={isExpired(doc.expiryDate) ? "border-red-500" : ""}
+                >
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <FileText className="h-8 w-8 text-blue-500" />
+                      <div className="flex gap-2">
+                        {doc.isVerified ? (
+                          <CheckCircle className="h-5 w-5 text-green-500" />
+                        ) : (
+                          <XCircle className="h-5 w-5 text-gray-400" />
+                        )}
+                      </div>
+                    </div>
+                    <CardTitle className="text-lg">{doc.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">النوع:</span>
+                        <Badge>{doc.type}</Badge>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">الحجم:</span>
+                        <span>{formatFileSize(doc.fileSize)}</span>
+                      </div>
+                      {doc.expiryDate && (
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-500">تاريخ الانتهاء:</span>
+                          <div className="flex items-center gap-2">
+                            {isExpired(doc.expiryDate) && (
+                              <AlertCircle className="h-4 w-4 text-red-500" />
+                            )}
+                            {isExpiringSoon(doc.expiryDate) &&
+                              !isExpired(doc.expiryDate) && (
+                                <AlertCircle className="h-4 w-4 text-yellow-500" />
+                              )}
+                            <span
+                              className={
+                                isExpired(doc.expiryDate) ? "text-red-500" : ""
+                              }
+                            >
+                              {new Date(doc.expiryDate).toLocaleDateString("ar-EG")}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                      <div className="flex gap-2 mt-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(doc.fileUrl, "_blank")}
+                          className="flex-1"
+                        >
+                          <Download className="h-4 w-4 ml-2" />
+                          تحميل
+                        </Button>
+                        {!doc.isVerified && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleVerify(doc.id)}
+                            className="flex-1"
+                          >
+                            <CheckCircle className="h-4 w-4 ml-2" />
+                            تحقق
+                          </Button>
+                        )}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDelete(doc.id)}
+                          className="text-red-500"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </>
       )}
 
       {/* Upload Dialog */}
@@ -325,7 +356,7 @@ const Documents: React.FC = () => {
               <Select
                 value={formData.type}
                 onValueChange={(value) =>
-                  setFormData({ ...formData, type: value })
+                  setFormData({ ...formData, type: value || "other" })
                 }
               >
                 <SelectTrigger>

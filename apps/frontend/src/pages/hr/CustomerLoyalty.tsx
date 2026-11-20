@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   useCustomerLoyaltyController,
   CustomerLoyaltyHeader,
@@ -10,8 +11,14 @@ import {
   LoyaltyAnalyticsTab,
   LoyaltyCashbackTab,
 } from "./customer-loyalty/index";
+import { PolarisCustomerLoyaltyView } from "./PolarisCustomerLoyaltyView";
 
 export const CustomerLoyalty: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
+
   const {
     activeTab,
     setActiveTab,
@@ -38,6 +45,30 @@ export const CustomerLoyalty: React.FC = () => {
       <div className="flex items-center justify-center min-h-[350px]">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisCustomerLoyaltyView
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        programs={programs}
+        customers={customers}
+        rawCustomersCount={rawCustomersCount}
+        tiers={tiers}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setShowCreateForm={setShowCreateForm}
+        cashbackSettings={cashbackSettings}
+        cashbackDraft={cashbackDraft}
+        isSavingCashback={isSavingCashback}
+        walletStats={walletStats}
+        fetchLoyaltyData={fetchLoyaltyData}
+        saveCashbackSettings={saveCashbackSettings}
+        updateCashbackField={updateCashbackField}
+        updateTierOverride={updateTierOverride}
+      />
     );
   }
 
