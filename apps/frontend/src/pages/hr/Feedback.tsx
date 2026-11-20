@@ -1,5 +1,7 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { PolarisFeedbackView } from "./PolarisFeedbackView";
 import {
   useFeedbackController,
   FeedbackHeader,
@@ -10,6 +12,14 @@ import {
 } from "./feedback/index";
 
 const Feedback: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     feedback,
     stats,
@@ -44,43 +54,62 @@ const Feedback: React.FC = () => {
   }
 
   return (
-    <div
-      className="space-y-6 w-full pb-8"
-      dir="rtl"
-    >
-      {/* Header Section */}
-      <FeedbackHeader onNewFeedback={handleNavigateNew} />
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisFeedbackView
+          feedback={feedback}
+          stats={stats}
+          loading={loading}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          ratingFilter={ratingFilter}
+          setRatingFilter={setRatingFilter}
+          isPrivileged={isPrivileged}
+          filteredFeedback={filteredFeedback}
+          onOpenReplyDialog={handleOpenReplyDialog}
+          onEdit={handleNavigateEdit}
+          onDelete={handleDelete}
+          onNewFeedback={handleNavigateNew}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <FeedbackHeader onNewFeedback={handleNavigateNew} />
 
-      {/* Stats Overview */}
-      <FeedbackStatsGrid stats={stats} feedback={feedback} />
+          {/* Stats Overview */}
+          <FeedbackStatsGrid stats={stats} feedback={feedback} />
 
-      {/* Main Content Card */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
-        <CardHeader className="bg-muted/20 border-b border-border/70 px-5 py-3.5">
-          <FeedbackFilterBar
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            ratingFilter={ratingFilter}
-            onRatingChange={setRatingFilter}
-          />
-        </CardHeader>
+          {/* Main Content Card */}
+          <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+            <CardHeader className="bg-muted/20 border-b border-border/70 px-5 py-3.5">
+              <FeedbackFilterBar
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                ratingFilter={ratingFilter}
+                onRatingChange={setRatingFilter}
+              />
+            </CardHeader>
 
-        <CardContent className="p-0">
-          <FeedbackList
-            feedback={filteredFeedback}
-            isPrivileged={isPrivileged}
-            onOpenReplyDialog={handleOpenReplyDialog}
-            onEdit={handleNavigateEdit}
-            onDelete={handleDelete}
-            onResetFilters={() => {
-              setSearchQuery("");
-              setRatingFilter("all");
-            }}
-          />
-        </CardContent>
-      </Card>
+            <CardContent className="p-0">
+              <FeedbackList
+                feedback={filteredFeedback}
+                isPrivileged={isPrivileged}
+                onOpenReplyDialog={handleOpenReplyDialog}
+                onEdit={handleNavigateEdit}
+                onDelete={handleDelete}
+                onResetFilters={() => {
+                  setSearchQuery("");
+                  setRatingFilter("all");
+                }}
+              />
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* Reply Dialog */}
       <FeedbackReplyDialog

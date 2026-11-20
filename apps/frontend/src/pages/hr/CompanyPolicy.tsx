@@ -1,4 +1,6 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
+import { PolarisCompanyPolicyView } from "./PolarisCompanyPolicyView";
 import {
   useCompanyPolicyController,
   CompanyPolicyHeader,
@@ -10,6 +12,14 @@ import {
 } from "./company-policy/index";
 
 const CompanyPolicy: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     policies,
     loading,
@@ -31,28 +41,46 @@ const CompanyPolicy: React.FC = () => {
   } = useCompanyPolicyController();
 
   return (
-    <div className="space-y-6 w-full pb-8" dir="rtl">
-      {/* Header & Stats */}
-      <div className="flex flex-col gap-6">
-        <CompanyPolicyHeader onNewPolicy={() => setIsAddDialogOpen(true)} />
-        <CompanyPolicyStatsGrid policies={policies} />
-      </div>
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisCompanyPolicyView
+          policies={policies}
+          loading={loading}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          onView={setViewingPolicy}
+          onEdit={setEditingPolicy}
+          onDelete={handleDelete}
+          onNewPolicy={() => setIsAddDialogOpen(true)}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header & Stats */}
+          <div className="flex flex-col gap-6">
+            <CompanyPolicyHeader onNewPolicy={() => setIsAddDialogOpen(true)} />
+            <CompanyPolicyStatsGrid policies={policies} />
+          </div>
 
-      {/* Filters & Search */}
-      <CompanyPolicyFilterBar
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
-      />
+          {/* Filters & Search */}
+          <CompanyPolicyFilterBar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+          />
 
-      {/* Policies Table */}
-      <CompanyPolicyTable
-        policies={policies}
-        loading={loading}
-        onView={setViewingPolicy}
-        onEdit={setEditingPolicy}
-        onDelete={handleDelete}
+          {/* Policies Table */}
+          <CompanyPolicyTable
+            policies={policies}
+            loading={loading}
+            onView={setViewingPolicy}
+            onEdit={setEditingPolicy}
+            onDelete={handleDelete}
+          />
+        </div>
+      )}
       />
 
       {/* View Policy Dialog */}

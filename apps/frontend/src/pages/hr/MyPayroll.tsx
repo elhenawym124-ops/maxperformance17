@@ -1,5 +1,7 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { PolarisMyPayrollView } from "./PolarisMyPayrollView";
 import {
   useMyPayrollController,
   containerVariants,
@@ -13,6 +15,14 @@ import {
 } from "./my-payroll/index";
 
 const MyPayroll: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     t,
     loading,
@@ -30,6 +40,28 @@ const MyPayroll: React.FC = () => {
     totalDeductionsDisplay,
     handlePrint,
   } = useMyPayrollController();
+
+  if (isPolaris) {
+    return (
+      <PolarisMyPayrollView
+        t={t}
+        loading={loading}
+        payrollData={payrollData}
+        month={month}
+        setMonth={setMonth}
+        year={year}
+        setYear={setYear}
+        months={months}
+        years={years}
+        allowances={allowances}
+        groupedDeductions={groupedDeductions}
+        originalBaseSalary={originalBaseSalary}
+        totalEarningsDisplay={totalEarningsDisplay}
+        totalDeductionsDisplay={totalDeductionsDisplay}
+        onPrint={handlePrint}
+      />
+    );
+  }
 
   return (
     <div
