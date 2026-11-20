@@ -170,7 +170,7 @@ export default function AgentMarketplacePage() {
             </div>
 
             <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-2.5 py-1">
-              <Activity className="size-3.5 text-emerald-500 stroke-[1.5]" />
+              <Activity className="size-3.5 text-success stroke-[1.5]" />
               <span>سرعة المعالجة:</span>
               <span className="tabular-nums font-semibold text-foreground">P95 &lt; 0.8s</span>
             </div>
@@ -233,7 +233,7 @@ export default function AgentMarketplacePage() {
                 onClick={() => setTierFilter("free")}
                 className={`flex-1 sm:flex-initial text-center px-2.5 py-1 rounded-md transition-all ${
                   tierFilter === "free"
-                    ? "bg-background font-semibold text-emerald-600 dark:text-emerald-400 shadow-sm"
+                    ? "bg-background font-semibold text-success dark:text-success shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -244,7 +244,7 @@ export default function AgentMarketplacePage() {
                 onClick={() => setTierFilter("pro")}
                 className={`flex-1 sm:flex-initial text-center px-2.5 py-1 rounded-md transition-all ${
                   tierFilter === "pro"
-                    ? "bg-background font-semibold text-amber-600 dark:text-amber-400 shadow-sm"
+                    ? "bg-background font-semibold text-warning dark:text-warning shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -281,7 +281,7 @@ export default function AgentMarketplacePage() {
       <main className="flex-1 p-4 sm:p-6 pb-28 sm:pb-8">
         {filteredListings.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center space-y-3">
-            <div className="size-12 rounded-2xl border border-border/60 bg-muted/30 flex items-center justify-center text-muted-foreground">
+            <div className="size-12 rounded-xl border border-border/60 bg-muted/30 flex items-center justify-center text-muted-foreground">
               <Filter className="size-5 stroke-[1.5]" />
             </div>
             <div className="space-y-1">

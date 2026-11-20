@@ -143,41 +143,41 @@ export default function AffiliateCustomers() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-500">إجمالي الطلبات</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success">إجمالي الطلبات</p>
+            <p className="text-xl font-bold tracking-tight text-success font-mono tabular-nums mt-0.5">
               {totalOrders}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">طلب منفذ</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success border border-success/20">
             <ShoppingBag className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-purple-500">مبيعات العملاء</p>
-            <p className="text-lg font-bold tracking-tight text-purple-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary">مبيعات العملاء</p>
+            <p className="text-lg font-bold tracking-tight text-primary font-mono tabular-nums mt-0.5">
               {Number(totalSpent).toLocaleString("en-US", { minimumFractionDigits: 0 })} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">حجم الشراء الإجمالي</p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <DollarSign className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-500">متوسط قيمة العميل</p>
-            <p className="text-lg font-bold tracking-tight text-amber-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning">متوسط قيمة العميل</p>
+            <p className="text-lg font-bold tracking-tight text-warning font-mono tabular-nums mt-0.5">
               {safeCustomers.length > 0
                 ? `${Math.round(totalSpent / safeCustomers.length).toLocaleString("en-US")} ج.م`
                 : "0 ج.م"}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">معدل إنفاق العميل</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning border border-warning/20">
             <Users className="size-3.5" />
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function AffiliateCustomers() {
             <Search className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <Input
               type="text"
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
               placeholder="بحث بالاسم أو الهاتف أو البريد..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -240,7 +240,7 @@ export default function AffiliateCustomers() {
                     <td className="px-4 py-2.5 text-center font-mono tabular-nums font-semibold text-foreground">
                       {customer.totalOrders}
                     </td>
-                    <td className="px-4 py-2.5 font-mono tabular-nums font-bold text-emerald-500">
+                    <td className="px-4 py-2.5 font-mono tabular-nums font-bold text-success">
                       {formatPrice(customer.totalSpent)}
                     </td>
                     <td className="px-4 py-2.5 text-left">

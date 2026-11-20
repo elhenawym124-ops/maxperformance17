@@ -31,9 +31,9 @@ const AffiliateSystemSettings: React.FC = () => {
       <div
         className={`w-full ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-lg p-8`}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-6 border-b dark:border-gray-700">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-6 border-b dark:border-border">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 ml-4">
+            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 ms-4">
               <Cog6ToothIcon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
             <div>

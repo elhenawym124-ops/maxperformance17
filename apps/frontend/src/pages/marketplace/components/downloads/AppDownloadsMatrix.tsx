@@ -23,7 +23,7 @@ export function AppDownloadsMatrix({
 }: AppDownloadsMatrixProps) {
   if (filteredPackages.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-border/60 bg-muted/10 p-12 text-center">
+      <div className="rounded-xl border border-dashed border-border/60 bg-muted/10 p-12 text-center">
         <Monitor className="size-10 text-muted-foreground/50 mx-auto mb-3" />
         <h3 className="text-base font-bold text-foreground text-balance">لم يتم العثور على حزم مطابقة</h3>
         <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto text-pretty">

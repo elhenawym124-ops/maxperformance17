@@ -15,7 +15,7 @@ export const ConversionGeneralSection: React.FC<ConversionGeneralSectionProps> =
 }) => {
   return (
     <section className="space-y-4">
-      <h2 className="text-lg font-bold text-gray-900 dark:text-white">الإعدادات العامة</h2>
+      <h2 className="text-lg font-bold text-foreground">الإعدادات العامة</h2>
       <div className="grid gap-4 md:grid-cols-2">
         <ToggleField
           label="تفعيل على المتجر"
@@ -46,7 +46,7 @@ export const ConversionGeneralSection: React.FC<ConversionGeneralSectionProps> =
           onChange={applyPreset}
         />
       </div>
-      <p className="text-sm leading-6 text-gray-500 dark:text-gray-400">
+      <p className="text-sm leading-6 text-muted-foreground">
         Selecting a preset now applies the recommended activation mix and visual styles
         automatically. You can still fine-tune any module below before saving.
       </p>

@@ -52,7 +52,7 @@ export const AppHistoryPage: React.FC = () => {
           stats={stats}
         />
 
-        <div className="rounded-2xl border border-border/40 bg-card/60 overflow-hidden shadow-sm">
+        <div className="rounded-xl border border-border/40 bg-card/60 overflow-hidden shadow-sm">
           <AppHistoryTable logs={logs} loading={loading} isRtl={isRtl} />
 
           <AppHistoryPagination

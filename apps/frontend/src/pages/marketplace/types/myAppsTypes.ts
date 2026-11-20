@@ -89,14 +89,14 @@ export const STATUS_CONFIG = {
   ACTIVE: {
     labelKey: "active",
     fallbackLabel: "نشط",
-    badgeClass: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20",
+    badgeClass: "bg-emerald-500/10 text-success dark:text-success border-success/20",
     barClass: "bg-emerald-500",
     icon: CheckCircle2,
   },
   TRIAL: {
     labelKey: "trial",
     fallbackLabel: "فترة تجريبية",
-    badgeClass: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
+    badgeClass: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
     barClass: "bg-amber-500",
     icon: Clock,
   },

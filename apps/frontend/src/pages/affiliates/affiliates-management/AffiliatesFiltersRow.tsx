@@ -20,17 +20,17 @@ export const AffiliatesFiltersRow: React.FC<AffiliatesFiltersRowProps> = ({
   return (
     <div className="flex flex-col md:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6">
       <div className="flex-1 relative">
-        <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <input
           type="text"
           placeholder="بحث بالاسم، البريد، أو الهاتف..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={`w-full pr-10 pl-4 py-2.5 sm:py-3 text-sm rounded-xl border ${
+          className={`w-full pe-10 ps-4 py-2.5 sm:py-3 text-sm rounded-xl border ${
             isDark
-              ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-              : "bg-white border-gray-200 text-gray-900 shadow-sm"
-          } outline-none focus:ring-2 focus:ring-indigo-500 transition-all`}
+              ? "bg-gray-800 border-border text-white placeholder-muted"
+              : "bg-white border-border text-foreground shadow-sm"
+          } outline-none focus:ring-2 focus:ring-primary transition-all`}
         />
       </div>
       <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
@@ -41,11 +41,11 @@ export const AffiliatesFiltersRow: React.FC<AffiliatesFiltersRowProps> = ({
             onClick={() => setFilterStatus(status)}
             className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
               filterStatus === status
-                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20"
+                ? "bg-indigo-600 text-white shadow-lg shadow-primary/20"
                 : `${
                     isDark
-                      ? "bg-gray-800 text-gray-400 border-gray-700 hover:text-white"
-                      : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                      ? "bg-gray-800 text-muted-foreground border-border hover:text-white"
+                      : "bg-white text-foreground border-border hover:bg-muted"
                   } border`
             }`}
           >

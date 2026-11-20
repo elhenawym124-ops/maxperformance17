@@ -297,13 +297,13 @@ export default function ProductBreakEvenCalculator() {
                   <span className="text-[10px] text-muted-foreground block">مؤكد</span>
                   <span className="text-sm font-bold font-mono text-foreground">{fmt1(r.confirmed)}</span>
                 </div>
-                <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 block">مستلم</span>
-                  <span className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400">{fmt1(r.delivered)}</span>
+                <div className="p-2 rounded-lg bg-success/10 border border-success/30">
+                  <span className="text-[10px] text-success dark:text-success block">مستلم</span>
+                  <span className="text-sm font-bold font-mono text-success dark:text-success">{fmt1(r.delivered)}</span>
                 </div>
-                <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/30">
-                  <span className="text-[10px] text-rose-600 dark:text-rose-400 block">مرتجع (RTO)</span>
-                  <span className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400">{fmt1(r.rto)}</span>
+                <div className="p-2 rounded-lg bg-destructive/10 border border-destructive/30">
+                  <span className="text-[10px] text-destructive dark:text-destructive block">مرتجع (RTO)</span>
+                  <span className="text-sm font-bold font-mono text-destructive dark:text-destructive">{fmt1(r.rto)}</span>
                 </div>
               </div>
             </div>

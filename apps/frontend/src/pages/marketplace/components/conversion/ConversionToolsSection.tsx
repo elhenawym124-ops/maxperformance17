@@ -16,7 +16,7 @@ export const ConversionToolsSection: React.FC<ConversionToolsSectionProps> = ({
   return (
     <div className="space-y-8">
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white">أدوات صفحة المنتج</h2>
+        <h2 className="text-lg font-bold text-foreground">أدوات صفحة المنتج</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <ToggleField
             label="Sale Countdown"
@@ -88,7 +88,7 @@ export const ConversionToolsSection: React.FC<ConversionToolsSectionProps> = ({
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white">أدوات عامة على مستوى المتجر</h2>
+        <h2 className="text-lg font-bold text-foreground">أدوات عامة على مستوى المتجر</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <ToggleField
             label="Free Shipping Bar"

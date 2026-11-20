@@ -171,11 +171,11 @@ const OwnerUsersManagement: React.FC = () => {
   const getRoleBadge = (role: string) => {
     switch (role) {
       case "OWNER":
-        return "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20";
+        return "bg-purple-500/10 text-primary dark:text-primary border-primary/20";
       case "COMPANY_ADMIN":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "MANAGER":
-        return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+        return "bg-emerald-500/10 text-success dark:text-success border-success/20";
       default:
         return "bg-muted text-muted-foreground border-border/60";
     }
@@ -233,7 +233,7 @@ const OwnerUsersManagement: React.FC = () => {
               placeholder="بحث بالاسم أو البريد..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pr-8 pl-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full pe-8 ps-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
 
@@ -258,7 +258,7 @@ const OwnerUsersManagement: React.FC = () => {
         </div>
         <div className="rounded-lg border border-border/70 bg-card p-3 shadow-xs">
           <span className="text-xs text-muted-foreground">الحسابات النشطة</span>
-          <p className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-0.5">
+          <p className="text-xl font-bold font-mono tabular-nums text-success dark:text-success mt-0.5">
             {users.filter((u) => u.isActive).length}
           </p>
         </div>
@@ -344,8 +344,8 @@ const OwnerUsersManagement: React.FC = () => {
                     <td className="px-4 py-3 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2 py-0.5 text-[11px] font-medium rounded border ${
                         user.isActive
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                          : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                       }`}>
                         {user.isActive ? "نشط" : "معطل"}
                       </span>
@@ -355,7 +355,7 @@ const OwnerUsersManagement: React.FC = () => {
                       <button
                         onClick={() => handleDeleteUser(user)}
                         disabled={deleteLoading === user.id}
-                        className="inline-flex items-center justify-center h-7 w-7 rounded-md border border-border/70 text-rose-600 hover:bg-rose-500/10 hover:border-rose-500/30 transition-colors disabled:opacity-50"
+                        className="inline-flex items-center justify-center h-7 w-7 rounded-md border border-border/70 text-destructive hover:bg-destructive/10 hover:border-destructive/30 transition-colors disabled:opacity-50"
                         title="حذف من الشركة"
                       >
                         {deleteLoading === user.id ? (

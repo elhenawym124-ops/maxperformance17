@@ -18,7 +18,7 @@ export const InternalCourierFleetTreasurySection: React.FC<InternalCourierFleetT
   return (
     <>
       {/* Quick Launch Cockpit Strip */}
-      <div className="rounded-2xl border border-border/60 bg-card p-4 sm:p-5 shadow-xs">
+      <div className="rounded-xl border border-border/60 bg-card p-4 sm:p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border/40">
           <div>
             <h3 className="text-sm font-semibold text-foreground">شاشات تشغيل أسطول المناديب</h3>
@@ -26,8 +26,8 @@ export const InternalCourierFleetTreasurySection: React.FC<InternalCourierFleetT
               الوصول المباشر إلى المنظومة اليومية لإدارة المناديب، مانيفستات التوزيع، وتسويات الخزينة.
             </p>
           </div>
-          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-full bg-success/10 px-2.5 py-1 text-[11px] font-medium text-success dark:text-success">
+            <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
             تطبيق نشط ومرتبط بالخزينة
           </span>
         </div>
@@ -39,7 +39,7 @@ export const InternalCourierFleetTreasurySection: React.FC<InternalCourierFleetT
             className="group flex flex-col items-start p-3.5 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/70 hover:border-border transition text-right w-full"
           >
             <div className="flex items-center justify-between w-full">
-              <div className="p-2 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 group-hover:scale-105 transition">
+              <div className="p-2 rounded-lg bg-info/10 text-info dark:text-info group-hover:scale-105 transition">
                 <Truck className="h-4 w-4" />
               </div>
               <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition" />
@@ -54,7 +54,7 @@ export const InternalCourierFleetTreasurySection: React.FC<InternalCourierFleetT
             className="group flex flex-col items-start p-3.5 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/70 hover:border-border transition text-right w-full"
           >
             <div className="flex items-center justify-between w-full">
-              <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition">
+              <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:scale-105 transition">
                 <FileText className="h-4 w-4" />
               </div>
               <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition" />
@@ -69,7 +69,7 @@ export const InternalCourierFleetTreasurySection: React.FC<InternalCourierFleetT
             className="group flex flex-col items-start p-3.5 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/70 hover:border-border transition text-right w-full"
           >
             <div className="flex items-center justify-between w-full">
-              <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition">
+              <div className="p-2 rounded-lg bg-success/10 text-success dark:text-success group-hover:scale-105 transition">
                 <Landmark className="h-4 w-4" />
               </div>
               <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition" />
@@ -81,9 +81,9 @@ export const InternalCourierFleetTreasurySection: React.FC<InternalCourierFleetT
       </div>
 
       {/* Financial Remittance & Treasury Settings */}
-      <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-3 border-b border-border/40">
-          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <div className="p-2 rounded-lg bg-success/10 text-success dark:text-success">
             <Landmark className="h-5 w-5" />
           </div>
           <div>

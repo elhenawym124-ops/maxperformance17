@@ -70,14 +70,14 @@ export const MyAppsCard: React.FC<MyAppsCardProps> = ({
     <div
       onClick={() => navigate(destination)}
       className={cn(
-        "group relative flex items-center justify-between gap-3 p-3 rounded-2xl border transition-all duration-150 select-none cursor-pointer",
+        "group relative flex items-center justify-between gap-3 p-3 rounded-xl border transition-all duration-150 select-none cursor-pointer",
         "bg-card hover:bg-accent/[0.04] hover:shadow-sm",
         isSelected
           ? "border-primary ring-2 ring-primary/20 bg-primary/[0.03]"
           : installed.status === "ACTIVE"
-          ? "border-emerald-500/25 hover:border-emerald-500/50 bg-emerald-500/[0.015]"
+          ? "border-emerald-500/25 hover:border-success/50 bg-success/[0.015]"
           : installed.status === "TRIAL"
-          ? "border-amber-500/25 hover:border-amber-500/50 bg-amber-500/[0.015]"
+          ? "border-amber-500/25 hover:border-warning/50 bg-warning/[0.015]"
           : "border-border/40 hover:border-primary/50"
       )}
     >

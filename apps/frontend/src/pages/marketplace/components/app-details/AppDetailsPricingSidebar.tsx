@@ -71,7 +71,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
   const planPrices = getPlanPrices(app);
 
   return (
-    <aside className="space-y-5 rounded-2xl border border-border/60 bg-card p-5 text-right shadow-[0_18px_40px_-32px_rgba(11,18,32,0.4)] lg:sticky lg:top-5 lg:self-start">
+    <aside className="space-y-5 rounded-xl border border-border/60 bg-card p-5 text-right shadow-[0_18px_40px_-32px_rgba(11,18,32,0.4)] lg:sticky lg:top-5 lg:self-start">
       {/* Header Summary Box */}
       <div className="pb-1">
         <div className="flex items-start justify-between gap-3">
@@ -103,7 +103,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
           <div className="text-xs font-bold text-muted-foreground flex items-center justify-between px-1">
             <span>اختر نظام الاشتراك:</span>
             {isInstalled && currentActivePlan && (
-              <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+              <span className="text-[11px] text-success font-bold flex items-center gap-1">
                 <Check size={12} /> مفعل: {planTitles[currentActivePlan]}
               </span>
             )}
@@ -118,7 +118,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                 selectedPlan === "PAY_PER_USE"
                   ? "border-primary bg-primary/5 ring-1 ring-primary/30"
                   : "border-border/60 bg-background hover:border-border hover:bg-muted/30",
-                currentActivePlan === "PAY_PER_USE" && "ring-1 ring-emerald-500/50"
+                currentActivePlan === "PAY_PER_USE" && "ring-1 ring-success/50"
               )}
             >
               <div className="flex items-center justify-between gap-2">
@@ -143,7 +143,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                   </span>
                 </div>
               </div>
-              <p className="mt-1 text-[11px] text-muted-foreground pr-6 leading-relaxed">
+              <p className="mt-1 text-[11px] text-muted-foreground pe-6 leading-relaxed">
                 ادفع فقط مع كل طلب يتم تسجيله، بدون أي اشتراك شهري ثابت.
               </p>
             </div>
@@ -158,7 +158,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                 selectedPlan === "MONTHLY"
                   ? "border-primary bg-primary/5 ring-1 ring-primary/30"
                   : "border-border/60 bg-background hover:border-border hover:bg-muted/30",
-                currentActivePlan === "MONTHLY" && "ring-1 ring-emerald-500/50"
+                currentActivePlan === "MONTHLY" && "ring-1 ring-success/50"
               )}
             >
               <div className="flex items-center justify-between gap-2">
@@ -180,7 +180,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                   <span className="text-xs font-normal text-muted-foreground font-sans"> / شهر</span>
                 </div>
               </div>
-              <p className="mt-1 text-[11px] text-muted-foreground pr-6 leading-relaxed">
+              <p className="mt-1 text-[11px] text-muted-foreground pe-6 leading-relaxed">
                 وصول كامل غير محدود لإدارة المتجر مع تجديد شهري.
               </p>
             </div>
@@ -195,11 +195,11 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                 selectedPlan === "YEARLY"
                   ? "border-primary bg-primary/5 ring-1 ring-primary/30"
                   : "border-border/60 bg-background hover:border-border hover:bg-muted/30",
-                currentActivePlan === "YEARLY" && "ring-1 ring-emerald-500/50"
+                currentActivePlan === "YEARLY" && "ring-1 ring-success/50"
               )}
             >
               {yearlySavingsPercent > 0 && (
-                <span className="absolute -top-2 left-3 rounded-full bg-emerald-600 text-white text-[10px] font-extrabold px-2 py-0.5 shadow-sm">
+                <span className="absolute -top-2 left-3 rounded-full bg-success text-white text-[10px] font-extrabold px-2 py-0.5 shadow-sm">
                   وفر {yearlySavingsPercent}%
                 </span>
               )}
@@ -222,7 +222,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                   <span className="text-xs font-normal text-muted-foreground font-sans"> / سنة</span>
                 </div>
               </div>
-              <p className="mt-1 text-[11px] text-muted-foreground pr-6 leading-relaxed">
+              <p className="mt-1 text-[11px] text-muted-foreground pe-6 leading-relaxed">
                 صلاحية سنة كاملة (365 يوم) مع أفضل قيمة واستقرار للمتجر.
               </p>
             </div>
@@ -245,7 +245,7 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
                   }
                 }
               }}
-              className="h-12 w-full gap-2 rounded-xl bg-emerald-600 text-[14.5px] font-bold text-white hover:bg-emerald-700"
+              className="h-12 w-full gap-2 rounded-xl bg-success text-[14.5px] font-bold text-white hover:bg-success"
               size="sm"
             >
               <ExternalLink size={15} /> فتح التطبيق
@@ -282,12 +282,12 @@ export const AppDetailsPricingSidebar: React.FC<AppDetailsPricingSidebarProps> =
         ) : (
           <>
             {!isInstalled && isExpired && (
-              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-800 dark:text-amber-200">
+              <div className="rounded-xl border border-warning/30 bg-warning/10 p-3 text-xs text-warning dark:text-warning">
                 <div className="flex items-center gap-1.5 font-bold mb-1">
-                  <AlertCircle className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <AlertCircle className="size-4 shrink-0 text-warning dark:text-warning" />
                   <span>اشتراكك منتهي — جدّدي للوصول</span>
                 </div>
-                <p className="text-[11px] text-amber-700/90 dark:text-amber-300/90 leading-relaxed">
+                <p className="text-[11px] text-warning/90 dark:text-warning/90 leading-relaxed">
                   يتطلب هذا التطبيق اشتراكاً سارياً للوصول واستخدام جميع المميزات التشغيلية.
                 </p>
               </div>

@@ -37,38 +37,38 @@ export const AffiliatesTable: React.FC<AffiliatesTableProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-2xl border ${
-        isDark ? "border-gray-700 bg-gray-800" : "border-gray-200 bg-white"
+      className={`rounded-xl border ${
+        isDark ? "border-gray-700 bg-muted" : "border-gray-200 bg-white"
       } overflow-hidden shadow-sm`}
     >
       <div className="p-3 md:p-0">
         <div className="overflow-x-auto">
-          <table className="block min-w-full md:table md:divide-y md:divide-gray-200 dark:md:divide-gray-700">
+          <table className="block min-w-full md:table md:divide-y md:divide-border dark:md:divide-border">
             <thead
               className={`hidden md:table-header-group ${
                 isDark ? "bg-gray-900/50" : "bg-gray-50"
               }`}
             >
               <tr>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   المسوق
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   البيانات المالية
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   الأداء
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   العمولة اليدوية
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   الضوابط
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   الحالة
                 </th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   الإجراء
                 </th>
               </tr>
@@ -76,8 +76,8 @@ export const AffiliatesTable: React.FC<AffiliatesTableProps> = ({
             <tbody
               className={`block space-y-3 md:table-row-group md:space-y-0 ${
                 isDark
-                  ? "md:bg-gray-800 md:divide-gray-700"
-                  : "md:bg-white md:divide-gray-200"
+                  ? "md:bg-gray-800 md:divide-border"
+                  : "md:bg-white md:divide-border"
               } md:divide-y`}
             >
               {filteredAffiliates.map((affiliate) => (

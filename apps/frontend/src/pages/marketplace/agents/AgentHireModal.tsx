@@ -63,7 +63,7 @@ export const AgentHireModal: React.FC<AgentHireModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-lg rounded-2xl border border-border/80 bg-background p-6 shadow-2xl space-y-5"
+        className="relative w-full max-w-lg rounded-xl border border-border/80 bg-background p-6 shadow-2xl space-y-5"
       >
         <AgentHireHeader
           agent={agent}

@@ -80,17 +80,17 @@ export const AppSettingsInsights: React.FC<AppSettingsInsightsProps> = ({
     <div className="mb-8 space-y-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-bold text-foreground">
             Insights & Maintenance
           </h2>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-foreground dark:text-muted-foreground">
             متابعة سريعة لاستخدام التطبيق وروابط الإدارة المرتبطة به من نفس الشاشة.
           </p>
         </div>
         {slug === "ugc-reviews-pro" ? (
           <button
             onClick={() => navigate("/products/reviews")}
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+            className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted dark:border-border dark:bg-muted dark:text-white dark:hover:bg-muted"
           >
             <ExternalLink size={16} />
             فتح إدارة التقييمات
@@ -114,8 +114,8 @@ export const AppSettingsInsights: React.FC<AppSettingsInsightsProps> = ({
 
       {slug === "ugc-reviews-pro" ? (
         <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-            <div className="mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+          <div className="rounded-xl border border-border bg-white p-6 dark:border-border dark:bg-muted">
+            <div className="mb-4 flex items-center gap-2 text-foreground">
               <ShieldCheck size={18} />
               <span className="font-semibold">حالة الـ Moderation</span>
             </div>
@@ -141,8 +141,8 @@ export const AppSettingsInsights: React.FC<AppSettingsInsightsProps> = ({
             </div>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-            <div className="mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+          <div className="rounded-xl border border-border bg-white p-6 dark:border-border dark:bg-muted">
+            <div className="mb-4 flex items-center gap-2 text-foreground">
               <MessageSquare size={18} />
               <span className="font-semibold">أحدث التقييمات المعلقة</span>
             </div>
@@ -151,29 +151,29 @@ export const AppSettingsInsights: React.FC<AppSettingsInsightsProps> = ({
                 {reviewInsights.latestPending.map((review) => (
                   <div
                     key={review.id}
-                    className="rounded-xl border border-gray-200 p-4 dark:border-gray-700"
+                    className="rounded-xl border border-border p-4 dark:border-border"
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <div className="font-semibold text-gray-900 dark:text-white">
+                        <div className="font-semibold text-foreground">
                           {review.customerName}
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <div className="text-sm text-foreground dark:text-muted-foreground">
                           {review.products?.name || review.product?.name || "Product review"}
                         </div>
                       </div>
-                      <span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold tabular-nums font-mono text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300">
+                      <span className="rounded-full bg-warning px-3 py-1 text-xs font-semibold tabular-nums font-mono text-warning dark:bg-warning/30 dark:text-warning">
                         {review.rating}/5
                       </span>
                     </div>
-                    <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="mt-2 text-xs text-muted-foreground">
                       {review.title || "بدون عنوان"} • {formatDateTime(review.createdAt)}
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-dashed border-gray-300 p-5 text-sm text-gray-600 dark:border-gray-700 dark:text-gray-400">
+              <div className="rounded-xl border border-dashed border-border p-5 text-sm text-foreground dark:border-border dark:text-muted-foreground">
                 لا توجد تقييمات معلقة حاليًا.
               </div>
             )}
@@ -181,8 +181,8 @@ export const AppSettingsInsights: React.FC<AppSettingsInsightsProps> = ({
         </div>
       ) : null}
 
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-        <div className="mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+      <div className="rounded-xl border border-border bg-white p-6 dark:border-border dark:bg-muted">
+        <div className="mb-4 flex items-center gap-2 text-foreground">
           <Clock3 size={18} />
           <span className="font-semibold">آخر النشاطات المسجلة</span>
         </div>
@@ -191,24 +191,24 @@ export const AppSettingsInsights: React.FC<AppSettingsInsightsProps> = ({
             {recentLogs.map((log) => (
               <div
                 key={log.id}
-                className="flex flex-col gap-2 rounded-xl border border-gray-200 p-4 dark:border-gray-700 md:flex-row md:items-center md:justify-between"
+                className="flex flex-col gap-2 rounded-xl border border-border p-4 dark:border-border md:flex-row md:items-center md:justify-between"
               >
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white">
+                  <div className="font-medium text-foreground">
                     {log.feature || "General activity"}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-mono tabular-nums">
+                  <div className="text-sm text-foreground dark:text-muted-foreground font-mono tabular-nums">
                     quantity: {Number(log.quantity || 0)} • cost: {formatMoney(log.totalCost)}
                   </div>
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-muted-foreground">
                   {formatDateTime(log.createdAt)}
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-gray-300 p-5 text-sm text-gray-600 dark:border-gray-700 dark:text-gray-400">
+          <div className="rounded-xl border border-dashed border-border p-5 text-sm text-foreground dark:border-border dark:text-muted-foreground">
             لا توجد usage logs بعد. بمجرد تسجيل أحداث فعلية للتطبيق ستظهر هنا آخر الأنشطة.
           </div>
         )}

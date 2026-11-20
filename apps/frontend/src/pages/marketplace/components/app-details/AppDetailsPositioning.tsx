@@ -23,7 +23,7 @@ export const AppDetailsPositioning: React.FC<AppDetailsPositioningProps> = ({ ap
   if (items.length === 0) return null;
 
   return (
-    <div className="grid overflow-hidden rounded-2xl border border-border/60 bg-card sm:grid-cols-3">
+    <div className="grid overflow-hidden rounded-xl border border-border/60 bg-card sm:grid-cols-3">
       {items.map((item, index) => (
         <div
           key={item.label}

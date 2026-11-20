@@ -64,7 +64,7 @@ export const AppDetailsMobileStickyBar: React.FC<AppDetailsMobileStickyBarProps>
                 navigate(dest);
               }
             }}
-            className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+            className="gap-2 bg-success hover:bg-success text-white font-bold"
             size="sm"
           >
             <ExternalLink size={14} /> فتح التطبيق

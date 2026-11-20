@@ -31,12 +31,12 @@ const CompanyOrdersDetails: React.FC = () => {
   if (isLoading && !company) {
     return (
       <div
-        className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center"
+        className="p-6 min-h-screen bg-muted dark:bg-muted flex items-center justify-center"
         dir="rtl"
       >
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg font-medium text-gray-600 dark:text-gray-400">
+          <p className="text-lg font-medium text-foreground dark:text-muted-foreground">
             جاري تحميل البيانات...
           </p>
         </div>
@@ -46,7 +46,7 @@ const CompanyOrdersDetails: React.FC = () => {
 
   return (
     <div
-      className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen"
+      className="p-6 space-y-6 bg-muted dark:bg-muted min-h-screen"
       dir="rtl"
     >
       <CompanyOrdersHeaderAndStats

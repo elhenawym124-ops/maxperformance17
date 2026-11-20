@@ -37,13 +37,13 @@ export const AffiliateReviewHistoryModal: React.FC<
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4">
       <div
-        className={`w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl shadow-xl ${
+        className={`w-full max-w-2xl max-h-[90vh] flex flex-col rounded-xl shadow-xl ${
           isDark
-            ? "bg-gray-800 border border-gray-700"
-            : "bg-white border border-gray-200"
+            ? "bg-gray-800 border border-border"
+            : "bg-white border border-border"
         }`}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-gray-200 p-4 sm:p-6 dark:border-gray-700">
+        <div className="flex items-start justify-between gap-4 border-b border-border p-4 sm:p-6 dark:border-border">
           <div>
             <h2
               className={`text-xl font-bold ${
@@ -65,8 +65,8 @@ export const AffiliateReviewHistoryModal: React.FC<
             onClick={onClose}
             className={`rounded-xl px-4 py-2 text-sm font-medium ${
               isDark
-                ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "bg-gray-700 text-muted-foreground hover:bg-muted"
+                : "bg-gray-100 text-foreground hover:bg-muted"
             }`}
           >
             إغلاق
@@ -75,16 +75,16 @@ export const AffiliateReviewHistoryModal: React.FC<
 
         <div className="max-h-[70vh] overflow-y-auto p-4 sm:p-6">
           {loadingReviewHistory ? (
-            <div className="py-12 text-center text-sm text-gray-500">
+            <div className="py-12 text-center text-sm text-muted-foreground">
               جارٍ تحميل السجل...
             </div>
           ) : (
             <div className="space-y-6">
               <div
-                className={`rounded-2xl border p-4 ${
+                className={`rounded-xl border p-4 ${
                   isDark
-                    ? "border-gray-700 bg-gray-900/50"
-                    : "border-gray-200 bg-gray-50"
+                    ? "border-gray-700 bg-muted"
+                    : "border-gray-200 bg-muted"
                 }`}
               >
                 <h3
@@ -99,7 +99,7 @@ export const AffiliateReviewHistoryModal: React.FC<
                     <div
                       className={`rounded-xl border p-4 ${
                         isDark
-                          ? "border-gray-700 bg-gray-800/70"
+                          ? "border-gray-700 bg-muted"
                           : "border-gray-200 bg-white"
                       }`}
                     >
@@ -112,14 +112,14 @@ export const AffiliateReviewHistoryModal: React.FC<
                           >
                             المستند الحالي
                           </p>
-                          <p className="mt-1 text-xs text-gray-500 tabular-nums">
+                          <p className="mt-1 text-xs text-muted-foreground tabular-nums">
                             {currentUploadDate
                               ? new Date(currentUploadDate).toLocaleString(
                                   "ar-EG",
                                 )
                               : "بدون تاريخ رفع"}
                           </p>
-                          <p className="mt-1 text-xs text-gray-500">
+                          <p className="mt-1 text-xs text-muted-foreground">
                             {getDocumentSourceLabel(currentVersion?.source)}
                           </p>
                         </div>
@@ -152,7 +152,7 @@ export const AffiliateReviewHistoryModal: React.FC<
                             key={version.id}
                             className={`rounded-xl border p-4 ${
                               isDark
-                                ? "border-gray-700 bg-gray-800/50"
+                                ? "border-gray-700 bg-muted"
                                 : "border-gray-200 bg-white"
                             }`}
                           >
@@ -165,12 +165,12 @@ export const AffiliateReviewHistoryModal: React.FC<
                                 >
                                   نسخة سابقة
                                 </p>
-                                <p className="mt-1 text-xs text-gray-500 tabular-nums">
+                                <p className="mt-1 text-xs text-muted-foreground tabular-nums">
                                   {new Date(version.uploadedAt).toLocaleString(
                                     "ar-EG",
                                   )}
                                 </p>
-                                <p className="mt-1 text-xs text-gray-500">
+                                <p className="mt-1 text-xs text-muted-foreground">
                                   {getDocumentSourceLabel(version.source)}
                                 </p>
                               </div>
@@ -187,13 +187,13 @@ export const AffiliateReviewHistoryModal: React.FC<
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground">
                         لا توجد نسخ أقدم محفوظة بعد لهذا المستند.
                       </p>
                     )}
                   </div>
                 ) : (
-                  <p className="mt-3 text-xs text-gray-500">
+                  <p className="mt-3 text-xs text-muted-foreground">
                     لا يوجد مستند اعتماد مرفوع لهذا المسوق.
                   </p>
                 )}
@@ -208,7 +208,7 @@ export const AffiliateReviewHistoryModal: React.FC<
                   سجل القرارات والمراجعات
                 </h3>
                 {reviewHistory.length === 0 ? (
-                  <div className="py-8 text-center text-sm text-gray-500">
+                  <div className="py-8 text-center text-sm text-muted-foreground">
                     لا يوجد سجل مراجعات بعد لهذا المسوق.
                   </div>
                 ) : (
@@ -216,10 +216,10 @@ export const AffiliateReviewHistoryModal: React.FC<
                     {reviewHistory.map((log) => (
                       <div
                         key={log.id}
-                        className={`rounded-2xl border p-4 ${
+                        className={`rounded-xl border p-4 ${
                           isDark
-                            ? "border-gray-700 bg-gray-900/50"
-                            : "border-gray-200 bg-gray-50"
+                            ? "border-gray-700 bg-muted"
+                            : "border-gray-200 bg-muted"
                         }`}
                       >
                         <div className="flex flex-wrap items-start justify-between gap-3">
@@ -231,12 +231,12 @@ export const AffiliateReviewHistoryModal: React.FC<
                             >
                               {log.title}
                             </p>
-                            <p className="mt-1 text-xs text-gray-500 tabular-nums">
+                            <p className="mt-1 text-xs text-muted-foreground tabular-nums">
                               {new Date(log.createdAt).toLocaleString("ar-EG")}
                             </p>
                           </div>
                           {log.actor && (
-                            <div className="text-left text-xs text-gray-500">
+                            <div className="text-left text-xs text-muted-foreground">
                               <div>{log.actor.name || "إدارة النظام"}</div>
                               {log.actor.email && <div>{log.actor.email}</div>}
                             </div>
@@ -262,8 +262,8 @@ export const AffiliateReviewHistoryModal: React.FC<
                               <span
                                 className={`rounded-full px-2 py-1 ${
                                   isDark
-                                    ? "bg-gray-800 text-gray-300"
-                                    : "bg-white text-gray-600"
+                                    ? "bg-gray-800 text-muted-foreground"
+                                    : "bg-white text-foreground"
                                 }`}
                               >
                                 حالة الحساب: {log.previousStatus} ←{" "}
@@ -275,8 +275,8 @@ export const AffiliateReviewHistoryModal: React.FC<
                                 <span
                                   className={`rounded-full px-2 py-1 ${
                                     isDark
-                                      ? "bg-gray-800 text-gray-300"
-                                      : "bg-white text-gray-600"
+                                      ? "bg-gray-800 text-muted-foreground"
+                                      : "bg-white text-foreground"
                                   }`}
                                 >
                                   حالة المستند: {log.previousDocumentStatus} ←{" "}

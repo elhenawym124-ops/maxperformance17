@@ -40,7 +40,7 @@ export const PostPurchaseOfferProductPricingCard: React.FC<
   const isRtl = getDirection() === "rtl";
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm space-y-5">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-5">
       <h3 className="font-bold text-base text-foreground flex items-center gap-2">
         <Package className="w-4 h-4 text-primary" />
         منتج العرض والتسعير
@@ -222,7 +222,7 @@ export const PostPurchaseOfferProductPricingCard: React.FC<
       </div>
 
       {/* Live Pricing Summary Box */}
-      <div className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-500/10 text-xs space-y-1 text-emerald-950 dark:text-emerald-200">
+      <div className="p-3.5 rounded-xl border border-success bg-success/10 text-xs space-y-1 text-success dark:text-success">
         <div className="flex justify-between items-center font-bold">
           <span>السعر النهائي في العرض:</span>
           <span className="text-sm font-black tabular-nums">
@@ -231,7 +231,7 @@ export const PostPurchaseOfferProductPricingCard: React.FC<
         </div>
         <div className="flex justify-between items-center text-muted-foreground text-[11px]">
           <span>مقدار التوفير للعميل:</span>
-          <span className="tabular-nums font-bold text-emerald-700 dark:text-emerald-300">
+          <span className="tabular-nums font-bold text-success dark:text-success">
             وفر {calculatedSavings} ج.م ({calculatedSavingsPercent}% خصم)
           </span>
         </div>
@@ -241,7 +241,7 @@ export const PostPurchaseOfferProductPricingCard: React.FC<
       <div className="flex items-center justify-between pt-1">
         <div>
           <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
-            <Truck className="w-3.5 h-3.5 text-emerald-600" />
+            <Truck className="w-3.5 h-3.5 text-success" />
             شحن مجاني للعرض
           </p>
           <p className="text-[11px] text-muted-foreground">
@@ -259,7 +259,7 @@ export const PostPurchaseOfferProductPricingCard: React.FC<
             }))
           }
           className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors cursor-pointer ${
-            offer.freeShipping ? "bg-emerald-600" : "bg-gray-300 dark:bg-gray-700"
+            offer.freeShipping ? "bg-emerald-600" : "bg-gray-300 dark:bg-muted"
           }`}
         >
           <span

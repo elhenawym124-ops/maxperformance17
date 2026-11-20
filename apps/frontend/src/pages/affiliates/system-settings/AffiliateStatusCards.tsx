@@ -20,8 +20,8 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
       <h2
         className={`text-lg font-bold border-b pb-2 ${
           isDark
-            ? "text-white border-gray-700"
-            : "text-gray-900 border-gray-200"
+            ? "text-white border-border"
+            : "text-gray-900 border-border"
         }`}
       >
         حالة النظام والتسجيل
@@ -33,10 +33,10 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
           isDark
             ? settings.isActive
               ? "border-blue-700/60 bg-blue-950/20"
-              : "border-gray-700 bg-gray-800/40"
+              : "border-gray-700 bg-muted"
             : settings.isActive
               ? "border-blue-200 bg-blue-50/50"
-              : "border-gray-200 bg-gray-50/70"
+              : "border-gray-200 bg-muted"
         }`}
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -50,12 +50,12 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
                 حالة نظام المسوقين (تسجيل المسوقين)
               </h3>
               {settings.isActive ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success text-success dark:bg-success/80 dark:text-success border border-success dark:border-success">
+                  <span className="w-2 h-2 rounded-full bg-success" />
                   مفعل (يستقبل تسجيلات)
                 </span>
               ) : (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-700">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-muted text-foreground dark:bg-muted dark:text-muted-foreground border border-border dark:border-border">
                   معطل (التسجيل مغلق)
                 </span>
               )}
@@ -77,7 +77,7 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
               className={`text-sm font-semibold ${
                 settings.isActive
                   ? "text-blue-600 dark:text-blue-400"
-                  : "text-gray-500 dark:text-gray-400"
+                  : "text-muted-foreground"
               }`}
             >
               {settings.isActive ? "تشغيل" : "إيقاف"}
@@ -96,7 +96,7 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
                   settings.isActive
                     ? "bg-blue-600"
                     : isDark
-                      ? "bg-gray-700 border border-gray-600"
+                      ? "bg-gray-700 border border-border"
                       : "bg-gray-300"
                 }`}
               />
@@ -115,11 +115,11 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
         className={`p-5 rounded-xl border transition-all ${
           isDark
             ? settings.autoApproveAffiliates
-              ? "border-emerald-700/60 bg-emerald-950/20"
-              : "border-gray-700 bg-gray-800/40"
+              ? "border-emerald-700/60 bg-success/20"
+              : "border-gray-700 bg-muted"
             : settings.autoApproveAffiliates
-              ? "border-emerald-200 bg-emerald-50/50"
-              : "border-gray-200 bg-gray-50/70"
+              ? "border-emerald-200 bg-success/50"
+              : "border-gray-200 bg-muted"
         }`}
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -133,12 +133,12 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
                 الموافقة التلقائية على المسوقين الجدد
               </h3>
               {settings.autoApproveAffiliates ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                  <CheckCircleIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success text-success dark:bg-success/80 dark:text-success border border-success dark:border-success">
+                  <CheckCircleIcon className="w-4 h-4 text-success dark:text-success" />
                   مفعلة تلقائياً (تفعيل فوري)
                 </span>
               ) : (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-warning text-warning dark:bg-warning/80 dark:text-warning border border-warning dark:border-warning">
                   يتطلب موافقة يدوية من الإدارة
                 </span>
               )}
@@ -160,8 +160,8 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
             <span
               className={`text-sm font-semibold ${
                 settings.autoApproveAffiliates
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-gray-500 dark:text-gray-400"
+                  ? "text-emerald-600 dark:text-success"
+                  : "text-muted-foreground"
               }`}
             >
               {settings.autoApproveAffiliates ? "مفعل" : "معطل"}
@@ -178,9 +178,9 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
               <div
                 className={`block w-12 h-6 rounded-full transition-colors ${
                   settings.autoApproveAffiliates
-                    ? "bg-emerald-600 dark:bg-emerald-500"
+                    ? "bg-emerald-600 dark:bg-success"
                     : isDark
-                      ? "bg-gray-700 border border-gray-600"
+                      ? "bg-gray-700 border border-border"
                       : "bg-gray-300"
                 }`}
               />

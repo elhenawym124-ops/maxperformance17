@@ -43,20 +43,20 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
   t,
 }) => {
   return (
-    <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 py-3 sm:px-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+    <div className="bg-white dark:bg-muted border-b border-border dark:border-border px-4 py-3 sm:px-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative w-full sm:w-64">
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-3.5 text-slate-400" />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={t("storefrontThemes.searchPlaceholder")}
-            className="w-full h-9 pl-4 pr-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-[11px] font-bold text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+            className="w-full h-9 ps-4 pe-10 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-[11px] font-bold text-foreground dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary transition-all"
           />
         </div>
 
-        <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1 hidden sm:block" />
+        <div className="h-4 w-px bg-muted dark:bg-muted mx-1 hidden sm:block" />
 
         <div className="flex items-center gap-1 overflow-x-auto no-scrollbar max-w-full pb-1 sm:pb-0">
           {THEME_FILTER_TYPES.map((type) => (
@@ -66,8 +66,8 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
               className={cn(
                 "px-3 h-8 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border whitespace-nowrap shrink-0",
                 filterType === type
-                  ? "bg-indigo-700 border-indigo-700 text-white shadow-lg shadow-indigo-500/20"
-                  : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-indigo-500/50"
+                  ? "bg-indigo-700 border-primary text-white shadow-lg shadow-primary/20"
+                  : "bg-white dark:bg-muted border-border dark:border-border text-muted-foreground dark:text-muted-foreground hover:border-primary/50"
               )}
             >
               {t("storefrontThemes.filter" + type.charAt(0).toUpperCase() + type.slice(1))}
@@ -84,8 +84,8 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
               className={cn(
                 "px-3 h-8 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all shrink-0",
                 selectedPrimaryCategoryId === "all"
-                  ? "text-indigo-700 bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-300"
-                  : "text-slate-500 dark:text-slate-400 hover:text-indigo-500"
+                  ? "text-indigo-700 bg-primary dark:bg-primary/20 dark:text-primary"
+                  : "text-slate-500 dark:text-muted-foreground hover:text-primary"
               )}
             >
               {t("storefrontThemes.allDomains")}
@@ -98,8 +98,8 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                 className={cn(
                   "px-3 h-8 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
                   selectedPrimaryCategoryId === group.id
-                    ? "text-indigo-700 bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-300"
-                    : "text-slate-500 dark:text-slate-400 hover:text-indigo-500"
+                    ? "text-indigo-700 bg-primary dark:bg-primary/20 dark:text-primary"
+                    : "text-slate-500 dark:text-muted-foreground hover:text-primary"
                 )}
               >
                 {group.label}
@@ -119,7 +119,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                       event.stopPropagation();
                       onRemoveCategory(group.id);
                     }}
-                    className="flex items-center justify-center size-4 rounded-full bg-slate-200/70 dark:bg-slate-700/70 text-slate-500 dark:text-slate-300 hover:bg-red-100 dark:hover:bg-red-500/30 hover:text-red-500 transition-colors"
+                    className="flex items-center justify-center size-4 rounded-full bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground hover:bg-destructive dark:hover:bg-destructive/30 hover:text-destructive transition-colors"
                   >
                     <X className="size-2.5" />
                   </span>
@@ -128,7 +128,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
             ))}
 
             {addingCategory ? (
-              <span className="inline-flex items-center gap-1.5 h-8 pr-1">
+              <span className="inline-flex items-center gap-1.5 h-8 pe-1">
                 <input
                   autoFocus
                   type="text"
@@ -139,13 +139,13 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                     if (e.key === "Escape") onCancelAddCategory();
                   }}
                   placeholder={t("storefrontThemes.newCategoryPlaceholder")}
-                  className="h-8 w-36 rounded-lg border border-indigo-400 bg-white dark:bg-slate-950 px-2.5 text-[11px] font-bold text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  className="h-8 w-36 rounded-lg border border-primary bg-white dark:bg-muted px-2.5 text-[11px] font-bold text-foreground dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <button
                   type="button"
                   onClick={onConfirmAddCategory}
                   aria-label={t("storefrontThemes.confirmAddCategory")}
-                  className="flex items-center justify-center size-7 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                  className="flex items-center justify-center size-7 rounded-lg bg-primary text-white hover:bg-primary transition-colors"
                 >
                   <Check className="size-3.5" />
                 </button>
@@ -153,7 +153,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                   type="button"
                   onClick={onCancelAddCategory}
                   aria-label={t("storefrontThemes.cancelAddCategory")}
-                  className="flex items-center justify-center size-7 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="flex items-center justify-center size-7 rounded-lg border border-border dark:border-border text-muted-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-colors"
                 >
                   <X className="size-3.5" />
                 </button>
@@ -163,7 +163,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                 type="button"
                 onClick={onStartAddCategory}
                 aria-label={t("storefrontThemes.addCategory")}
-                className="flex items-center gap-1 h-8 px-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest border border-dashed border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-500/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all"
+                className="flex items-center gap-1 h-8 px-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest border border-dashed border-border dark:border-border text-muted-foreground dark:text-muted-foreground hover:border-primary/60 hover:text-primary transition-all"
               >
                 <Plus className="size-3.5" />
                 {t("storefrontThemes.addCategory")}

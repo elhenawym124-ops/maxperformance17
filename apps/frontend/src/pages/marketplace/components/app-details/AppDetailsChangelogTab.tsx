@@ -21,7 +21,7 @@ export const AppDetailsChangelogTab: React.FC<AppDetailsChangelogTabProps> = ({
   if (changelog.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border bg-card p-5 text-right">
+    <div className="rounded-xl border bg-card p-5 text-right">
       <h2 className="text-xl font-extrabold text-foreground mb-4">
         {t("marketplace.changelog")}
       </h2>
@@ -43,7 +43,7 @@ export const AppDetailsChangelogTab: React.FC<AppDetailsChangelogTabProps> = ({
                 >
                   <CheckCircle2
                     size={13}
-                    className="mt-0.5 shrink-0 text-emerald-600"
+                    className="mt-0.5 shrink-0 text-success"
                   />
                   {change}
                 </li>

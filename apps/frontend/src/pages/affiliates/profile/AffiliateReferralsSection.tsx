@@ -12,9 +12,9 @@ export const AffiliateReferralsSection: React.FC<AffiliateReferralsSectionProps>
   canViewCustomerData,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <h2 className="text-lg font-bold">الإحالات والعملاء</h2>
-      <p className="mt-1 text-xs text-slate-500">
+      <p className="mt-1 text-xs text-muted-foreground">
         صلاحية عرض بيانات العملاء:{" "}
         {canViewCustomerData ? "مفعلة" : "غير مفعلة"}
       </p>
@@ -22,7 +22,7 @@ export const AffiliateReferralsSection: React.FC<AffiliateReferralsSectionProps>
         {referrals.map((referral) => (
           <div
             key={referral.id}
-            className="rounded-xl border border-slate-200 p-3 text-sm dark:border-slate-700"
+            className="rounded-xl border border-border p-3 text-sm dark:border-border"
           >
             <div className="flex items-center justify-between gap-3">
               <span className="font-semibold">{referral.referralCode}</span>
@@ -34,11 +34,11 @@ export const AffiliateReferralsSection: React.FC<AffiliateReferralsSectionProps>
                 {referral.converted ? "تم التحويل" : "زيارة فقط"}
               </span>
             </div>
-            <div className="mt-2 text-xs text-slate-500">
+            <div className="mt-2 text-xs text-muted-foreground">
               {referral.order?.orderNumber || referral.source || "مصدر غير محدد"}
             </div>
             {canViewCustomerData && referral.customer ? (
-              <div className="mt-2 text-xs text-slate-600 dark:text-slate-300">
+              <div className="mt-2 text-xs text-foreground dark:text-muted-foreground">
                 {`${referral.customer.firstName || ""} ${referral.customer.lastName || ""}`.trim() ||
                   referral.customer.phone ||
                   "عميل غير محدد"}
@@ -47,7 +47,7 @@ export const AffiliateReferralsSection: React.FC<AffiliateReferralsSectionProps>
           </div>
         ))}
         {referrals.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">
+          <div className="rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground dark:border-border">
             لا توجد إحالات مسجلة.
           </div>
         ) : null}

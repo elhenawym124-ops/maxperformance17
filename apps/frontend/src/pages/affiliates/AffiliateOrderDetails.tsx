@@ -183,7 +183,7 @@ const Section: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ title, icon, children, className = "" }) => (
-  <section className={`rounded-2xl border p-4 shadow-sm sm:p-5 ${className}`}>
+  <section className={`rounded-xl border p-4 shadow-sm sm:p-5 ${className}`}>
     <div className="mb-4 flex items-center gap-2">
       {icon}
       <h2 className="text-lg font-semibold">{title}</h2>
@@ -196,9 +196,9 @@ const InfoRow: React.FC<{
   label: string;
   value?: React.ReactNode;
 }> = ({ label, value }) => (
-  <div className="flex items-start justify-between gap-3 border-b border-gray-100 py-2 last:border-0 dark:border-gray-700">
-    <span className="text-sm text-gray-500 dark:text-gray-400">{label}</span>
-    <span className="text-left text-sm font-medium text-gray-900 dark:text-gray-100">
+  <div className="flex items-start justify-between gap-3 border-b border-border py-2 last:border-0 dark:border-border">
+    <span className="text-sm text-muted-foreground">{label}</span>
+    <span className="text-left text-sm font-medium text-foreground">
       {value || "-"}
     </span>
   </div>
@@ -324,7 +324,7 @@ const AffiliateOrderDetails: React.FC = () => {
           <ArrowLeftIcon className="h-4 w-4" />
           الرجوع للطلبات
         </Link>
-        <div className="mt-10 text-center text-gray-500 dark:text-gray-400">
+        <div className="mt-10 text-center text-muted-foreground">
           الطلب غير موجود أو غير مرتبط بحسابك.
         </div>
       </div>
@@ -332,8 +332,8 @@ const AffiliateOrderDetails: React.FC = () => {
   }
 
   const panelClass = isDark
-    ? "border-gray-700 bg-gray-800 text-gray-100"
-    : "border-gray-200 bg-white text-gray-900";
+    ? "border-gray-700 bg-muted text-muted-foreground"
+    : "border-gray-200 bg-white text-foreground";
   const mutedText = isDark ? "text-gray-400" : "text-gray-500";
 
   return (
@@ -350,7 +350,7 @@ const AffiliateOrderDetails: React.FC = () => {
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className={`text-sm ${mutedText}`}>تفاصيل الطلب</p>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
               {order.orderNumber}
             </h1>
             <p className={`mt-2 text-sm ${mutedText}`}>
@@ -361,30 +361,30 @@ const AffiliateOrderDetails: React.FC = () => {
             <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">
               {statusLabel(order.status)}
             </span>
-            <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm font-medium text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-200">
+            <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary dark:bg-primary/50 dark:text-primary">
               {sourceLabel(order.orderSource)}
             </span>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-          <div className={`rounded-2xl border p-4 shadow-sm ${panelClass}`}>
+          <div className={`rounded-xl border p-4 shadow-sm ${panelClass}`}>
             <p className={`text-sm ${mutedText}`}>إجمالي الطلب</p>
             <p className="mt-2 text-2xl font-bold">{formatPrice(toNumber(order.total))}</p>
           </div>
-          <div className={`rounded-2xl border p-4 shadow-sm ${panelClass}`}>
+          <div className={`rounded-xl border p-4 shadow-sm ${panelClass}`}>
             <p className={`text-sm ${mutedText}`}>عمولتك</p>
-            <p className="mt-2 text-2xl font-bold text-green-600">
+            <p className="mt-2 text-2xl font-bold text-success">
               {formatPrice(commissionTotal)}
             </p>
           </div>
-          <div className={`rounded-2xl border p-4 shadow-sm ${panelClass}`}>
+          <div className={`rounded-xl border p-4 shadow-sm ${panelClass}`}>
             <p className={`text-sm ${mutedText}`}>الدفع</p>
             <p className="mt-2 text-lg font-semibold">
               {statusLabel(order.paymentStatus)}
             </p>
           </div>
-          <div className={`rounded-2xl border p-4 shadow-sm ${panelClass}`}>
+          <div className={`rounded-xl border p-4 shadow-sm ${panelClass}`}>
             <p className={`text-sm ${mutedText}`}>الشحن</p>
             <p className="mt-2 text-lg font-semibold">
               {order.shipments?.[0]?.status
@@ -402,24 +402,24 @@ const AffiliateOrderDetails: React.FC = () => {
               className={panelClass}
             >
               <div className="md:p-0">
-                <table className="block min-w-full md:table md:divide-y md:divide-gray-200 dark:md:divide-gray-700">
+                <table className="block min-w-full md:table md:divide-y md:divide-border dark:md:divide-border">
                   <thead className="hidden md:table-header-group">
                     <tr>
-                      <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">
                         المنتج
                       </th>
-                      <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">
                         الكمية
                       </th>
-                      <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">
                         السعر
                       </th>
-                      <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">
                         الإجمالي
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="block space-y-3 md:table-row-group md:space-y-0 md:divide-y md:divide-gray-100 dark:md:divide-gray-700">
+                  <tbody className="block space-y-3 md:table-row-group md:space-y-0 md:divide-y md:divide-border dark:md:divide-border">
                     {(order.orderItems || []).map((item) => {
                       const productName =
                         item.productName || item.product?.name || "منتج";
@@ -435,9 +435,9 @@ const AffiliateOrderDetails: React.FC = () => {
                       return (
                         <tr
                           key={item.id}
-                          className={`block rounded-2xl border p-4 md:table-row md:rounded-none md:border-0 md:p-0 ${
+                          className={`block rounded-xl border p-4 md:table-row md:rounded-none md:border-0 md:p-0 ${
                             isDark
-                              ? "border-gray-700 bg-gray-900/35"
+                              ? "border-gray-700 bg-muted"
                               : "border-gray-100 bg-white"
                           }`}
                         >
@@ -447,20 +447,20 @@ const AffiliateOrderDetails: React.FC = () => {
                               {[sku, variant].filter(Boolean).join(" · ") || "-"}
                             </p>
                           </td>
-                          <td className="flex items-center justify-between gap-4 border-t border-gray-100 py-3 text-sm dark:border-gray-700 md:table-cell md:border-0 md:px-3 md:py-3">
-                            <span className="text-xs font-medium text-gray-500 md:hidden">
+                          <td className="flex items-center justify-between gap-4 border-t border-border py-3 text-sm dark:border-border md:table-cell md:border-0 md:px-3 md:py-3">
+                            <span className="text-xs font-medium text-muted-foreground md:hidden">
                               الكمية
                             </span>
                             <span>{item.quantity}</span>
                           </td>
-                          <td className="flex items-center justify-between gap-4 border-t border-gray-100 py-3 text-sm dark:border-gray-700 md:table-cell md:border-0 md:px-3 md:py-3">
-                            <span className="text-xs font-medium text-gray-500 md:hidden">
+                          <td className="flex items-center justify-between gap-4 border-t border-border py-3 text-sm dark:border-border md:table-cell md:border-0 md:px-3 md:py-3">
+                            <span className="text-xs font-medium text-muted-foreground md:hidden">
                               السعر
                             </span>
                             <span>{formatPrice(toNumber(item.price))}</span>
                           </td>
-                          <td className="flex items-center justify-between gap-4 border-t border-gray-100 pt-3 text-sm font-semibold dark:border-gray-700 md:table-cell md:border-0 md:px-3 md:py-3">
-                            <span className="text-xs font-medium text-gray-500 md:hidden">
+                          <td className="flex items-center justify-between gap-4 border-t border-border pt-3 text-sm font-semibold dark:border-border md:table-cell md:border-0 md:px-3 md:py-3">
+                            <span className="text-xs font-medium text-muted-foreground md:hidden">
                               الإجمالي
                             </span>
                             <span>{formatPrice(toNumber(item.total))}</span>
@@ -483,7 +483,7 @@ const AffiliateOrderDetails: React.FC = () => {
                   {order.shipments.map((shipment) => (
                     <div
                       key={shipment.id}
-                      className="rounded-xl border border-gray-100 p-3 dark:border-gray-700"
+                      className="rounded-xl border border-border p-3 dark:border-border"
                     >
                       <InfoRow
                         label="مسؤول التنفيذ"
@@ -511,7 +511,7 @@ const AffiliateOrderDetails: React.FC = () => {
                 <div
                   className={`${
                     order.shipments?.length
-                      ? "mt-4 border-t border-gray-100 pt-4 dark:border-gray-700"
+                      ? "mt-4 border-t border-border pt-4 dark:border-border"
                       : ""
                   }`}
                 >
@@ -520,7 +520,7 @@ const AffiliateOrderDetails: React.FC = () => {
                     {order.merchantOrders.map((merchantOrder) => (
                       <div
                         key={merchantOrder.id}
-                        className="rounded-xl border border-gray-100 p-3 text-sm dark:border-gray-700"
+                        className="rounded-xl border border-border p-3 text-sm dark:border-border"
                       >
                         <InfoRow
                           label="مسؤول التنفيذ"
@@ -565,7 +565,7 @@ const AffiliateOrderDetails: React.FC = () => {
                     {(order.supportTickets || []).map((ticket) => (
                       <div
                         key={ticket.id}
-                        className="rounded-xl border border-gray-100 p-3 dark:border-gray-700"
+                        className="rounded-xl border border-border p-3 dark:border-border"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
@@ -575,7 +575,7 @@ const AffiliateOrderDetails: React.FC = () => {
                               {new Date(ticket.createdAt).toLocaleDateString("ar-EG")}
                             </p>
                           </div>
-                          <span className="shrink-0 rounded-full bg-amber-100 px-2 py-1 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
+                          <span className="shrink-0 rounded-full bg-warning px-2 py-1 text-xs font-medium text-warning dark:bg-warning/40 dark:text-warning">
                             {ticketStatusLabel(ticket.status)}
                           </span>
                         </div>
@@ -594,8 +594,8 @@ const AffiliateOrderDetails: React.FC = () => {
                     onChange={(event) => setTicketReason(event.target.value)}
                     className={`min-h-11 w-full rounded-xl border px-3 py-2 text-sm ${
                       isDark
-                        ? "border-gray-700 bg-gray-900 text-gray-100"
-                        : "border-gray-200 bg-white text-gray-900"
+                        ? "border-gray-700 bg-muted text-muted-foreground"
+                        : "border-gray-200 bg-white text-foreground"
                     }`}
                   >
                     {ticketReasons.map((reason) => (
@@ -611,8 +611,8 @@ const AffiliateOrderDetails: React.FC = () => {
                     placeholder="اكتب تفاصيل طلب العميل..."
                     className={`w-full resize-none rounded-xl border px-3 py-2 text-sm ${
                       isDark
-                        ? "border-gray-700 bg-gray-900 text-gray-100 placeholder:text-gray-500"
-                        : "border-gray-200 bg-white text-gray-900 placeholder:text-gray-400"
+                        ? "border-gray-700 bg-muted text-muted-foreground placeholder:text-gray-500"
+                        : "border-gray-200 bg-white text-foreground placeholder:text-gray-400"
                     }`}
                   />
                   <button
@@ -643,7 +643,7 @@ const AffiliateOrderDetails: React.FC = () => {
               <InfoRow
                 label="العمولة"
                 value={
-                  <span className="text-base text-green-600">
+                  <span className="text-base text-success">
                     {formatPrice(commissionTotal)}
                   </span>
                 }

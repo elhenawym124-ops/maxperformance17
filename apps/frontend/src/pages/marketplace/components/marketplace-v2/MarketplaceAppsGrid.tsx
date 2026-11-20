@@ -29,8 +29,8 @@ export function MarketplaceAppsGrid({
 
   if (displayedApps.length === 0) {
     return (
-      <div className="text-center py-16 px-4 rounded-2xl border border-dashed border-border/50 my-6 bg-card/40">
-        <div className="mx-auto size-14 rounded-2xl bg-muted/50 flex items-center justify-center text-muted-foreground/60 mb-3">
+      <div className="text-center py-16 px-4 rounded-xl border border-dashed border-border/50 my-6 bg-card/40">
+        <div className="mx-auto size-14 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground/60 mb-3">
           <Package size={28} />
         </div>
         <h3 className="text-base font-bold text-foreground mb-1">

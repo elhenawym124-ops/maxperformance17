@@ -11,17 +11,17 @@ export const AffiliatePaymentDetailsCard: React.FC<AffiliatePaymentDetailsCardPr
   paymentDetails,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <h2 className="text-lg font-bold">بيانات الدفع</h2>
       <div className="mt-4 grid gap-3 md:grid-cols-3">
-        <div className="rounded-xl border border-slate-200 p-3 text-sm dark:border-slate-700">
-          <div className="text-xs text-slate-500">طريقة الدفع</div>
+        <div className="rounded-xl border border-border p-3 text-sm dark:border-border">
+          <div className="text-xs text-muted-foreground">طريقة الدفع</div>
           <div className="mt-1 font-semibold">
             {paymentMethod || "غير محدد"}
           </div>
         </div>
-        <div className="rounded-xl border border-slate-200 p-3 text-sm dark:border-slate-700 md:col-span-2">
-          <div className="text-xs text-slate-500">بيانات التحويل</div>
+        <div className="rounded-xl border border-border p-3 text-sm dark:border-border md:col-span-2">
+          <div className="text-xs text-muted-foreground">بيانات التحويل</div>
           <div className="mt-1 break-words font-semibold tabular-nums">
             {parsePaymentDetails(paymentDetails)}
           </div>

@@ -52,7 +52,7 @@ export function MarketplaceHubsBar({
               {hubAppCount}
             </span>
             {isRecommended && !active && (
-              <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+              <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-warning/20 text-warning dark:text-warning border border-warning/30">
                 موصى به
               </span>
             )}

@@ -169,7 +169,7 @@ export default function RefundRateCalculator() {
         <div className="bg-card border border-border/70 rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
           <div>
             <h1 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
-              <ShieldAlert className="w-5 h-5 text-rose-500 shrink-0" />
+              <ShieldAlert className="w-5 h-5 text-destructive shrink-0" />
               {T("title")}
             </h1>
             <p className="text-xs text-muted-foreground mt-0.5">{T("subtitle")}</p>
@@ -209,7 +209,7 @@ export default function RefundRateCalculator() {
               {saved.map((sc) => (
                 <div key={sc.id} className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs bg-muted/40 border border-border/70">
                   <button type="button" onClick={() => loadScenario(sc)} className="text-foreground hover:text-primary truncate max-w-16 font-medium">{sc.name}</button>
-                  <button type="button" onClick={() => deleteScenario(sc.id)} className="text-muted-foreground hover:text-rose-500"><Trash2 className="w-3 h-3" /></button>
+                  <button type="button" onClick={() => deleteScenario(sc.id)} className="text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
                 </div>
               ))}
             </div>

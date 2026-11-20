@@ -58,7 +58,7 @@ export default function AppDetails() {
   if (!app) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
-        <div className="max-w-sm rounded-2xl border border-border/60 bg-card p-8 text-center">
+        <div className="max-w-sm rounded-xl border border-border/60 bg-card p-8 text-center">
           <AlertCircle size={38} className="mx-auto mb-4 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">التطبيق مش موجود أو اتشال من المتجر.</p>
           <Link to="/marketplace" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary">

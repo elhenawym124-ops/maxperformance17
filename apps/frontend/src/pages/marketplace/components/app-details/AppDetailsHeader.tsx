@@ -61,13 +61,13 @@ export const AppDetailsHeader: React.FC<AppDetailsHeaderProps> = ({ app, onBack 
       <div className="mt-6 flex flex-wrap items-center gap-3 text-[12px] font-semibold text-muted-foreground">
         {category && <span>{category}</span>}
         {app.isFeatured && (
-          <span className="inline-flex items-center gap-1 text-amber-600">
+          <span className="inline-flex items-center gap-1 text-warning">
             <Sparkles size={12} /> مميز
           </span>
         )}
         {app.rating > 0 && (
-          <span className="inline-flex items-center gap-1 text-amber-600">
-            <Star size={12} className="fill-amber-500 text-amber-500" />
+          <span className="inline-flex items-center gap-1 text-warning">
+            <Star size={12} className="fill-amber-500 text-warning" />
             {app.rating.toFixed(1)}
             <span className="font-normal text-muted-foreground">({formatNumber(app.reviewCount)})</span>
           </span>
@@ -85,12 +85,12 @@ export const AppDetailsHeader: React.FC<AppDetailsHeaderProps> = ({ app, onBack 
       )}
 
       <dl className="mt-7 flex flex-wrap border-y border-border/60">
-        <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 pl-4 first:border-l-0 first:pl-0">
+        <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 ps-4 first:border-l-0 first:ps-0">
           <dt className="mb-0.5 text-[11px] font-semibold text-muted-foreground">السعر</dt>
           <dd className="text-[15px] font-bold tabular-nums text-foreground">{priceText(app)}</dd>
         </div>
         {app.trialDays > 0 && (
-          <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 pl-4">
+          <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 ps-4">
             <dt className="mb-0.5 text-[11px] font-semibold text-muted-foreground">التجربة</dt>
             <dd className="inline-flex items-center gap-1.5 text-[15px] font-bold text-foreground">
               <Clock size={13} className="text-emerald-600" />
@@ -99,7 +99,7 @@ export const AppDetailsHeader: React.FC<AppDetailsHeaderProps> = ({ app, onBack 
           </div>
         )}
         {app.installCount > 0 && (
-          <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 pl-4">
+          <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 ps-4">
             <dt className="mb-0.5 text-[11px] font-semibold text-muted-foreground">مستخدم في</dt>
             <dd className="text-[15px] font-bold tabular-nums text-foreground">
               {formatInstallCount(app.installCount)} متجر
@@ -107,7 +107,7 @@ export const AppDetailsHeader: React.FC<AppDetailsHeaderProps> = ({ app, onBack 
           </div>
         )}
         {requiredApps.length > 0 && (
-          <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 pl-4">
+          <div className="min-w-[120px] flex-1 border-l border-border/60 py-3.5 ps-4">
             <dt className="mb-0.5 text-[11px] font-semibold text-muted-foreground">بيتطلب مع</dt>
             <dd className="text-[15px] font-bold text-foreground">{requiredApps.join(" · ")}</dd>
           </div>

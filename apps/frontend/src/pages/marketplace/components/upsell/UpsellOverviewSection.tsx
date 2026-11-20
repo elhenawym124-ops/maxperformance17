@@ -35,7 +35,7 @@ export const UpsellOverviewSection: React.FC<UpsellOverviewSectionProps> = ({
     <div className={active ? "space-y-8" : "hidden"}>
       <section
         id="upsell-overview"
-        className="scroll-mt-24 overflow-hidden rounded-[32px] border border-blue-200 bg-gradient-to-br from-blue-600 via-sky-600 to-indigo-700 p-6 text-white shadow-xl dark:border-blue-900/50"
+        className="scroll-mt-24 overflow-hidden rounded-[32px] border border-blue-200 bg-gradient-to-br from-blue-600 via-info to-primary p-6 text-white shadow-xl dark:border-blue-900/50"
       >
         <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-5">
@@ -76,7 +76,7 @@ export const UpsellOverviewSection: React.FC<UpsellOverviewSectionProps> = ({
               ].map((step) => (
                 <div
                   key={step}
-                  className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-7 text-blue-50/90 backdrop-blur"
+                  className="rounded-xl border border-white/15 bg-white/10 p-4 text-sm leading-7 text-blue-50/90 backdrop-blur"
                 >
                   {step}
                 </div>

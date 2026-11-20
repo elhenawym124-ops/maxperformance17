@@ -33,7 +33,7 @@ export const MyAppDrawer: React.FC<MyAppDrawerProps> = ({
           <div className="p-6 space-y-6">
             <SheetHeader className="text-right space-y-3">
               <div className="flex items-center gap-3">
-                <div className="size-12 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
+                <div className="size-12 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
                   {selectedApp.app.icon && selectedApp.app.icon.startsWith("http") ? (
                     <img src={selectedApp.app.icon} alt="" className="size-7 object-contain rounded" />
                   ) : (
@@ -77,7 +77,7 @@ export const MyAppDrawer: React.FC<MyAppDrawerProps> = ({
               </div>
               <div className="rounded-xl border border-border/50 bg-muted/20 p-3 text-right">
                 <span className="text-[11px] font-semibold text-muted-foreground block">حالة التطبيق</span>
-                <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                <span className="text-sm font-bold text-success dark:text-success">
                   {selectedApp.status === "ACTIVE"
                     ? "نشط"
                     : selectedApp.status === "TRIAL"

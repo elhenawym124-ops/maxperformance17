@@ -10,11 +10,11 @@ export interface RelationBadgeProps {
 export function RelationBadge({ label, tone = "blue" }: RelationBadgeProps) {
   const styles =
     tone === "green"
-      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-200"
+      ? "bg-emerald-100 text-success dark:bg-success/30 dark:text-success"
       : tone === "amber"
-        ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-200"
+        ? "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning"
         : tone === "neutral"
-          ? "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+          ? "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground"
           : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200";
 
   return (

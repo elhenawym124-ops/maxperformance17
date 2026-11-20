@@ -52,12 +52,12 @@ export const AffiliateInvitationCard: React.FC<AffiliateInvitationCardProps> = (
           isDark ? "text-blue-300" : "text-blue-900"
         }`}
       >
-        <LinkIcon className="h-6 w-6 mr-2" />
+        <LinkIcon className="h-6 w-6 me-2" />
         رابط دعوة المسوقين
       </h3>
 
       {!company.slug ? (
-        <div className="text-sm p-3 rounded bg-amber-100 text-amber-800 border border-amber-200">
+        <div className="text-sm p-3 rounded bg-warning text-warning border border-warning">
           ⚠️ برجاء إعداد "رابط الشركة" (Slug) في إعدادات الشركة لتمكين رابط
           الدعوة.
         </div>
@@ -78,8 +78,8 @@ export const AffiliateInvitationCard: React.FC<AffiliateInvitationCardProps> = (
               value={getInviteLink()}
               className={`flex-1 px-4 py-3 border rounded-lg text-sm font-mono ${
                 isDark
-                  ? "bg-gray-800 border-gray-600 text-gray-300"
-                  : "bg-white border-gray-300 text-gray-600"
+                  ? "bg-gray-800 border-border text-muted-foreground"
+                  : "bg-white border-border text-foreground"
               }`}
             />
             <button
@@ -87,7 +87,7 @@ export const AffiliateInvitationCard: React.FC<AffiliateInvitationCardProps> = (
               onClick={handleCopy}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center font-semibold"
             >
-              <ClipboardDocumentIcon className="h-5 w-5 mr-2" />
+              <ClipboardDocumentIcon className="h-5 w-5 me-2" />
               نسخ
             </button>
           </div>

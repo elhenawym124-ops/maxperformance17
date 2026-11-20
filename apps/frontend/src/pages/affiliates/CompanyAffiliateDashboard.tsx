@@ -117,7 +117,7 @@ export default function CompanyAffiliateDashboard() {
         </div>
         <div className="p-2 bg-muted/20 border border-border/50 rounded-md">
           <span className="text-[10px] text-muted-foreground block">إجمالي العمولات</span>
-          <span className="text-sm font-bold tabular-nums text-emerald-500 mt-0.5 block">
+          <span className="text-sm font-bold tabular-nums text-success mt-0.5 block">
             {Number(item.totalCommissions).toLocaleString("en-US", { minimumFractionDigits: 0 })} ج.م
           </span>
         </div>
@@ -129,7 +129,7 @@ export default function CompanyAffiliateDashboard() {
         </div>
         <div className="p-2 bg-muted/20 border border-border/50 rounded-md">
           <span className="text-[10px] text-muted-foreground block">معلق</span>
-          <span className="text-xs font-semibold tabular-nums text-amber-500 mt-0.5 block">
+          <span className="text-xs font-semibold tabular-nums text-warning mt-0.5 block">
             {Number(item.pendingCommissions).toLocaleString("en-US", { minimumFractionDigits: 0 })} ج.م
           </span>
         </div>
@@ -218,39 +218,39 @@ export default function CompanyAffiliateDashboard() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-500">الشركات المسوّقة</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success">الشركات المسوّقة</p>
+            <p className="text-xl font-bold tracking-tight text-success font-mono tabular-nums mt-0.5">
               {data?.asProvider?.length || 0}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مسوقين وموزعين</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success border border-success/20">
             <Users className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-purple-500">إجمالي الطلبات</p>
-            <p className="text-xl font-bold tracking-tight text-purple-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary">إجمالي الطلبات</p>
+            <p className="text-xl font-bold tracking-tight text-primary font-mono tabular-nums mt-0.5">
               {totalOrders}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">طلب شبكة B2B</p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <ShoppingBag className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-500">إجمالي العمولات</p>
-            <p className="text-lg font-bold tracking-tight text-amber-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning">إجمالي العمولات</p>
+            <p className="text-lg font-bold tracking-tight text-warning font-mono tabular-nums mt-0.5">
               {totalCommissions.toLocaleString("en-US", { minimumFractionDigits: 0 })} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">عوائد مستحقة ومدفوعة</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning border border-warning/20">
             <DollarSign className="size-3.5" />
           </div>
         </div>
@@ -294,7 +294,7 @@ export default function CompanyAffiliateDashboard() {
       <div className="rounded-lg border border-border/70 bg-card p-4 space-y-3 shadow-xs">
         <div className="flex items-center justify-between border-b border-border/60 pb-2.5">
           <div className="flex items-center gap-2">
-            <Users className="size-4 text-emerald-500" />
+            <Users className="size-4 text-success" />
             <h3 className="text-xs font-semibold text-foreground font-mono">
               المسوقون (الشركات التي تسوّق منتجاتي)
             </h3>

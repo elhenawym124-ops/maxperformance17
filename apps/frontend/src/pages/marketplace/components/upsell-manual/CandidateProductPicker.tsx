@@ -23,13 +23,13 @@ export function CandidateProductPicker({
   addProductToRelation,
 }: CandidateProductPickerProps) {
   return (
-    <div className="rounded-[24px] border border-gray-200 bg-gray-50/80 p-5 dark:border-gray-700 dark:bg-gray-900/60">
+    <div className="rounded-[24px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h4 className="text-lg font-black text-gray-900 dark:text-white">
+          <h4 className="text-lg font-black text-foreground">
             إضافة منتجات إلى {currentRelationConfig.title}
           </h4>
-          <p className="mt-1 text-sm leading-7 text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm leading-7 text-foreground dark:text-muted-foreground">
             {currentRelationConfig.help}
           </p>
         </div>
@@ -37,26 +37,26 @@ export function CandidateProductPicker({
       </div>
 
       {!selectedProduct ? (
-        <div className="mt-4 rounded-2xl border border-dashed border-gray-300 px-4 py-6 text-sm leading-7 text-gray-600 dark:border-gray-700 dark:text-gray-400">
+        <div className="mt-4 rounded-xl border border-dashed border-border px-4 py-6 text-sm leading-7 text-foreground dark:border-border dark:text-muted-foreground">
           اختر المنتج الأساسي أولًا من الجزء العلوي، ثم ابدأ في ربط المنتجات له.
         </div>
       ) : (
         <>
           <label className="mt-5 block space-y-2">
-            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+            <span className="text-sm font-semibold text-foreground">
               ابحث عن منتج لإضافته
             </span>
             <div className="relative">
               <Search
                 size={18}
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
               />
               <input
                 value={candidateQuery}
                 onChange={(event) => setCandidateQuery(event.target.value)}
                 placeholder="ابحث بالاسم أو SKU أو الفئة"
                 autoComplete="off"
-                className="w-full rounded-2xl border border-gray-300 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus-visible:ring-blue-900/40"
+                className="w-full rounded-xl border border-border bg-white py-3 ps-11 pe-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:border-border dark:bg-muted dark:text-white dark:focus-visible:ring-blue-900/40"
               />
             </div>
           </label>
@@ -66,13 +66,13 @@ export function CandidateProductPicker({
               candidateProducts.map((product) => (
                 <div
                   key={`${activeRelation}-${product.id}`}
-                  className="flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-950/50"
+                  className="flex items-center justify-between gap-3 rounded-xl border border-border bg-white px-4 py-3 dark:border-border dark:bg-muted"
                 >
                   <div className="min-w-0">
-                    <div className="truncate font-bold text-gray-900 dark:text-white">
+                    <div className="truncate font-bold text-foreground">
                       {product.name}
                     </div>
-                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="mt-1 text-xs text-muted-foreground">
                       {product.sku ? `SKU: ${product.sku}` : `ID: ${product.id}`}
                       {product.categoryName ? ` · ${product.categoryName}` : ""}
                     </div>
@@ -87,7 +87,7 @@ export function CandidateProductPicker({
                 </div>
               ))
             ) : (
-              <div className="rounded-2xl border border-dashed border-gray-300 px-4 py-6 text-sm leading-7 text-gray-600 dark:border-gray-700 dark:text-gray-400">
+              <div className="rounded-xl border border-dashed border-border px-4 py-6 text-sm leading-7 text-foreground dark:border-border dark:text-muted-foreground">
                 لا توجد منتجات مناسبة للبحث الحالي. جرّب كلمة أخرى أو ابدأ بدون بحث.
               </div>
             )}

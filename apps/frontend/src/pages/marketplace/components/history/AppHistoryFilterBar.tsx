@@ -20,14 +20,14 @@ export function AppHistoryFilterBar({
   stats,
 }: AppHistoryFilterBarProps) {
   return (
-    <div className="p-2 sm:p-3 rounded-2xl border border-border/40 bg-card/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+    <div className="p-2 sm:p-3 rounded-xl border border-border/40 bg-card/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
       <div className="relative flex-1 min-w-[240px]">
         <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
         <Input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث باسم التطبيق، اسم الموظف المنفذ، أو البريد الإلكتروني..."
-          className="pr-9 pl-3 h-10 rounded-xl border-border/40 text-xs bg-background/80"
+          className="pe-9 ps-3 h-10 rounded-xl border-border/40 text-xs bg-background/80"
         />
       </div>
 
@@ -50,7 +50,7 @@ export function AppHistoryFilterBar({
           className={cn(
             "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5",
             actionFilter === "INSTALL_APP"
-              ? "bg-background text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
+              ? "bg-background text-success dark:text-success shadow-sm font-bold"
               : "text-muted-foreground hover:text-foreground",
           )}
         >
@@ -63,7 +63,7 @@ export function AppHistoryFilterBar({
           className={cn(
             "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5",
             actionFilter === "UNINSTALL_APP"
-              ? "bg-background text-rose-600 dark:text-rose-400 shadow-sm font-bold"
+              ? "bg-background text-destructive dark:text-destructive shadow-sm font-bold"
               : "text-muted-foreground hover:text-foreground",
           )}
         >

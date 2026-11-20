@@ -194,7 +194,7 @@ export default function AffiliateRegister() {
           {/* Program Terms Chassis */}
           <div className="rounded-md border border-border/70 bg-card p-3.5 space-y-2">
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="size-4 text-emerald-500" />
+              <ShieldCheck className="size-4 text-success" />
               <h3 className="text-xs font-semibold text-foreground font-mono">
                 شروط وضوابط برنامج العمولات
               </h3>

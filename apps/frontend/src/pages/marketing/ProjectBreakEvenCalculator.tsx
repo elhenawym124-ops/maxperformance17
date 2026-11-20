@@ -202,7 +202,7 @@ export default function ProjectBreakEvenCalculator() {
                   <button type="button" onClick={() => loadSaved(sc)} className="text-foreground hover:text-primary truncate max-w-24 font-medium">
                     {sc.name}
                   </button>
-                  <button type="button" onClick={() => deleteSaved(i)} className="text-muted-foreground hover:text-rose-500">
+                  <button type="button" onClick={() => deleteSaved(i)} className="text-muted-foreground hover:text-destructive">
                     <Trash2 className="w-3 h-3" />
                   </button>
                 </div>
@@ -217,7 +217,7 @@ export default function ProjectBreakEvenCalculator() {
             <SliderInput currencySymbol={s} label={T("fixedCostsHint")} value={inputs.fixedCosts} min={0} max={500000} step={1000} onChange={set("fixedCosts")} />
           </MarketingChassisCard>
 
-          <MarketingChassisCard title={T("revenueCosts")} icon={<DollarSign className="w-4 h-4 text-emerald-500" />}>
+          <MarketingChassisCard title={T("revenueCosts")} icon={<DollarSign className="w-4 h-4 text-success" />}>
             <SliderInput currencySymbol={s} label={T("aov")} value={inputs.aov} min={50} max={5000} step={10} onChange={set("aov")} />
             <SliderInput currencySymbol={s} label={T("piecesPerOrder")} value={inputs.piecesPerOrder} min={1} max={20} step={1} onChange={set("piecesPerOrder")} />
             <SliderInput currencySymbol={s} label={T("cogs")} value={inputs.cogs} min={0} max={3000} step={10} onChange={set("cogs")} />
@@ -226,7 +226,7 @@ export default function ProjectBreakEvenCalculator() {
             <SliderInput currencySymbol={s} label={T("rtoFee")} value={inputs.rtoFees} min={0} max={300} step={10} onChange={set("rtoFees")} />
           </MarketingChassisCard>
 
-          <MarketingChassisCard title={T("marketing")} icon={<TrendingUp className="w-4 h-4 text-purple-500" />}>
+          <MarketingChassisCard title={T("marketing")} icon={<TrendingUp className="w-4 h-4 text-primary" />}>
             <SliderInput currencySymbol={s} label={T("cpp")} value={inputs.cpp} min={0} max={1000} step={10} onChange={set("cpp")} />
             <SliderInput currencySymbol={s} label={T("confirmRate")} value={inputs.confirmationRate} min={0} max={100} step={5} isPercent onChange={set("confirmationRate")} />
             <SliderInput currencySymbol={s} label={T("deliveryRate")} value={inputs.deliveryRate} min={0} max={100} step={5} isPercent onChange={set("deliveryRate")} />
@@ -244,19 +244,19 @@ export default function ProjectBreakEvenCalculator() {
               <p className="text-[11px] text-muted-foreground mt-0.5">{T("codModel")} • {dateStr}</p>
             </div>
             {marginLevel === "marginal" && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-500 border border-amber-500/20">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-warning/10 text-warning border border-warning/20">
                 <AlertTriangle className="w-3 h-3" /> {T("marginal")}
               </span>
             )}
             {marginLevel === "loss" && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-500/10 text-rose-500 border border-rose-500/20">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-destructive/10 text-destructive border border-destructive/20">
                 <AlertTriangle className="w-3 h-3" /> {T("lossBadge")}
               </span>
             )}
           </div>
 
           {!isProfit && (
-            <div className="flex items-center gap-2 p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg text-rose-600 dark:text-rose-400 text-xs font-medium">
+            <div className="flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive dark:text-destructive text-xs font-medium">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>{T("lossWarning")}</span>
             </div>
@@ -286,12 +286,12 @@ export default function ProjectBreakEvenCalculator() {
               </div>
               <div className="p-2.5 bg-card border border-border/60 rounded-md">
                 <div className="text-muted-foreground text-[10px]">{T("delivered")} ({inputs.deliveryRate}%)</div>
-                <div className="text-sm font-bold font-mono text-emerald-500 mt-0.5">{fmt1(r.delivered)}</div>
+                <div className="text-sm font-bold font-mono text-success mt-0.5">{fmt1(r.delivered)}</div>
                 <div className="text-[10px] text-muted-foreground mt-0.5">{fmt(r.revenue)} {s} {T("revenue")}</div>
               </div>
               <div className="p-2.5 bg-card border border-border/60 rounded-md">
                 <div className="text-muted-foreground text-[10px]">{T("returned")} (RTO)</div>
-                <div className="text-sm font-bold font-mono text-rose-500 mt-0.5">{fmt1(r.rto)}</div>
+                <div className="text-sm font-bold font-mono text-destructive mt-0.5">{fmt1(r.rto)}</div>
                 <div className="text-[10px] text-muted-foreground mt-0.5">{fmt(Math.round(r.rto * r.rtoCostPerFail))} {s} {T("loss")}</div>
               </div>
             </div>

@@ -50,7 +50,7 @@ export const AgentHirePricingGuard: React.FC<AgentHirePricingGuardProps> = ({
           </div>
 
           {!hasEnoughBalance && !walletLoading && (
-            <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-2.5 text-red-700 dark:text-red-400 flex items-start justify-between gap-3">
+            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-2.5 text-destructive dark:text-destructive flex items-start justify-between gap-3">
               <div className="space-y-0.5">
                 <div className="font-semibold flex items-center gap-1">
                   <AlertCircle className="size-3.5 stroke-[1.5]" />
@@ -63,7 +63,7 @@ export const AgentHirePricingGuard: React.FC<AgentHirePricingGuardProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToRecharge}
-                className="shrink-0 inline-flex items-center gap-1 rounded-md bg-red-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-red-700 transition-colors"
+                className="shrink-0 inline-flex items-center gap-1 rounded-md bg-destructive px-2.5 py-1 text-[11px] font-bold text-white hover:bg-destructive transition-colors"
               >
                 <span>شحن المحفظة</span>
                 <ExternalLink className="size-3" />
@@ -72,7 +72,7 @@ export const AgentHirePricingGuard: React.FC<AgentHirePricingGuardProps> = ({
           )}
 
           {hasEnoughBalance && !walletLoading && (
-            <div className="text-[11px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+            <div className="text-[11px] text-success dark:text-success flex items-center gap-1">
               <Check className="size-3 stroke-[2]" />
               <span>الرصيد يغطي الاشتراك، وسيتم خصم المبلغ وتجديده تلقائياً كل شهر.</span>
             </div>

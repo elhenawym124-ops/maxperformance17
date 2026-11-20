@@ -58,39 +58,39 @@ export const PostPurchaseOfferLivePreview: React.FC<
 
       {/* Device Mockup Shell */}
       <div
-        className={`mx-auto transition-all duration-300 border-4 border-slate-300 dark:border-zinc-800 rounded-3xl overflow-hidden bg-slate-50 dark:bg-zinc-950 shadow-2xl p-3 text-xs ${
+        className={`mx-auto transition-all duration-300 border-4 border-border dark:border-border rounded-xl overflow-hidden bg-muted dark:bg-muted shadow-2xl p-3 text-xs ${
           previewDevice === "mobile" ? "max-w-[360px]" : "w-full"
         }`}
       >
         {/* Mockup Screen Content */}
         <div className="space-y-3 scale-95 origin-top">
           {/* Step 1: Order received banner */}
-          <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-200 text-emerald-900 dark:text-emerald-200 text-[11px] leading-tight flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <div className="p-2.5 rounded-xl bg-success/15 border border-success text-success dark:text-success text-[11px] leading-tight flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
             <div>
               <p className="font-bold">تم استلام طلبك الأساسي بنجاح!</p>
-              <p className="text-[10px] text-emerald-800 dark:text-emerald-300">
+              <p className="text-[10px] text-success dark:text-success">
                 طلبك محفوظ ومؤكد. انتظر لحظة...
               </p>
             </div>
           </div>
 
           {/* Step 2: Timer */}
-          <div className="p-2 rounded-lg bg-amber-500/15 border border-amber-200 text-amber-900 dark:text-amber-200 text-[11px] font-bold flex justify-between items-center">
+          <div className="p-2 rounded-lg bg-warning/15 border border-warning text-warning dark:text-warning text-[11px] font-bold flex justify-between items-center">
             <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
+              <Clock className="w-3.5 h-3.5 text-warning animate-pulse" />
               ينتهي العرض خلال:
             </span>
-            <span className="font-mono font-black tabular-nums bg-amber-600 text-white px-2 py-0.5 rounded">
+            <span className="font-mono font-black tabular-nums bg-warning text-white px-2 py-0.5 rounded">
               0{offer.timerMinutes}:00
             </span>
           </div>
 
           {/* Step 3: Offer Card */}
-          <div className="rounded-2xl border border-border bg-card p-3.5 shadow-sm space-y-3">
+          <div className="rounded-xl border border-border bg-card p-3.5 shadow-sm space-y-3">
             {offer.badgeText && (
               <div className="text-center">
-                <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/10 text-rose-600 border border-rose-200">
+                <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-black bg-destructive/10 text-destructive border border-destructive">
                   {offer.badgeText}
                 </span>
               </div>
@@ -119,7 +119,7 @@ export const PostPurchaseOfferLivePreview: React.FC<
                 </div>
               )}
               {calculatedSavingsPercent > 0 && (
-                <div className="absolute top-2 start-2 px-2 py-0.5 rounded-md bg-rose-600 text-white font-bold text-[10px]">
+                <div className="absolute top-2 start-2 px-2 py-0.5 rounded-md bg-destructive text-white font-bold text-[10px]">
                   وفر {calculatedSavingsPercent}%
                 </div>
               )}
@@ -128,7 +128,7 @@ export const PostPurchaseOfferLivePreview: React.FC<
             {/* Pricing */}
             <div className="p-2.5 rounded-xl bg-muted/40 border border-border/60 text-center space-y-0.5">
               <div className="flex items-baseline justify-center gap-2">
-                <span className="font-black text-base text-emerald-600 tabular-nums">
+                <span className="font-black text-base text-success tabular-nums">
                   {calculatedOfferPrice} ج.م
                 </span>
                 {offer.originalPrice > calculatedOfferPrice && (
@@ -138,13 +138,13 @@ export const PostPurchaseOfferLivePreview: React.FC<
                 )}
               </div>
               {calculatedSavings > 0 && (
-                <p className="text-[10px] font-bold text-emerald-700 tabular-nums">
+                <p className="text-[10px] font-bold text-success tabular-nums">
                   وفرت {calculatedSavings} ج.م!
                 </p>
               )}
               {offer.freeShipping && (
                 <p className="text-[9px] text-muted-foreground flex items-center justify-center gap-1 pt-1">
-                  <Truck className="w-3 h-3 text-emerald-600" />
+                  <Truck className="w-3 h-3 text-success" />
                   شحن مجاني مع نفس الطرد
                 </p>
               )}
@@ -155,7 +155,7 @@ export const PostPurchaseOfferLivePreview: React.FC<
               <ul className="space-y-1 text-[10px] text-foreground">
                 {offer.features.slice(0, 3).map((f, i) => (
                   <li key={i} className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-success shrink-0" />
                     <span className="line-clamp-1">{f}</span>
                   </li>
                 ))}
@@ -166,7 +166,7 @@ export const PostPurchaseOfferLivePreview: React.FC<
             <div className="space-y-1.5 pt-2">
               <button
                 type="button"
-                className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 text-white font-black text-xs shadow-md"
+                className="w-full py-2.5 px-3 rounded-xl bg-success text-white font-black text-xs shadow-md"
               >
                 {offer.acceptButtonText || "نعم! أضف هذا العرض لطلبي"}
               </button>

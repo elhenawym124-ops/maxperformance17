@@ -86,9 +86,9 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
             badge={<PreviewPill label="Cart Drawer" tone="blue" />}
           >
             <div className="space-y-4">
-              <div className="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-950/60">
+              <div className="rounded-xl border border-border bg-white p-4 dark:border-border dark:bg-muted">
                 <div className="flex items-center justify-between gap-3">
-                  <div className="text-sm font-bold text-gray-900 dark:text-white">
+                  <div className="text-sm font-bold text-foreground">
                     Your cart
                   </div>
                   <PreviewPill label="Drawer" tone="neutral" />
@@ -97,20 +97,20 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
                   {[1, 2].map((item) => (
                     <div
                       key={`cart-line-${item}`}
-                      className="grid grid-cols-[52px_1fr_auto] items-center gap-3 rounded-2xl bg-gray-50 p-3 dark:bg-gray-900"
+                      className="grid grid-cols-[52px_1fr_auto] items-center gap-3 rounded-xl bg-muted p-3 dark:bg-muted"
                     >
                       <div className="h-12 rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800" />
                       <div>
-                        <div className="h-3 w-2/3 rounded-full bg-gray-300 dark:bg-gray-700" />
-                        <div className="mt-2 h-3 w-1/3 rounded-full bg-gray-200 dark:bg-gray-800" />
+                        <div className="h-3 w-2/3 rounded-full bg-muted dark:bg-muted" />
+                        <div className="mt-2 h-3 w-1/3 rounded-full bg-muted dark:bg-muted" />
                       </div>
-                      <div className="h-3 w-10 rounded-full bg-gray-300 dark:bg-gray-700" />
+                      <div className="h-3 w-10 rounded-full bg-muted dark:bg-muted" />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-blue-200 bg-blue-50/80 p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
+              <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -119,10 +119,10 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
                         tone="green"
                       />
                     </div>
-                    <div className="mt-2 text-sm font-bold text-gray-900 dark:text-white">
+                    <div className="mt-2 text-sm font-bold text-foreground">
                       {String(copySettings["cartUpsellTitle"] || "Add one more item before checkout")}
                     </div>
-                    <p className="mt-1 text-xs leading-6 text-gray-600 dark:text-gray-400">
+                    <p className="mt-1 text-xs leading-6 text-foreground dark:text-muted-foreground">
                       {String(
                         copySettings["cartUpsellDescription"] ||
                           "اقتراحات سريعة بدون مغادرة السلة.",
@@ -135,12 +135,12 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
                   />
                 </div>
 
-                <div className="mt-3 rounded-2xl border border-white/70 bg-white p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <div className="mt-3 rounded-xl border border-white/70 bg-white p-3 shadow-sm dark:border-border dark:bg-muted">
                   <div className="grid grid-cols-[56px_1fr_auto] items-center gap-3">
                     <div className="h-14 rounded-xl bg-gradient-to-br from-slate-200 via-white to-slate-100 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800" />
                     <div>
-                      <div className="h-3 w-3/4 rounded-full bg-gray-300 dark:bg-gray-700" />
-                      <div className="mt-2 h-3 w-1/3 rounded-full bg-gray-200 dark:bg-gray-800" />
+                      <div className="h-3 w-3/4 rounded-full bg-muted dark:bg-muted" />
+                      <div className="mt-2 h-3 w-1/3 rounded-full bg-muted dark:bg-muted" />
                     </div>
                     <div className="rounded-full bg-blue-600 px-3 py-1.5 text-[10px] font-bold text-white">
                       {String(copySettings["quickAddLabel"] || "Quick add")}
@@ -151,11 +151,11 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
             </div>
           </PlacementPreview>
 
-          <div className="rounded-[28px] border border-gray-200 bg-gray-50/80 p-5 dark:border-gray-700 dark:bg-gray-900/60">
+          <div className="rounded-[28px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
             <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
               User Intent
             </div>
-            <h3 className="mt-2 text-xl font-black text-gray-900 dark:text-white">
+            <h3 className="mt-2 text-xl font-black text-foreground">
               لماذا هذا الشكل مهم؟
             </h3>
             <div className="mt-4 space-y-3">
@@ -166,7 +166,7 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-gray-200 bg-white p-4 text-sm leading-7 text-gray-600 dark:border-gray-700 dark:bg-gray-950/50 dark:text-gray-400"
+                  className="rounded-xl border border-border bg-white p-4 text-sm leading-7 text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
                   {item}
                 </div>
@@ -197,7 +197,7 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
               value={String(copySettings["chooseOptionsLabel"] || "")}
               onChange={(value) => updateAtPath("copy.chooseOptionsLabel", value)}
             />
-            <div className="rounded-2xl border border-dashed border-gray-300 p-4 text-sm leading-7 text-gray-600 dark:border-gray-700 dark:text-gray-400">
+            <div className="rounded-xl border border-dashed border-border p-4 text-sm leading-7 text-foreground dark:border-border dark:text-muted-foreground">
               السلة تستخدم أول منتج موجود حاليًا كمصدر للاقتراحات، ثم تجلب
               related و bundle بحسب التفعيل أعلى الصفحة.
             </div>

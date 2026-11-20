@@ -18,9 +18,9 @@ export const InternalCourierFleetWorkflowSection: React.FC<InternalCourierFleetW
   return (
     <>
       {/* Field Workflow & Courier Mobile Security */}
-      <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-3 border-b border-border/40">
-          <div className="p-2 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+          <div className="p-2 rounded-lg bg-warning/10 text-warning dark:text-warning">
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div>
@@ -108,9 +108,9 @@ export const InternalCourierFleetWorkflowSection: React.FC<InternalCourierFleetW
       </div>
 
       {/* Customer WhatsApp Notifications */}
-      <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-3 border-b border-border/40">
-          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <div className="p-2 rounded-lg bg-success/10 text-success dark:text-success">
             <BellRing className="h-5 w-5" />
           </div>
           <div>
@@ -170,9 +170,9 @@ export const InternalCourierFleetWorkflowSection: React.FC<InternalCourierFleetW
       </div>
 
       {/* Default Commission Configuration */}
-      <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-3 border-b border-border/40">
-          <div className="p-2 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+          <div className="p-2 rounded-lg bg-info/10 text-info dark:text-info">
             <BadgePercent className="h-5 w-5" />
           </div>
           <div>

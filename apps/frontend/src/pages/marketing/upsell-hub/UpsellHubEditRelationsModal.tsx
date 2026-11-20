@@ -57,19 +57,19 @@ export const UpsellHubEditRelationsModal: React.FC<
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-6">
-      <div className="relative flex max-h-[90vh] w-full max-w-2xl flex-col rounded-3xl border border-gray-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-900">
+      <div className="relative flex max-h-[90vh] w-full max-w-2xl flex-col rounded-xl border border-border bg-white shadow-2xl dark:border-border dark:bg-muted">
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 p-4 sm:p-5 dark:border-gray-800">
+        <div className="flex items-center justify-between border-b border-border p-4 sm:p-5 dark:border-border">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
                 <Link2 className="h-4 w-4" />
               </span>
-              <h3 className="text-base font-black text-gray-900 dark:text-white">
+              <h3 className="text-base font-black text-foreground">
                 تخصيص عروض المنتج
               </h3>
             </div>
-            <p className="text-xs font-bold text-gray-500 dark:text-gray-400">
+            <p className="text-xs font-bold text-muted-foreground">
               {selectedProduct.name}{" "}
               {selectedProduct.price
                 ? `(${selectedProduct.price.toLocaleString("en-US")} ج.م)`
@@ -80,7 +80,7 @@ export const UpsellHubEditRelationsModal: React.FC<
           <button
             type="button"
             onClick={closeEditModal}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 cursor-pointer"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground dark:hover:bg-muted cursor-pointer"
             aria-label="إغلاق"
           >
             <X className="h-5 w-5" />
@@ -88,7 +88,7 @@ export const UpsellHubEditRelationsModal: React.FC<
         </div>
 
         {/* Modal Tabs */}
-        <div className="flex border-b border-gray-100 px-4 dark:border-gray-800">
+        <div className="flex border-b border-border px-4 dark:border-border">
           {RELATION_TABS.map((tab) => {
             const count = editRelations[tab.id].length;
             const isActive = activeTab === tab.id;
@@ -100,7 +100,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                 className={`flex items-center gap-1.5 border-b-2 px-4 py-3 text-xs font-black transition cursor-pointer ${
                   isActive
                     ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    : "border-transparent text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 {tab.label}
@@ -108,7 +108,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                   className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${
                     isActive
                       ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200"
-                      : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+                      : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                   }`}
                 >
                   {count}
@@ -133,7 +133,7 @@ export const UpsellHubEditRelationsModal: React.FC<
 
           {/* Attached Items List */}
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-bold text-gray-700 dark:text-gray-300">
+            <div className="flex items-center justify-between text-xs font-bold text-foreground">
               <span>
                 المنتجات المرتبطة حالياً (
                 <span className="tabular-nums">
@@ -141,13 +141,13 @@ export const UpsellHubEditRelationsModal: React.FC<
                 </span>
                 )
               </span>
-              <span className="text-[11px] text-gray-400">
+              <span className="text-[11px] text-muted-foreground">
                 يمكنك تغيير ترتيب الظهور بالأسهم
               </span>
             </div>
 
             {editRelations[activeTab].length === 0 ? (
-              <div className="rounded-xl border border-dashed border-gray-200 py-6 text-center text-xs text-gray-400 dark:border-gray-800">
+              <div className="rounded-xl border border-dashed border-border py-6 text-center text-xs text-muted-foreground dark:border-border">
                 لم يتم ربط أي منتج في هذا القسم بعد. اختر من المنتجات المقترحة بالأسفل لإضافتها.
               </div>
             ) : (
@@ -157,18 +157,18 @@ export const UpsellHubEditRelationsModal: React.FC<
                   return (
                     <div
                       key={id}
-                      className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50/70 p-2.5 text-xs dark:border-gray-800 dark:bg-gray-800/60"
+                      className="flex items-center justify-between rounded-xl border border-border bg-muted p-2.5 text-xs dark:border-border dark:bg-muted"
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-[10px] font-black text-gray-700 dark:bg-gray-700 dark:text-gray-200 tabular-nums">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] font-black text-foreground dark:bg-muted dark:text-muted-foreground tabular-nums">
                           {index + 1}
                         </span>
                         <div>
-                          <p className="font-black text-gray-900 dark:text-white">
+                          <p className="font-black text-foreground">
                             {item?.name || `منتج #${id}`}
                           </p>
                           {item?.price !== null && item?.price !== undefined && (
-                            <p className="text-[11px] text-gray-500 tabular-nums">
+                            <p className="text-[11px] text-muted-foreground tabular-nums">
                               {item.price.toLocaleString("en-US")} ج.م
                             </p>
                           )}
@@ -180,7 +180,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                           type="button"
                           disabled={index === 0}
                           onClick={() => handleMoveRelation(id, "up")}
-                          className="p-1 text-gray-400 hover:text-gray-700 disabled:opacity-30 dark:hover:text-gray-200 cursor-pointer"
+                          className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30 dark:hover:text-muted-foreground cursor-pointer"
                           title="تحريك لأعلى"
                           aria-label="تحريك لأعلى"
                         >
@@ -190,7 +190,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                           type="button"
                           disabled={index === editRelations[activeTab].length - 1}
                           onClick={() => handleMoveRelation(id, "down")}
-                          className="p-1 text-gray-400 hover:text-gray-700 disabled:opacity-30 dark:hover:text-gray-200 cursor-pointer"
+                          className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30 dark:hover:text-muted-foreground cursor-pointer"
                           title="تحريك لأسفل"
                           aria-label="تحريك لأسفل"
                         >
@@ -199,7 +199,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                         <button
                           type="button"
                           onClick={() => handleRemoveRelation(id)}
-                          className="mr-1 rounded-lg p-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 cursor-pointer"
+                          className="me-1 rounded-lg p-1 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 cursor-pointer"
                           title="إزالة"
                           aria-label="إزالة"
                         >
@@ -215,36 +215,36 @@ export const UpsellHubEditRelationsModal: React.FC<
 
           {/* Add New Relation Picker */}
           <div className="space-y-2 pt-3">
-            <label className="text-xs font-bold text-gray-700 dark:text-gray-300">
+            <label className="text-xs font-bold text-foreground">
               إضافة منتجات جديدة للربط:
             </label>
             <div className="relative">
-              <Search className="absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+              <Search className="absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
                 value={relationSearch}
                 onChange={(e) => setRelationSearch(e.target.value)}
                 placeholder="ابحث عن منتج من الكتالوج لإضافته..."
-                className="w-full rounded-xl border border-gray-200 bg-white py-2 pl-3 pr-8 text-xs text-gray-900 focus:border-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                className="w-full rounded-xl border border-border bg-white py-2 ps-3 pe-8 text-xs text-foreground focus:border-blue-500 focus:outline-none dark:border-border dark:bg-muted dark:text-white"
               />
             </div>
 
-            <div className="max-h-44 space-y-1 overflow-y-auto rounded-xl border border-gray-100 p-1 dark:border-gray-800">
+            <div className="max-h-44 space-y-1 overflow-y-auto rounded-xl border border-border p-1 dark:border-border">
               {candidatesToAdd.length === 0 ? (
-                <p className="p-3 text-center text-xs text-gray-400">
+                <p className="p-3 text-center text-xs text-muted-foreground">
                   لا توجد منتجات إضافية مطابقة
                 </p>
               ) : (
                 candidatesToAdd.map((candidate) => (
                   <div
                     key={candidate.id}
-                    className="flex items-center justify-between rounded-lg p-2 transition hover:bg-gray-50 dark:hover:bg-gray-800"
+                    className="flex items-center justify-between rounded-lg p-2 transition hover:bg-muted dark:hover:bg-muted"
                   >
                     <div className="space-y-0.5">
-                      <p className="text-xs font-bold text-gray-900 dark:text-white">
+                      <p className="text-xs font-bold text-foreground">
                         {candidate.name}
                       </p>
-                      <div className="flex items-center gap-2 text-[11px] text-gray-500">
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                         {candidate.price !== null && (
                           <span className="tabular-nums">
                             {candidate.price.toLocaleString("en-US")} ج.م
@@ -271,11 +271,11 @@ export const UpsellHubEditRelationsModal: React.FC<
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-end gap-2 border-t border-gray-100 p-4 dark:border-gray-800">
+        <div className="flex items-center justify-end gap-2 border-t border-border p-4 dark:border-border">
           <button
             type="button"
             onClick={closeEditModal}
-            className="rounded-xl px-4 py-2 text-xs font-bold text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 cursor-pointer"
+            className="rounded-xl px-4 py-2 text-xs font-bold text-foreground hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted cursor-pointer"
           >
             إلغاء
           </button>

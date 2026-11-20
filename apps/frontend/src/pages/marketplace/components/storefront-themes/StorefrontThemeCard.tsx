@@ -59,14 +59,14 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
         icon: Palette,
         onClick: () => onCustomize(themeItem.themeId),
         className:
-          "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-700",
+          "bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted",
       }
     : themeItem.canPurchase
     ? {
         label: t("storefrontThemes.purchase"),
         icon: ShoppingCart,
         onClick: () => onPurchase(themeItem),
-        className: "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm",
+        className: "bg-indigo-600 text-white hover:bg-primary shadow-sm",
       }
     : canApplyNow
     ? {
@@ -76,27 +76,27 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
         icon: CheckCircle2,
         onClick: () => onApply(themeItem),
         className: isFreeActivation
-          ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm"
-          : "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 shadow-sm",
+          ? "bg-emerald-600 text-white hover:bg-success shadow-sm"
+          : "bg-slate-900 dark:bg-white text-white dark:text-foreground hover:opacity-90 shadow-sm",
       }
     : {
         label: t("storefrontThemes.customize"),
         icon: Palette,
         onClick: () => onCustomize(themeItem.themeId),
         className:
-          "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-700",
+          "bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted",
       };
 
   return (
     <article
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10",
-        themeItem.isCurrentTheme && "ring-1 ring-indigo-500 border-indigo-500/30",
-        highlighted && "ring-1 ring-amber-500 border-amber-500/30"
+        "group relative flex flex-col overflow-hidden rounded-xl border border-border dark:border-border bg-white dark:bg-muted transition-all duration-300 hover:shadow-xl hover:shadow-primary/10",
+        themeItem.isCurrentTheme && "ring-1 ring-primary border-primary/30",
+        highlighted && "ring-1 ring-warning border-warning/30"
       )}
     >
       {/* PREVIEW IMAGE AREA */}
-      <div className="relative aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-900">
+      <div className="relative aspect-[16/9] overflow-hidden bg-muted dark:bg-muted">
         {themeItem.preview.imageUrl && !imgFailed ? (
           <img
             src={themeItem.preview.imageUrl}
@@ -106,8 +106,8 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
             className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 to-violet-500/20">
-            <Sparkles className="size-8 text-indigo-500/40" />
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-primary/20">
+            <Sparkles className="size-8 text-primary/40" />
           </div>
         )}
 
@@ -139,10 +139,10 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
       <div className="flex flex-col p-3 flex-1">
         <div className="flex items-start justify-between mb-1">
           <div className="text-left">
-            <h2 className="text-sm font-black text-slate-900 dark:text-white leading-tight truncate max-w-[140px] uppercase tracking-tight">
+            <h2 className="text-sm font-black text-foreground dark:text-white leading-tight truncate max-w-[140px] uppercase tracking-tight">
               {themeItem.name}
             </h2>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">
               {themeCategory.secondary.label}
             </p>
           </div>
@@ -157,25 +157,25 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
           </div>
         </div>
 
-        <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400 font-medium line-clamp-2 mt-1 min-h-[2.4rem]">
+        <p className="text-[11px] leading-relaxed text-muted-foreground dark:text-muted-foreground font-medium line-clamp-2 mt-1 min-h-[2.4rem]">
           {themeItem.description}
         </p>
 
         {/* MINI STATS GRID */}
-        <div className="grid grid-cols-2 gap-2 mt-3 py-2 border-y border-slate-100 dark:border-slate-800/50">
+        <div className="grid grid-cols-2 gap-2 mt-3 py-2 border-y border-border dark:border-border">
           <div className="text-right">
-            <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest">
+            <span className="block text-[8px] font-black text-muted-foreground uppercase tracking-widest">
               {t("storefrontThemes.homeSections")}
             </span>
-            <span className="text-xs font-black text-slate-700 dark:text-slate-300 tabular-nums font-mono">
+            <span className="text-xs font-black text-foreground dark:text-muted-foreground tabular-nums font-mono">
               {themeItem.pageStats.homeSections}
             </span>
           </div>
           <div className="text-right">
-            <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest">
+            <span className="block text-[8px] font-black text-muted-foreground uppercase tracking-widest">
               {t("storefrontThemes.shopLayers")}
             </span>
-            <span className="text-xs font-black text-slate-700 dark:text-slate-300 tabular-nums font-mono">
+            <span className="text-xs font-black text-foreground dark:text-muted-foreground tabular-nums font-mono">
               {themeItem.pageStats.shopSections}
             </span>
           </div>
@@ -185,7 +185,7 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
         <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-3">
           <button
             onClick={() => onPreview(themeItem.themeId)}
-            className="flex items-center justify-center gap-1.5 h-8 rounded-lg text-[10px] font-black uppercase tracking-widest border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+            className="flex items-center justify-center gap-1.5 h-8 rounded-lg text-[10px] font-black uppercase tracking-widest border border-border dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             <Eye className="size-3" /> {t("storefrontThemes.preview")}
           </button>
@@ -195,8 +195,8 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
             className={cn(
               "flex items-center justify-center w-8 h-8 rounded-lg border transition-all",
               copied
-                ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600"
-                : "border-slate-200 dark:border-slate-800 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:text-indigo-500 hover:border-indigo-400"
+                ? "border-emerald-500 bg-success/10 dark:bg-success/10 text-success"
+                : "border-slate-200 dark:border-border text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-primary hover:border-primary"
             )}
           >
             {copied ? <Check className="size-3" /> : <Copy className="size-3" />}

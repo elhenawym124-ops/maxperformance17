@@ -12,9 +12,9 @@ export const MerchantFinancialSummarySection: React.FC<MerchantFinancialSummaryS
   formatPrice,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <div className="flex items-center gap-2">
-        <CreditCardIcon className="h-5 w-5 text-slate-500" />
+        <CreditCardIcon className="h-5 w-5 text-muted-foreground" />
         <h2 className="text-lg font-bold">ملخص مالي</h2>
       </div>
       <div className="mt-4">

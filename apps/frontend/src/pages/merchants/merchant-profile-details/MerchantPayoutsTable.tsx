@@ -20,12 +20,12 @@ export const MerchantPayoutsTable: React.FC<MerchantPayoutsTableProps> = ({
   formatPrice,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <h2 className="text-lg font-bold">طلبات السحب</h2>
       <div className="mt-4 overflow-x-auto">
         {payouts.length ? (
           <table className="min-w-full text-right text-sm">
-            <thead className="text-xs text-slate-500">
+            <thead className="text-xs text-muted-foreground">
               <tr>
                 <th className="py-2">المبلغ</th>
                 <th className="py-2">الحالة</th>
@@ -34,7 +34,7 @@ export const MerchantPayoutsTable: React.FC<MerchantPayoutsTableProps> = ({
                 <th className="py-2">التاريخ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {payouts.map((payout) => (
                 <tr key={payout.id}>
                   <td className="py-3 font-semibold tabular-nums">
@@ -46,18 +46,18 @@ export const MerchantPayoutsTable: React.FC<MerchantPayoutsTableProps> = ({
                       tone={statusTone(payout.status)}
                     />
                   </td>
-                  <td className="py-3 text-slate-600 dark:text-slate-300">
+                  <td className="py-3 text-foreground dark:text-muted-foreground">
                     <div>{payout.paymentMethod || "غير محدد"}</div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-muted-foreground">
                       {parsePaymentDetails(payout.paymentDetails)}
                     </div>
                   </td>
-                  <td className="py-3 text-slate-500 font-mono text-xs">
+                  <td className="py-3 text-muted-foreground font-mono text-xs">
                     {payout.externalReference ||
                       payout.transactionId ||
                       "بدون مرجع"}
                   </td>
-                  <td className="py-3 text-slate-500">
+                  <td className="py-3 text-muted-foreground">
                     {formatDate(payout.processedAt || payout.createdAt)}
                   </td>
                 </tr>

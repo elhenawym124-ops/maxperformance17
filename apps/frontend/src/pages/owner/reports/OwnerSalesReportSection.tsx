@@ -36,58 +36,58 @@ export const OwnerSalesReportSection: React.FC<
 }) => {
   return (
     <>
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
         <div className="flex flex-wrap gap-3 items-center justify-center md:justify-start">
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => onRangeSelect("today")}
-              className="px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground rounded-lg transition-colors"
             >
               اليوم
             </button>
             <button
               onClick={() => onRangeSelect("yesterday")}
-              className="px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground rounded-lg transition-colors"
             >
               أمس
             </button>
             <button
               onClick={() => onRangeSelect("week")}
-              className="px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground rounded-lg transition-colors"
             >
               آخر 7 أيام
             </button>
             <button
               onClick={() => onRangeSelect("month")}
-              className="px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground rounded-lg transition-colors"
             >
               آخر 30 يوم
             </button>
             <button
               onClick={() => onRangeSelect("thisMonth")}
-              className="px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground rounded-lg transition-colors"
             >
               هذا الشهر
             </button>
             <button
               onClick={() => onRangeSelect("lastMonth")}
-              className="px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground rounded-lg transition-colors"
             >
               الشهر الماضي
             </button>
           </div>
-          <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-900/50 p-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
-            <CalendarDaysIcon className="w-4 h-4 text-gray-400 mr-1" />
+          <div className="flex items-center gap-2 bg-muted dark:bg-muted p-1.5 rounded-lg border border-border dark:border-border">
+            <CalendarDaysIcon className="w-4 h-4 text-muted-foreground me-1" />
             <DateInput
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
-              className="bg-transparent border-none text-sm font-mono tabular-nums text-gray-700 dark:text-gray-200 focus:ring-0 p-0 w-32"
+              className="bg-transparent border-none text-sm font-mono tabular-nums text-foreground focus:ring-0 p-0 w-32"
             />
             <span className="text-gray-400 text-sm">إلى</span>
             <DateInput
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
-              className="bg-transparent border-none text-sm font-mono tabular-nums text-gray-700 dark:text-gray-200 focus:ring-0 p-0 w-32"
+              className="bg-transparent border-none text-sm font-mono tabular-nums text-foreground focus:ring-0 p-0 w-32"
             />
           </div>
         </div>
@@ -101,15 +101,15 @@ export const OwnerSalesReportSection: React.FC<
               {overview.totalCompanies}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
               <ShoppingCartIcon className="w-4 h-4" /> إجمالي الطلبات
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalOrders}
             </p>
           </div>
-          <div className="bg-gradient-to-r from-green-500 to-green-600 p-4 rounded-xl text-white">
+          <div className="bg-gradient-to-r from-success to-success p-4 rounded-xl text-white">
             <div className="flex items-center gap-2 text-sm opacity-80">
               <CurrencyDollarIcon className="w-4 h-4" /> إجمالي الإيرادات
             </div>
@@ -117,64 +117,64 @@ export const OwnerSalesReportSection: React.FC<
               {overview.totalRevenue.toLocaleString()} ج.م
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-green-600 text-sm">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-success text-sm">
               <CheckCircleIcon className="w-4 h-4" /> مكتمل
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalCompleted}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-red-600 text-sm">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-destructive text-sm">
               <XCircleIcon className="w-4 h-4" /> ملغي
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalCancelled}
             </p>
           </div>
         </div>
       )}
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-        <div className="p-4 border-b border-gray-100 dark:border-gray-700">
-          <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+      <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
+        <div className="p-4 border-b border-border dark:border-border">
+          <h2 className="text-lg font-bold text-foreground dark:text-white">
             مقارنة الشركات
           </h2>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-900">
+          <table className="min-w-full divide-y divide-border dark:divide-border">
+            <thead className="bg-gray-50 dark:bg-muted">
               <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                   الشركة
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                   الطلبات
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                   الإيرادات
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                   مكتمل
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                   ملغي
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                   نسبة الإكمال
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-card divide-y divide-border dark:divide-border">
               {companies.map((item) => (
                 <tr
                   key={item.company.id}
-                  className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="hover:bg-muted/50 transition-colors"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
+                      <div className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
                         {item.company.logo ? (
                           <img
                             src={
@@ -184,7 +184,7 @@ export const OwnerSalesReportSection: React.FC<
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <BuildingOffice2Icon className="w-4 h-4 text-gray-400" />
+                          <BuildingOffice2Icon className="w-4 h-4 text-muted-foreground" />
                         )}
                       </div>
                       <div className="flex flex-col gap-1">
@@ -197,32 +197,32 @@ export const OwnerSalesReportSection: React.FC<
                         >
                           {item.company.name}
                         </button>
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-muted-foreground">
                           اضغط لعرض التفاصيل
                         </span>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 font-mono tabular-nums text-gray-700 dark:text-gray-300">
+                  <td className="px-6 py-4 font-mono tabular-nums text-foreground">
                     {item.stats.totalOrders}
                   </td>
-                  <td className="px-6 py-4 font-mono tabular-nums text-green-600 font-medium">
+                  <td className="px-6 py-4 font-mono tabular-nums text-success font-medium">
                     {item.stats.totalRevenue.toLocaleString()} ج.م
                   </td>
-                  <td className="px-6 py-4 font-mono tabular-nums text-gray-700 dark:text-gray-300">
+                  <td className="px-6 py-4 font-mono tabular-nums text-foreground">
                     {item.stats.completedOrders}
                   </td>
-                  <td className="px-6 py-4 font-mono tabular-nums text-gray-700 dark:text-gray-300">
+                  <td className="px-6 py-4 font-mono tabular-nums text-foreground">
                     {item.stats.cancelledOrders}
                   </td>
                   <td className="px-6 py-4">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium font-mono tabular-nums ${
                         item.stats.completionRate >= 80
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                          ? "bg-green-100 text-success dark:bg-success/30 dark:text-success"
                           : item.stats.completionRate >= 50
-                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
-                            : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                            ? "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning"
+                            : "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive"
                       }`}
                     >
                       {item.stats.completionRate}%

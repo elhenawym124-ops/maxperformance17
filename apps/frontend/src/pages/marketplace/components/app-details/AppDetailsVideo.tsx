@@ -20,7 +20,7 @@ export const AppDetailsVideo: React.FC<AppDetailsVideoProps> = ({ app, explanati
 
   return (
     <section className="text-right">
-      <div className="overflow-hidden rounded-2xl bg-black/95 shadow-[0_24px_60px_-28px_rgba(11,18,32,0.45)]">
+      <div className="overflow-hidden rounded-xl bg-black/95 shadow-[0_24px_60px_-28px_rgba(11,18,32,0.45)]">
         {embed ? (
           <iframe
             src={embed}

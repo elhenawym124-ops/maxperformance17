@@ -118,15 +118,15 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
   return (
     <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
       <aside className="self-start xl:sticky xl:top-24">
-        <div className="rounded-[28px] border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <div className="rounded-[28px] border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
           <div className="px-2">
             <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
               Upsell Center
             </div>
-            <h2 className="mt-2 text-xl font-black text-gray-900 dark:text-white">
+            <h2 className="mt-2 text-xl font-black text-foreground">
               أقسام الصفحة
             </h2>
-            <p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-sm leading-7 text-foreground dark:text-muted-foreground">
               افتح القسم المطلوب مباشرة بدل التنقل داخل صفحة طويلة.
             </p>
           </div>
@@ -140,18 +140,18 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
                   key={section.id}
                   type="button"
                   onClick={() => setUpsellSection(section.id)}
-                  className={`flex w-full items-start gap-3 rounded-2xl border px-4 py-3 text-left transition-colors ${
+                  className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
                     isActive
                       ? "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-900/50 dark:bg-blue-900/20 dark:text-blue-100"
-                      : "border-transparent bg-gray-50 text-gray-700 hover:border-gray-200 hover:bg-white dark:bg-gray-900/60 dark:text-gray-300 dark:hover:border-gray-700 dark:hover:bg-gray-900"
+                      : "border-transparent bg-muted text-foreground hover:border-border hover:bg-white dark:bg-muted dark:text-muted-foreground dark:hover:border-border dark:hover:bg-muted"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
                   <div
-                    className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${
+                    className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                       isActive
                         ? "bg-white text-blue-700 dark:bg-blue-950/60 dark:text-blue-200"
-                        : "bg-white text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                        : "bg-white text-foreground dark:bg-muted dark:text-muted-foreground"
                     }`}
                   >
                     {section.icon}
@@ -163,13 +163,13 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
                         className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] ${
                           isActive
                             ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200"
-                            : "bg-gray-200 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                            : "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground"
                         }`}
                       >
                         {section.badge}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs leading-6 text-gray-500 dark:text-gray-400">
+                    <p className="mt-1 text-xs leading-6 text-muted-foreground">
                       {section.description}
                     </p>
                   </div>

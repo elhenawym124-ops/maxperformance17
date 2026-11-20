@@ -34,24 +34,24 @@ export const AffiliateHeaderCard: React.FC<AffiliateHeaderCardProps> = ({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <button
           onClick={() => navigate("/affiliates/management")}
-          className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 cursor-pointer"
+          className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground cursor-pointer"
         >
           <ArrowLeftIcon className="h-4 w-4" />
           إدارة المسوقين
         </button>
         <Link
           to={`/orders?page=1&limit=20&affiliateId=${affiliate.id}`}
-          className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950"
+          className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl bg-muted px-4 py-2 text-sm font-semibold text-white transition hover:bg-muted dark:bg-white dark:text-foreground"
         >
           <ShoppingBagIcon className="h-4 w-4" />
           طلبات هذا المسوق
         </Link>
       </div>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex min-w-0 items-start gap-4">
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-200">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-primary bg-primary/10 text-primary dark:border-primary/20 dark:bg-primary/10 dark:text-primary">
               <UserCircleIcon className="h-9 w-9" />
             </span>
             <div className="min-w-0">
@@ -67,7 +67,7 @@ export const AffiliateHeaderCard: React.FC<AffiliateHeaderCardProps> = ({
                   {statusLabels[affiliate.status] || affiliate.status}
                 </span>
               </div>
-              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500 dark:text-slate-400">
+              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground dark:text-muted-foreground">
                 <span>{affiliate.user.email || "بدون بريد"}</span>
                 <span>{affiliate.user.phone || "بدون هاتف"}</span>
                 <span>كود: {affiliate.affiliateCode}</span>
@@ -80,7 +80,7 @@ export const AffiliateHeaderCard: React.FC<AffiliateHeaderCardProps> = ({
             <button
               onClick={() => handleUpdate?.("ACTIVE")}
               disabled={saving || affiliate.status === "ACTIVE"}
-              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100 disabled:opacity-50 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-200 cursor-pointer"
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-success bg-success/10 px-3 text-sm font-semibold text-success transition hover:bg-success disabled:opacity-50 dark:border-success/20 dark:bg-success/10 dark:text-success cursor-pointer"
             >
               <CheckCircleIcon className="h-4 w-4" />
               تفعيل
@@ -88,7 +88,7 @@ export const AffiliateHeaderCard: React.FC<AffiliateHeaderCardProps> = ({
             <button
               onClick={() => handleUpdate?.("SUSPENDED")}
               disabled={saving || affiliate.status === "SUSPENDED"}
-              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-3 text-sm font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-50 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-200 cursor-pointer"
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-destructive bg-destructive/10 px-3 text-sm font-semibold text-destructive transition hover:bg-destructive disabled:opacity-50 dark:border-destructive/20 dark:bg-destructive/10 dark:text-destructive cursor-pointer"
             >
               <XCircleIcon className="h-4 w-4" />
               إيقاف
@@ -96,7 +96,7 @@ export const AffiliateHeaderCard: React.FC<AffiliateHeaderCardProps> = ({
             <button
               onClick={() => handleUpdate?.("PENDING")}
               disabled={saving || affiliate.status === "PENDING"}
-              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 text-sm font-semibold text-amber-700 transition hover:bg-amber-100 disabled:opacity-50 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-200 cursor-pointer"
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-warning bg-warning/10 px-3 text-sm font-semibold text-warning transition hover:bg-warning disabled:opacity-50 dark:border-warning/20 dark:bg-warning/10 dark:text-warning cursor-pointer"
             >
               <AdjustmentsHorizontalIcon className="h-4 w-4" />
               مراجعة

@@ -52,7 +52,7 @@ export const MyAppsFiltersBar: React.FC<MyAppsFiltersBarProps> = ({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث بالاسم، الفئة، أو الوصف..."
-          className="h-10 pr-10 pl-10 rounded-xl bg-card border-border/40 text-xs sm:text-sm focus-visible:ring-primary/20"
+          className="h-10 pe-10 ps-10 rounded-xl bg-card border-border/40 text-xs sm:text-sm focus-visible:ring-primary/20"
         />
         {search && (
           <button
@@ -82,7 +82,7 @@ export const MyAppsFiltersBar: React.FC<MyAppsFiltersBarProps> = ({
           onClick={() => onStatusFilterChange("ACTIVE")}
           className={cn(
             "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1",
-            statusFilter === "ACTIVE" ? "bg-background text-emerald-600 dark:text-emerald-400 shadow-sm font-bold" : "text-muted-foreground hover:text-foreground"
+            statusFilter === "ACTIVE" ? "bg-background text-success dark:text-success shadow-sm font-bold" : "text-muted-foreground hover:text-foreground"
           )}
         >
           <CheckCircle2 size={12} />
@@ -93,7 +93,7 @@ export const MyAppsFiltersBar: React.FC<MyAppsFiltersBarProps> = ({
           onClick={() => onStatusFilterChange("TRIAL")}
           className={cn(
             "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1",
-            statusFilter === "TRIAL" ? "bg-background text-amber-600 dark:text-amber-400 shadow-sm font-bold" : "text-muted-foreground hover:text-foreground"
+            statusFilter === "TRIAL" ? "bg-background text-warning dark:text-warning shadow-sm font-bold" : "text-muted-foreground hover:text-foreground"
           )}
         >
           <Clock size={12} />

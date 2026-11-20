@@ -33,9 +33,9 @@ export const InternalCourierFleetSettingsTab: React.FC<InternalCourierFleetSetti
       />
 
       {/* Section 2: Dispatch & Manifest Generation */}
-      <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-3 border-b border-border/40">
-          <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+          <div className="p-2 rounded-lg bg-primary/10 text-primary">
             <Truck className="h-5 w-5" />
           </div>
           <div>

@@ -268,7 +268,7 @@ export default function MonthlyPnLDashboard() {
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground">{T("totalVariable")} (بضاعة + شحن + إعلانات)</span>
-                  <span className="font-mono text-rose-500">- {fmtCurr(r.totalVariable)}</span>
+                  <span className="font-mono text-destructive">- {fmtCurr(r.totalVariable)}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50 font-semibold">
                   <span className="text-foreground">{T("grossProfit")}</span>
@@ -276,7 +276,7 @@ export default function MonthlyPnLDashboard() {
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground">{T("totalFixed")} (رواتب + إيجار + مصاريف ثابتة)</span>
-                  <span className="font-mono text-rose-500">- {fmtCurr(r.totalFixed)}</span>
+                  <span className="font-mono text-destructive">- {fmtCurr(r.totalFixed)}</span>
                 </div>
                 <div className="flex justify-between py-1.5 pt-2 text-sm font-bold border-t border-border">
                   <span className="text-foreground">{T("netProfit")}</span>

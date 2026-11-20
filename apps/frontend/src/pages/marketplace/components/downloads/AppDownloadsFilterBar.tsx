@@ -39,7 +39,7 @@ export function AppDownloadsFilterBar({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث عن التطبيقات، الامتدادات (.exe, .apk)…"
-          className="h-10 pr-10 pl-10 rounded-xl bg-card border-border/40 text-xs sm:text-sm focus-visible:ring-primary/20"
+          className="h-10 pe-10 ps-10 rounded-xl bg-card border-border/40 text-xs sm:text-sm focus-visible:ring-primary/20"
         />
         {searchQuery && (
           <button

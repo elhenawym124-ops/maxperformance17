@@ -146,7 +146,7 @@ export default function AppSettings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center">
         <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600" />
       </div>
     );
@@ -154,13 +154,13 @@ export default function AppSettings() {
 
   if (!companyApp) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-6">
-        <div className="max-w-lg rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center">
-          <AlertCircle className="mx-auto mb-4 text-yellow-500" size={40} />
-          <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-6">
+        <div className="max-w-lg rounded-xl border border-border dark:border-border bg-card p-8 text-center">
+          <AlertCircle className="mx-auto mb-4 text-warning" size={40} />
+          <h1 className="mb-2 text-2xl font-bold text-foreground">
             التطبيق غير مفعّل
           </h1>
-          <p className="mb-6 text-gray-600 dark:text-gray-400">
+          <p className="mb-6 text-foreground dark:text-muted-foreground">
             فعّل التطبيق أولًا من Marketplace حتى تبدأ ربطه مع القوالب والثيم.
           </p>
           <button
@@ -179,19 +179,19 @@ export default function AppSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <div className="min-h-screen bg-muted dark:bg-muted">
+      <div className="border-b border-border bg-white dark:border-border dark:bg-muted">
         <div className="mx-auto flex max-w-6xl 2xl:max-w-7xl flex-col sm:flex-row sm:items-center justify-between gap-4 px-3 py-4 sm:px-6 sm:py-6">
           <div className="space-y-3">
             <button
               onClick={() => navigate(backDestination)}
-              className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              className="flex items-center gap-2 text-sm text-foreground transition-colors hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
             >
               <ArrowLeft size={18} />
               {backLabel}
             </button>
             <div className="flex items-start gap-3 sm:gap-4">
-              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-2xl sm:text-3xl dark:bg-blue-900/30">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-2xl sm:text-3xl dark:bg-blue-900/30">
                 {companyApp.app.icon ? (
                   <span>{companyApp.app.icon}</span>
                 ) : (
@@ -200,7 +200,7 @@ export default function AppSettings() {
               </div>
               <div>
                 <div className="mb-1 sm:mb-2 flex flex-wrap items-center gap-2">
-                  <h1 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  <h1 className="text-xl sm:text-3xl font-bold text-foreground">
                     {pageTitle}
                   </h1>
                   {(supported || supportsAppSettings(slug, companyApp)) && (
@@ -210,7 +210,7 @@ export default function AppSettings() {
                     </span>
                   )}
                 </div>
-                <p className="max-w-3xl text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                <p className="max-w-3xl text-xs sm:text-sm text-foreground dark:text-muted-foreground">
                   {pageDescription}
                 </p>
               </div>
@@ -229,7 +229,7 @@ export default function AppSettings() {
 
       <div className="mx-auto max-w-6xl 2xl:max-w-7xl px-0 py-4 sm:px-6 sm:py-8">
         {!isUpsellCenter && slug !== "internal-courier-fleet" ? (
-          <div className="mb-4 sm:mb-6 rounded-2xl border border-blue-100 bg-blue-50 p-4 sm:p-5 dark:border-blue-900/40 dark:bg-blue-900/10">
+          <div className="mb-4 sm:mb-6 rounded-xl border border-blue-100 bg-blue-50 p-4 sm:p-5 dark:border-blue-900/40 dark:bg-blue-900/10">
             <div className="mb-2 flex items-center gap-2 text-blue-700 dark:text-blue-300">
               <Settings2 size={18} />
               <span className="font-semibold">منطق التنفيذ الحالي</span>
@@ -258,12 +258,12 @@ export default function AppSettings() {
         {renderForm()}
 
         {!isUpsellCenter ? (
-          <div className="mt-6 sm:mt-8 rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 dark:border-gray-700 dark:bg-gray-800">
-            <div className="mb-3 flex items-center gap-2 text-gray-900 dark:text-white">
+          <div className="mt-6 sm:mt-8 rounded-xl border border-border bg-white p-4 sm:p-6 dark:border-border dark:bg-muted">
+            <div className="mb-3 flex items-center gap-2 text-foreground">
               <Package size={18} />
               <span className="font-semibold">معاينة بنية الإعدادات</span>
             </div>
-            <pre className="overflow-x-auto rounded-xl bg-gray-950 p-3 sm:p-4 text-xs leading-6 text-green-200">
+            <pre className="overflow-x-auto rounded-xl bg-muted p-3 sm:p-4 text-xs leading-6 text-success">
               {JSON.stringify(normalizedSettings, null, 2)}
             </pre>
           </div>

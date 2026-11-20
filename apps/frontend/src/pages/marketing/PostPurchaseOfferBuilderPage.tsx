@@ -57,7 +57,7 @@ export default function PostPurchaseOfferBuilderPage() {
 
   return (
     <div
-      className="w-full min-h-screen bg-slate-50/60 dark:bg-zinc-950 p-3 sm:p-6 space-y-6"
+      className="w-full min-h-screen bg-muted dark:bg-muted p-3 sm:p-6 space-y-6"
       dir={isRtl ? "rtl" : "ltr"}
     >
       <PostPurchaseOfferHeader

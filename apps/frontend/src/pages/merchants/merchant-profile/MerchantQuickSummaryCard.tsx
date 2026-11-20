@@ -24,7 +24,7 @@ export const MerchantQuickSummaryCard: React.FC<MerchantQuickSummaryCardProps> =
   operationsTotals,
   fulfillmentModeLabel,
 }) => {
-  const cardClass = isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
+  const cardClass = isDark ? "bg-gray-800 border-border" : "bg-white border-border";
   const textMutedClass = isDark ? "text-gray-400" : "text-gray-500";
 
   return (

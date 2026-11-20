@@ -45,7 +45,7 @@ export function AppHistoryTable({ logs, loading, isRtl }: AppHistoryTableProps) 
   if (logs.length === 0) {
     return (
       <div className="py-16 px-4 text-center space-y-3">
-        <div className="size-14 mx-auto rounded-2xl bg-muted/60 text-muted-foreground flex items-center justify-center border border-border/40">
+        <div className="size-14 mx-auto rounded-xl bg-muted/60 text-muted-foreground flex items-center justify-center border border-border/40">
           <History className="size-7" />
         </div>
         <h3 className="text-sm font-bold text-foreground">لا توجد حركات مسجلة حالياً</h3>
@@ -79,12 +79,12 @@ export function AppHistoryTable({ logs, loading, isRtl }: AppHistoryTableProps) 
                 {/* Action Badge */}
                 <td className="py-3.5 px-4 whitespace-nowrap">
                   {isInstall ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-success/10 text-success dark:text-success font-bold border border-success/20">
                       <CheckCircle2 className="size-3.5" />
                       <span>تثبيت وتفعيل</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold border border-rose-500/20">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-destructive/10 text-destructive dark:text-destructive font-bold border border-destructive/20">
                       <Trash2 className="size-3.5" />
                       <span>إلغاء التثبيت</span>
                     </span>
@@ -144,7 +144,7 @@ export function AppHistoryTable({ logs, loading, isRtl }: AppHistoryTableProps) 
                           : "اشتراك شهري"}
                       </span>
                       {log.metadata?.trial && (
-                        <span className="block text-[10px] text-amber-600 dark:text-amber-400 font-semibold">
+                        <span className="block text-[10px] text-warning dark:text-warning font-semibold">
                           تجربة مجانية
                         </span>
                       )}

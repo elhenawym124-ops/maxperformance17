@@ -14,7 +14,7 @@ export const AffiliatesHeader: React.FC<AffiliatesHeaderProps> = ({ isDark }) =>
             isDark ? "text-white" : "text-gray-900"
           } flex items-center`}
         >
-          <UserGroupIcon className="h-7 w-7 sm:h-9 sm:w-9 ml-2.5 sm:ml-3 text-indigo-500" />
+          <UserGroupIcon className="h-7 w-7 sm:h-9 sm:w-9 ms-2.5 sm:ms-3 text-primary" />
           إدارة شبكة المسوقين (Premium)
         </h1>
         <p

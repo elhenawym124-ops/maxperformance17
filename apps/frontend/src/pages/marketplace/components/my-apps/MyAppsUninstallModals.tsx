@@ -48,7 +48,7 @@ export const MyAppsUninstallModals: React.FC<MyAppsUninstallModalsProps> = ({
     <>
       {/* 1. Single App Uninstall Confirmation Dialog */}
       <AlertDialog open={!!confirmUninstall} onOpenChange={() => onCancelUninstall()}>
-        <AlertDialogContent className="rounded-2xl text-right" dir="rtl">
+        <AlertDialogContent className="rounded-xl text-right" dir="rtl">
           <AlertDialogHeader>
             <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-destructive/10">
               <AlertCircle size={28} className="text-destructive" />
@@ -82,7 +82,7 @@ export const MyAppsUninstallModals: React.FC<MyAppsUninstallModalsProps> = ({
       {selectedIds.size > 0 && (
         <div
           data-testid="bulk-actions-bar"
-          className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-card/95 backdrop-blur-md border border-border/80 shadow-2xl rounded-2xl p-3 px-4 sm:px-5 flex items-center gap-2.5 sm:gap-4 max-w-[95vw] sm:max-w-2xl animate-in fade-in slide-in-from-bottom-5"
+          className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-card/95 backdrop-blur-md border border-border/80 shadow-2xl rounded-xl p-3 px-4 sm:px-5 flex items-center gap-2.5 sm:gap-4 max-w-[95vw] sm:max-w-2xl animate-in fade-in slide-in-from-bottom-5"
           dir="rtl"
         >
           <div className="flex items-center gap-2 shrink-0">
@@ -133,7 +133,7 @@ export const MyAppsUninstallModals: React.FC<MyAppsUninstallModalsProps> = ({
 
       {/* 3. Confirmation Dialog for Bulk Uninstall */}
       <AlertDialog open={confirmBulkUninstall} onOpenChange={onSetConfirmBulkUninstall}>
-        <AlertDialogContent className="rounded-2xl text-right max-w-md" dir="rtl">
+        <AlertDialogContent className="rounded-xl text-right max-w-md" dir="rtl">
           <AlertDialogHeader>
             <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-destructive/10">
               <Trash2 size={28} className="text-destructive" />

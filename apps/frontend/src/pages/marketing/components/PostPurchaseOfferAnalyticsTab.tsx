@@ -119,7 +119,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Filter & Refresh Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl border border-border/80 bg-card shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl border border-border/80 bg-card shadow-xs">
         <div className="flex items-center gap-1.5 overflow-x-auto">
           {PERIOD_OPTIONS.map((opt) => {
             const active = period === opt.key;
@@ -152,7 +152,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
       </div>
 
       {error && (
-        <div className="flex items-center gap-2 p-3 text-xs text-rose-600 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900 rounded-xl">
+        <div className="flex items-center gap-2 p-3 text-xs text-destructive bg-destructive/10 dark:bg-destructive/30 border border-destructive dark:border-destructive rounded-xl">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
@@ -161,10 +161,10 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* Card 1: Acceptance Rate */}
-        <div className="p-4 rounded-2xl border border-border/80 bg-card space-y-1.5">
+        <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">معدل القبول</span>
-            <Percent className="w-3.5 h-3.5 text-emerald-600" />
+            <Percent className="w-3.5 h-3.5 text-success" />
           </div>
           <div className="text-xl font-bold tracking-tight text-foreground tabular-nums">
             {kpis ? `${kpis.acceptanceRate}%` : "—"}
@@ -175,12 +175,12 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         </div>
 
         {/* Card 2: Offer Revenue */}
-        <div className="p-4 rounded-2xl border border-border/80 bg-card space-y-1.5">
+        <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">إيراد العرض الإضافي</span>
-            <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+            <DollarSign className="w-3.5 h-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-xl font-bold tracking-tight text-success dark:text-success tabular-nums">
             {kpis ? `${formatCurrency(kpis.offerRevenue)}` : "—"}
           </div>
           <p className="text-[10px] text-muted-foreground">
@@ -189,7 +189,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         </div>
 
         {/* Card 3: AOV Lift */}
-        <div className="p-4 rounded-2xl border border-border/80 bg-card space-y-1.5">
+        <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">رفع متوسط السلة (AOV)</span>
             <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
@@ -203,10 +203,10 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         </div>
 
         {/* Card 4: Avg Acceptance Time */}
-        <div className="p-4 rounded-2xl border border-border/80 bg-card space-y-1.5">
+        <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">متوسط زمن القبول</span>
-            <Clock className="w-3.5 h-3.5 text-amber-600" />
+            <Clock className="w-3.5 h-3.5 text-warning" />
           </div>
           <div className="text-xl font-bold tracking-tight text-foreground tabular-nums">
             {kpis?.avgAcceptanceSecondsText || "—"}
@@ -217,10 +217,10 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         </div>
 
         {/* Card 5: Net Realized Revenue */}
-        <div className="p-4 rounded-2xl border border-border/80 bg-card space-y-1.5">
+        <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">الصافي المحقق (تم التوصيل)</span>
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <ShieldCheck className="w-3.5 h-3.5 text-success" />
           </div>
           <div className="text-xl font-bold tracking-tight text-foreground tabular-nums">
             {delivery ? `${formatCurrency(delivery.deliveredOfferRevenue)}` : "—"}
@@ -231,12 +231,12 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         </div>
 
         {/* Card 6: Returned / Lost */}
-        <div className="p-4 rounded-2xl border border-border/80 bg-card space-y-1.5">
+        <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">مرتجعات العرض</span>
-            <RotateCcw className="w-3.5 h-3.5 text-rose-600" />
+            <RotateCcw className="w-3.5 h-3.5 text-destructive" />
           </div>
-          <div className="text-xl font-bold tracking-tight text-rose-600 dark:text-rose-400 tabular-nums">
+          <div className="text-xl font-bold tracking-tight text-destructive dark:text-destructive tabular-nums">
             {delivery ? `${formatCurrency(delivery.returnedOfferRevenue)}` : "—"}
           </div>
           <p className="text-[10px] text-muted-foreground tabular-nums">
@@ -248,7 +248,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
       {/* Row 2: Delivery Outcomes & Variants Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Delivery Outcomes Breakdown (5 cols) */}
-        <div className="lg:col-span-5 p-5 rounded-2xl border border-border/80 bg-card space-y-4">
+        <div className="lg:col-span-5 p-5 rounded-xl border border-border/80 bg-card space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
               <Truck className="w-4 h-4 text-primary" />
@@ -258,9 +258,9 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-success/5 border border-success/20">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <CheckCircle2 className="w-4 h-4 text-success" />
                 <div>
                   <div className="text-xs font-semibold text-foreground">تم التسليم بنجاح</div>
                   <div className="text-[10px] text-muted-foreground tabular-nums">
@@ -268,7 +268,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-xs font-bold text-emerald-600 tabular-nums">
+              <div className="text-xs font-bold text-success tabular-nums">
                 +{formatCurrency(delivery?.deliveredOfferRevenue || 0)}
               </div>
             </div>
@@ -288,9 +288,9 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-rose-500/5 border border-rose-500/20">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-destructive/5 border border-destructive/20">
               <div className="flex items-center gap-2.5">
-                <RotateCcw className="w-4 h-4 text-rose-600" />
+                <RotateCcw className="w-4 h-4 text-destructive" />
                 <div>
                   <div className="text-xs font-semibold text-foreground">مرتجع أو ملغي</div>
                   <div className="text-[10px] text-muted-foreground tabular-nums">
@@ -298,7 +298,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-xs font-bold text-rose-600 tabular-nums">
+              <div className="text-xs font-bold text-destructive tabular-nums">
                 -{formatCurrency(delivery?.returnedOfferRevenue || 0)}
               </div>
             </div>
@@ -306,7 +306,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         </div>
 
         {/* Right: Variants Breakdown (7 cols) */}
-        <div className="lg:col-span-7 p-5 rounded-2xl border border-border/80 bg-card space-y-4">
+        <div className="lg:col-span-7 p-5 rounded-xl border border-border/80 bg-card space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
               <Package className="w-4 h-4 text-primary" />
@@ -338,7 +338,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
                       <td className="py-2.5 text-center font-bold text-foreground tabular-nums">
                         {v.count}
                       </td>
-                      <td className="py-2.5 text-end font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                      <td className="py-2.5 text-end font-bold text-success dark:text-success tabular-nums">
                         {formatCurrency(v.revenue)}
                       </td>
                     </tr>
@@ -351,7 +351,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
       </div>
 
       {/* Row 3: Recent Accepted Orders Table */}
-      <div className="p-5 rounded-2xl border border-border/80 bg-card space-y-4">
+      <div className="p-5 rounded-xl border border-border/80 bg-card space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
             <ShoppingCart className="w-4 h-4 text-primary" />
@@ -402,7 +402,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
                         "—"
                       )}
                     </td>
-                    <td className="py-2.5 text-center font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                    <td className="py-2.5 text-center font-bold text-success dark:text-success tabular-nums">
                       {formatCurrency(ord.offerPrice)}
                     </td>
                     <td className="py-2.5 text-center text-muted-foreground tabular-nums">
@@ -411,7 +411,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
                         : "—"}
                     </td>
                     <td className="py-2.5 text-center">
-                      <span className="inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                      <span className="inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
                         {ord.status}
                       </span>
                     </td>

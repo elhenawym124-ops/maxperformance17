@@ -90,20 +90,20 @@ export const statusTone = (status?: string | null) => {
     case "PAID":
     case "PROCESSED":
     case "FULFILLED":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-200";
+      return "border-emerald-200 bg-success/10 text-success dark:border-success/20 dark:bg-success/10 dark:text-success";
     case "PENDING":
     case "PROCESSING":
     case "SHIPPED":
     case "PREPARATION":
     case "IN_SHIPPING":
-      return "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-200";
+      return "border-amber-200 bg-warning/10 text-warning dark:border-warning/20 dark:bg-warning/10 dark:text-warning";
     case "CANCELLED":
     case "FAILED":
     case "NOT_DELIVERED":
     case "INACTIVE":
-      return "border-red-200 bg-red-50 text-red-700 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-200";
+      return "border-red-200 bg-destructive/10 text-destructive dark:border-destructive/20 dark:bg-destructive/10 dark:text-destructive";
     default:
-      return "border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300";
+      return "border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground";
   }
 };
 
@@ -124,21 +124,21 @@ export const MetricCard: React.FC<{
   sub?: string;
   value: React.ReactNode;
 }> = ({ icon: Icon, label, sub, value }) => (
-  <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+  <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
     <div className="flex items-start justify-between gap-3">
       <div className="min-w-0">
-        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+        <p className="text-xs font-medium text-muted-foreground dark:text-muted-foreground">
           {label}
         </p>
-        <div className="mt-2 text-xl font-bold text-slate-950 dark:text-white tabular-nums">
+        <div className="mt-2 text-xl font-bold text-foreground dark:text-white tabular-nums">
           {value}
         </div>
       </div>
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
     </div>
-    {sub ? <p className="mt-3 text-xs text-slate-500">{sub}</p> : null}
+    {sub ? <p className="mt-3 text-xs text-muted-foreground">{sub}</p> : null}
   </div>
 );
 
@@ -146,16 +146,16 @@ export const InfoRow: React.FC<{ label: string; value: React.ReactNode }> = ({
   label,
   value,
 }) => (
-  <div className="flex items-start justify-between gap-4 border-b border-slate-100 py-3 last:border-0 dark:border-slate-800">
-    <span className="text-sm text-slate-500 dark:text-slate-400">{label}</span>
-    <span className="max-w-[65%] text-left text-sm font-semibold text-slate-900 dark:text-white">
+  <div className="flex items-start justify-between gap-4 border-b border-border py-3 last:border-0 dark:border-border">
+    <span className="text-sm text-muted-foreground dark:text-muted-foreground">{label}</span>
+    <span className="max-w-[65%] text-left text-sm font-semibold text-foreground dark:text-white">
       {value || "غير محدد"}
     </span>
   </div>
 );
 
 export const EmptyState: React.FC<{ text: string }> = ({ text }) => (
-  <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+  <div className="rounded-xl border border-dashed border-border bg-muted px-4 py-8 text-center text-sm text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
     {text}
   </div>
 );

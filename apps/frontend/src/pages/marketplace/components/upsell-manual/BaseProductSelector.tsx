@@ -47,34 +47,34 @@ export function BaseProductSelector({
   onNavigateToProductEdit,
 }: BaseProductSelectorProps) {
   return (
-    <div className="rounded-[24px] border border-gray-200 bg-gray-50/80 p-5 dark:border-gray-700 dark:bg-gray-900/60">
+    <div className="rounded-[24px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
       <label className="block space-y-2">
-        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+        <span className="text-sm font-semibold text-foreground">
           ابحث عن المنتج الأساسي
         </span>
         <div className="relative">
           <Search
             size={18}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <input
             value={productQuery}
             onChange={(event) => setProductQuery(event.target.value)}
             placeholder="ابحث بالاسم أو SKU أو الفئة"
             autoComplete="off"
-            className="w-full rounded-2xl border border-gray-300 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus-visible:ring-blue-900/40"
+            className="w-full rounded-xl border border-border bg-white py-3 ps-11 pe-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:border-border dark:bg-muted dark:text-white dark:focus-visible:ring-blue-900/40"
           />
         </div>
       </label>
 
       {catalogError ? (
-        <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900/30 dark:bg-rose-950/20 dark:text-rose-200">
+        <div className="mt-4 rounded-xl border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive dark:border-destructive/30 dark:bg-destructive/20 dark:text-destructive">
           {catalogError}
         </div>
       ) : null}
 
       {catalogLoading ? (
-        <div className="mt-4 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-4 flex items-center gap-2 text-sm text-foreground dark:text-muted-foreground">
           <Loader2 size={16} className="animate-spin" />
           جارٍ تحميل المنتجات...
         </div>
@@ -82,7 +82,7 @@ export function BaseProductSelector({
 
       {!selectedProduct ? (
         <div className="mt-4 space-y-3">
-          <div className="text-xs font-bold uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">
+          <div className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
             منتجات جاهزة للاختيار
           </div>
           <div className="grid gap-3">
@@ -91,13 +91,13 @@ export function BaseProductSelector({
                 key={product.id}
                 type="button"
                 onClick={() => void loadProductRelations(product.id)}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-left transition-colors hover:border-blue-200 hover:bg-blue-50/50 dark:border-gray-700 dark:bg-gray-950/40 dark:hover:border-blue-900/50 dark:hover:bg-blue-950/20"
+                className="flex items-center justify-between gap-3 rounded-xl border border-border bg-white px-4 py-3 text-left transition-colors hover:border-blue-200 hover:bg-blue-50/50 dark:border-border dark:bg-muted dark:hover:border-blue-900/50 dark:hover:bg-blue-950/20"
               >
                 <div className="min-w-0">
-                  <div className="truncate font-bold text-gray-900 dark:text-white">
+                  <div className="truncate font-bold text-foreground">
                     {product.name}
                   </div>
-                  <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="mt-1 text-xs text-muted-foreground">
                     {product.sku ? `SKU: ${product.sku}` : `ID: ${product.id}`}
                     {product.categoryName ? ` · ${product.categoryName}` : ""}
                   </div>
@@ -121,10 +121,10 @@ export function BaseProductSelector({
                   tone={selectedProduct.isActive ? "green" : "neutral"}
                 />
               </div>
-              <h3 className="mt-3 text-xl font-black text-gray-900 dark:text-white">
+              <h3 className="mt-3 text-xl font-black text-foreground">
                 {selectedProduct.name}
               </h3>
-              <p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400">
+              <p className="mt-2 text-sm leading-7 text-foreground dark:text-muted-foreground">
                 {selectedProduct.sku
                   ? `SKU: ${selectedProduct.sku}`
                   : `ID: ${selectedProduct.id}`}
@@ -139,7 +139,7 @@ export function BaseProductSelector({
               <button
                 type="button"
                 onClick={() => onNavigateToProductEdit(selectedProduct.id)}
-                className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-border hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
               >
                 <ExternalLink size={16} />
                 فتح صفحة المنتج
@@ -159,10 +159,10 @@ export function BaseProductSelector({
             {RELATION_ORDER.map((relationType) => (
               <div
                 key={relationType}
-                className="rounded-2xl border border-white/70 bg-white/80 p-4 dark:border-gray-800 dark:bg-gray-950/50"
+                className="rounded-xl border border-white/70 bg-white/80 p-4 dark:border-border dark:bg-muted"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <div className="inline-flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white">
+                  <div className="inline-flex items-center gap-2 text-sm font-bold text-foreground">
                     {getRelationIcon(relationType)}
                     {RELATION_CONFIG_DATA[relationType].title}
                   </div>
@@ -171,7 +171,7 @@ export function BaseProductSelector({
                     tone={relationType === "upsell" ? "amber" : "blue"}
                   />
                 </div>
-                <p className="mt-2 text-xs leading-6 text-gray-600 dark:text-gray-400">
+                <p className="mt-2 text-xs leading-6 text-foreground dark:text-muted-foreground">
                   {RELATION_CONFIG_DATA[relationType].placementNote}
                 </p>
               </div>

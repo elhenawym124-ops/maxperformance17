@@ -31,7 +31,7 @@ export function MarketplaceUninstallDialog({
   return (
     <AlertDialog open={Boolean(confirmUninstallApp)} onOpenChange={(open) => !open && onClose()}>
       {confirmUninstallApp && (
-        <AlertDialogContent className="rounded-2xl">
+        <AlertDialogContent className="rounded-xl">
           <AlertDialogHeader>
             <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-destructive/10">
               <svg className="size-7 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

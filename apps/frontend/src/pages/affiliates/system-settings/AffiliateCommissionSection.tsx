@@ -16,8 +16,8 @@ export const AffiliateCommissionSection: React.FC<
         <h2
           className={`text-xl font-semibold border-b pb-2 ${
             isDark
-              ? "text-white border-gray-700"
-              : "text-gray-900 border-gray-200"
+              ? "text-white border-border"
+              : "text-gray-900 border-border"
           }`}
         >
           إعدادات العمولة الافتراضية
@@ -48,8 +48,8 @@ export const AffiliateCommissionSection: React.FC<
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white"
+                  : "bg-white border-border text-foreground"
               }`}
             >
               <option value="PERCENTAGE">نسبة مئوية (%)</option>
@@ -90,8 +90,8 @@ export const AffiliateCommissionSection: React.FC<
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
             />
           </div>
@@ -100,10 +100,10 @@ export const AffiliateCommissionSection: React.FC<
 
       {/* حالة احتساب العمولة */}
       <div
-        className={`rounded-2xl border p-6 ${
+        className={`rounded-xl border p-6 ${
           isDark
-            ? "bg-gray-800 border-gray-700"
-            : "bg-white border-gray-100"
+            ? "bg-gray-800 border-border"
+            : "bg-white border-border"
         } shadow-sm`}
       >
         <h2
@@ -139,8 +139,8 @@ export const AffiliateCommissionSection: React.FC<
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white"
+                  : "bg-white border-border text-foreground"
               }`}
             >
               <option value="PENDING">فور إنشاء الطلب (PENDING)</option>
@@ -175,8 +175,8 @@ export const AffiliateCommissionSection: React.FC<
         <h2
           className={`text-xl font-semibold border-b pb-2 pt-2 ${
             isDark
-              ? "text-white border-gray-700"
-              : "text-gray-900 border-gray-200"
+              ? "text-white border-border"
+              : "text-gray-900 border-border"
           }`}
         >
           هامش ربح المنصة (بين التاجر والمسوق)
@@ -207,8 +207,8 @@ export const AffiliateCommissionSection: React.FC<
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white"
+                  : "bg-white border-border text-foreground"
               }`}
             >
               <option value="FIXED">مبلغ ثابت لكل قطعة</option>
@@ -247,8 +247,8 @@ export const AffiliateCommissionSection: React.FC<
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
             />
           </div>
@@ -278,8 +278,8 @@ export const AffiliateCommissionSection: React.FC<
             }
             className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
               isDark
-                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                : "bg-white border-gray-300 text-gray-900"
+                ? "bg-gray-700 border-border text-white placeholder-muted"
+                : "bg-white border-border text-foreground"
             }`}
           />
           <p

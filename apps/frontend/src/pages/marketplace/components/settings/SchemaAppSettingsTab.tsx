@@ -63,15 +63,15 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
         return (
           <div
             key={key}
-            className="flex items-center justify-between rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm hover:border-blue-500/50 transition-colors"
+            className="flex items-center justify-between rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm hover:border-blue-500/50 transition-colors"
           >
-            <div className="space-y-1 pr-2">
-              <label htmlFor={`field-${key}`} className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-1.5 cursor-pointer">
+            <div className="space-y-1 pe-2">
+              <label htmlFor={`field-${key}`} className="text-sm font-semibold text-foreground flex items-center gap-1.5 cursor-pointer">
                 {prop.title || key}
                 {isRequired && <span className="text-red-500">*</span>}
               </label>
               {prop.description && (
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   {prop.description}
                 </p>
               )}
@@ -83,7 +83,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
               aria-checked={Boolean(currentValue)}
               onClick={() => onChange(key, !currentValue)}
               className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 ${
-                currentValue ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
+                currentValue ? 'bg-blue-600' : 'bg-gray-200 dark:bg-muted'
               }`}
             >
               <span
@@ -98,13 +98,13 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
       case 'string':
         if (Array.isArray(prop.enum) && prop.enum.length > 0) {
           return (
-            <div key={key} className="space-y-1.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
-              <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-gray-900 dark:text-white">
+            <div key={key} className="space-y-1.5 rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">
+              <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-foreground">
                 {prop.title || key}
-                {isRequired && <span className="text-red-500 mr-1">*</span>}
+                {isRequired && <span className="text-red-500 me-1">*</span>}
               </label>
               {prop.description && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                <p className="text-xs text-muted-foreground mb-2">
                   {prop.description}
                 </p>
               )}
@@ -112,7 +112,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
                 id={`field-${key}`}
                 value={currentValue ?? ''}
                 onChange={(e) => onChange(key, e.target.value)}
-                className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 {prop.enum.map((opt) => (
                   <option key={opt} value={opt}>
@@ -125,13 +125,13 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
         }
 
         return (
-          <div key={key} className="space-y-1.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
-            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-gray-900 dark:text-white">
+          <div key={key} className="space-y-1.5 rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">
+            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-foreground">
               {prop.title || key}
-              {isRequired && <span className="text-red-500 mr-1">*</span>}
+              {isRequired && <span className="text-red-500 me-1">*</span>}
             </label>
             {prop.description && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+              <p className="text-xs text-muted-foreground mb-2">
                 {prop.description}
               </p>
             )}
@@ -141,7 +141,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
               value={currentValue ?? ''}
               onChange={(e) => onChange(key, e.target.value)}
               placeholder={prop.title || ''}
-              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
         );
@@ -149,13 +149,13 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
       case 'number':
       case 'integer':
         return (
-          <div key={key} className="space-y-1.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
-            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-gray-900 dark:text-white">
+          <div key={key} className="space-y-1.5 rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">
+            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-foreground">
               {prop.title || key}
-              {isRequired && <span className="text-red-500 mr-1">*</span>}
+              {isRequired && <span className="text-red-500 me-1">*</span>}
             </label>
             {prop.description && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+              <p className="text-xs text-muted-foreground mb-2">
                 {prop.description}
               </p>
             )}
@@ -169,15 +169,15 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
                 const val = e.target.value === '' ? null : Number(e.target.value);
                 onChange(key, val);
               }}
-              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
         );
 
       default:
         return (
-          <div key={key} className="space-y-1.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
-            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-gray-900 dark:text-white">
+          <div key={key} className="space-y-1.5 rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">
+            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-foreground">
               {prop.title || key}
             </label>
             <input
@@ -185,7 +185,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
               type="text"
               value={typeof currentValue === 'object' ? JSON.stringify(currentValue) : String(currentValue ?? '')}
               onChange={(e) => onChange(key, e.target.value)}
-              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-white"
+              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground"
             />
           </div>
         );
@@ -195,14 +195,14 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
   return (
     <div className="space-y-6">
       {/* Schema Header Card */}
-      <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5 dark:border-blue-900/40 dark:bg-blue-950/20">
+      <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-5 dark:border-blue-900/40 dark:bg-blue-950/20">
         <div className="flex items-start gap-3">
           <Sliders className="mt-0.5 text-blue-600 dark:text-blue-400 shrink-0" size={20} />
           <div>
-            <h2 className="text-base font-bold text-gray-900 dark:text-white">
+            <h2 className="text-base font-bold text-foreground">
               {schema?.title || `إعدادات ${appName}`}
             </h2>
-            <p className="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+            <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
               {schema?.description || 'تم توليد هذه الصفحة تلقائياً بالكامل بناءً على مواصفات المانيفست (JSON Schema).'}
             </p>
           </div>
@@ -215,7 +215,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
       </div>
 
       {/* Save Action Bar */}
-      <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-end gap-3 pt-4 border-t border-border dark:border-border">
         <button
           type="button"
           onClick={() => onSave()}

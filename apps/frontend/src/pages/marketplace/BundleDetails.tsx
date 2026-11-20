@@ -215,7 +215,7 @@ export default function BundleDetails() {
               <span className="text-xs text-muted-foreground">ج.م / شهرياً</span>
             </div>
             {hasSavings && (
-              <span className="mt-2 inline-flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-emerald-500">
+              <span className="mt-2 inline-flex items-center gap-1 rounded-md border border-success/20 bg-success/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-success">
                 <TrendingUp className="h-3 w-3" />
                 <span>وفرت {savings.toFixed(0)} ج.م ({savingsPct}%)</span>
               </span>
@@ -296,7 +296,7 @@ export default function BundleDetails() {
 
             <div className="mt-5 space-y-2.5">
               {bundle.isInstalled ? (
-                <div className="flex items-center justify-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 py-3 text-xs font-semibold text-emerald-500">
+                <div className="flex items-center justify-center gap-2 rounded-lg border border-success/20 bg-success/10 py-3 text-xs font-semibold text-success">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>الباقة مفعلة حالياً في متجرك</span>
                 </div>

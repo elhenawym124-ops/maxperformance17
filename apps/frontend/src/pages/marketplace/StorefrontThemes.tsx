@@ -44,8 +44,8 @@ export default function StorefrontThemes() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-slate-950">
-        <div className="flex items-center gap-3 text-indigo-500 font-black uppercase tracking-widest text-[10px]">
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-muted">
+        <div className="flex items-center gap-3 text-primary font-black uppercase tracking-widest text-[10px]">
           <Loader2 className="size-4 animate-spin" />
           {t("storefrontThemes.loading")}
         </div>
@@ -61,7 +61,7 @@ export default function StorefrontThemes() {
 
   return (
     <div
-      className="min-h-screen -m-4 md:-m-6 bg-slate-50 dark:bg-slate-950/50 flex flex-col"
+      className="min-h-screen -m-4 md:-m-6 bg-muted dark:bg-muted flex flex-col"
       dir="rtl"
     >
       <StorefrontThemesHeader

@@ -165,41 +165,41 @@ export default function AffiliateReferrals() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-500">الإحالات المحولة</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success">الإحالات المحولة</p>
+            <p className="text-xl font-bold tracking-tight text-success font-mono tabular-nums mt-0.5">
               {convertedReferrals}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">أنتجت طلبات بيع</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success border border-success/20">
             <CheckCircle2 className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-500">قيد المتابعة</p>
-            <p className="text-xl font-bold tracking-tight text-amber-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning">قيد المتابعة</p>
+            <p className="text-xl font-bold tracking-tight text-warning font-mono tabular-nums mt-0.5">
               {pendingReferrals}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">زيارات لم تكمل الشراء</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning border border-warning/20">
             <Clock className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-purple-500">معدل التحويل (CR)</p>
-            <p className="text-xl font-bold tracking-tight text-purple-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary">معدل التحويل (CR)</p>
+            <p className="text-xl font-bold tracking-tight text-primary font-mono tabular-nums mt-0.5">
               {conversionRate}%
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">
               مبيعات: {formatPrice(totalRevenue)}
             </p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <TrendingUp className="size-3.5" />
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function AffiliateReferrals() {
             <Search className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <Input
               type="text"
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
               placeholder="بحث بالرمز أو العميل أو المصدر..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -295,7 +295,7 @@ export default function AffiliateReferrals() {
                       <td className="px-4 py-2.5 font-mono">
                         {referral.order ? (
                           <div className="flex items-center gap-1.5">
-                            <ShoppingBag className="size-3 text-emerald-500 shrink-0" />
+                            <ShoppingBag className="size-3 text-success shrink-0" />
                             <span className="font-semibold text-foreground">
                               {referral.order.orderNumber}
                             </span>
@@ -311,8 +311,8 @@ export default function AffiliateReferrals() {
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono border ${
                             referral.converted
-                              ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
-                              : "bg-amber-500/10 text-amber-500 border-amber-500/20"
+                              ? "bg-emerald-500/10 text-success border-success/20"
+                              : "bg-amber-500/10 text-warning border-warning/20"
                           }`}
                         >
                           {referral.converted ? "تم التحويل" : "قيد المتابعة"}

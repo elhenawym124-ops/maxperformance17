@@ -23,12 +23,12 @@ export const MerchantOrdersHistoryTable: React.FC<MerchantOrdersHistoryTableProp
   formatPrice,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-bold">تاريخ الطلبات المرتبطة</h2>
         <Link
           to={`/orders?page=1&limit=20&merchantId=${merchantId}`}
-          className="text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-300"
+          className="text-sm font-semibold text-primary hover:underline dark:text-primary"
         >
           فتح كل طلبات التاجر
         </Link>
@@ -36,7 +36,7 @@ export const MerchantOrdersHistoryTable: React.FC<MerchantOrdersHistoryTableProp
       <div className="mt-4 overflow-x-auto">
         {rows?.length ? (
           <table className="min-w-full text-right text-sm">
-            <thead className="text-xs text-slate-500">
+            <thead className="text-xs text-muted-foreground">
               <tr>
                 <th className="py-2">رقم الطلب</th>
                 <th className="py-2">العميل</th>
@@ -46,22 +46,22 @@ export const MerchantOrdersHistoryTable: React.FC<MerchantOrdersHistoryTableProp
                 <th className="py-2">التاريخ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {rows.map((order) => (
                 <tr key={order.id}>
                   <td className="py-3">
                     <Link
                       to={`/orders/${order.orderNumber}`}
-                      className="font-semibold text-indigo-600 hover:underline dark:text-indigo-300 font-mono"
+                      className="font-semibold text-primary hover:underline dark:text-primary font-mono"
                     >
                       {order.orderNumber}
                     </Link>
                   </td>
-                  <td className="py-3 text-slate-600 dark:text-slate-300">
+                  <td className="py-3 text-foreground dark:text-muted-foreground">
                     <div className="font-semibold">
                       {order.customerName || "عميل غير محدد"}
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-muted-foreground">
                       {order.customerPhone || "بدون هاتف"}
                     </div>
                   </td>
@@ -83,7 +83,7 @@ export const MerchantOrdersHistoryTable: React.FC<MerchantOrdersHistoryTableProp
                         }
                       />
                     </div>
-                    <div className="mt-1 text-xs text-slate-500">
+                    <div className="mt-1 text-xs text-muted-foreground">
                       {order.warehouseName || order.shippingCompanyName
                         ? `${order.warehouseName || "بدون مخزن"} · ${
                             order.shippingCompanyName || "بدون شركة شحن"
@@ -97,7 +97,7 @@ export const MerchantOrdersHistoryTable: React.FC<MerchantOrdersHistoryTableProp
                   <td className="py-3 font-semibold tabular-nums">
                     {formatPrice(toNumber(order.payableAmount))}
                   </td>
-                  <td className="py-3 text-slate-500">
+                  <td className="py-3 text-muted-foreground">
                     {formatDate(order.createdAt)}
                   </td>
                 </tr>

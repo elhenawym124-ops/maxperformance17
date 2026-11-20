@@ -97,18 +97,18 @@ function MetricCard({ label, value, sub, positive, accent = "emerald" }: {
   label: string; value: string; sub: string; positive?: boolean; accent?: string;
 }) {
   const colorMap: Record<string, string> = {
-    emerald: "text-emerald-600 dark:text-emerald-400",
-    red: "text-red-600 dark:text-red-400",
+    emerald: "text-emerald-600 dark:text-success",
+    red: "text-red-600 dark:text-destructive",
     blue: "text-blue-600 dark:text-blue-400",
-    purple: "text-purple-600 dark:text-purple-400",
-    yellow: "text-yellow-600 dark:text-yellow-400",
-    gray: "text-gray-900 dark:text-gray-100",
+    purple: "text-purple-600 dark:text-primary",
+    yellow: "text-yellow-600 dark:text-warning",
+    gray: "text-foreground",
   };
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-3 sm:p-4">
-      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{label}</div>
+    <div className="bg-white dark:bg-muted rounded-xl border border-border dark:border-border p-3 sm:p-4">
+      <div className="text-xs text-muted-foreground mb-1">{label}</div>
       <div className={`text-base sm:text-lg font-bold font-mono ${positive === undefined ? colorMap.gray : positive ? colorMap[accent] : colorMap.red}`}>{value}</div>
-      <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{sub}</div>
+      <div className="text-xs text-muted-foreground/80 mt-0.5">{sub}</div>
     </div>
   );
 }
@@ -116,7 +116,7 @@ function MetricCard({ label, value, sub, positive, accent = "emerald" }: {
 function WhatIfButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
     <button onClick={onClick}
-      className={`px-3 py-2 rounded-lg text-xs font-medium border transition-all text-center w-full ${active ? "bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600 ring-1 ring-blue-400 text-blue-700 dark:text-blue-300" : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-blue-300"}`}>
+      className={`px-3 py-2 rounded-lg text-xs font-medium border transition-all text-center w-full ${active ? "bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600 ring-1 ring-blue-400 text-blue-700 dark:text-blue-300" : "bg-card border-border dark:border-border text-foreground dark:text-muted-foreground hover:border-blue-300"}`}>
       {label}
     </button>
   );
@@ -128,11 +128,11 @@ function WhatIfRow({ label, current, whatIf, diff, isPositive }: {
   const { i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
   return (
-    <div className="grid grid-cols-4 gap-2 py-2 px-2 sm:px-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 text-xs sm:text-sm border-b border-gray-100 dark:border-gray-800 last:border-0">
-      <div className={`text-gray-600 dark:text-gray-400 ${isRtl ? "text-right" : "text-left"}`}>{label}</div>
-      <div className={`text-gray-700 dark:text-gray-300 font-medium ${isRtl ? "text-right" : "text-left"}`}>{current}</div>
-      <div className={`text-gray-700 dark:text-gray-300 font-medium ${isRtl ? "text-right" : "text-left"}`}>{whatIf}</div>
-      <div className={`font-semibold font-mono ${isPositive ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"} ${isRtl ? "text-left" : "text-right"}`}>{diff}</div>
+    <div className="grid grid-cols-4 gap-2 py-2 px-2 sm:px-3 hover:bg-muted dark:hover:bg-muted text-xs sm:text-sm border-b border-border dark:border-border last:border-0">
+      <div className={`text-gray-600 dark:text-muted-foreground ${isRtl ? "text-right" : "text-left"}`}>{label}</div>
+      <div className={`text-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{current}</div>
+      <div className={`text-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{whatIf}</div>
+      <div className={`font-semibold font-mono ${isPositive ? "text-emerald-600 dark:text-success" : "text-red-600 dark:text-destructive"} ${isRtl ? "text-left" : "text-right"}`}>{diff}</div>
     </div>
   );
 }
@@ -140,8 +140,8 @@ function WhatIfRow({ label, current, whatIf, diff, isPositive }: {
 function BarSegment({ label, value, color, pct }: { label: string; value: string; color: string; pct: number }) {
   return (
     <div className="flex items-center gap-2 sm:gap-3">
-      <span className="text-xs text-gray-500 dark:text-gray-400 w-24 sm:w-28 shrink-0 truncate">{label}</span>
-      <div className="flex-1 h-5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <span className="text-xs text-muted-foreground w-24 sm:w-28 shrink-0 truncate">{label}</span>
+      <div className="flex-1 h-5 bg-muted dark:bg-muted rounded-full overflow-hidden">
         <div className="h-full rounded-full transition-all duration-500 flex items-center justify-end px-2"
           style={{ width: `${Math.max(2, pct)}%`, backgroundColor: color }}>
           <span className="text-xs font-semibold text-white drop-shadow-sm">{value}</span>
@@ -262,21 +262,21 @@ export default function UpsellPlanner() {
   const deleteScenario = (id: string) => persist(saved.filter((s) => s.id !== id));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-4 sm:py-6 px-3 sm:px-4" dir={i18n.dir()}>
+    <div className="min-h-screen bg-muted dark:bg-muted py-4 sm:py-6 px-3 sm:px-4" dir={i18n.dir()}>
       <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="p-2 sm:p-2.5 bg-amber-100 dark:bg-amber-900/30 rounded-xl">
-              <ArrowTrendingUpIcon className="w-6 h-6 sm:w-7 sm:h-7 text-amber-600 dark:text-amber-400" />
+            <div className="p-2 sm:p-2.5 bg-warning dark:bg-warning/30 rounded-xl">
+              <ArrowTrendingUpIcon className="w-6 h-6 sm:w-7 sm:h-7 text-warning dark:text-warning" />
             </div>
             <div>
-              <h1 className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100">{T("title")}</h1>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{T("subtitle")}</p>
+              <h1 className="text-base sm:text-lg font-bold text-foreground">{T("title")}</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground">{T("subtitle")}</p>
             </div>
           </div>
           <select value={currency} onChange={(e) => setCurrency(e.target.value)}
-            className="w-full sm:w-auto border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300">
+            className="w-full sm:w-auto border border-border bg-card rounded-lg px-3 py-1.5 text-sm text-foreground">
             {CURRENCIES.map((c) => <option key={c} value={c}>{c} - {sym(c)}</option>)}
           </select>
         </div>
@@ -284,7 +284,7 @@ export default function UpsellPlanner() {
         <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {(Object.keys(PRESETS) as Preset[]).map((p) => (
             <button key={p} onClick={() => loadPreset(p)}
-              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border transition-all ${preset === p ? "bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300" : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600"}`}>
+              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border transition-all ${preset === p ? "bg-amber-50 dark:bg-warning/20 border-warning dark:border-warning text-warning dark:text-warning" : "bg-card border-border dark:border-border text-muted-foreground hover:border-border"}`}>
               {T(`preset${p.charAt(0).toUpperCase() + p.slice(1)}`)}
             </button>
           ))}
@@ -293,25 +293,25 @@ export default function UpsellPlanner() {
         <div className="flex flex-wrap items-center gap-2">
           <input value={scenarioName} onChange={(e) => setScenarioName(e.target.value)}
             placeholder={T("scenarioName")}
-            className="flex-1 min-w-[140px] max-w-[220px] border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400" />
+            className="flex-1 min-w-[140px] max-w-[220px] border border-border bg-card rounded-lg px-3 py-1.5 text-sm text-foreground placeholder-muted" />
           <button onClick={saveScenario} disabled={saved.length >= 3}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-600 text-white hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all">
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-warning text-white hover:bg-warning disabled:opacity-40 disabled:cursor-not-allowed transition-all">
             <SaveIcon className="w-3.5 h-3.5" /> {T("saveScenario")}
           </button>
-          {saved.length > 0 && <span className="text-xs text-gray-400">{T("savedScenarios")}:</span>}
+          {saved.length > 0 && <span className="text-xs text-muted-foreground">{T("savedScenarios")}:</span>}
           {saved.map((sc) => (
-            <div key={sc.id} className="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg text-xs bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-              <button onClick={() => loadScenario(sc)} className="text-gray-700 dark:text-gray-300 hover:text-amber-600 truncate max-w-20 sm:max-w-none">{sc.name}</button>
-              <button onClick={() => deleteScenario(sc.id)} className="text-red-400 hover:text-red-600 shrink-0"><TrashIcon className="w-3 h-3" /></button>
+            <div key={sc.id} className="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg text-xs bg-muted dark:bg-muted border border-border dark:border-border">
+              <button onClick={() => loadScenario(sc)} className="text-foreground hover:text-warning truncate max-w-20 sm:max-w-none">{sc.name}</button>
+              <button onClick={() => deleteScenario(sc.id)} className="text-red-400 hover:text-destructive shrink-0"><TrashIcon className="w-3 h-3" /></button>
             </div>
           ))}
-          {saved.length >= 3 && <span className="text-xs text-amber-500">{T("maxSaved")}</span>}
+          {saved.length >= 3 && <span className="text-xs text-warning">{T("maxSaved")}</span>}
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 sm:gap-6">
           <div className="xl:col-span-2 space-y-4 sm:space-y-5">
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 space-y-5">
-              <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+            <div className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 space-y-5">
+              <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
                 <Cog6ToothIcon className="w-5 h-5" /> {T("calculate")}
               </h2>
               <SliderInput label={T("inputAov")} value={inputs.aov} min={50} max={10000} step={10} onChange={set("aov")} suffix={` ${sym(currency)}`} />
@@ -323,7 +323,7 @@ export default function UpsellPlanner() {
               <SliderInput label={T("inputDiscount")} value={inputs.discount} min={0} max={40} step={1} onChange={set("discount")} isPercent />
               <SliderInput label={T("inputMargin")} value={inputs.margin} min={5} max={80} step={1} onChange={set("margin")} isPercent />
               <button onClick={() => { setInputs({ ...DEFAULTS }); setActiveAction(null); }}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all w-full justify-center">
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border border-border text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-all w-full justify-center">
                 <ArrowPathIcon className="w-4 h-4" /> {T("reset")}
               </button>
             </div>
@@ -331,9 +331,9 @@ export default function UpsellPlanner() {
 
           <div className="xl:col-span-3 space-y-4 sm:space-y-5">
             {!inputs.aov || !inputs.orders ? (
-              <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 sm:p-8 text-center">
-                <CalculatorIcon className="w-10 h-10 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
-                <p className="text-sm text-gray-400 dark:text-gray-500">{T("noData")}</p>
+              <div className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-6 sm:p-8 text-center">
+                <CalculatorIcon className="w-10 h-10 mx-auto text-muted-foreground dark:text-foreground mb-3" />
+                <p className="text-sm text-muted-foreground/80">{T("noData")}</p>
               </div>
             ) : (
               <>
@@ -354,21 +354,21 @@ export default function UpsellPlanner() {
                 </div>
 
                 {chartData.length > 0 && (
-                  <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 space-y-3">
-                    <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{T("revenueBreakdown")}</h3>
+                  <div className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 space-y-3">
+                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{T("revenueBreakdown")}</h3>
                     {chartData.map((d, i) => (
                       <BarSegment key={i} label={d.label} value={d.value} color={d.color} pct={d.pct} />
                     ))}
                   </div>
                 )}
 
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 space-y-3">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{T("alerts")}</h3>
+                <div className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 space-y-3">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{T("alerts")}</h3>
                   {alerts.map((alert, i) => {
                     const colors = {
-                      success: "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300",
-                      warn: "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300",
-                      error: "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-300",
+                      success: "bg-emerald-50 dark:bg-success/20 border-success dark:border-success text-success dark:text-success",
+                      warn: "bg-yellow-50 dark:bg-warning/20 border-warning dark:border-warning text-warning dark:text-warning",
+                      error: "bg-red-50 dark:bg-destructive/20 border-destructive dark:border-destructive text-destructive dark:text-destructive",
                     };
                     const icons = {
                       success: <CheckCircleIcon className="w-4 h-4 shrink-0" />,
@@ -387,32 +387,32 @@ export default function UpsellPlanner() {
                   })}
                 </div>
 
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 space-y-3">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{T("benchmarks")}</h3>
+                <div className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 space-y-3">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{T("benchmarks")}</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-xs sm:text-sm border-collapse">
                       <thead>
-                        <tr className="border-b border-gray-200 dark:border-gray-700">
-                          <th className={`py-2 px-2 text-gray-500 dark:text-gray-400 font-medium ${isRtl ? "text-right" : "text-left"}`}>{T("benchmarks")}</th>
-                          <th className="py-2 px-2 text-gray-500 dark:text-gray-400 font-medium text-center">{T("upsellRate")}</th>
-                          <th className="py-2 px-2 text-gray-500 dark:text-gray-400 font-medium text-center">{T("crossRate")}</th>
-                          <th className="py-2 px-2 text-gray-500 dark:text-gray-400 font-medium text-center">VS</th>
+                        <tr className="border-b border-border dark:border-border">
+                          <th className={`py-2 px-2 text-muted-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{T("benchmarks")}</th>
+                          <th className="py-2 px-2 text-muted-foreground font-medium text-center">{T("upsellRate")}</th>
+                          <th className="py-2 px-2 text-muted-foreground font-medium text-center">{T("crossRate")}</th>
+                          <th className="py-2 px-2 text-muted-foreground font-medium text-center">VS</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                      <tbody className="divide-y divide-border dark:divide-border">
                         {INDUSTRY_BENCHMARKS.map((b) => {
                           const upsellOk = inputs.upsellRate >= b.upsellRate;
                           const crossOk = inputs.crossRate >= b.crossRate;
                           return (
-                            <tr key={b.key} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                              <td className={`py-2 px-2 text-gray-700 dark:text-gray-300 font-medium ${isRtl ? "text-right" : "text-left"}`}>{T(b.key)}</td>
+                            <tr key={b.key} className="hover:bg-gray-50 dark:hover:bg-muted">
+                              <td className={`py-2 px-2 text-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{T(b.key)}</td>
                               <td className="py-2 px-2 text-center">
-                                <span className={`inline-flex items-center gap-1 ${upsellOk ? "text-emerald-600 dark:text-emerald-400" : "text-red-500"}`}>
+                                <span className={`inline-flex items-center gap-1 ${upsellOk ? "text-emerald-600 dark:text-success" : "text-red-500"}`}>
                                   {b.upsellRate}% {upsellOk ? <ArrowUpIcon className="w-3 h-3" /> : <ArrowDownIcon className="w-3 h-3" />}
                                 </span>
                               </td>
                               <td className="py-2 px-2 text-center">
-                                <span className={`inline-flex items-center gap-1 ${crossOk ? "text-emerald-600 dark:text-emerald-400" : "text-red-500"}`}>
+                                <span className={`inline-flex items-center gap-1 ${crossOk ? "text-emerald-600 dark:text-success" : "text-red-500"}`}>
                                   {b.crossRate}% {crossOk ? <ArrowUpIcon className="w-3 h-3" /> : <ArrowDownIcon className="w-3 h-3" />}
                                 </span>
                               </td>
@@ -429,8 +429,8 @@ export default function UpsellPlanner() {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 space-y-3">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{T("quickActions")}</h3>
+                <div className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 space-y-3">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{T("quickActions")}</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                     {(Object.keys(whatIfResults) as WhatIfAction[]).map((action) => (
                       <WhatIfButton key={action} label={T(whatIfResults[action].labelKey)}
@@ -442,7 +442,7 @@ export default function UpsellPlanner() {
                     const wa = whatIfResults[activeAction];
                     return (
                       <div className="mt-2 space-y-2">
-                        <div className={`grid grid-cols-4 gap-2 py-1.5 px-2 sm:px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 ${isRtl ? "text-right" : "text-left"}`}>
+                        <div className={`grid grid-cols-4 gap-2 py-1.5 px-2 sm:px-3 text-xs font-semibold text-muted-foreground border-b border-border dark:border-border ${isRtl ? "text-right" : "text-left"}`}>
                           <span>{T("scenario")}</span>
                           <span>{T("current")}</span>
                           <span>{T("whatIf")}</span>
@@ -461,45 +461,45 @@ export default function UpsellPlanner() {
                   })()}
                 </div>
 
-                <details className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 group">
-                  <summary className="flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                <details className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 group">
+                  <summary className="flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-medium text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground">
                     <InformationCircleIcon className="w-4 h-4 shrink-0" />
                     <span>{T("recommendations")}</span>
-                    <SparklesIcon className="w-3.5 h-3.5 ml-auto text-yellow-500 opacity-0 group-open:opacity-100 transition-opacity" />
+                    <SparklesIcon className="w-3.5 h-3.5 ms-auto text-warning opacity-0 group-open:opacity-100 transition-opacity" />
                   </summary>
                   <div className="mt-3 space-y-3">
                     {[
-                      { icon: <GiftIcon className="w-4 h-4 text-amber-500" />, title: T("recommendation1"), desc: T("recommendation1Desc") },
-                      { icon: <SparklesIcon className="w-4 h-4 text-purple-500" />, title: T("recommendation2"), desc: T("recommendation2Desc") },
-                      { icon: <WalletIcon className="w-4 h-4 text-emerald-500" />, title: T("recommendation3"), desc: T("recommendation3Desc") },
+                      { icon: <GiftIcon className="w-4 h-4 text-warning" />, title: T("recommendation1"), desc: T("recommendation1Desc") },
+                      { icon: <SparklesIcon className="w-4 h-4 text-primary" />, title: T("recommendation2"), desc: T("recommendation2Desc") },
+                      { icon: <WalletIcon className="w-4 h-4 text-success" />, title: T("recommendation3"), desc: T("recommendation3Desc") },
                     ].map((rec, i) => (
-                      <div key={i} className="flex items-start gap-2.5 p-2.5 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                      <div key={i} className="flex items-start gap-2.5 p-2.5 bg-muted dark:bg-muted rounded-lg">
                         {rec.icon}
                         <div>
-                          <div className="text-xs font-semibold text-gray-700 dark:text-gray-300">{rec.title}</div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">{rec.desc}</div>
+                          <div className="text-xs font-semibold text-foreground">{rec.title}</div>
+                          <div className="text-xs text-muted-foreground">{rec.desc}</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </details>
 
-                <details className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 sm:p-5 group">
-                  <summary className="flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                <details className="bg-white dark:bg-muted rounded-xl shadow-sm border border-border dark:border-border p-4 sm:p-5 group">
+                  <summary className="flex items-center gap-2 cursor-pointer text-xs sm:text-sm font-medium text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground">
                     <CalculatorIcon className="w-4 h-4 shrink-0" />
                     <span>{T("formula")}</span>
                   </summary>
                   <div className="mt-3">
                     <table className="w-full text-xs sm:text-sm border-collapse">
                       <thead>
-                        <tr className="border-b border-gray-200 dark:border-gray-700">
-                          <th className={`py-2 px-2 sm:px-3 text-gray-500 dark:text-gray-400 font-medium ${isRtl ? "text-right" : "text-left"}`}>#</th>
-                          <th className={`py-2 px-2 sm:px-3 text-gray-500 dark:text-gray-400 font-medium ${isRtl ? "text-right" : "text-left"}`}>{T("scenario")}</th>
-                          <th className={`py-2 px-2 sm:px-3 text-gray-500 dark:text-gray-400 font-medium ${isRtl ? "text-right" : "text-left"}`}>{T("formula")}</th>
-                          <th className={`py-2 px-2 sm:px-3 text-gray-500 dark:text-gray-400 font-medium ${isRtl ? "text-left" : "text-right"}`}>{T("calculate")}</th>
+                        <tr className="border-b border-border dark:border-border">
+                          <th className={`py-2 px-2 sm:px-3 text-muted-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>#</th>
+                          <th className={`py-2 px-2 sm:px-3 text-muted-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{T("scenario")}</th>
+                          <th className={`py-2 px-2 sm:px-3 text-muted-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{T("formula")}</th>
+                          <th className={`py-2 px-2 sm:px-3 text-muted-foreground font-medium ${isRtl ? "text-left" : "text-right"}`}>{T("calculate")}</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                      <tbody className="divide-y divide-border dark:divide-border">
                         {[
                           { step: 1, label: T("formulaStep1"), formula: T("formulaStep1Eq"), result: fmtCurr(r.upsellRevenue) },
                           { step: 2, label: T("formulaStep2"), formula: T("formulaStep2Eq"), result: fmtCurr(r.crossRevenue) },
@@ -507,11 +507,11 @@ export default function UpsellPlanner() {
                           { step: 4, label: T("formulaStep4"), formula: T("formulaStep4Eq"), result: fmtCurr(r.newRevenue) },
                           { step: 5, label: T("formulaStep5"), formula: T("formulaStep5Eq"), result: fmtCurr(r.additionalProfit) },
                         ].map((row) => (
-                          <tr key={row.step} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                            <td className="py-2 px-2 sm:px-3 text-gray-400">{row.step}</td>
-                            <td className={`py-2 px-2 sm:px-3 text-gray-700 dark:text-gray-300 font-medium ${isRtl ? "text-right" : "text-left"}`}>{row.label}</td>
-                            <td className={`py-2 px-2 sm:px-3 text-gray-500 dark:text-gray-400 font-mono ${isRtl ? "text-right" : "text-left"}`}>{row.formula}</td>
-                            <td className={`py-2 px-2 sm:px-3 font-semibold font-mono text-amber-600 dark:text-amber-400 ${isRtl ? "text-left" : "text-right"}`}>{row.result}</td>
+                          <tr key={row.step} className="hover:bg-gray-50 dark:hover:bg-muted">
+                            <td className="py-2 px-2 sm:px-3 text-muted-foreground">{row.step}</td>
+                            <td className={`py-2 px-2 sm:px-3 text-foreground font-medium ${isRtl ? "text-right" : "text-left"}`}>{row.label}</td>
+                            <td className={`py-2 px-2 sm:px-3 text-muted-foreground font-mono ${isRtl ? "text-right" : "text-left"}`}>{row.formula}</td>
+                            <td className={`py-2 px-2 sm:px-3 font-semibold font-mono text-warning dark:text-warning ${isRtl ? "text-left" : "text-right"}`}>{row.result}</td>
                           </tr>
                         ))}
                       </tbody>

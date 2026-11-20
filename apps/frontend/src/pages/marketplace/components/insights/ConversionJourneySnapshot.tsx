@@ -40,8 +40,8 @@ export const ConversionJourneySnapshot: React.FC<ConversionJourneySnapshotProps>
 }) => {
   return (
     <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-        <div className="mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+      <div className="rounded-xl border border-border bg-white p-6 dark:border-border dark:bg-muted">
+        <div className="mb-4 flex items-center gap-2 text-foreground">
           <ShoppingCart size={18} />
           <span className="font-semibold">Journey Snapshot</span>
         </div>
@@ -95,17 +95,17 @@ export const ConversionJourneySnapshot: React.FC<ConversionJourneySnapshotProps>
           ].map((item) => (
             <div
               key={item.label}
-              className="flex items-center justify-between gap-4 rounded-xl border border-gray-200 p-4 dark:border-gray-700"
+              className="flex items-center justify-between gap-4 rounded-xl border border-border p-4 dark:border-border"
             >
               <div>
-                <div className="font-semibold text-gray-900 dark:text-white">
+                <div className="font-semibold text-foreground">
                   {item.label}
                 </div>
-                <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <div className="mt-1 text-sm text-foreground dark:text-muted-foreground">
                   {item.hint}
                 </div>
               </div>
-              <div className="text-2xl font-bold tabular-nums font-mono text-gray-900 dark:text-white">
+              <div className="text-2xl font-bold tabular-nums font-mono text-foreground">
                 {item.value}
               </div>
             </div>
@@ -165,8 +165,8 @@ export const ConversionJourneySnapshot: React.FC<ConversionJourneySnapshotProps>
           />
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-          <div className="mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+        <div className="rounded-xl border border-border bg-white p-6 dark:border-border dark:bg-muted">
+          <div className="mb-4 flex items-center gap-2 text-foreground">
             <BarChart3 size={18} />
             <span className="font-semibold">Key Rates</span>
           </div>
@@ -239,17 +239,17 @@ export const ConversionJourneySnapshot: React.FC<ConversionJourneySnapshotProps>
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-xl border border-gray-200 p-4 dark:border-gray-700"
+                className="rounded-xl border border-border p-4 dark:border-border"
               >
                 <div className="flex items-center justify-between gap-4">
-                  <div className="font-semibold text-gray-900 dark:text-white">
+                  <div className="font-semibold text-foreground">
                     {item.label}
                   </div>
                   <div className="text-lg font-bold tabular-nums font-mono text-blue-600 dark:text-blue-300">
                     {item.value}
                   </div>
                 </div>
-                <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <div className="mt-1 text-sm text-foreground dark:text-muted-foreground">
                   {item.hint}
                 </div>
               </div>

@@ -40,17 +40,17 @@ export default function UpsellManualManager({ active }: UpsellManualManagerProps
 
   return (
     <section className="space-y-6">
-      <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-blue-700 dark:bg-blue-900/30 dark:text-blue-200">
               <Link2 size={14} />
               Manual Links
             </div>
-            <h2 className="mt-3 text-2xl font-black text-gray-900 dark:text-white">
+            <h2 className="mt-3 text-2xl font-black text-foreground">
               مدير ربط المنتجات
             </h2>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-foreground dark:text-muted-foreground">
               اختر المنتج الأساسي، ثم اربط له المنتجات المشابهة أو المكملة أو الأعلى قيمة
               من نفس الشاشة بدل الدخول لكل منتج يدويًا.
             </p>
@@ -80,22 +80,22 @@ export default function UpsellManualManager({ active }: UpsellManualManagerProps
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="text-xs font-bold uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">
               Link Builder
             </div>
-            <h3 className="mt-2 text-2xl font-black text-gray-900 dark:text-white">
+            <h3 className="mt-2 text-2xl font-black text-foreground">
               اختر نوع الربط الذي تريد إدارته
             </h3>
-            <p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-sm leading-7 text-foreground dark:text-muted-foreground">
               كل تبويب هنا يغيّر مجموعة مختلفة من العلاقات للمنتج المحدد.
             </p>
           </div>
 
           {productLoading ? (
-            <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            <div className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-semibold text-foreground dark:bg-muted dark:text-muted-foreground">
               <Loader2 size={16} className="animate-spin" />
               جارٍ تحميل المنتج...
             </div>

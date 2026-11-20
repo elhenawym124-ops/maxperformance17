@@ -48,7 +48,7 @@ export const AgentDossierSection: React.FC<AgentDossierSectionProps> = ({
                 <Zap className="size-3 text-primary stroke-[1.5]" />
                 <span>{tool}</span>
               </div>
-              <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+              <span className="text-[10px] font-medium text-success dark:text-success bg-success/10 px-2 py-0.5 rounded">
                 صلاحية مؤكدة
               </span>
             </div>
@@ -59,10 +59,10 @@ export const AgentDossierSection: React.FC<AgentDossierSectionProps> = ({
       {/* Governance & Boundaries */}
       <div className="space-y-2">
         <h3 className="text-xs font-semibold text-foreground uppercase tracking-wider flex items-center gap-1.5">
-          <Lock className="size-3 stroke-[1.5] text-amber-500" />
+          <Lock className="size-3 stroke-[1.5] text-warning" />
           <span>حدود الأمان الصارمة (Governance Boundaries)</span>
         </h3>
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 space-y-2 text-xs">
+        <div className="rounded-xl border border-warning/20 bg-warning/5 p-3 space-y-2 text-xs">
           {dossier.boundaries.map((boundary, idx) => (
             <div key={idx} className="flex items-start gap-2 text-muted-foreground">
               <span className="text-amber-500 text-xs shrink-0 font-bold">•</span>

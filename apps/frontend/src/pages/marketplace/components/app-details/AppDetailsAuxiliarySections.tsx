@@ -41,7 +41,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
     <div className="space-y-5">
       {/* Video Explanation Section */}
       {appExplanation?.videoUrl && (
-        <section className="rounded-2xl border bg-card p-5 text-right">
+        <section className="rounded-xl border bg-card p-5 text-right">
           <h2 className="text-xl font-extrabold text-foreground mb-4 flex items-center justify-end gap-2">
             <span>شرح بالفيديو</span>
             <PlayCircle size={20} className="text-primary" />
@@ -82,7 +82,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
 
       {/* Pricing Rules */}
       {app.pricingRules && app.pricingRules.length > 0 && (
-        <section className="rounded-2xl border bg-card p-5 text-right">
+        <section className="rounded-xl border bg-card p-5 text-right">
           <h2 className="text-xl font-extrabold text-foreground">
             {t("marketplace.pricing")}
           </h2>
@@ -120,7 +120,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
       {(normalizedRequiredApps.length > 0 || limitations) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {normalizedRequiredApps.length > 0 && (
-            <section className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5 text-right">
+            <section className="rounded-xl border border-warning/20 bg-warning/5 p-5 text-right">
               <h3 className="text-foreground mb-3 flex items-center justify-end gap-2 font-bold">
                 <span>متطلبات التشغيل</span>
                 <AlertCircle size={19} className="text-amber-600" />
@@ -140,7 +140,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
                           ? req
                           : req.name || req.slug || ""}
                       </span>
-                      <span className="h-2 w-2 rounded-full bg-amber-500" />
+                      <span className="h-2 w-2 rounded-full bg-warning" />
                     </li>
                   )
                 )}
@@ -148,7 +148,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
             </section>
           )}
           {limitations && Object.keys(limitations).length > 0 && (
-            <section className="rounded-2xl border bg-card p-5 text-right">
+            <section className="rounded-xl border bg-card p-5 text-right">
               <h3 className="text-foreground mb-3 flex items-center justify-end gap-2 font-bold">
                 <span>القيود</span>
                 <Shield size={19} className="text-primary" />
@@ -167,7 +167,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
       )}
 
       {/* Support & Documentation Links */}
-      <section className="rounded-2xl border bg-card p-5 text-right">
+      <section className="rounded-xl border bg-card p-5 text-right">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-foreground flex items-center justify-end gap-2 font-bold">
             <span>{t("marketplace.support")}</span>
@@ -228,7 +228,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
 
       {/* Developer Information Card */}
       {app.developer && (
-        <section className="rounded-2xl border bg-card p-5 text-right">
+        <section className="rounded-xl border bg-card p-5 text-right">
           <h3 className="text-foreground mb-4 flex items-center justify-end gap-2 font-bold">
             <span>{t("marketplace.developerInfo")}</span>
             <Users size={19} className="text-primary" />
@@ -265,7 +265,7 @@ export const AppDetailsAuxiliarySections: React.FC<AppDetailsAuxiliarySectionsPr
                 )}
                 {app.developer.averageRating && (
                   <span className="inline-flex items-center gap-0.5 tabular-nums font-mono">
-                    <Star size={10} className="fill-amber-400 text-amber-400" />
+                    <Star size={10} className="fill-amber-400 text-warning" />
                     {app.developer.averageRating.toFixed(1)}
                   </span>
                 )}

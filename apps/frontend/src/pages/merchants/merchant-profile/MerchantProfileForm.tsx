@@ -31,11 +31,11 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
-  const cardClass = isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
+  const cardClass = isDark ? "bg-gray-800 border-border" : "bg-white border-border";
   const inputClass = `w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 transition ${
     isDark
-      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-      : "bg-white border-gray-300 text-gray-900"
+      ? "bg-gray-700 border-border text-white placeholder-muted"
+      : "bg-white border-border text-foreground"
   }`;
 
   return (
@@ -159,8 +159,8 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
         <div
           className={`rounded-lg border p-4 ${
             isDark
-              ? "border-amber-700 bg-amber-900/20"
-              : "border-amber-200 bg-amber-50"
+              ? "border-amber-700 bg-warning/20"
+              : "border-amber-200 bg-warning/10"
           }`}
         >
           <h3
@@ -282,7 +282,7 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
                 setFormData({ ...formData, autoFulfill: e.target.checked })
               }
               disabled={!isEditMode}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
             />
             <span className={isDark ? "text-gray-300" : "text-gray-700"}>
               تفعيل الوفاء التلقائي للطلبات
@@ -297,7 +297,7 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
                 setFormData({ ...formData, isActive: e.target.checked })
               }
               disabled={!isEditMode}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
             />
             <span className={isDark ? "text-gray-300" : "text-gray-700"}>
               التاجر نشط
@@ -319,8 +319,8 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
               onClick={onCancel}
               className={`px-6 py-3 border rounded-lg transition font-medium ${
                 isDark
-                  ? "border-gray-600 text-gray-300 hover:bg-gray-700"
-                  : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                  ? "border-gray-600 text-muted-foreground hover:bg-muted"
+                  : "border-gray-300 text-foreground hover:bg-muted"
               }`}
             >
               إلغاء

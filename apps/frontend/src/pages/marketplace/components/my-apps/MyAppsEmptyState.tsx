@@ -24,9 +24,9 @@ export const MyAppsEmptyState: React.FC<MyAppsEmptyStateProps> = ({
   // Case 1: Absolutely zero apps installed
   if (totalAppsCount === 0) {
     return (
-      <div className="rounded-3xl border border-dashed border-border/80 bg-card/40 p-6 sm:p-10 text-center space-y-6">
+      <div className="rounded-xl border border-dashed border-border/80 bg-card/40 p-6 sm:p-10 text-center space-y-6">
         <div className="max-w-md mx-auto space-y-2">
-          <div className="size-16 rounded-3xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+          <div className="size-16 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
             <AppWindow size={32} />
           </div>
           <h2 className="text-xl font-black text-foreground">لم يتم تفعيل أي تطبيقات بعد</h2>
@@ -55,7 +55,7 @@ export const MyAppsEmptyState: React.FC<MyAppsEmptyStateProps> = ({
               return (
                 <div
                   key={item.slug}
-                  className="rounded-2xl border border-border/40 bg-card p-4 flex flex-col justify-between text-right hover:border-primary/40 transition-all group"
+                  className="rounded-xl border border-border/40 bg-card p-4 flex flex-col justify-between text-right hover:border-primary/40 transition-all group"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -95,8 +95,8 @@ export const MyAppsEmptyState: React.FC<MyAppsEmptyStateProps> = ({
   const isSelectedHubEmpty = selectedHub !== "ALL" && (!hubCounts[selectedHub] || hubCounts[selectedHub] === 0);
 
   return (
-    <div className="text-center py-16 px-4 rounded-3xl border border-border/40 bg-card/30 space-y-3">
-      <div className="size-14 rounded-2xl bg-muted/60 text-muted-foreground flex items-center justify-center mx-auto mb-2">
+    <div className="text-center py-16 px-4 rounded-xl border border-border/40 bg-card/30 space-y-3">
+      <div className="size-14 rounded-xl bg-muted/60 text-muted-foreground flex items-center justify-center mx-auto mb-2">
         <Search size={24} />
       </div>
       {isSelectedHubEmpty ? (

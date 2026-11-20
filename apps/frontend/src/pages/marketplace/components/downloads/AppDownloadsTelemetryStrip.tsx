@@ -21,7 +21,7 @@ export function AppDownloadsTelemetryStrip({
   onCopyTokenOnly,
 }: AppDownloadsTelemetryStripProps) {
   return (
-    <div className="rounded-2xl border border-border/40 bg-card overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-border/40 shadow-sm">
+    <div className="rounded-xl border border-border/40 bg-card overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-border/40 shadow-sm">
       {/* Telemetry 1: Auto-Detected Device */}
       <div
         role="button"
@@ -35,13 +35,13 @@ export function AppDownloadsTelemetryStrip({
       >
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs font-medium text-muted-foreground">جهازك المكتشف</span>
-          <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="size-2 rounded-full bg-success animate-pulse" />
         </div>
         <div className="flex items-baseline gap-2">
           <span className="text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors text-balance">
             {osLabel}
           </span>
-          <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+          <span className="text-[11px] font-semibold text-success dark:text-success">
             متوافق 100%
           </span>
         </div>
@@ -122,7 +122,7 @@ export function AppDownloadsTelemetryStrip({
           </span>
         </div>
         <span className="text-[11px] text-primary mt-0.5 flex items-center gap-1 group-hover:underline">
-          {copiedToken ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+          {copiedToken ? <Check className="size-3 text-success" /> : <Copy className="size-3" />}
           <span>{copiedToken ? "تم نسخ الرمز" : "انقر لنسخ المعرّف"}</span>
         </span>
       </div>

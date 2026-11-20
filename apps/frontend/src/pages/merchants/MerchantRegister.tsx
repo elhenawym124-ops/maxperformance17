@@ -147,8 +147,8 @@ const MerchantRegister: React.FC = () => {
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               placeholder="اسم التاجر أو الشركة"
               required
@@ -170,8 +170,8 @@ const MerchantRegister: React.FC = () => {
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               placeholder="email@example.com"
               required
@@ -194,8 +194,8 @@ const MerchantRegister: React.FC = () => {
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               placeholder="اتركها فارغة إذا لم تريد إنشاء حساب دخول"
             />
@@ -221,8 +221,8 @@ const MerchantRegister: React.FC = () => {
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               placeholder="01xxxxxxxxx"
             />
@@ -243,8 +243,8 @@ const MerchantRegister: React.FC = () => {
               rows={3}
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               placeholder="عنوان التاجر"
             />
@@ -271,8 +271,8 @@ const MerchantRegister: React.FC = () => {
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               required
             />
@@ -284,7 +284,7 @@ const MerchantRegister: React.FC = () => {
           </div>
 
           <div
-            className={`${isDark ? "bg-amber-900/20 border-amber-700" : "bg-amber-50 border-amber-200"} border rounded-lg p-4`}
+            className={`${isDark ? "bg-amber-900/20 border-warning" : "bg-amber-50 border-warning"} border rounded-lg p-4`}
           >
             <h3
               className={`font-semibold ${isDark ? "text-amber-200" : "text-amber-900"} mb-2`}
@@ -320,8 +320,8 @@ const MerchantRegister: React.FC = () => {
                 }
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                   isDark
-                    ? "bg-gray-700 border-gray-600 text-white"
-                    : "bg-white border-gray-300 text-gray-900"
+                    ? "bg-gray-700 border-border text-white"
+                    : "bg-white border-border text-foreground"
                 }`}
               >
                 <option value="MERCHANT">التاجر يشحن من مخزونه</option>
@@ -347,8 +347,8 @@ const MerchantRegister: React.FC = () => {
                 }
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 disabled:opacity-60 ${
                   isDark
-                    ? "bg-gray-700 border-gray-600 text-white"
-                    : "bg-white border-gray-300 text-gray-900"
+                    ? "bg-gray-700 border-border text-white"
+                    : "bg-white border-border text-foreground"
                 }`}
               >
                 <option value="">
@@ -383,8 +383,8 @@ const MerchantRegister: React.FC = () => {
               disabled={optionsLoading}
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 disabled:opacity-60 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white"
+                  : "bg-white border-border text-foreground"
               }`}
             >
               <option value="">بدون شركة شحن افتراضية</option>
@@ -416,8 +416,8 @@ const MerchantRegister: React.FC = () => {
               }
               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
                 isDark
-                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                  : "bg-white border-gray-300 text-gray-900"
+                  ? "bg-gray-700 border-border text-white placeholder-muted"
+                  : "bg-white border-border text-foreground"
               }`}
               placeholder="https://example.com/webhook"
             />
@@ -437,11 +437,11 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, autoFulfill: e.target.checked })
               }
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
             />
             <label
               htmlFor="autoFulfill"
-              className={`mr-2 text-sm ${isDark ? "text-gray-300" : "text-gray-700"}`}
+              className={`me-2 text-sm ${isDark ? "text-gray-300" : "text-gray-700"}`}
             >
               تفعيل الوفاء التلقائي للطلبات
             </label>
@@ -455,11 +455,11 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, isActive: e.target.checked })
               }
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
             />
             <label
               htmlFor="isActive"
-              className={`mr-2 text-sm ${isDark ? "text-gray-300" : "text-gray-700"}`}
+              className={`me-2 text-sm ${isDark ? "text-gray-300" : "text-gray-700"}`}
             >
               تفعيل حساب التاجر فور الإنشاء
             </label>
@@ -498,8 +498,8 @@ const MerchantRegister: React.FC = () => {
               onClick={() => navigate(-1)}
               className={`px-6 py-3 border rounded-lg transition ${
                 isDark
-                  ? "border-gray-600 text-gray-300 hover:bg-gray-700"
-                  : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                  ? "border-gray-600 text-muted-foreground hover:bg-muted"
+                  : "border-gray-300 text-foreground hover:bg-muted"
               }`}
             >
               إلغاء

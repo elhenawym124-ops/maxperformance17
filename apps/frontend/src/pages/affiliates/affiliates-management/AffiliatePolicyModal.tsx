@@ -27,13 +27,13 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4">
       <div
-        className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl shadow-xl ${
+        className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-xl shadow-xl ${
           isDark
-            ? "bg-gray-800 border border-gray-700"
-            : "bg-white border border-gray-200"
+            ? "bg-gray-800 border border-border"
+            : "bg-white border border-border"
         }`}
       >
-        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-4 sm:p-6 border-b border-border dark:border-border">
           <h2
             className={`text-xl font-bold ${
               isDark ? "text-white" : "text-gray-900"
@@ -72,15 +72,15 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
               }
               className={`w-full rounded-xl border px-4 py-2 tabular-nums ${
                 isDark
-                  ? "bg-gray-900 border-gray-700 text-white"
-                  : "bg-white border-gray-200 text-gray-900"
+                  ? "bg-gray-900 border-border text-white"
+                  : "bg-white border-border text-foreground"
               }`}
             />
           </div>
 
           <label
             className={`flex items-center justify-between rounded-xl border px-4 py-3 cursor-pointer ${
-              isDark ? "border-gray-700 bg-gray-900" : "border-gray-200 bg-gray-50"
+              isDark ? "border-gray-700 bg-muted" : "border-gray-200 bg-muted"
             }`}
           >
             <div>
@@ -91,7 +91,7 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
               >
                 السماح بالطلبات المباشرة
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground">
                 تمكين المسوق من إنشاء طلبات نيابة عن العملاء
               </p>
             </div>
@@ -105,13 +105,13 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
                   canCreateOrdersForOthers: e.target.checked,
                 })
               }
-              className="h-4 w-4 text-indigo-600 rounded border-gray-300"
+              className="h-4 w-4 text-primary rounded border-border"
             />
           </label>
 
           <label
             className={`flex items-center justify-between rounded-xl border px-4 py-3 cursor-pointer ${
-              isDark ? "border-gray-700 bg-gray-900" : "border-gray-200 bg-gray-50"
+              isDark ? "border-gray-700 bg-muted" : "border-gray-200 bg-muted"
             }`}
           >
             <div>
@@ -122,7 +122,7 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
               >
                 عرض بيانات العملاء
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground">
                 إظهار بيانات العميل في صفحات العملاء والإحالات
               </p>
             </div>
@@ -136,19 +136,19 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
                   canViewCustomerData: e.target.checked,
                 })
               }
-              className="h-4 w-4 text-indigo-600 rounded border-gray-300"
+              className="h-4 w-4 text-primary rounded border-border"
             />
           </label>
         </div>
 
-        <div className="flex justify-end gap-3 p-4 sm:p-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex justify-end gap-3 p-4 sm:p-6 border-t border-border dark:border-border">
           <button
             type="button"
             onClick={onClose}
             className={`rounded-xl px-4 py-2 text-sm font-medium ${
               isDark
-                ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "bg-gray-700 text-muted-foreground hover:bg-muted"
+                : "bg-gray-100 text-foreground hover:bg-muted"
             }`}
           >
             إلغاء
@@ -157,7 +157,7 @@ export const AffiliatePolicyModal: React.FC<AffiliatePolicyModalProps> = ({
             type="button"
             onClick={onSave}
             disabled={savingPolicy}
-            className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-60 transition"
+            className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary disabled:opacity-60 transition"
           >
             {savingPolicy ? "جارٍ الحفظ..." : "حفظ التغييرات"}
           </button>

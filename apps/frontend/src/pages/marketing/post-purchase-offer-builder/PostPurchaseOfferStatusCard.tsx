@@ -14,11 +14,11 @@ export const PostPurchaseOfferStatusCard: React.FC<
   const isRtl = getDirection() === "rtl";
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm space-y-4">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <h3 className="font-bold text-base text-foreground flex items-center gap-2">
-            <Zap className="w-4 h-4 text-emerald-600" />
+            <Zap className="w-4 h-4 text-success" />
             حالة العرض الخاص بعد الطلب
           </h3>
           <p className="text-xs text-muted-foreground mt-0.5">
@@ -34,7 +34,7 @@ export const PostPurchaseOfferStatusCard: React.FC<
             setOffer((prev) => ({ ...prev, enabled: !prev.enabled }))
           }
           className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors cursor-pointer ${
-            offer.enabled ? "bg-emerald-600" : "bg-gray-300 dark:bg-gray-700"
+            offer.enabled ? "bg-emerald-600" : "bg-gray-300 dark:bg-muted"
           }`}
         >
           <span
@@ -52,8 +52,8 @@ export const PostPurchaseOfferStatusCard: React.FC<
       </div>
 
       {offer.enabled && !offer.productId && (
-        <div className="rounded-xl border border-amber-300/80 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200 flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+        <div className="rounded-xl border border-warning/80 bg-warning/10 p-3 text-xs text-warning dark:text-warning flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-warning shrink-0" />
           <span>
             يرجى اختيار المنتج المعروض من الكتالوج أدناه لتفعيل العرض للعملاء.
           </span>

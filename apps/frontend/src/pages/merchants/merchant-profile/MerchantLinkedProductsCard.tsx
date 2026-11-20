@@ -11,7 +11,7 @@ interface MerchantLinkedProductsCardProps {
 export const MerchantLinkedProductsCard: React.FC<
   MerchantLinkedProductsCardProps
 > = ({ isDark, products, fulfillmentModeLabel }) => {
-  const cardClass = isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
+  const cardClass = isDark ? "bg-gray-800 border-border" : "bg-white border-border";
   const textMutedClass = isDark ? "text-gray-400" : "text-gray-500";
 
   return (
@@ -29,7 +29,7 @@ export const MerchantLinkedProductsCard: React.FC<
             <div
               key={merchantProduct.id}
               className={`rounded-lg border px-4 py-3 ${
-                isDark ? "border-gray-700 bg-gray-900/40" : "border-gray-100 bg-gray-50"
+                isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-muted"
               }`}
             >
               <p

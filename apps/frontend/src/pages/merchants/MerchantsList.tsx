@@ -122,15 +122,15 @@ const payoutStatusLabels: Record<string, string> = {
 
 const payoutStatusClasses = (status: string, isDark: boolean) => {
   if (status === "PROCESSED") {
-    return isDark ? "bg-emerald-900/50 text-emerald-200" : "bg-emerald-100 text-emerald-800";
+    return isDark ? "bg-emerald-900/50 text-success" : "bg-emerald-100 text-success";
   }
   if (status === "PENDING") {
-    return isDark ? "bg-amber-900/50 text-amber-200" : "bg-amber-100 text-amber-800";
+    return isDark ? "bg-amber-900/50 text-warning" : "bg-amber-100 text-warning";
   }
   if (status === "CANCELLED") {
-    return isDark ? "bg-gray-700 text-gray-200" : "bg-gray-100 text-gray-700";
+    return isDark ? "bg-gray-700 text-muted-foreground" : "bg-gray-100 text-foreground";
   }
-  return isDark ? "bg-red-900/50 text-red-200" : "bg-red-100 text-red-800";
+  return isDark ? "bg-red-900/50 text-destructive" : "bg-red-100 text-destructive";
 };
 
 const formatMoney = (value: string | number | undefined, currency = "EGP") =>
@@ -375,7 +375,7 @@ const MerchantsList: React.FC = () => {
 
         <section
           className={`mb-6 rounded-lg border p-5 shadow-sm ${
-            isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"
+            isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"
           }`}
         >
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -401,8 +401,8 @@ const MerchantsList: React.FC = () => {
                   to={to}
                   className={`rounded-lg px-3 py-2 text-sm font-bold transition ${
                     isDark
-                      ? "bg-gray-700 text-gray-100 hover:bg-gray-600"
-                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                      ? "bg-gray-700 text-muted-foreground hover:bg-muted"
+                      : "bg-gray-100 text-foreground hover:bg-muted"
                   }`}
                 >
                   {label}
@@ -426,8 +426,8 @@ const MerchantsList: React.FC = () => {
                 key={label}
                 className={`rounded-lg border p-4 ${
                   isDark
-                    ? "border-gray-700 bg-gray-900/40"
-                    : "border-gray-100 bg-gray-50"
+                    ? "border-gray-700 bg-muted"
+                    : "border-gray-100 bg-muted"
                 }`}
               >
                 <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -448,7 +448,7 @@ const MerchantsList: React.FC = () => {
             className={`${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow overflow-hidden`}
           >
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-border">
                 <thead className={isDark ? "bg-gray-700" : "bg-gray-50"}>
                   <tr>
                     <th
@@ -517,7 +517,7 @@ const MerchantsList: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody
-                  className={`${isDark ? "bg-gray-800 divide-gray-700" : "bg-white divide-gray-200"} divide-y`}
+                  className={`${isDark ? "bg-gray-800 divide-border" : "bg-white divide-border"} divide-y`}
                 >
                   {merchants.map((merchant) => {
                     const merchantOperations = getMerchantOperationsTotals(merchant);
@@ -597,11 +597,11 @@ const MerchantsList: React.FC = () => {
                           className={`px-2 py-1 text-xs rounded-full ${
                             merchant.isActive
                               ? isDark
-                                ? "bg-green-900/50 text-green-300"
-                                : "bg-green-100 text-green-800"
+                                ? "bg-green-900/50 text-success"
+                                : "bg-green-100 text-success"
                               : isDark
-                                ? "bg-red-900/50 text-red-300"
-                                : "bg-red-100 text-red-800"
+                                ? "bg-red-900/50 text-destructive"
+                                : "bg-red-100 text-destructive"
                           }`}
                         >
                           {merchant.isActive ? "نشط" : "غير نشط"}
@@ -624,8 +624,8 @@ const MerchantsList: React.FC = () => {
                             }
                             className={`flex items-center gap-1 transition ${
                               isDark
-                                ? "text-gray-400 hover:text-gray-300"
-                                : "text-gray-600 hover:text-gray-800"
+                                ? "text-gray-400 hover:text-muted-foreground"
+                                : "text-gray-600 hover:text-foreground"
                             }`}
                           >
                             <PencilIcon className="h-4 w-4" />
@@ -633,19 +633,19 @@ const MerchantsList: React.FC = () => {
                           </button>
                           <Link
                             to="/orders"
-                            className={isDark ? "text-indigo-300 hover:text-indigo-200" : "text-indigo-600 hover:text-indigo-800"}
+                            className={isDark ? "text-indigo-300 hover:text-primary" : "text-indigo-600 hover:text-primary"}
                           >
                             الطلبات
                           </Link>
                           <Link
                             to="/inventory"
-                            className={isDark ? "text-emerald-300 hover:text-emerald-200" : "text-emerald-600 hover:text-emerald-800"}
+                            className={isDark ? "text-emerald-300 hover:text-success" : "text-emerald-600 hover:text-success"}
                           >
                             المخزون
                           </Link>
                           <Link
                             to="/products"
-                            className={isDark ? "text-amber-300 hover:text-amber-200" : "text-amber-600 hover:text-amber-800"}
+                            className={isDark ? "text-amber-300 hover:text-warning" : "text-amber-600 hover:text-warning"}
                           >
                             المنتجات
                           </Link>
@@ -683,7 +683,7 @@ const MerchantsList: React.FC = () => {
           <div className="flex flex-col gap-4 border-b px-6 py-5 md:flex-row md:items-center md:justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <BanknotesIcon className="h-6 w-6 text-emerald-600" />
+                <BanknotesIcon className="h-6 w-6 text-success" />
                 <h2
                   className={`text-xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}
                 >
@@ -697,7 +697,7 @@ const MerchantsList: React.FC = () => {
             <button
               type="button"
               onClick={loadMerchants}
-              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-emerald-700"
+              className="rounded-lg bg-success px-4 py-2 text-sm font-bold text-white transition hover:bg-success"
             >
               تحديث المستحقات
             </button>
@@ -711,7 +711,7 @@ const MerchantsList: React.FC = () => {
             ].map(([label, value]) => (
               <div
                 key={label}
-                className={`rounded-lg border p-4 ${isDark ? "border-gray-700 bg-gray-900/40" : "border-gray-100 bg-gray-50"}`}
+                className={`rounded-lg border p-4 ${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-muted"}`}
               >
                 <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                   {label}
@@ -727,7 +727,7 @@ const MerchantsList: React.FC = () => {
 
           {merchantPayouts.length > 0 ? (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-border">
                 <thead className={isDark ? "bg-gray-700" : "bg-gray-50"}>
                   <tr>
                     {["التاجر", "تاريخ الطلب", "الحالة", "الطريقة", "عدد العمولات", "المبلغ", "إجراء"].map(
@@ -743,7 +743,7 @@ const MerchantsList: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody
-                  className={`${isDark ? "bg-gray-800 divide-gray-700" : "bg-white divide-gray-200"} divide-y`}
+                  className={`${isDark ? "bg-gray-800 divide-border" : "bg-white divide-border"} divide-y`}
                 >
                   {merchantPayouts.map((payout) => (
                     <tr
@@ -785,7 +785,7 @@ const MerchantsList: React.FC = () => {
                               type="button"
                               onClick={() => recordPayoutTransfer(payout)}
                               disabled={processingPayoutId === payout.id}
-                              className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-bold text-white transition hover:bg-emerald-700 disabled:opacity-60"
+                              className="inline-flex items-center gap-1 rounded-lg bg-success px-3 py-2 text-xs font-bold text-white transition hover:bg-success disabled:opacity-60"
                             >
                               <CheckCircleIcon className="h-4 w-4" />
                               تسجيل تحويل
@@ -796,8 +796,8 @@ const MerchantsList: React.FC = () => {
                               disabled={processingPayoutId === payout.id}
                               className={`inline-flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-bold transition disabled:opacity-60 ${
                                 isDark
-                                  ? "bg-red-900/50 text-red-100 hover:bg-red-900"
-                                  : "bg-red-50 text-red-700 hover:bg-red-100"
+                                  ? "bg-red-900/50 text-destructive hover:bg-destructive"
+                                  : "bg-red-50 text-destructive hover:bg-destructive"
                               }`}
                             >
                               <XCircleIcon className="h-4 w-4" />
@@ -817,7 +817,7 @@ const MerchantsList: React.FC = () => {
             </div>
           ) : (
             <div className="px-6 pb-6">
-              <p className={`rounded-lg border p-6 text-center ${isDark ? "border-gray-700 text-gray-400" : "border-gray-100 text-gray-500"}`}>
+              <p className={`rounded-lg border p-6 text-center ${isDark ? "border-gray-700 text-muted-foreground" : "border-gray-100 text-muted-foreground"}`}>
                 لا توجد طلبات سحب للتجار حتى الآن.
               </p>
             </div>

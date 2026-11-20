@@ -36,9 +36,9 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
   onPageChange,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-      <div className="p-4 border-b border-gray-100 dark:border-gray-700">
-        <h2 className="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+    <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
+      <div className="p-4 border-b border-border dark:border-border">
+        <h2 className="text-lg font-bold text-foreground dark:text-white flex items-center gap-2">
           <ShoppingCartIcon className="w-5 h-5 text-blue-600" />
           الطلبات (<span className="font-mono tabular-nums">{total}</span>)
         </h2>
@@ -49,17 +49,17 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
           <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
       ) : orders.length === 0 ? (
-        <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+        <div className="p-8 text-center text-muted-foreground">
           <ShoppingCartIcon className="w-12 h-12 mx-auto mb-4 opacity-50" />
           <p className="text-lg font-medium">لا توجد طلبات</p>
           <p className="text-sm">جرب تغيير الفلاتر</p>
         </div>
       ) : (
-        <div className="divide-y divide-gray-100 dark:divide-gray-700">
+        <div className="divide-y divide-border dark:divide-border">
           {orders.map((order) => (
             <div
               key={order.id}
-              className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+              className="hover:bg-muted/50/50 transition-colors"
             >
               <div
                 className="p-4 cursor-pointer"
@@ -68,10 +68,10 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     <div>
-                      <p className="font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+                      <p className="font-bold font-mono tabular-nums text-foreground dark:text-white">
                         #{order.orderNumber}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         {new Date(order.createdAt).toLocaleDateString("ar-EG", {
                           year: "numeric",
                           month: "short",
@@ -97,23 +97,23 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
 
                   <div className="flex items-center gap-6">
                     <div className="text-center">
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         المنتجات
                       </p>
-                      <p className="font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+                      <p className="font-bold font-mono tabular-nums text-foreground dark:text-white">
                         {order.itemsCount}
                       </p>
                     </div>
                     <div className="text-center">
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         الإجمالي
                       </p>
-                      <p className="font-bold font-mono tabular-nums text-green-600">
+                      <p className="font-bold font-mono tabular-nums text-success">
                         {order.total.toLocaleString()} ج.م
                       </p>
                     </div>
                     <EyeIcon
-                      className={`w-5 h-5 text-gray-400 transition-transform ${expandedOrder === order.id ? "rotate-180" : ""}`}
+                      className={`w-5 h-5 text-muted-foreground transition-transform ${expandedOrder === order.id ? "rotate-180" : ""}`}
                     />
                   </div>
                 </div>
@@ -121,42 +121,42 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
 
               {expandedOrder === order.id && (
                 <div className="px-4 pb-4 animate-fadeIn">
-                  <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 space-y-4">
+                  <div className="bg-gray-50 dark:bg-muted rounded-lg p-4 space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="flex items-center gap-2">
-                        <UserIcon className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                        <UserIcon className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm text-foreground dark:text-muted-foreground">
                           العميل:
                         </span>
-                        <span className="text-sm font-medium text-gray-800 dark:text-white">
+                        <span className="text-sm font-medium text-foreground dark:text-white">
                           {order.customer.name}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <PhoneIcon className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                        <PhoneIcon className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm text-foreground dark:text-muted-foreground">
                           الهاتف:
                         </span>
                         <span
-                          className="text-sm font-medium font-mono tabular-nums text-gray-800 dark:text-white"
+                          className="text-sm font-medium font-mono tabular-nums text-foreground dark:text-white"
                           dir="ltr"
                         >
                           {order.customer.phone}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <MapPinIcon className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                        <MapPinIcon className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm text-foreground dark:text-muted-foreground">
                           المدينة:
                         </span>
-                        <span className="text-sm font-medium text-gray-800 dark:text-white">
+                        <span className="text-sm font-medium text-foreground dark:text-white">
                           {order.customer.city}
                         </span>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+                      <h4 className="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
                         <CubeIcon className="w-4 h-4" />
                         المنتجات
                       </h4>
@@ -164,10 +164,10 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
                         {order.items.map((item) => (
                           <div
                             key={item.id}
-                            className="flex items-center justify-between bg-white dark:bg-gray-800 p-3 rounded-lg"
+                            className="flex items-center justify-between bg-card p-3 rounded-lg"
                           >
                             <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
+                              <div className="w-12 h-12 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                 {item.productImage ? (
                                   <img
                                     src={
@@ -179,26 +179,26 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
                                     className="w-full h-full object-cover"
                                   />
                                 ) : (
-                                  <CubeIcon className="w-6 h-6 m-3 text-gray-400" />
+                                  <CubeIcon className="w-6 h-6 m-3 text-muted-foreground" />
                                 )}
                               </div>
                               <div>
-                                <p className="font-medium text-gray-800 dark:text-white">
+                                <p className="font-medium text-foreground dark:text-white">
                                   {item.productName}
                                 </p>
                                 {item.sku && (
-                                  <p className="text-xs font-mono tabular-nums text-gray-500 dark:text-gray-400">
+                                  <p className="text-xs font-mono tabular-nums text-muted-foreground">
                                     SKU: {item.sku}
                                   </p>
                                 )}
                               </div>
                             </div>
                             <div className="text-left">
-                              <p className="text-sm font-mono tabular-nums text-gray-600 dark:text-gray-400">
+                              <p className="text-sm font-mono tabular-nums text-foreground dark:text-muted-foreground">
                                 {item.quantity} × {item.price.toLocaleString()}{" "}
                                 ج.م
                               </p>
-                              <p className="font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+                              <p className="font-bold font-mono tabular-nums text-foreground dark:text-white">
                                 {item.total.toLocaleString()} ج.م
                               </p>
                             </div>
@@ -207,38 +207,38 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
                       </div>
                     </div>
 
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+                    <div className="border-t border-border dark:border-border pt-3">
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600 dark:text-gray-400">
+                        <span className="text-gray-600 dark:text-muted-foreground">
                           المجموع الفرعي
                         </span>
-                        <span className="font-mono tabular-nums text-gray-800 dark:text-white">
+                        <span className="font-mono tabular-nums text-foreground dark:text-white">
                           {order.subtotal.toLocaleString()} ج.م
                         </span>
                       </div>
                       {order.discount > 0 && (
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-gray-600 dark:text-gray-400">
+                          <span className="text-gray-600 dark:text-muted-foreground">
                             الخصم
                           </span>
-                          <span className="font-mono tabular-nums text-red-600">
+                          <span className="font-mono tabular-nums text-destructive">
                             -{order.discount.toLocaleString()} ج.م
                           </span>
                         </div>
                       )}
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600 dark:text-gray-400">
+                        <span className="text-gray-600 dark:text-muted-foreground">
                           الشحن
                         </span>
-                        <span className="font-mono tabular-nums text-gray-800 dark:text-white">
+                        <span className="font-mono tabular-nums text-foreground dark:text-white">
                           {order.shippingCost.toLocaleString()} ج.م
                         </span>
                       </div>
-                      <div className="flex justify-between font-bold text-lg mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                      <div className="flex justify-between font-bold text-lg mt-2 pt-2 border-t border-border dark:border-border">
                         <span className="text-gray-800 dark:text-white">
                           الإجمالي
                         </span>
-                        <span className="font-mono tabular-nums text-green-600">
+                        <span className="font-mono tabular-nums text-success">
                           {order.total.toLocaleString()} ج.م
                         </span>
                       </div>
@@ -252,8 +252,8 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
       )}
 
       {totalPages > 1 && (
-        <div className="p-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+        <div className="p-4 border-t border-border dark:border-border flex items-center justify-between">
+          <p className="text-sm text-foreground dark:text-muted-foreground">
             صفحة <span className="font-mono tabular-nums">{page}</span> من{" "}
             <span className="font-mono tabular-nums">{totalPages}</span>
           </p>
@@ -261,14 +261,14 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
             <button
               onClick={() => onPageChange((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm disabled:opacity-50"
+              className="px-3 py-1 bg-muted rounded-lg text-sm disabled:opacity-50"
             >
               السابق
             </button>
             <button
               onClick={() => onPageChange((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm disabled:opacity-50"
+              className="px-3 py-1 bg-muted rounded-lg text-sm disabled:opacity-50"
             >
               التالي
             </button>

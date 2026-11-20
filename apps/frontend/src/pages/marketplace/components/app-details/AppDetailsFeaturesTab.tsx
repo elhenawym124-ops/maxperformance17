@@ -16,7 +16,7 @@ export const AppDetailsFeaturesTab: React.FC<AppDetailsFeaturesTabProps> = ({ ap
 
   if (featureItems.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-border/70 py-12 text-center text-sm text-muted-foreground">
+      <div className="rounded-xl border border-dashed border-border/70 py-12 text-center text-sm text-muted-foreground">
         <Sparkles size={30} className="mx-auto mb-3 text-muted-foreground/40" />
         الميزات التفصيلية لهذا التطبيق لسه بتتكتب — الشرح بالفيديو فوق بيغطي الشاشة الأساسية.
       </div>

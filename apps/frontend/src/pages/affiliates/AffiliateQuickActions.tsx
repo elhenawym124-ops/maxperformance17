@@ -240,7 +240,7 @@ const AffiliateQuickActions: React.FC = () => {
             placeholder="بحث باسم المنتج أو كود SKU..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pr-8 pl-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pe-8 ps-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
@@ -301,9 +301,9 @@ const AffiliateQuickActions: React.FC = () => {
 
                     {/* Platform margin */}
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <div className={`font-semibold ${platformProfit < 0 ? "text-rose-600 dark:text-rose-400" : "text-blue-600 dark:text-blue-400"}`}>
+                      <div className={`font-semibold ${platformProfit < 0 ? "text-rose-600 dark:text-destructive" : "text-blue-600 dark:text-blue-400"}`}>
                         +{platformProfit.toFixed(2)}
-                        <span className="mr-1 text-[10px] text-muted-foreground font-sans">{displayCurrency}</span>
+                        <span className="me-1 text-[10px] text-muted-foreground font-sans">{displayCurrency}</span>
                       </div>
                       <div className="text-[10px] text-muted-foreground font-sans">
                         {product.platformMarginType === "FIXED" ? "مبلغ ثابت" : `${product.platformMarginValue}%`}
@@ -338,12 +338,12 @@ const AffiliateQuickActions: React.FC = () => {
 
                     {/* Affiliate profit */}
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <div className={`font-semibold ${affiliateProfit < 0 ? "text-rose-600 dark:text-rose-400" : "text-emerald-600 dark:text-emerald-400"}`}>
+                      <div className={`font-semibold ${affiliateProfit < 0 ? "text-rose-600 dark:text-destructive" : "text-emerald-600 dark:text-success"}`}>
                         +{affiliateProfit.toFixed(2)}
-                        <span className="mr-1 text-[10px] text-muted-foreground font-sans">{displayCurrency}</span>
+                        <span className="me-1 text-[10px] text-muted-foreground font-sans">{displayCurrency}</span>
                       </div>
                       {affiliateProfit < 0 && (
-                        <div className="text-[10px] text-rose-500 font-sans flex items-center gap-1 mt-0.5">
+                        <div className="text-[10px] text-destructive font-sans flex items-center gap-1 mt-0.5">
                           <AlertTriangle className="h-3 w-3" />
                           <span>خسارة مسوق</span>
                         </div>
@@ -359,7 +359,7 @@ const AffiliateQuickActions: React.FC = () => {
                         <div className="flex justify-between">
                           <span className="font-sans">المنصة:</span> <span>{platformProfit.toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-between text-emerald-600 dark:text-emerald-400 border-t border-border/60 pt-0.5 font-bold">
+                        <div className="flex justify-between text-success dark:text-success border-t border-border/60 pt-0.5 font-bold">
                           <span className="font-sans">المسوق:</span> <span>{affiliateProfit.toFixed(2)}</span>
                         </div>
                       </div>

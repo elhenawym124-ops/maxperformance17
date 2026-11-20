@@ -71,7 +71,7 @@ const AffiliateOrders: React.FC = () => {
     const statusMap: Record<string, { label: string; badgeClass: string }> = {
       PENDING: {
         label: "معلق",
-        badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+        badgeClass: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
       },
       CONFIRMED: {
         label: "مؤكد",
@@ -79,11 +79,11 @@ const AffiliateOrders: React.FC = () => {
       },
       DELIVERED: {
         label: "تم التسليم",
-        badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+        badgeClass: "bg-emerald-500/10 text-success dark:text-success border-success/20",
       },
       CANCELLED: {
         label: "ملغي",
-        badgeClass: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+        badgeClass: "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20",
       },
     };
     const info = statusMap[status] || {
@@ -103,11 +103,11 @@ const AffiliateOrders: React.FC = () => {
     const sourceMap: Record<string, { label: string; badgeClass: string }> = {
       AFFILIATE_REFERRAL: {
         label: "رابط إحالة",
-        badgeClass: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+        badgeClass: "bg-purple-500/10 text-primary dark:text-primary border-primary/20",
       },
       AFFILIATE_DIRECT: {
         label: "طلب مسوق مباشر",
-        badgeClass: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
+        badgeClass: "bg-indigo-500/10 text-primary border-primary/20",
       },
       REGULAR: {
         label: "طلب عادي",
@@ -192,7 +192,7 @@ const AffiliateOrders: React.FC = () => {
           <option value="AFFILIATE_DIRECT">طلب مسوق مباشر</option>
         </select>
 
-        <div className="mr-auto text-xs font-mono tabular-nums text-muted-foreground">
+        <div className="me-auto text-xs font-mono tabular-nums text-muted-foreground">
           إجمالي النتائج: <span className="font-semibold text-foreground">{orders.length}</span>
         </div>
       </div>
@@ -258,7 +258,7 @@ const AffiliateOrders: React.FC = () => {
                     <td className="px-4 py-3 whitespace-nowrap">
                       {getSourceBadge(order.orderSource)}
                     </td>
-                    <td className="px-4 py-3 font-mono tabular-nums font-semibold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">
+                    <td className="px-4 py-3 font-mono tabular-nums font-semibold text-success dark:text-success whitespace-nowrap">
                       {order.commissions && order.commissions.length > 0
                         ? formatPrice(order.commissions[0].amount)
                         : "-"}

@@ -17,8 +17,8 @@ export const AffiliateTermsSection: React.FC<AffiliateTermsSectionProps> = ({
       <h2
         className={`text-xl font-semibold border-b pb-2 ${
           isDark
-            ? "text-white border-gray-700"
-            : "text-gray-900 border-gray-200"
+            ? "text-white border-border"
+            : "text-gray-900 border-border"
         }`}
       >
         الشروط والأحكام
@@ -44,8 +44,8 @@ export const AffiliateTermsSection: React.FC<AffiliateTermsSectionProps> = ({
           placeholder="اكتب هنا الشروط التي يجب أن يوافق عليها المسوق عند التسجيل..."
           className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
             isDark
-              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              : "bg-white border-gray-300 text-gray-900"
+              ? "bg-gray-700 border-border text-white placeholder-muted"
+              : "bg-white border-border text-foreground"
           }`}
         />
         <p

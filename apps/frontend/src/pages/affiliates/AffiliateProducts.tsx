@@ -203,40 +203,40 @@ export default function AffiliateProducts() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-500">متوسط هامش الربح</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success">متوسط هامش الربح</p>
+            <p className="text-xl font-bold tracking-tight text-success font-mono tabular-nums mt-0.5">
               +{avgMarkup.toLocaleString("en-US")} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">ربح القطعة الواحدة</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success border border-success/20">
             <TrendingUp className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-purple-500">متوسط سعر البيع</p>
-            <p className="text-lg font-bold tracking-tight text-purple-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary">متوسط سعر البيع</p>
+            <p className="text-lg font-bold tracking-tight text-primary font-mono tabular-nums mt-0.5">
               {avgFinalPrice.toLocaleString("en-US")} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">السعر المعروض للعميل</p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <DollarSign className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-500">حالة التتبع</p>
-            <p className="text-sm font-bold tracking-tight text-emerald-500 mt-0.5 font-mono inline-flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <p className="text-[11px] text-warning">حالة التتبع</p>
+            <p className="text-sm font-bold tracking-tight text-success mt-0.5 font-mono inline-flex items-center gap-1.5">
+              <span className="size-1.5 rounded-full bg-success animate-pulse" />
               روابط نشطة
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">ربط فوري للعمولات</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning border border-warning/20">
             <Tag className="size-3.5" />
           </div>
         </div>
@@ -248,7 +248,7 @@ export default function AffiliateProducts() {
           <Search className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
           <Input
             type="text"
-            className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+            className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
             placeholder="بحث في كتالوج المنتجات..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -305,8 +305,8 @@ export default function AffiliateProducts() {
                         </span>
                       </div>
                       <div>
-                        <span className="text-[9px] text-emerald-500 block">هامش ربحك</span>
-                        <span className="text-[11px] font-bold text-emerald-500 tabular-nums block mt-0.5">
+                        <span className="text-[9px] text-success block">هامش ربحك</span>
+                        <span className="text-[11px] font-bold text-success tabular-nums block mt-0.5">
                           +{formatPrice(p.markup)}
                         </span>
                       </div>

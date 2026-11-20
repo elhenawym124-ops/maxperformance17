@@ -314,11 +314,11 @@ export default function ProfitabilityEngine() {
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground">{T("totalVariableCost")} (بضاعة + شحن + مرتجعات)</span>
-                  <span className="font-mono text-rose-500">- {fmtCurr(results.totalVariableCost)}</span>
+                  <span className="font-mono text-destructive">- {fmtCurr(results.totalVariableCost)}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground">{T("adSpend")} ({fmtCurr(inputs.cpp)} / طلب)</span>
-                  <span className="font-mono text-rose-500">- {fmtCurr(results.adSpend)}</span>
+                  <span className="font-mono text-destructive">- {fmtCurr(results.adSpend)}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50 font-semibold">
                   <span className="text-foreground">{T("grossProfit")}</span>
@@ -326,7 +326,7 @@ export default function ProfitabilityEngine() {
                 </div>
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground">{T("fixedCosts")} (مصاريف تشغيل شهرية)</span>
-                  <span className="font-mono text-rose-500">- {fmtCurr(inputs.fixedCosts)}</span>
+                  <span className="font-mono text-destructive">- {fmtCurr(inputs.fixedCosts)}</span>
                 </div>
                 <div className="flex justify-between py-1.5 pt-2 text-sm font-bold border-t border-border">
                   <span className="text-foreground">{T("netProfit")}</span>

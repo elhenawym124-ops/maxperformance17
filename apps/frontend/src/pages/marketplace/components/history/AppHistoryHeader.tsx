@@ -25,7 +25,7 @@ export function AppHistoryHeader({
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-border/40">
       <div className="flex items-start sm:items-center gap-3.5">
-        <div className="p-3 rounded-2xl bg-primary/10 text-primary border border-primary/20 shrink-0">
+        <div className="p-3 rounded-xl bg-primary/10 text-primary border border-primary/20 shrink-0">
           <History className="size-6" />
         </div>
         <div>

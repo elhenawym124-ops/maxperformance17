@@ -260,7 +260,7 @@ const AffiliateDashboard: React.FC = () => {
   if (error && !affiliate) {
     return (
       <div
-        className={`min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"} px-3 pb-24 pt-4 text-center text-gray-500 sm:p-6`}
+        className={`min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"} px-3 pb-24 pt-4 text-center text-muted-foreground sm:p-6`}
       >
         {error}
       </div>
@@ -273,7 +273,7 @@ const AffiliateDashboard: React.FC = () => {
         className={`min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"} px-3 pb-24 pt-4 sm:p-6`}
       >
         <div
-          className={`w-full ${isDark ? "bg-yellow-900/30 border-yellow-700" : "bg-yellow-50 border-yellow-200"} rounded-2xl border p-5 text-center shadow-sm sm:p-6`}
+          className={`w-full ${isDark ? "bg-yellow-900/30 border-warning" : "bg-yellow-50 border-warning"} rounded-xl border p-5 text-center shadow-sm sm:p-6`}
         >
           <h2
             className={`text-xl font-semibold ${isDark ? "text-yellow-300" : "text-yellow-800"} mb-2`}
@@ -320,12 +320,12 @@ const AffiliateDashboard: React.FC = () => {
           className={`w-full ${
             isSuspended
               ? isDark
-                ? "bg-red-900/30 border-red-700"
-                : "bg-red-50 border-red-200"
+                ? "bg-red-900/30 border-destructive"
+                : "bg-red-50 border-destructive"
               : isDark
-                ? "bg-yellow-900/30 border-yellow-700"
-                : "bg-yellow-50 border-yellow-200"
-          } rounded-2xl border p-5 text-center shadow-sm sm:p-6`}
+                ? "bg-yellow-900/30 border-warning"
+                : "bg-yellow-50 border-warning"
+          } rounded-xl border p-5 text-center shadow-sm sm:p-6`}
         >
           <h2
             className={`text-xl font-semibold ${
@@ -358,11 +358,11 @@ const AffiliateDashboard: React.FC = () => {
               className={`mt-4 rounded-xl border px-4 py-3 text-sm ${
                 affiliate.identityDocumentStatus === "REJECTED"
                   ? isDark
-                    ? "border-red-800 bg-red-950/30 text-red-200"
-                    : "border-red-200 bg-red-50 text-red-700"
+                    ? "border-red-800 bg-destructive/30 text-destructive"
+                    : "border-red-200 bg-destructive/10 text-destructive"
                   : isDark
-                    ? "border-yellow-800 bg-yellow-950/30 text-yellow-200"
-                    : "border-yellow-200 bg-yellow-50 text-yellow-700"
+                    ? "border-yellow-800 bg-warning/30 text-warning"
+                    : "border-yellow-200 bg-warning/10 text-warning"
               }`}
             >
               {documentStatusDescription}
@@ -370,9 +370,9 @@ const AffiliateDashboard: React.FC = () => {
           )}
           {affiliate.identityDocumentStatus === "REJECTED" && (
             <div
-              className={`mx-auto mt-5 max-w-xl rounded-2xl border p-4 text-right ${
+              className={`mx-auto mt-5 max-w-xl rounded-xl border p-4 text-right ${
                 isDark
-                  ? "border-gray-700 bg-gray-900/50"
+                  ? "border-gray-700 bg-muted"
                   : "border-gray-200 bg-white"
               }`}
             >
@@ -400,12 +400,12 @@ const AffiliateDashboard: React.FC = () => {
                 }
                 className={`mt-4 min-h-11 w-full rounded-xl border px-4 py-2 ${
                   isDark
-                    ? "border-gray-600 bg-gray-800 text-white file:bg-gray-700 file:text-white"
-                    : "border-gray-300 bg-white text-gray-900"
+                    ? "border-gray-600 bg-muted text-white file:bg-gray-700 file:text-white"
+                    : "border-gray-300 bg-white text-foreground"
                 }`}
               />
               {replacementDocument && (
-                <p className="mt-2 text-xs text-green-600 dark:text-green-400">
+                <p className="mt-2 text-xs text-success dark:text-success">
                   الملف المختار: {replacementDocument.name}
                 </p>
               )}
@@ -422,7 +422,7 @@ const AffiliateDashboard: React.FC = () => {
             </div>
           )}
           {affiliate.reviewedAt && (
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="mt-3 text-xs text-muted-foreground">
               آخر مراجعة:{" "}
               {new Date(affiliate.reviewedAt).toLocaleDateString("ar-EG")}
             </p>
@@ -454,7 +454,7 @@ const AffiliateDashboard: React.FC = () => {
         {/* Stats Cards */}
         <div className="grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
           <div
-            className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} rounded-2xl border p-4 shadow-sm sm:p-6`}
+            className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} rounded-xl border p-4 shadow-sm sm:p-6`}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -469,12 +469,12 @@ const AffiliateDashboard: React.FC = () => {
                   {formatPrice(affiliate.totalEarnings)}
                 </p>
               </div>
-              <CurrencyDollarIcon className="hidden h-8 w-8 text-green-600 sm:block" />
+              <CurrencyDollarIcon className="hidden h-8 w-8 text-success sm:block" />
             </div>
           </div>
 
           <div
-            className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} rounded-2xl border p-4 shadow-sm sm:p-6`}
+            className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} rounded-xl border p-4 shadow-sm sm:p-6`}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -494,7 +494,7 @@ const AffiliateDashboard: React.FC = () => {
           </div>
 
           <div
-            className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} rounded-2xl border p-4 shadow-sm sm:p-6`}
+            className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} rounded-xl border p-4 shadow-sm sm:p-6`}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -509,12 +509,12 @@ const AffiliateDashboard: React.FC = () => {
                   {affiliate.totalSales}
                 </p>
               </div>
-              <ShoppingBagIcon className="hidden h-8 w-8 text-purple-600 sm:block" />
+              <ShoppingBagIcon className="hidden h-8 w-8 text-primary sm:block" />
             </div>
           </div>
 
           <div
-            className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} rounded-2xl border p-4 shadow-sm sm:p-6`}
+            className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} rounded-xl border p-4 shadow-sm sm:p-6`}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -529,14 +529,14 @@ const AffiliateDashboard: React.FC = () => {
                   {affiliate.conversionRate.toFixed(2)}%
                 </p>
               </div>
-              <ArrowTrendingUpIcon className="hidden h-8 w-8 text-orange-600 sm:block" />
+              <ArrowTrendingUpIcon className="hidden h-8 w-8 text-warning sm:block" />
             </div>
           </div>
         </div>
 
         {/* Affiliate Link Generator */}
         <div
-          className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} rounded-2xl border p-4 shadow-sm sm:p-6`}
+          className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} rounded-xl border p-4 shadow-sm sm:p-6`}
         >
           <h2
             className={`mb-4 flex items-center gap-2 text-lg font-semibold sm:text-xl ${isDark ? "text-white" : "text-gray-900"}`}
@@ -558,8 +558,8 @@ const AffiliateDashboard: React.FC = () => {
                   value={generateAffiliateLink()}
                   className={`min-h-11 flex-1 rounded-xl border px-4 py-2 text-sm ${
                     isDark
-                      ? "bg-gray-700 border-gray-600 text-white"
-                      : "bg-white border-gray-300 text-gray-900"
+                      ? "bg-gray-700 border-border text-white"
+                      : "bg-white border-border text-foreground"
                   }`}
                 />
                 <button
@@ -579,7 +579,7 @@ const AffiliateDashboard: React.FC = () => {
         >
           <Link
             to="/affiliates/orders"
-            className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} min-h-28 rounded-2xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
+            className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} min-h-28 rounded-xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
           >
             <div className="flex h-full items-center gap-3 sm:gap-4">
               <ClipboardDocumentListIcon className="h-7 w-7 shrink-0 text-blue-600 sm:h-8 sm:w-8" />
@@ -601,10 +601,10 @@ const AffiliateDashboard: React.FC = () => {
           {canCreateOrdersForOthers && (
             <Link
               to="/affiliates/orders/create"
-              className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} min-h-28 rounded-2xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
+              className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} min-h-28 rounded-xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
             >
               <div className="flex h-full items-center gap-3 sm:gap-4">
-                <PencilSquareIcon className="h-7 w-7 shrink-0 text-green-600 sm:h-8 sm:w-8" />
+                <PencilSquareIcon className="h-7 w-7 shrink-0 text-success sm:h-8 sm:w-8" />
                 <div>
                   <h3
                     className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
@@ -623,10 +623,10 @@ const AffiliateDashboard: React.FC = () => {
 
           <Link
             to="/affiliates/referrals"
-            className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} min-h-28 rounded-2xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
+            className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} min-h-28 rounded-xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
           >
             <div className="flex h-full items-center gap-3 sm:gap-4">
-              <LinkIcon className="h-7 w-7 shrink-0 text-orange-600 sm:h-8 sm:w-8" />
+              <LinkIcon className="h-7 w-7 shrink-0 text-warning sm:h-8 sm:w-8" />
               <div>
                 <h3
                   className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
@@ -647,10 +647,10 @@ const AffiliateDashboard: React.FC = () => {
           {canViewCustomerData && (
             <Link
               to="/affiliates/customers"
-              className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} min-h-28 rounded-2xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
+              className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} min-h-28 rounded-xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
             >
               <div className="flex h-full items-center gap-3 sm:gap-4">
-                <UserGroupIcon className="h-7 w-7 shrink-0 text-purple-600 sm:h-8 sm:w-8" />
+                <UserGroupIcon className="h-7 w-7 shrink-0 text-primary sm:h-8 sm:w-8" />
                 <div>
                   <h3
                     className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
@@ -670,7 +670,7 @@ const AffiliateDashboard: React.FC = () => {
 
         {/* Recent Commissions */}
         <div
-          className={`${isDark ? "border-gray-700 bg-gray-800" : "border-gray-100 bg-white"} overflow-hidden rounded-2xl border shadow-sm`}
+          className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} overflow-hidden rounded-xl border shadow-sm`}
         >
           <h2
             className={`p-4 text-lg font-semibold sm:text-xl ${isDark ? "text-white" : "text-gray-900"}`}
@@ -679,7 +679,7 @@ const AffiliateDashboard: React.FC = () => {
           </h2>
           {recentCommissions.length > 0 ? (
             <div className="p-3 md:p-0">
-              <table className="block min-w-full md:table md:divide-y md:divide-gray-200">
+              <table className="block min-w-full md:table md:divide-y md:divide-border">
                 <thead className={`hidden md:table-header-group ${isDark ? "bg-gray-700" : "bg-gray-50"}`}>
                   <tr>
                     <th
@@ -713,48 +713,48 @@ const AffiliateDashboard: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody
-                  className={`block space-y-3 md:table-row-group md:space-y-0 ${isDark ? "md:bg-gray-800 md:divide-gray-700" : "md:bg-white md:divide-gray-200"} md:divide-y`}
+                  className={`block space-y-3 md:table-row-group md:space-y-0 ${isDark ? "md:bg-gray-800 md:divide-border" : "md:bg-white md:divide-border"} md:divide-y`}
                 >
                   {recentCommissions.map((commission) => (
                     <tr
                       key={commission.id}
-                      className={`block rounded-2xl border p-4 transition md:table-row md:rounded-none md:border-0 md:p-0 ${
+                      className={`block rounded-xl border p-4 transition md:table-row md:rounded-none md:border-0 md:p-0 ${
                         isDark
-                          ? "border-gray-700 bg-gray-900/35 hover:bg-gray-700"
-                          : "border-gray-100 bg-white hover:bg-gray-50"
+                          ? "border-gray-700 bg-muted hover:bg-muted"
+                          : "border-gray-100 bg-white hover:bg-muted"
                       }`}
                     >
                       <td
                         className={`flex items-center justify-between gap-4 pb-3 text-sm md:table-cell md:px-6 md:py-4 md:whitespace-nowrap ${isDark ? "text-gray-300" : "text-gray-900"}`}
                       >
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           رقم الطلب
                         </span>
                         <span>{commission.order?.orderNumber || "-"}</span>
                       </td>
-                      <td className="flex items-center justify-between gap-4 border-t py-3 text-sm font-medium text-green-600 md:table-cell md:border-0 md:px-6 md:py-4 md:whitespace-nowrap">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-center justify-between gap-4 border-t py-3 text-sm font-medium text-success md:table-cell md:border-0 md:px-6 md:py-4 md:whitespace-nowrap">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           المبلغ
                         </span>
                         <span>{formatPrice(commission.amount)}</span>
                       </td>
                       <td className="flex items-center justify-between gap-4 border-t py-3 md:table-cell md:border-0 md:px-6 md:py-4 md:whitespace-nowrap">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           الحالة
                         </span>
                         <span
                           className={`px-2 py-1 text-xs rounded-full ${
                             commission.status === "PAID"
                               ? isDark
-                                ? "bg-green-900/50 text-green-300"
-                                : "bg-green-100 text-green-800"
+                                ? "bg-green-900/50 text-success"
+                                : "bg-green-100 text-success"
                               : commission.status === "CONFIRMED"
                                 ? isDark
                                   ? "bg-blue-900/50 text-blue-300"
                                   : "bg-blue-100 text-blue-800"
                                 : isDark
-                                  ? "bg-yellow-900/50 text-yellow-300"
-                                  : "bg-yellow-100 text-yellow-800"
+                                  ? "bg-yellow-900/50 text-warning"
+                                  : "bg-yellow-100 text-warning"
                           }`}
                         >
                           {commission.status === "PAID"
@@ -765,9 +765,9 @@ const AffiliateDashboard: React.FC = () => {
                         </span>
                       </td>
                       <td
-                        className={`flex items-center justify-between gap-4 border-t pt-3 text-sm md:table-cell md:border-0 md:px-6 md:py-4 md:whitespace-nowrap ${isDark ? "border-gray-700 text-gray-400" : "border-gray-100 text-gray-500"}`}
+                        className={`flex items-center justify-between gap-4 border-t pt-3 text-sm md:table-cell md:border-0 md:px-6 md:py-4 md:whitespace-nowrap ${isDark ? "border-gray-700 text-muted-foreground" : "border-gray-100 text-muted-foreground"}`}
                       >
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           التاريخ
                         </span>
                         <span>

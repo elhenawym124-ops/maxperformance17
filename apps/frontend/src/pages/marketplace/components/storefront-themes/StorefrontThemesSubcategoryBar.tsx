@@ -20,8 +20,8 @@ export const StorefrontThemesSubcategoryBar: React.FC<StorefrontThemesSubcategor
   if (!selectedPrimaryCategory) return null;
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 px-4 sm:px-6 py-2 flex items-center gap-4 overflow-x-auto no-scrollbar touch-pan-x">
-      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">
+    <div className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border px-4 sm:px-6 py-2 flex items-center gap-4 overflow-x-auto no-scrollbar touch-pan-x">
+      <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest whitespace-nowrap">
         {t("storefrontThemes.subMatrix")}
       </span>
       <div className="flex items-center gap-1">
@@ -30,8 +30,8 @@ export const StorefrontThemesSubcategoryBar: React.FC<StorefrontThemesSubcategor
           className={cn(
             "px-3 h-7 rounded-md text-[9px] font-black uppercase tracking-widest transition-all",
             selectedSecondaryCategoryId === "all"
-              ? "bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white"
-              : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+              ? "bg-slate-200 dark:bg-muted text-foreground dark:text-white"
+              : "text-slate-500 hover:text-foreground dark:hover:text-white"
           )}
         >
           {t("storefrontThemes.allPrefix")} {selectedPrimaryCategory.label}
@@ -45,8 +45,8 @@ export const StorefrontThemesSubcategoryBar: React.FC<StorefrontThemesSubcategor
             className={cn(
               "px-3 h-7 rounded-md text-[9px] font-black uppercase tracking-widest transition-all",
               selectedSecondaryCategoryId === sub.id
-                ? "bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white"
-                : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-slate-200 dark:bg-muted text-foreground dark:text-white"
+                : "text-slate-500 hover:text-foreground dark:hover:text-white"
             )}
           >
             {sub.label}{" "}

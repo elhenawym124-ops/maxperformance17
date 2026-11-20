@@ -42,16 +42,16 @@ const OwnerAttendanceReport: React.FC = () => {
   if (isLoading && !reportData) {
     return (
       <div className="space-y-6 w-full pb-8">
-        <div className="h-20 bg-gray-200 dark:bg-gray-800 rounded-xl animate-pulse"></div>
+        <div className="h-20 bg-muted dark:bg-muted rounded-xl animate-pulse"></div>
         <div className="grid grid-cols-5 gap-4">
           {[1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="h-24 bg-gray-200 dark:bg-gray-800 rounded-xl animate-pulse"
+              className="h-24 bg-muted dark:bg-muted rounded-xl animate-pulse"
             ></div>
           ))}
         </div>
-        <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-xl animate-pulse"></div>
+        <div className="h-96 bg-muted dark:bg-muted rounded-xl animate-pulse"></div>
       </div>
     );
   }

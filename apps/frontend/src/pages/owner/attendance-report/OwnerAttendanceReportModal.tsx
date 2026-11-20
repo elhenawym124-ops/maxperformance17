@@ -40,10 +40,10 @@ export const OwnerAttendanceReportModal: React.FC<
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-card rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-gradient-to-r from-indigo-600 to-purple-600 p-6 rounded-t-2xl">
+        <div className="sticky top-0 bg-gradient-to-r from-primary to-primary p-6 rounded-t-2xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
@@ -69,7 +69,7 @@ export const OwnerAttendanceReportModal: React.FC<
 
         <div className="p-6 space-y-6">
           <div>
-            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">
+            <label className="block text-sm font-bold text-foreground mb-3">
               صيغة التقرير
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -79,8 +79,8 @@ export const OwnerAttendanceReportModal: React.FC<
                 }
                 className={`p-4 rounded-xl border-2 transition-all ${
                   reportOptions.format === "pdf"
-                    ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20"
-                    : "border-gray-200 dark:border-gray-700 hover:border-indigo-300"
+                    ? "border-indigo-600 bg-primary/10 dark:bg-primary/20"
+                    : "border-gray-200 dark:border-border hover:border-primary"
                 }`}
               >
                 <DocumentTextIcon
@@ -90,10 +90,10 @@ export const OwnerAttendanceReportModal: React.FC<
                       : "text-gray-400"
                   }`}
                 />
-                <div className="font-bold text-gray-900 dark:text-white">
+                <div className="font-bold text-foreground">
                   PDF / HTML
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-xs text-muted-foreground mt-1">
                   تقرير مفصل بالتصميم
                 </div>
               </button>
@@ -103,8 +103,8 @@ export const OwnerAttendanceReportModal: React.FC<
                 }
                 className={`p-4 rounded-xl border-2 transition-all ${
                   reportOptions.format === "excel"
-                    ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20"
-                    : "border-gray-200 dark:border-gray-700 hover:border-indigo-300"
+                    ? "border-indigo-600 bg-primary/10 dark:bg-primary/20"
+                    : "border-gray-200 dark:border-border hover:border-primary"
                 }`}
               >
                 <DocumentChartBarIcon
@@ -114,10 +114,10 @@ export const OwnerAttendanceReportModal: React.FC<
                       : "text-gray-400"
                   }`}
                 />
-                <div className="font-bold text-gray-900 dark:text-white">
+                <div className="font-bold text-foreground">
                   Excel / CSV
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <div className="text-xs text-muted-foreground mt-1">
                   جدول بيانات
                 </div>
               </button>
@@ -125,11 +125,11 @@ export const OwnerAttendanceReportModal: React.FC<
           </div>
 
           <div className="space-y-3">
-            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">
+            <label className="block text-sm font-bold text-foreground mb-3">
               خيارات التقرير
             </label>
 
-            <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <label className="flex items-center gap-3 p-4 bg-muted dark:bg-muted rounded-xl cursor-pointer hover:bg-muted transition-colors">
               <input
                 type="checkbox"
                 checked={reportOptions.includeCharts}
@@ -139,19 +139,19 @@ export const OwnerAttendanceReportModal: React.FC<
                     includeCharts: e.target.checked,
                   })
                 }
-                className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                className="w-5 h-5 text-primary rounded focus:ring-primary"
               />
               <div className="flex-1">
-                <div className="font-medium text-gray-900 dark:text-white">
+                <div className="font-medium text-foreground">
                   تضمين الإحصائيات العامة
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-muted-foreground">
                   عرض ملخص الحضور في بداية التقرير
                 </div>
               </div>
             </label>
 
-            <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <label className="flex items-center gap-3 p-4 bg-muted dark:bg-muted rounded-xl cursor-pointer hover:bg-muted transition-colors">
               <input
                 type="checkbox"
                 checked={reportOptions.includeDetails}
@@ -161,19 +161,19 @@ export const OwnerAttendanceReportModal: React.FC<
                     includeDetails: e.target.checked,
                   })
                 }
-                className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                className="w-5 h-5 text-primary rounded focus:ring-primary"
               />
               <div className="flex-1">
-                <div className="font-medium text-gray-900 dark:text-white">
+                <div className="font-medium text-foreground">
                   تضمين التفاصيل الكاملة
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-muted-foreground">
                   عرض جميع أرقام الحضور لكل موظف
                 </div>
               </div>
             </label>
 
-            <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <label className="flex items-center gap-3 p-4 bg-muted dark:bg-muted rounded-xl cursor-pointer hover:bg-muted transition-colors">
               <input
                 type="checkbox"
                 checked={reportOptions.groupByCompany}
@@ -183,19 +183,19 @@ export const OwnerAttendanceReportModal: React.FC<
                     groupByCompany: e.target.checked,
                   })
                 }
-                className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                className="w-5 h-5 text-primary rounded focus:ring-primary"
               />
               <div className="flex-1">
-                <div className="font-medium text-gray-900 dark:text-white">
+                <div className="font-medium text-foreground">
                   تجميع حسب الشركة
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-muted-foreground">
                   تنظيم الموظفين حسب شركاتهم
                 </div>
               </div>
             </label>
 
-            <label className="flex items-center gap-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl cursor-pointer hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors border border-yellow-200 dark:border-yellow-900/30">
+            <label className="flex items-center gap-3 p-4 bg-warning/10 dark:bg-warning/20 rounded-xl cursor-pointer hover:bg-warning dark:hover:bg-warning/30 transition-colors border border-warning dark:border-warning/30">
               <input
                 type="checkbox"
                 checked={reportOptions.showOnlyIssues}
@@ -205,13 +205,13 @@ export const OwnerAttendanceReportModal: React.FC<
                     showOnlyIssues: e.target.checked,
                   })
                 }
-                className="w-5 h-5 text-yellow-600 rounded focus:ring-yellow-500"
+                className="w-5 h-5 text-warning rounded focus:ring-warning"
               />
               <div className="flex-1">
-                <div className="font-medium text-gray-900 dark:text-white">
+                <div className="font-medium text-foreground">
                   عرض المشاكل فقط
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400">
+                <div className="text-xs text-foreground dark:text-muted-foreground">
                   إظهار الموظفين ذوي الأداء الضعيف فقط (أقل من 80%)
                 </div>
               </div>
@@ -243,11 +243,11 @@ export const OwnerAttendanceReportModal: React.FC<
           </div>
         </div>
 
-        <div className="sticky bottom-0 bg-gray-50 dark:bg-gray-900 p-6 rounded-b-2xl border-t border-gray-200 dark:border-gray-700">
+        <div className="sticky bottom-0 bg-muted dark:bg-muted p-6 rounded-b-2xl border-t border-border dark:border-border">
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              className="flex-1 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 px-6 py-3 border-2 border-border text-foreground rounded-xl font-medium hover:bg-muted dark:hover:bg-muted transition-colors"
             >
               إلغاء
             </button>

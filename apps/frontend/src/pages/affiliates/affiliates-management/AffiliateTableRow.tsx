@@ -43,10 +43,10 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
 }) => {
   return (
     <tr
-      className={`block rounded-2xl border p-4 transition md:table-row md:rounded-none md:border-0 md:p-0 ${
+      className={`block rounded-xl border p-4 transition md:table-row md:rounded-none md:border-0 md:p-0 ${
         isDark
-          ? "border-gray-700 bg-gray-900/40 hover:bg-gray-700/30"
-          : "border-gray-100 bg-white hover:bg-gray-50/50 shadow-sm md:shadow-none"
+          ? "border-gray-700 bg-muted hover:bg-muted"
+          : "border-gray-100 bg-white hover:bg-muted shadow-sm md:shadow-none"
       }`}
     >
       {/* المسوق */}
@@ -61,10 +61,10 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
               >
                 {affiliate.user.firstName} {affiliate.user.lastName}
               </span>
-              <div className="text-xs text-gray-500 mt-0.5">
+              <div className="text-xs text-muted-foreground mt-0.5">
                 {affiliate.user.email}
               </div>
-              <div className="text-xs text-indigo-500 mt-0.5 tabular-nums">
+              <div className="text-xs text-primary mt-0.5 tabular-nums">
                 {affiliate.user.phone || "بدون هاتف"}
               </div>
             </div>
@@ -88,7 +88,7 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
                 مستند الاعتماد
               </a>
             ) : (
-              <span className="text-[11px] text-amber-500">
+              <span className="text-[11px] text-warning">
                 لا يوجد مستند اعتماد مرفوع
               </span>
             )}
@@ -102,7 +102,7 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
           </div>
 
           {affiliate.isMissingRecord && (
-            <span className="text-[10px] text-orange-500 mt-1">
+            <span className="text-[10px] text-warning mt-1">
               يحتاج إصلاح سجل الأفليت
             </span>
           )}
@@ -110,14 +110,14 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
       </td>
 
       {/* البيانات المالية */}
-      <td className="block border-t border-gray-100 py-3 dark:border-gray-700/60 md:table-cell md:border-0 md:px-6 md:py-5">
+      <td className="block border-t border-border py-3 dark:border-border md:table-cell md:border-0 md:px-6 md:py-5">
         <div className="flex items-center justify-between gap-2 md:hidden mb-1.5">
-          <span className="text-xs font-semibold text-gray-500">
+          <span className="text-xs font-semibold text-muted-foreground">
             البيانات المالية
           </span>
         </div>
         <div className="grid grid-cols-3 gap-2 md:flex md:flex-col md:gap-1 text-xs">
-          <div className="flex flex-col md:flex-row md:justify-between md:max-w-[120px] bg-gray-50 dark:bg-gray-800/60 md:bg-transparent md:dark:bg-transparent p-2 md:p-0 rounded-lg text-center md:text-right">
+          <div className="flex flex-col md:flex-row md:justify-between md:max-w-[120px] bg-muted dark:bg-muted md:bg-transparent md:dark:bg-transparent p-2 md:p-0 rounded-lg text-center md:text-right">
             <span className="text-gray-500 text-[10px] md:text-xs">الإجمالي</span>
             <span
               className={`font-bold tabular-nums text-xs md:text-xs ${
@@ -127,13 +127,13 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
               {Number(affiliate.totalEarnings).toFixed(2)}
             </span>
           </div>
-          <div className="flex flex-col md:flex-row md:justify-between md:max-w-[120px] bg-green-50/60 dark:bg-green-900/20 md:bg-transparent md:dark:bg-transparent p-2 md:p-0 rounded-lg text-center md:text-right">
+          <div className="flex flex-col md:flex-row md:justify-between md:max-w-[120px] bg-success/60 dark:bg-success/20 md:bg-transparent md:dark:bg-transparent p-2 md:p-0 rounded-lg text-center md:text-right">
             <span className="text-gray-500 text-[10px] md:text-xs">المدفوع</span>
             <span className="text-green-500 font-bold tabular-nums text-xs md:text-xs">
               {Number(affiliate.paidEarnings).toFixed(2)}
             </span>
           </div>
-          <div className="flex flex-col md:flex-row md:justify-between md:max-w-[120px] bg-orange-50/60 dark:bg-orange-900/20 md:bg-transparent md:dark:bg-transparent p-2 md:p-0 rounded-lg text-center md:text-right">
+          <div className="flex flex-col md:flex-row md:justify-between md:max-w-[120px] bg-warning/60 dark:bg-warning/20 md:bg-transparent md:dark:bg-transparent p-2 md:p-0 rounded-lg text-center md:text-right">
             <span className="text-gray-500 text-[10px] md:text-xs">المعلق</span>
             <span className="text-orange-500 font-bold tabular-nums text-xs md:text-xs">
               {Number(affiliate.pendingEarnings).toFixed(2)}
@@ -143,14 +143,14 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
       </td>
 
       {/* الأداء */}
-      <td className="block border-t border-gray-100 py-3 dark:border-gray-700/60 md:table-cell md:border-0 md:px-6 md:py-5">
+      <td className="block border-t border-border py-3 dark:border-border md:table-cell md:border-0 md:px-6 md:py-5">
         <div className="flex items-center justify-between gap-4">
-          <span className="text-xs font-semibold text-gray-500 md:hidden">
+          <span className="text-xs font-semibold text-muted-foreground md:hidden">
             الأداء
           </span>
           <div className="flex items-center gap-4">
             <div className="flex flex-col text-center">
-              <span className="text-[10px] text-gray-400">مبيعات</span>
+              <span className="text-[10px] text-muted-foreground">مبيعات</span>
               <span
                 className={`font-bold tabular-nums ${
                   isDark ? "text-white" : "text-gray-900"
@@ -159,9 +159,9 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
                 {affiliate.totalSales}
               </span>
             </div>
-            <div className="w-[1px] h-6 bg-gray-700/20 dark:bg-gray-600/40"></div>
+            <div className="w-[1px] h-6 bg-muted dark:bg-muted"></div>
             <div className="flex flex-col text-center">
-              <span className="text-[10px] text-gray-400">نقرات</span>
+              <span className="text-[10px] text-muted-foreground">نقرات</span>
               <span
                 className={`font-bold tabular-nums ${
                   isDark ? "text-white" : "text-gray-900"
@@ -175,9 +175,9 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
       </td>
 
       {/* العمولة */}
-      <td className="block border-t border-gray-100 py-3 dark:border-gray-700/60 md:table-cell md:border-0 md:px-6 md:py-5">
+      <td className="block border-t border-border py-3 dark:border-border md:table-cell md:border-0 md:px-6 md:py-5">
         <div className="flex items-center justify-between gap-4">
-          <span className="text-xs font-semibold text-gray-500 md:hidden">
+          <span className="text-xs font-semibold text-muted-foreground md:hidden">
             العمولة اليدوية
           </span>
           {editingCommission === affiliate.id ? (
@@ -191,20 +191,20 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
                 value={newCommission}
                 onChange={(e) => setNewCommission(parseFloat(e.target.value))}
                 className={`w-16 px-2 py-1 rounded border text-xs tabular-nums ${
-                  isDark ? "bg-gray-700 border-gray-600 text-white" : "bg-white"
+                  isDark ? "bg-gray-700 border-border text-white" : "bg-white"
                 }`}
               />
               <button
                 type="button"
                 onClick={() => updateCommission(affiliate.id)}
-                className="p-1 text-green-500 hover:bg-green-500/10 rounded"
+                className="p-1 text-success hover:bg-success/10 rounded"
               >
                 ✓
               </button>
               <button
                 type="button"
                 onClick={() => setEditingCommission(null)}
-                className="p-1 text-red-500 hover:bg-red-500/10 rounded"
+                className="p-1 text-destructive hover:bg-destructive/10 rounded"
               >
                 ✗
               </button>
@@ -227,7 +227,7 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
                   setNewCommission(affiliate.commissionRate);
                 }}
                 disabled={affiliate.isMissingRecord}
-                className="p-1 text-gray-400 hover:text-indigo-500 rounded-lg hover:bg-indigo-500/5 transition-all"
+                className="p-1 text-muted-foreground hover:text-primary rounded-lg hover:bg-primary/5 transition-all"
               >
                 <PencilIcon className="h-3.5 w-3.5" />
               </button>
@@ -237,9 +237,9 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
       </td>
 
       {/* الضوابط */}
-      <td className="block border-t border-gray-100 py-3 dark:border-gray-700/60 md:table-cell md:border-0 md:px-6 md:py-5">
+      <td className="block border-t border-border py-3 dark:border-border md:table-cell md:border-0 md:px-6 md:py-5">
         <div className="flex items-center justify-between gap-4 md:hidden mb-1.5">
-          <span className="text-xs font-semibold text-gray-500">
+          <span className="text-xs font-semibold text-muted-foreground">
             الضوابط التشغيلية
           </span>
         </div>
@@ -247,7 +247,7 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
           <div
             className={`${
               isDark ? "text-gray-300" : "text-gray-700"
-            } bg-gray-50 dark:bg-gray-800/40 md:bg-transparent px-2 py-1 md:p-0 rounded`}
+            } bg-muted dark:bg-muted md:bg-transparent px-2 py-1 md:p-0 rounded`}
           >
             سحب أدنى:{" "}
             <span className="font-bold tabular-nums">
@@ -257,9 +257,9 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
           <div
             className={`${
               affiliate.canCreateOrdersForOthers
-                ? "text-green-600 dark:text-green-400"
+                ? "text-green-600 dark:text-success"
                 : "text-red-500"
-            } bg-gray-50 dark:bg-gray-800/40 md:bg-transparent px-2 py-1 md:p-0 rounded`}
+            } bg-muted dark:bg-muted md:bg-transparent px-2 py-1 md:p-0 rounded`}
           >
             الطلب المباشر:{" "}
             {affiliate.canCreateOrdersForOthers ? "مسموح" : "موقوف"}
@@ -267,9 +267,9 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
           <div
             className={`${
               affiliate.canViewCustomerData
-                ? "text-green-600 dark:text-green-400"
+                ? "text-green-600 dark:text-success"
                 : "text-red-500"
-            } bg-gray-50 dark:bg-gray-800/40 md:bg-transparent px-2 py-1 md:p-0 rounded`}
+            } bg-muted dark:bg-muted md:bg-transparent px-2 py-1 md:p-0 rounded`}
           >
             بيانات العملاء: {affiliate.canViewCustomerData ? "مسموح" : "مخفية"}
           </div>
@@ -277,9 +277,9 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
       </td>
 
       {/* الحالة */}
-      <td className="block border-t border-gray-100 py-3 dark:border-gray-700/60 md:table-cell md:border-0 md:px-6 md:py-5">
+      <td className="block border-t border-border py-3 dark:border-border md:table-cell md:border-0 md:px-6 md:py-5">
         <div className="flex items-center justify-between gap-4 md:hidden mb-1.5">
-          <span className="text-xs font-semibold text-gray-500">
+          <span className="text-xs font-semibold text-muted-foreground">
             الحالة والمراجعة
           </span>
         </div>
@@ -301,12 +301,12 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
             </span>
           )}
           {affiliate.reviewedAt && (
-            <span className="text-[10px] text-gray-500 tabular-nums">
+            <span className="text-[10px] text-muted-foreground tabular-nums">
               {new Date(affiliate.reviewedAt).toLocaleDateString("ar-EG")}
             </span>
           )}
           {affiliate.identityDocumentUploadedAt && (
-            <span className="text-[10px] text-gray-500 tabular-nums">
+            <span className="text-[10px] text-muted-foreground tabular-nums">
               رفع المستند:{" "}
               {new Date(affiliate.identityDocumentUploadedAt).toLocaleDateString(
                 "ar-EG",
@@ -323,7 +323,7 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
             </span>
           )}
           {affiliate.identityDocumentReviewedAt && (
-            <span className="text-[10px] text-gray-500 tabular-nums">
+            <span className="text-[10px] text-muted-foreground tabular-nums">
               مراجعة المستند:{" "}
               {new Date(affiliate.identityDocumentReviewedAt).toLocaleDateString(
                 "ar-EG",

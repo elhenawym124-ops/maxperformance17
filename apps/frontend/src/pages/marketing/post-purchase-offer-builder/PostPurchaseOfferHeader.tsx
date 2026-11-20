@@ -25,12 +25,12 @@ export const PostPurchaseOfferHeader: React.FC<PostPurchaseOfferHeaderProps> = (
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/80 pb-5">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800">
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-success/10 text-success dark:text-success border border-success dark:border-success">
               One-Click Upsell Engine
             </span>
             {offer.enabled ? (
-              <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping" />
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-success dark:text-success">
+                <span className="w-2 h-2 rounded-full bg-success animate-ping" />
                 العرض نشط في المتجر
               </span>
             ) : (

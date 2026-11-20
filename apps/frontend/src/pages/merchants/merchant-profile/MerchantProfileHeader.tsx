@@ -24,7 +24,7 @@ export const MerchantProfileHeader: React.FC<MerchantProfileHeaderProps> = ({
           type="button"
           onClick={onBack}
           className={`inline-flex items-center gap-2 mb-3 text-sm ${
-            isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
+            isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-foreground"
           }`}
         >
           <ArrowLeftIcon className="h-4 w-4" />
@@ -52,8 +52,8 @@ export const MerchantProfileHeader: React.FC<MerchantProfileHeaderProps> = ({
               to={to}
               className={`inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-bold transition ${
                 isDark
-                  ? "bg-gray-800 text-gray-100 hover:bg-gray-700"
-                  : "bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+                  ? "bg-gray-800 text-muted-foreground hover:bg-muted"
+                  : "bg-white text-foreground shadow-sm hover:bg-muted"
               }`}
             >
               {label}

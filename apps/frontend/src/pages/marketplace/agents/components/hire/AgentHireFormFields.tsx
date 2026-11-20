@@ -88,7 +88,7 @@ export const AgentHireFormFields: React.FC<AgentHireFormFieldsProps> = ({
             }`}
           >
             <div className="flex items-center gap-1.5 font-semibold text-foreground mb-1">
-              <Sparkles className="size-3.5 text-amber-500 stroke-[1.5]" />
+              <Sparkles className="size-3.5 text-warning stroke-[1.5]" />
               <span>تنفيذ ذاتي فوري</span>
             </div>
             <p className="text-[10px] text-muted-foreground leading-relaxed">

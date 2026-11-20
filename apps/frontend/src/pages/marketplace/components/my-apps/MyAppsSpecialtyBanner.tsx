@@ -19,7 +19,7 @@ export const MyAppsSpecialtyBanner: React.FC<MyAppsSpecialtyBannerProps> = ({
   const isSelected = selectedHub === recommendedHub.id;
 
   return (
-    <div className="flex items-center justify-between gap-3 p-3.5 rounded-2xl border border-primary/20 bg-primary/[0.03] text-xs">
+    <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl border border-primary/20 bg-primary/[0.03] text-xs">
       <div className="flex items-center gap-2.5 min-w-0">
         <div className="size-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
           <Sparkles size={16} />

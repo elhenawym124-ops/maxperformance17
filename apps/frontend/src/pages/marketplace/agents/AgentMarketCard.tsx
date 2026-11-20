@@ -43,7 +43,7 @@ export const AgentMarketCard: React.FC<AgentMarketCardProps> = ({
   return (
     <div
       onClick={() => onViewProfile(agent)}
-      className="group relative flex flex-col justify-between rounded-2xl border border-border/60 bg-card/75 p-5 transition-all duration-200 hover:border-border hover:bg-card hover:shadow-lg dark:bg-card/40 dark:hover:bg-card/70 dark:border-white/10 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] cursor-pointer text-start select-none"
+      className="group relative flex flex-col justify-between rounded-xl border border-border/60 bg-card/75 p-5 transition-all duration-200 hover:border-border hover:bg-card hover:shadow-lg dark:bg-card/40 dark:hover:bg-card/70 dark:border-white/10 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] cursor-pointer text-start select-none"
     >
       {/* ── Top Row: Avatar + Status + Tier ── */}
       <div>
@@ -64,7 +64,7 @@ export const AgentMarketCard: React.FC<AgentMarketCardProps> = ({
               )}
             </div>
             <span
-              className="absolute -bottom-1 -left-1 flex size-3.5 items-center justify-center rounded-full border-2 border-card bg-emerald-500 shadow-sm"
+              className="absolute -bottom-1 -left-1 flex size-3.5 items-center justify-center rounded-full border-2 border-card bg-success shadow-sm"
               title="نشط وجاهز للعمل الفوري"
               aria-label="جاهز للعمل"
             />
@@ -73,12 +73,12 @@ export const AgentMarketCard: React.FC<AgentMarketCardProps> = ({
           <div className="flex flex-col items-end gap-1.5">
             {/* Pricing Tier Chip */}
             {isPro ? (
-              <span className="inline-flex items-center gap-1 rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-700 dark:text-amber-400">
+              <span className="inline-flex items-center gap-1 rounded-md border border-warning/30 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold text-warning dark:text-warning">
                 <Sparkles className="size-3 stroke-[1.5]" aria-hidden="true" />
                 <span>تخصصي Pro</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-1 rounded-md border border-success/30 bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success dark:text-success">
                 <Check className="size-3 stroke-[1.5]" aria-hidden="true" />
                 <span>أساسي متضمن</span>
               </span>

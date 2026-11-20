@@ -31,15 +31,15 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
   return (
     <section
       id="upsell-general-settings"
-      className={`scroll-mt-24 rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 ${
+      className={`scroll-mt-24 rounded-[28px] border border-border bg-white p-6 shadow-sm dark:border-border dark:bg-muted ${
         active ? "" : "hidden"
       }`}
     >
-      <div className="mb-6 flex items-center gap-3 text-gray-900 dark:text-white">
+      <div className="mb-6 flex items-center gap-3 text-foreground">
         <Settings2 size={20} />
         <div>
           <h2 className="text-2xl font-black">الإعدادات العامة والنصوص الثانوية</h2>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-foreground dark:text-muted-foreground">
             هذه الإعدادات أقل استخدامًا يوميًا، لكنها تؤثر على طريقة العرض الافتراضية
             والنسخ المساندة داخل الباندل والسلة.
           </p>
@@ -73,10 +73,10 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-950/60"
+                  className="rounded-xl border border-border bg-white p-4 dark:border-border dark:bg-muted"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <div className="text-sm font-bold text-gray-900 dark:text-white">
+                    <div className="text-sm font-bold text-foreground">
                       {item.title}
                     </div>
                     <PreviewPill
@@ -84,14 +84,14 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
                       tone={item.status ? "green" : "neutral"}
                     />
                   </div>
-                  <p className="mt-2 text-xs leading-6 text-gray-600 dark:text-gray-400">
+                  <p className="mt-2 text-xs leading-6 text-foreground dark:text-muted-foreground">
                     {item.note}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="rounded-2xl border border-dashed border-gray-300 p-4 dark:border-gray-700">
+            <div className="rounded-xl border border-dashed border-border p-4 dark:border-border">
               <div className="flex flex-wrap items-center gap-2">
                 <PreviewPill
                   label={generalSettings["enabled"] ? "Engine on" : "Engine off"}
@@ -110,7 +110,7 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
                   tone="amber"
                 />
               </div>
-              <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-400">
+              <p className="mt-3 text-sm leading-7 text-foreground dark:text-muted-foreground">
                 أي تغيير هنا ينعكس على أكثر من placement، لذلك هذه الشاشة مناسبة لصاحب
                 المتجر أو المسؤول عن conversion logic بالكامل.
               </p>
@@ -118,11 +118,11 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
           </div>
         </PlacementPreview>
 
-        <div className="rounded-[28px] border border-gray-200 bg-gray-50/80 p-5 dark:border-gray-700 dark:bg-gray-900/60">
+        <div className="rounded-[28px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
           <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
             Admin Guidance
           </div>
-          <h3 className="mt-2 text-xl font-black text-gray-900 dark:text-white">
+          <h3 className="mt-2 text-xl font-black text-foreground">
             متى أستخدم هذا القسم؟
           </h3>
           <div className="mt-4 space-y-3">
@@ -133,7 +133,7 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-gray-200 bg-white p-4 text-sm leading-7 text-gray-600 dark:border-gray-700 dark:bg-gray-950/50 dark:text-gray-400"
+                className="rounded-xl border border-border bg-white p-4 text-sm leading-7 text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
               >
                 {item}
               </div>

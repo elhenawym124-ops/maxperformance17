@@ -73,10 +73,10 @@ export function MarketingMetricTile({
   accent?: "emerald" | "red" | "blue" | "purple" | "yellow" | "gray";
 }) {
   const colorMap: Record<string, string> = {
-    emerald: "text-emerald-600 dark:text-emerald-400",
-    red: "text-rose-600 dark:text-rose-400",
+    emerald: "text-emerald-600 dark:text-success",
+    red: "text-rose-600 dark:text-destructive",
     blue: "text-primary",
-    purple: "text-purple-600 dark:text-purple-400",
+    purple: "text-purple-600 dark:text-primary",
     yellow: "text-amber-500",
     gray: "text-foreground",
   };
@@ -220,7 +220,7 @@ export function MarketingScenarioBar<T>({
           <button
             type="button"
             onClick={() => onDelete(sc.id)}
-            className="text-muted-foreground hover:text-rose-500 transition-colors cursor-pointer"
+            className="text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
             title="حذف السيناريو"
           >
             <Trash2 className="w-3 h-3" />
@@ -248,18 +248,18 @@ export function MarketingAlertBanner({
             key={i}
             className={`flex items-start gap-2.5 p-3 rounded-xl border text-xs leading-relaxed ${
               isErr
-                ? "bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400"
+                ? "bg-rose-500/10 border-destructive/30 text-destructive dark:text-destructive"
                 : isWarn
-                ? "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400"
-                : "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                ? "bg-amber-500/10 border-warning/30 text-warning dark:text-warning"
+                : "bg-emerald-500/10 border-success/30 text-success dark:text-success"
             }`}
           >
             {isErr ? (
-              <XCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-500" />
+              <XCircle className="w-4 h-4 shrink-0 mt-0.5 text-destructive" />
             ) : isWarn ? (
-              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-500" />
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-warning" />
             ) : (
-              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-500" />
+              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-success" />
             )}
             <div>
               <span className="font-bold block">{a.title}</span>

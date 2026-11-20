@@ -23,21 +23,21 @@ export const AffiliateDocumentsCard: React.FC<AffiliateDocumentsCardProps> = ({
   saving,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <h2 className="flex items-center gap-2 text-lg font-bold">
         <IdentificationIcon className="h-5 w-5" />
         المستندات والمراجعة
       </h2>
       <div className="mt-4 space-y-3 text-sm">
-        <div className="rounded-xl border border-slate-200 p-3 dark:border-slate-700">
+        <div className="rounded-xl border border-border p-3 dark:border-border">
           <div className="font-semibold">
             {getDocumentStatusLabel(identityDocumentStatus)}
           </div>
-          <div className="mt-1 text-xs text-slate-500 tabular-nums">
+          <div className="mt-1 text-xs text-muted-foreground tabular-nums">
             {formatDate(identityDocumentUploadedAt)}
           </div>
           {identityDocumentReviewNote ? (
-            <p className="mt-2 text-xs text-red-600 dark:text-red-300">
+            <p className="mt-2 text-xs text-destructive dark:text-destructive">
               {identityDocumentReviewNote}
             </p>
           ) : null}
@@ -46,7 +46,7 @@ export const AffiliateDocumentsCard: React.FC<AffiliateDocumentsCardProps> = ({
               href={identityDocumentUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
             >
               <DocumentTextIcon className="h-4 w-4" />
               فتح المستند الحالي
@@ -58,14 +58,14 @@ export const AffiliateDocumentsCard: React.FC<AffiliateDocumentsCardProps> = ({
           <button
             onClick={() => void reviewDocument("APPROVED")}
             disabled={saving || !identityDocumentUrl}
-            className="min-h-10 rounded-xl border border-emerald-200 bg-emerald-50 text-sm font-semibold text-emerald-700 disabled:opacity-50 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-200"
+            className="min-h-10 rounded-xl border border-success bg-success/10 text-sm font-semibold text-success disabled:opacity-50 dark:border-success/20 dark:bg-success/10 dark:text-success"
           >
             اعتماد المستند
           </button>
           <button
             onClick={() => void reviewDocument("REJECTED")}
             disabled={saving || !identityDocumentUrl}
-            className="min-h-10 rounded-xl border border-red-200 bg-red-50 text-sm font-semibold text-red-700 disabled:opacity-50 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-200"
+            className="min-h-10 rounded-xl border border-destructive bg-destructive/10 text-sm font-semibold text-destructive disabled:opacity-50 dark:border-destructive/20 dark:bg-destructive/10 dark:text-destructive"
           >
             رفض المستند
           </button>
@@ -78,7 +78,7 @@ export const AffiliateDocumentsCard: React.FC<AffiliateDocumentsCardProps> = ({
               href={document.fileUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2 text-xs hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+              className="flex items-center justify-between rounded-xl border border-border px-3 py-2 text-xs hover:bg-muted dark:border-border dark:hover:bg-muted"
             >
               <span>{document.isCurrent ? "الحالي" : "نسخة سابقة"}</span>
               <span className="tabular-nums">{formatDate(document.uploadedAt)}</span>

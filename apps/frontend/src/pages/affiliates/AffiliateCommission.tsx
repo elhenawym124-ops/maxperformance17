@@ -203,16 +203,16 @@ const AffiliateCommission: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "CONFIRMED":
-        return "text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400";
+        return "text-green-600 bg-success dark:bg-success/30 dark:text-success";
       case "PENDING":
-        return "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-400";
+        return "text-yellow-600 bg-warning dark:bg-warning/30 dark:text-warning";
       case "PAID":
       case "PROCESSED":
         return "text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400";
       case "CANCELLED":
-        return "text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-400";
+        return "text-red-600 bg-destructive dark:bg-destructive/30 dark:text-destructive";
       default:
-        return "text-gray-600 bg-gray-100 dark:bg-gray-800 dark:text-gray-400";
+        return "text-gray-600 bg-muted dark:bg-muted dark:text-muted-foreground";
     }
   };
 
@@ -251,10 +251,10 @@ const AffiliateCommission: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
             العمولات والأرباح
           </h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 sm:text-base">
+          <p className="mt-1 text-sm text-muted-foreground sm:text-base">
             متابعة الأرباح وطلبات السحب
           </p>
         </div>
@@ -271,8 +271,8 @@ const AffiliateCommission: React.FC = () => {
           className={`inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition sm:w-auto ${
             toNumber(affiliate?.pendingEarnings) >=
             toNumber(affiliate?.minPayout || 100)
-              ? "bg-green-600 hover:bg-green-700 text-white"
-              : "bg-gray-300 cursor-not-allowed text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+              ? "bg-green-600 hover:bg-success text-white"
+              : "bg-gray-300 cursor-not-allowed text-muted-foreground dark:bg-muted dark:text-muted-foreground"
           }`}
         >
           <BanknotesIcon className="w-5 h-5" />
@@ -283,53 +283,53 @@ const AffiliateCommission: React.FC = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
         {/* Withdrawable Balance */}
-        <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+        <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted sm:p-6">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 sm:text-sm">
+              <p className="text-xs font-medium text-muted-foreground sm:text-sm">
                 الرصيد القابل للسحب
               </p>
-              <h3 className="mt-2 text-2xl font-bold text-green-600 sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-bold text-success sm:text-3xl">
                 {formatPrice(toNumber(affiliate?.pendingEarnings))}
               </h3>
             </div>
-            <div className="hidden rounded-lg bg-green-50 p-3 dark:bg-green-900/20 sm:block">
-              <BanknotesIcon className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="hidden rounded-lg bg-success/10 p-3 dark:bg-success/20 sm:block">
+              <BanknotesIcon className="w-6 h-6 text-success dark:text-success" />
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-4">
+          <p className="text-xs text-muted-foreground mt-4">
             الحد الأدنى للسحب: {formatPrice(toNumber(affiliate?.minPayout || 100))}
           </p>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             مدة معالجة السحب: {affiliate?.payoutSlaDays || 3} أيام
           </p>
         </div>
 
         {/* Expected Commission */}
-        <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+        <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted sm:p-6">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 sm:text-sm">
+              <p className="text-xs font-medium text-muted-foreground sm:text-sm">
                 العمولة المتوقعة
               </p>
-              <h3 className="mt-2 text-2xl font-bold text-orange-600 sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-bold text-warning sm:text-3xl">
                 {formatPrice(expectedCommission)}
               </h3>
             </div>
-            <div className="hidden rounded-lg bg-orange-50 p-3 dark:bg-orange-900/20 sm:block">
-              <ClockIcon className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            <div className="hidden rounded-lg bg-warning/10 p-3 dark:bg-warning/20 sm:block">
+              <ClockIcon className="w-6 h-6 text-warning dark:text-warning" />
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-4">
+          <p className="text-xs text-muted-foreground mt-4">
             من الطلبات التي لم تُستلم بعد
           </p>
         </div>
 
         {/* Total Earnings */}
-        <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+        <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted sm:p-6">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 sm:text-sm">
+              <p className="text-xs font-medium text-muted-foreground sm:text-sm">
                 إجمالي الأرباح
               </p>
               <h3 className="mt-2 text-2xl font-bold text-blue-600 sm:text-3xl">
@@ -340,41 +340,41 @@ const AffiliateCommission: React.FC = () => {
               <ArrowTrendingUpIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-4">منذ بداية العمل</p>
+          <p className="text-xs text-muted-foreground mt-4">منذ بداية العمل</p>
         </div>
 
         {/* Paid Earnings */}
-        <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+        <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted sm:p-6">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 sm:text-sm">
+              <p className="text-xs font-medium text-muted-foreground sm:text-sm">
                 تم صرفه
               </p>
-              <h3 className="mt-2 text-2xl font-bold text-purple-600 sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-bold text-primary sm:text-3xl">
                 {formatPrice(toNumber(affiliate?.paidEarnings))}
               </h3>
             </div>
-            <div className="hidden rounded-lg bg-purple-50 p-3 dark:bg-purple-900/20 sm:block">
-              <CreditCardIcon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            <div className="hidden rounded-lg bg-primary/10 p-3 dark:bg-primary/20 sm:block">
+              <CreditCardIcon className="w-6 h-6 text-primary dark:text-primary" />
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-4">إجمالي المبالغ المحولة</p>
+          <p className="text-xs text-muted-foreground mt-4">إجمالي المبالغ المحولة</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Payouts */}
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <div className="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
-            <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <ClockIcon className="w-5 h-5 text-gray-500" />
+        <div className="overflow-hidden rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+          <div className="p-4 border-b border-border dark:border-border flex justify-between items-center">
+            <h3 className="font-bold text-foreground flex items-center gap-2">
+              <ClockIcon className="w-5 h-5 text-muted-foreground" />
               سجل طلبات السحب
             </h3>
           </div>
           <div className="p-3 md:p-0">
             {payouts.length > 0 ? (
-              <table className="block w-full text-right text-sm md:table md:divide-y md:divide-gray-100 dark:md:divide-gray-700">
-                <thead className="hidden bg-gray-50 text-gray-500 dark:bg-gray-900/50 dark:text-gray-400 md:table-header-group">
+              <table className="block w-full text-right text-sm md:table md:divide-y md:divide-border dark:md:divide-border">
+                <thead className="hidden bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground md:table-header-group">
                   <tr>
                     <th className="p-3">التاريخ</th>
                     <th className="p-3">المبلغ</th>
@@ -382,32 +382,32 @@ const AffiliateCommission: React.FC = () => {
                     <th className="p-3">الحالة</th>
                   </tr>
                 </thead>
-                <tbody className="block space-y-3 md:table-row-group md:space-y-0 md:divide-y md:divide-gray-100 dark:md:divide-gray-700">
+                <tbody className="block space-y-3 md:table-row-group md:space-y-0 md:divide-y md:divide-border dark:md:divide-border">
                   {payouts.map((payout) => (
                     <tr
                       key={payout.id}
-                      className="block rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/35 md:table-row md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:hover:bg-gray-50 dark:md:hover:bg-gray-700/50"
+                      className="block rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted md:table-row md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:hover:bg-muted dark:md:hover:bg-muted"
                     >
-                      <td className="flex items-center justify-between gap-4 pb-3 text-gray-600 dark:text-gray-300 md:table-cell md:p-3">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-center justify-between gap-4 pb-3 text-muted-foreground md:table-cell md:p-3">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           التاريخ
                         </span>
                         <span>{new Date(payout.createdAt).toLocaleDateString("ar-EG")}</span>
                       </td>
-                      <td className="flex items-center justify-between gap-4 border-t border-gray-100 py-3 font-bold text-gray-900 dark:border-gray-700 dark:text-white md:table-cell md:border-0 md:p-3">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-center justify-between gap-4 border-t border-border py-3 font-bold text-foreground dark:border-border dark:text-white md:table-cell md:border-0 md:p-3">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           المبلغ
                         </span>
                         <span>{formatPrice(toNumber(payout.amount))}</span>
                       </td>
-                      <td className="flex items-start justify-between gap-4 border-t border-gray-100 py-3 text-gray-600 dark:border-gray-700 dark:text-gray-300 md:table-cell md:border-0 md:p-3">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-start justify-between gap-4 border-t border-border py-3 text-foreground dark:border-border dark:text-muted-foreground md:table-cell md:border-0 md:p-3">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           طريقة الدفع
                         </span>
                         <div className="flex flex-col text-left md:text-right">
                           <span>{payout.paymentMethod}</span>
                           {payout.notes ? (
-                            <span className="text-xs text-amber-600 dark:text-amber-400">
+                            <span className="text-xs text-warning dark:text-warning">
                               {payout.notes}
                             </span>
                           ) : null}
@@ -423,8 +423,8 @@ const AffiliateCommission: React.FC = () => {
                           ) : null}
                         </div>
                       </td>
-                      <td className="flex items-start justify-between gap-4 border-t border-gray-100 pt-3 dark:border-gray-700 md:table-cell md:border-0 md:p-3">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-start justify-between gap-4 border-t border-border pt-3 dark:border-border md:table-cell md:border-0 md:p-3">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           الحالة
                         </span>
                         <div className="flex flex-col items-end gap-1 md:items-start">
@@ -434,13 +434,13 @@ const AffiliateCommission: React.FC = () => {
                             {getStatusText(payout.status)}
                           </span>
                           {payout.status === "CANCELLED" && payout.notes ? (
-                            <span className="text-xs text-red-600 dark:text-red-400">
+                            <span className="text-xs text-destructive dark:text-destructive">
                               تم إرجاع الرصيد القابل للسحب بعد الإلغاء
                             </span>
                           ) : null}
                           {["PROCESSED", "PAID"].includes(payout.status) &&
                           payout.proofFileUrl ? (
-                            <span className="text-xs text-green-600 dark:text-green-400">
+                            <span className="text-xs text-success dark:text-success">
                               تم إرفاق إثبات التحويل
                             </span>
                           ) : null}
@@ -451,7 +451,7 @@ const AffiliateCommission: React.FC = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+              <div className="p-8 text-center text-muted-foreground">
                 لا توجد عمليات سحب سابقة
               </div>
             )}
@@ -459,17 +459,17 @@ const AffiliateCommission: React.FC = () => {
         </div>
 
         {/* Recent Commissions */}
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <div className="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
-            <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <CheckCircleIcon className="w-5 h-5 text-gray-500" />
+        <div className="overflow-hidden rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+          <div className="p-4 border-b border-border dark:border-border flex justify-between items-center">
+            <h3 className="font-bold text-foreground flex items-center gap-2">
+              <CheckCircleIcon className="w-5 h-5 text-muted-foreground" />
               أحدث العمولات
             </h3>
           </div>
           <div className="p-3 md:p-0">
             {commissions.length > 0 ? (
-              <table className="block w-full text-right text-sm md:table md:divide-y md:divide-gray-100 dark:md:divide-gray-700">
-                <thead className="hidden bg-gray-50 text-gray-500 dark:bg-gray-900/50 dark:text-gray-400 md:table-header-group">
+              <table className="block w-full text-right text-sm md:table md:divide-y md:divide-border dark:md:divide-border">
+                <thead className="hidden bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground md:table-header-group">
                   <tr>
                     <th className="p-3">رقم الطلب</th>
                     <th className="p-3">قيمة الطلب</th>
@@ -477,32 +477,32 @@ const AffiliateCommission: React.FC = () => {
                     <th className="p-3">التاريخ</th>
                   </tr>
                 </thead>
-                <tbody className="block space-y-3 md:table-row-group md:space-y-0 md:divide-y md:divide-gray-100 dark:md:divide-gray-700">
+                <tbody className="block space-y-3 md:table-row-group md:space-y-0 md:divide-y md:divide-border dark:md:divide-border">
                   {commissions.map((comm) => (
                     <tr
                       key={comm.id}
-                      className="block rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/35 md:table-row md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:hover:bg-gray-50 dark:md:hover:bg-gray-700/50"
+                      className="block rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted md:table-row md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:hover:bg-muted dark:md:hover:bg-muted"
                     >
                       <td className="flex items-center justify-between gap-4 pb-3 font-mono text-blue-600 dark:text-blue-400 md:table-cell md:p-3">
-                        <span className="font-sans text-xs font-medium text-gray-500 md:hidden">
+                        <span className="font-sans text-xs font-medium text-muted-foreground md:hidden">
                           رقم الطلب
                         </span>
                         {comm.order?.orderNumber || "غير متوفر"}
                       </td>
-                      <td className="flex items-center justify-between gap-4 border-t border-gray-100 py-3 text-gray-600 dark:border-gray-700 dark:text-gray-300 md:table-cell md:border-0 md:p-3">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-center justify-between gap-4 border-t border-border py-3 text-foreground dark:border-border dark:text-muted-foreground md:table-cell md:border-0 md:p-3">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           قيمة الطلب
                         </span>
                         {formatPrice(toNumber(comm.orderTotal))}
                       </td>
-                      <td className="flex items-center justify-between gap-4 border-t border-gray-100 py-3 font-bold text-green-600 dark:border-gray-700 dark:text-green-400 md:table-cell md:border-0 md:p-3">
-                        <span className="text-xs font-medium text-gray-500 md:hidden">
+                      <td className="flex items-center justify-between gap-4 border-t border-border py-3 font-bold text-success dark:border-border dark:text-success md:table-cell md:border-0 md:p-3">
+                        <span className="text-xs font-medium text-muted-foreground md:hidden">
                           العمولة
                         </span>
                         +{formatPrice(toNumber(comm.amount))}
                       </td>
-                      <td className="flex items-center justify-between gap-4 border-t border-gray-100 pt-3 text-xs text-gray-500 dark:border-gray-700 md:table-cell md:border-0 md:p-3">
-                        <span className="font-medium text-gray-500 md:hidden">
+                      <td className="flex items-center justify-between gap-4 border-t border-border pt-3 text-xs text-muted-foreground dark:border-border md:table-cell md:border-0 md:p-3">
+                        <span className="font-medium text-muted-foreground md:hidden">
                           التاريخ
                         </span>
                         {new Date(comm.createdAt).toLocaleDateString("ar-EG")}
@@ -512,7 +512,7 @@ const AffiliateCommission: React.FC = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+              <div className="p-8 text-center text-muted-foreground">
                 لا توجد عمولات مسجلة
               </div>
             )}
@@ -523,9 +523,9 @@ const AffiliateCommission: React.FC = () => {
       {/* Payout Request Modal */}
       {showPayoutModal && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4">
-          <div className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white shadow-xl dark:bg-gray-800 sm:rounded-2xl">
-            <div className="border-b border-gray-100 p-4 dark:border-gray-700 sm:p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+          <div className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white shadow-xl dark:bg-muted sm:rounded-xl">
+            <div className="border-b border-border p-4 dark:border-border sm:p-6">
+              <h3 className="text-lg font-bold text-foreground sm:text-xl">
                 طلب سحب جديد
               </h3>
             </div>
@@ -534,7 +534,7 @@ const AffiliateCommission: React.FC = () => {
               <div>
                 <label
                   htmlFor="affiliate-payout-amount"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-foreground mb-1"
                 >
                   المبلغ المتاح للسحب
                 </label>
@@ -545,24 +545,24 @@ const AffiliateCommission: React.FC = () => {
                   readOnly
                   max={toNumber(affiliate?.pendingEarnings)}
                   min={toNumber(affiliate?.minPayout || 100)}
-                  className="min-h-11 w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                  className="min-h-11 w-full rounded-xl border border-border bg-muted px-4 py-2 text-foreground focus:ring-2 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
                   placeholder="0.00"
                   required
                 />
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-xs text-muted-foreground">
                   حالياً يتم إنشاء طلب السحب على كامل الرصيد القابل للسحب حتى لا
                   تتكرر طلبات السحب على نفس العمولات.
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   طريقة الدفع
                 </label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="min-h-11 w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                  className="min-h-11 w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground focus:ring-2 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
                   required
                 >
                   <option value="">اختر طريقة الدفع</option>
@@ -574,13 +574,13 @@ const AffiliateCommission: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   بيانات التحويل (رقم المحفظة / الحساب)
                 </label>
                 <textarea
                   value={paymentDetails}
                   onChange={(e) => setPaymentDetails(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                  className="w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground focus:ring-2 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
                   rows={3}
                   required
                   placeholder="مثال: 010xxxxxx"
@@ -591,7 +591,7 @@ const AffiliateCommission: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPayoutModal(false)}
-                  className="min-h-11 flex-1 rounded-xl bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="min-h-11 flex-1 rounded-xl bg-muted px-4 py-2 text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                 >
                   إلغاء
                 </button>

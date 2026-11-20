@@ -46,18 +46,18 @@ export const CompanyOrdersHeaderAndStats: React.FC<
 }) => {
   return (
     <>
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-4">
             <button
               onClick={onBack}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="p-2 hover:bg-muted rounded-lg transition-colors"
               aria-label="العودة للتقارير"
             >
-              <ArrowRightIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <ArrowRightIcon className="w-5 h-5 text-foreground dark:text-muted-foreground" />
             </button>
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
+              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
                 {company?.logo ? (
                   <img
                     src={getCompanyOrderImageUrl(company.logo) || ""}
@@ -65,14 +65,14 @@ export const CompanyOrdersHeaderAndStats: React.FC<
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <BuildingOffice2Icon className="w-6 h-6 text-gray-400" />
+                  <BuildingOffice2Icon className="w-6 h-6 text-muted-foreground" />
                 )}
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-800 dark:text-white">
+                <h1 className="text-xl font-bold text-foreground dark:text-white">
                   {company?.name}
                 </h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   تفاصيل الطلبات والمنتجات
                 </p>
               </div>
@@ -80,7 +80,7 @@ export const CompanyOrdersHeaderAndStats: React.FC<
           </div>
           <button
             onClick={onExport}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-success hover:bg-success text-white rounded-lg transition-colors"
           >
             <ArrowDownTrayIcon className="w-5 h-5" />
             تصدير
@@ -90,89 +90,89 @@ export const CompanyOrdersHeaderAndStats: React.FC<
 
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-1">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
               <ShoppingCartIcon className="w-4 h-4" />
               إجمالي الطلبات
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white">
               {stats.totalOrders}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-1">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
               <CurrencyDollarIcon className="w-4 h-4" />
               الإيرادات
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-green-600">
+            <p className="text-2xl font-bold font-mono tabular-nums text-success">
               {stats.totalRevenue.toLocaleString()} ج.م
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-1">
-              <CheckCircleIcon className="w-4 h-4 text-green-500" />
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+              <CheckCircleIcon className="w-4 h-4 text-success" />
               مكتمل
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white">
               {stats.completedOrders}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-1">
-              <ClockIcon className="w-4 h-4 text-yellow-500" />
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+              <ClockIcon className="w-4 h-4 text-warning" />
               قيد الانتظار
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white">
               {stats.pendingOrders}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-1">
-              <XCircleIcon className="w-4 h-4 text-red-500" />
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+              <XCircleIcon className="w-4 h-4 text-destructive" />
               ملغي
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white">
               {stats.cancelledOrders}
             </p>
           </div>
         </div>
       )}
 
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <FunnelIcon className="w-5 h-5 text-gray-400" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <FunnelIcon className="w-5 h-5 text-muted-foreground" />
+            <span className="text-sm font-medium text-foreground">
               فلترة:
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600 dark:text-gray-400">
+            <label className="text-sm text-foreground dark:text-muted-foreground">
               من:
             </label>
             <DateInput
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-mono tabular-nums dark:bg-gray-700 dark:text-white"
+              className="px-3 py-2 border border-border rounded-lg text-sm font-mono tabular-nums dark:bg-muted dark:text-white"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600 dark:text-gray-400">
+            <label className="text-sm text-foreground dark:text-muted-foreground">
               إلى:
             </label>
             <DateInput
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-mono tabular-nums dark:bg-gray-700 dark:text-white"
+              className="px-3 py-2 border border-border rounded-lg text-sm font-mono tabular-nums dark:bg-muted dark:text-white"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-border rounded-lg text-sm dark:bg-muted dark:text-white"
           >
             <option value="all">كل الحالات</option>
             <option value="PENDING">قيد الانتظار</option>

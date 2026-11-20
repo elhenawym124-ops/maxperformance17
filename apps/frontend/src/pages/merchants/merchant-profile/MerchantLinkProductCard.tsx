@@ -24,12 +24,12 @@ export const MerchantLinkProductCard: React.FC<
   linkingProduct,
   onSubmit,
 }) => {
-  const cardClass = isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
+  const cardClass = isDark ? "bg-gray-800 border-border" : "bg-white border-border";
   const textMutedClass = isDark ? "text-gray-400" : "text-gray-500";
   const inputClass = `w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 transition ${
     isDark
-      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-      : "bg-white border-gray-300 text-gray-900"
+      ? "bg-gray-700 border-border text-white placeholder-muted"
+      : "bg-white border-border text-foreground"
   }`;
 
   return (
@@ -51,11 +51,11 @@ export const MerchantLinkProductCard: React.FC<
           className={`text-xs px-3 py-1 rounded-full tabular-nums ${
             productsLoading
               ? isDark
-                ? "bg-gray-700 text-gray-200"
-                : "bg-gray-100 text-gray-700"
+                ? "bg-gray-700 text-muted-foreground"
+                : "bg-gray-100 text-foreground"
               : isDark
-                ? "bg-emerald-500/15 text-emerald-300"
-                : "bg-emerald-50 text-emerald-700"
+                ? "bg-emerald-500/15 text-success"
+                : "bg-emerald-50 text-success"
           }`}
         >
           {productsLoading ? "جارٍ تحميل المنتجات" : `${availableProducts.length} منتج`}
@@ -171,7 +171,7 @@ export const MerchantLinkProductCard: React.FC<
                 syncEnabled: e.target.checked,
               })
             }
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
             disabled={linkingProduct}
           />
           <span className={isDark ? "text-gray-300" : "text-gray-700"}>

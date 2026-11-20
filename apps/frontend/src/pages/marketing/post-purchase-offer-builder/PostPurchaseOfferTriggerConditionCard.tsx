@@ -31,7 +31,7 @@ export const PostPurchaseOfferTriggerConditionCard: React.FC<
   onClearTriggerProducts,
 }) => {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm space-y-4">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-4">
       <div>
         <h3 className="font-bold text-base text-foreground flex items-center gap-2">
           <Target className="w-4 h-4 text-primary" />
@@ -131,7 +131,7 @@ export const PostPurchaseOfferTriggerConditionCard: React.FC<
               <button
                 type="button"
                 onClick={onClearTriggerProducts}
-                className="text-muted-foreground hover:text-rose-600 font-medium cursor-pointer"
+                className="text-muted-foreground hover:text-destructive font-medium cursor-pointer"
               >
                 مسح التحديد
               </button>
@@ -170,7 +170,7 @@ export const PostPurchaseOfferTriggerConditionCard: React.FC<
                           e.stopPropagation();
                           onToggleTriggerProduct(id);
                         }}
-                        className="text-muted-foreground hover:text-rose-600 cursor-pointer"
+                        className="text-muted-foreground hover:text-destructive cursor-pointer"
                       >
                         ✕
                       </button>
@@ -245,7 +245,7 @@ export const PostPurchaseOfferTriggerConditionCard: React.FC<
 
           {(!offer.triggerProductIds ||
             offer.triggerProductIds.length === 0) && (
-            <p className="text-[11px] text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-1">
+            <p className="text-[11px] text-warning dark:text-warning font-semibold flex items-center gap-1">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               يرجى تحديد منتج واحد على الأقل لتفعيل شرط الظهور.
             </p>

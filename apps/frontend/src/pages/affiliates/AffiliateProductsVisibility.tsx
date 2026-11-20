@@ -110,20 +110,20 @@ const AffiliatePicker: React.FC<{
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div
-        className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-lg max-h-[80vh] flex flex-col shadow-xl"
+        className="bg-card rounded-xl w-full max-w-lg max-h-[80vh] flex flex-col shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between p-4 border-b border-border dark:border-border">
           <h3 className="font-bold text-lg dark:text-white">اختيار المسوقين</h3>
-          <button onClick={onClose} className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-            <XMarkIcon className="h-5 w-5 dark:text-gray-400" />
+          <button onClick={onClose} className="p-1 rounded-lg hover:bg-muted">
+            <XMarkIcon className="h-5 w-5 dark:text-muted-foreground" />
           </button>
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
           {loading ? (
-            <div className="text-center py-8 text-gray-500">جاري التحميل...</div>
+            <div className="text-center py-8 text-muted-foreground">جاري التحميل...</div>
           ) : affiliates.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">لا يوجد مسوقون نشطون</div>
+            <div className="text-center py-8 text-muted-foreground">لا يوجد مسوقون نشطون</div>
           ) : (
             affiliates.map((a) => {
               const name = a.user
@@ -132,30 +132,30 @@ const AffiliatePicker: React.FC<{
               return (
                 <label
                   key={a.id}
-                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer"
+                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50/50 cursor-pointer"
                 >
                   <input
                     type="checkbox"
                     checked={localSelected.has(a.id)}
                     onChange={() => toggle(a.id)}
-                    className="h-5 w-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                    className="h-5 w-5 text-primary rounded border-border focus:ring-primary"
                   />
-                  <span className="text-sm dark:text-gray-200">{name}</span>
+                  <span className="text-sm dark:text-muted-foreground">{name}</span>
                 </label>
               );
             })
           )}
         </div>
-        <div className="flex gap-3 p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex gap-3 p-4 border-t border-border dark:border-border">
           <button
             onClick={() => { setLocalSelected(new Set()); onChange([]); onClose(); }}
-            className="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 text-sm font-medium dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="flex-1 px-4 py-2 rounded-xl border border-border text-sm font-medium dark:text-muted-foreground hover:bg-muted/50"
           >
             إلغاء التحديد
           </button>
           <button
             onClick={() => { onChange(Array.from(localSelected)); onClose(); }}
-            className="flex-1 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-700"
+            className="flex-1 px-4 py-2 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary"
           >
             تطبيق ({localSelected.size})
           </button>
@@ -314,7 +314,7 @@ const AffiliateProductsVisibility: React.FC = () => {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`rounded-2xl border p-4 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-100"} shadow-sm`}
+              className={`rounded-xl border p-4 ${isDark ? "bg-gray-800 border-border" : "bg-white border-border"} shadow-sm`}
             >
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 ${stat.color} rounded-xl flex items-center justify-center`}>
@@ -332,13 +332,13 @@ const AffiliateProductsVisibility: React.FC = () => {
         {/* Search + Filter */}
         <div className="flex gap-4 items-center">
           <div className="relative flex-1">
-            <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="ابحث عن منتج..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className={`w-full pr-10 pl-4 py-3 rounded-xl border ${isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-100 text-gray-900"} outline-none focus:ring-2 focus:ring-indigo-500`}
+              className={`w-full pe-10 ps-4 py-3 rounded-xl border ${isDark ? "bg-gray-800 border-border text-white" : "bg-white border-border text-foreground"} outline-none focus:ring-2 focus:ring-primary`}
             />
           </div>
         </div>
@@ -346,17 +346,17 @@ const AffiliateProductsVisibility: React.FC = () => {
         {/* Loading */}
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
           </div>
         )}
 
         {/* Bulk Bar */}
         {!loading && selectedIds.size > 0 && (
           <div
-            className={`rounded-2xl border p-4 shadow-md backdrop-blur-sm flex items-center justify-between flex-wrap gap-3 ${
+            className={`rounded-xl border p-4 shadow-md backdrop-blur-sm flex items-center justify-between flex-wrap gap-3 ${
               isDark
-                ? "bg-indigo-900/30 border-indigo-700/50"
-                : "bg-indigo-50/80 border-indigo-200"
+                ? "bg-indigo-900/30 border-primary/50"
+                : "bg-indigo-50/80 border-primary"
             }`}
           >
             <span className={`text-sm font-medium ${isDark ? "text-indigo-200" : "text-indigo-800"}`}>
@@ -365,13 +365,13 @@ const AffiliateProductsVisibility: React.FC = () => {
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => handleBulkUpdate({ allowAffiliateMarkup: true })}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-success text-white text-xs font-bold hover:bg-success"
               >
                 <CheckIcon className="h-4 w-4" /> تفعيل Markup
               </button>
               <button
                 onClick={() => handleBulkUpdate({ allowAffiliateMarkup: false })}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gray-600 text-white text-xs font-bold hover:bg-gray-700"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-muted text-white text-xs font-bold hover:bg-muted"
               >
                 <XMarkIcon className="h-4 w-4" /> إيقاف Markup
               </button>
@@ -383,7 +383,7 @@ const AffiliateProductsVisibility: React.FC = () => {
               </button>
               <button
                 onClick={() => handleBulkUpdate({ affiliateVisibility: "HIDDEN" })}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold hover:bg-red-700"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-destructive text-white text-xs font-bold hover:bg-destructive"
               >
                 <EyeSlashIcon className="h-4 w-4" /> إخفاء عن المسوقين
               </button>
@@ -391,8 +391,8 @@ const AffiliateProductsVisibility: React.FC = () => {
                 onClick={() => setSelectedIds(new Set())}
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold border ${
                   isDark
-                    ? "border-gray-600 text-gray-300 hover:bg-gray-700"
-                    : "border-gray-200 text-gray-700 hover:bg-gray-50"
+                    ? "border-gray-600 text-muted-foreground hover:bg-muted"
+                    : "border-gray-200 text-foreground hover:bg-muted"
                 }`}
               >
                 <XMarkIcon className="h-4 w-4" /> إلغاء
@@ -413,7 +413,7 @@ const AffiliateProductsVisibility: React.FC = () => {
 
         {/* Table */}
         {!loading && products.length > 0 && (
-          <div className={`rounded-2xl border overflow-hidden ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-100"} shadow-sm`}>
+          <div className={`rounded-xl border overflow-hidden ${isDark ? "bg-gray-800 border-border" : "bg-white border-border"} shadow-sm`}>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className={isDark ? "bg-gray-900" : "bg-gray-50"}>
@@ -423,7 +423,7 @@ const AffiliateProductsVisibility: React.FC = () => {
                         type="checkbox"
                         checked={selectedIds.size === products.length && products.length > 0}
                         onChange={toggleSelectAll}
-                        className="h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                        className="h-4 w-4 text-primary rounded border-border focus:ring-primary"
                       />
                     </th>
                     <th className={`p-3 text-right font-medium ${isDark ? "text-gray-300" : "text-gray-700"}`}>
@@ -463,7 +463,7 @@ const AffiliateProductsVisibility: React.FC = () => {
                             type="checkbox"
                             checked={selectedIds.has(product.id)}
                             onChange={() => toggleSelect(product.id)}
-                            className="h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                            className="h-4 w-4 text-primary rounded border-border focus:ring-primary"
                           />
                         </td>
                         <td className="p-3">
@@ -471,7 +471,7 @@ const AffiliateProductsVisibility: React.FC = () => {
                             <img
                               src={normalizeImage(product.images)}
                               alt={product.name}
-                              className="w-10 h-10 rounded-lg object-cover bg-gray-100"
+                              className="w-10 h-10 rounded-lg object-cover bg-muted"
                             />
                             <span className={`font-medium truncate max-w-[200px] ${isDark ? "text-white" : "text-gray-900"}`}>
                               {product.name}
@@ -487,8 +487,8 @@ const AffiliateProductsVisibility: React.FC = () => {
                             disabled={isSaving}
                             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                               product.allowAffiliateMarkup
-                                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300"
-                                : "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                                ? "bg-emerald-100 text-success dark:bg-success/50 dark:text-success"
+                                : "bg-gray-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground"
                             }`}
                           >
                             {product.allowAffiliateMarkup ? (
@@ -508,8 +508,8 @@ const AffiliateProductsVisibility: React.FC = () => {
                             disabled={isSaving}
                             className={`text-xs rounded-lg border px-2 py-1 outline-none ${
                               isDark
-                                ? "bg-gray-700 border-gray-600 text-gray-200"
-                                : "bg-white border-gray-200 text-gray-700"
+                                ? "bg-gray-700 border-border text-muted-foreground"
+                                : "bg-white border-border text-foreground"
                             }`}
                           >
                             <option value="ALL">الكل</option>
@@ -524,8 +524,8 @@ const AffiliateProductsVisibility: React.FC = () => {
                               disabled={isSaving}
                               className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold border ${
                                 isDark
-                                  ? "border-indigo-500/50 text-indigo-300 hover:bg-indigo-900/30"
-                                  : "border-indigo-200 text-indigo-700 hover:bg-indigo-50"
+                                  ? "border-indigo-500/50 text-primary hover:bg-primary/30"
+                                  : "border-indigo-200 text-primary hover:bg-primary/10"
                               }`}
                             >
                               <AdjustmentsHorizontalIcon className="h-3.5 w-3.5" />
@@ -553,7 +553,7 @@ const AffiliateProductsVisibility: React.FC = () => {
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page <= 1}
                     className={`px-3 py-1 rounded-lg text-xs font-bold border ${
-                      isDark ? "border-gray-600 text-gray-300" : "border-gray-200 text-gray-700"
+                      isDark ? "border-gray-600 text-muted-foreground" : "border-gray-200 text-foreground"
                     } disabled:opacity-40`}
                   >
                     السابق
@@ -562,7 +562,7 @@ const AffiliateProductsVisibility: React.FC = () => {
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page >= totalPages}
                     className={`px-3 py-1 rounded-lg text-xs font-bold border ${
-                      isDark ? "border-gray-600 text-gray-300" : "border-gray-200 text-gray-700"
+                      isDark ? "border-gray-600 text-muted-foreground" : "border-gray-200 text-foreground"
                     } disabled:opacity-40`}
                   >
                     التالي

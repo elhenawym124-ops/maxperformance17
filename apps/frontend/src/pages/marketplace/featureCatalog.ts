@@ -103,12 +103,12 @@ export const getFeatureAccessLabel = (access: FeatureAccessKind): string => {
 
 export const getFeatureAccessBadgeClasses = (access: FeatureAccessKind): string => {
   if (access === "FREE") {
-    return "bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-300 dark:border-emerald-800";
+    return "bg-emerald-50 text-success border border-success dark:bg-success/20 dark:text-success dark:border-success";
   }
   if (access === "PAY_PER_USE") {
-    return "bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800";
+    return "bg-amber-50 text-warning border border-warning dark:bg-warning/20 dark:text-warning dark:border-warning";
   }
-  return "bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700";
+  return "bg-slate-100 text-foreground border border-border dark:bg-muted dark:text-muted-foreground dark:border-border";
 };
 
 export const getMarketplaceFeatureItems = (

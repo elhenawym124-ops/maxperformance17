@@ -14,11 +14,11 @@ export const AffiliateOrdersTable: React.FC<AffiliateOrdersTableProps> = ({
   const { formatPrice } = useCurrency();
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <h2 className="text-lg font-bold">تاريخ الطلبات المرتبطة</h2>
       <div className="mt-4 overflow-x-auto">
         <table className="min-w-full text-right text-sm">
-          <thead className="text-xs text-slate-500">
+          <thead className="text-xs text-muted-foreground">
             <tr>
               <th className="py-2">رقم الطلب</th>
               <th className="py-2">العميل</th>
@@ -27,18 +27,18 @@ export const AffiliateOrdersTable: React.FC<AffiliateOrdersTableProps> = ({
               <th className="py-2">التاريخ</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-border dark:divide-border">
             {orders.map((order) => (
               <tr key={order.id}>
                 <td className="py-3">
                   <Link
                     to={`/orders/${order.orderNumber}`}
-                    className="font-semibold text-indigo-600 hover:underline dark:text-indigo-300"
+                    className="font-semibold text-primary hover:underline dark:text-primary"
                   >
                     {order.orderNumber}
                   </Link>
                 </td>
-                <td className="py-3 text-slate-600 dark:text-slate-300">
+                <td className="py-3 text-foreground dark:text-muted-foreground">
                   {order.customerName || "عميل غير محدد"}
                 </td>
                 <td className="py-3">
@@ -53,7 +53,7 @@ export const AffiliateOrdersTable: React.FC<AffiliateOrdersTableProps> = ({
                 <td className="py-3 font-semibold tabular-nums">
                   {formatPrice(toNumber(order.total))}
                 </td>
-                <td className="py-3 text-slate-500 tabular-nums">
+                <td className="py-3 text-muted-foreground tabular-nums">
                   {formatDate(order.createdAt)}
                 </td>
               </tr>
@@ -61,7 +61,7 @@ export const AffiliateOrdersTable: React.FC<AffiliateOrdersTableProps> = ({
           </tbody>
         </table>
         {orders.length === 0 ? (
-          <div className="py-8 text-center text-sm text-slate-500">
+          <div className="py-8 text-center text-sm text-muted-foreground">
             لا توجد طلبات مرتبطة بهذا المسوق.
           </div>
         ) : null}

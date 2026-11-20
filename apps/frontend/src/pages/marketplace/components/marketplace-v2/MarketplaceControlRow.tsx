@@ -100,7 +100,7 @@ export function MarketplaceControlRow({
           className={cn(
             "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1",
             statusFilter === "INSTALLED"
-              ? "bg-background text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
+              ? "bg-background text-success dark:text-success shadow-sm font-bold"
               : "text-muted-foreground hover:text-foreground",
           )}
         >

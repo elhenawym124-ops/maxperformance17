@@ -101,7 +101,7 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               الملف الوظيفي التنفيذي (Dossier)
             </span>
-            <span className="size-1.5 rounded-full bg-emerald-500" />
+            <span className="size-1.5 rounded-full bg-success" />
           </div>
 
           <button

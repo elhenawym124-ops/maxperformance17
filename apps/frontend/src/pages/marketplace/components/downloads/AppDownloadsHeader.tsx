@@ -51,7 +51,7 @@ export function AppDownloadsHeader({
           onClick={onCopyDeploymentPack}
           className="h-9 rounded-xl px-3 text-xs font-semibold gap-1.5 border-border/60 hover:bg-muted active:scale-[0.97] transition-transform duration-160 ease-out"
         >
-          {copiedAll ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
+          {copiedAll ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
           <span className="hidden sm:inline">نسخ دليل الروابط للفريق</span>
           <span className="sm:hidden">نسخ الروابط</span>
         </Button>

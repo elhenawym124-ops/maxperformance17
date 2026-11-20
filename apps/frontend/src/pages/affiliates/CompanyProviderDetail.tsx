@@ -28,9 +28,9 @@ const getStatusColor = (status: string) => {
   switch (status) {
     case "CONFIRMED":
     case "PROCESSED":
-      return "text-emerald-600 bg-emerald-500/10 border border-emerald-500/20";
+      return "text-emerald-600 bg-success/10 border border-success/20";
     case "PENDING":
-      return "text-amber-600 bg-amber-500/10 border border-amber-500/20";
+      return "text-amber-600 bg-warning/10 border border-warning/20";
     case "PAID":
       return "text-blue-600 bg-blue-500/10 border border-blue-500/20";
     case "CANCELLED":
@@ -211,28 +211,28 @@ const CompanyProviderDetail: React.FC = () => {
 
       {/* KPI Cards Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">إجمالي العمولات</span>
           <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-foreground">
             {formatPrice(summary.totalCommissions)}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">عمولات تم سدادها</span>
-          <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
             {formatPrice(summary.paidCommissions)}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">عمولات معلقة</span>
-          <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+          <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning">
             {formatPrice(summary.pendingCommissions)}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs">
           <span className="text-xs text-muted-foreground">إجمالي الطلبات</span>
           <p className="mt-1 text-2xl font-bold font-mono tabular-nums text-foreground">
             {summary.totalOrders}

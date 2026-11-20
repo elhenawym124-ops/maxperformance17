@@ -77,7 +77,7 @@ export const DownloadAppTile: React.FC<DownloadAppTileProps> = ({
           <span className="font-semibold text-foreground text-xs">{pkg.platformEn}</span>
           <span className="font-mono tabular-nums text-xs" dir="ltr">{pkg.telemetry.primarySize}</span>
           {pkg.telemetry.ramConsumption && (
-            <span className="font-mono text-emerald-600 dark:text-emerald-400 text-xs" dir="ltr">
+            <span className="font-mono text-success dark:text-success text-xs" dir="ltr">
               {pkg.telemetry.ramConsumption}
             </span>
           )}
@@ -104,7 +104,7 @@ export const DownloadAppTile: React.FC<DownloadAppTileProps> = ({
             title="نسخ رابط التحميل"
             className="size-9 rounded-xl border-border/60 hover:bg-muted active:scale-[0.97] transition-transform duration-160 ease-out shrink-0"
           >
-            {copiedUrl ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
+            {copiedUrl ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
           </Button>
 
           {pkg.id === "ios-companion" ? (
@@ -141,7 +141,7 @@ export const DownloadAppTile: React.FC<DownloadAppTileProps> = ({
 
   // ── Grid View (Action-First Pure Cockpit Bento Tile) ──
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-border/40 bg-card p-4 sm:p-5 hover:border-primary/40 hover:bg-accent/[0.01] transition-all duration-150">
+    <div className="group relative flex flex-col justify-between rounded-xl border border-border/40 bg-card p-4 sm:p-5 hover:border-primary/40 hover:bg-accent/[0.01] transition-all duration-150">
       {/* Top Identity Header */}
       <div>
         <div className="flex items-start justify-between gap-3 mb-3">
@@ -191,7 +191,7 @@ export const DownloadAppTile: React.FC<DownloadAppTileProps> = ({
             <>
               <span className="text-border/60 hidden sm:inline">•</span>
               <div className="hidden sm:flex items-center gap-1.5 shrink-0">
-                <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 tabular-nums" dir="ltr">
+                <span className="text-xs font-mono text-success dark:text-success tabular-nums" dir="ltr">
                   {pkg.telemetry.ramConsumption}
                 </span>
               </div>
@@ -248,7 +248,7 @@ export const DownloadAppTile: React.FC<DownloadAppTileProps> = ({
             title="نسخ رابط التحميل"
             className="size-10 rounded-xl border-border/60 hover:bg-muted active:scale-[0.97] transition-transform duration-160 ease-out shrink-0"
           >
-            {copiedUrl ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
+            {copiedUrl ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
           </Button>
         </div>
 

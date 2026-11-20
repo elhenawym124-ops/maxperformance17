@@ -217,11 +217,11 @@ const CompanyConsumerDetail: React.FC = () => {
     const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString("ar-EG");
     const getStatusColor = (status: string) => {
         switch (status) {
-            case "CONFIRMED": case "PROCESSED": return "text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400";
-            case "PENDING": return "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-400";
+            case "CONFIRMED": case "PROCESSED": return "text-green-600 bg-success dark:bg-success/30 dark:text-success";
+            case "PENDING": return "text-yellow-600 bg-warning dark:bg-warning/30 dark:text-warning";
             case "PAID": return "text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400";
-            case "CANCELLED": return "text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-400";
-            default: return "text-gray-600 bg-gray-100 dark:bg-gray-800 dark:text-gray-400";
+            case "CANCELLED": return "text-red-600 bg-destructive dark:bg-destructive/30 dark:text-destructive";
+            default: return "text-gray-600 bg-muted dark:bg-muted dark:text-muted-foreground";
         }
     };
     const getStatusText = (s: string) => {
@@ -248,9 +248,9 @@ const CompanyConsumerDetail: React.FC = () => {
     return (
         <div className="p-6 space-y-6">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-6">
                 <div className="flex items-center justify-between mb-4">
-                    <Link to="/company-affiliates" className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                    <Link to="/company-affiliates" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground">
                         <ArrowLeftIcon className="w-4 h-4" />
                         العودة للشركات المرتبطة
                     </Link>
@@ -259,17 +259,17 @@ const CompanyConsumerDetail: React.FC = () => {
                     {provider?.logo ? (
                         <img src={provider.logo} alt={provider.name} className="w-16 h-16 rounded-xl object-cover" />
                     ) : (
-                        <div className="w-16 h-16 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center">
-                            <BuildingStorefrontIcon className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+                        <div className="w-16 h-16 rounded-xl bg-primary dark:bg-primary/40 flex items-center justify-center">
+                            <BuildingStorefrontIcon className="w-8 h-8 text-primary" />
                         </div>
                     )}
                     <div className="flex-1">
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{provider?.name || "المورّد"}</h1>
-                        <p className="text-sm text-gray-500">{provider?.email}</p>
+                        <h1 className="text-2xl font-bold text-foreground">{provider?.name || "المورّد"}</h1>
+                        <p className="text-sm text-muted-foreground">{provider?.email}</p>
                     </div>
                     <div className="text-left">
-                        <p className="text-xs text-gray-500">رصيدك القابل للسحب</p>
-                        <p className="text-2xl font-bold text-green-600">{formatPrice(affiliate?.pendingEarnings || 0)}</p>
+                        <p className="text-xs text-muted-foreground">رصيدك القابل للسحب</p>
+                        <p className="text-2xl font-bold text-success">{formatPrice(affiliate?.pendingEarnings || 0)}</p>
                     </div>
                 </div>
                 {affiliate && (
@@ -278,36 +278,36 @@ const CompanyConsumerDetail: React.FC = () => {
                             <p className="text-xs text-blue-600 dark:text-blue-400">إجمالي الأرباح</p>
                             <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{formatPrice(affiliate.totalEarnings)}</p>
                         </div>
-                        <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
-                            <p className="text-xs text-green-600 dark:text-green-400">تم صرفه</p>
-                            <p className="text-lg font-bold text-green-600 dark:text-green-400">{formatPrice(affiliate.paidEarnings)}</p>
+                        <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg text-center">
+                            <p className="text-xs text-success dark:text-success">تم صرفه</p>
+                            <p className="text-lg font-bold text-success dark:text-success">{formatPrice(affiliate.paidEarnings)}</p>
                         </div>
-                        <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg text-center">
-                            <p className="text-xs text-amber-600 dark:text-amber-400">معلق</p>
-                            <p className="text-lg font-bold text-amber-600 dark:text-amber-400">{formatPrice(affiliate.pendingEarnings)}</p>
+                        <div className="p-3 bg-warning/10 dark:bg-warning/20 rounded-lg text-center">
+                            <p className="text-xs text-warning dark:text-warning">معلق</p>
+                            <p className="text-lg font-bold text-warning dark:text-warning">{formatPrice(affiliate.pendingEarnings)}</p>
                         </div>
-                        <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center">
-                            <p className="text-xs text-purple-600 dark:text-purple-400">نسبة العمولة</p>
-                            <p className="text-lg font-bold text-purple-600 dark:text-purple-400">{affiliate.commissionRate}%</p>
+                        <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-lg text-center">
+                            <p className="text-xs text-primary dark:text-primary">نسبة العمولة</p>
+                            <p className="text-lg font-bold text-primary dark:text-primary">{affiliate.commissionRate}%</p>
                         </div>
                     </div>
                 )}
                 {canWithdraw && (
                     <button
                         onClick={() => setShowPayoutModal(true)}
-                        className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-semibold transition"
+                        className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 bg-success hover:bg-success text-white rounded-xl text-sm font-semibold transition"
                     >
                         <BanknotesIcon className="w-5 h-5" />
                         طلب سحب الرصيد
                     </button>
                 )}
                 {affiliate && affiliate.status !== "ACTIVE" && (
-                    <p className="mt-3 text-sm text-amber-600">حساب المسوق غير نشط. لا يمكن طلب السحب حاليًا.</p>
+                    <p className="mt-3 text-sm text-warning">حساب المسوق غير نشط. لا يمكن طلب السحب حاليًا.</p>
                 )}
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl w-fit">
+            <div className="flex gap-1 bg-muted dark:bg-muted p-1 rounded-xl w-fit">
                 {([{ k: "orders", l: "الطلبات", icon: ShoppingBagIcon },
                     { k: "commissions", l: "العمولات", icon: CurrencyDollarIcon },
                     { k: "payouts", l: "طلبات السحب", icon: BanknotesIcon },
@@ -315,7 +315,7 @@ const CompanyConsumerDetail: React.FC = () => {
                     <button
                         key={k}
                         onClick={() => setActiveTab(k as TabType)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === k ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"}`}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === k ? "bg-card text-foreground shadow-sm" : "text-gray-500 hover:text-foreground dark:hover:text-muted-foreground"}`}
                     >
                         <Icon className="w-4 h-4" />
                         {l}
@@ -324,24 +324,24 @@ const CompanyConsumerDetail: React.FC = () => {
             </div>
 
             {/* Tab Content */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border">
                 {/* Orders Tab */}
                 {activeTab === "orders" && (
                     <div className="p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-bold text-gray-900 dark:text-white">الطلبات المرسلة إلى {provider?.name}</h3>
-                            <span className="text-sm text-gray-500">الإجمالي: {ordersTotal} طلب</span>
+                            <h3 className="font-bold text-foreground">الطلبات المرسلة إلى {provider?.name}</h3>
+                            <span className="text-sm text-muted-foreground">الإجمالي: {ordersTotal} طلب</span>
                         </div>
                         {loadingOrders ? (
                             <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600 mx-auto" /></div>
                         ) : orders.length === 0 ? (
-                            <div className="py-12 text-center text-gray-500">لا توجد طلبات</div>
+                            <div className="py-12 text-center text-muted-foreground">لا توجد طلبات</div>
                         ) : (
                             <>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-right text-sm">
                                         <thead>
-                                            <tr className="border-b border-gray-100 dark:border-gray-700 text-gray-500">
+                                            <tr className="border-b border-border dark:border-border text-muted-foreground">
                                                 <th className="p-3">رقم الطلب</th>
                                                 <th className="p-3">الحالة</th>
                                                 <th className="p-3">الإجمالي</th>
@@ -350,11 +350,11 @@ const CompanyConsumerDetail: React.FC = () => {
                                         </thead>
                                         <tbody>
                                             {orders.map((o) => (
-                                                <tr key={o.id} className="border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                                <tr key={o.id} className="border-b border-border dark:border-border hover:bg-muted/50/30">
                                                     <td className="p-3 font-mono text-blue-600 dark:text-blue-400">{o.orderNumber}</td>
                                                     <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(o.status)}`}>{getStatusText(o.status)}</span></td>
                                                     <td className="p-3 font-bold">{formatPrice(o.total)}</td>
-                                                    <td className="p-3 text-gray-500">{formatDate(o.createdAt)}</td>
+                                                    <td className="p-3 text-muted-foreground">{formatDate(o.createdAt)}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -363,7 +363,7 @@ const CompanyConsumerDetail: React.FC = () => {
                                 {ordersPages > 1 && (
                                     <div className="flex justify-center gap-2 mt-4">
                                         {Array.from({ length: ordersPages }, (_, i) => i + 1).map(p => (
-                                            <button key={p} onClick={() => loadOrders(p)} className={`px-3 py-1 rounded-md text-sm ${p === ordersPage ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"}`}>{p}</button>
+                                            <button key={p} onClick={() => loadOrders(p)} className={`px-3 py-1 rounded-md text-sm ${p === ordersPage ? "bg-blue-600 text-white" : "bg-muted text-muted-foreground"}`}>{p}</button>
                                         ))}
                                     </div>
                                 )}
@@ -381,26 +381,26 @@ const CompanyConsumerDetail: React.FC = () => {
                                     <p className="text-xs text-blue-600 dark:text-blue-400">الإجمالي</p>
                                     <p className="text-lg font-bold text-blue-600">{formatPrice(commissionsSummary.totalCommissions)}</p>
                                 </div>
-                                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
-                                    <p className="text-xs text-green-600 dark:text-green-400">مدفوع</p>
-                                    <p className="text-lg font-bold text-green-600">{formatPrice(commissionsSummary.paidCommissions)}</p>
+                                <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg text-center">
+                                    <p className="text-xs text-success dark:text-success">مدفوع</p>
+                                    <p className="text-lg font-bold text-success">{formatPrice(commissionsSummary.paidCommissions)}</p>
                                 </div>
-                                <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg text-center">
-                                    <p className="text-xs text-amber-600 dark:text-amber-400">معلق</p>
-                                    <p className="text-lg font-bold text-amber-600">{formatPrice(commissionsSummary.pendingCommissions)}</p>
+                                <div className="p-3 bg-warning/10 dark:bg-warning/20 rounded-lg text-center">
+                                    <p className="text-xs text-warning dark:text-warning">معلق</p>
+                                    <p className="text-lg font-bold text-warning">{formatPrice(commissionsSummary.pendingCommissions)}</p>
                                 </div>
                             </div>
                         )}
                         {loadingCommissions ? (
                             <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600 mx-auto" /></div>
                         ) : commissions.length === 0 ? (
-                            <div className="py-12 text-center text-gray-500">لا توجد عمولات مسجلة</div>
+                            <div className="py-12 text-center text-muted-foreground">لا توجد عمولات مسجلة</div>
                         ) : (
                             <>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-right text-sm">
                                         <thead>
-                                            <tr className="border-b border-gray-100 dark:border-gray-700 text-gray-500">
+                                            <tr className="border-b border-border dark:border-border text-muted-foreground">
                                                 <th className="p-3">رقم الطلب</th>
                                                 <th className="p-3">قيمة الطلب</th>
                                                 <th className="p-3">العمولة</th>
@@ -410,12 +410,12 @@ const CompanyConsumerDetail: React.FC = () => {
                                         </thead>
                                         <tbody>
                                             {commissions.map((c) => (
-                                                <tr key={c.id} className="border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                                <tr key={c.id} className="border-b border-border dark:border-border hover:bg-muted/50/30">
                                                     <td className="p-3 font-mono text-blue-600 dark:text-blue-400">{c.orderNumber || "—"}</td>
                                                     <td className="p-3">{c.orderTotal ? formatPrice(c.orderTotal) : "—"}</td>
-                                                    <td className="p-3 font-bold text-green-600">+{formatPrice(c.amount)}</td>
+                                                    <td className="p-3 font-bold text-success">+{formatPrice(c.amount)}</td>
                                                     <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(c.status)}`}>{getStatusText(c.status)}</span></td>
-                                                    <td className="p-3 text-gray-500">{formatDate(c.createdAt)}</td>
+                                                    <td className="p-3 text-muted-foreground">{formatDate(c.createdAt)}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -424,7 +424,7 @@ const CompanyConsumerDetail: React.FC = () => {
                                 {commissionsPages > 1 && (
                                     <div className="flex justify-center gap-2 mt-4">
                                         {Array.from({ length: commissionsPages }, (_, i) => i + 1).map(p => (
-                                            <button key={p} onClick={() => loadCommissions(p)} className={`px-3 py-1 rounded-md text-sm ${p === commissionsPage ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"}`}>{p}</button>
+                                            <button key={p} onClick={() => loadCommissions(p)} className={`px-3 py-1 rounded-md text-sm ${p === commissionsPage ? "bg-blue-600 text-white" : "bg-muted text-muted-foreground"}`}>{p}</button>
                                         ))}
                                     </div>
                                 )}
@@ -436,17 +436,17 @@ const CompanyConsumerDetail: React.FC = () => {
                 {/* Payouts Tab */}
                 {activeTab === "payouts" && (
                     <div className="p-6">
-                        <h3 className="font-bold text-gray-900 dark:text-white mb-4">سجل طلبات السحب</h3>
+                        <h3 className="font-bold text-foreground mb-4">سجل طلبات السحب</h3>
                         {loadingPayouts ? (
                             <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600 mx-auto" /></div>
                         ) : payouts.length === 0 ? (
-                            <div className="py-12 text-center text-gray-500">لا توجد عمليات سحب سابقة</div>
+                            <div className="py-12 text-center text-muted-foreground">لا توجد عمليات سحب سابقة</div>
                         ) : (
                             <>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-right text-sm">
                                         <thead>
-                                            <tr className="border-b border-gray-100 dark:border-gray-700 text-gray-500">
+                                            <tr className="border-b border-border dark:border-border text-muted-foreground">
                                                 <th className="p-3">التاريخ</th>
                                                 <th className="p-3">المبلغ</th>
                                                 <th className="p-3">طريقة الدفع</th>
@@ -456,12 +456,12 @@ const CompanyConsumerDetail: React.FC = () => {
                                         </thead>
                                         <tbody>
                                             {payouts.map((p) => (
-                                                <tr key={p.id} className="border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                                    <td className="p-3 text-gray-500">{formatDate(p.createdAt)}</td>
+                                                <tr key={p.id} className="border-b border-border dark:border-border hover:bg-muted/50/30">
+                                                    <td className="p-3 text-muted-foreground">{formatDate(p.createdAt)}</td>
                                                     <td className="p-3 font-bold">{formatPrice(p.amount)}</td>
                                                     <td className="p-3">{p.paymentMethod || "—"}</td>
                                                     <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(p.status)}`}>{getStatusText(p.status)}</span></td>
-                                                    <td className="p-3 text-gray-500 text-xs">{p.notes || "—"}</td>
+                                                    <td className="p-3 text-muted-foreground text-xs">{p.notes || "—"}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -470,7 +470,7 @@ const CompanyConsumerDetail: React.FC = () => {
                                 {payoutsPages > 1 && (
                                     <div className="flex justify-center gap-2 mt-4">
                                         {Array.from({ length: payoutsPages }, (_, i) => i + 1).map(p => (
-                                            <button key={p} onClick={() => loadPayouts(p)} className={`px-3 py-1 rounded-md text-sm ${p === payoutsPage ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"}`}>{p}</button>
+                                            <button key={p} onClick={() => loadPayouts(p)} className={`px-3 py-1 rounded-md text-sm ${p === payoutsPage ? "bg-blue-600 text-white" : "bg-muted text-muted-foreground"}`}>{p}</button>
                                         ))}
                                     </div>
                                 )}
@@ -483,19 +483,19 @@ const CompanyConsumerDetail: React.FC = () => {
             {/* Payout Modal */}
             {showPayoutModal && (
                 <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4">
-                    <div className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white shadow-xl dark:bg-gray-800 sm:rounded-2xl">
-                        <div className="border-b border-gray-100 p-4 dark:border-gray-700 sm:p-6">
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">طلب سحب رصيد من {provider?.name}</h3>
+                    <div className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white shadow-xl dark:bg-muted sm:rounded-xl">
+                        <div className="border-b border-border p-4 dark:border-border sm:p-6">
+                            <h3 className="text-lg font-bold text-foreground">طلب سحب رصيد من {provider?.name}</h3>
                         </div>
                         <form onSubmit={handleRequestPayout} className="space-y-4 p-4 sm:p-6">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">المبلغ</label>
-                                <input type="text" value={formatPrice(affiliate?.pendingEarnings || 0)} readOnly className="min-h-11 w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
-                                <p className="mt-1 text-xs text-gray-500">سيتم سحب كامل الرصيد المتاح ({formatPrice(affiliate?.pendingEarnings || 0)})</p>
+                                <label className="block text-sm font-medium text-foreground mb-1">المبلغ</label>
+                                <input type="text" value={formatPrice(affiliate?.pendingEarnings || 0)} readOnly className="min-h-11 w-full rounded-xl border border-border bg-muted px-4 py-2 text-foreground dark:border-border dark:bg-muted dark:text-white" />
+                                <p className="mt-1 text-xs text-muted-foreground">سيتم سحب كامل الرصيد المتاح ({formatPrice(affiliate?.pendingEarnings || 0)})</p>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">طريقة الدفع</label>
-                                <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} required className="min-h-11 w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                <label className="block text-sm font-medium text-foreground mb-1">طريقة الدفع</label>
+                                <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} required className="min-h-11 w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground dark:border-border dark:bg-muted dark:text-white">
                                     <option value="">اختر طريقة الدفع</option>
                                     <option value="VODAFONE_CASH">فودافون كاش</option>
                                     <option value="INSTAPAY">إنستاباي</option>
@@ -504,11 +504,11 @@ const CompanyConsumerDetail: React.FC = () => {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">بيانات التحويل</label>
-                                <textarea value={paymentDetails} onChange={(e) => setPaymentDetails(e.target.value)} rows={3} required className="w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder="رقم المحفظة / الحساب" />
+                                <label className="block text-sm font-medium text-foreground mb-1">بيانات التحويل</label>
+                                <textarea value={paymentDetails} onChange={(e) => setPaymentDetails(e.target.value)} rows={3} required className="w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground dark:border-border dark:bg-muted dark:text-white" placeholder="رقم المحفظة / الحساب" />
                             </div>
                             <div className="flex gap-3">
-                                <button type="button" onClick={() => setShowPayoutModal(false)} className="flex-1 rounded-xl bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300">إلغاء</button>
+                                <button type="button" onClick={() => setShowPayoutModal(false)} className="flex-1 rounded-xl bg-muted px-4 py-2 text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground">إلغاء</button>
                                 <button type="submit" disabled={submittingPayout} className="flex-1 rounded-xl bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50">
                                     {submittingPayout ? <ArrowPathIcon className="w-5 h-5 animate-spin mx-auto" /> : "تأكيد الطلب"}
                                 </button>

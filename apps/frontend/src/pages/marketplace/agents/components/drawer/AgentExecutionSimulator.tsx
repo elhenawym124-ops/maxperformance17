@@ -48,8 +48,8 @@ export const AgentExecutionSimulator: React.FC<AgentExecutionSimulatorProps> = (
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-[#0a0a0c] p-3 font-mono text-[11px] text-gray-300 space-y-2 shadow-inner">
-        <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[10px] text-gray-500">
+      <div className="rounded-xl border border-border bg-[#0a0a0c] p-3 font-mono text-[11px] text-muted-foreground space-y-2 shadow-inner">
+        <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[10px] text-muted-foreground">
           <span>EXECUTION_TRACER: {agentSlug}</span>
           <span>STATUS: {simulating ? "PROCESSING…" : "IDLE"}</span>
         </div>
@@ -57,7 +57,7 @@ export const AgentExecutionSimulator: React.FC<AgentExecutionSimulatorProps> = (
         <div className="space-y-1.5 min-h-[140px]">
           {executionStream.slice(0, simulationStep + 1).map((step, idx) => (
             <div key={idx} className="space-y-0.5 animate-fadeIn">
-              <div className="text-[10px] text-gray-400 font-semibold">{step.step}</div>
+              <div className="text-[10px] text-muted-foreground font-semibold">{step.step}</div>
               <div
                 className={`ps-2 text-[11px] ${
                   step.type === "tool"

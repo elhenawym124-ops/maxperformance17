@@ -20,7 +20,7 @@ export const MyAppsTelemetryStrip: React.FC<MyAppsTelemetryStripProps> = ({
       <div
         onClick={() => onStatusFilterChange("ALL")}
         className={cn(
-          "rounded-2xl border p-3.5 sm:p-4 transition-all cursor-pointer select-none",
+          "rounded-xl border p-3.5 sm:p-4 transition-all cursor-pointer select-none",
           statusFilter === "ALL"
             ? "border-primary/50 bg-primary/[0.04] ring-1 ring-primary/20 shadow-sm"
             : "border-border/40 bg-card/60 hover:bg-card hover:border-border/70"
@@ -44,20 +44,20 @@ export const MyAppsTelemetryStrip: React.FC<MyAppsTelemetryStripProps> = ({
       <div
         onClick={() => onStatusFilterChange(statusFilter === "ACTIVE" ? "ALL" : "ACTIVE")}
         className={cn(
-          "rounded-2xl border p-3.5 sm:p-4 transition-all cursor-pointer select-none",
+          "rounded-xl border p-3.5 sm:p-4 transition-all cursor-pointer select-none",
           statusFilter === "ACTIVE"
-            ? "border-emerald-500/50 bg-emerald-500/[0.04] ring-1 ring-emerald-500/20 shadow-sm"
+            ? "border-emerald-500/50 bg-success/[0.04] ring-1 ring-success/20 shadow-sm"
             : "border-border/40 bg-card/60 hover:bg-card hover:border-border/70"
         )}
       >
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-muted-foreground">الاشتراكات النشطة</span>
-          <div className="size-8 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+          <div className="size-8 rounded-xl bg-success/10 text-success flex items-center justify-center">
             <CheckCircle2 className="size-4" />
           </div>
         </div>
         <div className="mt-2 flex items-baseline gap-1.5">
-          <span className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+          <span className="text-2xl sm:text-3xl font-black text-success dark:text-success tabular-nums font-mono">
             {stats.active}
           </span>
           <span className="text-[11px] text-muted-foreground font-medium">اشتراك فعال</span>
@@ -68,20 +68,20 @@ export const MyAppsTelemetryStrip: React.FC<MyAppsTelemetryStripProps> = ({
       <div
         onClick={() => onStatusFilterChange(statusFilter === "TRIAL" ? "ALL" : "TRIAL")}
         className={cn(
-          "rounded-2xl border p-3.5 sm:p-4 transition-all cursor-pointer select-none",
+          "rounded-xl border p-3.5 sm:p-4 transition-all cursor-pointer select-none",
           statusFilter === "TRIAL"
-            ? "border-amber-500/50 bg-amber-500/[0.04] ring-1 ring-amber-500/20 shadow-sm"
+            ? "border-amber-500/50 bg-warning/[0.04] ring-1 ring-warning/20 shadow-sm"
             : "border-border/40 bg-card/60 hover:bg-card hover:border-border/70"
         )}
       >
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-muted-foreground">فترات تجريبية</span>
-          <div className="size-8 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
+          <div className="size-8 rounded-xl bg-warning/10 text-warning flex items-center justify-center">
             <Clock className="size-4" />
           </div>
         </div>
         <div className="mt-2 flex items-baseline gap-1.5">
-          <span className="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 tabular-nums font-mono">
+          <span className="text-2xl sm:text-3xl font-black text-warning dark:text-warning tabular-nums font-mono">
             {stats.trial}
           </span>
           {stats.expiringSoon > 0 ? (
@@ -95,7 +95,7 @@ export const MyAppsTelemetryStrip: React.FC<MyAppsTelemetryStripProps> = ({
       </div>
 
       {/* 4. Monthly Usage Cost */}
-      <div className="rounded-2xl border border-border/40 bg-card/60 p-3.5 sm:p-4 transition-all hover:bg-card">
+      <div className="rounded-xl border border-border/40 bg-card/60 p-3.5 sm:p-4 transition-all hover:bg-card">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-muted-foreground">استهلاك الشهر</span>
           <div className="size-8 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center">

@@ -19,7 +19,7 @@ export const AppDetailsScreenshotsTab: React.FC<AppDetailsScreenshotsTabProps> =
   if (screenshots.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border bg-card p-5">
+    <div className="rounded-xl border bg-card p-5">
       <h2 className="text-xl font-extrabold text-foreground mb-4 text-right">
         {t("marketplace.screenshots")}
       </h2>

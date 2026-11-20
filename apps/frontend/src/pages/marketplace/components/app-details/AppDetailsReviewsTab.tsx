@@ -42,7 +42,7 @@ export const AppDetailsReviewsTab: React.FC<AppDetailsReviewsTabProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-2xl border bg-card p-5 text-right">
+    <div className="rounded-xl border bg-card p-5 text-right">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-extrabold text-foreground">
           {t("marketplace.ratings")}
@@ -59,7 +59,7 @@ export const AppDetailsReviewsTab: React.FC<AppDetailsReviewsTabProps> = ({
                   size={14}
                   className={
                     i <= (rating || 0)
-                      ? "fill-amber-400 text-amber-400"
+                      ? "fill-amber-400 text-warning"
                       : "text-muted-foreground/30"
                   }
                 />
@@ -84,7 +84,7 @@ export const AppDetailsReviewsTab: React.FC<AppDetailsReviewsTabProps> = ({
               </span>
               <Star
                 size={12}
-                className="fill-amber-400 text-amber-400 shrink-0"
+                className="fill-amber-400 text-warning shrink-0"
               />
               <Progress value={pct} className="h-2 flex-1" />
               <span className="text-xs text-muted-foreground w-8 text-right tabular-nums">
@@ -125,7 +125,7 @@ export const AppDetailsReviewsTab: React.FC<AppDetailsReviewsTabProps> = ({
                       size={13}
                       className={
                         i <= review.rating
-                          ? "fill-amber-400 text-amber-400"
+                          ? "fill-amber-400 text-warning"
                           : "text-muted-foreground/30"
                       }
                     />
@@ -171,7 +171,7 @@ export const AppDetailsReviewsTab: React.FC<AppDetailsReviewsTabProps> = ({
                 size={20}
                 className={
                   i <= userRating
-                    ? "fill-amber-400 text-amber-400"
+                    ? "fill-amber-400 text-warning"
                     : "text-muted-foreground/30"
                 }
               />

@@ -195,7 +195,7 @@ export default function ShippingOptimizer() {
                     <div className="flex items-center justify-between pb-1 border-b border-border/50">
                       <h3 className="text-xs font-bold text-foreground">{T("courier")} {c.name}</h3>
                       {couriers.length > MIN_COURIERS && (
-                        <button type="button" onClick={() => removeCourier(idx)} className="text-muted-foreground hover:text-rose-500 text-xs flex items-center gap-1">
+                        <button type="button" onClick={() => removeCourier(idx)} className="text-muted-foreground hover:text-destructive text-xs flex items-center gap-1">
                           <Trash2 className="w-3 h-3" />
                         </button>
                       )}
@@ -215,12 +215,12 @@ export default function ShippingOptimizer() {
           <div className="xl:col-span-3 space-y-4">
             {/* Winner Spotlight Banner */}
             {best && worst && best.name !== worst.name && (
-              <div className="bg-card border border-emerald-500/30 rounded-xl p-4 shadow-xs flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 shrink-0">
+              <div className="bg-card border border-success/30 rounded-xl p-4 shadow-xs flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-success/10 text-success border border-success/20 shrink-0">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
-                  <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                  <div className="text-xs font-bold text-success dark:text-success">
                     {T("courier")} {best.name} {T("wins", { amount: fmtCurr(winSavings) })}
                   </div>
                   <div className="text-[11px] text-muted-foreground mt-0.5 font-mono">
@@ -265,8 +265,8 @@ export default function ShippingOptimizer() {
                             {fmtCurr(Math.round(r.total))}
                           </td>
                           <td className={`py-2 px-2 ${isRtl ? "text-left" : "text-right"}`}>
-                            {isBest && <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">{T("best")}</span>}
-                            {isWorst && !isBest && <span className="text-[10px] font-bold text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded-full">{T("worst")}</span>}
+                            {isBest && <span className="text-[10px] font-bold text-success bg-success/10 px-2 py-0.5 rounded-full">{T("best")}</span>}
+                            {isWorst && !isBest && <span className="text-[10px] font-bold text-destructive bg-destructive/10 px-2 py-0.5 rounded-full">{T("worst")}</span>}
                           </td>
                         </tr>
                       );

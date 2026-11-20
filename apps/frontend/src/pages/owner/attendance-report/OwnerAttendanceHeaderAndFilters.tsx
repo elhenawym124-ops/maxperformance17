@@ -78,12 +78,12 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
               تقرير حضور الموظفين
             </h1>
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             تتبُّع انضباط الموظفين في جميع شركاتك
           </p>
         </div>
         <div className="mt-4 md:mt-0 flex flex-wrap gap-3 items-center justify-end">
-          <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-700 p-1 rounded-lg border border-gray-200 dark:border-gray-600">
+          <div className="flex items-center gap-2 bg-muted dark:bg-muted p-1 rounded-lg border border-border">
             <select
               value={selectedPreset}
               onChange={(e) => onPresetChange(e.target.value)}
@@ -97,8 +97,8 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
               <option value="lastMonth">الشهر الماضي</option>
               <option value="custom">مخصص</option>
             </select>
-            <div className="w-[1px] h-4 bg-gray-300 dark:bg-gray-600"></div>
-            <CalendarDaysIcon className="w-5 h-5 text-gray-400 mx-1" />
+            <div className="w-[1px] h-4 bg-muted dark:bg-muted"></div>
+            <CalendarDaysIcon className="w-5 h-5 text-muted-foreground mx-1" />
             <DateInput
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
@@ -135,72 +135,72 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
 
       {overview && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-4 rounded-xl text-white shadow-md shadow-indigo-200 dark:shadow-none">
+          <div className="bg-gradient-to-br from-primary to-primary p-4 rounded-xl text-white shadow-md shadow-primary dark:shadow-none">
             <p className="text-xs opacity-80">إجمالي الموظفين</p>
             <p className="text-2xl font-bold font-mono tabular-nums mt-1">
               {overview.totalEmployees}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-green-600 text-xs font-medium">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-success text-xs font-medium">
               <CheckCircleIcon className="w-4 h-4" /> حاضر
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalPresent}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-yellow-600 text-xs font-medium">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-warning text-xs font-medium">
               <ClockIcon className="w-4 h-4" /> متأخر
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalLate}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-red-600 text-xs font-medium">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
+            <div className="flex items-center gap-2 text-destructive text-xs font-medium">
               <XCircleIcon className="w-4 h-4" /> غائب
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalAbsent}
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
             <div className="flex items-center gap-2 text-blue-600 text-xs font-medium">
               <UserMinusIcon className="w-4 h-4" /> إجازة
             </div>
-            <p className="text-2xl font-bold font-mono tabular-nums text-gray-800 dark:text-white mt-1">
+            <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">
               {overview.totalOnLeave}
             </p>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 flex flex-col justify-center">
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="bg-gray-50 dark:bg-muted p-4 rounded-xl border border-dashed border-border flex flex-col justify-center">
+            <p className="text-xs text-muted-foreground">
               الشركات المشمولة
             </p>
-            <p className="text-xl font-bold font-mono tabular-nums text-gray-800 dark:text-white">
+            <p className="text-xl font-bold font-mono tabular-nums text-foreground dark:text-white">
               {overview.totalCompanies}
             </p>
           </div>
         </div>
       )}
 
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-4">
+      <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border space-y-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
-            <MagnifyingGlassIcon className="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <MagnifyingGlassIcon className="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="ابحث باسم الموظف أو البريد الإلكتروني..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pr-10 text-sm shadow-sm focus:border-primary focus:ring-1 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="block w-full rounded-lg border border-border bg-white px-3 py-2 pe-10 text-sm shadow-sm focus:border-primary focus:ring-1 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
             />
           </div>
           <div className="w-full md:w-48">
             <select
               value={selectedCompanyFilter}
               onChange={(e) => onCompanyFilterChange(e.target.value)}
-              className="form-select w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm"
+              className="form-select w-full rounded-lg border-border dark:bg-muted dark:text-white text-sm"
             >
               <option value="all">كل الشركات</option>
               {companies.map((c) => (
@@ -216,7 +216,7 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
               onChange={(e) =>
                 onSortByChange(e.target.value as OwnerReportSortBy)
               }
-              className="form-select w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm"
+              className="form-select w-full rounded-lg border-border dark:bg-muted dark:text-white text-sm"
             >
               <option value="attendance">حسب الانضباط</option>
               <option value="name">حسب الاسم</option>
@@ -224,17 +224,17 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
             </select>
           </div>
         </div>
-        <div className="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-700">
-          <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+        <div className="flex items-center gap-2 pt-2 border-t border-border dark:border-border">
+          <span className="text-xs text-muted-foreground font-medium">
             طريقة العرض:
           </span>
-          <div className="flex gap-1 bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+          <div className="flex gap-1 bg-muted p-1 rounded-lg">
             <button
               onClick={() => onViewModeChange("cards")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                 viewMode === "cards"
-                  ? "bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  ? "bg-white dark:bg-muted text-primary shadow-sm"
+                  : "text-gray-600 dark:text-muted-foreground hover:text-foreground"
               }`}
             >
               <Squares2X2Icon className="w-4 h-4" />
@@ -244,8 +244,8 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
               onClick={() => onViewModeChange("table")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                 viewMode === "table"
-                  ? "bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  ? "bg-white dark:bg-muted text-primary shadow-sm"
+                  : "text-gray-600 dark:text-muted-foreground hover:text-foreground"
               }`}
             >
               <TableCellsIcon className="w-4 h-4" />
@@ -253,9 +253,9 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
             </button>
           </div>
           <div className="flex-1"></div>
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-muted-foreground">
             عرض{" "}
-            <span className="font-bold font-mono tabular-nums text-indigo-600 dark:text-indigo-400">
+            <span className="font-bold font-mono tabular-nums text-primary">
               {filteredCount}
             </span>{" "}
             موظف

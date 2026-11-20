@@ -26,17 +26,17 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
   handleDocumentReviewUpdate,
 }) => {
   return (
-    <td className="block border-t border-gray-100 pt-3 md:table-cell md:border-0 md:px-6 md:py-5">
+    <td className="block border-t border-border pt-3 md:table-cell md:border-0 md:px-6 md:py-5">
       <div className="flex items-center justify-between gap-4 md:hidden mb-2">
-        <span className="text-xs font-semibold text-gray-500">الإجراءات</span>
+        <span className="text-xs font-semibold text-muted-foreground">الإجراءات</span>
       </div>
       <div className="grid grid-cols-2 md:flex md:flex-col gap-2">
         {affiliate.isMissingRecord ? (
           <span
             className={`rounded-lg border px-3 py-1.5 text-center text-xs col-span-2 md:col-span-1 ${
               isDark
-                ? "border-orange-500/30 bg-orange-500/10 text-orange-200"
-                : "border-orange-200 bg-orange-50 text-orange-700"
+                ? "border-orange-500/30 bg-warning/10 text-warning"
+                : "border-orange-200 bg-warning/10 text-warning"
             }`}
           >
             الملف غير مكتمل
@@ -46,8 +46,8 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
             to={`/affiliates/management/${affiliate.id}`}
             className={`rounded-lg border px-3 py-1.5 text-center text-xs font-semibold transition ${
               isDark
-                ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-200 hover:bg-indigo-500/20"
-                : "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+                ? "border-indigo-500/30 bg-primary/10 text-primary hover:bg-primary/20"
+                : "border-indigo-200 bg-primary/10 text-primary hover:bg-primary"
             }`}
           >
             فتح الملف
@@ -57,10 +57,10 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
           value={affiliate.status}
           onChange={(e) => handleStatusUpdate(affiliate.id, e.target.value)}
           disabled={affiliate.isMissingRecord}
-          className={`text-xs px-2 py-1.5 rounded-lg border outline-none focus:ring-2 focus:ring-indigo-500 ${
+          className={`text-xs px-2 py-1.5 rounded-lg border outline-none focus:ring-2 focus:ring-primary ${
             isDark
-              ? "bg-gray-900 border-gray-700 text-gray-300"
-              : "bg-white border-gray-200"
+              ? "bg-gray-900 border-border text-muted-foreground"
+              : "bg-white border-border"
           }`}
         >
           <option value="PENDING">مراجعة الطلب</option>
@@ -73,8 +73,8 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
           disabled={affiliate.isMissingRecord}
           className={`inline-flex items-center justify-center gap-1 rounded-lg border px-3 py-1.5 text-xs transition ${
             isDark
-              ? "border-gray-700 bg-gray-900 text-gray-300 hover:bg-gray-800"
-              : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+              ? "border-gray-700 bg-muted text-muted-foreground hover:bg-muted"
+              : "border-gray-200 bg-white text-foreground hover:bg-muted"
           } disabled:opacity-50`}
         >
           <AdjustmentsHorizontalIcon className="h-4 w-4" />
@@ -85,8 +85,8 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
           onClick={() => openReviewHistory(affiliate)}
           className={`rounded-lg border px-3 py-1.5 text-xs transition ${
             isDark
-              ? "border-gray-700 bg-gray-900 text-gray-300 hover:bg-gray-800"
-              : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+              ? "border-gray-700 bg-muted text-muted-foreground hover:bg-muted"
+              : "border-gray-200 bg-white text-foreground hover:bg-muted"
           }`}
         >
           سجل المراجعة
@@ -100,7 +100,7 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
                 affiliate.isMissingRecord ||
                 updatingDocumentAffiliateId === affiliate.id
               }
-              className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs text-white hover:bg-emerald-700 disabled:opacity-60"
+              className="rounded-lg bg-success px-3 py-1.5 text-xs text-white hover:bg-success disabled:opacity-60"
             >
               اعتماد المستند
             </button>
@@ -111,7 +111,7 @@ export const AffiliateRowActions: React.FC<AffiliateRowActionsProps> = ({
                 affiliate.isMissingRecord ||
                 updatingDocumentAffiliateId === affiliate.id
               }
-              className="rounded-lg bg-red-600 px-3 py-1.5 text-xs text-white hover:bg-red-700 disabled:opacity-60"
+              className="rounded-lg bg-destructive px-3 py-1.5 text-xs text-white hover:bg-destructive disabled:opacity-60"
             >
               رفض المستند
             </button>

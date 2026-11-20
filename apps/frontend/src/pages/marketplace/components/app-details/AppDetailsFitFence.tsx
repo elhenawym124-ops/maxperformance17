@@ -15,9 +15,9 @@ export const AppDetailsFitFence: React.FC<AppDetailsFitFenceProps> = ({ app }) =
   if (!note) return null;
 
   return (
-    <section className="rounded-2xl border border-amber-300/50 bg-amber-50/80 p-5 text-right dark:border-amber-500/25 dark:bg-amber-500/10">
-      <b className="mb-1.5 block text-[13.5px] font-bold text-amber-800 dark:text-amber-300">مش ليك لو…</b>
-      <p className="m-0 text-[13.5px] leading-7 text-amber-900/90 dark:text-amber-100/85">{note}</p>
+    <section className="rounded-xl border border-warning/50 bg-warning/80 p-5 text-right dark:border-warning/25 dark:bg-warning/10">
+      <b className="mb-1.5 block text-[13.5px] font-bold text-warning dark:text-warning">مش ليك لو…</b>
+      <p className="m-0 text-[13.5px] leading-7 text-warning/90 dark:text-warning/85">{note}</p>
     </section>
   );
 };

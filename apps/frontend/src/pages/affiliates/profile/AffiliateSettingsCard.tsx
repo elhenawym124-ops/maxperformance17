@@ -29,14 +29,14 @@ export const AffiliateSettingsCard: React.FC<AffiliateSettingsCardProps> = ({
   saving,
 }) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <h2 className="flex items-center gap-2 text-lg font-bold">
         <AdjustmentsHorizontalIcon className="h-5 w-5" />
         إعدادات المسوق
       </h2>
       <div className="mt-4 space-y-4">
         <div>
-          <label className="mb-1 block text-xs font-semibold text-slate-500">
+          <label className="mb-1 block text-xs font-semibold text-muted-foreground">
             العمولة
           </label>
           <div className="flex gap-2">
@@ -44,23 +44,23 @@ export const AffiliateSettingsCard: React.FC<AffiliateSettingsCardProps> = ({
               type="number"
               value={commissionRate}
               onChange={(event) => setCommissionRate(event.target.value)}
-              className="min-h-10 flex-1 rounded-xl border border-slate-200 bg-white px-3 text-sm tabular-nums dark:border-slate-700 dark:bg-slate-950"
+              className="min-h-10 flex-1 rounded-xl border border-border bg-white px-3 text-sm tabular-nums dark:border-border dark:bg-muted"
             />
             <button
               onClick={() => void saveCommission()}
               disabled={saving}
-              className="rounded-xl bg-indigo-600 px-4 text-sm font-semibold text-white disabled:opacity-60"
+              className="rounded-xl bg-primary px-4 text-sm font-semibold text-white disabled:opacity-60"
             >
               حفظ
             </button>
           </div>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-muted-foreground">
             النوع: {commissionType === "MARKUP" ? "هامش ربح" : "نسبة"}
           </p>
         </div>
 
         <div>
-          <label className="mb-1 block text-xs font-semibold text-slate-500">
+          <label className="mb-1 block text-xs font-semibold text-muted-foreground">
             الحد الأدنى للسحب
           </label>
           <input
@@ -72,11 +72,11 @@ export const AffiliateSettingsCard: React.FC<AffiliateSettingsCardProps> = ({
                 minPayout: event.target.value,
               }))
             }
-            className="min-h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm tabular-nums dark:border-slate-700 dark:bg-slate-950"
+            className="min-h-10 w-full rounded-xl border border-border bg-white px-3 text-sm tabular-nums dark:border-border dark:bg-muted"
           />
         </div>
 
-        <label className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm dark:border-slate-700">
+        <label className="flex items-center justify-between gap-3 rounded-xl border border-border px-3 py-2 text-sm dark:border-border">
           إنشاء طلبات للعملاء
           <input
             type="checkbox"
@@ -90,7 +90,7 @@ export const AffiliateSettingsCard: React.FC<AffiliateSettingsCardProps> = ({
           />
         </label>
 
-        <label className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm dark:border-slate-700">
+        <label className="flex items-center justify-between gap-3 rounded-xl border border-border px-3 py-2 text-sm dark:border-border">
           عرض بيانات العملاء
           <input
             type="checkbox"
@@ -107,7 +107,7 @@ export const AffiliateSettingsCard: React.FC<AffiliateSettingsCardProps> = ({
         <button
           onClick={() => void savePolicy()}
           disabled={saving}
-          className="min-h-10 w-full rounded-xl bg-slate-950 text-sm font-semibold text-white disabled:opacity-60 dark:bg-white dark:text-slate-950"
+          className="min-h-10 w-full rounded-xl bg-muted text-sm font-semibold text-white disabled:opacity-60 dark:bg-white dark:text-foreground"
         >
           حفظ الضوابط
         </button>

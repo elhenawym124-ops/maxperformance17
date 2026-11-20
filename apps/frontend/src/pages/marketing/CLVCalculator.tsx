@@ -255,7 +255,7 @@ export default function CLVCalculator() {
                         <span className="text-muted-foreground">{T(b.key)}</span>
                         <span className={`font-mono font-medium ${isAbove ? "text-emerald-500" : "text-muted-foreground"}`}>
                           {fmt(bVal)} {mktSym(currency)}
-                          {userClv > 0 && <span className="mr-1">{isAbove ? "↑" : "↓"}</span>}
+                          {userClv > 0 && <span className="me-1">{isAbove ? "↑" : "↓"}</span>}
                         </span>
                       </div>
                       <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden flex">
@@ -323,7 +323,7 @@ export default function CLVCalculator() {
                         </div>
                         <div className="flex justify-between py-0.5">
                           <span className="text-muted-foreground">{T("clvCacRatio")}</span>
-                          <span className="font-mono font-bold text-emerald-500">
+                          <span className="font-mono font-bold text-success">
                             {fmt1(r.clvCacRatio)}:1 → {fmt1(wa.res.clvCacRatio)}:1
                           </span>
                         </div>

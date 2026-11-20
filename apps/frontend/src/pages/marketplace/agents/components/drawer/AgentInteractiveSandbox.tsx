@@ -80,7 +80,7 @@ export const AgentInteractiveSandbox: React.FC<AgentInteractiveSandboxProps> = (
         <div className="rounded-xl border border-border bg-muted/20 p-3.5 space-y-2 text-xs animate-fadeIn">
           <div className="flex items-center justify-between text-[10px] text-muted-foreground border-b border-border/40 pb-1.5">
             <div className="flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
               <span className="font-semibold text-foreground">{agentName}</span>
             </div>
             <span className="font-mono text-[9px] text-blue-500">

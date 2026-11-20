@@ -81,7 +81,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
         <SheetHeader className="p-5 border-b border-border/40 text-start space-y-3 shrink-0">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3 min-w-0">
-              <div className="size-12 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
+              <div className="size-12 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
                 <Icon className="size-6" />
               </div>
               <div className="min-w-0 flex-1">
@@ -143,7 +143,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
             <div className="space-y-2">
               <div className="text-[11px] text-muted-foreground">
                 <span className="font-semibold text-foreground block mb-1">الحد الأدنى للنظام:</span>
-                <ul className="list-disc list-inside space-y-1 pr-1">
+                <ul className="list-disc list-inside space-y-1 pe-1">
                   {pkg.drawerDetails.minRequirements.map((req, i) => (
                     <li key={i} className="text-pretty">{req}</li>
                   ))}
@@ -153,7 +153,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
               {pkg.drawerDetails.recommendedSpecs.length > 0 && (
                 <div className="text-[11px] text-muted-foreground pt-1">
                   <span className="font-semibold text-foreground block mb-1">المواصفات الموصى بها:</span>
-                  <ul className="list-disc list-inside space-y-1 pr-1">
+                  <ul className="list-disc list-inside space-y-1 pe-1">
                     {pkg.drawerDetails.recommendedSpecs.map((spec, i) => (
                       <li key={i} className="text-pretty">{spec}</li>
                     ))}
@@ -187,7 +187,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
                   onClick={handleCopyToken}
                   className="h-8 px-2.5 text-xs text-primary hover:bg-primary/10 shrink-0 gap-1 active:scale-[0.97] transition-transform duration-160 ease-out"
                 >
-                  {copiedToken ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                  {copiedToken ? <Check className="size-3 text-success" /> : <Copy className="size-3" />}
                   <span>{copiedToken ? "تم النسخ" : "نسخ المعرّف"}</span>
                 </Button>
               </div>
@@ -201,7 +201,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
                 <Share2 className="size-3.5 text-primary" />
                 <span>طريقة التثبيت على هواتف آيفون (Safari):</span>
               </h4>
-              <ol className="list-decimal list-inside space-y-1.5 text-muted-foreground text-[11px] pr-1 leading-relaxed">
+              <ol className="list-decimal list-inside space-y-1.5 text-muted-foreground text-[11px] pe-1 leading-relaxed">
                 <li className="text-pretty">{pkg.drawerDetails.iosGuide.step1}</li>
                 <li className="text-pretty">{pkg.drawerDetails.iosGuide.step2}</li>
                 <li className="text-pretty">{pkg.drawerDetails.iosGuide.step3}</li>
@@ -214,7 +214,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
           {pkg.drawerDetails.sha256 && (
             <div className="space-y-1.5 pt-2 border-t border-border/40">
               <h4 className="font-bold text-foreground text-xs flex items-center gap-1.5">
-                <Shield className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                <Shield className="size-3.5 text-success dark:text-success" />
                 <span>بصمة التحقق والسلامة (SHA-256)</span>
               </h4>
               <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-muted/40 border border-border/40">
@@ -228,7 +228,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
                   onClick={() => handleCopySha(pkg.drawerDetails.sha256!)}
                   className="h-7 px-2 text-[11px] text-primary hover:bg-primary/10 shrink-0 gap-1 active:scale-[0.97] transition-transform duration-160 ease-out"
                 >
-                  {copiedSha ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                  {copiedSha ? <Check className="size-3 text-success" /> : <Copy className="size-3" />}
                   <span>{copiedSha ? "تم النسخ" : "نسخ"}</span>
                 </Button>
               </div>
@@ -249,7 +249,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
                       <span className="font-mono font-bold text-foreground">{log.version}</span>
                       <span className="text-muted-foreground font-mono text-[10px]">({log.date})</span>
                     </div>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-0.5 pr-1">
+                    <ul className="list-disc list-inside text-muted-foreground space-y-0.5 pe-1">
                       {log.changes.map((ch, ci) => (
                         <li key={ci} className="text-pretty">{ch}</li>
                       ))}
@@ -279,7 +279,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
                   >
                     <Download className="size-3.5" />
                     <span>{file.label}</span>
-                    <span className="font-mono text-[10px] opacity-75 mr-auto" dir="ltr">
+                    <span className="font-mono text-[10px] opacity-75 me-auto" dir="ltr">
                       {file.size}
                     </span>
                   </Button>
@@ -294,7 +294,7 @@ export const AppDetailsDrawer: React.FC<AppDetailsDrawerProps> = ({
                   className="size-10 rounded-xl shrink-0 border-border/60 active:scale-[0.97] transition-transform duration-160 ease-out"
                 >
                   {copiedUrlId === file.id ? (
-                    <Check className="size-3.5 text-emerald-500" />
+                    <Check className="size-3.5 text-success" />
                   ) : (
                     <Copy className="size-3.5" />
                   )}

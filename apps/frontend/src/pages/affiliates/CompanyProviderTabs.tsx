@@ -83,7 +83,7 @@ export const CompanyProviderTabs: React.FC<CompanyProviderTabsProps> = ({
     <div className="space-y-4 text-xs">
       {/* Orders Tab */}
       {activeTab === "orders" && (
-        <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+        <div className="overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
           {loadingOrders ? (
             <div className="py-16 text-center text-muted-foreground">جاري تحميل الطلبات…</div>
           ) : (orders || []).length === 0 ? (
@@ -119,7 +119,7 @@ export const CompanyProviderTabs: React.FC<CompanyProviderTabsProps> = ({
 
       {/* Commissions Tab */}
       {activeTab === "commissions" && (
-        <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+        <div className="overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
           {loadingCommissions ? (
             <div className="py-16 text-center text-muted-foreground">جاري تحميل العمولات…</div>
           ) : (commissions || []).length === 0 ? (
@@ -140,7 +140,7 @@ export const CompanyProviderTabs: React.FC<CompanyProviderTabsProps> = ({
                   <tr key={c.id} className="hover:bg-muted/20 transition-colors">
                     <td className="px-4 py-3 font-mono font-medium text-foreground">{c.orderNumber}</td>
                     <td className="px-4 py-3 font-mono tabular-nums text-muted-foreground">{formatPrice(c.orderTotal)}</td>
-                    <td className="px-4 py-3 font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
+                    <td className="px-4 py-3 font-mono tabular-nums font-bold text-success dark:text-success">
                       {formatPrice(c.amount)}
                     </td>
                     <td className="px-4 py-3">
@@ -159,7 +159,7 @@ export const CompanyProviderTabs: React.FC<CompanyProviderTabsProps> = ({
 
       {/* Payouts Tab */}
       {activeTab === "payouts" && (
-        <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+        <div className="overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
           {loadingPayouts ? (
             <div className="py-16 text-center text-muted-foreground">جاري تحميل الدفعات…</div>
           ) : (payouts || []).length === 0 ? (

@@ -20,7 +20,7 @@ export const PostPurchaseOfferCopywritingCard: React.FC<
   onUpdateFeature,
 }) => {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm space-y-4">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-4">
       <h3 className="font-bold text-base text-foreground flex items-center gap-2">
         <Sparkles className="w-4 h-4 text-primary" />
         تخصيص نصوص العرض والعداد
@@ -91,7 +91,7 @@ export const PostPurchaseOfferCopywritingCard: React.FC<
                   acceptButtonText: e.target.value,
                 }))
               }
-              className="w-full px-3 py-2 rounded-xl border border-border bg-background font-bold text-emerald-700 dark:text-emerald-300"
+              className="w-full px-3 py-2 rounded-xl border border-border bg-background font-bold text-success dark:text-success"
             />
           </div>
 
@@ -115,7 +115,7 @@ export const PostPurchaseOfferCopywritingCard: React.FC<
 
         <div className="space-y-1 pt-1">
           <label className="font-bold text-foreground flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-amber-600" />
+            <Clock className="w-3.5 h-3.5 text-warning" />
             مدة العداد التنازلي بالدقائق:
           </label>
           <input
@@ -153,7 +153,7 @@ export const PostPurchaseOfferCopywritingCard: React.FC<
         <div className="space-y-2">
           {offer.features.map((feat, idx) => (
             <div key={idx} className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
               <input
                 type="text"
                 value={feat}
@@ -163,7 +163,7 @@ export const PostPurchaseOfferCopywritingCard: React.FC<
               <button
                 type="button"
                 onClick={() => onRemoveFeature(idx)}
-                className="p-1.5 text-muted-foreground hover:text-rose-600 transition-colors cursor-pointer"
+                className="p-1.5 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                 aria-label="حذف الميزة"
               >
                 <Trash2 className="w-3.5 h-3.5" />
