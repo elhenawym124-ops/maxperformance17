@@ -64,14 +64,14 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
   onMarkAsPaid,
 }) => {
   return (
-    <Card className="shadow-sm border border-slate-200 dark:border-slate-800">
+    <Card className="shadow-sm border border-border dark:border-border">
       <CardContent className="p-0">
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : requests.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+          <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
             <DollarSign className="h-12 w-12 mb-3 opacity-40" />
             <p className="text-base font-medium">لا توجد طلبات سلف</p>
           </div>
@@ -79,7 +79,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="bg-gray-50 dark:bg-slate-800/60">
+                <TableRow className="bg-gray-50 dark:bg-muted">
                   <TableHead className="text-right text-xs font-semibold">
                     الموظف
                   </TableHead>
@@ -116,7 +116,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                   return (
                     <TableRow
                       key={request.id}
-                      className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
+                      className="hover:bg-slate-50 dark:hover:bg-muted transition-colors"
                     >
                       <TableCell>
                         <div className="flex items-center gap-3">
@@ -128,11 +128,11 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <p className="font-semibold text-sm text-slate-900 dark:text-white">
+                            <p className="font-semibold text-sm text-foreground dark:text-white">
                               {request.employee?.firstName}{" "}
                               {request.employee?.lastName}
                             </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                            <p className="text-xs text-muted-foreground">
                               {request.employee?.position?.title || "موظف"}
                             </p>
                           </div>
@@ -141,12 +141,12 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
 
                       <TableCell>
                         <div className="flex flex-col text-xs font-mono tabular-nums">
-                          <span className="font-semibold text-slate-800 dark:text-slate-200">
+                          <span className="font-semibold text-foreground dark:text-muted-foreground">
                             {new Date(
                               request.createdAt || request.requestDate,
                             ).toLocaleDateString("ar-EG")}
                           </span>
-                          <span className="text-[11px] text-gray-500">
+                          <span className="text-[11px] text-muted-foreground">
                             {new Date(
                               request.createdAt || request.requestDate,
                             ).toLocaleTimeString("ar-EG", {
@@ -157,7 +157,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                         </div>
                       </TableCell>
 
-                      <TableCell className="font-bold text-slate-900 dark:text-white font-mono tabular-nums text-sm">
+                      <TableCell className="font-bold text-foreground dark:text-white font-mono tabular-nums text-sm">
                         {formatCurrency(request.amount)}
                       </TableCell>
 
@@ -167,13 +167,13 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                             {formatCurrency(remaining)}
                           </span>
                           {paid ? (
-                            <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-none text-[10px] font-bold">
+                            <Badge className="bg-emerald-100 text-success dark:bg-success dark:text-success border-none text-[10px] font-bold">
                               مسدد
                             </Badge>
                           ) : (
                             <Badge
                               variant="outline"
-                              className="text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-[10px] font-bold"
+                              className="text-amber-700 dark:text-warning border-warning dark:border-warning bg-warning/10 dark:bg-warning/40 text-[10px] font-bold"
                             >
                               غير مسدد
                             </Badge>
@@ -194,7 +194,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                               value={calculateProgress(request)}
                               className="h-1.5"
                             />
-                            <p className="text-[10px] text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                            <p className="text-[10px] text-muted-foreground font-mono tabular-nums">
                               {formatCurrency(
                                 calculatePaidAmount(request.installments),
                               )}{" "}
@@ -232,7 +232,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-8 w-8 p-0 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 border-emerald-200"
+                                className="h-8 w-8 p-0 text-success hover:text-success hover:bg-success/10 border-success"
                                 onClick={() => onApprove(request.id)}
                                 title="موافقة"
                               >
@@ -241,7 +241,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                                className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive"
                                 onClick={() => onOpenReject(request)}
                                 title="رفض"
                               >
@@ -256,7 +256,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                               title="تعديل القرار"
                               className="h-8 w-8 p-0"
                             >
-                              <Edit2 className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                              <Edit2 className="h-4 w-4 text-foreground dark:text-muted-foreground" />
                             </Button>
                           )}
 
@@ -264,11 +264,11 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                             <Button
                               size="sm"
                               variant="outline"
-                              className="h-8 px-2 text-xs font-semibold text-emerald-700 border-emerald-200 hover:bg-emerald-50"
+                              className="h-8 px-2 text-xs font-semibold text-success border-success hover:bg-success/10"
                               onClick={() => onMarkAsPaid(request.id)}
                               title="تعليم السلفة كمسددة"
                             >
-                              <Check className="h-3.5 w-3.5 ml-1" />
+                              <Check className="h-3.5 w-3.5 ms-1" />
                               <span>تسوية</span>
                             </Button>
                           )}
@@ -278,7 +278,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                             variant="ghost"
                             onClick={() => onDelete(request.id)}
                             title="حذف"
-                            className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                            className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
                           >
                             <Trash className="h-4 w-4" />
                           </Button>
@@ -295,7 +295,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
 
       {/* Pagination Footer */}
       {pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between p-4 border-t border-slate-200 dark:border-slate-800 text-sm">
+        <div className="flex items-center justify-between p-4 border-t border-border dark:border-border text-sm">
           <p className="text-gray-500 font-mono tabular-nums text-xs">
             عرض {(pagination.page - 1) * pagination.limit + 1} -{" "}
             {Math.min(pagination.page * pagination.limit, pagination.total)} من{" "}

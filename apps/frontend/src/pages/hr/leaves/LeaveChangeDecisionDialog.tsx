@@ -48,13 +48,13 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
         }
       }}
     >
-      <DialogContent className="sm:max-w-[500px] bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+      <DialogContent className="sm:max-w-[500px] bg-white dark:bg-muted border-border dark:border-border">
         <DialogHeader className="text-right">
           <DialogTitle className="text-2xl font-bold flex items-center justify-end gap-2">
             <RotateCcw className="h-6 w-6 text-blue-600" />
             {t("employee.leaves.changeDecisionTitle")}
           </DialogTitle>
-          <DialogDescription className="text-right text-gray-500 dark:text-gray-400">
+          <DialogDescription className="text-right text-muted-foreground">
             {t("employee.leaves.changeDecisionDesc")}
           </DialogDescription>
         </DialogHeader>
@@ -109,8 +109,8 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                   variant="outline"
                   className={`h-20 flex flex-col gap-2 p-1 ${
                     selectedRequest.status === "APPROVED"
-                      ? "border-gray-300 opacity-50 cursor-not-allowed bg-gray-50"
-                      : "border-green-500 hover:bg-green-50 hover:border-green-600"
+                      ? "border-gray-300 opacity-50 cursor-not-allowed bg-muted"
+                      : "border-green-500 hover:bg-success/10 hover:border-success"
                   }`}
                   onClick={() => {
                     if (selectedRequest.status !== "APPROVED") {
@@ -120,10 +120,10 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                   }}
                   disabled={selectedRequest.status === "APPROVED"}
                 >
-                  <Check className="h-5 w-5 text-green-600" />
+                  <Check className="h-5 w-5 text-success" />
                   <span className="font-medium text-xs">{t("employee.leaves.approveOption")}</span>
                   {selectedRequest.status === "APPROVED" && (
-                    <span className="text-[10px] text-gray-500">
+                    <span className="text-[10px] text-muted-foreground">
                       {t("employee.leaves.currentStatusLabel")}
                     </span>
                   )}
@@ -133,8 +133,8 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                   variant="outline"
                   className={`h-20 flex flex-col gap-2 p-1 ${
                     selectedRequest.status === "REJECTED"
-                      ? "border-gray-300 opacity-50 cursor-not-allowed bg-gray-50"
-                      : "border-red-500 hover:bg-red-50 hover:border-red-600"
+                      ? "border-gray-300 opacity-50 cursor-not-allowed bg-muted"
+                      : "border-red-500 hover:bg-destructive/10 hover:border-destructive"
                   }`}
                   onClick={() => {
                     if (selectedRequest.status !== "REJECTED") {
@@ -143,10 +143,10 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                   }}
                   disabled={selectedRequest.status === "REJECTED"}
                 >
-                  <X className="h-5 w-5 text-red-600" />
+                  <X className="h-5 w-5 text-destructive" />
                   <span className="font-medium text-xs">{t("employee.leaves.rejectOption")}</span>
                   {selectedRequest.status === "REJECTED" && (
-                    <span className="text-[10px] text-gray-500">
+                    <span className="text-[10px] text-muted-foreground">
                       {t("employee.leaves.currentStatusLabel")}
                     </span>
                   )}
@@ -156,8 +156,8 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                   variant="outline"
                   className={`h-20 flex flex-col gap-2 p-1 ${
                     selectedRequest.status === "CANCELLED"
-                      ? "border-gray-300 opacity-50 cursor-not-allowed bg-gray-50"
-                      : "border-orange-500 hover:bg-orange-50 hover:border-orange-600"
+                      ? "border-gray-300 opacity-50 cursor-not-allowed bg-muted"
+                      : "border-orange-500 hover:bg-warning/10 hover:border-warning"
                   }`}
                   onClick={() => {
                     if (selectedRequest.status !== "CANCELLED") {
@@ -167,10 +167,10 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                   }}
                   disabled={selectedRequest.status === "CANCELLED"}
                 >
-                  <RotateCcw className="h-5 w-5 text-orange-600" />
+                  <RotateCcw className="h-5 w-5 text-warning" />
                   <span className="font-medium text-xs">{t("employee.leaves.cancelRequest")}</span>
                   {selectedRequest.status === "CANCELLED" && (
-                    <span className="text-[10px] text-gray-500">
+                    <span className="text-[10px] text-muted-foreground">
                       {t("employee.leaves.currentStatusLabel")}
                     </span>
                   )}
@@ -179,7 +179,7 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
 
               {newDecision === "REJECT" && (
                 <div className="space-y-2 pt-2 animate-in slide-in-from-top-4 duration-300">
-                  <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Label className="flex items-center gap-2 text-foreground">
                     <FileText className="h-4 w-4" />
                     {t("employee.leaves.rejectReasonLabel")} *
                   </Label>
@@ -188,14 +188,14 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
                     onChange={(e) => setRejectionReason(e.target.value)}
                     placeholder={t("employee.leaves.rejectReasonPlaceholder")}
                     rows={3}
-                    className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-right"
+                    className="bg-gray-50 dark:bg-muted border-border dark:border-border text-right"
                   />
                   <Button
                     variant="destructive"
                     className="w-full"
                     onClick={() => onChangeDecision("REJECT")}
                   >
-                    <X className="h-4 w-4 ml-2" />
+                    <X className="h-4 w-4 ms-2" />
                     {t("employee.leaves.confirmReject")}
                   </Button>
                 </div>

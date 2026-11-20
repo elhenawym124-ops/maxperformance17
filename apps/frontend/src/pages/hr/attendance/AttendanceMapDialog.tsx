@@ -30,7 +30,7 @@ export const AttendanceMapDialog: React.FC<AttendanceMapDialogProps> = ({
             موقع تسجيل الـ {selectedLocation?.type || "حضور/انصراف"}
           </DialogTitle>
         </DialogHeader>
-        <div className="w-full h-[400px] bg-gray-100 dark:bg-gray-800 rounded-md overflow-hidden relative">
+        <div className="w-full h-[400px] bg-muted dark:bg-muted rounded-md overflow-hidden relative">
           {selectedLocation && (
             <iframe
               title="Google Maps Location"

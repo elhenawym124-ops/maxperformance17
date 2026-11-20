@@ -3,7 +3,7 @@ import type { AdvanceRequest, AdvanceInstallment } from "./types";
 export const statusConfig: Record<string, { label: string; color: string }> = {
   PENDING: {
     label: "بانتظار الموافقة",
-    color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+    color: "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning",
   },
   APPROVED: {
     label: "معتمد",
@@ -11,11 +11,11 @@ export const statusConfig: Record<string, { label: string; color: string }> = {
   },
   REJECTED: {
     label: "مرفوض",
-    color: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+    color: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
   },
   COMPLETED: {
     label: "مكتمل",
-    color: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+    color: "bg-green-100 text-success dark:bg-success/30 dark:text-success",
   },
 };
 

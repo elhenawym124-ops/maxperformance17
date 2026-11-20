@@ -94,13 +94,13 @@ export const PolarisAssetsView: React.FC<PolarisAssetsViewProps> = ({
 
       {/* KPI Stats Overview */}
       {showStats && (
-        <div className="[&>div]:bg-card [&>div]:border-border/70 [&>div]:rounded-2xl">
+        <div className="[&>div]:bg-card [&>div]:border-border/70 [&>div]:rounded-xl">
           <AssetStats refreshTrigger={refreshTrigger} />
         </div>
       )}
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Navigation Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">

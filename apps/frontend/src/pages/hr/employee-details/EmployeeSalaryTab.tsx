@@ -21,7 +21,7 @@ export const EmployeeSalaryTab: React.FC<EmployeeSalaryTabProps> = ({
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold">سجل الرواتب</CardTitle>
           <Button onClick={onViewSalaryHistory}>
-            <DollarSign className="h-4 w-4 ml-2" />
+            <DollarSign className="h-4 w-4 ms-2" />
             عرض السجل الكامل
           </Button>
         </div>
@@ -32,7 +32,7 @@ export const EmployeeSalaryTab: React.FC<EmployeeSalaryTabProps> = ({
             عرض سجل التغييرات في الراتب والبدلات
           </p>
           <Button onClick={onViewSalaryHistory}>
-            <DollarSign className="h-4 w-4 ml-2" />
+            <DollarSign className="h-4 w-4 ms-2" />
             عرض سجل الرواتب
           </Button>
         </div>

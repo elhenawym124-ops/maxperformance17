@@ -37,8 +37,8 @@ export const ApplicationFormQuestionBuilder: React.FC<
   onMoveQuestion,
 }) => {
   return (
-    <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-      <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4">
+    <div className="border-t border-border dark:border-border pt-4 mt-4">
+      <h3 className="text-lg font-bold text-foreground dark:text-white mb-4">
         الأسئلة (
         <span className="font-mono tabular-nums">{questions.length}</span>)
       </h3>
@@ -48,31 +48,31 @@ export const ApplicationFormQuestionBuilder: React.FC<
           {questions.map((q, index) => (
             <div
               key={index}
-              className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl"
+              className="flex items-center gap-3 p-3 bg-muted dark:bg-muted rounded-xl"
             >
               <div className="flex flex-col gap-1">
                 <button
                   onClick={() => onMoveQuestion(index, "up")}
                   disabled={index === 0}
-                  className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded disabled:opacity-30"
+                  className="p-1 hover:bg-muted dark:hover:bg-muted rounded disabled:opacity-30"
                 >
                   <ChevronUpIcon className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => onMoveQuestion(index, "down")}
                   disabled={index === questions.length - 1}
-                  className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded disabled:opacity-30"
+                  className="p-1 hover:bg-muted dark:hover:bg-muted rounded disabled:opacity-30"
                 >
                   <ChevronDownIcon className="w-4 h-4" />
                 </button>
               </div>
               <div className="flex-1">
-                <p className="font-medium text-gray-800 dark:text-white">
+                <p className="font-medium text-foreground dark:text-white">
                   <span className="font-mono tabular-nums">{index + 1}</span>.{" "}
                   {q.questionText}
-                  {q.isRequired && <span className="text-red-500 mr-1">*</span>}
+                  {q.isRequired && <span className="text-red-500 me-1">*</span>}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   {
                     QUESTION_TYPES.find((t) => t.value === q.questionType)
                       ?.label
@@ -82,7 +82,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
               </div>
               <button
                 onClick={() => onRemoveQuestion(index)}
-                className="p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg"
+                className="p-2 text-destructive hover:bg-destructive dark:hover:bg-destructive/30 rounded-lg"
               >
                 <TrashIcon className="w-5 h-5" />
               </button>
@@ -105,7 +105,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
                 questionText: e.target.value,
               }))
             }
-            className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg"
+            className="w-full px-4 py-2 bg-card border border-border rounded-lg"
             placeholder="نص السؤال..."
           />
           <select
@@ -117,7 +117,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
                 options: [],
               }))
             }
-            className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg"
+            className="w-full px-4 py-2 bg-card border border-border rounded-lg"
           >
             {QUESTION_TYPES.map((type) => (
               <option key={type.value} value={type.value}>
@@ -135,7 +135,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
                 value={optionInput}
                 onChange={(e) => onOptionInputChange(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && onAddOption()}
-                className="flex-1 px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg"
+                className="flex-1 px-4 py-2 bg-card border border-border rounded-lg"
                 placeholder="أضف خيار..."
               />
               <button
@@ -150,12 +150,12 @@ export const ApplicationFormQuestionBuilder: React.FC<
                 {newQuestion.options.map((opt, i) => (
                   <span
                     key={i}
-                    className="flex items-center gap-1 px-3 py-1 bg-white dark:bg-gray-700 rounded-full text-sm"
+                    className="flex items-center gap-1 px-3 py-1 bg-card rounded-full text-sm"
                   >
                     {opt}
                     <button
                       onClick={() => onRemoveOption(i)}
-                      className="text-red-500 hover:text-red-700"
+                      className="text-red-500 hover:text-destructive"
                     >
                       <XCircleIcon className="w-4 h-4" />
                     </button>
@@ -179,7 +179,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
               }
               className="w-4 h-4 text-blue-600 rounded"
             />
-            <span className="text-sm text-gray-700 dark:text-gray-300">
+            <span className="text-sm text-foreground">
               سؤال إجباري
             </span>
           </label>

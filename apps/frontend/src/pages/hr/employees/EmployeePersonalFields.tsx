@@ -47,7 +47,7 @@ export const EmployeePersonalFields: React.FC<EmployeePersonalFieldsProps> = ({
           className={hasError(errors, "firstName") ? "border-red-500" : ""}
         />
         {hasError(errors, "firstName") && (
-          <p className="text-sm text-red-500">
+          <p className="text-sm text-destructive">
             {getErrorMessage(errors, "firstName")}
           </p>
         )}
@@ -64,7 +64,7 @@ export const EmployeePersonalFields: React.FC<EmployeePersonalFieldsProps> = ({
           className={hasError(errors, "lastName") ? "border-red-500" : ""}
         />
         {hasError(errors, "lastName") && (
-          <p className="text-sm text-red-500">
+          <p className="text-sm text-destructive">
             {getErrorMessage(errors, "lastName")}
           </p>
         )}
@@ -81,7 +81,7 @@ export const EmployeePersonalFields: React.FC<EmployeePersonalFieldsProps> = ({
           className={hasError(errors, "phone") ? "border-red-500" : ""}
         />
         {hasError(errors, "phone") && (
-          <p className="text-sm text-red-500">
+          <p className="text-sm text-destructive">
             {getErrorMessage(errors, "phone")}
           </p>
         )}
@@ -101,7 +101,7 @@ export const EmployeePersonalFields: React.FC<EmployeePersonalFieldsProps> = ({
             className={hasError(errors, "password") ? "border-red-500" : ""}
           />
           {hasError(errors, "password") && (
-            <p className="text-sm text-red-500">
+            <p className="text-sm text-destructive">
               {getErrorMessage(errors, "password")}
             </p>
           )}

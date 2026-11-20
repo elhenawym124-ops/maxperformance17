@@ -61,7 +61,7 @@ export const FeedbackFilterBar: React.FC<FeedbackFilterBarProps> = ({
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="ابحث في المحتوى أو الموظفين..."
-            className="pr-10 bg-background/50 border-muted-foreground/20"
+            className="pe-10 bg-background/50 border-muted-foreground/20"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
           />
@@ -70,7 +70,7 @@ export const FeedbackFilterBar: React.FC<FeedbackFilterBarProps> = ({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="bg-background/50">
-              <Filter className="h-4 w-4 ml-2" />
+              <Filter className="h-4 w-4 ms-2" />
               التقييم:{" "}
               {ratingFilter === "all" ? "الكل" : `${ratingFilter} نجوم`}
             </Button>
@@ -85,11 +85,11 @@ export const FeedbackFilterBar: React.FC<FeedbackFilterBarProps> = ({
                 onClick={() => onRatingChange(r)}
                 className="flex items-center"
               >
-                <div className="flex items-center ml-2">
+                <div className="flex items-center ms-2">
                   {Array.from({ length: r }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-3 w-3 fill-yellow-500 text-yellow-500"
+                      className="h-3 w-3 fill-warning text-warning"
                     />
                   ))}
                 </div>

@@ -39,7 +39,7 @@ export const AssetRequestsTableAndFilters: React.FC<
     <>
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-foreground">
           طلبات العهدة
         </h2>
       </div>
@@ -48,13 +48,13 @@ export const AssetRequestsTableAndFilters: React.FC<
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1">
           <div className="relative">
-            <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="بحث..."
               value={searchQuery}
               onChange={(e) => onSearchQueryChange(e.target.value)}
-              className="w-full pr-10 pl-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              className="w-full pe-10 ps-4 py-2 border border-border rounded-lg bg-card text-foreground"
             />
           </div>
         </div>
@@ -62,7 +62,7 @@ export const AssetRequestsTableAndFilters: React.FC<
           <select
             value={filterStatus}
             onChange={(e) => onFilterStatusChange(e.target.value)}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            className="px-4 py-2 border border-border rounded-lg bg-card text-foreground"
           >
             <option value="all">كل الحالات</option>
             <option value="PENDING">قيد الانتظار</option>
@@ -74,48 +74,48 @@ export const AssetRequestsTableAndFilters: React.FC<
       </div>
 
       {/* Requests Table */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+      <div className="bg-card shadow-sm rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-border dark:divide-border">
+          <thead className="bg-gray-50 dark:bg-muted">
             <tr>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 نوع الأصل
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 السبب
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 الأولوية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 الحالة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 التاريخ
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 الإجراءات
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody className="bg-card divide-y divide-border dark:divide-border">
             {filteredRequests.map((request) => (
               <tr
                 key={request.id}
-                className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="hover:bg-muted/50"
               >
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">
+                  <div className="text-sm font-medium text-foreground">
                     {request.assetType}
                   </div>
                   {request.category && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                    <div className="text-sm text-muted-foreground">
                       {request.category}
                     </div>
                   )}
                 </td>
                 <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900 dark:text-white max-w-xs truncate">
+                  <div className="text-sm text-foreground max-w-xs truncate">
                     {request.reason}
                   </div>
                 </td>
@@ -133,7 +133,7 @@ export const AssetRequestsTableAndFilters: React.FC<
                     {getAssetRequestStatusText(request.status)}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground font-mono tabular-nums">
                   {new Date(request.createdAt).toLocaleDateString("ar-EG")}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -142,14 +142,14 @@ export const AssetRequestsTableAndFilters: React.FC<
                       <>
                         <button
                           onClick={() => onApproveClick(request)}
-                          className="text-green-600 hover:text-green-900"
+                          className="text-green-600 hover:text-success"
                           title="موافقة"
                         >
                           <CheckCircleIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onRejectClick(request)}
-                          className="text-red-600 hover:text-red-900"
+                          className="text-red-600 hover:text-destructive"
                           title="رفض"
                         >
                           <XCircleIcon className="h-5 w-5" />
@@ -159,7 +159,7 @@ export const AssetRequestsTableAndFilters: React.FC<
                     {request.status === "APPROVED" && (
                       <button
                         onClick={() => onFulfillClick(request)}
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="text-indigo-600 hover:text-primary"
                         title="تخصيص أصل"
                       >
                         تخصيص
@@ -174,8 +174,8 @@ export const AssetRequestsTableAndFilters: React.FC<
 
         {filteredRequests.length === 0 && (
           <div className="text-center py-12">
-            <ClipboardDocumentListIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <ClipboardDocumentListIcon className="mx-auto h-12 w-12 text-muted-foreground" />
+            <p className="mt-2 text-sm text-muted-foreground">
               لا توجد طلبات
             </p>
           </div>

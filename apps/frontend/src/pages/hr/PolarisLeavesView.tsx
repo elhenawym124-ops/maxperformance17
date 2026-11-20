@@ -169,7 +169,7 @@ export const PolarisLeavesView: React.FC<PolarisLeavesViewProps> = ({
                 >
                   <span>{tab.label}</span>
                   {typeof tab.badge === "number" && tab.badge > 0 && (
-                    <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-500/15 text-amber-600 dark:text-amber-400 font-mono tabular-nums font-bold">
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-warning/15 text-warning dark:text-warning font-mono tabular-nums font-bold">
                       {tab.badge}
                     </span>
                   )}

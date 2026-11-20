@@ -26,7 +26,7 @@ const SectionBadge: React.FC<{
   tone?: string;
 }> = ({
   label,
-  tone = "border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300",
+  tone = "border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
 }) => (
   <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${tone}`}>
     {label}
@@ -170,8 +170,8 @@ const WorkReportSubmissionPage: React.FC = () => {
   const renderFieldInput = (field: WorkReportField, value: WorkReportFieldValue | undefined) => {
     if (field.sourceType !== "MANUAL") {
       return (
-        <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm dark:border-slate-700 dark:bg-slate-900">
-          <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
+        <div className="rounded-xl border border-border bg-white px-4 py-3 text-sm dark:border-border dark:bg-muted">
+          <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
             {field.sourceType === "SYSTEM" ? (
               <>
                 <Sparkles className="h-4 w-4" />
@@ -184,10 +184,10 @@ const WorkReportSubmissionPage: React.FC = () => {
               </>
             )}
           </div>
-          <div className="text-sm font-medium text-slate-900 dark:text-white">
+          <div className="text-sm font-medium text-foreground dark:text-white">
             {value?.displayValue || "—"}
           </div>
-          <div className="mt-2 text-[11px] font-mono text-slate-400">
+          <div className="mt-2 text-[11px] font-mono text-muted-foreground">
             {field.sourceType === "SYSTEM" ? field.systemKey : field.formula}
           </div>
         </div>
@@ -200,7 +200,7 @@ const WorkReportSubmissionPage: React.FC = () => {
           rows={5}
           value={String(manualValues[field.id || field.key] || "")}
           onChange={(event) => updateManualValue(field, event.target.value)}
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-slate-500"
+          className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-border dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
           placeholder={field.placeholder || ""}
         />
       );
@@ -229,8 +229,8 @@ const WorkReportSubmissionPage: React.FC = () => {
                 }
                 className={`rounded-xl border px-3 py-2 text-sm transition ${
                   isSelected
-                    ? "border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950"
-                    : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                    ? "border-slate-900 bg-muted text-white dark:border-white dark:bg-white dark:text-foreground"
+                    : "border-slate-200 bg-white text-foreground hover:border-border dark:border-border dark:bg-muted dark:text-muted-foreground"
                 }`}
               >
                 {option}
@@ -247,7 +247,7 @@ const WorkReportSubmissionPage: React.FC = () => {
         step={field.dataType === "PERCENT" ? "0.01" : field.dataType === "NUMBER" ? "1" : undefined}
         value={String(manualValues[field.id || field.key] ?? "")}
         onChange={(event) => updateManualValue(field, event.target.value)}
-        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-slate-500"
+        className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-border dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
         placeholder={field.placeholder || ""}
       />
     );
@@ -285,7 +285,7 @@ const WorkReportSubmissionPage: React.FC = () => {
           <div className="space-y-3">
             <Link
               to="/hr/reporting/forms"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-sm text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
               العودة للفورمات
@@ -296,28 +296,28 @@ const WorkReportSubmissionPage: React.FC = () => {
                 {context.form.isActive ? (
                   <SectionBadge
                     label="مفعل"
-                    tone="border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300"
+                    tone="border-emerald-200 bg-success/10 text-success dark:border-success/60 dark:bg-success/30 dark:text-success"
                   />
                 ) : (
                   <SectionBadge
                     label="غير مفعل"
-                    tone="border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/30 dark:text-amber-300"
+                    tone="border-amber-200 bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning"
                   />
                 )}
               </div>
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
                 {context.form.title}
               </h1>
-              <p className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+              <p className="max-w-3xl text-sm leading-7 text-foreground dark:text-muted-foreground">
                 {context.form.description || "أكمل التقرير ثم احفظه ليظهر في السجلات والتحليل."}
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <label className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm dark:border-slate-800 dark:bg-slate-900">
-              <CalendarDays className="h-4 w-4 text-slate-500" />
-              <span className="text-slate-500 dark:text-slate-400">تاريخ التقرير</span>
+            <label className="flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 text-sm dark:border-border dark:bg-muted">
+              <CalendarDays className="h-4 w-4 text-muted-foreground" />
+              <span className="text-slate-500 dark:text-muted-foreground">تاريخ التقرير</span>
               <DateInput
                 value={reportDate}
                 onChange={(event) => setReportDate(event.target.value)}
@@ -328,7 +328,7 @@ const WorkReportSubmissionPage: React.FC = () => {
               type="button"
               onClick={handleSubmit}
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="inline-flex items-center gap-2 rounded-xl bg-muted px-4 py-3 text-sm font-medium text-white transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-foreground dark:hover:bg-muted"
             >
               <Save className="h-4 w-4" />
               {saving ? "جاري الحفظ..." : "حفظ التقرير"}
@@ -337,12 +337,12 @@ const WorkReportSubmissionPage: React.FC = () => {
         </div>
 
         {context.existingSubmission ? (
-          <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200">
+          <div className="mb-6 rounded-xl border border-success bg-success/10 p-4 text-sm text-success dark:border-success/60 dark:bg-success/30 dark:text-success">
             <div className="flex items-center gap-2 font-medium">
               <CheckCircle2 className="h-4 w-4" />
               يوجد إرسال محفوظ لهذه الفترة
             </div>
-            <div className="mt-2 text-emerald-700 dark:text-emerald-300">
+            <div className="mt-2 text-success dark:text-success">
               آخر تحديث: {formatArabicDateTime(context.existingSubmission.submittedAt)}
             </div>
           </div>
@@ -355,9 +355,9 @@ const WorkReportSubmissionPage: React.FC = () => {
               return (
                 <div
                   key={field.key}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+                  className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted"
                 >
-                  <div className="mb-2 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+                  <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground dark:text-muted-foreground">
                     <span>{field.label}</span>
                     {field.sourceType === "SYSTEM" ? (
                       <Sparkles className="h-4 w-4" />
@@ -381,7 +381,7 @@ const WorkReportSubmissionPage: React.FC = () => {
             return (
               <section
                 key={field.key}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+                className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted"
               >
                 <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
                   <div className="space-y-2">
@@ -399,19 +399,19 @@ const WorkReportSubmissionPage: React.FC = () => {
                       {field.isRequired ? (
                         <SectionBadge
                           label="مطلوب"
-                          tone="border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-300"
+                          tone="border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/60 dark:bg-destructive/30 dark:text-destructive"
                         />
                       ) : null}
                     </div>
                     {field.helpText ? (
-                      <p className="text-sm leading-7 text-slate-600 dark:text-slate-300">
+                      <p className="text-sm leading-7 text-foreground dark:text-muted-foreground">
                         {field.helpText}
                       </p>
                     ) : null}
                   </div>
 
                   {field.sourceType !== "MANUAL" ? (
-                    <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1.5 text-xs text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                       <Lock className="h-3.5 w-3.5" />
                       للعرض فقط
                     </div>

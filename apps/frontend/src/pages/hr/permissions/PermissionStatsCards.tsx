@@ -17,7 +17,7 @@ export const PermissionStatsCards: React.FC<PermissionStatsCardsProps> = ({
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       {/* Pending Card */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div>
@@ -33,12 +33,12 @@ export const PermissionStatsCards: React.FC<PermissionStatsCardsProps> = ({
                 </span>
               </div>
             </div>
-            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 shrink-0">
+            <div className="p-2.5 rounded-xl bg-warning/10 border border-warning/20 text-warning shrink-0">
               <Clock className="h-5 w-5" />
             </div>
           </div>
           {pendingCount > 0 && (
-            <div className="mt-3 flex items-center gap-1.5 text-[11px] text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md w-fit">
+            <div className="mt-3 flex items-center gap-1.5 text-[11px] text-warning dark:text-warning bg-warning/10 px-2 py-0.5 rounded-md w-fit">
               <AlertCircle className="h-3 w-3 shrink-0" />
               <span className="truncate">{t("employee.permissions.respondQuickly")}</span>
             </div>
@@ -47,7 +47,7 @@ export const PermissionStatsCards: React.FC<PermissionStatsCardsProps> = ({
       </Card>
 
       {/* Total Hours Card */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div>
@@ -74,7 +74,7 @@ export const PermissionStatsCards: React.FC<PermissionStatsCardsProps> = ({
       </Card>
 
       {/* Deducted Permissions Card */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div>
@@ -98,7 +98,7 @@ export const PermissionStatsCards: React.FC<PermissionStatsCardsProps> = ({
       </Card>
 
       {/* Official Work Hours Card */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div>

@@ -44,15 +44,15 @@ export const getTierIcon = (iconName: string): React.ReactElement => {
 export const getStatusColor = (status: string): string => {
   switch (status) {
     case "ACTIVE":
-      return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+      return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
     case "INACTIVE":
-      return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400";
+      return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
     case "DRAFT":
-      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400";
+      return "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning";
     case "SUSPENDED":
-      return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
+      return "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
     default:
-      return "bg-gray-100 text-gray-800";
+      return "bg-gray-100 text-foreground";
   }
 };
 

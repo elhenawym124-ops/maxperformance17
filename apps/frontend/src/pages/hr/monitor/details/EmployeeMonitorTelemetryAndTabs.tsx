@@ -47,17 +47,17 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
         <div className="rounded-xl border border-border/40 bg-card/60 p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>وقت العمل الفعلي</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-success/10 text-success dark:text-success ring-1 ring-inset ring-success/20">
               <Clock className="h-3.5 w-3.5" />
             </span>
           </div>
           <div className="mt-2 text-xl font-bold text-foreground font-mono tabular-nums">
             {formatMonitorSeconds(totalActive)}
           </div>
-          <div className="mt-1 flex items-center justify-between text-[11px] text-emerald-600 dark:text-emerald-400">
+          <div className="mt-1 flex items-center justify-between text-[11px] text-success dark:text-success">
             <span>تفاعل موثق عبر الماوس والكيبورد</span>
             {data.summary?.activityRatio !== undefined && (
-              <span className="font-bold text-indigo-600 dark:text-indigo-400 font-mono tabular-nums">
+              <span className="font-bold text-primary font-mono tabular-nums">
                 نشاط {data.summary.activityRatio}%
               </span>
             )}
@@ -68,7 +68,7 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
         <div className="rounded-xl border border-border/40 bg-card/60 p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>سكون الجهاز وفترات البريك</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-inset ring-amber-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-warning/10 text-warning dark:text-warning ring-1 ring-inset ring-warning/20">
               <Coffee className="h-3.5 w-3.5" />
             </span>
           </div>
@@ -86,7 +86,7 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
                   ),
               )}
             </span>
-            <span className="inline-flex items-center gap-1 rounded bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-300 ring-1 ring-inset ring-amber-500/20 font-mono tabular-nums">
+            <span className="inline-flex items-center gap-1 rounded bg-warning/10 px-1.5 py-0.5 text-[10px] font-bold text-warning dark:text-warning ring-1 ring-inset ring-warning/20 font-mono tabular-nums">
               بريك:{" "}
               {formatMonitorSeconds(
                 data.summary?.totalBreakSeconds ??
@@ -105,14 +105,14 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
         <div className="rounded-xl border border-border/40 bg-card/60 p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>معدل الإنتاجية اليومية</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-1 ring-inset ring-sky-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-info/10 text-info dark:text-info ring-1 ring-inset ring-info/20">
               <Activity className="h-3.5 w-3.5" />
             </span>
           </div>
           <div className="mt-2 text-xl font-bold text-foreground font-mono tabular-nums">
             {prodScore}%
           </div>
-          <div className="mt-1 text-[11px] text-sky-600 dark:text-sky-400">
+          <div className="mt-1 text-[11px] text-info dark:text-info">
             {prodScore >= 75
               ? "مستوى أداء ممتاز"
               : prodScore >= 50
@@ -125,7 +125,7 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
         <div className="rounded-xl border border-border/40 bg-card/60 p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>البصمة وأول نشاط للجهاز</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 ring-1 ring-inset ring-purple-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary dark:text-primary ring-1 ring-inset ring-primary/20">
               <ShieldCheck className="h-3.5 w-3.5" />
             </span>
           </div>
@@ -139,7 +139,7 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
                     <span className="font-semibold text-foreground font-mono tabular-nums">
                       {clockInStr}
                     </span>
-                    <span className="rounded bg-purple-50 text-purple-700 border border-purple-200 dark:border-transparent dark:bg-purple-500/15 dark:text-purple-300 px-1.5 py-0.5 text-[10px] font-medium">
+                    <span className="rounded bg-primary/10 text-primary border border-primary dark:border-transparent dark:bg-primary/15 dark:text-primary px-1.5 py-0.5 text-[10px] font-medium">
                       {getCheckInMethodLabel(data.summary?.checkInMethod)}
                     </span>
                   </>
@@ -164,10 +164,10 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
                   <span
                     className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold font-mono tabular-nums ${
                       data.summary.lateStartMinutes <= 15
-                        ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                        ? "bg-emerald-50 text-success dark:bg-success/10 dark:text-success"
                         : data.summary.lateStartMinutes < 30
-                          ? "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
-                          : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-400"
+                          ? "bg-amber-50 text-warning dark:bg-warning/10 dark:text-warning"
+                          : "bg-rose-50 text-destructive dark:bg-destructive/15 dark:text-destructive"
                     }`}
                   >
                     {data.summary.lateStartMinutes <= 0
@@ -186,13 +186,13 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
             ) : activityLagMinutes !== null ? (
               <div className="pt-1">
                 {activityLagMinutes <= 5 ? (
-                  <span className="inline-flex items-center gap-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 dark:border-transparent dark:bg-emerald-500/10 dark:text-emerald-400 px-1.5 py-0.5 text-[10px] font-semibold font-mono tabular-nums">
+                  <span className="inline-flex items-center gap-1 rounded bg-success/10 text-success border border-success dark:border-transparent dark:bg-success/10 dark:text-success px-1.5 py-0.5 text-[10px] font-semibold font-mono tabular-nums">
                     {activityLagMinutes < 0
                       ? `نشاط مبكر (${Math.abs(activityLagMinutes)} د قبل الحضور)`
                       : "نشاط فوري (متطابق)"}
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 rounded bg-amber-50 text-amber-700 border border-amber-200 dark:border-transparent dark:bg-amber-500/10 dark:text-amber-400 px-1.5 py-0.5 text-[10px] font-semibold font-mono tabular-nums">
+                  <span className="inline-flex items-center gap-1 rounded bg-warning/10 text-warning border border-warning dark:border-transparent dark:bg-warning/10 dark:text-warning px-1.5 py-0.5 text-[10px] font-semibold font-mono tabular-nums">
                     تأخر بدء النشاط: +{activityLagMinutes} دقيقة
                   </span>
                 )}
@@ -208,13 +208,13 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
           onClick={() => onSelectTab("tasks")}
           className={`flex items-center gap-1.5 rounded-t-lg border-b-2 px-3 py-2 font-semibold transition ${
             activeTab === "tasks"
-              ? "border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
-              : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-zinc-800/40"
+              ? "border-emerald-500 text-success dark:text-success bg-success/10"
+              : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted"
           }`}
         >
           <ListTodo className="h-4 w-4" />
           <span>المهام واستغلال الوقت</span>
-          <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.2 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <span className="rounded-full bg-success/15 px-1.5 py-0.2 text-[10px] font-bold text-success dark:text-success font-mono tabular-nums">
             {data.taskPerformance?.tasksCompletedCount || 0}
           </span>
         </button>
@@ -223,14 +223,14 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
           onClick={() => onSelectTab("timeline")}
           className={`flex items-center gap-1.5 rounded-t-lg border-b-2 px-3 py-2 font-semibold transition ${
             activeTab === "timeline"
-              ? "border-sky-500 text-sky-600 dark:text-sky-400 bg-sky-500/10"
-              : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-zinc-800/40"
+              ? "border-sky-500 text-info dark:text-info bg-info/10"
+              : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted"
           }`}
         >
           <History className="h-4 w-4" />
           <span>المخطط الزمني وفترات الاستراحة</span>
           {data.breaksSummary?.totalBreaksCount ? (
-            <span className="rounded-full bg-amber-500/15 px-1.5 py-0.2 text-[10px] font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+            <span className="rounded-full bg-warning/15 px-1.5 py-0.2 text-[10px] font-bold text-warning dark:text-warning font-mono tabular-nums">
               {data.breaksSummary.totalBreaksCount} بريك
             </span>
           ) : null}
@@ -240,13 +240,13 @@ export const EmployeeMonitorTelemetryAndTabs: React.FC<
           onClick={() => onSelectTab("apps")}
           className={`flex items-center gap-1.5 rounded-t-lg border-b-2 px-3 py-2 font-semibold transition ${
             activeTab === "apps"
-              ? "border-purple-500 text-purple-600 dark:text-purple-400 bg-purple-500/10"
-              : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-zinc-800/40"
+              ? "border-purple-500 text-primary dark:text-primary bg-primary/10"
+              : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted"
           }`}
         >
           <Grid className="h-4 w-4" />
           <span>البرامج والمواقع المستخدمة</span>
-          <span className="rounded-full bg-purple-500/15 px-1.5 py-0.2 text-[10px] font-bold text-purple-600 dark:text-purple-400 font-mono tabular-nums">
+          <span className="rounded-full bg-primary/15 px-1.5 py-0.2 text-[10px] font-bold text-primary dark:text-primary font-mono tabular-nums">
             {(data.apps?.length || 0) + (data.websites?.length || 0)}
           </span>
         </button>

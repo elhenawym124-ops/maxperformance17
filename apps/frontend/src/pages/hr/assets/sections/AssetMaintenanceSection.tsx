@@ -30,11 +30,11 @@ const AssetMaintenanceSection: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-3">
-            <WrenchScrewdriverIcon className="h-8 w-8 text-indigo-600" />
+          <h2 className="text-2xl font-black text-foreground flex items-center gap-3">
+            <WrenchScrewdriverIcon className="h-8 w-8 text-primary" />
             الصيانة والضمان
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             إدارة سجلات الصيانة، جدولة المواعيد، ومتابعة تنبيهات الضمان
           </p>
         </div>
@@ -48,10 +48,10 @@ const AssetMaintenanceSection: React.FC = () => {
           </button>
           <button
             onClick={() => void fetchData()}
-            className="p-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 transition-all"
+            className="p-2.5 bg-card border border-border dark:border-border rounded-xl hover:bg-muted transition-all"
           >
             <ArrowPathIcon
-              className={`h-5 w-5 text-gray-500 ${loading ? "animate-spin" : ""}`}
+              className={`h-5 w-5 text-muted-foreground ${loading ? "animate-spin" : ""}`}
             />
           </button>
         </div>

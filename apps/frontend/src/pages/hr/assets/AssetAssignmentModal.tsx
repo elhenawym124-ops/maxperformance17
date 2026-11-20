@@ -102,20 +102,20 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
         aria-hidden="true"
       />
 
-      <div className="relative w-full max-w-2xl bg-white dark:bg-gray-800 text-right rounded-[2rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden transform transition-all">
-        <div className="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-indigo-600 to-violet-500" />
-        <div className="flex items-center justify-between px-8 py-6 border-b border-gray-100 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-900/20 backdrop-blur-xl">
+      <div className="relative w-full max-w-2xl bg-card text-right rounded-[2rem] shadow-2xl border border-border dark:border-border overflow-hidden transform transition-all">
+        <div className="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-primary to-primary" />
+        <div className="flex items-center justify-between px-8 py-6 border-b border-border dark:border-border bg-muted dark:bg-muted backdrop-blur-xl">
           <div>
-            <p className="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-[0.2em] mb-1">
+            <p className="text-[10px] font-black text-primary dark:text-primary uppercase tracking-[0.2em] mb-1">
               {type === "assign" ? "نموذج تسليم عهدة" : "نموذج استرجاع عهدة"}
             </p>
-            <h3 className="text-2xl font-black text-gray-900 dark:text-white">
+            <h3 className="text-2xl font-black text-foreground">
               {asset?.name || "الأصل"}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="rounded-2xl p-2.5 text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all shadow-sm"
+            className="rounded-xl p-2.5 text-muted-foreground hover:text-foreground dark:hover:text-white hover:bg-muted transition-all shadow-sm"
             aria-label="إغلاق النموذج"
           >
             <XMarkIcon className="h-6 w-6" />
@@ -127,7 +127,7 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-2xl border border-red-100 dark:border-red-900/50 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-5 py-4 text-sm font-bold flex items-center gap-3"
+              className="rounded-xl border border-destructive dark:border-destructive/50 bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive px-5 py-4 text-sm font-bold flex items-center gap-3"
             >
               <span className="text-lg">⚠️</span>
               {error}
@@ -135,7 +135,7 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
           )}
 
           {type === "assign" && (
-            <div className="rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/50 text-amber-700 dark:text-amber-400 px-5 py-4 text-xs font-medium flex items-start gap-3">
+            <div className="rounded-xl bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning/50 text-warning dark:text-warning px-5 py-4 text-xs font-medium flex items-start gap-3">
               <span className="text-lg">💡</span>
               <span>
                 لم يتم العثور على موظفين؟ تأكد من إضافة الموظفين في نظام الموارد البشرية أولاً.
@@ -146,7 +146,7 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-sm font-black text-gray-700 dark:text-gray-300 mr-1">
+                <label className="block text-sm font-black text-foreground me-1">
                   الموظف {type === "assign" && <span className="text-red-500">*</span>}
                 </label>
                 {type === "assign" ? (
@@ -156,7 +156,7 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
                     onChange={(e) =>
                       setFormData({ ...formData, employeeId: e.target.value })
                     }
-                    className="w-full rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all font-medium"
+                    className="w-full rounded-xl border-2 border-border dark:border-border bg-card text-foreground px-4 py-3 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
                     disabled={loadingEmployees}
                   >
                     <option value="">
@@ -169,7 +169,7 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
                     ))}
                   </select>
                 ) : (
-                  <div className="rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white px-4 py-3 text-sm font-bold">
+                  <div className="rounded-xl border-2 border-border dark:border-border bg-muted dark:bg-muted text-foreground px-4 py-3 text-sm font-bold">
                     عهدة لدى: {asset?.currentHolder?.firstName}{" "}
                     {asset?.currentHolder?.lastName}
                   </div>
@@ -177,12 +177,12 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-black text-gray-700 dark:text-gray-300 mr-1">
+                <label className="block text-sm font-black text-foreground me-1">
                   {type === "assign" ? "تاريخ التسليم" : "تاريخ الاسترجاع"}
                 </label>
                 <DateInput
                   required
-                  className="block w-full border-2 border-gray-100 dark:border-gray-700 rounded-2xl shadow-sm py-3 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all font-medium"
+                  className="block w-full border-2 border-border dark:border-border rounded-xl shadow-sm py-3 px-4 bg-card text-foreground focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
                   value={type === "assign" ? formData.assignedAt : formData.returnedAt}
                   onChange={(e) =>
                     type === "assign"
@@ -195,11 +195,11 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
 
             {type === "return" && (
               <div className="space-y-2">
-                <label className="block text-sm font-black text-gray-700 dark:text-gray-300 mr-1">
+                <label className="block text-sm font-black text-foreground me-1">
                   حالة الأصل عند الاسترجاع
                 </label>
                 <select
-                  className="w-full rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all font-medium"
+                  className="w-full rounded-xl border-2 border-border dark:border-border bg-card text-foreground px-4 py-3 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium"
                   value={formData.returnCondition}
                   onChange={(e) =>
                     setFormData({
@@ -218,11 +218,11 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
             )}
 
             <div className="space-y-2">
-              <label className="block text-sm font-black text-gray-700 dark:text-gray-300 mr-1">
+              <label className="block text-sm font-black text-foreground me-1">
                 ملاحظات
               </label>
               <textarea
-                className="block w-full border-2 border-gray-100 dark:border-gray-700 rounded-2xl shadow-sm py-3 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all font-medium min-h-[110px] resize-none"
+                className="block w-full border-2 border-border dark:border-border rounded-xl shadow-sm py-3 px-4 bg-card text-foreground focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all font-medium min-h-[110px] resize-none"
                 placeholder="أضف ملاحظاتك هنا..."
                 value={formData.notes}
                 onChange={(e) =>
@@ -231,21 +231,21 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-700/50">
+            <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full sm:w-auto px-8 py-3.5 bg-gray-50 dark:bg-gray-800 text-gray-500 hover:text-gray-700 dark:hover:text-white rounded-2xl font-black text-sm border-2 border-gray-100 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all shadow-sm"
+                className="w-full sm:w-auto px-8 py-3.5 bg-muted dark:bg-muted text-muted-foreground hover:text-foreground dark:hover:text-white rounded-xl font-black text-sm border-2 border-border dark:border-border hover:bg-muted transition-all shadow-sm"
               >
                 إلغاء
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full sm:w-auto inline-flex justify-center items-center px-10 py-3.5 rounded-2xl text-white font-black text-sm transition-all shadow-lg active:scale-95 ${
+                className={`w-full sm:w-auto inline-flex justify-center items-center px-10 py-3.5 rounded-xl text-white font-black text-sm transition-all shadow-lg active:scale-95 ${
                   type === "assign"
-                    ? "bg-gradient-to-r from-indigo-600 to-violet-600 shadow-indigo-600/20 hover:shadow-indigo-600/40"
-                    : "bg-gradient-to-r from-orange-500 to-amber-500 shadow-orange-500/20 hover:shadow-orange-500/40"
+                    ? "bg-gradient-to-r from-primary to-primary shadow-primary/20 hover:shadow-primary/40"
+                    : "bg-gradient-to-r from-warning to-warning shadow-warning/20 hover:shadow-warning/40"
                 } disabled:opacity-50`}
               >
                 {loading ? (

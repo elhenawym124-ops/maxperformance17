@@ -27,10 +27,10 @@ export const ShiftsBulkActionBar: React.FC<ShiftsBulkActionBarProps> = ({
         <Button
           size="sm"
           variant="outline"
-          className="bg-white dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-950 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800 text-xs font-bold"
+          className="bg-card hover:bg-destructive/10 dark:hover:bg-destructive text-destructive dark:text-destructive border-destructive dark:border-destructive text-xs font-bold"
           onClick={onDeleteSelected}
         >
-          <Trash2 className="h-3.5 w-3.5 ml-1.5" />
+          <Trash2 className="h-3.5 w-3.5 ms-1.5" />
           <span>حذف المحدد</span>
         </Button>
         <Button
@@ -39,7 +39,7 @@ export const ShiftsBulkActionBar: React.FC<ShiftsBulkActionBarProps> = ({
           onClick={onClearSelection}
           className="text-xs"
         >
-          <X className="h-3.5 w-3.5 ml-1.5" />
+          <X className="h-3.5 w-3.5 ms-1.5" />
           <span>إلغاء التحديد</span>
         </Button>
       </div>

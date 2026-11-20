@@ -53,8 +53,8 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
 
   if (requests.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-80 text-gray-400 p-4 text-center">
-        <div className="p-5 sm:p-6 bg-gray-50 dark:bg-gray-800/50 rounded-full mb-3 sm:mb-4">
+      <div className="flex flex-col items-center justify-center h-80 text-muted-foreground p-4 text-center">
+        <div className="p-5 sm:p-6 bg-muted dark:bg-muted rounded-full mb-3 sm:mb-4">
           <Calendar className="h-10 w-10 sm:h-12 sm:w-12 opacity-20" />
         </div>
         <p className="text-base sm:text-lg">{t("employee.permissions.noPermissions")}</p>
@@ -68,7 +68,7 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
   return (
     <div>
       {/* Mobile View: Cards */}
-      <div className="block md:hidden divide-y divide-gray-100 dark:divide-gray-800">
+      <div className="block md:hidden divide-y divide-border dark:divide-border">
         {requests.map((request) => (
           <PermissionMobileCard
             key={request.id}
@@ -85,7 +85,7 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
       {/* Desktop View: Table */}
       <div className="hidden md:block overflow-x-auto">
         <Table>
-          <TableHeader className="bg-gray-50/50 dark:bg-gray-800/20">
+          <TableHeader className="bg-gray-50/50 dark:bg-muted">
             <TableRow className="border-none">
               {!isMyPermissions && (
                 <TableHead className="text-right font-bold py-4">
@@ -107,7 +107,7 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
               <TableHead className="text-right font-bold">
                 {t("employee.permissions.colStatus")}
               </TableHead>
-              <TableHead className="text-left font-bold pl-6">
+              <TableHead className="text-left font-bold ps-6">
                 {t("employee.permissions.colActions")}
               </TableHead>
             </TableRow>
@@ -130,8 +130,8 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
 
       {/* Pagination */}
       {pagination.totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 sm:p-6 bg-gray-50/50 dark:bg-gray-800/10 border-t border-gray-100 dark:border-gray-800">
-          <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-right">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 sm:p-6 bg-muted dark:bg-muted border-t border-border dark:border-border">
+          <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-right">
             {t("employee.permissions.showing", {
               from: (pagination.page - 1) * pagination.limit + 1,
               to: Math.min(pagination.page * pagination.limit, pagination.total),
@@ -142,18 +142,18 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
             <Button
               variant="outline"
               size="sm"
-              className="bg-white dark:bg-gray-900 h-8 sm:h-9 px-2.5 sm:px-4 rounded-lg text-xs sm:text-sm"
+              className="bg-white dark:bg-muted h-8 sm:h-9 px-2.5 sm:px-4 rounded-lg text-xs sm:text-sm"
               disabled={pagination.page === 1}
               onClick={() =>
                 setPagination((prev) => ({ ...prev, page: prev.page - 1 }))
               }
             >
-              <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1" />
+              <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 ms-1" />
               {t("employee.permissions.previous")}
             </Button>
 
             {/* Mobile page count */}
-            <span className="sm:hidden text-xs text-gray-600 dark:text-gray-400 font-medium px-2 font-mono tabular-nums">
+            <span className="sm:hidden text-xs text-foreground dark:text-muted-foreground font-medium px-2 font-mono tabular-nums">
               {pagination.page} / {pagination.totalPages}
             </span>
 
@@ -175,14 +175,14 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
             <Button
               variant="outline"
               size="sm"
-              className="bg-white dark:bg-gray-900 h-8 sm:h-9 px-2.5 sm:px-4 rounded-lg text-xs sm:text-sm"
+              className="bg-white dark:bg-muted h-8 sm:h-9 px-2.5 sm:px-4 rounded-lg text-xs sm:text-sm"
               disabled={pagination.page === pagination.totalPages}
               onClick={() =>
                 setPagination((prev) => ({ ...prev, page: prev.page + 1 }))
               }
             >
               {t("employee.permissions.next")}
-              <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1" />
+              <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 me-1" />
             </Button>
           </div>
         </div>

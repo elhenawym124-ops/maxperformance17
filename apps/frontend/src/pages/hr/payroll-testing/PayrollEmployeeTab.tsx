@@ -50,7 +50,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Banknote className="h-5 w-5 text-indigo-600" />
+              <Banknote className="h-5 w-5 text-primary" />
               الراتب الأساسي
             </CardTitle>
             <CardDescription>
@@ -69,12 +69,12 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
                     onChange={(e) => setBaseSalary(Number(e.target.value))}
                     className="flex-1 font-mono tabular-nums"
                   />
-                  <span className="text-sm text-slate-500">جنيه</span>
+                  <span className="text-sm text-muted-foreground">جنيه</span>
                 </div>
               </div>
 
               <div>
-                <Label className="text-sm text-slate-500">
+                <Label className="text-sm text-muted-foreground">
                   الراتب الأساسي الفعلي
                 </Label>
                 <div className="mt-1 font-bold font-mono tabular-nums text-lg">
@@ -87,7 +87,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
                 className="w-full mt-2"
                 onClick={() => setBaseSalary(selectedEmployee?.baseSalary || 0)}
               >
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 استعادة القيمة الأصلية
               </Button>
             </div>
@@ -98,7 +98,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Plus className="h-5 w-5 text-emerald-600" />
+              <Plus className="h-5 w-5 text-success" />
               البدلات والمزايا
             </CardTitle>
             <CardDescription>إضافة بدلات مختلفة للموظف</CardDescription>
@@ -106,7 +106,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
           <CardContent>
             <div className="space-y-4">
               {allowances.length === 0 ? (
-                <div className="text-center py-6 text-slate-400 italic">
+                <div className="text-center py-6 text-muted-foreground italic">
                   لا توجد بدلات مضافة
                 </div>
               ) : (
@@ -114,7 +114,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
                   {allowances.map((allowance, index) => (
                     <div
                       key={allowance.id}
-                      className="flex items-end gap-2 p-3 bg-slate-50 dark:bg-slate-900 rounded-lg"
+                      className="flex items-end gap-2 p-3 bg-muted dark:bg-muted rounded-lg"
                     >
                       <div className="flex-1">
                         <Label className="text-xs">اسم البدل</Label>
@@ -163,7 +163,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20"
+                        className="text-rose-500 hover:bg-destructive/10 dark:hover:bg-destructive/20"
                         onClick={() => {
                           setAllowances(allowances.filter((_, i) => i !== index));
                         }}
@@ -190,7 +190,7 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
                   ]);
                 }}
               >
-                <Plus className="h-4 w-4 ml-2" />
+                <Plus className="h-4 w-4 ms-2" />
                 إضافة بدل جديد
               </Button>
             </div>

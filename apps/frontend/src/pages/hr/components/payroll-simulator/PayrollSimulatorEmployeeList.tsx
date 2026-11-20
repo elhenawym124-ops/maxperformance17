@@ -33,17 +33,17 @@ export const PayrollSimulatorEmployeeList: React.FC<
   onSelectEmployee,
 }) => {
   return (
-    <Card className="w-80 flex flex-col shrink-0 border-none shadow-xl bg-slate-50/50 dark:bg-slate-950/20">
+    <Card className="w-80 flex flex-col shrink-0 border-none shadow-xl bg-muted dark:bg-muted">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center gap-2">
           <Users className="h-5 w-5 text-primary" />
           اختيار موظف للتجربة
         </CardTitle>
         <div className="relative mt-2">
-          <Search className="absolute right-3 top-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="بحث باسم أو رقم الموظف..."
-            className="pr-9"
+            className="pe-9"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
           />

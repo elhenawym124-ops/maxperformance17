@@ -24,7 +24,7 @@ export const AssignShiftDetailsCard: React.FC<AssignShiftDetailsCardProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-lg border border-primary/10 shadow-sm">
+        <div className="flex items-center justify-between p-3 bg-white dark:bg-muted rounded-lg border border-primary/10 shadow-sm">
           <span className="text-sm font-medium">{shift.name}</span>
           <div
             className="w-3 h-3 rounded-full shadow-sm"

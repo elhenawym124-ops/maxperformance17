@@ -16,7 +16,7 @@ export const permissionTypeConfig: Record<
   DEDUCTIBLE: {
     labelKey: "exitDeductible",
     icon: Receipt,
-    color: "bg-red-100 text-red-800 border-red-200",
+    color: "bg-red-100 text-destructive border-destructive",
     descKey: "exitDeductibleDesc",
   },
   NON_DEDUCTIBLE: {
@@ -28,13 +28,13 @@ export const permissionTypeConfig: Record<
   FIXED_HOURS: {
     labelKey: "externalAssignment",
     icon: Timer,
-    color: "bg-purple-100 text-purple-800 border-purple-200",
+    color: "bg-purple-100 text-primary border-primary",
     descKey: "externalAssignmentDesc",
   },
   COMPENSATORY: {
     labelKey: "compensatory",
     icon: RefreshCcw,
-    color: "bg-green-100 text-green-800 border-green-200",
+    color: "bg-green-100 text-success border-success",
     descKey: "compensatoryDesc",
   },
 };
@@ -45,17 +45,17 @@ export const statusConfig: Record<
 > = {
   PENDING: {
     labelKey: "pendingTab",
-    color: "bg-yellow-100 text-yellow-800",
+    color: "bg-yellow-100 text-warning",
     icon: Clock,
   },
   APPROVED: {
     labelKey: "approvedStatus",
-    color: "bg-green-100 text-green-800",
+    color: "bg-green-100 text-success",
     icon: Check,
   },
   REJECTED: {
     labelKey: "rejectedStatus",
-    color: "bg-red-100 text-red-800",
+    color: "bg-red-100 text-destructive",
     icon: X,
   },
 };

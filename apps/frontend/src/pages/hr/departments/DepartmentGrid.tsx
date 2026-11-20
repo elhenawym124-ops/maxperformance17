@@ -39,7 +39,7 @@ export const DepartmentGrid: React.FC<DepartmentGridProps> = ({
         animate={{ opacity: 1 }}
       >
         <Card className="border-dashed border-2">
-          <CardContent className="flex flex-col items-center justify-center h-64 text-gray-400">
+          <CardContent className="flex flex-col items-center justify-center h-64 text-muted-foreground">
             <Building2 className="h-16 w-16 mb-4 opacity-20" />
             <p className="text-lg font-medium">لا توجد أقسام مضافة بعد</p>
             {canManage && (
@@ -78,7 +78,7 @@ export const DepartmentGrid: React.FC<DepartmentGridProps> = ({
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between px-2 py-4">
-          <div className="text-sm font-medium text-gray-500 font-mono tabular-nums">
+          <div className="text-sm font-medium text-muted-foreground font-mono tabular-nums">
             عرض {paginatedDepartments.length} من {filteredDepartments.length} قسم
           </div>
           <div className="flex gap-2">
@@ -102,7 +102,7 @@ export const DepartmentGrid: React.FC<DepartmentGridProps> = ({
                 .map((page, idx, arr) => (
                   <React.Fragment key={page}>
                     {idx > 0 && arr[idx - 1] !== page - 1 && (
-                      <span className="flex items-center text-gray-300">
+                      <span className="flex items-center text-muted-foreground">
                         ...
                       </span>
                     )}

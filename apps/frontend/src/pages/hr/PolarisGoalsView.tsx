@@ -160,7 +160,7 @@ export const PolarisGoalsView: React.FC<PolarisGoalsViewProps> = ({
               placeholder="ابحث بعنوان الهدف، المسؤول، أو مؤشر القياس..."
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
 

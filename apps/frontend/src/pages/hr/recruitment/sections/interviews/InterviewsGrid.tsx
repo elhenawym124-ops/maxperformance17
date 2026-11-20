@@ -29,9 +29,9 @@ interface InterviewsGridProps {
 const renderTypeIcon = (type: string) => {
   switch (type) {
     case "VIDEO":
-      return <VideoCameraIcon className="w-5 h-5 text-purple-500" />;
+      return <VideoCameraIcon className="w-5 h-5 text-primary" />;
     case "PHONE":
-      return <PhoneIcon className="w-5 h-5 text-green-500" />;
+      return <PhoneIcon className="w-5 h-5 text-success" />;
     case "IN_PERSON":
       return <BuildingOfficeIcon className="w-5 h-5 text-blue-500" />;
     default:
@@ -60,7 +60,7 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="group relative bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl rounded-[2rem] p-6 border border-white/40 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 dark:hover:bg-gray-800/80"
+              className="group relative bg-white/70 dark:bg-muted backdrop-blur-xl rounded-[2rem] p-6 border border-white/40 dark:border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 dark:hover:bg-muted"
             >
               <div className="absolute inset-0 hidden" />
 
@@ -68,14 +68,14 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-100 to-white dark:from-violet-900/50 dark:to-gray-800 flex items-center justify-center shadow-inner border border-white/50 dark:border-gray-700">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-white dark:from-primary/50 dark:to-gray-800 flex items-center justify-center shadow-inner border border-white/50 dark:border-border">
                       <UserIcon className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-800 dark:text-white leading-tight">
+                      <h3 className="text-lg font-bold text-foreground dark:text-white leading-tight">
                         {interview.applicantName}
                       </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium bg-gray-100/50 dark:bg-gray-700/50 px-2 py-0.5 rounded-full inline-block mt-1">
+                      <p className="text-xs text-muted-foreground font-medium bg-muted dark:bg-muted px-2 py-0.5 rounded-full inline-block mt-1">
                         {interview.jobTitle}
                       </p>
                     </div>
@@ -88,18 +88,18 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
                 </div>
 
                 {/* Date & Time Strip */}
-                <div className="flex items-center gap-4 bg-gray-50/80 dark:bg-gray-700/30 rounded-xl p-3 mb-4 border border-gray-100 dark:border-gray-700/50">
-                  <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                    <CalendarDaysIcon className="w-5 h-5 text-violet-500" />
+                <div className="flex items-center gap-4 bg-muted dark:bg-muted rounded-xl p-3 mb-4 border border-border dark:border-border">
+                  <div className="flex items-center gap-2 text-foreground">
+                    <CalendarDaysIcon className="w-5 h-5 text-primary" />
                     <span className="text-sm font-semibold font-mono tabular-nums">
                       {format(new Date(interview.date), "dd MMM", {
                         locale: ar,
                       })}
                     </span>
                   </div>
-                  <div className="w-px h-4 bg-gray-300 dark:bg-gray-600" />
-                  <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                    <ClockIcon className="w-5 h-5 text-fuchsia-500" />
+                  <div className="w-px h-4 bg-muted dark:bg-muted" />
+                  <div className="flex items-center gap-2 text-foreground">
+                    <ClockIcon className="w-5 h-5 text-primary" />
                     <span className="text-sm font-semibold font-mono tabular-nums">
                       {interview.time}
                     </span>
@@ -111,10 +111,10 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
                   <div className="flex items-start gap-3">
                     <div className="mt-1">{renderTypeIcon(interview.type)}</div>
                     <div>
-                      <p className="text-xs text-gray-500 uppercase tracking-wider font-bold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold">
                         طريقة المقابلة
                       </p>
-                      <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                      <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                         {getInterviewTypeText(interview.type)}
                       </p>
                       {interview.location && (
@@ -126,24 +126,24 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
                   </div>
 
                   {interviewersList.length > 0 && (
-                    <div className="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                    <div className="flex items-center gap-2 pt-2 border-t border-border dark:border-border">
                       <div className="flex -space-x-2 space-x-reverse overflow-hidden">
                         {interviewersList.slice(0, 3).map((interviewer, idx) => (
                           <div
                             key={idx}
-                            className="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-200 to-white dark:from-gray-700 dark:to-gray-600 border-2 border-white dark:border-gray-800 flex items-center justify-center text-xs font-bold text-gray-600 dark:text-gray-300"
+                            className="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-200 to-white dark:from-gray-700 dark:to-gray-600 border-2 border-white dark:border-border flex items-center justify-center text-xs font-bold text-muted-foreground"
                             title={interviewer}
                           >
                             {interviewer.charAt(0)}
                           </div>
                         ))}
                         {interviewersList.length > 3 && (
-                          <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 border-2 border-white dark:border-gray-800 flex items-center justify-center text-xs font-bold text-gray-500 font-mono tabular-nums">
+                          <div className="w-8 h-8 rounded-full bg-muted border-2 border-white dark:border-border flex items-center justify-center text-xs font-bold text-muted-foreground font-mono tabular-nums">
                             +{interviewersList.length - 3}
                           </div>
                         )}
                       </div>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-muted-foreground">
                         لجنة المقابلة
                       </span>
                     </div>
@@ -152,17 +152,17 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
 
                 {/* Actions - Only show for Scheduled */}
                 {interview.status === "SCHEDULED" && (
-                  <div className="grid grid-cols-2 gap-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50">
+                  <div className="grid grid-cols-2 gap-3 mt-6 pt-4 border-t border-border dark:border-border">
                     <button
                       onClick={() => onUpdateStatus(interview.id, "COMPLETED")}
-                      className="flex items-center justify-center gap-1 py-2 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors text-sm font-bold"
+                      className="flex items-center justify-center gap-1 py-2 rounded-lg bg-success/10 dark:bg-success/20 text-success dark:text-success hover:bg-success dark:hover:bg-success/30 transition-colors text-sm font-bold"
                     >
                       <CheckCircleIcon className="w-4 h-4" />
                       تمت
                     </button>
                     <button
                       onClick={() => onUpdateStatus(interview.id, "CANCELLED")}
-                      className="flex items-center justify-center gap-1 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors text-sm font-bold"
+                      className="flex items-center justify-center gap-1 py-2 rounded-lg bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive hover:bg-destructive dark:hover:bg-destructive/30 transition-colors text-sm font-bold"
                     >
                       <XCircleIcon className="w-4 h-4" />
                       إلغاء
@@ -181,10 +181,10 @@ export const InterviewsGrid: React.FC<InterviewsGridProps> = ({
           animate={{ opacity: 1 }}
           className="flex flex-col items-center justify-center py-24 text-center relative z-10"
         >
-          <div className="w-32 h-32 bg-gradient-to-br from-violet-100 to-fuchsia-50 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center mb-6 shadow-inner">
-            <CalendarDaysIcon className="w-16 h-16 text-violet-300 dark:text-gray-600" />
+          <div className="w-32 h-32 bg-gradient-to-br from-primary to-primary dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center mb-6 shadow-inner">
+            <CalendarDaysIcon className="w-16 h-16 text-primary dark:text-foreground" />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+          <h3 className="text-2xl font-bold text-foreground dark:text-white mb-2">
             لا توجد مقابلات مجدولة
           </h3>
           <p className="text-gray-500 max-w-md mx-auto mb-8">

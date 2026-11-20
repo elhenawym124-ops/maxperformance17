@@ -30,12 +30,12 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
   const status = statusConfig[request.status];
 
   return (
-    <div className="p-3.5 space-y-2.5 hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+    <div className="p-3.5 space-y-2.5 hover:bg-muted dark:hover:bg-muted transition-colors">
       {/* Top row: Employee (if admin) or Type badge + Status badge */}
       <div className="flex items-start justify-between gap-2">
         {!isMyPermissions && (
           <div className="flex items-center gap-2.5 min-w-0">
-            <Avatar className="h-9 w-9 border border-gray-100 dark:border-gray-800 shrink-0">
+            <Avatar className="h-9 w-9 border border-border dark:border-border shrink-0">
               <AvatarImage src={request.employee?.avatar} />
               <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs">
                 {request.employee?.firstName?.[0]}
@@ -43,10 +43,10 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0">
-              <p className="font-bold text-sm text-gray-900 dark:text-white truncate">
+              <p className="font-bold text-sm text-foreground truncate">
                 {request.employee?.firstName} {request.employee?.lastName}
               </p>
-              <p className="text-[11px] text-gray-500 truncate">
+              <p className="text-[11px] text-muted-foreground truncate">
                 {request.employee?.department?.name ||
                   t("employee.permissions.noDepartment")}{" "}
                 • {request.employee?.employeeNumber}
@@ -73,12 +73,12 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
           {t(`employee.permissions.${typeConfig.labelKey}`)}
         </span>
         {request.isUrgent && (
-          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">
+          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-destructive text-destructive dark:bg-destructive/30 dark:text-destructive">
             {t("employee.permissions.urgent")}
           </span>
         )}
-        <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400 ms-auto text-xs font-medium">
-          <Calendar className="h-3.5 w-3.5 text-gray-400" />
+        <div className="flex items-center gap-1 text-foreground dark:text-muted-foreground ms-auto text-xs font-medium">
+          <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="font-mono tabular-nums">
             {new Date(request.date).toLocaleDateString("ar-EG", {
               day: "numeric",
@@ -90,35 +90,35 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
       </div>
 
       {/* Time & Duration Box */}
-      <div className="flex items-center justify-between text-xs bg-gray-50/80 dark:bg-gray-800/40 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
-        <div className="flex items-center gap-1.5 text-gray-700 dark:text-gray-300">
+      <div className="flex items-center justify-between text-xs bg-muted dark:bg-muted p-2.5 rounded-xl border border-border dark:border-border">
+        <div className="flex items-center gap-1.5 text-foreground">
           <Clock className="h-3.5 w-3.5 text-blue-500 shrink-0" />
           <span className="font-bold font-mono tabular-nums">{request.startTime}</span>
-          <span className="text-[10px] text-gray-400">{t("employee.permissions.timeDelimiter")}</span>
+          <span className="text-[10px] text-muted-foreground">{t("employee.permissions.timeDelimiter")}</span>
           <span className="font-bold font-mono tabular-nums">{request.endTime}</span>
         </div>
         <div className="flex items-center gap-1">
           <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded font-bold font-mono tabular-nums">
             {request.totalHours}
           </span>
-          <span className="text-[11px] text-gray-500">{t("employee.permissions.hour")}</span>
+          <span className="text-[11px] text-muted-foreground">{t("employee.permissions.hour")}</span>
         </div>
       </div>
 
       {/* Reason snippet */}
       {request.reason && (
-        <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-1 bg-white/50 dark:bg-gray-900/50 px-2 py-1 rounded">
+        <p className="text-xs text-foreground dark:text-muted-foreground line-clamp-1 bg-white/50 dark:bg-muted px-2 py-1 rounded">
           {request.reason}
         </p>
       )}
 
       {/* Footer actions */}
-      <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100/60 dark:border-gray-800/60">
+      <div className="flex items-center justify-end gap-2 pt-2 border-t border-border dark:border-border">
         {request.status === "PENDING" && !isMyPermissions && (
           <>
             <Button
               size="sm"
-              className="h-9 min-h-[38px] px-3 text-xs bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="h-9 min-h-[38px] px-3 text-xs bg-success hover:bg-success text-white rounded-lg flex items-center gap-1.5 cursor-pointer shadow-xs"
               onClick={() => onApprove(request.id)}
             >
               <Check className="h-4 w-4" />
@@ -148,7 +148,7 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
           <Button
             size="sm"
             variant="ghost"
-            className="h-9 w-9 min-h-[38px] min-w-[38px] p-0 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 rounded-lg cursor-pointer"
+            className="h-9 w-9 min-h-[38px] min-w-[38px] p-0 hover:bg-destructive/10 dark:hover:bg-destructive/20 text-destructive rounded-lg cursor-pointer"
             onClick={() => onDeleteClick(request)}
             title={t("employee.permissions.delete")}
           >

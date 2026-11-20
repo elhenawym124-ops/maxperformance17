@@ -23,20 +23,20 @@ export const getInterviewStatusBadge = (
     case "COMPLETED":
       return {
         text: "مكتملة",
-        bg: "bg-green-100 text-green-700 border-green-200",
+        bg: "bg-green-100 text-success border-success",
       };
     case "CANCELLED":
       return {
         text: "ملغاة",
-        bg: "bg-red-100 text-red-700 border-red-200",
+        bg: "bg-red-100 text-destructive border-destructive",
       };
     case "NO_SHOW":
       return {
         text: "لم يحضر",
-        bg: "bg-gray-100 text-gray-700 border-gray-200",
+        bg: "bg-gray-100 text-foreground border-border",
       };
     default:
-      return { text: status, bg: "bg-gray-100 text-gray-700" };
+      return { text: status, bg: "bg-gray-100 text-foreground" };
   }
 };
 

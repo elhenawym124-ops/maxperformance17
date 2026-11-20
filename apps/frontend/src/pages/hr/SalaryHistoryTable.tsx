@@ -62,7 +62,7 @@ export const SalaryHistoryTable: React.FC<SalaryHistoryTableProps> = ({
                   <td className="py-2 px-2.5 font-mono text-muted-foreground tabular-nums">
                     {Number(h.previousSalary || 0).toLocaleString()} ج.م
                   </td>
-                  <td className="py-2 px-2.5 font-mono text-emerald-600 dark:text-emerald-400 font-bold tabular-nums">
+                  <td className="py-2 px-2.5 font-mono text-success dark:text-success font-bold tabular-nums">
                     {Number(h.newSalary || 0).toLocaleString()} ج.م
                   </td>
                   <td className="py-2 px-2.5 font-mono text-muted-foreground tabular-nums">

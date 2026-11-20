@@ -29,10 +29,10 @@ export const PendingLeavesCard: React.FC<PendingLeavesCardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
-          <div className="p-1.5 bg-amber-500/10 rounded-lg text-amber-600 dark:text-amber-400">
+          <div className="p-1.5 bg-warning/10 rounded-lg text-warning dark:text-warning">
             <Calendar className="h-4 w-4" />
           </div>
           {t("hrDashboard.leavesRequests")}
@@ -67,7 +67,7 @@ export const PendingLeavesCard: React.FC<PendingLeavesCardProps> = ({
                 <div className="flex items-center gap-3 mb-3">
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={leave.employee?.avatar} />
-                    <AvatarFallback className="bg-amber-500/10 text-amber-600 text-xs font-bold uppercase">
+                    <AvatarFallback className="bg-amber-500/10 text-warning text-xs font-bold uppercase">
                       {leave.employee?.firstName?.[0]}
                       {leave.employee?.lastName?.[0]}
                     </AvatarFallback>
@@ -100,7 +100,7 @@ export const PendingLeavesCard: React.FC<PendingLeavesCardProps> = ({
                   <Button
                     size="sm"
                     onClick={() => onAction(leave.id, "approve")}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold h-8 shadow-xs"
+                    className="flex-1 bg-success hover:bg-success text-white text-xs font-semibold h-8 shadow-xs"
                   >
                     {t("hrDashboard.approve")}
                   </Button>

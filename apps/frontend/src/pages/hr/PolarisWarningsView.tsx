@@ -168,7 +168,7 @@ export const PolarisWarningsView: React.FC<PolarisWarningsViewProps> = ({
               placeholder="ابحث باسم الموظف، الرقم الوظيفي، أو نص المخالفة..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
 

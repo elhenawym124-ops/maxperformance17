@@ -17,7 +17,7 @@ export const ATTENDANCE_MONTHS = [
 
 export const FALLBACK_ATTENDANCE_CELL: AttendanceCellStyle = {
   label: "حاضر",
-  cell: "bg-emerald-50 border-emerald-200",
+  cell: "bg-emerald-50 border-success",
   dot: "bg-emerald-500",
   timeColor: "text-emerald-700",
 };
@@ -25,25 +25,25 @@ export const FALLBACK_ATTENDANCE_CELL: AttendanceCellStyle = {
 export const ATTENDANCE_STATUS_CONFIG: Record<string, AttendanceCellStyle> = {
   PRESENT: {
     label: "حاضر",
-    cell: "bg-emerald-50 border-emerald-200",
+    cell: "bg-emerald-50 border-success",
     dot: "bg-emerald-500",
     timeColor: "text-emerald-700",
   },
   LATE: {
     label: "متأخر",
-    cell: "bg-amber-50 border-amber-300",
+    cell: "bg-amber-50 border-warning",
     dot: "bg-amber-500",
     timeColor: "text-amber-700",
   },
   REMOTE: {
     label: "عن بعد",
-    cell: "bg-sky-50 border-sky-200",
+    cell: "bg-sky-50 border-info",
     dot: "bg-sky-500",
     timeColor: "text-sky-700",
   },
   ABSENT: {
     label: "غائب",
-    cell: "bg-rose-50 border-rose-200",
+    cell: "bg-rose-50 border-destructive",
     dot: "bg-rose-500",
     timeColor: "text-rose-700",
   },
@@ -55,19 +55,19 @@ export const ATTENDANCE_STATUS_CONFIG: Record<string, AttendanceCellStyle> = {
   },
   WEEKEND: {
     label: "عطلة",
-    cell: "bg-gray-100/70 border-gray-200",
+    cell: "bg-gray-100/70 border-border",
     dot: "bg-gray-300",
     timeColor: "text-gray-400",
   },
   HOLIDAY: {
     label: "عطلة رسمية",
-    cell: "bg-purple-50 border-purple-200",
+    cell: "bg-purple-50 border-primary",
     dot: "bg-purple-500",
     timeColor: "text-purple-700",
   },
   BEFORE_HIRE: {
     label: "—",
-    cell: "bg-gray-50 border-gray-100",
+    cell: "bg-gray-50 border-border",
     dot: "bg-gray-200",
     timeColor: "text-gray-300",
   },

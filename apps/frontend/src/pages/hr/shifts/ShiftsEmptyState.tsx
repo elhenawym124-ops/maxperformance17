@@ -15,15 +15,15 @@ export const ShiftsEmptyState: React.FC<ShiftsEmptyStateProps> = ({
   onCreateNew,
 }) => {
   return (
-    <Card className="border-dashed bg-white/50 dark:bg-gray-800/40">
+    <Card className="border-dashed bg-white/50 dark:bg-muted">
       <CardContent className="p-12 text-center flex flex-col items-center">
-        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-full mb-4">
-          <Search className="h-8 w-8 text-gray-400 dark:text-gray-500" />
+        <div className="bg-gray-50 dark:bg-muted p-4 rounded-full mb-4">
+          <Search className="h-8 w-8 text-muted-foreground/80" />
         </div>
-        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">
+        <h3 className="text-lg font-bold text-foreground mb-1">
           {searchTerm ? "لا توجد نتائج مطابقة" : "لا توجد مناوبات"}
         </h3>
-        <p className="text-gray-500 dark:text-gray-400 mb-4 max-w-sm text-sm">
+        <p className="text-muted-foreground mb-4 max-w-sm text-sm">
           {searchTerm
             ? `لم يتم العثور على أي مناوبات تطابق "${searchTerm}". جرب مصطلحات بحث مختلفة.`
             : "قم بإنشاء أول مناوبة عمل لتنظيم جدول الموظفين."}
@@ -41,9 +41,9 @@ export const ShiftsEmptyState: React.FC<ShiftsEmptyStateProps> = ({
           <Button
             type="button"
             onClick={onCreateNew}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm shadow-sm"
+            className="bg-primary hover:bg-primary/90 text-white font-bold text-sm shadow-sm"
           >
-            <Plus className="h-4 w-4 ml-2" />
+            <Plus className="h-4 w-4 ms-2" />
             <span>إنشاء مناوبة الآن</span>
           </Button>
         )}

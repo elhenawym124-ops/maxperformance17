@@ -21,7 +21,7 @@ export const EmployeePerformanceTab: React.FC<EmployeePerformanceTabProps> = ({
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold">تقييمات الأداء</CardTitle>
           <Button onClick={onViewPerformance}>
-            <Award className="h-4 w-4 ml-2" />
+            <Award className="h-4 w-4 ms-2" />
             عرض جميع التقييمات
           </Button>
         </div>
@@ -30,7 +30,7 @@ export const EmployeePerformanceTab: React.FC<EmployeePerformanceTabProps> = ({
         <div className="text-center py-8">
           <p className="text-gray-500 mb-4">عرض تقييمات الأداء ومؤشرات النجاح للموظف</p>
           <Button onClick={onViewPerformance}>
-            <Award className="h-4 w-4 ml-2" />
+            <Award className="h-4 w-4 ms-2" />
             عرض التقييمات
           </Button>
         </div>

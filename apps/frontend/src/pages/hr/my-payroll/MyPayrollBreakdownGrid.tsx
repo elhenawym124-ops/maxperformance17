@@ -33,17 +33,17 @@ export const MyPayrollBreakdownGrid: React.FC<MyPayrollBreakdownGridProps> = ({
       <motion.div variants={itemVariants} className="space-y-4">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-base font-semibold text-foreground flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center">
               <TrendingUp className="h-4 w-4" />
             </div>
             {t("employee.payroll.earnings")}
           </h3>
-          <div className="text-emerald-600 dark:text-emerald-400 font-bold text-base font-mono tabular-nums">
+          <div className="text-emerald-600 dark:text-success font-bold text-base font-mono tabular-nums">
             +{formatCurrency(totalEarningsDisplay)}
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-5 space-y-5 shadow-xs">
+        <div className="rounded-xl border border-border/70 bg-card p-5 space-y-5 shadow-xs">
           <div className="flex justify-between items-center rounded-xl border border-border/50 bg-muted/20 p-3.5">
             <div className="flex items-center gap-2.5">
               <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
@@ -66,7 +66,7 @@ export const MyPayrollBreakdownGrid: React.FC<MyPayrollBreakdownGridProps> = ({
                 <span className="text-muted-foreground font-medium text-sm">
                   {al.name}
                 </span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400 text-sm font-mono tabular-nums">
+                <span className="font-semibold text-success dark:text-success text-sm font-mono tabular-nums">
                   +{formatCurrency(al.amount)}
                 </span>
               </div>
@@ -77,11 +77,11 @@ export const MyPayrollBreakdownGrid: React.FC<MyPayrollBreakdownGridProps> = ({
                   <span className="text-muted-foreground font-medium block leading-none mb-1 text-sm">
                     {t("employee.payroll.overtime")}
                   </span>
-                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold uppercase font-mono tabular-nums">
+                  <span className="text-[10px] text-success dark:text-success font-semibold uppercase font-mono tabular-nums">
                     ({payrollData.overtimeHours}H APPROVED)
                   </span>
                 </div>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400 text-sm font-mono tabular-nums">
+                <span className="font-semibold text-success dark:text-success text-sm font-mono tabular-nums">
                   +{formatCurrency(payrollData.overtimeAmount)}
                 </span>
               </div>
@@ -92,7 +92,7 @@ export const MyPayrollBreakdownGrid: React.FC<MyPayrollBreakdownGridProps> = ({
             <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wider">
               {t("employee.payroll.totalEarnings")}
             </span>
-            <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <span className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums">
               {formatCurrency(totalEarningsDisplay)}
             </span>
           </div>
@@ -113,7 +113,7 @@ export const MyPayrollBreakdownGrid: React.FC<MyPayrollBreakdownGridProps> = ({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border/70 bg-card p-5 space-y-5 shadow-xs">
+        <div className="rounded-xl border border-border/70 bg-card p-5 space-y-5 shadow-xs">
           <div className="flex justify-between items-center rounded-xl border border-border/50 bg-muted/20 p-3.5">
             <div className="flex items-center gap-2.5">
               <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">

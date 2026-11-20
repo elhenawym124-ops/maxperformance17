@@ -67,12 +67,12 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
           }}
           className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium transition active:scale-95 ${
             currentCat === 'productive'
-              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:border-transparent dark:bg-emerald-500/15 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-500/25'
+              ? 'bg-emerald-50 text-success border border-success dark:border-transparent dark:bg-success/15 dark:text-success hover:bg-success dark:hover:bg-success/25'
               : currentCat === 'unproductive'
-              ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:border-transparent dark:bg-rose-500/15 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-500/25'
+              ? 'bg-rose-50 text-destructive border border-destructive dark:border-transparent dark:bg-destructive/15 dark:text-destructive hover:bg-destructive dark:hover:bg-destructive/25'
               : currentCat === 'neutral'
-              ? 'bg-muted text-foreground border border-border/50 dark:border-transparent dark:bg-zinc-500/15 dark:text-zinc-300 hover:bg-muted/80 dark:hover:bg-zinc-500/25'
-              : 'bg-sky-50 text-sky-700 border border-sky-200 dark:border-transparent dark:bg-sky-500/15 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-500/25'
+              ? 'bg-muted text-foreground border border-border/50 dark:border-transparent dark:bg-muted dark:text-muted-foreground hover:bg-muted/80 dark:hover:bg-muted'
+              : 'bg-sky-50 text-info border border-info dark:border-transparent dark:bg-info/15 dark:text-info hover:bg-info dark:hover:bg-info/25'
           }`}
           title="انقر لتغيير تصنيف إنتاجية هذا التطبيق"
         >
@@ -104,7 +104,7 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
             <button
               onClick={() => handleUpdateCategory(appName, 'productive')}
               disabled={savingApp === appName}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-success dark:text-success hover:bg-success/10"
             >
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-3 w-3" /> منتج
@@ -114,7 +114,7 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
             <button
               onClick={() => handleUpdateCategory(appName, 'neutral')}
               disabled={savingApp === appName}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-foreground hover:bg-muted dark:text-zinc-300 dark:hover:bg-zinc-800"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-foreground hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             >
               <span className="flex items-center gap-1.5">
                 <MinusCircle className="h-3 w-3" /> محايد
@@ -124,7 +124,7 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
             <button
               onClick={() => handleUpdateCategory(appName, 'unproductive')}
               disabled={savingApp === appName}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-500/10"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-destructive dark:text-destructive hover:bg-destructive/10"
             >
               <span className="flex items-center gap-1.5">
                 <AlertTriangle className="h-3 w-3" /> غير منتج
@@ -141,7 +141,7 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
     <div className="rounded-xl border border-border/40 bg-card/60 p-4 text-card-foreground shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Laptop className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+          <Laptop className="h-4 w-4 text-info dark:text-info" />
           <h3 className="text-sm font-semibold tracking-tight text-foreground">
             البرامج والتطبيقات المستخدمة ({apps.length})
           </h3>
@@ -165,7 +165,7 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
             return (
               <div
                 key={idx}
-                className="group relative rounded-lg border border-border/40 bg-muted/30 dark:bg-zinc-900/40 p-2.5 transition-colors hover:border-border/60 hover:bg-muted/60 dark:hover:bg-zinc-900/70"
+                className="group relative rounded-lg border border-border/40 bg-muted/30 dark:bg-muted p-2.5 transition-colors hover:border-border/60 hover:bg-muted/60 dark:hover:bg-muted"
               >
                 <div className="mb-1.5 flex items-center justify-between text-xs">
                   <div className="flex min-w-0 items-center gap-2">
@@ -190,7 +190,7 @@ export const AppUsageList: React.FC<AppUsageListProps> = ({
                 )}
 
                 {/* Progress Bar */}
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-zinc-800">
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted dark:bg-muted">
                   <div
                     className={`h-full rounded-full transition-all duration-300 ${
                       currentCat === 'productive'

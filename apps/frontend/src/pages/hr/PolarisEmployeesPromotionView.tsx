@@ -109,7 +109,7 @@ export const PolarisEmployeesPromotionView: React.FC<
       {/* KPI Stats Strip */}
       {showStats && (
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">إجمالي الطلبات</span>
               <Award className="h-4 w-4 text-primary" />
@@ -119,27 +119,27 @@ export const PolarisEmployeesPromotionView: React.FC<
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">قيد المراجعة</span>
-              <Clock className="h-4 w-4 text-amber-500" />
+              <Clock className="h-4 w-4 text-warning" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-amber-600">
+            <div className="text-xl font-bold font-mono tabular-nums text-warning">
               {stats.pending}
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">موافق عليها</span>
-              <CheckCircle className="h-4 w-4 text-emerald-500" />
+              <CheckCircle className="h-4 w-4 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600">
+            <div className="text-xl font-bold font-mono tabular-nums text-success">
               {stats.approved}
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">مكتملة التنفيذ</span>
               <Sparkles className="h-4 w-4 text-blue-500" />
@@ -149,12 +149,12 @@ export const PolarisEmployeesPromotionView: React.FC<
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">مرفوضة</span>
-              <XCircle className="h-4 w-4 text-rose-500" />
+              <XCircle className="h-4 w-4 text-destructive" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-rose-600">
+            <div className="text-xl font-bold font-mono tabular-nums text-destructive">
               {stats.rejected}
             </div>
           </Card>
@@ -162,7 +162,7 @@ export const PolarisEmployeesPromotionView: React.FC<
       )}
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Status Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -198,7 +198,7 @@ export const PolarisEmployeesPromotionView: React.FC<
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="البحث بالاسم، المسمى الوظيفي، أو سبب الترقية..."
-              className="pr-9 h-9 text-xs rounded-xl bg-background border-border/70"
+              className="pe-9 h-9 text-xs rounded-xl bg-background border-border/70"
             />
           </div>
 

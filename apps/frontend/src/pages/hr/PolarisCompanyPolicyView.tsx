@@ -119,13 +119,13 @@ export const PolarisCompanyPolicyView: React.FC<PolarisCompanyPolicyViewProps> =
               placeholder="ابحث في عنوان أو نص اللائحة..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>
 
         {/* 3. Policies Table */}
-        <div className="p-0 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:rounded-none">
+        <div className="p-0 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:rounded-none">
           <CompanyPolicyTable
             policies={filteredPolicies}
             loading={loading}

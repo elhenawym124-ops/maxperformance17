@@ -57,7 +57,7 @@ export const AttendanceMobileCard: React.FC<AttendanceMobileCardProps> = ({
   const checkOutLoc = parseLocation(record.checkOutLocation);
   const status = statusConfig[record.status] || {
     label: record.status,
-    color: "bg-gray-100 text-gray-800",
+    color: "bg-gray-100 text-foreground",
   };
 
   return (
@@ -121,7 +121,7 @@ export const AttendanceMobileCard: React.FC<AttendanceMobileCardProps> = ({
         </span>
 
         {record.lateMinutes > 0 && (
-          <span className="text-amber-600 dark:text-amber-400 font-bold font-mono tabular-nums flex items-center gap-1">
+          <span className="text-amber-600 dark:text-warning font-bold font-mono tabular-nums flex items-center gap-1">
             <AlertCircle className="h-3 w-3" />
             تأخير {record.lateMinutes} د
           </span>
@@ -148,9 +148,9 @@ export const AttendanceMobileCard: React.FC<AttendanceMobileCardProps> = ({
           <Button
             size="sm"
             onClick={() => handleCheckIn(record.employeeId)}
-            className="flex-1 h-8 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+            className="flex-1 h-8 text-xs bg-success hover:bg-success text-white font-semibold"
           >
-            <UserCheck className="h-3.5 w-3.5 ml-1" />
+            <UserCheck className="h-3.5 w-3.5 ms-1" />
             تسجيل حضور
           </Button>
         ) : !record.checkOut ? (
@@ -159,7 +159,7 @@ export const AttendanceMobileCard: React.FC<AttendanceMobileCardProps> = ({
             onClick={() => handleCheckOut(record.employeeId)}
             className="flex-1 h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold"
           >
-            <Clock className="h-3.5 w-3.5 ml-1" />
+            <Clock className="h-3.5 w-3.5 ms-1" />
             تسجيل انصراف
           </Button>
         ) : null}

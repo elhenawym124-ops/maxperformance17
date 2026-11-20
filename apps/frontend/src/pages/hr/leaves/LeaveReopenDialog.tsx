@@ -33,14 +33,14 @@ export const LeaveReopenDialog: React.FC<LeaveReopenDialogProps> = ({
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+          <div className="p-4 bg-warning/10 rounded-lg border border-warning">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-amber-600" />
-              <h3 className="font-medium text-amber-800">
+              <AlertTriangle className="h-5 w-5 text-warning" />
+              <h3 className="font-medium text-warning">
                 {t("employee.leaves.reopenRejectedTitle")}
               </h3>
             </div>
-            <p className="mt-2 text-amber-700 text-sm">
+            <p className="mt-2 text-warning text-sm">
               {t("employee.leaves.reopenConfirm")}
             </p>
           </div>
@@ -88,7 +88,7 @@ export const LeaveReopenDialog: React.FC<LeaveReopenDialogProps> = ({
           <Button
             variant="default"
             onClick={onConfirmReopen}
-            className="bg-amber-600 hover:bg-amber-700"
+            className="bg-amber-600 hover:bg-warning"
           >
             {t("employee.leaves.reopenButton")}
           </Button>

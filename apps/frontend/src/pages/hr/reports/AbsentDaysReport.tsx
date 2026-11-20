@@ -141,8 +141,8 @@ const AbsentDaysReport: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 text-gray-900 dark:text-gray-100">
-      <Card className="border-none shadow-sm dark:bg-gray-800/50 backdrop-blur-sm">
+    <div className="space-y-6 text-foreground">
+      <Card className="border-none shadow-sm dark:bg-muted backdrop-blur-sm">
         <CardContent className="p-4">
           <div className="flex flex-wrap gap-4 items-end">
             <div className="space-y-2">
@@ -151,15 +151,15 @@ const AbsentDaysReport: React.FC = () => {
                 value={selectedMonth.toString()}
                 onValueChange={(v) => setSelectedMonth(parseInt(v ?? "1"))}
               >
-                <SelectTrigger className="w-[150px] dark:bg-gray-800 dark:border-gray-700">
+                <SelectTrigger className="w-[150px] dark:bg-muted dark:border-border">
                   <SelectValue className="dark:text-white" />
                 </SelectTrigger>
-                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                <SelectContent className="dark:bg-gray-800 dark:border-border">
                   {months.map((month, index) => (
                     <SelectItem
                       key={index}
                       value={(index + 1).toString()}
-                      className="dark:text-gray-300 dark:focus:bg-gray-700"
+                      className="dark:text-gray-300 dark:focus:bg-muted"
                     >
                       {month}
                     </SelectItem>
@@ -176,15 +176,15 @@ const AbsentDaysReport: React.FC = () => {
                   setSelectedYear(parseInt(v ?? String(currentDate.getFullYear())))
                 }
               >
-                <SelectTrigger className="w-[120px] dark:bg-gray-800 dark:border-gray-700">
+                <SelectTrigger className="w-[120px] dark:bg-muted dark:border-border">
                   <SelectValue className="dark:text-white" />
                 </SelectTrigger>
-                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+                <SelectContent className="dark:bg-gray-800 dark:border-border">
                   {[2023, 2024, 2025, 2026].map((year) => (
                     <SelectItem
                       key={year}
                       value={year.toString()}
-                      className="dark:text-gray-300 dark:focus:bg-gray-700"
+                      className="dark:text-gray-300 dark:focus:bg-muted"
                     >
                       {year}
                     </SelectItem>
@@ -193,21 +193,21 @@ const AbsentDaysReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button
                 variant="outline"
                 onClick={fetchReport}
-                className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="dark:bg-gray-800 dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
               >
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button
                 variant="outline"
                 onClick={handleExport}
-                className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="dark:bg-gray-800 dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
               >
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -223,7 +223,7 @@ const AbsentDaysReport: React.FC = () => {
         report && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-rose-600 to-red-700 text-white border-none shadow-lg transform transition-all hover:scale-[1.02]">
+              <Card className="bg-gradient-to-br from-destructive to-destructive text-white border-none shadow-lg transform transition-all hover:scale-[1.02]">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -245,43 +245,43 @@ const AbsentDaysReport: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="dark:bg-gray-800 dark:border-gray-700 shadow-sm border-none bg-white">
+              <Card className="dark:bg-gray-800 dark:border-border shadow-sm border-none bg-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                      <p className="text-muted-foreground text-sm font-medium">
                         إجمالي أيام الغياب
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-rose-600 dark:text-rose-400">
+                      <h3 className="text-3xl font-bold mt-1 text-destructive dark:text-destructive">
                         {report.totalAbsentDays || 0}
                       </h3>
                     </div>
-                    <CalendarX2 className="h-10 w-10 text-rose-500/20 dark:text-rose-400/20" />
+                    <CalendarX2 className="h-10 w-10 text-destructive/20 dark:text-destructive/20" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="dark:bg-gray-800 dark:border-gray-700 shadow-sm border-none bg-white">
+              <Card className="dark:bg-gray-800 dark:border-border shadow-sm border-none bg-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                      <p className="text-muted-foreground text-sm font-medium">
                         أيام العمل في الشهر
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-amber-600 dark:text-amber-400">
+                      <h3 className="text-3xl font-bold mt-1 text-warning dark:text-warning">
                         {report.totalWorkingDays || 0}
                       </h3>
                     </div>
-                    <Users className="h-10 w-10 text-amber-500/20 dark:text-amber-400/20" />
+                    <Users className="h-10 w-10 text-warning/20 dark:text-warning/20" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="dark:bg-gray-800 dark:border-gray-700 shadow-sm border-none bg-white">
+              <Card className="dark:bg-gray-800 dark:border-border shadow-sm border-none bg-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                      <p className="text-muted-foreground text-sm font-medium">
                         عدد الموظفين
                       </p>
                       <h3 className="text-3xl font-bold mt-1 text-blue-600 dark:text-blue-400">
@@ -294,8 +294,8 @@ const AbsentDaysReport: React.FC = () => {
               </Card>
             </div>
 
-            <Card className="dark:bg-gray-800 dark:border-gray-700 shadow-sm border-none bg-white">
-              <CardHeader className="border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 p-4">
+            <Card className="dark:bg-gray-800 dark:border-border shadow-sm border-none bg-white">
+              <CardHeader className="border-b dark:border-border bg-muted dark:bg-muted p-4">
                 <CardTitle className="text-lg font-semibold dark:text-white flex items-center gap-2">
                   <CalendarX2 className="h-5 w-5 text-primary" />
                   أيام الغياب التفصيلية لكل موظف
@@ -304,7 +304,7 @@ const AbsentDaysReport: React.FC = () => {
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <Table>
-                    <TableHeader className="bg-gray-50 dark:bg-gray-900/50">
+                    <TableHeader className="bg-gray-50 dark:bg-muted">
                       <TableRow>
                         <TableHead className="text-right">الموظف</TableHead>
                         <TableHead className="text-right">القسم</TableHead>
@@ -318,14 +318,14 @@ const AbsentDaysReport: React.FC = () => {
                         report.employees.map((emp) => (
                           <TableRow
                             key={emp.id}
-                            className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                            className="hover:bg-muted/50/50"
                           >
                             <TableCell>
                               <div className="flex flex-col">
-                                <span className="font-medium dark:text-gray-200">
+                                <span className="font-medium dark:text-muted-foreground">
                                   {emp.name}
                                 </span>
-                                <span className="text-xs text-gray-500 dark:text-gray-400">
+                                <span className="text-xs text-muted-foreground">
                                   #{emp.employeeNumber}
                                 </span>
                               </div>
@@ -336,7 +336,7 @@ const AbsentDaysReport: React.FC = () => {
                             <TableCell>
                               <Badge
                                 variant="outline"
-                                className={`${emp.absentDays > 0 ? "text-rose-600 border-rose-200 bg-rose-50 dark:bg-rose-900/20 dark:border-rose-800" : "text-gray-400 border-gray-100"}`}
+                                className={`${emp.absentDays > 0 ? "text-rose-600 border-destructive bg-destructive/10 dark:bg-destructive/20 dark:border-destructive" : "text-gray-400 border-border"}`}
                               >
                                 {emp.absentDays}
                               </Badge>
@@ -351,17 +351,17 @@ const AbsentDaysReport: React.FC = () => {
                                     <Badge
                                       key={d}
                                       variant="outline"
-                                      className="text-rose-600 border-rose-200 bg-rose-50 dark:bg-rose-900/20 dark:border-rose-800"
+                                      className="text-rose-600 border-destructive bg-destructive/10 dark:bg-destructive/20 dark:border-destructive"
                                     >
                                       {formatDate(d)}
-                                      <span className="mr-1 text-xs text-gray-400 dark:text-gray-500">
+                                      <span className="me-1 text-xs text-muted-foreground/80">
                                         {getWeekday(d)}
                                       </span>
                                     </Badge>
                                   ))}
                                 </div>
                               ) : (
-                                <span className="text-emerald-600 dark:text-emerald-400 text-sm font-medium">
+                                <span className="text-emerald-600 dark:text-success text-sm font-medium">
                                   لا يوجد غياب
                                 </span>
                               )}
@@ -372,7 +372,7 @@ const AbsentDaysReport: React.FC = () => {
                         <TableRow>
                           <TableCell
                             colSpan={5}
-                            className="text-center py-8 text-gray-500 dark:text-gray-400"
+                            className="text-center py-8 text-muted-foreground"
                           >
                             لا توجد بيانات للموظفين
                           </TableCell>

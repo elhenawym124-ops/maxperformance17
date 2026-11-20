@@ -24,19 +24,19 @@ export const getJobStatusBadge = (
 ): { bg: string; text: string } => {
   const badges: Record<JobPostingStatus, { bg: string; text: string }> = {
     DRAFT: {
-      bg: "bg-gray-100 text-gray-700 border-gray-300",
+      bg: "bg-gray-100 text-foreground border-border",
       text: "مسودة",
     },
     ACTIVE: {
-      bg: "bg-green-100 text-green-700 border-green-300",
+      bg: "bg-green-100 text-success border-success",
       text: "نشط",
     },
     CLOSED: {
-      bg: "bg-red-100 text-red-700 border-red-300",
+      bg: "bg-red-100 text-destructive border-destructive",
       text: "مغلق",
     },
     ON_HOLD: {
-      bg: "bg-amber-100 text-amber-700 border-amber-300",
+      bg: "bg-amber-100 text-warning border-warning",
       text: "معلق",
     },
   };

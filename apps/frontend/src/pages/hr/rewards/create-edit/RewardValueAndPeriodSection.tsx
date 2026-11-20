@@ -25,61 +25,61 @@ export const RewardValueAndPeriodSection: React.FC<
   return (
     <>
       {/* Period Details */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+      <div className="bg-card rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
           <Calendar className="w-5 h-5 text-blue-600" />
           الفترة الزمنية
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               تاريخ بداية الفترة <span className="text-red-500">*</span>
             </label>
             <DateInput
               value={formData.periodStart}
               onChange={(e) => onChange("periodStart", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.periodStart
                   ? "border-red-500"
                   : "border-gray-300"
               }`}
             />
             {validationErrors.periodStart && (
-              <p className="text-sm text-red-600 mt-1">
+              <p className="text-sm text-destructive mt-1">
                 {validationErrors.periodStart}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               تاريخ نهاية الفترة <span className="text-red-500">*</span>
             </label>
             <DateInput
               value={formData.periodEnd}
               onChange={(e) => onChange("periodEnd", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.periodEnd
                   ? "border-red-500"
                   : "border-gray-300"
               }`}
             />
             {validationErrors.periodEnd && (
-              <p className="text-sm text-red-600 mt-1">
+              <p className="text-sm text-destructive mt-1">
                 {validationErrors.periodEnd}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               الشهر المطبق <span className="text-red-500">*</span>
             </label>
             <select
               value={formData.appliedMonth}
               onChange={(e) => onChange("appliedMonth", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.appliedMonth
                   ? "border-red-500"
                   : "border-gray-300"
@@ -92,14 +92,14 @@ export const RewardValueAndPeriodSection: React.FC<
               ))}
             </select>
             {validationErrors.appliedMonth && (
-              <p className="text-sm text-red-600 mt-1">
+              <p className="text-sm text-destructive mt-1">
                 {validationErrors.appliedMonth}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               السنة المطبقة <span className="text-red-500">*</span>
             </label>
             <input
@@ -108,14 +108,14 @@ export const RewardValueAndPeriodSection: React.FC<
               max="2030"
               value={formData.appliedYear}
               onChange={(e) => onChange("appliedYear", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.appliedYear
                   ? "border-red-500"
                   : "border-gray-300"
               }`}
             />
             {validationErrors.appliedYear && (
-              <p className="text-sm text-red-600 mt-1">
+              <p className="text-sm text-destructive mt-1">
                 {validationErrors.appliedYear}
               </p>
             )}
@@ -127,7 +127,7 @@ export const RewardValueAndPeriodSection: React.FC<
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="px-6 py-2 border border-border text-foreground rounded-lg hover:bg-muted/50 transition-colors"
         >
           إلغاء
         </button>

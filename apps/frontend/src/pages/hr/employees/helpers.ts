@@ -1,11 +1,11 @@
 import { EmployeeFormData } from "./types";
 
 export const statusColors: Record<string, string> = {
-  ACTIVE: "bg-green-100 text-green-800",
-  ON_LEAVE: "bg-yellow-100 text-yellow-800",
-  SUSPENDED: "bg-red-100 text-red-800",
-  TERMINATED: "bg-gray-100 text-gray-800",
-  RESIGNED: "bg-orange-100 text-orange-800",
+  ACTIVE: "bg-green-100 text-success",
+  ON_LEAVE: "bg-yellow-100 text-warning",
+  SUSPENDED: "bg-red-100 text-destructive",
+  TERMINATED: "bg-gray-100 text-foreground",
+  RESIGNED: "bg-orange-100 text-warning",
 };
 
 export const contractKeys: Record<string, string> = {

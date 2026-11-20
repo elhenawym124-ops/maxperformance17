@@ -129,13 +129,13 @@ const LeaveReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button variant="outline" onClick={fetchReport}>
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button variant="outline" onClick={handleExport}>
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -152,7 +152,7 @@ const LeaveReport: React.FC = () => {
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+              <Card className="bg-gradient-to-br from-primary to-primary text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -171,11 +171,11 @@ const LeaveReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">موافق عليها</p>
-                      <h3 className="text-3xl font-bold mt-1 text-green-600">
+                      <h3 className="text-3xl font-bold mt-1 text-success">
                         {report.approved}
                       </h3>
                     </div>
-                    <TrendingUp className="h-10 w-10 text-green-500" />
+                    <TrendingUp className="h-10 w-10 text-success" />
                   </div>
                 </CardContent>
               </Card>
@@ -185,11 +185,11 @@ const LeaveReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">مرفوضة</p>
-                      <h3 className="text-3xl font-bold mt-1 text-red-600">
+                      <h3 className="text-3xl font-bold mt-1 text-destructive">
                         {report.rejected}
                       </h3>
                     </div>
-                    <TrendingDown className="h-10 w-10 text-red-500" />
+                    <TrendingDown className="h-10 w-10 text-destructive" />
                   </div>
                 </CardContent>
               </Card>
@@ -221,14 +221,14 @@ const LeaveReport: React.FC = () => {
                       <div key={index} className="p-4 border rounded-lg">
                         <h4 className="font-semibold text-lg">{type.type}</h4>
                         <div className="mt-2 space-y-1">
-                          <p className="text-sm text-gray-500">
-                            <span className="font-medium text-gray-900">
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-medium text-foreground">
                               {type.count}
                             </span>{" "}
                             طلب
                           </p>
-                          <p className="text-sm text-gray-500">
-                            <span className="font-medium text-gray-900">
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-medium text-foreground">
                               {type.days}
                             </span>{" "}
                             يوم
@@ -237,7 +237,7 @@ const LeaveReport: React.FC = () => {
                       </div>
                     ))
                   ) : (
-                    <div className="col-span-full text-center py-4 text-gray-500">
+                    <div className="col-span-full text-center py-4 text-muted-foreground">
                       لا توجد بيانات
                     </div>
                   )}

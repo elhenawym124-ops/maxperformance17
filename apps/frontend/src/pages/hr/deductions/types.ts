@@ -74,16 +74,16 @@ export const DEDUCTION_STATUS: Record<
   PENDING: {
     label: "في الانتظار",
     color:
-      "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+      "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning",
   },
   APPROVED: {
     label: "موافق عليه",
     color:
-      "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+      "bg-green-100 text-success dark:bg-success/30 dark:text-success",
   },
   REJECTED: {
     label: "مرفوض",
-    color: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+    color: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
   },
   APPLIED: {
     label: "تم التطبيق",
@@ -91,6 +91,6 @@ export const DEDUCTION_STATUS: Record<
   },
   CANCELLED: {
     label: "ملغي",
-    color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+    color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground",
   },
 };

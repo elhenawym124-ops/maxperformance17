@@ -45,20 +45,20 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="relative flex-1 md:w-80">
-            <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="البحث في الاستبيانات..."
               value={searchTerm}
               onChange={(e) => onSearchTermChange(e.target.value)}
-              className="w-full pr-10 pl-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full pe-10 ps-4 py-3 bg-card border-2 border-border dark:border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             />
           </div>
         </div>
 
         <button
           onClick={onOpenCreateModal}
-          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all font-medium"
         >
           <PlusIcon className="w-5 h-5" />
           إنشاء استبيان جديد
@@ -70,12 +70,12 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
       ) : filteredForms.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700">
-          <DocumentTextIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-          <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+        <div className="text-center py-12 bg-card rounded-xl border-2 border-border dark:border-border">
+          <DocumentTextIcon className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+          <h3 className="text-xl font-bold text-foreground mb-2">
             لا توجد استبيانات
           </h3>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-muted-foreground">
             قم بإنشاء استبيان جديد للمتقدمين
           </p>
         </div>
@@ -87,15 +87,15 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all"
+              className="bg-card rounded-xl p-6 border-2 border-border dark:border-border hover:shadow-xl transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div
                     className={`p-3 rounded-xl ${
                       form.isActive
-                        ? "bg-green-100 dark:bg-green-900/30"
-                        : "bg-gray-100 dark:bg-gray-700"
+                        ? "bg-green-100 dark:bg-success/30"
+                        : "bg-muted"
                     }`}
                   >
                     <DocumentTextIcon
@@ -105,11 +105,11 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">
+                    <h3 className="font-bold text-foreground dark:text-white">
                       {form.title}
                     </h3>
                     {form.jobTitle && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-muted-foreground">
                         {form.jobTitle}
                       </p>
                     )}
@@ -118,8 +118,8 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-medium ${
                     form.isActive
-                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                      : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+                      ? "bg-green-100 text-success dark:bg-success/30 dark:text-success"
+                      : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                   }`}
                 >
                   {form.isActive ? "نشط" : "غير نشط"}
@@ -127,12 +127,12 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
               </div>
 
               {form.description && (
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                <p className="text-gray-600 dark:text-muted-foreground text-sm mb-4 line-clamp-2">
                   {form.description}
                 </p>
               )}
 
-              <div className="flex items-center gap-4 mb-4 text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <QuestionMarkCircleIcon className="w-4 h-4" />
                   <span>
@@ -153,17 +153,17 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
                 </div>
               </div>
 
-              <div className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-mono tabular-nums">
+              <div className="text-xs text-muted-foreground/80 mb-2 font-mono tabular-nums">
                 تم الإنشاء:{" "}
                 {format(new Date(form.createdAt), "dd MMM yyyy", {
                   locale: ar,
                 })}
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 mb-4">
+              <div className="bg-gray-50 dark:bg-muted rounded-lg p-3 mb-4">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <p className="text-xs text-muted-foreground mb-1">
                       رابط الاستبيان:
                     </p>
                     <p className="text-sm text-blue-600 dark:text-blue-400 truncate font-mono">
@@ -180,7 +180,7 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 pt-4 border-t border-border dark:border-border">
                 <button
                   onClick={() => onEditForm(form)}
                   className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all text-sm"
@@ -190,14 +190,14 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
                 </button>
                 <button
                   onClick={() => onViewResponses(form)}
-                  className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all text-sm"
+                  className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-lg hover:bg-primary dark:hover:bg-primary/30 transition-all text-sm"
                 >
                   <ClipboardDocumentListIcon className="w-4 h-4" />
                   الردود
                 </button>
                 <button
                   onClick={() => onDeleteForm(form.id)}
-                  className="p-2 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-all"
+                  className="p-2 bg-destructive/10 dark:bg-destructive/20 text-destructive rounded-lg hover:bg-destructive dark:hover:bg-destructive/30 transition-all"
                   title="حذف"
                 >
                   <TrashIcon className="w-4 h-4" />

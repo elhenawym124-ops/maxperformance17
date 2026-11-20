@@ -55,7 +55,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
           <DialogTitle>تفاصيل كشف الراتب</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6 py-4 max-h-[75vh] overflow-y-auto pr-2 px-1">
+        <div className="space-y-6 py-4 max-h-[75vh] overflow-y-auto pe-2 px-1">
           {/* Employee Info */}
           <div className="flex items-center gap-4 pb-4 border-b">
             <Avatar className="h-16 w-16">
@@ -69,28 +69,28 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
                 {payroll.employee?.firstName} {payroll.employee?.lastName}
               </h3>
               <p className="text-gray-500">{payroll.employee?.position?.title}</p>
-              <p className="text-sm text-gray-400">{payroll.employee?.employeeNumber}</p>
+              <p className="text-sm text-muted-foreground">{payroll.employee?.employeeNumber}</p>
             </div>
-            <Badge className={`mr-auto ${statusConfig[payroll.status]?.color}`}>
+            <Badge className={`me-auto ${statusConfig[payroll.status]?.color}`}>
               {statusConfig[payroll.status]?.label}
             </Badge>
           </div>
 
           {/* Attendance & Working Hours Telemetry Card */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/50 p-4 space-y-3">
+          <div className="rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide">
+                <Clock className="h-4 w-4 text-primary" />
+                <span className="text-xs font-bold text-foreground dark:text-muted-foreground uppercase tracking-wide">
                   سجل الحضور وساعات العمل والخصومات الآلية
                 </span>
               </div>
               {totalAttDeduct > 0 ? (
-                <Badge variant="outline" className="bg-rose-50 dark:bg-rose-950/40 border-rose-200 text-rose-700 dark:text-rose-400 text-xs font-semibold tabular-nums">
+                <Badge variant="outline" className="bg-rose-50 dark:bg-destructive/40 border-destructive text-destructive dark:text-destructive text-xs font-semibold tabular-nums">
                   إجمالي خصم الحضور: -{formatCurrency(totalAttDeduct)}
                 </Badge>
               ) : (
-                <Badge variant="outline" className="bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 text-emerald-700 dark:text-emerald-400 text-xs font-semibold">
+                <Badge variant="outline" className="bg-emerald-50 dark:bg-success/40 border-success text-success dark:text-success text-xs font-semibold">
                   لا توجد استقطاعات حضور
                 </Badge>
               )}
@@ -98,43 +98,43 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
 
             {/* 4 Telemetry Metrics */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-              <div className="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 shadow-xs">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-medium">أيام العمل الفعلية</span>
+              <div className="p-2.5 rounded-lg bg-white dark:bg-muted border border-border dark:border-border shadow-xs">
+                <span className="text-[11px] text-muted-foreground dark:text-muted-foreground block font-medium">أيام العمل الفعلية</span>
                 <div className="flex items-baseline gap-1 mt-1">
-                  <span className="text-base font-bold text-slate-800 dark:text-slate-100 tabular-nums">
+                  <span className="text-base font-bold text-foreground dark:text-muted-foreground tabular-nums">
                     {payroll.actualWorkDays ?? (payroll.workingDays ? payroll.workingDays - (payroll.absentDays || 0) : '-')}
                   </span>
                   {payroll.workingDays && (
-                    <span className="text-[10px] text-slate-400">/ {payroll.workingDays} يوم</span>
+                    <span className="text-[10px] text-muted-foreground">/ {payroll.workingDays} يوم</span>
                   )}
                 </div>
               </div>
 
-              <div className="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 shadow-xs">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-medium">أيام الغياب</span>
+              <div className="p-2.5 rounded-lg bg-white dark:bg-muted border border-border dark:border-border shadow-xs">
+                <span className="text-[11px] text-muted-foreground dark:text-muted-foreground block font-medium">أيام الغياب</span>
                 <div className="flex items-baseline gap-1.5 mt-1">
-                  <span className={`text-base font-bold tabular-nums ${payroll.absentDays > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-100'}`}>
+                  <span className={`text-base font-bold tabular-nums ${payroll.absentDays > 0 ? 'text-rose-600 dark:text-destructive' : 'text-slate-800 dark:text-muted-foreground'}`}>
                     {payroll.absentDays || 0}
                   </span>
                   {Number(absenceAmount) > 0 && (
-                    <span className="text-[10px] text-rose-500 tabular-nums font-medium">(-{formatCurrency(Number(absenceAmount))})</span>
+                    <span className="text-[10px] text-destructive tabular-nums font-medium">(-{formatCurrency(Number(absenceAmount))})</span>
                   )}
                 </div>
               </div>
 
-              <div className="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 shadow-xs">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-medium">غرامات التأخير</span>
+              <div className="p-2.5 rounded-lg bg-white dark:bg-muted border border-border dark:border-border shadow-xs">
+                <span className="text-[11px] text-muted-foreground dark:text-muted-foreground block font-medium">غرامات التأخير</span>
                 <div className="mt-1">
-                  <span className={`text-base font-bold tabular-nums ${Number(lateAmount) > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-slate-800 dark:text-slate-100'}`}>
+                  <span className={`text-base font-bold tabular-nums ${Number(lateAmount) > 0 ? 'text-amber-600 dark:text-warning' : 'text-slate-800 dark:text-muted-foreground'}`}>
                     {Number(lateAmount) > 0 ? `-${formatCurrency(Number(lateAmount))}` : '0.00'}
                   </span>
                 </div>
               </div>
 
-              <div className="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 shadow-xs">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-medium">عجز الساعات / مبكر</span>
+              <div className="p-2.5 rounded-lg bg-white dark:bg-muted border border-border dark:border-border shadow-xs">
+                <span className="text-[11px] text-muted-foreground dark:text-muted-foreground block font-medium">عجز الساعات / مبكر</span>
                 <div className="mt-1">
-                  <span className={`text-base font-bold tabular-nums ${Number(deficitAmount) > 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-800 dark:text-slate-100'}`}>
+                  <span className={`text-base font-bold tabular-nums ${Number(deficitAmount) > 0 ? 'text-primary' : 'text-slate-800 dark:text-muted-foreground'}`}>
                     {Number(deficitAmount) > 0 ? `-${formatCurrency(Number(deficitAmount))}` : '0.00'}
                   </span>
                 </div>
@@ -143,27 +143,27 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
 
             {/* Detailed Calculation Logs if available */}
             {(absenceLogs.length > 0 || lateLogs.length > 0 || deficitLogs.length > 0 || deductionsObj.capNotes) && (
-              <div className="mt-2 pt-2 border-t border-slate-200/80 dark:border-slate-800 space-y-1.5 text-[11px]">
+              <div className="mt-2 pt-2 border-t border-border dark:border-border space-y-1.5 text-[11px]">
                 {absenceLogs.length > 0 && (
-                  <div className="flex items-start gap-1.5 text-rose-700 dark:text-rose-400">
+                  <div className="flex items-start gap-1.5 text-destructive dark:text-destructive">
                     <span className="font-semibold whitespace-nowrap">سجل الغياب:</span>
-                    <span className="text-slate-600 dark:text-slate-300 leading-relaxed tabular-nums">{absenceLogs.join(' • ')}</span>
+                    <span className="text-slate-600 dark:text-muted-foreground leading-relaxed tabular-nums">{absenceLogs.join(' • ')}</span>
                   </div>
                 )}
                 {lateLogs.length > 0 && (
-                  <div className="flex items-start gap-1.5 text-amber-700 dark:text-amber-400">
+                  <div className="flex items-start gap-1.5 text-warning dark:text-warning">
                     <span className="font-semibold whitespace-nowrap">سجل التأخيرات:</span>
-                    <span className="text-slate-600 dark:text-slate-300 leading-relaxed tabular-nums">{lateLogs.join(' • ')}</span>
+                    <span className="text-slate-600 dark:text-muted-foreground leading-relaxed tabular-nums">{lateLogs.join(' • ')}</span>
                   </div>
                 )}
                 {deficitLogs.length > 0 && (
-                  <div className="flex items-start gap-1.5 text-indigo-700 dark:text-indigo-400">
+                  <div className="flex items-start gap-1.5 text-primary dark:text-primary">
                     <span className="font-semibold whitespace-nowrap">عجز الساعات:</span>
-                    <span className="text-slate-600 dark:text-slate-300 leading-relaxed tabular-nums">{deficitLogs.join(' • ')}</span>
+                    <span className="text-slate-600 dark:text-muted-foreground leading-relaxed tabular-nums">{deficitLogs.join(' • ')}</span>
                   </div>
                 )}
                 {deductionsObj.capNotes && (
-                  <div className="flex items-start gap-1.5 text-slate-500 dark:text-slate-400 italic">
+                  <div className="flex items-start gap-1.5 text-muted-foreground dark:text-muted-foreground italic">
                     <span className="font-semibold whitespace-nowrap">سقف الخصم القانوني:</span>
                     <span>{deductionsObj.capNotes}</span>
                   </div>
@@ -176,7 +176,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
           <div className="grid grid-cols-2 gap-8">
             {/* Allowances/Earnings */}
             <div className="space-y-4">
-              <h4 className="font-bold text-green-700 flex items-center gap-2 border-b pb-2">
+              <h4 className="font-bold text-success flex items-center gap-2 border-b pb-2">
                 <ArrowUpCircle className="h-4 w-4" />
                 الاستحقاقات (Earnings)
               </h4>
@@ -187,9 +187,9 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
                 </div>
 
                 {Object.entries(allowancesObj).map(([name, amount], i) => (
-                  <div key={i} className="flex justify-between items-center bg-green-50/30 dark:bg-green-900/10 px-2 py-1 rounded">
+                  <div key={i} className="flex justify-between items-center bg-success/30 dark:bg-success/10 px-2 py-1 rounded">
                     <span className="text-gray-500 text-xs">{name}</span>
-                    <span className="text-xs text-green-700 font-medium tabular-nums">+{formatCurrency(Number(amount))}</span>
+                    <span className="text-xs text-success font-medium tabular-nums">+{formatCurrency(Number(amount))}</span>
                   </div>
                 ))}
 
@@ -197,29 +197,29 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
                   <span className="text-gray-600 text-sm">
                     العمل الإضافي {payroll.overtimeHours ? `(${Number(payroll.overtimeHours).toFixed(1)} س @ ${payroll.overtimeRate || 1}x)` : ''}
                   </span>
-                  <span className="font-medium text-sm text-green-700 tabular-nums">+{formatCurrency(payroll.overtimeAmount)}</span>
+                  <span className="font-medium text-sm text-success tabular-nums">+{formatCurrency(payroll.overtimeAmount)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600 text-sm">المكافآت</span>
-                  <span className="font-medium text-sm text-green-700 tabular-nums">+{formatCurrency(payroll.bonuses)}</span>
+                  <span className="font-medium text-sm text-success tabular-nums">+{formatCurrency(payroll.bonuses)}</span>
                 </div>
               </div>
             </div>
 
             {/* Deductions */}
             <div className="space-y-4">
-              <h4 className="font-bold text-red-700 flex items-center gap-2 border-b pb-2">
+              <h4 className="font-bold text-destructive flex items-center gap-2 border-b pb-2">
                 <ArrowDownCircle className="h-4 w-4" />
                 الاستقطاعات (Deductions)
               </h4>
               <div className="space-y-2.5">
                 {payroll.fullMonthBaseSalary && Number(payroll.fullMonthBaseSalary) > Number(payroll.baseSalary) && (
-                  <div className="flex justify-between items-start bg-red-50/50 dark:bg-red-900/10 px-2 py-1 rounded border-red-100 border">
+                  <div className="flex justify-between items-start bg-destructive/50 dark:bg-destructive/10 px-2 py-1 rounded border-destructive border">
                     <div className="space-y-0.5">
                       <span className="text-red-800 text-xs font-bold block">فروقات عمل/تناسب</span>
-                      <span className="text-[10px] text-red-600 block">نقص {(payroll.workingDays || 30) - (payroll.actualWorkDays || 0)} يوم من الدورة</span>
+                      <span className="text-[10px] text-destructive block">نقص {(payroll.workingDays || 30) - (payroll.actualWorkDays || 0)} يوم من الدورة</span>
                     </div>
-                    <span className="font-bold text-xs text-red-700 tabular-nums">-{formatCurrency(Number(payroll.fullMonthBaseSalary) - Number(payroll.baseSalary))}</span>
+                    <span className="font-bold text-xs text-destructive tabular-nums">-{formatCurrency(Number(payroll.fullMonthBaseSalary) - Number(payroll.baseSalary))}</span>
                   </div>
                 )}
 
@@ -254,18 +254,18 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
                     }
 
                     return (
-                      <div key={i} className="space-y-1 bg-red-50/30 dark:bg-red-900/10 p-2 rounded-lg border border-red-100/30">
+                      <div key={i} className="space-y-1 bg-destructive/30 dark:bg-destructive/10 p-2 rounded-lg border border-destructive/30">
                         <div className="flex justify-between items-start">
                           <div className="flex items-center gap-1.5 text-wrap max-w-[70%]">
                             <span className="text-gray-700 text-xs font-bold">{name}</span>
-                            <span className={`text-[8px] px-1 rounded-sm uppercase font-black whitespace-nowrap ${isManual ? 'bg-amber-100 text-amber-700 border border-amber-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
+                            <span className={`text-[8px] px-1 rounded-sm uppercase font-black whitespace-nowrap ${isManual ? 'bg-amber-100 text-warning border border-warning' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
                               {isManual ? 'يدوي' : 'تلقائي'}
                             </span>
                           </div>
-                          <span className="text-xs text-red-700 font-bold whitespace-nowrap tabular-nums">-{formatCurrency(Number(amount))}</span>
+                          <span className="text-xs text-destructive font-bold whitespace-nowrap tabular-nums">-{formatCurrency(Number(amount))}</span>
                         </div>
                         {subNote && (
-                          <p className="text-[10px] text-gray-400 italic pr-2 border-r-2 border-red-200 mr-1 leading-relaxed">
+                          <p className="text-[10px] text-muted-foreground italic pe-2 border-r-2 border-destructive me-1 leading-relaxed">
                             {subNote}
                           </p>
                         )}
@@ -275,11 +275,11 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
 
                 <div className="flex justify-between items-center pt-1">
                   <span className="text-gray-600 text-sm">التأمينات الاجتماعية</span>
-                  <span className="font-medium text-sm text-red-700 tabular-nums">-{formatCurrency(payroll.socialInsurance)}</span>
+                  <span className="font-medium text-sm text-destructive tabular-nums">-{formatCurrency(payroll.socialInsurance)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600 text-sm">الضرائب</span>
-                  <span className="font-medium text-sm text-red-700 tabular-nums">-{formatCurrency(payroll.taxAmount)}</span>
+                  <span className="font-medium text-sm text-destructive tabular-nums">-{formatCurrency(payroll.taxAmount)}</span>
                 </div>
               </div>
             </div>
@@ -289,7 +289,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
           <div className="mt-8 pt-6 border-t-2 border-dashed space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">إجمالي الاستحقاقات (الراتب الحقيقي)</span>
-              <span className="text-lg font-bold text-slate-700 tabular-nums">
+              <span className="text-lg font-bold text-foreground tabular-nums">
                 {formatCurrency(
                   Number(payroll.fullMonthBaseSalary || payroll.baseSalary) +
                   Number(payroll.totalAllowances || 0) +
@@ -310,7 +310,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
               </span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-primary text-primary-foreground flex justify-between items-center shadow-xs mt-4">
+            <div className="p-4 rounded-xl bg-primary text-primary-foreground flex justify-between items-center shadow-xs mt-4">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-xl bg-primary-foreground/20 flex items-center justify-center">
                   <DollarSign className="h-6 w-6" />
@@ -324,7 +324,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
           </div>
 
           {payroll.paidAt && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <div className="bg-green-50 border border-success rounded-lg p-4">
               <p className="text-green-800">
                 ✓ تم الصرف بتاريخ {new Date(payroll.paidAt).toLocaleDateString('ar-EG')}
               </p>
@@ -337,7 +337,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
             إغلاق
           </Button>
           <Button variant="outline" onClick={() => onPrint(payroll)}>
-            <FileText className="h-4 w-4 ml-2" />
+            <FileText className="h-4 w-4 ms-2" />
             طباعة
           </Button>
         </DialogFooter>

@@ -41,12 +41,12 @@ export const MyFeedbackHeaderAndStats: React.FC<
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/20 dark:to-background border-indigo-100 dark:border-indigo-900/30 overflow-hidden relative">
+        <Card className="bg-gradient-to-br from-primary to-white dark:from-primary/20 dark:to-background border-primary dark:border-primary/30 overflow-hidden relative">
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <Inbox className="h-16 w-16" />
           </div>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+            <CardTitle className="text-sm font-medium flex items-center gap-2 text-primary">
               {t("employee.feedback.receivedMessages")}
             </CardTitle>
           </CardHeader>
@@ -60,12 +60,12 @@ export const MyFeedbackHeaderAndStats: React.FC<
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-950/20 dark:to-background border-purple-100 dark:border-purple-900/30 overflow-hidden relative">
+        <Card className="bg-gradient-to-br from-primary to-white dark:from-primary/20 dark:to-background border-primary dark:border-primary/30 overflow-hidden relative">
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <SendIcon className="h-16 w-16" />
           </div>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2 text-purple-600 dark:text-purple-400">
+            <CardTitle className="text-sm font-medium flex items-center gap-2 text-primary dark:text-primary">
               {t("employee.feedback.sentMessages")}
             </CardTitle>
           </CardHeader>
@@ -79,12 +79,12 @@ export const MyFeedbackHeaderAndStats: React.FC<
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-amber-50 to-white dark:from-amber-950/20 dark:to-background border-amber-100 dark:border-amber-900/30 overflow-hidden relative">
+        <Card className="bg-gradient-to-br from-warning to-white dark:from-warning/20 dark:to-background border-warning dark:border-warning/30 overflow-hidden relative">
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <Star className="h-16 w-16" />
           </div>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2 text-amber-600 dark:text-amber-400">
+            <CardTitle className="text-sm font-medium flex items-center gap-2 text-warning dark:text-warning">
               {t("employee.feedback.avgRating")}
             </CardTitle>
           </CardHeader>

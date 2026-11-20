@@ -32,13 +32,13 @@ export const ShiftsFilterControls: React.FC<ShiftsFilterControlsProps> = ({
   return (
     <div className="flex flex-col md:flex-row gap-3">
       <div className="flex-1 relative">
-        <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           ref={searchInputRef as any}
           placeholder="ابحث عن مناوبة... (/)"
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pr-10 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-sm"
+          className="pe-10 bg-card border-border dark:border-border rounded-xl text-sm"
         />
       </div>
 
@@ -47,7 +47,7 @@ export const ShiftsFilterControls: React.FC<ShiftsFilterControlsProps> = ({
           value={statusFilter}
           onValueChange={(val: any) => onStatusFilterChange(val)}
         >
-          <SelectTrigger className="w-full md:w-[140px] bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-xs font-medium">
+          <SelectTrigger className="w-full md:w-[140px] bg-card border-border dark:border-border rounded-xl text-xs font-medium">
             <SelectValue placeholder="الحالة" />
           </SelectTrigger>
           <SelectContent>
@@ -61,7 +61,7 @@ export const ShiftsFilterControls: React.FC<ShiftsFilterControlsProps> = ({
           value={sortBy}
           onValueChange={(val: any) => onSortByChange(val)}
         >
-          <SelectTrigger className="w-full md:w-[150px] bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-xs font-medium">
+          <SelectTrigger className="w-full md:w-[150px] bg-card border-border dark:border-border rounded-xl text-xs font-medium">
             <SelectValue placeholder="ترتيب حسب" />
           </SelectTrigger>
           <SelectContent>

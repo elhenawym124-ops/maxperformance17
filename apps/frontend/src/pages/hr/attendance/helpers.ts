@@ -22,13 +22,13 @@ export const statusConfig: Record<
 > = {
   PRESENT: {
     label: "حاضر",
-    color: "bg-green-100 text-green-800",
+    color: "bg-green-100 text-success",
     icon: CheckCircle,
   },
-  ABSENT: { label: "غائب", color: "bg-red-100 text-red-800", icon: XCircle },
+  ABSENT: { label: "غائب", color: "bg-red-100 text-destructive", icon: XCircle },
   LATE: {
     label: "متأخر",
-    color: "bg-yellow-100 text-yellow-800",
+    color: "bg-yellow-100 text-warning",
     icon: AlertCircle,
   },
   HALF_DAY: {
@@ -38,27 +38,27 @@ export const statusConfig: Record<
   },
   ON_LEAVE: {
     label: "إجازة",
-    color: "bg-purple-100 text-purple-800",
+    color: "bg-purple-100 text-primary",
     icon: Calendar,
   },
   HOLIDAY: {
     label: "عطلة",
-    color: "bg-gray-100 text-gray-800",
+    color: "bg-gray-100 text-foreground",
     icon: Calendar,
   },
   WEEKEND: {
     label: "عطلة أسبوعية",
-    color: "bg-gray-100 text-gray-800",
+    color: "bg-gray-100 text-foreground",
     icon: Calendar,
   },
   REMOTE: {
     label: "عن بُعد",
-    color: "bg-indigo-100 text-indigo-800",
+    color: "bg-indigo-100 text-primary",
     icon: Monitor,
   },
   OVERTIME: {
     label: "إضافي (يوم راحة)",
-    color: "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400",
+    color: "bg-teal-100 text-success dark:bg-success/30 dark:text-success",
     icon: Timer,
   },
 };
@@ -69,19 +69,19 @@ export const autoCloseReviewConfig: Record<
 > = {
   PENDING: {
     label: "بانتظار المراجعة",
-    color: "bg-amber-100 text-amber-800",
+    color: "bg-amber-100 text-warning",
   },
   REVIEWED: {
     label: "تمت المراجعة",
-    color: "bg-sky-100 text-sky-800",
+    color: "bg-sky-100 text-info",
   },
   ADJUSTED: {
     label: "تم التعديل",
-    color: "bg-emerald-100 text-emerald-800",
+    color: "bg-emerald-100 text-success",
   },
   DISMISSED: {
     label: "اعتماد كما هو",
-    color: "bg-slate-100 text-slate-800",
+    color: "bg-slate-100 text-foreground",
   },
 };
 

@@ -21,13 +21,13 @@ export const LateAbsenceReportTab: React.FC = () => {
   return (
     <TabsContent value="late-absence" className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-gradient-to-br from-red-500 to-rose-600 text-white">
+        <Card className="bg-gradient-to-br from-destructive to-destructive text-white">
           <CardContent className="p-6">
             <p className="text-red-100 text-sm">متوسط دقائق التأخير</p>
             <h3 className="text-3xl font-bold mt-1 font-mono tabular-nums">18 دقيقة</h3>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-orange-500 to-amber-600 text-white">
+        <Card className="bg-gradient-to-br from-warning to-warning text-white">
           <CardContent className="p-6">
             <p className="text-orange-100 text-sm">إجمالي أيام الغياب</p>
             <h3 className="text-3xl font-bold mt-1 font-mono tabular-nums">42 يوم</h3>

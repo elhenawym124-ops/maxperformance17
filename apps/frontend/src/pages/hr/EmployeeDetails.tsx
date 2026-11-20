@@ -36,7 +36,7 @@ const EmployeeDetails: React.FC = () => {
 
   if (!employee) {
     return (
-      <div className="flex flex-col items-center justify-center h-96 text-gray-500">
+      <div className="flex flex-col items-center justify-center h-96 text-muted-foreground">
         <User className="h-16 w-16 mb-4 opacity-50" />
         <p className="text-xl">الموظف غير موجود</p>
         <Button variant="link" onClick={() => navigate("/hr/employees")}>

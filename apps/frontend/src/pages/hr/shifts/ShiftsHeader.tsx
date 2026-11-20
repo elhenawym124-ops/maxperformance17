@@ -39,7 +39,7 @@ export const ShiftsHeader: React.FC<ShiftsHeaderProps> = ({
             onClick={() => onViewModeChange("grid")}
             className="h-8 px-2.5 text-xs rounded-lg"
           >
-            <LayoutGrid className="h-3.5 w-3.5 ml-1.5" />
+            <LayoutGrid className="h-3.5 w-3.5 ms-1.5" />
             <span>شبكة</span>
           </Button>
           <Button
@@ -49,7 +49,7 @@ export const ShiftsHeader: React.FC<ShiftsHeaderProps> = ({
             onClick={() => onViewModeChange("table")}
             className="h-8 px-2.5 text-xs rounded-lg"
           >
-            <TableIcon className="h-3.5 w-3.5 ml-1.5" />
+            <TableIcon className="h-3.5 w-3.5 ms-1.5" />
             <span>جدول</span>
           </Button>
         </div>
@@ -60,7 +60,7 @@ export const ShiftsHeader: React.FC<ShiftsHeaderProps> = ({
           size="sm"
           className="h-8 sm:h-9 text-xs"
         >
-          <Plus className="h-4 w-4 ml-1.5" />
+          <Plus className="h-4 w-4 ms-1.5" />
           <span>مناوبة جديدة</span>
         </Button>
       </div>

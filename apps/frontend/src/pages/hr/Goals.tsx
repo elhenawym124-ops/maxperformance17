@@ -82,7 +82,7 @@ const Goals: React.FC = () => {
         description="من هنا نربط هدف المشروع بالموظفين والأيام والمهام، ونراقب التقدم الفعلي بدل الأرقام المعزولة."
         actions={
           <Button className="rounded-xl" onClick={goToNewGoal}>
-            <Plus className="ml-2 h-4 w-4" />
+            <Plus className="ms-2 h-4 w-4" />
             هدف جديد
           </Button>
         }

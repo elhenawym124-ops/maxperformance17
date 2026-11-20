@@ -120,7 +120,7 @@ export const Permissions: React.FC = () => {
                 variant="outline"
                 className="flex-1 sm:flex-initial text-xs sm:text-sm h-9 px-3 sm:px-4"
               >
-                <Download className="h-3.5 w-3.5 ml-1.5" />
+                <Download className="h-3.5 w-3.5 ms-1.5" />
                 {t("employee.permissions.export")}
               </Button>
               <Button
@@ -130,7 +130,7 @@ export const Permissions: React.FC = () => {
                 }}
                 className="flex-1 sm:flex-initial text-xs sm:text-sm h-9 px-3 sm:px-4"
               >
-                <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5" />
+                <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4 ms-1.5" />
                 {t("employee.permissions.newPermission")}
               </Button>
             </div>
@@ -140,7 +140,7 @@ export const Permissions: React.FC = () => {
           <PermissionStatsCards stats={stats} />
 
           {/* Main Content: Filters and Table */}
-          <Card className="border-none shadow-sm bg-white dark:bg-gray-900 overflow-hidden">
+          <Card className="border-none shadow-sm bg-white dark:bg-muted overflow-hidden">
             <CardContent className="p-0">
               <PermissionFilters
                 activeTab={activeTab}

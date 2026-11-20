@@ -48,10 +48,10 @@ export interface StatusOption {
 }
 
 export const statusOptions: StatusOption[] = [
-  { value: "PRESENT", label: "حاضر", color: "bg-green-100 text-green-800" },
-  { value: "LATE", label: "متأخر", color: "bg-yellow-100 text-yellow-800" },
-  { value: "ABSENT", label: "غائب", color: "bg-red-100 text-red-800" },
+  { value: "PRESENT", label: "حاضر", color: "bg-green-100 text-success" },
+  { value: "LATE", label: "متأخر", color: "bg-yellow-100 text-warning" },
+  { value: "ABSENT", label: "غائب", color: "bg-red-100 text-destructive" },
   { value: "HALF_DAY", label: "نصف يوم", color: "bg-blue-100 text-blue-800" },
-  { value: "ON_LEAVE", label: "إجازة", color: "bg-purple-100 text-purple-800" },
-  { value: "REMOTE", label: "عن بُعد", color: "bg-indigo-100 text-indigo-800" },
+  { value: "ON_LEAVE", label: "إجازة", color: "bg-purple-100 text-primary" },
+  { value: "REMOTE", label: "عن بُعد", color: "bg-indigo-100 text-primary" },
 ];

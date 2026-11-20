@@ -117,7 +117,7 @@ export const PolarisShiftsView: React.FC<PolarisShiftsViewProps> = ({
                 onClick={() => setViewMode("grid")}
                 className="h-7 px-2 text-xs rounded-md"
               >
-                <LayoutGrid className="h-3.5 w-3.5 ml-1" />
+                <LayoutGrid className="h-3.5 w-3.5 ms-1" />
                 <span>شبكة</span>
               </Button>
               <Button
@@ -127,7 +127,7 @@ export const PolarisShiftsView: React.FC<PolarisShiftsViewProps> = ({
                 onClick={() => setViewMode("table")}
                 className="h-7 px-2 text-xs rounded-md"
               >
-                <TableIcon className="h-3.5 w-3.5 ml-1" />
+                <TableIcon className="h-3.5 w-3.5 ms-1" />
                 <span>جدول</span>
               </Button>
             </div>
@@ -211,7 +211,7 @@ export const PolarisShiftsView: React.FC<PolarisShiftsViewProps> = ({
               placeholder="ابحث عن مناوبة بالاسم أو الرمز... (/)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
 
@@ -244,7 +244,7 @@ export const PolarisShiftsView: React.FC<PolarisShiftsViewProps> = ({
               />
             </div>
           ) : viewMode === "table" ? (
-            <div className="[&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:rounded-none">
+            <div className="[&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:rounded-none">
               <ShiftsTableView
                 shifts={filteredAndSortedShifts}
                 selectedShifts={selectedShifts}

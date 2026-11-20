@@ -44,7 +44,7 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : policies.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-gray-500">
+          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
             <FileText className="h-16 w-16 mb-4 opacity-20" />
             <h3 className="text-lg font-semibold">لا توجد سياسات مطابقة</h3>
             <p>جرب تغيير معايير البحث أو أضف سياسة جديدة</p>
@@ -52,7 +52,7 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
         ) : (
           <div className="overflow-x-auto">
             <Table>
-              <TableHeader className="bg-gray-50 dark:bg-gray-800">
+              <TableHeader className="bg-gray-50 dark:bg-muted">
                 <TableRow>
                   <TableHead className="text-right font-bold w-[300px]">
                     عنوان السياسة
@@ -72,7 +72,7 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
                 {policies.map((policy) => (
                   <TableRow
                     key={policy.id}
-                    className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer group"
+                    className="hover:bg-gray-50/50 dark:hover:bg-muted transition-colors cursor-pointer group"
                     onClick={() => onView(policy)}
                   >
                     <TableCell className="font-medium">
@@ -90,23 +90,23 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
                     </TableCell>
                     <TableCell>
                       {policy.isActive ? (
-                        <div className="flex items-center text-green-600 gap-1.5 text-xs font-semibold">
+                        <div className="flex items-center text-success gap-1.5 text-xs font-semibold">
                           <CheckCircle className="h-3 w-3" />
                           نشط
                         </div>
                       ) : (
-                        <div className="flex items-center text-red-600 gap-1.5 text-xs font-semibold">
+                        <div className="flex items-center text-destructive gap-1.5 text-xs font-semibold">
                           <XCircle className="h-3 w-3" />
                           غير نشط
                         </div>
                       )}
                     </TableCell>
                     <TableCell>
-                      <span className="text-xs text-gray-500 font-mono tabular-nums">
+                      <span className="text-xs text-muted-foreground font-mono tabular-nums">
                         V{policy.version}.0
                       </span>
                     </TableCell>
-                    <TableCell className="text-xs text-gray-500 font-mono tabular-nums">
+                    <TableCell className="text-xs text-muted-foreground font-mono tabular-nums">
                       {new Date(policy.updatedAt).toLocaleDateString("ar-EG")}
                     </TableCell>
                     <TableCell>
@@ -126,7 +126,7 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-emerald-600 hover:bg-emerald-50"
+                          className="h-8 w-8 text-success hover:bg-success/10"
                           onClick={() => onEdit(policy)}
                           title="تعديل"
                         >
@@ -135,7 +135,7 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-red-600 hover:bg-red-50"
+                          className="h-8 w-8 text-destructive hover:bg-destructive/10"
                           onClick={() => onDelete(policy.id)}
                           title="حذف"
                         >

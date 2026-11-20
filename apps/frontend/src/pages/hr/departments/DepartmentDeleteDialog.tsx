@@ -27,15 +27,15 @@ export const DepartmentDeleteDialog: React.FC<DepartmentDeleteDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-gray-900 dark:text-white">
+          <DialogTitle className="text-foreground">
             تأكيد الحذف
           </DialogTitle>
         </DialogHeader>
-        <DialogDescription className="py-4 text-gray-700 dark:text-gray-300">
+        <DialogDescription className="py-4 text-foreground">
           هل أنت متأكد من حذف قسم "{selectedDepartment?.name}"؟
           {selectedDepartment?._count.users &&
             selectedDepartment._count.users > 0 && (
-              <span className="block text-red-500 text-sm mt-2 font-mono tabular-nums">
+              <span className="block text-destructive text-sm mt-2 font-mono tabular-nums">
                 ⚠️ هذا القسم يحتوي على {selectedDepartment._count.users} موظف
               </span>
             )}

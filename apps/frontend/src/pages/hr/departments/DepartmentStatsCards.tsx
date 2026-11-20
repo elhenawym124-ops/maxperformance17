@@ -20,7 +20,7 @@ export const DepartmentStatsCards: React.FC<DepartmentStatsCardsProps> = ({
       animate={{ opacity: 1, y: 0 }}
       className="grid grid-cols-1 sm:grid-cols-3 gap-4"
     >
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div className="min-w-0">
@@ -38,7 +38,7 @@ export const DepartmentStatsCards: React.FC<DepartmentStatsCardsProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div className="min-w-0">
@@ -49,14 +49,14 @@ export const DepartmentStatsCards: React.FC<DepartmentStatsCardsProps> = ({
                 {activeDepartments}
               </p>
             </div>
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+            <div className="p-2.5 rounded-xl bg-success/10 text-success dark:text-success border border-success/20 shrink-0">
               <Activity className="size-5" />
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border">
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between">
             <div className="min-w-0">
@@ -67,7 +67,7 @@ export const DepartmentStatsCards: React.FC<DepartmentStatsCardsProps> = ({
                 {totalEmployees}
               </p>
             </div>
-            <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0">
+            <div className="p-2.5 rounded-xl bg-warning/10 text-warning dark:text-warning border border-warning/20 shrink-0">
               <Users className="size-5" />
             </div>
           </div>

@@ -40,7 +40,7 @@ export const ShiftDeleteAlertDialog: React.FC<ShiftDeleteAlertDialogProps> = ({
           <AlertDialogCancel>إلغاء</AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirmDelete}
-            className="bg-red-500 hover:bg-red-600 text-white font-bold"
+            className="bg-red-500 hover:bg-destructive text-white font-bold"
           >
             حذف
           </AlertDialogAction>

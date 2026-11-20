@@ -3,18 +3,18 @@ import { EmployeeReportData } from "./types";
 export const getStatusColor = (status: string): string => {
   const colors: Record<string, string> = {
     PRESENT:
-      "text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400",
-    ABSENT: "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400",
-    LATE: "text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400",
+      "text-green-600 bg-success/10 dark:bg-success/20 dark:text-success",
+    ABSENT: "text-red-600 bg-destructive/10 dark:bg-destructive/20 dark:text-destructive",
+    LATE: "text-orange-600 bg-warning/10 dark:bg-warning/20 dark:text-warning",
     ON_LEAVE:
       "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400",
     APPROVED:
-      "text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400",
+      "text-green-600 bg-success/10 dark:bg-success/20 dark:text-success",
     PENDING:
-      "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-400",
-    REJECTED: "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400",
+      "text-yellow-600 bg-warning/10 dark:bg-warning/20 dark:text-warning",
+    REJECTED: "text-red-600 bg-destructive/10 dark:bg-destructive/20 dark:text-destructive",
   };
-  return colors[status] || "text-gray-600 bg-gray-50";
+  return colors[status] || "text-gray-600 bg-muted";
 };
 
 export const getStatusLabel = (status: string): string => {
@@ -49,10 +49,10 @@ export const getAttendanceRate = (report: EmployeeReportData | null): string => 
 };
 
 export const getPerformanceColor = (score: number): string => {
-  if (score >= 4.5) return "text-green-600 dark:text-green-400";
+  if (score >= 4.5) return "text-green-600 dark:text-success";
   if (score >= 3.5) return "text-blue-600 dark:text-blue-400";
-  if (score >= 2.5) return "text-yellow-600 dark:text-yellow-400";
-  return "text-red-600 dark:text-red-400";
+  if (score >= 2.5) return "text-yellow-600 dark:text-warning";
+  return "text-red-600 dark:text-destructive";
 };
 
 export const buildEmployeeReportCsv = (report: EmployeeReportData): string => {

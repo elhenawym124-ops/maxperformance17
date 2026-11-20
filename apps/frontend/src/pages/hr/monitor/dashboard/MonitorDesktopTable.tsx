@@ -25,16 +25,16 @@ export const MonitorDesktopTable: React.FC<MonitorDesktopTableProps> = ({
       );
     }
     return sortDirection === "asc" ? (
-      <ArrowUp className="h-3 w-3 text-sky-400" />
+      <ArrowUp className="h-3 w-3 text-info" />
     ) : (
-      <ArrowDown className="h-3 w-3 text-sky-400" />
+      <ArrowDown className="h-3 w-3 text-info" />
     );
   };
 
   return (
     <div className="hidden md:block overflow-x-auto">
       <table className="w-full text-right text-xs">
-        <thead className="border-b border-border/40 bg-muted/40 dark:bg-zinc-950/40 text-muted-foreground">
+        <thead className="border-b border-border/40 bg-muted/40 dark:bg-muted text-muted-foreground">
           <tr>
             <th
               onClick={() => onSort("employeeName")}

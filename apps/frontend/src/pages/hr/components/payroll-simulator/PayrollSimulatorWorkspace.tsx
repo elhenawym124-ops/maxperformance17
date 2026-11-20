@@ -50,15 +50,15 @@ export const PayrollSimulatorWorkspace: React.FC<
 }) => {
   if (!selectedEmployee) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-white dark:bg-slate-950/20 rounded-2xl border border-dashed border-slate-200">
+      <div className="flex-1 flex flex-col items-center justify-center bg-white dark:bg-muted rounded-xl border border-dashed border-border">
         <motion.div
           animate={{ rotate: [0, 10, -10, 0] }}
           transition={{ repeat: Infinity, duration: 4 }}
-          className="h-24 w-24 bg-indigo-50 dark:bg-slate-900 rounded-full flex items-center justify-center mb-4"
+          className="h-24 w-24 bg-primary/10 dark:bg-muted rounded-full flex items-center justify-center mb-4"
         >
-          <Users className="h-12 w-12 text-indigo-400" />
+          <Users className="h-12 w-12 text-primary" />
         </motion.div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+        <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">
           ابدأ تجربة الحسابات الآن
         </h3>
         <p className="text-slate-500 text-center max-w-sm">
@@ -95,9 +95,9 @@ export const PayrollSimulatorWorkspace: React.FC<
             className="bg-white text-primary hover:bg-primary/10 font-bold h-10 px-6 rounded-lg"
           >
             {calculating ? (
-              <RefreshCw className="h-4 w-4 animate-spin ml-2" />
+              <RefreshCw className="h-4 w-4 animate-spin ms-2" />
             ) : (
-              <Zap className="h-4 w-4 ml-2" />
+              <Zap className="h-4 w-4 ms-2" />
             )}
             بدء الحساب
           </Button>
@@ -105,7 +105,7 @@ export const PayrollSimulatorWorkspace: React.FC<
       </CardHeader>
 
       <Tabs defaultValue="scenarios" className="flex-1 flex flex-col min-h-0">
-        <TabsList className="bg-slate-50 dark:bg-slate-900 p-1 flex justify-start rounded-none h-14 px-6 gap-2">
+        <TabsList className="bg-slate-50 dark:bg-muted p-1 flex justify-start rounded-none h-14 px-6 gap-2">
           <TabsTrigger
             value="scenarios"
             className="data-[state=active]:bg-card dark:data-[state=active]:bg-card h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary px-6 font-bold"
@@ -141,7 +141,7 @@ export const PayrollSimulatorWorkspace: React.FC<
                     <button
                       key={scenario.id}
                       onClick={() => onApplyScenario(scenario.id)}
-                      className="group text-right p-5 rounded-2xl bg-muted/50 border border-border/70 hover:border-primary/40 hover:bg-card transition-all hover:shadow-sm"
+                      className="group text-right p-5 rounded-xl bg-muted/50 border border-border/70 hover:border-primary/40 hover:bg-card transition-all hover:shadow-sm"
                     >
                       <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
                         <scenario.icon className="h-5 w-5 text-primary" />
@@ -149,7 +149,7 @@ export const PayrollSimulatorWorkspace: React.FC<
                       <h4 className="font-bold text-foreground mb-1">
                         {scenario.name}
                       </h4>
-                      <p className="text-xs text-slate-500 leading-relaxed">
+                      <p className="text-xs text-muted-foreground leading-relaxed">
                         {scenario.description}
                       </p>
                     </button>
@@ -158,9 +158,9 @@ export const PayrollSimulatorWorkspace: React.FC<
               </TabsContent>
 
               <TabsContent value="attendance" className="mt-0 space-y-6">
-                <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/50 p-4 rounded-xl flex items-start gap-4 mb-6">
-                  <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                <div className="bg-amber-50 dark:bg-warning/20 border border-warning dark:border-warning/50 p-4 rounded-xl flex items-start gap-4 mb-6">
+                  <AlertCircle className="h-5 w-5 text-warning shrink-0 mt-0.5" />
+                  <p className="text-sm text-warning dark:text-warning">
                     يمكنك تعديل أيام الحضور، التأخيرات، وساعات العمل الإضافي لكل
                     يوم على حدة لاختبار كيفية تأثر الراتب.
                   </p>
@@ -169,10 +169,10 @@ export const PayrollSimulatorWorkspace: React.FC<
                   {simulation.attendance.map((att, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50 flex gap-4"
+                      className="p-4 rounded-xl border border-border dark:border-border bg-white dark:bg-muted flex gap-4"
                     >
                       <div className="shrink-0 text-center">
-                        <div className="text-xs text-slate-500 font-bold uppercase font-mono tabular-nums">
+                        <div className="text-xs text-muted-foreground font-bold uppercase font-mono tabular-nums">
                           {att.date.getDate()} فبراير
                         </div>
                       </div>
@@ -192,20 +192,20 @@ export const PayrollSimulatorWorkspace: React.FC<
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="PRESENT text-emerald-600">
+                            <SelectItem value="PRESENT text-success">
                               حاضر
                             </SelectItem>
-                            <SelectItem value="ABSENT text-rose-600">
+                            <SelectItem value="ABSENT text-destructive">
                               غائب
                             </SelectItem>
-                            <SelectItem value="LATE text-amber-600">
+                            <SelectItem value="LATE text-warning">
                               متأخر
                             </SelectItem>
                           </SelectContent>
                         </Select>
                         <div className="flex gap-2">
                           <div className="flex-1">
-                            <Label className="text-[10px] text-slate-400">
+                            <Label className="text-[10px] text-muted-foreground">
                               تأخير (د)
                             </Label>
                             <Input
@@ -224,7 +224,7 @@ export const PayrollSimulatorWorkspace: React.FC<
                             />
                           </div>
                           <div className="flex-1">
-                            <Label className="text-[10px] text-slate-400">
+                            <Label className="text-[10px] text-muted-foreground">
                               إضافي (س)
                             </Label>
                             <Input

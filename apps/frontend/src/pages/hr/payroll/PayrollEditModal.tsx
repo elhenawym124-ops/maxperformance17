@@ -49,7 +49,7 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
           <DialogTitle>تعديل كشف الراتب</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6 py-4 max-h-[70vh] overflow-y-auto pr-2 px-1">
+        <div className="space-y-6 py-4 max-h-[70vh] overflow-y-auto pe-2 px-1">
           {/* Employee Info */}
           <div className="flex items-center gap-4 pb-4 border-b">
             <Avatar className="h-12 w-12">
@@ -62,7 +62,7 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
               <h3 className="font-semibold">
                 {payroll.employee?.firstName} {payroll.employee?.lastName}
               </h3>
-              <p className="text-sm text-gray-500">{payroll.employee?.position?.title}</p>
+              <p className="text-sm text-muted-foreground">{payroll.employee?.position?.title}</p>
             </div>
           </div>
 
@@ -80,16 +80,16 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
                 }}
               />
               {payroll.fullMonthBaseSalary && (
-                <p className="text-[10px] text-gray-500 italic">
+                <p className="text-[10px] text-muted-foreground italic">
                   الراتب الشهري الكامل في العقد: {formatCurrency(payroll.fullMonthBaseSalary)}
                 </p>
               )}
             </div>
 
-            <div className="space-y-4 border p-4 rounded-lg bg-green-50/50">
+            <div className="space-y-4 border p-4 rounded-lg bg-success/50">
               <div className="flex justify-between items-center">
                 <Label className="text-green-700">تفاصيل البدلات</Label>
-                <span className="font-bold text-green-700 tabular-nums">
+                <span className="font-bold text-success tabular-nums">
                   {formatCurrency(editingAllowances.reduce((sum, item) => sum + (item.amount || 0), 0))}
                 </span>
               </div>
@@ -122,7 +122,7 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
                       onClick={() => {
                         setEditingAllowances(prev => prev.filter(i => i.id !== item.id));
                       }}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-500 hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -139,16 +139,16 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
                   }}
                   className="w-full border-dashed"
                 >
-                  <Plus className="h-4 w-4 ml-2" />
+                  <Plus className="h-4 w-4 ms-2" />
                   إضافة بند بدل
                 </Button>
               </div>
             </div>
 
-            <div className="space-y-4 border p-4 rounded-lg bg-red-50/50">
+            <div className="space-y-4 border p-4 rounded-lg bg-destructive/50">
               <div className="flex justify-between items-center">
                 <Label className="text-red-700">تفاصيل الخصومات</Label>
-                <span className="font-bold text-red-700 tabular-nums">
+                <span className="font-bold text-destructive tabular-nums">
                   {formatCurrency(editingDeductions.reduce((sum, item) => sum + (item.amount || 0), 0))}
                 </span>
               </div>
@@ -181,7 +181,7 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
                       onClick={() => {
                         setEditingDeductions(prev => prev.filter(i => i.id !== item.id));
                       }}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-500 hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -198,7 +198,7 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
                   }}
                   className="w-full border-dashed"
                 >
-                  <Plus className="h-4 w-4 ml-2" />
+                  <Plus className="h-4 w-4 ms-2" />
                   إضافة بند خصم
                 </Button>
               </div>
@@ -264,7 +264,7 @@ export const PayrollEditModal: React.FC<PayrollEditModalProps> = ({
           <Button onClick={onSave} disabled={saving}>
             {saving ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white ml-2"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white ms-2"></div>
                 جاري الحفظ...
               </>
             ) : (

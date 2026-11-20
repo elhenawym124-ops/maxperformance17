@@ -30,7 +30,7 @@ export const PerformancePIPModal: React.FC<PerformancePIPModalProps> = ({
       <DialogContent className="max-w-lg" dir="rtl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-foreground">
-            <ShieldAlert className="h-5 w-5 text-rose-500" />
+            <ShieldAlert className="h-5 w-5 text-destructive" />
             <span>توليد خطة تحسين الأداء (PIP) المؤتمتة</span>
           </DialogTitle>
           <DialogDescription className="text-xs text-muted-foreground mt-1">
@@ -62,7 +62,7 @@ export const PerformancePIPModal: React.FC<PerformancePIPModalProps> = ({
                 {employee.riskFlags.map((flag, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 p-2 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 text-xs"
+                    className="flex items-center gap-2 p-2 rounded bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 text-xs"
                   >
                     <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
                     <span>{flag}</span>
@@ -107,7 +107,7 @@ export const PerformancePIPModal: React.FC<PerformancePIPModalProps> = ({
             onClick={() => {
               if (employee) onConfirmPIP(employee);
             }}
-            className="text-xs bg-rose-600 hover:bg-rose-700 text-white font-bold"
+            className="text-xs bg-destructive hover:bg-destructive text-white font-bold"
           >
             اعتماد وإرسال الخطة للموظف
           </Button>

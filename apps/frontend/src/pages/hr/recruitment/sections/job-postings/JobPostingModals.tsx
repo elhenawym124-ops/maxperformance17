@@ -39,16 +39,16 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-card rounded-xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
           >
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-foreground dark:text-white mb-6">
               إضافة وظيفة جديدة
             </h2>
 
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     المسمى الوظيفي *
                   </label>
                   <input
@@ -57,12 +57,12 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, title: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                     placeholder="مثال: مطور Full Stack"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     القسم *
                   </label>
                   <input
@@ -71,7 +71,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, department: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                     placeholder="مثال: تطوير البرمجيات"
                   />
                 </div>
@@ -79,7 +79,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     الموقع *
                   </label>
                   <input
@@ -88,12 +88,12 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, location: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                     placeholder="مثال: القاهرة - مصر"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     نوع الوظيفة *
                   </label>
                   <select
@@ -104,7 +104,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                         type: e.target.value as JobPostingType,
                       })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                   >
                     <option value="FULL_TIME">دوام كامل</option>
                     <option value="PART_TIME">دوام جزئي</option>
@@ -116,7 +116,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     مستوى الخبرة *
                   </label>
                   <select
@@ -127,7 +127,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                         experienceLevel: e.target.value as JobExperienceLevel,
                       })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                   >
                     <option value="ENTRY">مبتدئ</option>
                     <option value="JUNIOR">Junior</option>
@@ -137,7 +137,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     الراتب من
                   </label>
                   <input
@@ -146,12 +146,12 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, salaryMin: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white font-mono tabular-nums"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white font-mono tabular-nums"
                     placeholder="15000"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     الراتب إلى
                   </label>
                   <input
@@ -160,14 +160,14 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, salaryMax: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white font-mono tabular-nums"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white font-mono tabular-nums"
                     placeholder="25000"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   الوصف الوظيفي *
                 </label>
                 <textarea
@@ -176,13 +176,13 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChangeJob({ ...newJob, description: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                   placeholder="اكتب وصف تفصيلي للوظيفة..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   المتطلبات (سطر لكل متطلب) *
                 </label>
                 <textarea
@@ -191,13 +191,13 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChangeJob({ ...newJob, requirements: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                   placeholder="خبرة 3+ سنوات&#10;React & Node.js&#10;TypeScript"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   المسؤوليات (سطر لكل مسؤولية) *
                 </label>
                 <textarea
@@ -206,13 +206,13 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChangeJob({ ...newJob, responsibilities: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
                   placeholder="تطوير الميزات الجديدة&#10;صيانة الكود&#10;مراجعة الكود"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   تاريخ الإغلاق
                 </label>
                 <DateInput
@@ -220,7 +220,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                   onChange={(e) =>
                     onChangeJob({ ...newJob, closingDate: e.target.value })
                   }
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white font-mono tabular-nums"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white font-mono tabular-nums"
                 />
               </div>
             </div>
@@ -228,13 +228,13 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
             <div className="flex gap-3 mt-6">
               <button
                 onClick={onSubmit}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
               >
                 إنشاء الوظيفة
               </button>
               <button
                 onClick={onClose}
-                className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl hover:bg-gray-300 transition-all"
+                className="px-6 py-3 bg-muted dark:bg-muted text-foreground dark:text-white rounded-xl hover:bg-muted transition-all"
               >
                 إلغاء
               </button>
@@ -272,14 +272,14 @@ export const JobPostingDetailsModal: React.FC<JobPostingDetailsModalProps> = ({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-card rounded-xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
           >
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                <h2 className="text-2xl font-bold text-foreground dark:text-white mb-2">
                   {selectedJob.title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-muted-foreground">
                   {selectedJob.department}
                 </p>
               </div>
@@ -294,16 +294,16 @@ export const JobPostingDetailsModal: React.FC<JobPostingDetailsModalProps> = ({
 
             <div className="space-y-6">
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                <h3 className="font-bold text-foreground dark:text-white mb-2">
                   الوصف الوظيفي
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-muted-foreground">
                   {selectedJob.description}
                 </p>
               </div>
 
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                <h3 className="font-bold text-foreground dark:text-white mb-2">
                   المتطلبات
                 </h3>
                 <ul className="list-disc list-inside space-y-1">
@@ -311,7 +311,7 @@ export const JobPostingDetailsModal: React.FC<JobPostingDetailsModalProps> = ({
                     (req, idx) => (
                       <li
                         key={idx}
-                        className="text-gray-600 dark:text-gray-400"
+                        className="text-gray-600 dark:text-muted-foreground"
                       >
                         {req}
                       </li>
@@ -321,7 +321,7 @@ export const JobPostingDetailsModal: React.FC<JobPostingDetailsModalProps> = ({
               </div>
 
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                <h3 className="font-bold text-foreground dark:text-white mb-2">
                   المسؤوليات
                 </h3>
                 <ul className="list-disc list-inside space-y-1">
@@ -329,7 +329,7 @@ export const JobPostingDetailsModal: React.FC<JobPostingDetailsModalProps> = ({
                     (resp, idx) => (
                       <li
                         key={idx}
-                        className="text-gray-600 dark:text-gray-400"
+                        className="text-gray-600 dark:text-muted-foreground"
                       >
                         {resp}
                       </li>
@@ -341,7 +341,7 @@ export const JobPostingDetailsModal: React.FC<JobPostingDetailsModalProps> = ({
 
             <button
               onClick={onClose}
-              className="w-full mt-6 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl hover:bg-gray-300 transition-all"
+              className="w-full mt-6 px-6 py-3 bg-muted dark:bg-muted text-foreground dark:text-white rounded-xl hover:bg-muted transition-all"
             >
               إغلاق
             </button>

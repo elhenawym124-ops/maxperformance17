@@ -24,7 +24,7 @@ export const PayrollEmployeeSidebar: React.FC<PayrollEmployeeSidebarProps> = ({
   handleSelectEmployee,
 }) => {
   return (
-    <Card className="lg:w-80 flex flex-col shrink-0 rounded-2xl border border-border/70 bg-card shadow-xs">
+    <Card className="lg:w-80 flex flex-col shrink-0 rounded-xl border border-border/70 bg-card shadow-xs">
       <CardHeader className="pb-3 border-b border-border/70 bg-muted/20">
         <CardTitle className="text-base font-bold flex items-center gap-2 text-foreground">
           <Users className="h-4 w-4 text-primary" />
@@ -34,7 +34,7 @@ export const PayrollEmployeeSidebar: React.FC<PayrollEmployeeSidebarProps> = ({
           <Search className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="بحث باسم أو رقم الموظف..."
-            className="pr-9"
+            className="pe-9"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -44,14 +44,14 @@ export const PayrollEmployeeSidebar: React.FC<PayrollEmployeeSidebarProps> = ({
         <ScrollArea className="h-[calc(100dvh-300px)]">
           {loadingEmployees ? (
             <div className="p-4 text-center">
-              <div className="animate-spin h-8 w-8 border-2 border-indigo-600 rounded-full border-t-transparent mx-auto"></div>
-              <p className="mt-2 text-sm text-gray-500">
+              <div className="animate-spin h-8 w-8 border-2 border-primary rounded-full border-t-transparent mx-auto"></div>
+              <p className="mt-2 text-sm text-muted-foreground">
                 جاري تحميل الموظفين...
               </p>
             </div>
           ) : filteredEmployees.length === 0 ? (
             <div className="p-4 text-center">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 لا يوجد موظفين مطابقين للبحث
               </p>
             </div>

@@ -64,7 +64,7 @@ export const PolarisMyPayrollView: React.FC<PolarisMyPayrollViewProps> = ({
         subtitle={`استعراض مفردات المرتب، البدلات، والاستقطاعات لشهر ${month}/${year}`}
         badges={
           payrollData?.status && (
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 tabular-nums">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-success/10 text-success dark:text-success border border-success/20 tabular-nums">
               {payrollData.status === "PAID" ? "مدفوع" : "معتمد"}
             </span>
           )

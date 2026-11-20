@@ -51,7 +51,7 @@ const RewardTypes: React.FC = () => {
             setIsDialogOpen(true);
           }}
         >
-          <Plus className="h-4 w-4 ml-2" />
+          <Plus className="h-4 w-4 ms-2" />
           {t("rewards.form.addNew")}
         </Button>
       </CardHeader>

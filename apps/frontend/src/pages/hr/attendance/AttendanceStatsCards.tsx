@@ -22,21 +22,21 @@ export const AttendanceStatsCards: React.FC<AttendanceStatsCardsProps> = ({
       label: "حاضر",
       value: todayStats?.present,
       icon: CheckCircle,
-      color: "text-emerald-600 dark:text-emerald-400",
+      color: "text-emerald-600 dark:text-success",
       bg: "bg-emerald-500/10",
     },
     {
       label: "متأخر",
       value: todayStats?.late,
       icon: AlertCircle,
-      color: "text-amber-600 dark:text-amber-400",
+      color: "text-amber-600 dark:text-warning",
       bg: "bg-amber-500/10",
     },
     {
       label: "غائب",
       value: todayStats?.absent,
       icon: XCircle,
-      color: "text-rose-600 dark:text-rose-400",
+      color: "text-rose-600 dark:text-destructive",
       bg: "bg-rose-500/10",
     },
   ];
@@ -46,7 +46,7 @@ export const AttendanceStatsCards: React.FC<AttendanceStatsCardsProps> = ({
       {stats.map((stat, i) => (
         <Card
           key={i}
-          className="rounded-xl sm:rounded-2xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border"
+          className="rounded-xl sm:rounded-xl border border-border/70 bg-card shadow-xs transition-colors hover:border-border"
         >
           <CardContent className="p-3 sm:p-5 flex items-center justify-between">
             <div className="min-w-0">

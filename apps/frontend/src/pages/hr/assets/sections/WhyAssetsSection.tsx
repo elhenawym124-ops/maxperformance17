@@ -65,21 +65,21 @@ const WhyAssetsSection: React.FC = () => {
   const colorClasses: Record<string, string> = {
     blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
     indigo:
-      "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400",
+      "bg-indigo-50 text-primary dark:bg-primary/30 dark:text-primary",
     green:
-      "bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-400",
+      "bg-green-50 text-success dark:bg-success/30 dark:text-success",
     orange:
-      "bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400",
-    red: "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400",
+      "bg-orange-50 text-warning dark:bg-warning/30 dark:text-warning",
+    red: "bg-red-50 text-destructive dark:bg-destructive/30 dark:text-destructive",
   };
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+        <h2 className="text-3xl font-extrabold text-foreground">
           لماذا نحتاج لنظام إدارة الأصول؟
         </h2>
-        <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
+        <p className="mt-4 text-lg text-muted-foreground">
           أهمية تتبع الأصول والعهدة لضمان استقرار ونمو الشركة
         </p>
       </div>
@@ -88,23 +88,23 @@ const WhyAssetsSection: React.FC = () => {
         {reasons.map((reason, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow"
+            className="bg-card rounded-xl p-6 shadow-sm border border-border dark:border-border hover:shadow-md transition-shadow"
           >
             <div
               className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${colorClasses[reason.color]}`}
             >
               <reason.icon className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-xl font-bold text-foreground mb-4">
               {reason.title}
             </h3>
             <ul className="space-y-3">
               {reason.items.map((item, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start gap-2 text-gray-600 dark:text-gray-300"
+                  className="flex items-start gap-2 text-muted-foreground"
                 >
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                   {item}
                 </li>
               ))}

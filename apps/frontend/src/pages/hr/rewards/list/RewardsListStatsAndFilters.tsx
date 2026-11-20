@@ -33,13 +33,13 @@ export const RewardsListStatsAndFilters: React.FC<
       {/* Statistics Cards */}
       {statistics && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-card rounded-lg shadow p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   إجمالي المكافآت
                 </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
                   {statistics.total}
                 </p>
               </div>
@@ -47,61 +47,61 @@ export const RewardsListStatsAndFilters: React.FC<
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-card rounded-lg shadow p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   القيمة الإجمالية
                 </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                <p className="text-2xl font-bold text-foreground">
                   <span className="font-mono tabular-nums">
                     {statistics.totalValue.toLocaleString()}
                   </span>{" "}
                   ج.م
                 </p>
               </div>
-              <DollarSign className="w-10 h-10 text-green-500" />
+              <DollarSign className="w-10 h-10 text-success" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-card rounded-lg shadow p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   معتمد
                 </p>
-                <p className="text-2xl font-bold text-green-600 font-mono tabular-nums">
+                <p className="text-2xl font-bold text-success font-mono tabular-nums">
                   {statistics.byStatus.find((s) => s.status === "APPROVED")
                     ?.count || 0}
                 </p>
               </div>
-              <CheckCircle className="w-10 h-10 text-green-500" />
+              <CheckCircle className="w-10 h-10 text-success" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <div className="bg-card rounded-lg shadow p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   قيد الانتظار
                 </p>
-                <p className="text-2xl font-bold text-yellow-600 font-mono tabular-nums">
+                <p className="text-2xl font-bold text-warning font-mono tabular-nums">
                   {statistics.byStatus.find((s) => s.status === "PENDING")
                     ?.count || 0}
                 </p>
               </div>
-              <Clock className="w-10 h-10 text-yellow-500" />
+              <Clock className="w-10 h-10 text-warning" />
             </div>
           </div>
         </div>
       )}
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+      <div className="bg-card rounded-lg shadow p-4">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={onToggleFilters}
-            className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className="flex items-center gap-2 text-foreground hover:text-foreground dark:hover:text-white"
           >
             <Filter className="w-5 h-5" />
             الفلاتر
@@ -117,11 +117,11 @@ export const RewardsListStatsAndFilters: React.FC<
         {showFilters && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 بحث
               </label>
               <div className="relative">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
                   value={filters.search}
@@ -132,13 +132,13 @@ export const RewardsListStatsAndFilters: React.FC<
                     }))
                   }
                   placeholder="ابحث..."
-                  className="w-full pr-10 pl-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full pe-10 ps-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 الحالة
               </label>
               <select
@@ -149,7 +149,7 @@ export const RewardsListStatsAndFilters: React.FC<
                     status: e.target.value,
                   }))
                 }
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">الكل</option>
                 <option value="PENDING">قيد الانتظار</option>
@@ -161,7 +161,7 @@ export const RewardsListStatsAndFilters: React.FC<
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 التصنيف
               </label>
               <select
@@ -172,7 +172,7 @@ export const RewardsListStatsAndFilters: React.FC<
                     category: e.target.value,
                   }))
                 }
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">الكل</option>
                 <option value="ATTENDANCE">حضور</option>
@@ -186,7 +186,7 @@ export const RewardsListStatsAndFilters: React.FC<
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 السنة
               </label>
               <select
@@ -194,7 +194,7 @@ export const RewardsListStatsAndFilters: React.FC<
                 onChange={(e) =>
                   onUpdateFilters((prev) => ({ ...prev, year: e.target.value }))
                 }
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
+                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
               >
                 {[2024, 2025, 2026].map((year) => (
                   <option key={year} value={year}>

@@ -76,7 +76,7 @@ export const PolarisAuditLogsView: React.FC<PolarisAuditLogsViewProps> = ({
         </div>
 
         {/* Table */}
-        <div className="p-0 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:rounded-none">
+        <div className="p-0 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:rounded-none">
           <AuditLogsTable
             logs={logs}
             loading={loading}

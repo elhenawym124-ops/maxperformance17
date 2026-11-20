@@ -34,8 +34,8 @@ export const HRWorkingHoursTab: React.FC<HRWorkingHoursTabProps> = ({
           <div className="flex items-center gap-2">
             <Label>أيام العمل</Label>
             <div className="group relative inline-block">
-              <Info className="h-4 w-4 text-gray-400 cursor-help" />
-              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+              <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                 اختر أيام الأسبوع التي تعتبر أيام عمل. يجب اختيار يوم واحد على الأقل
               </div>
             </div>
@@ -56,13 +56,13 @@ export const HRWorkingHoursTab: React.FC<HRWorkingHoursTabProps> = ({
             ))}
           </div>
           {errors.workingDays && (
-            <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-2">
+            <p className="text-sm text-destructive dark:text-destructive flex items-center gap-2">
               <AlertCircle className="h-4 w-4" />
               {errors.workingDays}
             </p>
           )}
           {settings.workingDays.length > 0 && (
-            <p className="text-sm text-green-600 dark:text-green-400 flex items-center gap-2">
+            <p className="text-sm text-success dark:text-success flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4" />
               تم اختيار{" "}
               <span className="tabular-nums font-mono font-medium">
@@ -73,12 +73,12 @@ export const HRWorkingHoursTab: React.FC<HRWorkingHoursTabProps> = ({
           )}
 
           {/* Weekly Rest Days Section */}
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/40 p-3.5 space-y-2.5">
+          <div className="rounded-lg border border-border dark:border-border bg-muted dark:bg-muted p-3.5 space-y-2.5">
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              <span className="text-sm font-semibold text-foreground dark:text-muted-foreground">
                 أيام الراحة الأسبوعية المحددة:
               </span>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-muted-foreground">
                 (الأيام غير المحددة كأيام عمل تُعتبر راحة أسبوعية)
               </span>
             </div>
@@ -88,18 +88,18 @@ export const HRWorkingHoursTab: React.FC<HRWorkingHoursTabProps> = ({
                 .map((day) => (
                   <Badge
                     key={day.value}
-                    className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border-emerald-300 px-3 py-1 font-medium"
+                    className="bg-emerald-100 text-success dark:bg-success/40 dark:text-success border-success px-3 py-1 font-medium"
                   >
                     {day.label} (راحة أسبوعية)
                   </Badge>
                 ))}
               {weekDaysList.filter((day) => !settings.workingDays.includes(day.value)).length === 0 && (
-                <span className="text-xs text-amber-600 font-medium">
+                <span className="text-xs text-warning font-medium">
                   لا توجد أيام راحة أسبوعية (كل الأيام عمل)
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200 dark:border-slate-800 pt-2">
+            <p className="text-xs text-foreground dark:text-muted-foreground leading-relaxed border-t border-border dark:border-border pt-2">
               قاعدة النظام: أي بصمة حضور لموظف في يوم الراحة تُسجّل تلقائياً كـ <strong>ساعات إضافية (OVERTIME)</strong> بكامل ساعات الحضور الفعلي، مع استبعادها تماماً من أي خصومات تأخير أو غياب (صفر دقائق خصم).
             </p>
           </div>

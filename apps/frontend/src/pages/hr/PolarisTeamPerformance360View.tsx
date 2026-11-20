@@ -155,7 +155,7 @@ export const PolarisTeamPerformance360View: React.FC<
       {showKPIs && <TeamPerformance360KPIs summary={data?.summary} />}
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Tier Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -191,7 +191,7 @@ export const PolarisTeamPerformance360View: React.FC<
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="البحث بالاسم أو المنصب أو القسم..."
-              className="pr-9 h-9 text-xs rounded-xl bg-background border-border/70"
+              className="pe-9 h-9 text-xs rounded-xl bg-background border-border/70"
             />
           </div>
 
@@ -221,7 +221,7 @@ export const PolarisTeamPerformance360View: React.FC<
         </div>
 
         {/* Content Body: Leaderboard Table */}
-        <CardContent className="p-0 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:p-0">
+        <CardContent className="p-0 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:p-0">
           <TeamPerformance360Table
             employees={filteredEmployees}
             totalCount={data?.leaderboard.length ?? 0}

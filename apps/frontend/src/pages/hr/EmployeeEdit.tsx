@@ -182,7 +182,7 @@ const EmployeeEdit: React.FC = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl flex items-center gap-2">
-                  <User className="h-5 w-5 text-gray-400" />
+                  <User className="h-5 w-5 text-muted-foreground" />
                   المعلومات الأساسية
                 </CardTitle>
               </CardHeader>
@@ -196,7 +196,7 @@ const EmployeeEdit: React.FC = () => {
                       })}
                     />
                     {errors.firstName && (
-                      <p className="text-sm text-red-500">
+                      <p className="text-sm text-destructive">
                         {errors.firstName.message}
                       </p>
                     )}
@@ -209,7 +209,7 @@ const EmployeeEdit: React.FC = () => {
                       })}
                     />
                     {errors.lastName && (
-                      <p className="text-sm text-red-500">
+                      <p className="text-sm text-destructive">
                         {errors.lastName.message}
                       </p>
                     )}
@@ -237,7 +237,7 @@ const EmployeeEdit: React.FC = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-gray-400" />
+                  <Shield className="h-5 w-5 text-muted-foreground" />
                   الوظيفة والراتب
                 </CardTitle>
               </CardHeader>
@@ -322,9 +322,9 @@ const EmployeeEdit: React.FC = () => {
                         type="number"
                         step="0.01"
                         {...register("baseSalary")}
-                        className="pl-10"
+                        className="ps-10"
                       />
-                      <DollarSign className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <DollarSign className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
                     </div>
                   </div>
                 </div>
@@ -350,7 +350,7 @@ const EmployeeEdit: React.FC = () => {
                       "جاري الحفظ..."
                     ) : (
                       <>
-                        <Save className="h-4 w-4 ml-2" />
+                        <Save className="h-4 w-4 ms-2" />
                         حفظ جميع التغييرات
                       </>
                     )}

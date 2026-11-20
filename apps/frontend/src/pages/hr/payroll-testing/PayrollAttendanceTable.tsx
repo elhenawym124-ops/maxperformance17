@@ -39,7 +39,7 @@ export const PayrollAttendanceTable: React.FC<PayrollAttendanceTableProps> = ({
     <Card className="lg:col-span-2">
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-indigo-600" />
+          <Calendar className="h-5 w-5 text-primary" />
           سجلات الحضور والانصراف
         </CardTitle>
         <CardDescription>
@@ -65,7 +65,7 @@ export const PayrollAttendanceTable: React.FC<PayrollAttendanceTableProps> = ({
                   <TableRow>
                     <TableCell
                       colSpan={6}
-                      className="text-center py-8 text-slate-400 italic"
+                      className="text-center py-8 text-muted-foreground italic"
                     >
                       لا توجد سجلات حضور متاحة
                     </TableCell>
@@ -93,19 +93,19 @@ export const PayrollAttendanceTable: React.FC<PayrollAttendanceTableProps> = ({
                               <SelectContent>
                                 <SelectItem value="PRESENT">
                                   <span className="flex items-center gap-2">
-                                    <span className="h-2 w-2 rounded-full bg-green-500"></span>
+                                    <span className="h-2 w-2 rounded-full bg-success"></span>
                                     حاضر
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="ABSENT">
                                   <span className="flex items-center gap-2">
-                                    <span className="h-2 w-2 rounded-full bg-red-500"></span>
+                                    <span className="h-2 w-2 rounded-full bg-destructive"></span>
                                     غائب
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="LATE">
                                   <span className="flex items-center gap-2">
-                                    <span className="h-2 w-2 rounded-full bg-amber-500"></span>
+                                    <span className="h-2 w-2 rounded-full bg-warning"></span>
                                     متأخر
                                   </span>
                                 </SelectItem>
@@ -117,7 +117,7 @@ export const PayrollAttendanceTable: React.FC<PayrollAttendanceTableProps> = ({
                                 </SelectItem>
                                 <SelectItem value="HOLIDAY">
                                   <span className="flex items-center gap-2">
-                                    <span className="h-2 w-2 rounded-full bg-purple-500"></span>
+                                    <span className="h-2 w-2 rounded-full bg-primary"></span>
                                     عطلة
                                   </span>
                                 </SelectItem>
@@ -200,7 +200,7 @@ export const PayrollAttendanceTable: React.FC<PayrollAttendanceTableProps> = ({
           </div>
 
           <div className="flex justify-between items-center mt-4">
-            <div className="text-sm text-slate-500 font-mono tabular-nums">
+            <div className="text-sm text-muted-foreground font-mono tabular-nums">
               إجمالي السجلات: {attendance.length}
             </div>
             <div className="flex gap-2">
@@ -213,7 +213,7 @@ export const PayrollAttendanceTable: React.FC<PayrollAttendanceTableProps> = ({
                   }
                 }}
               >
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 إعادة ضبط
               </Button>
             </div>

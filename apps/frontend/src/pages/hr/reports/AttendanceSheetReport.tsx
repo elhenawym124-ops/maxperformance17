@@ -24,7 +24,7 @@ const AttendanceSheetReport: React.FC = () => {
   } = useAttendanceSheetReportController();
 
   return (
-    <div className="space-y-6 text-gray-900 dark:text-gray-100">
+    <div className="space-y-6 text-foreground">
       <AttendanceSheetFiltersAndKPIs
         selectedMonth={selectedMonth}
         selectedYear={selectedYear}

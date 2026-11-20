@@ -16,7 +16,7 @@ export const PayrollOvertimeCard: React.FC<PayrollOvertimeCardProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
-          <Clock className="h-5 w-5 text-indigo-600" />
+          <Clock className="h-5 w-5 text-primary" />
           إعدادات العمل الإضافي
         </CardTitle>
         <CardDescription>
@@ -41,7 +41,7 @@ export const PayrollOvertimeCard: React.FC<PayrollOvertimeCardProps> = ({
                   1.5x
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 مضاعف سعر الساعة العادية
               </p>
             </div>
@@ -63,17 +63,17 @@ export const PayrollOvertimeCard: React.FC<PayrollOvertimeCardProps> = ({
                   2x
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 مضاعف سعر الدقيقة العادية
               </p>
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="pt-4 border-t border-border dark:border-border">
             <h4 className="font-medium mb-2">ملخص الحضور</h4>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                <div className="text-xs text-slate-500">أيام الحضور</div>
+              <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                <div className="text-xs text-muted-foreground">أيام الحضور</div>
                 <div className="font-bold text-lg font-mono tabular-nums">
                   {
                     attendance.filter(
@@ -83,15 +83,15 @@ export const PayrollOvertimeCard: React.FC<PayrollOvertimeCardProps> = ({
                   يوم
                 </div>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                <div className="text-xs text-slate-500">أيام الغياب</div>
+              <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                <div className="text-xs text-muted-foreground">أيام الغياب</div>
                 <div className="font-bold text-lg font-mono tabular-nums">
                   {attendance.filter((a) => a.status === "ABSENT").length}{" "}
                   يوم
                 </div>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                <div className="text-xs text-slate-500">
+              <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                <div className="text-xs text-muted-foreground">
                   إجمالي دقائق التأخير
                 </div>
                 <div className="font-bold text-lg font-mono tabular-nums">
@@ -99,8 +99,8 @@ export const PayrollOvertimeCard: React.FC<PayrollOvertimeCardProps> = ({
                   دقيقة
                 </div>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                <div className="text-xs text-slate-500">
+              <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                <div className="text-xs text-muted-foreground">
                   إجمالي ساعات الإضافي
                 </div>
                 <div className="font-bold text-lg font-mono tabular-nums">

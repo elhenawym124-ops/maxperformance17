@@ -69,12 +69,12 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
           }}
           className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium transition active:scale-95 ${
             currentCat === 'productive'
-              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:border-transparent dark:bg-emerald-500/15 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-500/25'
+              ? 'bg-emerald-50 text-success border border-success dark:border-transparent dark:bg-success/15 dark:text-success hover:bg-success dark:hover:bg-success/25'
               : currentCat === 'unproductive'
-              ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:border-transparent dark:bg-rose-500/15 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-500/25'
+              ? 'bg-rose-50 text-destructive border border-destructive dark:border-transparent dark:bg-destructive/15 dark:text-destructive hover:bg-destructive dark:hover:bg-destructive/25'
               : currentCat === 'neutral'
-              ? 'bg-muted text-foreground border border-border/50 dark:border-transparent dark:bg-zinc-500/15 dark:text-zinc-300 hover:bg-muted/80 dark:hover:bg-zinc-500/25'
-              : 'bg-teal-50 text-teal-700 border border-teal-200 dark:border-transparent dark:bg-teal-500/15 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-500/25'
+              ? 'bg-muted text-foreground border border-border/50 dark:border-transparent dark:bg-muted dark:text-muted-foreground hover:bg-muted/80 dark:hover:bg-muted'
+              : 'bg-teal-50 text-success border border-success dark:border-transparent dark:bg-success/15 dark:text-success hover:bg-success dark:hover:bg-success/25'
           }`}
           title="انقر لتعديل تصنيف هذا الموقع"
         >
@@ -106,7 +106,7 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
             <button
               onClick={() => handleUpdateCategory(domain, 'productive')}
               disabled={savingDomain === domain}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-success dark:text-success hover:bg-success/10"
             >
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-3 w-3" /> منتج
@@ -116,7 +116,7 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
             <button
               onClick={() => handleUpdateCategory(domain, 'neutral')}
               disabled={savingDomain === domain}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-foreground hover:bg-muted dark:text-zinc-300 dark:hover:bg-zinc-800"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-foreground hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             >
               <span className="flex items-center gap-1.5">
                 <MinusCircle className="h-3 w-3" /> محايد
@@ -126,7 +126,7 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
             <button
               onClick={() => handleUpdateCategory(domain, 'unproductive')}
               disabled={savingDomain === domain}
-              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-500/10"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-right text-xs text-destructive dark:text-destructive hover:bg-destructive/10"
             >
               <span className="flex items-center gap-1.5">
                 <AlertTriangle className="h-3 w-3" /> غير منتج
@@ -143,7 +143,7 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
     <div className="rounded-xl border border-border/40 bg-card/60 p-4 text-card-foreground shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Globe className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <Globe className="h-4 w-4 text-success dark:text-success" />
           <h3 className="text-sm font-semibold tracking-tight text-foreground">
             المواقع والمنصات الرقمية المزارة ({websites.length})
           </h3>
@@ -167,7 +167,7 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
             return (
               <div
                 key={idx}
-                className="group relative rounded-lg border border-border/40 bg-muted/30 dark:bg-zinc-900/40 p-2.5 transition-colors hover:border-border/60 hover:bg-muted/60 dark:hover:bg-zinc-900/70"
+                className="group relative rounded-lg border border-border/40 bg-muted/30 dark:bg-muted p-2.5 transition-colors hover:border-border/60 hover:bg-muted/60 dark:hover:bg-muted"
               >
                 <div className="mb-1.5 flex items-center justify-between text-xs">
                   <div className="flex min-w-0 items-center gap-2">
@@ -192,7 +192,7 @@ export const WebUsageList: React.FC<WebUsageListProps> = ({
                 )}
 
                 {/* Progress Bar */}
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-zinc-800">
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted dark:bg-muted">
                   <div
                     className={`h-full rounded-full transition-all duration-300 ${
                       currentCat === 'productive'

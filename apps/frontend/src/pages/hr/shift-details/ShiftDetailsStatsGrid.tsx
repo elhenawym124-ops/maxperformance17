@@ -26,7 +26,7 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   وقت البدء
                 </p>
                 <p className="text-2xl font-bold mt-1 font-mono tabular-nums">
@@ -42,14 +42,14 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   وقت الانتهاء
                 </p>
                 <p className="text-2xl font-bold mt-1 font-mono tabular-nums">
                   {shift.endTime}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-purple-500" />
+              <Clock className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
@@ -58,7 +58,7 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   مدة الراحة
                 </p>
                 <p className="text-2xl font-bold mt-1">
@@ -68,7 +68,7 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
                   د
                 </p>
               </div>
-              <Coffee className="h-8 w-8 text-orange-500" />
+              <Coffee className="h-8 w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
@@ -77,7 +77,7 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   ساعات العمل
                 </p>
                 <p className="text-2xl font-bold mt-1">
@@ -91,7 +91,7 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
                   س
                 </p>
               </div>
-              <Activity className="h-8 w-8 text-green-500" />
+              <Activity className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
@@ -105,23 +105,23 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="text-sm text-gray-500 dark:text-gray-400">
+              <label className="text-sm text-muted-foreground">
                 الحالة
               </label>
               <div className="mt-2">
                 {shift.isActive ? (
-                  <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                  <Badge className="bg-green-100 text-success">نشط</Badge>
                 ) : (
                   <Badge variant="outline">غير نشط</Badge>
                 )}
               </div>
             </div>
             <div>
-              <label className="text-sm text-gray-500 dark:text-gray-400">
+              <label className="text-sm text-muted-foreground">
                 إجمالي الموظفين المعينين
               </label>
               <div className="mt-2 flex items-center gap-2">
-                <Users className="h-5 w-5 text-gray-400" />
+                <Users className="h-5 w-5 text-muted-foreground" />
                 <span className="text-lg font-semibold">
                   <span className="font-mono tabular-nums">
                     {totalAssignments}
@@ -131,12 +131,12 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
               </div>
             </div>
             <div>
-              <label className="text-sm text-gray-500 dark:text-gray-400">
+              <label className="text-sm text-muted-foreground">
                 اللون
               </label>
               <div className="mt-2 flex items-center gap-2">
                 <div
-                  className="w-8 h-8 rounded border-2 border-gray-200"
+                  className="w-8 h-8 rounded border-2 border-border"
                   style={{ backgroundColor: shift.color }}
                 />
                 <span className="text-sm font-mono">{shift.color}</span>

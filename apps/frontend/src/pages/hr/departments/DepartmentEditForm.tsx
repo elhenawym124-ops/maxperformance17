@@ -34,14 +34,14 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
   onSave,
 }) => {
   return (
-    <Card className="bg-white/90 dark:bg-gray-900/70">
+    <Card className="bg-white/90 dark:bg-muted">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">تعديل القسم</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label className="text-gray-700 dark:text-gray-300">
+            <Label className="text-foreground">
               اسم القسم *
             </Label>
             <Input
@@ -65,10 +65,10 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
               placeholder="0"
               className="font-mono tabular-nums"
             />
-            <p className="text-[10px] text-gray-400">أرقام أصغر تظهر أولاً</p>
+            <p className="text-[10px] text-muted-foreground">أرقام أصغر تظهر أولاً</p>
           </div>
           <div className="md:col-span-2 space-y-2">
-            <Label className="text-gray-700 dark:text-gray-300">
+            <Label className="text-foreground">
               الاسم بالإنجليزية
             </Label>
             <Input
@@ -85,7 +85,7 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
         </div>
 
         <div className="space-y-2">
-          <Label className="text-gray-700 dark:text-gray-300">
+          <Label className="text-foreground">
             الوصف
           </Label>
           <Textarea
@@ -102,7 +102,7 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label className="text-gray-700 dark:text-gray-300">
+            <Label className="text-foreground">
               اللون
             </Label>
             <div className="flex gap-2 flex-wrap">
@@ -112,7 +112,7 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
                   type="button"
                   className={`w-8 h-8 rounded-full border-2 transition-all ${
                     formData.color === color.value
-                      ? "border-gray-900 dark:border-gray-100 scale-110"
+                      ? "border-gray-900 dark:border-border scale-110"
                       : "border-transparent"
                   }`}
                   style={{ backgroundColor: color.value }}
@@ -127,7 +127,7 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
             </div>
           </div>
           <div className="space-y-2">
-            <Label className="text-gray-700 dark:text-gray-300">
+            <Label className="text-foreground">
               القسم الأب
             </Label>
             <Select
@@ -154,7 +154,7 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
         </div>
 
         <div className="space-y-2">
-          <Label className="text-gray-700 dark:text-gray-300">
+          <Label className="text-foreground">
             مدير القسم (اختياري)
           </Label>
           <Select
@@ -188,7 +188,7 @@ export const DepartmentEditForm: React.FC<DepartmentEditFormProps> = ({
         <div className="flex items-center justify-between gap-4 py-2">
           <Label
             htmlFor="isActive-details"
-            className="text-gray-700 dark:text-gray-300 cursor-pointer"
+            className="text-foreground cursor-pointer"
           >
             القسم نشط
           </Label>

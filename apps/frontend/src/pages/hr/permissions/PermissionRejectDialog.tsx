@@ -31,10 +31,10 @@ export const PermissionRejectDialog: React.FC<PermissionRejectDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[95vw] sm:max-w-[400px] rounded-2xl bg-white dark:bg-gray-950 p-4 sm:p-6">
+      <DialogContent className="w-[95vw] sm:max-w-[400px] rounded-xl bg-white dark:bg-muted p-4 sm:p-6">
         <DialogHeader className="text-right">
-          <div className="mx-auto bg-red-100 dark:bg-red-900/20 p-2.5 sm:p-3 rounded-full w-fit mb-3 sm:mb-4">
-            <AlertCircle className="h-6 w-6 sm:h-8 sm:w-8 text-red-600 dark:text-red-400" />
+          <div className="mx-auto bg-destructive dark:bg-destructive/20 p-2.5 sm:p-3 rounded-full w-fit mb-3 sm:mb-4">
+            <AlertCircle className="h-6 w-6 sm:h-8 sm:w-8 text-destructive dark:text-destructive" />
           </div>
           <DialogTitle className="text-center font-bold text-lg sm:text-xl">
             {t("employee.permissions.rejectDialogTitle")}
@@ -46,7 +46,7 @@ export const PermissionRejectDialog: React.FC<PermissionRejectDialogProps> = ({
         <div className="py-2">
           <Textarea
             placeholder={t("employee.permissions.rejectPlaceholder")}
-            className="text-right h-28 sm:h-32 rounded-xl bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 text-xs sm:text-sm"
+            className="text-right h-28 sm:h-32 rounded-xl bg-muted dark:bg-muted border-border dark:border-border text-xs sm:text-sm"
             value={rejectionReason}
             onChange={(e) => setRejectionReason(e.target.value)}
           />

@@ -54,13 +54,13 @@ const AssetStats: React.FC<{ refreshTrigger: number }> = ({
       name: "إجمالي الأصول",
       value: stats.totalCount,
       icon: CubeIcon,
-      color: "bg-indigo-50 text-indigo-700",
+      color: "bg-indigo-50 text-primary",
     },
     {
       name: "القيمة الإجمالية",
       value: formatPrice(stats.totalValue),
       icon: CurrencyDollarIcon,
-      color: "bg-green-50 text-green-700",
+      color: "bg-green-50 text-success",
     },
     {
       name: "أصول في الاستخدام",
@@ -72,7 +72,7 @@ const AssetStats: React.FC<{ refreshTrigger: number }> = ({
       name: "في الصيانة",
       value: stats.maintenanceCount,
       icon: WrenchScrewdriverIcon,
-      color: "bg-yellow-50 text-yellow-700",
+      color: "bg-yellow-50 text-warning",
     },
   ];
 
@@ -81,18 +81,18 @@ const AssetStats: React.FC<{ refreshTrigger: number }> = ({
       {statCards.map((card) => (
         <div
           key={card.name}
-          className="relative overflow-hidden rounded-lg bg-white dark:bg-gray-800 px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6 border border-gray-200 dark:border-gray-700"
+          className="relative overflow-hidden rounded-lg bg-card px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6 border border-border dark:border-border"
         >
           <dt>
             <div className={`absolute rounded-md p-3 ${card.color}`}>
               <card.icon className="h-6 w-6" aria-hidden="true" />
             </div>
-            <p className="ml-16 truncate text-sm font-medium text-gray-500 dark:text-gray-400">
+            <p className="ms-16 truncate text-sm font-medium text-muted-foreground">
               {card.name}
             </p>
           </dt>
-          <dd className="ml-16 flex items-baseline pb-1 sm:pb-2">
-            <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+          <dd className="ms-16 flex items-baseline pb-1 sm:pb-2">
+            <p className="text-2xl font-semibold text-foreground">
               {card.value}
             </p>
           </dd>

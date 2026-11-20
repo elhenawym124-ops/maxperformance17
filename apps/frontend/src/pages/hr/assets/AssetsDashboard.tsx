@@ -55,27 +55,27 @@ const AssetsDashboard: React.FC = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-                <ComputerDesktopIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 mr-3" />
+              <h1 className="text-2xl font-bold text-foreground flex items-center">
+                <ComputerDesktopIcon className="h-8 w-8 text-primary me-3" />
                 إدارة العهدة والأصول
               </h1>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-sm text-muted-foreground">
                 تتبع أصول الشركة، العهد المسلمة للموظفين، وحالتها
               </p>
             </div>
             <div className="flex space-x-3 space-x-reverse">
               <button
                 onClick={() => handleRefresh()}
-                className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="inline-flex items-center px-3 py-2 border border-border shadow-sm text-sm leading-4 font-medium rounded-md text-foreground bg-card hover:bg-muted/50"
               >
-                <ArrowPathIcon className="h-4 w-4 mr-2" />
+                <ArrowPathIcon className="h-4 w-4 me-2" />
                 تحديث
               </button>
               <button
                 onClick={() => setShowAddModal(true)}
                 className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <PlusIcon className="h-5 w-5 mr-2" />
+                <PlusIcon className="h-5 w-5 me-2" />
                 إضافة أصل جديد
               </button>
             </div>
@@ -85,7 +85,7 @@ const AssetsDashboard: React.FC = () => {
           <AssetStats refreshTrigger={refreshTrigger} />
 
           {/* Tabs */}
-          <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="border-b border-border dark:border-border">
             <nav
               className="-mb-px flex space-x-8 space-x-reverse"
               aria-label="Tabs"
@@ -94,33 +94,33 @@ const AssetsDashboard: React.FC = () => {
                 onClick={() => setActiveTab("list")}
                 className={`${
                   activeTab === "list"
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-border dark:text-muted-foreground dark:hover:text-muted-foreground"
                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center`}
               >
-                <ComputerDesktopIcon className="h-5 w-5 mr-2" />
+                <ComputerDesktopIcon className="h-5 w-5 me-2" />
                 سجل الأصول
               </button>
               <button
                 onClick={() => setActiveTab("categories")}
                 className={`${
                   activeTab === "categories"
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-border dark:text-muted-foreground dark:hover:text-muted-foreground"
                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center`}
               >
-                <TagIcon className="h-5 w-5 mr-2" />
+                <TagIcon className="h-5 w-5 me-2" />
                 التصنيفات
               </button>
               <button
                 onClick={() => setActiveTab("suppliers")}
                 className={`${
                   activeTab === "suppliers"
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-border dark:text-muted-foreground dark:hover:text-muted-foreground"
                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center`}
               >
-                <UserGroupIcon className="h-5 w-5 mr-2" />
+                <UserGroupIcon className="h-5 w-5 me-2" />
                 الموردون
               </button>
               {isHR && (
@@ -128,11 +128,11 @@ const AssetsDashboard: React.FC = () => {
                   onClick={() => setActiveTab("requests")}
                   className={`${
                     activeTab === "requests"
-                      ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                      ? "border-indigo-500 text-primary"
+                      : "border-transparent text-muted-foreground hover:text-foreground hover:border-border dark:text-muted-foreground dark:hover:text-muted-foreground"
                   } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center`}
                 >
-                  <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />
+                  <ClipboardDocumentListIcon className="h-5 w-5 me-2" />
                   طلبات العهدة
                 </button>
               )}
@@ -141,11 +141,11 @@ const AssetsDashboard: React.FC = () => {
                   onClick={() => setActiveTab("myRequests")}
                   className={`${
                     activeTab === "myRequests"
-                      ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                      ? "border-indigo-500 text-primary"
+                      : "border-transparent text-muted-foreground hover:text-foreground hover:border-border dark:text-muted-foreground dark:hover:text-muted-foreground"
                   } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center`}
                 >
-                  <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />
+                  <ClipboardDocumentListIcon className="h-5 w-5 me-2" />
                   طلباتي
                 </button>
               )}

@@ -28,13 +28,13 @@ export const MyCompaniesAttendanceTab: React.FC<
 }) => {
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center">
+      <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center">
         <div className="flex items-center gap-2">
-          <CalendarDaysIcon className="w-5 h-5 text-gray-400" />
+          <CalendarDaysIcon className="w-5 h-5 text-muted-foreground" />
           <select
             value={selectedMonth}
             onChange={(e) => onMonthChange(Number(e.target.value))}
-            className="form-select rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="form-select rounded-md border-border dark:bg-muted dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
           >
             {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
               <option key={m} value={m}>
@@ -49,7 +49,7 @@ export const MyCompaniesAttendanceTab: React.FC<
           <select
             value={selectedYear}
             onChange={(e) => onYearChange(Number(e.target.value))}
-            className="form-select rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 font-mono tabular-nums"
+            className="form-select rounded-md border-border dark:bg-muted dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 font-mono tabular-nums"
           >
             {[2024, 2025, 2026].map((y) => (
               <option key={y} value={y}>
@@ -65,10 +65,10 @@ export const MyCompaniesAttendanceTab: React.FC<
         {companies.map((item) => (
           <div
             key={item.company.id}
-            className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
+            className="bg-card p-5 rounded-xl shadow-sm border border-border dark:border-border"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center">
                 {item.company.logo ? (
                   <img
                     src={getImageUrl(item.company.logo) || ""}
@@ -76,51 +76,51 @@ export const MyCompaniesAttendanceTab: React.FC<
                     className="w-full h-full object-cover rounded-lg"
                   />
                 ) : (
-                  <BuildingOffice2Icon className="w-5 h-5 text-gray-400" />
+                  <BuildingOffice2Icon className="w-5 h-5 text-muted-foreground" />
                 )}
               </div>
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white">
+                <h3 className="font-bold text-foreground dark:text-white">
                   {item.company.name}
                 </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                <p className="text-xs text-muted-foreground font-mono tabular-nums">
                   {item.stats.totalUsers} موظف
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
-                <CheckCircleIcon className="w-5 h-5 mx-auto text-green-600 mb-1" />
-                <p className="text-xl font-bold text-gray-800 dark:text-white font-mono tabular-nums">
+              <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg text-center">
+                <CheckCircleIcon className="w-5 h-5 mx-auto text-success mb-1" />
+                <p className="text-xl font-bold text-foreground dark:text-white font-mono tabular-nums">
                   {item.stats.attendance.present}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   حاضر
                 </p>
               </div>
-              <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg text-center">
-                <ClockIcon className="w-5 h-5 mx-auto text-yellow-600 mb-1" />
-                <p className="text-xl font-bold text-gray-800 dark:text-white font-mono tabular-nums">
+              <div className="p-3 bg-warning/10 dark:bg-warning/20 rounded-lg text-center">
+                <ClockIcon className="w-5 h-5 mx-auto text-warning mb-1" />
+                <p className="text-xl font-bold text-foreground dark:text-white font-mono tabular-nums">
                   {item.stats.attendance.late}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   متأخر
                 </p>
               </div>
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg text-center">
-                <XCircleIcon className="w-5 h-5 mx-auto text-red-600 mb-1" />
-                <p className="text-xl font-bold text-gray-800 dark:text-white font-mono tabular-nums">
+              <div className="p-3 bg-destructive/10 dark:bg-destructive/20 rounded-lg text-center">
+                <XCircleIcon className="w-5 h-5 mx-auto text-destructive mb-1" />
+                <p className="text-xl font-bold text-foreground dark:text-white font-mono tabular-nums">
                   {item.stats.attendance.absent}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   غائب
                 </p>
               </div>
             </div>
 
             {/* Attendance Bar */}
-            <div className="mt-4 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden flex">
+            <div className="mt-4 h-2 bg-muted rounded-full overflow-hidden flex">
               <div
                 style={{
                   width: `${

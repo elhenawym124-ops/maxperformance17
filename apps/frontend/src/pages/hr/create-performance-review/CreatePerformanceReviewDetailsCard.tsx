@@ -34,7 +34,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
 > = ({ isEditing, submitting, formData, onChange, onSubmit, onCancel }) => {
   return (
     <div className="lg:col-span-2 space-y-8">
-      <Card className="border-none shadow-2xl ring-1 ring-gray-200 dark:ring-gray-800">
+      <Card className="border-none shadow-2xl ring-1 ring-border dark:ring-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary" />
@@ -51,7 +51,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                 onChange={(e) =>
                   onChange({ ...formData, reviewPeriod: e.target.value })
                 }
-                className="h-12 rounded-xl bg-gray-50/50"
+                className="h-12 rounded-xl bg-muted"
               />
             </div>
 
@@ -63,7 +63,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                 onChange={(e) =>
                   onChange({ ...formData, periodStart: e.target.value })
                 }
-                className="h-12 rounded-xl bg-gray-50/50 font-mono tabular-nums"
+                className="h-12 rounded-xl bg-muted font-mono tabular-nums"
               />
             </div>
             <div className="space-y-2">
@@ -74,7 +74,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                 onChange={(e) =>
                   onChange({ ...formData, periodEnd: e.target.value })
                 }
-                className="h-12 rounded-xl bg-gray-50/50 font-mono tabular-nums"
+                className="h-12 rounded-xl bg-muted font-mono tabular-nums"
               />
             </div>
 
@@ -99,7 +99,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                     overallRating: parseFloat(e.target.value),
                   })
                 }
-                className="h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                className="h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-xs text-muted-foreground px-1">
                 {RATING_SCALE_LABELS.map((label) => (
@@ -114,7 +114,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
           <div className="space-y-6">
             <div className="space-y-3">
               <Label className="font-bold flex items-center gap-2">
-                <Target className="h-4 w-4 text-green-500" />
+                <Target className="h-4 w-4 text-success" />
                 نقاط القوة
               </Label>
               <Textarea
@@ -123,7 +123,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                 onChange={(e) =>
                   onChange({ ...formData, strengths: e.target.value })
                 }
-                className="min-h-[100px] rounded-xl bg-gray-50/50 resize-none border-none ring-1 ring-gray-100"
+                className="min-h-[100px] rounded-xl bg-muted resize-none border-none ring-1 ring-border"
               />
             </div>
 
@@ -138,13 +138,13 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                 onChange={(e) =>
                   onChange({ ...formData, improvements: e.target.value })
                 }
-                className="min-h-[100px] rounded-xl bg-gray-50/50 resize-none border-none ring-1 ring-gray-100"
+                className="min-h-[100px] rounded-xl bg-muted resize-none border-none ring-1 ring-border"
               />
             </div>
 
             <div className="space-y-3">
               <Label className="font-bold flex items-center gap-2">
-                <BarChart3 className="h-4 w-4 text-purple-500" />
+                <BarChart3 className="h-4 w-4 text-primary" />
                 تعليقات المقيّم النهائية
               </Label>
               <Textarea
@@ -156,13 +156,13 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
                     reviewerComments: e.target.value,
                   })
                 }
-                className="min-h-[120px] rounded-xl bg-gray-50/50 resize-none border-none ring-1 ring-gray-100"
+                className="min-h-[120px] rounded-xl bg-muted resize-none border-none ring-1 ring-border"
               />
             </div>
           </div>
         </CardContent>
 
-        <div className="p-8 bg-gray-50/50 dark:bg-gray-800/20 border-t flex flex-col md:flex-row gap-4 justify-end rounded-b-2xl">
+        <div className="p-8 bg-muted dark:bg-muted border-t flex flex-col md:flex-row gap-4 justify-end rounded-b-2xl">
           <Button
             variant="outline"
             onClick={onCancel}
@@ -177,12 +177,12 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
           >
             {submitting ? (
               <>
-                <div className="h-4 w-4 border-2 border-white/30 border-t-white animate-spin rounded-full ml-2" />
+                <div className="h-4 w-4 border-2 border-white/30 border-t-white animate-spin rounded-full ms-2" />
                 جاري الحفظ...
               </>
             ) : (
               <>
-                <Save className="h-4 w-4 ml-2" />
+                <Save className="h-4 w-4 ms-2" />
                 {isEditing ? "حفظ التعديلات" : "حفظ ونشر التقييم"}
               </>
             )}

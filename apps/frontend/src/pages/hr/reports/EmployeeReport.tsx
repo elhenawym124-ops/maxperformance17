@@ -26,7 +26,7 @@ const EmployeeReport: React.FC = () => {
   } = useEmployeeReportController();
 
   return (
-    <div className="space-y-6 text-gray-900 dark:text-gray-100">
+    <div className="space-y-6 text-foreground">
       <EmployeeReportFilterBar
         employees={employees}
         selectedEmployee={selectedEmployee}
@@ -52,9 +52,9 @@ const EmployeeReport: React.FC = () => {
           <EmployeeReportWarningsAndAttendanceTable report={report} />
         </>
       ) : (
-        <Card className="dark:bg-gray-800 dark:border-gray-700 border-none shadow-sm">
+        <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
           <CardContent className="p-20">
-            <div className="text-center text-gray-500 dark:text-gray-400">
+            <div className="text-center text-muted-foreground">
               <FileText className="w-20 h-20 mx-auto mb-6 opacity-20" />
               <h3 className="text-xl font-bold dark:text-white">
                 جاهز لعرض التقرير

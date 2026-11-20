@@ -29,7 +29,7 @@ export const PayrollLeavesCard: React.FC<PayrollLeavesCardProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
-          <FileText className="h-5 w-5 text-indigo-600" />
+          <FileText className="h-5 w-5 text-primary" />
           سجلات الإجازات
         </CardTitle>
         <CardDescription>
@@ -39,7 +39,7 @@ export const PayrollLeavesCard: React.FC<PayrollLeavesCardProps> = ({
       <CardContent>
         <div className="space-y-4">
           {leaves.length === 0 ? (
-            <div className="text-center py-6 text-slate-400 italic">
+            <div className="text-center py-6 text-muted-foreground italic">
               لا توجد إجازات مضافة
             </div>
           ) : (
@@ -47,14 +47,14 @@ export const PayrollLeavesCard: React.FC<PayrollLeavesCardProps> = ({
               {leaves.map((leave, index) => (
                 <div
                   key={leave.id}
-                  className="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg space-y-3"
+                  className="p-3 bg-muted dark:bg-muted rounded-lg space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <h4 className="font-medium">إجازة {leave.type}</h4>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 h-8 w-8"
+                      className="text-rose-500 hover:bg-destructive/10 dark:hover:bg-destructive/20 h-8 w-8"
                       onClick={() => {
                         setLeaves(leaves.filter((_, i) => i !== index));
                       }}
@@ -97,7 +97,7 @@ export const PayrollLeavesCard: React.FC<PayrollLeavesCardProps> = ({
                             setLeaves(newLeaves);
                           }}
                         />
-                        <span className="mr-2 text-sm">
+                        <span className="me-2 text-sm">
                           {leave.isPaid ? "نعم" : "لا"}
                         </span>
                       </div>
@@ -175,7 +175,7 @@ export const PayrollLeavesCard: React.FC<PayrollLeavesCardProps> = ({
               ]);
             }}
           >
-            <Plus className="h-4 w-4 ml-2" />
+            <Plus className="h-4 w-4 ms-2" />
             إضافة إجازة جديدة
           </Button>
         </div>

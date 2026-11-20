@@ -33,7 +33,7 @@ export const HREmploymentTab: React.FC<HREmploymentTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <FileText className="h-5 w-5 text-indigo-500" />
+          <FileText className="h-5 w-5 text-primary" />
           سياسات التوظيف
         </CardTitle>
         <CardDescription>
@@ -60,7 +60,7 @@ export const HREmploymentTab: React.FC<HREmploymentTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500">يوم</p>
+            <p className="text-sm text-muted-foreground">يوم</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="contractRenewalNoticeDays">
@@ -80,7 +80,7 @@ export const HREmploymentTab: React.FC<HREmploymentTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               يوم قبل انتهاء العقد
             </p>
           </div>
@@ -100,7 +100,7 @@ export const HREmploymentTab: React.FC<HREmploymentTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500">سنة</p>
+            <p className="text-sm text-muted-foreground">سنة</p>
           </div>
           <div className="space-y-2">
             <Label>حساب مكافأة نهاية الخدمة</Label>
@@ -125,17 +125,17 @@ export const HREmploymentTab: React.FC<HREmploymentTabProps> = ({
           </div>
         </div>
         <Separator />
-        <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+        <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
           <div className="flex items-start gap-2">
             <div>
               <Label>إخلاء طرف إلزامي</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 يتطلب إنهاء الخدمة إتمام إخلاء الطرف والاستلام
               </p>
             </div>
             <div className="group relative inline-block">
-              <Info className="h-4 w-4 text-gray-400 cursor-help mt-0.5 shrink-0" />
-              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+              <Info className="h-4 w-4 text-muted-foreground cursor-help mt-0.5 shrink-0" />
+              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                 عند التفعيل، يجب على الموظف المُنهية خدمته إتمام نموذج إخلاء الطرف وتسليم المعدات/المستندات قبل صرف المستحقات
               </div>
             </div>

@@ -50,10 +50,10 @@ export const TeamPerformance360KPIs: React.FC<TeamPerformance360KPIsProps> = ({
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between text-muted-foreground mb-2">
             <span className="text-xs font-semibold">فئة النخبة (Tier S & A)</span>
-            <Award className="h-4 w-4 text-emerald-500" />
+            <Award className="h-4 w-4 text-success" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-black text-emerald-500 font-mono tabular-nums">
+            <span className="text-2xl sm:text-3xl font-black text-success font-mono tabular-nums">
               {eliteCount}
             </span>
             <span className="text-xs text-muted-foreground">موظف</span>
@@ -69,10 +69,10 @@ export const TeamPerformance360KPIs: React.FC<TeamPerformance360KPIsProps> = ({
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between text-muted-foreground mb-2">
             <span className="text-xs font-semibold">موظفون في دائرة الخطر</span>
-            <ShieldAlert className="h-4 w-4 text-rose-500" />
+            <ShieldAlert className="h-4 w-4 text-destructive" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-black text-rose-500 font-mono tabular-nums">
+            <span className="text-2xl sm:text-3xl font-black text-destructive font-mono tabular-nums">
               {atRiskCount}
             </span>
             <span className="text-xs text-muted-foreground">يحتاج تدخل</span>

@@ -8,7 +8,7 @@ export const MyPayrollSkeleton: React.FC = () => (
     {[1, 2, 3].map((i) => (
       <div
         key={i}
-        className="h-64 bg-muted/40 animate-pulse rounded-2xl border border-border/50"
+        className="h-64 bg-muted/40 animate-pulse rounded-xl border border-border/50"
       />
     ))}
   </div>
@@ -24,9 +24,9 @@ export const MyPayrollEmptyState: React.FC<MyPayrollEmptyStateProps> = ({
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="max-w-2xl mx-auto flex flex-col items-center justify-center py-16 px-6 text-center rounded-2xl border border-border/70 bg-card shadow-xs"
+    className="max-w-2xl mx-auto flex flex-col items-center justify-center py-16 px-6 text-center rounded-xl border border-border/70 bg-card shadow-xs"
   >
-    <div className="h-14 w-14 rounded-2xl bg-muted/50 border border-border/70 flex items-center justify-center mb-4 text-muted-foreground">
+    <div className="h-14 w-14 rounded-xl bg-muted/50 border border-border/70 flex items-center justify-center mb-4 text-muted-foreground">
       <History className="h-7 w-7" />
     </div>
     <h3 className="text-lg font-semibold text-foreground mb-2">

@@ -64,8 +64,8 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
                   </AvatarFallback>
                 </Avatar>
                 {!item.isAnonymous && (
-                  <Avatar className="h-10 w-10 border-2 border-background ring-2 ring-purple-500/20 shadow-sm translate-y-1">
-                    <AvatarFallback className="bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-bold">
+                  <Avatar className="h-10 w-10 border-2 border-background ring-2 ring-primary/20 shadow-sm translate-y-1">
+                    <AvatarFallback className="bg-purple-500/10 text-primary dark:text-primary text-xs font-bold">
                       {item.fromEmployee?.firstName?.[0] || ""}
                       {item.fromEmployee?.lastName?.[0] || ""}
                     </AvatarFallback>
@@ -75,9 +75,9 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
 
               <div className="flex flex-col items-center">
                 {item.rating && (
-                  <div className="flex items-center gap-1.5 bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20 mt-2 font-mono tabular-nums">
-                    <Star className="h-3.5 w-3.5 text-yellow-600 dark:text-yellow-400 fill-yellow-600 dark:fill-yellow-400" />
-                    <span className="text-sm font-black text-yellow-700 dark:text-yellow-400">
+                  <div className="flex items-center gap-1.5 bg-warning/10 px-2 py-0.5 rounded-full border border-warning/20 mt-2 font-mono tabular-nums">
+                    <Star className="h-3.5 w-3.5 text-warning dark:text-warning fill-warning dark:fill-warning" />
+                    <span className="text-sm font-black text-warning dark:text-warning">
                       {item.rating}
                     </span>
                   </div>
@@ -155,7 +155,7 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
                             <span>تعديل</span>
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            className="flex items-center gap-2 cursor-pointer text-red-600 focus:text-red-600"
+                            className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive"
                             onClick={() => onDelete(item.id)}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -168,7 +168,7 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
                 )}
               </div>
 
-              <div className="bg-muted/50 p-4 rounded-2xl border border-border group-hover:border-blue-500/20 group-hover:bg-blue-500/5 transition-all">
+              <div className="bg-muted/50 p-4 rounded-xl border border-border group-hover:border-blue-500/20 group-hover:bg-blue-500/5 transition-all">
                 <p className="text-foreground/90 leading-relaxed whitespace-pre-wrap">
                   {item.content}
                 </p>
@@ -195,7 +195,7 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
 
               {/* Admin Reply Section */}
               {item.adminReply && (
-                <div className="mr-8 mt-2 p-4 bg-primary/5 rounded-2xl border border-primary/10 relative">
+                <div className="me-8 mt-2 p-4 bg-primary/5 rounded-xl border border-primary/10 relative">
                   <div className="absolute -right-4 top-4 bottom-4 w-1 bg-primary/30 rounded-full" />
                   <div className="flex items-center gap-2 mb-2">
                     <Badge className="bg-primary/20 text-primary border-none text-[10px] h-5">

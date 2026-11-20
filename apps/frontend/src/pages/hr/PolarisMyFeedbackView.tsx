@@ -104,13 +104,13 @@ export const PolarisMyFeedbackView: React.FC<PolarisMyFeedbackViewProps> = ({
               placeholder={t("myFeedback.searchPlaceholder") || "ابحث في موضوع أو نص الرسالة..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>
 
         {/* 3. Feedback List */}
-        <div className="p-4 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:rounded-none">
+        <div className="p-4 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:rounded-none">
           <MyFeedbackListSection
             t={t}
             loading={loading}

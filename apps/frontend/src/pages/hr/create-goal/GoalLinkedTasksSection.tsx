@@ -29,11 +29,11 @@ export const GoalLinkedTasksSection: React.FC<GoalLinkedTasksSectionProps> = ({
         value={taskSearch}
         onChange={(event) => setTaskSearch(event.target.value)}
         placeholder="ابحث عن مهمة بالعنوان"
-        className="rounded-2xl"
+        className="rounded-xl"
       />
 
       {filteredTaskOptions.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-border/70 bg-muted/10 px-4 py-8 text-center text-sm text-muted-foreground">
+        <div className="rounded-xl border border-dashed border-border/70 bg-muted/10 px-4 py-8 text-center text-sm text-muted-foreground">
           لا توجد مهام مطابقة للفلتر الحالي.
         </div>
       ) : (
@@ -45,7 +45,7 @@ export const GoalLinkedTasksSection: React.FC<GoalLinkedTasksSectionProps> = ({
                 key={task.id}
                 type="button"
                 onClick={() => onToggleTaskLink(task.id)}
-                className={`rounded-3xl border p-4 text-right transition-colors ${
+                className={`rounded-xl border p-4 text-right transition-colors ${
                   selected
                     ? "border-primary/40 bg-primary/8"
                     : "border-border/70 bg-background hover:border-primary/20"

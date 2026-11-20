@@ -59,16 +59,16 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="sm:max-w-4xl rounded-3xl p-0 overflow-hidden border-none shadow-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-md"
+        className="sm:max-w-4xl rounded-xl p-0 overflow-hidden border-none shadow-2xl bg-white/95 dark:bg-muted backdrop-blur-md"
         dir="rtl"
       >
         {selectedBenefit && (
           <div className="flex flex-col max-h-[90vh]">
-            <div className="p-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-b border-gray-100 dark:border-gray-800">
+            <div className="p-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-b border-border dark:border-border">
               <div className="flex flex-col md:flex-row items-start justify-between gap-6">
                 <div className="space-y-3 flex-1">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm">
+                    <div className="p-3 bg-card rounded-xl shadow-sm">
                       {getTypeIcon(selectedBenefit.type)}
                     </div>
                     <div className="flex flex-col">
@@ -78,25 +78,25 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                       >
                         {getTypeLabel(selectedBenefit.type)}
                       </Badge>
-                      <DialogTitle className="text-3xl font-black mt-1 text-gray-900 dark:text-gray-100">
+                      <DialogTitle className="text-3xl font-black mt-1 text-foreground">
                         {selectedBenefit.name}
                       </DialogTitle>
                     </div>
                   </div>
-                  <DialogDescription className="text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
+                  <DialogDescription className="text-gray-600 dark:text-muted-foreground leading-relaxed max-w-2xl">
                     {selectedBenefit.description ||
                       "لا يوجد وصف متاح لهذه الميزة"}
                   </DialogDescription>
                 </div>
-                <div className="flex items-center gap-4 bg-white dark:bg-gray-800/50 p-5 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700/50 min-w-[200px]">
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-600 dark:text-orange-400 shadow-inner">
+                <div className="flex items-center gap-4 bg-card/50 p-5 rounded-xl shadow-xl border border-border dark:border-border min-w-[200px]">
+                  <div className="w-12 h-12 bg-warning dark:bg-warning/20 rounded-xl flex items-center justify-center text-warning dark:text-warning shadow-inner">
                     <Users className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-widest mb-0.5">
+                    <p className="text-[10px] text-muted-foreground/80 font-black uppercase tracking-widest mb-0.5">
                       المشتركون حالياً
                     </p>
-                    <p className="text-3xl font-black text-gray-900 dark:text-gray-100 leading-none font-mono tabular-nums">
+                    <p className="text-3xl font-black text-foreground leading-none font-mono tabular-nums">
                       {selectedBenefit.activeEnrollments || 0}
                     </p>
                   </div>
@@ -108,24 +108,24 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
               defaultValue="enrollments"
               className="flex-1 flex flex-col min-h-0"
             >
-              <div className="px-8 border-b border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50">
+              <div className="px-8 border-b border-border dark:border-border bg-white/50 dark:bg-muted">
                 <TabsList className="bg-transparent gap-8 h-16">
                   <TabsTrigger
                     value="enrollments"
-                    className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none h-16 px-2 font-bold transition-all text-gray-500 dark:text-gray-400"
+                    className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none h-16 px-2 font-bold transition-all text-muted-foreground"
                   >
                     قائمة المشتركين
                   </TabsTrigger>
                   <TabsTrigger
                     value="add_enrollment"
-                    className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none h-16 px-2 font-bold transition-all text-gray-500 dark:text-gray-400"
+                    className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none h-16 px-2 font-bold transition-all text-muted-foreground"
                   >
                     إضافة مشترك جديد
                   </TabsTrigger>
                 </TabsList>
               </div>
 
-              <div className="p-8 flex-1 overflow-y-auto custom-scrollbar bg-gray-50/30 dark:bg-black/20">
+              <div className="p-8 flex-1 overflow-y-auto custom-scrollbar bg-muted dark:bg-black/20">
                 <TabsContent
                   value="enrollments"
                   className="m-0 focus-visible:outline-none data-[state=active]:flex data-[state=active]:flex-col"
@@ -133,31 +133,31 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                   {!selectedBenefit.enrollments ||
                   selectedBenefit.enrollments.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-20 text-center">
-                      <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
-                        <Users className="h-10 w-10 text-gray-400" />
+                      <div className="w-20 h-20 bg-muted dark:bg-muted rounded-full flex items-center justify-center mb-4">
+                        <Users className="h-10 w-10 text-muted-foreground" />
                       </div>
-                      <p className="font-bold text-gray-900 dark:text-gray-100">
+                      <p className="font-bold text-foreground">
                         لا يوجد مشتركون حالياً
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-muted-foreground">
                         ابدأ بإضافة موظفين للاستفادة من هذه الميزة
                       </p>
                     </div>
                   ) : (
-                    <div className="overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
+                    <div className="overflow-hidden rounded-xl border border-border dark:border-border bg-white dark:bg-muted shadow-sm">
                       <Table>
                         <TableHeader>
-                          <TableRow className="hover:bg-transparent border-b bg-gray-50/50 dark:bg-gray-800/50">
-                            <TableHead className="text-right text-gray-900 dark:text-gray-100 font-bold py-4">
+                          <TableRow className="hover:bg-transparent border-b bg-muted dark:bg-muted">
+                            <TableHead className="text-right text-foreground font-bold py-4">
                               الموظف
                             </TableHead>
-                            <TableHead className="text-right text-gray-900 dark:text-gray-100 font-bold">
+                            <TableHead className="text-right text-foreground font-bold">
                               تاريخ البدء
                             </TableHead>
-                            <TableHead className="text-right text-gray-900 dark:text-gray-100 font-bold">
+                            <TableHead className="text-right text-foreground font-bold">
                               الحالة
                             </TableHead>
-                            <TableHead className="text-left text-gray-900 dark:text-gray-100 font-bold">
+                            <TableHead className="text-left text-foreground font-bold">
                               ملاحظات
                             </TableHead>
                           </TableRow>
@@ -166,7 +166,7 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                           {selectedBenefit.enrollments.map((en) => (
                             <TableRow
                               key={en.id}
-                              className="group hover:bg-primary/5 dark:hover:bg-primary/10 border-b border-gray-50 dark:border-gray-800 transition-colors"
+                              className="group hover:bg-primary/5 dark:hover:bg-primary/10 border-b border-border dark:border-border transition-colors"
                             >
                               <TableCell className="py-4">
                                 <div className="flex items-center gap-3">
@@ -174,17 +174,17 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                                     {en.employee.firstName[0]}
                                   </div>
                                   <div>
-                                    <p className="font-bold text-gray-900 dark:text-gray-100">
+                                    <p className="font-bold text-foreground">
                                       {en.employee.firstName}{" "}
                                       {en.employee.lastName}
                                     </p>
-                                    <p className="text-xs text-gray-500 font-mono tabular-nums">
+                                    <p className="text-xs text-muted-foreground font-mono tabular-nums">
                                       #{en.employee.employeeNumber}
                                     </p>
                                   </div>
                                 </div>
                               </TableCell>
-                              <TableCell className="text-gray-600 dark:text-gray-400 font-medium font-mono tabular-nums">
+                              <TableCell className="text-gray-600 dark:text-muted-foreground font-medium font-mono tabular-nums">
                                 {new Date(en.startDate).toLocaleDateString(
                                   "ar-EG",
                                 )}
@@ -193,14 +193,14 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                                 <Badge
                                   className={
                                     en.status === "ACTIVE"
-                                      ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-100 border-none"
-                                      : "bg-gray-100 text-gray-700 hover:bg-gray-100 border-none"
+                                      ? "bg-emerald-100 text-success hover:bg-success border-none"
+                                      : "bg-gray-100 text-foreground hover:bg-muted border-none"
                                   }
                                 >
                                   {en.status === "ACTIVE" ? "نشط" : "ملغى"}
                                 </Badge>
                               </TableCell>
-                              <TableCell className="text-xs text-gray-500 dark:text-gray-500 max-w-[200px] truncate italic">
+                              <TableCell className="text-xs text-muted-foreground dark:text-muted-foreground max-w-[200px] truncate italic">
                                 {en.notes || "-"}
                               </TableCell>
                             </TableRow>
@@ -218,7 +218,7 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                   <div className="max-w-2xl mx-auto space-y-8 pt-2 pb-12 w-full">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-3">
-                        <Label className="text-sm font-black text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                        <Label className="text-sm font-black text-foreground flex items-center gap-2">
                           <Users className="h-4 w-4 text-primary" />
                           اختر الموظف المستفيد
                         </Label>
@@ -231,13 +231,13 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                             })
                           }
                         >
-                          <SelectTrigger className="h-14 rounded-2xl bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-gray-900 dark:text-gray-100">
+                          <SelectTrigger className="h-14 rounded-xl bg-card border-border dark:border-border shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-foreground">
                             <SelectValue placeholder="ابحث عن الموظف..." />
                           </SelectTrigger>
-                          <SelectContent className="rounded-2xl border-gray-100 dark:border-gray-800 shadow-2xl">
+                          <SelectContent className="rounded-xl border-border dark:border-border shadow-2xl">
                             <ScrollArea className="h-64">
                               {employees.length === 0 ? (
-                                <div className="p-8 text-center text-sm text-gray-400 italic">
+                                <div className="p-8 text-center text-sm text-muted-foreground italic">
                                   لا يوجد موظفون متاحون
                                 </div>
                               ) : (
@@ -251,7 +251,7 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                                       <span className="font-bold">
                                         {emp.firstName} {emp.lastName}
                                       </span>
-                                      <span className="text-[10px] text-gray-400 font-mono tabular-nums">
+                                      <span className="text-[10px] text-muted-foreground font-mono tabular-nums">
                                         #{emp.employeeNumber}
                                       </span>
                                     </div>
@@ -264,7 +264,7 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                       </div>
 
                       <div className="space-y-3">
-                        <Label className="text-sm font-black text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                        <Label className="text-sm font-black text-foreground flex items-center gap-2">
                           <CheckCircle className="h-4 w-4 text-primary" />
                           تاريخ بدء الاستحقاق
                         </Label>
@@ -277,13 +277,13 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                               startDate: e.target.value,
                             })
                           }
-                          className="h-14 rounded-2xl bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-gray-900 dark:text-gray-100"
+                          className="h-14 rounded-xl bg-card border-border dark:border-border shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-foreground"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-3">
-                      <Label className="text-sm font-black text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                      <Label className="text-sm font-black text-foreground flex items-center gap-2">
                         <Pencil className="h-4 w-4 text-primary" />
                         ملاحظات إضافية
                       </Label>
@@ -296,12 +296,12 @@ export const BenefitDetailsDialog: React.FC<BenefitDetailsDialogProps> = ({
                           })
                         }
                         placeholder="أي تفاصيل خاصة باشتراك هذا الموظف (مثلاً: الفئة التأمينية، المرافقون...)"
-                        className="min-h-[120px] rounded-2xl bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-gray-900 dark:text-gray-100 resize-none p-4"
+                        className="min-h-[120px] rounded-xl bg-card border-border dark:border-border shadow-sm focus:ring-2 focus:ring-primary/20 transition-all text-foreground resize-none p-4"
                       />
                     </div>
 
                     <Button
-                      className="w-full h-14 rounded-2xl font-black text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-[0.98]"
+                      className="w-full h-14 rounded-xl font-black text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-[0.98]"
                       onClick={onEnroll}
                       disabled={enrollLoading}
                     >

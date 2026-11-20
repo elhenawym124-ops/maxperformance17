@@ -57,7 +57,7 @@ export const PositionsGrid: React.FC<PositionsGridProps> = ({
                     variant="ghost"
                     size="sm"
                     onClick={() => onDelete(position)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-red-500 hover:text-destructive"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -73,20 +73,20 @@ export const PositionsGrid: React.FC<PositionsGridProps> = ({
             <CardContent>
               <div className="space-y-2">
                 {position.description && (
-                  <p className="text-sm text-gray-600 line-clamp-2">
+                  <p className="text-sm text-foreground line-clamp-2">
                     {position.description}
                   </p>
                 )}
 
                 {position.department && (
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Building className="h-4 w-4" />
                     <span>{position.department.name}</span>
                   </div>
                 )}
 
                 {(position.minSalary || position.maxSalary) && (
-                  <div className="flex items-center gap-2 text-sm text-gray-500 font-mono tabular-nums">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono tabular-nums">
                     <DollarSign className="h-4 w-4" />
                     <span>
                       {position.minSalary
@@ -101,7 +101,7 @@ export const PositionsGrid: React.FC<PositionsGridProps> = ({
                 )}
 
                 {position._count && position._count.users > 0 && (
-                  <div className="flex items-center gap-2 text-sm text-gray-500 font-mono tabular-nums">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono tabular-nums">
                     <Users className="h-4 w-4" />
                     <span>{position._count.users} موظف</span>
                   </div>

@@ -85,10 +85,10 @@ export const PolarisMonitorDashboardView: React.FC<PolarisMonitorDashboardViewPr
         subtitle={`متابعة النشاط الرقمي، الإنتاجية وحالة الأجهزة ليوم ${selectedDate}`}
         badges={
           <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 tabular-nums">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-success/10 text-success dark:text-success border border-success/20 tabular-nums">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
               </span>
               <span>{stats?.activeNow || 0} نشط الآن</span>
             </span>
@@ -195,7 +195,7 @@ export const PolarisMonitorDashboardView: React.FC<PolarisMonitorDashboardViewPr
                     <span
                       className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono tabular-nums ${
                         tab.live && tab.count > 0
-                          ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold"
+                          ? "bg-emerald-500/15 text-success dark:text-success font-bold"
                           : "bg-muted text-muted-foreground"
                       }`}
                     >
@@ -217,7 +217,7 @@ export const PolarisMonitorDashboardView: React.FC<PolarisMonitorDashboardViewPr
               placeholder="بحث بالاسم، القسم أو عنوان الجهاز..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>
@@ -226,7 +226,7 @@ export const PolarisMonitorDashboardView: React.FC<PolarisMonitorDashboardViewPr
         <div className="p-0">
           {loading && teamMembers.length === 0 ? (
             <div className="flex h-40 items-center justify-center text-xs text-muted-foreground">
-              <RefreshCw className="h-4 w-4 animate-spin ml-2 text-primary" />
+              <RefreshCw className="h-4 w-4 animate-spin ms-2 text-primary" />
               <span>جاري استرداد بيانات النشاط السحابية…</span>
             </div>
           ) : sortedMembers.length === 0 ? (

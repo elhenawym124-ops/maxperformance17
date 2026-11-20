@@ -18,16 +18,16 @@ export const getTypeColor = (type: string): string => {
   const colorMap: Record<string, string> = {
     PEER: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800",
     MANAGER:
-      "bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800",
+      "bg-purple-100 text-primary border-primary dark:bg-primary/30 dark:text-primary dark:border-primary",
     SUBORDINATE:
-      "bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800",
-    SELF: "bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800",
+      "bg-green-100 text-success border-success dark:bg-success/30 dark:text-success dark:border-success",
+    SELF: "bg-orange-100 text-warning border-warning dark:bg-warning/30 dark:text-warning dark:border-warning",
     GENERAL:
-      "bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700",
+      "bg-gray-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border",
   };
   return (
     colorMap[type] ||
-    "bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800"
+    "bg-gray-100 text-foreground border-border dark:bg-muted"
   );
 };
 
@@ -35,15 +35,15 @@ export const getStatusBadge = (status: string): React.ReactNode => {
   switch (status) {
     case "RESOLVED":
       return (
-        <Badge className="bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400">
-          <CheckCircle2 className="h-3 w-3 ml-1" />
+        <Badge className="bg-green-100 text-success border-success dark:bg-success/30 dark:text-success">
+          <CheckCircle2 className="h-3 w-3 ms-1" />
           تم الرد
         </Badge>
       );
     default:
       return (
-        <Badge className="bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400">
-          <Clock className="h-3 w-3 ml-1" />
+        <Badge className="bg-amber-100 text-warning border-warning dark:bg-warning/30 dark:text-warning">
+          <Clock className="h-3 w-3 ms-1" />
           قيد الانتظار
         </Badge>
       );

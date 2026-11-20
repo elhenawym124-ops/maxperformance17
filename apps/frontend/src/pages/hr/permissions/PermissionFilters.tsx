@@ -38,13 +38,13 @@ export const PermissionFilters: React.FC<PermissionFiltersProps> = ({
         : undefined;
 
   return (
-    <div className="p-3 sm:p-4 border-b border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+    <div className="p-3 sm:p-4 border-b border-border dark:border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="w-full sm:w-auto"
       >
-        <TabsList className="bg-gray-100/50 dark:bg-gray-800/50 p-1 w-full sm:w-auto grid grid-cols-4 sm:flex h-auto">
+        <TabsList className="bg-gray-100/50 dark:bg-muted p-1 w-full sm:w-auto grid grid-cols-4 sm:flex h-auto">
           <TabsTrigger
             value="all"
             className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-900 data-[state=active]:shadow-sm text-xs sm:text-sm py-1.5 px-2 sm:px-3"
@@ -57,7 +57,7 @@ export const PermissionFilters: React.FC<PermissionFiltersProps> = ({
           >
             {t("employee.permissions.pendingTab")}
             {pendingCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] text-white font-bold ring-2 ring-white dark:ring-gray-900 animate-pulse font-mono tabular-nums">
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] text-white font-bold ring-2 ring-white dark:ring-border animate-pulse font-mono tabular-nums">
                 {pendingCount}
               </span>
             )}
@@ -79,7 +79,7 @@ export const PermissionFilters: React.FC<PermissionFiltersProps> = ({
 
       <div className="w-full sm:w-auto flex items-center gap-3">
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="w-full sm:w-[180px] bg-gray-50/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700 h-9 sm:h-10 text-xs sm:text-sm">
+          <SelectTrigger className="w-full sm:w-[180px] bg-muted dark:bg-muted border-border dark:border-border h-9 sm:h-10 text-xs sm:text-sm">
             <SelectValue placeholder={t("employee.permissions.typePlaceholder")}>
               {selectedTypeLabel}
             </SelectValue>

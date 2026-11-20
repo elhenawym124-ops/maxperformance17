@@ -23,12 +23,12 @@ export const EditPromotionHeader: React.FC<EditPromotionHeaderProps> = ({
           variant="ghost"
           size="icon"
           onClick={onBack}
-          className="rounded-full hover:bg-gray-100"
+          className="rounded-full hover:bg-muted"
         >
-          <ArrowRight className="h-6 w-6 text-gray-600" />
+          <ArrowRight className="h-6 w-6 text-foreground" />
         </Button>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
             <TrendingUp className="h-8 w-8 text-blue-600" />
             تعديل ترقية
           </h1>

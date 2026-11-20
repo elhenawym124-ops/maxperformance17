@@ -45,8 +45,8 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
   onDeleteApplicant,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border-2 border-gray-200 dark:border-gray-700">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
+    <div className="bg-card rounded-xl p-6 shadow-lg border-2 border-border dark:border-border">
+      <h2 className="text-2xl font-bold text-foreground dark:text-white mb-6 flex items-center gap-2">
         <ClipboardDocumentCheckIcon className="w-8 h-8 text-blue-600" />
         مسار التوظيف
       </h2>
@@ -56,12 +56,12 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
           <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
         </div>
       ) : totalApplicants === 0 ? (
-        <div className="rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 p-8 text-center">
+        <div className="rounded-xl border-2 border-dashed border-border bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 p-8 text-center">
           <ClipboardDocumentCheckIcon className="w-16 h-16 mx-auto text-blue-500 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+          <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">
             المسار جاهز لكن لا يوجد متقدمون بعد
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-7">
+          <p className="text-gray-600 dark:text-muted-foreground max-w-2xl mx-auto leading-7">
             المتقدمون يظهرون هنا بعد إضافتهم من تبويب المتقدمين، أو تلقائيًا من
             ردود استبيانات التقديم إذا كان الاستبيان مربوطًا بوظيفة.
           </p>
@@ -70,23 +70,23 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
               <p className="text-sm text-blue-700 dark:text-blue-300 font-semibold">
                 1. أنشئ وظيفة
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
                 اربطي الاستبيان بوظيفة واضحة.
               </p>
             </div>
-            <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
-              <p className="text-sm text-purple-700 dark:text-purple-300 font-semibold">
+            <div className="p-4 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary">
+              <p className="text-sm text-primary dark:text-primary font-semibold">
                 2. اجمعي التقديمات
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
                 الردود المربوطة بوظيفة يمكن إدخالها للمسار.
               </p>
             </div>
-            <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
-              <p className="text-sm text-emerald-700 dark:text-emerald-300 font-semibold">
+            <div className="p-4 rounded-xl bg-success/10 dark:bg-success/20 border border-success dark:border-success">
+              <p className="text-sm text-success dark:text-success font-semibold">
                 3. تابعي المراحل
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
                 بعدها ستظهر كل مرحلة وعدد المرشحين فيها.
               </p>
             </div>
@@ -104,7 +104,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.08 }}
                     onClick={() => onSelectStageId(stage.id)}
-                    className={`relative min-w-[220px] p-5 rounded-2xl border-2 text-right transition-all ${getPipelineStageColorClasses(
+                    className={`relative min-w-[220px] p-5 rounded-xl border-2 text-right transition-all ${getPipelineStageColorClasses(
                       stage.color,
                     )} ${
                       selectedStageId === stage.id
@@ -119,7 +119,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                         </p>
                         <h3 className="font-bold text-lg">{stage.name}</h3>
                       </div>
-                      <div className="w-14 h-14 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center font-bold text-xl shadow-sm font-mono tabular-nums">
+                      <div className="w-14 h-14 rounded-full bg-card flex items-center justify-center font-bold text-xl shadow-sm font-mono tabular-nums">
                         {stage.count}
                       </div>
                     </div>
@@ -138,7 +138,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                   </motion.button>
                   {index < stages.length - 1 && (
                     <div className="hidden xl:flex items-center justify-center">
-                      <ArrowLeftIcon className="w-6 h-6 text-gray-400" />
+                      <ArrowLeftIcon className="w-6 h-6 text-muted-foreground" />
                     </div>
                   )}
                 </React.Fragment>
@@ -146,13 +146,13 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
             </div>
           </div>
 
-          <div className="rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/30 p-5">
+          <div className="rounded-xl border-2 border-border dark:border-border bg-muted dark:bg-muted p-5">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
               <div>
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+                <h3 className="text-xl font-bold text-foreground dark:text-white">
                   تفاصيل مرحلة: {selectedStage?.name}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   كل المتقدمين الموجودين حاليًا داخل هذه المرحلة
                 </p>
               </div>
@@ -173,8 +173,8 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                 <div className="w-10 h-10 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
               </div>
             ) : stageApplicants.length === 0 ? (
-              <div className="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 text-center">
-                <p className="text-gray-600 dark:text-gray-400">
+              <div className="rounded-xl bg-card border border-border dark:border-border p-6 text-center">
+                <p className="text-gray-600 dark:text-muted-foreground">
                   لا يوجد متقدمون ظاهرون داخل مرحلة {selectedStage?.name} حاليًا.
                 </p>
               </div>
@@ -183,18 +183,18 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                 {stageApplicants.map((applicant) => (
                   <div
                     key={applicant.id}
-                    className="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 shadow-sm"
+                    className="rounded-xl bg-card border border-border dark:border-border p-4 shadow-sm"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h4 className="font-bold text-gray-800 dark:text-white">
+                        <h4 className="font-bold text-foreground dark:text-white">
                           {applicant.name}
                         </h4>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-mono">
+                        <p className="text-sm text-muted-foreground mt-1 font-mono">
                           {applicant.email}
                         </p>
                         {applicant.phone && (
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-mono tabular-nums">
+                          <p className="text-sm text-muted-foreground mt-1 font-mono tabular-nums">
                             {applicant.phone}
                           </p>
                         )}
@@ -215,7 +215,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                             <option
                               key={t_stage.id}
                               value={t_stage.id}
-                              className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                              className="bg-card text-foreground dark:text-muted-foreground"
                             >
                               {t_stage.name}
                             </option>
@@ -225,7 +225,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                           type="button"
                           onClick={() => onDeleteApplicant(applicant)}
                           disabled={deletingApplicantId === applicant.id}
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-200 bg-red-50 text-red-600 transition-all hover:bg-red-100 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed dark:border-red-800 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/30"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-destructive bg-destructive/10 text-destructive transition-all hover:bg-destructive hover:shadow-md focus:outline-none focus:ring-2 focus:ring-destructive disabled:opacity-60 disabled:cursor-not-allowed dark:border-destructive dark:bg-destructive/20 dark:text-destructive dark:hover:bg-destructive/30"
                           title="حذف المتقدم"
                           aria-label={`حذف ${applicant.name}`}
                         >
@@ -234,7 +234,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 mt-4 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-wrap items-center gap-3 mt-4 text-sm text-foreground dark:text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
                         <BriefcaseIcon className="w-4 h-4" />
                         {applicant.jobTitle ||

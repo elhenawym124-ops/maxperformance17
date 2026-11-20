@@ -12,17 +12,17 @@ import { BenefitFormData, EnrollmentFormData } from "./types";
 export const getTypeIcon = (type: string) => {
   switch (type) {
     case "health_insurance":
-      return <HeartPulse className="h-5 w-5 text-red-500" />;
+      return <HeartPulse className="h-5 w-5 text-destructive" />;
     case "life_insurance":
       return <Shield className="h-5 w-5 text-blue-500" />;
     case "retirement":
-      return <PiggyBank className="h-5 w-5 text-green-500" />;
+      return <PiggyBank className="h-5 w-5 text-success" />;
     case "transportation":
-      return <Car className="h-5 w-5 text-gray-500" />;
+      return <Car className="h-5 w-5 text-muted-foreground" />;
     case "housing":
-      return <Home className="h-5 w-5 text-orange-500" />;
+      return <Home className="h-5 w-5 text-warning" />;
     default:
-      return <Gift className="h-5 w-5 text-purple-500" />;
+      return <Gift className="h-5 w-5 text-primary" />;
   }
 };
 

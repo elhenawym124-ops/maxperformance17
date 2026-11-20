@@ -55,10 +55,10 @@ const HowItWorksSection: React.FC = () => {
   return (
     <div className="space-y-12 animate-fade-in">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-          <ClipboardDocumentListIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+        <div className="p-2 bg-warning dark:bg-warning/30 rounded-lg">
+          <ClipboardDocumentListIcon className="h-6 w-6 text-warning dark:text-warning" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           أمثلة عملية: كيف يغير النظام عملك
         </h2>
       </div>
@@ -67,18 +67,18 @@ const HowItWorksSection: React.FC = () => {
         {examples.map((example, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700"
+            className="bg-card rounded-xl overflow-hidden shadow-sm border border-border dark:border-border"
           >
-            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700 flex items-center gap-3">
-              <example.icon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-              <h3 className="font-bold text-lg text-gray-900 dark:text-white">
+            <div className="px-6 py-4 bg-muted dark:bg-muted border-b border-border dark:border-border flex items-center gap-3">
+              <example.icon className="h-6 w-6 text-primary" />
+              <h3 className="font-bold text-lg text-foreground">
                 {example.title}
               </h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Before */}
-              <div className="p-6 bg-red-50/30 dark:bg-red-900/10 border-r border-gray-100 dark:border-gray-700">
-                <div className="flex items-center gap-2 mb-4 text-red-600 dark:text-red-400 font-bold">
+              <div className="p-6 bg-destructive/30 dark:bg-destructive/10 border-r border-border dark:border-border">
+                <div className="flex items-center gap-2 mb-4 text-destructive dark:text-destructive font-bold">
                   <XCircleIcon className="h-5 w-5" />
                   <span>بدون النظام</span>
                 </div>
@@ -86,17 +86,17 @@ const HowItWorksSection: React.FC = () => {
                   {example.before.map((item, idx) => (
                     <li
                       key={idx}
-                      className="text-gray-600 dark:text-gray-400 flex items-start gap-2"
+                      className="text-gray-600 dark:text-muted-foreground flex items-start gap-2"
                     >
-                      <span className="mt-1.5 w-1 h-1 rounded-full bg-red-400 shrink-0" />
+                      <span className="mt-1.5 w-1 h-1 rounded-full bg-destructive shrink-0" />
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
               {/* After */}
-              <div className="p-6 bg-green-50/30 dark:bg-green-900/10">
-                <div className="flex items-center gap-2 mb-4 text-green-600 dark:text-green-400 font-bold">
+              <div className="p-6 bg-success/30 dark:bg-success/10">
+                <div className="flex items-center gap-2 mb-4 text-success dark:text-success font-bold">
                   <CheckCircleIcon className="h-5 w-5" />
                   <span>مع النظام</span>
                 </div>
@@ -104,9 +104,9 @@ const HowItWorksSection: React.FC = () => {
                   {example.after.map((item, idx) => (
                     <li
                       key={idx}
-                      className="text-gray-800 dark:text-gray-200 font-medium flex items-start gap-2"
+                      className="text-gray-800 dark:text-muted-foreground font-medium flex items-start gap-2"
                     >
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-success shrink-0" />
                       {item}
                     </li>
                   ))}

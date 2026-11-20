@@ -30,8 +30,8 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md overflow-hidden p-0 rounded-3xl border-none shadow-2xl">
-        <div className="relative bg-white dark:bg-slate-900">
+      <DialogContent className="sm:max-w-md overflow-hidden p-0 rounded-xl border-none shadow-2xl">
+        <div className="relative bg-white dark:bg-muted">
           {/* Header */}
           <div className="p-6 pb-2">
             <div className="flex items-center gap-3">
@@ -44,7 +44,7 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
 
           <div className="p-6 pt-4 space-y-6">
             {/* Payment Methods Tabs */}
-            <div className="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <div className="flex gap-2 p-1 bg-muted dark:bg-muted rounded-xl">
               {[
                 { id: 'bank_transfer', label: 'تحويل بنكي', icon: Landmark },
                 { id: 'cash', label: 'نقدي / كاش', icon: Wallet },
@@ -54,8 +54,8 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
                   key={method.id}
                   onClick={() => setPaymentMethod(method.id as PaymentMethod)}
                   className={`flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all ${paymentMethod === method.id
-                    ? 'bg-white dark:bg-slate-700 shadow text-blue-600 dark:text-blue-400'
-                    : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'
+                    ? 'bg-white dark:bg-muted shadow text-blue-600 dark:text-blue-400'
+                    : 'text-slate-500 hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
                     }`}
                 >
                   <method.icon className="h-4 w-4" />
@@ -71,18 +71,18 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-4"
               >
-                <div className="border border-slate-200 hover:border-blue-200 transition-colors dark:border-slate-800 flex justify-between items-center rounded-2xl p-5 bg-white dark:bg-slate-900 shadow-sm">
+                <div className="border border-border hover:border-blue-200 transition-colors dark:border-border flex justify-between items-center rounded-xl p-5 bg-white dark:bg-muted shadow-sm">
                   <div className="space-y-1 text-right">
                     <p className="text-slate-400 text-xs font-semibold mb-2">المسار البنكي</p>
                     <p className="text-slate-900 dark:text-white font-bold text-lg">البنك الوطني</p>
                     <p className="text-slate-500 text-sm">حساب نشط - جاري</p>
                   </div>
-                  <div className="h-16 w-16 rounded-2xl bg-blue-100 dark:bg-blue-500/20 flex justify-center items-center shadow-sm">
+                  <div className="h-16 w-16 rounded-xl bg-blue-100 dark:bg-blue-500/20 flex justify-center items-center shadow-sm">
                     <span className="text-blue-600 dark:text-blue-400 font-bold tracking-tight text-4xl italic">B</span>
                   </div>
                 </div>
 
-                <div className="border border-slate-200 hover:border-blue-200 transition-colors dark:border-slate-800 rounded-2xl p-5 bg-white dark:bg-slate-900 shadow-sm text-right">
+                <div className="border border-border hover:border-blue-200 transition-colors dark:border-border rounded-xl p-5 bg-white dark:bg-muted shadow-sm text-right">
                   <p className="text-slate-400 text-xs font-semibold mb-3">رقم الحساب الدولي</p>
                   <p className="text-slate-900 dark:text-white font-bold tracking-widest text-lg md:text-xl text-center font-mono tabular-nums" dir="ltr">
                     ...0003 4827 1019 3828
@@ -92,10 +92,10 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
                 <div className="pt-2">
                   <div className="flex justify-between items-end mb-2">
                     <span className="text-emerald-500 font-bold text-sm tabular-nums">0.0%</span>
-                    <span className="text-sm font-bold text-slate-400">تنمية التحفيز الشهري</span>
+                    <span className="text-sm font-bold text-muted-foreground">تنمية التحفيز الشهري</span>
                   </div>
-                  <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full w-full overflow-hidden">
-                    <div className="h-full bg-emerald-500 w-[0%]"></div>
+                  <div className="h-2.5 bg-muted dark:bg-muted rounded-full w-full overflow-hidden">
+                    <div className="h-full bg-success w-[0%]"></div>
                   </div>
                 </div>
               </motion.div>
@@ -105,9 +105,9 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="border border-slate-200 dark:border-slate-800 rounded-2xl p-8 bg-slate-50/50 dark:bg-slate-800/20 flex flex-col items-center justify-center text-center space-y-4"
+                className="border border-border dark:border-border rounded-xl p-8 bg-muted dark:bg-muted flex flex-col items-center justify-center text-center space-y-4"
               >
-                <div className="h-20 w-20 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 rounded-full flex items-center justify-center">
+                <div className="h-20 w-20 bg-success dark:bg-success/20 text-success rounded-full flex items-center justify-center">
                   <Wallet className="h-10 w-10" />
                 </div>
                 <div>
@@ -121,7 +121,7 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="border border-slate-200 dark:border-slate-800 rounded-2xl p-8 bg-slate-50/50 dark:bg-slate-800/20 flex flex-col items-center justify-center text-center space-y-4"
+                className="border border-border dark:border-border rounded-xl p-8 bg-muted dark:bg-muted flex flex-col items-center justify-center text-center space-y-4"
               >
                 <div className="h-16 w-16 bg-primary/10 border border-primary/20 text-primary rounded-full flex items-center justify-center">
                   <Zap className="h-8 w-8" />
@@ -135,7 +135,7 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
           </div>
 
           {/* Footer Controls */}
-          <div className="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex flex-row-reverse justify-start gap-4">
+          <div className="p-6 border-t border-border dark:border-border bg-muted dark:bg-muted flex flex-row-reverse justify-start gap-4">
             <Button
               onClick={onConfirmPayment}
               disabled={paying}
@@ -143,17 +143,17 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
             >
               {paying ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white ms-2"></div>
                   جاري التنفيذ...
                 </>
               ) : (
                 <>
-                  <CheckCircle className="ml-2 h-5 w-5" />
+                  <CheckCircle className="ms-2 h-5 w-5" />
                   تأكيد الصرف
                 </>
               )}
             </Button>
-            <Button variant="outline" onClick={() => onOpenChange(false)} className="text-slate-500 hover:text-slate-700 dark:text-slate-400">
+            <Button variant="outline" onClick={() => onOpenChange(false)} className="text-slate-500 hover:text-foreground dark:text-muted-foreground">
               إلغاء التغييرات
             </Button>
           </div>

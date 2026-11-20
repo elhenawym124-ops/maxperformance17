@@ -91,8 +91,8 @@ const CustodyHistory: React.FC = () => {
     return (
       <div className="flex flex-col justify-center items-center py-40 gap-4">
         <div className="relative">
-          <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-xl animate-pulse"></div>
-          <div className="animate-spin rounded-full h-16 w-16 border-[3px] border-indigo-100 border-t-indigo-600 relative"></div>
+          <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-[3px] border-primary border-t-indigo-600 relative"></div>
         </div>
         <p className="text-gray-400 font-bold animate-pulse">جاري تحميل البيانات...</p>
       </div>
@@ -103,22 +103,22 @@ const CustodyHistory: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <ClipboardDocumentListIcon className="h-7 w-7 text-amber-600" />
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <ClipboardDocumentListIcon className="h-7 w-7 text-warning" />
             العهد النشطة
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             تتبع وإدارة جميع الأصول المسلمة للموظفين حالياً
           </p>
         </div>
         <div className="relative max-w-sm w-full">
-          <MagnifyingGlassIcon className="h-5 w-5 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" />
+          <MagnifyingGlassIcon className="h-5 w-5 absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-indigo-500 transition-colors" />
           <input
             type="text"
             placeholder="بحث عن موظف أو أصل..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pr-12 pl-4 py-3 border-2 border-gray-100 dark:border-gray-700 rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all shadow-sm font-medium"
+            className="w-full pe-12 ps-4 py-3 border-2 border-border dark:border-border rounded-xl bg-card text-foreground focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all shadow-sm font-medium"
           />
         </div>
       </div>
@@ -127,13 +127,13 @@ const CustodyHistory: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center py-20 bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm"
+          className="text-center py-20 bg-card rounded-xl border border-border dark:border-border shadow-sm"
         >
-          <div className="h-24 w-24 bg-gray-50 dark:bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <ClipboardDocumentListIcon className="h-12 w-12 text-gray-300 dark:text-gray-600" />
+          <div className="h-24 w-24 bg-muted dark:bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+            <ClipboardDocumentListIcon className="h-12 w-12 text-muted-foreground dark:text-foreground" />
           </div>
-          <h3 className="text-xl font-bold text-gray-400">لا توجد عهد نشطة حالياً</h3>
-          <p className="text-sm text-gray-400 mt-2">ابدأ بتعيين أصل لموظف من قائمة الأصول</p>
+          <h3 className="text-xl font-bold text-muted-foreground">لا توجد عهد نشطة حالياً</h3>
+          <p className="text-sm text-muted-foreground mt-2">ابدأ بتعيين أصل لموظف من قائمة الأصول</p>
         </motion.div>
       ) : (
         <div className="grid grid-cols-1 gap-6">
@@ -146,7 +146,7 @@ const CustodyHistory: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ delay: idx * 0.05 }}
-                className="group relative rounded-2xl border border-border/70 bg-card p-5 shadow-xs overflow-hidden transition-all"
+                className="group relative rounded-xl border border-border/70 bg-card p-5 shadow-xs overflow-hidden transition-all"
               >
                 {/* Decorative background circle */}
                 
@@ -158,19 +158,19 @@ const CustodyHistory: React.FC = () => {
                       <div className="p-4 bg-primary/10 border border-primary/20 rounded-xl">
                         <ComputerDesktopIcon className="h-8 w-8 text-primary" />
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full flex items-center justify-center">
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-success border-2 border-white dark:border-border rounded-full flex items-center justify-center">
                         <CheckCircleIcon className="h-4 w-4 text-white" />
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-black text-xl text-gray-900 dark:text-white mb-2 decoration-indigo-500/30 group-hover:underline underline-offset-4 decoration-2">
+                      <h4 className="font-black text-xl text-foreground mb-2 decoration-primary/30 group-hover:underline underline-offset-4 decoration-2">
                         {record.asset.name}
                       </h4>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-800">
+                        <span className="text-xs font-black text-primary bg-primary/10 dark:bg-primary/30 px-3 py-1 rounded-full border border-primary dark:border-primary">
                           {record.asset.code}
                         </span>
-                        <span className="text-xs font-bold text-gray-400 flex items-center gap-1">
+                        <span className="text-xs font-bold text-muted-foreground flex items-center gap-1">
                           <TagIcon className="h-3 w-3" />
                           {record.asset.category.name}
                         </span>
@@ -179,16 +179,16 @@ const CustodyHistory: React.FC = () => {
                   </div>
 
                   {/* Divider line for mobile */}
-                  <div className="lg:hidden h-px bg-gray-50 dark:bg-gray-700/50"></div>
+                  <div className="lg:hidden h-px bg-muted dark:bg-muted"></div>
 
                   {/* Employee Info */}
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="w-12 h-12 bg-gradient-to-tr from-violet-600 to-fuchsia-500 rounded-2xl flex items-center justify-center shadow-lg shadow-violet-500/20">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-primary to-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
                       <UserIcon className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-violet-400 uppercase tracking-widest mb-0.5">الموظف الحالي</p>
-                      <h5 className="font-black text-lg text-gray-900 dark:text-white">
+                      <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-0.5">الموظف الحالي</p>
+                      <h5 className="font-black text-lg text-foreground">
                         {record.employee.firstName} {record.employee.lastName}
                       </h5>
                     </div>
@@ -197,11 +197,11 @@ const CustodyHistory: React.FC = () => {
                   {/* Assignment Info */}
                   <div className="flex flex-col sm:flex-row items-center gap-8 justify-end">
                     <div className="text-right">
-                      <div className="flex items-center gap-1.5 text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1 justify-end">
-                        <CalendarIcon className="h-3.5 w-3.5 text-indigo-400" />
+                      <div className="flex items-center gap-1.5 text-[10px] font-black text-muted-foreground uppercase tracking-wider mb-1 justify-end">
+                        <CalendarIcon className="h-3.5 w-3.5 text-primary" />
                         <span>منذ تاريخ</span>
                       </div>
-                      <p className="text-sm font-black text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/30 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700/50">
+                      <p className="text-sm font-black text-foreground bg-muted dark:bg-muted px-3 py-1.5 rounded-xl border border-border dark:border-border">
                         {format(new Date(record.assignedAt), "PPP", { locale: ar })}
                       </p>
                     </div>
@@ -210,14 +210,14 @@ const CustodyHistory: React.FC = () => {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => setEditingAsset(record.asset)}
-                        className="p-3 bg-white dark:bg-gray-800 text-gray-400 hover:text-indigo-600 border border-gray-100 dark:border-gray-700 rounded-2xl transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
+                        className="p-3 bg-card text-muted-foreground hover:text-primary border border-border dark:border-border rounded-xl transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
                         title="تعديل"
                       >
                         <PencilSquareIcon className="h-5 w-5" />
                       </button>
                       <button
                         onClick={() => setReturningAsset({ ...record.asset, type: 'return' })}
-                        className="flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground text-white rounded-2xl font-black shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/40 hover:-translate-y-1 active:translate-y-0 transition-all text-sm"
+                        className="flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground text-white rounded-xl font-black shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 active:translate-y-0 transition-all text-sm"
                       >
                         <ArrowPathIcon className="h-4 w-4" />
                         استرجاع

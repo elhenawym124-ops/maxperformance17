@@ -132,7 +132,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
                             <p className="font-medium">
                               {payroll.employee?.firstName} {payroll.employee?.lastName}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-muted-foreground">
                               {payroll.employee?.position?.title}
                             </p>
                           </div>
@@ -150,7 +150,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
                         +{formatCurrency(payroll.totalAllowances)}
                       </span>
                       {payroll.overtimeAmount && Number(payroll.overtimeAmount) > 0 ? (
-                        <div className="text-[10px] text-teal-600 dark:text-teal-400 font-semibold tabular-nums mt-0.5" title={`ساعات إضافية: ${payroll.overtimeHours || 0}س`}>
+                        <div className="text-[10px] text-success dark:text-success font-semibold tabular-nums mt-0.5" title={`ساعات إضافية: ${payroll.overtimeHours || 0}س`}>
                           إضافي: +{formatCurrency(payroll.overtimeAmount)} ({Number(payroll.overtimeHours || 0).toFixed(1)}س)
                         </div>
                       ) : null}
@@ -181,7 +181,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
                           }
                           if (items.length > 0) {
                             return (
-                              <div className="text-[10px] text-red-500 font-medium tabular-nums mt-0.5 truncate max-w-[190px]" title={items.join(' • ')}>
+                              <div className="text-[10px] text-destructive font-medium tabular-nums mt-0.5 truncate max-w-[190px]" title={items.join(' • ')}>
                                 {items.join(' • ')}
                               </div>
                             );
@@ -192,7 +192,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
                         return null;
                       })()}
                     </TableCell>
-                    <TableCell className={`font-bold ${payroll.netSalary < 0 ? 'text-red-600' : 'text-gray-900 dark:text-white'} ltr:text-left rtl:text-right`}>
+                    <TableCell className={`font-bold ${payroll.netSalary < 0 ? 'text-red-600' : 'text-foreground'} ltr:text-left rtl:text-right`}>
                       <span dir="ltr">{formatCurrency(payroll.netSalary)}</span>
                     </TableCell>
                     <TableCell>
@@ -209,29 +209,29 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem onClick={() => onViewDetails(payroll)}>
-                            <Eye className="h-4 w-4 ml-2" />
+                            <Eye className="h-4 w-4 ms-2" />
                             عرض التفاصيل
                           </DropdownMenuItem>
                           {!isMyPayroll && payroll.status !== 'PAID' && (
                             <DropdownMenuItem onClick={() => onApprove(payroll.id)}>
-                              <Check className="h-4 w-4 ml-2" />
+                              <Check className="h-4 w-4 ms-2" />
                               اعتماد
                             </DropdownMenuItem>
                           )}
                           {!isMyPayroll && (
                             <DropdownMenuItem onClick={() => onEdit(payroll)}>
-                              <Edit className="h-4 w-4 ml-2" />
+                              <Edit className="h-4 w-4 ms-2" />
                               تعديل
                             </DropdownMenuItem>
                           )}
                           {!isMyPayroll && (payroll.status === 'PROCESSED' || payroll.status === 'APPROVED') && (
                             <DropdownMenuItem onClick={() => onPay(payroll.id)}>
-                              <CreditCard className="h-4 w-4 ml-2" />
+                              <CreditCard className="h-4 w-4 ms-2" />
                               صرف
                             </DropdownMenuItem>
                           )}
                           <DropdownMenuItem onClick={() => onPrint(payroll)}>
-                            <FileText className="h-4 w-4 ml-2" />
+                            <FileText className="h-4 w-4 ms-2" />
                             طباعة
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -249,7 +249,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
       {/* Pagination */}
       {pagination.totalPages > 1 && (
         <div className="flex items-center justify-between p-4 border-t">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             عرض {((pagination.page - 1) * pagination.limit) + 1} - {Math.min(pagination.page * pagination.limit, pagination.total)} من {pagination.total}
           </p>
           <div className="flex gap-2">

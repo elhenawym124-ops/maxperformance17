@@ -78,38 +78,38 @@ const AssetSuppliers: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* List */}
       <div className="md:col-span-2 space-y-4">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+        <h3 className="text-lg font-medium text-foreground">
           الموردون المسجلون
         </h3>
 
         {loading ? (
           <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : suppliers.length === 0 ? (
-          <div className="text-center py-8 text-gray-500 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="text-center py-8 text-muted-foreground bg-card rounded-lg border border-border dark:border-border">
             لا يوجد موردون مسجلون بعد
           </div>
         ) : (
-          <div className="bg-white dark:bg-gray-800 shadow rounded-lg border border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="bg-card shadow rounded-lg border border-border dark:border-border divide-y divide-border dark:divide-border">
             {suppliers.map((s) => (
               <div key={s.id} className="p-4 flex items-center justify-between">
                 <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-gray-900 dark:text-white">
+                  <h4 className="text-sm font-bold text-foreground">
                     {s.name}
                   </h4>
-                  <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                    <PhoneIcon className="h-3 w-3 mr-1" />
+                  <div className="flex items-center text-xs text-muted-foreground">
+                    <PhoneIcon className="h-3 w-3 me-1" />
                     {s.mobile || "غير مسجل"}
                   </div>
-                  <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                    <MapPinIcon className="h-3 w-3 mr-1" />
+                  <div className="flex items-center text-xs text-muted-foreground">
+                    <MapPinIcon className="h-3 w-3 me-1" />
                     {s.address || "لا يوجد عنوان"}
                   </div>
                 </div>
                 <button
                   onClick={() => handleDelete(s.id)}
-                  className="text-red-600 hover:text-red-900 p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors"
+                  className="text-red-600 hover:text-destructive p-2 hover:bg-destructive/10 dark:hover:bg-destructive/20 rounded-full transition-colors"
                   title="حذف"
                 >
                   <TrashIcon className="h-5 w-5" />
@@ -122,19 +122,19 @@ const AssetSuppliers: React.FC = () => {
 
       {/* Add Form */}
       <div>
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg border border-gray-200 dark:border-gray-700 p-4 sticky top-6">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+        <div className="bg-card shadow rounded-lg border border-border dark:border-border p-4 sticky top-6">
+          <h3 className="text-lg font-medium text-foreground mb-4">
             إضافة مورد جديد
           </h3>
           <form onSubmit={handleAdd} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 اسم المورد *
               </label>
               <input
                 type="text"
                 required
-                className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-border rounded-md shadow-sm py-2 px-3 bg-card text-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 value={newSupplier.name}
                 onChange={(e) =>
                   setNewSupplier({ ...newSupplier, name: e.target.value })
@@ -143,12 +143,12 @@ const AssetSuppliers: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 رقم الموبايل
               </label>
               <input
                 type="text"
-                className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-border rounded-md shadow-sm py-2 px-3 bg-card text-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 value={newSupplier.mobile}
                 onChange={(e) =>
                   setNewSupplier({ ...newSupplier, mobile: e.target.value })
@@ -157,11 +157,11 @@ const AssetSuppliers: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 العنوان
               </label>
               <textarea
-                className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-border rounded-md shadow-sm py-2 px-3 bg-card text-foreground focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 rows={2}
                 value={newSupplier.address}
                 onChange={(e) =>
@@ -173,7 +173,7 @@ const AssetSuppliers: React.FC = () => {
             <button
               type="submit"
               disabled={adding}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-all font-bold"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 transition-all font-bold"
             >
               {adding ? "جاري الإضافة..." : "إضافة المورد"}
             </button>

@@ -10,7 +10,7 @@ interface PayrollKpiCardsProps {
 export const PayrollKpiCards: React.FC<PayrollKpiCardsProps> = ({ summary }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <Card className="bg-gradient-to-br from-violet-500 to-indigo-500 text-white">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -22,7 +22,7 @@ export const PayrollKpiCards: React.FC<PayrollKpiCardsProps> = ({ summary }) => 
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -36,7 +36,7 @@ export const PayrollKpiCards: React.FC<PayrollKpiCardsProps> = ({ summary }) => 
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -50,7 +50,7 @@ export const PayrollKpiCards: React.FC<PayrollKpiCardsProps> = ({ summary }) => 
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-fuchsia-500 to-pink-400 text-white">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>

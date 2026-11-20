@@ -37,7 +37,7 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
   const navigate = useNavigate();
 
   return (
-    <TableRow className="hover:bg-gray-50 dark:hover:bg-gray-800">
+    <TableRow className="hover:bg-gray-50 dark:hover:bg-muted">
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar>
@@ -64,7 +64,7 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
               {employee.firstName || t("employees.notSpecified")}{" "}
               {employee.lastName || ""}
             </p>
-            <p className="text-sm text-gray-500 font-mono tabular-nums">
+            <p className="text-sm text-muted-foreground font-mono tabular-nums">
               {employee.employeeNumber || t("employees.notSpecified")}
             </p>
           </div>
@@ -96,8 +96,8 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
               <Badge
                 className={
                   employee.user.isActive
-                    ? "bg-green-100 text-green-800"
-                    : "bg-gray-100 text-gray-800"
+                    ? "bg-green-100 text-success"
+                    : "bg-gray-100 text-foreground"
                 }
               >
                 {employee.user.isActive
@@ -111,7 +111,7 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
               )}
             </div>
             {employee.user.lastLoginAt && (
-              <span className="text-xs text-gray-500 font-mono tabular-nums">
+              <span className="text-xs text-muted-foreground font-mono tabular-nums">
                 {t("employees.lastLogin")}{" "}
                 {new Date(employee.user.lastLoginAt).toLocaleDateString(
                   "ar-EG",
@@ -119,20 +119,20 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
               </span>
             )}
             {!employee.user.lastLoginAt && (
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-muted-foreground">
                 {t("employees.neverLoggedIn")}
               </span>
             )}
           </div>
         ) : (
-          <Badge className="bg-gray-100 text-gray-600">
+          <Badge className="bg-gray-100 text-foreground">
             {t("employees.noUserAccount")}
           </Badge>
         )}
       </TableCell>
       <TableCell>
         {employee.user ? (
-          <Badge className="bg-purple-100 text-purple-800">
+          <Badge className="bg-purple-100 text-primary">
             {employee.user.role === "COMPANY_ADMIN"
               ? t("employees.roleCompanyAdmin")
               : employee.user.role === "MANAGER"
@@ -175,17 +175,17 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
             <DropdownMenuItem
               onClick={() => navigate(`/hr/employees/${employee.id}`)}
             >
-              <Eye className="h-4 w-4 ml-2 text-gray-500" />
+              <Eye className="h-4 w-4 ms-2 text-muted-foreground" />
               عرض الملف
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => onOpenAssets(employee)}>
-              <Shield className="h-4 w-4 ml-2 text-gray-500" />
+              <Shield className="h-4 w-4 ms-2 text-muted-foreground" />
               العهدة والممتلكات
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => navigate(`/hr/employees/${employee.id}/edit`)}
             >
-              <Edit className="h-4 w-4 ml-2 text-gray-500" />
+              <Edit className="h-4 w-4 ms-2 text-muted-foreground" />
               تعديل البيانات
             </DropdownMenuItem>
 
@@ -194,9 +194,9 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
             {onResetPassword && (
               <DropdownMenuItem
                 onClick={() => onResetPassword(employee)}
-                className="text-indigo-600 focus:text-indigo-700"
+                className="text-indigo-600 focus:text-primary"
               >
-                <KeyRound className="h-4 w-4 ml-2" />
+                <KeyRound className="h-4 w-4 ms-2" />
                 بيانات الدخول / كلمة السر
               </DropdownMenuItem>
             )}
@@ -208,12 +208,12 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
               >
                 {employee.user?.isActive ? (
                   <>
-                    <UserX className="h-4 w-4 ml-2" />
+                    <UserX className="h-4 w-4 ms-2" />
                     تجميد حساب الدخول
                   </>
                 ) : (
                   <>
-                    <UserCheck className="h-4 w-4 ml-2" />
+                    <UserCheck className="h-4 w-4 ms-2" />
                     تفعيل حساب الدخول
                   </>
                 )}
@@ -225,7 +225,7 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
                 onClick={() => onTerminate(employee)}
                 className="text-orange-600"
               >
-                <UserMinus className="h-4 w-4 ml-2" />
+                <UserMinus className="h-4 w-4 ms-2" />
                 إنهاء الخدمة
               </DropdownMenuItem>
             )}
@@ -233,10 +233,10 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
             <DropdownMenuSeparator />
 
             <DropdownMenuItem
-              className="text-red-600 focus:text-red-700"
+              className="text-red-600 focus:text-destructive"
               onClick={() => onDelete(employee)}
             >
-              <Trash2 className="h-4 w-4 ml-2" />
+              <Trash2 className="h-4 w-4 ms-2" />
               حذف الموظف
             </DropdownMenuItem>
           </DropdownMenuContent>

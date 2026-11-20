@@ -143,7 +143,7 @@ export const RewardTypeFormDialog: React.FC<RewardTypeFormDialogProps> = ({
           </div>
 
           {/* Eligibility Conditions Section */}
-          <div className="p-4 bg-gray-50 rounded-lg space-y-4 border border-gray-200">
+          <div className="p-4 bg-muted rounded-lg space-y-4 border border-border">
             <Label className="text-blue-600 font-bold block mb-2 border-b pb-2">
               {t("rewards.form.eligibilityConditions")}
             </Label>

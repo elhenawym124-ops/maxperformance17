@@ -121,7 +121,7 @@ const Departments: React.FC = () => {
             <div className="flex items-center gap-2">
               {canManage && (
                 <Button onClick={() => setShowAddDialog(true)}>
-                  <Plus className="h-4 w-4 ml-2" />
+                  <Plus className="h-4 w-4 ms-2" />
                   إضافة قسم
                 </Button>
               )}

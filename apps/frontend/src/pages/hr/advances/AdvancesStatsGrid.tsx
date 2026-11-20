@@ -16,7 +16,7 @@ export const AdvancesStatsGrid: React.FC<AdvancesStatsGridProps> = ({
       title: "إجمالي الطلبات",
       value: stats.total.toString(),
       icon: <DollarSign className="h-7 w-7" />,
-      tint: "from-sky-100 via-sky-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
+      tint: "from-sky-100 via-info to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
       accent: "bg-sky-500",
       text: "text-slate-900",
     },
@@ -24,7 +24,7 @@ export const AdvancesStatsGrid: React.FC<AdvancesStatsGridProps> = ({
       title: "بانتظار الموافقة",
       value: stats.pending.toString(),
       icon: <Calendar className="h-7 w-7" />,
-      tint: "from-amber-100 via-amber-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
+      tint: "from-amber-100 via-warning to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
       accent: "bg-amber-500",
       text: "text-slate-900",
     },
@@ -32,7 +32,7 @@ export const AdvancesStatsGrid: React.FC<AdvancesStatsGridProps> = ({
       title: "معتمد",
       value: stats.approved.toString(),
       icon: <Check className="h-7 w-7" />,
-      tint: "from-emerald-100 via-emerald-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
+      tint: "from-emerald-100 via-success to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
       accent: "bg-emerald-500",
       text: "text-slate-900",
     },
@@ -40,7 +40,7 @@ export const AdvancesStatsGrid: React.FC<AdvancesStatsGridProps> = ({
       title: "إجمالي المبالغ",
       value: formatCurrency(stats.totalAmount),
       icon: <TrendingUp className="h-7 w-7" />,
-      tint: "from-indigo-100 via-indigo-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
+      tint: "from-indigo-100 via-primary to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
       accent: "bg-indigo-500",
       text: "text-slate-900",
     },
@@ -51,13 +51,13 @@ export const AdvancesStatsGrid: React.FC<AdvancesStatsGridProps> = ({
       {cards.map((card) => (
         <Card
           key={card.title}
-          className="relative overflow-hidden border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 backdrop-blur shadow-sm rounded-2xl"
+          className="relative overflow-hidden border border-border dark:border-white/10 bg-white/90 dark:bg-white/5 backdrop-blur shadow-sm rounded-xl"
         >
           <div className={`absolute inset-0 bg-gradient-to-br ${card.tint}`} />
           <div className="absolute inset-0 bg-white/30 pointer-events-none" />
           <CardContent className="relative p-5 flex items-center justify-between">
             <div className="space-y-1">
-              <p className="text-xs text-slate-600 dark:text-slate-300 uppercase tracking-wider font-medium">
+              <p className="text-xs text-foreground dark:text-muted-foreground uppercase tracking-wider font-medium">
                 {card.title}
               </p>
               <h3

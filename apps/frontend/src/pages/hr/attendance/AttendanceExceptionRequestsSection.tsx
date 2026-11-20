@@ -129,14 +129,14 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
 
   return (
     <>
-      <Card className="border-indigo-100 bg-gradient-to-l from-indigo-50/70 via-white to-white dark:from-indigo-950/20 dark:via-gray-800 dark:to-gray-800 dark:border-indigo-900/40 shadow-sm">
+      <Card className="border-indigo-100 bg-gradient-to-l from-primary/70 via-white to-white dark:from-primary/20 dark:via-gray-800 dark:to-gray-800 dark:border-primary/40 shadow-sm">
         <CardHeader className="pb-3 flex flex-row items-center justify-between">
           <div className="space-y-1">
             <CardTitle className="text-base flex items-center gap-2">
-              <ShieldAlert className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+              <ShieldAlert className="h-5 w-5 text-primary" />
               <span>طلبات استثناء البصمة</span>
               {requests.length > 0 && (
-                <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 font-mono">
+                <Badge variant="secondary" className="bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning font-mono">
                   {requests.length} معلق
                 </Badge>
               )}
@@ -150,17 +150,17 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
             size="sm"
             onClick={fetchPendingRequests}
             disabled={loading}
-            className="h-8 px-2 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+            className="h-8 px-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
             title="تحديث القائمة"
           >
-            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin text-indigo-600" : ""}`} />
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin text-primary" : ""}`} />
           </Button>
         </CardHeader>
 
         <CardContent>
           {loading && requests.length === 0 ? (
             <div className="py-6 flex items-center justify-center text-sm text-muted-foreground">
-              <RefreshCw className="h-4 w-4 animate-spin ml-2 text-indigo-600" />
+              <RefreshCw className="h-4 w-4 animate-spin ms-2 text-primary" />
               جاري تحميل طلبات الاستثناء...
             </div>
           ) : requests.length === 0 ? (
@@ -168,10 +168,10 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
               لا توجد طلبات استثناء معلقة حالياً.
             </div>
           ) : (
-            <div className="overflow-x-auto border rounded-xl bg-white dark:bg-gray-800/80">
+            <div className="overflow-x-auto border rounded-xl bg-card/80">
               <table className="w-full text-right text-xs">
                 <thead>
-                  <tr className="border-b bg-gray-50/70 dark:bg-gray-900/50 text-gray-500 font-medium">
+                  <tr className="border-b bg-muted dark:bg-muted text-muted-foreground font-medium">
                     <th className="p-3">الموظف</th>
                     <th className="p-3">تاريخ البصمة</th>
                     <th className="p-3">المسافة</th>
@@ -192,24 +192,24 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
                       : "-";
 
                     return (
-                      <tr key={req.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
-                        <td className="p-3 font-semibold text-gray-900 dark:text-gray-100">
+                      <tr key={req.id} className="hover:bg-gray-50/50 dark:hover:bg-muted">
+                        <td className="p-3 font-semibold text-foreground">
                           <div>{req.employeeName || "موظف"}</div>
                           {req.employee?.department?.name && (
-                            <span className="text-[10px] text-gray-400 block font-normal">
+                            <span className="text-[10px] text-muted-foreground block font-normal">
                               {req.employee.department.name}
                             </span>
                           )}
                         </td>
-                        <td className="p-3 text-gray-600 dark:text-gray-300 font-mono">
+                        <td className="p-3 text-muted-foreground font-mono">
                           <span className="inline-flex items-center gap-1">
-                            <Clock className="h-3 w-3 text-gray-400" />
+                            <Clock className="h-3 w-3 text-muted-foreground" />
                             {dateFormatted}
                           </span>
                         </td>
                         <td className="p-3 font-mono">
                           {req.distanceMeters != null ? (
-                            <span className="inline-flex items-center gap-1 text-red-600 dark:text-red-400">
+                            <span className="inline-flex items-center gap-1 text-destructive dark:text-destructive">
                               <MapPin className="h-3 w-3" />
                               {req.distanceMeters} م
                             </span>
@@ -219,7 +219,7 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
                         </td>
                         <td className="p-3 font-mono">
                           {req.accuracyMeters != null ? (
-                            <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400">
+                            <span className="inline-flex items-center gap-1 text-warning dark:text-warning">
                               <Radio className="h-3 w-3" />
                               ±{req.accuracyMeters} م
                             </span>
@@ -227,19 +227,19 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
                             <span className="text-gray-400">-</span>
                           )}
                         </td>
-                        <td className="p-3 font-mono text-[11px] text-gray-600 dark:text-gray-300">
+                        <td className="p-3 font-mono text-[11px] text-muted-foreground">
                           {req.clientIp ? (
                             <span className="inline-flex items-center gap-1">
-                              <Network className="h-3 w-3 text-gray-400" />
+                              <Network className="h-3 w-3 text-muted-foreground" />
                               {req.clientIp}
                             </span>
                           ) : (
                             <span className="text-gray-400">-</span>
                           )}
                         </td>
-                        <td className="p-3 max-w-xs text-gray-700 dark:text-gray-200">
+                        <td className="p-3 max-w-xs text-foreground">
                           <div className="flex items-start gap-1">
-                            <MessageSquare className="h-3 w-3 mt-0.5 text-gray-400 flex-shrink-0" />
+                            <MessageSquare className="h-3 w-3 mt-0.5 text-muted-foreground flex-shrink-0" />
                             <span className="line-clamp-2" title={req.reason}>
                               {req.reason}
                             </span>
@@ -251,18 +251,18 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
                               size="sm"
                               variant="outline"
                               onClick={() => handleOpenDecisionDialog(req, "APPROVED")}
-                              className="h-7 px-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-800 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-800 text-xs"
+                              className="h-7 px-2.5 bg-success/10 text-success hover:bg-success hover:text-success border-success dark:bg-success/30 dark:text-success dark:border-success text-xs"
                             >
-                              <CheckCircle2 className="h-3.5 w-3.5 ml-1" />
+                              <CheckCircle2 className="h-3.5 w-3.5 ms-1" />
                               قبول
                             </Button>
                             <Button
                               size="sm"
                               variant="outline"
                               onClick={() => handleOpenDecisionDialog(req, "REJECTED")}
-                              className="h-7 px-2.5 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border-red-200 dark:bg-red-950/30 dark:text-red-300 dark:border-red-800 text-xs"
+                              className="h-7 px-2.5 bg-destructive/10 text-destructive hover:bg-destructive hover:text-destructive border-destructive dark:bg-destructive/30 dark:text-destructive dark:border-destructive text-xs"
                             >
-                              <XCircle className="h-3.5 w-3.5 ml-1" />
+                              <XCircle className="h-3.5 w-3.5 ms-1" />
                               رفض
                             </Button>
                           </div>
@@ -284,12 +284,12 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
             <DialogTitle className="flex items-center gap-2">
               {decisionAction === "APPROVED" ? (
                 <>
-                  <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                  <CheckCircle2 className="h-5 w-5 text-success" />
                   <span>اعتماد طلب استثناء البصمة</span>
                 </>
               ) : (
                 <>
-                  <XCircle className="h-5 w-5 text-red-600" />
+                  <XCircle className="h-5 w-5 text-destructive" />
                   <span>رفض طلب استثناء البصمة</span>
                 </>
               )}
@@ -300,24 +300,24 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
             <div className="space-y-3 py-2 text-sm">
               <div className="p-3 rounded-lg bg-muted/40 space-y-1">
                 <p>
-                  <strong className="text-gray-700 dark:text-gray-300">الموظف:</strong>{" "}
+                  <strong className="text-foreground">الموظف:</strong>{" "}
                   {activeRequest.employeeName}
                 </p>
                 <p>
-                  <strong className="text-gray-700 dark:text-gray-300">سبب الاستثناء المقدم:</strong>{" "}
+                  <strong className="text-foreground">سبب الاستثناء المقدم:</strong>{" "}
                   {activeRequest.reason}
                 </p>
               </div>
 
               {decisionAction === "APPROVED" ? (
-                <div className="flex items-start gap-2 p-3 text-xs text-emerald-800 bg-emerald-50 dark:bg-emerald-950/20 dark:text-emerald-300 rounded-lg border border-emerald-200">
+                <div className="flex items-start gap-2 p-3 text-xs text-success bg-success/10 dark:bg-success/20 dark:text-success rounded-lg border border-success">
                   <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                   <span>
                     عند الاعتماد، سيتم تسجيل حضور الموظف آلياً لطريقة البصمة (استثناء معتمد) وتوثيق تفاصيل الموقع وسبب الاستثناء في سجل التدقيق.
                   </span>
                 </div>
               ) : (
-                <div className="flex items-start gap-2 p-3 text-xs text-red-800 bg-red-50 dark:bg-red-950/20 dark:text-red-300 rounded-lg border border-red-200">
+                <div className="flex items-start gap-2 p-3 text-xs text-destructive bg-destructive/10 dark:bg-destructive/20 dark:text-destructive rounded-lg border border-destructive">
                   <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                   <span>
                     عند الرفض، سيتم حفظ قرار الرفض دون إنشاء سجل حضور.
@@ -326,7 +326,7 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
               )}
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                <label className="text-xs font-semibold text-foreground">
                   ملاحظة القرار (اختياري)
                 </label>
                 <Textarea
@@ -346,8 +346,8 @@ export const AttendanceExceptionRequestsSection: React.FC<AttendanceExceptionReq
               disabled={submitting}
               className={
                 decisionAction === "APPROVED"
-                  ? "bg-emerald-600 hover:bg-emerald-700 text-white"
-                  : "bg-red-600 hover:bg-red-700 text-white"
+                  ? "bg-emerald-600 hover:bg-success text-white"
+                  : "bg-red-600 hover:bg-destructive text-white"
               }
             >
               {submitting ? (

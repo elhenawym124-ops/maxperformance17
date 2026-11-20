@@ -32,10 +32,10 @@ export const WarningsOverviewCard: React.FC<WarningsOverviewCardProps> = ({
   const acknowledgmentRate = total > 0 ? Math.round((acknowledged / total) * 100) : 0;
 
   return (
-    <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
-          <div className="p-1.5 bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-lg">
+          <div className="p-1.5 bg-destructive/10 text-destructive dark:text-destructive rounded-lg">
             <AlertCircle className="h-4 w-4" />
           </div>
           {t("hrDashboard.warnings")}

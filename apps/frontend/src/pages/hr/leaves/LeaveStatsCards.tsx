@@ -22,7 +22,7 @@ export const LeaveStatsCards: React.FC<LeaveStatsCardsProps> = ({
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
-      <Card className="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-xl sm:rounded-2xl">
+      <Card className="bg-gradient-to-br from-warning to-warning text-white rounded-xl sm:rounded-xl">
         <CardContent className="p-3.5 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -34,35 +34,35 @@ export const LeaveStatsCards: React.FC<LeaveStatsCardsProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="rounded-xl sm:rounded-2xl">
+      <Card className="rounded-xl sm:rounded-xl">
         <CardContent className="p-3.5 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-muted-foreground text-xs sm:text-sm">{t("employee.leaves.approved")}</p>
-              <h3 className="text-xl sm:text-3xl font-bold mt-1 text-green-600 font-mono tabular-nums">
+              <h3 className="text-xl sm:text-3xl font-bold mt-1 text-success font-mono tabular-nums">
                 {approvedCount}
               </h3>
             </div>
-            <Check className="h-6 w-6 sm:h-10 sm:w-10 text-green-500" />
+            <Check className="h-6 w-6 sm:h-10 sm:w-10 text-success" />
           </div>
         </CardContent>
       </Card>
 
-      <Card className="rounded-xl sm:rounded-2xl">
+      <Card className="rounded-xl sm:rounded-xl">
         <CardContent className="p-3.5 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-muted-foreground text-xs sm:text-sm">{t("employee.leaves.rejected")}</p>
-              <h3 className="text-xl sm:text-3xl font-bold mt-1 text-red-600 font-mono tabular-nums">
+              <h3 className="text-xl sm:text-3xl font-bold mt-1 text-destructive font-mono tabular-nums">
                 {rejectedCount}
               </h3>
             </div>
-            <X className="h-6 w-6 sm:h-10 sm:w-10 text-red-500" />
+            <X className="h-6 w-6 sm:h-10 sm:w-10 text-destructive" />
           </div>
         </CardContent>
       </Card>
 
-      <Card className="rounded-xl sm:rounded-2xl">
+      <Card className="rounded-xl sm:rounded-xl">
         <CardContent className="p-3.5 sm:p-6">
           <div className="flex items-center justify-between">
             <div>

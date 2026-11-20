@@ -30,7 +30,7 @@ export const AttendancePunctualityPanel: React.FC<
     <Card>
       <CardHeader>
         <CardTitle className="text-xl flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-orange-500" />
+          <TrendingUp className="h-5 w-5 text-warning" />
           سياسات الالتزام والجزاءات
         </CardTitle>
         <CardDescription>
@@ -41,7 +41,7 @@ export const AttendancePunctualityPanel: React.FC<
         {/* 1. القواعد العامة (Thresholds) */}
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 border border-gray-100 dark:border-gray-800 rounded-xl bg-gray-50/30">
+            <div className="p-4 border border-border dark:border-border rounded-xl bg-muted">
               <Label htmlFor="earlyLeaveThreshold">
                 حد الانصراف المبكر (بالدقائق)
               </Label>
@@ -60,7 +60,7 @@ export const AttendancePunctualityPanel: React.FC<
                 }
               />
             </div>
-            <div className="p-4 border border-gray-100 dark:border-gray-800 rounded-xl bg-gray-50/30">
+            <div className="p-4 border border-border dark:border-border rounded-xl bg-muted">
               <Label htmlFor="monthlyLateLimit">
                 حد التأخير الشهري (مرات)
               </Label>
@@ -95,7 +95,7 @@ export const AttendancePunctualityPanel: React.FC<
         {/* 4. مستويات الإنذار (Legacy Levels) */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h4 className="font-bold text-gray-900 dark:text-white">
+            <h4 className="font-bold text-foreground">
               جدول الخصومات المتصاعد (حسب عدد المرات)
             </h4>
             <Button
@@ -121,7 +121,7 @@ export const AttendancePunctualityPanel: React.FC<
             {settings.lateWarningLevels.map((level, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-3 bg-gray-50/50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700"
+                className="flex items-center gap-3 p-3 bg-muted dark:bg-muted rounded-lg border border-border dark:border-border"
               >
                 <div className="w-16">
                   <Label
@@ -174,7 +174,7 @@ export const AttendancePunctualityPanel: React.FC<
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="mt-4 text-red-500"
+                  className="mt-4 text-destructive"
                   onClick={() => {
                     const newLevels = settings.lateWarningLevels.filter(
                       (_, i) => i !== index,
@@ -197,7 +197,7 @@ export const AttendancePunctualityPanel: React.FC<
 
         {/* 5. التحكم بالبصمة */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-3 rounded-xl border bg-gray-50/20">
+          <div className="p-3 rounded-xl border bg-muted">
             <Label className="text-xs mb-2 block">البصمة عن بُعد</Label>
             <Switch
               checked={settings.allowRemoteCheckIn}
@@ -209,7 +209,7 @@ export const AttendancePunctualityPanel: React.FC<
               }
             />
           </div>
-          <div className="p-3 rounded-xl border bg-gray-50/20">
+          <div className="p-3 rounded-xl border bg-muted">
             <Label className="text-xs mb-2 block">طلب الموقع عند البصمة</Label>
             <Switch
               checked={settings.requireLocation}
@@ -221,7 +221,7 @@ export const AttendancePunctualityPanel: React.FC<
               }
             />
           </div>
-          <div className="p-3 rounded-xl border bg-gray-50/20">
+          <div className="p-3 rounded-xl border bg-muted">
             <Label className="text-xs mb-2 block">تسجيل الغياب الآلي</Label>
             <Switch
               checked={settings.autoAbsentMarking}

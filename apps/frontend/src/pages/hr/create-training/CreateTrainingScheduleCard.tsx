@@ -23,9 +23,9 @@ export const CreateTrainingScheduleCard: React.FC<
   CreateTrainingScheduleCardProps
 > = ({ control, register, errors }) => {
   return (
-    <Card className="border-none shadow-xl ring-1 ring-purple-100/50">
-      <CardHeader className="border-b border-gray-50 bg-gray-50/30">
-        <h3 className="text-lg font-bold flex items-center gap-2 text-indigo-800">
+    <Card className="border-none shadow-xl ring-1 ring-primary/50">
+      <CardHeader className="border-b border-border bg-muted">
+        <h3 className="text-lg font-bold flex items-center gap-2 text-primary">
           <Clock className="h-5 w-5" />
           التوقيت والحالة
         </h3>
@@ -38,17 +38,17 @@ export const CreateTrainingScheduleCard: React.FC<
                 تاريخ البدء <span className="text-rose-500">*</span>
               </Label>
               <div className="relative">
-                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <DateInput
                   
-                  className="h-12 pr-10 border-purple-50 focus:ring-purple-200 rounded-xl font-mono tabular-nums"
+                  className="h-12 pe-10 border-primary focus:ring-primary rounded-xl font-mono tabular-nums"
                   {...register("startDate", {
                     required: "تاريخ البدء مطلوب",
                   })}
                 />
               </div>
               {errors.startDate && (
-                <p className="text-xs font-bold text-rose-500 mt-1">
+                <p className="text-xs font-bold text-destructive mt-1">
                   {errors.startDate.message}
                 </p>
               )}
@@ -57,10 +57,10 @@ export const CreateTrainingScheduleCard: React.FC<
             <div className="space-y-2">
               <Label className="font-bold">تاريخ الانتهاء المتوقع</Label>
               <div className="relative">
-                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <DateInput
                   
-                  className="h-12 pr-10 border-purple-50 focus:ring-purple-200 rounded-xl font-mono tabular-nums"
+                  className="h-12 pe-10 border-primary focus:ring-primary rounded-xl font-mono tabular-nums"
                   {...register("endDate")}
                 />
               </div>
@@ -82,8 +82,8 @@ export const CreateTrainingScheduleCard: React.FC<
                         onClick={() => field.onChange(opt.value)}
                         className={`px-3 py-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 ${
                           field.value === opt.value
-                            ? `${opt.color} shadow-sm ring-2 ring-offset-1 ring-purple-100`
-                            : "bg-white text-gray-500 border-gray-100 hover:border-purple-200"
+                            ? `${opt.color} shadow-sm ring-2 ring-offset-1 ring-primary`
+                            : "bg-white text-muted-foreground border-border hover:border-primary"
                         }`}
                       >
                         {field.value === opt.value && (
@@ -100,24 +100,24 @@ export const CreateTrainingScheduleCard: React.FC<
             <div className="grid grid-cols-2 gap-4 pt-2">
               <div className="space-y-2">
                 <Label className="font-bold flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-indigo-400" />
+                  <Clock className="h-4 w-4 text-primary" />
                   المدة (ساعة)
                 </Label>
                 <Input
                   type="number"
                   placeholder="0"
-                  className="h-12 border-purple-50 focus:ring-purple-200 rounded-xl font-mono tabular-nums"
+                  className="h-12 border-primary focus:ring-primary rounded-xl font-mono tabular-nums"
                   {...register("duration")}
                 />
               </div>
               <div className="space-y-2">
                 <Label className="font-bold flex items-center gap-2">
-                  <Save className="h-4 w-4 text-purple-400" />
+                  <Save className="h-4 w-4 text-primary" />
                   الجهة المنظمة
                 </Label>
                 <Input
                   placeholder="مركز التدريب..."
-                  className="h-12 border-purple-50 focus:ring-purple-200 rounded-xl"
+                  className="h-12 border-primary focus:ring-primary rounded-xl"
                   {...register("provider")}
                 />
               </div>

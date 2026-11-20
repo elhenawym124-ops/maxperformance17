@@ -20,27 +20,27 @@ export const AttendanceAutoCloseBanner: React.FC<AttendanceAutoCloseBannerProps>
   setPagination,
 }) => {
   return (
-    <Card className="border-amber-100 bg-gradient-to-l from-amber-50 via-white to-white dark:from-amber-950/20 dark:via-gray-800 dark:to-gray-800 dark:border-amber-900/30">
+    <Card className="border-amber-100 bg-gradient-to-l from-warning via-white to-white dark:from-warning/20 dark:via-gray-800 dark:to-gray-800 dark:border-warning/30">
       <CardHeader className="pb-3">
         <CardTitle className="text-base flex items-center gap-2">
-          <AlertCircle className="h-4 w-4 text-amber-600" />
+          <AlertCircle className="h-4 w-4 text-warning" />
           مراجعة الإغلاق التلقائي
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { label: "إجمالي مغلق تلقائيًا", value: autoCloseSummary.total, accent: "text-amber-700 bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300" },
-            { label: "بانتظار المراجعة", value: autoCloseSummary.pending, accent: "text-amber-700 bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300" },
-            { label: "تمت المراجعة", value: autoCloseSummary.reviewed, accent: "text-sky-700 bg-sky-100 dark:bg-sky-900/30 dark:text-sky-300" },
-            { label: "تم التعديل", value: autoCloseSummary.adjusted, accent: "text-emerald-700 bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-300" },
-            { label: "اعتماد كما هو", value: autoCloseSummary.dismissed, accent: "text-slate-700 bg-slate-100 dark:bg-slate-800 dark:text-slate-300" },
+            { label: "إجمالي مغلق تلقائيًا", value: autoCloseSummary.total, accent: "text-amber-700 bg-warning dark:bg-warning/30 dark:text-warning" },
+            { label: "بانتظار المراجعة", value: autoCloseSummary.pending, accent: "text-amber-700 bg-warning dark:bg-warning/30 dark:text-warning" },
+            { label: "تمت المراجعة", value: autoCloseSummary.reviewed, accent: "text-sky-700 bg-info dark:bg-info/30 dark:text-info" },
+            { label: "تم التعديل", value: autoCloseSummary.adjusted, accent: "text-emerald-700 bg-success dark:bg-success/30 dark:text-success" },
+            { label: "اعتماد كما هو", value: autoCloseSummary.dismissed, accent: "text-slate-700 bg-muted dark:bg-muted dark:text-muted-foreground" },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
+            <div key={item.label} className="rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">
               <div className={`inline-flex rounded-full px-2.5 py-1 text-xs font-bold ${item.accent}`}>
                 {item.label}
               </div>
-              <div className="mt-3 text-3xl font-black text-gray-900 dark:text-white font-mono tabular-nums">
+              <div className="mt-3 text-3xl font-black text-foreground font-mono tabular-nums">
                 {item.value || 0}
               </div>
             </div>
@@ -53,7 +53,7 @@ export const AttendanceAutoCloseBanner: React.FC<AttendanceAutoCloseBannerProps>
               setAutoClosedOnly(true);
               setPagination((p: any) => ({ ...p, page: 1 }));
             }}
-            className={autoClosedOnly ? "bg-amber-600 hover:bg-amber-700" : ""}
+            className={autoClosedOnly ? "bg-amber-600 hover:bg-warning" : ""}
           >
             السجلات المغلقة تلقائيًا
           </Button>

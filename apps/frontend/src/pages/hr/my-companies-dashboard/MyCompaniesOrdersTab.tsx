@@ -27,16 +27,16 @@ interface MyCompaniesOrdersTabProps {
 }
 
 const ORDER_STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  PENDING: { label: "قيد الانتظار", color: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300" },
+  PENDING: { label: "قيد الانتظار", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
   CONFIRMED: { label: "مؤكد", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
-  PROCESSING: { label: "جاري التجهيز", color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  PREPARING: { label: "جاري التجهيز", color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
-  READY: { label: "جاهز للشحن", color: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/40 dark:text-cyan-300" },
-  READY_TO_SHIP: { label: "جاهز للشحن", color: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/40 dark:text-cyan-300" },
-  SHIPPED: { label: "تم الشحن", color: "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300" },
-  DELIVERED: { label: "تم التوصيل", color: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300" },
-  CANCELLED: { label: "ملغي", color: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300" },
-  RETURNED: { label: "مرتجع", color: "bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300" },
+  PROCESSING: { label: "جاري التجهيز", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  PREPARING: { label: "جاري التجهيز", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  READY: { label: "جاهز للشحن", color: "bg-cyan-100 text-info dark:bg-info/40 dark:text-info" },
+  READY_TO_SHIP: { label: "جاهز للشحن", color: "bg-cyan-100 text-info dark:bg-info/40 dark:text-info" },
+  SHIPPED: { label: "تم الشحن", color: "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary" },
+  DELIVERED: { label: "تم التوصيل", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
+  CANCELLED: { label: "ملغي", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
+  RETURNED: { label: "مرتجع", color: "bg-rose-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
 };
 
 export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ companies }) => {
@@ -271,15 +271,15 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
   return (
     <div className="space-y-4">
       {/* ── 1. عدادات كل شركة + الإجمالي ── */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-gray-700">
+      <div className="bg-card p-4 rounded-xl shadow-xs border border-border dark:border-border">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <BuildingOfficeIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-base font-bold text-gray-800 dark:text-white">
+            <h2 className="text-base font-bold text-foreground dark:text-white">
               إحصائيات الطلبات عبر شركاتك
             </h2>
           </div>
-          <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">
+          <span className="text-xs text-muted-foreground font-mono">
             {totalsByCompany.length} شركات مسجلة
           </span>
         </div>
@@ -291,7 +291,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all border flex items-center gap-2 shadow-2xs ${
               selectedCompanyId === "ALL"
                 ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                : "bg-gray-50 dark:bg-gray-700/60 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                : "bg-gray-50 dark:bg-muted text-foreground border-border hover:bg-muted"
             }`}
           >
             <span>جميع الشركات</span>
@@ -299,7 +299,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
               className={`px-2 py-0.5 rounded-full text-xs font-mono font-bold ${
                 selectedCompanyId === "ALL"
                   ? "bg-white/20 text-white"
-                  : "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200"
+                  : "bg-gray-200 dark:bg-muted text-foreground dark:text-muted-foreground"
               }`}
             >
               {totalOrders}
@@ -316,7 +316,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border flex items-center gap-2 shadow-2xs ${
                   isSelected
                     ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                    : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500"
+                    : "bg-card text-foreground border-border hover:border-blue-400 dark:hover:border-blue-500"
                 }`}
               >
                 <span className="truncate max-w-[140px]">{tc.companyName}</span>
@@ -324,7 +324,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                   className={`px-2 py-0.5 rounded-full text-xs font-mono font-bold ${
                     isSelected
                       ? "bg-white/20 text-white"
-                      : "bg-gray-100 dark:bg-gray-600 text-blue-600 dark:text-blue-400"
+                      : "bg-gray-100 dark:bg-muted text-blue-600 dark:text-blue-400"
                   }`}
                 >
                   {tc.count}
@@ -336,17 +336,17 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
       </div>
 
       {/* ── 2. شريط الفلاتر والبحث ── */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xs border border-gray-100 dark:border-gray-700 space-y-3">
+      <div className="bg-card p-4 rounded-xl shadow-xs border border-border dark:border-border space-y-3">
         <div className="flex flex-col md:flex-row gap-3">
           {/* بحث */}
           <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <MagnifyingGlassIcon className="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ابحث برقم الأوردر، اسم العميل، أو رقم الهاتف..."
-              className="w-full pr-10 pl-4 py-2 text-sm bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+              className="w-full pe-10 ps-4 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -355,7 +355,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             <select
               value={selectedCompanyId}
               onChange={(e) => setSelectedCompanyId(e.target.value)}
-              className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-blue-500"
             >
               <option value="ALL">كل الشركات</option>
               {activeCompanyOptions.map((c) => (
@@ -371,7 +371,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-blue-500"
             >
               <option value="ALL">جميع الحالات</option>
               <option value="PENDING">قيد الانتظار</option>
@@ -385,22 +385,22 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
         </div>
 
         {/* فلاتر التاريخ وإعادة الضبط */}
-        <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-gray-100 dark:border-gray-700 text-xs">
+        <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-border dark:border-border text-xs">
           <div className="flex items-center gap-2">
-            <span className="text-gray-500 dark:text-gray-400">من تاريخ:</span>
+            <span className="text-muted-foreground">من تاريخ:</span>
             <DateInput
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-md text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border rounded-md text-foreground focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-gray-500 dark:text-gray-400">إلى تاريخ:</span>
+            <span className="text-muted-foreground">إلى تاريخ:</span>
             <DateInput
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-md text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border rounded-md text-foreground focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -413,7 +413,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 setStartDate("");
                 setEndDate("");
               }}
-              className="mr-auto px-3 py-1.5 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md font-medium transition-colors"
+              className="me-auto px-3 py-1.5 text-xs text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/20 rounded-md font-medium transition-colors"
             >
               مسح الفلاتر
             </button>
@@ -421,7 +421,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
 
           <button
             onClick={() => fetchOrders(true)}
-            className="px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md font-medium flex items-center gap-1.5 mr-auto sm:mr-0 transition-colors"
+            className="px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted rounded-md font-medium flex items-center gap-1.5 me-auto sm:me-0 transition-colors"
           >
             <ArrowPathIcon className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
             تحديث
@@ -430,26 +430,26 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
       </div>
 
       {/* ── 3. الجدول الموحد للطلبات ── */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xs border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div className="bg-card rounded-xl shadow-xs border border-border dark:border-border overflow-hidden">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+          <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
             <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mb-3" />
             <p className="text-sm">جاري جلب الطلبات من جميع الشركات...</p>
           </div>
         ) : orders.length === 0 ? (
           <div className="text-center py-16 px-4">
-            <FunnelIcon className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
-            <h3 className="text-base font-semibold text-gray-800 dark:text-white mb-1">
+            <FunnelIcon className="w-12 h-12 mx-auto text-muted-foreground dark:text-foreground mb-3" />
+            <h3 className="text-base font-semibold text-foreground dark:text-white mb-1">
               لا توجد طلبات مطابقة
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               لم نتمكن من العثور على أي طلبات تطابق الفلاتر المحددة عبر شركاتك.
             </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-right text-xs sm:text-sm">
-              <thead className="bg-gray-50/80 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700">
+              <thead className="bg-gray-50/80 dark:bg-muted text-muted-foreground border-b border-border dark:border-border">
                 <tr>
                   <th className="py-3 px-3 sm:px-4 font-semibold">رقم الأوردر</th>
                   <th className="py-3 px-3 sm:px-4 font-semibold">الشركة</th>
@@ -460,25 +460,25 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                   <th className="py-3 px-3 sm:px-4 font-semibold text-center">الإجراءات</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {orders.map((order) => {
                   const statusInfo = ORDER_STATUS_LABELS[order.status] || {
                     label: order.status,
-                    color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+                    color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground",
                   };
                   const perms = order.permissions;
 
                   return (
                     <tr
                       key={`${order.companyId}_${order.id}`}
-                      className="hover:bg-gray-50/70 dark:hover:bg-gray-700/40 transition-colors"
+                      className="hover:bg-gray-50/70 dark:hover:bg-muted transition-colors"
                     >
                       {/* رقم الأوردر */}
-                      <td className="py-3 px-3 sm:px-4 font-mono font-bold text-gray-900 dark:text-white">
+                      <td className="py-3 px-3 sm:px-4 font-mono font-bold text-foreground">
                         <div className="flex items-center gap-1.5">
                           <span>{order.orderNumber}</span>
                           {order.isGuest && (
-                            <span className="px-1.5 py-0.5 text-[10px] font-sans font-medium rounded bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+                            <span className="px-1.5 py-0.5 text-[10px] font-sans font-medium rounded bg-warning text-warning dark:bg-warning/40 dark:text-warning">
                               ضيف
                             </span>
                           )}
@@ -495,11 +495,11 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
 
                       {/* العميل */}
                       <td className="py-3 px-3 sm:px-4">
-                        <div className="font-medium text-gray-900 dark:text-white truncate max-w-[150px]">
+                        <div className="font-medium text-foreground truncate max-w-[150px]">
                           {order.customerName}
                         </div>
                         {order.customerPhone && (
-                          <div className="text-xs text-gray-400 font-mono" dir="ltr">
+                          <div className="text-xs text-muted-foreground font-mono" dir="ltr">
                             {order.customerPhone}
                           </div>
                         )}
@@ -515,16 +515,16 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                       </td>
 
                       {/* الإجمالي */}
-                      <td className="py-3 px-3 sm:px-4 font-mono font-semibold text-gray-900 dark:text-white">
+                      <td className="py-3 px-3 sm:px-4 font-mono font-semibold text-foreground">
                         {order.total.toLocaleString("ar-EG", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}{" "}
-                        <span className="text-xs text-gray-500 font-sans">{order.currency}</span>
+                        <span className="text-xs text-muted-foreground font-sans">{order.currency}</span>
                       </td>
 
                       {/* التاريخ */}
-                      <td className="py-3 px-3 sm:px-4 text-xs text-gray-500 dark:text-gray-400 font-mono whitespace-nowrap">
+                      <td className="py-3 px-3 sm:px-4 text-xs text-muted-foreground font-mono whitespace-nowrap">
                         {order.createdAt ? new Date(order.createdAt).toLocaleDateString("ar-EG") : "-"}
                       </td>
 
@@ -546,7 +546,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               className={`p-1.5 rounded-md transition-colors ${
                                 perms.canChangeStatus && !order.isGuest
                                   ? "text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30"
-                                  : "text-gray-300 dark:text-gray-600 opacity-40 cursor-not-allowed"
+                                  : "text-gray-300 dark:text-foreground opacity-40 cursor-not-allowed"
                               }`}
                               title={
                                 order.isGuest
@@ -559,7 +559,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               <CheckCircleIcon className="w-5 h-5" />
                             </button>
                             {(order.isGuest || !perms.canChangeStatus) && (
-                              <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 text-xs text-white bg-gray-900 dark:bg-black rounded shadow-md whitespace-nowrap pointer-events-none">
+                              <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 text-xs text-white bg-muted dark:bg-black rounded shadow-md whitespace-nowrap pointer-events-none">
                                 {order.isGuest
                                   ? "أوردر ضيف — افتحه من صفحة الشركة"
                                   : `مالكش صلاحية في شركة ${order.companyName}`}
@@ -580,8 +580,8 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               disabled={!perms.canCancel || order.status === "CANCELLED" || order.isGuest}
                               className={`p-1.5 rounded-md transition-colors ${
                                 perms.canCancel && order.status !== "CANCELLED" && !order.isGuest
-                                  ? "text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/30"
-                                  : "text-gray-300 dark:text-gray-600 opacity-40 cursor-not-allowed"
+                                  ? "text-red-600 hover:bg-destructive/10 dark:text-destructive dark:hover:bg-destructive/30"
+                                  : "text-gray-300 dark:text-foreground opacity-40 cursor-not-allowed"
                               }`}
                               title={
                                 order.isGuest
@@ -594,7 +594,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               <XCircleIcon className="w-5 h-5" />
                             </button>
                             {(order.isGuest || !perms.canCancel) && (
-                              <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 text-xs text-white bg-gray-900 dark:bg-black rounded shadow-md whitespace-nowrap pointer-events-none">
+                              <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 text-xs text-white bg-muted dark:bg-black rounded shadow-md whitespace-nowrap pointer-events-none">
                                 {order.isGuest
                                   ? "أوردر ضيف — افتحه من صفحة الشركة"
                                   : `مالكش صلاحية في شركة ${order.companyName}`}
@@ -614,8 +614,8 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               disabled={order.isGuest}
                               className={`p-1.5 rounded-md transition-colors flex items-center gap-1 text-xs font-medium ${
                                 order.isGuest
-                                  ? "text-gray-300 dark:text-gray-600 opacity-40 cursor-not-allowed"
-                                  : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                  ? "text-gray-300 dark:text-foreground opacity-40 cursor-not-allowed"
+                                  : "text-gray-600 hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                               }`}
                               title={
                                 order.isGuest
@@ -627,7 +627,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               <span className="hidden sm:inline">افتح</span>
                             </button>
                             {order.isGuest && (
-                              <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 text-xs text-white bg-gray-900 dark:bg-black rounded shadow-md whitespace-nowrap pointer-events-none">
+                              <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 text-xs text-white bg-muted dark:bg-black rounded shadow-md whitespace-nowrap pointer-events-none">
                                 أوردر ضيف — افتحه من صفحة الشركة
                               </div>
                             )}
@@ -644,10 +644,10 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
 
         {/* ── 4. الترقيم عبر Keyset Pagination ── */}
         {!isLoading && orders.length > 0 && (
-          <div className="p-3.5 bg-gray-50/80 dark:bg-gray-700/50 border-t border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <span className="text-gray-500 dark:text-gray-400">
-              تم عرض <strong className="font-mono text-gray-800 dark:text-white">{orders.length}</strong> من إجمالي{" "}
-              <strong className="font-mono text-gray-800 dark:text-white">{totalOrders}</strong> طلب
+          <div className="p-3.5 bg-muted dark:bg-muted border-t border-border dark:border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <span className="text-muted-foreground">
+              تم عرض <strong className="font-mono text-foreground dark:text-white">{orders.length}</strong> من إجمالي{" "}
+              <strong className="font-mono text-foreground dark:text-white">{totalOrders}</strong> طلب
             </span>
 
             {hasNextPage && (
@@ -676,25 +676,25 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
       {/* ── 5. Modal تغيير الحالة ── */}
       {statusModalOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 w-full max-w-md p-5 space-y-4 text-right">
+          <div className="bg-card rounded-xl shadow-xl border border-border dark:border-border w-full max-w-md p-5 space-y-4 text-right">
             <div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-bold text-foreground">
                 تغيير حالة الطلب #{statusModalOrder.orderNumber}
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 الشركة: <strong className="text-blue-600 dark:text-blue-400">{statusModalOrder.companyName}</strong>
               </p>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-xs font-semibold text-foreground mb-1">
                   الحالة الجديدة
                 </label>
                 <select
                   value={modalTargetStatus}
                   onChange={(e) => setModalTargetStatus(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="CONFIRMED">مؤكد</option>
                   <option value="PROCESSING">جاري التجهيز</option>
@@ -705,7 +705,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-xs font-semibold text-foreground mb-1">
                   ملاحظات (اختياري)
                 </label>
                 <textarea
@@ -713,17 +713,17 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                   onChange={(e) => setModalNotes(e.target.value)}
                   rows={2}
                   placeholder="أدخل أي ملاحظات على تغيير الحالة..."
-                  className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-gray-100 dark:border-gray-700">
+            <div className="flex justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setStatusModalOrder(null)}
                 disabled={isUpdatingStatus}
-                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium"
+                className="px-4 py-2 text-sm text-muted-foreground hover:bg-muted rounded-lg transition-colors font-medium"
               >
                 إلغاء
               </button>
@@ -750,19 +750,19 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
       {/* ── 6. Modal تأكيد الإلغاء ── */}
       {cancelModalOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 w-full max-w-md p-5 space-y-4 text-right">
-            <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+          <div className="bg-card rounded-xl shadow-xl border border-border dark:border-border w-full max-w-md p-5 space-y-4 text-right">
+            <div className="flex items-center gap-2 text-destructive dark:text-destructive">
               <XCircleIcon className="w-6 h-6 shrink-0" />
               <h3 className="text-lg font-bold">
                 إلغاء الطلب #{cancelModalOrder.orderNumber}
               </h3>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-muted-foreground">
               الشركة: <strong>{cancelModalOrder.companyName}</strong> — هل أنت متأكد من رغبتك في إلغاء هذا الطلب؟
             </p>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 سبب الإلغاء (إلزامي)
               </label>
               <textarea
@@ -770,16 +770,16 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 onChange={(e) => setCancelReason(e.target.value)}
                 rows={2}
                 placeholder="أدخل سبب إلغاء الطلب..."
-                className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-red-500"
+                className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-destructive"
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-gray-100 dark:border-gray-700">
+            <div className="flex justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setCancelModalOrder(null)}
                 disabled={isCancelling}
-                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium"
+                className="px-4 py-2 text-sm text-muted-foreground hover:bg-muted rounded-lg transition-colors font-medium"
               >
                 تراجع
               </button>
@@ -787,7 +787,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 type="button"
                 onClick={handleSubmitCancel}
                 disabled={isCancelling || !cancelReason.trim()}
-                className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white rounded-lg transition-colors font-medium flex items-center gap-1.5"
+                className="px-4 py-2 text-sm bg-destructive hover:bg-destructive disabled:opacity-50 text-white rounded-lg transition-colors font-medium flex items-center gap-1.5"
               >
                 {isCancelling ? (
                   <>

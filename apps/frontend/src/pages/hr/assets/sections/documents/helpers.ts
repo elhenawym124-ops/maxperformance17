@@ -41,7 +41,7 @@ export const COLOR_MAP: Record<
   gray: {
     bg: "bg-gray-600",
     text: "text-gray-600",
-    light: "bg-gray-100 dark:bg-gray-700",
+    light: "bg-muted",
   },
   blue: {
     bg: "bg-blue-600",
@@ -51,17 +51,17 @@ export const COLOR_MAP: Record<
   green: {
     bg: "bg-green-600",
     text: "text-green-600",
-    light: "bg-green-100 dark:bg-green-900/30",
+    light: "bg-green-100 dark:bg-success/30",
   },
   purple: {
     bg: "bg-purple-600",
     text: "text-purple-600",
-    light: "bg-purple-100 dark:bg-purple-900/30",
+    light: "bg-purple-100 dark:bg-primary/30",
   },
   orange: {
     bg: "bg-orange-600",
     text: "text-orange-600",
-    light: "bg-orange-100 dark:bg-orange-900/30",
+    light: "bg-orange-100 dark:bg-warning/30",
   },
 };
 

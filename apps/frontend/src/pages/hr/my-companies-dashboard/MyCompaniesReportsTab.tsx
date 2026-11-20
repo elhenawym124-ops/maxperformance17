@@ -9,12 +9,12 @@ export const MyCompaniesReportsTab: React.FC<MyCompaniesReportsTabProps> = ({
   onGoToReports,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-      <ChartBarIcon className="w-16 h-16 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-      <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">
+    <div className="bg-card p-8 rounded-xl shadow-sm border border-border dark:border-border text-center">
+      <ChartBarIcon className="w-16 h-16 mx-auto text-muted-foreground dark:text-foreground mb-4" />
+      <h3 className="text-lg font-bold text-foreground dark:text-white mb-2">
         التقارير الموحدة
       </h3>
-      <p className="text-gray-500 dark:text-gray-400 mb-4">
+      <p className="text-muted-foreground mb-4">
         قريباً... يمكنك الوصول للتقارير من صفحة التقارير الموحدة
       </p>
       <button

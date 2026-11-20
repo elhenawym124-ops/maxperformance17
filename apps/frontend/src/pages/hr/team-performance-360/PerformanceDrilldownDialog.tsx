@@ -106,27 +106,27 @@ export const PerformanceDrilldownDialog: React.FC<
                 ملخص الدوام وإنجاز المهام:
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="p-2 rounded bg-emerald-500/10 border border-emerald-500/20">
+                <div className="p-2 rounded bg-success/10 border border-success/20">
                   <div className="text-[10px] text-muted-foreground">
                     حضور فعلي
                   </div>
-                  <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                  <div className="text-sm font-bold text-success dark:text-success font-mono tabular-nums">
                     {employee.telemetryStats.presentDays ?? 0} يوم
                   </div>
                 </div>
-                <div className="p-2 rounded bg-amber-500/10 border border-amber-500/20">
+                <div className="p-2 rounded bg-warning/10 border border-warning/20">
                   <div className="text-[10px] text-muted-foreground">
                     تأخير صباحي
                   </div>
-                  <div className="text-sm font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+                  <div className="text-sm font-bold text-warning dark:text-warning font-mono tabular-nums">
                     {employee.telemetryStats.lateDays ?? 0} يوم
                   </div>
                 </div>
-                <div className="p-2 rounded bg-rose-500/10 border border-rose-500/20">
+                <div className="p-2 rounded bg-destructive/10 border border-destructive/20">
                   <div className="text-[10px] text-muted-foreground">
                     غياب غير مبرر
                   </div>
-                  <div className="text-sm font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+                  <div className="text-sm font-bold text-destructive dark:text-destructive font-mono tabular-nums">
                     {employee.telemetryStats.absentDays ?? 0} يوم
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export const PerformanceDrilldownDialog: React.FC<
             {/* Risk Flags if any */}
             {employee.riskFlags.length > 0 && (
               <div>
-                <div className="font-bold text-rose-500 mb-1.5 flex items-center gap-1.5">
+                <div className="font-bold text-destructive mb-1.5 flex items-center gap-1.5">
                   <AlertTriangle className="h-3.5 w-3.5" />
                   <span>ملاحظات تشغيلية حرجة:</span>
                 </div>
@@ -144,7 +144,7 @@ export const PerformanceDrilldownDialog: React.FC<
                   {employee.riskFlags.map((flag, idx) => (
                     <div
                       key={idx}
-                      className="p-2 rounded bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs"
+                      className="p-2 rounded bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-xs"
                     >
                       • {flag}
                     </div>

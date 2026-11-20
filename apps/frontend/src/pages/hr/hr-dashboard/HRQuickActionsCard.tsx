@@ -61,7 +61,7 @@ export const HRQuickActionsCard: React.FC = () => {
   ];
 
   return (
-    <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="text-base font-semibold text-foreground flex items-center gap-2">
           <div className="p-1.5 bg-primary/10 text-primary rounded-lg">

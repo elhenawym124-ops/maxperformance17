@@ -77,28 +77,28 @@ const Resignations: React.FC = () => {
     switch (status) {
       case 'PENDING':
         return (
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20">
             <Clock size={11} />
             معلق
           </span>
         );
       case 'APPROVED':
         return (
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-success/10 text-success dark:text-success border border-success/20">
             <CheckCircle2 size={11} />
             موافق عليه
           </span>
         );
       case 'REJECTED':
         return (
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
             <XCircle size={11} />
             مرفوض
           </span>
         );
       case 'COMPLETED':
         return (
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-info/10 text-info dark:text-info border border-info/20">
             <CheckCircle2 size={11} />
             مكتمل التصفية
           </span>
@@ -210,7 +210,7 @@ const Resignations: React.FC = () => {
               <Clock size={13} className="text-amber-500" />
               <span>طلبات معلقة</span>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400 mt-1">
+            <div className="text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning mt-1">
               {pendingCount}
             </div>
             <div className="text-[10px] text-muted-foreground mt-0.5">تنتظر مراجعة الإدارة</div>
@@ -221,7 +221,7 @@ const Resignations: React.FC = () => {
               <CheckCircle2 size={13} className="text-emerald-500" />
               <span>تمت الموافقة</span>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-1">
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success mt-1">
               {approvedCount}
             </div>
             <div className="text-[10px] text-muted-foreground mt-0.5">بانتظار إخلاء الطرف والتسوية</div>
@@ -232,7 +232,7 @@ const Resignations: React.FC = () => {
               <Calculator size={13} className="text-sky-500" />
               <span>مكتمل التصفية</span>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-sky-600 dark:text-sky-400 mt-1">
+            <div className="text-2xl font-bold font-mono tabular-nums text-info dark:text-info mt-1">
               {completedCount}
             </div>
             <div className="text-[10px] text-muted-foreground mt-0.5">تم صرف المستحقات والإنهاء</div>
@@ -311,7 +311,7 @@ const Resignations: React.FC = () => {
 
                 {resignation.reason && (
                   <div className="p-3 rounded-lg bg-muted/10 border border-border/40 text-xs">
-                    <span className="font-semibold text-foreground ml-1">سبب الاستقالة:</span>
+                    <span className="font-semibold text-foreground ms-1">سبب الاستقالة:</span>
                     <span className="text-muted-foreground">{resignation.reason}</span>
                   </div>
                 )}
@@ -322,14 +322,14 @@ const Resignations: React.FC = () => {
                     <>
                       <button
                         onClick={() => navigate(`/hr/resignations/${resignation.id}/approve`)}
-                        className="h-8 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+                        className="h-8 px-3 rounded-lg bg-success hover:bg-success text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
                       >
                         <CheckCircle2 size={13} />
                         <span>موافقة على الاستقالة</span>
                       </button>
                       <button
                         onClick={() => navigate(`/hr/resignations/${resignation.id}/reject`)}
-                        className="h-8 px-3 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+                        className="h-8 px-3 rounded-lg bg-destructive hover:bg-destructive text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
                       >
                         <XCircle size={13} />
                         <span>رفض الطلب</span>
@@ -348,7 +348,7 @@ const Resignations: React.FC = () => {
                   {resignation.status === 'APPROVED' && (
                     <button
                       onClick={() => handleOpenSettlement(resignation.id)}
-                      className="h-8 px-3 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+                      className="h-8 px-3 rounded-lg bg-info hover:bg-info text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
                     >
                       <Calculator size={13} />
                       <span>حساب التصفية النهائية</span>

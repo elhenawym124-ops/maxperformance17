@@ -186,7 +186,7 @@ const Documents: React.FC = () => {
     }
     return (
       <div className="space-y-6 w-full pb-8" dir="rtl">
-        <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+        <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
           <CardContent className="p-12 text-center">
             <p className="text-sm text-muted-foreground">الرجاء اختيار موظف لعرض مستنداته</p>
             <Button onClick={() => navigate("/hr/employees")} className="mt-4">
@@ -217,7 +217,7 @@ const Documents: React.FC = () => {
               <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">إدارة ومتابعة وثائق ومستندات الموظف وصلاحيتها</p>
             </div>
             <Button onClick={() => setUploadDialog(true)}>
-              <Upload className="h-4 w-4 ml-2" />
+              <Upload className="h-4 w-4 ms-2" />
               رفع مستند
             </Button>
           </div>
@@ -229,10 +229,10 @@ const Documents: React.FC = () => {
           ) : documents.length === 0 ? (
             <Card>
               <CardContent className="p-12 text-center">
-                <FileText className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-gray-500 mb-4">لا توجد مستندات</p>
                 <Button onClick={() => setUploadDialog(true)}>
-                  <Upload className="h-4 w-4 ml-2" />
+                  <Upload className="h-4 w-4 ms-2" />
                   رفع أول مستند
                 </Button>
               </CardContent>
@@ -249,9 +249,9 @@ const Documents: React.FC = () => {
                       <FileText className="h-8 w-8 text-blue-500" />
                       <div className="flex gap-2">
                         {doc.isVerified ? (
-                          <CheckCircle className="h-5 w-5 text-green-500" />
+                          <CheckCircle className="h-5 w-5 text-success" />
                         ) : (
-                          <XCircle className="h-5 w-5 text-gray-400" />
+                          <XCircle className="h-5 w-5 text-muted-foreground" />
                         )}
                       </div>
                     </div>
@@ -272,11 +272,11 @@ const Documents: React.FC = () => {
                           <span className="text-gray-500">تاريخ الانتهاء:</span>
                           <div className="flex items-center gap-2">
                             {isExpired(doc.expiryDate) && (
-                              <AlertCircle className="h-4 w-4 text-red-500" />
+                              <AlertCircle className="h-4 w-4 text-destructive" />
                             )}
                             {isExpiringSoon(doc.expiryDate) &&
                               !isExpired(doc.expiryDate) && (
-                                <AlertCircle className="h-4 w-4 text-yellow-500" />
+                                <AlertCircle className="h-4 w-4 text-warning" />
                               )}
                             <span
                               className={
@@ -295,7 +295,7 @@ const Documents: React.FC = () => {
                           onClick={() => window.open(doc.fileUrl, "_blank")}
                           className="flex-1"
                         >
-                          <Download className="h-4 w-4 ml-2" />
+                          <Download className="h-4 w-4 ms-2" />
                           تحميل
                         </Button>
                         {!doc.isVerified && (
@@ -305,7 +305,7 @@ const Documents: React.FC = () => {
                             onClick={() => handleVerify(doc.id)}
                             className="flex-1"
                           >
-                            <CheckCircle className="h-4 w-4 ml-2" />
+                            <CheckCircle className="h-4 w-4 ms-2" />
                             تحقق
                           </Button>
                         )}

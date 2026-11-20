@@ -51,7 +51,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[95vw] sm:max-w-[600px] max-h-[90vh] flex flex-col bg-white dark:bg-gray-950 border-gray-200 dark:border-gray-800 p-0 overflow-hidden rounded-2xl shadow-2xl">
+      <DialogContent className="w-[95vw] sm:max-w-[600px] max-h-[90vh] flex flex-col bg-white dark:bg-muted border-border dark:border-border p-0 overflow-hidden rounded-xl shadow-2xl">
         <div className="bg-blue-600 p-4 sm:p-6 text-white text-right relative overflow-hidden shrink-0">
           <div className="relative z-10">
             <DialogTitle className="text-xl sm:text-2xl font-bold flex items-center justify-end gap-2">
@@ -68,7 +68,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
         <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 overflow-y-auto flex-1">
           {!isMyPermissions && (
             <div className="space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.employeeLabel")}
               </Label>
               <Select
@@ -77,7 +77,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                   setFormData({ ...formData, employeeId: v })
                 }
               >
-                <SelectTrigger className="bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 h-11 sm:h-12 text-right text-xs sm:text-sm">
+                <SelectTrigger className="bg-gray-50/50 dark:bg-muted border-border dark:border-border h-11 sm:h-12 text-right text-xs sm:text-sm">
                   <SelectValue placeholder={t("employee.permissions.employeePlaceholder")} />
                 </SelectTrigger>
                 <SelectContent className="max-h-[250px] p-2">
@@ -96,7 +96,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                           <p className="font-bold text-sm">
                             {e.firstName} {e.lastName}
                           </p>
-                          <p className="text-[10px] text-gray-500 font-mono">
+                          <p className="text-[10px] text-muted-foreground font-mono">
                             {e.department?.name}
                           </p>
                         </div>
@@ -110,7 +110,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div className="col-span-1 sm:col-span-2 space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.typeLabel")}
               </Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
@@ -123,7 +123,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                     className={`p-2.5 sm:p-3 rounded-xl border-2 cursor-pointer transition-all flex flex-col gap-1 text-right ${
                       formData.type === key
                         ? "border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 ring-4 ring-blue-500/5"
-                        : "border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700"
+                        : "border-gray-100 dark:border-border hover:border-border dark:hover:border-border"
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -142,12 +142,12 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                       className={`font-bold text-xs sm:text-sm mt-0.5 sm:mt-1 ${
                         formData.type === key
                           ? "text-blue-700 dark:text-blue-400"
-                          : "text-gray-700 dark:text-gray-300"
+                          : "text-foreground"
                       }`}
                     >
                       {t(`employee.permissions.${config.labelKey}`)}
                     </p>
-                    <p className="text-[10px] text-gray-400 leading-tight">
+                    <p className="text-[10px] text-muted-foreground leading-tight">
                       {t(`employee.permissions.${config.descKey}`)}
                     </p>
                   </div>
@@ -156,7 +156,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.dateLabel")}
               </Label>
               <DateInput
@@ -165,20 +165,20 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, date: e.target.value })
                 }
-                className="h-11 sm:h-12 bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 text-right text-xs sm:text-sm"
+                className="h-11 sm:h-12 bg-muted dark:bg-muted border-border dark:border-border text-right text-xs sm:text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.urgencyLabel")}
               </Label>
               <div className="flex gap-2 h-11 sm:h-12">
                 <Button
                   type="button"
                   variant={formData.isUrgent ? "default" : "outline"}
-                  className={`flex-1 rounded-xl h-full border-gray-100 dark:border-gray-800 text-xs sm:text-sm ${
-                    formData.isUrgent ? "bg-red-600 hover:bg-red-700" : ""
+                  className={`flex-1 rounded-xl h-full border-border dark:border-border text-xs sm:text-sm ${
+                    formData.isUrgent ? "bg-red-600 hover:bg-destructive" : ""
                   }`}
                   onClick={() =>
                     setFormData({ ...formData, isUrgent: !formData.isUrgent })
@@ -192,7 +192,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.exitTime")}
               </Label>
               <Input
@@ -201,12 +201,12 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, startTime: e.target.value })
                 }
-                className="h-11 sm:h-12 bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 text-right font-bold font-mono tabular-nums text-xs sm:text-sm"
+                className="h-11 sm:h-12 bg-muted dark:bg-muted border-border dark:border-border text-right font-bold font-mono tabular-nums text-xs sm:text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.returnTime")}
               </Label>
               <Input
@@ -215,24 +215,24 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, endTime: e.target.value })
                 }
-                className="h-11 sm:h-12 bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 text-right font-bold font-mono tabular-nums text-xs sm:text-sm"
+                className="h-11 sm:h-12 bg-muted dark:bg-muted border-border dark:border-border text-right font-bold font-mono tabular-nums text-xs sm:text-sm"
               />
             </div>
 
-            <div className="col-span-1 sm:col-span-2 p-3 sm:p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl flex items-center justify-between border border-gray-100 dark:border-gray-800">
+            <div className="col-span-1 sm:col-span-2 p-3 sm:p-4 bg-muted dark:bg-muted rounded-xl flex items-center justify-between border border-border dark:border-border">
               <div className="flex items-center gap-3">
                 <p className="text-2xl sm:text-3xl font-black text-blue-600 font-mono tabular-nums">
                   {calculateHours(formData.startTime, formData.endTime)}
                 </p>
-                <p className="text-[11px] sm:text-xs text-gray-500 font-bold uppercase tracking-widest">
+                <p className="text-[11px] sm:text-xs text-muted-foreground font-bold uppercase tracking-widest">
                   {t("employee.permissions.totalHoursLabel")}
                 </p>
               </div>
-              <Timer className="h-8 w-8 sm:h-10 sm:w-10 text-gray-200 dark:text-gray-800" />
+              <Timer className="h-8 w-8 sm:h-10 sm:w-10 text-muted-foreground dark:text-foreground" />
             </div>
 
             <div className="col-span-1 sm:col-span-2 space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.reasonLabel")}
               </Label>
               <Textarea
@@ -241,12 +241,12 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, reason: e.target.value })
                 }
-                className="min-h-[90px] sm:min-h-[100px] bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 text-right resize-none rounded-2xl p-3 sm:p-4 text-xs sm:text-sm"
+                className="min-h-[90px] sm:min-h-[100px] bg-muted dark:bg-muted border-border dark:border-border text-right resize-none rounded-xl p-3 sm:p-4 text-xs sm:text-sm"
               />
             </div>
 
             <div className="col-span-1 sm:col-span-2 space-y-2">
-              <Label className="text-right block font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm">
+              <Label className="text-right block font-bold text-foreground text-xs sm:text-sm">
                 {t("employee.permissions.documentsLink")}
               </Label>
               <Input
@@ -255,19 +255,19 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, attachments: e.target.value })
                 }
-                className="h-11 sm:h-12 bg-gray-50/50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 text-right rounded-2xl p-3 sm:p-4 text-xs sm:text-sm"
+                className="h-11 sm:h-12 bg-muted dark:bg-muted border-border dark:border-border text-right rounded-xl p-3 sm:p-4 text-xs sm:text-sm"
               />
-              <p className="text-[10px] text-gray-400 text-right pr-2">
+              <p className="text-[10px] text-muted-foreground text-right pe-2">
                 {t("employee.permissions.documentsHint")}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="p-3.5 sm:p-6 bg-gray-50 dark:bg-gray-900/50 flex gap-2 sm:gap-4 border-t border-gray-100 dark:border-gray-800 shrink-0">
+        <div className="p-3.5 sm:p-6 bg-muted dark:bg-muted flex gap-2 sm:gap-4 border-t border-border dark:border-border shrink-0">
           <Button
             variant="outline"
-            className="flex-1 h-10 sm:h-12 rounded-xl text-gray-500 text-xs sm:text-sm"
+            className="flex-1 h-10 sm:h-12 rounded-xl text-muted-foreground text-xs sm:text-sm"
             onClick={onCancel}
             disabled={submitting}
           >

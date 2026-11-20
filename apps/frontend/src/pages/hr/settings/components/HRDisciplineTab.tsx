@@ -26,7 +26,7 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-orange-500" />
+          <AlertTriangle className="h-5 w-5 text-warning" />
           سياسات الانضباط والجزاءات
         </CardTitle>
         <CardDescription>
@@ -41,8 +41,8 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
                 الإنذار الشفهي بعد
               </Label>
               <div className="group relative inline-block">
-                <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                   عدد المخالفات المطلوبة لإصدار إنذار شفهي للموظف
                 </div>
               </div>
@@ -61,7 +61,7 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">مخالفات</p>
+            <p className="text-sm text-muted-foreground">مخالفات</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="writtenWarningThreshold">
@@ -81,7 +81,7 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">مخالفات</p>
+            <p className="text-sm text-muted-foreground">مخالفات</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="deductionWarningThreshold">
@@ -101,7 +101,7 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">مخالفات</p>
+            <p className="text-sm text-muted-foreground">مخالفات</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="suspensionThreshold">
@@ -121,7 +121,7 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">مخالفات</p>
+            <p className="text-sm text-muted-foreground">مخالفات</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="terminationThreshold">
@@ -141,7 +141,7 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">مخالفات</p>
+            <p className="text-sm text-muted-foreground">مخالفات</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="warningExpiryMonths">
@@ -161,17 +161,17 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">شهر</p>
+            <p className="text-sm text-muted-foreground">شهر</p>
           </div>
         </div>
 
         <Separator />
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إنذار تلقائي عند التأخير المتكرر</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إصدار إنذار تلقائي عند تجاوز حد التأخيرات
               </p>
             </div>
@@ -186,10 +186,10 @@ export const HRDisciplineTab: React.FC<HRDisciplineTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إنذار تلقائي عند الغياب</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إصدار إنذار تلقائي عند الغياب بدون إذن
               </p>
             </div>

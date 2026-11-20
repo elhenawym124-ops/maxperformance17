@@ -12,11 +12,11 @@ export const DeductionsHeader: React.FC<DeductionsHeaderProps> = ({
   return (
     <div className="flex justify-between items-center">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-          <DollarSign className="h-8 w-8 text-blue-600 dark:text-blue-400 ml-3" />
+        <h1 className="text-2xl font-bold text-foreground flex items-center">
+          <DollarSign className="h-8 w-8 text-blue-600 dark:text-blue-400 ms-3" />
           إدارة الخصومات
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <p className="text-gray-600 dark:text-muted-foreground mt-1">
           إدارة الخصومات اليدوية للموظفين
         </p>
       </div>
@@ -24,7 +24,7 @@ export const DeductionsHeader: React.FC<DeductionsHeaderProps> = ({
         onClick={onAddNew}
         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center transition-all active:scale-95"
       >
-        <Plus className="h-5 w-5 ml-2" />
+        <Plus className="h-5 w-5 ms-2" />
         إضافة خصم جديد
       </Button>
     </div>

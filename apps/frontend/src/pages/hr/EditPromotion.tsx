@@ -34,7 +34,7 @@ const EditPromotion: React.FC = () => {
   if (!promotion) {
     return (
       <div className="p-8 text-center">
-        <h2 className="text-2xl font-bold text-gray-700">الترقية غير موجودة</h2>
+        <h2 className="text-2xl font-bold text-foreground">الترقية غير موجودة</h2>
         <Button onClick={goBack} className="mt-4">
           العودة للقائمة
         </Button>

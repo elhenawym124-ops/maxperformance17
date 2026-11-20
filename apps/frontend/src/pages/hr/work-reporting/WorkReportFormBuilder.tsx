@@ -60,7 +60,7 @@ const WorkReportFormBuilder: React.FC = () => {
             />
 
             {formState.fields.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
+              <div className="rounded-xl border border-dashed border-border bg-white p-10 text-center text-muted-foreground shadow-sm dark:border-border dark:bg-muted dark:text-muted-foreground">
                 أضف أول حقل لبدء بناء الفورم.
               </div>
             ) : (

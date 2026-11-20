@@ -22,7 +22,7 @@ export const TurnoverReportTab: React.FC = () => {
   return (
     <TabsContent value="turnover" className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-5 rounded-2xl border border-border/70 bg-card shadow-xs">
+        <Card className="p-5 rounded-xl border border-border/70 bg-card shadow-xs">
           <h3 className="text-lg font-bold mb-4">معدل الدوران الشهري</h3>
           <div className="flex items-center justify-center h-48">
             <div className="text-center">

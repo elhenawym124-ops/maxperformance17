@@ -33,7 +33,7 @@ export const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white dark:bg-gray-900 p-4 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/20 dark:shadow-none"
+        className="bg-white dark:bg-muted p-4 rounded-xl border border-border dark:border-border shadow-xl shadow-gray-200/20 dark:shadow-none"
       >
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative group">
@@ -41,19 +41,19 @@ export const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({
               placeholder="ابحث عن قسم بالاسم أو الوصف..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 h-12 bg-gray-50/50 dark:bg-gray-800/50 border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/20 transition-all font-medium"
+              className="w-full ps-10 h-12 bg-muted dark:bg-muted border-none rounded-xl focus-visible:ring-2 focus-visible:ring-primary/20 transition-all font-medium"
             />
-            <Activity className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-hover:text-primary transition-colors" />
+            <Activity className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
           </div>
           <div className="flex gap-2">
             <Select
               value={filterStatus}
               onValueChange={(value: any) => setFilterStatus(value)}
             >
-              <SelectTrigger className="w-full md:w-56 h-12 bg-gray-50/50 dark:bg-gray-800/50 border-none rounded-2xl focus:ring-2 focus:ring-primary/20">
+              <SelectTrigger className="w-full md:w-56 h-12 bg-muted dark:bg-muted border-none rounded-xl focus:ring-2 focus:ring-primary/20">
                 <SelectValue placeholder="حالة الأقسام" />
               </SelectTrigger>
-              <SelectContent className="rounded-2xl border-gray-100 dark:border-gray-800">
+              <SelectContent className="rounded-xl border-border dark:border-border">
                 <SelectItem value="all">جميع الأقسام</SelectItem>
                 <SelectItem value="active">النشطة والفعالة</SelectItem>
                 <SelectItem value="inactive">المؤرشفة (غير نشطة)</SelectItem>
@@ -66,9 +66,9 @@ export const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({
                   setSearchQuery("");
                   setFilterStatus("all");
                 }}
-                className="h-12 px-6 rounded-2xl text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
+                className="h-12 px-6 rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/20"
               >
-                <X className="h-4 w-4 ml-2" />
+                <X className="h-4 w-4 ms-2" />
                 تصفير
               </Button>
             )}
@@ -77,8 +77,8 @@ export const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({
       </motion.div>
 
       {/* View Toggle */}
-      <div className="flex items-center justify-between bg-white dark:bg-gray-900 p-2 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
-        <div className="flex gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+      <div className="flex items-center justify-between bg-white dark:bg-muted p-2 rounded-xl border border-border dark:border-border shadow-sm">
+        <div className="flex gap-1 p-1 bg-muted dark:bg-muted rounded-xl">
           <Button
             variant={viewMode === "grid" ? "default" : "ghost"}
             size="sm"

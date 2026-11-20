@@ -28,7 +28,7 @@ export const PositionsHeader: React.FC<PositionsHeaderProps> = ({
         </div>
       </div>
       <Button onClick={onNewPosition}>
-        <Plus className="h-4 w-4 ml-2" />
+        <Plus className="h-4 w-4 ms-2" />
         منصب جديد
       </Button>
     </div>

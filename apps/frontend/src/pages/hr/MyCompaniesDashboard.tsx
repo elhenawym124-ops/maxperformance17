@@ -50,7 +50,7 @@ const MyCompaniesDashboard: React.FC<MyCompaniesDashboardProps> = ({ defaultTab 
 
   if (error && !dashboardData) {
     return (
-      <div className="flex items-center justify-center h-64 text-gray-500">
+      <div className="flex items-center justify-center h-64 text-muted-foreground">
         {error}
       </div>
     );

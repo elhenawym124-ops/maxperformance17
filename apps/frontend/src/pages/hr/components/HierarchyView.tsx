@@ -49,14 +49,14 @@ const TreeNode: React.FC<TreeNodeProps> = ({ dept, allDepartments, level }) => {
       <div
         className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group ${level === 0
           ? "bg-primary/5 border border-primary/10"
-          : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+          : "hover:bg-gray-50 dark:hover:bg-muted"
           }`}
         style={{ marginRight: `clamp(4px, ${level * 12}px, ${level * 24}px)` }}
       >
         {hasChildren && (
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            className="p-1 rounded-md hover:bg-muted transition-colors"
           >
             {isOpen ? (
               <ChevronDown className="h-4 w-4" />
@@ -68,24 +68,24 @@ const TreeNode: React.FC<TreeNodeProps> = ({ dept, allDepartments, level }) => {
         {!hasChildren && <div className="w-6" />}
 
         <div
-          className={`p-2 rounded-lg ${level === 0 ? "bg-primary text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-500"}`}
+          className={`p-2 rounded-lg ${level === 0 ? "bg-primary text-white" : "bg-gray-100 dark:bg-muted text-muted-foreground"}`}
         >
           <Building2 className="h-4 w-4" />
         </div>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h4 className="font-bold text-gray-900 dark:text-white truncate">
+            <h4 className="font-bold text-foreground truncate">
               {dept.name}
             </h4>
             {dept._count.users > 0 && (
-              <span className="inline-flex items-center gap-1 text-[10px] bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded-full font-bold text-gray-500">
+              <span className="inline-flex items-center gap-1 text-[10px] bg-muted dark:bg-muted px-1.5 py-0.5 rounded-full font-bold text-muted-foreground">
                 <Users className="h-3 w-3" />
                 {dept._count.users}
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2 text-xs text-gray-400">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
             {dept.manager ? (
               <span className="flex items-center gap-1">
                 <User className="h-3 w-3" />
@@ -99,7 +99,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ dept, allDepartments, level }) => {
       </div>
 
       {hasChildren && isOpen && (
-        <div className="relative mr-4 pr-4 border-r-2 border-gray-100 dark:border-gray-800 mt-2 space-y-2">
+        <div className="relative me-4 pe-4 border-r-2 border-border dark:border-border mt-2 space-y-2">
           {children.map((child) => (
             <TreeNode
               key={child.id}
@@ -127,17 +127,17 @@ const HierarchyView: React.FC<HierarchyViewProps> = ({ departments }) => {
     });
 
   return (
-    <div className="p-3.5 sm:p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm min-h-[400px] overflow-x-auto">
+    <div className="p-3.5 sm:p-6 bg-white dark:bg-muted rounded-xl border border-border dark:border-border shadow-sm min-h-[400px] overflow-x-auto">
       <div className="mb-6 flex items-center justify-between">
         <h3 className="text-lg font-bold flex items-center gap-2">
           <ArrowLeft className="h-5 w-5 text-primary" />
           الهيكل التنظيمي للأقسام
         </h3>
-        <p className="text-sm text-gray-400">إجمالي {departments.length} قسم</p>
+        <p className="text-sm text-muted-foreground">إجمالي {departments.length} قسم</p>
       </div>
 
       {rootDepartments.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-gray-400 italic">
+        <div className="flex flex-col items-center justify-center py-20 text-muted-foreground italic">
           <Building2 className="h-12 w-12 mb-4 opacity-20" />
           لا يوجد هيكل تنظيمي متاح
         </div>

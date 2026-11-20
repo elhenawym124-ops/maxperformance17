@@ -19,7 +19,7 @@ export const MyPayrollSidebar: React.FC<MyPayrollSidebarProps> = ({
       {/* Payment Method Card */}
       <motion.div
         variants={itemVariants}
-        className="rounded-2xl border border-border/70 bg-card shadow-xs p-6 relative overflow-hidden"
+        className="rounded-xl border border-border/70 bg-card shadow-xs p-6 relative overflow-hidden"
       >
         <div className="space-y-6 relative z-10">
           <div className="flex items-center justify-between">
@@ -67,10 +67,10 @@ export const MyPayrollSidebar: React.FC<MyPayrollSidebarProps> = ({
                 <span className="text-muted-foreground">
                   {t("employee.payroll.transferSpeed")}
                 </span>
-                <span className="font-bold text-emerald-500 font-mono tabular-nums">100%</span>
+                <span className="font-bold text-success font-mono tabular-nums">100%</span>
               </div>
               <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-500 rounded-full w-full" />
+                <div className="h-full bg-success rounded-full w-full" />
               </div>
             </div>
           </div>
@@ -80,10 +80,10 @@ export const MyPayrollSidebar: React.FC<MyPayrollSidebarProps> = ({
       {/* Secure Info Card */}
       <motion.div
         variants={itemVariants}
-        className="rounded-2xl border border-border/70 bg-card shadow-xs p-6 space-y-4 relative overflow-hidden"
+        className="rounded-xl border border-border/70 bg-card shadow-xs p-6 space-y-4 relative overflow-hidden"
       >
         <div className="flex items-center gap-3 relative z-10">
-          <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-500">
+          <div className="p-2 rounded-lg bg-success/10 border border-success/20 text-success">
             <ShieldCheck className="size-5" />
           </div>
           <h3 className="text-base font-bold text-foreground">
@@ -98,7 +98,7 @@ export const MyPayrollSidebar: React.FC<MyPayrollSidebarProps> = ({
             t("employee.payroll.keepStatement"),
           ].map((text, i) => (
             <div key={i} className="flex items-center gap-2.5">
-              <div className="h-1.5 w-1.5 bg-emerald-500 rounded-full shrink-0" />
+              <div className="h-1.5 w-1.5 bg-success rounded-full shrink-0" />
               <p className="text-muted-foreground">
                 {text}
               </p>

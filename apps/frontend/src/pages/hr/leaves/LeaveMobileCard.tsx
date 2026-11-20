@@ -83,15 +83,15 @@ export const LeaveMobileCard: React.FC<LeaveMobileCardProps> = ({
       {!isMyLeaves && (
         <div className="flex items-center gap-2 flex-wrap">
           <Badge className={`text-[10px] font-semibold ${typeConfig?.color || "bg-muted text-foreground"}`}>
-            <TypeIcon className="h-3 w-3 ml-1" />
+            <TypeIcon className="h-3 w-3 ms-1" />
             {t(typeConfig?.labelKey) || request.type}
           </Badge>
           <Badge
             variant="outline"
             className={`text-[10px] ${
               request.type !== "UNPAID"
-                ? "border-emerald-500/40 text-emerald-600 bg-emerald-500/5"
-                : "border-rose-500/40 text-rose-600 bg-rose-500/5"
+                ? "border-emerald-500/40 text-success bg-success/5"
+                : "border-rose-500/40 text-destructive bg-destructive/5"
             }`}
           >
             {request.type !== "UNPAID"
@@ -143,9 +143,9 @@ export const LeaveMobileCard: React.FC<LeaveMobileCardProps> = ({
             <Button
               size="sm"
               onClick={() => onApprove(request.id)}
-              className="flex-1 h-8 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+              className="flex-1 h-8 text-xs bg-success hover:bg-success text-white font-semibold"
             >
-              <Check className="h-3.5 w-3.5 ml-1" />
+              <Check className="h-3.5 w-3.5 ms-1" />
               {t("employee.leaves.approve")}
             </Button>
             <Button
@@ -154,7 +154,7 @@ export const LeaveMobileCard: React.FC<LeaveMobileCardProps> = ({
               onClick={() => onOpenReject(request)}
               className="flex-1 h-8 text-xs text-destructive hover:bg-destructive/10 hover:border-destructive/30 font-semibold"
             >
-              <X className="h-3.5 w-3.5 ml-1" />
+              <X className="h-3.5 w-3.5 ms-1" />
               {t("employee.leaves.reject")}
             </Button>
           </>
@@ -178,7 +178,7 @@ export const LeaveMobileCard: React.FC<LeaveMobileCardProps> = ({
             onClick={() => onOpenChangeDecision(request)}
             className="flex-1 h-8 text-xs"
           >
-            <RotateCcw className="h-3.5 w-3.5 ml-1" />
+            <RotateCcw className="h-3.5 w-3.5 ms-1" />
             {t("employee.leaves.changeDecision")}
           </Button>
         )}

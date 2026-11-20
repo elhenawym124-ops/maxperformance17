@@ -113,7 +113,7 @@ export const PolarisBenefitsView: React.FC<PolarisBenefitsViewProps> = ({
               placeholder="ابحث باسم الميزة، مقدم الخدمة، أو الوصف..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>

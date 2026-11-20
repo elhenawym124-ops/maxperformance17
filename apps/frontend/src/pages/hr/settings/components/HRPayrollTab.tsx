@@ -116,8 +116,8 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
               <div className="flex items-center gap-2">
                 <Label>نسبة الضريبة (%)</Label>
                 <div className="group relative inline-block">
-                  <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                     النسبة المئوية للضريبة المقتطعة من الراتب (عادة بين 0-30%)
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
                 className={`tabular-nums font-mono ${errors.taxRate ? "border-red-500" : ""}`}
               />
               {errors.taxRate && (
-                <p className="text-xs text-red-600 dark:text-red-400">
+                <p className="text-xs text-destructive dark:text-destructive">
                   {errors.taxRate}
                 </p>
               )}
@@ -154,8 +154,8 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
               <div className="flex items-center gap-2">
                 <Label>نسبة التأمينات الاجتماعية (%)</Label>
                 <div className="group relative inline-block">
-                  <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                     النسبة المئوية للتأمينات الاجتماعية المقتطعة من الراتب (حسب قانون العمل المحلي)
                   </div>
                 </div>
@@ -183,7 +183,7 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
                 className={`tabular-nums font-mono ${errors.socialInsuranceRate ? "border-red-500" : ""}`}
               />
               {errors.socialInsuranceRate && (
-                <p className="text-xs text-red-600 dark:text-red-400">
+                <p className="text-xs text-destructive dark:text-destructive">
                   {errors.socialInsuranceRate}
                 </p>
               )}
@@ -196,7 +196,7 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-green-600" />
+            <DollarSign className="h-5 w-5 text-success" />
             سياسات السلف المالية
           </CardTitle>
           <CardDescription>تحديد شروط وحدود طلب السلف</CardDescription>
@@ -207,8 +207,8 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
               <div className="flex items-center gap-2">
                 <Label>الحد الأقصى للسلفة (% من الراتب)</Label>
                 <div className="group relative inline-block">
-                  <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                     أقصى نسبة من الراتب يمكن للموظف الحصول عليها كسلفة مالية (مثال: 50% يعني نصف الراتب)
                   </div>
                 </div>
@@ -235,14 +235,14 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
                   }}
                   className={`tabular-nums font-mono ${errors.maxAdvancePercentage ? "border-red-500" : ""}`}
                 />
-                <span className="text-gray-500 dark:text-gray-400">%</span>
+                <span className="text-muted-foreground">%</span>
               </div>
               {errors.maxAdvancePercentage && (
-                <p className="text-xs text-red-600 dark:text-red-400">
+                <p className="text-xs text-destructive dark:text-destructive">
                   {errors.maxAdvancePercentage}
                 </p>
               )}
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 النسبة المئوية من الراتب الأساسي المسموح بها كسلفة
               </p>
             </div>
@@ -261,7 +261,7 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 عدد السلف التي يمكن للموظف الحصول عليها في نفس الوقت
               </p>
             </div>
@@ -280,7 +280,7 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 أقل مدة عمل مطلوبة قبل السماح بطلب سلفة
               </p>
             </div>
@@ -299,7 +299,7 @@ export const HRPayrollTab: React.FC<HRPayrollTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 الحد الأقصى لعدد الأشهر المسموح بتقسيط السلفة عليها
               </p>
             </div>

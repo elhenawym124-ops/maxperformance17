@@ -55,7 +55,7 @@ export const AttendanceTable: React.FC<AttendanceTableProps> = ({
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           </div>
         ) : records.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+          <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
             <Clock className="h-12 w-12 mb-4 opacity-50" />
             <p>لا توجد سجلات</p>
           </div>
@@ -122,7 +122,7 @@ export const AttendanceTable: React.FC<AttendanceTableProps> = ({
 
         {pagination.totalPages > 1 && records.length > 0 && (
           <div className="p-4 border-t flex items-center justify-between" dir="rtl">
-            <span className="text-sm text-gray-500 font-medium">
+            <span className="text-sm text-muted-foreground font-medium">
               صفحة {pagination.page} من {pagination.totalPages} ({pagination.total} سجل)
             </span>
             <div className="flex gap-2">

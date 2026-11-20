@@ -138,7 +138,7 @@ export const AttendanceGeofencePanel: React.FC<
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground">
                 يفضل ألا يقل عن 100 متر لتجنب أخطاء الـ GPS الضعيف
               </p>
             </div>
@@ -192,22 +192,22 @@ export const AttendanceGeofencePanel: React.FC<
               <div
                 className={`p-4 rounded-xl border-2 ${
                   locationTestResult.isWithinRange
-                    ? "bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800"
-                    : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800"
+                    ? "bg-green-50 dark:bg-success/20 border-success dark:border-success"
+                    : "bg-red-50 dark:bg-destructive/20 border-destructive dark:border-destructive"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div
                     className={`p-2 rounded-full ${
                       locationTestResult.isWithinRange
-                        ? "bg-green-100 dark:bg-green-900"
-                        : "bg-red-100 dark:bg-red-900"
+                        ? "bg-green-100 dark:bg-success"
+                        : "bg-red-100 dark:bg-destructive"
                     }`}
                   >
                     {locationTestResult.isWithinRange ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-600" />
+                      <CheckCircle2 className="h-5 w-5 text-success" />
                     ) : (
-                      <AlertTriangle className="h-5 w-5 text-red-600" />
+                      <AlertTriangle className="h-5 w-5 text-destructive" />
                     )}
                   </div>
                   <div>
@@ -233,7 +233,7 @@ export const AttendanceGeofencePanel: React.FC<
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Network className="h-5 w-5 text-indigo-500" />
+          <Network className="h-5 w-5 text-primary" />
           التحقق عبر شبكة الفرع
         </CardTitle>
         <CardDescription>
@@ -241,12 +241,12 @@ export const AttendanceGeofencePanel: React.FC<
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center justify-between p-4 border border-indigo-200 dark:border-indigo-800 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/20">
+        <div className="flex items-center justify-between p-4 border border-primary dark:border-primary rounded-xl bg-primary/50 dark:bg-primary/20">
           <div>
-            <Label className="text-indigo-900 dark:text-indigo-100 font-bold">
+            <Label className="text-indigo-900 dark:text-primary font-bold">
               تفعيل التحقق عبر شبكة الفرع
             </Label>
-            <p className="text-sm text-indigo-700 dark:text-indigo-300">
+            <p className="text-sm text-primary dark:text-primary">
               السماح بالبصمة عند تطابق عنوان IP للجهاز مع عناوين شبكة الفرع المعتمدة
             </p>
           </div>
@@ -290,12 +290,12 @@ export const AttendanceGeofencePanel: React.FC<
             rows={4}
             className="font-mono text-sm"
           />
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             يدعم عناوين IPv4 المحددة ونطاقات CIDR (مثل 192.168.1.0/24). افصل بين العناوين بسطر جديد أو فاصلة.
           </p>
         </div>
 
-        <div className="flex items-center justify-between p-4 border rounded-xl bg-gray-50/50 dark:bg-gray-900/20">
+        <div className="flex items-center justify-between p-4 border rounded-xl bg-muted dark:bg-muted">
           <div>
             <Label className="font-bold">
               السماح بالبصمة من المنزل

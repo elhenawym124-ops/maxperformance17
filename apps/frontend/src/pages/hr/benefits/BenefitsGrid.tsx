@@ -45,7 +45,7 @@ export const BenefitsGrid: React.FC<BenefitsGridProps> = ({
             onClick={onAddNew}
             className="h-11 rounded-full px-8"
           >
-            <Plus className="h-4 w-4 ml-2" />
+            <Plus className="h-4 w-4 ms-2" />
             أضف أول ميزة
           </Button>
         </CardContent>
@@ -69,7 +69,7 @@ export const BenefitsGrid: React.FC<BenefitsGridProps> = ({
 
       {/* Pagination Section */}
       {pagination?.totalPages > 1 && (
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-4 border-t border-border">
           <p className="text-sm text-muted-foreground font-mono tabular-nums">
             عرض {benefits.length} من {pagination?.total || 0} ميزة
           </p>

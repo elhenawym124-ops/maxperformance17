@@ -17,17 +17,17 @@ export const WorkReportRecordsTablesSection: React.FC<
 > = ({ payload, visibleFields }) => {
   return (
     <>
-      <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="mb-6 rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
         <div className="mb-4">
           <h2 className="text-lg font-semibold">ملخص الموظفين</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground">
             إجمالي كل موظف خلال الفترة المحددة مع متوسط المؤشرات.
           </p>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full text-right text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400">
+              <tr className="border-b border-border text-muted-foreground dark:border-border dark:text-muted-foreground">
                 <th className="px-3 py-3 font-medium">الموظف</th>
                 <th className="px-3 py-3 font-medium">عدد السجلات</th>
                 {payload.analytics.metricCards.slice(0, 3).map((metric) => (
@@ -42,7 +42,7 @@ export const WorkReportRecordsTablesSection: React.FC<
               {payload.analytics.employeeBreakdown.map((row) => (
                 <tr
                   key={row.userId}
-                  className="border-b border-slate-100 dark:border-slate-900"
+                  className="border-b border-border dark:border-border"
                 >
                   <td className="px-3 py-3 font-medium">
                     {row.userDisplayName}
@@ -67,7 +67,7 @@ export const WorkReportRecordsTablesSection: React.FC<
                       </td>
                     );
                   })}
-                  <td className="px-3 py-3 text-slate-500 dark:text-slate-400 font-mono tabular-nums">
+                  <td className="px-3 py-3 text-muted-foreground dark:text-muted-foreground font-mono tabular-nums">
                     {formatArabicDateTime(row.lastSubmittedAt)}
                   </td>
                 </tr>
@@ -77,10 +77,10 @@ export const WorkReportRecordsTablesSection: React.FC<
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
         <div className="mb-4">
           <h2 className="text-lg font-semibold">سجلات الفورم</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground">
             عرض مباشر لكل إرسال مع أهم الحقول الظاهرة.
           </p>
         </div>
@@ -88,7 +88,7 @@ export const WorkReportRecordsTablesSection: React.FC<
         <div className="overflow-x-auto">
           <table className="min-w-full text-right text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400">
+              <tr className="border-b border-border text-muted-foreground dark:border-border dark:text-muted-foreground">
                 <th className="px-3 py-3 font-medium">الموظف</th>
                 <th className="px-3 py-3 font-medium">تاريخ التقرير</th>
                 <th className="px-3 py-3 font-medium">وقت الحفظ</th>
@@ -103,7 +103,7 @@ export const WorkReportRecordsTablesSection: React.FC<
               {payload.records.map((record) => (
                 <tr
                   key={record.id}
-                  className="border-b border-slate-100 dark:border-slate-900"
+                  className="border-b border-border dark:border-border"
                 >
                   <td className="px-3 py-3 font-medium">
                     {record.userDisplayName}
@@ -111,7 +111,7 @@ export const WorkReportRecordsTablesSection: React.FC<
                   <td className="px-3 py-3 font-mono tabular-nums">
                     {formatArabicDate(record.reportDate)}
                   </td>
-                  <td className="px-3 py-3 text-slate-500 dark:text-slate-400 font-mono tabular-nums">
+                  <td className="px-3 py-3 text-muted-foreground dark:text-muted-foreground font-mono tabular-nums">
                     {formatArabicDateTime(record.submittedAt)}
                   </td>
                   {visibleFields.slice(0, 6).map((field) => {

@@ -30,14 +30,14 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-card rounded-xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
           >
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                <h2 className="text-2xl font-bold text-foreground dark:text-white mb-2">
                   {selectedApplicant.name}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-muted-foreground">
                   {selectedApplicant.jobTitle}
                 </p>
               </div>
@@ -51,15 +51,15 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                  <h3 className="font-bold text-foreground dark:text-white mb-2">
                     معلومات الاتصال
                   </h3>
                   <div className="space-y-2">
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-muted-foreground">
                       <span className="font-medium">البريد:</span>{" "}
                       {selectedApplicant.email}
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-muted-foreground">
                       <span className="font-medium">الهاتف:</span>{" "}
                       <span className="font-mono tabular-nums">
                         {selectedApplicant.phone}
@@ -68,18 +68,18 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                  <h3 className="font-bold text-foreground dark:text-white mb-2">
                     المؤهلات
                   </h3>
                   <div className="space-y-2">
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-muted-foreground">
                       <span className="font-medium">الخبرة:</span>{" "}
                       <span className="font-mono tabular-nums">
                         {selectedApplicant.experience}
                       </span>{" "}
                       سنوات
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-muted-foreground">
                       <span className="font-medium">التعليم:</span>{" "}
                       {selectedApplicant.education}
                     </p>
@@ -88,7 +88,7 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
               </div>
 
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                <h3 className="font-bold text-foreground dark:text-white mb-2">
                   المهارات
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -102,7 +102,7 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
                       </span>
                     ))
                   ) : (
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className="text-sm text-muted-foreground">
                       لا توجد مهارات مسجلة
                     </span>
                   )}
@@ -111,10 +111,10 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
 
               {selectedApplicant.coverLetter && (
                 <div>
-                  <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                  <h3 className="font-bold text-foreground dark:text-white mb-2">
                     خطاب التقديم
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600 dark:text-muted-foreground">
                     {selectedApplicant.coverLetter}
                   </p>
                 </div>
@@ -122,10 +122,10 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
 
               {selectedApplicant.notes && (
                 <div>
-                  <h3 className="font-bold text-gray-800 dark:text-white mb-2">
+                  <h3 className="font-bold text-foreground dark:text-white mb-2">
                     ملاحظات
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600 dark:text-muted-foreground">
                     {selectedApplicant.notes}
                   </p>
                 </div>
@@ -138,7 +138,7 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
                   href={selectedApplicant.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
                 >
                   <DocumentTextIcon className="w-5 h-5" />
                   عرض السيرة الذاتية
@@ -146,7 +146,7 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
               )}
               <button
                 onClick={onClose}
-                className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl hover:bg-gray-300 transition-all"
+                className="px-6 py-3 bg-muted dark:bg-muted text-foreground dark:text-white rounded-xl hover:bg-muted transition-all"
               >
                 إغلاق
               </button>

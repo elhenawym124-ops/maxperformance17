@@ -146,13 +146,13 @@ const LateAbsenceReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button variant="outline" onClick={fetchReport}>
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button variant="outline" onClick={handleExport}>
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -169,7 +169,7 @@ const LateAbsenceReport: React.FC = () => {
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-red-500 to-red-600 text-white">
+              <Card className="bg-gradient-to-br from-destructive to-destructive text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -188,11 +188,11 @@ const LateAbsenceReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">حالات الغياب</p>
-                      <h3 className="text-3xl font-bold mt-1 text-orange-600">
+                      <h3 className="text-3xl font-bold mt-1 text-warning">
                         {report.totalAbsences}
                       </h3>
                     </div>
-                    <UserX className="h-10 w-10 text-orange-500" />
+                    <UserX className="h-10 w-10 text-warning" />
                   </div>
                 </CardContent>
               </Card>
@@ -204,11 +204,11 @@ const LateAbsenceReport: React.FC = () => {
                       <p className="text-gray-500 text-sm">
                         إجمالي دقائق التأخير
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-red-600">
+                      <h3 className="text-3xl font-bold mt-1 text-destructive">
                         {report.totalLateMinutes}
                       </h3>
                     </div>
-                    <TrendingDown className="h-10 w-10 text-red-500" />
+                    <TrendingDown className="h-10 w-10 text-destructive" />
                   </div>
                 </CardContent>
               </Card>
@@ -218,11 +218,11 @@ const LateAbsenceReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">متوسط التأخير</p>
-                      <h3 className="text-3xl font-bold mt-1 text-purple-600">
+                      <h3 className="text-3xl font-bold mt-1 text-primary">
                         {report.averageLateMinutes} د
                       </h3>
                     </div>
-                    <AlertTriangle className="h-10 w-10 text-purple-500" />
+                    <AlertTriangle className="h-10 w-10 text-primary" />
                   </div>
                 </CardContent>
               </Card>
@@ -238,24 +238,24 @@ const LateAbsenceReport: React.FC = () => {
                   {report.byDepartment.map((dept, index) => (
                     <div
                       key={index}
-                      className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      className="p-4 bg-muted dark:bg-muted rounded-lg"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-medium">{dept.department}</span>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-muted-foreground">
                           متوسط التأخير: {dept.avgLateMinutes} دقيقة
                         </span>
                       </div>
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <p className="text-gray-500">حالات التأخير</p>
-                          <p className="text-lg font-bold text-red-600">
+                          <p className="text-lg font-bold text-destructive">
                             {dept.lateCount}
                           </p>
                         </div>
                         <div>
                           <p className="text-gray-500">حالات الغياب</p>
-                          <p className="text-lg font-bold text-orange-600">
+                          <p className="text-lg font-bold text-warning">
                             {dept.absenceCount}
                           </p>
                         </div>
@@ -277,19 +277,19 @@ const LateAbsenceReport: React.FC = () => {
                     {report.frequentLateEmployees.map((employee, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg"
+                        className="flex items-center justify-between p-3 bg-destructive/10 dark:bg-destructive/20 rounded-lg"
                       >
                         <div>
                           <p className="font-medium">{employee.name}</p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground">
                             {employee.department}
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-lg font-bold text-red-600">
+                          <p className="text-lg font-bold text-destructive">
                             {employee.lateCount} مرة
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground">
                             {employee.totalMinutes} دقيقة
                           </p>
                         </div>
@@ -309,16 +309,16 @@ const LateAbsenceReport: React.FC = () => {
                     {report.frequentAbsentEmployees.map((employee, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg"
+                        className="flex items-center justify-between p-3 bg-warning/10 dark:bg-warning/20 rounded-lg"
                       >
                         <div>
                           <p className="font-medium">{employee.name}</p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground">
                             {employee.department}
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-lg font-bold text-orange-600">
+                          <p className="text-lg font-bold text-warning">
                             {employee.absenceCount} يوم
                           </p>
                         </div>
@@ -348,7 +348,7 @@ const LateAbsenceReport: React.FC = () => {
                       <div key={index} className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="font-medium">{day.day}</span>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-sm text-muted-foreground">
                             {day.lateCount} تأخير • {day.absenceCount} غياب
                           </span>
                         </div>

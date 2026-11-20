@@ -48,24 +48,24 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
       case "image":
         return <PhotoIcon className="h-10 w-10 text-blue-500" />;
       case "invoice":
-        return <DocumentTextIcon className="h-10 w-10 text-green-500" />;
+        return <DocumentTextIcon className="h-10 w-10 text-success" />;
       case "warranty":
-        return <ShieldCheckIcon className="h-10 w-10 text-purple-500" />;
+        return <ShieldCheckIcon className="h-10 w-10 text-primary" />;
       case "manual":
-        return <BookOpenIcon className="h-10 w-10 text-orange-500" />;
+        return <BookOpenIcon className="h-10 w-10 text-warning" />;
       default:
-        return <DocumentIcon className="h-10 w-10 text-gray-500" />;
+        return <DocumentIcon className="h-10 w-10 text-muted-foreground" />;
     }
   };
 
   if (filteredDocuments.length === 0 && !loading) {
     return (
-      <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-        <DocumentIcon className="h-16 w-16 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
-        <p className="text-gray-500 dark:text-gray-400 text-lg">
+      <div className="text-center py-16 bg-card rounded-xl border border-border dark:border-border">
+        <DocumentIcon className="h-16 w-16 mx-auto mb-4 text-muted-foreground dark:text-foreground" />
+        <p className="text-muted-foreground text-lg">
           {hasActiveFilters ? "لا توجد نتائج مطابقة" : "لا توجد مستندات"}
         </p>
-        <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
+        <p className="text-muted-foreground/80 text-sm mt-1">
           ابدأ برفع مستندات لأصولك
         </p>
         <button
@@ -84,21 +84,21 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
         {filteredDocuments.map((doc) => (
           <div
             key={doc.id}
-            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:shadow-lg transition-all group"
+            className="bg-card border border-border dark:border-border rounded-xl p-4 hover:shadow-lg transition-all group"
           >
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="p-2 bg-muted dark:bg-muted rounded-lg">
                 {getDocumentIcon(doc.documentType)}
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-gray-900 dark:text-white truncate">
+                <h4 className="font-medium text-foreground truncate">
                   {doc.fileName}
                 </h4>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400">
+                <p className="text-sm text-primary">
                   {getDocumentTypeLabel(doc.documentType, documentTypes)}
                 </p>
                 {doc.asset && (
-                  <div className="flex items-center gap-1 mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
                     <ComputerDesktopIcon className="h-3.5 w-3.5" />
                     {doc.asset.name}
                   </div>
@@ -107,13 +107,13 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
             </div>
 
             {doc.description && (
-              <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+              <p className="mt-3 text-sm text-muted-foreground line-clamp-2">
                 {doc.description}
               </p>
             )}
 
-            <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
-              <div className="text-xs text-gray-400 font-mono tabular-nums">
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-border dark:border-border">
+              <div className="text-xs text-muted-foreground font-mono tabular-nums">
                 {formatDate(doc.uploadedAt)}
                 {doc.fileSize ? ` • ${formatFileSize(doc.fileSize)}` : ""}
               </div>
@@ -136,7 +136,7 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
                     onOpenLightbox(buildFileUrl(doc.fileUrl));
                   }
                 }}
-                className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-muted text-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
               >
                 <EyeIcon className="h-4 w-4" />
                 {doc.mimeType?.startsWith("image/")
@@ -149,14 +149,14 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
                 href={buildFileUrl(doc.fileUrl)}
                 download={doc.fileName}
                 aria-label="تحميل المستند"
-                className="flex items-center justify-center gap-1 px-3 py-2 text-sm bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
+                className="flex items-center justify-center gap-1 px-3 py-2 text-sm bg-primary dark:bg-primary text-primary dark:text-primary rounded-lg hover:bg-primary dark:hover:bg-primary transition-colors"
               >
                 <ArrowDownTrayIcon className="h-4 w-4" />
               </a>
               <button
                 onClick={() => onDelete(doc.id)}
                 aria-label="حذف المستند"
-                className="flex items-center justify-center gap-1 px-3 py-2 text-sm bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200 rounded-lg hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
+                className="flex items-center justify-center gap-1 px-3 py-2 text-sm bg-destructive dark:bg-destructive text-destructive dark:text-destructive rounded-lg hover:bg-destructive dark:hover:bg-destructive transition-colors"
               >
                 <TrashIcon className="h-4 w-4" />
               </button>
@@ -170,7 +170,7 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
           <button
             onClick={onLoadMore}
             disabled={loadingMore}
-            className="px-4 py-2 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50"
+            className="px-4 py-2 text-sm rounded-lg bg-card border border-border dark:border-border hover:bg-muted/50 text-foreground disabled:opacity-50"
           >
             {loadingMore ? "جاري التحميل..." : "تحميل المزيد"}
           </button>

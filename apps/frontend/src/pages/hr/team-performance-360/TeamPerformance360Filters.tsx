@@ -31,7 +31,7 @@ export const TeamPerformance360Filters: React.FC<
           placeholder="بحث باسم الموظف، الرقم الوظيفي، أو المسمى..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pr-9 text-xs h-9 bg-background border-border/60"
+          className="pe-9 text-xs h-9 bg-background border-border/60"
         />
       </div>
 

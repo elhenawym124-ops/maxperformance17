@@ -130,7 +130,7 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
       {/* KPI Stats Strip */}
       {showStats && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">البرامج النشطة</span>
               <Gift className="h-4 w-4 text-primary" />
@@ -143,7 +143,7 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">العملاء المشتركون</span>
               <Users className="h-4 w-4 text-blue-500" />
@@ -156,10 +156,10 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">إجمالي النقاط الممنوحة</span>
-              <Star className="h-4 w-4 text-amber-500" />
+              <Star className="h-4 w-4 text-warning" />
             </div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-bold font-mono tabular-nums text-foreground">
@@ -169,10 +169,10 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">مستويات العضوية</span>
-              <Trophy className="h-4 w-4 text-emerald-500" />
+              <Trophy className="h-4 w-4 text-success" />
             </div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-bold font-mono tabular-nums text-foreground">
@@ -185,7 +185,7 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
       )}
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Navigation Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -216,7 +216,7 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
         </div>
 
         {/* Tab Body */}
-        <CardContent className="p-4 sm:p-6 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:p-0">
+        <CardContent className="p-4 sm:p-6 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:p-0">
           {activeTab === "programs" && (
             <LoyaltyProgramsTab
               programs={programs}

@@ -50,7 +50,7 @@ export const HRAttendanceTab: React.FC<HRAttendanceTabProps> = ({
 }) => {
   return (
     <Tabs defaultValue="punctuality" className="space-y-6" dir="rtl">
-      <TabsList className="bg-gray-100 dark:bg-gray-800 p-1">
+      <TabsList className="bg-gray-100 dark:bg-muted p-1">
         <TabsTrigger value="punctuality" className="flex items-center gap-2">
           <Clock className="h-4 w-4" />
           الالتزام والجزاءات
@@ -98,7 +98,7 @@ export const HRAttendanceTab: React.FC<HRAttendanceTabProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-green-600" />
+              <Calculator className="h-5 w-5 text-success" />
               محرك الحسابات المتقدم وشروط العمل
             </CardTitle>
             <CardDescription>

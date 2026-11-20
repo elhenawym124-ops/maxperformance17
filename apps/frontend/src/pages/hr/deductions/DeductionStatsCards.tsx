@@ -19,13 +19,13 @@ export const DeductionStatsCards: React.FC<DeductionStatsCardsProps> = ({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-foreground dark:text-muted-foreground">
               إجمالي الخصومات
             </p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+            <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
               {stats.total}
             </p>
           </div>
@@ -33,45 +33,45 @@ export const DeductionStatsCards: React.FC<DeductionStatsCardsProps> = ({
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-foreground dark:text-muted-foreground">
               إجمالي المبلغ
             </p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+            <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
               {formatCurrency(parseFloat(stats.totalAmount || "0"))}
             </p>
           </div>
-          <DollarSign className="h-8 w-8 text-green-600" />
+          <DollarSign className="h-8 w-8 text-success" />
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-foreground dark:text-muted-foreground">
               في الانتظار
             </p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+            <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
               {pendingCount}
             </p>
           </div>
-          <Clock className="h-8 w-8 text-yellow-600" />
+          <Clock className="h-8 w-8 text-warning" />
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-foreground dark:text-muted-foreground">
               موافق عليها
             </p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+            <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
               {approvedCount}
             </p>
           </div>
-          <CheckCircle className="h-8 w-8 text-green-600" />
+          <CheckCircle className="h-8 w-8 text-success" />
         </div>
       </div>
     </div>

@@ -60,7 +60,7 @@ export const validateTimes = (checkIn: string, checkOut: string): boolean => {
 export const getStatusColor = (status: string): string => {
   return (
     statusOptions.find((s) => s.value === status)?.color ||
-    "bg-gray-100 text-gray-800"
+    "bg-gray-100 text-foreground"
   );
 };
 

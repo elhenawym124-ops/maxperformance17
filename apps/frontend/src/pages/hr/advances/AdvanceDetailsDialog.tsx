@@ -40,34 +40,34 @@ export const AdvanceDetailsDialog: React.FC<AdvanceDetailsDialogProps> = ({
         </DialogHeader>
 
         <div className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-muted dark:bg-muted p-4 rounded-xl border border-border dark:border-border">
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">المبلغ</p>
-              <p className="font-bold text-lg text-gray-900 dark:text-white font-mono tabular-nums">
+              <p className="text-xs text-muted-foreground">المبلغ</p>
+              <p className="font-bold text-lg text-foreground font-mono tabular-nums">
                 {formatCurrency(request.amount)}
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 نظام السداد
               </p>
-              <p className="font-bold text-gray-900 dark:text-white text-sm">
+              <p className="font-bold text-foreground text-sm">
                 {request.repaymentType === "ONE_TIME" ? "دفعة واحدة" : "أقساط"}
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 سبب الطلب
               </p>
-              <p className="text-gray-900 dark:text-gray-100 text-sm">
+              <p className="text-foreground text-sm">
                 {request.reason || "—"}
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 تاريخ ووقت الطلب
               </p>
-              <p className="text-gray-900 dark:text-gray-100 text-xs font-mono tabular-nums">
+              <p className="text-foreground text-xs font-mono tabular-nums">
                 {new Date(
                   request.createdAt || request.requestDate,
                 ).toLocaleString("ar-EG", {
@@ -81,23 +81,23 @@ export const AdvanceDetailsDialog: React.FC<AdvanceDetailsDialogProps> = ({
           {request.repaymentType === "INSTALLMENTS" &&
             request.installments?.length > 0 && (
               <div>
-                <h4 className="font-bold mb-2 text-gray-900 dark:text-white text-sm">
+                <h4 className="font-bold mb-2 text-foreground text-sm">
                   جدول الأقساط
                 </h4>
-                <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                <div className="border border-border dark:border-border rounded-xl overflow-hidden">
                   <Table>
                     <TableHeader>
-                      <TableRow className="bg-gray-100 dark:bg-gray-800">
-                        <TableHead className="text-right text-gray-700 dark:text-gray-300 text-xs">
+                      <TableRow className="bg-gray-100 dark:bg-muted">
+                        <TableHead className="text-right text-foreground text-xs">
                           القسط
                         </TableHead>
-                        <TableHead className="text-right text-gray-700 dark:text-gray-300 text-xs">
+                        <TableHead className="text-right text-foreground text-xs">
                           تاريخ الاستحقاق
                         </TableHead>
-                        <TableHead className="text-right text-gray-700 dark:text-gray-300 text-xs">
+                        <TableHead className="text-right text-foreground text-xs">
                           المبلغ
                         </TableHead>
-                        <TableHead className="text-right text-gray-700 dark:text-gray-300 text-xs">
+                        <TableHead className="text-right text-foreground text-xs">
                           الحالة
                         </TableHead>
                       </TableRow>

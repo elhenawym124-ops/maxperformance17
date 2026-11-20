@@ -301,7 +301,7 @@ export const useLeavesController = () => {
       await api.post("/hr/leaves", payload);
       toast.success(t("employee.leaves.submitSuccess"), {
         description: t("employee.leaves.submitSuccessDesc"),
-        icon: React.createElement(Check, { className: "h-4 w-4 text-green-500" }),
+        icon: React.createElement(Check, { className: "h-4 w-4 text-success" }),
       });
       setShowAddDialog(false);
       resetForm();

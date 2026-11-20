@@ -18,12 +18,12 @@ export const EmployeeProfileHeader: React.FC<EmployeeProfileHeaderProps> = ({
         <ArrowRight className="h-4 w-4" />
       </Button>
       <div className="flex-1">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
           ملف الموظف
         </h1>
       </div>
       <Button variant="outline" onClick={onEdit}>
-        <Edit className="h-4 w-4 ml-2" />
+        <Edit className="h-4 w-4 ms-2" />
         تعديل
       </Button>
     </div>

@@ -25,14 +25,14 @@ export const CompanyPolicyFilterBar: React.FC<CompanyPolicyFilterBarProps> = ({
   onCategoryChange,
 }) => {
   return (
-    <Card className="border-none shadow-sm bg-white dark:bg-gray-900">
+    <Card className="border-none shadow-sm bg-white dark:bg-muted">
       <CardContent className="p-4">
         <div className="flex flex-col md:flex-row gap-4 items-center">
           <div className="relative flex-1 w-full">
-            <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+            <Search className="absolute right-3 top-2.5 h-5 w-5 text-muted-foreground" />
             <Input
               placeholder="بحث في السياسات..."
-              className="pr-10 w-full"
+              className="pe-10 w-full"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
             />

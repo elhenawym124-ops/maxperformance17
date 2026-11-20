@@ -72,11 +72,11 @@ export const DocumentsHeaderAndFilters: React.FC<
     <>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <DocumentIcon className="h-7 w-7 text-indigo-600" />
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <DocumentIcon className="h-7 w-7 text-primary" />
             الوثائق والمرفقات
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             إدارة جميع مستندات الأصول في مكان واحد
           </p>
         </div>
@@ -104,7 +104,7 @@ export const DocumentsHeaderAndFilters: React.FC<
           const colors = COLOR_MAP[colorKey] ?? {
             bg: "bg-gray-600",
             text: "text-gray-600",
-            light: "bg-gray-100 dark:bg-gray-700",
+            light: "bg-muted",
           };
           return (
             <button
@@ -117,16 +117,16 @@ export const DocumentsHeaderAndFilters: React.FC<
                   <PhotoIcon className="h-8 w-8 text-blue-600" />
                 )}
                 {type.value === "invoice" && (
-                  <DocumentTextIcon className="h-8 w-8 text-green-600" />
+                  <DocumentTextIcon className="h-8 w-8 text-success" />
                 )}
                 {type.value === "warranty" && (
-                  <ShieldCheckIcon className="h-8 w-8 text-purple-600" />
+                  <ShieldCheckIcon className="h-8 w-8 text-primary" />
                 )}
                 {type.value === "manual" && (
-                  <BookOpenIcon className="h-8 w-8 text-orange-600" />
+                  <BookOpenIcon className="h-8 w-8 text-warning" />
                 )}
                 {type.value === "other" && (
-                  <DocumentIcon className="h-8 w-8 text-gray-600" />
+                  <DocumentIcon className="h-8 w-8 text-foreground" />
                 )}
               </div>
               <p className={`font-medium ${colors.text} text-sm`}>
@@ -137,25 +137,25 @@ export const DocumentsHeaderAndFilters: React.FC<
         })}
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="bg-card rounded-xl p-4 shadow-sm border border-border dark:border-border">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="h-5 w-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <MagnifyingGlassIcon className="h-5 w-5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="بحث في المستندات..."
               value={searchQuery}
               onChange={(e) => onSearchQueryChange(e.target.value)}
-              className="w-full pr-10 pl-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+              className="w-full pe-10 ps-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <FunnelIcon className="h-5 w-5 text-gray-400" />
+            <FunnelIcon className="h-5 w-5 text-muted-foreground" />
             <select
               value={selectedAsset}
               onChange={(e) => onSelectedAssetChange(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+              className="border border-border rounded-lg px-3 py-2 bg-card text-foreground focus:ring-2 focus:ring-primary"
             >
               <option value="all">جميع الأصول</option>
               {assets
@@ -177,16 +177,16 @@ export const DocumentsHeaderAndFilters: React.FC<
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                 activeTab === tab.id
                   ? "bg-primary text-primary-foreground shadow-xs"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+                  : "bg-gray-100 text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground"
               }`}
             >
               {tab.label}
               {tab.count > 0 && (
                 <span
-                  className={`mr-2 px-2 py-0.5 rounded-full text-xs font-mono tabular-nums ${
+                  className={`me-2 px-2 py-0.5 rounded-full text-xs font-mono tabular-nums ${
                     activeTab === tab.id
                       ? "bg-white/20"
-                      : "bg-white dark:bg-gray-600"
+                      : "bg-white dark:bg-muted"
                   }`}
                 >
                   {tab.count}

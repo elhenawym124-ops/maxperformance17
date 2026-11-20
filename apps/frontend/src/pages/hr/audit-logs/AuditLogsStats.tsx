@@ -35,8 +35,8 @@ export const AuditLogsStats: React.FC<AuditLogsStatsProps> = ({ stats }) => {
 
       <Card>
         <CardContent className="p-4 flex items-center gap-4">
-          <div className="bg-green-100 dark:bg-green-900/20 p-3 rounded-full">
-            <CheckCircle className="h-6 w-6 text-green-600" />
+          <div className="bg-green-100 dark:bg-success/20 p-3 rounded-full">
+            <CheckCircle className="h-6 w-6 text-success" />
           </div>
           <div>
             <p className="text-sm text-muted-foreground">عمليات الإنشاء</p>
@@ -63,8 +63,8 @@ export const AuditLogsStats: React.FC<AuditLogsStatsProps> = ({ stats }) => {
 
       <Card>
         <CardContent className="p-4 flex items-center gap-4">
-          <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-full">
-            <XCircle className="h-6 w-6 text-red-600" />
+          <div className="bg-red-100 dark:bg-destructive/20 p-3 rounded-full">
+            <XCircle className="h-6 w-6 text-destructive" />
           </div>
           <div>
             <p className="text-sm text-muted-foreground">عمليات الحذف</p>

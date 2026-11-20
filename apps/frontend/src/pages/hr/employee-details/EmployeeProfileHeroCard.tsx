@@ -37,7 +37,7 @@ export const EmployeeProfileHeroCard: React.FC<EmployeeProfileHeroCardProps> = (
               </AvatarFallback>
             </Avatar>
             <div className="text-center md:text-right">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-2xl font-bold text-foreground">
                 {employee.firstName} {employee.lastName}
               </h2>
               <p className="text-gray-500 font-mono tabular-nums text-sm">
@@ -55,22 +55,22 @@ export const EmployeeProfileHeroCard: React.FC<EmployeeProfileHeroCardProps> = (
           <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">القسم:</span>
+                <Building2 className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">القسم:</span>
                 <span className="font-medium text-sm">
                   {employee.department?.name || "-"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">المنصب:</span>
+                <Briefcase className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">المنصب:</span>
                 <span className="font-medium text-sm">
                   {employee.position?.title || "-"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">تاريخ التعيين:</span>
+                <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">تاريخ التعيين:</span>
                 <span className="font-medium text-sm font-mono tabular-nums">
                   {employee.hireDate
                     ? new Date(employee.hireDate).toLocaleDateString("ar-EG")
@@ -81,22 +81,22 @@ export const EmployeeProfileHeroCard: React.FC<EmployeeProfileHeroCardProps> = (
 
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">البريد:</span>
+                <Mail className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">البريد:</span>
                 <span className="font-medium text-sm truncate">
                   {employee.email || "-"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">الهاتف:</span>
+                <Phone className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">الهاتف:</span>
                 <span className="font-medium text-sm font-mono tabular-nums">
                   {employee.phone || employee.mobile || "-"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <UserCircle className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">المدير:</span>
+                <UserCircle className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">المدير:</span>
                 <span className="font-medium text-sm">
                   {employee.manager
                     ? `${employee.manager.firstName} ${employee.manager.lastName}`
@@ -107,8 +107,8 @@ export const EmployeeProfileHeroCard: React.FC<EmployeeProfileHeroCardProps> = (
 
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">مدة الخدمة:</span>
+                <Clock className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">مدة الخدمة:</span>
                 <span className="font-medium text-sm">
                   {employee.hireDate
                     ? calculateTenure(employee.hireDate)
@@ -116,8 +116,8 @@ export const EmployeeProfileHeroCard: React.FC<EmployeeProfileHeroCardProps> = (
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">نوع العقد:</span>
+                <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">نوع العقد:</span>
                 <span className="font-medium text-sm">
                   {contractLabels[employee.contractType] ||
                     employee.contractType ||
@@ -125,8 +125,8 @@ export const EmployeeProfileHeroCard: React.FC<EmployeeProfileHeroCardProps> = (
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <DollarSign className="h-4 w-4 text-gray-400 shrink-0" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">الراتب:</span>
+                <DollarSign className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-gray-600 dark:text-muted-foreground text-sm">الراتب:</span>
                 <span className="font-medium text-sm font-mono tabular-nums">
                   {formatCurrency(employee.baseSalary || 0)}
                 </span>

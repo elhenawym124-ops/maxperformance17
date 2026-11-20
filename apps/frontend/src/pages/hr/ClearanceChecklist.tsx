@@ -143,8 +143,8 @@ export const ClearanceChecklist: React.FC = () => {
               <span
                 className={`text-[10px] px-2 py-0.5 rounded-full font-medium border ${
                   isFinished
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                    : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                 }`}
               >
                 {isFinished ? "مكتمل بالكامل" : "قيد التنفيذ"}
@@ -198,9 +198,9 @@ export const ClearanceChecklist: React.FC = () => {
           <div className="p-2.5 sm:p-3 rounded-md border border-border/60 bg-card">
             <div className="flex items-center justify-between text-muted-foreground text-[11px]">
               <span>تم استيفاؤه</span>
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-success" />
             </div>
-            <div className="mt-1 text-base sm:text-lg font-bold font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <div className="mt-1 text-base sm:text-lg font-bold font-mono text-success dark:text-success tabular-nums">
               {completedCount}
             </div>
             <p className="text-[10px] text-muted-foreground mt-0.5">بند مكتمل الإجراءات</p>
@@ -209,9 +209,9 @@ export const ClearanceChecklist: React.FC = () => {
           <div className="p-2.5 sm:p-3 rounded-md border border-border/60 bg-card">
             <div className="flex items-center justify-between text-muted-foreground text-[11px]">
               <span>متبقي للتسليم</span>
-              <Clock className="h-3.5 w-3.5 text-amber-500" />
+              <Clock className="h-3.5 w-3.5 text-warning" />
             </div>
-            <div className="mt-1 text-base sm:text-lg font-bold font-mono text-amber-600 dark:text-amber-400 tabular-nums">
+            <div className="mt-1 text-base sm:text-lg font-bold font-mono text-warning dark:text-warning tabular-nums">
               {pendingCount}
             </div>
             <p className="text-[10px] text-muted-foreground mt-0.5">بند قيد الانتظار</p>
@@ -268,7 +268,7 @@ export const ClearanceChecklist: React.FC = () => {
                       type="checkbox"
                       checked={item.isCompleted}
                       onChange={() => handleToggleItem(item.id, item.isCompleted)}
-                      className="mt-1 h-4 w-4 rounded border-border/80 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                      className="mt-1 h-4 w-4 rounded border-border/80 text-success focus:ring-success cursor-pointer"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
@@ -284,7 +284,7 @@ export const ClearanceChecklist: React.FC = () => {
                         <span
                           className={`text-[10px] px-2 py-0.5 rounded font-mono ${
                             item.isCompleted
-                              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                              ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                               : "bg-muted/40 text-muted-foreground border border-border/60"
                           }`}
                         >
@@ -297,7 +297,7 @@ export const ClearanceChecklist: React.FC = () => {
                         </p>
                       )}
                       {item.isCompleted && item.completedAt && (
-                        <div className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 font-mono">
+                        <div className="flex items-center gap-1.5 text-[10px] text-success dark:text-success mt-1 font-mono">
                           <CheckCircle2 className="h-3 w-3" />
                           <span>
                             تم الاستيفاء بتاريخ {new Date(item.completedAt).toLocaleDateString("ar-EG")}

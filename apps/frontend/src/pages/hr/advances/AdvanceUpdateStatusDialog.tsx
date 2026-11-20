@@ -31,18 +31,18 @@ export const AdvanceUpdateStatusDialog: React.FC<
         <div className="flex flex-col sm:flex-row gap-3 justify-center py-5">
           <Button
             type="button"
-            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+            className="w-full bg-success hover:bg-success text-white font-bold"
             onClick={() => onUpdateStatus("APPROVED")}
           >
-            <Check className="h-4 w-4 ml-2" />
+            <Check className="h-4 w-4 ms-2" />
             <span>اعتماد السلفة</span>
           </Button>
           <Button
             type="button"
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold"
+            className="w-full bg-destructive hover:bg-destructive text-white font-bold"
             onClick={() => onUpdateStatus("REJECTED")}
           >
-            <X className="h-4 w-4 ml-2" />
+            <X className="h-4 w-4 ms-2" />
             <span>رفض السلفة</span>
           </Button>
         </div>

@@ -145,7 +145,7 @@ export const PolarisSalaryUpdatesView: React.FC<PolarisSalaryUpdatesViewProps> =
       />
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Status Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -166,14 +166,14 @@ export const PolarisSalaryUpdatesView: React.FC<PolarisSalaryUpdatesViewProps> =
               onClick={() => setSelectedTab("changed")}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                 selectedTab === "changed"
-                  ? "bg-background text-amber-600 shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-amber-600 hover:bg-background/50"
+                  ? "bg-background text-warning shadow-xs font-semibold"
+                  : "text-muted-foreground hover:text-warning hover:bg-background/50"
               }`}
             >
               <AlertTriangle className="h-3.5 w-3.5" />
               <span>التعديلات الجارية</span>
               {changedCount > 0 && (
-                <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 font-bold">
+                <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-warning/10 text-warning font-bold">
                   {changedCount}
                 </span>
               )}
@@ -218,7 +218,7 @@ export const PolarisSalaryUpdatesView: React.FC<PolarisSalaryUpdatesViewProps> =
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="البحث بالاسم أو الرقم الوظيفي..."
-                  className="pr-9 h-9 text-xs rounded-xl bg-background border-border/70"
+                  className="pe-9 h-9 text-xs rounded-xl bg-background border-border/70"
                 />
               </div>
 
@@ -303,7 +303,7 @@ export const PolarisSalaryUpdatesView: React.FC<PolarisSalaryUpdatesViewProps> =
                           <td className="py-3 px-4">
                             <Badge
                               variant="outline"
-                              className="text-[11px] bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                              className="text-[11px] bg-success/10 text-success border-success/20"
                             >
                               نشط
                             </Badge>
@@ -316,7 +316,7 @@ export const PolarisSalaryUpdatesView: React.FC<PolarisSalaryUpdatesViewProps> =
                               onChange={(e) => onSalaryChange(employee.id, e.target.value)}
                               className={`h-8 text-xs font-mono tabular-nums rounded-lg ${
                                 isChanged
-                                  ? "border-amber-500 bg-amber-500/10 font-bold text-foreground"
+                                  ? "border-amber-500 bg-warning/10 font-bold text-foreground"
                                   : "border-border/70 bg-background"
                               }`}
                             />
@@ -332,7 +332,7 @@ export const PolarisSalaryUpdatesView: React.FC<PolarisSalaryUpdatesViewProps> =
                               className={`h-8 text-xs rounded-lg ${
                                 isChanged &&
                                 (!reasons[employee.id] || reasons[employee.id].trim() === "")
-                                  ? "border-amber-500 bg-amber-500/10"
+                                  ? "border-amber-500 bg-warning/10"
                                   : "border-border/70 bg-background"
                               } disabled:opacity-40 disabled:bg-muted/20`}
                             />

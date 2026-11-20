@@ -111,7 +111,7 @@ export const PolarisRecruitmentView: React.FC<PolarisRecruitmentViewProps> = ({
       {/* KPI Stats Strip */}
       {showStats && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          <Card className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">الوظائف المفتوحة</span>
               <Briefcase className="h-3.5 w-3.5 text-primary" />
@@ -121,7 +121,7 @@ export const PolarisRecruitmentView: React.FC<PolarisRecruitmentViewProps> = ({
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">إجمالي المتقدمين</span>
               <Users className="h-3.5 w-3.5 text-blue-500" />
@@ -131,40 +131,40 @@ export const PolarisRecruitmentView: React.FC<PolarisRecruitmentViewProps> = ({
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">المقابلات المجدولة</span>
-              <Calendar className="h-3.5 w-3.5 text-purple-500" />
+              <Calendar className="h-3.5 w-3.5 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">
               {stats.scheduledInterviews}
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">بانتظار المراجعة</span>
-              <Clock className="h-3.5 w-3.5 text-amber-500" />
+              <Clock className="h-3.5 w-3.5 text-warning" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-amber-600">
+            <div className="text-xl font-bold font-mono tabular-nums text-warning">
               {stats.pendingReviews}
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">تم توظيفهم هذا الشهر</span>
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600">
+            <div className="text-xl font-bold font-mono tabular-nums text-success">
               {stats.hiredThisMonth}
             </div>
           </Card>
 
-          <Card className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">متوسط فترة التوظيف</span>
-              <BarChart3 className="h-3.5 w-3.5 text-indigo-500" />
+              <BarChart3 className="h-3.5 w-3.5 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">
               {stats.averageTimeToHire} <span className="text-xs font-normal text-muted-foreground">يوم</span>
@@ -174,7 +174,7 @@ export const PolarisRecruitmentView: React.FC<PolarisRecruitmentViewProps> = ({
       )}
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Navigation Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">

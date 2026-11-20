@@ -89,7 +89,7 @@ export const CustomerLoyalty: React.FC = () => {
       />
 
       {/* Unified Tabs Container */}
-      <div className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <div className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         <CustomerLoyaltyTabsBar
           activeTab={activeTab}
           onTabChange={setActiveTab}

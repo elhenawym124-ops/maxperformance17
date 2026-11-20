@@ -31,7 +31,7 @@ const renderCell = (cell: SheetCell, day: SheetDay) => {
   return (
     <td
       key={day.day}
-      className={`border-b border-l border-gray-100 dark:border-gray-700 p-0.5 align-top ${cfg.cell}`}
+      className={`border-b border-l border-border dark:border-border p-0.5 align-top ${cfg.cell}`}
       title={`${day.date} — ${cfg.label}${
         cell.checkIn ? `\nحضور: ${cell.checkIn}` : ""
       }${cell.checkOut ? `\nانصراف: ${cell.checkOut}` : ""}${
@@ -49,7 +49,7 @@ const renderCell = (cell: SheetCell, day: SheetDay) => {
             </span>
           )}
           {cell.lateMinutes > 0 && (
-            <span className="text-[9px] font-bold text-amber-600">
+            <span className="text-[9px] font-bold text-warning">
               +{cell.lateMinutes}د
             </span>
           )}
@@ -66,7 +66,7 @@ const renderCell = (cell: SheetCell, day: SheetDay) => {
             <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} inline-block`} />
           )}
           {cell.status !== "BEFORE_HIRE" && cell.status !== "WEEKEND" && (
-            <span className={`text-[9px] font-medium mr-1 ${cfg.timeColor}`}>
+            <span className={`text-[9px] font-medium me-1 ${cfg.timeColor}`}>
               {cfg.label}
             </span>
           )}
@@ -80,8 +80,8 @@ export const AttendanceSheetMatrixTable: React.FC<
   AttendanceSheetMatrixTableProps
 > = ({ report, filteredEmployees, search, onSearchChange }) => {
   return (
-    <Card className="dark:bg-gray-800 dark:border-gray-700 shadow-sm border-none bg-white">
-      <CardHeader className="border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 p-4">
+    <Card className="dark:bg-gray-800 dark:border-border shadow-sm border-none bg-white">
+      <CardHeader className="border-b dark:border-border bg-muted dark:bg-muted p-4">
         <CardTitle className="text-lg font-semibold dark:text-white flex items-center gap-2">
           <CalendarDays className="h-5 w-5 text-primary" />
           كشف الحضور الشهري — {ATTENDANCE_MONTHS[report.month - 1]}{" "}
@@ -91,7 +91,7 @@ export const AttendanceSheetMatrixTable: React.FC<
           {Object.entries(ATTENDANCE_STATUS_CONFIG).map(([key, cfg]) => (
             <span
               key={key}
-              className="inline-flex items-center gap-1 text-[11px] text-gray-600 dark:text-gray-300"
+              className="inline-flex items-center gap-1 text-[11px] text-muted-foreground"
             >
               <span className={`w-2.5 h-2.5 rounded-full ${cfg.dot}`} />
               {cfg.label}
@@ -100,7 +100,7 @@ export const AttendanceSheetMatrixTable: React.FC<
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="p-3 border-b dark:border-gray-700">
+        <div className="p-3 border-b dark:border-border">
           <input
             type="text"
             id="attendance-sheet-search"
@@ -108,22 +108,22 @@ export const AttendanceSheetMatrixTable: React.FC<
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="بحث بالاسم أو رقم الموظف أو القسم..."
-            className="w-full max-w-sm rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm"
+            className="w-full max-w-sm rounded-md border border-border dark:border-border bg-white dark:bg-muted px-3 py-2 text-sm"
           />
         </div>
         <div className="overflow-x-auto">
           <table className="border-collapse text-right w-full min-w-max">
             <thead>
-              <tr className="bg-gray-50 dark:bg-gray-900/50">
+              <tr className="bg-gray-50 dark:bg-muted">
                 <th
-                  className="sticky right-0 bg-gray-50 dark:bg-gray-900/70 border-b border-l border-gray-200 dark:border-gray-700 p-2 z-10 min-w-[220px] text-right"
+                  className="sticky right-0 bg-muted dark:bg-muted border-b border-l border-border dark:border-border p-2 z-10 min-w-[220px] text-right"
                   rowSpan={2}
                 >
                   <div className="flex flex-col">
                     <span className="font-semibold text-sm dark:text-white">
                       الموظف
                     </span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <span className="text-xs text-muted-foreground mt-1">
                       حاضر / متأخر / غائب / إجازة
                     </span>
                   </div>
@@ -131,21 +131,21 @@ export const AttendanceSheetMatrixTable: React.FC<
                 {report.days.map((d) => (
                   <th
                     key={d.day}
-                    className={`border-b border-l border-gray-200 dark:border-gray-700 p-1 text-center min-w-[54px] ${
+                    className={`border-b border-l border-border dark:border-border p-1 text-center min-w-[54px] ${
                       d.isHoliday
-                        ? "bg-purple-50 dark:bg-purple-900/20"
+                        ? "bg-purple-50 dark:bg-primary/20"
                         : !d.isWorkingDay
-                          ? "bg-gray-100 dark:bg-gray-800"
-                          : "bg-gray-50 dark:bg-gray-900/50"
+                          ? "bg-gray-100 dark:bg-muted"
+                          : "bg-gray-50 dark:bg-muted"
                     }`}
                   >
                     <span
                       className={`block text-[10px] font-semibold ${
                         d.isHoliday
-                          ? "text-purple-600 dark:text-purple-300"
+                          ? "text-purple-600 dark:text-primary"
                           : !d.isWorkingDay
                             ? "text-gray-400"
-                            : "text-gray-600 dark:text-gray-300"
+                            : "text-muted-foreground"
                       }`}
                     >
                       {d.weekday}
@@ -153,10 +153,10 @@ export const AttendanceSheetMatrixTable: React.FC<
                     <span
                       className={`block text-sm font-bold font-mono tabular-nums ${
                         d.isHoliday
-                          ? "text-purple-700 dark:text-purple-200"
+                          ? "text-purple-700 dark:text-primary"
                           : !d.isWorkingDay
                             ? "text-gray-400"
-                            : "text-gray-800 dark:text-gray-100"
+                            : "text-gray-800 dark:text-muted-foreground"
                       }`}
                     >
                       {d.day}
@@ -169,15 +169,15 @@ export const AttendanceSheetMatrixTable: React.FC<
               {filteredEmployees.map((emp) => (
                 <tr
                   key={emp.id}
-                  className="hover:bg-gray-50/50 dark:hover:bg-gray-700/30"
+                  className="hover:bg-gray-50/50 dark:hover:bg-muted"
                 >
-                  <td className="sticky right-0 bg-white dark:bg-gray-800/95 border-b border-l border-gray-200 dark:border-gray-700 p-2 z-10 min-w-[220px]">
+                  <td className="sticky right-0 bg-card/95 border-b border-l border-border dark:border-border p-2 z-10 min-w-[220px]">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex flex-col">
-                        <span className="font-semibold text-sm dark:text-gray-100">
+                        <span className="font-semibold text-sm dark:text-muted-foreground">
                           {emp.name}
                         </span>
-                        <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                        <span className="text-[11px] text-muted-foreground">
                           <span className="font-mono tabular-nums">
                             #{emp.employeeNumber}
                           </span>{" "}
@@ -187,7 +187,7 @@ export const AttendanceSheetMatrixTable: React.FC<
                       <div className="flex flex-col items-end gap-0.5 shrink-0 font-mono tabular-nums">
                         <Badge
                           variant="outline"
-                          className="text-emerald-600 border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800 text-[10px] px-1.5 py-0"
+                          className="text-emerald-600 border-success bg-success/10 dark:bg-success/20 dark:border-success text-[10px] px-1.5 py-0"
                         >
                           ح {emp.totals.present}
                         </Badge>
@@ -196,8 +196,8 @@ export const AttendanceSheetMatrixTable: React.FC<
                             variant="outline"
                             className={`text-[9px] px-1 py-0 ${
                               emp.totals.late > 0
-                                ? "text-amber-600 border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800"
-                                : "text-gray-300 border-gray-100"
+                                ? "text-amber-600 border-warning bg-warning/10 dark:bg-warning/20 dark:border-warning"
+                                : "text-gray-300 border-border"
                             }`}
                           >
                             ت {emp.totals.late}
@@ -206,8 +206,8 @@ export const AttendanceSheetMatrixTable: React.FC<
                             variant="outline"
                             className={`text-[9px] px-1 py-0 ${
                               emp.totals.absent > 0
-                                ? "text-rose-600 border-rose-200 bg-rose-50 dark:bg-rose-900/20 dark:border-rose-800"
-                                : "text-gray-300 border-gray-100"
+                                ? "text-rose-600 border-destructive bg-destructive/10 dark:bg-destructive/20 dark:border-destructive"
+                                : "text-gray-300 border-border"
                             }`}
                           >
                             غ {emp.totals.absent}
@@ -217,7 +217,7 @@ export const AttendanceSheetMatrixTable: React.FC<
                             className={`text-[9px] px-1 py-0 ${
                               emp.totals.leave > 0
                                 ? "text-blue-600 border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800"
-                                : "text-gray-300 border-gray-100"
+                                : "text-gray-300 border-border"
                             }`}
                           >
                             إ {emp.totals.leave}
@@ -244,7 +244,7 @@ export const AttendanceSheetMatrixTable: React.FC<
           </table>
         </div>
         {filteredEmployees.length === 0 && (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-8 text-muted-foreground">
             لا توجد بيانات للموظفين
           </div>
         )}

@@ -33,7 +33,7 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
   setSaveAsDraft,
 }) => {
   return (
-    <Card className="lg:w-80 flex flex-col shrink-0 rounded-2xl border border-border/70 bg-card shadow-xs">
+    <Card className="lg:w-80 flex flex-col shrink-0 rounded-xl border border-border/70 bg-card shadow-xs">
       <CardHeader className="pb-3 border-b border-border/70 bg-muted/20">
         <CardTitle className="text-base font-bold flex items-center gap-2 text-foreground">
           <Calculator className="h-4 w-4 text-primary" />
@@ -48,12 +48,12 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
           >
             {calculating ? (
               <>
-                <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin me-2"></div>
                 جاري الحساب...
               </>
             ) : (
               <>
-                <RefreshCw className="h-4 w-4 mr-2" />
+                <RefreshCw className="h-4 w-4 me-2" />
                 حساب الراتب
               </>
             )}
@@ -66,24 +66,24 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
             <div className="p-4 space-y-6">
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <div className="text-sm text-slate-500">الراتب الأساسي</div>
+                  <div className="text-sm text-muted-foreground">الراتب الأساسي</div>
                   <div className="font-bold font-mono tabular-nums">
                     {formatCurrency(payrollResult.baseSalary)}
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <div className="text-sm text-slate-500">
+                  <div className="text-sm text-muted-foreground">
                     الراتب المستحق بناءً على الحضور
                   </div>
-                  <div className="font-bold font-mono tabular-nums text-indigo-600">
+                  <div className="font-bold font-mono tabular-nums text-primary">
                     {formatCurrency(payrollResult.earnedBaseSalary)}
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <div className="text-sm text-slate-500">إجمالي البدلات</div>
-                  <div className="font-bold font-mono tabular-nums text-emerald-600">
+                  <div className="text-sm text-muted-foreground">إجمالي البدلات</div>
+                  <div className="font-bold font-mono tabular-nums text-success">
                     {formatCurrency(payrollResult.totalAllowances)}
                   </div>
                 </div>
@@ -95,16 +95,16 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
 
                   {payrollResult.attendanceDeductionDetails &&
                     payrollResult.attendanceDeductionDetails.amount > 0 && (
-                      <div className="bg-rose-50 dark:bg-rose-950/20 p-2 rounded-lg">
+                      <div className="bg-rose-50 dark:bg-destructive/20 p-2 rounded-lg">
                         <div className="flex justify-between items-center">
-                          <div className="text-sm text-rose-700 dark:text-rose-300">
+                          <div className="text-sm text-destructive dark:text-destructive">
                             خصم الغياب
                           </div>
-                          <div className="font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                          <div className="font-bold font-mono tabular-nums text-destructive dark:text-destructive">
                             {formatCurrency(payrollResult.attendanceDeduction)}
                           </div>
                         </div>
-                        <p className="text-xs text-rose-600 dark:text-rose-400 mt-1">
+                        <p className="text-xs text-destructive dark:text-destructive mt-1">
                           {payrollResult.attendanceDeductionDetails.reason}
                         </p>
                       </div>
@@ -112,16 +112,16 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
 
                   {payrollResult.latePenaltyDetails &&
                     payrollResult.latePenaltyDetails.amount > 0 && (
-                      <div className="bg-rose-50 dark:bg-rose-950/20 p-2 rounded-lg">
+                      <div className="bg-rose-50 dark:bg-destructive/20 p-2 rounded-lg">
                         <div className="flex justify-between items-center">
-                          <div className="text-sm text-rose-700 dark:text-rose-300">
+                          <div className="text-sm text-destructive dark:text-destructive">
                             خصم التأخير
                           </div>
-                          <div className="font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                          <div className="font-bold font-mono tabular-nums text-destructive dark:text-destructive">
                             {formatCurrency(payrollResult.latePenalty)}
                           </div>
                         </div>
-                        <p className="text-xs text-rose-600 dark:text-rose-400 mt-1">
+                        <p className="text-xs text-destructive dark:text-destructive mt-1">
                           {payrollResult.latePenaltyDetails.reason}
                         </p>
                       </div>
@@ -131,33 +131,33 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                     payrollResult.deductionDetails.map((deduction, index) => (
                       <div
                         key={index}
-                        className="bg-rose-50 dark:bg-rose-950/20 p-2 rounded-lg"
+                        className="bg-rose-50 dark:bg-destructive/20 p-2 rounded-lg"
                       >
                         <div className="flex justify-between items-center">
-                          <div className="text-sm text-rose-700 dark:text-rose-300">
+                          <div className="text-sm text-destructive dark:text-destructive">
                             {deduction.name}
                           </div>
-                          <div className="font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                          <div className="font-bold font-mono tabular-nums text-destructive dark:text-destructive">
                             {formatCurrency(deduction.amount)}
                           </div>
                         </div>
-                        <p className="text-xs text-rose-600 dark:text-rose-400 mt-1">
+                        <p className="text-xs text-destructive dark:text-destructive mt-1">
                           {deduction.reason}
                         </p>
                       </div>
                     ))}
 
                   {payrollResult.taxDetails && (
-                    <div className="bg-amber-50 dark:bg-amber-950/20 p-2 rounded-lg">
+                    <div className="bg-amber-50 dark:bg-warning/20 p-2 rounded-lg">
                       <div className="flex justify-between items-center">
-                        <div className="text-sm text-amber-700 dark:text-amber-300">
+                        <div className="text-sm text-warning dark:text-warning">
                           الضريبة
                         </div>
-                        <div className="font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+                        <div className="font-bold font-mono tabular-nums text-warning dark:text-warning">
                           {formatCurrency(payrollResult.taxAmount)}
                         </div>
                       </div>
-                      <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                      <p className="text-xs text-warning dark:text-warning mt-1">
                         {payrollResult.taxDetails.reason}
                       </p>
                     </div>
@@ -180,10 +180,10 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                   )}
 
                   <div className="flex justify-between items-center pt-2">
-                    <div className="text-sm font-medium text-rose-700 dark:text-rose-300">
+                    <div className="text-sm font-medium text-destructive dark:text-destructive">
                       إجمالي الخصومات
                     </div>
-                    <div className="font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                    <div className="font-bold font-mono tabular-nums text-destructive dark:text-destructive">
                       {formatCurrency(
                         payrollResult.totalDeductions +
                           payrollResult.taxAmount +
@@ -198,29 +198,29 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                 <Separator />
 
                 <div className="flex justify-between items-center">
-                  <div className="text-sm text-slate-500">قيمة العمل الإضافي</div>
-                  <div className="font-bold font-mono tabular-nums text-emerald-600">
+                  <div className="text-sm text-muted-foreground">قيمة العمل الإضافي</div>
+                  <div className="font-bold font-mono tabular-nums text-success">
                     {formatCurrency(payrollResult.overtimeAmount)}
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <div className="text-sm text-slate-500">إجمالي الراتب</div>
+                  <div className="text-sm text-muted-foreground">إجمالي الراتب</div>
                   <div className="font-bold font-mono tabular-nums">
                     {formatCurrency(payrollResult.grossSalary)}
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center bg-indigo-50 dark:bg-indigo-950/30 p-2 rounded-lg">
-                  <div className="font-bold text-indigo-700 dark:text-indigo-300">
+                <div className="flex justify-between items-center bg-primary/10 dark:bg-primary/30 p-2 rounded-lg">
+                  <div className="font-bold text-primary dark:text-primary">
                     صافي الراتب
                   </div>
-                  <div className="font-bold text-lg font-mono tabular-nums text-indigo-600 dark:text-indigo-400">
+                  <div className="font-bold text-lg font-mono tabular-nums text-primary">
                     {formatCurrency(payrollResult.netSalary)}
                   </div>
                 </div>
 
-                <div className="text-xs text-slate-500 text-center pt-2">
+                <div className="text-xs text-muted-foreground text-center pt-2">
                   {numberToArabicWords(payrollResult.netSalary)} جنيه لا غير
                 </div>
               </div>
@@ -288,7 +288,7 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                       tToast.success("PayrollTesting.msg_98c4");
                     }}
                   >
-                    <Download className="h-4 w-4 ml-2" />
+                    <Download className="h-4 w-4 ms-2" />
                     تصدير PDF
                   </Button>
 
@@ -300,7 +300,7 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                       tToast.success("PayrollTesting.msg_f478");
                     }}
                   >
-                    <Printer className="h-4 w-4 ml-2" />
+                    <Printer className="h-4 w-4 ms-2" />
                     طباعة
                   </Button>
                 </div>
@@ -315,7 +315,7 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                     );
                   }}
                 >
-                  <Save className="h-4 w-4 ml-2" />
+                  <Save className="h-4 w-4 ms-2" />
                   {saveAsDraft ? "حفظ كمسودة" : "حفظ واعتماد"}
                 </Button>
               </div>
@@ -323,25 +323,25 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
           ) : (
             <div className="p-4 text-center">
               <div className="py-8 px-4 flex flex-col items-center justify-center">
-                <div className="h-16 w-16 bg-indigo-50 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
-                  <Calculator className="h-8 w-8 text-indigo-400" />
+                <div className="h-16 w-16 bg-primary/10 dark:bg-primary/30 rounded-full flex items-center justify-center mb-4">
+                  <Calculator className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-lg font-medium mb-2">
                   لم يتم حساب الراتب بعد
                 </h3>
-                <p className="text-sm text-slate-500 mb-4">
+                <p className="text-sm text-muted-foreground mb-4">
                   اضغط على زر حساب الراتب لعرض النتائج بناءً على البيانات
                   الحالية
                 </p>
                 <Button onClick={calculatePayroll} disabled={calculating}>
                   {calculating ? (
                     <>
-                      <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin me-2"></div>
                       جاري الحساب...
                     </>
                   ) : (
                     <>
-                      <Calculator className="h-4 w-4 mr-2" />
+                      <Calculator className="h-4 w-4 me-2" />
                       حساب الراتب الآن
                     </>
                   )}

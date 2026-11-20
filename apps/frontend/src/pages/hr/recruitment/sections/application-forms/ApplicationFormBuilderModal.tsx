@@ -66,17 +66,17 @@ export const ApplicationFormBuilderModal: React.FC<
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto"
+            className="bg-card rounded-xl p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-foreground dark:text-white mb-6">
               {showEditModal ? "تعديل الاستبيان" : "إنشاء استبيان جديد"}
             </h2>
 
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     عنوان الاستبيان *
                   </label>
                   <input
@@ -88,12 +88,12 @@ export const ApplicationFormBuilderModal: React.FC<
                         title: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="مثال: استبيان التقديم لوظيفة مطور"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     رابط مخصص (Slug) - اختياري
                   </label>
                   <input
@@ -108,15 +108,15 @@ export const ApplicationFormBuilderModal: React.FC<
                           .replace(/[^a-z0-9-]/g, ""),
                       }))
                     }
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
                     placeholder="مثال: senior-developer-form"
                   />
-                  <p className="text-xs text-gray-500 mt-1 font-mono">
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">
                     سيكون الرابط: /apply/{newForm.slug || "id"}
                   </p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     الوظيفة المرتبطة (اختياري)
                   </label>
                   <select
@@ -127,7 +127,7 @@ export const ApplicationFormBuilderModal: React.FC<
                         jobId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="">بدون وظيفة محددة</option>
                     {jobs.map((job) => (
@@ -140,7 +140,7 @@ export const ApplicationFormBuilderModal: React.FC<
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   وصف الاستبيان (اختياري)
                 </label>
                 <textarea
@@ -152,7 +152,7 @@ export const ApplicationFormBuilderModal: React.FC<
                     }))
                   }
                   rows={2}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="وصف مختصر للاستبيان..."
                 />
               </div>
@@ -172,21 +172,21 @@ export const ApplicationFormBuilderModal: React.FC<
                 />
                 <label
                   htmlFor="isActive"
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="text-sm font-medium text-foreground"
                 >
                   الاستبيان نشط (يمكن للمتقدمين الوصول إليه)
                 </label>
               </div>
 
               {showEditModal && selectedForm && (
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-4 border-2 border-blue-200 dark:border-blue-700">
+                <div className="bg-gradient-to-r from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 rounded-xl p-4 border-2 border-blue-200 dark:border-blue-700">
                   <div className="flex items-start gap-3">
                     <LinkIcon className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-bold text-gray-800 dark:text-white mb-2">
+                      <h4 className="text-sm font-bold text-foreground dark:text-white mb-2">
                         رابط الاستبيان للمتقدمين
                       </h4>
-                      <div className="bg-white dark:bg-gray-800 rounded-lg p-3 mb-3">
+                      <div className="bg-card rounded-lg p-3 mb-3">
                         <p className="text-sm text-blue-600 dark:text-blue-400 font-mono break-all">
                           {window.location.origin}/apply/
                           {newForm.slug || selectedForm.id}
@@ -221,16 +221,16 @@ export const ApplicationFormBuilderModal: React.FC<
               />
             </div>
 
-            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border dark:border-border">
               <button
                 onClick={onClose}
-                className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+                className="px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted dark:hover:bg-muted transition-all"
               >
                 إلغاء
               </button>
               <button
                 onClick={onSubmit}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
               >
                 {showEditModal ? "حفظ التعديلات" : "إنشاء الاستبيان"}
               </button>

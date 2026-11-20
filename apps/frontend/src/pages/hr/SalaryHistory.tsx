@@ -192,9 +192,9 @@ const SalaryHistory: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>زيادات وترقيات</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-emerald-500" />
+            <ArrowUpRight className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-500">
+          <div className="text-xl font-bold font-mono tabular-nums text-success">
             {stats.increases}
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -205,9 +205,9 @@ const SalaryHistory: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>تخفيضات وتسويات</span>
-            <ArrowDownRight className="h-3.5 w-3.5 text-rose-500" />
+            <ArrowDownRight className="h-3.5 w-3.5 text-destructive" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-rose-500">
+          <div className="text-xl font-bold font-mono tabular-nums text-destructive">
             {stats.decreases}
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -222,7 +222,7 @@ const SalaryHistory: React.FC = () => {
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">
             {stats.latest.toLocaleString()}
-            <span className="text-xs font-normal text-muted-foreground mr-1">
+            <span className="text-xs font-normal text-muted-foreground me-1">
               ج.م
             </span>
           </div>
@@ -291,9 +291,9 @@ const SalaryHistory: React.FC = () => {
                       <div
                         className={`p-1 rounded ${
                           isIncrease
-                            ? "bg-emerald-500/10 text-emerald-500"
+                            ? "bg-emerald-500/10 text-success"
                             : isDecrease
-                              ? "bg-rose-500/10 text-rose-500"
+                              ? "bg-rose-500/10 text-destructive"
                               : "bg-muted text-muted-foreground"
                         }`}
                       >
@@ -312,9 +312,9 @@ const SalaryHistory: React.FC = () => {
                         variant="outline"
                         className={`text-[10px] px-1.5 py-0 font-mono tabular-nums ${
                           isIncrease
-                            ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success border-success/20"
                             : isDecrease
-                              ? "bg-rose-500/10 text-rose-500 border-rose-500/20"
+                              ? "bg-rose-500/10 text-destructive border-destructive/20"
                               : "bg-muted/40 text-muted-foreground border-border/60"
                         }`}
                       >
@@ -327,7 +327,7 @@ const SalaryHistory: React.FC = () => {
                         %
                       </Badge>
 
-                      <div className="flex items-center gap-1 text-[11px] text-muted-foreground font-mono mr-auto md:mr-0">
+                      <div className="flex items-center gap-1 text-[11px] text-muted-foreground font-mono me-auto md:me-0">
                         <Calendar className="h-3 w-3" />
                         <span>
                           {new Date(item.effectiveDate).toLocaleDateString("ar-EG")}

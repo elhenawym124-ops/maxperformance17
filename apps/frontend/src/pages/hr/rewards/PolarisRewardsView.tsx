@@ -84,8 +84,8 @@ export const PolarisRewardsView: React.FC<PolarisRewardsViewProps> = ({
       />
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
-        <CardContent className="p-4 sm:p-6 space-y-4 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:p-0">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
+        <CardContent className="p-4 sm:p-6 space-y-4 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:p-0">
           {/* Statistics & Filters */}
           <RewardsListStatsAndFilters
             statistics={statistics}

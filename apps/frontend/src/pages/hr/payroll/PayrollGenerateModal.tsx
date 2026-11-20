@@ -39,7 +39,7 @@ export const PayrollGenerateModal: React.FC<PayrollGenerateModalProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl overflow-hidden p-0 rounded-2xl border border-border/70 shadow-2xl bg-card">
+      <DialogContent className="sm:max-w-xl overflow-hidden p-0 rounded-xl border border-border/70 shadow-2xl bg-card">
         {/* Header */}
         <div className="border-b border-border/70 p-6 bg-muted/20">
           <div className="flex items-center gap-4">
@@ -56,26 +56,26 @@ export const PayrollGenerateModal: React.FC<PayrollGenerateModalProps> = ({
         <div className="p-6 space-y-6 bg-card">
           {/* Process Summary Section */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-              <Users className="h-5 w-5 text-indigo-500" />
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
+              <Users className="h-5 w-5 text-primary" />
               <div>
-                <p className="text-xs text-slate-500 font-medium">الموظفين النشطين</p>
-                <p className="font-bold text-slate-900 dark:text-white tabular-nums">{summary?.totalEmployees || '--'}</p>
+                <p className="text-xs text-muted-foreground font-medium">الموظفين النشطين</p>
+                <p className="font-bold text-foreground dark:text-white tabular-nums">{summary?.totalEmployees || '--'}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-              <Calendar className="h-5 w-5 text-indigo-500" />
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
+              <Calendar className="h-5 w-5 text-primary" />
               <div>
-                <p className="text-xs text-slate-500 font-medium">أيام العمل</p>
-                <p className="font-bold text-slate-900 dark:text-white">حسب التقويم</p>
+                <p className="text-xs text-muted-foreground font-medium">أيام العمل</p>
+                <p className="font-bold text-foreground dark:text-white">حسب التقويم</p>
               </div>
             </div>
           </div>
 
           {/* Checklist Section */}
           <div className="space-y-3">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-emerald-500" />
+            <h4 className="text-sm font-bold text-foreground dark:text-white flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-success" />
               مصادر البيانات التي سيتم تحليلها
             </h4>
             <div className="grid grid-cols-2 gap-2">
@@ -92,9 +92,9 @@ export const PayrollGenerateModal: React.FC<PayrollGenerateModalProps> = ({
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
                   key={i}
-                  className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400"
+                  className="flex items-center gap-2 text-sm text-foreground dark:text-muted-foreground"
                 >
-                  <item.icon className="h-3.5 w-3.5 text-emerald-500" />
+                  <item.icon className="h-3.5 w-3.5 text-success" />
                   {item.label}
                 </motion.div>
               ))}
@@ -104,21 +104,21 @@ export const PayrollGenerateModal: React.FC<PayrollGenerateModalProps> = ({
           {/* Force Regenerate Tooltip-like Warning */}
           <motion.div
             animate={forceRegenerate ? { scale: [1, 1.02, 1], borderColor: '#f97316' } : {}}
-            className={`p-4 rounded-xl border-dashed transition-all ${forceRegenerate ? 'bg-orange-50/50 border-2 border-orange-500' : 'bg-slate-50/50 border border-slate-200 dark:border-slate-800'}`}
+            className={`p-4 rounded-xl border-dashed transition-all ${forceRegenerate ? 'bg-orange-50/50 border-2 border-warning' : 'bg-slate-50/50 border border-border dark:border-border'}`}
           >
             <div className="flex gap-3">
               <Checkbox
                 id="forceRegenerate"
                 checked={forceRegenerate}
                 onCheckedChange={(checked) => setForceRegenerate(checked === true)}
-                className="mt-1 h-5 w-5 border-slate-300 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+                className="mt-1 h-5 w-5 border-border data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
               />
               <div className="flex-1">
-                <Label htmlFor="forceRegenerate" className="flex items-center gap-2 text-slate-900 dark:text-white font-bold cursor-pointer mb-1 text-sm">
-                  <RefreshCw className={`h-3.5 w-3.5 ${forceRegenerate ? 'animate-spin text-orange-600' : 'text-slate-400'}`} />
+                <Label htmlFor="forceRegenerate" className="flex items-center gap-2 text-foreground dark:text-white font-bold cursor-pointer mb-1 text-sm">
+                  <RefreshCw className={`h-3.5 w-3.5 ${forceRegenerate ? 'animate-spin text-warning' : 'text-slate-400'}`} />
                   إعادة احتساب الرواتب (Overwrite)
                 </Label>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   عند تحديد هذا الخيار، سيتم استبدال جميع مسودات الرواتب الحالية لهذا الشهر بالبيانات الجديدة.
                 </p>
               </div>
@@ -137,7 +137,7 @@ export const PayrollGenerateModal: React.FC<PayrollGenerateModalProps> = ({
             <Button
               onClick={onGenerate}
               disabled={generating}
-              className={`flex-[2] h-11 rounded-xl transition-all ${forceRegenerate ? 'bg-amber-600 hover:bg-amber-700 text-white' : ''}`}
+              className={`flex-[2] h-11 rounded-xl transition-all ${forceRegenerate ? 'bg-amber-600 hover:bg-warning text-white' : ''}`}
             >
               <AnimatePresence mode="wait">
                 {generating ? (
@@ -167,7 +167,7 @@ export const PayrollGenerateModal: React.FC<PayrollGenerateModalProps> = ({
         </div>
 
         {/* Subtle Footer Info */}
-        <div className="bg-slate-50 dark:bg-slate-800/80 p-4 border-t border-slate-100 dark:border-slate-800 flex justify-center items-center gap-2 text-[10px] text-slate-400 font-medium tracking-wider uppercase">
+        <div className="bg-slate-50 dark:bg-muted p-4 border-t border-border dark:border-border flex justify-center items-center gap-2 text-[10px] text-muted-foreground font-medium tracking-wider uppercase">
           <ShieldCheck className="h-3 w-3" />
           Secure Enterprise Calculation Engine v2.0
         </div>

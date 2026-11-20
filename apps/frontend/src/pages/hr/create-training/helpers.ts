@@ -19,16 +19,16 @@ export const TRAINING_STATUS_OPTIONS: TrainingStatusOption[] = [
   {
     value: "ONGOING",
     label: "قيد التنفيذ",
-    color: "bg-amber-100 text-amber-700 border-amber-200",
+    color: "bg-amber-100 text-warning border-warning",
   },
   {
     value: "COMPLETED",
     label: "مكتمل",
-    color: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    color: "bg-emerald-100 text-success border-success",
   },
   {
     value: "CANCELLED",
     label: "ملغي",
-    color: "bg-rose-100 text-rose-700 border-rose-200",
+    color: "bg-rose-100 text-destructive border-destructive",
   },
 ];

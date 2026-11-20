@@ -27,9 +27,9 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
   title = "إضافة موظفين (اختياري)",
 }) => {
   return (
-    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg space-y-4">
+    <div className="bg-gray-50 dark:bg-muted p-4 rounded-lg space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+        <h3 className="font-semibold text-foreground flex items-center gap-2">
           <Users className="h-4 w-4" />
           {title}
         </h3>
@@ -44,7 +44,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
       </div>
 
       <div className="space-y-2">
-        <Label className="text-gray-700 dark:text-gray-300 text-sm">
+        <Label className="text-foreground text-sm">
           اختر الموظفين من القائمة
         </Label>
         <Input
@@ -53,7 +53,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
           onChange={(e) => setEmployeeSearchQuery(e.target.value)}
           className="mb-2"
         />
-        <div className="max-h-60 overflow-y-auto border rounded-xl p-2 bg-white dark:bg-gray-900 space-y-1">
+        <div className="max-h-60 overflow-y-auto border rounded-xl p-2 bg-white dark:bg-muted space-y-1">
           {filteredEmployees.length > 0 ? (
             filteredEmployees.map((emp) => (
               <div
@@ -61,7 +61,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                 className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
                   selectedEmployees.includes(emp.id)
                     ? "bg-blue-50 dark:bg-blue-900/30"
-                    : "hover:bg-gray-50 dark:hover:bg-gray-800"
+                    : "hover:bg-gray-50 dark:hover:bg-muted"
                 }`}
                 onClick={() => toggleEmployeeSelection(emp.id)}
               >
@@ -77,7 +77,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                     <span className="font-medium text-sm">
                       {emp.firstName} {emp.lastName}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-muted-foreground">
                       {emp.email || "لا يوجد بريد"}
                     </span>
                   </div>
@@ -86,7 +86,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                   className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
                     selectedEmployees.includes(emp.id)
                       ? "bg-blue-600 border-blue-600 text-white"
-                      : "border-gray-300 dark:border-gray-600"
+                      : "border-border"
                   }`}
                 >
                   {selectedEmployees.includes(emp.id) && (
@@ -96,7 +96,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
               </div>
             ))
           ) : (
-            <div className="text-center py-4 text-gray-400 text-sm">
+            <div className="text-center py-4 text-muted-foreground text-sm">
               لا يوجد نتائج للبحث
             </div>
           )}
@@ -105,18 +105,18 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
 
       {selectedEmployees.length > 0 && (
         <div className="space-y-2">
-          <Label className="text-gray-700 dark:text-gray-300 text-sm">
+          <Label className="text-foreground text-sm">
             الموظفون المحددون:
           </Label>
           <div className="border rounded-lg overflow-hidden max-h-40 overflow-y-auto">
-            <div className="divide-y dark:divide-gray-700">
+            <div className="divide-y dark:divide-border">
               {selectedEmployees.map((empId) => {
                 const emp = employees.find((e) => e.id === empId);
                 if (!emp) return null;
                 return (
                   <div
                     key={empId}
-                    className="flex items-center justify-between p-2 bg-white dark:bg-gray-800"
+                    className="flex items-center justify-between p-2 bg-card"
                   >
                     <div className="flex items-center gap-2">
                       <Avatar className="h-8 w-8">
@@ -130,7 +130,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                         <div className="font-medium text-sm">
                           {emp.firstName} {emp.lastName}
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-muted-foreground">
                           {emp.email}
                         </div>
                       </div>
@@ -138,7 +138,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-red-500 hover:text-red-700"
+                      className="h-8 w-8 text-destructive hover:text-destructive"
                       onClick={() => toggleEmployeeSelection(empId)}
                     >
                       <X className="h-4 w-4" />

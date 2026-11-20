@@ -42,13 +42,13 @@ export const AssignShiftEmployeeList: React.FC<
           placeholder="ابحث عن الموظف باسمه أو رقمه..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pr-10 bg-gray-50/50 focus:bg-white dark:bg-gray-800/50"
+          className="pe-10 bg-muted focus:bg-card/50"
         />
       </div>
 
-      <div className="border rounded-xl overflow-hidden bg-gray-50/30 dark:bg-gray-900/30 max-h-[350px] overflow-y-auto">
+      <div className="border rounded-xl overflow-hidden bg-muted dark:bg-muted max-h-[350px] overflow-y-auto">
         {employees.length > 0 ? (
-          <div className="divide-y divide-gray-100 dark:divide-gray-800">
+          <div className="divide-y divide-border dark:divide-border">
             {employees.map((emp) => {
               const isSelected = selectedEmployeeIds.includes(emp.id);
               return (
@@ -62,7 +62,7 @@ export const AssignShiftEmployeeList: React.FC<
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10 border-2 border-white dark:border-gray-800 shadow-sm">
+                    <Avatar className="h-10 w-10 border-2 border-white dark:border-border shadow-sm">
                       <AvatarImage src={emp.avatar} />
                       <AvatarFallback className="bg-primary/10 text-primary">
                         {emp.firstName?.[0] || ""}

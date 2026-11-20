@@ -80,7 +80,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto p-0 rounded-3xl border-none">
+      <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto p-0 rounded-xl border-none">
         <DialogHeader className="sr-only">
           <DialogTitle>
             تفاصيل قسم {selectedDepartment.name}
@@ -90,7 +90,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
           </DialogDescription>
         </DialogHeader>
 
-        <div className="bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6">
+        <div className="bg-gradient-to-br from-primary via-primary to-blue-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6">
           <div className="flex flex-col gap-4">
             {/* Header section */}
             <div className="flex items-center justify-between">
@@ -102,11 +102,11 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                   }}
                 />
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="text-2xl font-bold text-foreground">
                     {selectedDepartment.name}
                   </h2>
                   {selectedDepartment.nameEn && (
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                       {selectedDepartment.nameEn}
                     </p>
                   )}
@@ -163,55 +163,55 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
 
             {/* Metrics cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card className="bg-white/70 dark:bg-gray-900/60">
+              <Card className="bg-white/70 dark:bg-muted">
                 <CardContent className="p-4 flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       عدد الموظفين
                     </p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+                    <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
                       {selectedDepartment._count.users}
                     </p>
                   </div>
                   <Users className="h-8 w-8 text-blue-500" />
                 </CardContent>
               </Card>
-              <Card className="bg-white/70 dark:bg-gray-900/60">
+              <Card className="bg-white/70 dark:bg-muted">
                 <CardContent className="p-4 flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       الأقسام الفرعية
                     </p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+                    <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
                       {selectedDepartment._count.children}
                     </p>
                   </div>
-                  <Building2 className="h-8 w-8 text-purple-500" />
+                  <Building2 className="h-8 w-8 text-primary" />
                 </CardContent>
               </Card>
-              <Card className="bg-white/70 dark:bg-gray-900/60">
+              <Card className="bg-white/70 dark:bg-muted">
                 <CardContent className="p-4 flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       الوظائف
                     </p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white font-mono tabular-nums">
+                    <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
                       {selectedDepartment._count.positions}
                     </p>
                   </div>
-                  <Users className="h-8 w-8 text-green-500" />
+                  <Users className="h-8 w-8 text-success" />
                 </CardContent>
               </Card>
             </div>
 
             {/* Department info card */}
-            <Card className="bg-white/80 dark:bg-gray-900/60">
+            <Card className="bg-white/80 dark:bg-muted">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">معلومات القسم</CardTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div className="space-y-1">
-                  <p className="text-gray-500 dark:text-gray-400">المدير</p>
+                  <p className="text-muted-foreground">المدير</p>
                   {selectedDepartment.manager ? (
                     <div className="flex items-center gap-2">
                       <Avatar className="h-7 w-7">
@@ -221,7 +221,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                           {selectedDepartment.manager.lastName?.[0]}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="text-gray-900 dark:text-gray-100">
+                      <span className="text-foreground">
                         {selectedDepartment.manager.firstName}{" "}
                         {selectedDepartment.manager.lastName}
                       </span>
@@ -231,15 +231,15 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                   )}
                 </div>
                 <div className="space-y-1">
-                  <p className="text-gray-500 dark:text-gray-400">القسم الأب</p>
-                  <span className="text-gray-900 dark:text-gray-100">
+                  <p className="text-muted-foreground">القسم الأب</p>
+                  <span className="text-foreground">
                     {selectedDepartment.parent?.name || "بدون"}
                   </span>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-gray-500 dark:text-gray-400">اللون</p>
+                  <p className="text-muted-foreground">اللون</p>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-900 dark:text-gray-100">
+                    <span className="text-foreground">
                       {selectedDepartment.color}
                     </span>
                     <div
@@ -251,15 +251,15 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-gray-500 dark:text-gray-400">الترتيب</p>
-                  <span className="text-gray-900 dark:text-gray-100 font-bold font-mono tabular-nums">
+                  <p className="text-muted-foreground">الترتيب</p>
+                  <span className="text-foreground font-bold font-mono tabular-nums">
                     {selectedDepartment.sortOrder || 0}
                   </span>
                 </div>
                 {selectedDepartment.description && (
                   <div className="md:col-span-3 space-y-1">
-                    <p className="text-gray-500 dark:text-gray-400">الوصف</p>
-                    <p className="text-gray-800 dark:text-gray-200">
+                    <p className="text-muted-foreground">الوصف</p>
+                    <p className="text-gray-800 dark:text-muted-foreground">
                       {selectedDepartment.description}
                     </p>
                   </div>
@@ -268,7 +268,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
             </Card>
 
             {/* Employees list in department */}
-            <Card className="bg-white/80 dark:bg-gray-900/60">
+            <Card className="bg-white/80 dark:bg-muted">
               <CardHeader className="pb-2 flex flex-row items-center justify-between">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Users className="h-5 w-5 text-blue-500" />
@@ -282,15 +282,15 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                 </Badge>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+                <div className="space-y-3 max-h-60 overflow-y-auto pe-1">
                   {departmentEmployees.length > 0 ? (
                     departmentEmployees.map((emp) => (
                       <div
                         key={emp.id}
-                        className="flex items-center justify-between p-2 rounded-lg hover:bg-white/50 dark:hover:bg-gray-800/50 border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-colors"
+                        className="flex items-center justify-between p-2 rounded-lg hover:bg-white/50 dark:hover:bg-muted border border-transparent hover:border-border dark:hover:border-border transition-colors"
                       >
                         <div className="flex items-center gap-3">
-                          <Avatar className="h-9 w-9 border border-gray-100">
+                          <Avatar className="h-9 w-9 border border-border">
                             <AvatarImage src={emp.avatar} />
                             <AvatarFallback className="bg-blue-50 text-blue-600 font-bold">
                               {emp.firstName?.[0]}
@@ -298,10 +298,10 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <p className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                            <p className="font-medium text-sm text-foreground">
                               {emp.firstName} {emp.lastName}
                             </p>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
                               <span>
                                 {emp.position?.title || "بدون مسمى وظيفي"}
                               </span>
@@ -313,7 +313,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full"
+                            className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10 rounded-full"
                             onClick={() => onRemoveEmployee(emp.id)}
                             title="إزالة من القسم"
                           >
@@ -323,7 +323,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                       </div>
                     ))
                   ) : (
-                    <div className="text-center py-6 text-gray-500 bg-gray-50/50 dark:bg-gray-800/50 rounded-lg border border-dashed text-sm">
+                    <div className="text-center py-6 text-muted-foreground bg-muted dark:bg-muted rounded-lg border border-dashed text-sm">
                       لا يوجد موظفين في هذا القسم حالياً
                     </div>
                   )}

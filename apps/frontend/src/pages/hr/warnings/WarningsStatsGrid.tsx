@@ -38,50 +38,50 @@ export const WarningsStatsGrid: React.FC<WarningsStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-950/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
+      <Card className="bg-gradient-to-br from-warning to-white dark:from-warning/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-orange-700 dark:text-orange-400">
+          <CardTitle className="text-sm font-medium text-warning dark:text-warning">
             قيد الانتظار
           </CardTitle>
-          <Clock className="h-4 w-4 text-orange-600" />
+          <Clock className="h-4 w-4 text-warning" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold font-mono tabular-nums text-orange-900 dark:text-orange-100">
+          <div className="text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning">
             {pendingCount}
           </div>
-          <p className="text-xs text-orange-600/80 mt-1">
+          <p className="text-xs text-warning/80 mt-1">
             بانتظار توقيع الموظف
           </p>
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-green-50 to-white dark:from-green-950/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
+      <Card className="bg-gradient-to-br from-success to-white dark:from-success/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-green-700 dark:text-green-400">
+          <CardTitle className="text-sm font-medium text-success dark:text-success">
             مكتملة الإجراءات
           </CardTitle>
-          <CheckCircle2 className="h-4 w-4 text-green-600" />
+          <CheckCircle2 className="h-4 w-4 text-success" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold font-mono tabular-nums text-green-900 dark:text-green-100">
+          <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
             {stats.acknowledged}
           </div>
-          <p className="text-xs text-green-600/80 mt-1">تم الاعتراف بها</p>
+          <p className="text-xs text-success/80 mt-1">تم الاعتراف بها</p>
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-red-50 to-white dark:from-red-950/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
+      <Card className="bg-gradient-to-br from-destructive to-white dark:from-destructive/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-red-700 dark:text-red-400">
+          <CardTitle className="text-sm font-medium text-destructive dark:text-destructive">
             مخالفات جسيمة
           </CardTitle>
-          <ShieldAlert className="h-4 w-4 text-red-600" />
+          <ShieldAlert className="h-4 w-4 text-destructive" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold font-mono tabular-nums text-red-900 dark:text-red-100">
+          <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
             {severeCount}
           </div>
-          <p className="text-xs text-red-600/80 mt-1">تتطلب انتباه فوري</p>
+          <p className="text-xs text-destructive/80 mt-1">تتطلب انتباه فوري</p>
         </CardContent>
       </Card>
     </div>

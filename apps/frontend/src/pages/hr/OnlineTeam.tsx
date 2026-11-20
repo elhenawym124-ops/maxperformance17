@@ -191,7 +191,7 @@ export const OnlineTeam: React.FC = () => {
       {/* 1. TOP COMMAND BAR */}
       <header className="h-auto min-h-12 border-b border-border/70 px-3 sm:px-4 py-2 bg-card/95 backdrop-blur-md flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 shrink-0 z-10">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="p-1.5 rounded-md bg-success/10 text-success dark:text-success border border-success/20">
             <Radio className="h-4 w-4" />
           </span>
           <div>
@@ -205,10 +205,10 @@ export const OnlineTeam: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono font-medium rounded-md border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono font-medium rounded-md border border-success/30 bg-success/10 text-success dark:text-success">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
             </span>
             <span>{onlineCount} {t("onlineTeam.live")}</span>
           </span>
@@ -231,7 +231,7 @@ export const OnlineTeam: React.FC = () => {
         {/* Strip 1: Telemetry Summary Ribbon */}
         <section className="p-3 sm:p-4 grid grid-cols-3 gap-2.5 sm:gap-3 bg-muted/10">
           <div className="p-2.5 sm:p-3 rounded-md border border-border/60 bg-card flex items-center gap-2.5">
-            <span className="p-2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <span className="p-2 rounded bg-success/10 text-success dark:text-success">
               <Users className="h-4 w-4" />
             </span>
             <div>

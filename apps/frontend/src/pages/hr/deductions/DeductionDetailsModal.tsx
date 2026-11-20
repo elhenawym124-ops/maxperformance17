@@ -26,16 +26,16 @@ export const DeductionDetailsModal: React.FC<DeductionDetailsModalProps> = ({
     ] || DEDUCTION_STATUS.PENDING;
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 overflow-y-auto h-full w-full z-50">
-      <div className="relative top-20 mx-auto p-5 border border-gray-200 dark:border-gray-700 w-full max-w-2xl shadow-lg rounded-md bg-white dark:bg-gray-800 max-h-[80vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-muted bg-opacity-50 dark:bg-muted dark:bg-opacity-75 overflow-y-auto h-full w-full z-50">
+      <div className="relative top-20 mx-auto p-5 border border-border dark:border-border w-full max-w-2xl shadow-lg rounded-md bg-card max-h-[80vh] overflow-y-auto">
         <div className="mt-3">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+            <h3 className="text-lg font-medium text-foreground">
               تفاصيل الخصم
             </h3>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="text-gray-400 hover:text-foreground dark:hover:text-muted-foreground"
             >
               <X className="h-6 w-6" />
             </button>
@@ -44,29 +44,29 @@ export const DeductionDetailsModal: React.FC<DeductionDetailsModalProps> = ({
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   الموظف
                 </p>
-                <p className="text-base font-medium text-gray-900 dark:text-white">
+                <p className="text-base font-medium text-foreground">
                   {selectedDeduction.employee?.firstName}{" "}
                   {selectedDeduction.employee?.lastName}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   رقم الموظف
                 </p>
-                <p className="text-base font-medium text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-base font-medium text-foreground font-mono tabular-nums">
                   {selectedDeduction.employee?.employeeNumber || "-"}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   النوع
                 </p>
-                <p className="text-base font-medium text-gray-900 dark:text-white">
+                <p className="text-base font-medium text-foreground">
                   {DEDUCTION_TYPES[
                     selectedDeduction.type as keyof typeof DEDUCTION_TYPES
                   ] || selectedDeduction.type}
@@ -74,56 +74,56 @@ export const DeductionDetailsModal: React.FC<DeductionDetailsModalProps> = ({
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   المبلغ
                 </p>
-                <p className="text-base font-medium text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-base font-medium text-foreground font-mono tabular-nums">
                   {formatCurrency(selectedDeduction.amount)}
                 </p>
               </div>
 
               {selectedDeduction.category && (
                 <div className="col-span-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-foreground dark:text-muted-foreground">
                     التصنيف
                   </p>
-                  <p className="text-base font-medium text-gray-900 dark:text-white">
+                  <p className="text-base font-medium text-foreground">
                     {selectedDeduction.category}
                   </p>
                 </div>
               )}
 
               <div className="col-span-2">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   السبب
                 </p>
-                <p className="text-base font-medium text-gray-900 dark:text-white">
+                <p className="text-base font-medium text-foreground">
                   {selectedDeduction.reason}
                 </p>
               </div>
 
               {selectedDeduction.description && (
                 <div className="col-span-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-foreground dark:text-muted-foreground">
                     الوصف
                   </p>
-                  <p className="text-base text-gray-900 dark:text-white">
+                  <p className="text-base text-foreground">
                     {selectedDeduction.description}
                   </p>
                 </div>
               )}
 
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   التاريخ الفعلي
                 </p>
-                <p className="text-base font-medium text-gray-900 dark:text-white font-mono tabular-nums">
+                <p className="text-base font-medium text-foreground font-mono tabular-nums">
                   {formatDateWithDay(selectedDeduction.date)}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   الحالة
                 </p>
                 <span
@@ -135,10 +135,10 @@ export const DeductionDetailsModal: React.FC<DeductionDetailsModalProps> = ({
 
               {selectedDeduction.rejectionReason && (
                 <div className="col-span-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-foreground dark:text-muted-foreground">
                     سبب الرفض
                   </p>
-                  <p className="text-base text-red-600 dark:text-red-400">
+                  <p className="text-base text-destructive dark:text-destructive">
                     {selectedDeduction.rejectionReason}
                   </p>
                 </div>
@@ -146,10 +146,10 @@ export const DeductionDetailsModal: React.FC<DeductionDetailsModalProps> = ({
 
               {selectedDeduction.notes && (
                 <div className="col-span-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-foreground dark:text-muted-foreground">
                     ملاحظات
                   </p>
-                  <p className="text-base text-gray-900 dark:text-white">
+                  <p className="text-base text-foreground">
                     {selectedDeduction.notes}
                   </p>
                 </div>

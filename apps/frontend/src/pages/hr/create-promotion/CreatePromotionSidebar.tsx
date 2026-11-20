@@ -70,26 +70,26 @@ export const CreatePromotionSidebar: React.FC<CreatePromotionSidebarProps> = ({
                 )}
               />
               {errors.employeeId && (
-                <p className="text-xs text-red-500">
+                <p className="text-xs text-destructive">
                   {errors.employeeId.message}
                 </p>
               )}
             </div>
 
             {selectedEmployee && (
-              <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mt-4 border border-gray-100 transition-all duration-300 animate-in fade-in slide-in-from-top-2">
+              <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mt-4 border border-border transition-all duration-300 animate-in fade-in slide-in-from-top-2">
                 <Avatar className="h-16 w-16 border-2 border-white shadow-sm">
                   <AvatarImage src={selectedEmployee.avatar} />
-                  <AvatarFallback className="bg-green-100 text-green-600 text-xl font-bold">
+                  <AvatarFallback className="bg-green-100 text-success text-xl font-bold">
                     {selectedEmployee.firstName?.[0]}
                     {selectedEmployee.lastName?.[0]}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900">
+                  <h3 className="font-bold text-lg text-foreground">
                     {selectedEmployee.firstName} {selectedEmployee.lastName}
                   </h3>
-                  <p className="text-sm text-gray-500 font-mono tabular-nums">
+                  <p className="text-sm text-muted-foreground font-mono tabular-nums">
                     {selectedEmployee.employeeNumber}
                   </p>
                   <Badge variant="outline" className="mt-1 bg-white">
@@ -103,7 +103,7 @@ export const CreatePromotionSidebar: React.FC<CreatePromotionSidebarProps> = ({
       </Card>
 
       {increaseStats && (
-        <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-sm">
+        <Card className="bg-gradient-to-br from-success to-success border-success shadow-sm">
           <CardContent className="p-6">
             <h3 className="text-green-800 font-semibold mb-2 flex items-center gap-2">
               <DollarSign className="h-5 w-5" />
@@ -112,13 +112,13 @@ export const CreatePromotionSidebar: React.FC<CreatePromotionSidebarProps> = ({
             <div className="space-y-1">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">الزيادة المقترحة:</span>
-                <span className="font-bold text-green-700 dir-ltr font-mono tabular-nums">
+                <span className="font-bold text-success dir-ltr font-mono tabular-nums">
                   +{increaseStats.diff.toLocaleString()}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">نسبة الزيادة:</span>
-                <span className="font-bold text-green-700 dir-ltr font-mono tabular-nums">
+                <span className="font-bold text-success dir-ltr font-mono tabular-nums">
                   {increaseStats.percent.toFixed(2)}%
                 </span>
               </div>

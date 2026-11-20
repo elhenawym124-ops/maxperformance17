@@ -131,16 +131,16 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
   const totalMissing = summary?.totalMissingPunches || 0;
 
   return (
-    <Card className="border-amber-200 dark:border-amber-900/40 shadow-sm bg-gradient-to-br from-amber-50/40 via-white to-amber-50/20 dark:from-amber-950/20 dark:via-gray-900 dark:to-gray-900">
+    <Card className="border-amber-200 dark:border-warning/40 shadow-sm bg-gradient-to-br from-warning/40 via-white to-warning/20 dark:from-warning/20 dark:via-gray-900 dark:to-gray-900">
       <CardHeader className="pb-3">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <div className="p-2.5 rounded-xl bg-warning/10 text-warning dark:text-warning">
               <AlertTriangle className="h-6 w-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                <CardTitle className="text-lg font-bold text-foreground">
                   رصد ومطابقة البصمات المفقودة (Missing Punches)
                 </CardTitle>
                 {totalMissing > 0 ? (
@@ -148,8 +148,8 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
                     {totalMissing} محاولة غير مقيدة
                   </Badge>
                 ) : (
-                  <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400">
-                    <CheckCircle2 className="h-3.5 w-3.5 ml-1" /> جميع البصمات مطابقة
+                  <Badge variant="outline" className="bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success">
+                    <CheckCircle2 className="h-3.5 w-3.5 ms-1" /> جميع البصمات مطابقة
                   </Badge>
                 )}
               </div>
@@ -165,9 +165,9 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
               size="sm"
               onClick={triggerDailyCheck}
               disabled={checkingDaily}
-              className="text-amber-700 dark:text-amber-300 border-amber-300 hover:bg-amber-100/50"
+              className="text-amber-700 dark:text-warning border-warning hover:bg-warning/50"
             >
-              <Send className={`h-4 w-4 ml-1.5 ${checkingDaily ? "animate-spin" : ""}`} />
+              <Send className={`h-4 w-4 ms-1.5 ${checkingDaily ? "animate-spin" : ""}`} />
               فحص اليوم وإرسال تنبيه
             </Button>
             <Button
@@ -176,7 +176,7 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
               onClick={fetchMissingReport}
               disabled={loading}
             >
-              <RefreshCw className={`h-4 w-4 ml-1.5 ${loading ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-4 w-4 ms-1.5 ${loading ? "animate-spin" : ""}`} />
               تحديث
             </Button>
           </div>
@@ -186,8 +186,8 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
       <CardContent className="space-y-4">
         {/* ملخص الموظفين المتأثرين */}
         {summary && summary.byEmployee.length > 0 && (
-          <div className="p-3 rounded-lg bg-amber-100/40 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50">
-            <div className="text-xs font-semibold text-amber-900 dark:text-amber-300 mb-2 flex items-center gap-1.5">
+          <div className="p-3 rounded-lg bg-warning/40 dark:bg-warning/30 border border-warning dark:border-warning/50">
+            <div className="text-xs font-semibold text-warning dark:text-warning mb-2 flex items-center gap-1.5">
               <User className="h-4 w-4" /> الموظفون الذين لديهم بصمات مفقودة:
             </div>
             <div className="flex flex-wrap gap-2">
@@ -195,13 +195,13 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
                 <Badge
                   key={emp.userId}
                   variant="outline"
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-amber-300 py-1 px-2.5 flex items-center gap-2"
+                  className="bg-card text-foreground dark:text-muted-foreground border-warning py-1 px-2.5 flex items-center gap-2"
                 >
                   <span className="font-medium">{emp.userName}</span>
                   {emp.employeeCode && (
-                    <span className="text-xs text-gray-500 font-mono">({emp.employeeCode})</span>
+                    <span className="text-xs text-muted-foreground font-mono">({emp.employeeCode})</span>
                   )}
-                  <span className="px-1.5 py-0.2 bg-amber-500 text-white text-xs rounded-full font-bold">
+                  <span className="px-1.5 py-0.2 bg-warning text-white text-xs rounded-full font-bold">
                     {emp.count}
                   </span>
                 </Badge>
@@ -212,13 +212,13 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
 
         {/* جدول المحاولات المفقودة */}
         {attempts.length === 0 ? (
-          <div className="text-center py-6 text-gray-500 dark:text-gray-400 text-sm">
+          <div className="text-center py-6 text-muted-foreground text-sm">
             لا توجد بصمات مفقودة حالياً. كافة محاولات الحضور مسجلة بشكل سليم.
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800">
+          <div className="overflow-x-auto rounded-lg border border-border dark:border-border">
             <table className="w-full text-right text-xs">
-              <thead className="bg-gray-100/75 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 font-semibold border-b border-gray-200 dark:border-gray-800">
+              <thead className="bg-gray-100/75 dark:bg-muted text-foreground font-semibold border-b border-border dark:border-border">
                 <tr>
                   <th className="py-2.5 px-3">الموظف</th>
                   <th className="py-2.5 px-3">تاريخ ووقت المحاولة</th>
@@ -228,7 +228,7 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
                   <th className="py-2.5 px-3">الحالة والإجراء</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {attempts.map((att) => {
                   const attemptDate = new Date(att.attemptedAt);
                   const formattedTime = attemptDate.toLocaleTimeString("ar-EG", {
@@ -242,58 +242,58 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
                   });
 
                   return (
-                    <tr key={att.id} className="hover:bg-amber-50/20 dark:hover:bg-gray-800/40">
-                      <td className="py-2.5 px-3 font-medium text-gray-900 dark:text-white">
+                    <tr key={att.id} className="hover:bg-amber-50/20 dark:hover:bg-muted">
+                      <td className="py-2.5 px-3 font-medium text-foreground">
                         <div className="flex flex-col">
                           <span>{att.userName}</span>
                           {att.employeeCode ? (
-                            <span className="text-[10px] text-gray-400 font-mono">
+                            <span className="text-[10px] text-muted-foreground font-mono">
                               {att.employeeCode}
                             </span>
                           ) : (
-                            <span className="text-[10px] text-rose-500 font-medium">
+                            <span className="text-[10px] text-destructive font-medium">
                               (غير مقيد كموظف)
                             </span>
                           )}
                         </div>
                       </td>
-                      <td className="py-2.5 px-3 text-gray-600 dark:text-gray-300">
+                      <td className="py-2.5 px-3 text-muted-foreground">
                         <div className="flex items-center gap-1">
-                          <Clock className="h-3 w-3 text-gray-400" />
+                          <Clock className="h-3 w-3 text-muted-foreground" />
                           <span>{formattedDate} {formattedTime}</span>
                         </div>
                       </td>
                       <td className="py-2.5 px-3">
                         <div className="flex items-center gap-1.5">
-                          <Laptop className="h-3.5 w-3.5 text-gray-400" />
-                          <span className="font-mono text-gray-700 dark:text-gray-300">
+                          <Laptop className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span className="font-mono text-foreground">
                             {att.deviceType || "جهاز شركة"}
                           </span>
                         </div>
                       </td>
                       <td className="py-2.5 px-3">
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-mono font-semibold text-amber-700 dark:text-amber-400">
+                          <span className="font-mono font-semibold text-warning dark:text-warning">
                             {att.result}
                           </span>
-                          <span className="text-[11px] text-gray-500 dark:text-gray-400 truncate max-w-xs" title={att.reason || ""}>
+                          <span className="text-[11px] text-muted-foreground truncate max-w-xs" title={att.reason || ""}>
                             {att.reason || "محاولة بصمة غير مقيدة"}
                           </span>
                         </div>
                       </td>
-                      <td className="py-2.5 px-3 font-mono text-gray-500">
+                      <td className="py-2.5 px-3 font-mono text-muted-foreground">
                         {att.clientIp || "-"}
                       </td>
                       <td className="py-2.5 px-3">
                         {att.attendanceId ? (
-                          <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-300">
+                          <Badge variant="outline" className="bg-emerald-50 text-success border-success">
                             تمت التسوية ✅
                           </Badge>
                         ) : (
                           <Button
                             size="sm"
                             variant="default"
-                            className="h-7 text-xs bg-amber-600 hover:bg-amber-700 text-white"
+                            className="h-7 text-xs bg-warning hover:bg-warning text-white"
                             onClick={() => {
                               setActiveAttempt(att);
                               setResolveNotes(`تسوية اعتماد بصمة الجهاز بتاريخ ${formattedDate}`);
@@ -316,15 +316,15 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
       <Dialog open={Boolean(activeAttempt)} onOpenChange={(open) => !open && setActiveAttempt(null)}>
         <DialogContent className="sm:max-w-[480px]" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
-              <ShieldAlert className="h-5 w-5 text-amber-600" />
+            <DialogTitle className="flex items-center gap-2 text-foreground">
+              <ShieldAlert className="h-5 w-5 text-warning" />
               تسوية وتثبيت بصمة الحضور
             </DialogTitle>
           </DialogHeader>
 
           {activeAttempt && (
-            <div className="space-y-4 py-2 text-sm text-gray-700 dark:text-gray-300">
-              <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-1">
+            <div className="space-y-4 py-2 text-sm text-foreground">
+              <div className="p-3 bg-muted dark:bg-muted rounded-lg space-y-1">
                 <p><strong>الموظف:</strong> {activeAttempt.userName}</p>
                 <p>
                   <strong>وقت المحاولة المسجل:</strong>{" "}
@@ -334,7 +334,7 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                <label className="text-xs font-semibold text-foreground">
                   ملاحظات الاعتماد والتسوية:
                 </label>
                 <Textarea
@@ -353,7 +353,7 @@ export const AttendanceMissingPunchesSection: React.FC<AttendanceMissingPunchesS
             </Button>
             <Button
               variant="default"
-              className="bg-amber-600 hover:bg-amber-700 text-white"
+              className="bg-amber-600 hover:bg-warning text-white"
               onClick={handleResolveSubmit}
               disabled={submittingResolve}
             >

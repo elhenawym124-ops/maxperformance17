@@ -26,9 +26,9 @@ const cadenceLabels: Record<string, string> = {
 
 const statusClasses: Record<"active" | "draft", string> = {
   active:
-    "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300",
+    "border-emerald-200 bg-success/10 text-success dark:border-success/60 dark:bg-success/40 dark:text-success",
   draft:
-    "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-300",
+    "border-amber-200 bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/40 dark:text-warning",
 };
 
 const WorkReportFormsDashboard: React.FC = () => {
@@ -86,14 +86,14 @@ const WorkReportFormsDashboard: React.FC = () => {
         value: totalForms,
         icon: ClipboardList,
         tone:
-          "border-slate-200 bg-white text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-50",
+          "border-slate-200 bg-white text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
       },
       {
         label: "الفورمات المفعلة",
         value: activeForms,
         icon: Sparkles,
         tone:
-          "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200",
+          "border-emerald-200 bg-success/10 text-success dark:border-success/60 dark:bg-success/30 dark:text-success",
       },
       {
         label: "إجمالي السجلات",
@@ -170,7 +170,7 @@ const WorkReportFormsDashboard: React.FC = () => {
             </button>
             <Link
               to="/hr/reporting/forms/new"
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="inline-flex items-center gap-2 rounded-xl bg-muted px-4 py-3 text-sm font-medium text-white transition hover:bg-muted dark:bg-white dark:text-foreground dark:hover:bg-muted"
             >
               <FilePlus2 className="h-4 w-4" />
               إنشاء فورم جديد
@@ -184,7 +184,7 @@ const WorkReportFormsDashboard: React.FC = () => {
             return (
               <div
                 key={stat.label}
-                className={`rounded-2xl border p-5 shadow-sm ${stat.tone}`}
+                className={`rounded-xl border p-5 shadow-sm ${stat.tone}`}
               >
                 <div className="mb-4 flex items-center justify-between">
                   <span className="text-sm font-medium opacity-80">{stat.label}</span>
@@ -196,33 +196,33 @@ const WorkReportFormsDashboard: React.FC = () => {
           })}
         </div>
 
-        <div className="mb-6 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mb-6 flex flex-col gap-4 rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted lg:flex-row lg:items-center lg:justify-between">
           <div className="relative w-full max-w-xl">
-            <Search className="pointer-events-none absolute right-3 top-3.5 h-4 w-4 text-slate-400" />
+            <Search className="pointer-events-none absolute right-3 top-3.5 h-4 w-4 text-muted-foreground" />
             <input
               type="search"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pr-10 pl-4 text-sm outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+              className="w-full rounded-xl border border-border bg-muted py-3 pe-10 ps-4 text-sm outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
               placeholder="ابحث بالاسم أو وصف الفورم"
             />
           </div>
-          <div className="text-sm text-slate-500 dark:text-slate-400">
+          <div className="text-sm text-muted-foreground dark:text-muted-foreground">
             {filteredForms.length} فورم ظاهر من أصل {forms.length}
           </div>
         </div>
 
         {loading ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
+          <div className="rounded-xl border border-border bg-white p-10 text-center text-muted-foreground shadow-sm dark:border-border dark:bg-muted dark:text-muted-foreground">
             جاري تحميل الفورمات...
           </div>
         ) : filteredForms.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+          <div className="rounded-xl border border-dashed border-border bg-white p-12 text-center shadow-sm dark:border-border dark:bg-muted">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground">
               <ClipboardList className="h-6 w-6" />
             </div>
             <h2 className="mb-2 text-xl font-semibold">لا توجد فورمات بعد</h2>
-            <p className="mx-auto mb-6 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-400">
+            <p className="mx-auto mb-6 max-w-2xl text-sm leading-7 text-muted-foreground dark:text-muted-foreground">
               ابدأ بفورم يومي للموظفين أو استخدم قالب فريق الرد الجاهز ثم عدّله
               حسب شغلك.
             </p>
@@ -230,14 +230,14 @@ const WorkReportFormsDashboard: React.FC = () => {
               <button
                 type="button"
                 onClick={seedPresetInSession}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-700"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-3 text-sm font-medium text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border"
               >
                 <Sparkles className="h-4 w-4" />
                 استخدم القالب الجاهز
               </button>
               <Link
                 to="/hr/reporting/forms/new"
-                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                className="inline-flex items-center gap-2 rounded-xl bg-muted px-4 py-3 text-sm font-medium text-white transition hover:bg-muted dark:bg-white dark:text-foreground dark:hover:bg-muted"
               >
                 <FilePlus2 className="h-4 w-4" />
                 إنشاء من الصفر
@@ -249,7 +249,7 @@ const WorkReportFormsDashboard: React.FC = () => {
             {filteredForms.map((form) => (
               <article
                 key={form.id}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
+                className="rounded-xl border border-border bg-white p-5 shadow-sm transition hover:border-border hover:shadow-md dark:border-border dark:bg-muted dark:hover:border-border"
               >
                 <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
                   <div className="space-y-2">
@@ -262,35 +262,35 @@ const WorkReportFormsDashboard: React.FC = () => {
                       >
                         {form.isActive ? "مفعل" : "غير مفعل"}
                       </span>
-                      <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-1 text-xs font-medium text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                         {cadenceLabels[form.cadence] || form.cadence}
                       </span>
                     </div>
-                    <p className="text-sm leading-7 text-slate-600 dark:text-slate-300">
+                    <p className="text-sm leading-7 text-foreground dark:text-muted-foreground">
                       {form.description || "بدون وصف حتى الآن."}
                     </p>
                   </div>
                 </div>
 
                 <div className="mb-4 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-950">
-                    <div className="text-xs text-slate-500 dark:text-slate-400">
+                  <div className="rounded-xl bg-muted p-3 dark:bg-muted">
+                    <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                       الحقول
                     </div>
                     <div className="mt-1 text-lg font-semibold">
                       {form.fieldsCount || form.fields.length}
                     </div>
                   </div>
-                  <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-950">
-                    <div className="text-xs text-slate-500 dark:text-slate-400">
+                  <div className="rounded-xl bg-muted p-3 dark:bg-muted">
+                    <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                       السجلات
                     </div>
                     <div className="mt-1 text-lg font-semibold">
                       {form.submissionsCount || 0}
                     </div>
                   </div>
-                  <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-950">
-                    <div className="text-xs text-slate-500 dark:text-slate-400">
+                  <div className="rounded-xl bg-muted p-3 dark:bg-muted">
+                    <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                       آخر إرسال
                     </div>
                     <div className="mt-1 text-sm font-medium">
@@ -305,13 +305,13 @@ const WorkReportFormsDashboard: React.FC = () => {
                   {form.fields.slice(0, 5).map((field) => (
                     <span
                       key={`${form.id}-${field.key}`}
-                      className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+                      className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-1 text-xs text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
                     >
                       {field.label}
                     </span>
                   ))}
                   {form.fields.length > 5 ? (
-                    <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+                    <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-1 text-xs text-muted-foreground dark:border-border dark:bg-muted dark:text-muted-foreground">
                       +{form.fields.length - 5}
                     </span>
                   ) : null}
@@ -320,28 +320,28 @@ const WorkReportFormsDashboard: React.FC = () => {
                 <div className="flex flex-wrap items-center gap-2">
                   <Link
                     to={`/hr/reporting/forms/${form.id}/edit`}
-                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
                   >
                     <PenSquare className="h-4 w-4" />
                     تحرير
                   </Link>
                   <Link
                     to={`/hr/reporting/forms/${form.id}/preview`}
-                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
                   >
                     <Eye className="h-4 w-4" />
                     معاينة
                   </Link>
                   <Link
                     to={`/hr/reporting/forms/${form.id}/fill`}
-                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
                   >
                     <ClipboardList className="h-4 w-4" />
                     تعبئة
                   </Link>
                   <Link
                     to={`/hr/reporting/forms/${form.id}/records`}
-                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
                   >
                     <BarChart3 className="h-4 w-4" />
                     السجلات والتحليل
@@ -349,7 +349,7 @@ const WorkReportFormsDashboard: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleDelete(form.id)}
-                    className="mr-auto inline-flex items-center gap-2 rounded-xl border border-rose-200 px-3 py-2 text-sm font-medium text-rose-700 transition hover:border-rose-300 hover:bg-rose-50 dark:border-rose-900/60 dark:text-rose-300 dark:hover:bg-rose-950/30"
+                    className="me-auto inline-flex items-center gap-2 rounded-xl border border-destructive px-3 py-2 text-sm font-medium text-destructive transition hover:border-destructive hover:bg-destructive/10 dark:border-destructive/60 dark:text-destructive dark:hover:bg-destructive/30"
                   >
                     <Trash2 className="h-4 w-4" />
                     حذف

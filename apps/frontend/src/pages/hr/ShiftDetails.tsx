@@ -44,7 +44,7 @@ const ShiftDetails: React.FC = () => {
   if (!shift) {
     return (
       <div className="space-y-6 w-full pb-8" dir="rtl">
-        <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+        <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
           <CardContent className="p-12 text-center">
             <Clock className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-muted-foreground">المناوبة غير موجودة</p>

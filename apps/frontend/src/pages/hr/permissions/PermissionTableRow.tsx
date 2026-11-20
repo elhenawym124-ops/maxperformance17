@@ -33,12 +33,12 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
   return (
     <TableRow
       key={request.id}
-      className="group hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors border-gray-100 dark:border-gray-800"
+      className="group hover:bg-muted dark:hover:bg-muted transition-colors border-border dark:border-border"
     >
       {!isMyPermissions && (
         <TableCell className="py-4">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 border-2 border-white dark:border-gray-800 ring-1 ring-gray-100 dark:ring-gray-800 shadow-sm">
+            <Avatar className="h-10 w-10 border-2 border-white dark:border-border ring-1 ring-border dark:ring-border shadow-sm">
               <AvatarImage src={request.employee?.avatar} />
               <AvatarFallback className="bg-blue-50 text-blue-600 font-bold">
                 {request.employee?.firstName?.[0]}
@@ -46,10 +46,10 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-bold text-gray-900 dark:text-white leading-tight">
+              <p className="font-bold text-foreground leading-tight">
                 {request.employee?.firstName} {request.employee?.lastName}
               </p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 {request.employee?.department?.name ||
                   t("employee.permissions.noDepartment")}{" "}
                 • {request.employee?.employeeNumber}
@@ -74,22 +74,22 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
         })}
       </TableCell>
       <TableCell>
-        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-          <span className="font-bold font-mono tabular-nums text-gray-900 dark:text-white">
+        <div className="flex items-center gap-2 text-foreground dark:text-muted-foreground">
+          <span className="font-bold font-mono tabular-nums text-foreground">
             {request.startTime}
           </span>
           <span className="text-xs">{t("employee.permissions.timeDelimiter")}</span>
-          <span className="font-bold font-mono tabular-nums text-gray-900 dark:text-white">
+          <span className="font-bold font-mono tabular-nums text-foreground">
             {request.endTime}
           </span>
         </div>
       </TableCell>
       <TableCell>
         <div className="flex items-center gap-1.5">
-          <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded font-bold font-mono tabular-nums">
+          <span className="px-2 py-0.5 bg-muted dark:bg-muted rounded font-bold font-mono tabular-nums">
             {request.totalHours}
           </span>
-          <span className="text-xs text-gray-500">{t("employee.permissions.hour")}</span>
+          <span className="text-xs text-muted-foreground">{t("employee.permissions.hour")}</span>
         </div>
       </TableCell>
       <TableCell>
@@ -100,13 +100,13 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
           {t(`employee.permissions.${status.labelKey}`)}
         </div>
       </TableCell>
-      <TableCell className="pl-6">
+      <TableCell className="ps-6">
         <div className="flex items-center justify-start gap-2">
           {request.status === "PENDING" && !isMyPermissions && (
             <>
               <Button
                 size="sm"
-                className="h-8 w-8 p-0 bg-green-600 hover:bg-green-700 rounded-lg shadow-sm"
+                className="h-8 w-8 p-0 bg-success hover:bg-success rounded-lg shadow-sm"
                 onClick={() => onApprove(request.id)}
                 title={t("employee.permissions.approve")}
               >
@@ -136,7 +136,7 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
             <Button
               size="sm"
               variant="ghost"
-              className="h-8 w-8 p-0 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 rounded-lg"
+              className="h-8 w-8 p-0 hover:bg-destructive/10 dark:hover:bg-destructive/20 text-destructive rounded-lg"
               onClick={() => onDeleteClick(request)}
               title={t("employee.permissions.delete")}
             >

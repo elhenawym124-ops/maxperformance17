@@ -140,11 +140,11 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
       case "contract":
         return <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 text-xs">عقد عمل</Badge>;
       case "id":
-        return <Badge variant="outline" className="bg-purple-500/10 text-purple-600 border-purple-500/20 text-xs">هوية/جواز</Badge>;
+        return <Badge variant="outline" className="bg-purple-500/10 text-primary border-primary/20 text-xs">هوية/جواز</Badge>;
       case "certificate":
-        return <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-xs">شهادة</Badge>;
+        return <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20 text-xs">شهادة</Badge>;
       case "medical":
-        return <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/20 text-xs">طبي</Badge>;
+        return <Badge variant="outline" className="bg-amber-500/10 text-warning border-warning/20 text-xs">طبي</Badge>;
       default:
         return <Badge variant="outline" className="bg-muted text-muted-foreground text-xs">{type}</Badge>;
     }
@@ -185,7 +185,7 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
       />
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Status Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -206,12 +206,12 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
               onClick={() => setSelectedTab("valid")}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                 selectedTab === "valid"
-                  ? "bg-background text-emerald-600 shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-emerald-600 hover:bg-background/50"
+                  ? "bg-background text-success shadow-xs font-semibold"
+                  : "text-muted-foreground hover:text-success hover:bg-background/50"
               }`}
             >
               <span>سارية</span>
-              <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-emerald-500/10 text-emerald-600">
+              <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-success/10 text-success">
                 {counts.valid}
               </span>
             </button>
@@ -219,13 +219,13 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
               onClick={() => setSelectedTab("expiring")}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                 selectedTab === "expiring"
-                  ? "bg-background text-amber-600 shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-amber-600 hover:bg-background/50"
+                  ? "bg-background text-warning shadow-xs font-semibold"
+                  : "text-muted-foreground hover:text-warning hover:bg-background/50"
               }`}
             >
               <Clock className="h-3.5 w-3.5" />
               <span>تنتهي قريباً</span>
-              <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600">
+              <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-warning/10 text-warning">
                 {counts.expiring}
               </span>
             </button>
@@ -233,14 +233,14 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
               onClick={() => setSelectedTab("expired")}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                 selectedTab === "expired"
-                  ? "bg-background text-rose-600 shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-rose-600 hover:bg-background/50"
+                  ? "bg-background text-destructive shadow-xs font-semibold"
+                  : "text-muted-foreground hover:text-destructive hover:bg-background/50"
               }`}
             >
               <AlertCircle className="h-3.5 w-3.5" />
               <span>منتهية</span>
               {counts.expired > 0 && (
-                <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-rose-500/10 text-rose-600 font-bold">
+                <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-destructive/10 text-destructive font-bold">
                   {counts.expired}
                 </span>
               )}
@@ -249,14 +249,14 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
               onClick={() => setSelectedTab("unverified")}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
                 selectedTab === "unverified"
-                  ? "bg-background text-amber-600 shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-amber-600 hover:bg-background/50"
+                  ? "bg-background text-warning shadow-xs font-semibold"
+                  : "text-muted-foreground hover:text-warning hover:bg-background/50"
               }`}
             >
               <FileCheck className="h-3.5 w-3.5" />
               <span>بانتظار التحقق</span>
               {counts.unverified > 0 && (
-                <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 font-bold">
+                <span className="font-mono text-[11px] px-1.5 py-0.2 rounded-full bg-warning/10 text-warning font-bold">
                   {counts.unverified}
                 </span>
               )}
@@ -272,7 +272,7 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="البحث باسم المستند، أو نوع الملف..."
-              className="pr-9 h-9 text-xs rounded-xl bg-background border-border/70"
+              className="pe-9 h-9 text-xs rounded-xl bg-background border-border/70"
             />
           </div>
 
@@ -307,7 +307,7 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
             </div>
           ) : filteredDocuments.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-              <div className="h-12 w-12 rounded-2xl bg-muted/60 flex items-center justify-center mb-3">
+              <div className="h-12 w-12 rounded-xl bg-muted/60 flex items-center justify-center mb-3">
                 <FileText className="h-6 w-6 text-muted-foreground" />
               </div>
               <h3 className="text-sm font-semibold text-foreground mb-1">لا توجد مستندات مطابقة</h3>
@@ -377,17 +377,17 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
                         {/* Expiry Status */}
                         <td className="py-3 px-4">
                           {expired ? (
-                            <Badge variant="outline" className="bg-rose-500/10 text-rose-600 border-rose-500/20 text-[11px] gap-1">
+                            <Badge variant="outline" className="bg-rose-500/10 text-destructive border-destructive/20 text-[11px] gap-1">
                               <AlertCircle className="h-3 w-3" />
                               منتهي الصلاحية
                             </Badge>
                           ) : expiring ? (
-                            <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/20 text-[11px] gap-1">
+                            <Badge variant="outline" className="bg-amber-500/10 text-warning border-warning/20 text-[11px] gap-1">
                               <Clock className="h-3 w-3" />
                               ينتهي قريباً
                             </Badge>
                           ) : doc.expiryDate ? (
-                            <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-[11px]">
+                            <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20 text-[11px]">
                               ساري الصلاحية
                             </Badge>
                           ) : (
@@ -398,12 +398,12 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
                         {/* Verification Status */}
                         <td className="py-3 px-4">
                           {doc.isVerified ? (
-                            <div className="flex items-center gap-1.5 text-emerald-600">
+                            <div className="flex items-center gap-1.5 text-success">
                               <CheckCircle className="h-4 w-4 shrink-0" />
                               <span className="text-[11px] font-medium">موثق ومطابق</span>
                             </div>
                           ) : (
-                            <div className="flex items-center gap-1.5 text-amber-600">
+                            <div className="flex items-center gap-1.5 text-warning">
                               <XCircle className="h-4 w-4 shrink-0" />
                               <span className="text-[11px] font-medium">غير موثق</span>
                             </div>
@@ -433,7 +433,7 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
                                 variant="outline"
                                 size="sm"
                                 onClick={() => onVerify(doc.id)}
-                                className="h-7 px-2 text-[11px] gap-1 text-emerald-600 border-emerald-500/30 hover:bg-emerald-500/10"
+                                className="h-7 px-2 text-[11px] gap-1 text-success border-success/30 hover:bg-success/10"
                                 title="توثيق المستند"
                               >
                                 <CheckCircle className="h-3 w-3" />
@@ -445,7 +445,7 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
                               variant="ghost"
                               size="sm"
                               onClick={() => onDelete(doc.id)}
-                              className="h-7 w-7 p-0 text-rose-500 hover:text-rose-600 hover:bg-rose-500/10"
+                              className="h-7 w-7 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
                               title="حذف المستند"
                             >
                               <Trash2 className="h-3.5 w-3.5" />

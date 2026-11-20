@@ -45,7 +45,7 @@ const AssetsOverviewDashboard: React.FC = () => {
         return (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-xl font-bold text-foreground">
                 سجل الأصول
               </h2>
               <button
@@ -58,14 +58,14 @@ const AssetsOverviewDashboard: React.FC = () => {
             </div>
 
             {showAddModal && (
-              <div className="rounded-2xl border border-border/70 bg-card shadow-xs p-4 sm:p-6">
+              <div className="rounded-xl border border-border/70 bg-card shadow-xs p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-foreground">
                     نموذج إضافة أصل
                   </h3>
                   <button
                     onClick={() => setShowAddModal(false)}
-                    className="text-sm text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
+                    className="text-sm text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
                   >
                     إغلاق
                   </button>
@@ -122,7 +122,7 @@ const AssetsOverviewDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6 w-full pb-8" dir="rtl">
-      <div className="rounded-2xl border border-border/70 bg-card flex flex-col md:flex-row overflow-hidden shadow-xs">
+      <div className="rounded-xl border border-border/70 bg-card flex flex-col md:flex-row overflow-hidden shadow-xs">
         {/* Sidebar Navigation */}
         <AssetsOverviewSidebar
           activeSection={activeSection}

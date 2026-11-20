@@ -43,7 +43,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+    <Card className="bg-card border-border dark:border-border">
       <CardContent className="p-0">
         {loading ? (
           <EmployeeTableSkeleton />

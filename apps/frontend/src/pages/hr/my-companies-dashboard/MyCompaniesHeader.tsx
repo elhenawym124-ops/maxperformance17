@@ -20,23 +20,23 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
   hasMultipleCompanies = true,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+    <div className="flex flex-col md:flex-row justify-between items-center bg-card p-3 sm:p-4 rounded-xl shadow-sm border border-border dark:border-border">
       <div>
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+        <h1 className="text-2xl font-bold text-foreground dark:text-white">
           لوحة تحكم شركاتي
         </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           متابعة شاملة لجميع فروعك وشركاتك من مكان واحد
         </p>
       </div>
       <div className="mt-4 md:mt-0 flex flex-wrap gap-2">
-        <div className="flex bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+        <div className="flex bg-muted p-1 rounded-lg">
           <button
             onClick={() => onTabChange("overview")}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
               activeTab === "overview"
-                ? "bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700"
+                ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             نظرة عامة
@@ -45,8 +45,8 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
             onClick={() => onTabChange("attendance")}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
               activeTab === "attendance"
-                ? "bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700"
+                ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             الحضور
@@ -55,8 +55,8 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
             onClick={() => onTabChange("reports")}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
               activeTab === "reports"
-                ? "bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700"
+                ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             التقارير
@@ -66,8 +66,8 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
               onClick={() => onTabChange("orders")}
               className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 activeTab === "orders"
-                  ? "bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-700"
+                  ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               مساحة العمل المشتركة (الطلبات)
@@ -84,7 +84,7 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
         <button
           onClick={onExport}
           disabled={isExporting}
-          className="flex items-center gap-1 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 text-xs sm:text-sm"
+          className="flex items-center gap-1 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-success hover:bg-success text-white rounded-lg transition-colors disabled:opacity-50 text-xs sm:text-sm"
         >
           {isExporting ? (
             <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

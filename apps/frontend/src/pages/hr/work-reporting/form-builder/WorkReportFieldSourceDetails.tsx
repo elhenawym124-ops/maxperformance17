@@ -21,8 +21,8 @@ export const WorkReportFieldSourceDetails: React.FC<
   return (
     <>
       {field.sourceType === "SYSTEM" ? (
-        <div className="mt-4 space-y-2 rounded-xl bg-slate-50 p-4 dark:bg-slate-950">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+        <div className="mt-4 space-y-2 rounded-xl bg-muted p-4 dark:bg-muted">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             مصدر البيانات من النظام
           </label>
           <select
@@ -39,7 +39,7 @@ export const WorkReportFieldSourceDetails: React.FC<
                 };
               })
             }
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-border dark:border-border dark:bg-muted dark:text-white"
           >
             {SYSTEM_FIELD_OPTIONS.map((option) => (
               <option key={option.key} value={option.key}>
@@ -47,15 +47,15 @@ export const WorkReportFieldSourceDetails: React.FC<
               </option>
             ))}
           </select>
-          <p className="text-xs leading-6 text-slate-500 dark:text-slate-400">
+          <p className="text-xs leading-6 text-muted-foreground dark:text-muted-foreground">
             {systemOption?.description}
           </p>
         </div>
       ) : null}
 
       {field.sourceType === "CALCULATED" ? (
-        <div className="mt-4 space-y-2 rounded-xl bg-slate-50 p-4 dark:bg-slate-950">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+        <div className="mt-4 space-y-2 rounded-xl bg-muted p-4 dark:bg-muted">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             المعادلة الحسابية
           </label>
           <input
@@ -66,10 +66,10 @@ export const WorkReportFieldSourceDetails: React.FC<
                 formula: event.target.value,
               }))
             }
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-mono outline-none transition focus:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm font-mono outline-none transition focus:border-border dark:border-border dark:bg-muted dark:text-white"
             placeholder="(orders_count / replied_conversations_count) * 100"
           />
-          <p className="text-xs leading-6 text-slate-500 dark:text-slate-400">
+          <p className="text-xs leading-6 text-muted-foreground dark:text-muted-foreground">
             استخدم مفاتيح الحقول بالأحرف الإنجليزية مع العمليات الحسابية
             الأساسية مثل + و - و * و /.
           </p>
@@ -77,8 +77,8 @@ export const WorkReportFieldSourceDetails: React.FC<
       ) : null}
 
       {field.dataType === "SELECT" && field.sourceType !== "SYSTEM" ? (
-        <div className="mt-4 space-y-2 rounded-xl bg-slate-50 p-4 dark:bg-slate-950">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+        <div className="mt-4 space-y-2 rounded-xl bg-muted p-4 dark:bg-muted">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             خيارات القائمة
           </label>
           <textarea
@@ -93,14 +93,14 @@ export const WorkReportFieldSourceDetails: React.FC<
               }))
             }
             rows={4}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-border dark:border-border dark:bg-muted dark:text-white"
             placeholder="اكتب كل اختيار في سطر مستقل"
           />
         </div>
       ) : null}
 
       <div className="mt-4 flex flex-wrap gap-6">
-        <label className="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+        <label className="inline-flex items-center gap-2 text-sm text-foreground dark:text-muted-foreground">
           <input
             type="checkbox"
             checked={field.isRequired}
@@ -110,11 +110,11 @@ export const WorkReportFieldSourceDetails: React.FC<
                 isRequired: event.target.checked,
               }))
             }
-            className="h-4 w-4 rounded border-slate-300"
+            className="h-4 w-4 rounded border-border"
           />
           الحقل مطلوب
         </label>
-        <label className="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+        <label className="inline-flex items-center gap-2 text-sm text-foreground dark:text-muted-foreground">
           <input
             type="checkbox"
             checked={field.isVisible}
@@ -124,7 +124,7 @@ export const WorkReportFieldSourceDetails: React.FC<
                 isVisible: event.target.checked,
               }))
             }
-            className="h-4 w-4 rounded border-slate-300"
+            className="h-4 w-4 rounded border-border"
           />
           يظهر للموظف داخل الفورم
         </label>

@@ -56,13 +56,13 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
   const getChangeTypeBadge = (type: string) => {
     switch (type) {
       case "promotion":
-        return <Badge variant="outline" className="bg-purple-500/10 text-purple-600 border-purple-500/20 text-xs">ترقية استثنائية</Badge>;
+        return <Badge variant="outline" className="bg-purple-500/10 text-primary border-primary/20 text-xs">ترقية استثنائية</Badge>;
       case "annual_increase":
-        return <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-xs">زيادة سنوية</Badge>;
+        return <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20 text-xs">زيادة سنوية</Badge>;
       case "adjustment":
         return <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 text-xs">تعديل إداري</Badge>;
       case "demotion":
-        return <Badge variant="outline" className="bg-rose-500/10 text-rose-600 border-rose-500/20 text-xs">تخفيض درجة</Badge>;
+        return <Badge variant="outline" className="bg-rose-500/10 text-destructive border-destructive/20 text-xs">تخفيض درجة</Badge>;
       default:
         return <Badge variant="outline" className="bg-muted text-muted-foreground text-xs">{type}</Badge>;
     }
@@ -144,7 +144,7 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
 
       {/* KPI Stats Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+        <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
           <div className="flex items-center justify-between text-muted-foreground mb-1.5">
             <span className="text-xs font-medium">إجمالي الحركات</span>
             <TrendingUp className="h-4 w-4 text-primary" />
@@ -157,36 +157,36 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
           </div>
         </Card>
 
-        <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+        <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
           <div className="flex items-center justify-between text-muted-foreground mb-1.5">
             <span className="text-xs font-medium">زيادات وترقيات</span>
-            <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+            <ArrowUpRight className="h-4 w-4 text-success" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold font-mono tabular-nums text-emerald-600">
+            <span className="text-xl font-bold font-mono tabular-nums text-success">
               {stats.increases}
             </span>
             <span className="text-[11px] text-muted-foreground">حركة</span>
           </div>
         </Card>
 
-        <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+        <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
           <div className="flex items-center justify-between text-muted-foreground mb-1.5">
             <span className="text-xs font-medium">تخفيضات وتسويات</span>
-            <ArrowDownRight className="h-4 w-4 text-rose-500" />
+            <ArrowDownRight className="h-4 w-4 text-destructive" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold font-mono tabular-nums text-rose-600">
+            <span className="text-xl font-bold font-mono tabular-nums text-destructive">
               {stats.decreases}
             </span>
             <span className="text-[11px] text-muted-foreground">حركة</span>
           </div>
         </Card>
 
-        <Card className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-xs">
+        <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
           <div className="flex items-center justify-between text-muted-foreground mb-1.5">
             <span className="text-xs font-medium">آخر راتب مسجل</span>
-            <DollarSign className="h-4 w-4 text-amber-500" />
+            <DollarSign className="h-4 w-4 text-warning" />
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-bold font-mono tabular-nums text-foreground">
@@ -198,7 +198,7 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
       </div>
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Status Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -237,7 +237,7 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="البحث باسم الموظف أو سبب التعديل..."
-              className="pr-9 h-9 text-xs rounded-xl bg-background border-border/70"
+              className="pe-9 h-9 text-xs rounded-xl bg-background border-border/70"
             />
           </div>
         </div>
@@ -288,13 +288,13 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
 
                       <td className="py-3 px-4 font-mono tabular-nums">
                         {isPositive && (
-                          <span className="inline-flex items-center gap-0.5 text-emerald-600 font-semibold">
+                          <span className="inline-flex items-center gap-0.5 text-success font-semibold">
                             <ArrowUpRight className="h-3.5 w-3.5" />
                             +{item.changePercentage ? item.changePercentage.toFixed(1) : ((diff / (item.previousSalary || 1)) * 100).toFixed(1)}%
                           </span>
                         )}
                         {isNegative && (
-                          <span className="inline-flex items-center gap-0.5 text-rose-600 font-semibold">
+                          <span className="inline-flex items-center gap-0.5 text-destructive font-semibold">
                             <ArrowDownRight className="h-3.5 w-3.5" />
                             {item.changePercentage ? item.changePercentage.toFixed(1) : ((diff / (item.previousSalary || 1)) * 100).toFixed(1)}%
                           </span>

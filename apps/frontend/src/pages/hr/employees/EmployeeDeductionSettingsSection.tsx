@@ -20,18 +20,18 @@ export const EmployeeDeductionSettingsSection: React.FC<
   return (
     <div className="col-span-2 mt-4">
       <div className="flex items-center gap-2 mb-4">
-        <Clock className="h-5 w-5 text-orange-500" />
+        <Clock className="h-5 w-5 text-warning" />
         <h3 className="font-bold">{t("employees.deductionSettings")}</h3>
       </div>
       <Separator className="mb-4" />
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="flex items-center justify-between p-3 border rounded-lg bg-orange-50/50 dark:bg-orange-950/10">
+        <div className="flex items-center justify-between p-3 border rounded-lg bg-warning/50 dark:bg-warning/10">
           <div className="space-y-0.5">
             <Label className="text-sm">
               {t("employees.enableAutoDeduction")}
             </Label>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               {t("employees.enableAutoDeductionDesc")}
             </p>
           </div>

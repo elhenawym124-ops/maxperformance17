@@ -13,8 +13,8 @@ export const PayrollEmptyState: React.FC<PayrollEmptyStateProps> = ({
   onOpenGenerateDialog,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center py-16 bg-muted/20 rounded-2xl border border-dashed border-border/70 m-4">
-      <div className="h-16 w-16 rounded-2xl bg-card border border-border/70 shadow-xs flex items-center justify-center mb-4">
+    <div className="flex flex-col items-center justify-center py-16 bg-muted/20 rounded-xl border border-dashed border-border/70 m-4">
+      <div className="h-16 w-16 rounded-xl bg-card border border-border/70 shadow-xs flex items-center justify-center mb-4">
         <Calculator className="h-8 w-8 text-primary" />
       </div>
       <h3 className="text-lg font-bold text-foreground mb-1.5">لا توجد بيانات رواتب مُحققة</h3>
@@ -26,7 +26,7 @@ export const PayrollEmptyState: React.FC<PayrollEmptyStateProps> = ({
           onClick={onOpenGenerateDialog}
           className="h-10 px-6 rounded-xl font-medium"
         >
-          <Sparkles className="h-4 w-4 ml-2" />
+          <Sparkles className="h-4 w-4 ms-2" />
           بدء إعداد الرواتب الآن
         </Button>
       )}

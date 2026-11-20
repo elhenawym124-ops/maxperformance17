@@ -36,16 +36,16 @@ const AssetForm: React.FC<AssetFormProps> = ({
     >
       <div className="fixed inset-0 transition-opacity" onClick={onClose} />
 
-      <div className="relative w-full max-w-4xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transform transition-all flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-4xl bg-card rounded-xl shadow-2xl overflow-hidden border border-border dark:border-border transform transition-all flex flex-col max-h-[90vh]">
         {/* Sticky Header */}
-        <div className="bg-gray-50 dark:bg-gray-900/50 px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center z-10 sticky top-0">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+        <div className="bg-gray-50 dark:bg-muted px-6 py-4 border-b border-border dark:border-border flex justify-between items-center z-10 sticky top-0">
+          <h3 className="text-xl font-bold text-foreground">
             {initialData ? "تعديل بيانات الأصل" : "إضافة أصل جديد"}
           </h3>
           <button
             onClick={onClose}
             type="button"
-            className="p-2 rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+            className="p-2 rounded-full text-muted-foreground hover:text-muted-foreground hover:bg-muted transition"
             aria-label="إغلاق نموذج الأصل"
           >
             <XMarkIcon className="h-6 w-6" />
@@ -55,7 +55,7 @@ const AssetForm: React.FC<AssetFormProps> = ({
         {/* Scrollable Content */}
         <div className="p-6 overflow-y-auto flex-1">
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm font-medium">
+            <div className="mb-6 bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded-lg text-sm font-medium">
               {error}
             </div>
           )}
@@ -78,11 +78,11 @@ const AssetForm: React.FC<AssetFormProps> = ({
         </div>
 
         {/* Fixed Footer */}
-        <div className="bg-gray-50 dark:bg-gray-900/50 px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3 flex-shrink-0">
+        <div className="bg-gray-50 dark:bg-muted px-6 py-4 border-t border-border dark:border-border flex justify-end gap-3 flex-shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
+            className="px-5 py-2.5 border border-border rounded-lg shadow-sm text-sm font-semibold text-foreground bg-card hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-border transition-colors"
           >
             إلغاء
           </button>
@@ -90,7 +90,7 @@ const AssetForm: React.FC<AssetFormProps> = ({
             type="submit"
             form="asset-form"
             disabled={loading}
-            className="px-5 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-primary hover:bg-primary/90 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors inline-flex items-center justify-center min-w-[120px]"
+            className="px-5 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-primary hover:bg-primary/90 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 transition-colors inline-flex items-center justify-center min-w-[120px]"
           >
             {loading ? "جاري الحفظ..." : "حفظ الأصل"}
           </button>

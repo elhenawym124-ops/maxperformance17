@@ -67,12 +67,12 @@ export const ApplicationFormResponsesModal: React.FC<
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+            className="bg-card rounded-xl p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                <h2 className="text-2xl font-bold text-foreground dark:text-white">
                   ردود: {selectedForm.title}
                 </h2>
                 <div className="flex flex-wrap items-center gap-2 mt-3">
@@ -80,8 +80,8 @@ export const ApplicationFormResponsesModal: React.FC<
                     onClick={() => onResponseFilterChange("all")}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                       responseFilter === "all"
-                        ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                        : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                        ? "bg-purple-100 text-primary dark:bg-primary/30 dark:text-primary"
+                        : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                     }`}
                   >
                     الكل (
@@ -94,8 +94,8 @@ export const ApplicationFormResponsesModal: React.FC<
                     onClick={() => onResponseFilterChange("contacted")}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                       responseFilter === "contacted"
-                        ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                        : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                        ? "bg-green-100 text-success dark:bg-success/30 dark:text-success"
+                        : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                     }`}
                   >
                     تم التواصل (
@@ -108,8 +108,8 @@ export const ApplicationFormResponsesModal: React.FC<
                     onClick={() => onResponseFilterChange("notContacted")}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                       responseFilter === "notContacted"
-                        ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
-                        : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                        ? "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning"
+                        : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                     }`}
                   >
                     لم يتم التواصل (
@@ -124,21 +124,21 @@ export const ApplicationFormResponsesModal: React.FC<
 
             {responses.length === 0 ? (
               <div className="text-center py-12">
-                <ClipboardDocumentListIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <ClipboardDocumentListIcon className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">
                   لا توجد ردود بعد
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-muted-foreground">
                   شارك رابط الاستبيان مع المتقدمين
                 </p>
               </div>
             ) : visibleResponses.length === 0 ? (
               <div className="text-center py-12">
-                <ClipboardDocumentListIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <ClipboardDocumentListIcon className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-2">
                   لا توجد ردود في هذا التصنيف
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-muted-foreground">
                   جرّب تغيير فلتر حالة التواصل
                 </p>
               </div>
@@ -154,29 +154,29 @@ export const ApplicationFormResponsesModal: React.FC<
                       key={response.id}
                       className={`flex flex-col gap-4 p-4 rounded-xl border transition-all md:flex-row md:items-center md:justify-between ${
                         response.isContacted
-                          ? "bg-green-50 border-green-200 dark:bg-green-900/10 dark:border-green-800/60"
-                          : "bg-amber-50 border-amber-200 dark:bg-amber-900/10 dark:border-amber-800/60"
+                          ? "bg-green-50 border-success dark:bg-success/10 dark:border-success/60"
+                          : "bg-amber-50 border-warning dark:bg-warning/10 dark:border-warning/60"
                       }`}
                     >
                       <div className="flex items-center gap-4">
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
                             response.isContacted
-                              ? "bg-gradient-to-br from-green-500 to-emerald-600"
-                              : "bg-gradient-to-br from-amber-500 to-orange-500"
+                              ? "bg-gradient-to-br from-success to-success"
+                              : "bg-gradient-to-br from-warning to-warning"
                           }`}
                         >
                           {response.respondentName.charAt(0)}
                         </div>
                         <div>
-                          <h4 className="font-medium text-gray-800 dark:text-white">
+                          <h4 className="font-medium text-foreground dark:text-white">
                             {response.respondentName}
                           </h4>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-muted-foreground">
                             {response.respondentEmail}
                           </p>
                           {response.respondentPhone && (
-                            <p className="text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                            <p className="text-sm text-muted-foreground font-mono tabular-nums">
                               {response.respondentPhone}
                             </p>
                           )}
@@ -184,8 +184,8 @@ export const ApplicationFormResponsesModal: React.FC<
                             <span
                               className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
                                 response.isContacted
-                                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                                  : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
+                                  ? "bg-green-100 text-success dark:bg-success/30 dark:text-success"
+                                  : "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning"
                               }`}
                             >
                               {response.isContacted ? (
@@ -210,18 +210,18 @@ export const ApplicationFormResponsesModal: React.FC<
                                 )}
                               </span>
                             ) : responseCanJoinPipeline ? (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300">
+                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
                                 <UserGroupIcon className="w-4 h-4" />
                                 لم يدخل المسار بعد
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
                                 <UserGroupIcon className="w-4 h-4" />
                                 الاستبيان غير مربوط بوظيفة
                               </span>
                             )}
                             {response.isContacted && response.contactedAt && (
-                              <span className="text-xs text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                              <span className="text-xs text-muted-foreground font-mono tabular-nums">
                                 آخر تواصل:{" "}
                                 {format(
                                   new Date(response.contactedAt),
@@ -234,7 +234,7 @@ export const ApplicationFormResponsesModal: React.FC<
                         </div>
                       </div>
                       <div className="flex flex-col gap-3 md:items-end">
-                        <span className="text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                        <span className="text-sm text-muted-foreground font-mono tabular-nums">
                           {format(
                             new Date(response.submittedAt),
                             "dd MMM yyyy - HH:mm",
@@ -251,7 +251,7 @@ export const ApplicationFormResponsesModal: React.FC<
                                 !responseCanJoinPipeline ||
                                 convertingResponseId === response.id
                               }
-                              className="px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-1 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-1 bg-primary text-primary hover:bg-primary dark:bg-primary/30 dark:text-primary dark:hover:bg-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
                               title={
                                 responseCanJoinPipeline
                                   ? "إضافة الرد إلى مسار التوظيف"
@@ -276,8 +276,8 @@ export const ApplicationFormResponsesModal: React.FC<
                             disabled={updatingResponseId === response.id}
                             className={`px-3 py-2 rounded-lg transition-all text-sm flex items-center gap-1 ${
                               response.isContacted
-                                ? "bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50"
-                                : "bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-300 dark:hover:bg-green-900/50"
+                                ? "bg-amber-100 text-warning hover:bg-warning dark:bg-warning/30 dark:text-warning dark:hover:bg-warning/50"
+                                : "bg-green-100 text-success hover:bg-success dark:bg-success/30 dark:text-success dark:hover:bg-success/50"
                             } disabled:opacity-60 disabled:cursor-not-allowed`}
                             title={
                               response.isContacted
@@ -305,7 +305,7 @@ export const ApplicationFormResponsesModal: React.FC<
                           </button>
                           <button
                             onClick={() => onDeleteResponse(response.id)}
-                            className="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50"
+                            className="p-2 bg-destructive dark:bg-destructive/30 text-destructive rounded-lg hover:bg-destructive dark:hover:bg-destructive/50"
                             title="حذف"
                           >
                             <TrashIcon className="w-5 h-5" />
@@ -318,10 +318,10 @@ export const ApplicationFormResponsesModal: React.FC<
               </div>
             )}
 
-            <div className="flex justify-end mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex justify-end mt-6 pt-4 border-t border-border dark:border-border">
               <button
                 onClick={onClose}
-                className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+                className="px-6 py-3 bg-muted text-foreground rounded-xl hover:bg-muted dark:hover:bg-muted transition-all"
               >
                 إغلاق
               </button>

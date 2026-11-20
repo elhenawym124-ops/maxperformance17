@@ -84,14 +84,14 @@ export interface KeyedAmountItem {
 export type PaymentMethod = 'bank_transfer' | 'cash' | 'e_wallet';
 
 export const statusConfig: Record<string, { label: string; color: string }> = {
-  DRAFT: { label: 'مسودة', color: 'bg-slate-100 text-slate-700 border-slate-200' },
-  PENDING: { label: 'بانتظار الاعتماد', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-  PENDING_APPROVAL: { label: 'بانتظار الاعتماد', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-  APPROVED: { label: 'معتمد', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  PROCESSED: { label: 'معتمد', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  PAID: { label: 'مدفوع', color: 'bg-indigo-50 text-violet-700 border-violet-200' },
-  CANCELLED: { label: 'ملغي', color: 'bg-rose-50 text-rose-700 border-rose-200' },
-  PROJECTION: { label: 'تقديري', color: 'bg-violet-50 text-violet-700 border-violet-200' },
+  DRAFT: { label: 'مسودة', color: 'bg-slate-100 text-foreground border-border' },
+  PENDING: { label: 'بانتظار الاعتماد', color: 'bg-amber-50 text-warning border-warning' },
+  PENDING_APPROVAL: { label: 'بانتظار الاعتماد', color: 'bg-amber-50 text-warning border-warning' },
+  APPROVED: { label: 'معتمد', color: 'bg-emerald-50 text-success border-success' },
+  PROCESSED: { label: 'معتمد', color: 'bg-emerald-50 text-success border-success' },
+  PAID: { label: 'مدفوع', color: 'bg-indigo-50 text-primary border-primary' },
+  CANCELLED: { label: 'ملغي', color: 'bg-rose-50 text-destructive border-destructive' },
+  PROJECTION: { label: 'تقديري', color: 'bg-violet-50 text-primary border-primary' },
 };
 
 export const months = [

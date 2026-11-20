@@ -29,7 +29,7 @@ export const CreatePerformanceReviewPartiesCard: React.FC<
 
   return (
     <div className="lg:col-span-1 space-y-6">
-      <Card className="border-none shadow-xl ring-1 ring-gray-200 dark:ring-gray-800">
+      <Card className="border-none shadow-xl ring-1 ring-border dark:ring-border">
         <CardHeader className="bg-primary/5 rounded-t-xl">
           <CardTitle className="text-lg flex items-center gap-2">
             <User className="h-5 w-5 text-primary" />
@@ -45,7 +45,7 @@ export const CreatePerformanceReviewPartiesCard: React.FC<
               }
               value={formData.employeeId}
             >
-              <SelectTrigger className="h-12 rounded-xl bg-gray-50/50">
+              <SelectTrigger className="h-12 rounded-xl bg-muted">
                 <SelectValue placeholder="اختر الموظف" />
               </SelectTrigger>
               <SelectContent>
@@ -66,7 +66,7 @@ export const CreatePerformanceReviewPartiesCard: React.FC<
               }
               value={formData.reviewerId}
             >
-              <SelectTrigger className="h-12 rounded-xl bg-gray-50/50">
+              <SelectTrigger className="h-12 rounded-xl bg-muted">
                 <SelectValue placeholder="اختر المسئول عن التقييم" />
               </SelectTrigger>
               <SelectContent>

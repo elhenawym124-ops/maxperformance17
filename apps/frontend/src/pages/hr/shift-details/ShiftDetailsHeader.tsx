@@ -22,7 +22,7 @@ export const ShiftDetailsHeader: React.FC<ShiftDetailsHeaderProps> = ({
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
         <Button variant="outline" size="sm" onClick={onBack}>
-          <ArrowRight className="h-4 w-4 ml-2" />
+          <ArrowRight className="h-4 w-4 ms-2" />
           رجوع
         </Button>
         <div className="flex items-center gap-3">
@@ -32,7 +32,7 @@ export const ShiftDetailsHeader: React.FC<ShiftDetailsHeaderProps> = ({
           />
           <div>
             <h1 className="text-3xl font-bold">{shift.name}</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-muted-foreground mt-1">
               تفاصيل المناوبة
             </p>
           </div>
@@ -40,19 +40,19 @@ export const ShiftDetailsHeader: React.FC<ShiftDetailsHeaderProps> = ({
       </div>
       <div className="flex gap-2">
         <Button variant="outline" onClick={onAssignOpen}>
-          <UserPlus className="h-4 w-4 ml-2" />
+          <UserPlus className="h-4 w-4 ms-2" />
           تعيين موظف
         </Button>
         <Button variant="outline" onClick={onEditOpen}>
-          <Edit className="h-4 w-4 ml-2" />
+          <Edit className="h-4 w-4 ms-2" />
           تعديل
         </Button>
         <Button
           variant="outline"
           onClick={onDeleteShift}
-          className="text-red-500 hover:bg-red-50"
+          className="text-red-500 hover:bg-destructive/10"
         >
-          <Trash2 className="h-4 w-4 ml-2" />
+          <Trash2 className="h-4 w-4 ms-2" />
           حذف
         </Button>
       </div>

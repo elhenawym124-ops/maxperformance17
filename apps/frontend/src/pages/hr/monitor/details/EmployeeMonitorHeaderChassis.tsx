@@ -59,7 +59,7 @@ export const EmployeeMonitorHeaderChassis: React.FC<
       <div className="flex flex-wrap items-center gap-3">
         <button
           onClick={onBack}
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-muted/50 dark:bg-zinc-900/60 text-muted-foreground transition hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground active:scale-95"
+          className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-muted/50 dark:bg-muted text-muted-foreground transition hover:bg-muted dark:hover:bg-muted hover:text-foreground active:scale-95"
           title="العودة إلى لوحة المراقبة العامة"
         >
           <ArrowRight className="h-4 w-4" />
@@ -70,27 +70,27 @@ export const EmployeeMonitorHeaderChassis: React.FC<
             <h1 className="text-base font-bold tracking-tight text-foreground sm:text-lg">
               تقرير النشاط الميداني: {employeeName}
             </h1>
-            <span className="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-xs font-semibold text-sky-600 dark:text-sky-400 ring-1 ring-inset ring-sky-500/20">
+            <span className="rounded-full bg-info/10 px-2.5 py-0.5 text-xs font-semibold text-info dark:text-info ring-1 ring-inset ring-info/20">
               {departmentName}
             </span>
             {summary?.status === "active" && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-semibold text-success dark:text-success ring-1 ring-inset ring-success/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-success dark:bg-success animate-pulse" />
                 متصل ويعمل الآن
               </span>
             )}
             {summary?.status === "idle" && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400 ring-1 ring-inset ring-amber-500/20">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-500 dark:bg-amber-400" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-[11px] font-semibold text-warning dark:text-warning ring-1 ring-inset ring-warning/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-warning dark:bg-warning" />
                 خامل (الجهاز مفتوح)
               </span>
             )}
             {summary?.status === "offline" && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-muted dark:bg-zinc-800 px-2 py-0.5 text-[11px] font-medium text-muted-foreground dark:text-zinc-400 ring-1 ring-inset ring-border/30">
-                <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-muted dark:bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground dark:text-muted-foreground ring-1 ring-inset ring-border/30">
+                <span className="h-1.5 w-1.5 rounded-full bg-muted dark:bg-muted" />
                 غير متصل (مغلق)
                 {summary?.lastSeenTime && (
-                  <span className="mr-1 text-[10px] text-muted-foreground dark:text-zinc-400 font-mono tabular-nums">
+                  <span className="me-1 text-[10px] text-muted-foreground dark:text-muted-foreground font-mono tabular-nums">
                     (آخر ظهور:{" "}
                     {new Date(summary.lastSeenTime).toLocaleTimeString(
                       "ar-EG",
@@ -125,7 +125,7 @@ export const EmployeeMonitorHeaderChassis: React.FC<
 
         {/* Next / Previous Employee Fast Switcher */}
         {teamMembersProp.length > 1 && currentMemberIndex >= 0 && (
-          <div className="flex items-center gap-1 rounded-lg border border-border/50 bg-muted/50 dark:bg-zinc-900/60 p-1 text-xs">
+          <div className="flex items-center gap-1 rounded-lg border border-border/50 bg-muted/50 dark:bg-muted p-1 text-xs">
             <button
               onClick={() =>
                 onSwitchEmployee(
@@ -133,7 +133,7 @@ export const EmployeeMonitorHeaderChassis: React.FC<
                 )
               }
               disabled={!hasPrevMember}
-              className="flex h-7 items-center gap-1 rounded px-2 font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
+              className="flex h-7 items-center gap-1 rounded px-2 font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
               title={
                 hasPrevMember
                   ? `الانتقال إلى: ${teamMembersProp[currentMemberIndex - 1].employeeName}`
@@ -155,7 +155,7 @@ export const EmployeeMonitorHeaderChassis: React.FC<
                 )
               }
               disabled={!hasNextMember}
-              className="flex h-7 items-center gap-1 rounded px-2 font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
+              className="flex h-7 items-center gap-1 rounded px-2 font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
               title={
                 hasNextMember
                   ? `الانتقال إلى: ${teamMembersProp[currentMemberIndex + 1].employeeName}`
@@ -176,8 +176,8 @@ export const EmployeeMonitorHeaderChassis: React.FC<
             onClick={() => onSelectDate(todayStr)}
             className={`rounded-md px-2 py-1 text-xs font-medium transition ${
               isToday
-                ? "bg-sky-500/15 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/30"
-                : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground"
+                ? "bg-sky-500/15 text-info dark:text-info ring-1 ring-info/30"
+                : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
             }`}
           >
             اليوم
@@ -186,18 +186,18 @@ export const EmployeeMonitorHeaderChassis: React.FC<
             onClick={() => onSelectDate(yesterdayStr)}
             className={`rounded-md px-2 py-1 text-xs font-medium transition ${
               selectedDate === yesterdayStr
-                ? "bg-sky-500/15 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/30"
-                : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground"
+                ? "bg-sky-500/15 text-info dark:text-info ring-1 ring-info/30"
+                : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
             }`}
           >
             أمس
           </button>
         </div>
 
-        <div className="flex items-center rounded-lg border border-border/50 bg-muted/50 dark:bg-zinc-900/60 p-0.5 text-xs">
+        <div className="flex items-center rounded-lg border border-border/50 bg-muted/50 dark:bg-muted p-0.5 text-xs">
           <button
             onClick={() => onDateStep(-1)}
-            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground active:scale-95"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground active:scale-95"
             title="اليوم السابق"
           >
             <ChevronRight className="h-3.5 w-3.5" />
@@ -215,7 +215,7 @@ export const EmployeeMonitorHeaderChassis: React.FC<
           <button
             onClick={() => onDateStep(1)}
             disabled={isToday}
-            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent active:scale-95"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent active:scale-95"
             title="اليوم التالي"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
@@ -225,7 +225,7 @@ export const EmployeeMonitorHeaderChassis: React.FC<
         <button
           onClick={onRefresh}
           disabled={loading}
-          className="flex h-8 items-center gap-1.5 rounded-lg border border-border/50 bg-muted/50 dark:bg-zinc-900/60 px-3 text-xs font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground active:scale-95"
+          className="flex h-8 items-center gap-1.5 rounded-lg border border-border/50 bg-muted/50 dark:bg-muted px-3 text-xs font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-muted hover:text-foreground active:scale-95"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
           <span className="hidden sm:inline">تحديث</span>

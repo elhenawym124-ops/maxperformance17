@@ -52,34 +52,34 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-white dark:bg-muted border-border dark:border-border">
         <DialogHeader className="text-right">
           <DialogTitle className="text-2xl font-bold flex items-center justify-end gap-2">
-            <ArrowRight className="h-6 w-6 text-amber-600" />
+            <ArrowRight className="h-6 w-6 text-warning" />
             {t("employee.leaves.editTitle")}
           </DialogTitle>
-          <DialogDescription className="text-right text-gray-500 dark:text-gray-400">
+          <DialogDescription className="text-right text-muted-foreground">
             {t("employee.leaves.editDesc")}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5 py-4">
           {selectedRequest && (
-            <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
+            <div className="p-4 bg-warning/10 dark:bg-warning/20 rounded-lg border border-warning dark:border-warning">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-amber-600" />
-                <h3 className="font-medium text-amber-800 dark:text-amber-400">
+                <AlertTriangle className="h-5 w-5 text-warning" />
+                <h3 className="font-medium text-warning dark:text-warning">
                   {t("employee.leaves.editRejectedTitle")}
                 </h3>
               </div>
-              <p className="mt-2 text-amber-700 dark:text-amber-500 text-sm">
+              <p className="mt-2 text-warning dark:text-warning text-sm">
                 {t("employee.leaves.rejectedEditNote")}
               </p>
             </div>
           )}
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <Label className="flex items-center gap-2 text-foreground">
               <Palmtree className="h-4 w-4" />
               {t("employee.leaves.leaveTypeLabel")}
             </Label>
@@ -93,15 +93,15 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
                 })
               }
             >
-              <SelectTrigger className="w-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-right dir-rtl">
+              <SelectTrigger className="w-full bg-muted dark:bg-muted border-border dark:border-border text-right dir-rtl">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="max-h-[200px] bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+              <SelectContent className="max-h-[200px] bg-white dark:bg-muted border-border dark:border-border">
                 {Object.entries(leaveTypeConfig).map(([key, config]) => (
                   <SelectItem
                     key={key}
                     value={key}
-                    className="justify-end cursor-pointer focus:bg-gray-100 dark:focus:bg-gray-800"
+                    className="justify-end cursor-pointer focus:bg-muted dark:focus:bg-muted"
                   >
                     <div className="flex items-center gap-2 flex-row-reverse">
                       <config.icon
@@ -116,7 +116,7 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <Label className="flex items-center gap-2 text-foreground">
               <Wallet className="h-4 w-4" />
               {t("employee.leaves.payStatusLabel")}
             </Label>
@@ -136,10 +136,10 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
                 });
               }}
             >
-              <SelectTrigger className="w-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-right dir-rtl">
+              <SelectTrigger className="w-full bg-muted dark:bg-muted border-border dark:border-border text-right dir-rtl">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+              <SelectContent className="bg-white dark:bg-muted border-border dark:border-border">
                 <SelectItem value="PAID">{t("employee.leaves.paidOption")}</SelectItem>
                 <SelectItem value="UNPAID">{t("employee.leaves.unpaidOption")}</SelectItem>
               </SelectContent>
@@ -148,7 +148,7 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <Label className="flex items-center gap-2 text-foreground">
                 <Calendar className="h-4 w-4" />
                 {t("employee.leaves.fromDateLabel")}
               </Label>
@@ -161,11 +161,11 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
                     startDate: e.target.value,
                   })
                 }
-                className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                className="bg-gray-50 dark:bg-muted border-border dark:border-border"
               />
             </div>
             <div className="space-y-2">
-              <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <Label className="flex items-center gap-2 text-foreground">
                 <Calendar className="h-4 w-4" />
                 {t("employee.leaves.toDateLabel")}
               </Label>
@@ -178,13 +178,13 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
                     endDate: e.target.value,
                   })
                 }
-                className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                className="bg-gray-50 dark:bg-muted border-border dark:border-border"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <Label className="flex items-center gap-2 text-foreground">
               <FileText className="h-4 w-4" />
               {t("employee.leaves.reasonLabel")}
             </Label>
@@ -195,7 +195,7 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
               }
               placeholder={t("employee.leaves.reasonPlaceholder")}
               rows={3}
-              className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-right dir-rtl"
+              className="bg-gray-50 dark:bg-muted border-border dark:border-border text-right dir-rtl"
             />
           </div>
 
@@ -203,17 +203,17 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
             className={`p-3 rounded-lg border transition-colors ${
               editFormData.isHalfDay
                 ? "bg-primary/5 border-primary/20"
-                : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                : "bg-gray-50 dark:bg-muted border-border dark:border-border"
             }`}
           >
             <div className="flex items-center justify-between flex-row-reverse">
               <div className="flex items-center gap-3 flex-row-reverse">
-                <div className="p-2 bg-white dark:bg-gray-900 rounded-md border border-gray-100 dark:border-gray-700">
+                <div className="p-2 bg-white dark:bg-muted rounded-md border border-border dark:border-border">
                   <Clock className="h-4 w-4 text-primary" />
                 </div>
                 <div className="text-right">
                   <Label className="text-sm font-medium">{t("employee.leaves.halfDay")}</Label>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-muted-foreground">
                     {t("employee.leaves.halfDayDesc")}
                   </p>
                 </div>
@@ -228,8 +228,8 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
             </div>
 
             {editFormData.isHalfDay && (
-              <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
-                <Label className="text-xs text-gray-500 block text-right">
+              <div className="mt-4 pt-4 border-t border-border dark:border-border space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
+                <Label className="text-xs text-muted-foreground block text-right">
                   {t("employee.leaves.halfDayPeriod")}
                 </Label>
                 <Select
@@ -238,7 +238,7 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
                     setEditFormData({ ...editFormData, halfDayPeriod: value })
                   }
                 >
-                  <SelectTrigger className="w-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-right dir-rtl">
+                  <SelectTrigger className="w-full bg-muted dark:bg-muted border-border dark:border-border text-right dir-rtl">
                     <SelectValue placeholder={t("employee.leaves.periodPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
@@ -268,7 +268,7 @@ export const LeaveEditDialog: React.FC<LeaveEditDialogProps> = ({
           <Button
             variant="default"
             onClick={onSaveEdit}
-            className="bg-amber-600 hover:bg-amber-700"
+            className="bg-amber-600 hover:bg-warning"
           >
             {t("employee.leaves.saveEdit")}
           </Button>

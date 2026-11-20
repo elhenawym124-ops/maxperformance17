@@ -37,14 +37,14 @@ export const CreatePromotionDetailsForm: React.FC<
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="shadow-md overflow-hidden">
           <div className="bg-gray-50/50 p-6 border-b">
-            <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-800">
-              <Briefcase className="h-5 w-5 text-gray-500" />
+            <h2 className="text-xl font-semibold flex items-center gap-2 text-foreground">
+              <Briefcase className="h-5 w-5 text-muted-foreground" />
               تفاصيل الحركة الوظيفية
             </h2>
           </div>
 
           <CardContent className="p-6 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-slate-50 p-6 rounded-xl border border-slate-100">
+            <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-muted p-6 rounded-xl border border-border">
               <div className="md:col-span-5 space-y-4">
                 <div className="space-y-2">
                   <Label className="text-gray-500 text-xs uppercase tracking-wide">
@@ -53,7 +53,7 @@ export const CreatePromotionDetailsForm: React.FC<
                   <Input
                     {...register("fromPositionName")}
                     placeholder="اسم المنصب الحالي"
-                    className="bg-white border-slate-200 focus-visible:ring-slate-400 font-medium"
+                    className="bg-white border-border focus-visible:ring-slate-400 font-medium"
                   />
                 </div>
                 <div className="space-y-2 relative">
@@ -61,19 +61,19 @@ export const CreatePromotionDetailsForm: React.FC<
                     الراتب الحالي
                   </Label>
                   <div className="relative">
-                    <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
+                    <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                       type="number"
                       {...register("fromSalary", { valueAsNumber: true })}
                       placeholder="0.00"
-                      className="pr-9 bg-white border-slate-200 font-mono tabular-nums"
+                      className="pe-9 bg-white border-border font-mono tabular-nums"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="md:col-span-1 flex justify-center py-4 md:py-0">
-                <div className="bg-green-100 p-2 rounded-full text-green-600">
+                <div className="bg-green-100 p-2 rounded-full text-success">
                   <ArrowLeft className="h-6 w-6" />
                 </div>
               </div>
@@ -88,10 +88,10 @@ export const CreatePromotionDetailsForm: React.FC<
                       required: "المنصب الجديد مطلوب",
                     })}
                     placeholder="اسم المنصب الجديد"
-                    className="bg-green-50/50 border-green-200 focus-visible:ring-green-400 font-medium text-green-900"
+                    className="bg-green-50/50 border-success focus-visible:ring-green-400 font-medium text-success"
                   />
                   {errors.toPositionName && (
-                    <p className="text-xs text-red-500">
+                    <p className="text-xs text-destructive">
                       {errors.toPositionName.message}
                     </p>
                   )}
@@ -101,12 +101,12 @@ export const CreatePromotionDetailsForm: React.FC<
                     الراتب الجديد
                   </Label>
                   <div className="relative">
-                    <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-green-500" />
+                    <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-success" />
                     <Input
                       type="number"
                       {...register("toSalary", { valueAsNumber: true })}
                       placeholder="0.00"
-                      className="pr-9 bg-green-50/50 border-green-200 text-green-900 font-bold font-mono tabular-nums"
+                      className="pe-9 bg-success/50 border-success text-success font-bold font-mono tabular-nums"
                     />
                   </div>
                 </div>
@@ -118,7 +118,7 @@ export const CreatePromotionDetailsForm: React.FC<
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
                   تاريخ الترقية
                 </Label>
                 <DateInput
@@ -127,7 +127,7 @@ export const CreatePromotionDetailsForm: React.FC<
                   {...register("promotionDate", { required: "مطلوب" })}
                 />
                 {errors.promotionDate && (
-                  <p className="text-xs text-red-500">
+                  <p className="text-xs text-destructive">
                     {errors.promotionDate.message}
                   </p>
                 )}
@@ -135,7 +135,7 @@ export const CreatePromotionDetailsForm: React.FC<
 
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
                   تاريخ السريان
                 </Label>
                 <DateInput
@@ -144,7 +144,7 @@ export const CreatePromotionDetailsForm: React.FC<
                   {...register("effectiveDate", { required: "مطلوب" })}
                 />
                 {errors.effectiveDate && (
-                  <p className="text-xs text-red-500">
+                  <p className="text-xs text-destructive">
                     {errors.effectiveDate.message}
                   </p>
                 )}
@@ -159,7 +159,7 @@ export const CreatePromotionDetailsForm: React.FC<
                 placeholder="اشرح أسباب الترقية بالتفصيل..."
               />
               {errors.reason && (
-                <p className="text-xs text-red-500">{errors.reason.message}</p>
+                <p className="text-xs text-destructive">{errors.reason.message}</p>
               )}
             </div>
 
@@ -193,7 +193,7 @@ export const CreatePromotionDetailsForm: React.FC<
               "جاري الحفظ..."
             ) : (
               <>
-                <Save className="ml-2 h-4 w-4" />
+                <Save className="ms-2 h-4 w-4" />
                 حفظ الترقية
               </>
             )}

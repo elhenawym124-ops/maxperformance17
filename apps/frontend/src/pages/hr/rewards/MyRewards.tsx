@@ -67,18 +67,18 @@ const MyRewards: React.FC = () => {
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-200">
+        <Card className="bg-gradient-to-br from-warning to-warning border-warning">
           <CardContent className="p-6 flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-yellow-700">
+              <p className="text-sm font-medium text-warning">
                 إجمالي المكافآت
               </p>
-              <h3 className="text-3xl font-bold text-yellow-900 mt-2">
+              <h3 className="text-3xl font-bold text-warning mt-2">
                 {stats.totalEarned.toLocaleString()} جنية
               </h3>
             </div>
-            <div className="h-12 w-12 bg-yellow-200 rounded-full flex items-center justify-center">
-              <DollarSign className="h-6 w-6 text-yellow-700" />
+            <div className="h-12 w-12 bg-warning rounded-full flex items-center justify-center">
+              <DollarSign className="h-6 w-6 text-warning" />
             </div>
           </CardContent>
         </Card>
@@ -105,7 +105,7 @@ const MyRewards: React.FC = () => {
         </CardHeader>
         <CardContent>
           {rewards.length === 0 ? (
-            <div className="text-center py-10 text-gray-500">
+            <div className="text-center py-10 text-muted-foreground">
               <Star className="h-12 w-12 mx-auto mb-3 opacity-20" />
               <p>لا توجد مكافآت مسجلة حتى الآن</p>
             </div>
@@ -114,20 +114,20 @@ const MyRewards: React.FC = () => {
               {rewards.map((reward) => (
                 <div
                   key={reward.id}
-                  className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                    <div className="h-10 w-10 rounded-full bg-success flex items-center justify-center shrink-0">
                       <GiftIcon category={reward.rewardCategory} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-900">
+                      <h4 className="font-bold text-foreground">
                         {reward.rewardName}
                       </h4>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="text-sm text-muted-foreground mt-1">
                         {reward.reason}
                       </p>
-                      <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                      <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
                         <Calendar className="h-3 w-3" />
                         <span>
                           {format(new Date(reward.appliedAt), "PPP", {
@@ -139,7 +139,7 @@ const MyRewards: React.FC = () => {
                   </div>
 
                   <div className="mt-4 md:mt-0 text-left shrink-0">
-                    <div className="font-bold text-lg text-green-600">
+                    <div className="font-bold text-lg text-success">
                       {Number(reward.calculatedValue) > 0
                         ? `+${Number(reward.calculatedValue)} جنية`
                         : "تقدير معنوي"}
@@ -161,11 +161,11 @@ const MyRewards: React.FC = () => {
 const GiftIcon = ({ category }: { category: string }) => {
   switch (category) {
     case "ATTENDANCE":
-      return <Calendar className="h-5 w-5 text-green-600" />;
+      return <Calendar className="h-5 w-5 text-success" />;
     case "PERFORMANCE":
-      return <Star className="h-5 w-5 text-yellow-600" />;
+      return <Star className="h-5 w-5 text-warning" />;
     default:
-      return <Trophy className="h-5 w-5 text-purple-600" />;
+      return <Trophy className="h-5 w-5 text-primary" />;
   }
 };
 

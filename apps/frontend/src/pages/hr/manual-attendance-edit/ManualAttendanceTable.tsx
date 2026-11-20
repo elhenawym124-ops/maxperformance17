@@ -63,7 +63,7 @@ export const ManualAttendanceTable: React.FC<ManualAttendanceTableProps> = ({
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
           </div>
         ) : records.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+          <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
             <Clock className="h-12 w-12 mb-4 opacity-50" />
             <p>لا توجد سجلات حضور</p>
           </div>
@@ -107,7 +107,7 @@ export const ManualAttendanceTable: React.FC<ManualAttendanceTableProps> = ({
 
       {pagination.totalPages > 1 && (
         <div className="flex items-center justify-between p-4 border-t">
-          <p className="text-sm text-gray-500 font-mono tabular-nums">
+          <p className="text-sm text-muted-foreground font-mono tabular-nums">
             عرض {(pagination.page - 1) * pagination.limit + 1} -{" "}
             {Math.min(pagination.page * pagination.limit, pagination.total)} من{" "}
             {pagination.total}

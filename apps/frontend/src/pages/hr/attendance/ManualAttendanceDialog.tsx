@@ -106,7 +106,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                 <label className="flex items-center gap-1.5 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-blue-600 shadow-sm w-3 h-3 focus:ring-blue-500"
+                    className="rounded border-border text-blue-600 shadow-sm w-3 h-3 focus:ring-blue-500"
                     checked={manualOverrides.status}
                     onChange={(e) =>
                       setManualOverrides((prev) => ({
@@ -115,7 +115,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                       }))
                     }
                   />
-                  <span className="text-[10px] text-gray-500">تثبيت يدوي</span>
+                  <span className="text-[10px] text-muted-foreground">تثبيت يدوي</span>
                 </label>
               </div>
               <Select
@@ -212,7 +212,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                 <label className="flex items-center gap-1.5 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-red-600 shadow-sm w-3 h-3 focus:ring-red-500"
+                    className="rounded border-border text-destructive shadow-sm w-3 h-3 focus:ring-destructive"
                     checked={manualOverrides.late}
                     onChange={(e) =>
                       setManualOverrides((prev) => ({
@@ -221,7 +221,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                       }))
                     }
                   />
-                  <span className="text-[10px] text-gray-500">تخطي الحساب</span>
+                  <span className="text-[10px] text-muted-foreground">تخطي الحساب</span>
                 </label>
               </div>
               <div
@@ -230,7 +230,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                 }`}
               >
                 <div className="flex flex-col gap-1 items-center">
-                  <span className="text-[10px] text-gray-500">ساعة</span>
+                  <span className="text-[10px] text-muted-foreground">ساعة</span>
                   <Input
                     type="number"
                     min="0"
@@ -245,7 +245,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                   />
                 </div>
                 <div className="flex flex-col gap-1 items-center">
-                  <span className="text-[10px] text-gray-500">دقيقة</span>
+                  <span className="text-[10px] text-muted-foreground">دقيقة</span>
                   <Input
                     type="number"
                     min="0"
@@ -269,7 +269,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                 <label className="flex items-center gap-1.5 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-orange-600 shadow-sm w-3 h-3 focus:ring-orange-500"
+                    className="rounded border-border text-warning shadow-sm w-3 h-3 focus:ring-warning"
                     checked={manualOverrides.early}
                     onChange={(e) =>
                       setManualOverrides((prev) => ({
@@ -278,7 +278,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                       }))
                     }
                   />
-                  <span className="text-[10px] text-gray-500">تخطي الحساب</span>
+                  <span className="text-[10px] text-muted-foreground">تخطي الحساب</span>
                 </label>
               </div>
               <div
@@ -289,7 +289,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                 }`}
               >
                 <div className="flex flex-col gap-1 items-center">
-                  <span className="text-[10px] text-gray-500">ساعة</span>
+                  <span className="text-[10px] text-muted-foreground">ساعة</span>
                   <Input
                     type="number"
                     min="0"
@@ -304,7 +304,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                   />
                 </div>
                 <div className="flex flex-col gap-1 items-center">
-                  <span className="text-[10px] text-gray-500">دقيقة</span>
+                  <span className="text-[10px] text-muted-foreground">دقيقة</span>
                   <Input
                     type="number"
                     min="0"
@@ -345,7 +345,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
               <Button
                 type="button"
                 variant="outline"
-                className="bg-orange-50 text-orange-600 border-orange-100 hover:bg-orange-600 hover:text-white"
+                className="bg-orange-50 text-warning border-warning hover:bg-warning hover:text-white"
                 onClick={() => onCheckOutNow(manualForm.employeeId)}
               >
                 تسجيل انصراف الآن

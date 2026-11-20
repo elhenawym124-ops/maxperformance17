@@ -31,13 +31,13 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
   onAssign,
 }) => {
   return (
-    <Card className="bg-white/90 dark:bg-gray-900/70">
+    <Card className="bg-white/90 dark:bg-muted">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">إضافة موظفين للقسم</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label className="text-gray-700 dark:text-gray-300 text-sm">
+          <Label className="text-foreground text-sm">
             اختر الموظفين من القائمة
           </Label>
           <Input
@@ -46,7 +46,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
             onChange={(e) => setEmployeeSearchQuery(e.target.value)}
             className="mb-2"
           />
-          <div className="max-h-60 overflow-y-auto border rounded-xl p-2 bg-white dark:bg-gray-900 space-y-1">
+          <div className="max-h-60 overflow-y-auto border rounded-xl p-2 bg-white dark:bg-muted space-y-1">
             {filteredEmployees.length > 0 ? (
               filteredEmployees.map((emp) => (
                 <div
@@ -54,7 +54,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                   className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
                     assignEmployeesSelection.includes(emp.id)
                       ? "bg-blue-50 dark:bg-blue-900/30"
-                      : "hover:bg-gray-50 dark:hover:bg-gray-800"
+                      : "hover:bg-gray-50 dark:hover:bg-muted"
                   }`}
                   onClick={() => toggleAssignEmployeeSelection(emp.id)}
                 >
@@ -70,7 +70,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                       <span className="font-medium text-sm">
                         {emp.firstName} {emp.lastName}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted-foreground">
                         {emp.email || "لا يوجد بريد"}
                       </span>
                     </div>
@@ -79,7 +79,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                     className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
                       assignEmployeesSelection.includes(emp.id)
                         ? "bg-blue-600 border-blue-600 text-white"
-                        : "border-gray-300 dark:border-gray-600"
+                        : "border-border"
                     }`}
                   >
                     {assignEmployeesSelection.includes(emp.id) && (
@@ -89,7 +89,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                 </div>
               ))
             ) : (
-              <div className="text-center py-4 text-gray-400 text-sm">
+              <div className="text-center py-4 text-muted-foreground text-sm">
                 لا يوجد نتائج للبحث
               </div>
             )}
@@ -98,18 +98,18 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
 
         {assignEmployeesSelection.length > 0 && (
           <div className="space-y-2">
-            <Label className="text-gray-700 dark:text-gray-300 text-sm">
+            <Label className="text-foreground text-sm">
               الموظفون المحددون:
             </Label>
             <div className="border rounded-lg overflow-hidden max-h-48 overflow-y-auto">
-              <div className="divide-y dark:divide-gray-700">
+              <div className="divide-y dark:divide-border">
                 {assignEmployeesSelection.map((empId) => {
                   const emp = employees.find((e) => e.id === empId);
                   if (!emp) return null;
                   return (
                     <div
                       key={empId}
-                      className="flex items-center justify-between p-2 bg-white dark:bg-gray-800"
+                      className="flex items-center justify-between p-2 bg-card"
                     >
                       <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8">
@@ -123,7 +123,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                           <div className="font-medium text-sm">
                             {emp.firstName} {emp.lastName}
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-muted-foreground">
                             {emp.email}
                           </div>
                         </div>
@@ -131,7 +131,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-red-500 hover:text-red-700"
+                        className="h-8 w-8 text-destructive hover:text-destructive"
                         onClick={() => toggleAssignEmployeeSelection(empId)}
                       >
                         <X className="h-4 w-4" />

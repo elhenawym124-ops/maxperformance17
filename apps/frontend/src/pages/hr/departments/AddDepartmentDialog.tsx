@@ -62,24 +62,24 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[95vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-gray-900 dark:text-white">
+          <DialogTitle className="text-foreground">
             إضافة قسم جديد
           </DialogTitle>
-          <DialogDescription className="text-gray-600 dark:text-gray-400">
+          <DialogDescription className="text-gray-600 dark:text-muted-foreground">
             أدخل بيانات القسم ويمكنك اختيار المدير وإضافة الموظفين إن رغبت.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6 py-4">
           {/* Department Info Section */}
-          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg space-y-4">
-            <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+          <div className="bg-gray-50 dark:bg-muted p-4 rounded-lg space-y-4">
+            <h3 className="font-semibold text-foreground flex items-center gap-2">
               <Building2 className="h-4 w-4" />
               معلومات القسم
             </h3>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-300">
+                <Label className="text-foreground">
                   اسم القسم *
                 </Label>
                 <Input
@@ -92,7 +92,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-300">
+                <Label className="text-foreground">
                   الاسم بالإنجليزية
                 </Label>
                 <Input
@@ -106,7 +106,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-300">
+                <Label className="text-foreground">
                   الوصف
                 </Label>
                 <Textarea
@@ -121,7 +121,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-gray-700 dark:text-gray-300">
+                  <Label className="text-foreground">
                     اللون
                   </Label>
                   <div className="flex gap-2 flex-wrap">
@@ -131,7 +131,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
                         type="button"
                         className={`w-8 h-8 rounded-full border-2 transition-all ${
                           formData.color === color.value
-                            ? "border-gray-900 dark:border-gray-100 scale-110"
+                            ? "border-gray-900 dark:border-border scale-110"
                             : "border-transparent"
                         }`}
                         style={{ backgroundColor: color.value }}
@@ -144,7 +144,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-gray-700 dark:text-gray-300">
+                  <Label className="text-foreground">
                     القسم الأب
                   </Label>
                   <Select
@@ -167,7 +167,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-gray-700 dark:text-gray-300">
+                  <Label className="text-foreground">
                     ترتيب العرض
                   </Label>
                   <Input
@@ -182,14 +182,14 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
                     placeholder="0"
                     className="font-mono tabular-nums"
                   />
-                  <p className="text-[10px] text-gray-400">
+                  <p className="text-[10px] text-muted-foreground">
                     أرقام أصغر تظهر أولاً
                   </p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-300">
+                <Label className="text-foreground">
                   مدير القسم (اختياري)
                 </Label>
                 <Select
@@ -223,7 +223,7 @@ export const AddDepartmentDialog: React.FC<AddDepartmentDialogProps> = ({
               <div className="flex items-center justify-between gap-4 py-2">
                 <Label
                   htmlFor="isActive-add"
-                  className="text-gray-700 dark:text-gray-300 cursor-pointer"
+                  className="text-foreground cursor-pointer"
                 >
                   القسم نشط
                 </Label>

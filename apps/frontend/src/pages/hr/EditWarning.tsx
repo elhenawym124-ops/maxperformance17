@@ -129,7 +129,7 @@ const EditWarning: React.FC = () => {
             size="sm"
             onClick={() => navigate(`/hr/warnings/${id}`)}
           >
-            <ArrowRight className="h-4 w-4 ml-1.5" />
+            <ArrowRight className="h-4 w-4 ms-1.5" />
             العودة
           </Button>
           <div>
@@ -143,7 +143,7 @@ const EditWarning: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-orange-500" />
+              <AlertTriangle className="h-5 w-5 text-warning" />
               معلومات الإنذار
             </CardTitle>
           </CardHeader>
@@ -273,12 +273,12 @@ const EditWarning: React.FC = () => {
               <Button type="submit" disabled={saving}>
                 {saving ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white ml-2"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white ms-2"></div>
                     جاري الحفظ...
                   </>
                 ) : (
                   <>
-                    <Save className="h-4 w-4 ml-2" />
+                    <Save className="h-4 w-4 ms-2" />
                     حفظ التغييرات
                   </>
                 )}
@@ -290,17 +290,17 @@ const EditWarning: React.FC = () => {
 
       {/* Preview Modal */}
       <Dialog open={showPreview} onOpenChange={setShowPreview}>
-        <DialogContent className="max-w-2xl bg-card border border-border/70 shadow-lg rounded-2xl p-0 overflow-hidden" dir="rtl">
+        <DialogContent className="max-w-2xl bg-card border border-border/70 shadow-lg rounded-xl p-0 overflow-hidden" dir="rtl">
           {/* Header with Background Pattern */}
           <div className="p-6 border-b border-border/70 flex items-center gap-4">
             
 
             <div className="flex items-center gap-5 relative z-10 w-full">
-              <div className="p-2.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-xl border border-amber-500/20">
+              <div className="p-2.5 bg-warning/10 text-warning dark:text-warning rounded-xl border border-warning/20">
                 <ShieldAlert className="h-6 w-6" />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <DialogTitle className="text-lg font-bold text-foreground break-words pr-2 max-w-[450px]">
+                <DialogTitle className="text-lg font-bold text-foreground break-words pe-2 max-w-[450px]">
                   {formData.title || "عنوان الإنذار"}
                 </DialogTitle>
                 <div className="flex items-center gap-2 text-white/70 text-[10px] font-black uppercase tracking-widest">
@@ -319,7 +319,7 @@ const EditWarning: React.FC = () => {
                   {warningData.employee.firstName?.[0]}
                 </div>
                 <div>
-                  <p className="text-sm font-black text-gray-900 dark:text-white leading-none mb-1">
+                  <p className="text-sm font-black text-foreground leading-none mb-1">
                     {warningData.employee.firstName} {warningData.employee.lastName}
                   </p>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none">
@@ -330,13 +330,13 @@ const EditWarning: React.FC = () => {
             )}
 
             <div className="space-y-3">
-              <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 px-1">
+              <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-1">
                 <FileText className="h-3.5 w-3.5" />
                 تفاصيل المخالفة المعدلة
               </h4>
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-orange-500/10 to-transparent rounded-3xl blur opacity-25" />
-                <div className="relative bg-white dark:bg-gray-900/50 p-7 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 shadow-sm leading-relaxed whitespace-pre-wrap break-words text-gray-700 dark:text-gray-200 text-lg font-medium">
+                <div className="absolute -inset-1 bg-gradient-to-r from-warning/10 to-transparent rounded-xl blur opacity-25" />
+                <div className="relative bg-white dark:bg-muted p-7 rounded-[1.5rem] border border-border dark:border-border shadow-sm leading-relaxed whitespace-pre-wrap break-words text-foreground text-lg font-medium">
                   {formData.description || "لا يوجد وصف مدخل..."}
                 </div>
               </div>
@@ -344,12 +344,12 @@ const EditWarning: React.FC = () => {
 
             {formData.actionTaken && (
               <div className="space-y-3">
-                <h4 className="text-[10px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                <h4 className="text-[10px] font-black text-warning dark:text-warning uppercase tracking-widest flex items-center gap-2 px-1">
                   <Gavel className="h-3.5 w-3.5" />
                   الإجراء الإداري المحدث
                 </h4>
-                <div className="bg-amber-500/5 dark:bg-amber-500/10 p-6 rounded-[1.5rem] border border-amber-500/10 shadow-sm border-dashed">
-                  <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words text-md leading-relaxed">
+                <div className="bg-amber-500/5 dark:bg-warning/10 p-6 rounded-[1.5rem] border border-warning/10 shadow-sm border-dashed">
+                  <p className="text-foreground whitespace-pre-wrap break-words text-md leading-relaxed">
                     {formData.actionTaken}
                   </p>
                 </div>
@@ -358,10 +358,10 @@ const EditWarning: React.FC = () => {
 
             <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-dashed border-muted font-bold text-xs text-muted-foreground">
               <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/40 rounded-full">
-                <Calendar className="h-3.5 w-3.5 text-orange-500" />
+                <Calendar className="h-3.5 w-3.5 text-warning" />
                 <span>تاريخ الحادثة: {formData.incidentDate}</span>
               </div>
-              <Badge variant="secondary" className="px-4 py-1.5 rounded-full bg-orange-500/10 text-orange-600 border-none">
+              <Badge variant="secondary" className="px-4 py-1.5 rounded-full bg-warning/10 text-warning border-none">
                 {formData.severity}
               </Badge>
             </div>
@@ -370,7 +370,7 @@ const EditWarning: React.FC = () => {
           <div className="p-6 bg-muted/20 border-t border-muted/30 flex justify-end">
             <Button
               onClick={() => setShowPreview(false)}
-              className="rounded-xl px-10 h-12 font-black text-xs uppercase tracking-widest shadow-lg shadow-orange-500/20 bg-orange-600 hover:bg-orange-700"
+              className="rounded-xl px-10 h-12 font-black text-xs uppercase tracking-widest shadow-lg shadow-warning/20 bg-warning hover:bg-warning"
             >
               العودة للتعديل
             </Button>

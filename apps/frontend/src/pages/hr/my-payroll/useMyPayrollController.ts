@@ -13,35 +13,35 @@ export const useMyPayrollController = () => {
   const statusConfig: PayrollStatusConfig = {
     DRAFT: {
       label: t("employee.payroll.statusDraft"),
-      color: "bg-slate-100 text-slate-700 border-slate-200",
+      color: "bg-slate-100 text-foreground border-border",
     },
     PENDING: {
       label: t("employee.payroll.statusPending"),
-      color: "bg-amber-50 text-amber-700 border-amber-200",
+      color: "bg-amber-50 text-warning border-warning",
     },
     PENDING_APPROVAL: {
       label: t("employee.payroll.statusPending"),
-      color: "bg-amber-50 text-amber-700 border-amber-200",
+      color: "bg-amber-50 text-warning border-warning",
     },
     APPROVED: {
       label: t("employee.payroll.statusApproved"),
-      color: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      color: "bg-emerald-50 text-success border-success",
     },
     PROCESSED: {
       label: t("employee.payroll.statusApproved"),
-      color: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      color: "bg-emerald-50 text-success border-success",
     },
     PAID: {
       label: t("employee.payroll.statusPaid"),
-      color: "bg-indigo-50 text-indigo-700 border-indigo-200",
+      color: "bg-indigo-50 text-primary border-primary",
     },
     CANCELLED: {
       label: t("employee.payroll.statusCancelled"),
-      color: "bg-rose-50 text-rose-700 border-rose-200",
+      color: "bg-rose-50 text-destructive border-destructive",
     },
     PROJECTION: {
       label: t("employee.payroll.statusProjection"),
-      color: "bg-violet-50 text-violet-700 border-violet-200",
+      color: "bg-violet-50 text-primary border-primary",
     },
   };
 

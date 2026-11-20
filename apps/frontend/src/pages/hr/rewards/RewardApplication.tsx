@@ -185,24 +185,24 @@ const RewardApplication: React.FC = () => {
         </CardContent>
       </Card>
 
-      <Card className="bg-gray-50 dark:bg-gray-800">
+      <Card className="bg-gray-50 dark:bg-muted">
         <CardHeader>
           <CardTitle className="text-base">معاينة</CardTitle>
         </CardHeader>
         <CardContent>
           {!formData.userId || !formData.rewardTypeId ? (
-            <div className="text-center py-10 text-gray-400">
+            <div className="text-center py-10 text-muted-foreground">
               <User className="h-10 w-10 mx-auto mb-2 opacity-20" />
               <p>اختر الموظف والمكافأة لرؤية التفاصيل</p>
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border">
-                <div className="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <Calculator className="h-5 w-5 text-green-600" />
+              <div className="flex items-center gap-3 p-4 bg-white dark:bg-muted rounded-lg border">
+                <div className="h-10 w-10 bg-success rounded-full flex items-center justify-center">
+                  <Calculator className="h-5 w-5 text-success" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">القيمة المقدرة</p>
+                  <p className="text-sm text-muted-foreground">القيمة المقدرة</p>
                   <p className="text-xl font-bold">
                     {calculationPreview
                       ? `${calculationPreview.value} جنية`

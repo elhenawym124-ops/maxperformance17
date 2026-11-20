@@ -77,7 +77,7 @@ export const HRApiCreateKeyModal: React.FC<HRApiCreateKeyModalProps> = ({
           </form>
         ) : (
           <div className="space-y-4">
-            <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-xs flex gap-2">
+            <div className="p-3 bg-warning/10 border border-warning/30 rounded-lg text-warning dark:text-warning text-xs flex gap-2">
               <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
               <span>
                 يرجى نسخ هذا المفتاح وحفظه الآن، فلن تتمكن من رؤيته مرة أخرى لأسباب أمنية.

@@ -29,8 +29,8 @@ export const AttendanceNotesDialog: React.FC<AttendanceNotesDialogProps> = ({
             ملاحظات الحضور
           </DialogTitle>
         </DialogHeader>
-        <div className="py-6 px-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 min-h-[100px] flex items-center justify-center text-center">
-          <p className="text-gray-700 dark:text-gray-300 font-medium whitespace-pre-wrap">
+        <div className="py-6 px-4 bg-muted dark:bg-muted rounded-lg border border-border dark:border-border min-h-[100px] flex items-center justify-center text-center">
+          <p className="text-foreground font-medium whitespace-pre-wrap">
             {notes}
           </p>
         </div>

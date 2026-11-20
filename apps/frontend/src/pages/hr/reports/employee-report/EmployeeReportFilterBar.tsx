@@ -43,7 +43,7 @@ export const EmployeeReportFilterBar: React.FC<
   onPrint,
 }) => {
   return (
-    <Card className="dark:bg-gray-800 dark:border-gray-700 border-none shadow-sm">
+    <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
       <CardContent className="p-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="space-y-2">
@@ -52,18 +52,18 @@ export const EmployeeReportFilterBar: React.FC<
               value={selectedEmployee}
               onValueChange={onSelectedEmployeeChange}
             >
-              <SelectTrigger className="dark:bg-gray-800 dark:border-gray-700">
+              <SelectTrigger className="dark:bg-gray-800 dark:border-border">
                 <SelectValue
                   placeholder="اختر موظف"
                   className="dark:text-gray-400"
                 />
               </SelectTrigger>
-              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
+              <SelectContent className="dark:bg-gray-800 dark:border-border">
                 {employees.map((emp) => (
                   <SelectItem
                     key={emp.id}
                     value={emp.id}
-                    className="dark:text-gray-300 dark:focus:bg-gray-700"
+                    className="dark:text-gray-300 dark:focus:bg-muted"
                   >
                     {emp.firstName} {emp.lastName} -{" "}
                     <span className="font-mono tabular-nums">
@@ -80,7 +80,7 @@ export const EmployeeReportFilterBar: React.FC<
             <DateInput
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
+              className="w-full px-3 py-2 border rounded-md dark:bg-muted dark:border-border dark:text-muted-foreground outline-none focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
             />
           </div>
 
@@ -89,7 +89,7 @@ export const EmployeeReportFilterBar: React.FC<
             <DateInput
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
+              className="w-full px-3 py-2 border rounded-md dark:bg-muted dark:border-border dark:text-muted-foreground outline-none focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
             />
           </div>
 
@@ -100,7 +100,7 @@ export const EmployeeReportFilterBar: React.FC<
                 onClick={onFetchReport}
                 className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
               >
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 عرض
               </Button>
               {hasReport && (
@@ -108,7 +108,7 @@ export const EmployeeReportFilterBar: React.FC<
                   <Button
                     variant="outline"
                     onClick={onExport}
-                    className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300"
+                    className="dark:bg-gray-800 dark:border-border dark:text-muted-foreground"
                     aria-label="تصدير CSV"
                   >
                     <Download className="h-4 w-4" />
@@ -116,7 +116,7 @@ export const EmployeeReportFilterBar: React.FC<
                   <Button
                     variant="outline"
                     onClick={onPrint}
-                    className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 print:hidden"
+                    className="dark:bg-gray-800 dark:border-border dark:text-muted-foreground print:hidden"
                     aria-label="طباعة التقرير"
                   >
                     <FileText className="h-4 w-4" />

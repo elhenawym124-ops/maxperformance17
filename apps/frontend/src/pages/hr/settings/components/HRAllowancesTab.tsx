@@ -24,7 +24,7 @@ export const HRAllowancesTab: React.FC<HRAllowancesTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Gift className="h-5 w-5 text-purple-500" />
+          <Gift className="h-5 w-5 text-primary" />
           البدلات والمزايا الافتراضية
         </CardTitle>
         <CardDescription>
@@ -47,7 +47,7 @@ export const HRAllowancesTab: React.FC<HRAllowancesTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {settings.currency} شهرياً
             </p>
           </div>
@@ -65,7 +65,7 @@ export const HRAllowancesTab: React.FC<HRAllowancesTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {settings.currency} شهرياً
             </p>
           </div>
@@ -83,7 +83,7 @@ export const HRAllowancesTab: React.FC<HRAllowancesTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {settings.currency} شهرياً
             </p>
           </div>
@@ -101,7 +101,7 @@ export const HRAllowancesTab: React.FC<HRAllowancesTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {settings.currency} شهرياً
             </p>
           </div>

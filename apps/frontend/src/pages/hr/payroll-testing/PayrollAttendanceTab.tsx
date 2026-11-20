@@ -24,9 +24,9 @@ export const PayrollAttendanceTab: React.FC<PayrollAttendanceTabProps> = ({
 }) => {
   return (
     <div className="mt-0 space-y-6">
-      <div className="bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/50 p-4 rounded-xl flex items-start gap-4 mb-6">
-        <AlertCircle className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
-        <p className="text-sm text-green-800 dark:text-green-200">
+      <div className="bg-green-50 dark:bg-success/20 border border-success dark:border-success/50 p-4 rounded-xl flex items-start gap-4 mb-6">
+        <AlertCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+        <p className="text-sm text-success dark:text-success">
           يمكنك تعديل سجلات الحضور والإجازات للموظف لاختبار تأثيرها على الراتب
           النهائي، مثل التأخير، الغياب، الإجازات المدفوعة وغير المدفوعة، وساعات
           العمل الإضافي.

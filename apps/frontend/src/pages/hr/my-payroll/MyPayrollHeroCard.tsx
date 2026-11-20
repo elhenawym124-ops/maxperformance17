@@ -20,7 +20,7 @@ export const MyPayrollHeroCard: React.FC<MyPayrollHeroCardProps> = ({
   return (
     <motion.div
       variants={itemVariants}
-      className="rounded-2xl border border-border/70 bg-card p-6 shadow-xs relative overflow-hidden"
+      className="rounded-xl border border-border/70 bg-card p-6 shadow-xs relative overflow-hidden"
     >
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 relative z-10">
         <div className="flex items-center gap-4 text-right">
@@ -44,7 +44,7 @@ export const MyPayrollHeroCard: React.FC<MyPayrollHeroCardProps> = ({
           </div>
         </div>
 
-        <div className="text-right sm:text-left space-y-1 border-t sm:border-t-0 sm:border-r border-border/70 pt-4 sm:pt-0 sm:pr-6 w-full sm:w-auto">
+        <div className="text-right sm:text-left space-y-1 border-t sm:border-t-0 sm:border-r border-border/70 pt-4 sm:pt-0 sm:pe-6 w-full sm:w-auto">
           <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
             {t("employee.payroll.baseContractSalary")}
           </p>

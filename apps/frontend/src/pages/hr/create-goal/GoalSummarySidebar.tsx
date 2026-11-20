@@ -93,7 +93,7 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
         contentClassName="space-y-4"
       >
         <div className="grid gap-3">
-          <div className="rounded-3xl border border-border/70 bg-background p-4">
+          <div className="rounded-xl border border-border/70 bg-background p-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Target className="h-4 w-4" />
               التقدم الحالي
@@ -104,7 +104,7 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
             <Progress value={currentProgress} className="mt-3" />
           </div>
 
-          <div className="rounded-3xl border border-border/70 bg-background p-4">
+          <div className="rounded-xl border border-border/70 bg-background p-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <CalendarRange className="h-4 w-4" />
               الفترة
@@ -114,7 +114,7 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
             </div>
           </div>
 
-          <div className="rounded-3xl border border-border/70 bg-background p-4">
+          <div className="rounded-xl border border-border/70 bg-background p-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <FolderKanban className="h-4 w-4" />
               المهام المرتبطة
@@ -124,7 +124,7 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
             </div>
           </div>
 
-          <div className="rounded-3xl border border-border/70 bg-background p-4">
+          <div className="rounded-xl border border-border/70 bg-background p-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="h-4 w-4" />
               الأبناء الحاليون
@@ -141,7 +141,7 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
         description="من يملك الهدف وإلى أين يرفع التحديث."
         contentClassName="space-y-3"
       >
-        <div className="rounded-3xl border border-border/70 bg-muted/15 p-4">
+        <div className="rounded-xl border border-border/70 bg-muted/15 p-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Briefcase className="h-4 w-4" />
             المالك
@@ -149,7 +149,7 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
           <div className="mt-2 text-sm font-medium">{getOwnerLabel()}</div>
         </div>
 
-        <div className="rounded-3xl border border-border/70 bg-muted/15 p-4">
+        <div className="rounded-xl border border-border/70 bg-muted/15 p-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <UserRound className="h-4 w-4" />
             الهدف الأب
@@ -158,13 +158,13 @@ export const GoalSummarySidebar: React.FC<GoalSummarySidebarProps> = ({
         </div>
 
         {isEdit && goalDetails?.childGoals?.length ? (
-          <div className="rounded-3xl border border-border/70 bg-muted/15 p-4">
+          <div className="rounded-xl border border-border/70 bg-muted/15 p-4">
             <div className="mb-3 text-sm font-medium">أهداف الابن الحالية</div>
             <div className="space-y-2">
               {goalDetails.childGoals.slice(0, 5).map((childGoal) => (
                 <div
                   key={childGoal.id}
-                  className="flex items-center justify-between rounded-2xl bg-background px-3 py-2 text-sm"
+                  className="flex items-center justify-between rounded-xl bg-background px-3 py-2 text-sm"
                 >
                   <span>{childGoal.title}</span>
                   <span className="text-muted-foreground font-mono tabular-nums">

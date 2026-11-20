@@ -40,8 +40,8 @@ export const EditPromotionDetailsForm: React.FC<
       <form onSubmit={onSubmit}>
         <Card className="shadow-md overflow-hidden">
           <div className="bg-gray-50/50 p-6 border-b">
-            <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-800">
-              <Briefcase className="h-5 w-5 text-gray-500" />
+            <h2 className="text-xl font-semibold flex items-center gap-2 text-foreground">
+              <Briefcase className="h-5 w-5 text-muted-foreground" />
               تفاصيل الحركة الوظيفية
             </h2>
           </div>
@@ -58,7 +58,7 @@ export const EditPromotionDetailsForm: React.FC<
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
                   تاريخ الترقية
                 </Label>
                 <DateInput
@@ -67,7 +67,7 @@ export const EditPromotionDetailsForm: React.FC<
                   {...register("promotionDate", { required: "مطلوب" })}
                 />
                 {errors.promotionDate && (
-                  <p className="text-xs text-red-500">
+                  <p className="text-xs text-destructive">
                     {errors.promotionDate.message}
                   </p>
                 )}
@@ -75,7 +75,7 @@ export const EditPromotionDetailsForm: React.FC<
 
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
                   تاريخ السريان
                 </Label>
                 <DateInput
@@ -84,7 +84,7 @@ export const EditPromotionDetailsForm: React.FC<
                   {...register("effectiveDate", { required: "مطلوب" })}
                 />
                 {errors.effectiveDate && (
-                  <p className="text-xs text-red-500">
+                  <p className="text-xs text-destructive">
                     {errors.effectiveDate.message}
                   </p>
                 )}
@@ -121,7 +121,7 @@ export const EditPromotionDetailsForm: React.FC<
                 placeholder="اشرح أسباب الترقية بالتفصيل..."
               />
               {errors.reason && (
-                <p className="text-xs text-red-500">{errors.reason.message}</p>
+                <p className="text-xs text-destructive">{errors.reason.message}</p>
               )}
             </div>
 
@@ -155,7 +155,7 @@ export const EditPromotionDetailsForm: React.FC<
               "جاري الحفظ..."
             ) : (
               <>
-                <Save className="ml-2 h-4 w-4" />
+                <Save className="ms-2 h-4 w-4" />
                 حفظ التعديلات
               </>
             )}

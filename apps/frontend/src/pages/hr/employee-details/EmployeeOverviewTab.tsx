@@ -31,7 +31,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               رصيد الإجازات السنوية
             </CardTitle>
           </CardHeader>
@@ -48,12 +48,12 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               رصيد الإجازات المرضية
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-green-600 font-mono tabular-nums">
+            <div className="text-3xl font-bold text-success font-mono tabular-nums">
               {employee.sickLeaveBalance || 0} يوم
             </div>
             <Progress
@@ -65,12 +65,12 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               أيام الحضور (هذا الشهر)
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-purple-600 font-mono tabular-nums">
+            <div className="text-3xl font-bold text-primary font-mono tabular-nums">
               {attendanceDaysThisMonth}
             </div>
           </CardContent>
@@ -78,12 +78,12 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               المرؤوسين
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-orange-600 font-mono tabular-nums">
+            <div className="text-3xl font-bold text-warning font-mono tabular-nums">
               {employee.subordinates?.length || 0}
             </div>
           </CardContent>
@@ -108,14 +108,14 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
                 {employee.attendance.slice(0, 5).map((att: any, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-2.5 bg-gray-50 dark:bg-gray-800/40 rounded-lg"
+                    className="flex items-center justify-between p-2.5 bg-muted dark:bg-muted rounded-lg"
                   >
                     <span className="text-sm font-mono tabular-nums">
                       {new Date(att.date).toLocaleDateString("ar-EG")}
                     </span>
                     <div className="flex items-center gap-2 font-mono tabular-nums">
                       {att.checkIn && (
-                        <span className="text-sm text-green-600">
+                        <span className="text-sm text-success">
                           {new Date(att.checkIn).toLocaleTimeString("ar-EG", {
                             hour: "2-digit",
                             minute: "2-digit",
@@ -145,7 +145,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Calendar className="h-5 w-5 text-amber-600" />
+              <Calendar className="h-5 w-5 text-warning" />
               آخر طلبات الإجازات
             </CardTitle>
           </CardHeader>
@@ -157,11 +157,11 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
                 {employee.leaveRequests.slice(0, 5).map((leave: any, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-2.5 bg-gray-50 dark:bg-gray-800/40 rounded-lg"
+                    className="flex items-center justify-between p-2.5 bg-muted dark:bg-muted rounded-lg"
                   >
                     <div>
                       <span className="text-sm font-medium">{leave.type}</span>
-                      <span className="text-sm text-gray-500 mr-2 font-mono tabular-nums">
+                      <span className="text-sm text-muted-foreground me-2 font-mono tabular-nums">
                         ({leave.totalDays} يوم)
                       </span>
                     </div>
@@ -194,7 +194,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
               {employee.subordinates.map((sub: any) => (
                 <div
                   key={sub.id}
-                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/40 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="flex items-center gap-3 p-3 bg-muted dark:bg-muted rounded-lg cursor-pointer hover:bg-muted dark:hover:bg-muted transition-colors"
                   onClick={() => onNavigateToSubordinate(sub.id)}
                 >
                   <Avatar>
@@ -208,7 +208,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
                     <p className="font-medium text-sm">
                       {sub.firstName} {sub.lastName}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-muted-foreground">
                       {sub.position?.title}
                     </p>
                   </div>
@@ -220,9 +220,9 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
       )}
 
       {/* Deduction Settings Card */}
-      <Card className="border-orange-100 bg-orange-50/20 dark:bg-orange-950/5">
+      <Card className="border-orange-100 bg-warning/20 dark:bg-warning/5">
         <CardHeader className="pb-3">
-          <CardTitle className="text-lg flex items-center gap-2 text-orange-700 dark:text-orange-400">
+          <CardTitle className="text-lg flex items-center gap-2 text-warning dark:text-warning">
             <ShieldHalf className="h-5 w-5" />
             سياسة الخصم والتأخير للموظف
           </CardTitle>
@@ -230,21 +230,21 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="space-y-1">
-              <p className="text-sm text-gray-500 font-medium">
+              <p className="text-sm text-muted-foreground font-medium">
                 حالة الخصم التلقائي
               </p>
               {employee.enableAutoDeduction !== false ? (
-                <Badge className="bg-green-100 text-green-800 border-green-200">
+                <Badge className="bg-green-100 text-success border-success">
                   مفعل
                 </Badge>
               ) : (
-                <Badge className="bg-red-100 text-red-800 border-red-200">
+                <Badge className="bg-red-100 text-destructive border-destructive">
                   مستثنى (Whitelisted)
                 </Badge>
               )}
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500 font-medium">
+              <p className="text-sm text-muted-foreground font-medium">
                 رصيد المرونة الشهري
               </p>
               <p className="font-bold text-lg font-mono tabular-nums">
@@ -252,7 +252,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500 font-medium">
+              <p className="text-sm text-muted-foreground font-medium">
                 حد التأخير اليومي
               </p>
               <p className="font-bold text-lg font-mono tabular-nums">
@@ -260,7 +260,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500 font-medium">
+              <p className="text-sm text-muted-foreground font-medium">
                 معدل الخصم للدقيقة
               </p>
               <p className="font-bold text-lg font-mono tabular-nums">

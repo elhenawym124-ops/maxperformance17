@@ -64,7 +64,7 @@ export const EditPromotionEmployeeSidebar: React.FC<
             </div>
 
             {selectedEmployee && (
-              <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mt-4 border border-gray-100">
+              <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mt-4 border border-border">
                 <Avatar className="h-16 w-16 border-2 border-white shadow-sm">
                   <AvatarImage src={selectedEmployee.avatar} />
                   <AvatarFallback className="bg-blue-100 text-blue-600 text-xl font-bold">
@@ -73,10 +73,10 @@ export const EditPromotionEmployeeSidebar: React.FC<
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900">
+                  <h3 className="font-bold text-lg text-foreground">
                     {selectedEmployee.firstName} {selectedEmployee.lastName}
                   </h3>
-                  <p className="text-sm text-gray-500 font-mono tabular-nums">
+                  <p className="text-sm text-muted-foreground font-mono tabular-nums">
                     {selectedEmployee.employeeNumber}
                   </p>
                   <Badge variant="outline" className="mt-1 bg-white">
@@ -90,7 +90,7 @@ export const EditPromotionEmployeeSidebar: React.FC<
       </Card>
 
       {increaseStats && (
-        <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+        <Card className="bg-gradient-to-br from-success to-success border-success">
           <CardContent className="p-6">
             <h3 className="text-green-800 font-semibold mb-2 flex items-center gap-2">
               <DollarSign className="h-5 w-5" />
@@ -99,13 +99,13 @@ export const EditPromotionEmployeeSidebar: React.FC<
             <div className="space-y-1">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">الزيادة المقترحة:</span>
-                <span className="font-bold text-green-700 font-mono tabular-nums dir-ltr">
+                <span className="font-bold text-success font-mono tabular-nums dir-ltr">
                   +{increaseStats.diff.toLocaleString()}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">نسبة الزيادة:</span>
-                <span className="font-bold text-green-700 font-mono tabular-nums dir-ltr">
+                <span className="font-bold text-success font-mono tabular-nums dir-ltr">
                   {increaseStats.percent.toFixed(2)}%
                 </span>
               </div>

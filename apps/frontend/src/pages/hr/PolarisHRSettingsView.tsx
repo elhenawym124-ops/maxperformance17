@@ -102,7 +102,7 @@ export const PolarisHRSettingsView: React.FC<PolarisHRSettingsViewProps> = ({
       />
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Horizontal Domain Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -124,7 +124,7 @@ export const PolarisHRSettingsView: React.FC<PolarisHRSettingsViewProps> = ({
                   <Icon className="h-3.5 w-3.5 shrink-0" />
                   <span>{tab.label}</span>
                   {hasError && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-destructive shrink-0" />
                   )}
                 </button>
               );
@@ -133,7 +133,7 @@ export const PolarisHRSettingsView: React.FC<PolarisHRSettingsViewProps> = ({
         </div>
 
         {/* Tab Content Body */}
-        <CardContent className="p-4 sm:p-6 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:p-0">
+        <CardContent className="p-4 sm:p-6 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:p-0">
           {children}
         </CardContent>
       </Card>

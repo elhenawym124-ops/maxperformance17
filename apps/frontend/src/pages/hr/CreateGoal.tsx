@@ -65,7 +65,7 @@ const CreateGoal: React.FC = () => {
               className="rounded-xl"
               onClick={() => navigate("/goals")}
             >
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ms-2 h-4 w-4" />
               رجوع إلى الأهداف
             </Button>
           }
@@ -74,7 +74,7 @@ const CreateGoal: React.FC = () => {
         <BusinessSectionPanel contentClassName="pt-6">
           <div
             data-testid="goal-load-error-state"
-            className="rounded-3xl border border-dashed border-border/70 bg-muted/10 px-6 py-12 text-center"
+            className="rounded-xl border border-dashed border-border/70 bg-muted/10 px-6 py-12 text-center"
           >
             <Target className="mx-auto h-10 w-10 text-muted-foreground" />
             <h2 className="mt-4 text-lg font-semibold">{loadError}</h2>
@@ -103,7 +103,7 @@ const CreateGoal: React.FC = () => {
                 onClick={handleDelete}
                 disabled={loading}
               >
-                <Trash2 className="ml-2 h-4 w-4" />
+                <Trash2 className="ms-2 h-4 w-4" />
                 حذف
               </Button>
             ) : null}
@@ -112,7 +112,7 @@ const CreateGoal: React.FC = () => {
               className="rounded-xl"
               onClick={() => navigate("/goals")}
             >
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ms-2 h-4 w-4" />
               رجوع
             </Button>
             <Button
@@ -121,7 +121,7 @@ const CreateGoal: React.FC = () => {
               onClick={handleSubmit}
               disabled={loading}
             >
-              <Save className="ml-2 h-4 w-4" />
+              <Save className="ms-2 h-4 w-4" />
               {loading ? "جارٍ الحفظ..." : isEdit ? "حفظ التحديثات" : "إنشاء الهدف"}
             </Button>
           </div>

@@ -31,7 +31,7 @@ const StatCard: React.FC<{
   icon: React.ElementType;
   tone: string;
 }> = ({ label, value, icon: Icon, tone }) => (
-  <div className={`rounded-2xl border p-5 shadow-sm ${tone}`}>
+  <div className={`rounded-xl border p-5 shadow-sm ${tone}`}>
     <div className="mb-2 flex items-center justify-between text-sm opacity-80">
       <span>{label}</span>
       <Icon className="h-4 w-4" />
@@ -79,19 +79,19 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
         <div className="space-y-3">
           <Link
             to="/hr/reporting/forms"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-sm text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border dark:hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             العودة لفورمات التقارير
           </Link>
           <div className="space-y-2">
-            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+            <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
               السجلات والتحليل
             </p>
             <h1 className="text-3xl font-semibold tracking-tight">
               {payload.form.title}
             </h1>
-            <p className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            <p className="max-w-3xl text-sm leading-7 text-foreground dark:text-muted-foreground">
               راقب السجلات المرسلة، قارن بين الموظفين، وراجع المؤشرات الرئيسية
               للفترة المحددة.
             </p>
@@ -102,14 +102,14 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
           <button
             type="button"
             onClick={onExportCsv}
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-700"
+            className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-3 text-sm font-medium text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border"
           >
             <Download className="h-4 w-4" />
             تصدير CSV
           </button>
           <Link
             to={`/hr/reporting/forms/${payload.form.id}/preview`}
-            className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+            className="inline-flex items-center gap-2 rounded-xl bg-muted px-4 py-3 text-sm font-medium text-white transition hover:bg-muted dark:bg-white dark:text-foreground dark:hover:bg-muted"
           >
             <BarChart3 className="h-4 w-4" />
             معاينة الفورم
@@ -117,38 +117,38 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
         </div>
       </div>
 
-      <div className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-6 grid gap-4 rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted md:grid-cols-2 xl:grid-cols-4">
         <label className="space-y-2 text-sm">
-          <span className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400">
+          <span className="inline-flex items-center gap-2 text-muted-foreground dark:text-muted-foreground">
             <CalendarDays className="h-4 w-4" />
             من تاريخ
           </span>
           <DateInput
             value={startDate}
             onChange={(event) => onStartDateChange(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500 font-mono tabular-nums"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border font-mono tabular-nums"
           />
         </label>
         <label className="space-y-2 text-sm">
-          <span className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400">
+          <span className="inline-flex items-center gap-2 text-muted-foreground dark:text-muted-foreground">
             <CalendarDays className="h-4 w-4" />
             إلى تاريخ
           </span>
           <DateInput
             value={endDate}
             onChange={(event) => onEndDateChange(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500 font-mono tabular-nums"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border font-mono tabular-nums"
           />
         </label>
         <label className="space-y-2 text-sm">
-          <span className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400">
+          <span className="inline-flex items-center gap-2 text-muted-foreground dark:text-muted-foreground">
             <Users className="h-4 w-4" />
             الموظف
           </span>
           <select
             value={selectedUserId}
             onChange={(event) => onSelectedUserIdChange(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
           >
             <option value="">كل الموظفين</option>
             {payload.analytics.employeeBreakdown.map((row) => (
@@ -162,7 +162,7 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
           <button
             type="button"
             onClick={onRefresh}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-600"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-muted px-4 py-3 text-sm font-medium text-foreground transition hover:border-border hover:bg-white hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border"
           >
             <Filter className="h-4 w-4" />
             تحديث النتائج
@@ -175,7 +175,7 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
           label="إجمالي السجلات"
           value={payload.analytics.summary.totalSubmissions}
           icon={Table2}
-          tone="border-slate-200 bg-white text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-50"
+          tone="border-slate-200 bg-white text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
         />
         <StatCard
           label="عدد الموظفين"
@@ -193,16 +193,16 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
                 : formatMetricValue(metric.total, metric.dataType)
             }
             icon={BarChart3}
-            tone="border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-200"
+            tone="border-emerald-200 bg-success/10 text-success dark:border-success/60 dark:bg-success/30 dark:text-success"
           />
         ))}
       </div>
 
       <div className="mb-6 grid gap-6 xl:grid-cols-2">
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
           <div className="mb-4">
             <h2 className="text-lg font-semibold">اتجاه الأداء عبر الأيام</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               عدد السجلات ومعه المؤشرات الرقمية الأولى في الفورم.
             </p>
           </div>
@@ -247,10 +247,10 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <section className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
           <div className="mb-4">
             <h2 className="text-lg font-semibold">مقارنة بين الموظفين</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               يعرض عدد السجلات مع أول مؤشر رقمي في الفورم لكل موظف.
             </p>
           </div>

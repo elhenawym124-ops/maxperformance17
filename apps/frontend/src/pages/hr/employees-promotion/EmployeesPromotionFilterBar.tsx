@@ -32,12 +32,12 @@ export const EmployeesPromotionFilterBar: React.FC<
     <div className="flex flex-col sm:flex-row gap-4">
       <div className="flex-1">
         <div className="relative">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="بحث بالاسم، المنصب، أو السبب..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pr-10"
+            className="pe-10"
           />
         </div>
       </div>

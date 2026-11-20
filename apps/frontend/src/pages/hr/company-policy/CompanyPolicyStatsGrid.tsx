@@ -38,7 +38,7 @@ export const CompanyPolicyStatsGrid: React.FC<CompanyPolicyStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white border-none shadow-md">
+      <Card className="bg-gradient-to-br from-success to-success text-white border-none shadow-md">
         <CardContent className="p-4 flex items-center justify-between">
           <div>
             <p className="text-emerald-100 text-sm mb-1">السياسات الفعالة</p>
@@ -52,7 +52,7 @@ export const CompanyPolicyStatsGrid: React.FC<CompanyPolicyStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white border-none shadow-md">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white border-none shadow-md">
         <CardContent className="p-4 flex items-center justify-between">
           <div>
             <p className="text-purple-100 text-sm mb-1">التحديثات الأخيرة</p>
@@ -66,7 +66,7 @@ export const CompanyPolicyStatsGrid: React.FC<CompanyPolicyStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white border-none shadow-md">
+      <Card className="bg-gradient-to-br from-warning to-warning text-white border-none shadow-md">
         <CardContent className="p-4 flex items-center justify-between">
           <div>
             <p className="text-orange-100 text-sm mb-1">فئات السياسات</p>

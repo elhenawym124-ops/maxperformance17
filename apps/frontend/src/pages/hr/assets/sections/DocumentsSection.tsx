@@ -63,12 +63,12 @@ const DocumentsSection: React.FC = () => {
 
       {loading && (
         <div className="flex justify-center items-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
         </div>
       )}
 
       {error && (
-        <div className="p-4 bg-red-100 text-red-700 rounded-lg">
+        <div className="p-4 bg-destructive text-destructive rounded-lg">
           {error || "فشل في تحميل المستندات"}
         </div>
       )}

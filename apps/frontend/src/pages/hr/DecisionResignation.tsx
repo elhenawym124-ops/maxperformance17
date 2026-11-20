@@ -105,9 +105,9 @@ const DecisionResignation = () => {
         <div>
           <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-2 tracking-tight text-foreground">
             {isApprove ? (
-              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-500" />
+              <CheckCircle className="h-8 w-8 text-success dark:text-success" />
             ) : (
-              <XCircle className="h-8 w-8 text-red-600 dark:text-red-500" />
+              <XCircle className="h-8 w-8 text-destructive dark:text-destructive" />
             )}
             {isApprove ? "الموافقة على الاستقالة" : "رفض الاستقالة"}
           </h1>
@@ -243,20 +243,20 @@ const DecisionResignation = () => {
               <div className="flex gap-4">
                 {isApprove ? (
                   <Button
-                    className="flex-1 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+                    className="flex-1 bg-success hover:bg-success dark:bg-success dark:hover:bg-success"
                     onClick={() => handleDecision("APPROVED")}
                     disabled={submitting}
                   >
-                    <CheckCircle className="h-4 w-4 ml-2" />
+                    <CheckCircle className="h-4 w-4 ms-2" />
                     تأكيد الموافقة
                   </Button>
                 ) : (
                   <Button
-                    className="flex-1 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
+                    className="flex-1 bg-destructive hover:bg-destructive dark:bg-destructive dark:hover:bg-destructive"
                     onClick={() => handleDecision("REJECTED")}
                     disabled={submitting || !notes.trim()}
                   >
-                    <XCircle className="h-4 w-4 ml-2" />
+                    <XCircle className="h-4 w-4 ms-2" />
                     تأكيد الرفض
                   </Button>
                 )}

@@ -50,8 +50,8 @@ const RewardDetails: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">حدث خطأ</h3>
+          <AlertCircle className="w-12 h-12 text-destructive mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-foreground mb-2">حدث خطأ</h3>
           <p className="text-gray-600 mb-4">{error || "المكافأة غير موجودة"}</p>
           <button
             onClick={() => navigate("/hr/rewards")}
@@ -72,12 +72,12 @@ const RewardDetails: React.FC = () => {
           <button
             onClick={() => navigate("/hr/rewards")}
             aria-label="العودة للمكافآت"
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-muted rounded-lg transition-colors"
           >
             <ArrowLeft className="w-6 h-6" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Award className="w-8 h-8 text-blue-600" />
               تفاصيل المكافأة
             </h1>
@@ -91,7 +91,7 @@ const RewardDetails: React.FC = () => {
               <button
                 onClick={handleApprove}
                 disabled={actionLoading}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 bg-success text-white rounded-lg hover:bg-success disabled:opacity-50"
               >
                 <CheckCircle className="w-5 h-5" />
                 اعتماد
@@ -102,7 +102,7 @@ const RewardDetails: React.FC = () => {
                   if (reason) handleReject(reason);
                 }}
                 disabled={actionLoading}
-                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 bg-destructive text-white rounded-lg hover:bg-destructive disabled:opacity-50"
               >
                 <XCircle className="w-5 h-5" />
                 رفض
@@ -123,7 +123,7 @@ const RewardDetails: React.FC = () => {
               onClick={() => setDeleteDialogOpen(true)}
               disabled={actionLoading}
               title="حذف المكافأة"
-              className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300 disabled:text-red-50"
+              className="flex items-center gap-2 rounded-lg bg-destructive px-4 py-2 text-white hover:bg-destructive disabled:cursor-not-allowed disabled:bg-destructive disabled:text-destructive"
             >
               <Trash2 className="w-5 h-5" />
               حذف

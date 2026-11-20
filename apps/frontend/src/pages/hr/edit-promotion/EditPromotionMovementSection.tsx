@@ -14,7 +14,7 @@ export const EditPromotionMovementSection: React.FC<
   EditPromotionMovementSectionProps
 > = ({ register, errors }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-slate-50 p-6 rounded-xl border border-slate-100">
+    <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-muted p-6 rounded-xl border border-border">
       {/* From */}
       <div className="md:col-span-5 space-y-4">
         <div className="space-y-2">
@@ -24,7 +24,7 @@ export const EditPromotionMovementSection: React.FC<
           <Input
             {...register("fromPositionName")}
             placeholder="اسم المنصب الحالي"
-            className="bg-white border-slate-200 focus-visible:ring-slate-400 font-medium"
+            className="bg-white border-border focus-visible:ring-slate-400 font-medium"
           />
         </div>
         <div className="space-y-2 relative">
@@ -32,12 +32,12 @@ export const EditPromotionMovementSection: React.FC<
             الراتب الحالي
           </Label>
           <div className="relative">
-            <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
+            <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="number"
               {...register("fromSalary", { valueAsNumber: true })}
               placeholder="0.00"
-              className="pr-9 bg-white border-slate-200 font-mono tabular-nums"
+              className="pe-9 bg-white border-border font-mono tabular-nums"
             />
           </div>
         </div>
@@ -64,7 +64,7 @@ export const EditPromotionMovementSection: React.FC<
             className="bg-blue-50/50 border-blue-200 focus-visible:ring-blue-400 font-medium text-blue-900"
           />
           {errors.toPositionName && (
-            <p className="text-xs text-red-500">
+            <p className="text-xs text-destructive">
               {errors.toPositionName.message}
             </p>
           )}
@@ -79,7 +79,7 @@ export const EditPromotionMovementSection: React.FC<
               type="number"
               {...register("toSalary", { valueAsNumber: true })}
               placeholder="0.00"
-              className="pr-9 bg-blue-50/50 border-blue-200 text-blue-900 font-bold font-mono tabular-nums"
+              className="pe-9 bg-blue-50/50 border-blue-200 text-blue-900 font-bold font-mono tabular-nums"
             />
           </div>
         </div>

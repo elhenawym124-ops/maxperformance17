@@ -20,8 +20,8 @@ export const EmployeeReportRequestsSection: React.FC<
   return (
     <>
       {report.leaves?.requests && report.leaves.requests.length > 0 && (
-        <Card className="dark:bg-gray-800 dark:border-gray-700 border-none shadow-sm">
-          <CardHeader className="border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+        <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
+          <CardHeader className="border-b dark:border-border bg-muted dark:bg-muted">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Calendar className="h-5 w-5 text-blue-600 dark:text-blue-400" />
               طلبات الإجازات (
@@ -32,11 +32,11 @@ export const EmployeeReportRequestsSection: React.FC<
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="divide-y dark:divide-gray-700">
+            <div className="divide-y dark:divide-border">
               {report.leaves.requests.map((leave) => (
                 <div
                   key={leave.id}
-                  className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  className="p-4 hover:bg-muted/50/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
@@ -44,16 +44,16 @@ export const EmployeeReportRequestsSection: React.FC<
                         <Badge className={getStatusColor(leave.status)}>
                           {getStatusLabel(leave.status)}
                         </Badge>
-                        <span className="text-sm font-medium dark:text-gray-300">
+                        <span className="text-sm font-medium dark:text-muted-foreground">
                           {leave.type}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 font-mono tabular-nums">
+                      <p className="text-sm text-foreground dark:text-muted-foreground font-mono tabular-nums">
                         {new Date(leave.startDate).toLocaleDateString("ar-EG")}{" "}
                         - {new Date(leave.endDate).toLocaleDateString("ar-EG")}
                       </p>
                       {leave.reason && (
-                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                           {leave.reason}
                         </p>
                       )}
@@ -73,10 +73,10 @@ export const EmployeeReportRequestsSection: React.FC<
       )}
 
       {report.advances?.requests && report.advances.requests.length > 0 && (
-        <Card className="dark:bg-gray-800 dark:border-gray-700 border-none shadow-sm">
-          <CardHeader className="border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+        <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
+          <CardHeader className="border-b dark:border-border bg-muted dark:bg-muted">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <DollarSign className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <DollarSign className="h-5 w-5 text-success dark:text-success" />
               طلبات السلف (
               <span className="font-mono tabular-nums">
                 {formatCurrency(report.advances.totalAmount)}
@@ -85,11 +85,11 @@ export const EmployeeReportRequestsSection: React.FC<
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="divide-y dark:divide-gray-700">
+            <div className="divide-y dark:divide-border">
               {report.advances.requests.map((advance) => (
                 <div
                   key={advance.id}
-                  className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  className="p-4 hover:bg-muted/50/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
@@ -97,19 +97,19 @@ export const EmployeeReportRequestsSection: React.FC<
                         <Badge className={getStatusColor(advance.status)}>
                           {getStatusLabel(advance.status)}
                         </Badge>
-                        <span className="text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                        <span className="text-sm text-muted-foreground font-mono tabular-nums">
                           {new Date(advance.requestDate).toLocaleDateString(
                             "ar-EG"
                           )}
                         </span>
                       </div>
                       {advance.reason && (
-                        <p className="text-xs text-gray-500 dark:text-gray-500">
+                        <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                           {advance.reason}
                         </p>
                       )}
                     </div>
-                    <span className="font-bold text-lg text-green-600 dark:text-green-400 font-mono tabular-nums">
+                    <span className="font-bold text-lg text-success dark:text-success font-mono tabular-nums">
                       {formatCurrency(advance.amount)}
                     </span>
                   </div>
@@ -122,10 +122,10 @@ export const EmployeeReportRequestsSection: React.FC<
 
       {report.permissions?.requests &&
         report.permissions.requests.length > 0 && (
-          <Card className="dark:bg-gray-800 dark:border-gray-700 border-none shadow-sm">
-            <CardHeader className="border-b dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+          <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
+            <CardHeader className="border-b dark:border-border bg-muted dark:bg-muted">
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Clock className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                <Clock className="h-5 w-5 text-primary dark:text-primary" />
                 طلبات الاستئذان (
                 <span className="font-mono tabular-nums">
                   {report.permissions.totalHours}
@@ -134,11 +134,11 @@ export const EmployeeReportRequestsSection: React.FC<
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="divide-y dark:divide-gray-700">
+              <div className="divide-y dark:divide-border">
                 {report.permissions.requests.map((perm) => (
                   <div
                     key={perm.id}
-                    className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    className="p-4 hover:bg-muted/50/50 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
@@ -146,16 +146,16 @@ export const EmployeeReportRequestsSection: React.FC<
                           <Badge className={getStatusColor(perm.status)}>
                             {getStatusLabel(perm.status)}
                           </Badge>
-                          <span className="text-sm font-medium dark:text-gray-300 font-mono tabular-nums">
+                          <span className="text-sm font-medium dark:text-muted-foreground font-mono tabular-nums">
                             {new Date(perm.date).toLocaleDateString("ar-EG")}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 font-mono tabular-nums">
+                        <p className="text-sm text-foreground dark:text-muted-foreground font-mono tabular-nums">
                           {perm.startTime} - {perm.endTime} ({perm.totalHours}{" "}
                           ساعة)
                         </p>
                         {perm.reason && (
-                          <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                          <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                             {perm.reason}
                           </p>
                         )}
@@ -170,19 +170,19 @@ export const EmployeeReportRequestsSection: React.FC<
 
       {report.payroll?.manualDeductions &&
         report.payroll.manualDeductions.length > 0 && (
-          <Card className="dark:bg-gray-800 dark:border-gray-700 border-none shadow-sm">
-            <CardHeader className="border-b dark:border-gray-700 bg-red-50/50 dark:bg-red-950/10">
-              <CardTitle className="flex items-center gap-2 text-lg text-red-700 dark:text-red-400">
+          <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
+            <CardHeader className="border-b dark:border-border bg-destructive/50 dark:bg-destructive/10">
+              <CardTitle className="flex items-center gap-2 text-lg text-destructive dark:text-destructive">
                 <DollarSign className="h-5 w-5" />
                 الخصومات المالية الإضافية
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="divide-y dark:divide-gray-700">
+              <div className="divide-y dark:divide-border">
                 {report.payroll.manualDeductions.map((deduction) => (
                   <div
                     key={deduction.id}
-                    className="p-4 hover:bg-red-50/30 dark:hover:bg-red-900/10 transition-colors"
+                    className="p-4 hover:bg-destructive/30 dark:hover:bg-destructive/10 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
@@ -190,17 +190,17 @@ export const EmployeeReportRequestsSection: React.FC<
                           <Badge className={getStatusColor(deduction.status)}>
                             {getStatusLabel(deduction.status)}
                           </Badge>
-                          <span className="text-sm font-medium dark:text-gray-300 font-mono tabular-nums">
+                          <span className="text-sm font-medium dark:text-muted-foreground font-mono tabular-nums">
                             {new Date(deduction.date).toLocaleDateString(
                               "ar-EG"
                             )}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-foreground dark:text-muted-foreground">
                           {deduction.reason}
                         </p>
                       </div>
-                      <span className="font-bold text-lg text-red-600 dark:text-red-400 font-mono tabular-nums">
+                      <span className="font-bold text-lg text-destructive dark:text-destructive font-mono tabular-nums">
                         {formatCurrency(deduction.amount)}
                       </span>
                     </div>

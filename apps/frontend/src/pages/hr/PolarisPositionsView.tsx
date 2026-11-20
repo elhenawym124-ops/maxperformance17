@@ -64,7 +64,7 @@ export const PolarisPositionsView: React.FC<PolarisPositionsViewProps> = ({
               placeholder="ابحث بالمسمى، الكود، أو الوصف..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>

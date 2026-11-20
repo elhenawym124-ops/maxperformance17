@@ -35,7 +35,7 @@ const AssetList: React.FC<AssetListProps> = ({ refreshTrigger }) => {
   } = useAssetListController(refreshTrigger);
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div className="bg-card shadow-lg rounded-xl border border-border dark:border-border overflow-hidden">
       <AssetListFiltersAndTable
         assets={assets}
         loading={loading}
@@ -80,10 +80,10 @@ const AssetList: React.FC<AssetListProps> = ({ refreshTrigger }) => {
       )}
 
       {hasMore && !loading && (
-        <div className="p-4 text-center border-t border-gray-100 dark:border-gray-700">
+        <div className="p-4 text-center border-t border-border dark:border-border">
           <button
             onClick={() => void fetchAssets(page + 1)}
-            className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl hover:from-indigo-700 hover:to-violet-700 transition-all shadow-md hover:shadow-lg active:scale-95"
+            className="px-6 py-2.5 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:from-primary hover:to-primary transition-all shadow-md hover:shadow-lg active:scale-95"
           >
             تحميل المزيد
           </button>

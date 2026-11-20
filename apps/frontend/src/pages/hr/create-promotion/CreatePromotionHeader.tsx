@@ -16,13 +16,13 @@ export const CreatePromotionHeader: React.FC<CreatePromotionHeaderProps> = ({
           variant="ghost"
           size="icon"
           onClick={onBack}
-          className="rounded-full hover:bg-gray-100"
+          className="rounded-full hover:bg-muted"
         >
-          <ArrowRight className="h-6 w-6 text-gray-600" />
+          <ArrowRight className="h-6 w-6 text-foreground" />
         </Button>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-            <TrendingUp className="h-8 w-8 text-green-600" />
+          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
+            <TrendingUp className="h-8 w-8 text-success" />
             ترقية جديدة
           </h1>
           <p className="text-gray-500 mt-1">تسجيل حركة وظيفية جديدة لموظف</p>

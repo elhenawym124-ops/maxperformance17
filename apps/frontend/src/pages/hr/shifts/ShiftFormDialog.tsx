@@ -42,14 +42,14 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col p-0 border-none shadow-2xl bg-white dark:bg-gray-900 rounded-3xl"
+        className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col p-0 border-none shadow-2xl bg-white dark:bg-muted rounded-xl"
         dir="rtl"
       >
         <DialogHeader className="p-6 pb-2">
-          <DialogTitle className="text-2xl font-black text-gray-800 dark:text-gray-100">
+          <DialogTitle className="text-2xl font-black text-foreground dark:text-muted-foreground">
             {isEditing ? "تعديل المناوبة" : "مناوبة جديدة"}
           </DialogTitle>
-          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+          <p className="text-sm text-muted-foreground font-medium">
             قم بضبط تفاصيل وقت العمل وفترة الراحة وألوان التمييز
           </p>
         </DialogHeader>
@@ -59,8 +59,8 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
           {!isEditing && (
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <div className="h-4 w-1 bg-purple-600 rounded-full" />
-                <Label className="text-sm font-black text-gray-700 dark:text-gray-300">
+                <div className="h-4 w-1 bg-primary rounded-full" />
+                <Label className="text-sm font-black text-foreground">
                   قوالب سريعة
                 </Label>
               </div>
@@ -79,22 +79,22 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                         sortOrder: 0,
                       });
                     }}
-                    className="group flex items-start gap-4 p-4 border border-gray-100 dark:border-gray-800 rounded-2xl hover:bg-white dark:hover:bg-gray-800 hover:shadow-xl hover:shadow-purple-100 dark:hover:shadow-none transition-all duration-300 text-right bg-gray-50/50 dark:bg-white/5 relative overflow-hidden"
+                    className="group flex items-start gap-4 p-4 border border-border dark:border-border rounded-xl hover:bg-white dark:hover:bg-muted hover:shadow-xl hover:shadow-primary dark:hover:shadow-none transition-all duration-300 text-right bg-muted dark:bg-white/5 relative overflow-hidden"
                   >
-                    <div className="w-12 h-12 bg-white dark:bg-gray-700 rounded-xl shadow-sm flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300 relative z-10 shrink-0">
+                    <div className="w-12 h-12 bg-card rounded-xl shadow-sm flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300 relative z-10 shrink-0">
                       {template.icon}
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="font-black text-gray-800 dark:text-gray-200 text-sm group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors uppercase tracking-tight truncate">
+                      <p className="font-black text-foreground dark:text-muted-foreground text-sm group-hover:text-primary dark:group-hover:text-primary transition-colors uppercase tracking-tight truncate">
                         {template.name}
                       </p>
-                      <p className="text-[10px] text-gray-400 dark:text-gray-500 font-bold mt-0.5 line-clamp-1">
+                      <p className="text-[10px] text-muted-foreground/80 font-bold mt-0.5 line-clamp-1">
                         {template.description}
                       </p>
                       <div className="flex items-center gap-2 mt-2">
                         <Badge
                           variant="outline"
-                          className="text-[9px] font-black border-none bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 px-1.5 py-0 font-mono tabular-nums"
+                          className="text-[9px] font-black border-none bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary px-1.5 py-0 font-mono tabular-nums"
                         >
                           {template.startTime} - {template.endTime}
                         </Badge>
@@ -105,10 +105,10 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
               </div>
               <div className="relative py-2">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-gray-100 dark:border-gray-800" />
+                  <span className="w-full border-t border-border dark:border-border" />
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="bg-white dark:bg-gray-900 px-4 text-[10px] font-black uppercase text-gray-400 dark:text-gray-500 rounded-full">
+                  <span className="bg-white dark:bg-muted px-4 text-[10px] font-black uppercase text-muted-foreground/80 rounded-full">
                     أو إدخال بيانات مخصصة
                   </span>
                 </div>
@@ -118,7 +118,7 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
 
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <Label className="text-[10px] font-black uppercase tracking-wider text-gray-400 mr-1">
+              <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground me-1">
                 اسم المناوبة
               </Label>
               <Input
@@ -128,14 +128,14 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                 }
                 placeholder="مثال: الدوام الصباحي (A)"
                 className={cn(
-                  "rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800/50 focus:ring-purple-500 h-11 font-medium shadow-sm transition-all",
+                  "rounded-xl border-border dark:border-border dark:bg-muted focus:ring-primary h-11 font-medium shadow-sm transition-all",
                   formErrors["name"]
-                    ? "border-red-500 ring-1 ring-red-500/20"
+                    ? "border-red-500 ring-1 ring-destructive/20"
                     : "",
                 )}
               />
               {formErrors["name"] && (
-                <p className="text-xs text-red-500 font-bold mt-1 flex items-center gap-1">
+                <p className="text-xs text-destructive font-bold mt-1 flex items-center gap-1">
                   <span>⚠</span> {formErrors["name"]}
                 </p>
               )}
@@ -143,11 +143,11 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-gray-400 mr-1">
+                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground me-1">
                   وقت البدء
                 </Label>
                 <div className="relative">
-                  <Clock className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                  <Clock className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="time"
                     value={formData.startTime}
@@ -157,16 +157,16 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                         startTime: e.target.value,
                       })
                     }
-                    className="pr-10 rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800 focus:ring-purple-500 font-black h-11 dark:text-white font-mono tabular-nums"
+                    className="pe-10 rounded-xl border-border dark:border-border dark:bg-muted focus:ring-primary font-black h-11 dark:text-white font-mono tabular-nums"
                   />
                 </div>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-gray-400 mr-1">
+                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground me-1">
                   وقت الانتهاء
                 </Label>
                 <div className="relative">
-                  <Clock className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                  <Clock className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="time"
                     value={formData.endTime}
@@ -177,7 +177,7 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                       })
                     }
                     className={cn(
-                      "pr-10 rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800 focus:ring-purple-500 font-black h-11 dark:text-white font-mono tabular-nums",
+                      "pe-10 rounded-xl border-border dark:border-border dark:bg-muted focus:ring-primary font-black h-11 dark:text-white font-mono tabular-nums",
                       formErrors["endTime"] ? "border-red-500" : "",
                     )}
                   />
@@ -187,7 +187,7 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-gray-400 mr-1">
+                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground me-1">
                   مدة الراحة (دقائق)
                 </Label>
                 <Input
@@ -200,16 +200,16 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                     })
                   }
                   className={cn(
-                    "rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800 focus:ring-purple-500 h-11 font-black dark:text-white font-mono tabular-nums",
+                    "rounded-xl border-border dark:border-border dark:bg-muted focus:ring-primary h-11 font-black dark:text-white font-mono tabular-nums",
                     formErrors["breakDuration"] ? "border-red-500" : "",
                   )}
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-gray-400 mr-1">
+                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground me-1">
                   لون التمييز
                 </Label>
-                <div className="flex items-center gap-3 p-1 border border-gray-100 dark:border-gray-800 rounded-xl bg-gray-50/50 dark:bg-white/5 h-11 group">
+                <div className="flex items-center gap-3 p-1 border border-border dark:border-border rounded-xl bg-muted dark:bg-white/5 h-11 group">
                   <Input
                     type="color"
                     value={formData.color}
@@ -218,7 +218,7 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                     }
                     className="w-12 h-full p-0.5 border-none bg-transparent cursor-pointer rounded-lg overflow-hidden"
                   />
-                  <span className="text-xs font-black text-gray-500 dark:text-gray-400 font-mono tracking-tighter uppercase">
+                  <span className="text-xs font-black text-muted-foreground font-mono tracking-tighter uppercase">
                     {formData.color}
                   </span>
                 </div>
@@ -226,7 +226,7 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-[10px] font-black uppercase tracking-wider text-gray-400 mr-1">
+              <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground me-1">
                 ترتيب العرض (اختياري)
               </Label>
               <Input
@@ -239,16 +239,16 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
                   })
                 }
                 placeholder="0"
-                className="rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800/50 focus:ring-purple-500 h-11 font-medium shadow-sm transition-all font-mono tabular-nums"
+                className="rounded-xl border-border dark:border-border dark:bg-muted focus:ring-primary h-11 font-medium shadow-sm transition-all font-mono tabular-nums"
               />
-              <p className="text-[9px] text-gray-400 mr-1">
+              <p className="text-[9px] text-muted-foreground me-1">
                 أرقام أصغر تظهر أولاً
               </p>
             </div>
           </div>
 
           {/* Enhanced Live Preview */}
-          <div className="rounded-2xl border border-border/70 bg-muted/30 p-4 relative overflow-hidden">
+          <div className="rounded-xl border border-border/70 bg-muted/30 p-4 relative overflow-hidden">
             <div className="flex items-center justify-between relative z-10">
               <div className="space-y-0.5">
                 <p className="text-[11px] font-medium text-muted-foreground">
@@ -288,8 +288,8 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
           </div>
 
           {formErrors["time"] && (
-            <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900 rounded-2xl">
-              <p className="text-xs text-red-600 dark:text-red-400 font-black flex items-center gap-2">
+            <div className="p-3 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive rounded-xl">
+              <p className="text-xs text-destructive dark:text-destructive font-black flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{formErrors["time"]}</span>
               </p>
@@ -297,19 +297,19 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
           )}
         </div>
 
-        <DialogFooter className="p-5 pt-3 bg-gray-50/50 dark:bg-black/20 flex flex-row items-center justify-between border-t border-gray-100 dark:border-gray-800">
+        <DialogFooter className="p-5 pt-3 bg-muted dark:bg-black/20 flex flex-row items-center justify-between border-t border-border dark:border-border">
           <Button
             type="button"
             variant="ghost"
             onClick={onCancel}
-            className="font-bold text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl"
+            className="font-bold text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-xl"
           >
             إلغاء
           </Button>
           <Button
             type="button"
             onClick={onSubmit}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-black px-8 h-11 rounded-2xl shadow-lg shadow-blue-200 dark:shadow-none transition-all hover:scale-105 active:scale-95 border-none"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-black px-8 h-11 rounded-xl shadow-lg shadow-blue-200 dark:shadow-none transition-all hover:scale-105 active:scale-95 border-none"
           >
             {isEditing ? "حفظ التحديثات" : "إنشاء المناوبة الآن"}
           </Button>

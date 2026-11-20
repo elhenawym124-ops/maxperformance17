@@ -28,7 +28,7 @@ export const CreateWarningPreviewDialog: React.FC<
 > = ({ open, onOpenChange, selectedEmployee, watch }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl bg-card border border-border/70 shadow-lg rounded-2xl p-0 overflow-hidden" dir="rtl">
+      <DialogContent className="max-w-2xl bg-card border border-border/70 shadow-lg rounded-xl p-0 overflow-hidden" dir="rtl">
         <div className="p-6 border-b border-border/70 flex items-center gap-4">
           
 
@@ -37,7 +37,7 @@ export const CreateWarningPreviewDialog: React.FC<
               <ShieldAlert className="h-6 w-6" />
             </div>
             <div className="space-y-1 flex-1 min-w-0">
-              <DialogTitle className="text-lg font-bold text-foreground break-words pr-2">
+              <DialogTitle className="text-lg font-bold text-foreground break-words pe-2">
                 {watch("title") || "عنوان الإنذار"}
               </DialogTitle>
               <div className="flex items-center gap-2 text-white/70 text-xs font-bold uppercase tracking-widest">
@@ -54,13 +54,13 @@ export const CreateWarningPreviewDialog: React.FC<
         <div className="p-8 space-y-8 max-h-[60vh] overflow-y-auto custom-scrollbar relative">
           {selectedEmployee && (
             <div className="flex items-center gap-4 p-5 bg-muted/30 rounded-[1.5rem] border border-muted ring-4 ring-muted/20">
-              <Avatar className="h-12 w-12 border-2 border-white dark:border-gray-800 shadow-md">
+              <Avatar className="h-12 w-12 border-2 border-white dark:border-border shadow-md">
                 <AvatarFallback className="bg-primary text-white font-black">
                   {selectedEmployee.firstName?.[0]}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <p className="text-sm font-black text-gray-900 dark:text-white leading-none mb-1">
+                <p className="text-sm font-black text-foreground leading-none mb-1">
                   {selectedEmployee.firstName} {selectedEmployee.lastName}
                 </p>
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none">
@@ -74,13 +74,13 @@ export const CreateWarningPreviewDialog: React.FC<
           )}
 
           <div className="space-y-3">
-            <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 px-1">
+            <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-1">
               <FileText className="h-3.5 w-3.5" />
               وصف المخالفة المقترح
             </h4>
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-red-500/10 to-transparent rounded-3xl blur opacity-25" />
-              <div className="relative bg-white dark:bg-gray-900/50 p-7 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 shadow-sm leading-relaxed whitespace-pre-wrap break-words text-gray-700 dark:text-gray-200 text-lg font-medium">
+              <div className="absolute -inset-1 bg-gradient-to-r from-destructive/10 to-transparent rounded-xl blur opacity-25" />
+              <div className="relative bg-white dark:bg-muted p-7 rounded-[1.5rem] border border-border dark:border-border shadow-sm leading-relaxed whitespace-pre-wrap break-words text-foreground text-lg font-medium">
                 {watch("description") || "سيتم عرض وصف المخالفة هنا..."}
               </div>
             </div>
@@ -88,12 +88,12 @@ export const CreateWarningPreviewDialog: React.FC<
 
           {watch("actionTaken") && (
             <div className="space-y-3">
-              <h4 className="text-[10px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest flex items-center gap-2 px-1">
+              <h4 className="text-[10px] font-black text-warning dark:text-warning uppercase tracking-widest flex items-center gap-2 px-1">
                 <Gavel className="h-3.5 w-3.5" />
                 الإجراء الإداري المتخذ
               </h4>
-              <div className="bg-amber-500/5 dark:bg-amber-500/10 p-6 rounded-[1.5rem] border border-amber-500/10 shadow-sm border-dashed">
-                <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words text-md leading-relaxed">
+              <div className="bg-amber-500/5 dark:bg-warning/10 p-6 rounded-[1.5rem] border border-warning/10 shadow-sm border-dashed">
+                <p className="text-foreground whitespace-pre-wrap break-words text-md leading-relaxed">
                   {watch("actionTaken")}
                 </p>
               </div>

@@ -30,7 +30,7 @@ export const PendingPermissionsCard: React.FC<PendingPermissionsCardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
           <div className="p-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg">
@@ -93,7 +93,7 @@ export const PendingPermissionsCard: React.FC<PendingPermissionsCardProps> = ({
                   <Button
                     size="sm"
                     onClick={() => onAction(perm.id, "approve")}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white h-8 text-xs font-semibold shadow-xs"
+                    className="flex-1 bg-success hover:bg-success text-white h-8 text-xs font-semibold shadow-xs"
                   >
                     {t("hrDashboard.approve")}
                   </Button>

@@ -1,15 +1,15 @@
 export const ASSET_STATUS_STYLES: Record<string, string> = {
   AVAILABLE:
-    "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 border border-green-200 dark:border-green-800/50",
+    "bg-green-100 text-success dark:bg-success/40 dark:text-success border border-success dark:border-success/50",
   IN_USE:
     "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50",
   MAINTENANCE:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800/50",
+    "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning border border-warning dark:border-warning/50",
   RETIRED:
-    "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600",
-  LOST: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border border-red-200 dark:border-red-800/50",
+    "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground border border-border",
+  LOST: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive dark:border-destructive/50",
   RESERVED:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800/50",
+    "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary border border-primary dark:border-primary/50",
 };
 
 export const ASSET_STATUS_LABELS: Record<string, string> = {

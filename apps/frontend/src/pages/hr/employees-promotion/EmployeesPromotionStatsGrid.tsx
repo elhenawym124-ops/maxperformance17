@@ -13,34 +13,34 @@ export const EmployeesPromotionStatsGrid: React.FC<
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
       <Card>
         <CardContent className="p-4 text-center">
-          <div className="text-2xl font-bold text-gray-900 font-mono tabular-nums">
+          <div className="text-2xl font-bold text-foreground font-mono tabular-nums">
             {stats.total}
           </div>
-          <div className="text-sm text-gray-500">إجمالي الترقيات</div>
+          <div className="text-sm text-muted-foreground">إجمالي الترقيات</div>
         </CardContent>
       </Card>
       <Card>
         <CardContent className="p-4 text-center">
-          <div className="text-2xl font-bold text-yellow-600 font-mono tabular-nums">
+          <div className="text-2xl font-bold text-warning font-mono tabular-nums">
             {stats.pending}
           </div>
-          <div className="text-sm text-gray-500">قيد المراجعة</div>
+          <div className="text-sm text-muted-foreground">قيد المراجعة</div>
         </CardContent>
       </Card>
       <Card>
         <CardContent className="p-4 text-center">
-          <div className="text-2xl font-bold text-green-600 font-mono tabular-nums">
+          <div className="text-2xl font-bold text-success font-mono tabular-nums">
             {stats.approved}
           </div>
-          <div className="text-sm text-gray-500">موافق عليها</div>
+          <div className="text-sm text-muted-foreground">موافق عليها</div>
         </CardContent>
       </Card>
       <Card>
         <CardContent className="p-4 text-center">
-          <div className="text-2xl font-bold text-red-600 font-mono tabular-nums">
+          <div className="text-2xl font-bold text-destructive font-mono tabular-nums">
             {stats.rejected}
           </div>
-          <div className="text-sm text-gray-500">مرفوضة</div>
+          <div className="text-sm text-muted-foreground">مرفوضة</div>
         </CardContent>
       </Card>
       <Card>
@@ -48,7 +48,7 @@ export const EmployeesPromotionStatsGrid: React.FC<
           <div className="text-2xl font-bold text-blue-600 font-mono tabular-nums">
             {stats.completed}
           </div>
-          <div className="text-sm text-gray-500">مكتملة</div>
+          <div className="text-sm text-muted-foreground">مكتملة</div>
         </CardContent>
       </Card>
     </div>

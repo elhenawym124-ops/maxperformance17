@@ -30,9 +30,9 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
   if (!selectedReceipt) {
     return (
       <div className="lg:col-span-8">
-        <div className="h-full flex flex-col items-center justify-center p-12 bg-white dark:bg-gray-800 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-          <DocumentTextIcon className="h-20 w-20 text-gray-200 mb-4" />
-          <h3 className="text-xl font-bold text-gray-400">
+        <div className="h-full flex flex-col items-center justify-center p-12 bg-card rounded-xl border-2 border-dashed border-border dark:border-border">
+          <DocumentTextIcon className="h-20 w-20 text-muted-foreground mb-4" />
+          <h3 className="text-xl font-bold text-muted-foreground">
             اختر طلباً من القائمة لعرض النموذج
           </h3>
         </div>
@@ -43,7 +43,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
   return (
     <div className="lg:col-span-8 space-y-6">
       {/* Actions Bar - Hidden on Print */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 print:hidden">
+      <div className="flex flex-wrap items-center justify-between gap-4 bg-card p-4 rounded-xl border border-border dark:border-border print:hidden">
         <div className="flex gap-2">
           <button
             onClick={onPrint}
@@ -54,7 +54,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
           </button>
           <button
             onClick={onGeneratePDF}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-50 transition-all font-medium"
+            className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-xl text-foreground hover:bg-muted transition-all font-medium"
           >
             <ArrowDownTrayIcon className="h-5 w-5" />
             حفظ كـ PDF
@@ -73,10 +73,10 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
 
       {/* Signature Upload Placeholder - Hidden on Print */}
       {showUploadSignature && (
-        <div className="p-6 bg-muted/20 border-2 border-dashed border-border/70 rounded-2xl print:hidden">
+        <div className="p-6 bg-muted/20 border-2 border-dashed border-border/70 rounded-xl print:hidden">
           <div className="flex flex-col items-center text-center">
-            <CloudArrowUpIcon className="h-10 w-10 text-indigo-500 mb-2" />
-            <h4 className="font-bold text-indigo-900 dark:text-indigo-100">
+            <CloudArrowUpIcon className="h-10 w-10 text-primary mb-2" />
+            <h4 className="font-bold text-primary dark:text-primary">
               تحميل صورة التوقيع
             </h4>
             <p className="text-sm text-muted-foreground mb-4">
@@ -95,15 +95,15 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
 
       {/* THE FORM CONTAINER */}
       <div
-        className={`bg-white text-gray-900 p-8 sm:p-12 shadow-2xl rounded-sm border border-gray-100 mx-auto max-w-[800px] font-sans relative ${
+        className={`bg-white text-foreground p-8 sm:p-12 shadow-2xl rounded-sm border border-border mx-auto max-w-[800px] font-sans relative ${
           isPrinting ? "print:shadow-none print:border-none print:p-0" : ""
         }`}
         id="printable-receipt"
       >
         {/* Form Header */}
-        <div className="flex justify-between items-start border-b-4 border-indigo-600 pb-8 mb-8">
+        <div className="flex justify-between items-start border-b-4 border-primary pb-8 mb-8">
           <div>
-            <h1 className="text-3xl font-black text-gray-900 mb-2">
+            <h1 className="text-3xl font-black text-foreground mb-2">
               نموذج استلام عهدة
             </h1>
             <p className="text-indigo-600 font-bold">
@@ -111,8 +111,8 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
             </p>
           </div>
           <div className="text-left" dir="ltr">
-            <p className="text-sm font-bold text-gray-400">Reference No.</p>
-            <p className="text-xl font-mono tabular-nums font-bold text-gray-900">
+            <p className="text-sm font-bold text-muted-foreground">Reference No.</p>
+            <p className="text-xl font-mono tabular-nums font-bold text-foreground">
               {selectedReceipt.referenceNumber}
             </p>
           </div>
@@ -120,39 +120,39 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
 
         {/* Employee Info Section */}
         <div className="mb-8">
-          <h4 className="text-xs font-black text-white bg-gray-900 px-3 py-1.5 inline-block rounded mb-4">
+          <h4 className="text-xs font-black text-white bg-muted px-3 py-1.5 inline-block rounded mb-4">
             أولاً: بيانات الموظف المستلم
           </h4>
           <div className="grid grid-cols-2 gap-y-4 gap-x-12">
             <div>
-              <h5 className="text-[10px] font-bold text-indigo-600 mb-0.5 uppercase">
+              <h5 className="text-[10px] font-bold text-primary mb-0.5 uppercase">
                 اسم الموظف
               </h5>
-              <p className="text-base font-bold border-b border-gray-50 pb-1">
+              <p className="text-base font-bold border-b border-border pb-1">
                 {selectedReceipt.employeeName}
               </p>
             </div>
             <div>
-              <h5 className="text-[10px] font-bold text-indigo-600 mb-0.5 uppercase">
+              <h5 className="text-[10px] font-bold text-primary mb-0.5 uppercase">
                 المسمى الوظيفي
               </h5>
-              <p className="text-base font-bold border-b border-gray-50 pb-1">
+              <p className="text-base font-bold border-b border-border pb-1">
                 {selectedReceipt.jobTitle}
               </p>
             </div>
             <div>
-              <h5 className="text-[10px] font-bold text-indigo-600 mb-0.5 uppercase">
+              <h5 className="text-[10px] font-bold text-primary mb-0.5 uppercase">
                 الرقم الوظيفي
               </h5>
-              <p className="text-base font-bold border-b border-gray-50 pb-1 font-mono tabular-nums">
+              <p className="text-base font-bold border-b border-border pb-1 font-mono tabular-nums">
                 {selectedReceipt.employeeId}
               </p>
             </div>
             <div>
-              <h5 className="text-[10px] font-bold text-indigo-600 mb-0.5 uppercase">
+              <h5 className="text-[10px] font-bold text-primary mb-0.5 uppercase">
                 الإدارة / القسم
               </h5>
-              <p className="text-base font-bold border-b border-gray-50 pb-1">
+              <p className="text-base font-bold border-b border-border pb-1">
                 {selectedReceipt.department}
               </p>
             </div>
@@ -161,10 +161,10 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
 
         {/* Asset Details Section */}
         <div className="mb-8">
-          <h4 className="text-xs font-black text-white bg-gray-900 px-3 py-1.5 inline-block rounded mb-4">
+          <h4 className="text-xs font-black text-white bg-muted px-3 py-1.5 inline-block rounded mb-4">
             ثانياً: تفاصيل الأصل المستلم (العهدة)
           </h4>
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+          <div className="bg-gray-50 border border-border rounded-xl p-6">
             <div className="grid grid-cols-2 gap-y-4 gap-x-8">
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-500">اسم الجهاز:</span>
@@ -188,9 +188,9 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
                   {selectedReceipt.assetSerial}
                 </span>
               </div>
-              <div className="flex justify-between items-center text-sm pt-2 border-t border-gray-200 col-span-2">
+              <div className="flex justify-between items-center text-sm pt-2 border-t border-border col-span-2">
                 <span className="text-gray-500">حالة الجهاز عند الاستلام:</span>
-                <span className="font-bold text-indigo-600">
+                <span className="font-bold text-primary">
                   {selectedReceipt.assetCondition}
                 </span>
               </div>
@@ -199,11 +199,11 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
         </div>
 
         {/* Execution Date Section */}
-        <div className="mb-8 flex items-center justify-between p-4 bg-indigo-50/50 border border-indigo-100 rounded-lg">
-          <span className="text-xs font-bold text-indigo-900">
+        <div className="mb-8 flex items-center justify-between p-4 bg-primary/50 border border-primary rounded-lg">
+          <span className="text-xs font-bold text-primary">
             تاريخ تسليم العهدة واعتماد النموذج:
           </span>
-          <span className="text-sm font-black text-indigo-700 font-mono tabular-nums">
+          <span className="text-sm font-black text-primary font-mono tabular-nums">
             {format(new Date(selectedReceipt.date), "PPP", {
               locale: ar,
             })}
@@ -211,7 +211,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
         </div>
 
         {/* Legal Text */}
-        <div className="text-[11px] text-gray-500 leading-relaxed text-justify italic mb-12 border-r-2 border-gray-200 pr-4">
+        <div className="text-[11px] text-muted-foreground leading-relaxed text-justify italic mb-12 border-r-2 border-border pe-4">
           <p>
             أقر أنا الموضح اسمي أعلاه في (أولاً) بأنني قد استلمت العهدة المبينة
             تفاصيلها في (ثانياً) عهداً شخصياً، وأتعهد بالمحافظة عليها من الكسر
@@ -222,7 +222,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
         </div>
 
         {/* Signatures */}
-        <div className="grid grid-cols-2 gap-12 mt-16 pt-8 border-t border-gray-100">
+        <div className="grid grid-cols-2 gap-12 mt-16 pt-8 border-t border-border">
           <div className="text-center">
             <h5 className="font-bold mb-12 text-sm">توقيع الموظف المستلم</h5>
             {selectedReceipt.signatureUrl || showUploadSignature ? (
@@ -237,7 +237,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
                 />
               </div>
             ) : (
-              <div className="border-b border-dashed border-gray-400 w-48 mx-auto h-16" />
+              <div className="border-b border-dashed border-border w-48 mx-auto h-16" />
             )}
           </div>
           <div className="text-center">
@@ -245,7 +245,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
               توقيع مدير الموارد البشرية / المسؤول
             </h5>
             <div className="h-16 flex items-center justify-center">
-              <p className="font-serif italic text-xl text-indigo-900 opacity-50">
+              <p className="font-serif italic text-xl text-primary opacity-50">
                 Authorized Signature
               </p>
             </div>
@@ -253,7 +253,7 @@ export const ReceiptDocumentPreview: React.FC<ReceiptDocumentPreviewProps> = ({
         </div>
 
         {/* Form Footer */}
-        <div className="mt-20 pt-4 border-t-2 border-gray-100 flex justify-between items-center text-[10px] text-gray-400 uppercase font-mono tabular-nums tracking-widest">
+        <div className="mt-20 pt-4 border-t-2 border-border flex justify-between items-center text-[10px] text-muted-foreground uppercase font-mono tabular-nums tracking-widest">
           <span>Generated by MaxP HR System</span>
           <span>Digital Receipt ID: {selectedReceipt.id}</span>
         </div>

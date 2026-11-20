@@ -64,8 +64,8 @@ export const LeaveDetailsDialog: React.FC<LeaveDetailsDialogProps> = ({
                 <Badge
                   className={
                     selectedRequest.type !== "UNPAID"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-800"
+                      ? "bg-green-100 text-success"
+                      : "bg-red-100 text-destructive"
                   }
                 >
                   {selectedRequest.type !== "UNPAID"
@@ -116,9 +116,9 @@ export const LeaveDetailsDialog: React.FC<LeaveDetailsDialogProps> = ({
             )}
 
             {selectedRequest.rejectionReason && (
-              <div className="p-3 bg-red-50 rounded-lg">
+              <div className="p-3 bg-destructive/10 rounded-lg">
                 <Label className="text-red-600">{t("employee.leaves.rejectReasonLabel")}</Label>
-                <p className="mt-1 text-red-700">
+                <p className="mt-1 text-destructive">
                   {selectedRequest.rejectionReason}
                 </p>
               </div>

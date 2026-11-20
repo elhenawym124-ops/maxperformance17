@@ -33,7 +33,7 @@ export const CompanyPolicyViewDialog: React.FC<CompanyPolicyViewDialogProps> = (
             <Badge variant="outline">
               {viewingPolicy && getCategoryLabel(viewingPolicy.category)}
             </Badge>
-            <span className="text-sm text-gray-500 font-mono tabular-nums">
+            <span className="text-sm text-muted-foreground font-mono tabular-nums">
               النسخة {viewingPolicy?.version}.0
             </span>
           </div>
@@ -66,7 +66,7 @@ export const CompanyPolicyViewDialog: React.FC<CompanyPolicyViewDialogProps> = (
               }
             }}
           >
-            <Edit className="h-4 w-4 ml-2" />
+            <Edit className="h-4 w-4 ms-2" />
             تعديل السياسة
           </Button>
         </DialogFooter>

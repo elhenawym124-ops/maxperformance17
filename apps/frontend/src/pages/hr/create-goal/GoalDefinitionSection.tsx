@@ -52,7 +52,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
               key={option.value}
               type="button"
               onClick={() => setField("goalType", option.value)}
-              className={`rounded-3xl border px-4 py-4 text-right transition-colors ${
+              className={`rounded-xl border px-4 py-4 text-right transition-colors ${
                 active
                   ? "border-primary/40 bg-primary/8"
                   : "border-border/70 bg-background hover:border-primary/20"
@@ -75,7 +75,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             value={form.title}
             onChange={(event) => setField("title", event.target.value)}
             placeholder="مثال: تحقيق 3000 أوردر خلال الشهر"
-            className="rounded-2xl"
+            className="rounded-xl"
           />
         </div>
 
@@ -85,7 +85,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             value={form.unit}
             onChange={(event) => setField("unit", event.target.value)}
             placeholder="طلب / عملية / عقد"
-            className="rounded-2xl"
+            className="rounded-xl"
           />
         </div>
       </div>
@@ -96,7 +96,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
           value={form.description}
           onChange={(event) => setField("description", event.target.value)}
           placeholder="صف النتيجة المطلوبة وكيف سنعرف أن الهدف تحقق"
-          className="min-h-[120px] rounded-2xl"
+          className="min-h-[120px] rounded-xl"
         />
       </div>
 
@@ -109,7 +109,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             min="0"
             value={form.targetValue}
             onChange={(event) => setField("targetValue", event.target.value)}
-            className="rounded-2xl font-mono tabular-nums"
+            className="rounded-xl font-mono tabular-nums"
           />
         </div>
 
@@ -120,7 +120,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             min="0"
             value={form.currentValue}
             onChange={(event) => setField("currentValue", event.target.value)}
-            className="rounded-2xl font-mono tabular-nums"
+            className="rounded-xl font-mono tabular-nums"
           />
         </div>
 
@@ -131,7 +131,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             onChange={(event) =>
               setField("status", event.target.value as GoalStatus)
             }
-            className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
           >
             {STATUS_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -148,7 +148,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             onChange={(event) =>
               setField("priority", event.target.value as GoalPriority)
             }
-            className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
           >
             {PRIORITY_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -167,7 +167,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             
             value={form.startDate}
             onChange={(event) => setField("startDate", event.target.value)}
-            className="rounded-2xl font-mono tabular-nums"
+            className="rounded-xl font-mono tabular-nums"
           />
         </div>
 
@@ -178,7 +178,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             
             value={form.endDate}
             onChange={(event) => setField("endDate", event.target.value)}
-            className="rounded-2xl font-mono tabular-nums"
+            className="rounded-xl font-mono tabular-nums"
           />
         </div>
 
@@ -188,7 +188,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             data-testid="goal-project-select"
             value={form.projectId}
             onChange={(event) => setField("projectId", event.target.value)}
-            className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
           >
             <option value="">بدون مشروع</option>
             {projects.map((project) => (
@@ -206,7 +206,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             onChange={(event) =>
               setField("parentGoalId", event.target.value)
             }
-            className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
           >
             <option value="">بدون هدف أب</option>
             {availableParentGoals.map((goal) => (
@@ -225,7 +225,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             <select
               value={form.employeeId}
               onChange={(event) => setField("employeeId", event.target.value)}
-              className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+              className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
             >
               <option value="">اختر الموظف</option>
               {employees.map((employee) => (
@@ -236,7 +236,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             </select>
           </div>
 
-          <div className="flex items-end justify-between gap-3 rounded-2xl border border-border/70 bg-muted/20 px-4 py-3">
+          <div className="flex items-end justify-between gap-3 rounded-xl border border-border/70 bg-muted/20 px-4 py-3">
             <div>
               <div className="text-sm font-medium">توليد أهداف يومية</div>
               <div className="text-xs text-muted-foreground">
@@ -262,7 +262,7 @@ export const GoalDefinitionSection: React.FC<GoalDefinitionSectionProps> = ({
             onChange={(event) =>
               setField("departmentId", event.target.value)
             }
-            className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+            className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
           >
             <option value="">اختر القسم</option>
             {departments.map((department) => (

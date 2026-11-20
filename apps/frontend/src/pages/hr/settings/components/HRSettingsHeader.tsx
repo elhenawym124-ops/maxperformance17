@@ -36,7 +36,7 @@ export const HRSettingsHeader: React.FC<HRSettingsHeaderProps> = ({
                 </h1>
                 {hasUnsavedChanges && (
                   <span
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20"
                     role="status"
                     aria-live="polite"
                   >
@@ -99,7 +99,7 @@ export const HRSettingsHeader: React.FC<HRSettingsHeaderProps> = ({
               </Button>
               {hasUnsavedChanges && (
                 <span
-                  className="text-[10px] text-gray-500 dark:text-gray-400 text-center sm:text-end hidden sm:inline tabular-nums font-mono"
+                  className="text-[10px] text-muted-foreground text-center sm:text-end hidden sm:inline tabular-nums font-mono"
                   dir="ltr"
                 >
                   Ctrl+S
@@ -109,14 +109,14 @@ export const HRSettingsHeader: React.FC<HRSettingsHeaderProps> = ({
           </div>
         </div>
         {Object.keys(errors).length > 0 && (
-          <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <div className="mt-4 p-3 bg-destructive/10 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-lg">
             <div className="flex items-start gap-2">
-              <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+              <AlertCircle className="h-5 w-5 text-destructive dark:text-destructive mt-0.5 flex-shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-red-800 dark:text-red-200 mb-1">
+                <p className="text-sm font-medium text-destructive dark:text-destructive mb-1">
                   يوجد أخطاء في الإعدادات:
                 </p>
-                <ul className="text-sm text-red-700 dark:text-red-300 list-disc list-inside space-y-1">
+                <ul className="text-sm text-destructive dark:text-destructive list-disc list-inside space-y-1">
                   {Object.entries(errors).map(([key, message]) => (
                     <li key={key}>{message}</li>
                   ))}
@@ -124,7 +124,7 @@ export const HRSettingsHeader: React.FC<HRSettingsHeaderProps> = ({
               </div>
               <button
                 onClick={onClearErrors}
-                className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200"
+                className="text-red-600 dark:text-destructive hover:text-destructive dark:hover:text-destructive"
                 type="button"
                 aria-label="إغلاق التنبيه"
               >

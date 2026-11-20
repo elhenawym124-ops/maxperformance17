@@ -29,8 +29,8 @@ export const TaskPerformanceListsSection: React.FC<
     <>
       {/* Completed Tasks List Table / Feed */}
       {tasks.length > 0 ? (
-        <div className="mt-3 overflow-hidden rounded-lg border border-border/40 bg-card dark:bg-zinc-950/30">
-          <div className="border-b border-border/40 bg-muted/50 dark:bg-zinc-900/50 px-3 py-2 text-xs font-semibold text-foreground">
+        <div className="mt-3 overflow-hidden rounded-lg border border-border/40 bg-card dark:bg-muted">
+          <div className="border-b border-border/40 bg-muted/50 dark:bg-muted px-3 py-2 text-xs font-semibold text-foreground">
             المهام المنفذة والمسجلة اليوم (
             <span className="font-mono tabular-nums">{tasks.length}</span>)
           </div>
@@ -48,13 +48,13 @@ export const TaskPerformanceListsSection: React.FC<
               return (
                 <div
                   key={task.id}
-                  className="flex items-center justify-between p-2.5 text-xs transition-colors hover:bg-muted/50 dark:hover:bg-zinc-900/40"
+                  className="flex items-center justify-between p-2.5 text-xs transition-colors hover:bg-muted/50 dark:hover:bg-muted"
                 >
                   <div className="flex items-center gap-2">
                     {isReview ? (
-                      <Clock className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400 shrink-0" />
+                      <Clock className="h-3.5 w-3.5 text-warning dark:text-warning shrink-0" />
                     ) : (
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
+                      <CheckCircle2 className="h-3.5 w-3.5 text-success dark:text-success shrink-0" />
                     )}
                     <div>
                       <div className="font-semibold text-foreground">
@@ -67,16 +67,16 @@ export const TaskPerformanceListsSection: React.FC<
                   </div>
                   <div className="flex items-center gap-2 font-mono tabular-nums">
                     {isReview ? (
-                      <span className="rounded bg-amber-50 text-amber-700 border border-amber-200 dark:border-transparent dark:bg-amber-500/10 dark:text-amber-300 px-1.5 py-0.5 text-[10px] font-medium">
+                      <span className="rounded bg-warning/10 text-warning border border-warning dark:border-transparent dark:bg-warning/10 dark:text-warning px-1.5 py-0.5 text-[10px] font-medium">
                         قيد الاعتماد
                       </span>
                     ) : (
-                      <span className="rounded bg-emerald-50 text-emerald-700 border border-emerald-200 dark:border-transparent dark:bg-emerald-500/10 dark:text-emerald-400 px-1.5 py-0.5 text-[10px] font-medium">
+                      <span className="rounded bg-success/10 text-success border border-success dark:border-transparent dark:bg-success/10 dark:text-success px-1.5 py-0.5 text-[10px] font-medium">
                         معتمدة
                       </span>
                     )}
                     {task.priority && (
-                      <span className="rounded bg-muted dark:bg-zinc-800 px-1.5 py-0.5 text-[10px] text-muted-foreground dark:text-zinc-300">
+                      <span className="rounded bg-muted dark:bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground dark:text-muted-foreground">
                         {task.priority}
                       </span>
                     )}
@@ -91,7 +91,7 @@ export const TaskPerformanceListsSection: React.FC<
         </div>
       ) : (
         <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-border/40 p-3 text-xs text-muted-foreground">
-          <AlertCircle className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
+          <AlertCircle className="h-4 w-4 text-warning dark:text-warning shrink-0" />
           <span>
             لم تُسجل مهام رسمية مكتملة اليوم على النظام. قد يكون وقت العمل
             الفعلي (
@@ -105,8 +105,8 @@ export const TaskPerformanceListsSection: React.FC<
 
       {/* Created / Delegated Tasks List */}
       {createdTasks.length > 0 && (
-        <div className="mt-3 overflow-hidden rounded-lg border border-border/40 bg-card dark:bg-zinc-950/30">
-          <div className="flex items-center gap-1.5 border-b border-border/40 bg-muted/50 dark:bg-zinc-900/50 px-3 py-2 text-xs font-semibold text-sky-600 dark:text-sky-400">
+        <div className="mt-3 overflow-hidden rounded-lg border border-border/40 bg-card dark:bg-muted">
+          <div className="flex items-center gap-1.5 border-b border-border/40 bg-muted/50 dark:bg-muted px-3 py-2 text-xs font-semibold text-info dark:text-info">
             <ListTodo className="h-3.5 w-3.5" />
             <span>
               المهام التي قام الموظف بإنشائها وتكليفها اليوم (
@@ -128,10 +128,10 @@ export const TaskPerformanceListsSection: React.FC<
               return (
                 <div
                   key={task.id}
-                  className="flex items-center justify-between p-2.5 text-xs transition-colors hover:bg-muted/50 dark:hover:bg-zinc-900/40"
+                  className="flex items-center justify-between p-2.5 text-xs transition-colors hover:bg-muted/50 dark:hover:bg-muted"
                 >
                   <div className="flex items-center gap-2">
-                    <ListTodo className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400 shrink-0" />
+                    <ListTodo className="h-3.5 w-3.5 text-info dark:text-info shrink-0" />
                     <div>
                       <div className="font-semibold text-foreground">
                         {task.title}
@@ -146,7 +146,7 @@ export const TaskPerformanceListsSection: React.FC<
                   </div>
                   <div className="flex items-center gap-2 font-mono tabular-nums">
                     {task.priority && (
-                      <span className="rounded bg-muted dark:bg-zinc-800 px-1.5 py-0.5 text-[10px] text-muted-foreground dark:text-zinc-300">
+                      <span className="rounded bg-muted dark:bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground dark:text-muted-foreground">
                         {task.priority}
                       </span>
                     )}
@@ -163,9 +163,9 @@ export const TaskPerformanceListsSection: React.FC<
 
       {/* Open & Overdue Tasks List */}
       {openTasks.length > 0 && (
-        <div className="mt-3 overflow-hidden rounded-lg border border-border/40 bg-card dark:bg-zinc-950/30">
-          <div className="flex items-center justify-between border-b border-border/40 bg-muted/50 dark:bg-zinc-900/50 px-3 py-2 text-xs font-semibold text-foreground">
-            <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400">
+        <div className="mt-3 overflow-hidden rounded-lg border border-border/40 bg-card dark:bg-muted">
+          <div className="flex items-center justify-between border-b border-border/40 bg-muted/50 dark:bg-muted px-3 py-2 text-xs font-semibold text-foreground">
+            <div className="flex items-center gap-1.5 text-primary">
               <Clock className="h-3.5 w-3.5" />
               <span>
                 المهام المتبقية قيد التنفيذ (
@@ -176,7 +176,7 @@ export const TaskPerformanceListsSection: React.FC<
               </span>
             </div>
             {overdueCount > 0 && (
-              <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+              <span className="text-[10px] font-bold text-destructive dark:text-destructive font-mono tabular-nums">
                 منها {overdueCount} متأخرة عن موعدها
               </span>
             )}
@@ -195,11 +195,11 @@ export const TaskPerformanceListsSection: React.FC<
               return (
                 <div
                   key={task.id}
-                  className="flex items-center justify-between p-2.5 text-xs transition-colors hover:bg-muted/50 dark:hover:bg-zinc-900/40"
+                  className="flex items-center justify-between p-2.5 text-xs transition-colors hover:bg-muted/50 dark:hover:bg-muted"
                 >
                   <div className="flex items-center gap-2">
                     <Clock
-                      className={`h-3.5 w-3.5 shrink-0 ${isOverdue ? "text-rose-500" : "text-indigo-500 dark:text-indigo-400"}`}
+                      className={`h-3.5 w-3.5 shrink-0 ${isOverdue ? "text-rose-500" : "text-indigo-500 dark:text-primary"}`}
                     />
                     <div>
                       <div className="font-semibold text-foreground">
@@ -212,7 +212,7 @@ export const TaskPerformanceListsSection: React.FC<
                   </div>
                   <div className="flex items-center gap-2 font-mono tabular-nums">
                     {isOverdue ? (
-                      <span className="rounded bg-rose-50 text-rose-700 border border-rose-200 dark:border-transparent dark:bg-rose-500/10 dark:text-rose-300 px-1.5 py-0.5 text-[10px] font-bold">
+                      <span className="rounded bg-destructive/10 text-destructive border border-destructive dark:border-transparent dark:bg-destructive/10 dark:text-destructive px-1.5 py-0.5 text-[10px] font-bold">
                         متأخرة ({dueStr})
                       </span>
                     ) : dueStr ? (
@@ -221,7 +221,7 @@ export const TaskPerformanceListsSection: React.FC<
                       </span>
                     ) : null}
                     {task.priority && (
-                      <span className="rounded bg-muted dark:bg-zinc-800 px-1.5 py-0.5 text-[10px] text-muted-foreground dark:text-zinc-300">
+                      <span className="rounded bg-muted dark:bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground dark:text-muted-foreground">
                         {task.priority}
                       </span>
                     )}

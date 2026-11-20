@@ -56,20 +56,20 @@ const BenefitsSection: React.FC = () => {
   const colorClasses: Record<string, string> = {
     blue: "text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-900/30",
     indigo:
-      "text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-900/30",
+      "text-primary border-primary dark:border-primary/30",
     green:
-      "text-green-600 dark:text-green-400 border-green-100 dark:border-green-900/30",
+      "text-green-600 dark:text-success border-success dark:border-success/30",
     purple:
-      "text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-900/30",
+      "text-purple-600 dark:text-primary border-primary dark:border-primary/30",
   };
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-          <CheckCircleIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
+        <div className="p-2 bg-success dark:bg-success/30 rounded-lg">
+          <CheckCircleIcon className="h-6 w-6 text-success dark:text-success" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           الفوائد العملية للنظام
         </h2>
       </div>
@@ -78,7 +78,7 @@ const BenefitsSection: React.FC = () => {
         {benefitGroups.map((group, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm"
+            className="bg-card rounded-xl overflow-hidden border border-border dark:border-border shadow-sm"
           >
             <div
               className={`px-6 py-4 flex items-center justify-between border-b ${colorClasses[group.color]}`}
@@ -97,7 +97,7 @@ const BenefitsSection: React.FC = () => {
                         className={`h-5 w-5 ${(colorClasses[group.color] || "text-indigo-600").split(" ")[0]}`}
                       />
                     </div>
-                    <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <span className="text-foreground leading-relaxed">
                       {benefit}
                     </span>
                   </li>

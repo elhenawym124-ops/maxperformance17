@@ -18,14 +18,14 @@ export const AddMaintenanceRecordModal: React.FC<
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
-      <div className="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-[2.5rem] p-10 shadow-2xl animate-scale-in">
+      <div className="bg-card w-full max-w-2xl rounded-[2.5rem] p-10 shadow-2xl animate-scale-in">
         <div className="flex justify-between items-center mb-8">
-          <h3 className="text-2xl font-black text-gray-900 dark:text-white">
+          <h3 className="text-2xl font-black text-foreground">
             تسجيل عملية صيانة / جدولة
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-3xl font-light transition-colors"
+            className="text-gray-400 hover:text-foreground text-3xl font-light transition-colors"
           >
             &times;
           </button>
@@ -33,7 +33,7 @@ export const AddMaintenanceRecordModal: React.FC<
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
-            <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">
+            <label className="block text-[10px] font-black text-muted-foreground mb-2 uppercase tracking-widest">
               اختيار الأصل
             </label>
             <select
@@ -41,7 +41,7 @@ export const AddMaintenanceRecordModal: React.FC<
               onChange={(e) =>
                 onChangeRecord({ ...newRecord, assetId: e.target.value })
               }
-              className="w-full bg-gray-50 dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 rounded-2xl px-5 py-3 text-sm font-bold dark:text-white focus:border-indigo-500 outline-none transition-all"
+              className="w-full bg-muted dark:bg-muted border-2 border-border dark:border-border rounded-xl px-5 py-3 text-sm font-bold dark:text-white focus:border-primary outline-none transition-all"
             >
               <option value="">-- اختر الأصل من القائمة --</option>
               {assets.map((a) => (
@@ -53,7 +53,7 @@ export const AddMaintenanceRecordModal: React.FC<
           </div>
 
           <div>
-            <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">
+            <label className="block text-[10px] font-black text-muted-foreground mb-2 uppercase tracking-widest">
               نوع العملية
             </label>
             <select
@@ -61,7 +61,7 @@ export const AddMaintenanceRecordModal: React.FC<
               onChange={(e) =>
                 onChangeRecord({ ...newRecord, type: e.target.value })
               }
-              className="w-full bg-gray-50 dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 rounded-2xl px-5 py-3 text-sm font-bold dark:text-white focus:border-indigo-500 outline-none transition-all"
+              className="w-full bg-muted dark:bg-muted border-2 border-border dark:border-border rounded-xl px-5 py-3 text-sm font-bold dark:text-white focus:border-primary outline-none transition-all"
             >
               <option>صيانة دورية</option>
               <option>إصلاح عطل</option>
@@ -71,7 +71,7 @@ export const AddMaintenanceRecordModal: React.FC<
           </div>
 
           <div>
-            <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">
+            <label className="block text-[10px] font-black text-muted-foreground mb-2 uppercase tracking-widest">
               الحالة
             </label>
             <select
@@ -82,7 +82,7 @@ export const AddMaintenanceRecordModal: React.FC<
                   status: e.target.value,
                 })
               }
-              className="w-full bg-gray-50 dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 rounded-2xl px-5 py-3 text-sm font-bold dark:text-white focus:border-indigo-500 outline-none transition-all"
+              className="w-full bg-muted dark:bg-muted border-2 border-border dark:border-border rounded-xl px-5 py-3 text-sm font-bold dark:text-white focus:border-primary outline-none transition-all"
             >
               <option value="COMPLETED">تمت بنجاح (سجل تاريخي)</option>
               <option value="SCHEDULED">مجدولة (تنبيه مستقبلي)</option>
@@ -90,7 +90,7 @@ export const AddMaintenanceRecordModal: React.FC<
           </div>
 
           <div>
-            <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">
+            <label className="block text-[10px] font-black text-muted-foreground mb-2 uppercase tracking-widest">
               التكلفة المتوقعة/الفعلية
             </label>
             <input
@@ -99,13 +99,13 @@ export const AddMaintenanceRecordModal: React.FC<
               onChange={(e) =>
                 onChangeRecord({ ...newRecord, cost: e.target.value })
               }
-              className="w-full bg-gray-50 dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 rounded-2xl px-5 py-3 text-sm font-bold dark:text-white focus:border-indigo-500 outline-none transition-all font-mono tabular-nums"
+              className="w-full bg-muted dark:bg-muted border-2 border-border dark:border-border rounded-xl px-5 py-3 text-sm font-bold dark:text-white focus:border-primary outline-none transition-all font-mono tabular-nums"
               placeholder="0.00"
             />
           </div>
 
           <div>
-            <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">
+            <label className="block text-[10px] font-black text-muted-foreground mb-2 uppercase tracking-widest">
               التاريخ
             </label>
             <DateInput
@@ -113,12 +113,12 @@ export const AddMaintenanceRecordModal: React.FC<
               onChange={(e) =>
                 onChangeRecord({ ...newRecord, startDate: e.target.value })
               }
-              className="w-full bg-gray-50 dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 rounded-2xl px-5 py-3 text-sm font-bold dark:text-white focus:border-indigo-500 outline-none transition-all font-mono tabular-nums"
+              className="w-full bg-muted dark:bg-muted border-2 border-border dark:border-border rounded-xl px-5 py-3 text-sm font-bold dark:text-white focus:border-primary outline-none transition-all font-mono tabular-nums"
             />
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest">
+            <label className="block text-[10px] font-black text-muted-foreground mb-2 uppercase tracking-widest">
               وصف العملية / ملاحظات
             </label>
             <textarea
@@ -126,7 +126,7 @@ export const AddMaintenanceRecordModal: React.FC<
               onChange={(e) =>
                 onChangeRecord({ ...newRecord, description: e.target.value })
               }
-              className="w-full bg-gray-50 dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 rounded-2xl px-5 py-4 text-sm font-bold dark:text-white h-24 outline-none focus:border-indigo-500 transition-all"
+              className="w-full bg-muted dark:bg-muted border-2 border-border dark:border-border rounded-xl px-5 py-4 text-sm font-bold dark:text-white h-24 outline-none focus:border-primary transition-all"
               placeholder="اكتب تفاصيل ما تم أو ما سيتم القيام به..."
             ></textarea>
           </div>
@@ -141,7 +141,7 @@ export const AddMaintenanceRecordModal: React.FC<
           </button>
           <button
             onClick={onClose}
-            className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 py-4 rounded-2xl font-black text-sm hover:bg-gray-200 transition-all"
+            className="flex-1 bg-muted text-muted-foreground dark:text-muted-foreground py-4 rounded-xl font-black text-sm hover:bg-muted transition-all"
           >
             إلغاء
           </button>

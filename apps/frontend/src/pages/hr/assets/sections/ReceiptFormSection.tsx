@@ -39,11 +39,11 @@ const ReceiptFormSection: React.FC = () => {
       {/* Header - Hidden on Print */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <DocumentTextIcon className="h-7 w-7 text-indigo-600" />
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <DocumentTextIcon className="h-7 w-7 text-primary" />
             نماذج التسليم والاستلام الرسمية
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             توليد وطباعة أصول الاستلام الرسمية (العهدة) برقم مرجعي وتفاصيل كاملة
           </p>
         </div>
@@ -55,7 +55,7 @@ const ReceiptFormSection: React.FC = () => {
             <PlusCircleIcon className="h-5 w-5" />
             توليد نموذج جديد
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 transition-all font-medium">
+          <button className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-foreground hover:bg-muted transition-all font-medium">
             <ArrowPathIcon className="h-5 w-5" />
             تحديث القائمة
           </button>

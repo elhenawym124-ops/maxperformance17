@@ -29,7 +29,7 @@ export const WarningsEmptyState: React.FC<WarningsEmptyStateProps> = ({
           className="mt-6"
           onClick={onNewWarning}
         >
-          <Plus className="h-4 w-4 ml-2" />
+          <Plus className="h-4 w-4 ms-2" />
           إضافة مخالفة جديدة
         </Button>
       )}

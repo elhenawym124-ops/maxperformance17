@@ -43,7 +43,7 @@ const HRDashboard: React.FC = () => {
 
   if (error && !data) {
     return (
-      <div className="flex items-center justify-center h-96 text-gray-500">
+      <div className="flex items-center justify-center h-96 text-muted-foreground">
         {error}
       </div>
     );

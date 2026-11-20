@@ -91,7 +91,7 @@ export const PolarisDepartmentsView: React.FC<PolarisDepartmentsViewProps> = ({
                 onClick={() => setViewMode("grid")}
                 className="h-7 px-2 text-xs rounded-md"
               >
-                <LayoutGrid className="h-3.5 w-3.5 ml-1" />
+                <LayoutGrid className="h-3.5 w-3.5 ms-1" />
                 <span>شبكة</span>
               </Button>
               <Button
@@ -101,7 +101,7 @@ export const PolarisDepartmentsView: React.FC<PolarisDepartmentsViewProps> = ({
                 onClick={() => setViewMode("hierarchy")}
                 className="h-7 px-2 text-xs rounded-md"
               >
-                <Network className="h-3.5 w-3.5 ml-1" />
+                <Network className="h-3.5 w-3.5 ms-1" />
                 <span>هيكل هرمي</span>
               </Button>
             </div>
@@ -159,7 +159,7 @@ export const PolarisDepartmentsView: React.FC<PolarisDepartmentsViewProps> = ({
               placeholder="ابحث باسم القسم أو كوده..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>

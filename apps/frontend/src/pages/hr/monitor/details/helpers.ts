@@ -24,15 +24,15 @@ export const getCheckInMethodLabel = (method?: string | null): string => {
 export const getOperationalSignalClassName = (signalType?: string): string => {
   switch (signalType) {
     case "TASK_OVERLOAD":
-      return "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 ring-1 ring-inset ring-indigo-500/30";
+      return "bg-indigo-500/15 text-primary dark:text-primary ring-1 ring-inset ring-primary/30";
     case "DISTRACTION":
-      return "bg-amber-500/15 text-amber-700 dark:text-amber-300 ring-1 ring-inset ring-amber-500/30";
+      return "bg-amber-500/15 text-warning dark:text-warning ring-1 ring-inset ring-warning/30";
     case "NEGLECT":
-      return "bg-rose-500/15 text-rose-700 dark:text-rose-300 ring-1 ring-inset ring-rose-500/30";
+      return "bg-rose-500/15 text-destructive dark:text-destructive ring-1 ring-inset ring-destructive/30";
     case "STEADY_PERFORMANCE":
-      return "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 ring-1 ring-inset ring-emerald-500/30";
+      return "bg-emerald-500/15 text-success dark:text-success ring-1 ring-inset ring-success/30";
     default:
-      return "bg-sky-500/15 text-sky-700 dark:text-sky-300 ring-1 ring-inset ring-sky-500/30";
+      return "bg-sky-500/15 text-info dark:text-info ring-1 ring-inset ring-info/30";
   }
 };
 

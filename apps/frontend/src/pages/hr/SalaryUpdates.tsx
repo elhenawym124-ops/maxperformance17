@@ -257,7 +257,7 @@ export const SalaryUpdates: React.FC = () => {
 
         <div className="flex items-center gap-2 shrink-0">
           {hasChanges && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium rounded-md border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium rounded-md border border-warning/20 bg-warning/10 text-warning dark:text-warning">
               <AlertTriangle className="h-3 w-3" />
               <span>{changedCount} تعديل غير محفوظ</span>
             </span>
@@ -347,7 +347,7 @@ export const SalaryUpdates: React.FC = () => {
                           </span>
                         </td>
                         <td className="py-2.5 px-3">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-medium border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-medium border border-success/20 bg-success/10 text-success dark:text-success">
                             نشط
                           </span>
                         </td>
@@ -372,7 +372,7 @@ export const SalaryUpdates: React.FC = () => {
                             disabled={!isChanged}
                             className={`w-full px-2.5 py-1 text-xs rounded border ${
                               isChanged && (!reasons[employee.id] || reasons[employee.id].trim() === "")
-                                ? "border-amber-500 bg-amber-500/[0.04]"
+                                ? "border-amber-500 bg-warning/[0.04]"
                                 : "border-border/80 bg-background"
                             } focus:outline-hidden focus:ring-1 focus:ring-primary disabled:opacity-40 disabled:bg-muted/20`}
                           />

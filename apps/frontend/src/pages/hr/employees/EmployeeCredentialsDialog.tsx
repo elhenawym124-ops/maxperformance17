@@ -46,13 +46,13 @@ export const EmployeeCredentialsDialog: React.FC<EmployeeCredentialsDialogProps>
     <Dialog open={state.open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md" dir="rtl">
         <DialogHeader>
-          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+          <div className="flex items-center gap-2 text-primary">
             <KeyRound className="h-5 w-5" />
             <DialogTitle>بيانات حساب الموظف</DialogTitle>
           </div>
           <DialogDescription>
             بيانات الدخول للنظام الخاصة بالموظف{" "}
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
+            <span className="font-semibold text-foreground">
               {state.employeeName}
             </span>
           </DialogDescription>
@@ -61,12 +61,12 @@ export const EmployeeCredentialsDialog: React.FC<EmployeeCredentialsDialogProps>
         <div className="space-y-4 py-2">
           {/* Email */}
           <div className="space-y-1.5">
-            <Label className="text-xs text-gray-500">البريد الإلكتروني لتسجيل الدخول</Label>
+            <Label className="text-xs text-muted-foreground">البريد الإلكتروني لتسجيل الدخول</Label>
             <div className="flex items-center gap-2">
               <Input
                 readOnly
                 value={state.email}
-                className="font-mono text-sm bg-gray-50 dark:bg-gray-800"
+                className="font-mono text-sm bg-muted dark:bg-muted"
               />
               <Button
                 variant="outline"
@@ -82,24 +82,24 @@ export const EmployeeCredentialsDialog: React.FC<EmployeeCredentialsDialogProps>
           {/* Temporary Password */}
           {state.temporaryPassword && (
             <div className="space-y-1.5">
-              <Label className="text-xs text-gray-500">كلمة المرور المؤقتة</Label>
+              <Label className="text-xs text-muted-foreground">كلمة المرور المؤقتة</Label>
               <div className="flex items-center gap-2">
                 <Input
                   readOnly
                   value={state.temporaryPassword}
-                  className="font-mono text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800"
+                  className="font-mono text-sm font-semibold text-primary bg-primary/10 dark:bg-primary/40 border-primary dark:border-primary"
                 />
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={() => copyToClipboard(state.temporaryPassword!, "pass")}
-                  className={copiedPass ? "text-green-600 border-green-600" : ""}
+                  className={copiedPass ? "text-green-600 border-success" : ""}
                   title="نسخ كلمة المرور"
                 >
                   {copiedPass ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 </Button>
               </div>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 سيُطلب من الموظف تغيير كلمة المرور عند أول تسجيل دخول.
               </p>
             </div>
@@ -108,24 +108,24 @@ export const EmployeeCredentialsDialog: React.FC<EmployeeCredentialsDialogProps>
           {/* Reset/Setup Link */}
           {state.resetLink && (
             <div className="space-y-1.5">
-              <Label className="text-xs text-gray-500">رابط تفعيل الحساب وتعيين كلمة المرور</Label>
+              <Label className="text-xs text-muted-foreground">رابط تفعيل الحساب وتعيين كلمة المرور</Label>
               <div className="flex items-center gap-2">
                 <Input
                   readOnly
                   value={state.resetLink}
-                  className="font-mono text-xs text-gray-600 bg-gray-50 dark:bg-gray-800 truncate"
+                  className="font-mono text-xs text-foreground bg-muted dark:bg-muted truncate"
                 />
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={() => copyToClipboard(state.resetLink!, "link")}
-                  className={copiedLink ? "text-green-600 border-green-600" : ""}
+                  className={copiedLink ? "text-green-600 border-success" : ""}
                   title="نسخ الرابط"
                 >
                   {copiedLink ? <Check className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
                 </Button>
               </div>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 يمكنك إرسال هذا الرابط للموظف مباشرة عبر واتساب لتعيين كلمة مروره.
               </p>
             </div>

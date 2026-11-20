@@ -37,7 +37,7 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border/40 bg-card/60 p-4 shadow-sm backdrop-blur-md">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-1 ring-inset ring-sky-500/25">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-info/10 text-info dark:text-info ring-1 ring-inset ring-info/25">
           <Activity className="h-5 w-5" />
         </div>
         <div>
@@ -45,8 +45,8 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
             <h1 className="text-base font-bold tracking-tight text-foreground sm:text-lg">
               مراقبة وإنتاجية الأجهزة (MaxP Workspace)
             </h1>
-            <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-semibold text-success dark:text-success ring-1 ring-inset ring-success/20">
+              <span className="h-2 w-2 rounded-full bg-success animate-pulse" />
               <span>
                 <span className="font-mono tabular-nums">{activeNow}</span> نشط
                 الآن
@@ -67,7 +67,7 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
             placeholder="بحث بالاسم أو القسم…"
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="h-8 w-40 rounded-lg border border-border/60 bg-muted/50 dark:bg-zinc-900/60 pr-8 pl-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none sm:w-52"
+            className="h-8 w-40 rounded-lg border border-border/60 bg-muted/50 dark:bg-muted pe-8 ps-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none sm:w-52"
           />
         </div>
 
@@ -78,8 +78,8 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
             }
             className={`rounded-md px-2 py-1 text-xs font-medium transition ${
               isToday
-                ? "bg-sky-500/15 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/30"
-                : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground"
+                ? "bg-sky-500/15 text-info dark:text-info ring-1 ring-info/30"
+                : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
             }`}
           >
             اليوم
@@ -88,18 +88,18 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
             onClick={() => onSelectedDateChange(yesterdayStr)}
             className={`rounded-md px-2 py-1 text-xs font-medium transition ${
               selectedDate === yesterdayStr
-                ? "bg-sky-500/15 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/30"
-                : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground"
+                ? "bg-sky-500/15 text-info dark:text-info ring-1 ring-info/30"
+                : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
             }`}
           >
             أمس
           </button>
         </div>
 
-        <div className="flex items-center rounded-lg border border-border/60 bg-muted/50 dark:bg-zinc-900/60 p-0.5 text-xs">
+        <div className="flex items-center rounded-lg border border-border/60 bg-muted/50 dark:bg-muted p-0.5 text-xs">
           <button
             onClick={() => onDateStep(-1)}
-            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground active:scale-95"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground active:scale-95"
             title="اليوم السابق"
           >
             <ChevronRight className="h-3.5 w-3.5" />
@@ -117,7 +117,7 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
           <button
             onClick={() => onDateStep(1)}
             disabled={isToday}
-            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent active:scale-95"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent active:scale-95"
             title="اليوم التالي"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
@@ -127,7 +127,7 @@ export const MonitorControlHeader: React.FC<MonitorControlHeaderProps> = ({
         <button
           onClick={onRefresh}
           disabled={loading}
-          className="flex h-8 items-center gap-1.5 rounded-lg border border-border/60 bg-muted/50 dark:bg-zinc-900/60 px-3 text-xs font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-zinc-800 hover:text-foreground active:scale-95"
+          className="flex h-8 items-center gap-1.5 rounded-lg border border-border/60 bg-muted/50 dark:bg-muted px-3 text-xs font-medium text-muted-foreground transition hover:bg-muted dark:hover:bg-muted hover:text-foreground active:scale-95"
           title="تحديث البيانات لحظياً"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />

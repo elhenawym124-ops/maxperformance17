@@ -44,7 +44,7 @@ export const renderFeedbackStatusBadge = (status: string, t: TFunction) => {
       return (
         <Badge
           variant="secondary"
-          className="bg-green-100 text-green-700 hover:bg-green-100 border-none"
+          className="bg-green-100 text-success hover:bg-success border-none"
         >
           {t("employee.feedback.statusNew")}
         </Badge>
@@ -105,7 +105,7 @@ export const MyFeedbackListSection: React.FC<MyFeedbackListSectionProps> = ({
             placeholder={String(t("employee.feedback.searchPlaceholder"))}
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="pr-10 bg-muted/30 border-none focus-visible:ring-1 focus-visible:ring-primary"
+            className="pe-10 bg-muted/30 border-none focus-visible:ring-1 focus-visible:ring-primary"
           />
         </div>
       </div>
@@ -184,7 +184,7 @@ export const MyFeedbackListSection: React.FC<MyFeedbackListSectionProps> = ({
                         variant="outline"
                         size="icon"
                         aria-label="معاينة الرسالة"
-                        className="h-8 w-8 rounded-full bg-white text-slate-600 hover:text-primary shadow-sm"
+                        className="h-8 w-8 rounded-full bg-white text-foreground hover:text-primary shadow-sm"
                         onClick={() => onOpenPreview(item)}
                       >
                         <Eye className="h-4 w-4" />
@@ -194,25 +194,25 @@ export const MyFeedbackListSection: React.FC<MyFeedbackListSectionProps> = ({
                 </CardHeader>
                 <CardContent className="pt-6 relative">
                   {item.rating && (
-                    <div className="flex items-center gap-0.5 mb-4 bg-amber-50 dark:bg-amber-950/20 w-fit px-2 py-1 rounded-full border border-amber-100 dark:border-amber-900/30">
+                    <div className="flex items-center gap-0.5 mb-4 bg-warning/10 dark:bg-warning/20 w-fit px-2 py-1 rounded-full border border-warning dark:border-warning/30">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star
                           key={star}
                           className={`h-3.5 w-3.5 ${
                             star <= (item.rating || 0)
-                              ? "fill-amber-400 text-amber-400"
-                              : "text-gray-300 dark:text-gray-700"
+                              ? "fill-amber-400 text-warning"
+                              : "text-gray-300 dark:text-foreground"
                           }`}
                         />
                       ))}
-                      <span className="text-xs font-bold text-amber-700 dark:text-amber-400 mr-1 font-mono tabular-nums">
+                      <span className="text-xs font-bold text-warning dark:text-warning me-1 font-mono tabular-nums">
                         {item.rating}
                       </span>
                     </div>
                   )}
                   <div className="relative">
                     <div className="absolute -right-2 top-0 bottom-0 w-1 bg-primary/20 rounded-full" />
-                    <p className="text-sm text-foreground/80 leading-relaxed pr-2 italic font-medium whitespace-pre-wrap">
+                    <p className="text-sm text-foreground/80 leading-relaxed pe-2 italic font-medium whitespace-pre-wrap">
                       {item.content}
                     </p>
                   </div>
@@ -228,7 +228,7 @@ export const MyFeedbackListSection: React.FC<MyFeedbackListSectionProps> = ({
                   )}
 
                   {item.adminReply && (
-                    <div className="mt-4 p-4 bg-primary/5 rounded-2xl border border-primary/10 relative">
+                    <div className="mt-4 p-4 bg-primary/5 rounded-xl border border-primary/10 relative">
                       <div className="absolute -right-4 top-4 bottom-4 w-1 bg-primary/30 rounded-full" />
                       <div className="flex items-center gap-2 mb-2">
                         <Badge className="bg-primary/20 text-primary border-none text-[10px] h-5">
@@ -255,7 +255,7 @@ export const MyFeedbackListSection: React.FC<MyFeedbackListSectionProps> = ({
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center bg-card border border-dashed rounded-3xl shadow-sm">
+          <div className="flex flex-col items-center justify-center py-20 text-center bg-card border border-dashed rounded-xl shadow-sm">
             <div className="bg-primary/5 p-6 rounded-full mb-4">
               <AlertCircle className="h-12 w-12 text-primary/40" />
             </div>

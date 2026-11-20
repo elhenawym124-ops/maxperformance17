@@ -28,32 +28,32 @@ export const DeductionFilters: React.FC<DeductionFiltersProps> = ({
   setFilterYear,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="bg-card rounded-lg shadow p-6">
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-foreground mb-1">
             بحث
           </label>
           <div className="relative">
-            <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+            <Search className="absolute right-3 top-2.5 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="ابحث عن موظف أو سبب..."
-              className="w-full pr-10 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full pe-10 border border-border rounded-md px-3 py-2 bg-card text-foreground"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-foreground mb-1">
             الحالة
           </label>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full border border-border rounded-md px-3 py-2 bg-card text-foreground"
           >
             <option value="">الكل</option>
             <option value="PENDING">في الانتظار</option>
@@ -64,13 +64,13 @@ export const DeductionFilters: React.FC<DeductionFiltersProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-foreground mb-1">
             النوع
           </label>
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full border border-border rounded-md px-3 py-2 bg-card text-foreground"
           >
             <option value="">الكل</option>
             {Object.entries(DEDUCTION_TYPES).map(([key, value]) => (
@@ -82,13 +82,13 @@ export const DeductionFilters: React.FC<DeductionFiltersProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-foreground mb-1">
             الشهر
           </label>
           <select
             value={filterMonth}
             onChange={(e) => setFilterMonth(e.target.value)}
-            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full border border-border rounded-md px-3 py-2 bg-card text-foreground"
           >
             <option value="">الكل</option>
             {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
@@ -100,13 +100,13 @@ export const DeductionFilters: React.FC<DeductionFiltersProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-foreground mb-1">
             السنة
           </label>
           <select
             value={filterYear}
             onChange={(e) => setFilterYear(e.target.value)}
-            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full border border-border rounded-md px-3 py-2 bg-card text-foreground"
           >
             <option value="">الكل</option>
             {Array.from(

@@ -50,7 +50,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
         editing
           ? "bg-blue-50/70 dark:bg-blue-900/10"
           : record.isNew
-            ? "bg-yellow-50/70 dark:bg-yellow-900/10"
+            ? "bg-yellow-50/70 dark:bg-warning/10"
             : ""
       }
     >
@@ -67,7 +67,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
             <p className="font-medium text-sm">
               {record.employee?.firstName} {record.employee?.lastName}
             </p>
-            <p className="text-xs text-gray-500 font-mono tabular-nums">
+            <p className="text-xs text-muted-foreground font-mono tabular-nums">
               {record.employee?.employeeNumber}
             </p>
           </div>
@@ -168,7 +168,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
         {editing && editData ? (
           <div className="flex flex-col gap-2 min-w-[140px]">
             <div className="flex flex-col gap-1 border-b pb-1">
-              <span className="text-[10px] text-gray-500 font-bold">
+              <span className="text-[10px] text-muted-foreground font-bold">
                 التأخير:
               </span>
               <div className="flex items-center gap-1 font-mono tabular-nums">
@@ -204,7 +204,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-[10px] text-gray-500 font-bold">مبكر:</span>
+              <span className="text-[10px] text-muted-foreground font-bold">مبكر:</span>
               <div className="flex items-center gap-1 font-mono tabular-nums">
                 <Input
                   type="number"
@@ -241,7 +241,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
         ) : (
           <div className="text-xs space-y-1 font-mono tabular-nums">
             {Number(record.lateMinutes || 0) > 0 && (
-              <div className="flex items-center gap-1 text-red-600 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded border border-red-100 dark:border-red-900/40 italic">
+              <div className="flex items-center gap-1 text-destructive bg-destructive/10 dark:bg-destructive/30 px-1.5 py-0.5 rounded border border-destructive dark:border-destructive/40 italic">
                 <span>تأخير:</span>
                 <span className="font-bold">
                   {Math.floor(record.lateMinutes! / 60) > 0 &&
@@ -251,7 +251,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
               </div>
             )}
             {Number(record.earlyLeaveMinutes || 0) > 0 && (
-              <div className="flex items-center gap-1 text-orange-600 bg-orange-50 dark:bg-orange-950/30 px-1.5 py-0.5 rounded border border-orange-100 dark:border-orange-900/40 italic">
+              <div className="flex items-center gap-1 text-warning bg-warning/10 dark:bg-warning/30 px-1.5 py-0.5 rounded border border-warning dark:border-warning/40 italic">
                 <span>مبكر:</span>
                 <span className="font-bold">
                   {Math.floor(record.earlyLeaveMinutes! / 60) > 0 &&
@@ -304,7 +304,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
             className="w-[150px] text-sm"
           />
         ) : (
-          <span className="text-sm text-gray-600 dark:text-gray-300">
+          <span className="text-sm text-muted-foreground">
             {record.notes || "-"}
           </span>
         )}
@@ -318,12 +318,12 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
                 size="sm"
                 onClick={() => onSaveRecord(record.id)}
                 disabled={saving}
-                className="bg-green-600 hover:bg-green-700 disabled:opacity-50"
+                className="bg-green-600 hover:bg-success disabled:opacity-50"
               >
                 {saving ? (
-                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white ml-1" />
+                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white ms-1" />
                 ) : (
-                  <Save className="h-3 w-3 ml-1" />
+                  <Save className="h-3 w-3 ms-1" />
                 )}
                 {saving ? "جاري الحفظ..." : "حفظ"}
               </Button>
@@ -333,7 +333,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
                 onClick={() => onCancelEditing(record.id)}
                 disabled={saving}
               >
-                <X className="h-3 w-3 ml-1" />
+                <X className="h-3 w-3 ms-1" />
                 إلغاء
               </Button>
             </>
@@ -343,7 +343,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
               variant="outline"
               onClick={() => onStartEditing(record)}
             >
-              <Edit2 className="h-3 w-3 ml-1" />
+              <Edit2 className="h-3 w-3 ms-1" />
               تعديل
             </Button>
           )}

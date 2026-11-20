@@ -132,7 +132,7 @@ const SettlementDetailsModal: React.FC<SettlementDetailsModalProps> = ({
                   <span className="text-xs text-muted-foreground">
                     معدل يومي: {formatCurrency(data.breakdown?.dailyRate || 0)}
                   </span>
-                  <span className="font-semibold text-green-600 dark:text-green-500">
+                  <span className="font-semibold text-success dark:text-success">
                     + {formatCurrency(data.remainingSalary || 0)}
                   </span>
                 </div>
@@ -153,7 +153,7 @@ const SettlementDetailsModal: React.FC<SettlementDetailsModalProps> = ({
                   <span className="text-xs text-muted-foreground">
                     تعويض نقدي عن الرصيد المتبقي
                   </span>
-                  <span className="font-semibold text-green-600 dark:text-green-500">
+                  <span className="font-semibold text-success dark:text-success">
                     + {formatCurrency(data.leaveCompensation || 0)}
                   </span>
                 </div>
@@ -198,9 +198,9 @@ const SettlementDetailsModal: React.FC<SettlementDetailsModalProps> = ({
                 disabled={submitting || (data.finalSettlementAmount || 0) < 0}
               >
                 {submitting ? (
-                  <Loader2 className="h-4 w-4 animate-spin ml-2" />
+                  <Loader2 className="h-4 w-4 animate-spin ms-2" />
                 ) : (
-                  <CheckCircle className="h-4 w-4 ml-2" />
+                  <CheckCircle className="h-4 w-4 ms-2" />
                 )}
                 اعتماد وصرف التصفية
               </Button>

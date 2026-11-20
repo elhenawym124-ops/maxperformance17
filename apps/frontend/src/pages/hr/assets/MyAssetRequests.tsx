@@ -84,11 +84,11 @@ const MyAssetRequests: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const badges = {
-      PENDING: "bg-yellow-100 text-yellow-800",
+      PENDING: "bg-yellow-100 text-warning",
       APPROVED: "bg-blue-100 text-blue-800",
-      REJECTED: "bg-red-100 text-red-800",
-      FULFILLED: "bg-green-100 text-green-800",
-      CANCELLED: "bg-gray-100 text-gray-800",
+      REJECTED: "bg-red-100 text-destructive",
+      FULFILLED: "bg-green-100 text-success",
+      CANCELLED: "bg-gray-100 text-foreground",
     };
     return badges[status as keyof typeof badges] || badges.PENDING;
   };
@@ -107,7 +107,7 @@ const MyAssetRequests: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -116,30 +116,30 @@ const MyAssetRequests: React.FC = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-foreground">
           طلباتي
         </h2>
         <button
           onClick={() => setShowCreateModal(true)}
           className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 text-primary-foreground"
         >
-          <PlusIcon className="h-5 w-5 mr-2" />
+          <PlusIcon className="h-5 w-5 me-2" />
           طلب جديد
         </button>
       </div>
 
       {/* Requests List */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
-        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="bg-card shadow-sm rounded-lg overflow-hidden">
+        <div className="divide-y divide-border dark:divide-border">
           {requests.map((request) => (
             <div
               key={request.id}
-              className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="p-6 hover:bg-muted/50"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    <h3 className="text-lg font-medium text-foreground">
                       {request.assetType}
                     </h3>
                     <span
@@ -149,14 +149,14 @@ const MyAssetRequests: React.FC = () => {
                     </span>
                   </div>
                   {request.category && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                    <p className="text-sm text-muted-foreground mb-2">
                       التصنيف: {request.category}
                     </p>
                   )}
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
+                  <p className="text-sm text-foreground mb-3">
                     {request.reason}
                   </p>
-                  <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
                     <span>
                       تاريخ الطلب:{" "}
                       {new Date(request.createdAt).toLocaleDateString("ar-EG")}
@@ -165,16 +165,16 @@ const MyAssetRequests: React.FC = () => {
                   </div>
 
                   {request.status === "REJECTED" && request.rejectionReason && (
-                    <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                      <p className="text-sm text-red-800 dark:text-red-200">
+                    <div className="mt-3 p-3 bg-destructive/10 dark:bg-destructive/20 rounded-lg">
+                      <p className="text-sm text-destructive dark:text-destructive">
                         <strong>سبب الرفض:</strong> {request.rejectionReason}
                       </p>
                     </div>
                   )}
 
                   {request.status === "FULFILLED" && request.asset && (
-                    <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                      <p className="text-sm text-green-800 dark:text-green-200">
+                    <div className="mt-3 p-3 bg-success/10 dark:bg-success/20 rounded-lg">
+                      <p className="text-sm text-success dark:text-success">
                         <strong>تم التخصيص:</strong> {request.asset.name} (
                         {request.asset.code})
                       </p>
@@ -188,15 +188,15 @@ const MyAssetRequests: React.FC = () => {
 
         {requests.length === 0 && (
           <div className="text-center py-12">
-            <ClipboardDocumentListIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <ClipboardDocumentListIcon className="mx-auto h-12 w-12 text-muted-foreground" />
+            <p className="mt-2 text-sm text-muted-foreground">
               لا توجد طلبات
             </p>
             <button
               onClick={() => setShowCreateModal(true)}
               className="mt-4 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              <PlusIcon className="h-5 w-5 mr-2" />
+              <PlusIcon className="h-5 w-5 me-2" />
               إنشاء طلب جديد
             </button>
           </div>
@@ -206,13 +206,13 @@ const MyAssetRequests: React.FC = () => {
       {/* Create Request Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               طلب عهدة جديد
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   نوع الأصل *
                 </label>
                 <input
@@ -221,14 +221,14 @@ const MyAssetRequests: React.FC = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, assetType: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                   placeholder="مثال: لابتوب، موبايل، سيارة..."
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   التصنيف (اختياري)
                 </label>
                 <input
@@ -237,13 +237,13 @@ const MyAssetRequests: React.FC = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, category: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                   placeholder="مثال: أجهزة إلكترونية، مركبات..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   سبب الطلب *
                 </label>
                 <textarea
@@ -252,14 +252,14 @@ const MyAssetRequests: React.FC = () => {
                     setFormData({ ...formData, reason: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                   placeholder="اشرح سبب احتياجك لهذا الأصل..."
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   الأولوية
                 </label>
                 <select
@@ -267,7 +267,7 @@ const MyAssetRequests: React.FC = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, priority: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                 >
                   <option value="LOW">منخفضة</option>
                   <option value="NORMAL">عادية</option>
@@ -288,13 +288,13 @@ const MyAssetRequests: React.FC = () => {
                       priority: "NORMAL",
                     });
                   }}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary text-primary-foreground rounded-lg hover:bg-indigo-700"
+                  className="px-4 py-2 text-sm font-medium text-white bg-primary text-primary-foreground rounded-lg hover:bg-primary"
                 >
                   إرسال الطلب
                 </button>

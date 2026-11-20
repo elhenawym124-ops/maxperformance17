@@ -45,33 +45,33 @@ export const AssetRequestsActionModals: React.FC<
       {/* Approve Modal */}
       {showApproveModal && selectedRequest && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               الموافقة على الطلب
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   ملاحظات (اختياري)
                 </label>
                 <textarea
                   value={approvalNotes}
                   onChange={(e) => onApprovalNotesChange(e.target.value)}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                   placeholder="أضف ملاحظات..."
                 />
               </div>
               <div className="flex gap-3 justify-end">
                 <button
                   onClick={onCloseApprove}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   إلغاء
                 </button>
                 <button
                   onClick={onConfirmApprove}
-                  className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
+                  className="px-4 py-2 text-sm font-medium text-white bg-success rounded-lg hover:bg-success"
                 >
                   موافقة
                 </button>
@@ -84,20 +84,20 @@ export const AssetRequestsActionModals: React.FC<
       {/* Reject Modal */}
       {showRejectModal && selectedRequest && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               رفض الطلب
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   سبب الرفض *
                 </label>
                 <textarea
                   value={rejectionReason}
                   onChange={(e) => onRejectionReasonChange(e.target.value)}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
                   placeholder="اكتب سبب الرفض..."
                   required
                 />
@@ -105,13 +105,13 @@ export const AssetRequestsActionModals: React.FC<
               <div className="flex gap-3 justify-end">
                 <button
                   onClick={onCloseReject}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   إلغاء
                 </button>
                 <button
                   onClick={onConfirmReject}
-                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
+                  className="px-4 py-2 text-sm font-medium text-white bg-destructive rounded-lg hover:bg-destructive"
                 >
                   رفض
                 </button>
@@ -124,30 +124,30 @@ export const AssetRequestsActionModals: React.FC<
       {/* Fulfill Modal */}
       {showFulfillModal && selectedRequest && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               تخصيص أصل
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   اختر الأصل *
                 </label>
                 <input
                   type="text"
                   value={selectedAssetId}
                   onChange={(e) => onSelectedAssetIdChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono tabular-nums"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground font-mono tabular-nums"
                   placeholder="معرف الأصل"
                 />
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-xs text-muted-foreground">
                   سيتم تحسين هذا لاحقاً بقائمة منسدلة للأصول المتاحة
                 </p>
               </div>
               <div className="flex gap-3 justify-end">
                 <button
                   onClick={onCloseFulfill}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   إلغاء
                 </button>

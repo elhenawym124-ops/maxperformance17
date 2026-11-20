@@ -56,10 +56,10 @@ export const PolarisOnlineTeamView: React.FC<PolarisOnlineTeamViewProps> = ({
         subtitle={t("onlineTeam.pageSubtitle") || "متابعة الحضور المباشر وحالة اتصال الموظفين لحظياً"}
         badges={
           <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 tabular-nums">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-success/10 text-success dark:text-success border border-success/20 tabular-nums">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
               </span>
               <span>{onlineCount} {t("onlineTeam.live") || "مباشر"}</span>
             </span>
@@ -87,7 +87,7 @@ export const PolarisOnlineTeamView: React.FC<PolarisOnlineTeamViewProps> = ({
       {/* Telemetry Summary Metric Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="p-3 rounded-xl border border-border/70 bg-card shadow-xs flex items-center gap-3">
-          <span className="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <span className="p-2.5 rounded-lg bg-success/10 text-success dark:text-success">
             <Users className="h-5 w-5" />
           </span>
           <div>
@@ -139,7 +139,7 @@ export const PolarisOnlineTeamView: React.FC<PolarisOnlineTeamViewProps> = ({
                   <span
                     className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono tabular-nums ${
                       tItem.live && tItem.count > 0
-                        ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold"
+                        ? "bg-emerald-500/15 text-success dark:text-success font-bold"
                         : "bg-muted text-muted-foreground"
                     }`}
                   >
@@ -160,7 +160,7 @@ export const PolarisOnlineTeamView: React.FC<PolarisOnlineTeamViewProps> = ({
               placeholder={t("onlineTeam.searchPlaceholder") || "بحث بالاسم، القسم أو الوظيفة..."}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>

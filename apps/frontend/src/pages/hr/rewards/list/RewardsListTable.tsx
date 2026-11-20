@@ -68,12 +68,12 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
 
   if (records.length === 0) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-12 text-center">
-        <Award className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+      <div className="bg-card rounded-lg shadow p-12 text-center">
+        <Award className="w-16 h-16 text-muted-foreground dark:text-foreground mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-foreground mb-2">
           لا توجد مكافآت
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-gray-600 dark:text-muted-foreground mb-4">
           لم يتم العثور على أي مكافآت بالفلاتر المحددة
         </p>
         <button
@@ -87,35 +87,35 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+    <div className="bg-card rounded-lg shadow overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+        <table className="min-w-full divide-y divide-border dark:divide-border">
+          <thead className="bg-gray-50 dark:bg-muted">
             <tr>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 الموظف
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 المكافأة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 التصنيف
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 القيمة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 الفترة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 الحالة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 إجراءات
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody className="bg-card divide-y divide-border dark:divide-border">
             {records.map((record) => {
               const normalizedStatus = normalizeRewardStatus(record);
               const canApproveThisReward =
@@ -131,24 +131,24 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
               return (
                 <tr
                   key={record.id}
-                  className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="hover:bg-muted/50"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
+                      <div className="text-sm font-medium text-foreground">
                         {record.user.firstName} {record.user.lastName}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                      <div className="text-sm text-muted-foreground font-mono tabular-nums">
                         {record.user.employeeNumber}
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900 dark:text-white">
+                    <div className="text-sm text-foreground">
                       {record.rewardType?.nameAr || record.rewardName}
                     </div>
                     {record.reason && (
-                      <div className="text-sm text-gray-500 truncate max-w-xs">
+                      <div className="text-sm text-muted-foreground truncate max-w-xs">
                         {record.reason}
                       </div>
                     )}
@@ -161,7 +161,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-semibold text-green-600">
+                    <div className="text-sm font-semibold text-success">
                       <span className="font-mono tabular-nums">
                         {record.calculatedValue.toLocaleString()}
                       </span>{" "}
@@ -169,7 +169,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900 dark:text-white font-mono tabular-nums">
+                    <div className="text-sm text-foreground font-mono tabular-nums">
                       {record.appliedMonth}/{record.appliedYear}
                     </div>
                   </td>
@@ -190,7 +190,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                         <button
                           onClick={() => onDeleteClick(record)}
                           disabled={deleting}
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-600 transition-colors hover:border-red-300 hover:bg-red-100 hover:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-destructive bg-destructive/10 text-destructive transition-colors hover:border-destructive hover:bg-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30 disabled:cursor-not-allowed disabled:border-border disabled:bg-muted disabled:text-muted-foreground"
                           title={t("rewards.delete.tooltip")}
                           aria-label={`${t("rewards.delete.tooltip")} ${record.rewardType?.nameAr || record.rewardName}`}
                         >
@@ -201,7 +201,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                         <>
                           <button
                             onClick={() => onStatusUpdate(record.id, "approve")}
-                            className="text-green-600 hover:text-green-700"
+                            className="text-green-600 hover:text-success"
                             title="اعتماد"
                             aria-label="اعتماد"
                           >
@@ -209,7 +209,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                           </button>
                           <button
                             onClick={() => onStatusUpdate(record.id, "reject")}
-                            className="text-orange-600 hover:text-orange-700"
+                            className="text-orange-600 hover:text-warning"
                             title="رفض"
                             aria-label="رفض"
                           >
@@ -240,8 +240,8 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
 
       {/* Pagination */}
       {pagination.totalPages > 1 && (
-        <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-          <div className="text-sm text-gray-700 dark:text-gray-300">
+        <div className="px-6 py-4 border-t border-border dark:border-border flex items-center justify-between">
+          <div className="text-sm text-foreground">
             عرض{" "}
             <span className="font-mono tabular-nums">
               {(pagination.page - 1) * pagination.limit + 1}
@@ -258,14 +258,14 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
             <button
               onClick={() => onPageChange(pagination.page - 1)}
               disabled={pagination.page === 1}
-              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-1 border border-border rounded hover:bg-muted/50 dark:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
             >
               السابق
             </button>
             <button
               onClick={() => onPageChange(pagination.page + 1)}
               disabled={pagination.page === pagination.totalPages}
-              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-1 border border-border rounded hover:bg-muted/50 dark:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
             >
               التالي
             </button>

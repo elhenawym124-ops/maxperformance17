@@ -17,9 +17,9 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
 }) => {
   return (
     <div className="mt-0 space-y-6">
-      <div className="bg-purple-50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/50 p-4 rounded-xl flex items-start gap-4 mb-6">
-        <AlertCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-        <p className="text-sm text-purple-800 dark:text-purple-200">
+      <div className="bg-purple-50 dark:bg-primary/20 border border-primary dark:border-primary/50 p-4 rounded-xl flex items-start gap-4 mb-6">
+        <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+        <p className="text-sm text-primary dark:text-primary">
           اختر من السيناريوهات الجاهزة لاختبار حالات مختلفة من حساب الرواتب
           بسرعة، مثل التأخير، الغياب، العمل الإضافي، والخصومات المختلفة.
         </p>
@@ -30,9 +30,9 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
           const Icon = scenario.icon;
           return (
             <Card key={scenario.id} className="overflow-hidden">
-              <CardHeader className="bg-slate-50 dark:bg-slate-900 p-4 flex flex-row items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
-                  <Icon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+              <CardHeader className="bg-slate-50 dark:bg-muted p-4 flex flex-row items-center gap-4">
+                <div className="h-12 w-12 rounded-xl bg-primary dark:bg-primary/50 flex items-center justify-center">
+                  <Icon className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <CardTitle className="text-lg">{scenario.name}</CardTitle>
@@ -43,8 +43,8 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-3">
                     {scenario.config.attendance && (
-                      <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                        <div className="text-xs text-slate-500">أيام الحضور</div>
+                      <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                        <div className="text-xs text-muted-foreground">أيام الحضور</div>
                         <div className="font-bold font-mono tabular-nums">
                           {
                             scenario.config.attendance.filter(
@@ -57,8 +57,8 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
                     )}
 
                     {scenario.config.attendance && (
-                      <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                        <div className="text-xs text-slate-500">أيام الغياب</div>
+                      <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                        <div className="text-xs text-muted-foreground">أيام الغياب</div>
                         <div className="font-bold font-mono tabular-nums">
                           {
                             scenario.config.attendance.filter(
@@ -71,8 +71,8 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
                     )}
 
                     {scenario.config.leaves && scenario.config.leaves.length > 0 && (
-                      <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                        <div className="text-xs text-slate-500">أيام الإجازة</div>
+                      <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                        <div className="text-xs text-muted-foreground">أيام الإجازة</div>
                         <div className="font-bold font-mono tabular-nums">
                           {scenario.config.leaves.reduce(
                             (sum, leave) => sum + (leave.days || 0),
@@ -84,8 +84,8 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
                     )}
 
                     {scenario.config.deductions && scenario.config.deductions.length > 0 && (
-                      <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                        <div className="text-xs text-slate-500">الخصومات</div>
+                      <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                        <div className="text-xs text-muted-foreground">الخصومات</div>
                         <div className="font-bold font-mono tabular-nums">
                           {scenario.config.deductions.length} خصم
                         </div>
@@ -93,8 +93,8 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
                     )}
 
                     {scenario.config.allowances && scenario.config.allowances.length > 0 && (
-                      <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                        <div className="text-xs text-slate-500">البدلات</div>
+                      <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                        <div className="text-xs text-muted-foreground">البدلات</div>
                         <div className="font-bold font-mono tabular-nums">
                           {scenario.config.allowances.length} بدل
                         </div>
@@ -103,8 +103,8 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
 
                     {scenario.config.attendance &&
                       scenario.config.attendance.some((a) => (a.overtimeHours || 0) > 0) && (
-                        <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg">
-                          <div className="text-xs text-slate-500">ساعات إضافية</div>
+                        <div className="bg-slate-50 dark:bg-muted p-3 rounded-lg">
+                          <div className="text-xs text-muted-foreground">ساعات إضافية</div>
                           <div className="font-bold font-mono tabular-nums">
                             {scenario.config.attendance.reduce(
                               (sum, a) => sum + (a.overtimeHours || 0),
@@ -120,7 +120,7 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
                     className="w-full mt-2"
                     onClick={() => applyScenario(scenario)}
                   >
-                    <Zap className="h-4 w-4 ml-2" />
+                    <Zap className="h-4 w-4 ms-2" />
                     تطبيق هذا السيناريو
                   </Button>
                 </div>
@@ -133,7 +133,7 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-indigo-600" />
+            <ShieldCheck className="h-5 w-5 text-primary" />
             سيناريوهات متقدمة
           </CardTitle>
           <CardDescription>
@@ -149,7 +149,7 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
             >
               <div className="flex flex-col items-start">
                 <span className="font-bold">الحد الأقصى للعمل الإضافي</span>
-                <span className="text-xs text-slate-500 font-mono tabular-nums">
+                <span className="text-xs text-muted-foreground font-mono tabular-nums">
                   4 ساعات إضافية لكل يوم عمل
                 </span>
               </div>
@@ -162,7 +162,7 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
             >
               <div className="flex flex-col items-start">
                 <span className="font-bold">غياب نصف الشهر</span>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-muted-foreground">
                   غياب كامل للنصف الثاني من الشهر
                 </span>
               </div>
@@ -175,7 +175,7 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
             >
               <div className="flex flex-col items-start">
                 <span className="font-bold">الحد الأقصى للخصومات</span>
-                <span className="text-xs text-slate-500 font-mono tabular-nums">
+                <span className="text-xs text-muted-foreground font-mono tabular-nums">
                   60% من الراتب خصومات متنوعة
                 </span>
               </div>
@@ -188,7 +188,7 @@ export const PayrollScenariosTab: React.FC<PayrollScenariosTabProps> = ({
             >
               <div className="flex flex-col items-start">
                 <span className="font-bold">إعادة ضبط الكل</span>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-muted-foreground">
                   إعادة جميع البيانات للقيم الافتراضية
                 </span>
               </div>

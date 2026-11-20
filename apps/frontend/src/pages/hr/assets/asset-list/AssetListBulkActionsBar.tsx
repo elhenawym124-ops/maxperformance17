@@ -39,11 +39,11 @@ export const AssetListBulkActionsBar: React.FC<
           transition={{ type: "spring", damping: 25, stiffness: 350 }}
           className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
         >
-          <div className="bg-gradient-to-r from-[#1a1040] to-[#251858] text-white px-6 py-3.5 rounded-2xl shadow-2xl shadow-violet-900/40 border border-white/10 flex items-center gap-5 backdrop-blur-xl">
+          <div className="bg-gradient-to-r from-[#1a1040] to-[#251858] text-white px-6 py-3.5 rounded-xl shadow-2xl shadow-primary/40 border border-white/10 flex items-center gap-5 backdrop-blur-xl">
             {/* Counter */}
-            <div className="flex items-center gap-3 border-l border-white/10 pl-5">
-              <div className="p-2 bg-violet-500/30 rounded-lg">
-                <CheckIcon className="h-5 w-5 text-violet-300" />
+            <div className="flex items-center gap-3 border-l border-white/10 ps-5">
+              <div className="p-2 bg-primary/30 rounded-lg">
+                <CheckIcon className="h-5 w-5 text-primary" />
               </div>
               <span className="font-bold text-sm whitespace-nowrap">
                 <span className="font-mono tabular-nums">
@@ -57,7 +57,7 @@ export const AssetListBulkActionsBar: React.FC<
             <div className="flex items-center gap-2">
               <button
                 onClick={() => onDeleteSelected(selectedIds)}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500 text-red-300 hover:text-white border border-red-400/20 hover:border-red-500 rounded-xl transition-all duration-200 font-medium text-sm group"
+                className="flex items-center gap-2 px-4 py-2 bg-destructive/10 hover:bg-destructive text-destructive hover:text-white border border-destructive/20 hover:border-destructive rounded-xl transition-all duration-200 font-medium text-sm group"
               >
                 <TrashIcon className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 <span className="hidden sm:inline">حذف</span>
@@ -95,7 +95,7 @@ export const AssetListBulkActionsBar: React.FC<
                 className="p-2 hover:bg-white/10 rounded-xl transition-all"
                 title="إلغاء التحديد"
               >
-                <XMarkIcon className="h-5 w-5 text-gray-400 hover:text-white transition-colors" />
+                <XMarkIcon className="h-5 w-5 text-muted-foreground hover:text-white transition-colors" />
               </button>
             </div>
           </div>

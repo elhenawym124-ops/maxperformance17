@@ -52,7 +52,7 @@ export const WarningsFilterBar: React.FC<WarningsFilterBarProps> = ({
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="بحث باسم الموظف أو المخالفة..."
-            className="pr-9 bg-background/50 border-muted"
+            className="pe-9 bg-background/50 border-muted"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
           />

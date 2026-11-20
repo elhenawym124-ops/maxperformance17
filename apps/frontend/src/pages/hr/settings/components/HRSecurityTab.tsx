@@ -33,7 +33,7 @@ export const HRSecurityTab: React.FC<HRSecurityTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Lock className="h-5 w-5 text-red-500" />
+          <Lock className="h-5 w-5 text-destructive" />
           الأمان والخصوصية
         </CardTitle>
         <CardDescription>
@@ -56,7 +56,7 @@ export const HRSecurityTab: React.FC<HRSecurityTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500">سنة</p>
+            <p className="text-sm text-muted-foreground">سنة</p>
           </div>
           <div className="space-y-2">
             <Label>انتهاء الجلسة بعد</Label>
@@ -72,7 +72,7 @@ export const HRSecurityTab: React.FC<HRSecurityTabProps> = ({
               }
               className="tabular-nums font-mono"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               دقيقة من عدم النشاط
             </p>
           </div>
@@ -101,10 +101,10 @@ export const HRSecurityTab: React.FC<HRSecurityTabProps> = ({
 
         <Separator />
 
-        <div className="flex items-center justify-between p-4 border border-red-200 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-900/20">
+        <div className="flex items-center justify-between p-4 border border-destructive dark:border-destructive rounded-lg bg-destructive/10 dark:bg-destructive/20">
           <div>
             <Label>المصادقة الثنائية (2FA)</Label>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               إلزام جميع المستخدمين بتفعيل 2FA
             </p>
           </div>

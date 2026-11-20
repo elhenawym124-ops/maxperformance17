@@ -38,7 +38,7 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
       contentClassName="space-y-4"
     >
       {filteredGoals.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-border/70 bg-muted/10 px-6 py-12 text-center">
+        <div className="rounded-xl border border-dashed border-border/70 bg-muted/10 px-6 py-12 text-center">
           <Target className="mx-auto h-10 w-10 text-muted-foreground" />
           <h3 className="mt-4 text-lg font-semibold">لا توجد أهداف مطابقة</h3>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -51,7 +51,7 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
           {filteredGoals.map((goal) => (
             <article
               key={goal.id}
-              className="rounded-3xl border border-border/70 bg-background p-4 transition-colors hover:border-primary/30"
+              className="rounded-xl border border-border/70 bg-background p-4 transition-colors hover:border-primary/30"
             >
               <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
                 <div className="space-y-3">
@@ -105,7 +105,7 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
                     className="rounded-xl"
                     onClick={() => onOpenGoal(goal.id)}
                   >
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ms-2 h-4 w-4" />
                     فتح
                   </Button>
                 </div>
@@ -143,7 +143,7 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-                  <div className="rounded-2xl border border-border/70 bg-muted/10 px-4 py-3">
+                  <div className="rounded-xl border border-border/70 bg-muted/10 px-4 py-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Users className="h-4 w-4" />
                       أبناء الهدف
@@ -152,7 +152,7 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
                       {goal.childGoals?.length || 0}
                     </div>
                   </div>
-                  <div className="rounded-2xl border border-border/70 bg-muted/10 px-4 py-3">
+                  <div className="rounded-xl border border-border/70 bg-muted/10 px-4 py-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <FolderKanban className="h-4 w-4" />
                       مهام مرتبطة
@@ -161,7 +161,7 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
                       {goal.tasks?.length || 0}
                     </div>
                   </div>
-                  <div className="rounded-2xl border border-border/70 bg-muted/10 px-4 py-3">
+                  <div className="rounded-xl border border-border/70 bg-muted/10 px-4 py-3">
                     <div className="text-sm text-muted-foreground">
                       التوليد اليومي
                     </div>
@@ -173,17 +173,17 @@ export const GoalsGridPanel: React.FC<GoalsGridPanelProps> = ({
               </div>
 
               {goal.childGoals && goal.childGoals.length > 0 ? (
-                <div className="mt-4 space-y-2 rounded-2xl border border-border/60 bg-muted/10 p-3">
+                <div className="mt-4 space-y-2 rounded-xl border border-border/60 bg-muted/10 p-3">
                   <div className="text-sm font-medium">لقطة من التسلسل</div>
                   <div className="space-y-2">
                     {goal.childGoals.slice(0, 3).map((childGoal) => (
                       <div
                         key={childGoal.id}
-                        className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-background px-3 py-2"
+                        className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-background px-3 py-2"
                       >
                         <div className="text-sm">
                           <span className="font-medium">{childGoal.title}</span>
-                          <span className="mr-2 text-muted-foreground">
+                          <span className="me-2 text-muted-foreground">
                             {GOAL_TYPE_LABELS[childGoal.goalType]}
                           </span>
                         </div>

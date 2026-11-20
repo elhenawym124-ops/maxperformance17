@@ -33,7 +33,7 @@ export const AuditLogsFilters: React.FC<AuditLogsFiltersProps> = ({
               onChange={(e) =>
                 onFilterChange({ ...filters, search: e.target.value })
               }
-              className="pr-9"
+              className="pe-9"
             />
           </div>
 

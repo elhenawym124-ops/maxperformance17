@@ -91,10 +91,10 @@ const AssignShift: React.FC = () => {
         <AssignShiftDetailsCard shift={shift} />
 
         {/* Assignment Form Card */}
-        <Card className="md:col-span-2 shadow-lg border-none ring-1 ring-gray-200 dark:ring-gray-800">
+        <Card className="md:col-span-2 shadow-lg border-none ring-1 ring-border dark:ring-border">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <UserPlus className="h-5 w-5 text-green-500" />
+              <UserPlus className="h-5 w-5 text-success" />
               بيانات التعيين
             </CardTitle>
             <CardDescription>

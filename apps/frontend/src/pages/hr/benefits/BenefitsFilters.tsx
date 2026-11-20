@@ -25,12 +25,12 @@ export const BenefitsFilters: React.FC<BenefitsFiltersProps> = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div className="md:col-span-8 relative group">
-        <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors" />
+        <div className="absolute inset-y-0 right-0 pe-4 flex items-center pointer-events-none">
+          <Search className="h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
         </div>
         <Input
           placeholder="ابحث عن ميزة بالاسم أو الوصف..."
-          className="w-full pr-12 h-14 rounded-2xl border-none bg-white dark:bg-gray-900 shadow-sm shadow-gray-200/50 dark:shadow-none focus:ring-2 focus:ring-primary/20 text-lg transition-all"
+          className="w-full pe-12 h-14 rounded-xl border-none bg-white dark:bg-muted shadow-sm shadow-gray-200/50 dark:shadow-none focus:ring-2 focus:ring-primary/20 text-lg transition-all"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -38,13 +38,13 @@ export const BenefitsFilters: React.FC<BenefitsFiltersProps> = ({
 
       <div className="md:col-span-4 h-14">
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="h-full rounded-2xl border-none bg-white dark:bg-gray-900 shadow-sm shadow-gray-200/50 dark:shadow-none focus:ring-2 focus:ring-primary/20 font-bold transition-all">
+          <SelectTrigger className="h-full rounded-xl border-none bg-white dark:bg-muted shadow-sm shadow-gray-200/50 dark:shadow-none focus:ring-2 focus:ring-primary/20 font-bold transition-all">
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-primary" />
               <SelectValue placeholder="تصفية حسب النوع" />
             </div>
           </SelectTrigger>
-          <SelectContent className="rounded-2xl border-none shadow-2xl">
+          <SelectContent className="rounded-xl border-none shadow-2xl">
             <SelectItem value="all" className="rounded-xl m-1">
               كل الأنواع
             </SelectItem>

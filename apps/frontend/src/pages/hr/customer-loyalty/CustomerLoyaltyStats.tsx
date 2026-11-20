@@ -27,7 +27,7 @@ export const CustomerLoyaltyStats: React.FC<CustomerLoyaltyStatsProps> = ({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-      <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-4 rounded-xl text-white shadow-sm">
+      <div className="bg-gradient-to-r from-primary to-primary p-4 rounded-xl text-white shadow-sm">
         <div className="flex items-center gap-2 text-sm opacity-80">
           <Gift className="w-4 h-4" />
           <span>البرامج النشطة</span>
@@ -47,7 +47,7 @@ export const CustomerLoyaltyStats: React.FC<CustomerLoyaltyStatsProps> = ({
         </p>
       </div>
 
-      <div className="bg-gradient-to-r from-green-500 to-green-600 p-4 rounded-xl text-white shadow-sm">
+      <div className="bg-gradient-to-r from-success to-success p-4 rounded-xl text-white shadow-sm">
         <div className="flex items-center gap-2 text-sm opacity-80">
           <Star className="w-4 h-4" />
           <span>إجمالي النقاط</span>
@@ -57,7 +57,7 @@ export const CustomerLoyaltyStats: React.FC<CustomerLoyaltyStatsProps> = ({
         </p>
       </div>
 
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-xl text-white shadow-sm">
+      <div className="bg-gradient-to-r from-warning to-warning p-4 rounded-xl text-white shadow-sm">
         <div className="flex items-center gap-2 text-sm opacity-80">
           <Trophy className="w-4 h-4" />
           <span>المستويات</span>

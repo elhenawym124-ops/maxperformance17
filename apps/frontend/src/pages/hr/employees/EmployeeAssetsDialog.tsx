@@ -27,14 +27,14 @@ export const EmployeeAssetsDialog: React.FC<EmployeeAssetsDialogProps> = ({
 
         {assetsDialog.loading ? (
           <div className="flex justify-center items-center py-10">
-            <Loader2 className="h-6 w-6 animate-spin text-indigo-600" />
+            <Loader2 className="h-6 w-6 animate-spin text-primary" />
           </div>
         ) : assetsDialog.error ? (
-          <div className="p-4 bg-red-100 text-red-700 rounded-lg">
+          <div className="p-4 bg-destructive text-destructive rounded-lg">
             {assetsDialog.error}
           </div>
         ) : assetsDialog.assets.length === 0 ? (
-          <div className="p-6 text-center text-gray-500">
+          <div className="p-6 text-center text-muted-foreground">
             لا توجد أصول مسلّمة لهذا الموظف حالياً
           </div>
         ) : (
@@ -42,13 +42,13 @@ export const EmployeeAssetsDialog: React.FC<EmployeeAssetsDialogProps> = ({
             {assetsDialog.assets.map((asset: any) => (
               <div
                 key={asset.id}
-                className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex justify-between items-center bg-gray-50 dark:bg-gray-800/60"
+                className="border border-border dark:border-border rounded-lg p-4 flex justify-between items-center bg-muted dark:bg-muted"
               >
                 <div>
-                  <div className="font-bold text-gray-900 dark:text-white">
+                  <div className="font-bold text-foreground">
                     {asset.name} {asset.code ? `(${asset.code})` : ""}
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-muted-foreground">
                     الحالة: {asset.status}
                   </div>
                 </div>

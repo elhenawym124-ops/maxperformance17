@@ -47,7 +47,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[90vh] flex flex-col bg-white dark:bg-gray-950 border-gray-200 dark:border-gray-800 p-0 overflow-hidden rounded-2xl shadow-2xl">
+      <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[90vh] flex flex-col bg-white dark:bg-muted border-border dark:border-border p-0 overflow-hidden rounded-xl shadow-2xl">
         <div
           className={`p-4 sm:p-6 text-white text-right relative overflow-hidden shrink-0 ${
             selectedRequest.status === "APPROVED"
@@ -95,8 +95,8 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
 
         <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto flex-1" dir="rtl">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-4 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] sm:text-xs text-gray-500 mb-1">
+            <div className="bg-gray-50 dark:bg-muted p-3 sm:p-4 rounded-xl border border-border dark:border-border">
+              <p className="text-[11px] sm:text-xs text-muted-foreground mb-1">
                 {t("employee.permissions.requestDate")}
               </p>
               <p className="font-bold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
@@ -110,13 +110,13 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                 </span>
               </p>
             </div>
-            <div className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-4 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] sm:text-xs text-gray-500 mb-1">
+            <div className="bg-gray-50 dark:bg-muted p-3 sm:p-4 rounded-xl border border-border dark:border-border">
+              <p className="text-[11px] sm:text-xs text-muted-foreground mb-1">
                 {t("employee.permissions.permissionType")}
               </p>
               <p className="font-bold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
                 {React.createElement(typeConfig?.icon || History, {
-                  className: "h-3.5 w-3.5 sm:h-4 sm:w-4 text-purple-500 shrink-0",
+                  className: "h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0",
                 })}
                 <span className="truncate">
                   {t(`employee.permissions.${typeConfig?.labelKey}`)}
@@ -125,7 +125,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
             </div>
           </div>
 
-          <div className="bg-blue-50/50 dark:bg-blue-900/10 p-3.5 sm:p-5 rounded-2xl border border-blue-100 dark:border-blue-900/30">
+          <div className="bg-blue-50/50 dark:bg-blue-900/10 p-3.5 sm:p-5 rounded-xl border border-blue-100 dark:border-blue-900/30">
             <div className="flex items-center justify-between mb-3 sm:mb-4">
               <Timer className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
               <p className="font-bold text-xs sm:text-sm text-blue-900 dark:text-blue-100">
@@ -134,16 +134,16 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
             </div>
             <div className="flex items-center justify-center gap-4 sm:gap-8 py-1 sm:py-2">
               <div className="text-center">
-                <p className="text-[11px] sm:text-xs text-gray-500 mb-0.5 sm:mb-1">
+                <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">
                   {t("employee.permissions.exitTimeLabel")}
                 </p>
                 <p className="text-xl sm:text-2xl font-black text-blue-600 font-mono tabular-nums">
                   {selectedRequest.startTime}
                 </p>
               </div>
-              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 rotate-180 shrink-0" />
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground rotate-180 shrink-0" />
               <div className="text-center">
-                <p className="text-[11px] sm:text-xs text-gray-500 mb-0.5 sm:mb-1">
+                <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">
                   {t("employee.permissions.returnTimeLabel")}
                 </p>
                 <p className="text-xl sm:text-2xl font-black text-blue-600 font-mono tabular-nums">
@@ -152,7 +152,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
               </div>
             </div>
             <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-blue-100 dark:border-blue-900/30 flex justify-between items-center">
-              <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium text-right">
+              <span className="text-xs sm:text-sm text-foreground dark:text-muted-foreground font-medium text-right">
                 {t("employee.permissions.totalHoursLabel")}
               </span>
               <span className="bg-blue-600 text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-bold font-mono tabular-nums">
@@ -166,7 +166,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
               <Label className="text-gray-500 text-[11px] sm:text-xs mb-1.5 sm:mb-2 block">
                 {t("employee.permissions.reasonDetail")}
               </Label>
-              <div className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-4 rounded-xl border border-gray-100 dark:border-gray-800 text-xs sm:text-sm font-medium leading-relaxed">
+              <div className="bg-gray-50 dark:bg-muted p-3 sm:p-4 rounded-xl border border-border dark:border-border text-xs sm:text-sm font-medium leading-relaxed">
                 {selectedRequest.reason}
               </div>
             </div>
@@ -194,26 +194,26 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                   <Label className="text-red-500 text-[11px] sm:text-xs mb-1.5 sm:mb-2 block">
                     {t("employee.permissions.rejectReason")}
                   </Label>
-                  <div className="bg-red-50 dark:bg-red-900/20 p-3 sm:p-4 rounded-xl border border-red-100 dark:border-red-800 text-red-700 dark:text-red-400 text-xs sm:text-sm font-bold">
+                  <div className="bg-red-50 dark:bg-destructive/20 p-3 sm:p-4 rounded-xl border border-destructive dark:border-destructive text-destructive dark:text-destructive text-xs sm:text-sm font-bold">
                     {selectedRequest.rejectionReason}
                   </div>
                 </div>
               )}
 
             {selectedRequest.approvedBy && (
-              <div className="flex items-center justify-end gap-1.5 text-xs text-gray-500 mt-3 sm:mt-4">
+              <div className="flex items-center justify-end gap-1.5 text-xs text-muted-foreground mt-3 sm:mt-4">
                 <span>
                   {t("employee.permissions.reviewedBy", {
                     name: `${selectedRequest.approvedBy.firstName} ${selectedRequest.approvedBy.lastName}`,
                   })}
                 </span>
-                <Check className="h-3 w-3 text-green-500" />
+                <Check className="h-3 w-3 text-success" />
               </div>
             )}
           </div>
         </div>
 
-        <div className="p-3.5 sm:p-6 bg-gray-50 dark:bg-gray-900/50 flex flex-wrap sm:flex-nowrap gap-2 sm:gap-4 border-t border-gray-100 dark:border-gray-800 shrink-0">
+        <div className="p-3.5 sm:p-6 bg-muted dark:bg-muted flex flex-wrap sm:flex-nowrap gap-2 sm:gap-4 border-t border-border dark:border-border shrink-0">
           <Button
             variant="outline"
             className="flex-1 h-10 sm:h-11 rounded-xl text-xs sm:text-sm"
@@ -234,7 +234,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                 {t("employee.permissions.rejectButton")}
               </Button>
               <Button
-                className="flex-1 h-10 sm:h-11 rounded-xl bg-green-600 hover:bg-green-700 font-bold text-xs sm:text-sm"
+                className="flex-1 h-10 sm:h-11 rounded-xl bg-success hover:bg-success font-bold text-xs sm:text-sm"
                 onClick={() => {
                   onApprove(selectedRequest.id);
                   onOpenChange(false);

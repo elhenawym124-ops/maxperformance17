@@ -57,7 +57,7 @@ export const AuditLogDetailsDialog: React.FC<AuditLogDetailsDialogProps> = ({
                   {selectedLog.actor?.email || "System User"}
                 </p>
               </div>
-              <div className="mr-auto">
+              <div className="me-auto">
                 {getActionBadge(selectedLog.action)}
               </div>
             </div>

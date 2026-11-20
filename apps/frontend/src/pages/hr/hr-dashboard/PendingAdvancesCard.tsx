@@ -29,10 +29,10 @@ export const PendingAdvancesCard: React.FC<PendingAdvancesCardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
-          <div className="p-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-lg">
+          <div className="p-1.5 bg-success/10 text-success dark:text-success rounded-lg">
             <DollarSign className="h-4 w-4" />
           </div>
           {t("hrDashboard.pendingAdvances")}
@@ -68,7 +68,7 @@ export const PendingAdvancesCard: React.FC<PendingAdvancesCardProps> = ({
                   <div className="flex items-center gap-2.5 min-w-0">
                     <Avatar className="h-9 w-9 shrink-0">
                       <AvatarImage src={adv.employee?.avatar} />
-                      <AvatarFallback className="bg-emerald-500/10 text-emerald-600 text-xs font-bold">
+                      <AvatarFallback className="bg-emerald-500/10 text-success text-xs font-bold">
                         {adv.employee?.firstName?.[0]}
                       </AvatarFallback>
                     </Avatar>
@@ -96,7 +96,7 @@ export const PendingAdvancesCard: React.FC<PendingAdvancesCardProps> = ({
                   <Button
                     size="sm"
                     onClick={() => onAction(adv.id, "approve")}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white h-8 text-xs font-semibold shadow-xs"
+                    className="flex-1 bg-success hover:bg-success text-white h-8 text-xs font-semibold shadow-xs"
                   >
                     {t("hrDashboard.approve")}
                   </Button>

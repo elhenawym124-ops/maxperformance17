@@ -45,7 +45,7 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-purple-600 to-fuchsia-700 text-white shadow-md">
+              <Card className="bg-gradient-to-br from-primary to-primary text-white shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -73,7 +73,7 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
                       <h3 className="text-3xl font-bold mt-1 text-blue-600 font-mono tabular-nums">
                         {leaveReport.totalDaysTaken}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         يوم إجازة إجمالي
                       </p>
                     </div>
@@ -91,7 +91,7 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         نسبة القبول
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-green-600 font-mono tabular-nums">
+                      <h3 className="text-3xl font-bold mt-1 text-success font-mono tabular-nums">
                         {Math.round(
                           (leaveReport.approved /
                             (leaveReport.totalRequests || 1)) *
@@ -99,12 +99,12 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
                         )}
                         %
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         {leaveReport.approved} طلب مقبول
                       </p>
                     </div>
-                    <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
-                      <Check className="h-6 w-6 text-green-600" />
+                    <div className="p-3 bg-success/10 dark:bg-success/20 rounded-full">
+                      <Check className="h-6 w-6 text-success" />
                     </div>
                   </div>
                 </CardContent>
@@ -117,10 +117,10 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         طلبات مرفوضة
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-red-600 font-mono tabular-nums">
+                      <h3 className="text-3xl font-bold mt-1 text-destructive font-mono tabular-nums">
                         {leaveReport.rejected}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         {Math.round(
                           (leaveReport.rejected /
                             (leaveReport.totalRequests || 1)) *
@@ -129,8 +129,8 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
                         % من الإجمالي
                       </p>
                     </div>
-                    <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-full">
-                      <X className="h-6 w-6 text-red-500" />
+                    <div className="p-3 bg-destructive/10 dark:bg-destructive/20 rounded-full">
+                      <X className="h-6 w-6 text-destructive" />
                     </div>
                   </div>
                 </CardContent>

@@ -42,10 +42,10 @@ const ComplianceSection: React.FC = () => {
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-          <ShieldCheckIcon className="h-6 w-6 text-red-600 dark:text-red-400" />
+        <div className="p-2 bg-destructive dark:bg-destructive/30 rounded-lg">
+          <ShieldCheckIcon className="h-6 w-6 text-destructive dark:text-destructive" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           الامتثال والمعايير
         </h2>
       </div>
@@ -54,24 +54,24 @@ const ComplianceSection: React.FC = () => {
         {complianceItems.map((item, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm"
+            className="bg-card rounded-xl p-6 border border-border dark:border-border shadow-sm"
           >
-            <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+            <h3 className="font-bold text-lg text-foreground mb-3 flex items-center gap-2">
               <item.icon className={`h-5 w-5 text-${item.color}-600`} />
               {item.title}
             </h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               {item.description}
             </p>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-dashed border-gray-300 dark:border-gray-600">
-        <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+      <div className="mt-8 p-6 bg-muted dark:bg-muted rounded-xl border border-dashed border-border">
+        <h4 className="font-bold text-foreground mb-2">
           ملاحظة هامة:
         </h4>
-        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+        <p className="text-gray-600 dark:text-muted-foreground text-sm leading-relaxed">
           يعتبر التوقيع الإلكتروني أو الورقي على نماذج العهدة جزءاً لا يتجزأ من
           ملف الموظف، ويحق للشركة الخصم من مستحقات الموظف في حال ثبت إهماله أو
           فقده للعهدة المسلمة إليه وفقاً لقانون العمل واللوائح الداخلية.

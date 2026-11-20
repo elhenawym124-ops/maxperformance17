@@ -30,12 +30,12 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
               key={al.id || idx}
               className={`flex items-center justify-between gap-3 rounded-xl border p-3 text-xs shadow-xs transition ${
                 al.severity === "critical"
-                  ? "border-rose-500/40 bg-rose-500/10 text-rose-800 dark:text-rose-300"
-                  : "border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-300"
+                  ? "border-rose-500/40 bg-destructive/10 text-destructive dark:text-destructive"
+                  : "border-amber-500/40 bg-warning/10 text-warning dark:text-warning"
               }`}
             >
               <div className="flex items-center gap-2 min-w-0">
-                <AlertTriangle className="h-4 w-4 shrink-0 text-amber-500" />
+                <AlertTriangle className="h-4 w-4 shrink-0 text-warning" />
                 <span className="font-semibold truncate">{al.message}</span>
               </div>
               <button
@@ -53,7 +53,7 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
         <div className="rounded-xl border border-border/40 bg-card/60 p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>الموثقون اليوم</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-info/10 text-info dark:text-info ring-1 ring-info/20">
               <Users className="h-3.5 w-3.5" />
             </span>
           </div>
@@ -68,14 +68,14 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
         <div className="rounded-xl border border-border/40 bg-card/60 p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>نشط ومتصل الآن</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-success/10 text-success dark:text-success ring-1 ring-success/20">
               <Activity className="h-3.5 w-3.5" />
             </span>
           </div>
-          <div className="mt-2 text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <div className="mt-2 text-xl font-bold text-success dark:text-success font-mono tabular-nums">
             {stats.activeNow}
           </div>
-          <div className="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 truncate">
+          <div className="mt-1 text-[11px] text-success dark:text-success truncate">
             تفاعل خلال 15 دقيقة
           </div>
         </div>
@@ -83,7 +83,7 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
         <div className="rounded-xl border border-border/40 bg-card/60 p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>متوسط وقت التسخين</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-warning/10 text-warning dark:text-warning ring-1 ring-warning/20">
               <Clock className="h-3.5 w-3.5" />
             </span>
           </div>
@@ -91,10 +91,10 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
             <span
               className={
                 stats.avgWarmupMinutes <= 15
-                  ? "text-emerald-600 dark:text-emerald-400"
+                  ? "text-emerald-600 dark:text-success"
                   : stats.avgWarmupMinutes < 30
-                    ? "text-amber-600 dark:text-amber-400"
-                    : "text-rose-600 dark:text-rose-400"
+                    ? "text-amber-600 dark:text-warning"
+                    : "text-rose-600 dark:text-destructive"
               }
             >
               {stats.avgWarmupMinutes} د
@@ -108,11 +108,11 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
         <div className="rounded-xl border border-border/40 bg-card/60 p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>نسبة النشاط الفعلي</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 ring-1 ring-indigo-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary ring-1 ring-primary/20">
               <TrendingUp className="h-3.5 w-3.5" />
             </span>
           </div>
-          <div className="mt-2 text-xl font-bold text-indigo-600 dark:text-indigo-400 font-mono tabular-nums">
+          <div className="mt-2 text-xl font-bold text-primary font-mono tabular-nums">
             {stats.avgActivityRatio}%
           </div>
           <div className="mt-1 text-[11px] text-muted-foreground truncate">
@@ -123,14 +123,14 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
         <div className="rounded-xl border border-border/40 bg-card/60 p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>متوسط الإنتاجية</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 ring-1 ring-purple-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary dark:text-primary ring-1 ring-primary/20">
               <CheckCircle2 className="h-3.5 w-3.5" />
             </span>
           </div>
           <div className="mt-2 text-xl font-bold text-foreground font-mono tabular-nums">
             {stats.avgProductivity}%
           </div>
-          <div className="mt-1 text-[11px] text-purple-600 dark:text-purple-400 truncate">
+          <div className="mt-1 text-[11px] text-primary dark:text-primary truncate">
             معدل متوازن (نشاط + مهام)
           </div>
         </div>
@@ -138,7 +138,7 @@ export const MonitorAlertsAndKpis: React.FC<MonitorAlertsAndKpisProps> = ({
         <div className="rounded-xl border border-border/40 bg-card/60 p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>المهام وساعات العمل</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-info/10 text-info dark:text-info ring-1 ring-info/20">
               <Laptop className="h-3.5 w-3.5" />
             </span>
           </div>

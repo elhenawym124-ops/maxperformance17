@@ -47,11 +47,11 @@ export interface Employee {
 }
 
 export const statusLabels: Record<string, { label: string; color: string }> = {
-  ACTIVE: { label: "نشط", color: "bg-green-100 text-green-800" },
-  ON_LEAVE: { label: "في إجازة", color: "bg-yellow-100 text-yellow-800" },
-  SUSPENDED: { label: "موقوف", color: "bg-red-100 text-red-800" },
-  TERMINATED: { label: "منتهي", color: "bg-gray-100 text-gray-800" },
-  RESIGNED: { label: "مستقيل", color: "bg-orange-100 text-orange-800" },
+  ACTIVE: { label: "نشط", color: "bg-green-100 text-success" },
+  ON_LEAVE: { label: "في إجازة", color: "bg-yellow-100 text-warning" },
+  SUSPENDED: { label: "موقوف", color: "bg-red-100 text-destructive" },
+  TERMINATED: { label: "منتهي", color: "bg-gray-100 text-foreground" },
+  RESIGNED: { label: "مستقيل", color: "bg-orange-100 text-warning" },
 };
 
 export const contractLabels: Record<string, string> = {

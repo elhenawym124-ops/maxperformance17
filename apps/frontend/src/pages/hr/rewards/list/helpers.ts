@@ -7,11 +7,11 @@ export const REWARD_STATUS_BADGE_CONFIG: Record<
 > = {
   PENDING: {
     label: "قيد الانتظار",
-    className: "bg-yellow-100 text-yellow-800",
+    className: "bg-yellow-100 text-warning",
   },
   APPROVED: {
     label: "معتمد",
-    className: "bg-green-100 text-green-800",
+    className: "bg-green-100 text-success",
   },
   APPLIED: {
     label: "مطبق",
@@ -19,11 +19,11 @@ export const REWARD_STATUS_BADGE_CONFIG: Record<
   },
   REJECTED: {
     label: "مرفوض",
-    className: "bg-red-100 text-red-800",
+    className: "bg-red-100 text-destructive",
   },
   VOIDED: {
     label: "ملغي",
-    className: "bg-gray-100 text-gray-800",
+    className: "bg-gray-100 text-foreground",
   },
 };
 
@@ -37,59 +37,59 @@ export const REWARD_CATEGORY_BADGE_CONFIG: Record<
   },
   PERFORMANCE: {
     label: "أداء متميز",
-    className: "bg-purple-100 text-purple-800",
+    className: "bg-purple-100 text-primary",
   },
   ACHIEVEMENT: {
     label: "إنجاز",
-    className: "bg-green-100 text-green-800",
+    className: "bg-green-100 text-success",
   },
   SEASONAL: {
     label: "موسمية",
-    className: "bg-orange-100 text-orange-800",
+    className: "bg-orange-100 text-warning",
   },
   TEAM_BASED: {
     label: "فريق",
-    className: "bg-indigo-100 text-indigo-800",
+    className: "bg-indigo-100 text-primary",
   },
-  COMPANY_WIDE: { label: "عامة", className: "bg-pink-100 text-pink-800" },
+  COMPANY_WIDE: { label: "عامة", className: "bg-pink-100 text-primary" },
   TARGET_ACHIEVEMENT: {
     label: "تحقيق تارجت",
-    className: "bg-emerald-100 text-emerald-800",
+    className: "bg-emerald-100 text-success",
   },
   TARGET_EXCEED: {
     label: "تجاوز تارجت",
-    className: "bg-cyan-100 text-cyan-800",
+    className: "bg-cyan-100 text-info",
   },
   PUNCTUALITY: {
     label: "التزام بالمواعيد",
-    className: "bg-sky-100 text-sky-800",
+    className: "bg-sky-100 text-info",
   },
   NO_ABSENCE: {
     label: "عدم غياب",
-    className: "bg-teal-100 text-teal-800",
+    className: "bg-teal-100 text-success",
   },
   QUALITY: {
     label: "جودة العمل",
-    className: "bg-violet-100 text-violet-800",
+    className: "bg-violet-100 text-primary",
   },
   EMPLOYEE_OF_MONTH: {
     label: "موظف الشهر",
-    className: "bg-amber-100 text-amber-800",
+    className: "bg-amber-100 text-warning",
   },
   INITIATIVE: {
     label: "مبادرة مميزة",
-    className: "bg-rose-100 text-rose-800",
+    className: "bg-rose-100 text-destructive",
   },
   PROJECT_SUCCESS: {
     label: "مشروع ناجح",
-    className: "bg-lime-100 text-lime-800",
+    className: "bg-lime-100 text-success",
   },
   SALES: { label: "مبيعات", className: "bg-blue-100 text-blue-800" },
   ADMINISTRATIVE: {
     label: "مكافأة إدارية",
-    className: "bg-slate-100 text-slate-800",
+    className: "bg-slate-100 text-foreground",
   },
-  OTHER: { label: "أخرى", className: "bg-gray-100 text-gray-800" },
+  OTHER: { label: "أخرى", className: "bg-gray-100 text-foreground" },
 };
 
 export const getRewardCategoryBadgeConfig = (category: string) =>

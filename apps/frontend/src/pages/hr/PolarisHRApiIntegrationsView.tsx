@@ -76,7 +76,7 @@ export const PolarisHRApiIntegrationsView: React.FC<PolarisHRApiIntegrationsView
       />
 
       {/* Main Single-Surface Polaris Card Chassis */}
-      <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Segmented Navigation Tabs */}
         <div className="border-b border-border/70 bg-muted/20 px-3 pt-2">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1">
@@ -107,7 +107,7 @@ export const PolarisHRApiIntegrationsView: React.FC<PolarisHRApiIntegrationsView
         </div>
 
         {/* Tab Content Body */}
-        <CardContent className="p-4 sm:p-6 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:p-0">
+        <CardContent className="p-4 sm:p-6 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:p-0">
           {activeTab === "keys" && (
             <HRApiKeysTab loading={loading} keys={keys} onRevokeKey={onRevokeKey} />
           )}

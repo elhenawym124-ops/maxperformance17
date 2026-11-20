@@ -66,9 +66,9 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Avatar className="h-10 w-10 border border-gray-200">
+                  <Avatar className="h-10 w-10 border border-border">
                     <AvatarImage src={person?.avatar} />
-                    <AvatarFallback className="bg-green-100 text-green-700 font-bold">
+                    <AvatarFallback className="bg-green-100 text-success font-bold">
                       {person?.firstName?.[0]}
                     </AvatarFallback>
                   </Avatar>
@@ -93,19 +93,19 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                       <Button
                         variant="default"
                         size="sm"
-                        className="bg-green-600 hover:bg-green-700 text-white"
+                        className="bg-green-600 hover:bg-success text-white"
                         onClick={(e) => {
                           e.stopPropagation();
                           onUpdateStatus(promotion.id, "APPROVED");
                         }}
                       >
-                        <CheckCircle2 className="h-4 w-4 ml-1" />
+                        <CheckCircle2 className="h-4 w-4 ms-1" />
                         اعتماد
                       </Button>
                       <Button
                         variant="default"
                         size="sm"
-                        className="bg-red-600 hover:bg-red-700 text-white"
+                        className="bg-red-600 hover:bg-destructive text-white"
                         onClick={(e) => {
                           e.stopPropagation();
                           const reason = prompt(
@@ -114,7 +114,7 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                           onUpdateStatus(promotion.id, "REJECTED", reason || "");
                         }}
                       >
-                        <XCircle className="h-4 w-4 ml-1" />
+                        <XCircle className="h-4 w-4 ms-1" />
                         رفض
                       </Button>
                     </>
@@ -127,7 +127,7 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                       onEditPromotion(promotion.id);
                     }}
                   >
-                    <Edit className="h-4 w-4 ml-1" />
+                    <Edit className="h-4 w-4 ms-1" />
                     تعديل
                   </Button>
                   <AlertDialog>
@@ -135,9 +135,9 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        className="text-red-600 hover:text-destructive hover:bg-destructive/10"
                       >
-                        <Trash2 className="h-4 w-4 ml-2" />
+                        <Trash2 className="h-4 w-4 ms-2" />
                         حذف
                       </Button>
                     </AlertDialogTrigger>
@@ -153,7 +153,7 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                         <AlertDialogCancel>إلغاء</AlertDialogCancel>
                         <AlertDialogAction
                           onClick={() => onDeletePromotion(promotion.id)}
-                          className="bg-red-600 hover:bg-red-700"
+                          className="bg-red-600 hover:bg-destructive"
                         >
                           حذف
                         </AlertDialogAction>
@@ -171,7 +171,7 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                       <Briefcase className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500">المسار الوظيفي</p>
+                      <p className="text-xs text-muted-foreground">المسار الوظيفي</p>
                       <p className="font-medium">
                         {promotion.fromPositionName || "غير محدد"}{" "}
                         <span className="text-gray-400">←</span>{" "}
@@ -180,11 +180,11 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
-                    <div className="p-2 bg-green-100 rounded-full text-green-600">
+                    <div className="p-2 bg-success rounded-full text-success">
                       <TrendingUp className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500">تعديل الراتب</p>
+                      <p className="text-xs text-muted-foreground">تعديل الراتب</p>
                       <p className="font-medium font-mono tabular-nums">
                         {promotion.fromSalary != null
                           ? Number(promotion.fromSalary).toLocaleString()
@@ -202,18 +202,18 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-sm">
-                    <div className="p-2 bg-orange-100 rounded-full text-orange-600">
+                    <div className="p-2 bg-warning rounded-full text-warning">
                       <Calendar className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500">التواريخ</p>
+                      <p className="text-xs text-muted-foreground">التواريخ</p>
                       <p className="font-medium font-mono tabular-nums">
                         الترقية:{" "}
                         {new Date(promotion.promotionDate).toLocaleDateString(
                           "ar-EG",
                         )}
                       </p>
-                      <p className="text-xs text-orange-600 font-mono tabular-nums">
+                      <p className="text-xs text-warning font-mono tabular-nums">
                         السريان:{" "}
                         {new Date(promotion.effectiveDate).toLocaleDateString(
                           "ar-EG",
@@ -224,17 +224,17 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
                 </div>
               </div>
 
-              <div className="mt-4 p-3 border-r-4 border-gray-200 bg-gray-50 rounded-l-md">
-                <p className="text-xs text-gray-500 mb-1 font-bold">
+              <div className="mt-4 p-3 border-r-4 border-border bg-muted rounded-l-md">
+                <p className="text-xs text-muted-foreground mb-1 font-bold">
                   سبب الترقية:
                 </p>
-                <p className="text-sm text-gray-700 italic">
+                <p className="text-sm text-foreground italic">
                   "{promotion.reason}"
                 </p>
               </div>
 
               {promotion.status === "REJECTED" && promotion.rejectionReason && (
-                <div className="mt-2 p-2 bg-red-50 border border-red-100 rounded text-xs text-red-700">
+                <div className="mt-2 p-2 bg-destructive/10 border border-destructive rounded text-xs text-destructive">
                   <strong>سبب الرفض:</strong> {promotion.rejectionReason}
                 </div>
               )}

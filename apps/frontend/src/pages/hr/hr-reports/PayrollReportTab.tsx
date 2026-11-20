@@ -47,7 +47,7 @@ export const PayrollReportTab: React.FC<PayrollReportTabProps> = ({
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg">
+              <Card className="bg-gradient-to-br from-success to-success text-white shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -72,7 +72,7 @@ export const PayrollReportTab: React.FC<PayrollReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         الرواتب الأساسية
                       </p>
-                      <h3 className="text-2xl font-bold mt-2 text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+                      <h3 className="text-2xl font-bold mt-2 text-foreground font-mono tabular-nums">
                         {formatCurrency(payrollReport.totalBaseSalary)}
                       </h3>
                     </div>
@@ -90,12 +90,12 @@ export const PayrollReportTab: React.FC<PayrollReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         إجمالي البدلات
                       </p>
-                      <h3 className="text-2xl font-bold mt-2 text-green-600 font-mono tabular-nums">
+                      <h3 className="text-2xl font-bold mt-2 text-success font-mono tabular-nums">
                         +{formatCurrency(payrollReport.totalAllowances)}
                       </h3>
                     </div>
-                    <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
-                      <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
+                    <div className="p-3 bg-success dark:bg-success/30 rounded-full">
+                      <TrendingUp className="h-6 w-6 text-success dark:text-success" />
                     </div>
                   </div>
                 </CardContent>
@@ -108,12 +108,12 @@ export const PayrollReportTab: React.FC<PayrollReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         إجمالي الخصومات
                       </p>
-                      <h3 className="text-2xl font-bold mt-2 text-red-600 font-mono tabular-nums">
+                      <h3 className="text-2xl font-bold mt-2 text-destructive font-mono tabular-nums">
                         -{formatCurrency(payrollReport.totalDeductions)}
                       </h3>
                     </div>
-                    <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-full">
-                      <TrendingDown className="h-6 w-6 text-red-600 dark:text-red-400" />
+                    <div className="p-3 bg-destructive dark:bg-destructive/30 rounded-full">
+                      <TrendingDown className="h-6 w-6 text-destructive dark:text-destructive" />
                     </div>
                   </div>
                 </CardContent>
@@ -271,7 +271,7 @@ export const PayrollReportTab: React.FC<PayrollReportTabProps> = ({
                         <TableRow>
                           <TableCell
                             colSpan={4}
-                            className="text-center py-8 text-gray-500"
+                            className="text-center py-8 text-muted-foreground"
                           >
                             لا توجد بيانات متاحة لهذا الشهر
                           </TableCell>

@@ -85,13 +85,13 @@ export const PayrollFiltersBar: React.FC<PayrollFiltersBarProps> = ({
           </Select>
 
           {selectedCount > 0 && !isMyPayroll && (
-            <div className="flex gap-2 mr-auto">
-              <Button onClick={onBulkApprove} variant="outline" className="text-emerald-600 border-emerald-200 hover:bg-emerald-50">
-                <Check className="h-4 w-4 ml-2" />
+            <div className="flex gap-2 me-auto">
+              <Button onClick={onBulkApprove} variant="outline" className="text-emerald-600 border-success hover:bg-success/10">
+                <Check className="h-4 w-4 ms-2" />
                 اعتماد المحدد ({selectedCount})
               </Button>
               <Button onClick={onBulkPay}>
-                <CreditCard className="h-4 w-4 ml-2" />
+                <CreditCard className="h-4 w-4 ms-2" />
                 صرف المحدد ({selectedCount})
               </Button>
             </div>

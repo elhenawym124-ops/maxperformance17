@@ -37,15 +37,15 @@ const PayrollTesting: React.FC = () => {
         {/* Main Content Area */}
         <div className="flex-1 overflow-hidden flex flex-col gap-6">
           {!ctrl.selectedEmployee ? (
-            <div className="flex-1 flex flex-col items-center justify-center bg-white dark:bg-slate-950/20 rounded-2xl border border-dashed border-slate-200 p-8 min-h-[400px]">
+            <div className="flex-1 flex flex-col items-center justify-center bg-white dark:bg-muted rounded-xl border border-dashed border-border p-8 min-h-[400px]">
               <motion.div
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ repeat: Infinity, duration: 4 }}
-                className="h-24 w-24 bg-indigo-50 dark:bg-slate-900 rounded-full flex items-center justify-center mb-4"
+                className="h-24 w-24 bg-primary/10 dark:bg-muted rounded-full flex items-center justify-center mb-4"
               >
-                <Users className="h-12 w-12 text-indigo-400" />
+                <Users className="h-12 w-12 text-primary" />
               </motion.div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">
                 ابدأ اختبار الرواتب الآن
               </h3>
               <p className="text-slate-500 text-center max-w-md">
@@ -54,7 +54,7 @@ const PayrollTesting: React.FC = () => {
               </p>
             </div>
           ) : (
-            <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+            <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
               <CardHeader className="rounded-t-2xl border-b border-border/70 bg-muted/30 text-card-foreground py-4 px-6 flex-row items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="h-10 w-10 bg-primary/10 border border-primary/20 text-primary rounded-xl flex items-center justify-center">
@@ -76,7 +76,7 @@ const PayrollTesting: React.FC = () => {
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
-                    className="bg-white text-indigo-700 hover:bg-indigo-50 font-bold h-10 px-4 rounded-lg"
+                    className="bg-white text-primary hover:bg-primary/10 font-bold h-10 px-4 rounded-lg"
                     onClick={() => ctrl.setSelectedEmployee(null)}
                   >
                     تغيير الموظف
@@ -89,33 +89,33 @@ const PayrollTesting: React.FC = () => {
                 onValueChange={ctrl.setActiveTab}
                 className="flex-1 flex flex-col min-h-0"
               >
-                <TabsList className="bg-slate-50 dark:bg-slate-900 p-1 flex justify-start rounded-none h-14 px-6 gap-2">
+                <TabsList className="bg-slate-50 dark:bg-muted p-1 flex justify-start rounded-none h-14 px-6 gap-2">
                   <TabsTrigger
                     value="employee"
                     className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 px-6 font-bold"
                   >
-                    <Users className="h-4 w-4 ml-2" />
+                    <Users className="h-4 w-4 ms-2" />
                     بيانات الموظف
                   </TabsTrigger>
                   <TabsTrigger
                     value="deductions"
                     className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 px-6 font-bold"
                   >
-                    <MinusCircle className="h-4 w-4 ml-2" />
+                    <MinusCircle className="h-4 w-4 ms-2" />
                     الخصومات
                   </TabsTrigger>
                   <TabsTrigger
                     value="attendance"
                     className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 px-6 font-bold"
                   >
-                    <Calendar className="h-4 w-4 ml-2" />
+                    <Calendar className="h-4 w-4 ms-2" />
                     الحضور والإجازات
                   </TabsTrigger>
                   <TabsTrigger
                     value="scenarios"
                     className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 px-6 font-bold"
                   >
-                    <Settings className="h-4 w-4 ml-2" />
+                    <Settings className="h-4 w-4 ms-2" />
                     سيناريوهات جاهزة
                   </TabsTrigger>
                 </TabsList>

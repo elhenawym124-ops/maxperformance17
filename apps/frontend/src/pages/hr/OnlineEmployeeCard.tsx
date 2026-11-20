@@ -108,7 +108,7 @@ export const OnlineEmployeeCard: React.FC<OnlineEmployeeCardProps> = ({
         <span
           className={`shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium border ${
             isOnline
-              ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+              ? "border-emerald-500/20 bg-success/10 text-success dark:text-success"
               : "border-border/60 bg-muted/60 text-muted-foreground"
           }`}
         >
@@ -144,7 +144,7 @@ export const OnlineEmployeeCard: React.FC<OnlineEmployeeCardProps> = ({
 
         <div>
           {isOnline && emp.onlineSince ? (
-            <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+            <span className="flex items-center gap-1 text-success dark:text-success font-medium">
               <Clock className="h-3 w-3" />
               <span>{t("onlineTeam.onlineSince", { time: formatSince(emp.onlineSince) })}</span>
             </span>

@@ -34,7 +34,7 @@ export const ShiftAssignedEmployeesCard: React.FC<
             <span className="font-mono tabular-nums">{totalAssignments}</span>)
           </CardTitle>
           <Button size="sm" onClick={onAssignOpen}>
-            <UserPlus className="h-4 w-4 ml-2" />
+            <UserPlus className="h-4 w-4 ms-2" />
             إضافة موظف
           </Button>
         </div>
@@ -42,12 +42,12 @@ export const ShiftAssignedEmployeesCard: React.FC<
       <CardContent>
         {assignments.length === 0 ? (
           <div className="text-center py-12">
-            <Users className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
+            <Users className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-muted-foreground mb-4">
               لا يوجد موظفين معينين لهذه المناوبة
             </p>
             <Button onClick={onAssignOpen}>
-              <UserPlus className="h-4 w-4 ml-2" />
+              <UserPlus className="h-4 w-4 ms-2" />
               تعيين موظف
             </Button>
           </div>
@@ -56,7 +56,7 @@ export const ShiftAssignedEmployeesCard: React.FC<
             {assignments.map((assignment) => (
               <div
                 key={assignment.id}
-                className="flex items-center justify-between p-4 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-between p-4 border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
@@ -68,7 +68,7 @@ export const ShiftAssignedEmployeesCard: React.FC<
                         <p className="font-semibold">
                           {assignment.user.firstName} {assignment.user.lastName}
                         </p>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           {assignment.user.employeeNumber && (
                             <span className="font-mono tabular-nums">
                               #{assignment.user.employeeNumber}
@@ -81,10 +81,10 @@ export const ShiftAssignedEmployeesCard: React.FC<
                       </>
                     ) : (
                       <>
-                        <p className="font-semibold text-red-600">
+                        <p className="font-semibold text-destructive">
                           موظف محذوف
                         </p>
-                        <p className="text-xs text-red-500">
+                        <p className="text-xs text-destructive">
                           تعيين قديم - يرجى الحذف
                         </p>
                       </>
@@ -93,7 +93,7 @@ export const ShiftAssignedEmployeesCard: React.FC<
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-left">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       تاريخ التعيين
                     </p>
                     <p className="text-sm font-medium">
@@ -104,7 +104,7 @@ export const ShiftAssignedEmployeesCard: React.FC<
                     variant="outline"
                     size="sm"
                     onClick={() => onRemoveAssignment(assignment.id)}
-                    className="text-red-500 hover:bg-red-50"
+                    className="text-red-500 hover:bg-destructive/10"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

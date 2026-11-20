@@ -76,7 +76,7 @@ export const PositionFormDialog: React.FC<PositionFormDialogProps> = ({
                 {...register("title", { required: "عنوان المنصب مطلوب" })}
               />
               {errors.title && (
-                <p className="text-sm text-red-500">{errors.title.message}</p>
+                <p className="text-sm text-destructive">{errors.title.message}</p>
               )}
             </div>
 

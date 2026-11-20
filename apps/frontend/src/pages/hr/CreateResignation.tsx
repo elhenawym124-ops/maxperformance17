@@ -110,7 +110,7 @@ const CreateResignation: React.FC = () => {
         </button>
         <div>
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400">
+            <div className="flex h-7 w-7 items-center justify-center rounded-md border border-destructive/20 bg-destructive/10 text-destructive dark:text-destructive">
               <FileX className="h-4 w-4" />
             </div>
             <h1 className="text-base font-bold tracking-tight text-foreground">
@@ -155,10 +155,10 @@ const CreateResignation: React.FC = () => {
               )}
             />
             {errors.employeeId && (
-              <p className="text-[11px] text-red-500">{errors.employeeId.message}</p>
+              <p className="text-[11px] text-destructive">{errors.employeeId.message}</p>
             )}
             {employees.length === 0 && (
-              <div className="flex items-center gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 p-2.5 text-[11px] text-amber-700 dark:text-amber-300">
+              <div className="flex items-center gap-2 rounded-md border border-warning/30 bg-warning/10 p-2.5 text-[11px] text-warning dark:text-warning">
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>لا يوجد موظفون متاحون حالياً. يرجى التأكد من تسجيل موظفين في قسم الموارد البشرية.</span>
               </div>
@@ -180,7 +180,7 @@ const CreateResignation: React.FC = () => {
               className="w-full px-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary"
             />
             {errors.resignationDate && (
-              <p className="text-[11px] text-red-500">{errors.resignationDate.message}</p>
+              <p className="text-[11px] text-destructive">{errors.resignationDate.message}</p>
             )}
             {expectedDate && (
               <div className="flex items-center gap-2 rounded-md border border-border/60 bg-muted/20 p-2 text-[11px] text-muted-foreground font-mono">
@@ -201,7 +201,7 @@ const CreateResignation: React.FC = () => {
               className="w-full px-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary"
             />
             {errors.lastWorkingDay && (
-              <p className="text-[11px] text-red-500">{errors.lastWorkingDay.message}</p>
+              <p className="text-[11px] text-destructive">{errors.lastWorkingDay.message}</p>
             )}
           </div>
         </div>
@@ -246,7 +246,7 @@ const CreateResignation: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center justify-center gap-1.5 rounded-md bg-rose-600 px-4 py-1.5 font-semibold text-white hover:bg-rose-700 transition-colors shadow-xs disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 rounded-md bg-destructive px-4 py-1.5 font-semibold text-white hover:bg-destructive transition-colors shadow-xs disabled:opacity-50"
           >
             {loading ? (
               <>

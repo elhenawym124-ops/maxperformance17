@@ -148,13 +148,13 @@ const OvertimeReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button variant="outline" onClick={fetchReport}>
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button variant="outline" onClick={handleExport}>
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -171,7 +171,7 @@ const OvertimeReport: React.FC = () => {
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+              <Card className="bg-gradient-to-br from-warning to-warning text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -190,11 +190,11 @@ const OvertimeReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">التكلفة الإجمالية</p>
-                      <h3 className="text-xl font-bold mt-1 text-green-600">
+                      <h3 className="text-xl font-bold mt-1 text-success">
                         {formatCurrency(report.totalOvertimeCost)}
                       </h3>
                     </div>
-                    <DollarSign className="h-10 w-10 text-green-500" />
+                    <DollarSign className="h-10 w-10 text-success" />
                   </div>
                 </CardContent>
               </Card>
@@ -218,11 +218,11 @@ const OvertimeReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">متوسط الساعات</p>
-                      <h3 className="text-3xl font-bold mt-1 text-purple-600">
+                      <h3 className="text-3xl font-bold mt-1 text-primary">
                         {report.averageOvertimePerEmployee.toFixed(1)}
                       </h3>
                     </div>
-                    <TrendingUp className="h-10 w-10 text-purple-500" />
+                    <TrendingUp className="h-10 w-10 text-primary" />
                   </div>
                 </CardContent>
               </Card>
@@ -242,7 +242,7 @@ const OvertimeReport: React.FC = () => {
                       <div key={index} className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="font-medium">{dept.department}</span>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-sm text-muted-foreground">
                             {dept.hours} ساعة • {formatCurrency(dept.cost)} •{" "}
                             {dept.employees} موظف
                           </span>
@@ -265,24 +265,24 @@ const OvertimeReport: React.FC = () => {
                   {report.topOvertimeEmployees.map((employee, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-muted dark:bg-muted rounded-lg"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-warning to-warning rounded-full flex items-center justify-center text-white font-bold">
                           {index + 1}
                         </div>
                         <div>
                           <p className="font-medium">{employee.name}</p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground">
                             {employee.department}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-bold text-orange-600">
+                        <p className="text-lg font-bold text-warning">
                           {employee.hours} ساعة
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-muted-foreground">
                           {formatCurrency(employee.cost)}
                         </p>
                       </div>
@@ -306,7 +306,7 @@ const OvertimeReport: React.FC = () => {
                       <div key={index} className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="font-medium">{week.week}</span>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-sm text-muted-foreground">
                             {week.hours} ساعة
                           </span>
                         </div>

@@ -46,7 +46,7 @@ export const GoalsFilterPanel: React.FC<GoalsFilterPanelProps> = ({
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder="ابحث بعنوان الهدف أو المسؤول"
-            className="rounded-2xl pr-10"
+            className="rounded-xl pe-10"
           />
         </div>
 
@@ -56,7 +56,7 @@ export const GoalsFilterPanel: React.FC<GoalsFilterPanelProps> = ({
           onChange={(event) =>
             onGoalTypeChange(event.target.value as "ALL" | GoalType)
           }
-          className="h-10 rounded-2xl border border-input bg-background px-3 text-sm"
+          className="h-10 rounded-xl border border-input bg-background px-3 text-sm"
         >
           <option value="ALL">كل الأنواع</option>
           <option value="PROJECT">أهداف المشاريع</option>
@@ -70,7 +70,7 @@ export const GoalsFilterPanel: React.FC<GoalsFilterPanelProps> = ({
           data-testid="goals-status-filter"
           value={status}
           onChange={(event) => onStatusChange(event.target.value)}
-          className="h-10 rounded-2xl border border-input bg-background px-3 text-sm"
+          className="h-10 rounded-xl border border-input bg-background px-3 text-sm"
         >
           <option value="ALL">كل الحالات</option>
           <option value="PENDING">معلق</option>
@@ -83,7 +83,7 @@ export const GoalsFilterPanel: React.FC<GoalsFilterPanelProps> = ({
           data-testid="goals-project-filter"
           value={projectId}
           onChange={(event) => onProjectIdChange(event.target.value)}
-          className="h-10 rounded-2xl border border-input bg-background px-3 text-sm"
+          className="h-10 rounded-xl border border-input bg-background px-3 text-sm"
         >
           <option value="">كل المشاريع</option>
           {projects.map((project) => (
@@ -94,7 +94,7 @@ export const GoalsFilterPanel: React.FC<GoalsFilterPanelProps> = ({
         </select>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/70 bg-muted/20 px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border/70 bg-muted/20 px-4 py-3">
         <div className="space-y-1">
           <div className="text-sm font-medium">إظهار الأهداف اليومية</div>
           <div className="text-xs text-muted-foreground">

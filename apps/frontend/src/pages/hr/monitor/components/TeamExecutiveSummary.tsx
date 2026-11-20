@@ -29,7 +29,7 @@ export const TeamExecutiveSummary: React.FC<TeamExecutiveSummaryProps> = ({
     <div className="relative overflow-hidden rounded-xl border border-border/40 bg-card/60 p-4 shadow-sm backdrop-blur-md">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-1 ring-inset ring-sky-500/25">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-info/10 text-info dark:text-info ring-1 ring-inset ring-info/25">
             <Activity className="h-4 w-4" />
           </div>
           <div>
@@ -37,7 +37,7 @@ export const TeamExecutiveSummary: React.FC<TeamExecutiveSummaryProps> = ({
               <h3 className="text-sm font-bold text-foreground">
                 الموجز الرقمي المباشر لإنتاجية الدوام (Executive Telemetry)
               </h3>
-              <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+              <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-semibold text-success dark:text-success ring-1 ring-inset ring-success/20">
                 تحديث لحظي
               </span>
             </div>
@@ -51,14 +51,14 @@ export const TeamExecutiveSummary: React.FC<TeamExecutiveSummaryProps> = ({
         {isSuperOrOwner && (
           <div className="flex items-center gap-2">
             {archiveSuccess && (
-              <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+              <span className="text-[11px] font-medium text-success dark:text-success">
                 {archiveSuccess}
               </span>
             )}
             <button
               onClick={onTriggerArchive}
               disabled={archiving}
-              className="flex h-7 items-center gap-1.5 rounded-md border border-border/50 bg-muted/60 dark:bg-zinc-900/60 px-2.5 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-zinc-800 transition active:scale-95"
+              className="flex h-7 items-center gap-1.5 rounded-md border border-border/50 bg-muted/60 dark:bg-muted px-2.5 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted transition active:scale-95"
               title="أرشفة السجلات التفصيلية الأقدم من 60 يوماً وتفريغ مساحة التخزين"
             >
               <Archive className={`h-3 w-3 ${archiving ? 'animate-spin' : ''}`} />
@@ -69,7 +69,7 @@ export const TeamExecutiveSummary: React.FC<TeamExecutiveSummaryProps> = ({
       </div>
 
       {/* Telemetry Summary Text */}
-      <div className="mt-3 rounded-lg border border-border/40 bg-muted/40 dark:bg-zinc-950/40 p-3 text-xs text-foreground">
+      <div className="mt-3 rounded-lg border border-border/40 bg-muted/40 dark:bg-muted p-3 text-xs text-foreground">
         <div className="flex flex-wrap items-center gap-y-2 gap-x-6">
           <div className="flex items-center gap-1.5">
             <span className="text-muted-foreground">حالة الفريق الحالية:</span>
@@ -80,32 +80,32 @@ export const TeamExecutiveSummary: React.FC<TeamExecutiveSummaryProps> = ({
 
           <div className="flex items-center gap-1.5">
             <span className="text-muted-foreground">ساعات العمل الموثقة:</span>
-            <span className="font-semibold text-sky-600 dark:text-sky-400 tabular-nums">
+            <span className="font-semibold text-info dark:text-info tabular-nums">
               {stats.totalHoursTracked} ساعة عمل
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="text-muted-foreground">نسبة النشاط من الدوام:</span>
-            <span className="font-semibold text-indigo-600 dark:text-indigo-400 tabular-nums">
+            <span className="font-semibold text-primary tabular-nums">
               {stats.avgActivityRatio ?? 0}%
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="text-muted-foreground">متوسط وقت التسخين:</span>
-            <span className="font-semibold text-amber-600 dark:text-amber-400 tabular-nums">
+            <span className="font-semibold text-warning dark:text-warning tabular-nums">
               {stats.avgWarmupMinutes ?? 0} دقيقة
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="text-muted-foreground">إجمالي المهام:</span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <span className="font-semibold text-success dark:text-success tabular-nums">
               {stats.totalTasksCompleted || 0} منجزة
             </span>
             {(stats.totalTasksCreated || 0) > 0 && (
-              <span className="font-medium text-sky-600 dark:text-sky-400 tabular-nums">
+              <span className="font-medium text-info dark:text-info tabular-nums">
                 • {stats.totalTasksCreated} منشأة
               </span>
             )}

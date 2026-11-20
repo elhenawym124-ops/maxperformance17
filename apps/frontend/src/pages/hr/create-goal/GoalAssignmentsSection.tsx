@@ -40,7 +40,7 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
       description="كل توزيع هنا ينشئ هدف ابن لموظف، ويمكن لكل واحد منهم توليد أهداف يومية تلقائيًا."
       contentClassName="space-y-4"
     >
-      <div className="rounded-3xl border border-border/70 bg-muted/15 p-4">
+      <div className="rounded-xl border border-border/70 bg-muted/15 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <div>
             <div className="font-medium">إجمالي التوزيع</div>
@@ -63,7 +63,7 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
         {assignments.map((assignment, index) => (
           <div
             key={`${assignment.id || "new"}-${index}`}
-            className="rounded-3xl border border-border/70 bg-background p-4"
+            className="rounded-xl border border-border/70 bg-background p-4"
           >
             <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_180px_auto]">
               <div className="space-y-2">
@@ -76,7 +76,7 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
                   onChange={(event) =>
                     onUpdateAssignment(index, "employeeId", event.target.value)
                   }
-                  className="h-10 w-full rounded-2xl border border-input bg-background px-3 text-sm"
+                  className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm"
                 >
                   <option value="">اختر الموظف</option>
                   {employees.map((employee) => (
@@ -97,7 +97,7 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
                     onUpdateAssignment(index, "title", event.target.value)
                   }
                   placeholder="يترك فارغًا ليأخذ نفس عنوان الهدف الأب"
-                  className="rounded-2xl"
+                  className="rounded-xl"
                 />
               </div>
 
@@ -113,12 +113,12 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
                   onChange={(event) =>
                     onUpdateAssignment(index, "targetValue", event.target.value)
                   }
-                  className="rounded-2xl font-mono tabular-nums"
+                  className="rounded-xl font-mono tabular-nums"
                 />
               </div>
 
               <div className="flex items-end gap-2">
-                <div className="flex flex-1 items-center justify-between rounded-2xl border border-border/70 px-3 py-2">
+                <div className="flex flex-1 items-center justify-between rounded-xl border border-border/70 px-3 py-2">
                   <div className="text-xs">
                     <div className="font-medium">يومي تلقائي</div>
                     <div className="text-muted-foreground">يولد أهداف يومية</div>
@@ -138,7 +138,7 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
                 <Button
                   type="button"
                   variant="outline"
-                  className="rounded-2xl text-destructive"
+                  className="rounded-xl text-destructive"
                   onClick={() => onRemoveAssignment(index)}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -155,7 +155,7 @@ export const GoalAssignmentsSection: React.FC<GoalAssignmentsSectionProps> = ({
         className="rounded-xl"
         onClick={onAddAssignment}
       >
-        <Plus className="ml-2 h-4 w-4" />
+        <Plus className="ms-2 h-4 w-4" />
         إضافة توزيع جديد
       </Button>
     </BusinessSectionPanel>

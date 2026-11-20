@@ -141,13 +141,13 @@ const PerformanceReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button variant="outline" onClick={fetchReport}>
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button variant="outline" onClick={handleExport}>
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -164,7 +164,7 @@ const PerformanceReport: React.FC = () => {
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+              <Card className="bg-gradient-to-br from-primary to-primary text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -183,11 +183,11 @@ const PerformanceReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">ممتاز</p>
-                      <h3 className="text-3xl font-bold mt-1 text-green-600">
+                      <h3 className="text-3xl font-bold mt-1 text-success">
                         {report.excellentCount}
                       </h3>
                     </div>
-                    <TrendingUp className="h-10 w-10 text-green-500" />
+                    <TrendingUp className="h-10 w-10 text-success" />
                   </div>
                 </CardContent>
               </Card>
@@ -211,11 +211,11 @@ const PerformanceReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">يحتاج تحسين</p>
-                      <h3 className="text-3xl font-bold mt-1 text-orange-600">
+                      <h3 className="text-3xl font-bold mt-1 text-warning">
                         {report.needsImprovementCount}
                       </h3>
                     </div>
-                    <Target className="h-10 w-10 text-orange-500" />
+                    <Target className="h-10 w-10 text-warning" />
                   </div>
                 </CardContent>
               </Card>
@@ -228,17 +228,17 @@ const PerformanceReport: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="text-sm text-gray-500">إجمالي الأهداف</p>
+                  <div className="text-center p-4 bg-muted dark:bg-muted rounded-lg">
+                    <p className="text-sm text-muted-foreground">إجمالي الأهداف</p>
                     <h4 className="text-2xl font-bold mt-1">
                       {report.goalsAchievement.total}
                     </h4>
                   </div>
-                  <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                    <p className="text-sm text-green-600 dark:text-green-400">
+                  <div className="text-center p-4 bg-success/10 dark:bg-success/20 rounded-lg">
+                    <p className="text-sm text-success dark:text-success">
                       مكتملة
                     </p>
-                    <h4 className="text-2xl font-bold mt-1 text-green-600">
+                    <h4 className="text-2xl font-bold mt-1 text-success">
                       {report.goalsAchievement.completed}
                     </h4>
                   </div>
@@ -250,8 +250,8 @@ const PerformanceReport: React.FC = () => {
                       {report.goalsAchievement.inProgress}
                     </h4>
                   </div>
-                  <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="text-sm text-gray-500">لم تبدأ</p>
+                  <div className="text-center p-4 bg-muted dark:bg-muted rounded-lg">
+                    <p className="text-sm text-muted-foreground">لم تبدأ</p>
                     <h4 className="text-2xl font-bold mt-1">
                       {report.goalsAchievement.notStarted}
                     </h4>
@@ -266,7 +266,7 @@ const PerformanceReport: React.FC = () => {
                     }
                     className="h-3"
                   />
-                  <p className="text-sm text-gray-500 mt-2 text-center">
+                  <p className="text-sm text-muted-foreground mt-2 text-center">
                     نسبة الإنجاز:{" "}
                     {(
                       (report.goalsAchievement.completed /
@@ -290,7 +290,7 @@ const PerformanceReport: React.FC = () => {
                     <div key={index} className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{dept.department}</span>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-muted-foreground">
                           {dept.reviews} تقييم • {dept.avgScore.toFixed(1)}/5
                         </span>
                       </div>
@@ -314,21 +314,21 @@ const PerformanceReport: React.FC = () => {
                   {report.topPerformers.map((performer, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-muted dark:bg-muted rounded-lg"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-warning to-warning rounded-full flex items-center justify-center text-white font-bold">
                           {index + 1}
                         </div>
                         <div>
                           <p className="font-medium">{performer.name}</p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground">
                             {performer.department}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-bold text-green-600">
+                        <p className="text-lg font-bold text-success">
                           {performer.score.toFixed(1)}/5
                         </p>
                       </div>

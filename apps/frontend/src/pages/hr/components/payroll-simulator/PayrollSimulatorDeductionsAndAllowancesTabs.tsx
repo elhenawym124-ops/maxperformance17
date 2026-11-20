@@ -18,8 +18,8 @@ export const PayrollSimulatorDeductionsAndAllowancesTabs: React.FC<
     <>
       <TabsContent value="deductions" className="mt-0 space-y-6">
         <div className="flex items-center justify-between mb-2">
-          <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2 text-lg">
-            <MinusCircle className="h-5 w-5 text-rose-500" />
+          <h4 className="font-bold text-foreground dark:text-white flex items-center gap-2 text-lg">
+            <MinusCircle className="h-5 w-5 text-destructive" />
             الخصومات والجزاءات المخصصة
           </h4>
           <Button
@@ -42,19 +42,19 @@ export const PayrollSimulatorDeductionsAndAllowancesTabs: React.FC<
               });
             }}
           >
-            <Plus className="h-4 w-4 ml-1" /> إدخال خصم
+            <Plus className="h-4 w-4 ms-1" /> إدخال خصم
           </Button>
         </div>
         <div className="space-y-3">
           {simulation.manualDeductions.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 italic text-sm">
+            <div className="py-12 text-center text-muted-foreground italic text-sm">
               لا توجد خصومات مخصصة مضافة حالياً
             </div>
           ) : (
             simulation.manualDeductions.map((d, i) => (
               <div
                 key={d.id}
-                className="flex gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 items-end border border-slate-100 dark:border-slate-800"
+                className="flex gap-4 p-4 rounded-xl bg-muted dark:bg-muted items-end border border-border dark:border-border"
               >
                 <div className="space-y-1 flex-[2]">
                   <Label className="text-xs">السبب / الوصف</Label>
@@ -91,7 +91,7 @@ export const PayrollSimulatorDeductionsAndAllowancesTabs: React.FC<
                   variant="ghost"
                   size="icon"
                   aria-label="حذف الخصم"
-                  className="text-rose-500 hover:bg-rose-50 rounded-xl"
+                  className="text-rose-500 hover:bg-destructive/10 rounded-xl"
                   onClick={() => {
                     onSimulationChange({
                       ...simulation,
@@ -111,8 +111,8 @@ export const PayrollSimulatorDeductionsAndAllowancesTabs: React.FC<
 
       <TabsContent value="allowances" className="mt-0 space-y-6">
         <div className="flex items-center justify-between mb-4">
-          <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2 text-lg">
-            <Plus className="h-5 w-5 text-emerald-500" />
+          <h4 className="font-bold text-foreground dark:text-white flex items-center gap-2 text-lg">
+            <Plus className="h-5 w-5 text-success" />
             البدلات والمزايا الإضافية
           </h4>
           <Button
@@ -130,14 +130,14 @@ export const PayrollSimulatorDeductionsAndAllowancesTabs: React.FC<
               });
             }}
           >
-            <Plus className="h-4 w-4 ml-1" /> إضافة بدل
+            <Plus className="h-4 w-4 ms-1" /> إضافة بدل
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4">
           {Object.entries(simulation.allowances).map(([name, amount], idx) => (
             <div
               key={idx}
-              className="flex gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 items-end border border-slate-100 dark:border-slate-800"
+              className="flex gap-4 p-4 rounded-xl bg-muted dark:bg-muted items-end border border-border dark:border-border"
             >
               <div className="space-y-1 flex-[2]">
                 <Label className="text-xs">اسم البدل</Label>
@@ -178,7 +178,7 @@ export const PayrollSimulatorDeductionsAndAllowancesTabs: React.FC<
                 variant="ghost"
                 size="icon"
                 aria-label="حذف البدل"
-                className="text-rose-500 hover:bg-rose-50"
+                className="text-rose-500 hover:bg-destructive/10"
                 onClick={() => {
                   const { [name]: _, ...rest } = simulation.allowances;
                   onSimulationChange({

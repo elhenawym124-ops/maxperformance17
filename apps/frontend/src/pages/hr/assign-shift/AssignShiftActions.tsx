@@ -30,7 +30,7 @@ export const AssignShiftActions: React.FC<AssignShiftActionsProps> = ({
       <Button
         variant="outline"
         onClick={onCancel}
-        className="h-12 border-gray-200 dark:border-gray-800"
+        className="h-12 border-border dark:border-border"
       >
         إلغاء
       </Button>

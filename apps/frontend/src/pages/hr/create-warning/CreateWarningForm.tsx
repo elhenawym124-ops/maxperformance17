@@ -109,7 +109,7 @@ export const CreateWarningForm: React.FC<CreateWarningFormProps> = ({
                 )}
               />
               {errors.employeeId && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
+                <p className="text-sm text-destructive flex items-center gap-1">
                   <AlertCircle className="h-3 w-3" />{" "}
                   {errors.employeeId.message}
                 </p>
@@ -126,14 +126,14 @@ export const CreateWarningForm: React.FC<CreateWarningFormProps> = ({
                   <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <DateInput
                     
-                    className="h-12 pr-10 bg-background/50 font-mono tabular-nums"
+                    className="h-12 pe-10 bg-background/50 font-mono tabular-nums"
                     {...register("incidentDate", {
                       required: "التاريخ مطلوب",
                     })}
                   />
                 </div>
                 {errors.incidentDate && (
-                  <p className="text-sm text-red-500">
+                  <p className="text-sm text-destructive">
                     {errors.incidentDate.message}
                   </p>
                 )}
@@ -206,7 +206,7 @@ export const CreateWarningForm: React.FC<CreateWarningFormProps> = ({
                   {...register("title", { required: "العنوان مطلوب" })}
                 />
                 {errors.title && (
-                  <p className="text-sm text-red-500">{errors.title.message}</p>
+                  <p className="text-sm text-destructive">{errors.title.message}</p>
                 )}
               </div>
             </div>
@@ -224,7 +224,7 @@ export const CreateWarningForm: React.FC<CreateWarningFormProps> = ({
                 })}
               />
               {errors.description && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-destructive">
                   {errors.description.message}
                 </p>
               )}
@@ -266,13 +266,13 @@ export const CreateWarningForm: React.FC<CreateWarningFormProps> = ({
                 type="submit"
                 disabled={loading}
                 size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white min-w-[150px]"
+                className="bg-red-600 hover:bg-destructive text-white min-w-[150px]"
               >
                 {loading ? (
                   "جاري الحفظ..."
                 ) : (
                   <>
-                    <Save className="h-4 w-4 ml-2" />
+                    <Save className="h-4 w-4 ms-2" />
                     اعتماد المخالفة
                   </>
                 )}

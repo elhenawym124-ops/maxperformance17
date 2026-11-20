@@ -181,7 +181,7 @@ const PerformanceReviews: React.FC = () => {
         <Button
           onClick={() => navigate("/hr/performance-reviews/new")}
         >
-          <Plus className="h-4 w-4 ml-2" />
+          <Plus className="h-4 w-4 ms-2" />
           إنشاء تقييم شامل
         </Button>
       </div>
@@ -193,27 +193,27 @@ const PerformanceReviews: React.FC = () => {
             <div className="h-6 w-1 bg-primary rounded-full" />
             <h2 className="text-xl font-bold">التقييم السريع</h2>
           </div>
-          <span className="text-xs font-bold text-muted-foreground bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full">اختر موظفاً لبدء تقييم فوري</span>
+          <span className="text-xs font-bold text-muted-foreground bg-muted dark:bg-muted px-3 py-1 rounded-full">اختر موظفاً لبدء تقييم فوري</span>
         </div>
 
         <div className="flex overflow-x-auto pb-4 gap-4 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
           {loadingEmployees ? (
             <div className="flex gap-4">
-              {[1, 2, 3, 4, 5].map(i => <div key={i} className="min-w-[160px] h-44 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-[2rem]" />)}
+              {[1, 2, 3, 4, 5].map(i => <div key={i} className="min-w-[160px] h-44 bg-muted dark:bg-muted animate-pulse rounded-[2rem]" />)}
             </div>
           ) : employees.length > 0 ? (
             employees.filter(e => e.hasEmployeeRecord).map((emp) => (
               <div
                 key={emp.id}
-                className="min-w-[170px] group relative bg-white dark:bg-gray-900 rounded-[2rem] p-6 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 cursor-pointer flex flex-col items-center text-center space-y-4 overflow-hidden"
+                className="min-w-[170px] group relative bg-white dark:bg-muted rounded-[2rem] p-6 border border-border dark:border-border shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 cursor-pointer flex flex-col items-center text-center space-y-4 overflow-hidden"
                 onClick={() => navigate(`/hr/performance-reviews/new?employeeId=${emp.id}`)}
               >
                 {/* Decoration */}
                 <div className="absolute -top-6 -right-6 w-20 h-20 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-500" />
 
-                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-primary text-2xl font-black ring-4 ring-primary/5 group-hover:rotate-6 transition-transform">
+                <div className="relative w-16 h-16 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-primary text-2xl font-black ring-4 ring-primary/5 group-hover:rotate-6 transition-transform">
                   {emp.avatar ? (
-                    <img src={emp.avatar} alt="" className="w-full h-full object-cover rounded-2xl" />
+                    <img src={emp.avatar} alt="" className="w-full h-full object-cover rounded-xl" />
                   ) : (
                     emp.firstName?.[0]
                   )}
@@ -234,7 +234,7 @@ const PerformanceReviews: React.FC = () => {
               </div>
             ))
           ) : (
-            <div className="w-full py-12 text-center bg-gray-50/50 dark:bg-gray-800/30 rounded-[2.5rem] border-2 border-dashed border-gray-200 dark:border-gray-700">
+            <div className="w-full py-12 text-center bg-muted dark:bg-muted rounded-[2.5rem] border-2 border-dashed border-border dark:border-border">
               <p className="text-muted-foreground">لا يوجد موظفين متاحين حالياً</p>
             </div>
           )}
@@ -249,10 +249,10 @@ const PerformanceReviews: React.FC = () => {
         </div>
 
         {reviews.length === 0 ? (
-          <Card className="border-none shadow-xl bg-gray-50/50 dark:bg-gray-800/20 rounded-[3rem]">
+          <Card className="border-none shadow-xl bg-muted dark:bg-muted rounded-[3rem]">
             <CardContent className="p-20 text-center space-y-6">
-              <div className="w-24 h-24 bg-white dark:bg-gray-800 shadow-inner rounded-full flex items-center justify-center mx-auto">
-                <BarChart3 className="h-12 w-12 text-gray-300" />
+              <div className="w-24 h-24 bg-card shadow-inner rounded-full flex items-center justify-center mx-auto">
+                <BarChart3 className="h-12 w-12 text-muted-foreground" />
               </div>
               <div className="space-y-2">
                 <h3 className="text-2xl font-bold">السجل فارغ</h3>
@@ -261,26 +261,26 @@ const PerformanceReviews: React.FC = () => {
               <Button
                 onClick={() => navigate("/hr/performance-reviews/new")}
                 variant="outline"
-                className="rounded-2xl border-primary/30 text-primary hover:bg-primary/5 h-12 px-8"
+                className="rounded-xl border-primary/30 text-primary hover:bg-primary/5 h-12 px-8"
               >
                 إنشاء أول تقييم
               </Button>
             </CardContent>
           </Card>
         ) : (
-          <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden ring-1 ring-gray-100/50">
+          <div className="bg-white dark:bg-muted rounded-[2rem] shadow-2xl border border-border dark:border-border overflow-hidden ring-1 ring-border">
             <div className="overflow-x-auto">
               <table className="w-full text-right" dir="rtl">
                 <thead>
-                  <tr className="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
-                    <th className="px-8 py-6 text-xs font-black text-gray-500 uppercase tracking-widest">الموظف</th>
-                    <th className="px-8 py-6 text-xs font-black text-gray-500 uppercase tracking-widest">فترة التقييم</th>
-                    <th className="px-8 py-6 text-xs font-black text-gray-500 uppercase tracking-widest text-center">التقييم العام</th>
-                    <th className="px-8 py-6 text-xs font-black text-gray-500 uppercase tracking-widest">الحالة</th>
-                    <th className="px-8 py-6 text-xs font-black text-gray-500 uppercase tracking-widest text-left">إجراءات</th>
+                  <tr className="bg-gray-50/50 dark:bg-muted border-b border-border dark:border-border">
+                    <th className="px-8 py-6 text-xs font-black text-muted-foreground uppercase tracking-widest">الموظف</th>
+                    <th className="px-8 py-6 text-xs font-black text-muted-foreground uppercase tracking-widest">فترة التقييم</th>
+                    <th className="px-8 py-6 text-xs font-black text-muted-foreground uppercase tracking-widest text-center">التقييم العام</th>
+                    <th className="px-8 py-6 text-xs font-black text-muted-foreground uppercase tracking-widest">الحالة</th>
+                    <th className="px-8 py-6 text-xs font-black text-muted-foreground uppercase tracking-widest text-left">إجراءات</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+                <tbody className="divide-y divide-border dark:divide-border">
                   {reviews.map((review) => (
                     <tr
                       key={review.id}
@@ -290,13 +290,13 @@ const PerformanceReviews: React.FC = () => {
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-4">
                           <div className="relative">
-                            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-lg ring-4 ring-primary/5 group-hover:rotate-6 transition-transform">
+                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-black text-lg ring-4 ring-primary/5 group-hover:rotate-6 transition-transform">
                               {review.employee?.firstName?.[0] || 'U'}
                             </div>
-                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-white dark:border-gray-900 rounded-full" />
+                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-success border-2 border-white dark:border-border rounded-full" />
                           </div>
                           <div>
-                            <p className="font-black text-gray-900 dark:text-white group-hover:text-primary transition-colors text-base">
+                            <p className="font-black text-foreground group-hover:text-primary transition-colors text-base">
                               {getEmployeeName(review)}
                             </p>
                             <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">
@@ -324,7 +324,7 @@ const PerformanceReviews: React.FC = () => {
                               {Number(review.overallRating).toFixed(1)}
                             </span>
                           </div>
-                          <div className="w-20 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                          <div className="w-20 h-1.5 bg-muted dark:bg-muted rounded-full overflow-hidden">
                             <div
                               className={`h-full ${getRatingColor(Number(review.overallRating)).replace('text', 'bg')}`}
                               style={{ width: `${(Number(review.overallRating) / 5) * 100}%` }}
@@ -340,7 +340,7 @@ const PerformanceReviews: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-10 w-10 rounded-2xl bg-gray-50 dark:bg-gray-800 hover:bg-primary hover:text-white shadow-sm transition-all"
+                            className="h-10 w-10 rounded-xl bg-muted dark:bg-muted hover:bg-primary hover:text-white shadow-sm transition-all"
                             onClick={(e) => {
                               e.stopPropagation();
                               navigate(`/hr/performance-reviews/${review.id}/edit`);
@@ -351,7 +351,7 @@ const PerformanceReviews: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-10 w-10 rounded-2xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm transition-all"
+                            className="h-10 w-10 rounded-xl bg-destructive/10 text-destructive hover:bg-destructive hover:text-white shadow-sm transition-all"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDelete(review.id);

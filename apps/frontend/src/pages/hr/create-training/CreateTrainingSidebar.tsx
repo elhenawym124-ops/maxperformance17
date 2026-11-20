@@ -34,10 +34,10 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
 }) => {
   return (
     <div className="lg:col-span-1 space-y-6">
-      <Card className="overflow-hidden border-none shadow-xl ring-1 ring-purple-100/50">
-        <div className="h-2 bg-gradient-to-r from-purple-500 to-indigo-500" />
+      <Card className="overflow-hidden border-none shadow-xl ring-1 ring-primary/50">
+        <div className="h-2 bg-gradient-to-r from-primary to-primary" />
         <CardContent className="p-6 space-y-6">
-          <h3 className="text-lg font-bold flex items-center gap-2 text-purple-800">
+          <h3 className="text-lg font-bold flex items-center gap-2 text-primary">
             <User className="h-5 w-5" />
             الموظف والبرنامج
           </h3>
@@ -53,7 +53,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
                 rules={{ required: "يجب اختيار الموظف" }}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="h-12 border-purple-100 focus:ring-purple-200 rounded-xl bg-gray-50/30">
+                    <SelectTrigger className="h-12 border-primary focus:ring-primary rounded-xl bg-muted">
                       <SelectValue placeholder="اختر الموظف المستهدف" />
                     </SelectTrigger>
                     <SelectContent className="max-h-72">
@@ -69,10 +69,10 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
                             className="py-3"
                           >
                             <div className="flex flex-col gap-0.5">
-                              <span className="font-bold text-gray-900">
+                              <span className="font-bold text-foreground">
                                 {emp.firstName} {emp.lastName}
                               </span>
-                              <span className="text-[10px] text-gray-500 font-mono tabular-nums">
+                              <span className="text-[10px] text-muted-foreground font-mono tabular-nums">
                                 #{emp.employeeNumber} |{" "}
                                 {emp.position?.title || "موظف"}
                               </span>
@@ -85,7 +85,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
                 )}
               />
               {errors.employeeId && (
-                <p className="text-xs font-bold text-rose-500 flex items-center gap-1 mt-1">
+                <p className="text-xs font-bold text-destructive flex items-center gap-1 mt-1">
                   <AlertCircle className="h-3 w-3" />{" "}
                   {errors.employeeId.message}
                 </p>
@@ -98,13 +98,13 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
               </Label>
               <Input
                 placeholder="مثال: تحليل البيانات باستخدام Excel"
-                className="h-12 border-purple-100 focus:ring-purple-200 rounded-xl"
+                className="h-12 border-primary focus:ring-primary rounded-xl"
                 {...register("trainingName", {
                   required: "اسم البرنامج مطلوب",
                 })}
               />
               {errors.trainingName && (
-                <p className="text-xs font-bold text-rose-500 mt-1">
+                <p className="text-xs font-bold text-destructive mt-1">
                   {errors.trainingName.message}
                 </p>
               )}
@@ -117,7 +117,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
                 control={control}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="h-12 border-purple-100 rounded-xl bg-gray-50/30">
+                    <SelectTrigger className="h-12 border-primary rounded-xl bg-muted">
                       <SelectValue placeholder="اختر تصنيف البرنامج" />
                     </SelectTrigger>
                     <SelectContent>
@@ -135,13 +135,13 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-indigo-600 to-purple-700 text-white border-none shadow-xl overflow-hidden relative">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white border-none shadow-xl overflow-hidden relative">
         <div className="absolute -right-4 -bottom-4 opacity-10">
           <Award className="w-32 h-32" />
         </div>
         <CardContent className="p-6 space-y-4">
-          <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-            <Lightbulb className="h-6 w-6 text-yellow-300" />
+          <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
+            <Lightbulb className="h-6 w-6 text-warning" />
           </div>
           <h3 className="text-xl font-black">نصيحة التدريب</h3>
           <p className="text-indigo-100 text-sm leading-relaxed font-medium">

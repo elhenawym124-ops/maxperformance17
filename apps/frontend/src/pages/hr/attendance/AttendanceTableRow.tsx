@@ -64,20 +64,20 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
   const isHome = record.workMode === "HOME";
 
   return (
-    <TableRow className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
+    <TableRow className="hover:bg-gray-50/50 dark:hover:bg-muted">
       <TableCell>
         <div className="flex items-center gap-3 font-arabic">
-          <Avatar className="h-9 w-9 border border-gray-200">
+          <Avatar className="h-9 w-9 border border-border">
             <AvatarImage src={record.employee?.avatar} />
             <AvatarFallback className="bg-blue-50 text-blue-700">
               {record.employee?.firstName?.[0]}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <p className="font-bold text-gray-900 dark:text-white text-sm">
+            <p className="font-bold text-foreground text-sm">
               {record.employee?.firstName} {record.employee?.lastName}
             </p>
-            <p className="text-[10px] text-gray-500 font-mono tracking-wider">
+            <p className="text-[10px] text-muted-foreground font-mono tracking-wider">
               {record.employee?.employeeNumber}
             </p>
           </div>
@@ -85,7 +85,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
       </TableCell>
       <TableCell>
         <div className="flex flex-col gap-0.5">
-          <span className="font-bold text-gray-800 dark:text-gray-200 text-xs">
+          <span className="font-bold text-foreground dark:text-muted-foreground text-xs">
             {formatAttendanceDate(
               record.date,
               { weekday: "long" },
@@ -93,7 +93,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
               attendanceTimezone,
             )}
           </span>
-          <span className="text-[10px] text-gray-500 font-mono tabular-nums">
+          <span className="text-[10px] text-muted-foreground font-mono tabular-nums">
             {formatAttendanceDate(
               record.date,
               {
@@ -110,7 +110,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
       <TableCell>
         <Badge
           variant="outline"
-          className="font-medium bg-gray-50 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
+          className="font-medium bg-muted text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border"
         >
           {record.employee?.department?.name || "بدون قسم"}
         </Badge>
@@ -141,7 +141,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
         <div className="space-y-1.5 min-w-[120px]">
           <div className="flex items-center gap-1.5 mb-1">
             {isHome ? (
-              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-100 dark:bg-purple-900/20 dark:text-purple-300 dark:border-purple-800/30 text-[10px] font-bold">
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary dark:bg-primary/20 dark:text-primary dark:border-primary/30 text-[10px] font-bold">
                 <Home className="h-3 w-3" />
                 <span>من المنزل</span>
               </div>
@@ -200,7 +200,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
         {record.workHours !== null &&
         record.workHours !== undefined &&
         Number(record.workHours) > 0 ? (
-          <span className="font-bold text-gray-700 dark:text-gray-300 font-mono tabular-nums">
+          <span className="font-bold text-foreground font-mono tabular-nums">
             {Number(record.workHours).toFixed(1)} س
           </span>
         ) : (
@@ -240,7 +240,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
             record.autoCloseAudit &&
             record.autoCloseAudit.isAutoClosed && (
               <>
-                <Badge className="bg-amber-100 text-amber-800 font-bold px-3 w-fit">
+                <Badge className="bg-amber-100 text-warning font-bold px-3 w-fit">
                   مغلق تلقائيًا
                 </Badge>
                 <Badge
@@ -256,7 +256,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
                     ]?.label
                   }
                 </Badge>
-                <div className="text-[10px] leading-4 text-gray-500">
+                <div className="text-[10px] leading-4 text-muted-foreground">
                   <div>
                     السبب:{" "}
                     {getAutoCloseReasonLabel(
@@ -282,7 +282,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 gap-1.5 bg-orange-50 text-orange-600 border-orange-100 hover:bg-orange-600 hover:text-white"
+                className="h-8 gap-1.5 bg-warning/10 text-warning border-warning hover:bg-warning hover:text-white"
                 onClick={() => handleCheckOut(record.employee.id)}
               >
                 <Clock className="h-3.5 w-3.5" />
@@ -292,7 +292,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
           {!record.checkIn && record.id.startsWith("temp-") && (
             <button
               type="button"
-              className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all border border-green-100"
+              className="p-2 rounded-lg bg-success/10 text-success hover:bg-success hover:text-white transition-all border border-success"
               onClick={() => handleCheckIn(record.employee.id)}
               title="تسجيل حضور الآن"
             >
@@ -302,7 +302,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
           {record.notes && (
             <button
               type="button"
-              className="p-2 rounded-lg bg-gray-50 text-gray-600 hover:bg-gray-600 hover:text-white transition-all border border-gray-100"
+              className="p-2 rounded-lg bg-muted text-foreground hover:bg-muted hover:text-white transition-all border border-border"
               onClick={() => {
                 setSelectedNotes(record.notes || "");
                 setShowNotesDialog(true);
@@ -317,7 +317,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
             record.autoCloseAudit.isAutoClosed && (
               <button
                 type="button"
-                className="p-2 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-600 hover:text-white transition-all border border-amber-100"
+                className="p-2 rounded-lg bg-warning/10 text-warning hover:bg-warning hover:text-white transition-all border border-warning"
                 onClick={() => openAutoCloseReview(record)}
                 title="مراجعة الإغلاق التلقائي"
               >
@@ -335,7 +335,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
           {!record.id.startsWith("temp-") && (
             <button
               type="button"
-              className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all border border-red-100"
+              className="p-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-all border border-destructive"
               onClick={() => confirmDelete(record.id)}
               title="حذف"
             >

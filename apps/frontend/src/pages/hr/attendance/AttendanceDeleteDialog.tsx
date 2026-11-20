@@ -25,7 +25,7 @@ export const AttendanceDeleteDialog: React.FC<AttendanceDeleteDialogProps> = ({
         <DialogHeader>
           <DialogTitle className="text-right">حذف سجل حضور</DialogTitle>
         </DialogHeader>
-        <div className="py-6 text-right text-gray-600 dark:text-gray-300">
+        <div className="py-6 text-right text-muted-foreground">
           هل أنت متأكد من حذف هذا السجل بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء.
         </div>
         <DialogFooter className="flex gap-3 justify-start rtl:flex-row-reverse">

@@ -32,8 +32,8 @@ const StatCard: React.FC<StatCardProps> = ({
   alert = false,
 }) => (
   <div
-    className={`${color} p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-transform hover:-translate-y-1 ${
-      alert ? "ring-2 ring-red-400" : ""
+    className={`${color} p-3 sm:p-4 rounded-xl shadow-sm border border-border dark:border-border transition-transform hover:-translate-y-1 ${
+      alert ? "ring-2 ring-destructive" : ""
     }`}
   >
     <div className="flex justify-between items-start">
@@ -42,7 +42,7 @@ const StatCard: React.FC<StatCardProps> = ({
           className={`text-xs font-medium ${
             textColor === "text-white"
               ? "text-white/70"
-              : "text-gray-500 dark:text-gray-400"
+              : "text-muted-foreground"
           }`}
         >
           {title}
@@ -62,8 +62,8 @@ const StatCard: React.FC<StatCardProps> = ({
       </div>
       <div
         className={`p-2 rounded-lg ${
-          color === "bg-white dark:bg-gray-800"
-            ? "bg-gray-50 dark:bg-gray-700"
+          color === "bg-card"
+            ? "bg-gray-50 dark:bg-muted"
             : "bg-white/20"
         } ${
           alert
@@ -109,48 +109,48 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
           title="الموظفين"
           value={overview.totalUsers}
           icon={<UsersIcon className="w-6 h-6" />}
-          color="bg-white dark:bg-gray-800"
+          color="bg-card"
         />
         <StatCard
           title="طلبات اليوم"
           value={overview.totalTodayOrders}
           icon={<ShoppingCartIcon className="w-6 h-6" />}
-          color="bg-white dark:bg-gray-800"
+          color="bg-card"
         />
         <StatCard
           title="إيرادات اليوم"
           value={`${overview.totalTodayRevenue.toLocaleString()} ج.م`}
           icon={<CurrencyDollarIcon className="w-6 h-6" />}
-          color="bg-gradient-to-r from-green-500 to-green-600"
+          color="bg-gradient-to-r from-success to-success"
           textColor="text-white"
         />
         <StatCard
           title="رسائل جديدة"
           value={overview.totalUnreadConversations}
           icon={<ChatBubbleLeftRightIcon className="w-6 h-6" />}
-          color="bg-white dark:bg-gray-800"
+          color="bg-card"
           alert={overview.totalUnreadConversations > 10}
         />
         <StatCard
           title="منتجات نفذت"
           value={overview.totalLowStockProducts}
           icon={<ExclamationTriangleIcon className="w-6 h-6" />}
-          color="bg-white dark:bg-gray-800"
+          color="bg-card"
           alert={overview.totalLowStockProducts > 0}
         />
       </div>
 
       {/* Companies Grid */}
-      <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+      <h2 className="text-lg font-bold text-foreground dark:text-white">
         الشركات
       </h2>
       {companies.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 p-12 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-          <BuildingOffice2Icon className="w-16 h-16 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-          <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">
+        <div className="bg-card p-12 rounded-xl shadow-sm border border-border dark:border-border text-center">
+          <BuildingOffice2Icon className="w-16 h-16 mx-auto text-muted-foreground dark:text-foreground mb-4" />
+          <h3 className="text-lg font-bold text-foreground dark:text-white mb-2">
             لا توجد شركات بعد
           </h3>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
+          <p className="text-muted-foreground mb-4">
             ابدأ بإنشاء أول شركة لإدارة أعمالك
           </p>
           <button
@@ -165,11 +165,11 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
           {companies.map((item) => (
             <div
               key={item.company.id}
-              className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all"
+              className="bg-card p-5 rounded-xl shadow-sm border border-border dark:border-border hover:shadow-md transition-all"
             >
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
+                  <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
                     {item.company.logo ? (
                       <img
                         src={getImageUrl(item.company.logo) || ""}
@@ -177,19 +177,19 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <BuildingOffice2Icon className="w-6 h-6 text-gray-400" />
+                      <BuildingOffice2Icon className="w-6 h-6 text-muted-foreground" />
                     )}
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    <h3 className="font-bold text-foreground dark:text-white flex items-center gap-2">
                       {item.company.name}
                       {item.company.isDefault && (
-                        <span className="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-medium rounded-full border border-green-200 dark:border-green-800">
+                        <span className="px-1.5 py-0.5 bg-success dark:bg-success/30 text-success dark:text-success text-[10px] font-medium rounded-full border border-success dark:border-success">
                           الافتراضية
                         </span>
                       )}
                     </h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                    <p className="text-xs text-muted-foreground font-mono tabular-nums">
                       {item.stats.totalUsers} موظف
                     </p>
                   </div>
@@ -206,7 +206,7 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
                       onClick={() =>
                         onSetDefaultCompany(item.company.id, item.company.name)
                       }
-                      className="text-[10px] text-gray-400 hover:text-blue-500 transition-colors"
+                      className="text-[10px] text-muted-foreground hover:text-blue-500 transition-colors"
                     >
                       تعيين كافتراضية
                     </button>
@@ -218,27 +218,27 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
               <div className="grid grid-cols-3 gap-3 mt-4">
                 <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
                   <ShoppingCartIcon className="w-5 h-5 mx-auto text-blue-600 mb-1" />
-                  <p className="text-lg font-bold text-gray-800 dark:text-white font-mono tabular-nums">
+                  <p className="text-lg font-bold text-foreground dark:text-white font-mono tabular-nums">
                     {item.stats.todayOrders}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     طلب
                   </p>
                 </div>
-                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
-                  <CurrencyDollarIcon className="w-5 h-5 mx-auto text-green-600 mb-1" />
-                  <p className="text-lg font-bold text-gray-800 dark:text-white font-mono tabular-nums">
+                <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg text-center">
+                  <CurrencyDollarIcon className="w-5 h-5 mx-auto text-success mb-1" />
+                  <p className="text-lg font-bold text-foreground dark:text-white font-mono tabular-nums">
                     {item.stats.todayRevenue.toLocaleString()}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     ج.م
                   </p>
                 </div>
                 <div
                   className={`p-3 rounded-lg text-center ${
                     item.stats.unreadConversations > 0
-                      ? "bg-orange-50 dark:bg-orange-900/20"
-                      : "bg-gray-50 dark:bg-gray-700"
+                      ? "bg-orange-50 dark:bg-warning/20"
+                      : "bg-gray-50 dark:bg-muted"
                   }`}
                 >
                   <ChatBubbleLeftRightIcon
@@ -248,10 +248,10 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
                         : "text-gray-400"
                     }`}
                   />
-                  <p className="text-lg font-bold text-gray-800 dark:text-white font-mono tabular-nums">
+                  <p className="text-lg font-bold text-foreground dark:text-white font-mono tabular-nums">
                     {item.stats.unreadConversations}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     رسالة
                   </p>
                 </div>
@@ -259,9 +259,9 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
 
               {/* Alerts */}
               {item.stats.lowStockProducts > 0 && (
-                <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center gap-2">
-                  <ExclamationTriangleIcon className="w-5 h-5 text-red-600" />
-                  <span className="text-sm text-red-700 dark:text-red-400">
+                <div className="mt-4 p-3 bg-destructive/10 dark:bg-destructive/20 rounded-lg flex items-center gap-2">
+                  <ExclamationTriangleIcon className="w-5 h-5 text-destructive" />
+                  <span className="text-sm text-destructive dark:text-destructive">
                     <span className="font-mono tabular-nums">
                       {item.stats.lowStockProducts}
                     </span>{" "}

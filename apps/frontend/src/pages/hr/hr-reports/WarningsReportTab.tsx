@@ -37,7 +37,7 @@ export const WarningsReportTab: React.FC<WarningsReportTabProps> = ({
         warningReport && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card className="bg-gradient-to-br from-amber-500 to-orange-600 text-white">
+              <Card className="bg-gradient-to-br from-warning to-warning text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>

@@ -37,7 +37,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
       onOpenChange={(open) => !open && onClose()}
     >
       <DialogContent
-        className="max-w-2xl bg-card text-card-foreground border border-border/70 shadow-2xl rounded-2xl p-0 overflow-hidden"
+        className="max-w-2xl bg-card text-card-foreground border border-border/70 shadow-2xl rounded-xl p-0 overflow-hidden"
         dir="rtl"
       >
         {selectedWarning && (
@@ -46,15 +46,15 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
               <div className="flex items-start justify-between relative z-10">
                 <div className="flex items-center gap-5">
                   <div className="relative">
-                    <Avatar className="h-16 w-16 border-4 border-white dark:border-gray-800 shadow-xl ring-2 ring-primary/10">
+                    <Avatar className="h-16 w-16 border-4 border-white dark:border-border shadow-xl ring-2 ring-primary/10">
                       <AvatarFallback className="bg-gradient-to-br from-primary to-primary-foreground text-white text-xl font-black">
                         {selectedWarning.employee?.firstName?.[0] || "U"}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="absolute -bottom-1 -right-1 bg-green-500 h-4 w-4 rounded-full border-2 border-white dark:border-gray-900" />
+                    <div className="absolute -bottom-1 -right-1 bg-success h-4 w-4 rounded-full border-2 border-white dark:border-border" />
                   </div>
                   <div className="space-y-1">
-                    <DialogTitle className="text-2xl font-black tracking-tight text-gray-900 dark:text-white break-words max-w-[400px]">
+                    <DialogTitle className="text-2xl font-black tracking-tight text-foreground break-words max-w-[400px]">
                       {selectedWarning.title}
                     </DialogTitle>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
@@ -80,7 +80,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
             <div className="px-8 pb-8 space-y-8 max-h-[65vh] overflow-y-auto custom-scrollbar relative">
               {/* Meta Info Grid */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="group p-4 bg-muted/30 hover:bg-muted/50 transition-colors rounded-2xl border border-muted/50 space-y-2">
+                <div className="group p-4 bg-muted/30 hover:bg-muted/50 transition-colors rounded-xl border border-muted/50 space-y-2">
                   <p className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5 opacity-60">
                     <AlertTriangle className="h-3 w-3" /> درجة الشدة
                   </p>
@@ -88,7 +88,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
                     {getSeverityBadge(selectedWarning.severity)}
                   </div>
                 </div>
-                <div className="group p-4 bg-muted/30 hover:bg-muted/50 transition-colors rounded-2xl border border-muted/50 space-y-2">
+                <div className="group p-4 bg-muted/30 hover:bg-muted/50 transition-colors rounded-xl border border-muted/50 space-y-2">
                   <p className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5 opacity-60">
                     <FileText className="h-3 w-3" /> تصنيف المخالفة
                   </p>
@@ -104,7 +104,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
               {/* Description Section */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                  <h4 className="text-xs font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2">
                     <FileText className="h-3.5 w-3.5 text-primary" />
                     تفاصيل الواقعة
                   </h4>
@@ -114,7 +114,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
                 </div>
                 <div className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/10 to-transparent rounded-[1.25rem] blur opacity-0 group-hover:opacity-100 transition duration-500" />
-                  <div className="relative bg-white dark:bg-gray-900/50 p-6 rounded-[1.25rem] border border-gray-100 dark:border-gray-800 shadow-sm leading-relaxed whitespace-pre-wrap break-words text-gray-700 dark:text-gray-200 text-lg">
+                  <div className="relative bg-white dark:bg-muted p-6 rounded-[1.25rem] border border-border dark:border-border shadow-sm leading-relaxed whitespace-pre-wrap break-words text-foreground text-lg">
                     {selectedWarning.description}
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
                   </span>
                 </div>
                 {selectedWarning.acknowledgedAt ? (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 text-green-600 rounded-full text-xs font-bold ring-1 ring-green-500/20 font-mono tabular-nums">
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-success/10 text-success rounded-full text-xs font-bold ring-1 ring-success/20 font-mono tabular-nums">
                     <CheckCircle2 className="h-3 w-3" />
                     <span>
                       تم الإقرار:{" "}
@@ -147,7 +147,7 @@ export const WarningPreviewModal: React.FC<WarningPreviewModalProps> = ({
                     </span>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 text-amber-600 rounded-full text-xs font-bold ring-1 ring-amber-500/20">
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-warning/10 text-warning rounded-full text-xs font-bold ring-1 ring-warning/20">
                     <Info className="h-3 w-3" />
                     <span>في انتظار إقرار الموظف</span>
                   </div>

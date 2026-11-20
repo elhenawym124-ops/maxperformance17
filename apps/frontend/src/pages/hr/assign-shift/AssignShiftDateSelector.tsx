@@ -24,7 +24,7 @@ export const AssignShiftDateSelector: React.FC<
   return (
     <div className="space-y-3">
       <Label className="text-sm font-semibold flex items-center gap-2">
-        <Calendar className="h-4 w-4 text-orange-500" />
+        <Calendar className="h-4 w-4 text-warning" />
         {dateRangeMode ? "نطاق التاريخ" : "تاريخ العمل"}
       </Label>
       <div className={dateRangeMode ? "grid grid-cols-2 gap-3" : ""}>
@@ -36,7 +36,7 @@ export const AssignShiftDateSelector: React.FC<
             
             value={assignmentDate}
             onChange={(e) => onAssignmentDateChange(e.target.value)}
-            className="bg-gray-50/50 dark:bg-gray-800/50"
+            className="bg-gray-50/50 dark:bg-muted"
           />
         </div>
         {dateRangeMode && (
@@ -47,7 +47,7 @@ export const AssignShiftDateSelector: React.FC<
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
               min={assignmentDate}
-              className="bg-gray-50/50 dark:bg-gray-800/50"
+              className="bg-gray-50/50 dark:bg-muted"
             />
           </div>
         )}

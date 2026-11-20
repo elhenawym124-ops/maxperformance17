@@ -24,7 +24,7 @@ export const EmployeeDocumentsTab: React.FC<EmployeeDocumentsTabProps> = ({
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold">المستندات</CardTitle>
           <Button onClick={onManageDocuments}>
-            <FileText className="h-4 w-4 ml-2" />
+            <FileText className="h-4 w-4 ms-2" />
             إدارة المستندات
           </Button>
         </div>
@@ -35,7 +35,7 @@ export const EmployeeDocumentsTab: React.FC<EmployeeDocumentsTabProps> = ({
           <div className="text-center py-8">
             <p className="text-gray-500 mb-4">لا توجد مستندات</p>
             <Button onClick={onManageDocuments}>
-              <FileText className="h-4 w-4 ml-2" />
+              <FileText className="h-4 w-4 ms-2" />
               إضافة مستند
             </Button>
           </div>
@@ -44,12 +44,12 @@ export const EmployeeDocumentsTab: React.FC<EmployeeDocumentsTabProps> = ({
             {employee.employeeDocuments.map((doc: any) => (
               <div
                 key={doc.id}
-                className="flex items-center gap-3 p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/40"
+                className="flex items-center gap-3 p-4 border rounded-lg bg-muted dark:bg-muted"
               >
                 <FileText className="h-8 w-8 text-blue-500 shrink-0" />
                 <div>
                   <p className="font-medium text-sm">{doc.title}</p>
-                  <p className="text-xs text-gray-500">{doc.type}</p>
+                  <p className="text-xs text-muted-foreground">{doc.type}</p>
                 </div>
               </div>
             ))}

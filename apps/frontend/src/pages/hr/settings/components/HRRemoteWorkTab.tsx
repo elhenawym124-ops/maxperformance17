@@ -31,16 +31,16 @@ export const HRRemoteWorkTab: React.FC<HRRemoteWorkTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Home className="h-5 w-5 text-teal-500" />
+          <Home className="h-5 w-5 text-success" />
           سياسات العمل عن بُعد
         </CardTitle>
         <CardDescription>إعدادات العمل من المنزل</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center justify-between p-4 border border-teal-200 dark:border-teal-800 rounded-lg bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20">
+        <div className="flex items-center justify-between p-4 border border-success dark:border-success rounded-lg bg-gradient-to-r from-success to-info dark:from-success/20 dark:to-info/20">
           <div>
             <Label className="text-lg">تفعيل العمل عن بُعد</Label>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               السماح للموظفين بالعمل من المنزل
             </p>
           </div>
@@ -83,10 +83,10 @@ export const HRRemoteWorkTab: React.FC<HRRemoteWorkTabProps> = ({
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
                 <div>
                   <Label>يتطلب موافقة المدير</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     موافقة مسبقة على أيام العمل عن بُعد
                   </p>
                 </div>
@@ -101,10 +101,10 @@ export const HRRemoteWorkTab: React.FC<HRRemoteWorkTabProps> = ({
                 />
               </div>
 
-              <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
                 <div>
                   <Label>توفير معدات العمل</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     الشركة توفر الأجهزة والمعدات اللازمة
                   </p>
                 </div>

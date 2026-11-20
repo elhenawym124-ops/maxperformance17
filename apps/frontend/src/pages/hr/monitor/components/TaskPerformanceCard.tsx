@@ -116,7 +116,7 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/30 pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 ring-1 ring-inset ring-emerald-500/25">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-success/10 text-success ring-1 ring-inset ring-success/25">
             <CheckCircle2 className="h-4 w-4" />
           </div>
           <div>
@@ -131,24 +131,24 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/20 font-mono tabular-nums">
+          <span className="inline-flex items-center gap-1 rounded-md bg-success/10 px-2.5 py-1 text-xs font-semibold text-success dark:text-success ring-1 ring-success/20 font-mono tabular-nums">
             <CheckCircle2 className="h-3.5 w-3.5" />
             <span>{tasksCount} مهام منفذة</span>
           </span>
           {openCount > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-md bg-indigo-500/10 px-2.5 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 ring-1 ring-indigo-500/20 font-mono tabular-nums">
+            <span className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary ring-1 ring-primary/20 font-mono tabular-nums">
               <Clock className="h-3.5 w-3.5" />
               <span>{openCount} قيد التنفيذ</span>
             </span>
           )}
           {overdueCount > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-md bg-rose-500/10 px-2.5 py-1 text-xs font-semibold text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/20 font-mono tabular-nums">
+            <span className="inline-flex items-center gap-1 rounded-md bg-destructive/10 px-2.5 py-1 text-xs font-semibold text-destructive dark:text-destructive ring-1 ring-destructive/20 font-mono tabular-nums">
               <AlertCircle className="h-3.5 w-3.5" />
               <span>{overdueCount} متأخرة</span>
             </span>
           )}
           {createdTasksCount > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-md bg-sky-500/10 px-2.5 py-1 text-xs font-semibold text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/20 font-mono tabular-nums">
+            <span className="inline-flex items-center gap-1 rounded-md bg-info/10 px-2.5 py-1 text-xs font-semibold text-info dark:text-info ring-1 ring-info/20 font-mono tabular-nums">
               <ListTodo className="h-3.5 w-3.5" />
               <span>{createdTasksCount} تم تكليفها</span>
             </span>
@@ -161,18 +161,18 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
         <div
           className={`mt-3 flex items-start gap-2.5 rounded-lg border p-3 text-xs ${
             signal.type === "TASK_OVERLOAD"
-              ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300"
+              ? "border-indigo-500/30 bg-primary/10 text-primary dark:text-primary"
               : signal.type === "DISTRACTION"
-                ? "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                ? "border-amber-500/30 bg-warning/10 text-warning dark:text-warning"
                 : signal.type === "NEGLECT"
-                  ? "border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                  ? "border-rose-500/30 bg-destructive/10 text-destructive dark:text-destructive"
                   : signal.type === "STEADY_PERFORMANCE"
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                    : "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300"
+                    ? "border-emerald-500/30 bg-success/10 text-success dark:text-success"
+                    : "border-sky-500/30 bg-info/10 text-info dark:text-info"
           }`}
         >
           {signal.type === "STEADY_PERFORMANCE" ? (
-            <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400" />
+            <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5 text-success dark:text-success" />
           ) : (
             <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
           )}
@@ -189,10 +189,10 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
 
       {/* 4 Quantitative Metric Strips */}
       <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-zinc-900/40 p-3">
+        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-muted p-3">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>متوسط وقت العمل لكل مهمة</span>
-            <Clock className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <Clock className="h-3.5 w-3.5 text-success dark:text-success" />
           </div>
           <div className="mt-2 text-lg font-bold text-foreground font-mono tabular-nums">
             {tasksCount > 0
@@ -206,10 +206,10 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
           </div>
         </div>
 
-        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-zinc-900/40 p-3">
+        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-muted p-3">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>معدل الإنجاز بالساعة (Tasks/hr)</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
+            <ArrowUpRight className="h-3.5 w-3.5 text-primary dark:text-primary" />
           </div>
           <div className="mt-2 text-lg font-bold text-foreground font-mono tabular-nums">
             {tasksPerHour}{" "}
@@ -217,15 +217,15 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
               مهمة/ساعة
             </span>
           </div>
-          <div className="mt-1 text-[11px] text-purple-600 dark:text-purple-400">
+          <div className="mt-1 text-[11px] text-primary dark:text-primary">
             مقياس محصن ضد التلاعب يعكس مخرجات العمل الحقيقية
           </div>
         </div>
 
-        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-zinc-900/40 p-3">
+        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-muted p-3">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>متوسط وقت التوقف لكل مهمة</span>
-            <PauseCircle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+            <PauseCircle className="h-3.5 w-3.5 text-warning dark:text-warning" />
           </div>
           <div className="mt-2 text-lg font-bold text-foreground font-mono tabular-nums">
             {tasksCount > 0
@@ -239,13 +239,13 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
           </div>
         </div>
 
-        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-zinc-900/40 p-3">
+        <div className="rounded-lg border border-border/40 bg-muted/40 dark:bg-muted p-3">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>استغلال الوقت (نشاط مقابل توقف)</span>
             {numMultiplier < 1.0 ? (
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-success dark:text-success" />
             ) : (
-              <AlertCircle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+              <AlertCircle className="h-3.5 w-3.5 text-warning dark:text-warning" />
             )}
           </div>
           <div className="mt-2 text-lg font-bold text-foreground font-mono tabular-nums">
@@ -263,16 +263,16 @@ export const TaskPerformanceCard: React.FC<TaskPerformanceCardProps> = ({
       </div>
 
       {/* Visual Work vs Inactivity Comparison Bar */}
-      <div className="mt-3 space-y-1 rounded-lg border border-border/40 bg-muted/40 dark:bg-zinc-950/40 p-3">
+      <div className="mt-3 space-y-1 rounded-lg border border-border/40 bg-muted/40 dark:bg-muted p-3">
         <div className="flex items-center justify-between text-xs">
-          <span className="font-medium text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <span className="font-medium text-success dark:text-success font-mono tabular-nums">
             وقت العمل الفعلي: {formatDuration(totalActiveSeconds)} ({activePct}%)
           </span>
-          <span className="font-medium text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+          <span className="font-medium text-warning dark:text-warning font-mono tabular-nums">
             وقت التوقف والخمول: {formatDuration(totalIdleSeconds)} ({idlePct}%)
           </span>
         </div>
-        <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-zinc-800">
+        <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-muted dark:bg-muted">
           <div
             className="bg-emerald-500 transition-all duration-300"
             style={{ width: `${activePct}%` }}

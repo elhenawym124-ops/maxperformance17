@@ -86,25 +86,25 @@ export const EmployeePerformanceScorePage: React.FC = () => {
   }, [fetchScore]);
 
   const getTierBadge = (score: number) => {
-    if (score >= 90) return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+    if (score >= 90) return "bg-emerald-500/10 text-success dark:text-success border-success/20";
     if (score >= 80) return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
-    if (score >= 70) return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
-    if (score >= 60) return "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20";
-    return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20";
+    if (score >= 70) return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
+    if (score >= 60) return "bg-orange-500/10 text-warning dark:text-warning border-warning/20";
+    return "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20";
   };
 
   const getPillarIcon = (key: string) => {
     switch (key) {
       case "delivery":
-        return <TrendingUp className="h-5 w-5 text-emerald-500" />;
+        return <TrendingUp className="h-5 w-5 text-success" />;
       case "quality":
         return <CheckCircle2 className="h-5 w-5 text-blue-500" />;
       case "punctuality":
-        return <Clock className="h-5 w-5 text-purple-500" />;
+        return <Clock className="h-5 w-5 text-primary" />;
       case "focus":
-        return <Activity className="h-5 w-5 text-cyan-500" />;
+        return <Activity className="h-5 w-5 text-info" />;
       case "goals":
-        return <Target className="h-5 w-5 text-amber-500" />;
+        return <Target className="h-5 w-5 text-warning" />;
       default:
         return <Award className="h-5 w-5 text-primary" />;
     }
@@ -125,7 +125,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <span>تقييم الأداء التلقائي 360°</span>
-                <Badge variant="outline" className="text-xs bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                <Badge variant="outline" className="text-xs bg-success/10 text-success border-success/20">
                   100% مؤتمت ومحايد
                 </Badge>
               </h1>
@@ -161,7 +161,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               {/* Score Left Column */}
               <div className="lg:col-span-5 flex items-center gap-6">
-                <div className="flex flex-col items-center justify-center h-28 w-28 rounded-2xl bg-muted/40 border border-border/80 shadow-inner">
+                <div className="flex flex-col items-center justify-center h-28 w-28 rounded-xl bg-muted/40 border border-border/80 shadow-inner">
                   <span className="text-3xl font-bold tracking-tight tabular-nums text-foreground">
                     {score}
                   </span>
@@ -182,7 +182,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
               {/* Formula & Transparency Right Column */}
               <div className="lg:col-span-7 bg-muted/30 border border-border/40 rounded-xl p-4">
                 <div className="flex items-center gap-2 font-semibold text-xs text-foreground mb-3">
-                  <Zap className="h-4 w-4 text-amber-500" />
+                  <Zap className="h-4 w-4 text-warning" />
                   <span>معادلة الاحتساب الآلي التراكمي (بدون تدخل بشري):</span>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-muted-foreground tabular-nums">
@@ -234,7 +234,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
                   <div className="flex items-baseline justify-between">
                     <span className="text-2xl font-extrabold text-foreground tabular-nums">
                       {pillar.score}
-                      <span className="text-xs text-muted-foreground mr-1">/ 100</span>
+                      <span className="text-xs text-muted-foreground me-1">/ 100</span>
                     </span>
                     <span className="text-xs text-muted-foreground">{pillar.details}</span>
                   </div>
@@ -256,7 +256,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
         <Card className="border border-border/50 bg-card">
           <CardContent className="p-5 space-y-3">
             <div className="flex items-center gap-2 text-sm font-bold text-foreground">
-              <Sparkles className="h-4 w-4 text-emerald-500" />
+              <Sparkles className="h-4 w-4 text-success" />
               <span>إرشادات عملية لرفع التقييم للمستوى التالي:</span>
             </div>
             <div className="space-y-2">
@@ -273,7 +273,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
 
       {/* Fairness & Telemetry Disclosure Footer */}
       <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/20 border border-border/40 text-xs text-muted-foreground">
-        <ShieldCheck className="h-5 w-5 text-emerald-500 flex-shrink-0" />
+        <ShieldCheck className="h-5 w-5 text-success flex-shrink-0" />
         <p className="leading-relaxed">
           <b>ضمان الشفافية والحيادية:</b> يتم احتساب هذا التقييم بصورة آلية ومحايدة 100% مباشرة من سجلات المهام، بصمة الحضور، ومؤشرات نشاط بيئة العمل بدون أي تقييم انطباعي شخصي.
         </p>

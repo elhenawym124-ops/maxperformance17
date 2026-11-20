@@ -27,21 +27,21 @@ export const getApplicantStatusBadgeClasses = (status?: string): string => {
   const classes: Record<string, string> = {
     NEW: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
     REVIEWING:
-      "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+      "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning",
     INTERVIEW_SCHEDULED:
-      "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+      "bg-purple-100 text-primary dark:bg-primary/30 dark:text-primary",
     INTERVIEWED:
-      "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300",
+      "bg-indigo-100 text-primary dark:bg-primary/30 dark:text-primary",
     OFFERED:
-      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+      "bg-green-100 text-success dark:bg-success/30 dark:text-success",
     HIRED:
-      "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300",
-    REJECTED: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+      "bg-emerald-100 text-success dark:bg-success/30 dark:text-success",
+    REJECTED: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
   };
 
   return (
     classes[status || ""] ||
-    "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+    "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
   );
 };
 

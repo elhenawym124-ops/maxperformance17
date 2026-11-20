@@ -30,7 +30,7 @@ export const PerformanceReportTab: React.FC<PerformanceReportTabProps> = ({
         performanceReport && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white">
+              <Card className="bg-gradient-to-br from-success to-success text-white">
                 <CardContent className="p-6">
                   <p className="text-emerald-100 text-sm">
                     متوسط التقييم العام

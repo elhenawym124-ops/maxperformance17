@@ -67,12 +67,12 @@ export const AutoCloseReviewDialog: React.FC<AutoCloseReviewDialogProps> = ({
         </DialogHeader>
         <div className="space-y-4 py-2" dir="rtl">
           {selectedAutoCloseRecord && (
-            <div className="rounded-xl border border-amber-100 bg-amber-50/60 dark:bg-amber-950/20 dark:border-amber-900/30 p-4 space-y-2">
-              <div className="font-bold text-gray-900 dark:text-white">
+            <div className="rounded-xl border border-warning bg-warning/60 dark:bg-warning/20 dark:border-warning/30 p-4 space-y-2">
+              <div className="font-bold text-foreground">
                 {selectedAutoCloseRecord.employee?.firstName}{" "}
                 {selectedAutoCloseRecord.employee?.lastName}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 تاريخ السجل:{" "}
                 <span className="font-mono tabular-nums">
                   {formatAttendanceDate(
@@ -83,7 +83,7 @@ export const AutoCloseReviewDialog: React.FC<AutoCloseReviewDialogProps> = ({
                   )}
                 </span>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 وقت الإغلاق المعتمد:{" "}
                 <span className="font-mono tabular-nums">
                   {formatAttendanceTime(
@@ -92,7 +92,7 @@ export const AutoCloseReviewDialog: React.FC<AutoCloseReviewDialogProps> = ({
                   )}
                 </span>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-foreground dark:text-muted-foreground">
                 السبب:{" "}
                 {getAutoCloseReasonLabel(
                   selectedAutoCloseRecord.autoCloseAudit?.autoCloseReason,
@@ -156,7 +156,7 @@ export const AutoCloseReviewDialog: React.FC<AutoCloseReviewDialogProps> = ({
           </Button>
           <Button
             onClick={onSubmitReview}
-            className="bg-amber-600 hover:bg-amber-700"
+            className="bg-amber-600 hover:bg-warning"
           >
             حفظ المراجعة
           </Button>

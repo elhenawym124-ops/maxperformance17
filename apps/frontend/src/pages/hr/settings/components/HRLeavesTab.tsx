@@ -39,8 +39,8 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
               <div className="flex items-center gap-2">
                 <Label>رصيد الإجازة السنوية</Label>
                 <div className="group relative inline-block">
-                  <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                  <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                     عدد أيام الإجازة السنوية الافتراضية التي يحصل عليها كل موظف جديد عند بدء العمل
                   </div>
                 </div>
@@ -66,11 +66,11 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 className={`tabular-nums font-mono ${errors.annualLeaveDefault ? "border-red-500" : ""}`}
               />
               {errors.annualLeaveDefault && (
-                <p className="text-xs text-red-600 dark:text-red-400">
+                <p className="text-xs text-destructive dark:text-destructive">
                   {errors.annualLeaveDefault}
                 </p>
               )}
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
             <div className="space-y-2">
               <Label>رصيد الإجازة المرضية</Label>
@@ -86,7 +86,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
             <div className="space-y-2">
               <Label>حد الترحيل السنوي</Label>
@@ -102,7 +102,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
           </div>
 
@@ -123,12 +123,12 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم قبل الإجازة</p>
+              <p className="text-sm text-muted-foreground">يوم قبل الإجازة</p>
             </div>
-            <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
               <div>
                 <Label>طلب موافقة المدير</Label>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   يتطلب موافقة المدير على طلبات الإجازة
                 </p>
               </div>
@@ -150,7 +150,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Heart className="h-5 w-5 text-pink-500" />
+            <Heart className="h-5 w-5 text-primary" />
             أنواع الإجازات الإضافية
           </CardTitle>
           <CardDescription>إجازات خاصة بالمناسبات والظروف</CardDescription>
@@ -159,7 +159,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="space-y-2">
               <Label className="flex items-center gap-2">
-                <Baby className="h-4 w-4 text-pink-500" />
+                <Baby className="h-4 w-4 text-primary" />
                 إجازة الأمومة
               </Label>
               <Input
@@ -174,7 +174,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
             <div className="space-y-2">
               <Label>إجازة الأبوة</Label>
@@ -190,7 +190,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
             <div className="space-y-2">
               <Label>إجازة الزواج</Label>
@@ -206,7 +206,7 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
             <div className="space-y-2">
               <Label>إجازة الوفاة</Label>
@@ -222,11 +222,11 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم</p>
+              <p className="text-sm text-muted-foreground">يوم</p>
             </div>
             <div className="space-y-2">
               <Label className="flex items-center gap-2">
-                <Plane className="h-4 w-4 text-green-500" />
+                <Plane className="h-4 w-4 text-success" />
                 إجازة الحج/العمرة
               </Label>
               <Input
@@ -241,12 +241,12 @@ export const HRLeavesTab: React.FC<HRLeavesTabProps> = ({
                 }
                 className="tabular-nums font-mono"
               />
-              <p className="text-sm text-gray-500 dark:text-gray-400">يوم (مرة واحدة)</p>
+              <p className="text-sm text-muted-foreground">يوم (مرة واحدة)</p>
             </div>
-            <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
               <div>
                 <Label>السماح بإجازة بدون راتب</Label>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   يمكن للموظف طلب إجازة غير مدفوعة
                 </p>
               </div>

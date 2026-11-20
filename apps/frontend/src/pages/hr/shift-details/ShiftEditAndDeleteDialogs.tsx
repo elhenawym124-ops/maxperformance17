@@ -65,7 +65,7 @@ export const ShiftEditAndDeleteDialogs: React.FC<
             <AlertDialogCancel>إلغاء</AlertDialogCancel>
             <AlertDialogAction
               onClick={onConfirmRemoveAssignment}
-              className="bg-red-500 hover:bg-red-600"
+              className="bg-red-500 hover:bg-destructive"
             >
               إلغاء التعيين
             </AlertDialogAction>
@@ -90,7 +90,7 @@ export const ShiftEditAndDeleteDialogs: React.FC<
                 className={formErrors["name"] ? "border-red-500" : ""}
               />
               {formErrors["name"] && (
-                <p className="text-sm text-red-500 mt-1">
+                <p className="text-sm text-destructive mt-1">
                   {formErrors["name"]}
                 </p>
               )}
@@ -147,7 +147,7 @@ export const ShiftEditAndDeleteDialogs: React.FC<
                     }
                     className="w-12 h-10 p-1"
                   />
-                  <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                  <span className="text-sm text-muted-foreground font-mono">
                     {formData.color}
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export const ShiftEditAndDeleteDialogs: React.FC<
             </div>
 
             {formErrors["time"] && (
-              <p className="text-sm text-red-500">{formErrors["time"]}</p>
+              <p className="text-sm text-destructive">{formErrors["time"]}</p>
             )}
           </div>
           <DialogFooter>

@@ -129,7 +129,7 @@ export const HRSettingsSidebar: React.FC<HRSettingsSidebarProps> = ({
 
   return (
     <div className="lg:w-64 flex-shrink-0">
-      <div className="bg-card rounded-2xl border border-border/70 shadow-xs overflow-hidden lg:sticky lg:top-6">
+      <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden lg:sticky lg:top-6">
         <div className="p-3.5 border-b border-border/70 bg-muted/20">
           <h2 className="font-semibold text-foreground text-xs uppercase tracking-wider mb-2.5">
             أقسام الإعدادات
@@ -141,7 +141,7 @@ export const HRSettingsSidebar: React.FC<HRSettingsSidebarProps> = ({
               placeholder="بحث في الأقسام..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className={`pr-8 text-xs h-8 ${searchQueryTrimmed ? "pl-8" : ""}`}
+              className={`pe-8 text-xs h-8 ${searchQueryTrimmed ? "ps-8" : ""}`}
               aria-label="بحث في أقسام الإعدادات"
             />
             {searchQueryTrimmed && (

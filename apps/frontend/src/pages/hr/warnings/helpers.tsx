@@ -16,23 +16,23 @@ export const getTypeColor = (type: string): string => {
     VERBAL:
       "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
     WRITTEN:
-      "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+      "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning",
     FINAL:
-      "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+      "bg-orange-100 text-warning dark:bg-warning/30 dark:text-warning",
     TERMINATION:
-      "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+      "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
   };
-  return colorMap[type] || "bg-gray-100 text-gray-700";
+  return colorMap[type] || "bg-gray-100 text-foreground";
 };
 
 export const getSeverityBadge = (severity: string): React.ReactNode => {
   const styles: Record<string, string> = {
     minor:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300",
+      "bg-slate-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground",
     moderate:
-      "bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/20 dark:text-orange-400",
+      "bg-orange-100 text-warning border-warning dark:bg-warning/20 dark:text-warning",
     severe:
-      "bg-red-100 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-400",
+      "bg-red-100 text-destructive border-destructive dark:bg-destructive/20 dark:text-destructive",
   };
   const labels: Record<string, string> = {
     minor: "مخالفة بسيطة",

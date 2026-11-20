@@ -82,7 +82,7 @@ const Feedback: React.FC = () => {
           <FeedbackStatsGrid stats={stats} feedback={feedback} />
 
           {/* Main Content Card */}
-          <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+          <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
             <CardHeader className="bg-muted/20 border-b border-border/70 px-5 py-3.5">
               <FeedbackFilterBar
                 activeTab={activeTab}

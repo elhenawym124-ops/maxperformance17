@@ -29,11 +29,11 @@ const AssetRequestsSection: React.FC = () => {
       {/* Header & Toggle */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <ArrowRightCircleIcon className="h-7 w-7 text-indigo-600" />
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <ArrowRightCircleIcon className="h-7 w-7 text-primary" />
             نظام طلبات العهدة والأصول
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             تقديم طلبات عهدة جديدة ومتابعة حالات الموافقة والتخصيص (يدعم إشعارات
             WhatsApp)
           </p>
@@ -41,10 +41,10 @@ const AssetRequestsSection: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => void fetchRequests()}
-            className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 transition-all"
+            className="p-2 bg-card border border-border dark:border-border rounded-xl hover:bg-muted transition-all"
           >
             <ArrowPathIcon
-              className={`h-5 w-5 text-gray-500 ${loading ? "animate-spin" : ""}`}
+              className={`h-5 w-5 text-muted-foreground ${loading ? "animate-spin" : ""}`}
             />
           </button>
           <div className="flex bg-card p-1 rounded-xl border border-border/70 shadow-xs">
@@ -53,7 +53,7 @@ const AssetRequestsSection: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                 view === "employee"
                   ? "bg-primary text-primary-foreground shadow-xs"
-                  : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  : "text-gray-500 hover:text-foreground dark:hover:text-muted-foreground"
               }`}
             >
               طلباتي
@@ -63,7 +63,7 @@ const AssetRequestsSection: React.FC = () => {
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                 view === "hr"
                   ? "bg-primary text-primary-foreground shadow-xs"
-                  : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  : "text-gray-500 hover:text-foreground dark:hover:text-muted-foreground"
               }`}
             >
               إدارة HR

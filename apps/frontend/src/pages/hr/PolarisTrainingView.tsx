@@ -80,19 +80,19 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
         );
       case "COMPLETED":
         return (
-          <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs">
+          <Badge className="bg-emerald-500/10 text-success dark:text-success border border-success/20 text-xs">
             مكتمل
           </Badge>
         );
       case "PLANNED":
         return (
-          <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs">
+          <Badge className="bg-amber-500/10 text-warning dark:text-warning border border-warning/20 text-xs">
             مخطط
           </Badge>
         );
       case "CANCELLED":
         return (
-          <Badge className="bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 text-xs">
+          <Badge className="bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20 text-xs">
             ملغي
           </Badge>
         );
@@ -155,7 +155,7 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
           </div>
           <div className="p-3 rounded-xl border border-border/70 bg-card shadow-xs">
             <p className="text-xs text-muted-foreground">مكتمل</p>
-            <p className="text-lg font-bold font-mono tabular-nums text-emerald-600 mt-1">{stats.completed}</p>
+            <p className="text-lg font-bold font-mono tabular-nums text-success mt-1">{stats.completed}</p>
           </div>
           <div className="p-3 rounded-xl border border-border/70 bg-card shadow-xs">
             <p className="text-xs text-muted-foreground">التكلفة الإجمالية</p>
@@ -165,7 +165,7 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
           </div>
           <div className="p-3 rounded-xl border border-border/70 bg-card shadow-xs">
             <p className="text-xs text-muted-foreground">متوسط التقييم</p>
-            <p className="text-lg font-bold font-mono tabular-nums text-amber-600 mt-1">{stats.avgScore}%</p>
+            <p className="text-lg font-bold font-mono tabular-nums text-warning mt-1">{stats.avgScore}%</p>
           </div>
         </div>
       )}
@@ -209,7 +209,7 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
               placeholder="ابحث باسم الدورة، المدرب، أو الموظف..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>
@@ -287,7 +287,7 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
                           <span className="text-muted-foreground">مجاني</span>
                         )}
                         {t.score !== undefined && t.score !== null && (
-                          <span className="block text-[10px] text-amber-600 font-bold">{t.score}%</span>
+                          <span className="block text-[10px] text-warning font-bold">{t.score}%</span>
                         )}
                       </div>
                     </TableCell>

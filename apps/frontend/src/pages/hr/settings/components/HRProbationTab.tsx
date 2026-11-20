@@ -49,8 +49,8 @@ export const HRProbationTab: React.FC<HRProbationTabProps> = ({
             <div className="flex items-center gap-2">
               <Label>مدة فترة الاختبار</Label>
               <div className="group relative inline-block">
-                <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                   المدة الزمنية لفترة التجربة للموظفين الجدد قبل التثبيت
                 </div>
               </div>
@@ -79,8 +79,8 @@ export const HRProbationTab: React.FC<HRProbationTabProps> = ({
             <div className="flex items-center gap-2">
               <Label>نسبة الإجازات خلال فترة الاختبار</Label>
               <div className="group relative inline-block">
-                <Info className="h-4 w-4 text-gray-400 cursor-help" />
-                <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block px-3 py-2 bg-muted dark:bg-muted text-white text-xs rounded-lg shadow-lg z-50 whitespace-nowrap">
                   النسبة المئوية من رصيد الإجازات التي يمكن للموظف استخدامها خلال فترة الاختبار
                 </div>
               </div>
@@ -115,7 +115,7 @@ export const HRProbationTab: React.FC<HRProbationTabProps> = ({
               </SelectContent>
             </Select>
             {errors.probationLeavePercentage && (
-              <p className="text-xs text-red-600 dark:text-red-400">
+              <p className="text-xs text-destructive dark:text-destructive">
                 {errors.probationLeavePercentage}
               </p>
             )}
@@ -125,10 +125,10 @@ export const HRProbationTab: React.FC<HRProbationTabProps> = ({
         <Separator />
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>تقييم إلزامي في نهاية فترة الاختبار</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 يجب إجراء تقييم أداء قبل التثبيت
               </p>
             </div>
@@ -143,10 +143,10 @@ export const HRProbationTab: React.FC<HRProbationTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>تقليل الإجازات خلال فترة الاختبار</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 تطبيق نسبة مخفضة من رصيد الإجازات
               </p>
             </div>

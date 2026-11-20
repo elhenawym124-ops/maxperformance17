@@ -140,7 +140,7 @@ export const PolarisAdvancesView: React.FC<PolarisAdvancesViewProps> = ({
                     <span
                       className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono tabular-nums ${
                         tab.key === "PENDING"
-                          ? "bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold"
+                          ? "bg-amber-500/15 text-warning dark:text-warning font-bold"
                           : "bg-muted text-muted-foreground"
                       }`}
                     >
@@ -178,7 +178,7 @@ export const PolarisAdvancesView: React.FC<PolarisAdvancesViewProps> = ({
               placeholder="ابحث بالموظف أو السبب أو المبلغ..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
 
@@ -200,7 +200,7 @@ export const PolarisAdvancesView: React.FC<PolarisAdvancesViewProps> = ({
         </div>
 
         {/* 3. Advances Table inside single surface */}
-        <div className="[&>div.shadow-sm]:shadow-none [&>div.border]:border-0 [&>div.rounded-2xl]:rounded-none">
+        <div className="[&>div.shadow-sm]:shadow-none [&>div.border]:border-0 [&>div.rounded-xl]:rounded-none">
           <AdvancesTable
             loading={loading}
             requests={requests}

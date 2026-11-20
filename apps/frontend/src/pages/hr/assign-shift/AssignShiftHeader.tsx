@@ -36,7 +36,7 @@ export const AssignShiftHeader: React.FC<AssignShiftHeaderProps> = ({
         size="sm"
         onClick={onToggleDateRangeMode}
       >
-        <CalendarRange className="h-4 w-4 ml-2" />
+        <CalendarRange className="h-4 w-4 ms-2" />
         {dateRangeMode ? "إلغاء نطاق التاريخ" : "نطاق تاريخ"}
       </Button>
     </div>

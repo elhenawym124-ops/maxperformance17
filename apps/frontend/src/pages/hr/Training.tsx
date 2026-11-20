@@ -41,9 +41,9 @@ interface TrainingItem {
 
 const statusMap: Record<string, { label: string; class: string }> = {
   ONGOING: { label: "قيد التنفيذ", class: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
-  COMPLETED: { label: "مكتمل", class: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
-  PLANNED: { label: "مخطط", class: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
-  CANCELLED: { label: "ملغي", class: "bg-rose-500/10 text-rose-500 border-rose-500/20" },
+  COMPLETED: { label: "مكتمل", class: "bg-emerald-500/10 text-success border-success/20" },
+  PLANNED: { label: "مخطط", class: "bg-amber-500/10 text-warning border-warning/20" },
+  CANCELLED: { label: "ملغي", class: "bg-rose-500/10 text-destructive border-destructive/20" },
 };
 
 const Training: React.FC = () => {
@@ -181,9 +181,9 @@ const Training: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>مكتمل</span>
-            <GraduationCap className="h-3.5 w-3.5 text-emerald-500" />
+            <GraduationCap className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-500">{stats.completed}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-success">{stats.completed}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
@@ -197,9 +197,9 @@ const Training: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>متوسط التقييم</span>
-            <Award className="h-3.5 w-3.5 text-amber-500" />
+            <Award className="h-3.5 w-3.5 text-warning" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-amber-500">
+          <div className="text-xl font-bold font-mono tabular-nums text-warning">
             {stats.avgScore > 0 ? `${stats.avgScore}%` : "—"}
           </div>
         </div>
@@ -235,7 +235,7 @@ const Training: React.FC = () => {
             placeholder="بحث عن برنامج أو موظف..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-8 pr-8 text-xs border-border/70 bg-card"
+            className="h-8 pe-8 text-xs border-border/70 bg-card"
           />
         </div>
       </div>
@@ -308,7 +308,7 @@ const Training: React.FC = () => {
                       </div>
                     ) : <div />}
                     {item.score !== undefined && item.score !== null ? (
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-mono tabular-nums bg-amber-500/10 text-amber-500 border-amber-500/20">
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-mono tabular-nums bg-warning/10 text-warning border-warning/20">
                         التقييم: {item.score}%
                       </Badge>
                     ) : null}

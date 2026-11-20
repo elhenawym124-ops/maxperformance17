@@ -22,7 +22,7 @@ export const WarningsHeader: React.FC<WarningsHeaderProps> = ({
       <Button
         onClick={onNewWarning}
       >
-        <Plus className="h-4 w-4 ml-2" />
+        <Plus className="h-4 w-4 ms-2" />
         تسجيل مخالفة جديدة
       </Button>
     </div>

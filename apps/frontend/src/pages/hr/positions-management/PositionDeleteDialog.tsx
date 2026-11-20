@@ -40,7 +40,7 @@ export const PositionDeleteDialog: React.FC<PositionDeleteDialogProps> = ({
           <AlertDialogCancel onClick={onCancel}>إلغاء</AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className="bg-red-500 hover:bg-red-600"
+            className="bg-red-500 hover:bg-destructive"
           >
             حذف
           </AlertDialogAction>

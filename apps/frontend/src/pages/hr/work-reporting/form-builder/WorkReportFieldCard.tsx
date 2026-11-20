@@ -37,10 +37,10 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
   onRemoveField,
 }) => {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div className="rounded-xl border border-border bg-white p-5 shadow-sm dark:border-border dark:bg-muted">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground">
             <GripVertical className="h-4 w-4" />
           </span>
           <div className="space-y-2">
@@ -65,11 +65,11 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
               {!field.isVisible ? (
                 <BuilderBadge
                   label="مخفي"
-                  tone="border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/30 dark:text-amber-300"
+                  tone="border-amber-200 bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning"
                 />
               ) : null}
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground">
               المفتاح البرمجي:{" "}
               <span className="font-mono">{field.key || "—"}</span>
             </p>
@@ -81,7 +81,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
             type="button"
             onClick={() => onMoveField(index, -1)}
             aria-label="تحريك لأعلى"
-            className="rounded-xl border border-slate-200 p-2 text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600"
+            className="rounded-xl border border-border p-2 text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border"
             title="تحريك لأعلى"
           >
             <ChevronUp className="h-4 w-4" />
@@ -90,7 +90,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
             type="button"
             onClick={() => onMoveField(index, 1)}
             aria-label="تحريك لأسفل"
-            className="rounded-xl border border-slate-200 p-2 text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600"
+            className="rounded-xl border border-border p-2 text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border"
             title="تحريك لأسفل"
           >
             <ChevronDown className="h-4 w-4" />
@@ -99,7 +99,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
             type="button"
             onClick={() => onDuplicateField(index)}
             aria-label="نسخ الحقل"
-            className="rounded-xl border border-slate-200 p-2 text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600"
+            className="rounded-xl border border-border p-2 text-foreground transition hover:border-border hover:text-foreground dark:border-border dark:text-muted-foreground dark:hover:border-border"
             title="نسخ الحقل"
           >
             <CopyPlus className="h-4 w-4" />
@@ -108,7 +108,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
             type="button"
             onClick={() => onRemoveField(index)}
             aria-label="حذف الحقل"
-            className="rounded-xl border border-rose-200 p-2 text-rose-700 transition hover:border-rose-300 hover:bg-rose-50 dark:border-rose-900/60 dark:text-rose-300 dark:hover:bg-rose-950/30"
+            className="rounded-xl border border-destructive p-2 text-destructive transition hover:border-destructive hover:bg-destructive/10 dark:border-destructive/60 dark:text-destructive dark:hover:bg-destructive/30"
             title="حذف الحقل"
           >
             <Trash2 className="h-4 w-4" />
@@ -118,7 +118,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             اسم الحقل
           </label>
           <input
@@ -133,13 +133,13 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
                     : current.key,
               }))
             }
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
             placeholder="مثال: عدد الرسائل"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             المفتاح البرمجي
           </label>
           <input
@@ -150,13 +150,13 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
                 key: slugifyFieldKey(event.target.value),
               }))
             }
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-mono outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm font-mono outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
             placeholder="orders_count"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             نوع المصدر
           </label>
           <select
@@ -191,7 +191,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
                 return nextState;
               })
             }
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
           >
             {FIELD_SOURCE_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -202,7 +202,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             نوع البيانات
           </label>
           <select
@@ -216,7 +216,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
                   event.target.value === "SELECT" ? current.options : [],
               }))
             }
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm outline-none transition focus:border-border focus:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
           >
             {DATA_TYPE_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -229,7 +229,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             وصف أو ملاحظة مساعدة
           </label>
           <input
@@ -240,13 +240,13 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
                 helpText: event.target.value,
               }))
             }
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:bg-white dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm outline-none transition focus:border-border focus:bg-white dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
             placeholder="نص مساعد يظهر للموظف أو المدير."
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="text-sm font-medium text-foreground dark:text-muted-foreground">
             Placeholder
           </label>
           <input
@@ -258,7 +258,7 @@ export const WorkReportFieldCard: React.FC<WorkReportFieldCardProps> = ({
               }))
             }
             disabled={field.sourceType !== "MANUAL"}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:border-slate-500"
+            className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm outline-none transition focus:border-border focus:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white dark:focus:border-border"
             placeholder="نص يظهر داخل الحقل للموظف."
           />
         </div>

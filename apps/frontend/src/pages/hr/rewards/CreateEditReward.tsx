@@ -66,13 +66,13 @@ const CreateEditReward: React.FC = () => {
 
       {/* Error Alert */}
       {error && (
-        <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+        <div className="mb-6 bg-destructive/10 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-lg p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-destructive dark:text-destructive flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="text-sm font-semibold text-red-800 dark:text-red-300">
+            <h3 className="text-sm font-semibold text-destructive dark:text-destructive">
               حدث خطأ
             </h3>
-            <p className="text-sm text-red-700 dark:text-red-400 mt-1">
+            <p className="text-sm text-destructive dark:text-destructive mt-1">
               {error}
             </p>
           </div>

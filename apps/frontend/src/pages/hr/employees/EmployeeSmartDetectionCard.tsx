@@ -26,9 +26,9 @@ export const EmployeeSmartDetectionCard: React.FC<
         <div className="space-y-2.5">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10 border border-amber-200 dark:border-amber-800">
+              <Avatar className="h-10 w-10 border border-warning dark:border-warning">
                 <AvatarImage src={user.avatar} />
-                <AvatarFallback className="bg-amber-100 text-amber-800 text-xs font-semibold">
+                <AvatarFallback className="bg-amber-100 text-warning text-xs font-semibold">
                   {user.firstName?.[0] || "EMP"}
                 </AvatarFallback>
               </Avatar>
@@ -39,7 +39,7 @@ export const EmployeeSmartDetectionCard: React.FC<
                   </span>
                   <Badge
                     variant="outline"
-                    className="bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800 text-[11px] py-0 px-1.5"
+                    className="bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning text-[11px] py-0 px-1.5"
                   >
                     {t("employees.accountAlreadyEmployee")}
                   </Badge>
@@ -101,9 +101,9 @@ export const EmployeeSmartDetectionCard: React.FC<
       {lookupResult.status === "EXISTING_PLATFORM_USER" && (
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 border border-emerald-200 dark:border-emerald-800">
+            <Avatar className="h-10 w-10 border border-success dark:border-success">
               <AvatarImage src={user.avatar} />
-              <AvatarFallback className="bg-emerald-100 text-emerald-800 text-xs font-semibold">
+              <AvatarFallback className="bg-emerald-100 text-success text-xs font-semibold">
                 {user.firstName?.[0] || "M"}
               </AvatarFallback>
             </Avatar>
@@ -114,7 +114,7 @@ export const EmployeeSmartDetectionCard: React.FC<
                 </span>
                 <Badge
                   variant="outline"
-                  className="bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800 text-[11px] py-0 px-1.5 shrink-0"
+                  className="bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success text-[11px] py-0 px-1.5 shrink-0"
                 >
                   {t("employees.accountVerifiedPlatform")}
                 </Badge>
@@ -125,14 +125,14 @@ export const EmployeeSmartDetectionCard: React.FC<
             </div>
           </div>
           {/* What will happen explanation */}
-          <div className="bg-emerald-50/60 dark:bg-emerald-950/20 rounded-lg p-2.5 border border-emerald-100 dark:border-emerald-900/40">
+          <div className="bg-emerald-50/60 dark:bg-success/20 rounded-lg p-2.5 border border-success dark:border-success/40">
             <div className="flex items-start gap-2">
-              <Info className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
+              <Info className="h-3.5 w-3.5 text-success dark:text-success mt-0.5 shrink-0" />
               <div className="space-y-1.5">
-                <p className="text-xs font-medium text-emerald-800 dark:text-emerald-300">
+                <p className="text-xs font-medium text-success dark:text-success">
                   {t("employees.linkExplanationTitle")}
                 </p>
-                <ul className="text-[11px] text-emerald-700 dark:text-emerald-400 space-y-0.5 list-none">
+                <ul className="text-[11px] text-success dark:text-success space-y-0.5 list-none">
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3 w-3 shrink-0" />
                     {t("employees.linkExplanation1")}
@@ -160,9 +160,9 @@ export const EmployeeSmartDetectionCard: React.FC<
         <div className="space-y-3">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10 border border-orange-200 dark:border-orange-800">
+              <Avatar className="h-10 w-10 border border-warning dark:border-warning">
                 <AvatarImage src={user.avatar} />
-                <AvatarFallback className="bg-orange-100 text-orange-800 text-xs font-semibold">
+                <AvatarFallback className="bg-orange-100 text-warning text-xs font-semibold">
                   {user.firstName?.[0] || "X"}
                 </AvatarFallback>
               </Avatar>
@@ -173,7 +173,7 @@ export const EmployeeSmartDetectionCard: React.FC<
                   </span>
                   <Badge
                     variant="outline"
-                    className="bg-orange-50 text-orange-800 border-orange-200 dark:bg-orange-950/40 dark:text-orange-400 dark:border-orange-800 text-[11px] py-0 px-1.5"
+                    className="bg-orange-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning text-[11px] py-0 px-1.5"
                   >
                     {t("employees.accountFormerEmployee")}
                   </Badge>
@@ -187,14 +187,14 @@ export const EmployeeSmartDetectionCard: React.FC<
             </div>
           </div>
           {/* Reactivation info */}
-          <div className="bg-orange-50/60 dark:bg-orange-950/20 rounded-lg p-2.5 border border-orange-100 dark:border-orange-900/40">
+          <div className="bg-orange-50/60 dark:bg-warning/20 rounded-lg p-2.5 border border-warning dark:border-warning/40">
             <div className="flex items-start gap-2">
-              <RotateCcw className="h-3.5 w-3.5 text-orange-600 dark:text-orange-400 mt-0.5 shrink-0" />
+              <RotateCcw className="h-3.5 w-3.5 text-warning dark:text-warning mt-0.5 shrink-0" />
               <div className="space-y-1">
-                <p className="text-xs font-medium text-orange-800 dark:text-orange-300">
+                <p className="text-xs font-medium text-warning dark:text-warning">
                   {t("employees.formerEmployeeTitle")}
                 </p>
-                <p className="text-[11px] text-orange-700 dark:text-orange-400">
+                <p className="text-[11px] text-warning dark:text-warning">
                   {t("employees.formerEmployeeDesc")}
                 </p>
               </div>
@@ -205,7 +205,7 @@ export const EmployeeSmartDetectionCard: React.FC<
               type="button"
               size="sm"
               variant="outline"
-              className="w-full text-xs h-8 gap-1.5 border-orange-200 text-orange-700 hover:bg-orange-50 dark:border-orange-800 dark:text-orange-400 dark:hover:bg-orange-950/40"
+              className="w-full text-xs h-8 gap-1.5 border-warning text-warning hover:bg-warning/10 dark:border-warning dark:text-warning dark:hover:bg-warning/40"
               onClick={() => {
                 if (user.id) {
                   onReactivate(user.id);

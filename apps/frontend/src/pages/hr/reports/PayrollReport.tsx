@@ -132,13 +132,13 @@ const PayrollReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button variant="outline" onClick={fetchReport}>
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button variant="outline" onClick={handleExport}>
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -155,7 +155,7 @@ const PayrollReport: React.FC = () => {
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
+              <Card className="bg-gradient-to-br from-success to-success text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -187,7 +187,7 @@ const PayrollReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">البدلات</p>
-                      <h3 className="text-xl font-bold mt-1 text-green-600">
+                      <h3 className="text-xl font-bold mt-1 text-success">
                         +{formatCurrency(report.totalAllowances)}
                       </h3>
                     </div>
@@ -200,7 +200,7 @@ const PayrollReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">الخصومات</p>
-                      <h3 className="text-xl font-bold mt-1 text-red-600">
+                      <h3 className="text-xl font-bold mt-1 text-destructive">
                         -{formatCurrency(report.totalDeductions)}
                       </h3>
                     </div>
@@ -226,7 +226,7 @@ const PayrollReport: React.FC = () => {
                             <span className="font-medium">
                               {dept.department}
                             </span>
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-muted-foreground">
                               {dept.employees} موظف •{" "}
                               {formatCurrency(dept.total)}
                             </span>
@@ -236,7 +236,7 @@ const PayrollReport: React.FC = () => {
                       );
                     })
                   ) : (
-                    <div className="text-center py-4 text-gray-500">
+                    <div className="text-center py-4 text-muted-foreground">
                       لا توجد بيانات
                     </div>
                   )}
@@ -263,7 +263,7 @@ const PayrollReport: React.FC = () => {
                     <p className="text-gray-500 text-sm">
                       إجمالي العمل الإضافي
                     </p>
-                    <h3 className="text-3xl font-bold mt-2 text-orange-600">
+                    <h3 className="text-3xl font-bold mt-2 text-warning">
                       {formatCurrency(report.totalOvertime)}
                     </h3>
                   </div>

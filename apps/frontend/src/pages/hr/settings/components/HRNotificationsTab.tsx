@@ -77,10 +77,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
           <div className="rounded-lg border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-900 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
             هذه السويتشات تتحكم في تشغيل نوع الإشعار نفسه. إذا كان قسم واتساب مفعّلًا وتم ضبط الأرقام والمستلمين، فسيصل نفس النوع على واتساب أيضًا.
           </div>
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار عند طلب إجازة جديد</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إشعار داخل النظام وعلى واتساب عند تقديم طلب إجازة جديد
               </p>
             </div>
@@ -95,10 +95,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار عند مشاكل الحضور</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إشعار عند التأخير أو الانصراف المبكر، وليس الحضور العادي
               </p>
             </div>
@@ -113,10 +113,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار عند توليد الرواتب</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إشعار عند إنشاء كشف راتب فردي أو توليد كشوف الرواتب الشهرية
               </p>
             </div>
@@ -131,10 +131,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار عند إصدار إنذار</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إشعار الموظف والمدير عند إصدار إنذار
               </p>
             </div>
@@ -146,10 +146,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار قبل انتهاء فترة الاختبار</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 تنبيه داخل النظام وعلى واتساب قبل انتهاء فترة التجربة
               </p>
             </div>
@@ -164,10 +164,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار قبل انتهاء العقد</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 تنبيه داخل النظام وعلى واتساب قبل انتهاء عقد الموظف
               </p>
             </div>
@@ -182,10 +182,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">
             <div>
               <Label>إشعار المدراء</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 إرسال نسخة من الإشعارات لمدراء الأقسام
               </p>
             </div>
@@ -203,7 +203,7 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-green-500" />
+            <MessageSquare className="h-5 w-5 text-success" />
             إشعارات واتساب للمسؤولين
           </CardTitle>
           <CardDescription>
@@ -211,10 +211,10 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-success/10 dark:bg-success/20 border border-success dark:border-success rounded-lg">
             <div>
               <Label className="text-base font-semibold">تفعيل إشعارات واتساب للمسؤولين</Label>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-muted-foreground mt-1">
                 رسائل واتساب جاهزة لكل إجراءات الموظفين حسب النبرة وأنواع الإشعارات المختارة
               </p>
             </div>
@@ -234,8 +234,8 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
               <div
                 className={`rounded-lg border p-4 ${
                   isWhatsAppDeliveryReady
-                    ? "border-green-200 bg-green-50 text-green-900 dark:border-green-800 dark:bg-green-950/30 dark:text-green-100"
-                    : "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100"
+                    ? "border-green-200 bg-success/10 text-success dark:border-success dark:bg-success/30 dark:text-success"
+                    : "border-amber-200 bg-warning/10 text-warning dark:border-warning dark:bg-warning/30 dark:text-warning"
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -303,9 +303,9 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
                   dir="ltr"
                   className="font-mono tabular-nums"
                 />
-                <p className="text-xs text-gray-500">هذا الرقم يستقبل كل أنواع الإشعارات</p>
+                <p className="text-xs text-muted-foreground">هذا الرقم يستقبل كل أنواع الإشعارات</p>
                 {errors.aiOwnerNotificationsEnabled && (
-                  <p className="text-xs text-red-500">
+                  <p className="text-xs text-destructive">
                     {errors.aiOwnerNotificationsEnabled}
                   </p>
                 )}

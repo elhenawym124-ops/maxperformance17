@@ -31,8 +31,8 @@ export const PayrollSimulatorResultsPanel: React.FC<
   PayrollSimulatorResultsPanelProps
 > = ({ results }) => {
   return (
-    <Card className="w-96 flex flex-col shrink-0 border-none shadow-2xl bg-white dark:bg-slate-900">
-      <CardHeader className="border-b dark:border-slate-800">
+    <Card className="w-96 flex flex-col shrink-0 border-none shadow-2xl bg-white dark:bg-muted">
+      <CardHeader className="border-b dark:border-border">
         <CardTitle className="text-lg flex items-center justify-between">
           نتائج الحساب المباشرة
           <Badge
@@ -48,7 +48,7 @@ export const PayrollSimulatorResultsPanel: React.FC<
       </CardHeader>
       <CardContent className="p-0 flex-1 overflow-hidden flex flex-col">
         {!results ? (
-          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400">
+          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
             <Calculator className="h-16 w-16 mb-4 opacity-10" />
             <p className="text-sm italic">
               اضغط على "بدء الحساب" لرؤية تفاصيل الراتب والخصومات والضرائب
@@ -60,13 +60,13 @@ export const PayrollSimulatorResultsPanel: React.FC<
             <ScrollArea className="flex-1">
               <div className="p-6 space-y-6">
                 <div className="space-y-3">
-                  <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                    <Plus className="h-3 w-3 text-emerald-500" /> إجمالي
+                  <h5 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                    <Plus className="h-3 w-3 text-success" /> إجمالي
                     الاستحقاقات
                   </h5>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-600 dark:text-slate-300">
+                      <span className="text-slate-600 dark:text-muted-foreground">
                         الراتب الأساسي
                       </span>
                       <span className="font-bold font-mono tabular-nums">
@@ -74,39 +74,39 @@ export const PayrollSimulatorResultsPanel: React.FC<
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-600 dark:text-slate-300">
+                      <span className="text-slate-600 dark:text-muted-foreground">
                         إجمالي البدلات
                       </span>
-                      <span className="font-bold text-emerald-600 font-mono tabular-nums">
+                      <span className="font-bold text-success font-mono tabular-nums">
                         +{formatCurrency(results.totalAllowances)}
                       </span>
                     </div>
                     {results.overtimeAmount > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-300">
+                        <span className="text-slate-600 dark:text-muted-foreground">
                           العمل الإضافي (
                           <span className="font-mono tabular-nums">
                             {results.overtimeHours}
                           </span>{" "}
                           س)
                         </span>
-                        <span className="font-bold text-emerald-600 font-mono tabular-nums">
+                        <span className="font-bold text-success font-mono tabular-nums">
                           +{formatCurrency(results.overtimeAmount)}
                         </span>
                       </div>
                     )}
                     {results.bonuses > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-300">
+                        <span className="text-slate-600 dark:text-muted-foreground">
                           المكافآت
                         </span>
-                        <span className="font-bold text-emerald-600 font-mono tabular-nums">
+                        <span className="font-bold text-success font-mono tabular-nums">
                           +{formatCurrency(results.bonuses)}
                         </span>
                       </div>
                     )}
-                    <Separator className="my-2 bg-slate-100 dark:bg-slate-800" />
-                    <div className="flex justify-between font-bold text-slate-900 dark:text-white">
+                    <Separator className="my-2 bg-muted dark:bg-muted" />
+                    <div className="flex justify-between font-bold text-foreground dark:text-white">
                       <span>إجمالي الدخل</span>
                       <span className="font-mono tabular-nums">
                         {formatCurrency(results.grossSalary)}
@@ -116,58 +116,58 @@ export const PayrollSimulatorResultsPanel: React.FC<
                 </div>
 
                 <div className="space-y-3">
-                  <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                    <MinusCircle className="h-3 w-3 text-rose-500" /> إجمالي
+                  <h5 className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                    <MinusCircle className="h-3 w-3 text-destructive" /> إجمالي
                     الاستقطاعات
                   </h5>
                   <div className="space-y-2">
                     {results.absentDays > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-300">
+                        <span className="text-slate-600 dark:text-muted-foreground">
                           خصم الغياب (
                           <span className="font-mono tabular-nums">
                             {results.absentDays}
                           </span>{" "}
                           يوم)
                         </span>
-                        <span className="font-bold text-rose-600 font-mono tabular-nums">
+                        <span className="font-bold text-destructive font-mono tabular-nums">
                           -{formatCurrency(results.attendanceDeduction)}
                         </span>
                       </div>
                     )}
                     {results.latePenalty > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-300">
+                        <span className="text-slate-600 dark:text-muted-foreground">
                           خصم التأخير
                         </span>
-                        <span className="font-bold text-rose-600 font-mono tabular-nums">
+                        <span className="font-bold text-destructive font-mono tabular-nums">
                           -{formatCurrency(results.latePenalty)}
                         </span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-600 dark:text-slate-300">
+                      <span className="text-slate-600 dark:text-muted-foreground">
                         تأمينات اجتماعية
                       </span>
-                      <span className="font-bold text-rose-600 font-mono tabular-nums">
+                      <span className="font-bold text-destructive font-mono tabular-nums">
                         -{formatCurrency(results.socialInsurance)}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-600 dark:text-slate-300">
+                      <span className="text-slate-600 dark:text-muted-foreground">
                         ضريبة الدخل
                       </span>
-                      <span className="font-bold text-rose-600 font-mono tabular-nums">
+                      <span className="font-bold text-destructive font-mono tabular-nums">
                         -{formatCurrency(results.taxAmount)}
                       </span>
                     </div>
                     {results.totalDeductions >
                       results.attendanceDeduction + results.latePenalty && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-300">
+                        <span className="text-slate-600 dark:text-muted-foreground">
                           خصومات أخرى
                         </span>
-                        <span className="font-bold text-rose-600 font-mono tabular-nums">
+                        <span className="font-bold text-destructive font-mono tabular-nums">
                           -
                           {formatCurrency(
                             results.totalDeductions -
@@ -180,7 +180,7 @@ export const PayrollSimulatorResultsPanel: React.FC<
                   </div>
                 </div>
 
-                <div className="bg-primary text-primary-foreground rounded-2xl p-6 text-center shadow-sm relative overflow-hidden">
+                <div className="bg-primary text-primary-foreground rounded-xl p-6 text-center shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-2 opacity-10">
                     <ShieldCheck className="h-16 w-16" />
                   </div>
@@ -198,7 +198,7 @@ export const PayrollSimulatorResultsPanel: React.FC<
                   </p>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl space-y-2 border border-slate-100 dark:border-slate-700">
+                <div className="bg-slate-50 dark:bg-muted p-4 rounded-xl space-y-2 border border-border dark:border-border">
                   <div className="flex justify-between text-xs items-center">
                     <span className="text-slate-500">
                       أيام العمل المعتبرة:
@@ -219,18 +219,18 @@ export const PayrollSimulatorResultsPanel: React.FC<
               </div>
             </ScrollArea>
 
-            <div className="p-6 border-t dark:border-slate-800 space-y-3">
+            <div className="p-6 border-t dark:border-border space-y-3">
               <div className="flex gap-2">
                 <Button
                   variant="outline"
-                  className="flex-1 rounded-xl gap-2 h-11 border-slate-200"
+                  className="flex-1 rounded-xl gap-2 h-11 border-border"
                   onClick={() => tToast.info("PayrollSimulator.msg_4b00")}
                 >
                   <Printer className="h-4 w-4" />
                   طباعة تجريبية
                 </Button>
                 <Button
-                  className="flex-1 rounded-xl bg-slate-900 hover:bg-black gap-2 h-11"
+                  className="flex-1 rounded-xl bg-muted hover:bg-black gap-2 h-11"
                   onClick={() =>
                     tToast.success("PayrollSimulator.success_save_47f4")
                   }
@@ -240,14 +240,14 @@ export const PayrollSimulatorResultsPanel: React.FC<
                 </Button>
               </div>
               <Button
-                className="w-full bg-emerald-600 hover:bg-emerald-700 h-12 rounded-xl text-lg font-bold shadow-lg shadow-emerald-200 dark:shadow-none"
+                className="w-full bg-success hover:bg-success h-12 rounded-xl text-lg font-bold shadow-lg shadow-success dark:shadow-none"
                 onClick={() =>
                   toast.warning(
                     "لا يمكن اعتماد بيانات المحاكاة مباشرة، يرجى إنشاء كشف راتب رسمي."
                   )
                 }
               >
-                <ShieldCheck className="h-5 w-5 ml-2" />
+                <ShieldCheck className="h-5 w-5 ms-2" />
                 اعتماد كراتب رسمي
               </Button>
             </div>

@@ -90,7 +90,7 @@ export const CreateFeedbackFormCard: React.FC<CreateFeedbackFormCardProps> = ({
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <SelectTrigger className="h-12 bg-gray-50/30">
+                        <SelectTrigger className="h-12 bg-muted">
                           <SelectValue placeholder="اختر الموظف" />
                         </SelectTrigger>
                         <SelectContent>
@@ -124,7 +124,7 @@ export const CreateFeedbackFormCard: React.FC<CreateFeedbackFormCardProps> = ({
                     )}
                   />
                   {errors.toEmployeeId && (
-                    <p className="text-sm text-red-500 flex items-center gap-1">
+                    <p className="text-sm text-destructive flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />{" "}
                       {errors.toEmployeeId.message}
                     </p>
@@ -214,13 +214,13 @@ export const CreateFeedbackFormCard: React.FC<CreateFeedbackFormCardProps> = ({
                         <Star
                           className={`h-10 w-10 transition-colors ${
                             (hoverRating || currentRating) >= star
-                              ? "fill-yellow-500 text-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.3)]"
+                              ? "fill-yellow-500 text-warning shadow-[0_0_15px_rgba(234,179,8,0.3)]"
                               : "text-muted-foreground/30"
                           }`}
                         />
                       </button>
                     ))}
-                    <span className="mr-4 font-bold text-xl text-yellow-600 dark:text-yellow-400 font-mono tabular-nums">
+                    <span className="me-4 font-bold text-xl text-warning dark:text-warning font-mono tabular-nums">
                       {currentRating > 0 ? currentRating : ""}
                     </span>
                   </div>
@@ -238,7 +238,7 @@ export const CreateFeedbackFormCard: React.FC<CreateFeedbackFormCardProps> = ({
                   {...register("content", { required: "المحتوى مطلوب" })}
                 />
                 {errors.content && (
-                  <p className="text-sm text-red-500 flex items-center gap-1">
+                  <p className="text-sm text-destructive flex items-center gap-1">
                     <AlertCircle className="h-3 w-3" />{" "}
                     {errors.content.message}
                   </p>
@@ -283,7 +283,7 @@ export const CreateFeedbackFormCard: React.FC<CreateFeedbackFormCardProps> = ({
                   "جاري الحفظ..."
                 ) : (
                   <>
-                    <Save className="h-5 w-5 ml-2" />
+                    <Save className="h-5 w-5 ms-2" />
                     {isEdit
                       ? "تحديث التغذية الراجعة"
                       : "إرسال التغذية الراجعة"}

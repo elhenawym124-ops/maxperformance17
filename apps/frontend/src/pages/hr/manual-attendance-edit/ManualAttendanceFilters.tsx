@@ -56,7 +56,7 @@ export const ManualAttendanceFilters: React.FC<ManualAttendanceFiltersProps> = (
               id="showAllEmployees"
               checked={showAllEmployees}
               onChange={(e) => setShowAllEmployees(e.target.checked)}
-              className="rounded border-gray-300 w-4 h-4 cursor-pointer"
+              className="rounded border-border w-4 h-4 cursor-pointer"
             />
             <label
               htmlFor="showAllEmployees"
@@ -65,7 +65,7 @@ export const ManualAttendanceFilters: React.FC<ManualAttendanceFiltersProps> = (
               عرض جميع الموظفين (حتى بدون سجلات حضور)
             </label>
             {showAllEmployees && (
-              <span className="text-xs text-blue-600 dark:text-blue-400 mr-auto">
+              <span className="text-xs text-blue-600 dark:text-blue-400 me-auto">
                 يمكنك إنشاء سجلات حضور جديدة للموظفين
               </span>
             )}
@@ -89,7 +89,7 @@ export const ManualAttendanceFilters: React.FC<ManualAttendanceFiltersProps> = (
                   id="useRange"
                   checked={useDateRange}
                   onChange={(e) => setUseDateRange(e.target.checked)}
-                  className="rounded border-gray-300 cursor-pointer"
+                  className="rounded border-border cursor-pointer"
                 />
                 <label
                   htmlFor="useRange"

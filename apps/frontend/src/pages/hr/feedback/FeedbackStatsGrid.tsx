@@ -36,13 +36,13 @@ export const FeedbackStatsGrid: React.FC<FeedbackStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="border-none bg-gradient-to-br from-yellow-50 to-white dark:from-yellow-900/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-yellow-900/20">
+      <Card className="border-none bg-gradient-to-br from-warning to-white dark:from-warning/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-warning/20">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-yellow-500/10 rounded-xl">
-              <Star className="h-6 w-6 text-yellow-600 dark:text-yellow-400 fill-yellow-600 dark:fill-yellow-400" />
+            <div className="p-2 bg-warning/10 rounded-xl">
+              <Star className="h-6 w-6 text-warning dark:text-warning fill-warning dark:fill-warning" />
             </div>
-            <span className="text-sm font-medium text-yellow-600 bg-yellow-50 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-1 rounded-full">
+            <span className="text-sm font-medium text-warning bg-warning/10 dark:bg-warning/30 dark:text-warning px-2 py-1 rounded-full">
               التقييم
             </span>
           </div>
@@ -55,13 +55,13 @@ export const FeedbackStatsGrid: React.FC<FeedbackStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="border-none bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-purple-900/20">
+      <Card className="border-none bg-gradient-to-br from-primary to-white dark:from-primary/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-primary/20">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-500/10 rounded-xl">
-              <TrendingUp className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            <div className="p-2 bg-primary/10 rounded-xl">
+              <TrendingUp className="h-6 w-6 text-primary dark:text-primary" />
             </div>
-            <span className="text-sm font-medium text-purple-600 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded-full">
+            <span className="text-sm font-medium text-primary bg-primary/10 dark:bg-primary/30 dark:text-primary px-2 py-1 rounded-full">
               النشاط
             </span>
           </div>
@@ -76,13 +76,13 @@ export const FeedbackStatsGrid: React.FC<FeedbackStatsGridProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="border-none bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-green-900/20">
+      <Card className="border-none bg-gradient-to-br from-success to-white dark:from-success/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-success/20">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-500/10 rounded-xl">
-              <Award className="h-6 w-6 text-green-600 dark:text-green-400" />
+            <div className="p-2 bg-success/10 rounded-xl">
+              <Award className="h-6 w-6 text-success dark:text-success" />
             </div>
-            <span className="text-sm font-medium text-green-600 bg-green-50 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded-full">
+            <span className="text-sm font-medium text-success bg-success/10 dark:bg-success/30 dark:text-success px-2 py-1 rounded-full">
               التميز
             </span>
           </div>

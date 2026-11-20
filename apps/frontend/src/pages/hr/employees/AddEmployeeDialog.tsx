@@ -88,7 +88,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
     if (submitting) {
       return (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <Loader2 className="me-2 h-4 w-4 animate-spin" />
           {t("employees.saving")}
         </>
       );
@@ -136,7 +136,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
                 className={hasError(errors, "email") ? "border-red-500" : ""}
               />
               {hasError(errors, "email") && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-destructive">
                   {getErrorMessage(errors, "email")}
                 </p>
               )}
@@ -205,7 +205,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
                 className={hasError(errors, "hireDate") ? "border-red-500" : ""}
               />
               {hasError(errors, "hireDate") && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-destructive">
                   {getErrorMessage(errors, "hireDate")}
                 </p>
               )}
@@ -225,7 +225,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
                 }
               />
               {hasError(errors, "baseSalary") && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-destructive">
                   {getErrorMessage(errors, "baseSalary")}
                 </p>
               )}
@@ -244,7 +244,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
                 }
               />
               {hasError(errors, "nationalId") && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-destructive">
                   {getErrorMessage(errors, "nationalId")}
                 </p>
               )}
@@ -263,7 +263,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
                 }
               />
               {hasError(errors, "dateOfBirth") && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-destructive">
                   {getErrorMessage(errors, "dateOfBirth")}
                 </p>
               )}
@@ -343,7 +343,7 @@ export const AddEmployeeDialog: React.FC<AddEmployeeDialogProps> = ({
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-amber-500" />
+              <AlertTriangle className="h-5 w-5 text-warning" />
               {t("employees.confirmLinkTitle")}
             </DialogTitle>
           </DialogHeader>

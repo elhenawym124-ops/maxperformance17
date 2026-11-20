@@ -66,7 +66,7 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
           </div>
         ) : requests.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+          <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
             <Calendar className="h-12 w-12 mb-4 opacity-50" />
             <p>{t("employee.leaves.noLeaveRequests")}</p>
           </div>
@@ -129,7 +129,7 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                             <p className="font-medium">
                               {request.employee?.firstName} {request.employee?.lastName}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-muted-foreground">
                               {request.employee?.department?.name}
                             </p>
                           </div>
@@ -139,14 +139,14 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                     <TableCell className="text-right">
                       <div className="flex flex-col items-end gap-1">
                         <Badge className={typeConfig?.color || "bg-gray-100"}>
-                          <TypeIcon className="h-3 w-3 ml-1" />
+                          <TypeIcon className="h-3 w-3 ms-1" />
                           {t(typeConfig?.labelKey) || request.type}
                         </Badge>
                         <Badge
                           className={`${
                             request.type !== "UNPAID"
-                              ? "bg-green-100 text-green-800"
-                              : "bg-red-100 text-red-800"
+                              ? "bg-green-100 text-success"
+                              : "bg-red-100 text-destructive"
                           }`}
                         >
                           {request.type !== "UNPAID"
@@ -195,7 +195,7 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                           <Button
                             size="sm"
                             variant="destructive"
-                            className="bg-orange-500 hover:bg-orange-600"
+                            className="bg-orange-500 hover:bg-warning"
                             onClick={() => onCancel(request.id)}
                           >
                             {t("employee.leaves.cancel")}
@@ -211,16 +211,16 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                                 className="border-blue-500 text-blue-600 hover:bg-blue-50"
                                 onClick={() => onOpenChangeDecision(request)}
                               >
-                                <RotateCcw className="h-4 w-4 ml-1" />
+                                <RotateCcw className="h-4 w-4 ms-1" />
                                 {t("employee.leaves.changeDecision")}
                               </Button>
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className="border-amber-500 text-amber-600 hover:bg-amber-50"
+                                className="border-amber-500 text-warning hover:bg-warning/10"
                                 onClick={() => onOpenEdit(request)}
                               >
-                                <ArrowRight className="h-4 w-4 ml-1" />
+                                <ArrowRight className="h-4 w-4 ms-1" />
                                 {t("employee.leaves.edit")}
                               </Button>
                             </>
@@ -230,10 +230,10 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-red-500 text-red-600 hover:bg-red-50"
+                            className="border-red-500 text-destructive hover:bg-destructive/10"
                             onClick={() => onDelete(request)}
                           >
-                            <Trash2 className="h-4 w-4 ml-1" />
+                            <Trash2 className="h-4 w-4 ms-1" />
                             {t("employee.leaves.delete")}
                           </Button>
                         )}
@@ -260,7 +260,7 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
       {/* Pagination */}
       {pagination.totalPages > 1 && (
         <div className="flex items-center justify-between p-4 border-t">
-          <p className="text-sm text-gray-500 font-mono tabular-nums">
+          <p className="text-sm text-muted-foreground font-mono tabular-nums">
             {t("employee.leaves.pagination", {
               from: (pagination.page - 1) * pagination.limit + 1,
               to: Math.min(pagination.page * pagination.limit, pagination.total),

@@ -31,7 +31,7 @@ export const AttendanceOverviewCard: React.FC<AttendanceOverviewCardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="lg:col-span-2 rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+    <Card className="lg:col-span-2 rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
           <div className="p-1.5 bg-primary/10 rounded-lg text-primary">
@@ -51,8 +51,8 @@ export const AttendanceOverviewCard: React.FC<AttendanceOverviewCardProps> = ({
       </CardHeader>
       <CardContent className="p-3.5 sm:p-6">
         <div className="grid grid-cols-3 gap-2 sm:gap-3.5 mb-4 sm:mb-6">
-          <div className="bg-emerald-500/5 border border-emerald-500/20 p-2.5 sm:p-4 rounded-xl text-center">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 bg-emerald-500/10 rounded-lg flex items-center justify-center mx-auto mb-1.5 sm:mb-2 text-emerald-600 dark:text-emerald-400">
+          <div className="bg-emerald-500/5 border border-success/20 p-2.5 sm:p-4 rounded-xl text-center">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 bg-success/10 rounded-lg flex items-center justify-center mx-auto mb-1.5 sm:mb-2 text-success dark:text-success">
               <UserCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </div>
             <p className="text-xl sm:text-2xl font-bold text-foreground mb-0.5 leading-none font-mono tabular-nums">
@@ -63,8 +63,8 @@ export const AttendanceOverviewCard: React.FC<AttendanceOverviewCardProps> = ({
             </p>
           </div>
 
-          <div className="bg-amber-500/5 border border-amber-500/20 p-2.5 sm:p-4 rounded-xl text-center">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 bg-amber-500/10 rounded-lg flex items-center justify-center mx-auto mb-1.5 sm:mb-2 text-amber-600 dark:text-amber-400">
+          <div className="bg-amber-500/5 border border-warning/20 p-2.5 sm:p-4 rounded-xl text-center">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 bg-warning/10 rounded-lg flex items-center justify-center mx-auto mb-1.5 sm:mb-2 text-warning dark:text-warning">
               <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </div>
             <p className="text-xl sm:text-2xl font-bold text-foreground mb-0.5 leading-none font-mono tabular-nums">
@@ -75,8 +75,8 @@ export const AttendanceOverviewCard: React.FC<AttendanceOverviewCardProps> = ({
             </p>
           </div>
 
-          <div className="bg-rose-500/5 border border-rose-500/20 p-2.5 sm:p-4 rounded-xl text-center">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 bg-rose-500/10 rounded-lg flex items-center justify-center mx-auto mb-1.5 sm:mb-2 text-rose-600 dark:text-rose-400">
+          <div className="bg-rose-500/5 border border-destructive/20 p-2.5 sm:p-4 rounded-xl text-center">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 bg-destructive/10 rounded-lg flex items-center justify-center mx-auto mb-1.5 sm:mb-2 text-destructive dark:text-destructive">
               <UserX className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </div>
             <p className="text-xl sm:text-2xl font-bold text-foreground mb-0.5 leading-none font-mono tabular-nums">
@@ -148,10 +148,10 @@ export const AttendanceOverviewCard: React.FC<AttendanceOverviewCardProps> = ({
                       variant="outline"
                       className={`rounded-md px-2 py-0.5 text-[10px] font-bold font-mono tabular-nums ${
                         record.status === "PRESENT"
-                          ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                           : record.status === "LATE"
-                            ? "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20"
-                            : "bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20"
+                            ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                            : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                       }`}
                     >
                       {record.checkIn

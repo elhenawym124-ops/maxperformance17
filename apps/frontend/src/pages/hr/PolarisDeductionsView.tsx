@@ -167,7 +167,7 @@ export const PolarisDeductionsView: React.FC<PolarisDeductionsViewProps> = ({
               placeholder="ابحث باسم الموظف، الرقم الوظيفي، أو سبب الخصم..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
 
@@ -217,7 +217,7 @@ export const PolarisDeductionsView: React.FC<PolarisDeductionsViewProps> = ({
         </div>
 
         {/* 3. Deductions Table */}
-        <div className="p-0 [&>div.rounded-2xl]:border-0 [&>div.rounded-2xl]:shadow-none [&>div.rounded-2xl]:rounded-none">
+        <div className="p-0 [&>div.rounded-xl]:border-0 [&>div.rounded-xl]:shadow-none [&>div.rounded-xl]:rounded-none">
           <DeductionTable
             deductions={deductions}
             onViewDetails={onViewDetails}

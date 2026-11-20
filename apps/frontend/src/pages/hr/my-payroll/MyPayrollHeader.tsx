@@ -38,7 +38,7 @@ export const MyPayrollHeader: React.FC<MyPayrollHeaderProps> = ({
     <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border/70">
       <div className="space-y-1.5">
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success dark:text-success border border-success/20">
             <ShieldCheck className="h-3.5 w-3.5" />
             {t("employee.payroll.subtitle")}
           </span>

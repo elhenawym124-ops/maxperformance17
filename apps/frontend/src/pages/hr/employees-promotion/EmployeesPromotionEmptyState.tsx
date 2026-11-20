@@ -14,14 +14,14 @@ export const EmployeesPromotionEmptyState: React.FC<
   return (
     <Card>
       <CardContent className="p-12 text-center">
-        <TrendingUp className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+        <TrendingUp className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
         <p className="text-gray-500 mb-4">
           {!hasAnyPromotions
             ? "لا توجد ترقيات"
             : "لا توجد ترقيات تطابق البحث"}
         </p>
         <Button variant="outline" onClick={onNewPromotion}>
-          <Plus className="h-4 w-4 ml-2" />
+          <Plus className="h-4 w-4 ms-2" />
           إضافة ترقية جديدة
         </Button>
       </CardContent>

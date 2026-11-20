@@ -88,16 +88,16 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
             }`}
           />
 
-          <CardHeader className="pb-3 pt-5 pr-6">
+          <CardHeader className="pb-3 pt-5 pe-6">
             <div className="flex justify-between items-start mb-2">
               <div className="flex items-center gap-3">
-                <Avatar className="h-10 w-10 border-2 border-white dark:border-gray-800 shadow-sm flex-shrink-0">
+                <Avatar className="h-10 w-10 border-2 border-white dark:border-border shadow-sm flex-shrink-0">
                   <AvatarFallback className="bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold">
                     {warning.employee?.firstName?.[0] || "U"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-gray-900 dark:text-gray-100 truncate">
+                  <p className="text-sm font-bold text-foreground truncate">
                     {warning.employee?.firstName} {warning.employee?.lastName}
                   </p>
                   <p className="text-xs text-muted-foreground">
@@ -110,14 +110,14 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 -mt-1 -ml-2 text-muted-foreground"
+                    className="h-8 w-8 -mt-1 -ms-2 text-muted-foreground"
                   >
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-xl rounded-2xl p-2 min-w-[180px] z-50"
+                  className="bg-white dark:bg-muted border-border dark:border-border shadow-xl rounded-xl p-2 min-w-[180px] z-50"
                 >
                   <DropdownMenuItem
                     className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer"
@@ -132,17 +132,17 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
                     className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer"
                     onClick={() => onEdit(warning.id)}
                   >
-                    <div className="p-1.5 bg-amber-50 dark:bg-amber-900/20 rounded-lg text-amber-600 dark:text-amber-400">
+                    <div className="p-1.5 bg-warning/10 dark:bg-warning/20 rounded-lg text-warning dark:text-warning">
                       <Edit className="h-4 w-4" />
                     </div>
                     <span className="font-medium text-sm">تعديل</span>
                   </DropdownMenuItem>
                   {!warning.acknowledgedAt && (
                     <DropdownMenuItem
-                      className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer text-green-600 focus:text-green-600 focus:bg-green-50 dark:focus:bg-green-900/20"
+                      className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer text-success focus:text-success focus:bg-success/10 dark:focus:bg-success/20"
                       onClick={() => onAdminAcknowledge(warning.id)}
                     >
-                      <div className="p-1.5 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                      <div className="p-1.5 bg-success/10 dark:bg-success/20 rounded-lg">
                         <CheckCircle2 className="h-4 w-4" />
                       </div>
                       <span className="font-medium text-sm">
@@ -150,12 +150,12 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
                       </span>
                     </DropdownMenuItem>
                   )}
-                  <div className="my-1 border-t border-gray-100 dark:border-gray-800" />
+                  <div className="my-1 border-t border-border dark:border-border" />
                   <DropdownMenuItem
-                    className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-900/20"
+                    className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 dark:focus:bg-destructive/20"
                     onClick={() => onDelete(warning.id)}
                   >
-                    <div className="p-1.5 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                    <div className="p-1.5 bg-destructive/10 dark:bg-destructive/20 rounded-lg">
                       <Trash2 className="h-4 w-4" />
                     </div>
                     <span className="font-medium text-sm">حذف</span>
@@ -166,7 +166,7 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
             <div className="mt-2">
               <div className="flex items-center justify-between mb-1">
                 <CardTitle
-                  className="text-base break-all flex-1 pr-2 leading-tight font-bold text-gray-900 dark:text-gray-100"
+                  className="text-base break-all flex-1 pe-2 leading-tight font-bold text-foreground"
                   title={warning.title}
                 >
                   {warning.title}
@@ -193,12 +193,12 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
           <CardContent className="p-6 pt-2 space-y-4">
             <div className="space-y-3">
               <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                <div className="flex items-center gap-2 text-[10px] font-black text-muted-foreground/80 uppercase tracking-widest">
                   <FileText className="h-3.5 w-3.5" />
                   <span>وصف المخالفة:</span>
                 </div>
                 <p
-                  className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap bg-gray-50/80 dark:bg-white/5 p-4 rounded-2xl border border-gray-100 dark:border-white/5"
+                  className="text-sm text-foreground leading-relaxed whitespace-pre-wrap bg-muted dark:bg-white/5 p-4 rounded-xl border border-border dark:border-white/5"
                   style={{ wordBreak: "break-all", overflowWrap: "anywhere" }}
                 >
                   {warning.description}
@@ -207,12 +207,12 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
 
               {warning.actionTaken && (
                 <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2 text-[10px] font-black text-amber-500 uppercase tracking-widest">
+                  <div className="flex items-center gap-2 text-[10px] font-black text-warning uppercase tracking-widest">
                     <Gavel className="h-3.5 w-3.5" />
                     <span>الإجراء المتخذ:</span>
                   </div>
                   <p
-                    className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap bg-amber-50/50 dark:bg-amber-900/10 p-4 rounded-2xl border border-amber-100 dark:border-amber-900/20"
+                    className="text-sm text-foreground leading-relaxed whitespace-pre-wrap bg-warning/50 dark:bg-warning/10 p-4 rounded-xl border border-warning dark:border-warning/20"
                     style={{ wordBreak: "break-all", overflowWrap: "anywhere" }}
                   >
                     {warning.actionTaken}
@@ -222,7 +222,7 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
 
               <div className="flex items-center justify-between pt-2">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                  <span className="text-[10px] font-black text-muted-foreground/80 uppercase tracking-widest">
                     تاريخ الواقعة:
                   </span>
                   <div className="flex items-center gap-2 text-xs font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-xl w-fit border border-blue-100 dark:border-blue-900/30">
@@ -234,18 +234,18 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
             </div>
           </CardContent>
 
-          <CardFooter className="pt-0 pr-6 pb-4 flex items-center justify-between border-t bg-muted/10 h-14">
+          <CardFooter className="pt-0 pe-6 pb-4 flex items-center justify-between border-t bg-muted/10 h-14">
             <div className="flex items-center gap-2">
               {getSeverityBadge(warning.severity)}
             </div>
 
             {warning.acknowledgedAt ? (
-              <div className="flex items-center gap-1.5 text-xs font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2.5 py-1 rounded-full">
+              <div className="flex items-center gap-1.5 text-xs font-medium text-success dark:text-success bg-success/10 dark:bg-success/20 px-2.5 py-1 rounded-full">
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 تم الإقرار
               </div>
             ) : (
-              <div className="flex items-center gap-1.5 text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full">
+              <div className="flex items-center gap-1.5 text-xs font-medium text-warning dark:text-warning bg-warning/10 dark:bg-warning/20 px-2.5 py-1 rounded-full">
                 <Clock className="h-3.5 w-3.5" />
                 بانتظار الإقرار
               </div>

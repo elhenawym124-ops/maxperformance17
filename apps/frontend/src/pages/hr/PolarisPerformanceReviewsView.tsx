@@ -89,13 +89,13 @@ export const PolarisPerformanceReviewsView: React.FC<PolarisPerformanceReviewsVi
     switch (status) {
       case "COMPLETED":
         return (
-          <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs">
+          <Badge className="bg-emerald-500/10 text-success dark:text-success border border-success/20 text-xs">
             مكتمل
           </Badge>
         );
       case "IN_PROGRESS":
         return (
-          <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs">
+          <Badge className="bg-amber-500/10 text-warning dark:text-warning border border-warning/20 text-xs">
             قيد المراجعة
           </Badge>
         );
@@ -214,7 +214,7 @@ export const PolarisPerformanceReviewsView: React.FC<PolarisPerformanceReviewsVi
               placeholder="ابحث بالاسم أو رقم الموظف..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>

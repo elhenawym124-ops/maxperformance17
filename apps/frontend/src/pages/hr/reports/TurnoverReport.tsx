@@ -139,13 +139,13 @@ const TurnoverReport: React.FC = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2 mr-auto">
+            <div className="flex gap-2 me-auto">
               <Button variant="outline" onClick={fetchReport}>
-                <RefreshCw className="h-4 w-4 ml-2" />
+                <RefreshCw className="h-4 w-4 ms-2" />
                 تحديث
               </Button>
               <Button variant="outline" onClick={handleExport}>
-                <Download className="h-4 w-4 ml-2" />
+                <Download className="h-4 w-4 ms-2" />
                 تصدير
               </Button>
             </div>
@@ -181,11 +181,11 @@ const TurnoverReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">موظفون جدد</p>
-                      <h3 className="text-3xl font-bold mt-1 text-green-600">
+                      <h3 className="text-3xl font-bold mt-1 text-success">
                         {report.newHires}
                       </h3>
                     </div>
-                    <UserPlus className="h-10 w-10 text-green-500" />
+                    <UserPlus className="h-10 w-10 text-success" />
                   </div>
                 </CardContent>
               </Card>
@@ -195,11 +195,11 @@ const TurnoverReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">استقالات</p>
-                      <h3 className="text-3xl font-bold mt-1 text-orange-600">
+                      <h3 className="text-3xl font-bold mt-1 text-warning">
                         {report.resignations}
                       </h3>
                     </div>
-                    <UserMinus className="h-10 w-10 text-orange-500" />
+                    <UserMinus className="h-10 w-10 text-warning" />
                   </div>
                 </CardContent>
               </Card>
@@ -209,11 +209,11 @@ const TurnoverReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">معدل الاحتفاظ</p>
-                      <h3 className="text-3xl font-bold mt-1 text-purple-600">
+                      <h3 className="text-3xl font-bold mt-1 text-primary">
                         {report.retentionRate}%
                       </h3>
                     </div>
-                    <Users className="h-10 w-10 text-purple-500" />
+                    <Users className="h-10 w-10 text-primary" />
                   </div>
                 </CardContent>
               </Card>
@@ -221,7 +221,7 @@ const TurnoverReport: React.FC = () => {
 
             {/* Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+              <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
                 <CardContent className="p-5">
                   <div className="text-center">
                     <p className="text-muted-foreground text-xs font-medium">إجمالي الموظفين</p>
@@ -232,7 +232,7 @@ const TurnoverReport: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+              <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
                 <CardContent className="p-5">
                   <div className="text-center">
                     <p className="text-muted-foreground text-xs font-medium">متوسط مدة الخدمة</p>
@@ -255,7 +255,7 @@ const TurnoverReport: React.FC = () => {
                     <div key={index} className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{dept.department}</span>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-muted-foreground">
                           {dept.employees} موظف • +{dept.newHires} -{dept.exits}{" "}
                           • {dept.turnoverRate.toFixed(1)}%
                         </span>
@@ -277,11 +277,11 @@ const TurnoverReport: React.FC = () => {
                   {report.exitReasons.map((reason, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-muted dark:bg-muted rounded-lg"
                     >
                       <div>
                         <p className="font-medium">{reason.reason}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-muted-foreground">
                           {reason.count} حالة
                         </p>
                       </div>

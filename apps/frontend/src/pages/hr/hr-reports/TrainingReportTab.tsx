@@ -30,7 +30,7 @@ export const TrainingReportTab: React.FC<TrainingReportTabProps> = ({
         trainingReport && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+              <Card className="bg-gradient-to-br from-primary to-primary text-white">
                 <CardContent className="p-6">
                   <p className="text-indigo-100 text-sm">معدل الإنجاز</p>
                   <h3 className="text-3xl font-bold mt-1 font-mono tabular-nums">
@@ -41,7 +41,7 @@ export const TrainingReportTab: React.FC<TrainingReportTabProps> = ({
               <Card>
                 <CardContent className="p-6">
                   <p className="text-gray-500 text-sm">برامج مكتملة</p>
-                  <h3 className="text-2xl font-bold text-green-600 font-mono tabular-nums">
+                  <h3 className="text-2xl font-bold text-success font-mono tabular-nums">
                     {trainingReport.completed}
                   </h3>
                 </CardContent>

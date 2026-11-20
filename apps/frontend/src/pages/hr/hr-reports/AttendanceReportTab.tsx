@@ -36,7 +36,7 @@ export const AttendanceReportTab: React.FC<AttendanceReportTabProps> = ({
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-md">
+              <Card className="bg-gradient-to-br from-blue-600 to-primary text-white shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -61,15 +61,15 @@ export const AttendanceReportTab: React.FC<AttendanceReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         إجمالي الحضور
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-green-600 font-mono tabular-nums">
+                      <h3 className="text-3xl font-bold mt-1 text-success font-mono tabular-nums">
                         {attendanceReport.presentDays}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         يوم عمل مسجل
                       </p>
                     </div>
-                    <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
-                      <Users className="h-6 w-6 text-green-600" />
+                    <div className="p-3 bg-success/10 dark:bg-success/20 rounded-full">
+                      <Users className="h-6 w-6 text-success" />
                     </div>
                   </div>
                 </CardContent>
@@ -82,13 +82,13 @@ export const AttendanceReportTab: React.FC<AttendanceReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         حالات الغياب
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-red-600 font-mono tabular-nums">
+                      <h3 className="text-3xl font-bold mt-1 text-destructive font-mono tabular-nums">
                         {attendanceReport.absentDays}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">بدون عذر</p>
+                      <p className="text-xs text-muted-foreground mt-1">بدون عذر</p>
                     </div>
-                    <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-full">
-                      <TrendingDown className="h-6 w-6 text-red-500" />
+                    <div className="p-3 bg-destructive/10 dark:bg-destructive/20 rounded-full">
+                      <TrendingDown className="h-6 w-6 text-destructive" />
                     </div>
                   </div>
                 </CardContent>
@@ -101,15 +101,15 @@ export const AttendanceReportTab: React.FC<AttendanceReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         ساعات العمل
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-purple-600 font-mono tabular-nums">
+                      <h3 className="text-3xl font-bold mt-1 text-primary font-mono tabular-nums">
                         {attendanceReport.averageWorkHours}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         متوسط يومي
                       </p>
                     </div>
-                    <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
-                      <Clock className="h-6 w-6 text-purple-500" />
+                    <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-full">
+                      <Clock className="h-6 w-6 text-primary" />
                     </div>
                   </div>
                 </CardContent>

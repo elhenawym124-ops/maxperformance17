@@ -86,28 +86,28 @@ export const PolarisResignationsView: React.FC<PolarisResignationsViewProps> = (
     switch (status) {
       case "PENDING":
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 tabular-nums">
+          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20 tabular-nums">
             <Clock className="h-3 w-3" />
             معلق
           </span>
         );
       case "APPROVED":
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 tabular-nums">
+          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-success/10 text-success dark:text-success border border-success/20 tabular-nums">
             <CheckCircle2 className="h-3 w-3" />
             موافق عليه
           </span>
         );
       case "COMPLETED":
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 tabular-nums">
+          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-info/10 text-info dark:text-info border border-info/20 tabular-nums">
             <CheckCircle2 className="h-3 w-3" />
             مكتمل التصفية
           </span>
         );
       case "REJECTED":
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 tabular-nums">
+          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 tabular-nums">
             <XCircle className="h-3 w-3" />
             مرفوض
           </span>
@@ -173,7 +173,7 @@ export const PolarisResignationsView: React.FC<PolarisResignationsViewProps> = (
                     <span
                       className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono tabular-nums ${
                         tab.key === "PENDING" && tab.count > 0
-                          ? "bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold"
+                          ? "bg-amber-500/15 text-warning dark:text-warning font-bold"
                           : "bg-muted text-muted-foreground"
                       }`}
                     >
@@ -195,7 +195,7 @@ export const PolarisResignationsView: React.FC<PolarisResignationsViewProps> = (
               placeholder="ابحث باسم الموظف أو الرقم الوظيفي..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
+              className="pe-9 h-8 text-xs bg-background border-border/70 rounded-lg shadow-none focus-visible:ring-1"
             />
           </div>
         </div>

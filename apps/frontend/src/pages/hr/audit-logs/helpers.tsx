@@ -57,21 +57,21 @@ export const getEntityName = (type: string): string => {
 export const getActionIcon = (action: string): React.ReactNode => {
   switch (action) {
     case "APPROVE":
-      return <CheckCircle className="h-4 w-4 text-green-500" />;
+      return <CheckCircle className="h-4 w-4 text-success" />;
     case "REJECT":
       return <XCircle className="h-4 w-4 text-destructive" />;
     case "UPDATE":
       return <Edit className="h-4 w-4 text-blue-500" />;
     case "CREATE":
-      return <CheckCircle className="h-4 w-4 text-purple-500" />;
+      return <CheckCircle className="h-4 w-4 text-primary" />;
     case "DELETE":
       return <XCircle className="h-4 w-4 text-destructive" />;
     case "SETTLEMENT":
-      return <Shield className="h-4 w-4 text-emerald-500" />;
+      return <Shield className="h-4 w-4 text-success" />;
     case "LOGIN":
-      return <User className="h-4 w-4 text-indigo-500" />;
+      return <User className="h-4 w-4 text-primary" />;
     case "LOGOUT":
-      return <User className="h-4 w-4 text-gray-500" />;
+      return <User className="h-4 w-4 text-muted-foreground" />;
     default:
       return <FileText className="h-4 w-4 text-muted-foreground" />;
   }
@@ -80,21 +80,21 @@ export const getActionIcon = (action: string): React.ReactNode => {
 export const getActionBadge = (action: string): React.ReactNode => {
   const styles: Record<string, string> = {
     APPROVE:
-      "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400",
+      "bg-green-100 text-success border-success dark:bg-success/30 dark:text-success",
     REJECT:
-      "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400",
+      "bg-red-100 text-destructive border-destructive dark:bg-destructive/30 dark:text-destructive",
     UPDATE:
       "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400",
     CREATE:
-      "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400",
+      "bg-purple-100 text-primary border-primary dark:bg-primary/30 dark:text-primary",
     DELETE:
-      "bg-red-50 text-red-900 border-red-200 dark:bg-red-950/30 dark:text-red-300",
+      "bg-red-50 text-destructive border-destructive dark:bg-destructive/30 dark:text-destructive",
     SETTLEMENT:
-      "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400",
+      "bg-emerald-100 text-success border-success dark:bg-success/30 dark:text-success",
     LOGIN:
-      "bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-400",
+      "bg-indigo-100 text-primary border-primary dark:bg-primary/30 dark:text-primary",
     LOGOUT:
-      "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400",
+      "bg-gray-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground",
   };
 
   const labels: Record<string, string> = {

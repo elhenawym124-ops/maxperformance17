@@ -7,11 +7,11 @@ export const REWARD_DETAILS_STATUS_CONFIG: Record<
 > = {
   PENDING: {
     label: "قيد الانتظار",
-    className: "bg-yellow-100 text-yellow-800 border-yellow-300",
+    className: "bg-yellow-100 text-warning border-warning",
   },
   APPROVED: {
     label: "معتمد",
-    className: "bg-green-100 text-green-800 border-green-300",
+    className: "bg-green-100 text-success border-success",
   },
   APPLIED: {
     label: "مطبق",
@@ -19,11 +19,11 @@ export const REWARD_DETAILS_STATUS_CONFIG: Record<
   },
   REJECTED: {
     label: "مرفوض",
-    className: "bg-red-100 text-red-800 border-red-300",
+    className: "bg-red-100 text-destructive border-destructive",
   },
   VOIDED: {
     label: "ملغي",
-    className: "bg-gray-100 text-gray-800 border-gray-300",
+    className: "bg-gray-100 text-foreground border-border",
   },
 };
 

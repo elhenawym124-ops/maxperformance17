@@ -42,7 +42,7 @@ export const LeaveFilters: React.FC<LeaveFiltersProps> = ({
               <TabsTrigger value="pending" className="relative">
                 {t("employee.leaves.pending")}
                 {pendingCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-red-500 font-mono tabular-nums">
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-destructive font-mono tabular-nums">
                     {pendingCount}
                   </Badge>
                 )}

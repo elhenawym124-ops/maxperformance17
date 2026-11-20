@@ -78,7 +78,7 @@ const Warnings: React.FC = () => {
           <WarningsStatsGrid stats={stats} />
 
           {/* Main Content Area */}
-          <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+          <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
             <CardHeader className="pb-4 border-b">
               <WarningsFilterBar
                 activeTab={activeTab}

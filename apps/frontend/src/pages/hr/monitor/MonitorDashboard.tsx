@@ -59,7 +59,7 @@ export const MonitorDashboard: React.FC = () => {
         className="flex h-[70vh] flex-col items-center justify-center gap-3 text-center"
         dir="rtl"
       >
-        <ShieldAlert className="h-10 w-10 text-rose-400" />
+        <ShieldAlert className="h-10 w-10 text-destructive" />
         <h2 className="text-base font-bold text-foreground">
           غير مصرح بالوصول
         </h2>
@@ -163,7 +163,7 @@ export const MonitorDashboard: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="بحث بالاسم أو القسم..."
-                className="h-7 w-36 sm:w-52 rounded-lg border border-border/60 bg-muted/50 dark:bg-zinc-900/60 pr-8 pl-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-sky-500/50 focus:outline-none"
+                className="h-7 w-36 sm:w-52 rounded-lg border border-border/60 bg-muted/50 dark:bg-muted pe-8 ps-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-info/50 focus:outline-none"
               />
             </div>
           </div>
@@ -173,8 +173,8 @@ export const MonitorDashboard: React.FC = () => {
               onClick={() => setStatusFilter("all")}
               className={`rounded-lg px-2.5 py-1 font-medium transition ${
                 statusFilter === "all"
-                  ? "bg-slate-200 dark:bg-zinc-800 text-foreground ring-1 ring-border/50 font-semibold"
-                  : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800/60 hover:text-foreground"
+                  ? "bg-slate-200 dark:bg-muted text-foreground ring-1 ring-border/50 font-semibold"
+                  : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
               }`}
             >
               الكل (
@@ -187,8 +187,8 @@ export const MonitorDashboard: React.FC = () => {
               onClick={() => setStatusFilter("active")}
               className={`rounded-lg px-2.5 py-1 font-medium transition ${
                 statusFilter === "active"
-                  ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 ring-1 ring-emerald-500/20 font-semibold"
-                  : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800/60 hover:text-foreground"
+                  ? "bg-emerald-50 text-success dark:bg-success/10 dark:text-success ring-1 ring-success/20 font-semibold"
+                  : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
               }`}
             >
               نشط الآن (
@@ -198,8 +198,8 @@ export const MonitorDashboard: React.FC = () => {
               onClick={() => setStatusFilter("idle")}
               className={`rounded-lg px-2.5 py-1 font-medium transition ${
                 statusFilter === "idle"
-                  ? "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 ring-1 ring-amber-500/20 font-semibold"
-                  : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800/60 hover:text-foreground"
+                  ? "bg-amber-50 text-warning dark:bg-warning/10 dark:text-warning ring-1 ring-warning/20 font-semibold"
+                  : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
               }`}
             >
               استراحة / خمول
@@ -208,8 +208,8 @@ export const MonitorDashboard: React.FC = () => {
               onClick={() => setStatusFilter("offline")}
               className={`rounded-lg px-2.5 py-1 font-medium transition ${
                 statusFilter === "offline"
-                  ? "bg-slate-200 dark:bg-zinc-800 text-foreground dark:text-zinc-300 ring-1 ring-border/40 font-semibold"
-                  : "text-muted-foreground hover:bg-muted dark:hover:bg-zinc-800/60 hover:text-foreground"
+                  ? "bg-slate-200 dark:bg-muted text-foreground dark:text-muted-foreground ring-1 ring-border/40 font-semibold"
+                  : "text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground"
               }`}
             >
               غير متصل
@@ -219,7 +219,7 @@ export const MonitorDashboard: React.FC = () => {
 
         {loading && teamMembers.length === 0 ? (
           <div className="flex h-40 items-center justify-center text-xs text-muted-foreground">
-            <RefreshCw className="h-4 w-4 animate-spin ml-2 text-sky-400" />
+            <RefreshCw className="h-4 w-4 animate-spin ms-2 text-info" />
             <span>جاري استرداد بيانات النشاط السحابية…</span>
           </div>
         ) : sortedMembers.length === 0 ? (

@@ -70,7 +70,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
       transition={{ duration: 0.3 }}
     >
       <Card
-        className="group relative overflow-hidden h-full border-none shadow-md hover:shadow-xl transition-all duration-300 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-100 dark:border-gray-800"
+        className="group relative overflow-hidden h-full border-none shadow-md hover:shadow-xl transition-all duration-300 bg-white/80 dark:bg-muted backdrop-blur-sm border border-border dark:border-border"
         onClick={() => onViewDetails(department)}
       >
         {/* Color Strip */}
@@ -98,11 +98,11 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
                 <Building2 className="h-6 w-6" />
               </div>
               <div className="space-y-0.5">
-                <CardTitle className="text-xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                <CardTitle className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
                   {department.name}
                 </CardTitle>
                 {department.nameEn && (
-                  <p className="text-sm font-medium text-gray-400 dark:text-gray-500">
+                  <p className="text-sm font-medium text-muted-foreground/80">
                     {department.nameEn}
                   </p>
                 )}
@@ -114,10 +114,10 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="rounded-full hover:bg-muted dark:hover:bg-muted"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <MoreVertical className="h-4 w-4 text-gray-400" />
+                  <MoreVertical className="h-4 w-4 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
@@ -127,18 +127,18 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
                     onViewDetails(department);
                   }}
                 >
-                  <UserCircle className="h-4 w-4 ml-2" />
+                  <UserCircle className="h-4 w-4 ms-2" />
                   عرض التفاصيل
                 </DropdownMenuItem>
                 {canManage && (
                   <DropdownMenuItem
-                    className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/30"
+                    className="text-red-600 focus:text-destructive focus:bg-destructive/10 dark:focus:bg-destructive/30"
                     onClick={(e) => {
                       e.stopPropagation();
                       onDelete(department);
                     }}
                   >
-                    <Trash2 className="h-4 w-4 ml-2" />
+                    <Trash2 className="h-4 w-4 ms-2" />
                     حذف القسم
                   </DropdownMenuItem>
                 )}
@@ -149,7 +149,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
 
         <CardContent className="space-y-5">
           {department.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 min-h-[40px] leading-relaxed">
+            <p className="text-sm text-foreground dark:text-muted-foreground line-clamp-2 min-h-[40px] leading-relaxed">
               {department.description}
             </p>
           )}
@@ -157,8 +157,8 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
           <div className="grid grid-cols-1 gap-3">
             {/* Manager Info */}
             {department.manager ? (
-              <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800">
-                <Avatar className="h-8 w-8 ring-2 ring-white dark:ring-gray-900">
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
+                <Avatar className="h-8 w-8 ring-2 ring-white dark:ring-border">
                   <AvatarImage src={department.manager.avatar} />
                   <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
                     {department.manager.firstName?.[0]}
@@ -166,20 +166,20 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
                     مدير القسم
                   </span>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-gray-200">
+                  <span className="text-sm font-semibold text-foreground dark:text-muted-foreground">
                     {department.manager.firstName} {department.manager.lastName}
                   </span>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-3 p-2 rounded-lg border border-dashed border-gray-200 dark:border-gray-800 opacity-60">
-                <div className="h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                  <UserCircle className="h-4 w-4 text-gray-400" />
+              <div className="flex items-center gap-3 p-2 rounded-lg border border-dashed border-border dark:border-border opacity-60">
+                <div className="h-8 w-8 rounded-full bg-muted dark:bg-muted flex items-center justify-center">
+                  <UserCircle className="h-4 w-4 text-muted-foreground" />
                 </div>
-                <span className="text-sm text-gray-400 italic">
+                <span className="text-sm text-muted-foreground italic">
                   بدون مدير معين
                 </span>
               </div>
@@ -188,11 +188,11 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
             {/* Parent Dept */}
             {department.parent && (
               <div className="flex items-center gap-2 px-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700" />
-                <span className="text-xs text-gray-500">جزء من:</span>
+                <div className="w-1.5 h-1.5 rounded-full bg-muted dark:bg-muted" />
+                <span className="text-xs text-muted-foreground">جزء من:</span>
                 <Badge
                   variant="outline"
-                  className="text-[10px] font-bold bg-gray-50 dark:bg-gray-800/50"
+                  className="text-[10px] font-bold bg-muted dark:bg-muted"
                 >
                   {department.parent.name}
                 </Badge>
@@ -200,7 +200,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
             )}
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
+          <div className="flex items-center justify-between pt-4 border-t border-border dark:border-border">
             <div className="flex items-center gap-4">
               <div className="flex flex-col items-center">
                 <div className="flex items-center gap-1.5 text-primary">
@@ -209,36 +209,36 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
                     {department._count.users}
                   </span>
                 </div>
-                <span className="text-[10px] text-gray-400 font-medium">
+                <span className="text-[10px] text-muted-foreground font-medium">
                   موظف
                 </span>
               </div>
 
-              <div className="w-px h-8 bg-gray-100 dark:bg-gray-800" />
+              <div className="w-px h-8 bg-muted dark:bg-muted" />
 
               <div className="flex flex-col items-center">
-                <div className="flex items-center gap-1.5 text-orange-500">
+                <div className="flex items-center gap-1.5 text-warning">
                   <Briefcase className="h-4 w-4" />
                   <span className="text-lg font-bold leading-none">
                     {department._count.positions}
                   </span>
                 </div>
-                <span className="text-[10px] text-gray-400 font-medium">
+                <span className="text-[10px] text-muted-foreground font-medium">
                   وظيفة
                 </span>
               </div>
 
               {department._count.children > 0 && (
                 <>
-                  <div className="w-px h-8 bg-gray-100 dark:bg-gray-800" />
+                  <div className="w-px h-8 bg-muted dark:bg-muted" />
                   <div className="flex flex-col items-center">
-                    <div className="flex items-center gap-1.5 text-emerald-500">
+                    <div className="flex items-center gap-1.5 text-success">
                       <Activity className="h-4 w-4" />
                       <span className="text-lg font-bold leading-none">
                         {department._count.children}
                       </span>
                     </div>
-                    <span className="text-[10px] text-gray-400 font-medium">
+                    <span className="text-[10px] text-muted-foreground font-medium">
                       قسم فرعي
                     </span>
                   </div>
@@ -249,8 +249,8 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
             <Badge
               variant={department.isActive ? "default" : "secondary"}
               className={`px-3 py-1 rounded-full text-xs font-bold ${department.isActive
-                  ? "bg-emerald-500 hover:bg-emerald-600 text-white"
-                  : "bg-gray-200 dark:bg-gray-800 text-gray-500"
+                  ? "bg-emerald-500 hover:bg-success text-white"
+                  : "bg-gray-200 dark:bg-muted text-muted-foreground"
                 }`}
             >
               {department.isActive ? "نشط" : "غير نشط"}

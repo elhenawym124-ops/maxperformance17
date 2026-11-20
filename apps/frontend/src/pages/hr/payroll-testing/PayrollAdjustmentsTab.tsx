@@ -30,9 +30,9 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
 }) => {
   return (
     <div className="mt-0 space-y-6">
-      <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/50 p-4 rounded-xl flex items-start gap-4 mb-6">
-        <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-        <p className="text-sm text-amber-800 dark:text-amber-200">
+      <div className="bg-amber-50 dark:bg-warning/20 border border-warning dark:border-warning/50 p-4 rounded-xl flex items-start gap-4 mb-6">
+        <AlertCircle className="h-5 w-5 text-warning shrink-0 mt-0.5" />
+        <p className="text-sm text-warning dark:text-warning">
           يمكنك إضافة أنواع مختلفة من الخصومات لاختبار تأثيرها على الراتب
           النهائي، مثل خصومات التأخير، الغياب، السلف، وغيرها.
         </p>
@@ -43,7 +43,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <MinusCircle className="h-5 w-5 text-rose-600" />
+              <MinusCircle className="h-5 w-5 text-destructive" />
               الخصومات والجزاءات
             </CardTitle>
             <CardDescription>
@@ -53,7 +53,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
           <CardContent>
             <div className="space-y-4">
               {deductions.length === 0 ? (
-                <div className="text-center py-6 text-slate-400 italic">
+                <div className="text-center py-6 text-muted-foreground italic">
                   لا توجد خصومات مضافة
                 </div>
               ) : (
@@ -61,7 +61,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
                   {deductions.map((deduction, index) => (
                     <div
                       key={deduction.id}
-                      className="flex items-end gap-2 p-3 bg-slate-50 dark:bg-slate-900 rounded-lg"
+                      className="flex items-end gap-2 p-3 bg-muted dark:bg-muted rounded-lg"
                     >
                       <div className="w-32">
                         <Label className="text-xs">نوع الخصم</Label>
@@ -134,7 +134,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20"
+                        className="text-rose-500 hover:bg-destructive/10 dark:hover:bg-destructive/20"
                         onClick={() => {
                           setDeductions(deductions.filter((_, i) => i !== index));
                         }}
@@ -162,7 +162,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
                   ]);
                 }}
               >
-                <Plus className="h-4 w-4 ml-2" />
+                <Plus className="h-4 w-4 ms-2" />
                 إضافة خصم جديد
               </Button>
             </div>
@@ -173,7 +173,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <FileCheck className="h-5 w-5 text-indigo-600" />
+              <FileCheck className="h-5 w-5 text-primary" />
               نماذج خصومات شائعة
             </CardTitle>
             <CardDescription>نماذج جاهزة للخصومات الشائعة</CardDescription>
@@ -198,7 +198,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
               >
                 <div className="flex flex-col items-start">
                   <span className="font-bold">خصم تأخير</span>
-                  <span className="text-xs text-slate-500 font-mono tabular-nums">
+                  <span className="text-xs text-muted-foreground font-mono tabular-nums">
                     50 جنيه لكل ساعة تأخير
                   </span>
                 </div>
@@ -222,7 +222,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
               >
                 <div className="flex flex-col items-start">
                   <span className="font-bold">خصم غياب</span>
-                  <span className="text-xs text-slate-500 font-mono tabular-nums">
+                  <span className="text-xs text-muted-foreground font-mono tabular-nums">
                     8% من الراتب لكل يوم
                   </span>
                 </div>
@@ -246,7 +246,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
               >
                 <div className="flex flex-col items-start">
                   <span className="font-bold">سلفة شهرية</span>
-                  <span className="text-xs text-slate-500 font-mono tabular-nums">
+                  <span className="text-xs text-muted-foreground font-mono tabular-nums">
                     500 جنيه خصم ثابت
                   </span>
                 </div>
@@ -270,7 +270,7 @@ export const PayrollAdjustmentsTab: React.FC<PayrollAdjustmentsTabProps> = ({
               >
                 <div className="flex flex-col items-start">
                   <span className="font-bold">تلف معدات</span>
-                  <span className="text-xs text-slate-500 font-mono tabular-nums">
+                  <span className="text-xs text-muted-foreground font-mono tabular-nums">
                     200 جنيه تعويض
                   </span>
                 </div>
