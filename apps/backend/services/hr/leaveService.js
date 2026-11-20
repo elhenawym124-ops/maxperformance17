@@ -1015,13 +1015,15 @@ class LeaveService {
           companyId,
           OR: [{ userId: employeeId }, { id: employeeId }],
         },
-        select: { annualLeaveBalance: true, sickLeaveBalance: true },
+        select: { annualLeaveBalance: true, sickLeaveBalance: true, userId: true },
       });
+      // employeeId قد يأتي كـ Employee.id — نحتاج userId الفعلي لربط الإجازات
+      const targetUserId = employee?.id || employeeBalance?.userId || employeeId;
 
       // Calculate balances from actual leave requests
       const approvedLeaves = await this.prisma.leaveRequest.findMany({
         where: {
-          userId: employeeId,
+          userId: targetUserId,
           companyId,
           status: 'APPROVED'
         },
@@ -1056,7 +1058,7 @@ class LeaveService {
       const usedLeaves = await this.prisma.leaveRequest.groupBy({
         by: ['type'],
         where: {
-          userId: employeeId,
+          userId: targetUserId,
           status: 'APPROVED',
           startDate: {
             gte: new Date(year, 0, 1),

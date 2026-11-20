@@ -1486,6 +1486,13 @@ class AttendanceService {
         `⏰ [CHECKOUT] Record Date: ${attendanceDayForCalc.toISOString()}, Work End: ${workEnd.toISOString()}, Now: ${now.toISOString()}`,
       );
 
+      // 🛡️ لا يمكن تسجيل انصراف بدون حضور مسجّل (كان ينتج 500 numeric overflow)
+      if (!attendance.checkIn) {
+        const missingCheckIn = new Error("لم يتم تسجيل الحضور لهذا اليوم — سجّل الحضور أولًا");
+        missingCheckIn.statusCode = 400;
+        throw missingCheckIn;
+      }
+
       // حساب ساعات العمل الفعلية
       const checkInDate = new Date(attendance.checkIn);
       const actualWorkMinutes = Math.max(0, (now - checkInDate) / 60000);
@@ -1510,7 +1517,7 @@ class AttendanceService {
       // في مصر وساعات العمل القياسية (10:00-18:00 = 8ساعات)، الراحة وساعة الغداء ضمن ساعات العمل ولا تُخصم من الراتب
       // لا يتم خصم الراحة إلا إذا كان الشيفت يحدد صراحةً راحة غير مدفوعة (unpaidBreak === true)
       const breakDuration = (shift?.unpaidBreak === true) ? (shift?.breakDuration || 0) : 0;
-      const workHours = Math.max(0, (actualWorkMinutes - breakDuration) / 60);
+      const workHours = Math.min(999.99, Math.max(0, (actualWorkMinutes - breakDuration) / 60));
 
       // حساب ساعات إضافية والحالة النهائية
       let overtimeHours = 0;
@@ -1527,13 +1534,13 @@ class AttendanceService {
           settings,
           timezone,
         });
-        overtimeHours = restMetrics.overtimeHours;
+        overtimeHours = Math.min(999.99, restMetrics.overtimeHours);
       } else {
         const minOvertimeHours = parseFloat(settings?.overtimeMinHours) || 1;
         if (now > workEnd) {
           const overtime = (now - workEnd) / 3600000;
           if (overtime >= minOvertimeHours) {
-            overtimeHours = overtime;
+            overtimeHours = Math.min(999.99, overtime);
           }
         }
       }
