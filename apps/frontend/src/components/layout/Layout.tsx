@@ -47,6 +47,7 @@ import RouteErrorBoundary from "../common/RouteErrorBoundary";
 import { CompanyLogo } from "../ui/CompanyLogo";
 import { envConfig } from "../../config/environment";
 import PolarisHeader from "./PolarisHeader";
+import { isChatRoute } from "./app-dashboard/helpers";
 
 const SuperAdminLayout = React.lazy(() => import("./SuperAdminLayout"));
 const AppDashboardPage = React.lazy(() => import("./app-dashboard/AppDashboardPage"));
@@ -286,6 +287,9 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
   const mobileMenuLabel = isMobileMenuOpen
     ? t("header.closeMenu")
     : t("header.openMenu");
+  // Same rule the app-dashboard shell uses: a full-height conversation must not
+  // share the bottom edge with the navigation dock.
+  const showMobileDock = !isChatRoute(location.pathname);
   const shellThemeId = currentTheme?.id || BUSINESS_THEME_ID;
   const initials =
     `${user?.firstName?.charAt(0) || ""}${user?.lastName?.charAt(0) || ""}`.trim();
@@ -1113,7 +1117,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
             <TemplateSlot name="header">{headerBlock}</TemplateSlot>
 
              <main
-                  className={`business-shell-main business-shell-with-mobile-dock flex-1 flex flex-col ${
+                  className={`business-shell-main ${showMobileDock ? "business-shell-with-mobile-dock" : ""} flex-1 flex flex-col ${
                     shouldRemovePadding ? "p-0 overflow-hidden min-h-0 h-full max-h-full" : "p-4 md:p-6 overflow-y-auto min-h-0 h-full max-h-full"
                   }`}
                   style={{ height: '100%', minHeight: 0, flex: '1 1 0%' }}
@@ -1234,7 +1238,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
               <TemplateSlot name="header">{headerBlock}</TemplateSlot>
 
                <main
-                  className={`business-shell-main business-shell-with-mobile-dock flex-1 flex flex-col ${
+                  className={`business-shell-main ${showMobileDock ? "business-shell-with-mobile-dock" : ""} flex-1 flex flex-col ${
                     shouldRemovePadding ? "p-0 overflow-hidden min-h-0 h-full max-h-full" : "p-4 md:p-6 overflow-y-auto min-h-0 h-full max-h-full"
                   }`}
                   style={{ height: '100%', minHeight: 0, flex: '1 1 0%' }}
@@ -1260,7 +1264,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
          </div>
        )}
 
-        <AdminBottomNav />
+        {showMobileDock ? <AdminBottomNav /> : null}
 
         {isSuperAdmin && showActiveUsers && (
          <ActiveUsersMonitor
