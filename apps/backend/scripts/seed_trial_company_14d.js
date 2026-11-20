@@ -164,7 +164,7 @@ async function main() {
     return role;
   };
 
-  const hrRole = await ensureRole('TRIAL_HR_MANAGER', 'مدير الموارد البشرية', 'دور تجريبي لإدارة HR', [
+  const hrRole = await ensureRole('MANAGER', 'مدير الموارد البشرية', 'دور تجريبي لإدارة HR', [
     { key: 'dashboard.view', name: 'عرض لوحة التحكم', domain: 'DASHBOARD' },
     { key: 'hr.employees', name: 'إدارة الموظفين', domain: 'HR' },
     { key: 'hr.attendance', name: 'إدارة الحضور', domain: 'HR' },
@@ -181,8 +181,7 @@ async function main() {
     { key: 'reports.view', name: 'عرض التقارير', domain: 'REPORTS' },
   ]);
 
-  const hrUser = await upsertUser('trial.hr@maxp.test', 'خالد', 'سيد', 'MANAGER');
-  const mktUser = await upsertUser('trial.marketing@maxp.test', 'هبة', 'فؤاد', 'MANAGER');
+  const hrUser = await upsertUser('trial.hr@maxp.test', 'خالد', 'سيد', 'MANAGER');  const mktUser = await upsertUser('trial.marketing@maxp.test', 'هبة', 'فؤاد', 'MANAGER');
   const teacherUser = await upsertUser('trial.teacher@maxp.test', 'أستاذ', 'محمود', 'AGENT');
   const agentUser = await upsertUser('trial.agent@maxp.test', 'سارة', 'خدمة العملاء', 'AGENT');
 
