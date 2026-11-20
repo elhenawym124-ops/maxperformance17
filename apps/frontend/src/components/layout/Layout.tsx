@@ -492,6 +492,42 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
       .filter((section) => section.items.length > 0);
   }, [menuSections, searchQuery]);
 
+  // Polaris Hub & Drawer: the group owning the current route is the "active hub".
+  const activeSidebarSectionId = useMemo(() => {
+    for (const section of filteredSections) {
+      if (section.hidden) continue;
+      for (const item of section.items) {
+        if (item.hidden) continue;
+        const to = item.to || "";
+        if (!to) continue;
+        if (sidebarCurrentPath === to || sidebarCurrentPath.startsWith(to)) return section.id;
+      }
+    }
+    return null;
+  }, [filteredSections, sidebarCurrentPath]);
+
+  // First visit: collapse every group except the active hub (long multi-app menus).
+  useEffect(() => {
+    if (!filteredSections.length) return;
+    if (localStorage.getItem("sidebar-collapsed-sections")) return;
+    const init: Record<string, boolean> = {};
+    for (const s of filteredSections) init[s.id] = s.id !== activeSidebarSectionId;
+    localStorage.setItem("sidebar-collapsed-sections", JSON.stringify(init));
+    setCollapsedSections(init);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredSections.length > 0, activeSidebarSectionId]);
+
+  // Navigating into a collapsed group auto-reveals it (Shopify behavior).
+  useEffect(() => {
+    if (!activeSidebarSectionId) return;
+    setCollapsedSections((prev) => {
+      if (prev[activeSidebarSectionId] !== true) return prev;
+      const next = { ...prev, [activeSidebarSectionId]: false };
+      localStorage.setItem("sidebar-collapsed-sections", JSON.stringify(next));
+      return next;
+    });
+  }, [activeSidebarSectionId]);
+
 
 
   if (useSuperAdminShell) {

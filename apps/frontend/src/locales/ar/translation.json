@@ -18639,6 +18639,9 @@
   },
   "sidebar": {
     "activeUsers": "المستخدمون النشطون",
+    "instagramMediaLibrary": "مكتبة وسائط إنستجرام",
+    "instagramCommentManager": "مدير تعليقات إنستجرام",
+    "instagramPublisher": "ناشر إنستجرام",
     "agencyInvoices": "الفواتير والأرباح",
     "quickFunnel": "مسار تحويل سريع",
     "taskSettings": "إعدادات المهام",
