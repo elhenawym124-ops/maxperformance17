@@ -215,7 +215,7 @@ class EmployeeService {
           select: { employeeNumber: true },
         }),
         this.prisma.employee.findMany({
-          where: { companyId, employeeNumber: { not: null } },
+          where: { companyId },
           select: { employeeNumber: true },
         }),
       ]);
