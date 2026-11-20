@@ -1614,7 +1614,32 @@ class EmployeeService {
 
       if (!targetCompanyId) return null;
 
-      return await staffSyncService.syncStaffRecord(targetCompanyId, userId);
+      // نمرّر بيانات الموظف الفعلية — بدونها كان المرآة تُنشأ بتاريخ اليوم
+      // وراتب null، فيحسب مسير الرواتب الشهر كله غيابًا (أو لا يحتسبه إطلاقًا).
+      const staff = await this.prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          role: true,
+          departmentId: true,
+          positionId: true,
+          contractType: true,
+          hireDate: true,
+          baseSalary: true,
+          employeeNumber: true,
+          phone: true,
+        },
+      });
+
+      return await staffSyncService.syncStaffRecord(targetCompanyId, userId, {
+        role: staff?.role || 'AGENT',
+        departmentId: staff?.departmentId || null,
+        positionId: staff?.positionId || null,
+        contractType: staff?.contractType || 'FULL_TIME',
+        hireDate: staff?.hireDate || new Date(),
+        baseSalary: staff?.baseSalary ?? undefined,
+        employeeNumber: staff?.employeeNumber || null,
+        phone: staff?.phone ?? undefined,
+      });
     } catch (error) {
       console.error('❌ [HR] Error syncing Employee table via StaffSyncService:', error.message);
     }
