@@ -3664,14 +3664,11 @@ async function getAnnualPayrollReport(req, res) {
 async function getAttendanceReport(req, res) {
   try {
     const { companyId } = req.user;
-    const { month, year, departmentId } = req.query;
-
-    if (!month || !year) {
-      return res.status(400).json({
-        success: false,
-        error: "يجب تحديد الشهر والسنة",
-      });
-    }
+    // افتراضيًا: الشهر الحالي — كانت التقارير ترجع 400 بدون باراميترات
+    const now = new Date();
+    const month = req.query.month || String(now.getMonth() + 1);
+    const year = req.query.year || String(now.getFullYear());
+    const departmentId = req.query.departmentId;
 
     const report = await attendanceService.getMonthlyReport(
       companyId,
@@ -3698,14 +3695,11 @@ async function getAttendanceReport(req, res) {
 async function getAbsentDaysReport(req, res) {
   try {
     const { companyId } = req.user;
-    const { month, year, employeeId, departmentId } = req.query;
-
-    if (!month || !year) {
-      return res.status(400).json({
-        success: false,
-        error: "يجب تحديد الشهر والسنة",
-      });
-    }
+    const now = new Date();
+    const month = req.query.month || String(now.getMonth() + 1);
+    const year = req.query.year || String(now.getFullYear());
+    const employeeId = req.query.employeeId;
+    const departmentId = req.query.departmentId;
 
     const report = await attendanceService.getAbsentDaysReport(
       companyId,
@@ -3732,14 +3726,11 @@ async function getAbsentDaysReport(req, res) {
 async function getAttendanceSheetReport(req, res) {
   try {
     const { companyId } = req.user;
-    const { month, year, employeeId, departmentId } = req.query;
-
-    if (!month || !year) {
-      return res.status(400).json({
-        success: false,
-        error: "يجب تحديد الشهر والسنة",
-      });
-    }
+    const now = new Date();
+    const month = req.query.month || String(now.getMonth() + 1);
+    const year = req.query.year || String(now.getFullYear());
+    const employeeId = req.query.employeeId;
+    const departmentId = req.query.departmentId;
 
     const report = await attendanceService.getMonthlyAttendanceSheet(
       companyId,
@@ -3766,14 +3757,9 @@ async function getAttendanceSheetReport(req, res) {
 async function getPerformanceReport(req, res) {
   try {
     const { companyId } = req.user;
-    const { month, year } = req.query;
-
-    if (!year) {
-      return res.status(400).json({
-        success: false,
-        error: "يجب تحديد السنة",
-      });
-    }
+    const now = new Date();
+    const month = req.query.month;
+    const year = req.query.year || String(now.getFullYear());
 
     const report = await performanceService.getPerformanceReport(companyId, {
       month: month ? parseInt(month) : null,
@@ -3797,14 +3783,10 @@ async function getPerformanceReport(req, res) {
 async function getLeaveReport(req, res) {
   try {
     const { companyId } = req.user;
-    const { month, year, departmentId } = req.query;
-
-    if (!month || !year) {
-      return res.status(400).json({
-        success: false,
-        error: "يجب تحديد الشهر والسنة",
-      });
-    }
+    const now = new Date();
+    const month = req.query.month || String(now.getMonth() + 1);
+    const year = req.query.year || String(now.getFullYear());
+    const departmentId = req.query.departmentId;
 
     // جلب جميع طلبات الإجازات للشهر المحدد
     const startDate = new Date(parseInt(year), parseInt(month) - 1, 1);
@@ -3869,14 +3851,9 @@ async function getLeaveReport(req, res) {
 async function getPayrollReport(req, res) {
   try {
     const { companyId } = req.user;
-    const { month, year } = req.query;
-
-    if (!month || !year) {
-      return res.status(400).json({
-        success: false,
-        error: "يجب تحديد الشهر والسنة",
-      });
-    }
+    const now = new Date();
+    const month = req.query.month || String(now.getMonth() + 1);
+    const year = req.query.year || String(now.getFullYear());
 
     // Use the optimized summary service
     const summary = await payrollService.getPayrollSummary(
@@ -8129,9 +8106,22 @@ async function getEmployeeReport(req, res) {
     const { getSharedPrismaClient } = require("../services/sharedDatabase");
     const prisma = getSharedPrismaClient();
     const { companyId } = req.user;
-    const { employeeId: inputId, startDate, endDate } = req.query;
+    let { employeeId: inputId, startDate, endDate } = req.query;
 
-    if (!inputId || !startDate || !endDate) {
+    // نقبل أيضًا year/month (نفس عقد بقية التقارير) أو الافتراضي = الشهر الحالي
+    const qYear = parseInt(req.query.year, 10);
+    const qMonth = parseInt(req.query.month, 10);
+    if ((!startDate || !endDate) && qYear && qMonth) {
+      startDate = new Date(qYear, qMonth - 1, 1).toISOString().slice(0, 10);
+      endDate = new Date(qYear, qMonth, 0).toISOString().slice(0, 10);
+    }
+    if (!startDate || !endDate) {
+      const now = new Date();
+      startDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10);
+      endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0, 10);
+    }
+
+    if (!inputId) {
       return res
         .status(400)
         .json({ error: "يجب تحديد الموظف والفترة الزمنية" });
