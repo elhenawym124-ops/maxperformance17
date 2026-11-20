@@ -45,17 +45,17 @@ const SaaSAnnouncements: React.FC<SaaSAnnouncementsProps> = ({
         return {
           icon: AlertTriangle,
           label: "تنبيه",
-          badgeClass: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
-          iconColor: "text-amber-600 dark:text-warning",
-          cardBorder: "border-amber-500/20 hover:border-warning/40",
+          badgeClass: "bg-warning/10 text-warning border-warning/20",
+          iconColor: "text-warning",
+          cardBorder: "border-warning/20 hover:border-warning/40",
         };
       case "promotion":
         return {
           icon: Rocket,
           label: "عرض خاص",
-          badgeClass: "bg-emerald-500/10 text-success dark:text-success border-success/20",
-          iconColor: "text-emerald-600 dark:text-success",
-          cardBorder: "border-emerald-500/20 hover:border-success/40",
+          badgeClass: "bg-success/10 text-success border-success/20",
+          iconColor: "text-success",
+          cardBorder: "border-success/20 hover:border-success/40",
         };
       case "update":
       default:

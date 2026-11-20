@@ -42,8 +42,8 @@ export function AppWidgetMini({ widget, data }: Props) {
             <span
               className={cn(
                 "w-1.5 h-1.5 rounded-full shrink-0",
-                data.status === "active" && "bg-emerald-500",
-                data.status === "warning" && "bg-amber-500",
+                data.status === "active" && "bg-success",
+                data.status === "warning" && "bg-warning",
                 data.status === "error" && "bg-destructive",
                 data.status === "inactive" && "bg-muted-foreground/60",
               )}

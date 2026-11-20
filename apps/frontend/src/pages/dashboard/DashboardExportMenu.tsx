@@ -55,7 +55,7 @@ export function DashboardExportMenu({ dashboard, periodLabel, disabled }: Props)
   }, [dashboard, t]);
 
   const baseName = `dashboard_${(dashboard.dateRange?.start ?? "range").replace(/-/g, "")}_${(dashboard.dateRange?.end ?? "").replace(/-/g, "")}`;
-  const title = `${dashboard.company?.name ?? t("companyDashboard.title")} — ${periodLabel}`;
+  const title = `${dashboard.company?.name ?? t("companyDashboard.title")} - ${periodLabel}`;
 
   const handleCSV = () => exportToCSV(rows, columns, `${baseName}.csv`);
   const handleExcel = () => exportToExcel(rows, columns, `${baseName}.xlsx`, "Dashboard");
