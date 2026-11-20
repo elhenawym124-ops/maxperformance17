@@ -105,7 +105,7 @@ router.get('/children/:studentId/sessions', authenticateParentToken, async (req,
         JOIN "education_group_sessions" s ON s."groupId" = g.id AND s."companyId" = g."companyId"
         LEFT JOIN "education_teachers" t ON t.id = COALESCE(s."teacherId", g."teacherId") AND t."companyId" = s."companyId"
         LEFT JOIN "education_subjects" sub ON sub.id = g."subjectId" AND sub."companyId" = s."companyId"
-        LEFT JOIN "education_group_session_attendances" att 
+        LEFT JOIN "education_group_attendance" att 
           ON att."sessionId" = s.id AND att."studentId" = m."studentId" AND att."companyId" = s."companyId"
         WHERE m."studentId" = $1
           AND m."companyId" = $2
