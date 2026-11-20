@@ -81,7 +81,6 @@ const CompanyPolicy: React.FC = () => {
           />
         </div>
       )}
-      />
 
       {/* View Policy Dialog */}
       <CompanyPolicyViewDialog
