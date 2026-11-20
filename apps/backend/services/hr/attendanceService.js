@@ -2059,7 +2059,7 @@ class AttendanceService {
 
       const activeUserIds = await this.getActiveCompanyUserIds(companyId);
 
-      const [attendance, totalEmployees] = await executeWithRetry(async () => {
+      const [attendance, legacyUserCount, hrEmployeeCount] = await executeWithRetry(async () => {
         return await Promise.all([
           this.prisma.attendance.findMany({
             where: {
@@ -2091,8 +2091,14 @@ class AttendanceService {
               employeeNumber: { not: null },
             },
           }),
+          // المصدر الأساسي للعدّ: hr_employees (وUser كـ fallback للشركات القديمة)
+          this.prisma.employee.count({
+            where: { companyId, status: 'ACTIVE' },
+          }),
         ]);
       });
+
+      const totalEmployees = hrEmployeeCount > 0 ? hrEmployeeCount : legacyUserCount;
 
       // تجنب التكرار في الحساب إذا كان هناك سجلين لنفس الموظف في النطاق (نأخذ الأحدث)
       const uniqueAttendance = [];
@@ -2112,7 +2118,20 @@ class AttendanceService {
 
       const present = uniqueAttendance.filter((a) => a.checkIn).length;
       const late = uniqueAttendance.filter((a) => a.status === "LATE").length;
-      const absent = Math.max(0, totalEmployees - present);
+
+      // F-16: أيام الراحة (الجمعة افتراضيًا أو workDays في إعدادات HR) لا تُحسب غيابًا
+      let restDay = false;
+      try {
+        const hrSettings = await this.prisma.hRSettings.findUnique({
+          where: { companyId },
+          select: { workDays: true },
+        });
+        restDay = this.isRestDay(today, hrSettings, timezone);
+      } catch (_) {
+        restDay = false;
+      }
+
+      const absent = restDay ? 0 : Math.max(0, totalEmployees - present);
 
       return {
         date: today,
@@ -2120,6 +2139,7 @@ class AttendanceService {
         present,
         late,
         absent,
+        isRestDay: restDay,
         records: uniqueAttendance.map((record) => {
           const { user, ...rest } = record;
           return {
@@ -3705,11 +3725,24 @@ class AttendanceService {
    */
   async getAttendanceStats(companyId, startDate, endDate) {
     try {
+      // تواريخ افتراضية = الشهر الحالي (كانت new Date(undefined) ترمي 500)
+      const now = new Date();
+      const parsedStart = startDate ? new Date(startDate) : null;
+      const parsedEnd = endDate ? new Date(endDate) : null;
+      const rangeStart =
+        parsedStart && !Number.isNaN(parsedStart.getTime())
+          ? parsedStart
+          : new Date(now.getFullYear(), now.getMonth(), 1);
+      const rangeEnd =
+        parsedEnd && !Number.isNaN(parsedEnd.getTime())
+          ? parsedEnd
+          : new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
       const where = {
         companyId,
         date: {
-          gte: new Date(startDate),
-          lte: new Date(endDate),
+          gte: rangeStart,
+          lte: rangeEnd,
         },
       };
 

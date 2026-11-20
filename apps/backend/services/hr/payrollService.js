@@ -806,6 +806,14 @@ class PayrollService {
    */
   async getPayrollSummary(companyId, month, year, status) {
     try {
+      // شهر/سنة افتراضيان = الشهر الحالي (كان parseInt(undefined)=NaN يرمي 500)
+      const now = new Date();
+      const safeMonth =
+        Number.isInteger(month) && month >= 1 && month <= 12 ? month : now.getMonth() + 1;
+      const safeYear =
+        Number.isInteger(year) && year >= 2000 && year <= 2100 ? year : now.getFullYear();
+      month = safeMonth;
+      year = safeYear;
       // Filter out orphaned records by ensuring userId exists in User table
       // Include both direct companyId and userCompanies for proper multi-tenant filtering
       const validUserIds = await this.prisma.user.findMany({
