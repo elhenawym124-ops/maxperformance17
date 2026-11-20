@@ -22,13 +22,13 @@ type Props = {
 };
 
 const KIND_META: Record<string, { icon: React.ComponentType<{ className?: string }>; color: string }> = {
-  order:        { icon: ShoppingCart,   color: "var(--color-primary, #6366f1)" },
-  conversation: { icon: MessageSquare,  color: "#25D366" },
-  whatsapp:     { icon: Phone,          color: "#25D366" },
-  campaign:     { icon: Megaphone,      color: "#f59e0b" },
-  import:       { icon: Download,       color: "#3b82f6" },
-  notification: { icon: Bell,           color: "#ef4444" },
-  ai:           { icon: Sparkles,       color: "#a855f7" },
+  order:        { icon: ShoppingCart,   color: "var(--color-primary)" },
+  conversation: { icon: MessageSquare,  color: "var(--color-success)" },
+  whatsapp:     { icon: Phone,          color: "var(--color-success)" },
+  campaign:     { icon: Megaphone,      color: "var(--color-warning)" },
+  import:       { icon: Download,       color: "var(--color-info)" },
+  notification: { icon: Bell,           color: "var(--color-destructive)" },
+  ai:           { icon: Sparkles,       color: "var(--color-primary)" },
 };
 
 function formatTime(ts: number): string {
@@ -67,7 +67,7 @@ export function DashboardActivityFeed({ dashboard, liveActivities, liveCount = 0
         {recent?.newCustomers != null && recent.newCustomers > 0 && (
           <ActivityRow
             icon={Users}
-            color="var(--color-success, #22c55e)"
+            color="var(--color-success)"
             text={t("companyDashboard.activity.newCustomers", { count: recent.newCustomers })}
             onClick={() => navigate("/customers")}
           />
@@ -75,7 +75,7 @@ export function DashboardActivityFeed({ dashboard, liveActivities, liveCount = 0
         {recent?.newConversations != null && recent.newConversations > 0 && (
           <ActivityRow
             icon={FileText}
-            color="#25D366"
+            color="var(--color-success)"
             text={t("companyDashboard.activity.newConversations", { count: recent.newConversations })}
             onClick={() => navigate("/unified-inbox")}
           />

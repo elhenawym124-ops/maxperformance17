@@ -53,43 +53,39 @@ export const SpecialtyDashboardHeader: React.FC<SpecialtyDashboardHeaderProps> =
 
   return (
     <div className="relative overflow-hidden bg-card text-card-foreground rounded-xl border border-border/70 p-4 sm:p-5 shadow-xs space-y-4">
-      {/* Header with Title & Badge */}
+      {/* Specialty strip: icon + section label + quick actions (page title lives in the shell header) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <div className="size-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
             {isMedical ? (
-              <Heart className="size-5 text-rose-500" />
+              <Heart className="size-5 text-primary" />
             ) : isDental ? (
               <Wrench className="size-5 text-primary" />
             ) : isEducation ? (
-              <GraduationCap className="size-5 text-indigo-500" />
+              <GraduationCap className="size-5 text-primary" />
             ) : isMarketing ? (
-              <Megaphone className="size-5 text-amber-500" />
+              <Megaphone className="size-5 text-primary" />
             ) : (
-              <MessageSquare className="size-5 text-emerald-500" />
+              <MessageSquare className="size-5 text-primary" />
             )}
           </div>
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-sm sm:text-base font-bold text-foreground tracking-tight">
-                {isMedical
-                  ? 'لوحة إدارة العيادات والمواعيد الطبية'
-                  : isDental
-                  ? 'لوحة إدارة معمل الأسنان والحالات'
-                  : isEducation
-                  ? 'لوحة إدارة الأكاديمية والتعليم'
-                  : isMarketing
-                  ? 'لوحة التسويق والحملات الرقمية'
-                  : 'لوحة إدارة المحادثات وخدمة العملاء'}
-              </h2>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{specialtyName || 'نشط ومتصل'}</span>
+          <div className="flex items-center gap-2 flex-wrap min-w-0">
+            <h2 className="text-sm font-semibold text-foreground truncate">
+              {isMedical
+                ? 'لوحة إدارة العيادات والمواعيد الطبية'
+                : isDental
+                ? 'لوحة إدارة معمل الأسنان والحالات'
+                : isEducation
+                ? 'لوحة إدارة الأكاديمية والتعليم'
+                : isMarketing
+                ? 'لوحة التسويق والحملات الرقمية'
+                : 'لوحة إدارة المحادثات وخدمة العملاء'}
+            </h2>
+            {specialtyName && (
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-muted text-muted-foreground shrink-0">
+                {specialtyName}
               </span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              مركز القيادة والعمليات التشغيلية التخصصية
-            </p>
+            )}
           </div>
         </div>
 
@@ -202,12 +198,12 @@ export const SpecialtyDashboardHeader: React.FC<SpecialtyDashboardHeaderProps> =
       </div>
 
       {/* Specialty Metrics Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 rounded-lg border border-border/60 bg-muted/20 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/50 overflow-hidden">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3">
         {isMedical && (
           <>
             <div className="p-3.5">
               <span className="text-[11px] font-semibold text-muted-foreground">حجوزات اليوم</span>
-              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-rose-500 mt-1">
+              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-primary mt-1">
                 {specialtyMetrics.medical?.todayAppointments ?? 0}
               </p>
               <span className="text-[10px] text-muted-foreground mt-0.5 block">مواعيد مؤكدة</span>
@@ -273,7 +269,7 @@ export const SpecialtyDashboardHeader: React.FC<SpecialtyDashboardHeaderProps> =
           <>
             <div className="p-3.5">
               <span className="text-[11px] font-semibold text-muted-foreground">الحصص اليومية</span>
-              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-indigo-500 mt-1">
+              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-primary mt-1">
                 {specialtyMetrics.education?.todayClasses ?? 0}
               </p>
               <span className="text-[10px] text-muted-foreground mt-0.5 block">جلسات مجدولة</span>
@@ -306,7 +302,7 @@ export const SpecialtyDashboardHeader: React.FC<SpecialtyDashboardHeaderProps> =
           <>
             <div className="p-3.5">
               <span className="text-[11px] font-semibold text-muted-foreground">الحملات النشطة</span>
-              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-amber-500 mt-1">
+              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-primary mt-1">
                 {specialtyMetrics.marketing?.activeCampaigns ?? 0}
               </p>
               <span className="text-[10px] text-muted-foreground mt-0.5 block">حملة تعمل حالياً</span>
@@ -339,7 +335,7 @@ export const SpecialtyDashboardHeader: React.FC<SpecialtyDashboardHeaderProps> =
           <>
             <div className="p-3.5">
               <span className="text-[11px] font-semibold text-muted-foreground">المحادثات المفتوحة</span>
-              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-emerald-500 mt-1">
+              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-primary mt-1">
                 {specialtyMetrics.messaging?.openConversations ?? 0}
               </p>
               <span className="text-[10px] text-muted-foreground mt-0.5 block">بانتظار الرد</span>

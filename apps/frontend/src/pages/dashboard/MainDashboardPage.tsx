@@ -155,7 +155,7 @@ export default function MainDashboardPage() {
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
+      <div className="polaris-track flex flex-col items-center justify-center py-20 text-center">
         <div className="p-4 rounded-2xl bg-destructive/10 mb-4">
           <Eye className="w-8 h-8 text-destructive" />
         </div>
@@ -177,7 +177,7 @@ export default function MainDashboardPage() {
   }
 
   return (
-    <div className="space-y-4 w-full pb-12" style={{ viewTransitionName: "main-dashboard" }}>
+    <div className="polaris-track space-y-4 w-full pb-12" style={{ viewTransitionName: "main-dashboard" }}>
       {/* Top Welcome Bar with View Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-border/70">
         <div>

@@ -1178,6 +1178,69 @@ If a single checkbox cannot be honestly ticked, the page is not done. Fix it bef
 
 ---
 
+---
+
+## 16. SHOPIFY POLARIS TRACK (Merchant Admin Surfaces — MaxP Merchant Chassis)
+
+> **Track trigger:** When the brief is a merchant-facing admin or operations surface that must read as "Shopify admin caliber" (merchant dashboard, merchant list/index pages, merchant settings), build with this track. Where it conflicts with the generic Track B surface rules, **this track supersedes** Section 15.1's chassis ban and Slop Flag #7 for the scoped page.
+
+### 16.1 Disambiguation (فك الاشتباك — read before applying Section 15)
+Section 15.1 "Single-Surface Chassis" and Slop Flag #7 "Floating Island Fragmentation" ban floating cards over grey backgrounds because that rule targets Linear/Cursor-style engineering cockpits. **Shopify admin's canonical anatomy IS white cards floating on a grey canvas.** On the Polaris Track:
+- Canvas (`#f1f1f1` light / `#1a1a1a` dark) + floating white surface cards = **REQUIRED**, not banned.
+- Flag #7 and 15.1's "no floating grey card boxes" **DO NOT apply** to pages scoped under this track.
+- Every other Track B law still applies unchanged: 100% semantic tokens (no raw palette splashes in components), `font-mono tabular-nums` numerics, executive action headers, zero marketing fluff, MOB-015 mobile single-depth, no competing navigation.
+
+### 16.2 Token Calibration (Polaris v13 values — calibrate HERE, never in components)
+Scope every Polaris page under one wrapper class (MaxP reference: `apps/frontend/src/styles/polaris-track.css`, class `polaris-track`) and override scales in CSS. Raw hex in component files stays banned (AGENTS.md §2.1).
+
+| Polaris token | Light | Dark | Usage |
+|---|---|---|---|
+| canvas `--p-canvas` | `#f1f1f1` | `#1a1a1a` | Page background behind cards |
+| surface `--p-surface` | `#ffffff` | `#202020` | Cards, sheets, banners |
+| text `--p-text` | `#303030` | `#e3e3e3` | Primary text |
+| text subdued `--p-text-subdued` | `#616161` | `#b5b5b5` | Secondary/metadata text |
+| border `--p-border` | `#e3e3e3` | `#303030` | Hairlines, card borders |
+| radius card | `12px` | `12px` | Cards, sheets, banners |
+| radius control | `8px` | `8px` | Buttons, inputs, badges, chips |
+| shadow card (bevel) | `0 1px 0 rgba(26,26,26,.07), 0 1.5px 3px rgba(0,0,0,.06)` | border-only | Card elevation — bevel, never large drop glow |
+
+**Radius implementation shortcut (Tailwind v4):** scope `--theme-radius: 8px` inside the wrapper so the existing scale maps `rounded-lg`=8px (controls) and `rounded-xl`=12px (cards). **Typography stays per AGENTS.md §2.2:** `IBM Plex Sans Arabic` for Arabic copy, `IBM Plex Mono tabular-nums` for numerics/codes. **Accent stays the platform `--color-primary`** — Polaris governs structure and surfaces, not the brand accent. Full-bleed canvas inside a padded shell: mirror the shell gutter with negative logical margins (`margin-inline/-block: calc(-1 * var(--layout-gutter))` + equal padding) so the canvas paints edge-to-edge without touching shared `Layout.tsx`.
+
+### 16.3 Page Anatomy Recipes
+**Recipe A — Overview dashboard (merchant cockpit):**
+1. ONE page header strip: `h1` (text-xl sm:text-2xl bold) + one-line context + primary actions. NO second title card stacked below it.
+2. Control strip: date-range/filter/export toolbar in ONE surface (surface bg, radius-lg, bevel shadow). Max 2 strips total before the first content card.
+3. Content cards on canvas: metric strip card, list card, activity card — each self-contained, radius-xl, identical bevel shadow, zero cards nested inside cards.
+4. Metric strips: plain grid cells on the card surface (no `bg-muted` boxes, no rainbow per-cell accent colors — accent color only on the ONE KPI that owns the page's decision).
+
+**Recipe B — Index/list page:** page header + filter chips row (radius-lg) + one table card: header row `bg-muted/50`, rows `divide-y border-border/70`, hover `bg-muted/40`, numeric columns `font-mono tabular-nums`.
+
+**Recipe C — Settings page:** one surface card per section group: section title → hairline `border-b border-border/70` → rows (label + muted description, control inline-start-aligned to reading direction), sticky contextual save bar (`sticky bottom-0 bg-card border-t border-border/70 shadow-lg`) only when dirty.
+
+### 16.4 Component Calibration (shadcn/Radix implementations — do NOT install Polaris React)
+Polaris React / `cdn.polaris.js` are for apps embedded INSIDE Shopify admin (App Bridge). Standalone platforms replicate the **caliber** with their own primitives:
+
+| Polaris component | MaxP implementation |
+|---|---|
+| PageHeader | `h1 text-xl sm:text-2xl` + `p text-xs text-muted-foreground` + actions row |
+| Card | `bg-card border border-border/70 rounded-xl` + bevel shadow class |
+| Banner | `bg-{semantic}-10 text-{semantic} border border-{semantic}-20 rounded-xl p-3` (AlertsHub pattern) |
+| Badge | `px-2 py-0.5 rounded-md text-[11px] font-medium bg-muted text-muted-foreground` |
+| SegmentedControl / Tabs | Radix Tabs: `bg-muted/50 p-1 rounded-lg` + `data-[state=active]:bg-card data-[state=active]:text-foreground` |
+| IndexTable | table card per Recipe B |
+| ContextualSaveBar | sticky bottom bar per Recipe C (existing ConfirmDialog/Dirty-guard patterns) |
+
+### 16.5 Pre-Flight Additions (Polaris Track — run in addition to Track B checklist)
+- [ ] ONE wrapper class scopes canvas/tokens; ZERO raw hex or ad-hoc palette utilities (`text-rose-500`, `text-indigo-500`) in the page's components — semantic/status colors only.
+- [ ] ONE page header; no stacked competing titles; ≤2 strips before first content card.
+- [ ] Radius system: cards 12px / controls 8px (no mixed 14–22px soup).
+- [ ] Card shadows are bevel-only; no `0 28px 72px` glow drops, no gradient surface fills.
+- [ ] No decorative pulse dots or dead status badges — a status indicator must reflect real system state.
+- [ ] Dark mode verified: canvas `#1a1a1a` / surface `#202020` / border `#303030` / text `#e3e3e3`.
+- [ ] Marketing fluff subtitles under titles REMOVED (Show, Don't Tell).
+
+---
+
 # APPENDICES - Real Source-Backed Reference Material
 
 The sections below are vendored reference content. They give the agent real install commands, real canonical doc links, and real working starter snippets for each design system named in Section 2. Use them to ground decisions in production reality, not training-data fiction.
@@ -1248,9 +1311,9 @@ npm install bootstrap
 - https://carbondesignsystem.com/developing/web-components-tutorial/overview/
 
 ### Shopify Polaris
+- https://polaris.shopify.com/components
 - https://shopify.dev/docs/api/app-home/web-components
-- https://github.com/Shopify/polaris-react
-- https://polaris-react.shopify.com/components
+- https://github.com/Shopify/polaris
 
 ### Atlassian
 - https://atlassian.design/get-started/develop

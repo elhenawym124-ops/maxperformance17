@@ -1,0 +1,70 @@
+/* ============================================================
+   Polaris Track — Shopify admin caliber (taste-skill Section 16)
+   Scope: wrap a merchant page root with .polaris-track.
+   Calibration lives HERE only; raw hex in components stays banned.
+   ============================================================ */
+
+.polaris-track {
+  /* Polaris v13 surfaces */
+  --p-canvas: #f1f1f1;
+  --p-surface: #ffffff;
+  --p-text: #303030;
+  --p-text-subdued: #616161;
+  --p-border: #e3e3e3;
+  /* Radius system: controls 8px, cards 12px via the existing scale */
+  --theme-radius: 8px;
+  /* Polaris bevel card shadow */
+  --p-shadow-card: 0 1px 0 rgba(26, 26, 26, 0.07), 0 1.5px 3px rgba(0, 0, 0, 0.06);
+  /* Mirror the shell gutter to bleed the canvas edge-to-edge (p-4 / md:p-6) */
+  --layout-gutter: 1rem;
+
+  background-color: var(--p-canvas);
+  color: var(--p-text);
+  margin: calc(-1 * var(--layout-gutter));
+  padding: var(--layout-gutter);
+}
+
+@media (min-width: 768px) {
+  .polaris-track {
+    --layout-gutter: 1.5rem;
+  }
+}
+
+/* Card elevation: bevel instead of generic drops (scoped utility override) */
+.polaris-track .shadow-2xs,
+.polaris-track .shadow-xs,
+.polaris-track .shadow-sm {
+  box-shadow: var(--p-shadow-card);
+}
+
+/* Surface card primitive (Polaris Card caliber) */
+.polaris-card {
+  background-color: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: 12px;
+  box-shadow: var(--p-shadow-card);
+}
+
+/* Control primitive (Polaris Button/Input caliber) */
+.polaris-control {
+  border-radius: 8px;
+}
+
+/* Dark mode — Polaris dark schema (platform tokens remapped in-scope) */
+.dark .polaris-track {
+  --p-canvas: #1a1a1a;
+  --p-surface: #202020;
+  --p-text: #e3e3e3;
+  --p-text-subdued: #b5b5b5;
+  --p-border: #303030;
+  --p-shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --color-card: var(--p-surface);
+  --color-border: var(--p-border);
+  --color-background: var(--p-canvas);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .polaris-track {
+    --p-shadow-card: none;
+  }
+}
