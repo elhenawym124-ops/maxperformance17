@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { useHRSettingsData } from "./settings/hooks/useHRSettingsData";
 import { HRSettingsHeader } from "./settings/components/HRSettingsHeader";
 import { HRSettingsSidebar } from "./settings/components/HRSettingsSidebar";
@@ -14,8 +15,13 @@ import { HREmploymentTab } from "./settings/components/HREmploymentTab";
 import { HRRemoteWorkTab } from "./settings/components/HRRemoteWorkTab";
 import { HRSecurityTab } from "./settings/components/HRSecurityTab";
 import { HRNotificationsTab } from "./settings/components/HRNotificationsTab";
+import { PolarisHRSettingsView } from "./PolarisHRSettingsView";
 
 const HRSettings: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
   const data = useHRSettingsData();
 
   if (data.loading) {
@@ -153,27 +159,43 @@ const HRSettings: React.FC = () => {
         onConfirmWithoutSave={data.confirmNavigation}
       />
 
-      <HRSettingsHeader
-        loading={data.loading}
-        saving={data.saving}
-        hasUnsavedChanges={data.hasUnsavedChangesValue}
-        errors={data.errors}
-        onClearErrors={() => data.setErrors({})}
-        onRefresh={data.fetchSettings}
-        onSave={data.handleSave}
-      />
-
-      <div className="w-full">
-        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
-          <HRSettingsSidebar
-            activeTab={data.activeTab}
-            onTabChange={data.handleTabChange}
-            searchQuery={data.searchQuery}
-            onSearchChange={data.setSearchQuery}
+      {isPolaris ? (
+        <PolarisHRSettingsView
+          activeTab={data.activeTab}
+          onTabChange={data.handleTabChange}
+          hasUnsavedChanges={data.hasUnsavedChangesValue}
+          errors={data.errors}
+          saving={data.saving}
+          onSave={data.handleSave}
+          onRefresh={data.fetchSettings}
+        >
+          {renderTabContent()}
+        </PolarisHRSettingsView>
+      ) : (
+        <>
+          <HRSettingsHeader
+            loading={data.loading}
+            saving={data.saving}
+            hasUnsavedChanges={data.hasUnsavedChangesValue}
+            errors={data.errors}
+            onClearErrors={() => data.setErrors({})}
+            onRefresh={data.fetchSettings}
+            onSave={data.handleSave}
           />
-          <div className="flex-1 min-w-0">{renderTabContent()}</div>
-        </div>
-      </div>
+
+          <div className="w-full">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+              <HRSettingsSidebar
+                activeTab={data.activeTab}
+                onTabChange={data.handleTabChange}
+                searchQuery={data.searchQuery}
+                onSearchChange={data.setSearchQuery}
+              />
+              <div className="flex-1 min-w-0">{renderTabContent()}</div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

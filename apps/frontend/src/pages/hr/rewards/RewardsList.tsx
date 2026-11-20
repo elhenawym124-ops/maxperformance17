@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Award, Plus, RefreshCw, AlertCircle } from "lucide-react";
 import { Button } from "../../../components/ui/button";
@@ -8,9 +9,15 @@ import {
   RewardsListStatsAndFilters,
   RewardsListTable,
 } from "./list";
+import { PolarisRewardsView } from "./PolarisRewardsView";
 
 const RewardsList: React.FC = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
+
   const {
     navigate,
     user,
@@ -68,54 +75,76 @@ const RewardsList: React.FC = () => {
 
   return (
     <div className="space-y-5 w-full">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-border/70">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="size-9 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
-            <Award className="size-4" />
+      {isPolaris ? (
+        <PolarisRewardsView
+          records={records}
+          statistics={statistics}
+          filters={filters}
+          setFilters={setFilters}
+          showFilters={showFilters}
+          setShowFilters={setShowFilters}
+          resetFilters={resetFilters}
+          userRole={user?.role}
+          deleting={deleting}
+          pagination={pagination}
+          setPagination={setPagination}
+          onNavigate={navigate}
+          onDeleteClick={handleDeleteClick}
+          onStatusUpdate={handleStatusUpdate}
+          onRefresh={fetchRewards}
+        />
+      ) : (
+        <>
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-border/70">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="size-9 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+                <Award className="size-4" />
+              </div>
+              <div className="min-w-0">
+                <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight truncate">
+                  {t("rewards.pageTitle")}
+                </h1>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 truncate">
+                  {t("rewards.pageDescription")}
+                </p>
+              </div>
+            </div>
+            <Button
+              size="sm"
+              onClick={() => navigate("/hr/rewards/create")}
+              className="gap-1.5 text-xs font-semibold shadow-xs"
+            >
+              <Plus className="size-4" />
+              {t("rewards.form.addReward")}
+            </Button>
           </div>
-          <div className="min-w-0">
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight truncate">
-              {t("rewards.pageTitle")}
-            </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 truncate">
-              {t("rewards.pageDescription")}
-            </p>
-          </div>
-        </div>
-        <Button
-          size="sm"
-          onClick={() => navigate("/hr/rewards/create")}
-          className="gap-1.5 text-xs font-semibold shadow-xs"
-        >
-          <Plus className="size-4" />
-          {t("rewards.form.addReward")}
-        </Button>
-      </div>
 
-      {/* Statistics & Filters */}
-      <RewardsListStatsAndFilters
-        statistics={statistics}
-        filters={filters}
-        showFilters={showFilters}
-        onToggleFilters={() => setShowFilters(!showFilters)}
-        onResetFilters={resetFilters}
-        onUpdateFilters={setFilters}
-      />
+          {/* Statistics & Filters */}
+          <RewardsListStatsAndFilters
+            statistics={statistics}
+            filters={filters}
+            showFilters={showFilters}
+            onToggleFilters={() => setShowFilters(!showFilters)}
+            onResetFilters={resetFilters}
+            onUpdateFilters={setFilters}
+          />
 
-      {/* Records Table */}
-      <RewardsListTable
-        records={records}
-        userRole={user?.role}
-        deleting={deleting}
-        pagination={pagination}
-        onPageChange={(nextPage) =>
-          setPagination((prev) => ({ ...prev, page: nextPage }))
-        }
-        onNavigate={navigate}
-        onDeleteClick={handleDeleteClick}
-        onStatusUpdate={handleStatusUpdate}
-      />
+          {/* Records Table */}
+          <RewardsListTable
+            records={records}
+            userRole={user?.role}
+            deleting={deleting}
+            pagination={pagination}
+            onPageChange={(nextPage) =>
+              setPagination((prev) => ({ ...prev, page: nextPage }))
+            }
+            onNavigate={navigate}
+            onDeleteClick={handleDeleteClick}
+            onStatusUpdate={handleStatusUpdate}
+          />
+        </>
+      )}
 
       {/* Delete Confirmation Dialog */}
       <ConfirmDialog

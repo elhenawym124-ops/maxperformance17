@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   Briefcase,
   Users,
@@ -16,6 +17,7 @@ import ApplicantsSection from "./sections/ApplicantsSection";
 import InterviewsSection from "./sections/InterviewsSection";
 import HiringPipelineSection from "./sections/HiringPipelineSection";
 import ApplicationFormsSection from "./sections/ApplicationFormsSection";
+import { PolarisRecruitmentView } from "./PolarisRecruitmentView";
 
 interface RecruitmentStats {
   activeJobs: number;
@@ -27,6 +29,11 @@ interface RecruitmentStats {
 }
 
 const RecruitmentDashboard: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
+
   const [activeTab, setActiveTab] = useState<
     "overview" | "jobs" | "applicants" | "interviews" | "pipeline" | "forms"
   >("overview");
@@ -107,6 +114,19 @@ const RecruitmentDashboard: React.FC = () => {
       icon: BarChart3,
     },
   ];
+
+  if (isPolaris) {
+    return (
+      <PolarisRecruitmentView
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        stats={stats}
+        loading={loading}
+        onRefresh={fetchStats}
+        onNewJob={() => setActiveTab("jobs")}
+      />
+    );
+  }
 
   return (
     <div className="p-4 sm:p-6 max-w-7xl mx-auto space-y-6" dir="rtl">
