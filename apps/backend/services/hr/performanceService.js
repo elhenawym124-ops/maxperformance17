@@ -6,6 +6,20 @@
 const { getSharedPrismaClient } = require('../sharedDatabase');
 const socketService = require('../socketService');
 
+/**
+ * حقول JSON في قاعدة البيانات قد تكون نصًا عاديًا (ملاحظات مكتوبة يدويًا)،
+ * فـ JSON.parse المباشر كان يرمي ويُسقط قائمة التقييمات بالكامل (500).
+ */
+const parseJsonSafe = (value) => {
+  if (value === null || value === undefined || value === '') return null;
+  if (typeof value !== 'string') return value;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+};
+
 class PerformanceService {
   constructor() {
     // Don't initialize prisma here - get it dynamically
@@ -93,8 +107,8 @@ class PerformanceService {
       // Parse JSON fields
       return {
         ...review,
-        ratings: review.ratings ? JSON.parse(review.ratings) : null,
-        goals: review.goals ? JSON.parse(review.goals) : null,
+        ratings: review.ratings ? parseJsonSafe(review.ratings) : null,
+        goals: review.goals ? parseJsonSafe(review.goals) : null,
         recommendations: review.recommendations ? JSON.parse(review.recommendations) : null
       };
     } catch (error) {
@@ -187,9 +201,9 @@ class PerformanceService {
       // Parse JSON fields and attach user objects
       return reviews.map(review => ({
         ...review,
-        ratings: review.ratings ? JSON.parse(review.ratings) : null,
-        goals: review.goals ? JSON.parse(review.goals) : null,
-        recommendations: review.recommendations ? JSON.parse(review.recommendations) : null,
+        ratings: review.ratings ? parseJsonSafe(review.ratings) : null,
+        goals: review.goals ? parseJsonSafe(review.goals) : null,
+        recommendations: review.recommendations ? parseJsonSafe(review.recommendations) : null,
         employee: map[review.employeeEmployeeReviewsId] || map[review.userId] || { firstName: 'مستخدم', lastName: 'غير معروف', employeeNumber: 'N/A' },
         reviewer: map[review.employeeReviewerReviewsId] || map[review.reviewerId] || { firstName: 'مقيم', lastName: 'غير معروف' }
       }));
@@ -258,9 +272,9 @@ class PerformanceService {
 
       return reviews.map(review => ({
         ...review,
-        ratings: review.ratings ? JSON.parse(review.ratings) : null,
-        goals: review.goals ? JSON.parse(review.goals) : null,
-        recommendations: review.recommendations ? JSON.parse(review.recommendations) : null,
+        ratings: review.ratings ? parseJsonSafe(review.ratings) : null,
+        goals: review.goals ? parseJsonSafe(review.goals) : null,
+        recommendations: review.recommendations ? parseJsonSafe(review.recommendations) : null,
         employee: map[review.employeeEmployeeReviewsId] || map[review.userId] || { firstName: 'مستخدم', lastName: 'غير معروف', employeeNumber: 'N/A' },
         reviewer: map[review.employeeReviewerReviewsId] || map[review.reviewerId] || { firstName: 'مقيم', lastName: 'غير معروف' }
       }));
@@ -313,9 +327,9 @@ class PerformanceService {
 
       return {
         ...review,
-        ratings: review.ratings ? JSON.parse(review.ratings) : null,
-        goals: review.goals ? JSON.parse(review.goals) : null,
-        recommendations: review.recommendations ? JSON.parse(review.recommendations) : null,
+        ratings: review.ratings ? parseJsonSafe(review.ratings) : null,
+        goals: review.goals ? parseJsonSafe(review.goals) : null,
+        recommendations: review.recommendations ? parseJsonSafe(review.recommendations) : null,
         employee: map[review.employeeEmployeeReviewsId] || map[review.userId] || { firstName: 'مستخدم', lastName: 'غير معروف', employeeNumber: 'N/A' },
         reviewer: map[review.employeeReviewerReviewsId] || map[review.reviewerId] || { firstName: 'مقيم', lastName: 'غير معروف' }
       };
@@ -400,8 +414,8 @@ class PerformanceService {
       // Parse JSON fields
       return {
         ...review,
-        ratings: review.ratings ? JSON.parse(review.ratings) : null,
-        goals: review.goals ? JSON.parse(review.goals) : null,
+        ratings: review.ratings ? parseJsonSafe(review.ratings) : null,
+        goals: review.goals ? parseJsonSafe(review.goals) : null,
         recommendations: review.recommendations ? JSON.parse(review.recommendations) : null
       };
     } catch (error) {

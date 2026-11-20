@@ -665,7 +665,6 @@ class PayrollService {
     try {
       const payroll = await this.prisma.payroll.findUnique({
         where: { id: payrollId },
-        include: { user: true }
       });
 
       if (!payroll) throw new Error('Payroll not found');
@@ -932,6 +931,11 @@ class PayrollService {
    */
   async getAnnualReport(companyId, year, employeeId = null) {
     try {
+      // سنة افتراضية = السنة الحالية (كانت NaN ترمي 500)
+      const safeYear = Number.isInteger(year) && year >= 2000 && year <= 2100
+        ? year
+        : new Date().getFullYear();
+      year = safeYear;
       const where = { companyId, year };
       if (employeeId) where.userId = employeeId;
       // For annual reports, typically we want processed or paid payrolls.

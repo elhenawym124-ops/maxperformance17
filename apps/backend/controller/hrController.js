@@ -1619,7 +1619,9 @@ async function createEmployee(req, res) {
       "✅ [HR] Employee created successfully:",
       employee.employeeNumber,
     );
-    res.status(201).json({ success: true, employee });
+    // لا نُرجع هاش كلمة المرور في الاستجابة
+    const { password: _password, ...safeEmployee } = employee || {};
+    res.status(201).json({ success: true, employee: safeEmployee });
   } catch (error) {
     console.error("❌ Error creating employee:", error);
     console.error("❌ Error details:", {

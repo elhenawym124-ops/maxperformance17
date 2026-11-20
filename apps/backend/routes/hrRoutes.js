@@ -299,12 +299,12 @@ router.delete('/attendance/:id', verifyToken.authenticateToken, verifyToken.requ
 // 👥 Public for authenticated users
 router.post('/leaves', hrController.createLeaveRequest);
 router.get('/leaves/balance/:employeeId', hrController.getLeaveBalance); // Accessible for UI
+router.get('/leaves/stats', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER', 'AGENT']), hrController.getLeaveStats);
+router.get('/leaves/calendar', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER', 'AGENT']), hrController.getLeaveCalendar);
 router.get('/leaves/:id', hrController.getLeaveRequestById); // Accessible for viewing own request
 router.post('/leaves/:id/cancel', hrController.cancelLeaveRequest); // Accessible for cancelling own request
 
 // 🔒 Protected Management Routes
-router.get('/leaves/stats', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER', 'AGENT']), hrController.getLeaveStats);
-router.get('/leaves/calendar', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER', 'AGENT']), hrController.getLeaveCalendar);
 router.get('/leaves', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER', 'AGENT']), hrController.getLeaveRequests); // View ALL requests
 router.post('/leaves/:id/approve', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.approveLeaveRequest);
 router.post('/leaves/:id/reject', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.rejectLeaveRequest);

@@ -111,10 +111,12 @@ function validateEmployeeData(data, isUpdate = false) {
 
   // التحقق من الراتب الأساسي - اختياري مع قيمة افتراضية
   if (data.baseSalary !== undefined && data.baseSalary !== null) {
-    if (typeof data.baseSalary !== 'string' || data.baseSalary.trim().length === 0) {
-      errors.push({ field: 'baseSalary', message: 'الراتب الأساسي يجب أن يكون نصاً صحيحاً' });
+    // نقبل الرقم والنص الرقمي (كان الرقم الصحيح يُرفض بـ 400)
+    const rawSalary = typeof data.baseSalary === 'number' ? String(data.baseSalary) : data.baseSalary;
+    if (typeof rawSalary !== 'string' || rawSalary.trim().length === 0) {
+      errors.push({ field: 'baseSalary', message: 'الراتب الأساسي يجب أن يكون رقماً صحيحاً' });
     } else {
-      const salary = parseFloat(data.baseSalary);
+      const salary = parseFloat(rawSalary);
       if (isNaN(salary) || salary < 0) {
         errors.push({ field: 'baseSalary', message: 'الراتب الأساسي يجب أن يكون رقماً موجباً' });
       }

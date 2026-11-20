@@ -86,20 +86,36 @@ class LeaveService {
         }
       }
 
+      // الرصيد الحقيقي في جدول hr_employees — User قد لا يحمل الرصيد (null)
+      // فكان فحص الكفاية يمر خطأً ويسمح بإجازة 60 يومًا.
+      const balanceRecord = await this.prisma.employee.findFirst({
+        where: {
+          companyId,
+          OR: [{ userId: employeeId }, { id: employeeId }],
+        },
+        select: { annualLeaveBalance: true, sickLeaveBalance: true },
+      });
+      const annualBalance = Number(
+        balanceRecord?.annualLeaveBalance ?? employee?.annualLeaveBalance ?? 0
+      );
+      const sickBalance = Number(
+        balanceRecord?.sickLeaveBalance ?? employee?.sickLeaveBalance ?? 0
+      );
+
       // التحقق من الرصيد حسب نوع الإجازة
-      if (data.type === 'ANNUAL' && employee.annualLeaveBalance < totalDays) {
+      if (data.type === 'ANNUAL' && annualBalance < totalDays) {
         throw new InsufficientLeaveBalanceError(
           'الإجازات السنوية',
           totalDays,
-          employee.annualLeaveBalance
+          annualBalance
         );
       }
 
-      if (data.type === 'SICK' && employee.sickLeaveBalance < totalDays) {
+      if (data.type === 'SICK' && sickBalance < totalDays) {
         throw new InsufficientLeaveBalanceError(
           'الإجازات المرضية',
           totalDays,
-          employee.sickLeaveBalance
+          sickBalance
         );
       }
 
@@ -429,7 +445,9 @@ class LeaveService {
 
       // السماح بالموافقة على الطلبات قيد الانتظار أو المرفوضة فقط
       if (request.status !== 'PENDING' && request.status !== 'REJECTED') {
-        throw new Error('لا يمكن الموافقة على هذا الطلب - الطلب موافق عليه مسبقاً');
+        const conflict = new Error('لا يمكن الموافقة على هذا الطلب - الطلب موافق عليه مسبقاً');
+        conflict.statusCode = 400;
+        throw conflict;
       }
 
       // 🛡️ Security Check: Prevent Self-Approval (unless user is COMPANY_ADMIN or SUPER_ADMIN)
@@ -454,7 +472,9 @@ class LeaveService {
 
         if (!isAdmin) {
           console.error(`❌ [LEAVE-APPROVE] Self-approval blocked - user is not COMPANY_ADMIN or SUPER_ADMIN`);
-          throw new Error('لا يمكنك الموافقة على طلب الإجازة الخاص بك (مطلوب مدير آخر)');
+          const forbidden = new Error('لا يمكنك الموافقة على طلب الإجازة الخاص بك (مطلوب مدير آخر)');
+          forbidden.statusCode = 403;
+          throw forbidden;
         } else {
           console.log(`✅ [LEAVE-APPROVE] Admin user approving their own leave request - allowed`);
         }
@@ -990,6 +1010,13 @@ class LeaveService {
       const employee = await this.prisma.user.findFirst({
         where: { id: employeeId, companyId }
       });
+      const employeeBalance = await this.prisma.employee.findFirst({
+        where: {
+          companyId,
+          OR: [{ userId: employeeId }, { id: employeeId }],
+        },
+        select: { annualLeaveBalance: true, sickLeaveBalance: true },
+      });
 
       // Calculate balances from actual leave requests
       const approvedLeaves = await this.prisma.leaveRequest.findMany({
@@ -1004,15 +1031,23 @@ class LeaveService {
         }
       });
 
-      const annualLeaveBalance = 21 - approvedLeaves
+      const annualEntitlement = Number(
+        employeeBalance?.annualLeaveBalance ?? employee?.annualLeaveBalance ?? 21
+      );
+      const sickEntitlement = Number(
+        employeeBalance?.sickLeaveBalance ?? employee?.sickLeaveBalance ?? 7
+      );
+      const annualUsed = approvedLeaves
         .filter(l => l.type === 'ANNUAL')
         .reduce((sum, l) => sum + l.totalDays, 0);
-
-      const sickLeaveBalance = 7 - approvedLeaves
+      const sickUsed = approvedLeaves
         .filter(l => l.type === 'SICK')
         .reduce((sum, l) => sum + l.totalDays, 0);
 
-      if (!employee) {
+      const annualLeaveBalance = Math.max(0, annualEntitlement - annualUsed);
+      const sickLeaveBalance = Math.max(0, sickEntitlement - sickUsed);
+
+      if (!employee && !employeeBalance) {
         throw new Error('الموظف غير موجود');
       }
 
@@ -1036,15 +1071,15 @@ class LeaveService {
 
       return {
         annual: {
-          balance: employee.annualLeaveBalance,
+          balance: annualLeaveBalance,
           used: usedAnnual,
-          total: employee.annualLeaveBalance + usedAnnual
+          total: annualEntitlement,
         },
         sick: {
-          balance: employee.sickLeaveBalance,
+          balance: sickLeaveBalance,
           used: usedSick,
-          total: employee.sickLeaveBalance + usedSick
-        }
+          total: sickEntitlement,
+        },
       };
     } catch (error) {
       console.error('❌ Error getting leave balance:', error);
