@@ -31,9 +31,9 @@ const StatusBadge = ({
   if (!status || status === "stable") return null;
 
   const styles = {
-    beta: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-    new: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-    maintenance: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    beta: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
+    new: "bg-emerald-500/10 text-success dark:text-success border-success/20",
+    maintenance: "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20",
     stable: "",
   };
 
@@ -72,7 +72,7 @@ const NodeCard = ({
         onClick={() => !isLocked && node.children && onToggle(node.id)}
         className={`
           relative z-10 p-4 mb-2 rounded-xl cursor-pointer border transition-colors shadow-2xs
-          ${level === 0 ? "bg-card border-border/80 hover:border-primary/40" : "bg-muted/20 border-border/50 ml-6"}
+          ${level === 0 ? "bg-card border-border/80 hover:border-primary/40" : "bg-muted/20 border-border/50 ms-6"}
         `}
       >
         <div className="flex items-start gap-3.5">
@@ -95,7 +95,7 @@ const NodeCard = ({
                 {node.description}
               </p>
               {node.businessValue && (
-                <div className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                <div className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-mono text-success dark:text-success bg-success/10 border border-success/20 px-2 py-0.5 rounded">
                   <Zap className="size-3" />
                   <span>القيمة: {node.businessValue}</span>
                 </div>
@@ -118,9 +118,9 @@ const NodeCard = ({
       </div>
 
       {isExpanded && node.children && !isLocked && (
-        <div className="overflow-hidden relative pr-4 space-y-2 pt-1 pb-2">
+        <div className="overflow-hidden relative pe-4 space-y-2 pt-1 pb-2">
           {node.children.map((child: any) => (
-            <div key={child.id} className="relative pr-6">
+            <div key={child.id} className="relative pe-6">
               <div className="bg-card p-3 rounded-lg border border-border/70 shadow-2xs hover:border-primary/40 transition-colors group">
                 <div className="flex items-start gap-3">
                   <div className="p-1.5 bg-muted/60 rounded-md text-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors shrink-0">
@@ -138,7 +138,7 @@ const NodeCard = ({
                     </p>
 
                     {child.businessValue && (
-                      <div className="mt-1 inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
+                      <div className="mt-1 inline-flex items-center gap-1 text-[10px] text-success dark:text-success font-mono">
                         <Zap className="size-3" />
                         <span>{child.businessValue}</span>
                       </div>
@@ -218,11 +218,11 @@ const ProjectMap: React.FC = () => {
 
         <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground self-end sm:self-auto">
           <span className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="size-2 rounded-full bg-success animate-pulse" />
             <span>مستقر</span>
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-amber-500" />
+            <span className="size-2 rounded-full bg-warning" />
             <span>تجريبي</span>
           </span>
           <span className="flex items-center gap-1.5">
@@ -260,9 +260,9 @@ const ProjectMap: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">وفر تشغيلي مقدر</span>
-              <TrendingUp className="size-3.5 text-emerald-500" />
+              <TrendingUp className="size-3.5 text-success" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums">
               40%
             </div>
             <p className="text-[10px] text-muted-foreground mt-0.5">أتمتة العمليات</p>
@@ -271,7 +271,7 @@ const ProjectMap: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">الحالة المعمارية</span>
-              <ShieldCheck className="size-3.5 text-emerald-500" />
+              <ShieldCheck className="size-3.5 text-success" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
               100%

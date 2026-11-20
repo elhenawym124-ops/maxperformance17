@@ -141,7 +141,7 @@ const ActiveTimers: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">قيد التشغيل</span>
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="size-1.5 rounded-full bg-success animate-pulse" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {currentTimers.filter((t) => !t.isPaused).length}
@@ -152,7 +152,7 @@ const ActiveTimers: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">متوقفة مؤقتاً</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {currentTimers.filter((t) => t.isPaused).length}
@@ -174,7 +174,7 @@ const ActiveTimers: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">أعضاء الفريق</span>
-              <span className="size-1.5 rounded-full bg-sky-500" />
+              <span className="size-1.5 rounded-full bg-info" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {new Set(currentTimers.map((t) => t.memberId)).size}
@@ -202,7 +202,7 @@ const ActiveTimers: React.FC = () => {
 
           <div className="relative w-full sm:w-64">
             <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
-            <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="بحث بالمهمة أو العضو..." className="h-8 text-xs font-mono pr-8 rounded-lg bg-background border-border/70" />
+            <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="بحث بالمهمة أو العضو..." className="h-8 text-xs font-mono pe-8 rounded-lg bg-background border-border/70" />
           </div>
         </div>
 
@@ -223,7 +223,7 @@ const ActiveTimers: React.FC = () => {
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-primary/10 text-primary border border-primary/20">{timer.taskStatus}</span>
                     </div>
 
-                    <span className={`inline-flex items-center gap-1 text-[11px] font-mono ${timer.isPaused ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"}`}>
+                    <span className={`inline-flex items-center gap-1 text-[11px] font-mono ${timer.isPaused ? "text-amber-600 dark:text-warning" : "text-emerald-600 dark:text-success"}`}>
                       <span className={`size-1.5 rounded-full ${timer.isPaused ? "bg-amber-500" : "bg-emerald-500 animate-pulse"}`} />
                       {timer.isPaused ? "متوقف مؤقتاً" : "نشط"}
                     </span>
@@ -257,17 +257,17 @@ const ActiveTimers: React.FC = () => {
 
                   <div className="flex items-center gap-1.5">
                     {timer.isPaused ? (
-                      <Button variant="outline" size="sm" onClick={() => handleResume(timer.taskId, timer.id)} className="h-7 px-2.5 text-xs font-mono text-emerald-600 border-emerald-500/30 hover:bg-emerald-500/10 gap-1 active:scale-[0.98]">
+                      <Button variant="outline" size="sm" onClick={() => handleResume(timer.taskId, timer.id)} className="h-7 px-2.5 text-xs font-mono text-success border-success/30 hover:bg-success/10 gap-1 active:scale-[0.98]">
                         <Play className="size-3 fill-current" />
                         <span>استئناف</span>
                       </Button>
                     ) : (
-                      <Button variant="outline" size="sm" onClick={() => handlePause(timer.taskId, timer.id)} className="h-7 px-2.5 text-xs font-mono text-amber-600 border-amber-500/30 hover:bg-amber-500/10 gap-1 active:scale-[0.98]">
+                      <Button variant="outline" size="sm" onClick={() => handlePause(timer.taskId, timer.id)} className="h-7 px-2.5 text-xs font-mono text-warning border-warning/30 hover:bg-warning/10 gap-1 active:scale-[0.98]">
                         <Pause className="size-3" />
                         <span>إيقاف</span>
                       </Button>
                     )}
-                    <Button variant="outline" size="sm" onClick={() => handleStop(timer.taskId, timer.id)} className="h-7 px-2 text-xs font-mono text-rose-600 hover:bg-rose-500/10 border-rose-500/30 gap-1 active:scale-[0.98]">
+                    <Button variant="outline" size="sm" onClick={() => handleStop(timer.taskId, timer.id)} className="h-7 px-2 text-xs font-mono text-destructive hover:bg-destructive/10 border-destructive/30 gap-1 active:scale-[0.98]">
                       <Square className="size-3 fill-current" />
                       <span>إنهاء</span>
                     </Button>

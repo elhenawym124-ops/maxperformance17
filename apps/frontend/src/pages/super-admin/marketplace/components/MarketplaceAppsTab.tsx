@@ -429,7 +429,7 @@ export const MarketplaceAppsTab: React.FC<MarketplaceAppsTabProps> = ({
                 return (
                   <div
                     key={catKey}
-                    className="rounded-2xl border bg-card text-card-foreground shadow-sm overflow-hidden"
+                    className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden"
                   >
                     <div
                       onClick={() => toggleCategoryCollapse(catKey)}
@@ -466,7 +466,7 @@ export const MarketplaceAppsTab: React.FC<MarketplaceAppsTabProps> = ({
                           <span>•</span>
                           <span>
                             الإيراد:{" "}
-                            <strong className="text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+                            <strong className="text-emerald-600 dark:text-success tabular-nums font-mono">
                               {catRevenue.toLocaleString("ar-EG")} ج.م
                             </strong>
                           </span>
@@ -523,7 +523,7 @@ export const MarketplaceAppsTab: React.FC<MarketplaceAppsTabProps> = ({
             onClick={handleResetFilters}
             className="mt-3 text-xs"
           >
-            <RefreshCw className="h-3.5 w-3.5 ml-1.5" />
+            <RefreshCw className="h-3.5 w-3.5 ms-1.5" />
             إعادة ضبط الفلاتر
           </Button>
         </div>

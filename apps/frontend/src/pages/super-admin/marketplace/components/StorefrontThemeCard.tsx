@@ -95,7 +95,7 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
               ) : null}
               {theme.isDefaultTheme ? (
                 <Badge variant="default" className="bg-blue-500 text-xs">
-                  <Star className="h-3 w-3 ml-0.5" />
+                  <Star className="h-3 w-3 ms-0.5" />
                   افتراضي للمتاجر الجديدة
                 </Badge>
               ) : null}
@@ -311,7 +311,7 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
                 />
               }
             >
-              <Eye className="h-4 w-4 ml-1" />
+              <Eye className="h-4 w-4 ms-1" />
               معاينة
             </Button>
             <div className="flex gap-1 flex-wrap">
@@ -321,7 +321,7 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
                 onClick={() => onSetDefaultTheme(theme)}
                 disabled={isSaving || theme.isDefaultTheme}
               >
-                <Star className="h-4 w-4 ml-1" />
+                <Star className="h-4 w-4 ms-1" />
                 {theme.isDefaultTheme ? "القالب الافتراضي" : "تعيين كافتراضي"}
               </Button>
               <Button
@@ -329,8 +329,8 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
                 size="sm"
                 className={
                   theme.isActive || theme.isPublic
-                    ? "text-red-500 border-red-500"
-                    : "text-green-600 dark:text-green-400 border-green-600"
+                    ? "text-red-500 border-destructive"
+                    : "text-green-600 dark:text-success border-success"
                 }
                 onClick={() =>
                   theme.isActive || theme.isPublic
@@ -341,12 +341,12 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
               >
                 {theme.isActive || theme.isPublic ? (
                   <>
-                    <Archive className="h-4 w-4 ml-1" />
+                    <Archive className="h-4 w-4 ms-1" />
                     أرشفة
                   </>
                 ) : (
                   <>
-                    <Eye className="h-4 w-4 ml-1" />
+                    <Eye className="h-4 w-4 ms-1" />
                     إظهار
                   </>
                 )}
@@ -357,7 +357,7 @@ export const StorefrontThemeCard: React.FC<StorefrontThemeCardProps> = ({
                 onClick={() => onSaveTheme(theme.themeId)}
                 disabled={isSaving}
               >
-                <Save className="h-4 w-4 ml-1" />
+                <Save className="h-4 w-4 ms-1" />
                 {isSaving ? "جاري الحفظ..." : "حفظ القالب"}
               </Button>
             </div>

@@ -151,7 +151,7 @@ export const DevTasksTable: React.FC<DevTasksTableProps> = ({
             <TableRow>
               <TableCell colSpan={10} className="h-64 text-center">
                 <div className="flex flex-col items-center justify-center">
-                  <div className="flex size-16 items-center justify-center rounded-2xl bg-muted/30">
+                  <div className="flex size-16 items-center justify-center rounded-xl bg-muted/30">
                     <ClipboardDocumentListIcon className="size-8 text-muted-foreground/40" />
                   </div>
                   <h3 className="text-lg font-black text-foreground mt-4 mb-1">

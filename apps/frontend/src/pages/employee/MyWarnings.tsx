@@ -47,17 +47,17 @@ const severityConfig: Record<string, { labelKey: string; color: string; icon: an
     },
     medium: {
         labelKey: "employee.warnings.severityMedium",
-        color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800",
+        color: "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning border-warning dark:border-warning",
         icon: AlertCircle,
     },
     major: {
         labelKey: "employee.warnings.severityHigh",
-        color: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 border-orange-200 dark:border-orange-800",
+        color: "bg-orange-100 text-warning dark:bg-warning/30 dark:text-warning border-warning dark:border-warning",
         icon: AlertTriangle,
     },
     critical: {
         labelKey: "employee.warnings.severityCritical",
-        color: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 border-red-200 dark:border-red-800",
+        color: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive border-destructive dark:border-destructive",
         icon: ShieldAlert,
     },
 };
@@ -134,7 +134,7 @@ const MyWarnings: React.FC = () => {
     return (
         <div className="max-w-5xl mx-auto space-y-8 p-4 sm:p-6 lg:p-8" dir="rtl">
             {/* Header Section */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-red-600 to-rose-700 p-8 text-white shadow-xl shadow-red-200/50 dark:shadow-none">
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-destructive to-destructive p-8 text-white shadow-xl shadow-destructive/50 dark:shadow-none">
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div className="space-y-2">
                         <h1 className="text-3xl font-extrabold flex items-center gap-3">
@@ -145,7 +145,7 @@ const MyWarnings: React.FC = () => {
                             {t("employee.warnings.subtitle")}
                         </p>
                     </div>
-                    <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                    <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
                         <div className="text-center">
                             <span className="block text-3xl font-bold">{warnings.length}</span>
                             <span className="text-xs uppercase tracking-wider opacity-80 font-bold">{t("employee.warnings.totalRecords")}</span>
@@ -168,13 +168,13 @@ const MyWarnings: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="flex flex-col items-center justify-center py-20 bg-white dark:bg-gray-900 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-800 shadow-sm"
+                        className="flex flex-col items-center justify-center py-20 bg-white dark:bg-muted rounded-xl border-2 border-dashed border-border dark:border-border shadow-sm"
                     >
-                        <div className="w-24 h-24 bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6">
-                            <CheckCircle2 className="h-12 w-12 text-green-500" />
+                        <div className="w-24 h-24 bg-success/10 dark:bg-success/20 rounded-full flex items-center justify-center mb-6">
+                            <CheckCircle2 className="h-12 w-12 text-success" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t("employee.warnings.cleanRecord")}</h3>
-                        <p className="text-gray-500 dark:text-gray-400 text-center max-w-md px-6">
+                        <h3 className="text-2xl font-bold text-foreground mb-2">{t("employee.warnings.cleanRecord")}</h3>
+                        <p className="text-muted-foreground text-center max-w-md px-6">
                             {t("employee.warnings.cleanRecordDesc")}
                         </p>
                     </motion.div>
@@ -191,35 +191,35 @@ const MyWarnings: React.FC = () => {
 
                             return (
                                 <motion.div key={warning.id} variants={cardVariants} layout>
-                                    <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 rounded-3xl bg-white dark:bg-gray-900/50 backdrop-blur-sm">
+                                    <Card className="group relative overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 rounded-xl bg-white dark:bg-muted backdrop-blur-sm">
                                         {/* Severity Border Indicator */}
                                         <div className={`absolute top-0 right-0 w-2 h-full ${config.color.split(' ')[0]}`} />
 
                                         <CardHeader className="p-6 pb-2">
                                             <div className="flex flex-wrap items-start justify-between gap-4">
                                                 <div className="flex items-center gap-4 min-w-0 flex-1">
-                                                    <div className={`p-3 rounded-2xl ${config.color} shadow-sm group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                                                    <div className={`p-3 rounded-xl ${config.color} shadow-sm group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                                                         <SeverityIcon className="h-6 w-6" />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-2">
-                                                            <CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 truncate flex-1" title={warning.title}>
+                                                            <CardTitle className="text-xl font-bold text-foreground truncate flex-1" title={warning.title}>
                                                                 {warning.title}
                                                                 {!warning.acknowledgingId && (
-                                                                    <span className="flex h-2 w-2 rounded-full bg-red-500 animate-ping flex-shrink-0" />
+                                                                    <span className="flex h-2 w-2 rounded-full bg-destructive animate-ping flex-shrink-0" />
                                                                 )}
                                                             </CardTitle>
                                                             <Button
                                                                 variant="ghost"
                                                                 size="icon"
-                                                                className="h-8 w-8 text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full flex-shrink-0"
+                                                                className="h-8 w-8 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full flex-shrink-0"
                                                                 onClick={() => setSelectedWarning(warning)}
                                                                 title={t("employee.warnings.viewDetails")}
                                                             >
                                                                 <Eye className="h-4 w-4" />
                                                             </Button>
                                                         </div>
-                                                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-400">
+                                                        <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                                                             <span className="flex items-center gap-1">
                                                                 <Calendar className="h-3.5 w-3.5" />
                                                                 {formatDate(warning.incidentDate)}
@@ -238,14 +238,14 @@ const MyWarnings: React.FC = () => {
                                         </CardHeader>
 
                                         <CardContent className="p-6 pt-0 space-y-4">
-                                            <div className="bg-gray-50 dark:bg-white/5 p-4 rounded-2xl border border-gray-100 dark:border-white/10">
+                                            <div className="bg-gray-50 dark:bg-white/5 p-4 rounded-xl border border-border dark:border-white/10">
                                                 <div className="flex flex-col gap-2">
-                                                    <div className="flex items-center gap-2 text-gray-400">
+                                                    <div className="flex items-center gap-2 text-muted-foreground">
                                                         <FileText className="h-4 w-4" />
                                                         <span className="text-xs font-bold uppercase">{t("employee.warnings.violationDesc")}</span>
                                                     </div>
                                                     <p
-                                                        className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-wrap px-1"
+                                                        className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap px-1"
                                                         style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
                                                     >
                                                         {warning.description}
@@ -254,14 +254,14 @@ const MyWarnings: React.FC = () => {
                                             </div>
 
                                             {warning.actionTaken && (
-                                                <div className="bg-amber-50/50 dark:bg-amber-900/10 p-4 rounded-2xl border border-amber-100 dark:border-amber-900/20">
+                                                <div className="bg-amber-50/50 dark:bg-warning/10 p-4 rounded-xl border border-warning dark:border-warning/20">
                                                     <div className="flex flex-col gap-2">
-                                                        <div className="flex items-center gap-2 text-amber-500">
+                                                        <div className="flex items-center gap-2 text-warning">
                                                             <Info className="h-4 w-4" />
                                                             <span className="text-xs font-bold uppercase">{t("employee.warnings.actionTaken")}</span>
                                                         </div>
                                                         <p
-                                                            className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-wrap px-1"
+                                                            className="text-foreground text-sm leading-relaxed whitespace-pre-wrap px-1"
                                                             style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
                                                         >
                                                             {warning.actionTaken}
@@ -270,8 +270,8 @@ const MyWarnings: React.FC = () => {
                                                 </div>
                                             )}
 
-                                            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                                <div className="text-xs text-gray-400 font-medium">
+                                            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border dark:border-border">
+                                                <div className="text-xs text-muted-foreground font-medium">
                                                     {t("employee.warnings.recordDate", { date: formatDate(warning.createdAt) })}
                                                 </div>
 
@@ -279,19 +279,19 @@ const MyWarnings: React.FC = () => {
                                                     <Button
                                                         onClick={() => handleAcknowledge(warning.id)}
                                                         disabled={acknowledgingId === warning.id}
-                                                        className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white rounded-2xl px-8 h-12 font-bold shadow-lg shadow-green-200/50 dark:shadow-none transition-all hover:scale-105 active:scale-95"
+                                                        className="w-full sm:w-auto bg-success hover:bg-success text-white rounded-xl px-8 h-12 font-bold shadow-lg shadow-success/50 dark:shadow-none transition-all hover:scale-105 active:scale-95"
                                                     >
                                                         {acknowledgingId === warning.id ? (
                                                             <Loader2 className="h-5 w-5 animate-spin" />
                                                         ) : (
                                                             <>
-                                                                <CheckCircle2 className="ml-2 h-5 w-5" />
+                                                                <CheckCircle2 className="ms-2 h-5 w-5" />
                                                                 {t("employee.warnings.acknowledge")}
                                                             </>
                                                         )}
                                                     </Button>
                                                 ) : (
-                                                    <div className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 py-2 px-4 rounded-xl border border-green-100 dark:border-green-900/30 text-sm font-bold">
+                                                    <div className="flex items-center gap-2 bg-success/10 dark:bg-success/20 text-success dark:text-success py-2 px-4 rounded-xl border border-success dark:border-success/30 text-sm font-bold">
                                                         <CheckCircle2 className="h-5 w-5" />
                                                         {t("employee.warnings.acknowledged", { date: formatDate(warning.acknowledgedAt) })}
                                                     </div>
@@ -308,7 +308,7 @@ const MyWarnings: React.FC = () => {
 
             {/* Preview Modal */}
             <Dialog open={!!selectedWarning} onOpenChange={(open) => !open && setSelectedWarning(null)}>
-                <DialogContent className="max-w-2xl bg-card border border-border/70 shadow-lg rounded-2xl p-0 overflow-hidden" dir="rtl">
+                <DialogContent className="max-w-2xl bg-card border border-border/70 shadow-lg rounded-xl p-0 overflow-hidden" dir="rtl">
                     {selectedWarning && (
                         <>
                             {/* Accent Header */}
@@ -318,7 +318,7 @@ const MyWarnings: React.FC = () => {
                                 
 
                                 <div className="flex items-center gap-5 relative z-10">
-                                    <div className={`p-4 rounded-[1.5rem] shadow-xl ring-4 ring-white dark:ring-gray-900 ${severityConfig[selectedWarning.severity]?.color || 'bg-blue-500'} bg-opacity-10 dark:bg-opacity-20`}>
+                                    <div className={`p-4 rounded-[1.5rem] shadow-xl ring-4 ring-white dark:ring-border ${severityConfig[selectedWarning.severity]?.color || 'bg-blue-500'} bg-opacity-10 dark:bg-opacity-20`}>
                                         {React.createElement(severityConfig[selectedWarning.severity]?.icon || severityConfig.low.icon, {
                                             className: `h-8 w-8 ${selectedWarning.severity === 'critical' || selectedWarning.severity === 'major' ? 'text-red-500' : 'text-blue-500'}`
                                         })}
@@ -340,14 +340,14 @@ const MyWarnings: React.FC = () => {
                             <div className="px-8 pb-8 space-y-8 max-h-[65vh] overflow-y-auto custom-scrollbar relative">
                                 {/* Description Section */}
                                 <div className="space-y-3">
-                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                                    <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-1">
                                         <FileText className="h-3.5 w-3.5" />
                                         {t("employee.warnings.violationDetails")}
                                     </h4>
                                     <div className="relative group">
-                                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-transparent rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500" />
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-transparent rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500" />
                                         <div
-                                            className="relative bg-white dark:bg-gray-900/50 p-7 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 shadow-sm leading-relaxed whitespace-pre-wrap text-gray-700 dark:text-gray-200 text-lg font-medium"
+                                            className="relative bg-white dark:bg-muted p-7 rounded-[1.5rem] border border-border dark:border-border shadow-sm leading-relaxed whitespace-pre-wrap text-foreground text-lg font-medium"
                                             style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
                                         >
                                             {selectedWarning.description}
@@ -358,13 +358,13 @@ const MyWarnings: React.FC = () => {
                                 {/* Administrative Action Section */}
                                 {selectedWarning.actionTaken && (
                                     <div className="space-y-3">
-                                        <h4 className="text-[10px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                                        <h4 className="text-[10px] font-black text-warning dark:text-warning uppercase tracking-widest flex items-center gap-2 px-1">
                                             <Info className="h-3.5 w-3.5" />
                                             {t("employee.warnings.adminAction")}
                                         </h4>
-                                        <div className="bg-amber-500/5 dark:bg-amber-500/10 p-6 rounded-[1.5rem] border border-amber-500/10 shadow-sm border-dashed">
+                                        <div className="bg-amber-500/5 dark:bg-warning/10 p-6 rounded-[1.5rem] border border-warning/10 shadow-sm border-dashed">
                                             <p
-                                                className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap text-md leading-relaxed"
+                                                className="text-foreground whitespace-pre-wrap text-md leading-relaxed"
                                                 style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
                                             >
                                                 {selectedWarning.actionTaken}
@@ -374,12 +374,12 @@ const MyWarnings: React.FC = () => {
                                 )}
 
                                 {/* Audit Timeline */}
-                                <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-dashed border-gray-200 dark:border-gray-800">
-                                    <div className="flex items-center gap-2 px-4 py-2 bg-muted/40 rounded-2xl text-xs font-bold text-gray-500">
+                                <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-dashed border-border dark:border-border">
+                                    <div className="flex items-center gap-2 px-4 py-2 bg-muted/40 rounded-xl text-xs font-bold text-muted-foreground">
                                         <Calendar className="h-3.5 w-3.5 text-blue-500" />
                                         <span>{t("employee.warnings.incidentDate", { date: formatDate(selectedWarning.incidentDate) })}</span>
                                     </div>
-                                    <div className="flex items-center gap-2 px-4 py-2 bg-muted/40 rounded-2xl text-xs font-bold text-gray-500">
+                                    <div className="flex items-center gap-2 px-4 py-2 bg-muted/40 rounded-xl text-xs font-bold text-muted-foreground">
                                         <Clock className="h-3.5 w-3.5 text-blue-500" />
                                         <span>{t("employee.warnings.time", { time: new Date(selectedWarning.incidentDate).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }) })}</span>
                                     </div>
@@ -387,9 +387,9 @@ const MyWarnings: React.FC = () => {
                             </div>
 
                             {/* Footer */}
-                            <div className="p-6 bg-muted/20 border-t border-gray-100 dark:border-gray-800 flex justify-end items-center gap-4">
+                            <div className="p-6 bg-muted/20 border-t border-border dark:border-border flex justify-end items-center gap-4">
                                 {!selectedWarning.acknowledgedAt && (
-                                    <p className="text-[11px] text-amber-600 dark:text-amber-400 font-bold ml-auto animate-pulse flex items-center gap-1">
+                                    <p className="text-[11px] text-warning dark:text-warning font-bold ms-auto animate-pulse flex items-center gap-1">
                                         <AlertTriangle className="h-3 w-3" /> {t("employee.warnings.pleaseAcknowledge")}
                                     </p>
                                 )}

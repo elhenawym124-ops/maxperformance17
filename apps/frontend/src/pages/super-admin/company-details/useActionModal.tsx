@@ -26,10 +26,10 @@ export function useActionModal<TArgs extends Array<unknown> = Array<unknown>>({ 
   function renderFooter(onCancel: () => void, disabled = false): ReactNode {
     return (
       <>
-        <Button variant="outline" className="h-11 rounded-2xl" onClick={onCancel}>
+        <Button variant="outline" className="h-11 rounded-xl" onClick={onCancel}>
           إلغاء
         </Button>
-        <Button className="h-11 rounded-2xl" onClick={() => void (execute as (...args: unknown[]) => Promise<void>)()} disabled={isExecuting || disabled}>
+        <Button className="h-11 rounded-xl" onClick={() => void (execute as (...args: unknown[]) => Promise<void>)()} disabled={isExecuting || disabled}>
           {isExecuting ? <Loader2 className="size-4 animate-spin" /> : <ConfirmIcon className="size-4" />}
           {confirmLabel}
         </Button>

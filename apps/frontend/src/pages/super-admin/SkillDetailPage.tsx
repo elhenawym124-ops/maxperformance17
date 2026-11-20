@@ -36,10 +36,10 @@ const parseInlineMarkdown = (text: string): React.ReactNode[] => {
   const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={index} className="font-bold text-slate-900">{part.slice(2, -2)}</strong>;
+      return <strong key={index} className="font-bold text-foreground">{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith("`") && part.endsWith("`")) {
-      return <code key={index} className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200/80 font-mono text-[0.75rem] text-rose-600" dir="ltr">{part.slice(1, -1)}</code>;
+      return <code key={index} className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono text-[0.75rem] text-destructive" dir="ltr">{part.slice(1, -1)}</code>;
     }
     return part;
   });
@@ -62,9 +62,9 @@ const renderMarkdown = (text: string) => {
       if (inCodeBlock) {
         inCodeBlock = false;
         renderedElements.push(
-          <div key={`code-${i}`} className="my-4 rounded-xl bg-zinc-950 p-4 border border-zinc-800 text-zinc-100 font-mono text-xs overflow-auto shadow-md" dir="ltr">
+          <div key={`code-${i}`} className="my-4 rounded-xl bg-muted p-4 border border-border text-muted-foreground font-mono text-xs overflow-auto shadow-md" dir="ltr">
             {codeLang && (
-              <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-2 font-sans font-bold border-b border-zinc-800/80 pb-1.5">
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2 font-sans font-bold border-b border-border pb-1.5">
                 {codeLang}
               </div>
             )}
@@ -88,7 +88,7 @@ const renderMarkdown = (text: string) => {
     // Headers
     if (line.startsWith("# ")) {
       renderedElements.push(
-        <h1 key={`h1-${i}`} className="text-xl font-extrabold text-slate-900 border-b border-slate-100 pb-2 mt-6 mb-4">
+        <h1 key={`h1-${i}`} className="text-xl font-extrabold text-foreground border-b border-border pb-2 mt-6 mb-4">
           {parseInlineMarkdown(line.substring(2))}
         </h1>
       );
@@ -96,7 +96,7 @@ const renderMarkdown = (text: string) => {
     }
     if (line.startsWith("## ")) {
       renderedElements.push(
-        <h2 key={`h2-${i}`} className="text-lg font-bold text-slate-800 mt-5 mb-3 flex items-center gap-2">
+        <h2 key={`h2-${i}`} className="text-lg font-bold text-foreground mt-5 mb-3 flex items-center gap-2">
           {parseInlineMarkdown(line.substring(3))}
         </h2>
       );
@@ -104,7 +104,7 @@ const renderMarkdown = (text: string) => {
     }
     if (line.startsWith("### ")) {
       renderedElements.push(
-        <h3 key={`h3-${i}`} className="text-base font-semibold text-slate-800 mt-4 mb-2">
+        <h3 key={`h3-${i}`} className="text-base font-semibold text-foreground mt-4 mb-2">
           {parseInlineMarkdown(line.substring(4))}
         </h3>
       );
@@ -114,7 +114,7 @@ const renderMarkdown = (text: string) => {
     // Blockquotes/Alerts
     if (line.startsWith("> ")) {
       renderedElements.push(
-        <blockquote key={`bq-${i}`} className="border-r-4 border-indigo-500 bg-indigo-50/50 px-4 py-3 rounded-l-lg my-4 text-sm text-slate-700 italic">
+        <blockquote key={`bq-${i}`} className="border-r-4 border-primary bg-primary/50 px-4 py-3 rounded-l-lg my-4 text-sm text-foreground italic">
           {parseInlineMarkdown(line.substring(2))}
         </blockquote>
       );
@@ -125,7 +125,7 @@ const renderMarkdown = (text: string) => {
     if (line.trim().startsWith("- ") || line.trim().startsWith("* ")) {
       const cleanLine = line.trim().substring(2);
       renderedElements.push(
-        <ul key={`ul-${i}`} className="list-disc list-inside mr-4 my-2 text-sm text-slate-600 leading-relaxed">
+        <ul key={`ul-${i}`} className="list-disc list-inside me-4 my-2 text-sm text-foreground leading-relaxed">
           <li>{parseInlineMarkdown(cleanLine)}</li>
         </ul>
       );
@@ -139,7 +139,7 @@ const renderMarkdown = (text: string) => {
 
     // Paragraph
     renderedElements.push(
-      <p key={`p-${i}`} className="text-sm text-slate-600 leading-relaxed mb-3">
+      <p key={`p-${i}`} className="text-sm text-foreground leading-relaxed mb-3">
         {parseInlineMarkdown(line)}
       </p>
     );
@@ -227,73 +227,73 @@ export default function SkillDetailPage() {
   return (
     <div className="flex flex-col min-h-[calc(100dvh-64px)] bg-[#f8fafc]" dir="rtl">
       {/* Sticky top nav with high-end glass effect */}
-      <div className="shrink-0 border-b border-slate-200/80 bg-white/80 px-6 py-4 backdrop-blur-md sticky top-0 z-10 shadow-sm">
+      <div className="shrink-0 border-b border-border bg-white/80 px-6 py-4 backdrop-blur-md sticky top-0 z-10 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" onClick={() => navigate("/admin/ai-hub?tab=skills")} className="h-8 border-slate-200 hover:bg-slate-50 transition-colors">
-              <ArrowRight className="ml-1.5 size-4 text-slate-500" /> العودة
+            <Button variant="outline" size="sm" onClick={() => navigate("/admin/ai-hub?tab=skills")} className="h-8 border-border hover:bg-muted transition-colors">
+              <ArrowRight className="ms-1.5 size-4 text-muted-foreground" /> العودة
             </Button>
             <div className="flex items-center gap-2">
-              <Sparkles className="size-5 text-indigo-600" />
-              <h2 className="text-base font-extrabold text-slate-800">{s.displayName || s.id}</h2>
+              <Sparkles className="size-5 text-primary" />
+              <h2 className="text-base font-extrabold text-foreground">{s.displayName || s.id}</h2>
             </div>
             <div className="flex items-center gap-1.5">
-              {s.group && <Badge variant="secondary" className="text-[0.65rem] bg-slate-100 text-slate-600 hover:bg-slate-100 font-bold px-2 py-0.5 rounded-md">{GROUP_LABELS[s.group] || s.group}</Badge>}
-              <Badge variant="outline" className="text-[0.65rem] border-slate-200 text-slate-500 font-bold px-2 py-0.5 rounded-md">v{s.version || "1"}</Badge>
+              {s.group && <Badge variant="secondary" className="text-[0.65rem] bg-muted text-foreground hover:bg-muted font-bold px-2 py-0.5 rounded-md">{GROUP_LABELS[s.group] || s.group}</Badge>}
+              <Badge variant="outline" className="text-[0.65rem] border-border text-muted-foreground font-bold px-2 py-0.5 rounded-md">v{s.version || "1"}</Badge>
             </div>
           </div>
-          <span className="font-mono text-xs text-slate-400 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100 self-start sm:self-auto" dir="ltr">{s.id}</span>
+          <span className="font-mono text-xs text-muted-foreground bg-muted px-2.5 py-1 rounded-lg border border-border self-start sm:self-auto" dir="ltr">{s.id}</span>
         </div>
       </div>
 
       {/* Stats Cards Section */}
-      <div className="grid shrink-0 grid-cols-2 gap-3 border-b border-slate-200/50 bg-slate-50/30 px-6 py-5 sm:grid-cols-4">
-        <div className="rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
+      <div className="grid shrink-0 grid-cols-2 gap-3 border-b border-border bg-muted px-6 py-5 sm:grid-cols-4">
+        <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
               <Package className="size-5" />
             </div>
             <div>
-              <p className="text-xl font-black text-slate-800 leading-tight">{s.allowedTools?.length || 0}</p>
-              <p className="text-[0.65rem] text-slate-400 font-bold">أدوات مصرحة</p>
+              <p className="text-xl font-black text-foreground leading-tight">{s.allowedTools?.length || 0}</p>
+              <p className="text-[0.65rem] text-muted-foreground font-bold">أدوات مصرحة</p>
             </div>
           </div>
         </div>
         
-        <div className="rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
+        <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-success/10 text-success">
               <UserPlus className="size-5" />
             </div>
             <div>
-              <p className="text-xl font-black text-slate-800 leading-tight">{agentCount}</p>
-              <p className="text-[0.65rem] text-slate-400 font-bold">وكلاء نشطين</p>
+              <p className="text-xl font-black text-foreground leading-tight">{agentCount}</p>
+              <p className="text-[0.65rem] text-muted-foreground font-bold">وكلاء نشطين</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
+        <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-warning/10 text-warning">
               <Shield className="size-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-black text-slate-800 truncate leading-tight">
+              <p className="text-sm font-black text-foreground truncate leading-tight">
                 {s.requiresHumanApproval ? "موافقة بشرية" : "تلقائي بالكامل"}
               </p>
-              <p className="text-[0.65rem] text-slate-400 font-bold">نمط الرقابة</p>
+              <p className="text-[0.65rem] text-muted-foreground font-bold">نمط الرقابة</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
+        <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-info/10 text-info">
               <FileText className="size-5" />
             </div>
             <div>
-              <p className="text-sm font-black text-slate-800 leading-tight">{s.skillMd ? "متوفر" : "غير متوفر"}</p>
-              <p className="text-[0.65rem] text-slate-400 font-bold">دليل المهارة</p>
+              <p className="text-sm font-black text-foreground leading-tight">{s.skillMd ? "متوفر" : "غير متوفر"}</p>
+              <p className="text-[0.65rem] text-muted-foreground font-bold">دليل المهارة</p>
             </div>
           </div>
         </div>
@@ -305,21 +305,21 @@ export default function SkillDetailPage() {
           
           {/* Main Content Pane (Left on LTR, Right/Left based on RTL): SKILL.md Reader (Takes 2 Columns) */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
-              <div className="border-b border-slate-100 bg-slate-50/50 px-5 py-4 flex items-center justify-between gap-4">
+            <div className="rounded-xl border border-border bg-white shadow-sm overflow-hidden">
+              <div className="border-b border-border bg-muted px-5 py-4 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <BookOpen className="size-5 text-indigo-600" />
-                  <h3 className="text-sm font-extrabold text-slate-800">دليل المهارة (SKILL.md)</h3>
+                  <BookOpen className="size-5 text-primary" />
+                  <h3 className="text-sm font-extrabold text-foreground">دليل المهارة (SKILL.md)</h3>
                 </div>
                 
                 {s.skillMd && (
-                  <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-0.5 border border-slate-200/40">
+                  <div className="flex items-center gap-1 rounded-xl bg-muted p-0.5 border border-border">
                     <button
                       onClick={() => setDocTab("preview")}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         docTab === "preview"
-                          ? "bg-white text-slate-800 shadow-sm"
-                          : "text-slate-500 hover:text-slate-800"
+                          ? "bg-white text-foreground shadow-sm"
+                          : "text-slate-500 hover:text-foreground"
                       }`}
                     >
                       <BookOpen className="size-3.5" />
@@ -329,8 +329,8 @@ export default function SkillDetailPage() {
                       onClick={() => setDocTab("raw")}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         docTab === "raw"
-                          ? "bg-white text-slate-800 shadow-sm"
-                          : "text-slate-500 hover:text-slate-800"
+                          ? "bg-white text-foreground shadow-sm"
+                          : "text-slate-500 hover:text-foreground"
                       }`}
                     >
                       <Terminal className="size-3.5" />
@@ -350,12 +350,12 @@ export default function SkillDetailPage() {
                     <div className="relative">
                       <button
                         onClick={() => copyText(s.skillMd!, "skillmd")}
-                        className="absolute right-3 top-3 z-10 flex items-center justify-center p-2 rounded-lg bg-zinc-800/80 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-100 transition-colors border border-zinc-700/60 shadow-sm"
+                        className="absolute right-3 top-3 z-10 flex items-center justify-center p-2 rounded-lg bg-muted hover:bg-muted text-muted-foreground hover:text-muted-foreground transition-colors border border-border shadow-sm"
                         title="نسخ المحتوى"
                       >
-                        {copiedId === "skillmd" ? <Check className="size-4 text-emerald-400 animate-scale" /> : <Copy className="size-4" />}
+                        {copiedId === "skillmd" ? <Check className="size-4 text-success animate-scale" /> : <Copy className="size-4" />}
                       </button>
-                      <div className="rounded-xl bg-zinc-950 p-5 text-zinc-100 border border-zinc-900 shadow-inner overflow-hidden" dir="ltr">
+                      <div className="rounded-xl bg-muted p-5 text-muted-foreground border border-border shadow-inner overflow-hidden" dir="ltr">
                         <pre
                           className="m-0 max-h-[500px] overflow-auto whitespace-pre-wrap font-mono text-[0.8rem] leading-relaxed scrollbar-thin"
                           style={{ fontFamily: "Consolas, Monaco, 'Courier New', monospace" }}
@@ -367,20 +367,20 @@ export default function SkillDetailPage() {
                   )
                 ) : (
                   <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-                    <div className="flex size-14 items-center justify-center rounded-full bg-slate-100 text-slate-400 mb-4 shadow-inner">
+                    <div className="flex size-14 items-center justify-center rounded-full bg-muted text-muted-foreground mb-4 shadow-inner">
                       <FileText className="size-6" />
                     </div>
-                    <h4 className="text-base font-bold text-slate-800 mb-1">لا يوجد دليل مهارة (SKILL.md)</h4>
-                    <p className="text-xs text-slate-500 max-w-sm leading-relaxed mb-5">
+                    <h4 className="text-base font-bold text-foreground mb-1">لا يوجد دليل مهارة (SKILL.md)</h4>
+                    <p className="text-xs text-muted-foreground max-w-sm leading-relaxed mb-5">
                       يساعد دليل المهارة في توجيه نموذج الذكاء الاصطناعي وتوضيح كيفية عمل الأدوات المرتبطة بهذه المهارة وسلوكياتها.
                     </p>
-                    <div className="bg-amber-50/50 border border-amber-200/50 rounded-xl p-4 text-right max-w-md" dir="rtl">
+                    <div className="bg-amber-50/50 border border-warning/50 rounded-xl p-4 text-right max-w-md" dir="rtl">
                       <div className="flex gap-2">
-                        <Info className="size-4 text-amber-600 shrink-0 mt-0.5" />
+                        <Info className="size-4 text-warning shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-xs font-bold text-amber-800 mb-0.5">كيفية إضافة الدليل:</p>
-                          <p className="text-[0.7rem] text-amber-700 leading-relaxed">
-                            قم بإنشاء ملف باسم <code className="px-1 py-0.5 bg-amber-100/60 rounded font-mono text-[0.65rem] text-amber-900 font-semibold">SKILL.md</code> في مجلد المهارة داخل الخادم، وسيتم مزامنته وعرضه هنا تلقائياً.
+                          <p className="text-xs font-bold text-warning mb-0.5">كيفية إضافة الدليل:</p>
+                          <p className="text-[0.7rem] text-warning leading-relaxed">
+                            قم بإنشاء ملف باسم <code className="px-1 py-0.5 bg-warning/60 rounded font-mono text-[0.65rem] text-warning font-semibold">SKILL.md</code> في مجلد المهارة داخل الخادم، وسيتم مزامنته وعرضه هنا تلقائياً.
                           </p>
                         </div>
                       </div>
@@ -395,10 +395,10 @@ export default function SkillDetailPage() {
           <div className="space-y-6">
             
             {/* Metadata Card */}
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-              <div className="mb-4 flex items-center gap-2 pb-3 border-b border-slate-100">
-                <Info className="size-4.5 text-indigo-600" />
-                <h3 className="text-sm font-bold text-slate-800">بيانات المهارة الأساسية</h3>
+            <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+              <div className="mb-4 flex items-center gap-2 pb-3 border-b border-border">
+                <Info className="size-4.5 text-primary" />
+                <h3 className="text-sm font-bold text-foreground">بيانات المهارة الأساسية</h3>
               </div>
               
               <div className="space-y-4">
@@ -417,18 +417,18 @@ export default function SkillDetailPage() {
               </div>
               
               {s.description && (
-                <div className="mt-4 pt-4 border-t border-slate-100">
-                  <p className="text-[0.65rem] text-slate-400 mb-1 font-medium">الوصف التفصيلي</p>
-                  <p className="rounded-xl bg-slate-50 p-3 text-xs text-slate-600 leading-relaxed border border-slate-100">{s.description}</p>
+                <div className="mt-4 pt-4 border-t border-border">
+                  <p className="text-[0.65rem] text-muted-foreground mb-1 font-medium">الوصف التفصيلي</p>
+                  <p className="rounded-xl bg-muted p-3 text-xs text-foreground leading-relaxed border border-border">{s.description}</p>
                 </div>
               )}
             </div>
 
             {/* Allowed Tools list */}
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-              <div className="mb-4 flex items-center gap-2 pb-3 border-b border-slate-100">
-                <Layers className="size-4.5 text-indigo-600" />
-                <h3 className="text-sm font-bold text-slate-800">الأدوات المصرحة ({s.allowedTools?.length || 0})</h3>
+            <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+              <div className="mb-4 flex items-center gap-2 pb-3 border-b border-border">
+                <Layers className="size-4.5 text-primary" />
+                <h3 className="text-sm font-bold text-foreground">الأدوات المصرحة ({s.allowedTools?.length || 0})</h3>
               </div>
 
               {(s.allowedTools || []).length > 0 ? (
@@ -436,26 +436,26 @@ export default function SkillDetailPage() {
                   {(s.allowedTools || []).map((tn) => {
                     const toolDef = toolMap.get(tn);
                     return (
-                      <div key={tn} className="group relative overflow-hidden rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-slate-200/80">
+                      <div key={tn} className="group relative overflow-hidden rounded-xl border border-border bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-border">
                         <div className="flex items-start gap-3">
-                          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors group-hover:bg-indigo-100">
+                          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary">
                             <Zap className="size-4.5 animate-pulse" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-                              <span className="font-mono text-xs font-bold text-slate-800">{tn}</span>
+                              <span className="font-mono text-xs font-bold text-foreground">{tn}</span>
                               <div className="flex gap-1">
                                 {toolDef?.sideEffects === "write" ? (
-                                  <Badge className="bg-rose-50 text-rose-700 hover:bg-rose-50 border border-rose-100 text-[0.6rem] px-1.5 py-0 font-bold rounded-md">كتابة</Badge>
+                                  <Badge className="bg-rose-50 text-destructive hover:bg-destructive/10 border border-destructive text-[0.6rem] px-1.5 py-0 font-bold rounded-md">كتابة</Badge>
                                 ) : (
-                                  <Badge className="bg-emerald-50 text-emerald-700 hover:bg-emerald-50 border border-emerald-100 text-[0.6rem] px-1.5 py-0 font-bold rounded-md">قراءة فقط</Badge>
+                                  <Badge className="bg-emerald-50 text-success hover:bg-success/10 border border-success text-[0.6rem] px-1.5 py-0 font-bold rounded-md">قراءة فقط</Badge>
                                 )}
                                 {toolDef?.requiresApproval && (
-                                  <Badge className="bg-amber-50 text-amber-700 hover:bg-amber-50 border border-amber-100 text-[0.6rem] px-1.5 py-0 font-bold rounded-md">تحتاج موافقة</Badge>
+                                  <Badge className="bg-amber-50 text-warning hover:bg-warning/10 border border-warning text-[0.6rem] px-1.5 py-0 font-bold rounded-md">تحتاج موافقة</Badge>
                                 )}
                               </div>
                             </div>
-                            <p className="text-[0.7rem] text-slate-500 leading-normal">{toolDef?.description || "لا يوجد وصف تفصيلي متوفر لهذه الأداة حالياً."}</p>
+                            <p className="text-[0.7rem] text-muted-foreground leading-normal">{toolDef?.description || "لا يوجد وصف تفصيلي متوفر لهذه الأداة حالياً."}</p>
                           </div>
                         </div>
                       </div>
@@ -463,8 +463,8 @@ export default function SkillDetailPage() {
                   })}
                 </div>
               ) : (
-                <div className="text-center py-6 text-slate-400">
-                  <AlertTriangle className="size-8 mx-auto mb-2 text-slate-300" />
+                <div className="text-center py-6 text-muted-foreground">
+                  <AlertTriangle className="size-8 mx-auto mb-2 text-muted-foreground" />
                   <p className="text-xs">لم يتم تحديد أدوات لهذه المهارة</p>
                 </div>
               )}
@@ -472,26 +472,26 @@ export default function SkillDetailPage() {
 
             {/* Active Agents list */}
             {agents.length > 0 && (
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-                <div className="mb-4 flex items-center gap-2 pb-3 border-b border-slate-100">
-                  <UserPlus className="size-4.5 text-indigo-600" />
-                  <h3 className="text-sm font-bold text-slate-800">الوكلاء المشتركين ({agentCount})</h3>
+              <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+                <div className="mb-4 flex items-center gap-2 pb-3 border-b border-border">
+                  <UserPlus className="size-4.5 text-primary" />
+                  <h3 className="text-sm font-bold text-foreground">الوكلاء المشتركين ({agentCount})</h3>
                 </div>
 
                 {agentCount > 0 ? (
                   <div className="space-y-2.5">
                     {agents.filter((a) => a.allowedSkills?.includes(s.id)).map((agent) => (
-                      <div key={agent.id} className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-3 shadow-sm transition-all hover:border-slate-200 hover:shadow-md">
-                        <div className="flex size-9 items-center justify-center rounded-xl bg-slate-50 text-lg border border-slate-100 shadow-inner shrink-0">
+                      <div key={agent.id} className="flex items-center gap-3 rounded-xl border border-border bg-white p-3 shadow-sm transition-all hover:border-border hover:shadow-md">
+                        <div className="flex size-9 items-center justify-center rounded-xl bg-muted text-lg border border-border shadow-inner shrink-0">
                           {agent.icon || "🤖"}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-xs font-bold text-slate-800">{agent.name}</p>
-                          <p className="truncate text-[0.65rem] text-slate-500">{agent.role}</p>
+                          <p className="truncate text-xs font-bold text-foreground">{agent.name}</p>
+                          <p className="truncate text-[0.65rem] text-muted-foreground">{agent.role}</p>
                         </div>
-                        <div className="flex items-center gap-1.5 shrink-0 bg-slate-50 px-2 py-0.5 rounded-lg border border-slate-100">
+                        <div className="flex items-center gap-1.5 shrink-0 bg-muted px-2 py-0.5 rounded-lg border border-border">
                           <span className={`size-1.5 rounded-full ${agent.status === "active" ? "bg-emerald-500 animate-pulse" : "bg-slate-300"}`} />
-                          <span className="text-[0.65rem] font-bold text-slate-600">
+                          <span className="text-[0.65rem] font-bold text-foreground">
                             {agent.status === "active" ? "نشط" : agent.status}
                           </span>
                         </div>
@@ -499,7 +499,7 @@ export default function SkillDetailPage() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-slate-400 text-center py-4">لا توجد وكلاء مستخدمين لهذه المهارة حالياً</p>
+                  <p className="text-xs text-muted-foreground text-center py-4">لا توجد وكلاء مستخدمين لهذه المهارة حالياً</p>
                 )}
               </div>
             )}
@@ -525,19 +525,19 @@ function InfoRow({
 }) {
   return (
     <div>
-      <p className="text-[0.65rem] text-slate-400 mb-1 font-semibold">{label}</p>
+      <p className="text-[0.65rem] text-muted-foreground mb-1 font-semibold">{label}</p>
       {badgeVariant ? (
         <Badge className={`text-[0.7rem] px-2 py-0.5 ${
           badgeVariant === "success" 
-            ? "bg-emerald-50 text-emerald-700 border-emerald-100 hover:bg-emerald-50" 
-            : "bg-rose-50 text-rose-700 border-rose-100 hover:bg-rose-50"
+            ? "bg-emerald-50 text-success border-success hover:bg-success/10" 
+            : "bg-rose-50 text-destructive border-destructive hover:bg-destructive/10"
         } border font-bold rounded-md`}>
           {value}
         </Badge>
       ) : isCode ? (
-        <span className="font-mono text-xs text-indigo-600 bg-indigo-50/50 px-2 py-0.5 rounded border border-indigo-100/50 select-all inline-block" dir="ltr">{value}</span>
+        <span className="font-mono text-xs text-primary bg-primary/50 px-2 py-0.5 rounded border border-primary/50 select-all inline-block" dir="ltr">{value}</span>
       ) : (
-        <p className="text-xs font-bold text-slate-700 leading-relaxed">{value}</p>
+        <p className="text-xs font-bold text-foreground leading-relaxed">{value}</p>
       )}
     </div>
   );

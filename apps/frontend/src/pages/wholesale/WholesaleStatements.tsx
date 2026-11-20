@@ -104,9 +104,9 @@ export default function WholesaleStatements() {
 
   const typeLabels: Record<string, { label: string; color: string }> = {
     INVOICE: { label: "فاتورة مبيعات", color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
-    PAYMENT: { label: "سداد دفعة", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
-    CREDIT_NOTE: { label: "إشعار دائن", color: "bg-purple-500/10 text-purple-500 border-purple-500/20" },
-    DEBIT_NOTE: { label: "إشعار مدين", color: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
+    PAYMENT: { label: "سداد دفعة", color: "bg-emerald-500/10 text-success border-success/20" },
+    CREDIT_NOTE: { label: "إشعار دائن", color: "bg-purple-500/10 text-primary border-primary/20" },
+    DEBIT_NOTE: { label: "إشعار مدين", color: "bg-amber-500/10 text-warning border-warning/20" },
   };
 
   const safeLines = Array.isArray(statement?.lines) ? statement.lines : [];
@@ -168,7 +168,7 @@ export default function WholesaleStatements() {
                 value={customerSearch}
                 onChange={(e) => void searchCustomers(e.target.value)}
                 placeholder="ابحث بالاسم أو السجل..."
-                className="w-full bg-background border border-border/80 rounded-md pr-8 pl-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary font-mono"
+                className="w-full bg-background border border-border/80 rounded-md pe-8 ps-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary font-mono"
               />
             </div>
             {customers.length > 0 && (
@@ -252,13 +252,13 @@ export default function WholesaleStatements() {
             </div>
             <div className="p-3 bg-card">
               <span className="text-[10px] text-muted-foreground block">إجمالي المسحوبات (مدين)</span>
-              <span className="text-sm font-semibold tabular-nums text-rose-500 mt-0.5 block">
+              <span className="text-sm font-semibold tabular-nums text-destructive mt-0.5 block">
                 {totalDebits.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
               </span>
             </div>
             <div className="p-3 bg-card">
               <span className="text-[10px] text-muted-foreground block">إجمالي السدادات (دائن)</span>
-              <span className="text-sm font-semibold tabular-nums text-emerald-500 mt-0.5 block">
+              <span className="text-sm font-semibold tabular-nums text-success mt-0.5 block">
                 {totalCredits.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
               </span>
             </div>
@@ -302,10 +302,10 @@ export default function WholesaleStatements() {
                       </td>
                       <td className="px-4 py-2.5 font-mono text-muted-foreground">{line.reference || "—"}</td>
                       <td className="px-4 py-2.5 text-foreground">{line.description || "—"}</td>
-                      <td className="px-4 py-2.5 font-mono tabular-nums font-semibold text-rose-500">
+                      <td className="px-4 py-2.5 font-mono tabular-nums font-semibold text-destructive">
                         {Number(line.debit) > 0 ? Number(line.debit).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "—"}
                       </td>
-                      <td className="px-4 py-2.5 font-mono tabular-nums font-semibold text-emerald-500">
+                      <td className="px-4 py-2.5 font-mono tabular-nums font-semibold text-success">
                         {Number(line.credit) > 0 ? Number(line.credit).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "—"}
                       </td>
                       <td className="px-4 py-2.5 font-mono tabular-nums font-semibold text-foreground">

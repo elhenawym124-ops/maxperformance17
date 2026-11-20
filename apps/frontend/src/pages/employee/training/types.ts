@@ -43,19 +43,19 @@ export const trainingStatusConfig: Record<
   },
   ONGOING: {
     labelKey: "employee.training.inProgressStatus",
-    color: "bg-amber-100 text-amber-700 border-amber-200",
+    color: "bg-amber-100 text-warning border-warning",
     icon: React.createElement(Loader2, {
       className: "h-3.5 w-3.5 animate-spin",
     }),
   },
   COMPLETED: {
     labelKey: "employee.training.completedStatus",
-    color: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    color: "bg-emerald-100 text-success border-success",
     icon: React.createElement(CheckCircle2, { className: "h-3.5 w-3.5" }),
   },
   CANCELLED: {
     labelKey: "employee.training.cancelledStatus",
-    color: "bg-rose-100 text-rose-700 border-rose-200",
+    color: "bg-rose-100 text-destructive border-destructive",
     icon: React.createElement(XCircle, { className: "h-3.5 w-3.5" }),
   },
 };

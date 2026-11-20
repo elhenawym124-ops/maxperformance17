@@ -350,14 +350,14 @@ export const AutoAssignPage: React.FC = () => {
         <div
           className={`p-3 rounded-lg text-xs sm:text-sm flex items-center gap-2 border ${
             statusMessage.type === 'success'
-              ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800'
-              : 'bg-rose-50 text-rose-800 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800'
+              ? 'bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success'
+              : 'bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive'
           }`}
         >
           {statusMessage.type === 'success' ? (
-            <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-success dark:text-success" />
           ) : (
-            <AlertCircle className="h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
+            <AlertCircle className="h-4 w-4 shrink-0 text-destructive dark:text-destructive" />
           )}
           <span>{statusMessage.text}</span>
         </div>
@@ -371,11 +371,11 @@ export const AutoAssignPage: React.FC = () => {
               <span className="text-xs sm:text-sm font-bold text-foreground">
                 المقترحات ({assignments.length} شحنة)
               </span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-sky-50 text-sky-700 border border-sky-200 dark:bg-sky-950/40 dark:text-sky-300">
+              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-info/10 text-info border border-info dark:bg-info/40 dark:text-info">
                 مقترح
               </span>
               {hasApplied && (
-                <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300">
+                <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-success/10 text-success border border-success dark:bg-success/40 dark:text-success">
                   مُسند
                 </span>
               )}
@@ -447,11 +447,11 @@ export const AutoAssignPage: React.FC = () => {
                       </td>
                       <td className="py-2.5 px-3">
                         {hasApplied ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-success/10 text-success border border-success dark:bg-success/40 dark:text-success">
                             <CheckCircle2 className="h-3 w-3" /> مُسند
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-sky-50 text-sky-700 border border-sky-200 dark:bg-sky-950/40 dark:text-sky-300">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-info/10 text-info border border-info dark:bg-info/40 dark:text-info">
                             مقترح
                           </span>
                         )}
@@ -468,8 +468,8 @@ export const AutoAssignPage: React.FC = () => {
       {/* Unassigned / Failed Shipments */}
       {unassigned.length > 0 && (
         <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-          <div className="p-3 sm:px-4 py-2.5 bg-rose-50/40 dark:bg-rose-950/20 border-b border-border flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs sm:text-sm font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+          <div className="p-3 sm:px-4 py-2.5 bg-destructive/40 dark:bg-destructive/20 border-b border-border flex flex-wrap items-center justify-between gap-2">
+            <span className="text-xs sm:text-sm font-bold text-destructive dark:text-destructive flex items-center gap-1.5">
               <AlertCircle className="h-4 w-4" />
               لم يتم الإسناد ({unassigned.length})
             </span>
@@ -478,12 +478,12 @@ export const AutoAssignPage: React.FC = () => {
                 type="button"
                 onClick={handleRetryAfterCourier}
                 disabled={loadingSuggest || loadingApply || loadingAuto}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition shadow-xs disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-muted text-destructive dark:text-destructive border border-destructive dark:border-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 transition shadow-xs disabled:opacity-50"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 إعادة المحاولة بعد إضافة مندوب
               </button>
-              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300">
+              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-destructive/10 text-destructive border border-destructive dark:bg-destructive/40 dark:text-destructive">
                 فشل
               </span>
             </div>
@@ -508,11 +508,11 @@ export const AutoAssignPage: React.FC = () => {
                     <td className="py-2.5 px-3 text-muted-foreground">
                       {item.destinationGovernorate || 'غير محددة'}
                     </td>
-                    <td className="py-2.5 px-3 text-rose-700 dark:text-rose-400 font-medium">
+                    <td className="py-2.5 px-3 text-destructive dark:text-destructive font-medium">
                       {getReasonLabel(item.reason)}
                     </td>
                     <td className="py-2.5 px-3">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-destructive/10 text-destructive border border-destructive dark:bg-destructive/40 dark:text-destructive">
                         فشل
                       </span>
                     </td>

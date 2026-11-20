@@ -287,20 +287,20 @@ export const PickupsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
             <Truck className="w-6 h-6 text-blue-600" />
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
               {isEn ? 'Pickup Requests' : 'طلبات الاستلام (Pickup)'}
             </h1>
-            <span className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2.5 py-0.5 rounded-full font-semibold">
+            <span className="text-xs bg-muted dark:bg-muted text-foreground dark:text-muted-foreground px-2.5 py-0.5 rounded-full font-semibold">
               {totalCount}
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
             {isEn ? 'Coordinate merchant and customer warehouse parcel intake' : 'إدارة ومتابعة طلبات استلام الشحنات من التجار والمخازن'}
           </p>
         </div>
@@ -315,9 +315,9 @@ export const PickupsPage: React.FC = () => {
       </div>
 
       {/* Filters Toolbar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white dark:bg-muted p-3 rounded-xl border border-border dark:border-border">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 absolute top-3 rtl:right-3 ltr:left-3 text-slate-400" />
+          <Search className="w-4 h-4 absolute top-3 rtl:right-3 ltr:left-3 text-muted-foreground" />
           <input
             type="text"
             value={search}
@@ -326,19 +326,19 @@ export const PickupsPage: React.FC = () => {
               setPage(1);
             }}
             placeholder={isEn ? 'Search by pickup #, name, phone, address...' : 'البحث برقم الطلب، الاسم، الهاتف، العنوان...'}
-            className="w-full rtl:pr-9 ltr:pl-9 py-2 text-sm bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rtl:pe-9 ltr:ps-9 py-2 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-slate-400" />
+          <Filter className="w-4 h-4 text-muted-foreground" />
           <select
             value={statusFilter}
             onChange={(e) => {
               setStatusFilter(e.target.value);
               setPage(1);
             }}
-            className="py-2 px-3 text-sm bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg outline-none"
+            className="py-2 px-3 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg outline-none"
           >
             <option value="">{isEn ? 'All Statuses' : 'جميع الحالات'}</option>
             <option value="REQUESTED">{isEn ? 'Requested' : 'مطلوب'}</option>
@@ -350,7 +350,7 @@ export const PickupsPage: React.FC = () => {
 
           <button
             onClick={fetchPickups}
-            className="p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition text-foreground dark:text-muted-foreground"
             title="تحديث"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -359,10 +359,10 @@ export const PickupsPage: React.FC = () => {
       </div>
 
       {/* Pickups Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 text-xs text-slate-500 font-semibold">
+            <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-xs text-muted-foreground font-semibold">
               <tr>
                 <th className="px-4 py-3">{isEn ? 'Pickup #' : 'رقم الطلب'}</th>
                 <th className="px-4 py-3">{isEn ? 'Contact' : 'مسؤول الاستلام'}</th>
@@ -374,17 +374,17 @@ export const PickupsPage: React.FC = () => {
                 <th className="px-4 py-3 text-center">{isEn ? 'Actions' : 'إجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading && pickups.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
-                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-slate-400" />
+                  <td colSpan={8} className="py-12 text-center text-muted-foreground">
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-muted-foreground" />
                     <span>{isEn ? 'Loading pickup requests...' : 'جاري تحميل طلبات الاستلام...'}</span>
                   </td>
                 </tr>
               ) : pickups.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
+                  <td colSpan={8} className="py-12 text-center text-muted-foreground">
                     <Boxes className="w-8 h-8 mx-auto mb-2 opacity-40" />
                     <span>{isEn ? 'No pickup requests found' : 'لا توجد طلبات استلام مسجلة'}</span>
                   </td>
@@ -397,7 +397,7 @@ export const PickupsPage: React.FC = () => {
                   const isFinished = p.status === 'COMPLETED' || p.status === 'CANCELLED';
 
                   return (
-                    <tr key={p.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition">
+                    <tr key={p.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition">
                       <td className="px-4 py-3 font-mono font-bold text-blue-600 dark:text-blue-400">
                         <button
                           onClick={() => setSelectedPickup(p)}
@@ -407,27 +407,27 @@ export const PickupsPage: React.FC = () => {
                         </button>
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-slate-900 dark:text-slate-100">{p.contactName}</div>
-                        <div className="text-xs text-slate-400 font-mono">{p.contactPhone}</div>
+                        <div className="font-medium text-foreground dark:text-muted-foreground">{p.contactName}</div>
+                        <div className="text-xs text-muted-foreground font-mono">{p.contactPhone}</div>
                       </td>
                       <td className="px-4 py-3 max-w-xs">
-                        <span className="font-semibold text-slate-800 dark:text-slate-200">{p.governorate}</span>
-                        <div className="text-xs text-slate-500 truncate" title={p.pickupAddress}>
+                        <span className="font-semibold text-foreground dark:text-muted-foreground">{p.governorate}</span>
+                        <div className="text-xs text-muted-foreground truncate" title={p.pickupAddress}>
                           {p.pickupAddress}
                         </div>
                       </td>
-                      <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-600 dark:text-slate-300">
+                      <td className="px-4 py-3 whitespace-nowrap text-xs text-foreground dark:text-muted-foreground">
                         <div>{formatDate(p.scheduledDate)}</div>
                         {p.timeSlot && <div className="text-slate-400 text-[11px]">{p.timeSlot}</div>}
                       </td>
                       <td className="px-4 py-3 text-center tabular-nums">
-                        <span className="font-semibold text-slate-800 dark:text-slate-200">{p.expectedParcels}</span>
+                        <span className="font-semibold text-foreground dark:text-muted-foreground">{p.expectedParcels}</span>
                         <span className="text-slate-400"> / </span>
-                        <span className="text-emerald-600 dark:text-emerald-400 font-bold">{p.actualParcels ?? '—'}</span>
+                        <span className="text-emerald-600 dark:text-success font-bold">{p.actualParcels ?? '—'}</span>
                       </td>
                       <td className="px-4 py-3 text-xs">
                         {p.assignedCourier ? (
-                          <div className="font-medium text-indigo-600 dark:text-indigo-400">
+                          <div className="font-medium text-primary">
                             {p.assignedCourier.name}
                           </div>
                         ) : (
@@ -443,7 +443,7 @@ export const PickupsPage: React.FC = () => {
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => setSelectedPickup(p)}
-                            className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                             title="عرض التفاصيل"
                           >
                             <Eye className="w-4 h-4" />
@@ -457,7 +457,7 @@ export const PickupsPage: React.FC = () => {
                                   setScheduleDate(p.scheduledDate.slice(0, 10));
                                   setScheduleSlot(p.timeSlot || '10:00 - 14:00');
                                 }}
-                                className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                                className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                                 title="جدولة"
                               >
                                 <Calendar className="w-4 h-4" />
@@ -467,7 +467,7 @@ export const PickupsPage: React.FC = () => {
                                   setAssigningPickup(p);
                                   setSelectedCourierId(p.assignedCourierId || '');
                                 }}
-                                className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 rounded-lg transition"
+                                className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                                 title="إسناد مندوب"
                               >
                                 <UserCheck className="w-4 h-4" />
@@ -481,7 +481,7 @@ export const PickupsPage: React.FC = () => {
                                 setCompletingPickup(p);
                                 setActualParcelsCount(p.expectedParcels || 1);
                               }}
-                              className="p-1.5 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded-lg transition font-medium"
+                              className="p-1.5 text-success hover:bg-success/10 dark:hover:bg-success/40 rounded-lg transition font-medium"
                               title="تأكيد الاكتمال"
                             >
                               <PackageCheck className="w-4 h-4" />
@@ -491,7 +491,7 @@ export const PickupsPage: React.FC = () => {
                           {!isFinished && (
                             <button
                               onClick={() => handleCancelPickup(p.id)}
-                              className="p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
+                              className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition"
                               title="إلغاء الطلب"
                             >
                               <XCircle className="w-4 h-4" />
@@ -508,16 +508,16 @@ export const PickupsPage: React.FC = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-border dark:border-border text-xs text-muted-foreground">
           <div>
             <span>{isEn ? 'Total Pickups:' : 'إجمالي الطلبات:'} </span>
-            <span className="font-bold text-slate-800 dark:text-slate-200 tabular-nums">{totalCount}</span>
+            <span className="font-bold text-foreground dark:text-muted-foreground tabular-nums">{totalCount}</span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page <= 1 || loading}
-              className="inline-flex items-center gap-1 px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 transition"
+              className="inline-flex items-center gap-1 px-3 py-1.5 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-40 transition"
             >
               <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
               <span>{isEn ? 'Previous' : 'السابق'}</span>
@@ -526,7 +526,7 @@ export const PickupsPage: React.FC = () => {
             <button
               onClick={() => setPage((p) => p + 1)}
               disabled={pickups.length < 25 || loading}
-              className="inline-flex items-center gap-1 px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 transition"
+              className="inline-flex items-center gap-1 px-3 py-1.5 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-40 transition"
             >
               <span>{isEn ? 'Next' : 'التالي'}</span>
               <ChevronLeft className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -537,16 +537,16 @@ export const PickupsPage: React.FC = () => {
 
       {/* Modal: Create Pickup Request */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <div className="flex items-center gap-2">
                 <Truck className="w-5 h-5 text-blue-600" />
                 <h2 className="text-lg font-bold">{isEn ? 'New Pickup Request' : 'طلب استلام طرود جديد'}</h2>
               </div>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground"
               >
                 ✕
               </button>
@@ -555,7 +555,7 @@ export const PickupsPage: React.FC = () => {
             <form onSubmit={handleCreatePickup} className="space-y-4 text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Contact Name *' : 'اسم مسؤول الاستلام *'}
                   </label>
                   <select
@@ -573,7 +573,7 @@ export const PickupsPage: React.FC = () => {
                         contactPhone: sel?.phone || createForm.contactPhone,
                       });
                     }}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500 font-medium"
                   >
                     <option value="">{isEn ? '-- Select Team Member --' : '-- اختر مسؤول الاستلام من فريق العمل --'}</option>
                     {teamMembers.map((member) => (
@@ -584,7 +584,7 @@ export const PickupsPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Contact Phone *' : 'رقم هاتف الاستلام *'}
                   </label>
                   <input
@@ -592,14 +592,14 @@ export const PickupsPage: React.FC = () => {
                     required
                     value={createForm.contactPhone}
                     onChange={(e) => setCreateForm({ ...createForm, contactPhone: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500 font-mono"
                     placeholder="01012345678"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   {isEn ? 'Pickup Address *' : 'عنوان المخزن / الاستلام التفصيلي *'}
                 </label>
                 <input
@@ -607,20 +607,20 @@ export const PickupsPage: React.FC = () => {
                   required
                   value={createForm.pickupAddress}
                   onChange={(e) => setCreateForm({ ...createForm, pickupAddress: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="الشارع، رقم المبنى، علامة مميزة..."
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Governorate *' : 'المحافظة *'}
                   </label>
                   <select
                     value={createForm.governorate}
                     onChange={(e) => setCreateForm({ ...createForm, governorate: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none"
                   >
                     {EGYPT_GOVERNORATES.map((g) => (
                       <option key={g.id} value={g.nameAr}>
@@ -630,14 +630,14 @@ export const PickupsPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'City / District' : 'المدينة / المنطقة'}
                   </label>
                   <input
                     type="text"
                     value={createForm.city}
                     onChange={(e) => setCreateForm({ ...createForm, city: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none"
                     placeholder="مثال: التجمع الخامس"
                   />
                 </div>
@@ -645,7 +645,7 @@ export const PickupsPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Scheduled Date *' : 'تاريخ الاستلام *'}
                   </label>
                   <DateInput
@@ -653,17 +653,17 @@ export const PickupsPage: React.FC = () => {
                     required
                     value={createForm.scheduledDate}
                     onChange={(e) => setCreateForm({ ...createForm, scheduledDate: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Time Slot' : 'الفترة الزمنية'}
                   </label>
                   <select
                     value={createForm.timeSlot}
                     onChange={(e) => setCreateForm({ ...createForm, timeSlot: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none text-xs"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none text-xs"
                   >
                     <option value="10:00 - 14:00">10:00 ص - 02:00 م (صباحي)</option>
                     <option value="14:00 - 18:00">02:00 م - 06:00 م (مسائي)</option>
@@ -671,7 +671,7 @@ export const PickupsPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Expected Parcels' : 'الطرود المتوقعة'}
                   </label>
                   <input
@@ -679,20 +679,20 @@ export const PickupsPage: React.FC = () => {
                     min="1"
                     value={createForm.expectedParcels}
                     onChange={(e) => setCreateForm({ ...createForm, expectedParcels: parseInt(e.target.value, 10) || 1 })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none tabular-nums"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none tabular-nums"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Merchant (Optional)' : 'التاجر / العميل (اختياري)'}
                   </label>
                   <select
                     value={createForm.merchantId}
                     onChange={(e) => setCreateForm({ ...createForm, merchantId: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none text-xs"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none text-xs"
                   >
                     <option value="">{isEn ? 'Direct Pickup (No Merchant)' : 'استلام مباشر بدون تاجر'}</option>
                     {merchants.map((m) => (
@@ -703,13 +703,13 @@ export const PickupsPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Receiving Branch' : 'فرع الاستلام / الهاَب'}
                   </label>
                   <select
                     value={createForm.branchId}
                     onChange={(e) => setCreateForm({ ...createForm, branchId: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none text-xs"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none text-xs"
                   >
                     <option value="">{isEn ? 'Auto / Main Hub' : 'تلقائي / الهاَب الرئيسي'}</option>
                     {branches.map((b) => (
@@ -722,23 +722,23 @@ export const PickupsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   {isEn ? 'Notes' : 'ملاحظات وتوجيهات للمندوب'}
                 </label>
                 <textarea
                   rows={2}
                   value={createForm.notes}
                   onChange={(e) => setCreateForm({ ...createForm, notes: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none text-xs"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none text-xs"
                   placeholder="أية تعليمات خاصة بالاستلام..."
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium"
+                  className="px-4 py-2 border border-border dark:border-border rounded-xl hover:bg-muted dark:hover:bg-muted text-xs font-medium"
                 >
                   {isEn ? 'Cancel' : 'إلغاء'}
                 </button>
@@ -757,8 +757,8 @@ export const PickupsPage: React.FC = () => {
 
       {/* Modal: Schedule Pickup */}
       {schedulingPickup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-5 space-y-4 shadow-xl">
             <h3 className="font-bold text-base flex items-center gap-2">
               <Calendar className="w-5 h-5 text-blue-600" />
               <span>جدولة موعد الاستلام</span>
@@ -770,7 +770,7 @@ export const PickupsPage: React.FC = () => {
                   
                   value={scheduleDate}
                   onChange={(e) => setScheduleDate(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted"
                 />
               </div>
               <div>
@@ -778,7 +778,7 @@ export const PickupsPage: React.FC = () => {
                 <select
                   value={scheduleSlot}
                   onChange={(e) => setScheduleSlot(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted text-xs"
                 >
                   <option value="10:00 - 14:00">10:00 ص - 02:00 م (صباحي)</option>
                   <option value="14:00 - 18:00">02:00 م - 06:00 م (مسائي)</option>
@@ -786,10 +786,10 @@ export const PickupsPage: React.FC = () => {
                 </select>
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 onClick={() => setSchedulingPickup(null)}
-                className="px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg text-xs"
+                className="px-3 py-1.5 border border-border dark:border-border rounded-lg text-xs"
               >
                 إلغاء
               </button>
@@ -807,10 +807,10 @@ export const PickupsPage: React.FC = () => {
 
       {/* Modal: Assign Courier */}
       {assigningPickup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-5 space-y-4 shadow-xl">
             <h3 className="font-bold text-base flex items-center gap-2">
-              <UserCheck className="w-5 h-5 text-indigo-600" />
+              <UserCheck className="w-5 h-5 text-primary" />
               <span>إسناد المندوب للاستلام</span>
             </h3>
             <div className="space-y-3 text-sm">
@@ -819,7 +819,7 @@ export const PickupsPage: React.FC = () => {
                 <select
                   value={selectedCourierId}
                   onChange={(e) => setSelectedCourierId(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-sm"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted text-sm"
                 >
                   <option value="">اختر مندوباً من القائمة...</option>
                   {couriers.map((c) => (
@@ -830,17 +830,17 @@ export const PickupsPage: React.FC = () => {
                 </select>
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 onClick={() => setAssigningPickup(null)}
-                className="px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg text-xs"
+                className="px-3 py-1.5 border border-border dark:border-border rounded-lg text-xs"
               >
                 إلغاء
               </button>
               <button
                 onClick={handleAssignSubmit}
                 disabled={submitting || !selectedCourierId}
-                className="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-semibold disabled:opacity-40"
+                className="px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-semibold disabled:opacity-40"
               >
                 تأكيد الإسناد
               </button>
@@ -851,14 +851,14 @@ export const PickupsPage: React.FC = () => {
 
       {/* Modal: Complete Pickup */}
       {completingPickup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-5 space-y-4 shadow-xl">
             <h3 className="font-bold text-base flex items-center gap-2">
-              <PackageCheck className="w-5 h-5 text-emerald-600" />
+              <PackageCheck className="w-5 h-5 text-success" />
               <span>تأكيد استلام الطرود</span>
             </h3>
             <div className="space-y-3 text-sm">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted-foreground">
                 أدخل عدد الطرود الفعلي التي تم استلامها من العميل/المخزن:
               </p>
               <div>
@@ -868,24 +868,24 @@ export const PickupsPage: React.FC = () => {
                   min="1"
                   value={actualParcelsCount}
                   onChange={(e) => setActualParcelsCount(parseInt(e.target.value, 10) || 1)}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 font-bold text-lg tabular-nums"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted font-bold text-lg tabular-nums"
                 />
-                <span className="text-[11px] text-slate-400">
+                <span className="text-[11px] text-muted-foreground">
                   العدد المتوقع المسجل في الطلب: {completingPickup.expectedParcels}
                 </span>
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 onClick={() => setCompletingPickup(null)}
-                className="px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg text-xs"
+                className="px-3 py-1.5 border border-border dark:border-border rounded-lg text-xs"
               >
                 إلغاء
               </button>
               <button
                 onClick={handleCompleteSubmit}
                 disabled={submitting}
-                className="px-4 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold"
+                className="px-4 py-1.5 bg-success text-white rounded-lg text-xs font-semibold"
               >
                 تأكيد الاكتمال
               </button>
@@ -896,10 +896,10 @@ export const PickupsPage: React.FC = () => {
 
       {/* Drawer / Modal: Pickup Details */}
       {selectedPickup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end bg-slate-900/50 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 w-full max-w-lg h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-muted backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-muted border-l border-border dark:border-border w-full max-w-lg h-full p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
             <div className="space-y-5">
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+              <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
                 <div className="flex items-center gap-2">
                   <Truck className="w-5 h-5 text-blue-600" />
                   <span className="font-mono font-bold text-lg text-blue-600">
@@ -908,15 +908,15 @@ export const PickupsPage: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setSelectedPickup(null)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg font-bold"
+                  className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground text-lg font-bold"
                 >
                   ✕
                 </button>
               </div>
 
               {/* Status & Badge */}
-              <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-xs text-slate-500 font-medium">حالة الطلب</span>
+              <div className="flex items-center justify-between bg-muted dark:bg-muted p-3 rounded-xl border border-border dark:border-border">
+                <span className="text-xs text-muted-foreground font-medium">حالة الطلب</span>
                 <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${getPickupStatusBadge(selectedPickup.status, isEn).badgeClass}`}>
                   {getPickupStatusBadge(selectedPickup.status, isEn).label}
                 </span>
@@ -925,32 +925,32 @@ export const PickupsPage: React.FC = () => {
               {/* Details List */}
               <div className="space-y-3 text-xs">
                 <div className="flex items-start gap-2.5">
-                  <UserCheck className="w-4 h-4 text-slate-400 mt-0.5" />
+                  <UserCheck className="w-4 h-4 text-muted-foreground mt-0.5" />
                   <div>
                     <div className="text-slate-500">مسؤول الاستلام</div>
-                    <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm">
+                    <div className="font-semibold text-foreground dark:text-muted-foreground text-sm">
                       {selectedPickup.contactName}
                     </div>
-                    <div className="font-mono text-slate-500">{selectedPickup.contactPhone}</div>
+                    <div className="font-mono text-muted-foreground">{selectedPickup.contactPhone}</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-slate-400 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-muted-foreground mt-0.5" />
                   <div>
                     <div className="text-slate-500">العنوان والمحافظة</div>
-                    <div className="font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="font-semibold text-foreground dark:text-muted-foreground">
                       {selectedPickup.governorate} {selectedPickup.city ? `- ${selectedPickup.city}` : ''}
                     </div>
-                    <div className="text-slate-600 dark:text-slate-400">{selectedPickup.pickupAddress}</div>
+                    <div className="text-slate-600 dark:text-muted-foreground">{selectedPickup.pickupAddress}</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <Clock className="w-4 h-4 text-slate-400 mt-0.5" />
+                  <Clock className="w-4 h-4 text-muted-foreground mt-0.5" />
                   <div>
                     <div className="text-slate-500">الموعد المحدد</div>
-                    <div className="font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="font-semibold text-foreground dark:text-muted-foreground">
                       {formatDate(selectedPickup.scheduledDate)}
                     </div>
                     {selectedPickup.timeSlot && (
@@ -960,10 +960,10 @@ export const PickupsPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <Boxes className="w-4 h-4 text-slate-400 mt-0.5" />
+                  <Boxes className="w-4 h-4 text-muted-foreground mt-0.5" />
                   <div>
                     <div className="text-slate-500">إحصاء الطرود</div>
-                    <div className="font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="font-semibold text-foreground dark:text-muted-foreground">
                       متوقع: {selectedPickup.expectedParcels} | فعلي: {selectedPickup.actualParcels ?? 'لم يتم بعد'}
                     </div>
                   </div>
@@ -971,10 +971,10 @@ export const PickupsPage: React.FC = () => {
 
                 {selectedPickup.branch && (
                   <div className="flex items-start gap-2.5">
-                    <Building2 className="w-4 h-4 text-slate-400 mt-0.5" />
+                    <Building2 className="w-4 h-4 text-muted-foreground mt-0.5" />
                     <div>
                       <div className="text-slate-500">فرع الاستلام / الهاَب</div>
-                      <div className="font-semibold text-slate-900 dark:text-slate-100">
+                      <div className="font-semibold text-foreground dark:text-muted-foreground">
                         {selectedPickup.branch.name} ({selectedPickup.branch.code})
                       </div>
                     </div>
@@ -982,7 +982,7 @@ export const PickupsPage: React.FC = () => {
                 )}
 
                 {selectedPickup.notes && (
-                  <div className="p-3 bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-300">
+                  <div className="p-3 bg-warning/60 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg text-warning dark:text-warning">
                     <span className="font-bold block mb-1">ملاحظات:</span>
                     {selectedPickup.notes}
                   </div>
@@ -990,10 +990,10 @@ export const PickupsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+            <div className="pt-4 border-t border-border dark:border-border">
               <button
                 onClick={() => setSelectedPickup(null)}
-                className="w-full py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800"
+                className="w-full py-2 border border-border dark:border-border rounded-xl text-xs font-semibold hover:bg-muted dark:hover:bg-muted"
               >
                 إغلاق النافذة
               </button>

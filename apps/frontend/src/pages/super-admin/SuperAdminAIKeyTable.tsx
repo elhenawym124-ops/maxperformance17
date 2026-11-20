@@ -133,8 +133,8 @@ export function KeyManagerTable({
                     <TableCell>
                       <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
                         k.key_type === "CENTRAL"
-                          ? "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20"
-                          : "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20"
+                          ? "bg-purple-500/10 text-primary dark:text-primary border border-primary/20"
+                          : "bg-cyan-500/10 text-info dark:text-info border border-info/20"
                       }`}>
                         {k.key_type === "CENTRAL" ? "مركزي" : "شركة"}
                       </span>
@@ -144,7 +144,7 @@ export function KeyManagerTable({
                         onClick={(e) => { e.stopPropagation(); onToggleStatus(k); }}
                         className={`text-[10px] px-2 py-0.5 rounded font-medium transition-colors ${
                           k.is_active
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border border-success/20 hover:bg-success/20"
                             : "bg-destructive/10 text-destructive border border-destructive/20 hover:bg-destructive/20"
                         }`}
                       >
@@ -207,7 +207,7 @@ export function KeyManagerTable({
                     <button
                       onClick={(e) => { e.stopPropagation(); onToggleStatus(k); }}
                       className={`text-[10px] px-2 py-0.5 rounded font-medium ${
-                        k.is_active ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : "bg-destructive/10 text-destructive border border-destructive/20"
+                        k.is_active ? "bg-emerald-500/10 text-success border border-success/20" : "bg-destructive/10 text-destructive border border-destructive/20"
                       }`}
                     >
                       {k.is_active ? "نشط" : "متوقف"}

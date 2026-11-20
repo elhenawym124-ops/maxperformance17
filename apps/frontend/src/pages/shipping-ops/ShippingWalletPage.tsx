@@ -145,15 +145,15 @@ export const ShippingWalletPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-5 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-5 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
-            <Wallet className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+            <Wallet className="w-6 h-6 text-success dark:text-success" />
             <span>{isEn ? 'Company Wallet & Transactions Ledger' : 'محفظة الشركة ودفتر المعاملات'}</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             {isEn ? 'Live ledger of collections, payouts, and automated system fees' : 'دفتر الحركات المالية المباشرة، تحصيلات COD، رسوم الطباعة، وفتح الشحنات'}
           </p>
         </div>
@@ -161,22 +161,22 @@ export const ShippingWalletPage: React.FC = () => {
           <button
             onClick={loadData}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition active:scale-95 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition active:scale-95 disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             <span>{isEn ? 'Refresh' : 'تحديث'}</span>
           </button>
           <button
             onClick={handleExportCsv}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition active:scale-95"
             title="تصدير CSV مطابق لـ Turbo"
           >
-            <Download className="w-4 h-4 text-slate-600 dark:text-slate-300" />
+            <Download className="w-4 h-4 text-foreground dark:text-muted-foreground" />
             <span>{isEn ? 'Export CSV' : 'تصدير كشف (CSV)'}</span>
           </button>
           <button
             onClick={() => setIsAdjustModalOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-sm transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-success hover:bg-success rounded-lg shadow-sm transition active:scale-95"
           >
             <PlusCircle className="w-4 h-4" />
             <span>{isEn ? 'Manual Adjustment' : 'تسوية يدوية'}</span>
@@ -185,60 +185,60 @@ export const ShippingWalletPage: React.FC = () => {
       </div>
 
       {error && (
-        <div className="p-3.5 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-xs sm:text-sm">
+        <div className="p-3.5 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-xs sm:text-sm">
           {error}
         </div>
       )}
 
       {/* Turbo 3 KPI Financial Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-xl p-4 sm:p-5 shadow-sm border border-slate-700/60">
+        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-xl p-4 sm:p-5 shadow-sm border border-border">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-300">{isEn ? 'Total Balance' : 'الرصيد الإجمالي'}</span>
-            <Wallet className="w-4 h-4 text-emerald-400" />
+            <span className="text-xs font-semibold text-muted-foreground">{isEn ? 'Total Balance' : 'الرصيد الإجمالي'}</span>
+            <Wallet className="w-4 h-4 text-success" />
           </div>
           <div className="text-2xl sm:text-3xl font-bold tabular-nums">
             {loading ? '—' : formatCurrency(wallet?.balance ?? 0, wallet?.currency || 'EGP')}
           </div>
-          <p className="text-[11px] text-slate-400 mt-2">{isEn ? 'Actual cash balance' : 'الرصيد الفعلي الحالي في المحفظة'}</p>
+          <p className="text-[11px] text-muted-foreground mt-2">{isEn ? 'Actual cash balance' : 'الرصيد الفعلي الحالي في المحفظة'}</p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 shadow-sm">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{isEn ? 'Available For Remittance' : 'القابل للتوريد'}</span>
+            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">{isEn ? 'Available For Remittance' : 'القابل للتوريد'}</span>
             <Banknote className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           </div>
           <div className="text-2xl sm:text-3xl font-bold tabular-nums text-blue-600 dark:text-blue-400">
             {loading ? '—' : formatCurrency(wallet?.availableForRemittance ?? 0, wallet?.currency || 'EGP')}
           </div>
-          <p className="text-[11px] text-slate-400 mt-2">{isEn ? 'COD − Fees − Payouts' : 'مجموع COD المحصل − الرسوم − المسحوبات'}</p>
+          <p className="text-[11px] text-muted-foreground mt-2">{isEn ? 'COD − Fees − Payouts' : 'مجموع COD المحصل − الرسوم − المسحوبات'}</p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 shadow-sm">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{isEn ? 'Upcoming Remittance' : 'التوريد القادم'}</span>
-            <Scale className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">{isEn ? 'Upcoming Remittance' : 'التوريد القادم'}</span>
+            <Scale className="w-4 h-4 text-warning dark:text-warning" />
           </div>
-          <div className="text-2xl sm:text-3xl font-bold tabular-nums text-amber-600 dark:text-amber-400">
+          <div className="text-2xl sm:text-3xl font-bold tabular-nums text-warning dark:text-warning">
             {loading ? '—' : formatCurrency(wallet?.upcomingRemittance ?? 0, wallet?.currency || 'EGP')}
           </div>
-          <p className="text-[11px] text-slate-400 mt-2">{isEn ? 'Pending issued statements' : 'صافي كشوف التسوية المعتمدة ISSUED'}</p>
+          <p className="text-[11px] text-muted-foreground mt-2">{isEn ? 'Pending issued statements' : 'صافي كشوف التسوية المعتمدة ISSUED'}</p>
         </div>
       </div>
 
       {/* Filters Toolbar */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 sm:p-4">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 sm:p-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-slate-400" />
-            <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{isEn ? 'Filters:' : 'الفلاتر:'}</span>
+            <Filter className="w-4 h-4 text-muted-foreground" />
+            <span className="text-xs font-medium text-foreground dark:text-muted-foreground">{isEn ? 'Filters:' : 'الفلاتر:'}</span>
           </div>
 
           {/* Type Filter */}
           <select
             value={typeFilter}
             onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-            className="text-xs border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
+            className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
           >
             <option value="">{isEn ? 'All Types' : 'كافة الأنواع'}</option>
             <option value="DEPOSIT">{isEn ? 'Deposit (+)' : 'إيداع (+)'}</option>
@@ -249,7 +249,7 @@ export const ShippingWalletPage: React.FC = () => {
           <select
             value={reasonFilter}
             onChange={(e) => { setReasonFilter(e.target.value); setPage(1); }}
-            className="text-xs border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
+            className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
           >
             <option value="">{isEn ? 'All Reasons' : 'كافة الأسباب'}</option>
             <option value="COD_COLLECTED">{isEn ? 'COD Collected' : 'تحصيل COD'}</option>
@@ -260,13 +260,13 @@ export const ShippingWalletPage: React.FC = () => {
           </select>
 
           {/* Date Range */}
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
-            <Calendar className="w-3.5 h-3.5 text-slate-400" />
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
             <input
               type="date"
               value={fromDate}
               onChange={(e) => { setFromDate(e.target.value); setPage(1); }}
-              className="text-xs border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-2 py-1"
+              className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2 py-1"
               placeholder="من"
             />
             <span>{isEn ? 'to' : 'إلى'}</span>
@@ -274,7 +274,7 @@ export const ShippingWalletPage: React.FC = () => {
               type="date"
               value={toDate}
               onChange={(e) => { setToDate(e.target.value); setPage(1); }}
-              className="text-xs border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-2 py-1"
+              className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2 py-1"
               placeholder="إلى"
             />
           </div>
@@ -289,17 +289,17 @@ export const ShippingWalletPage: React.FC = () => {
             </button>
           )}
 
-          <div className="ml-auto text-xs text-slate-400 font-mono">
+          <div className="ms-auto text-xs text-muted-foreground font-mono">
             {isEn ? `${total} transactions` : `${total} حركة`}
           </div>
         </div>
       </div>
 
       {/* Turbo Transactions Ledger Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-right border-collapse">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-slate-50 dark:bg-muted text-muted-foreground dark:text-muted-foreground border-b border-border dark:border-border">
               <tr>
                 <th className="px-3 py-3 font-semibold">{isEn ? 'ID' : 'المعرف'}</th>
                 <th className="px-3 py-3 font-semibold text-center">{isEn ? 'Type' : 'النوع'}</th>
@@ -312,17 +312,17 @@ export const ShippingWalletPage: React.FC = () => {
                 <th className="px-3 py-3 font-semibold text-center">{isEn ? 'Date' : 'التاريخ'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-slate-400">
-                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-slate-400" />
+                  <td colSpan={9} className="py-12 text-center text-muted-foreground">
+                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-muted-foreground" />
                     <span>{isEn ? 'Loading ledger...' : 'جاري تحميل سجل المعاملات...'}</span>
                   </td>
                 </tr>
               ) : transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-slate-400">
+                  <td colSpan={9} className="py-12 text-center text-muted-foreground">
                     {isEn ? 'No transactions found' : 'لا توجد حركات مسجلة تطابق الفلاتر'}
                   </td>
                 </tr>
@@ -330,16 +330,16 @@ export const ShippingWalletPage: React.FC = () => {
                 transactions.map((tx) => {
                   const isDeposit = tx.type === 'DEPOSIT';
                   return (
-                    <tr key={tx.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
-                      <td className="px-3 py-2.5 font-mono text-[11px] text-slate-500">
+                    <tr key={tx.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition-colors">
+                      <td className="px-3 py-2.5 font-mono text-[11px] text-muted-foreground">
                         {tx.id.slice(0, 8)}...
                       </td>
                       <td className="px-3 py-2.5 text-center">
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${
                             isDeposit
-                              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
-                              : 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
+                              ? 'bg-emerald-50 text-success dark:bg-success/60 dark:text-success'
+                              : 'bg-rose-50 text-destructive dark:bg-destructive/60 dark:text-destructive'
                           }`}
                         >
                           {isDeposit ? <ArrowDownLeft className="w-2.5 h-2.5" /> : <ArrowUpRight className="w-2.5 h-2.5" />}
@@ -347,26 +347,26 @@ export const ShippingWalletPage: React.FC = () => {
                         </span>
                       </td>
                       <td className="px-3 py-2.5 font-medium">
-                        <span className="inline-block px-2 py-0.5 rounded text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+                        <span className="inline-block px-2 py-0.5 rounded text-[11px] bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
                           {tx.reasonLabel || getReasonLabel(tx.reason)}
                         </span>
                       </td>
                       <td className="px-3 py-2.5 font-mono font-medium text-blue-600 dark:text-blue-400">
                         {tx.code || '—'}
                       </td>
-                      <td className={`px-3 py-2.5 text-left font-bold tabular-nums ${isDeposit ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                      <td className={`px-3 py-2.5 text-left font-bold tabular-nums ${isDeposit ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'}`}>
                         {isDeposit ? '+' : '−'}{formatCurrency(tx.amount)}
                       </td>
-                      <td className="px-3 py-2.5 text-left font-semibold tabular-nums text-slate-700 dark:text-slate-300">
+                      <td className="px-3 py-2.5 text-left font-semibold tabular-nums text-foreground dark:text-muted-foreground">
                         {formatCurrency(tx.balanceAfter)}
                       </td>
-                      <td className="px-3 py-2.5 text-slate-500 dark:text-slate-400 max-w-[200px] truncate" title={tx.notes || ''}>
+                      <td className="px-3 py-2.5 text-muted-foreground dark:text-muted-foreground max-w-[200px] truncate" title={tx.notes || ''}>
                         {tx.notes || '—'}
                       </td>
-                      <td className="px-3 py-2.5 text-slate-500 text-[11px]">
+                      <td className="px-3 py-2.5 text-muted-foreground text-[11px]">
                         {tx.createdBy || 'SYSTEM'}
                       </td>
-                      <td className="px-3 py-2.5 text-center font-mono text-[11px] text-slate-400">
+                      <td className="px-3 py-2.5 text-center font-mono text-[11px] text-muted-foreground">
                         {formatDate(tx.createdAt)}
                       </td>
                     </tr>
@@ -379,7 +379,7 @@ export const ShippingWalletPage: React.FC = () => {
 
         {/* Pagination */}
         {pages > 1 && (
-          <div className="flex items-center justify-between p-3 border-t border-slate-200 dark:border-slate-800 text-xs">
+          <div className="flex items-center justify-between p-3 border-t border-border dark:border-border text-xs">
             <span className="text-slate-400 font-mono">
               {isEn ? `Page ${page} of ${pages}` : `صفحة ${page} من ${pages}`}
             </span>
@@ -387,14 +387,14 @@ export const ShippingWalletPage: React.FC = () => {
               <button
                 disabled={page <= 1 || loading}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="px-2.5 py-1 border border-slate-300 dark:border-slate-700 rounded hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+                className="px-2.5 py-1 border border-border dark:border-border rounded hover:bg-muted dark:hover:bg-muted disabled:opacity-40"
               >
                 {isEn ? 'Previous' : 'السابق'}
               </button>
               <button
                 disabled={page >= pages || loading}
                 onClick={() => setPage((p) => Math.min(pages, p + 1))}
-                className="px-2.5 py-1 border border-slate-300 dark:border-slate-700 rounded hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+                className="px-2.5 py-1 border border-border dark:border-border rounded hover:bg-muted dark:hover:bg-muted disabled:opacity-40"
               >
                 {isEn ? 'Next' : 'التالي'}
               </button>
@@ -406,19 +406,19 @@ export const ShippingWalletPage: React.FC = () => {
       {/* Manual Adjustment Modal */}
       {isAdjustModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md p-5 shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-md p-5 shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <h3 className="text-base font-bold flex items-center gap-2">
-                <PlusCircle className="w-5 h-5 text-emerald-600" />
+                <PlusCircle className="w-5 h-5 text-success" />
                 <span>{isEn ? 'Manual Wallet Adjustment' : 'تسوية يدوية للرصيد'}</span>
               </h3>
-              <button onClick={() => setIsAdjustModalOpen(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setIsAdjustModalOpen(false)} className="text-slate-400 hover:text-foreground">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {adjustError && (
-              <div className="p-3 bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300 rounded-lg text-xs">
+              <div className="p-3 bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive rounded-lg text-xs">
                 {adjustError}
               </div>
             )}
@@ -432,8 +432,8 @@ export const ShippingWalletPage: React.FC = () => {
                     onClick={() => setAdjustType('DEPOSIT')}
                     className={`py-2 rounded-lg font-semibold border ${
                       adjustType === 'DEPOSIT'
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
-                        : 'border-slate-300 dark:border-slate-700'
+                        ? 'border-emerald-500 bg-success/10 text-success dark:bg-success/50 dark:text-success'
+                        : 'border-slate-300 dark:border-border'
                     }`}
                   >
                     + {isEn ? 'Deposit' : 'إيداع'}
@@ -443,8 +443,8 @@ export const ShippingWalletPage: React.FC = () => {
                     onClick={() => setAdjustType('WITHDRAW')}
                     className={`py-2 rounded-lg font-semibold border ${
                       adjustType === 'WITHDRAW'
-                        ? 'border-rose-500 bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300'
-                        : 'border-slate-300 dark:border-slate-700'
+                        ? 'border-rose-500 bg-destructive/10 text-destructive dark:bg-destructive/50 dark:text-destructive'
+                        : 'border-slate-300 dark:border-border'
                     }`}
                   >
                     − {isEn ? 'Withdraw' : 'سحب / خصم'}
@@ -461,7 +461,7 @@ export const ShippingWalletPage: React.FC = () => {
                   value={adjustAmount}
                   onChange={(e) => setAdjustAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-sm font-semibold focus:ring-1 focus:ring-emerald-500"
+                  className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-semibold focus:ring-1 focus:ring-success"
                 />
               </div>
 
@@ -472,7 +472,7 @@ export const ShippingWalletPage: React.FC = () => {
                   value={adjustCode}
                   onChange={(e) => setAdjustCode(e.target.value)}
                   placeholder="مثال: ADJ-2026-01"
-                  className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2"
+                  className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2"
                 />
               </div>
 
@@ -484,7 +484,7 @@ export const ShippingWalletPage: React.FC = () => {
                   value={adjustNotes}
                   onChange={(e) => setAdjustNotes(e.target.value)}
                   placeholder="وثّق سبب التسوية بالتفصيل لملف التدقيق..."
-                  className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2"
+                  className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2"
                 />
               </div>
 
@@ -492,14 +492,14 @@ export const ShippingWalletPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAdjustModalOpen(false)}
-                  className="px-3.5 py-2 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
+                  className="px-3.5 py-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   {isEn ? 'Cancel' : 'إلغاء'}
                 </button>
                 <button
                   type="submit"
                   disabled={adjustLoading}
-                  className="px-4 py-2 font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg disabled:opacity-50"
+                  className="px-4 py-2 font-semibold text-white bg-success hover:bg-success rounded-lg disabled:opacity-50"
                 >
                   {adjustLoading ? (isEn ? 'Saving...' : 'جاري الحفظ...') : (isEn ? 'Save Adjustment' : 'حفظ التعديل')}
                 </button>

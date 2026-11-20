@@ -184,8 +184,8 @@ export default function SuperAdminPaymentSettings() {
               <span
                 className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium border ${
                   isLive
-                    ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                    : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                 }`}
               >
                 <span
@@ -249,17 +249,17 @@ export default function SuperAdminPaymentSettings() {
             onClick={() => handleChange("mode", "test")}
             className={`p-3 rounded-lg border text-right transition-all flex flex-col justify-between ${
               settings.mode === "test"
-                ? "border-amber-500/40 bg-amber-500/5 shadow-2xs"
+                ? "border-amber-500/40 bg-warning/5 shadow-2xs"
                 : "border-border/60 bg-muted/10 hover:bg-muted/30"
             }`}
           >
             <div className="flex items-center justify-between mb-1">
               <span className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-                <Settings className="size-3.5 text-amber-500" />
+                <Settings className="size-3.5 text-warning" />
                 وضع الاختبار (Sandbox)
               </span>
               {settings.mode === "test" && (
-                <span className="size-2 rounded-full bg-amber-500" />
+                <span className="size-2 rounded-full bg-warning" />
               )}
             </div>
             <p className="text-[11px] text-muted-foreground">
@@ -272,17 +272,17 @@ export default function SuperAdminPaymentSettings() {
             onClick={() => handleChange("mode", "live")}
             className={`p-3 rounded-lg border text-right transition-all flex flex-col justify-between ${
               settings.mode === "live"
-                ? "border-emerald-500/40 bg-emerald-500/5 shadow-2xs"
+                ? "border-emerald-500/40 bg-success/5 shadow-2xs"
                 : "border-border/60 bg-muted/10 hover:bg-muted/30"
             }`}
           >
             <div className="flex items-center justify-between mb-1">
               <span className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-                <Zap className="size-3.5 text-emerald-500" />
+                <Zap className="size-3.5 text-success" />
                 وضع الإنتاج (Production)
               </span>
               {settings.mode === "live" && (
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="size-2 rounded-full bg-success animate-pulse" />
               )}
             </div>
             <p className="text-[11px] text-muted-foreground">
@@ -292,7 +292,7 @@ export default function SuperAdminPaymentSettings() {
         </div>
 
         {isLive && (
-          <div className="flex items-start gap-2 text-xs text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5">
+          <div className="flex items-start gap-2 text-xs text-warning dark:text-warning bg-warning/10 border border-warning/20 rounded-lg p-2.5">
             <AlertCircle className="size-4 shrink-0 mt-0.5" />
             <span>
               أنت في وضع الإنتاج — ستُحصَّل مبالغ حقيقية من التجار. تأكد من صحة البيانات المسجلة.
@@ -333,7 +333,7 @@ export default function SuperAdminPaymentSettings() {
                 value={settings.apiKey}
                 onChange={(e) => handleChange("apiKey", e.target.value)}
                 placeholder="api_key_xxxxxxxxxxxxxx"
-                className="h-8 text-xs font-mono bg-background pl-8"
+                className="h-8 text-xs font-mono bg-background ps-8"
               />
               <button
                 type="button"
@@ -363,7 +363,7 @@ export default function SuperAdminPaymentSettings() {
                     ? "محفوظ بأمان — أدخل قيمة جديدة للتغيير"
                     : "secret_key_xxxxxxxxxxxxxx"
                 }
-                className="h-8 text-xs font-mono bg-background pl-8"
+                className="h-8 text-xs font-mono bg-background ps-8"
               />
               <button
                 type="button"
@@ -455,7 +455,7 @@ export default function SuperAdminPaymentSettings() {
         <div
           className={`flex items-start gap-2.5 p-3 rounded-xl border text-xs ${
             testResult.success
-              ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400"
+              ? "bg-emerald-500/10 border-success/20 text-success dark:text-success"
               : "bg-destructive/10 border-destructive/20 text-destructive"
           }`}
         >

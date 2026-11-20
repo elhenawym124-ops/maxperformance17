@@ -97,11 +97,11 @@ const defaultPriorityColors: Record<string, string> = {
 
 const typeIcons: Record<string, React.ReactNode> = {
   BUG: <Bug className="size-3.5 text-destructive" />,
-  FEATURE: <Sparkles className="size-3.5 text-emerald-500" />,
+  FEATURE: <Sparkles className="size-3.5 text-success" />,
   ENHANCEMENT: <Wrench className="size-3.5 text-blue-500" />,
-  DOCUMENTATION: <FileText className="size-3.5 text-purple-500" />,
-  SECURITY: <ShieldAlert className="size-3.5 text-orange-500" />,
-  PERFORMANCE: <Zap className="size-3.5 text-amber-500" />,
+  DOCUMENTATION: <FileText className="size-3.5 text-primary" />,
+  SECURITY: <ShieldAlert className="size-3.5 text-warning" />,
+  PERFORMANCE: <Zap className="size-3.5 text-warning" />,
 };
 
 const DevKanbanBoard: React.FC = () => {
@@ -396,7 +396,7 @@ const DevKanbanBoard: React.FC = () => {
                 لوحة مهام التطوير (Kanban Board)
               </h1>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border border-border/80 bg-muted/30">
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="size-1.5 rounded-full bg-success animate-pulse" />
                 {totalTasksCount} مهمة
               </span>
             </div>
@@ -417,7 +417,7 @@ const DevKanbanBoard: React.FC = () => {
               onChange={(e) =>
                 setFilters((prev) => ({ ...prev, search: e.target.value }))
               }
-              className="pr-8 h-8 text-xs font-mono w-48 sm:w-60 bg-background/50"
+              className="pe-8 h-8 text-xs font-mono w-48 sm:w-60 bg-background/50"
             />
           </div>
 

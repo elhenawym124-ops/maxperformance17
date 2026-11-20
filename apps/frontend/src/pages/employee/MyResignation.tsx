@@ -148,11 +148,11 @@ const MyResignation = () => {
         const getStatusBadge = (status: string) => {
         switch (status) {
             case "PENDING":
-                return <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-200 border-none px-3 py-1 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {t("employee.resignation.pendingStatus")}</Badge>;
+                return <Badge className="bg-yellow-100 text-warning hover:bg-warning border-none px-3 py-1 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {t("employee.resignation.pendingStatus")}</Badge>;
             case "APPROVED":
-                return <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-none px-3 py-1 flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5" /> {t("employee.resignation.approvedStatus")}</Badge>;
+                return <Badge className="bg-green-100 text-success hover:bg-success border-none px-3 py-1 flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5" /> {t("employee.resignation.approvedStatus")}</Badge>;
             case "REJECTED":
-                return <Badge className="bg-red-100 text-red-700 hover:bg-red-200 border-none px-3 py-1 flex items-center gap-1.5"><XCircle className="w-3.5 h-3.5" /> {t("employee.resignation.rejectedStatus")}</Badge>;
+                return <Badge className="bg-red-100 text-destructive hover:bg-destructive border-none px-3 py-1 flex items-center gap-1.5"><XCircle className="w-3.5 h-3.5" /> {t("employee.resignation.rejectedStatus")}</Badge>;
             case "SETTLED":
                 return <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 border-none px-3 py-1 flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5" /> {t("employee.resignation.settledStatus")}</Badge>;
             default:
@@ -190,7 +190,7 @@ const MyResignation = () => {
                         onClick={() => setShowForm(true)}
                         size="lg"
                         variant="destructive"
-                        className="rounded-full px-8 shadow-lg hover:shadow-red-500/20 transition-all active:scale-95"
+                        className="rounded-full px-8 shadow-lg hover:shadow-destructive/20 transition-all active:scale-95"
                     >
                         {t("employee.resignation.newRequest")}
                     </Button>
@@ -205,10 +205,10 @@ const MyResignation = () => {
                         exit={{ opacity: 0, y: -20 }}
                         className="w-full"
                     >
-                        <Card className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+                        <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
                             
                             <CardHeader>
-                                <CardTitle className="text-xl flex items-center gap-2 text-red-700">
+                                <CardTitle className="text-xl flex items-center gap-2 text-destructive">
                                     <AlertCircle className="w-5 h-5" />
                                     {t("employee.resignation.detailsTitle")}
                                 </CardTitle>
@@ -221,8 +221,8 @@ const MyResignation = () => {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         {/* Resignation Date */}
                                         <div className="space-y-3">
-                                            <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
-                                                <Calendar className="w-4 h-4 text-red-500" />
+                                            <Label className="text-base font-semibold text-foreground flex items-center gap-2">
+                                                <Calendar className="w-4 h-4 text-destructive" />
                                                 {t("employee.resignation.resignationDate")}
                                                 <TooltipProvider shadow={true}>
                                                     <Tooltip>
@@ -237,33 +237,33 @@ const MyResignation = () => {
                                             </Label>
                                             <DateInput
                                                 
-                                                className="h-12 text-lg border-gray-200 focus:border-red-500 focus:ring-red-200 transition-all bg-white"
+                                                className="h-12 text-lg border-border focus:border-destructive focus:ring-destructive transition-all bg-white"
                                                 {...register("resignationDate", { required: t("employee.resignation.dateRequired") })}
                                                 onChange={(e) => {
                                                     register("resignationDate").onChange(e);
                                                     handleDateChange(e);
                                                 }}
                                             />
-                                            {errors.resignationDate && <p className="text-sm text-red-500 font-medium">{errors.resignationDate.message}</p>}
+                                            {errors.resignationDate && <p className="text-sm text-destructive font-medium">{errors.resignationDate.message}</p>}
                                         </div>
 
                                         {/* Last Working Day */}
                                         <div className="space-y-3">
-                                            <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+                                            <Label className="text-base font-semibold text-foreground flex items-center gap-2">
                                                 <Calendar className="w-4 h-4 text-blue-500" />
                                                 {t("employee.resignation.lastWorkingDay")}
                                             </Label>
                                             <DateInput
                                                 
-                                                className="h-12 text-lg border-gray-200 focus:border-blue-500 focus:ring-blue-200 transition-all bg-white"
+                                                className="h-12 text-lg border-border focus:border-blue-500 focus:ring-blue-200 transition-all bg-white"
                                                 {...register("lastWorkingDay", { required: t("employee.resignation.lastWorkingDayRequired") })}
                                             />
-                                            {errors.lastWorkingDay && <p className="text-sm text-red-500 font-medium">{errors.lastWorkingDay.message}</p>}
+                                            {errors.lastWorkingDay && <p className="text-sm text-destructive font-medium">{errors.lastWorkingDay.message}</p>}
                                         </div>
                                     </div>
 
                                     {/* Policy Info */}
-                                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 flex items-start gap-4 shadow-sm">
+                                    <div className="bg-gradient-to-br from-blue-50 to-primary border border-blue-100 rounded-xl p-6 flex items-start gap-4 shadow-sm">
                                         <div className="bg-white p-2.5 rounded-xl shadow-sm border border-blue-100">
                                             <Info className="h-6 w-6 text-blue-600" />
                                         </div>
@@ -279,21 +279,21 @@ const MyResignation = () => {
 
                                     {/* Reason */}
                                     <div className="space-y-3">
-                                        <Label className="text-base font-semibold text-gray-700">{t("employee.resignation.reasonOptional")}</Label>
+                                        <Label className="text-base font-semibold text-foreground">{t("employee.resignation.reasonOptional")}</Label>
                                         <Textarea
                                             placeholder={String(t("employee.resignation.reasonPlaceholder"))}
-                                            className="min-h-[150px] text-lg border-gray-200 focus:border-red-500 focus:ring-red-200 transition-all bg-white p-4 resize-none"
+                                            className="min-h-[150px] text-lg border-border focus:border-destructive focus:ring-destructive transition-all bg-white p-4 resize-none"
                                             {...register("reason")}
                                         />
                                     </div>
 
-                                    <div className="flex flex-col sm:flex-row justify-end gap-4 pt-4 border-t border-gray-100">
+                                    <div className="flex flex-col sm:flex-row justify-end gap-4 pt-4 border-t border-border">
                                         <Button
                                             type="button"
                                             variant="ghost"
                                             size="lg"
                                             onClick={() => setShowForm(false)}
-                                            className="text-gray-500 hover:bg-gray-100 px-8"
+                                            className="text-gray-500 hover:bg-muted px-8"
                                         >
                                             {t("employee.resignation.cancelEdit")}
                                         </Button>
@@ -301,7 +301,7 @@ const MyResignation = () => {
                                             type="submit"
                                             disabled={loading}
                                             size="lg"
-                                            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 shadow-lg shadow-red-500/20 active:scale-95 transition-all"
+                                            className="bg-gradient-to-r from-destructive to-destructive hover:from-destructive hover:to-destructive text-white px-10 shadow-lg shadow-destructive/20 active:scale-95 transition-all"
                                         >
                                             {loading ? (
                                                 <div className="flex items-center gap-2">
@@ -328,12 +328,12 @@ const MyResignation = () => {
                     >
                         {/* Active Request Indicator */}
                         {hasPending && (
-                            <div className="p-6 rounded-3xl bg-amber-50 border border-amber-200 flex items-center gap-6 shadow-sm">
-                                <div className="bg-white p-4 rounded-2xl shadow-sm border border-amber-200">
-                                    <Clock className="w-8 h-8 text-amber-500 animate-[pulse_2s_infinite]" />
+                            <div className="p-6 rounded-xl bg-warning/10 border border-warning flex items-center gap-6 shadow-sm">
+                                <div className="bg-white p-4 rounded-xl shadow-sm border border-warning">
+                                    <Clock className="w-8 h-8 text-warning animate-[pulse_2s_infinite]" />
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-xl font-bold text-amber-900 mb-1">{t("employee.resignation.underReview")}</h3>
+                                    <h3 className="text-xl font-bold text-warning mb-1">{t("employee.resignation.underReview")}</h3>
                                     <p className="text-amber-800/80 font-medium">{t("employee.resignation.underReviewDesc")}</p>
                                 </div>
                             </div>
@@ -341,23 +341,23 @@ const MyResignation = () => {
 
                         {/* History Section */}
                         <div className="space-y-4">
-                            <div className="flex items-center gap-2 text-gray-500 font-semibold mb-4 text-lg">
+                            <div className="flex items-center gap-2 text-muted-foreground font-semibold mb-4 text-lg">
                                 <History className="w-5 h-5" />
                                 {t("employee.resignation.previousRequests")}
                             </div>
 
                             {history.length === 0 ? (
-                                <div className="bg-white/50 backdrop-blur-sm border-2 border-dashed border-gray-200 rounded-3xl p-16 text-center space-y-4">
-                                    <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-2 border border-gray-100 shadow-inner">
-                                        <FileX className="w-10 h-10 text-gray-300" />
+                                <div className="bg-white/50 backdrop-blur-sm border-2 border-dashed border-border rounded-xl p-16 text-center space-y-4">
+                                    <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-2 border border-border shadow-inner">
+                                        <FileX className="w-10 h-10 text-muted-foreground" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-800">{t("employee.resignation.noPreviousRequests")}</h3>
+                                    <h3 className="text-2xl font-bold text-foreground">{t("employee.resignation.noPreviousRequests")}</h3>
                                     <p className="text-gray-500 text-lg max-w-md mx-auto">{t("employee.resignation.noPreviousRequestsDesc")}</p>
                                     {!showForm && (
                                         <Button
                                             onClick={() => setShowForm(true)}
                                             variant="outline"
-                                            className="mt-4 rounded-full px-8 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300"
+                                            className="mt-4 rounded-full px-8 border-destructive text-destructive hover:bg-destructive/10 hover:border-destructive"
                                         >
                                             {t("employee.resignation.startNewRequest")}
                                         </Button>
@@ -385,21 +385,21 @@ const MyResignation = () => {
                                                         {t("employee.resignation.submittedOn", { date: new Date(req.resignationDate).toLocaleDateString('ar-EG') })}
                                                     </CardTitle>
                                                 </CardHeader>
-                                                <CardContent className="space-y-4 text-sm text-gray-600 pb-6 pt-0">
-                                                    <div className="flex items-center gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+                                                <CardContent className="space-y-4 text-sm text-foreground pb-6 pt-0">
+                                                    <div className="flex items-center gap-2 bg-muted p-2.5 rounded-xl border border-border">
                                                         <Clock className="w-4 h-4 text-blue-500" />
                                                         <span className="font-semibold">{t("employee.resignation.lastDay")}</span>
                                                         <span className="text-blue-700">{new Date(req.lastWorkingDay).toLocaleDateString('ar-EG')}</span>
                                                     </div>
                                                     {req.reason && (
                                                         <div className="space-y-1.5">
-                                                            <span className="font-semibold text-gray-700 block">{t("employee.resignation.reason")}</span>
-                                                            <p className="line-clamp-2 text-gray-500 bg-gray-50/50 p-2 rounded-lg italic font-medium leading-relaxed">"{req.reason}"</p>
+                                                            <span className="font-semibold text-foreground block">{t("employee.resignation.reason")}</span>
+                                                            <p className="line-clamp-2 text-muted-foreground bg-muted p-2 rounded-lg italic font-medium leading-relaxed">"{req.reason}"</p>
                                                         </div>
                                                     )}
                                                     {req.exitInterview && (
-                                                        <div className="mt-4 p-3 bg-indigo-50/50 border border-indigo-100 rounded-xl">
-                                                            <span className="font-bold text-indigo-700 block mb-1 underline decoration-indigo-200">{t("employee.resignation.exitInterviewNotes")}</span>
+                                                        <div className="mt-4 p-3 bg-primary/50 border border-primary rounded-xl">
+                                                            <span className="font-bold text-primary block mb-1 underline decoration-primary">{t("employee.resignation.exitInterviewNotes")}</span>
                                                             <p className="text-indigo-900/80 leading-relaxed font-medium">{req.exitInterview}</p>
                                                         </div>
                                                     )}

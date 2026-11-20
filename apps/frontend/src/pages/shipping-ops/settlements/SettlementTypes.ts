@@ -95,7 +95,7 @@ export const SETTLEMENT_STATUS_MAP: Record<
   DRAFT: {
     labelAr: 'مسودة',
     labelEn: 'Draft',
-    badgeClass: 'bg-slate-100 text-slate-700 border-slate-300 dark:bg-slate-800 dark:text-slate-300',
+    badgeClass: 'bg-slate-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground',
   },
   ISSUED: {
     labelAr: 'تم الإصدار',
@@ -105,17 +105,17 @@ export const SETTLEMENT_STATUS_MAP: Record<
   APPROVED: {
     labelAr: 'معتمد',
     labelEn: 'Approved',
-    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300',
+    badgeClass: 'bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success',
   },
   PAID: {
     labelAr: 'تم التوريد والصرف',
     labelEn: 'Paid',
-    badgeClass: 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/40 dark:text-teal-300',
+    badgeClass: 'bg-teal-50 text-success border-success dark:bg-success/40 dark:text-success',
   },
   REJECTED: {
     labelAr: 'مرفوض',
     labelEn: 'Rejected',
-    badgeClass: 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300',
+    badgeClass: 'bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive',
   },
 };
 

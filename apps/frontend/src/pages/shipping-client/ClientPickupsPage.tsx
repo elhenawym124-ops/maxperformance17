@@ -15,11 +15,11 @@ const GOVERNORATES = [
 ];
 
 const PICKUP_STATUS_STYLES: Record<string, { label: string; className: string }> = {
-  REQUESTED: { label: 'قيد الطلب', className: 'bg-amber-50 text-amber-700 border-amber-200' },
+  REQUESTED: { label: 'قيد الطلب', className: 'bg-amber-50 text-warning border-warning' },
   SCHEDULED: { label: 'مجدول', className: 'bg-blue-50 text-blue-700 border-blue-200' },
-  ASSIGNED: { label: 'تم إسناد مندوب', className: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  COMPLETED: { label: 'تم الاستلام', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  CANCELLED: { label: 'ملغي', className: 'bg-gray-100 text-gray-700 border-gray-200' },
+  ASSIGNED: { label: 'تم إسناد مندوب', className: 'bg-indigo-50 text-primary border-primary' },
+  COMPLETED: { label: 'تم الاستلام', className: 'bg-emerald-50 text-success border-success' },
+  CANCELLED: { label: 'ملغي', className: 'bg-gray-100 text-foreground border-border' },
 };
 
 export default function ClientPickupsPage() {
@@ -94,10 +94,10 @@ export default function ClientPickupsPage() {
   return (
     <div className="space-y-5 w-full max-w-[1800px] mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-2 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-2 border-b border-border">
         <div>
-          <h1 className="text-lg font-bold text-gray-900">طلبات الاستلام (البيكاب)</h1>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <h1 className="text-lg font-bold text-foreground">طلبات الاستلام (البيكاب)</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             طلب حضور مندوب الشحن لاستلام الطرود من مقرك أو مخزنك
           </p>
         </div>
@@ -110,21 +110,21 @@ export default function ClientPickupsPage() {
       </div>
 
       {error && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-700 text-xs">
+        <div className="p-3 bg-destructive/10 border border-destructive rounded text-destructive text-xs">
           {error}
         </div>
       )}
 
       {/* Table */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg border border-border overflow-hidden">
         {loading ? (
-          <div className="py-16 text-center text-xs text-gray-400">جاري تحميل طلبات البيكاب...</div>
+          <div className="py-16 text-center text-xs text-muted-foreground">جاري تحميل طلبات البيكاب...</div>
         ) : pickups.length === 0 ? (
-          <div className="py-16 text-center text-xs text-gray-400">لا توجد طلبات بيكاب سابقة</div>
+          <div className="py-16 text-center text-xs text-muted-foreground">لا توجد طلبات بيكاب سابقة</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-right text-xs">
-              <thead className="bg-gray-50 text-gray-500 border-b border-gray-200">
+              <thead className="bg-gray-50 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="px-4 py-2.5 font-medium">رقم الطلب</th>
                   <th className="px-4 py-2.5 font-medium">تاريخ الاستلام</th>
@@ -135,28 +135,28 @@ export default function ClientPickupsPage() {
                   <th className="px-4 py-2.5 font-medium">الحالة</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-border">
                 {pickups.map((p) => {
                   const statusInfo = PICKUP_STATUS_STYLES[p.status] || {
                     label: p.status,
-                    className: 'bg-gray-50 text-gray-600 border-gray-200',
+                    className: 'bg-gray-50 text-foreground border-border',
                   };
                   return (
                     <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-4 py-3 font-mono font-medium text-blue-600">
                         {p.pickupNumber}
                       </td>
-                      <td className="px-4 py-3 text-gray-900 font-medium tabular-nums">
+                      <td className="px-4 py-3 text-foreground font-medium tabular-nums">
                         {new Date(p.scheduledDate).toLocaleDateString('ar-EG')}
                       </td>
-                      <td className="px-4 py-3 text-gray-600">{p.timeSlot || 'طوال اليوم'}</td>
-                      <td className="px-4 py-3 text-gray-900">
+                      <td className="px-4 py-3 text-foreground">{p.timeSlot || 'طوال اليوم'}</td>
+                      <td className="px-4 py-3 text-foreground">
                         {p.contactName} ({p.contactPhone})
                       </td>
-                      <td className="px-4 py-3 text-gray-600 truncate max-w-[200px]">
+                      <td className="px-4 py-3 text-foreground truncate max-w-[200px]">
                         {p.governorate} — {p.pickupAddress}
                       </td>
-                      <td className="px-4 py-3 tabular-nums font-semibold text-gray-900">
+                      <td className="px-4 py-3 tabular-nums font-semibold text-foreground">
                         {p.expectedParcels} طرد
                       </td>
                       <td className="px-4 py-3">
@@ -178,19 +178,19 @@ export default function ClientPickupsPage() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg border border-gray-200 w-full max-w-lg p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h2 className="text-sm font-bold text-gray-900">طلب بيكاب جديد</h2>
+          <div className="bg-white rounded-lg border border-border w-full max-w-lg p-5 space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-border">
+              <h2 className="text-sm font-bold text-foreground">طلب بيكاب جديد</h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-gray-600 text-sm"
+                className="text-gray-400 hover:text-foreground text-sm"
               >
                 ✕
               </button>
             </div>
 
             {formError && (
-              <div className="p-2.5 bg-rose-50 border border-rose-200 rounded text-rose-700 text-xs">
+              <div className="p-2.5 bg-destructive/10 border border-destructive rounded text-destructive text-xs">
                 {formError}
               </div>
             )}
@@ -198,36 +198,36 @@ export default function ClientPickupsPage() {
             <form onSubmit={handleCreatePickup} className="space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">اسم المسؤول *</label>
+                  <label className="block text-foreground font-medium mb-1">اسم المسؤول *</label>
                   <input
                     type="text"
                     required
                     value={contactName}
                     onChange={(e) => setContactName(e.target.value)}
                     placeholder="أحمد علي"
-                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                    className="w-full px-3 py-2 border border-border rounded"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">رقم الهاتف *</label>
+                  <label className="block text-foreground font-medium mb-1">رقم الهاتف *</label>
                   <input
                     type="tel"
                     required
                     value={contactPhone}
                     onChange={(e) => setContactPhone(e.target.value)}
                     placeholder="010XXXXXXXX"
-                    className="w-full px-3 py-2 border border-gray-300 rounded font-mono"
+                    className="w-full px-3 py-2 border border-border rounded font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">المحافظة *</label>
+                  <label className="block text-foreground font-medium mb-1">المحافظة *</label>
                   <select
                     value={governorate}
                     onChange={(e) => setGovernorate(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded bg-white"
+                    className="w-full px-3 py-2 border border-border rounded bg-white"
                   >
                     {GOVERNORATES.map((g) => (
                       <option key={g} value={g}>
@@ -237,46 +237,46 @@ export default function ClientPickupsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">المدينة / المنطقة</label>
+                  <label className="block text-foreground font-medium mb-1">المدينة / المنطقة</label>
                   <input
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     placeholder="العبور، العاشر من رمضان..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded"
+                    className="w-full px-3 py-2 border border-border rounded"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium mb-1">عنوان الاستلام بالتفصيل *</label>
+                <label className="block text-foreground font-medium mb-1">عنوان الاستلام بالتفصيل *</label>
                 <input
                   type="text"
                   required
                   value={pickupAddress}
                   onChange={(e) => setPickupAddress(e.target.value)}
                   placeholder="الشارع، المخزن، المعلم المميز"
-                  className="w-full px-3 py-2 border border-gray-300 rounded"
+                  className="w-full px-3 py-2 border border-border rounded"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">تاريخ الاستلام *</label>
+                  <label className="block text-foreground font-medium mb-1">تاريخ الاستلام *</label>
                   <input
                     type="date"
                     required
                     value={scheduledDate}
                     onChange={(e) => setScheduledDate(e.target.value)}
-                    className="w-full px-2.5 py-2 border border-gray-300 rounded"
+                    className="w-full px-2.5 py-2 border border-border rounded"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">الفترة الزمنية</label>
+                  <label className="block text-foreground font-medium mb-1">الفترة الزمنية</label>
                   <select
                     value={timeSlot}
                     onChange={(e) => setTimeSlot(e.target.value)}
-                    className="w-full px-2 py-2 border border-gray-300 rounded bg-white"
+                    className="w-full px-2 py-2 border border-border rounded bg-white"
                   >
                     <option value="10:00 - 14:00">صباحاً (10 - 2)</option>
                     <option value="14:00 - 18:00">مساءً (2 - 6)</option>
@@ -284,33 +284,33 @@ export default function ClientPickupsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">عدد الطرود</label>
+                  <label className="block text-foreground font-medium mb-1">عدد الطرود</label>
                   <input
                     type="number"
                     min="1"
                     value={expectedParcels}
                     onChange={(e) => setExpectedParcels(Math.max(1, parseInt(e.target.value, 10) || 1))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded tabular-nums"
+                    className="w-full px-3 py-2 border border-border rounded tabular-nums"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium mb-1">ملاحظات إضافية</label>
+                <label className="block text-foreground font-medium mb-1">ملاحظات إضافية</label>
                 <textarea
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="تعليمات للمندوب أو موقع المخزن"
-                  className="w-full px-3 py-2 border border-gray-300 rounded"
+                  className="w-full px-3 py-2 border border-border rounded"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
+              <div className="flex justify-end gap-2 pt-2 border-t border-border">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-3 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
+                  className="px-3 py-2 border border-border rounded text-foreground hover:bg-muted"
                 >
                   إلغاء
                 </button>

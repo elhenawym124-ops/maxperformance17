@@ -30,16 +30,16 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
   const isEn = i18n.language === 'en';
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+    <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-xs text-right">
-          <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 font-semibold">
+          <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-muted-foreground font-semibold">
             <tr>
               <th className="px-4 py-3 w-10 text-center">
                 <button
                   type="button"
                   onClick={onSelectAll}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground"
                 >
                   {shipments.length > 0 && selectedIds.length === shipments.length ? (
                     <CheckSquare className="w-4 h-4 text-blue-600" />
@@ -55,7 +55,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
               <th className="px-4 py-3">تاريخ الوصول للفرع</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-border dark:divide-border">
             {shipments.map((s) => {
               const isSelected = selectedIds.includes(s.id);
               const badge = getStatusBadge(s.status, isEn);
@@ -67,7 +67,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
               return (
                 <tr
                   key={s.id}
-                  className={`hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition cursor-pointer ${
+                  className={`hover:bg-slate-50/60 dark:hover:bg-muted transition cursor-pointer ${
                     isSelected ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
                   }`}
                   onClick={() => onToggleSelect(s.id)}
@@ -76,7 +76,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
                     <button
                       type="button"
                       onClick={() => onToggleSelect(s.id)}
-                      className="text-slate-400 hover:text-slate-600"
+                      className="text-slate-400 hover:text-foreground"
                     >
                       {isSelected ? (
                         <CheckSquare className="w-4 h-4 text-blue-600" />
@@ -86,21 +86,21 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
                     </button>
                   </td>
                   <td className="px-4 py-3 font-mono">
-                    <div className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+                    <div className="font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
                       <span>{s.trackingNumber}</span>
                       {isAging && (
-                        <span className="px-1.5 py-0.2 rounded text-[10px] bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-sans font-medium">
+                        <span className="px-1.5 py-0.2 rounded text-[10px] bg-warning dark:bg-warning text-warning dark:text-warning font-sans font-medium">
                           &gt;48h
                         </span>
                       )}
                     </div>
-                    {s.barcode && <div className="text-[11px] text-slate-400">{s.barcode}</div>}
+                    {s.barcode && <div className="text-[11px] text-muted-foreground">{s.barcode}</div>}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="font-medium text-slate-800 dark:text-slate-200">
+                    <div className="font-medium text-foreground dark:text-muted-foreground">
                       {s.recipientName || '—'}
                     </div>
-                    <div className="text-[11px] text-slate-400">
+                    <div className="text-[11px] text-muted-foreground">
                       {s.destinationGovernorate || ''}{' '}
                       {s.destinationCity ? `• ${s.destinationCity}` : ''}
                     </div>
@@ -112,10 +112,10 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
                       {badge.label}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-left font-mono font-bold text-slate-900 dark:text-slate-100">
+                  <td className="px-4 py-3 text-left font-mono font-bold text-foreground dark:text-muted-foreground">
                     {formatCurrency(s.codAmount)}
                   </td>
-                  <td className="px-4 py-3 text-slate-500 text-[11px]">
+                  <td className="px-4 py-3 text-muted-foreground text-[11px]">
                     {formatDate(s.lastBranchAt || s.createdAt)}
                   </td>
                 </tr>
@@ -124,7 +124,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
 
             {shipments.length === 0 && !loading && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-slate-400">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
                   لا توجد شحنات بعهدة هذا الفرع حالياً
                 </td>
               </tr>
@@ -134,7 +134,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 dark:border-slate-800 text-xs">
+        <div className="flex items-center justify-between px-4 py-3 border-t border-border dark:border-border text-xs">
           <span className="text-slate-500">
             إجمالي {totalCount} شحنة • صفحة {page} من {totalPages}
           </span>
@@ -142,14 +142,14 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
             <button
               onClick={() => onPageChange(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg disabled:opacity-40"
+              className="px-3 py-1 border border-border dark:border-border rounded-lg disabled:opacity-40"
             >
               السابق
             </button>
             <button
               onClick={() => onPageChange(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg disabled:opacity-40"
+              className="px-3 py-1 border border-border dark:border-border rounded-lg disabled:opacity-40"
             >
               التالي
             </button>

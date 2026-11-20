@@ -66,7 +66,7 @@ export default function SuperAdminDailyOrdersPage() {
                 متابعة الطلبات اليومية للشركات
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/40 px-2 py-0.5 text-[11px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="size-1.5 rounded-full bg-success animate-pulse" />
                 مباشر
               </span>
             </div>

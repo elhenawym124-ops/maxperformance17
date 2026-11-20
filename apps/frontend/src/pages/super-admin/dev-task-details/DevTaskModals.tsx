@@ -78,8 +78,8 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
         <div
           className={`fixed top-6 left-1/2 transform -translate-x-1/2 px-8 py-4 rounded-xl shadow-2xl flex items-center gap-3 border-2 font-bold text-lg animate-bounce ${
             toast.type === "success"
-              ? "bg-green-500 text-white border-green-300"
-              : "bg-red-500 text-white border-red-300"
+              ? "bg-green-500 text-white border-success"
+              : "bg-red-500 text-white border-destructive"
           }`}
           style={{ zIndex: 9999 }}
         >
@@ -95,11 +95,11 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
       {/* Confirmation Modal */}
       {confirmModal.open && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          <div className="bg-card rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               تأكيد الحذف
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-gray-600 dark:text-muted-foreground mb-6">
               {confirmModal.message}
             </p>
             <div className="flex gap-3 justify-end">
@@ -112,14 +112,14 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
                     onConfirm: () => {},
                   })
                 }
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="px-4 py-2 border border-border rounded-lg hover:bg-muted/50"
               >
                 إلغاء
               </button>
               <button
                 type="button"
                 onClick={confirmModal.onConfirm}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="px-4 py-2 bg-destructive text-white rounded-lg hover:bg-destructive"
               >
                 حذف
               </button>
@@ -131,13 +131,13 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
       {/* Edit Time Log Modal */}
       {editingTimeLog && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          <div className="bg-card rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
               تعديل سجل الوقت
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   المدة (دقيقة)
                 </label>
                 <input
@@ -149,11 +149,11 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
                       duration: parseInt(e.target.value, 10) || 0,
                     })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg dark:bg-muted dark:text-white"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   الوصف
                 </label>
                 <input
@@ -165,7 +165,7 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
                       description: e.target.value,
                     })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-border rounded-lg dark:bg-muted dark:text-white"
                 />
               </div>
             </div>
@@ -173,14 +173,14 @@ export const DevTaskModals: React.FC<DevTaskModalsProps> = ({
               <button
                 type="button"
                 onClick={() => setEditingTimeLog(null)}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="px-4 py-2 border border-border rounded-lg hover:bg-muted/50"
               >
                 إلغاء
               </button>
               <button
                 type="button"
                 onClick={handleEditTimeLog}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
               >
                 حفظ
               </button>

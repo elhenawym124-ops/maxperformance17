@@ -115,7 +115,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                 {draftThemes.filter((theme) => theme.isActive).length}
               </p>
             </div>
-            <div className="rounded-lg bg-emerald-500/10 p-2.5 text-emerald-500">
+            <div className="rounded-lg bg-success/10 p-2.5 text-success">
               <Check className="h-5 w-5" />
             </div>
           </CardContent>
@@ -128,7 +128,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                 {totalCurrentCompanies}
               </p>
             </div>
-            <div className="rounded-lg bg-sky-500/10 p-2.5 text-sky-500">
+            <div className="rounded-lg bg-info/10 p-2.5 text-info">
               <Building2 className="h-5 w-5" />
             </div>
           </CardContent>
@@ -141,7 +141,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                 {defaultTheme ? defaultTheme.name : "غير محدد"}
               </p>
             </div>
-            <div className="rounded-lg bg-amber-500/10 p-2.5 text-amber-500">
+            <div className="rounded-lg bg-warning/10 p-2.5 text-warning">
               <Star className="h-5 w-5" />
             </div>
           </CardContent>
@@ -170,16 +170,16 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
         </div>
         <div className="flex gap-2 flex-wrap">
           <Button variant="outline" onClick={onRefresh} disabled={bulkSaving}>
-            <RefreshCw className="h-4 w-4 ml-1" />
+            <RefreshCw className="h-4 w-4 ms-1" />
             تحديث البيانات
           </Button>
           <Button
             variant="default"
-            className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600"
+            className="bg-green-600 hover:bg-success dark:bg-success dark:hover:bg-success"
             onClick={onEnableAndShowAllThemes}
             disabled={bulkSaving || draftThemes.length === 0}
           >
-            <Check className="h-4 w-4 ml-1" />
+            <Check className="h-4 w-4 ms-1" />
             {bulkSaving ? "جارٍ الإظهار والتفعيل..." : "إظهار وتفعيل كل القوالب"}
           </Button>
         </div>
@@ -188,7 +188,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
       {hiddenOrInactiveThemesCount > 0 ? (
         <Alert
           variant="default"
-          className="border-yellow-500/50 text-yellow-700 dark:border-yellow-500/40 dark:text-yellow-400"
+          className="border-yellow-500/50 text-warning dark:border-warning/40 dark:text-warning"
         >
           يوجد <span className="tabular-nums font-mono">{hiddenOrInactiveThemesCount}</span> قالب غير
           ظاهر للشركات أو غير متاح للتفعيل حاليًا. الزر الجماعي بالأعلى يعيدها كلها إلى
@@ -199,7 +199,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
       ) : (
         <Alert
           variant="default"
-          className="border-green-500/50 text-green-700 dark:text-green-400 dark:border-green-500/40 dark:text-green-400"
+          className="border-green-500/50 text-success dark:text-success dark:border-success/40 dark:text-success"
         >
           جميع القوالب الحالية ظاهرة للشركات ومتاحة للتفعيل.
         </Alert>
@@ -211,7 +211,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
             <div className="relative">
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                className="w-full pr-10"
+                className="w-full pe-10"
                 placeholder="ابحث بالاسم أو الوصف أو themeId..."
                 value={themeSearchQuery}
                 onChange={(event) => setThemeSearchQuery(event.target.value)}
@@ -327,13 +327,13 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                     )
                   }
                 >
-                  <Eye className="h-4 w-4 ml-1" />
+                  <Eye className="h-4 w-4 ms-1" />
                   إظهار المحدد
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
-                  className="text-amber-500 border-amber-500"
+                  className="text-amber-500 border-warning"
                   disabled={bulkSaving}
                   onClick={() =>
                     onPersistThemePatch(
@@ -348,11 +348,11 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
                 <Button
                   size="sm"
                   variant="outline"
-                  className="text-red-500 border-red-500"
+                  className="text-red-500 border-destructive"
                   disabled={bulkSaving}
                   onClick={() => onArchiveThemes(selectedThemeIds)}
                 >
-                  <Archive className="h-4 w-4 ml-1" />
+                  <Archive className="h-4 w-4 ms-1" />
                   أرشفة المحدد
                 </Button>
                 <Input

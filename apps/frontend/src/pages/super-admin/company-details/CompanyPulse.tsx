@@ -98,7 +98,7 @@ export function CompanyPulse({
         className="flex flex-col gap-2 rounded-xl border border-border/60 bg-muted/25 px-3.5 py-2.5 sm:flex-row sm:items-center sm:justify-between"
       >
         <div className="flex flex-wrap items-center gap-2.5 min-w-0">
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300">
+          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-info text-info dark:bg-info/40 dark:text-info">
             <UserCheck className="size-4" />
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -106,7 +106,7 @@ export function CompanyPulse({
             <span className="text-lg font-black tracking-tight text-foreground" data-testid="memberships-metric-value">
               {formatNumber(membersCount)}
             </span>
-            <Badge variant="outline" className="rounded-full border-sky-200 bg-sky-50 px-2 py-0.5 text-[11px] font-bold text-sky-700 dark:border-sky-800/60 dark:bg-sky-950/40 dark:text-sky-300">
+            <Badge variant="outline" className="rounded-full border-info bg-info/10 px-2 py-0.5 text-[11px] font-bold text-info dark:border-info/60 dark:bg-info/40 dark:text-info">
               عضويات user_companies
             </Badge>
           </div>
@@ -118,7 +118,7 @@ export function CompanyPulse({
             title={tooltipDiffText}
             aria-label={tooltipDiffText}
             data-testid="memberships-diff-tooltip"
-            className="inline-flex shrink-0 items-center justify-center rounded-full text-sky-600 hover:text-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-sky-400"
+            className="inline-flex shrink-0 items-center justify-center rounded-full text-info hover:text-info focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-info"
           >
             <Info className="size-3.5" />
           </button>

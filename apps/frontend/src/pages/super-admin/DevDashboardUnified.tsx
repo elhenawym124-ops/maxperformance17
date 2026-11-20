@@ -275,7 +275,7 @@ const DevDashboardUnified: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">المشاريع النشطة</span>
-              <Briefcase className="size-3.5 text-emerald-500" />
+              <Briefcase className="size-3.5 text-success" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {stats.activeProjects}
@@ -286,7 +286,7 @@ const DevDashboardUnified: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">متوسط زمن الإغلاق</span>
-              <Clock className="size-3.5 text-amber-500" />
+              <Clock className="size-3.5 text-warning" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {Math.round(stats.averageCompletionTime || 0)}{" "}
@@ -298,7 +298,7 @@ const DevDashboardUnified: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">أعضاء الفريق</span>
-              <Users className="size-3.5 text-sky-500" />
+              <Users className="size-3.5 text-info" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {stats.teamMembers}
@@ -363,7 +363,7 @@ const DevDashboardUnified: React.FC = () => {
         <div className="lg:col-span-2 bg-card rounded-xl p-4 border border-border/80 dark:border-border/60 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-emerald-500" />
+              <CheckCircle2 className="size-4 text-success" />
               <h3 className="text-xs font-semibold text-foreground">
                 اتجاه الإنجاز (آخر 30 يوم)
               </h3>
@@ -536,7 +536,7 @@ const DevDashboardUnified: React.FC = () => {
                     <td className="px-4 py-3 font-sans font-medium text-foreground">
                       {member.memberName}
                     </td>
-                    <td className="px-3 py-3 text-center text-emerald-600 dark:text-emerald-400 font-semibold tabular-nums">
+                    <td className="px-3 py-3 text-center text-success dark:text-success font-semibold tabular-nums">
                       {member.tasksCompleted}
                     </td>
                     <td className="px-3 py-3 text-center text-primary tabular-nums">
@@ -575,7 +575,7 @@ const DevDashboardUnified: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-card rounded-xl p-4 border border-border/80 dark:border-border/60 shadow-2xs">
             <div className="flex items-center gap-2 mb-3">
-              <Award className="size-4 text-amber-500" />
+              <Award className="size-4 text-warning" />
               <h3 className="text-xs font-semibold text-foreground">
                 الأفضل أداءً
               </h3>
@@ -599,7 +599,7 @@ const DevDashboardUnified: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                  <span className="text-xs font-mono font-bold text-success dark:text-success tabular-nums">
                     {member.completionRate}%
                   </span>
                 </div>

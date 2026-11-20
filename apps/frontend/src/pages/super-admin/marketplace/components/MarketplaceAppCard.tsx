@@ -57,7 +57,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
 
   if (compact) {
     return (
-      <div className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-3.5 shadow-sm transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+      <div className="group flex flex-col justify-between rounded-xl border border-border bg-card p-3.5 shadow-sm transition-all duration-200 hover:border-primary/40 hover:shadow-md">
         <div>
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="flex items-center gap-2.5 min-w-0">
@@ -98,7 +98,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
               </div>
             </div>
             {app.isFeatured && (
-              <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-500 shrink-0" />
+              <Star className="h-3.5 w-3.5 fill-warning text-warning shrink-0" />
             )}
           </div>
 
@@ -109,7 +109,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
             <span className="text-muted-foreground tabular-nums font-mono">
               {installs} تثبيت
             </span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+            <span className="font-semibold text-success dark:text-success tabular-nums font-mono">
               {monthlyRevenue > 0 ? `${monthlyRevenue.toLocaleString("ar-EG")} ج` : "-"}
             </span>
           </div>
@@ -154,7 +154,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
               size="icon"
               aria-label="حذف التطبيق"
               onClick={() => app.id && onDelete(app.id)}
-              className="h-7 w-7 text-muted-foreground hover:text-red-500"
+              className="h-7 w-7 text-muted-foreground hover:text-destructive"
             >
               <Trash2 className="h-3 w-3" />
             </Button>
@@ -166,7 +166,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
 
   // Detailed Grid View
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
+    <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
       {/* Card Header */}
       <div className="relative overflow-hidden border-b border-border/60 p-4 pb-3">
         <div
@@ -215,13 +215,13 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
 
           <div className="flex flex-col items-end gap-1 shrink-0">
             {app.isFeatured && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-2 py-0.5 text-[0.65rem] font-bold text-white shadow-sm">
+              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-warning to-warning px-2 py-0.5 text-[0.65rem] font-bold text-white shadow-sm">
                 <Star className="h-3 w-3 fill-current" />
                 مميز
               </span>
             )}
             {app.isPopular && (
-              <span className="inline-flex items-center rounded-full bg-sky-500 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
+              <span className="inline-flex items-center rounded-full bg-info px-2 py-0.5 text-[0.65rem] font-semibold text-white">
                 شائع
               </span>
             )}
@@ -244,8 +244,8 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
             <span className="text-[0.65rem] text-muted-foreground">تثبيت</span>
           </div>
           <div className="rounded-xl bg-muted/50 p-2 text-center">
-            <p className="text-sm font-bold text-amber-500 inline-flex items-center justify-center gap-0.5 tabular-nums font-mono">
-              <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+            <p className="text-sm font-bold text-warning inline-flex items-center justify-center gap-0.5 tabular-nums font-mono">
+              <Star className="h-3.5 w-3.5 fill-warning text-warning" />
               {app.rating?.toFixed(1) || "0.0"}
             </p>
             <span className="text-[0.65rem] text-muted-foreground tabular-nums font-mono">
@@ -253,7 +253,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
             </span>
           </div>
           <div className="rounded-xl bg-muted/50 p-2 text-center">
-            <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+            <p className="text-sm font-bold text-success dark:text-success tabular-nums font-mono">
               {monthlyRevenue.toLocaleString("ar-EG")}
             </p>
             <span className="text-[0.65rem] text-muted-foreground">ج.م/شهر</span>
@@ -269,7 +269,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
             {monthlyPrice ? <span className="text-xs text-muted-foreground">/ شهر</span> : null}
           </div>
           {yearlySavings > 0 && (
-            <span className="inline-flex items-center rounded-full bg-green-500/15 px-2 py-0.5 text-[0.65rem] font-semibold text-green-700 dark:text-green-400 tabular-nums font-mono">
+            <span className="inline-flex items-center rounded-full bg-success/15 px-2 py-0.5 text-[0.65rem] font-semibold text-success dark:text-success tabular-nums font-mono">
               {`${yearlySavings}% توفير سنوي`}
             </span>
           )}
@@ -286,7 +286,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
             </div>
             <div className="flex justify-between">
               <span>الإيراد السنوي المتوقع:</span>
-              <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+              <span className="font-semibold text-success dark:text-success tabular-nums font-mono">
                 {((app.monthlyPrice || 0) * installs * 12).toLocaleString("ar-EG")} ج.م
               </span>
             </div>
@@ -344,7 +344,7 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
               className="text-primary hover:bg-primary/10 hover:text-primary font-semibold"
             >
               إدارة التطبيق
-              <ArrowRight className="h-3.5 w-3.5 mr-1" />
+              <ArrowRight className="h-3.5 w-3.5 me-1" />
             </Button>
             {onToggleExpand && (
               <Button
@@ -383,9 +383,9 @@ export const MarketplaceAppCard: React.FC<MarketplaceAppCardProps> = ({
                     size="icon"
                     aria-label="حذف التطبيق"
                     onClick={() => app.id && onDelete(app.id)}
-                    className="h-8 w-8 hover:bg-red-500/10 hover:text-red-500"
+                    className="h-8 w-8 hover:bg-destructive/10 hover:text-destructive"
                   >
-                    <Trash2 className="h-3.5 w-3.5 text-red-500" />
+                    <Trash2 className="h-3.5 w-3.5 text-destructive" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>حذف التطبيق</TooltipContent>

@@ -32,15 +32,15 @@ export default function ClientPortalShell() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col" dir="rtl">
+    <div className="min-h-screen bg-muted flex flex-col" dir="rtl">
       {/* Top bar */}
-      <header className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between gap-2">
-        <span className="font-semibold text-gray-900 text-base">بوابة العميل — الشحن</span>
+      <header className="bg-white border-b border-border px-4 py-3 flex items-center justify-between gap-2">
+        <span className="font-semibold text-foreground text-base">بوابة العميل — الشحن</span>
         <div className="flex items-center gap-2">
           <PortalPushToggle portal="client" />
           <button
             onClick={handleLogout}
-            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             تسجيل الخروج
           </button>
@@ -49,7 +49,7 @@ export default function ClientPortalShell() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <nav className="w-48 bg-white border-l border-gray-200 flex flex-col py-4 gap-1 shrink-0">
+        <nav className="w-48 bg-white border-l border-border flex flex-col py-4 gap-1 shrink-0">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.to}
@@ -59,7 +59,7 @@ export default function ClientPortalShell() {
                 `px-4 py-2.5 text-sm font-medium rounded-none transition-colors ${
                   isActive
                     ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    : 'text-gray-600 hover:bg-muted hover:text-foreground'
                 }`
               }
             >

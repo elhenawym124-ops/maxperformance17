@@ -321,7 +321,7 @@ const DevTimerDashboard: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">مؤقتات الفريق النشطة</span>
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="size-1.5 rounded-full bg-success animate-pulse" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {allActiveTimers.length}
@@ -339,7 +339,7 @@ const DevTimerDashboard: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">مجموعات قيد التشغيل</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {groups.filter(g => g.isRunning).length} <span className="text-xs font-normal text-muted-foreground font-sans">/ {groups.length}</span>
@@ -354,7 +354,7 @@ const DevTimerDashboard: React.FC = () => {
           {/* Quick Timer */}
           <div className="bg-card rounded-xl border border-border/80 dark:border-border/60 p-4 shadow-2xs">
             <div className="flex items-center gap-2 mb-3">
-              <Zap className="size-4 text-emerald-500" />
+              <Zap className="size-4 text-success" />
               <h2 className="text-sm font-semibold text-foreground">مؤقت سريع</h2>
             </div>
             <div className="flex gap-2">
@@ -372,7 +372,7 @@ const DevTimerDashboard: React.FC = () => {
                 onClick={handleQuickStart}
                 disabled={!quickTaskId}
                 size="sm"
-                className="h-9 px-3 gap-1 bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-2xs active:scale-[0.98] transition-transform"
+                className="h-9 px-3 gap-1 bg-success hover:bg-success text-white font-medium shadow-2xs active:scale-[0.98] transition-transform"
               >
                 <Play className="size-3.5 fill-current" />
                 <span>بدء</span>
@@ -465,14 +465,14 @@ const DevTimerDashboard: React.FC = () => {
                     key={group.id}
                     className={`border rounded-lg p-3 transition-colors ${
                       group.isRunning
-                        ? "border-emerald-500/50 bg-emerald-500/5"
+                        ? "border-emerald-500/50 bg-success/5"
                         : "border-border/70 bg-card hover:bg-muted/20"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2 min-w-0">
                         {group.isRunning ? (
-                          <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="size-2 rounded-full bg-success animate-pulse" />
                         ) : (
                           <span className="size-2 rounded-full bg-muted-foreground/40" />
                         )}
@@ -491,7 +491,7 @@ const DevTimerDashboard: React.FC = () => {
                           <button
                             onClick={() => handleStartGroup(group.id)}
                             disabled={group.dev_tasks.length === 0}
-                            className="p-1 rounded bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 disabled:opacity-40 transition-colors"
+                            className="p-1 rounded bg-success/10 text-success hover:bg-success/20 disabled:opacity-40 transition-colors"
                             title="تشغيل المجموعة"
                           >
                             <Play className="size-3 fill-current" />
@@ -621,7 +621,7 @@ const DevTimerDashboard: React.FC = () => {
                         {timer.isPaused ? (
                           <button
                             onClick={() => resumeTimer(timer.taskId!, timer.id!)}
-                            className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 transition-colors"
+                            className="p-1.5 rounded-md bg-success/10 text-success hover:bg-success/20 transition-colors"
                             title="استئناف"
                           >
                             <Play className="size-3.5 fill-current" />
@@ -629,7 +629,7 @@ const DevTimerDashboard: React.FC = () => {
                         ) : (
                           <button
                             onClick={() => pauseTimer(timer.taskId!, timer.id!)}
-                            className="p-1.5 rounded-md bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 transition-colors"
+                            className="p-1.5 rounded-md bg-warning/10 text-warning hover:bg-warning/20 transition-colors"
                             title="إيقاف مؤقت"
                           >
                             <Pause className="size-3.5 fill-current" />
@@ -763,7 +763,7 @@ const DevTimerDashboard: React.FC = () => {
               </div>
               <div className="flex items-center justify-between py-2">
                 <span className="text-muted-foreground">مجموعات قيد العمل الآن</span>
-                <span className="font-mono font-bold tabular-nums text-emerald-600">{groups.filter(g => g.isRunning).length}</span>
+                <span className="font-mono font-bold tabular-nums text-success">{groups.filter(g => g.isRunning).length}</span>
               </div>
             </div>
           </div>

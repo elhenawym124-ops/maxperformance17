@@ -23,7 +23,7 @@ export function KeyDetailDrawer({ keyData, open, onClose }: { keyData: AiKey; op
   const [tab, setTab] = useState<DrawerTab>("info");
 
   const usagePct = keyData.max_requests_per_day ? Math.round((keyData.current_usage / keyData.max_requests_per_day) * 100) : 0;
-  const usageColor = usagePct >= 85 ? "text-red-600 dark:text-red-400" : usagePct >= 60 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400";
+  const usageColor = usagePct >= 85 ? "text-red-600 dark:text-destructive" : usagePct >= 60 ? "text-amber-600 dark:text-warning" : "text-emerald-600 dark:text-success";
   const usageBarColor = usagePct >= 85 ? "bg-red-500" : usagePct >= 60 ? "bg-amber-500" : "bg-emerald-500";
 
   React.useEffect(() => {
@@ -37,8 +37,8 @@ export function KeyDetailDrawer({ keyData, open, onClose }: { keyData: AiKey; op
   }, [open, keyData.id]);
 
   const statusBadge = keyData.is_active
-    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
-    : "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
+    ? "bg-emerald-100 text-success dark:bg-success/40 dark:text-success"
+    : "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive";
 
   const tabs: { id: DrawerTab; label: string; icon: React.ReactNode }[] = [
     { id: "info", label: "معلومات", icon: <Info className="size-3.5" /> },
@@ -191,7 +191,7 @@ export function AddKeyDialog({ providers, onClose, onCreated, createKeyMutation 
           <div>
             <label className="text-xs text-muted-foreground mb-1 block">مفتاح API</label>
             <div className="relative">
-              <Input type={showKey ? "text" : "password"} value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="API key" className="h-8 text-xs font-mono pl-8" />
+              <Input type={showKey ? "text" : "password"} value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="API key" className="h-8 text-xs font-mono ps-8" />
               <button className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" onClick={() => setShowKey(!showKey)} type="button">
                 {showKey ? <EyeOff className="size-3.5" /> : <Eye className="size-3.5" />}
               </button>
@@ -251,7 +251,7 @@ export function EditKeyDialog({ target, onClose, onUpdated, updateKeyMutation }:
           <div>
             <label className="text-xs text-muted-foreground mb-1 block">مفتاح API جديد (اختياري)</label>
             <div className="relative">
-              <Input type={showKey ? "text" : "password"} value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder={target.api_key_masked || "أدخل مفتاح جديد"} className="h-8 text-xs font-mono pl-8" />
+              <Input type={showKey ? "text" : "password"} value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder={target.api_key_masked || "أدخل مفتاح جديد"} className="h-8 text-xs font-mono ps-8" />
               <button className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" onClick={() => setShowKey(!showKey)} type="button">
                 {showKey ? <EyeOff className="size-3.5" /> : <Eye className="size-3.5" />}
               </button>
@@ -320,8 +320,8 @@ export function TestResultDialog({ data, onClose, isLoading }: {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               {r?.ok || r?.success || r?.status === "ok" ? (
-                <Badge variant="default" className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"><Check className="size-3 ml-1" /> نجاح</Badge>
-              ) : <Badge variant="destructive"><X className="size-3 ml-1" /> فشل</Badge>}
+                <Badge variant="default" className="bg-emerald-500/10 text-success border border-success/20"><Check className="size-3 ms-1" /> نجاح</Badge>
+              ) : <Badge variant="destructive"><X className="size-3 ms-1" /> فشل</Badge>}
               {r?.latency_ms != null ? <span className="text-xs text-muted-foreground tabular-nums">{String(r.latency_ms)}ms</span> : null}
             </div>
             {r?.model && <div className="text-xs"><span className="text-muted-foreground">النموذج: </span>{String(r.model)}</div>}

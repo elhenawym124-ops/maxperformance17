@@ -19,7 +19,7 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
 
   if (!data || !data.totals) {
     return (
-      <div className="p-8 text-center text-slate-500 dark:text-slate-400">
+      <div className="p-8 text-center text-muted-foreground dark:text-muted-foreground">
         لا توجد بيانات متاحة لهذه الفترة
       </div>
     );
@@ -32,29 +32,29 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
       title: 'إجمالي الشحنات',
       value: formatNumber(totals.totalShipments),
       icon: Package,
-      color: 'text-slate-700 dark:text-slate-200',
-      bg: 'bg-slate-100 dark:bg-slate-800',
+      color: 'text-slate-700 dark:text-muted-foreground',
+      bg: 'bg-slate-100 dark:bg-muted',
     },
     {
       title: 'الشحنات المسلّمة',
       value: formatNumber(totals.delivered),
       icon: CheckCircle2,
-      color: 'text-emerald-600 dark:text-emerald-400',
-      bg: 'bg-emerald-50 dark:bg-emerald-950/40',
+      color: 'text-emerald-600 dark:text-success',
+      bg: 'bg-emerald-50 dark:bg-success/40',
     },
     {
       title: 'الشحنات المرتجعة',
       value: formatNumber(totals.returned),
       icon: RotateCcw,
-      color: 'text-rose-600 dark:text-rose-400',
-      bg: 'bg-rose-50 dark:bg-rose-950/40',
+      color: 'text-rose-600 dark:text-destructive',
+      bg: 'bg-rose-50 dark:bg-destructive/40',
     },
     {
       title: 'نسبة المرتجع (RTO)',
       value: `${totals.rtoRate}%`,
       icon: AlertTriangle,
-      color: 'text-amber-600 dark:text-amber-400',
-      bg: 'bg-amber-50 dark:bg-amber-950/40',
+      color: 'text-amber-600 dark:text-warning',
+      bg: 'bg-amber-50 dark:bg-warning/40',
       sub: 'مرتجعة ÷ (مسلّمة + مرتجعة)',
     },
     {
@@ -69,8 +69,8 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
       title: 'متوسط زمن التسليم',
       value: `${totals.avgDeliveryHours} س`,
       icon: Clock,
-      color: 'text-purple-600 dark:text-purple-400',
-      bg: 'bg-purple-50 dark:bg-purple-950/40',
+      color: 'text-purple-600 dark:text-primary',
+      bg: 'bg-purple-50 dark:bg-primary/40',
       sub: 'من الإنشاء إلى التسليم',
     },
   ];
@@ -84,10 +84,10 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
           return (
             <div
               key={idx}
-              className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between"
+              className="p-3.5 rounded-lg border border-border dark:border-border bg-white dark:bg-muted shadow-sm flex flex-col justify-between"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">{kpi.title}</span>
+                <span className="text-xs text-muted-foreground dark:text-muted-foreground font-medium">{kpi.title}</span>
                 <span className={`p-1.5 rounded-md ${kpi.bg} ${kpi.color}`}>
                   <Icon className="w-3.5 h-3.5" />
                 </span>
@@ -97,7 +97,7 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
                   {kpi.value}
                 </span>
                 {kpi.sub && (
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5 truncate" title={kpi.sub}>
+                  <p className="text-[10px] text-muted-foreground dark:text-muted-foreground mt-0.5 truncate" title={kpi.sub}>
                     {kpi.sub}
                   </p>
                 )}
@@ -108,15 +108,15 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
       </div>
 
       {/* Status Breakdown Table with Progress Bars */}
-      <div className="border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
-        <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
-          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+      <div className="border border-border dark:border-border rounded-lg bg-white dark:bg-muted overflow-hidden shadow-sm">
+        <div className="px-4 py-3 border-b border-border dark:border-border bg-muted dark:bg-muted">
+          <h3 className="text-sm font-semibold text-foreground dark:text-muted-foreground">
             توزيع حالات الشحنات
           </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border-b border-slate-200 dark:border-slate-800 font-medium">
+            <thead className="bg-slate-50 dark:bg-muted text-foreground dark:text-muted-foreground border-b border-border dark:border-border font-medium">
               <tr>
                 <th className="py-2.5 px-4">الحالة</th>
                 <th className="py-2.5 px-4 text-center">العدد</th>
@@ -124,20 +124,20 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
                 <th className="py-2.5 px-4 w-1/3">شريط التوزيع</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {rows.map((row) => (
-                <tr key={row.key} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
-                  <td className="py-3 px-4 font-medium text-slate-800 dark:text-slate-200">
+                <tr key={row.key} className="hover:bg-slate-50/50 dark:hover:bg-muted transition-colors">
+                  <td className="py-3 px-4 font-medium text-foreground dark:text-muted-foreground">
                     {row.label}
                   </td>
-                  <td className="py-3 px-4 text-center tabular-nums font-semibold text-slate-900 dark:text-slate-100">
+                  <td className="py-3 px-4 text-center tabular-nums font-semibold text-foreground dark:text-muted-foreground">
                     {formatNumber(row.count)}
                   </td>
-                  <td className="py-3 px-4 text-center tabular-nums text-slate-600 dark:text-slate-400">
+                  <td className="py-3 px-4 text-center tabular-nums text-foreground dark:text-muted-foreground">
                     {row.percentage}%
                   </td>
                   <td className="py-3 px-4">
-                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-muted dark:bg-muted rounded-full h-2 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-300 ${
                           row.key === 'delivered'

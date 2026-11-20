@@ -35,13 +35,13 @@ const MyDashboard: React.FC = () => {
         dir="rtl"
       >
         <div className="text-center max-w-md">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-300">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-warning/10 text-warning dark:text-warning">
             <Briefcase className="h-8 w-8" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-foreground mb-2">
             {t("employee.dashboard.hrNotActive")}
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-muted-foreground mb-6">
             {t("employee.dashboard.hrNotActiveDesc")}
           </p>
         </div>
@@ -59,7 +59,7 @@ const MyDashboard: React.FC = () => {
           <div className="relative mx-auto mb-6 w-16 h-16">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
           </div>
-          <p className="text-lg font-medium text-gray-600 dark:text-gray-300 animate-pulse">
+          <p className="text-lg font-medium text-muted-foreground animate-pulse">
             {t("employee.dashboard.loading")}
           </p>
         </div>
@@ -73,12 +73,12 @@ const MyDashboard: React.FC = () => {
         className="min-h-[400px] flex items-center justify-center w-full"
         dir="rtl"
       >
-        <div className="bg-red-50 dark:bg-red-900/20 p-8 rounded-2xl text-center max-w-md">
-          <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+        <div className="bg-red-50 dark:bg-destructive/20 p-8 rounded-xl text-center max-w-md">
+          <AlertCircle className="h-16 w-16 text-destructive mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-foreground mb-2">
             {t("employee.dashboard.noData")}
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-muted-foreground mb-6">
             {t("employee.dashboard.noDataDesc")}
           </p>
           <Button onClick={() => window.location.reload()} variant="outline">

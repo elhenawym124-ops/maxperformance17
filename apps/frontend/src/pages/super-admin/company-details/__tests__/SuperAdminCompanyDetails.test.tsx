@@ -401,7 +401,7 @@ describe("SuperAdminCompanyDetails Acceptance Criteria", () => {
     expect(headerButtons[0]).toHaveTextContent("تعديل");
     expect(headerButtons[1]).toHaveTextContent("دخول بدعم موثّق");
     expect(headerButtons[1]).toHaveAttribute("data-variant", "warning");
-    expect(headerButtons[1].className).toContain("amber");
+    expect(headerButtons[1].className).toContain("warning");
     expect(headerButtons[1].className).not.toContain("text-primary");
     expect(headerButtons[2]).toHaveTextContent("المزيد");
 
@@ -452,7 +452,7 @@ describe("SuperAdminCompanyDetails Acceptance Criteria", () => {
     expect(screen.getByText("ربط الشركة بوكيل")).toBeInTheDocument();
     const transferItem = screen.getByText("نقل ملكية الشركة").closest('[role="menuitem"]');
     const suspendItem = screen.getByText("إيقاف نشاط الشركة").closest('[role="menuitem"]');
-    expect(transferItem?.className).toContain("amber");
+    expect(transferItem?.className).toContain("warning");
     expect(suspendItem?.className).toContain("destructive");
   });
 

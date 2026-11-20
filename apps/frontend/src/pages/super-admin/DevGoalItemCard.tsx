@@ -41,15 +41,15 @@ export const goalTypeLabels: Record<string, string> = {
 };
 
 export const goalTypeColors: Record<string, string> = {
-  COMPANY: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20",
+  COMPANY: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
   TEAM: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
-  INDIVIDUAL: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+  INDIVIDUAL: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
 };
 
 export const statusConfig: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
   ACTIVE: {
     label: "نشط",
-    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+    color: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
     icon: <CheckCircle2 className="size-3.5" />,
   },
   COMPLETED: {
@@ -59,12 +59,12 @@ export const statusConfig: Record<string, { label: string; color: string; icon: 
   },
   ON_HOLD: {
     label: "معلق",
-    color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
+    color: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
     icon: <Clock className="size-3.5" />,
   },
   CANCELLED: {
     label: "ملغي",
-    color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
+    color: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
     icon: <AlertTriangle className="size-3.5" />,
   },
 };
@@ -129,7 +129,7 @@ export function DevGoalItemCard({
                 </span>
               )}
               {isOverdue && (
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
                   متأخر
                 </span>
               )}
@@ -245,7 +245,7 @@ export function DevGoalItemCard({
             ) : (
               <button
                 onClick={() => setDeleteConfirm(goal.id)}
-                className="p-1 hover:bg-rose-500/10 rounded text-muted-foreground hover:text-rose-500 transition-colors"
+                className="p-1 hover:bg-destructive/10 rounded text-muted-foreground hover:text-destructive transition-colors"
                 title="حذف"
               >
                 <Trash2 className="size-3.5" />

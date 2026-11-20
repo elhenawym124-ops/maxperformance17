@@ -122,7 +122,7 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
           </div>
 
           <TabsContent value="activity" className="mt-0">
-            <Card className="rounded-2xl border border-border/70 bg-card shadow-xs">
+            <Card className="rounded-xl border border-border/70 bg-card shadow-xs">
               <CardContent className="p-6">
                 <div className="space-y-6">
                   {combinedMovements.map((item: any, idx) => (
@@ -131,39 +131,39 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                       className="flex gap-4 relative"
                     >
                       {idx !== 4 && (
-                        <div className="absolute top-10 bottom-0 right-[22px] w-[2px] bg-gray-100 dark:bg-gray-800"></div>
+                        <div className="absolute top-10 bottom-0 right-[22px] w-[2px] bg-muted dark:bg-muted"></div>
                       )}
                       <div
                         className={[
                           "h-11 w-11 rounded-full flex items-center justify-center shrink-0",
                           item.color === "green"
-                            ? "bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800"
+                            ? "bg-green-50 dark:bg-success/20 border-success dark:border-success"
                             : item.color === "yellow"
-                              ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-100 dark:border-yellow-800"
+                              ? "bg-yellow-50 dark:bg-warning/20 border-warning dark:border-warning"
                               : item.color === "blue"
                                 ? "bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800"
-                                : "bg-purple-50 dark:bg-purple-900/20 border-purple-100 dark:border-purple-800",
+                                : "bg-purple-50 dark:bg-primary/20 border-primary dark:border-primary",
                         ].join(" ")}
                       >
                         <item.icon
                           className={[
                             "h-5 w-5",
                             item.color === "green"
-                              ? "text-green-600 dark:text-green-400"
+                              ? "text-green-600 dark:text-success"
                               : item.color === "yellow"
-                                ? "text-yellow-600 dark:text-yellow-400"
+                                ? "text-yellow-600 dark:text-warning"
                                 : item.color === "blue"
                                   ? "text-blue-600 dark:text-blue-400"
-                                  : "text-purple-600 dark:text-purple-400",
+                                  : "text-purple-600 dark:text-primary",
                           ].join(" ")}
                         />
                       </div>
                       <div className="flex-1 pb-6">
                         <div className="flex justify-between items-start mb-1">
-                          <h4 className="font-bold text-gray-900 dark:text-gray-100">
+                          <h4 className="font-bold text-foreground">
                             {item.title}
                           </h4>
-                          <span className="text-[10px] font-bold text-gray-400">
+                          <span className="text-[10px] font-bold text-muted-foreground">
                             {format(new Date(item.date), "d MMMM yyyy", {
                               locale: ar,
                             })}
@@ -174,11 +174,11 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                             className={
                               item.status === "APPROVED" ||
                               item.status === "COMPLETED"
-                                ? "bg-green-100/50 text-green-700 border-none"
+                                ? "bg-green-100/50 text-success border-none"
                                 : item.status === "PENDING"
-                                  ? "bg-yellow-100/50 text-yellow-700 border-none"
+                                  ? "bg-yellow-100/50 text-warning border-none"
                                   : item.status === "REJECTED"
-                                    ? "bg-red-100/50 text-red-700 border-none"
+                                    ? "bg-red-100/50 text-destructive border-none"
                                     : "bg-blue-100/50 text-blue-700 border-none"
                             }
                           >
@@ -191,7 +191,7 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                                   ? t("employee.dashboard.rejected")
                                   : t("employee.dashboard.active")}
                           </Badge>
-                          <span className="text-xs font-mono tabular-nums text-gray-400">
+                          <span className="text-xs font-mono tabular-nums text-muted-foreground">
                             {item.category === "LEAVE"
                               ? t("employee.dashboard.days", {
                                   count: item.totalDays,
@@ -215,8 +215,8 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                     permissions.length === 0 &&
                     rewards.length === 0 && (
                       <div className="text-center py-12">
-                        <div className="bg-gray-50 dark:bg-gray-800/10 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <Users className="h-8 w-8 text-gray-300" />
+                        <div className="bg-gray-50 dark:bg-muted h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Users className="h-8 w-8 text-muted-foreground" />
                         </div>
                         <p className="text-gray-400 font-medium">
                           {t("employee.dashboard.noRecentActivity")}
@@ -248,19 +248,19 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                     {permissions.map((p) => (
                       <div
                         key={p.id}
-                        className="flex items-center justify-between p-4 bg-gray-50/50 dark:bg-gray-800/20 rounded-2xl border border-gray-100 dark:border-gray-800"
+                        className="flex items-center justify-between p-4 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border"
                       >
                         <div className="flex items-center gap-4">
-                          <div className="h-10 w-10 bg-yellow-100 dark:bg-yellow-900/20 rounded-xl flex items-center justify-center">
-                            <FileText className="h-5 w-5 text-yellow-600" />
+                          <div className="h-10 w-10 bg-warning dark:bg-warning/20 rounded-xl flex items-center justify-center">
+                            <FileText className="h-5 w-5 text-warning" />
                           </div>
                           <div>
-                            <p className="font-bold text-gray-900 dark:text-gray-100">
+                            <p className="font-bold text-foreground">
                               {p.type === "OUT"
                                 ? t("employee.dashboard.exitPermission")
                                 : t("employee.dashboard.delayPermission")}
                             </p>
-                            <p className="text-xs font-mono tabular-nums text-gray-400">
+                            <p className="text-xs font-mono tabular-nums text-muted-foreground">
                               {format(new Date(p.date), "dd/MM/yyyy")} •{" "}
                               {p.startTime} - {p.endTime}
                             </p>
@@ -284,7 +284,7 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                       </div>
                     ))}
                     {permissions.length === 0 && (
-                      <p className="text-center text-gray-400 py-4 text-sm">
+                      <p className="text-center text-muted-foreground py-4 text-sm">
                         {t("employee.dashboard.noPermissions")}
                       </p>
                     )}
@@ -310,21 +310,21 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                     {recentLeaves.map((l) => (
                       <div
                         key={l.id}
-                        className="flex items-center gap-4 p-3 bg-white dark:bg-gray-900 border border-gray-50 dark:border-gray-800 shadow-sm rounded-xl"
+                        className="flex items-center gap-4 p-3 bg-white dark:bg-muted border border-border dark:border-border shadow-sm rounded-xl"
                       >
-                        <div className="h-10 w-10 bg-green-50 dark:bg-green-900/20 text-green-600 rounded-lg flex items-center justify-center shrink-0">
+                        <div className="h-10 w-10 bg-success/10 dark:bg-success/20 text-success rounded-lg flex items-center justify-center shrink-0">
                           <Calendar className="h-5 w-5" />
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between items-center mb-0.5">
                             <p className="font-bold text-sm">{l.type}</p>
-                            <span className="text-[10px] font-mono tabular-nums text-gray-400">
+                            <span className="text-[10px] font-mono tabular-nums text-muted-foreground">
                               {t("employee.dashboard.days", {
                                 count: l.totalDays,
                               })}
                             </span>
                           </div>
-                          <p className="text-[10px] font-mono tabular-nums text-gray-400">
+                          <p className="text-[10px] font-mono tabular-nums text-muted-foreground">
                             {format(new Date(l.startDate), "dd/MM")} -{" "}
                             {format(new Date(l.endDate), "dd/MM")}
                           </p>
@@ -333,8 +333,8 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                           variant="outline"
                           className={
                             l.status === "APPROVED"
-                              ? "text-green-600 border-green-200"
-                              : "text-yellow-600 border-yellow-200"
+                              ? "text-green-600 border-success"
+                              : "text-yellow-600 border-warning"
                           }
                         >
                           {l.status === "APPROVED"

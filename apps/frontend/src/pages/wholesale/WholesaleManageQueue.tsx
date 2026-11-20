@@ -347,7 +347,7 @@ export default function WholesaleManageQueue() {
             disabled={loading}
             className="h-8.5 px-3 text-xs font-mono border-border/70"
           >
-            <RefreshCw className={`size-3.5 mr-1.5 ${loading ? "animate-spin text-primary" : ""}`} />
+            <RefreshCw className={`size-3.5 me-1.5 ${loading ? "animate-spin text-primary" : ""}`} />
             <span>تحديث البيانات</span>
           </Button>
         </div>
@@ -355,14 +355,14 @@ export default function WholesaleManageQueue() {
 
       {/* Success Notification Banner */}
       {successBanner && (
-        <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs">
+        <div className="flex items-center justify-between p-3 rounded-lg bg-success/10 border border-success/30 text-success dark:text-success text-xs">
           <div className="flex items-center gap-2 font-medium">
             <CheckCircle2 className="size-4 shrink-0" />
             <span>{successBanner}</span>
           </div>
           <button
             onClick={() => setSuccessBanner(null)}
-            className="p-1 hover:bg-emerald-500/20 rounded transition-colors"
+            className="p-1 hover:bg-success/20 rounded transition-colors"
           >
             <X className="size-3.5" />
           </button>
@@ -393,7 +393,7 @@ export default function WholesaleManageQueue() {
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] text-muted-foreground font-medium">طلبات بانتظار التأكيد</span>
-            <span className="size-7 rounded-md flex items-center justify-center bg-rose-500/10 text-rose-500 border border-rose-500/20">
+            <span className="size-7 rounded-md flex items-center justify-center bg-destructive/10 text-destructive border border-destructive/20">
               <Clock className="size-3.5" />
             </span>
           </div>
@@ -401,7 +401,7 @@ export default function WholesaleManageQueue() {
             <span className="text-2xl font-bold text-foreground tabular-nums">
               {counts.pendingOrdersCount}
             </span>
-            <span className="text-xs text-rose-500 font-semibold">طلب معلق</span>
+            <span className="text-xs text-destructive font-semibold">طلب معلق</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono mt-1">
             إجمالي: {counts.pendingOrdersAmount.toLocaleString("en-US")} ج.م
@@ -417,7 +417,7 @@ export default function WholesaleManageQueue() {
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] text-muted-foreground font-medium">تجاوزات الحد الائتماني</span>
-            <span className="size-7 rounded-md flex items-center justify-center bg-amber-500/10 text-amber-500 border border-amber-500/20">
+            <span className="size-7 rounded-md flex items-center justify-center bg-warning/10 text-warning border border-warning/20">
               <ShieldAlert className="size-3.5" />
             </span>
           </div>
@@ -425,7 +425,7 @@ export default function WholesaleManageQueue() {
             <span className="text-2xl font-bold text-foreground tabular-nums">
               {counts.overLimitDistributorsCount}
             </span>
-            <span className="text-xs text-amber-500 font-semibold">موزع متجاوز</span>
+            <span className="text-xs text-warning font-semibold">موزع متجاوز</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono mt-1">
             مبالغ تجاوز: {counts.totalOverLimitAmount.toLocaleString("en-US")} ج.م
@@ -441,7 +441,7 @@ export default function WholesaleManageQueue() {
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] text-muted-foreground font-medium">موزعون موقوفون</span>
-            <span className="size-7 rounded-md flex items-center justify-center bg-zinc-500/10 text-zinc-400 border border-zinc-500/20">
+            <span className="size-7 rounded-md flex items-center justify-center bg-muted text-muted-foreground border border-border">
               <Ban className="size-3.5" />
             </span>
           </div>
@@ -449,7 +449,7 @@ export default function WholesaleManageQueue() {
             <span className="text-2xl font-bold text-foreground tabular-nums">
               {counts.suspendedDistributorsCount}
             </span>
-            <span className="text-xs text-zinc-400 font-semibold">حساب موقوف</span>
+            <span className="text-xs text-muted-foreground font-semibold">حساب موقوف</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono mt-1">ممنوعون من سحب بضاعة</p>
         </div>
@@ -463,7 +463,7 @@ export default function WholesaleManageQueue() {
         >
           <div className="flex items-center justify-between">
             <span className="text-[11px] text-muted-foreground font-medium">طلبات قيد التنفيذ اليومية</span>
-            <span className="size-7 rounded-md flex items-center justify-center bg-sky-500/10 text-sky-500 border border-sky-500/20">
+            <span className="size-7 rounded-md flex items-center justify-center bg-info/10 text-info border border-info/20">
               <ShoppingBag className="size-3.5" />
             </span>
           </div>
@@ -471,7 +471,7 @@ export default function WholesaleManageQueue() {
             <span className="text-2xl font-bold text-foreground tabular-nums">
               {counts.processingOrdersCount}
             </span>
-            <span className="text-xs text-sky-500 font-semibold">طلب جاري</span>
+            <span className="text-xs text-info font-semibold">طلب جاري</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono mt-1">
             إجمالي: {counts.processingOrdersAmount.toLocaleString("en-US")} ج.م
@@ -483,7 +483,7 @@ export default function WholesaleManageQueue() {
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-card border border-border/70 p-3 rounded-lg">
         {/* Period Buttons */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 font-mono text-xs">
-          <span className="text-muted-foreground text-[11px] ml-1">النطاق الزمني:</span>
+          <span className="text-muted-foreground text-[11px] ms-1">النطاق الزمني:</span>
           {[
             { id: "today", label: "اليوم" },
             { id: "week", label: "هذا الأسبوع" },
@@ -514,7 +514,7 @@ export default function WholesaleManageQueue() {
               placeholder="بحث بالطلب أو اسم/هاتف الموزع..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-8 pr-8 pl-3 text-xs bg-muted/20 border-border/70"
+              className="h-8 pe-8 ps-3 text-xs bg-muted/20 border-border/70"
             />
             {searchTerm && (
               <button
@@ -549,13 +549,13 @@ export default function WholesaleManageQueue() {
         <div className="bg-card border border-border/70 rounded-lg p-4 space-y-3.5">
           <div className="flex items-center justify-between border-b border-border/50 pb-2.5">
             <div className="flex items-center gap-2">
-              <span className="size-6 rounded-md bg-rose-500/10 text-rose-500 border border-rose-500/20 flex items-center justify-center">
+              <span className="size-6 rounded-md bg-destructive/10 text-destructive border border-destructive/20 flex items-center justify-center">
                 <Clock className="size-3.5" />
               </span>
               <h2 className="text-base font-bold text-foreground">
                 ١. طلبات الجملة بانتظار الاعتماد والتأكيد
               </h2>
-              <Badge variant="outline" className="text-[10px] font-mono text-rose-500 border-rose-500/30 bg-rose-500/5">
+              <Badge variant="outline" className="text-[10px] font-mono text-destructive border-destructive/30 bg-destructive/5">
                 {filteredPending.length} طلب
               </Badge>
             </div>
@@ -566,7 +566,7 @@ export default function WholesaleManageQueue() {
 
           {filteredPending.length === 0 ? (
             <div className="py-8 text-center text-muted-foreground flex flex-col items-center justify-center gap-2">
-              <CheckCircle2 className="size-8 text-emerald-500/80" />
+              <CheckCircle2 className="size-8 text-success/80" />
               <p className="text-xs font-mono">لا توجد طلبات جملة معلقة بانتظار التأكيد حالياً</p>
             </div>
           ) : (
@@ -636,7 +636,7 @@ export default function WholesaleManageQueue() {
                               </Badge>
                             )}
                             {isOverLimit && !isSuspended && (
-                              <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/30 text-[9px] px-1 py-0 h-4">
+                              <Badge className="bg-amber-500/10 text-warning border-warning/30 text-[9px] px-1 py-0 h-4">
                                 ⚠️ يتجاوز الحد (+{(order.distributor.excessAmount || 0).toLocaleString("en-US")})
                               </Badge>
                             )}
@@ -663,10 +663,10 @@ export default function WholesaleManageQueue() {
                               className={`h-7 px-2.5 text-xs font-mono shadow-xs active:scale-95 ${
                                 isSuspended
                                   ? "bg-muted text-muted-foreground cursor-not-allowed"
-                                  : "bg-emerald-600 hover:bg-emerald-700 text-white"
+                                  : "bg-emerald-600 hover:bg-success text-white"
                               }`}
                             >
-                              <Check className="size-3 mr-1" />
+                              <Check className="size-3 me-1" />
                               <span>{isSuspended ? "موقوف" : "تأكيد واعتماد"}</span>
                             </Button>
                             <Link
@@ -695,13 +695,13 @@ export default function WholesaleManageQueue() {
         <div className="bg-card border border-border/70 rounded-lg p-4 space-y-3.5">
           <div className="flex items-center justify-between border-b border-border/50 pb-2.5">
             <div className="flex items-center gap-2">
-              <span className="size-6 rounded-md bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center justify-center">
+              <span className="size-6 rounded-md bg-warning/10 text-warning border border-warning/20 flex items-center justify-center">
                 <ShieldAlert className="size-3.5" />
               </span>
               <h2 className="text-base font-bold text-foreground">
                 ٢. تنبيهات تجاوز الحد الائتماني (مخاطر التحصيل)
               </h2>
-              <Badge variant="outline" className="text-[10px] font-mono text-amber-500 border-amber-500/30 bg-amber-500/5">
+              <Badge variant="outline" className="text-[10px] font-mono text-warning border-warning/30 bg-warning/5">
                 {filteredOverLimit.length} حساب متجاوز
               </Badge>
             </div>
@@ -716,7 +716,7 @@ export default function WholesaleManageQueue() {
 
           {filteredOverLimit.length === 0 ? (
             <div className="py-6 text-center text-muted-foreground flex flex-col items-center justify-center gap-1.5">
-              <CheckCircle2 className="size-7 text-emerald-500/80" />
+              <CheckCircle2 className="size-7 text-success/80" />
               <p className="text-xs font-mono">ممتاز! لا يوجد أي تاجر أو موزع متجاوز للحد الائتماني المتفق عليه</p>
             </div>
           ) : (
@@ -746,24 +746,24 @@ export default function WholesaleManageQueue() {
                         </Link>
                       </td>
                       <td className="p-2.5 text-muted-foreground">{dist.phone}</td>
-                      <td className="p-2.5 font-bold text-rose-500">
+                      <td className="p-2.5 font-bold text-destructive">
                         {dist.currentBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })} ج.م
                       </td>
                       <td className="p-2.5 text-muted-foreground">
                         {dist.creditLimit.toLocaleString("en-US", { minimumFractionDigits: 2 })} ج.م
                       </td>
-                      <td className="p-2.5 font-bold text-rose-600 dark:text-rose-400">
+                      <td className="p-2.5 font-bold text-destructive dark:text-destructive">
                         +{dist.excessAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })} ج.م
                       </td>
                       <td className="p-2.5">
                         <div className="flex items-center gap-2">
                           <div className="w-16 h-1.5 bg-muted rounded-full overflow-hidden">
                             <div
-                              className="h-full bg-rose-500 rounded-full"
+                              className="h-full bg-destructive rounded-full"
                               style={{ width: `${Math.min(dist.utilizationPercent, 100)}%` }}
                             />
                           </div>
-                          <span className="text-[10px] font-bold text-rose-500">{dist.utilizationPercent}%</span>
+                          <span className="text-[10px] font-bold text-destructive">{dist.utilizationPercent}%</span>
                         </div>
                       </td>
                       <td className="p-2.5 text-center">
@@ -778,11 +778,11 @@ export default function WholesaleManageQueue() {
                               }}
                               className="h-7 px-2.5 text-xs font-mono shadow-xs active:scale-95"
                             >
-                              <Ban className="size-3 mr-1" />
+                              <Ban className="size-3 me-1" />
                               <span>إيقاف الموزع</span>
                             </Button>
                           ) : (
-                            <Badge variant="outline" className="text-[10px] border-zinc-500/40 text-zinc-400 bg-zinc-500/10">
+                            <Badge variant="outline" className="text-[10px] border-border text-muted-foreground bg-muted">
                               موقوف بالفعل
                             </Badge>
                           )}
@@ -810,13 +810,13 @@ export default function WholesaleManageQueue() {
         <div className="bg-card border border-border/70 rounded-lg p-4 space-y-3.5">
           <div className="flex items-center justify-between border-b border-border/50 pb-2.5">
             <div className="flex items-center gap-2">
-              <span className="size-6 rounded-md bg-zinc-500/10 text-zinc-400 border border-zinc-500/20 flex items-center justify-center">
+              <span className="size-6 rounded-md bg-muted text-muted-foreground border border-border flex items-center justify-center">
                 <Ban className="size-3.5" />
               </span>
               <h2 className="text-base font-bold text-foreground">
                 ٣. الموزعون الموقوفون والمعلقون
               </h2>
-              <Badge variant="outline" className="text-[10px] font-mono text-zinc-400 border-zinc-500/30 bg-zinc-500/5">
+              <Badge variant="outline" className="text-[10px] font-mono text-muted-foreground border-border bg-muted">
                 {filteredSuspended.length} موقوف
               </Badge>
             </div>
@@ -862,7 +862,7 @@ export default function WholesaleManageQueue() {
                       <td className="p-2.5 text-muted-foreground">
                         {dist.creditLimit.toLocaleString("en-US", { minimumFractionDigits: 2 })} ج.م
                       </td>
-                      <td className="p-2.5 text-rose-500 font-sans text-[11px] max-w-[280px] truncate" title={dist.notes}>
+                      <td className="p-2.5 text-destructive font-sans text-[11px] max-w-[280px] truncate" title={dist.notes}>
                         {dist.notes}
                       </td>
                       <td className="p-2.5 text-center">
@@ -874,9 +874,9 @@ export default function WholesaleManageQueue() {
                               setResumeDistributor(dist);
                               setResumeReason("تمت تسوية الحساب وتحديث الضمانات");
                             }}
-                            className="h-7 px-2.5 text-xs font-mono text-emerald-600 hover:text-emerald-700 hover:bg-emerald-500/10 border-emerald-500/30 shadow-xs active:scale-95"
+                            className="h-7 px-2.5 text-xs font-mono text-success hover:text-success hover:bg-success/10 border-success/30 shadow-xs active:scale-95"
                           >
-                            <UserCheck className="size-3 mr-1 text-emerald-500" />
+                            <UserCheck className="size-3 me-1 text-success" />
                             <span>إعادة التفعيل</span>
                           </Button>
                           <Link
@@ -904,13 +904,13 @@ export default function WholesaleManageQueue() {
         <div className="bg-card border border-border/70 rounded-lg p-4 space-y-3.5">
           <div className="flex items-center justify-between border-b border-border/50 pb-2.5">
             <div className="flex items-center gap-2">
-              <span className="size-6 rounded-md bg-sky-500/10 text-sky-500 border border-sky-500/20 flex items-center justify-center">
+              <span className="size-6 rounded-md bg-info/10 text-info border border-info/20 flex items-center justify-center">
                 <Package className="size-3.5" />
               </span>
               <h2 className="text-base font-bold text-foreground">
                 ٤. طلبات التوريد الجارية وقيد التنفيذ
               </h2>
-              <Badge variant="outline" className="text-[10px] font-mono text-sky-500 border-sky-500/30 bg-sky-500/5">
+              <Badge variant="outline" className="text-[10px] font-mono text-info border-info/30 bg-info/5">
                 {filteredFulfillment.length} طلب نشط
               </Badge>
             </div>
@@ -945,9 +945,9 @@ export default function WholesaleManageQueue() {
                 <tbody className="divide-y divide-border/40">
                   {filteredFulfillment.map((order) => {
                     const statusBadgeColors: Record<string, string> = {
-                      CONFIRMED: "bg-emerald-500/10 text-emerald-500 border-emerald-500/30",
+                      CONFIRMED: "bg-emerald-500/10 text-success border-success/30",
                       PROCESSING: "bg-blue-500/10 text-blue-500 border-blue-500/30",
-                      SHIPPED: "bg-purple-500/10 text-purple-500 border-purple-500/30",
+                      SHIPPED: "bg-purple-500/10 text-primary border-primary/30",
                     };
                     const statusLabels: Record<string, string> = {
                       CONFIRMED: "مؤكد",
@@ -1028,7 +1028,7 @@ export default function WholesaleManageQueue() {
           <div className="bg-card border border-border/80 rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl" dir="rtl">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <div className="flex items-center gap-2">
-                <span className="size-7 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center">
+                <span className="size-7 rounded-md bg-success/10 text-success border border-success/20 flex items-center justify-center">
                   <Check className="size-4" />
                 </span>
                 <h3 className="text-base font-bold text-foreground">اعتماد وتأكيد طلب الجملة</h3>
@@ -1052,13 +1052,13 @@ export default function WholesaleManageQueue() {
               </div>
               <div className="flex justify-between p-2 rounded bg-muted/30">
                 <span className="text-muted-foreground">قيمة الفاتورة:</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                <span className="font-bold text-success dark:text-success">
                   {confirmModalOrder.total.toLocaleString("en-US", { minimumFractionDigits: 2 })} ج.م
                 </span>
               </div>
 
               {confirmModalOrder.distributor.isOverLimit && (
-                <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-500 space-y-1">
+                <div className="p-2.5 rounded-lg bg-warning/10 border border-warning/30 text-warning space-y-1">
                   <div className="flex items-center gap-1.5 font-bold">
                     <AlertTriangle className="size-3.5" />
                     <span>تنبيه: سيؤدي التأكيد لتجاوز الحد الائتماني</span>
@@ -1095,12 +1095,12 @@ export default function WholesaleManageQueue() {
                 size="sm"
                 onClick={() => void handleConfirmOrder()}
                 disabled={confirmLoading}
-                className="h-8 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="h-8 text-xs font-mono bg-success hover:bg-success text-white"
               >
                 {confirmLoading ? (
-                  <RefreshCw className="size-3.5 animate-spin mr-1.5" />
+                  <RefreshCw className="size-3.5 animate-spin me-1.5" />
                 ) : (
-                  <Check className="size-3.5 mr-1.5" />
+                  <Check className="size-3.5 me-1.5" />
                 )}
                 <span>تأكيد الطلب وتوليد الفاتورة</span>
               </Button>
@@ -1138,7 +1138,7 @@ export default function WholesaleManageQueue() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">الرصيد القائم:</span>
-                  <span className="font-bold text-rose-500">
+                  <span className="font-bold text-destructive">
                     {suspendDistributor.currentBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })} ج.م
                   </span>
                 </div>
@@ -1206,9 +1206,9 @@ export default function WholesaleManageQueue() {
                 className="h-8 text-xs font-mono shadow-xs"
               >
                 {suspendLoading ? (
-                  <RefreshCw className="size-3.5 animate-spin mr-1.5" />
+                  <RefreshCw className="size-3.5 animate-spin me-1.5" />
                 ) : (
-                  <Ban className="size-3.5 mr-1.5" />
+                  <Ban className="size-3.5 me-1.5" />
                 )}
                 <span>تأكيد إيقاف الحساب</span>
               </Button>
@@ -1225,7 +1225,7 @@ export default function WholesaleManageQueue() {
           <div className="bg-card border border-border/80 rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl" dir="rtl">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <div className="flex items-center gap-2">
-                <span className="size-7 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center">
+                <span className="size-7 rounded-md bg-success/10 text-success border border-success/20 flex items-center justify-center">
                   <UserCheck className="size-4" />
                 </span>
                 <h3 className="text-base font-bold text-foreground">إعادة تفعيل حساب الموزع</h3>
@@ -1282,12 +1282,12 @@ export default function WholesaleManageQueue() {
                 size="sm"
                 onClick={() => void handleResume()}
                 disabled={resumeLoading}
-                className="h-8 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs"
+                className="h-8 text-xs font-mono bg-success hover:bg-success text-white shadow-xs"
               >
                 {resumeLoading ? (
-                  <RefreshCw className="size-3.5 animate-spin mr-1.5" />
+                  <RefreshCw className="size-3.5 animate-spin me-1.5" />
                 ) : (
-                  <UserCheck className="size-3.5 mr-1.5" />
+                  <UserCheck className="size-3.5 me-1.5" />
                 )}
                 <span>تأكيد إعادة التفعيل</span>
               </Button>

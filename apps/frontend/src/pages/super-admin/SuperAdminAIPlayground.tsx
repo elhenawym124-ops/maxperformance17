@@ -201,7 +201,7 @@ const SuperAdminAIPlayground: React.FC = () => {
           <div className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">النموذج المختار</span>
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
             </div>
             <div className="text-base font-bold font-mono text-foreground truncate" title={model}>{model || "default"}</div>
             <p className="text-[10px] text-muted-foreground font-mono">Model Endpoint</p>
@@ -209,7 +209,7 @@ const SuperAdminAIPlayground: React.FC = () => {
           <div className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">سرعة الاستجابة</span>
-              <Timer className="size-3.5 text-amber-500" />
+              <Timer className="size-3.5 text-warning" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{displayMeta.latencyMs != null ? `${displayMeta.latencyMs}ms` : "—"}</div>
             <p className="text-[10px] text-muted-foreground font-mono">زمن الوصول والرد</p>
@@ -306,7 +306,7 @@ const SuperAdminAIPlayground: React.FC = () => {
             </div>
             {displayReply && (
               <button type="button" onClick={handleCopy} className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded border border-border/70 bg-card hover:bg-muted/50 text-foreground transition-colors">
-                {copied ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3 text-muted-foreground" />}
+                {copied ? <Check className="size-3 text-success" /> : <Copy className="size-3 text-muted-foreground" />}
                 <span>{copied ? "تم النسخ" : "نسخ"}</span>
               </button>
             )}
@@ -328,7 +328,7 @@ const SuperAdminAIPlayground: React.FC = () => {
               <span className="px-1.5 py-0.5 rounded bg-muted/40 border border-border/40">Provider: {displayMeta.provider}</span>
               <span className="px-1.5 py-0.5 rounded bg-muted/40 border border-border/40">Model: {displayMeta.model}</span>
               {displayMeta.latencyMs != null && (
-                <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">{displayMeta.latencyMs}ms</span>
+                <span className="px-1.5 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20">{displayMeta.latencyMs}ms</span>
               )}
             </div>
           )}

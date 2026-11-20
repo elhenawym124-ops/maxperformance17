@@ -38,8 +38,8 @@ export function QueueRecentJobsStream({
           <CardTitle className="text-xs font-mono uppercase tracking-wider text-foreground">
             تدفق العمليات اللحظي
           </CardTitle>
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-medium">
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-success/10 text-success dark:text-success border border-success/20 px-1.5 py-0.5 rounded font-medium">
+            <span className="size-1.5 rounded-full bg-success animate-pulse" />
             LIVE
           </span>
         </div>
@@ -86,10 +86,10 @@ export function QueueRecentJobsStream({
                         <MessageSquare className="size-3.5 text-blue-500" />
                       )}
                       {job.name === "facebook-read-receipt" && (
-                        <CheckCheck className="size-3.5 text-emerald-500" />
+                        <CheckCheck className="size-3.5 text-success" />
                       )}
                       {job.name === "facebook-comment" && (
-                        <MessageCircle className="size-3.5 text-purple-500" />
+                        <MessageCircle className="size-3.5 text-primary" />
                       )}
                       {![
                         "facebook-message",

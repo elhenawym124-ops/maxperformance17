@@ -99,7 +99,7 @@ export default function WholesaleDashboard() {
       value: (stats?.activePriceLists ?? 0).toLocaleString("en-US"),
       suffix: "قائمة تسعير",
       icon: Tag,
-      color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+      color: "text-emerald-500 bg-success/10 border-success/20",
       link: "/wholesale/price-lists",
       hint: "هياكل التسعير والخصم الشرائحي",
     },
@@ -108,7 +108,7 @@ export default function WholesaleDashboard() {
       value: (stats?.totalOutstanding ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       suffix: "ج.م",
       icon: Wallet,
-      color: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+      color: "text-amber-500 bg-warning/10 border-warning/20",
       link: "/wholesale/debts",
       hint: "أرصدة مستحقة قيد التحصيل",
     },
@@ -117,7 +117,7 @@ export default function WholesaleDashboard() {
       value: (stats?.overdueAmount ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       suffix: "ج.م",
       icon: BadgeAlert,
-      color: "text-rose-500 bg-rose-500/10 border-rose-500/20",
+      color: "text-rose-500 bg-destructive/10 border-destructive/20",
       link: "/wholesale/debts",
       hint: "تجاوزت فترة السماح المتفق عليها",
     },
@@ -126,7 +126,7 @@ export default function WholesaleDashboard() {
       value: (stats?.monthlySales ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       suffix: "ج.م",
       icon: TrendingUp,
-      color: "text-purple-500 bg-purple-500/10 border-purple-500/20",
+      color: "text-purple-500 bg-primary/10 border-primary/20",
       hint: "حجم التوريد خلال الشهر الجاري",
     },
     {
@@ -134,7 +134,7 @@ export default function WholesaleDashboard() {
       value: (stats?.monthlyOrderCount ?? 0).toLocaleString("en-US"),
       suffix: "طلب توريد",
       icon: ShoppingBag,
-      color: "text-sky-500 bg-sky-500/10 border-sky-500/20",
+      color: "text-sky-500 bg-info/10 border-info/20",
       link: "/wholesale/manage",
       hint: "أوامر توريد معالجة وشحن",
     },
@@ -213,8 +213,8 @@ export default function WholesaleDashboard() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono">
         <div className="rounded-lg border border-border/70 bg-card/60 p-2.5">
           <span className="text-[10px] text-muted-foreground block">حالة شبكة التوزيع</span>
-          <span className="text-xs font-semibold text-emerald-500 mt-0.5 inline-flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-semibold text-success mt-0.5 inline-flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-success animate-pulse" />
             نشطة ومطابقة
           </span>
         </div>
@@ -228,7 +228,7 @@ export default function WholesaleDashboard() {
         </div>
         <div className="rounded-lg border border-border/70 bg-card/60 p-2.5">
           <span className="text-[10px] text-muted-foreground block">التجار المتعثرين</span>
-          <span className="text-xs font-semibold text-rose-500 mt-0.5 tabular-nums">
+          <span className="text-xs font-semibold text-destructive mt-0.5 tabular-nums">
             {stats && stats.overdueAmount > 0 ? "تنبيه تحصيل نشط" : "لا يوجد تعثر"}
           </span>
         </div>

@@ -198,12 +198,12 @@ const SuperAdminAppDetail: React.FC = () => {
                 {app.name}
               </h1>
               {app.isFeatured && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20 px-2 py-0.5 rounded-full">
                   <Star className="size-3" /> مميز
                 </span>
               )}
               {app.isActive ? (
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium bg-success/10 text-success dark:text-success border border-success/20 px-2 py-0.5 rounded-full">
                   <CheckCircle2 className="size-3" /> نشط
                 </span>
               ) : (
@@ -231,9 +231,9 @@ const SuperAdminAppDetail: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">السعر الشهري</span>
-              <DollarSign className="size-3.5 text-emerald-500" />
+              <DollarSign className="size-3.5 text-success" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums">
               {app.monthlyPrice != null ? `${app.monthlyPrice} ج.م` : "مجاني"}
             </div>
             <p className="text-[10px] text-muted-foreground mt-0.5">
@@ -255,9 +255,9 @@ const SuperAdminAppDetail: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">التقييم العام</span>
-              <Star className="size-3.5 text-amber-500" />
+              <Star className="size-3.5 text-warning" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-amber-500 tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-warning tabular-nums">
               {app.rating ?? "5.0"}
             </div>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">({app.reviewCount ?? 0} تقييم)</p>
@@ -332,7 +332,7 @@ const SuperAdminAppDetail: React.FC = () => {
                 key={idx}
                 className="flex items-start gap-2 p-2.5 rounded-lg bg-muted/20 border border-border/50 text-xs text-foreground"
               >
-                <CheckCircle2 className="size-4 text-emerald-500 shrink-0 mt-0.5" />
+                <CheckCircle2 className="size-4 text-success shrink-0 mt-0.5" />
                 <span>{feat}</span>
               </div>
             ))}

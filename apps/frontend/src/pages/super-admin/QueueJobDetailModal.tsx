@@ -76,11 +76,11 @@ export function QueueJobDetailModal({ job, onClose }: QueueJobDetailModalProps) 
                   <span
                     className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono font-medium border ${
                       job.status === "completed"
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                        ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                         : job.status === "active"
                           ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
                           : job.status === "waiting"
-                            ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                            ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                             : "bg-destructive/10 text-destructive border-destructive/20"
                     }`}
                   >

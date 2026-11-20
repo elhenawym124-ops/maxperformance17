@@ -115,8 +115,8 @@ export const ShippingParcelDetails: React.FC = () => {
 
   if (loading && !shipment) {
     return (
-      <div className="p-12 text-center text-slate-400">
-        <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-3 text-slate-400" />
+      <div className="p-12 text-center text-muted-foreground">
+        <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-3 text-muted-foreground" />
         <span>{isEn ? 'Loading shipment details...' : 'جاري تحميل تفاصيل الشحنة...'}</span>
       </div>
     );
@@ -125,7 +125,7 @@ export const ShippingParcelDetails: React.FC = () => {
   if (error || !shipment) {
     return (
       <div className="p-6 w-full max-w-[1800px] mx-auto space-y-4">
-        <div className="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-sm">
+        <div className="p-4 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-sm">
           {error || 'الشحنة غير موجودة'}
         </div>
         <Link
@@ -143,11 +143,11 @@ export const ShippingParcelDetails: React.FC = () => {
   const isPending = shipment.status === 'PENDING';
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Header (No nav element) */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <Link to="/shipping-ops/parcels" className="hover:underline">
               {t('shippingOps.parcels', 'الشحنات والطرود')}
             </Link>
@@ -160,7 +160,7 @@ export const ShippingParcelDetails: React.FC = () => {
             </h1>
             <button
               onClick={() => handleCopy(shipment.trackingNumber)}
-              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition"
+              className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition"
               title="نسخ رقم التتبع"
             >
               <Copy className="w-4 h-4" />
@@ -169,7 +169,7 @@ export const ShippingParcelDetails: React.FC = () => {
               {badge.label}
             </span>
             {shipment.remittedAt && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success border border-success dark:bg-success/40 dark:text-success dark:border-success">
                 {isEn ? `Remitted: ${formatDate(shipment.remittedAt)}` : `تم التوريد: ${formatDate(shipment.remittedAt)}`}
               </span>
             )}
@@ -187,20 +187,20 @@ export const ShippingParcelDetails: React.FC = () => {
         <div className="flex items-center gap-2 flex-wrap">
           <Link
             to="/shipping-ops/parcels"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
             <span>{isEn ? 'Back to List' : 'سجل الشحنات'}</span>
           </Link>
 
           {/* Print Toolbar: Waybill, Invoice, Both + Copies (SHIP-W17) */}
-          <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="flex items-center gap-1 bg-muted dark:bg-muted p-1 rounded-xl border border-border dark:border-border">
             <div className="flex items-center gap-1 px-1.5">
-              <span className="text-[11px] text-slate-500 font-medium">{isEn ? 'Copies:' : 'النسخ:'}</span>
+              <span className="text-[11px] text-muted-foreground font-medium">{isEn ? 'Copies:' : 'النسخ:'}</span>
               <select
                 value={printCopies}
                 onChange={(e) => setPrintCopies(Number(e.target.value))}
-                className="text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md px-1.5 py-1 text-slate-800 dark:text-slate-200 font-bold focus:ring-1 focus:ring-blue-500"
+                className="text-xs bg-white dark:bg-muted border border-border dark:border-border rounded-md px-1.5 py-1 text-foreground dark:text-muted-foreground font-bold focus:ring-1 focus:ring-blue-500"
               >
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -217,7 +217,7 @@ export const ShippingParcelDetails: React.FC = () => {
             </button>
             <button
               onClick={() => printShipmentLabel(shipment.id, shipment.trackingNumber, 'INVOICE', printCopies)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition active:scale-95 shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold bg-success hover:bg-success text-white rounded-lg transition active:scale-95 shadow-sm cursor-pointer"
               title={isEn ? 'Print COD Invoice' : 'طباعة فاتورة تحصيل COD'}
             >
               <Printer className="w-3.5 h-3.5" />
@@ -225,7 +225,7 @@ export const ShippingParcelDetails: React.FC = () => {
             </button>
             <button
               onClick={() => printShipmentLabel(shipment.id, shipment.trackingNumber, 'BOTH', printCopies)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition active:scale-95 shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold bg-primary hover:bg-primary/90 text-white rounded-lg transition active:scale-95 shadow-sm cursor-pointer"
               title={isEn ? 'Print Both (Waybill + Invoice)' : 'طباعة الاثنين (بوليصة + فاتورة)'}
             >
               <Printer className="w-3.5 h-3.5" />
@@ -241,8 +241,8 @@ export const ShippingParcelDetails: React.FC = () => {
       {/* Grid: 4 Core Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Recipient Card */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 space-y-3">
-          <div className="flex items-center gap-2 text-sm font-semibold border-b border-slate-100 dark:border-slate-800 pb-2">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-semibold border-b border-border dark:border-border pb-2">
             <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <span>{t('shippingOps.details.recipientDetails', 'بيانات المستلم والوجهة')}</span>
           </div>
@@ -271,16 +271,16 @@ export const ShippingParcelDetails: React.FC = () => {
                 <span>{shipment.destinationCity}</span>
               </div>
             )}
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="pt-2 border-t border-border dark:border-border">
               <span className="text-slate-500 block mb-1">العنوان التفصيلي:</span>
-              <p className="text-slate-800 dark:text-slate-200 font-medium">{shipment.destinationAddress}</p>
+              <p className="text-slate-800 dark:text-muted-foreground font-medium">{shipment.destinationAddress}</p>
             </div>
           </div>
         </div>
 
         {/* Cargo & Content Card */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 space-y-3">
-          <div className="flex items-center gap-2 text-sm font-semibold border-b border-slate-100 dark:border-slate-800 pb-2">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-semibold border-b border-border dark:border-border pb-2">
             <Package className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <span>{t('shippingOps.details.parcelInfo', 'مواصفات الطرد والبضاعة')}</span>
           </div>
@@ -319,21 +319,21 @@ export const ShippingParcelDetails: React.FC = () => {
         </div>
 
         {/* Financials Card */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 space-y-3">
-          <div className="flex items-center gap-2 text-sm font-semibold border-b border-slate-100 dark:border-slate-800 pb-2">
-            <Banknote className="w-4 h-4 text-emerald-600" />
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-semibold border-b border-border dark:border-border pb-2">
+            <Banknote className="w-4 h-4 text-success" />
             <span>{t('shippingOps.details.financials', 'الشؤون المالية والتحصيل')}</span>
           </div>
           <div className="space-y-2 text-xs sm:text-sm">
             <div className="flex justify-between items-center">
               <span className="text-slate-500">مبلغ التحصيل المطلوب (COD):</span>
-              <span className="text-base font-bold tabular-nums text-slate-900 dark:text-slate-100">
+              <span className="text-base font-bold tabular-nums text-foreground dark:text-muted-foreground">
                 {formatCurrency(shipment.codAmount, shipment.currency)}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-slate-500">المبلغ المحصّل فعلياً:</span>
-              <span className="font-semibold tabular-nums text-emerald-600">
+              <span className="font-semibold tabular-nums text-success">
                 {shipment.collectedAmount !== null && shipment.collectedAmount !== undefined
                   ? formatCurrency(shipment.collectedAmount, shipment.currency)
                   : 'لم يُحصّل بعد'}
@@ -346,34 +346,34 @@ export const ShippingParcelDetails: React.FC = () => {
               </span>
             </div>
             {isFinancialAuthorized && shipment.marginAmount !== null && shipment.marginAmount !== undefined && (
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2 bg-slate-50/70 dark:bg-slate-800/40 p-3 rounded-lg border border-slate-200/60 dark:border-slate-700/60">
-                <div className="flex items-center justify-between text-xs font-semibold text-slate-800 dark:text-slate-200">
-                  <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+              <div className="mt-3 pt-3 border-t border-border dark:border-border space-y-2 bg-muted dark:bg-muted p-3 rounded-lg border border-border dark:border-border">
+                <div className="flex items-center justify-between text-xs font-semibold text-foreground dark:text-muted-foreground">
+                  <span className="flex items-center gap-1.5 text-success dark:text-success">
                     <TrendingUp className="w-3.5 h-3.5" />
                     <span>الهامش والربحية</span>
                   </span>
                   {shipment.costSource && (
-                    <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-white dark:bg-slate-900 text-slate-500 border border-slate-200 dark:border-slate-700">
+                    <span className="text-[10px] font-normal px-2 py-0.5 rounded bg-white dark:bg-muted text-muted-foreground border border-border dark:border-border">
                       {shipment.costSource === 'COMMISSION_RULE' ? 'لائحة عمولات' : shipment.costSource === 'FALLBACK_GOV_AVG' ? 'متوسط المحافظة' : shipment.costSource}
                     </span>
                   )}
                 </div>
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-slate-500">تكلفة المندوب:</span>
-                  <span className="font-medium tabular-nums text-slate-700 dark:text-slate-300">
+                  <span className="font-medium tabular-nums text-foreground dark:text-muted-foreground">
                     {formatCurrency(shipment.courierCost ?? 0, shipment.currency)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-slate-500">صافي الهامش:</span>
-                  <span className={`font-bold tabular-nums ${(shipment.marginAmount ?? 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                  <span className={`font-bold tabular-nums ${(shipment.marginAmount ?? 0) >= 0 ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'}`}>
                     {formatCurrency(shipment.marginAmount ?? 0, shipment.currency)}
                   </span>
                 </div>
                 {shipment.cost > 0 && (
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-slate-500">نسبة الهامش:</span>
-                    <span className={`font-semibold tabular-nums ${(shipment.marginAmount ?? 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                    <span className={`font-semibold tabular-nums ${(shipment.marginAmount ?? 0) >= 0 ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'}`}>
                       {Math.round(((shipment.marginAmount ?? 0) / shipment.cost) * 1000) / 10}%
                     </span>
                   </div>
@@ -390,8 +390,8 @@ export const ShippingParcelDetails: React.FC = () => {
         </div>
 
         {/* Metadata & Courier Info */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 space-y-3">
-          <div className="flex items-center gap-2 text-sm font-semibold border-b border-slate-100 dark:border-slate-800 pb-2">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-semibold border-b border-border dark:border-border pb-2">
             <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <span>معلومات التشغيل والتاريخ</span>
           </div>
@@ -421,34 +421,34 @@ export const ShippingParcelDetails: React.FC = () => {
 
         {/* Failure Reasons & Delivery Attempts Card (SHIP-W3) */}
         {(Boolean(shipment.failureReasonCode) || Boolean(shipment.attemptCount && shipment.attemptCount > 0) || shipment.status === 'FAILED') && (
-          <div className="bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/80 rounded-xl p-4 sm:p-5 space-y-3 md:col-span-2">
-            <div className="flex items-center justify-between border-b border-amber-100 dark:border-amber-800/60 pb-2">
-              <div className="flex items-center gap-2 text-sm font-semibold text-amber-900 dark:text-amber-200">
-                <AlertTriangle className="w-4 h-4 text-amber-600" />
+          <div className="bg-amber-50/70 dark:bg-warning/20 border border-warning dark:border-warning/80 rounded-xl p-4 sm:p-5 space-y-3 md:col-span-2">
+            <div className="flex items-center justify-between border-b border-warning dark:border-warning/60 pb-2">
+              <div className="flex items-center gap-2 text-sm font-semibold text-warning dark:text-warning">
+                <AlertTriangle className="w-4 h-4 text-warning" />
                 <span>سجل محاولات التوصيل وأسباب الفشل</span>
               </div>
               <button
                 onClick={() => setShowReattemptModal(true)}
-                className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition active:scale-95 shadow-xs"
+                className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-warning hover:bg-warning text-white rounded-lg transition active:scale-95 shadow-xs"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>إعادة جدولة</span>
               </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
-              <div className="p-3 bg-white dark:bg-slate-900 rounded-lg border border-amber-100 dark:border-amber-900/40">
+              <div className="p-3 bg-white dark:bg-muted rounded-lg border border-warning dark:border-warning/40">
                 <span className="text-slate-400 block text-[11px] mb-0.5">عدد المحاولات</span>
-                <span className="text-base font-bold text-amber-700 dark:text-amber-400 tabular-nums">
+                <span className="text-base font-bold text-warning dark:text-warning tabular-nums">
                   {shipment.attemptCount || 0} محاولة
                 </span>
               </div>
-              <div className="p-3 bg-white dark:bg-slate-900 rounded-lg border border-amber-100 dark:border-amber-900/40">
+              <div className="p-3 bg-white dark:bg-muted rounded-lg border border-warning dark:border-warning/40">
                 <span className="text-slate-400 block text-[11px] mb-0.5">سبب الفشل</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                <span className="font-semibold text-foreground dark:text-muted-foreground">
                   {shipment.failureReasonLabelAr || shipment.failureReasonCode || 'غير محدد'}
                 </span>
               </div>
-              <div className="p-3 bg-white dark:bg-slate-900 rounded-lg border border-amber-100 dark:border-amber-900/40">
+              <div className="p-3 bg-white dark:bg-muted rounded-lg border border-warning dark:border-warning/40">
                 <span className="text-slate-400 block text-[11px] mb-0.5">موعد المحاولة القادمة</span>
                 <span className="font-semibold text-blue-600 dark:text-blue-400">
                   {shipment.nextAttemptDate ? formatDate(shipment.nextAttemptDate) : 'لم يُحدد موعد بعد'}
@@ -460,28 +460,28 @@ export const ShippingParcelDetails: React.FC = () => {
       </div>
 
       {/* Shipment Event Timeline */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
-        <div className="flex items-center gap-2 text-base font-bold border-b border-slate-100 dark:border-slate-800 pb-3">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 space-y-4 shadow-sm">
+        <div className="flex items-center gap-2 text-base font-bold border-b border-border dark:border-border pb-3">
           <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           <span>{t('shippingOps.details.timelineTitle', 'سجل مسار وأحداث الشحنة (Timeline)')}</span>
         </div>
 
         {!shipment.events || shipment.events.length === 0 ? (
-          <div className="py-8 text-center text-xs text-slate-400">
+          <div className="py-8 text-center text-xs text-muted-foreground">
             {t('shippingOps.details.noEvents', 'لا توجد أحداث مسجلة بعد')}
           </div>
         ) : (
-          <div className="relative border-r-2 border-slate-200 dark:border-slate-800 mr-3 pr-6 space-y-6">
+          <div className="relative border-r-2 border-border dark:border-border me-3 pe-6 space-y-6">
             {shipment.events.map((evt) => {
               const toBadge = getStatusBadge(evt.toStatus, isEn);
               return (
                 <div key={evt.id} className="relative">
                   {/* Circle dot on timeline */}
-                  <span className="absolute -right-[31px] top-1 w-3.5 h-3.5 rounded-full bg-blue-600 ring-4 ring-white dark:ring-slate-900" />
+                  <span className="absolute -right-[31px] top-1 w-3.5 h-3.5 rounded-full bg-blue-600 ring-4 ring-white dark:ring-border" />
 
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap text-xs">
-                      <span className="font-semibold text-slate-800 dark:text-slate-200">
+                      <span className="font-semibold text-foreground dark:text-muted-foreground">
                         {evt.reasonCode || 'تحديث الحالة'}
                       </span>
                       <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium border ${toBadge.badgeClass}`}>
@@ -493,13 +493,13 @@ export const ShippingParcelDetails: React.FC = () => {
                     </div>
 
                     {evt.notes && (
-                      <p className="text-xs text-slate-600 dark:text-slate-400">
+                      <p className="text-xs text-foreground dark:text-muted-foreground">
                         {evt.notes}
                       </p>
                     )}
 
-                    <div className="text-[11px] text-slate-400">
-                      بواسطة: <span className="font-medium text-slate-600 dark:text-slate-300">{evt.actorName || evt.actorType}</span>
+                    <div className="text-[11px] text-muted-foreground">
+                      بواسطة: <span className="font-medium text-foreground dark:text-muted-foreground">{evt.actorName || evt.actorType}</span>
                     </div>
                   </div>
                 </div>
@@ -511,19 +511,19 @@ export const ShippingParcelDetails: React.FC = () => {
 
       {/* Cancel Modal */}
       {showCancelModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 max-w-md w-full space-y-4 shadow-xl">
-            <div className="flex items-center gap-3 text-rose-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 max-w-md w-full space-y-4 shadow-xl">
+            <div className="flex items-center gap-3 text-destructive">
               <XCircle className="w-6 h-6 shrink-0" />
-              <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
+              <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">
                 {t('shippingOps.list.cancelConfirmTitle', 'تأكيد إلغاء الشحنة')}
               </h3>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-foreground dark:text-muted-foreground">
               {t('shippingOps.list.cancelConfirmDesc', 'هل أنت متأكد من رغبتك في إلغاء هذه الشحنة؟')}
             </p>
             <div>
-              <label htmlFor="cancelReason" className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+              <label htmlFor="cancelReason" className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                 سبب الإلغاء
               </label>
               <input
@@ -532,15 +532,15 @@ export const ShippingParcelDetails: React.FC = () => {
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
                 placeholder="طلب العميل، خطأ في العنوان..."
-                className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-destructive"
               />
             </div>
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setShowCancelModal(false)}
                 disabled={cancelLoading}
-                className="px-3.5 py-2 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                className="px-3.5 py-2 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
               >
                 {t('shippingOps.list.cancelDismissBtn', 'تراجع')}
               </button>
@@ -548,7 +548,7 @@ export const ShippingParcelDetails: React.FC = () => {
                 type="button"
                 onClick={handleCancel}
                 disabled={cancelLoading}
-                className="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition active:scale-95 disabled:opacity-50"
+                className="px-4 py-2 text-xs font-semibold text-white bg-destructive hover:bg-destructive rounded-lg transition active:scale-95 disabled:opacity-50"
               >
                 {cancelLoading ? 'جاري الإلغاء...' : t('shippingOps.list.confirmCancelBtn', 'تأكيد الإلغاء')}
               </button>
@@ -560,31 +560,31 @@ export const ShippingParcelDetails: React.FC = () => {
       {/* Reattempt Modal (SHIP-W3) */}
       {showReattemptModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
-            <div className="flex items-center gap-2 text-base font-bold text-amber-800 dark:text-amber-300 border-b border-slate-100 dark:border-slate-800 pb-3">
-              <RotateCcw className="w-5 h-5 text-amber-600" />
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl">
+            <div className="flex items-center gap-2 text-base font-bold text-warning dark:text-warning border-b border-border dark:border-border pb-3">
+              <RotateCcw className="w-5 h-5 text-warning" />
               <span>إعادة جدولة محاولة التوصيل</span>
             </div>
 
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground">
               سيتم زيادة عدد المحاولات للشحنة وجدولتها للتوصيل في التاريخ المحدد
             </p>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                   تاريخ ووقت المحاولة القادمة
                 </label>
                 <input
                   type="datetime-local"
                   value={reattemptDate}
                   onChange={(e) => setReattemptDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-warning"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                   ملاحظات إعادة الجدولة
                 </label>
                 <textarea
@@ -592,17 +592,17 @@ export const ShippingParcelDetails: React.FC = () => {
                   onChange={(e) => setReattemptNotes(e.target.value)}
                   placeholder="ملاحظات المنسق أو اتفاق الموعد مع العميل..."
                   rows={3}
-                  className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+                  className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-warning resize-none"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setShowReattemptModal(false)}
                 disabled={reattemptLoading}
-                className="px-3.5 py-2 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition cursor-pointer"
+                className="px-3.5 py-2 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition cursor-pointer"
               >
                 تراجع
               </button>
@@ -610,7 +610,7 @@ export const ShippingParcelDetails: React.FC = () => {
                 type="button"
                 onClick={handleReattempt}
                 disabled={reattemptLoading}
-                className="px-4 py-2 text-xs font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-lg transition active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="px-4 py-2 text-xs font-semibold text-white bg-warning hover:bg-warning rounded-lg transition active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 {reattemptLoading ? 'جاري الحفظ...' : 'تأكيد إعادة الجدولة'}
               </button>

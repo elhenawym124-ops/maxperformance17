@@ -60,19 +60,19 @@ const statusConfig: Record<
   },
   READY: {
     label: "جاهز للإطلاق",
-    badgeClass: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
+    badgeClass: "bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning",
   },
   RELEASED: {
     label: "صدر رسمياً",
-    badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
+    badgeClass: "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success",
   },
   COMPLETED: {
     label: "مكتمل",
-    badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
+    badgeClass: "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success",
   },
   CANCELLED: {
     label: "ملغي",
-    badgeClass: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800",
+    badgeClass: "bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive",
   },
 };
 
@@ -245,9 +245,9 @@ const DevReleases: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">صدرت رسمياً</span>
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="size-1.5 rounded-full bg-success animate-pulse" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-success dark:text-success tabular-nums">
             {stats.released}
           </div>
         </div>
@@ -272,7 +272,7 @@ const DevReleases: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="البحث برقم الإصدار، الاسم، أو المشروع..."
-            className="w-full pl-3 pr-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full ps-3 pe-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
@@ -281,7 +281,7 @@ const DevReleases: React.FC = () => {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="pr-8 pl-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="pe-8 ps-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
             >
               <option value="">جميع الحالات</option>
               {Object.entries(statusConfig).map(([key, { label }]) => (
@@ -297,7 +297,7 @@ const DevReleases: React.FC = () => {
             <select
               value={filterProject}
               onChange={(e) => setFilterProject(e.target.value)}
-              className="pr-8 pl-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="pe-8 ps-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
             >
               <option value="">جميع المشاريع</option>
               {projects.map((project) => (
@@ -381,7 +381,7 @@ const DevReleases: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleDelete(release.id)}
-                      className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                      className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 transition-colors"
                       title="حذف الإصدار"
                     >
                       <Trash2 className="size-4" />
@@ -427,8 +427,8 @@ const DevReleases: React.FC = () => {
                     <p className="text-[11px] text-muted-foreground">إجمالي المهام</p>
                   </div>
 
-                  <div className="rounded-lg bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-800/50 p-2.5 text-center">
-                    <div className="flex items-center justify-center gap-1 text-emerald-600 dark:text-emerald-400">
+                  <div className="rounded-lg bg-success/40 dark:bg-success/20 border border-success/50 dark:border-success/50 p-2.5 text-center">
+                    <div className="flex items-center justify-center gap-1 text-success dark:text-success">
                       <Sparkles className="size-3.5" />
                       <p className="text-base font-bold font-mono tabular-nums">
                         {release.tasksByType?.features ?? 0}
@@ -437,8 +437,8 @@ const DevReleases: React.FC = () => {
                     <p className="text-[11px] text-muted-foreground">ميزات جديدة</p>
                   </div>
 
-                  <div className="rounded-lg bg-rose-50/40 dark:bg-rose-950/20 border border-rose-200/50 dark:border-rose-800/50 p-2.5 text-center">
-                    <div className="flex items-center justify-center gap-1 text-rose-600 dark:text-rose-400">
+                  <div className="rounded-lg bg-destructive/40 dark:bg-destructive/20 border border-destructive/50 dark:border-destructive/50 p-2.5 text-center">
+                    <div className="flex items-center justify-center gap-1 text-destructive dark:text-destructive">
                       <Bug className="size-3.5" />
                       <p className="text-base font-bold font-mono tabular-nums">
                         {release.tasksByType?.bugs ?? 0}

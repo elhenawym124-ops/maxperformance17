@@ -100,26 +100,26 @@ export default function SuperAdminMarketingLinks() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-600 dark:text-emerald-400">صفحات منشورة</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success dark:text-success">صفحات منشورة</p>
+            <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">
               {liveCount}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">مفعلة وتستقبل الزوار</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
             <Check className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-600 dark:text-amber-400">صفحات قيد الإطلاق</p>
-            <p className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning dark:text-warning">صفحات قيد الإطلاق</p>
+            <p className="text-xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums mt-0.5">
               {upcomingCount}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">جاهزة للنشر بالجدول</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-600">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning">
             <ExternalLink className="size-3.5" />
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function SuperAdminMarketingLinks() {
           <div className="relative w-full sm:w-72">
             <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
             <Input
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
               placeholder="بحث بالاسم، الرابط، أو الجمهور..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -201,8 +201,8 @@ export default function SuperAdminMarketingLinks() {
                         <span
                           className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-medium border ${
                             section.status === "upcoming"
-                              ? "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400"
-                              : "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                              ? "border-amber-500/20 bg-warning/10 text-warning dark:text-warning"
+                              : "border-emerald-500/20 bg-success/10 text-success dark:text-success"
                           }`}
                         >
                           {section.status === "upcoming" ? "قريباً" : "جاهزة"}
@@ -263,7 +263,7 @@ export default function SuperAdminMarketingLinks() {
                       >
                         {isCopied ? (
                           <>
-                            <Check className="size-3 text-emerald-500" />
+                            <Check className="size-3 text-success" />
                             <span>تم النسخ</span>
                           </>
                         ) : (

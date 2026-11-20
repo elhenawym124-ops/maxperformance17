@@ -421,10 +421,10 @@ const DevTaskIntegrations: React.FC = () => {
       </div>
 
       {revealedApiKey && (
-        <section className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 shadow-xs">
+        <section className="rounded-xl border border-success/20 bg-success/5 p-4 shadow-xs">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <div className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+              <div className="text-sm font-semibold text-success dark:text-success">
                 المفتاح السري (يظهر مرة واحدة فقط)
               </div>
               <p className="mt-0.5 text-xs text-muted-foreground">
@@ -440,7 +440,7 @@ const DevTaskIntegrations: React.FC = () => {
               نسخ المفتاح
             </button>
           </div>
-          <pre className="mt-3 overflow-x-auto rounded-lg bg-zinc-950 p-3 font-mono text-xs text-emerald-400 border border-zinc-800">
+          <pre className="mt-3 overflow-x-auto rounded-lg bg-muted p-3 font-mono text-xs text-success border border-border">
             {revealedApiKey}
           </pre>
         </section>
@@ -680,20 +680,20 @@ const DevTaskIntegrations: React.FC = () => {
             ].map((item) => (
               <div
                 key={item.title}
-                className="mt-3 rounded-lg border border-zinc-800 bg-zinc-950 p-3 text-zinc-100"
+                className="mt-3 rounded-lg border border-border bg-muted p-3 text-muted-foreground"
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <div className="text-xs font-semibold text-zinc-200">{item.title}</div>
+                  <div className="text-xs font-semibold text-muted-foreground">{item.title}</div>
                   <button
                     type="button"
                     onClick={() => void copyValue(item.snippet, `تم نسخ ${item.title}`)}
-                    className="inline-flex items-center gap-1 rounded-md border border-zinc-700 bg-zinc-800 px-2 py-1 text-[11px] font-medium text-zinc-300 hover:bg-zinc-700 transition"
+                    className="inline-flex items-center gap-1 rounded-md border border-border bg-muted px-2 py-1 text-[11px] font-medium text-muted-foreground hover:bg-muted transition"
                   >
                     <ClipboardDocumentIcon className="h-3 w-3" />
                     نسخ
                   </button>
                 </div>
-                <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-[11px] leading-5 text-emerald-400">
+                <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-[11px] leading-5 text-success">
                   {item.snippet}
                 </pre>
               </div>
@@ -768,7 +768,7 @@ const DevTaskIntegrations: React.FC = () => {
                       <span
                         className={`rounded-md px-2 py-0.5 text-[11px] font-medium border ${
                           credential.isActive && !credential.revokedAt
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                             : "bg-muted text-muted-foreground border-border"
                         }`}
                       >

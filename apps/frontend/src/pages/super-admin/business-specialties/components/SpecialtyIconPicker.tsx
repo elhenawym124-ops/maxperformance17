@@ -82,12 +82,12 @@ export const SpecialtyIconPicker: React.FC<SpecialtyIconPickerProps> = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="ابحث عن أيقونة (عربي أو English)..."
-            className="h-8 rounded-lg pr-8 text-xs"
+            className="h-8 rounded-lg pe-8 text-xs"
             autoFocus
           />
         </div>
 
-        <ScrollArea className="h-60 pr-1">
+        <ScrollArea className="h-60 pe-1">
           {filteredIcons.length === 0 ? (
             <p className="py-6 text-center text-xs text-muted-foreground">
               لا توجد أيقونة مطابقة للبحث.

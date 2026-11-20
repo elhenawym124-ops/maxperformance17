@@ -31,9 +31,9 @@ export const DevTasksStatsRibbon: React.FC<DevTasksStatsRibbonProps> = ({
       <div className="p-3.5 flex flex-col justify-between">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">قيد العمل</span>
-          <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
+          <span className="size-1.5 rounded-full bg-warning animate-pulse" />
         </div>
-        <div className="text-xl sm:text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+        <div className="text-xl sm:text-2xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums">
           {stats.tasksByStatus?.IN_PROGRESS || 0}
         </div>
       </div>
@@ -41,9 +41,9 @@ export const DevTasksStatsRibbon: React.FC<DevTasksStatsRibbonProps> = ({
       <div className="p-3.5 flex flex-col justify-between">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">مكتملة</span>
-          <CheckCircleIcon className="size-3.5 text-emerald-500" />
+          <CheckCircleIcon className="size-3.5 text-success" />
         </div>
-        <div className="text-xl sm:text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+        <div className="text-xl sm:text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
           {stats.tasksByStatus?.DONE || 0}
         </div>
       </div>

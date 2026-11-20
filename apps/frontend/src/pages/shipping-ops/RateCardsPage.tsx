@@ -164,14 +164,14 @@ export const RateCardsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Header (No nav element) */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
             {t('shippingOps.rateCardsPage.title', 'بطاقات أسعار العملاء')}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             {t('shippingOps.rateCardsPage.subtitle', 'تخصيص أسعار شحن خاصة ومخصصة لكل تاجر وعميل حسب المحافظات والوزن')}
           </p>
         </div>
@@ -179,9 +179,9 @@ export const RateCardsPage: React.FC = () => {
           <button
             onClick={loadData}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition active:scale-95 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition active:scale-95 disabled:opacity-50"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-600 dark:text-slate-300 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-foreground dark:text-muted-foreground ${loading ? 'animate-spin' : ''}`} />
             <span>{isEn ? 'Refresh' : 'تحديث'}</span>
           </button>
           {activeTab === 'rate_cards' && (
@@ -197,14 +197,14 @@ export const RateCardsPage: React.FC = () => {
       </div>
 
       {/* Sub-tab Switcher: Rate Cards vs Monthly Packages */}
-      <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg w-fit">
+      <div className="flex items-center gap-1 bg-muted dark:bg-muted p-1 rounded-lg w-fit">
         <button
           type="button"
           onClick={() => setActiveTab('rate_cards')}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition ${
             activeTab === 'rate_cards'
-              ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+              ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+              : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
           }`}
         >
           <CreditCard className="w-4 h-4" />
@@ -215,8 +215,8 @@ export const RateCardsPage: React.FC = () => {
           onClick={() => setActiveTab('packages')}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition ${
             activeTab === 'packages'
-              ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+              ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+              : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
           }`}
         >
           <Package className="w-4 h-4" />
@@ -229,19 +229,19 @@ export const RateCardsPage: React.FC = () => {
       ) : (
         <>
       {error && (
-        <div className="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-xs sm:text-sm">
+        <div className="p-4 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-xs sm:text-sm">
           {error}
         </div>
       )}
 
       {/* Filter by Merchant */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 sm:p-4 flex items-center justify-between gap-3 shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 sm:p-4 flex items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-2 w-full sm:w-80">
-          <Building2 className="w-4 h-4 text-slate-400 shrink-0" />
+          <Building2 className="w-4 h-4 text-muted-foreground shrink-0" />
           <select
             value={filterMerchantId}
             onChange={(e) => setFilterMerchantId(e.target.value)}
-            className="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">{isEn ? 'All Merchants' : 'جميع العملاء / التجار'}</option>
             {merchants.map((m) => (
@@ -254,7 +254,7 @@ export const RateCardsPage: React.FC = () => {
         {filterMerchantId && (
           <button
             onClick={() => setFilterMerchantId('')}
-            className="text-xs text-rose-600 hover:underline"
+            className="text-xs text-destructive hover:underline"
           >
             إلغاء التصفية
           </button>
@@ -262,10 +262,10 @@ export const RateCardsPage: React.FC = () => {
       </div>
 
       {/* Rate Cards Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-right rtl:text-right ltr:text-left text-xs sm:text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-slate-50 dark:bg-muted text-muted-foreground dark:text-muted-foreground border-b border-border dark:border-border">
               <tr>
                 <th className="px-4 py-3 font-medium">{t('shippingOps.rateCardsPage.name', 'اسم البطاقة')}</th>
                 <th className="px-4 py-3 font-medium">{t('shippingOps.rateCardsPage.merchant', 'العميل')}</th>
@@ -279,28 +279,28 @@ export const RateCardsPage: React.FC = () => {
                 <th className="px-4 py-3 font-medium text-center">إجراء</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading && rateCards.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="px-4 py-12 text-center text-slate-400">
-                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-slate-400" />
+                  <td colSpan={10} className="px-4 py-12 text-center text-muted-foreground">
+                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-muted-foreground" />
                     <span>{isEn ? 'Loading rate cards...' : 'جاري تحميل بطاقات الأسعار...'}</span>
                   </td>
                 </tr>
               ) : rateCards.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="px-4 py-12 text-center text-slate-400">
+                  <td colSpan={10} className="px-4 py-12 text-center text-muted-foreground">
                     <CreditCard className="w-8 h-8 mx-auto mb-2 opacity-40" />
                     <span>{t('shippingOps.rateCardsPage.noRateCards', 'لا توجد بطاقات أسعار مسجلة')}</span>
                   </td>
                 </tr>
               ) : (
                 rateCards.map((rc) => (
-                  <tr key={rc.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition">
-                    <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
+                  <tr key={rc.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition">
+                    <td className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">
                       {rc.name}
                     </td>
-                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
+                    <td className="px-4 py-3 text-foreground dark:text-muted-foreground">
                       {rc.merchant?.name || rc.merchantId}
                     </td>
                     <td className="px-4 py-3">
@@ -310,33 +310,33 @@ export const RateCardsPage: React.FC = () => {
                           <span>{rc.governorateCode}</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
                           عام (كل المحافظات)
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+                    <td className="px-4 py-3 font-bold tabular-nums text-success dark:text-success">
                       {formatCurrency(Number(rc.basePrice))}
                     </td>
-                    <td className="px-4 py-3 tabular-nums text-slate-600 dark:text-slate-400">
+                    <td className="px-4 py-3 tabular-nums text-foreground dark:text-muted-foreground">
                       {rc.baseWeightKg} كجم
                     </td>
-                    <td className="px-4 py-3 tabular-nums text-slate-600 dark:text-slate-400">
+                    <td className="px-4 py-3 tabular-nums text-foreground dark:text-muted-foreground">
                       {formatCurrency(Number(rc.extraKgPrice))}
                     </td>
-                    <td className="px-4 py-3 tabular-nums text-slate-600 dark:text-slate-400">
+                    <td className="px-4 py-3 tabular-nums text-foreground dark:text-muted-foreground">
                       {Number(rc.codFeeFixed) > 0 ? `${rc.codFeeFixed} ج` : ''}
                       {Number(rc.codFeePercent) > 0 ? ` + ${rc.codFeePercent}%` : ''}
                       {Number(rc.codFeeFixed) === 0 && Number(rc.codFeePercent) === 0 ? 'مجاني' : ''}
                     </td>
-                    <td className="px-4 py-3 tabular-nums text-slate-600 dark:text-slate-400">
+                    <td className="px-4 py-3 tabular-nums text-foreground dark:text-muted-foreground">
                       {formatCurrency(Number(rc.returnFee))}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${
                         rc.isActive
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400'
-                          : 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400'
+                          ? 'bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success'
+                          : 'bg-slate-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground'
                       }`}>
                         {rc.isActive ? 'مفعلة' : 'معطلة'}
                       </span>
@@ -345,7 +345,7 @@ export const RateCardsPage: React.FC = () => {
                       <div className="inline-flex items-center gap-1">
                         <button
                           onClick={() => handleOpenEdit(rc)}
-                          className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                          className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                           title="تعديل"
                         >
                           <Pencil className="w-4 h-4" />
@@ -353,7 +353,7 @@ export const RateCardsPage: React.FC = () => {
                         <button
                           onClick={() => handleDelete(rc.id)}
                           disabled={deletingId === rc.id}
-                          className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition disabled:opacity-50"
+                          className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition disabled:opacity-50"
                           title="حذف"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -372,9 +372,9 @@ export const RateCardsPage: React.FC = () => {
 
       {/* Modal: Create or Edit Rate Card */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 max-w-lg w-full space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 max-w-lg w-full space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <div className="flex items-center gap-2 font-bold text-base">
                 <CreditCard className="w-5 h-5 text-blue-600" />
                 <span>
@@ -386,7 +386,7 @@ export const RateCardsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground"
               >
                 ✕
               </button>
@@ -395,7 +395,7 @@ export const RateCardsPage: React.FC = () => {
             <form onSubmit={handleSave} className="space-y-4 text-xs sm:text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     العميل / التاجر <span className="text-red-500">*</span>
                   </label>
                   <select
@@ -403,7 +403,7 @@ export const RateCardsPage: React.FC = () => {
                     onChange={(e) => setFormData((p) => ({ ...p, merchantId: e.target.value }))}
                     disabled={Boolean(editingCard)}
                     required
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">اختر العميل...</option>
                     {merchants.map((m) => (
@@ -415,7 +415,7 @@ export const RateCardsPage: React.FC = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     اسم بطاقة السعر <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -424,18 +424,18 @@ export const RateCardsPage: React.FC = () => {
                     placeholder="مثال: تسعير القاهرة الكبرى، تسعير الصعيد"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     المحافظة (اتركها فارغة لتعميمها على جميع المحافظات)
                   </label>
                   <select
                     value={formData.governorateCode || ''}
                     onChange={(e) => setFormData((p) => ({ ...p, governorateCode: e.target.value || null }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">{t('shippingOps.rateCardsPage.allGovernorates', 'عام (كل المحافظات)')}</option>
                     {EGYPT_GOVERNORATES.map((g) => (
@@ -447,7 +447,7 @@ export const RateCardsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     السعر الأساسي (جنيه) <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -457,12 +457,12 @@ export const RateCardsPage: React.FC = () => {
                     required
                     value={formData.basePrice}
                     onChange={(e) => setFormData((p) => ({ ...p, basePrice: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums font-semibold"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     الوزن المشمول (كجم)
                   </label>
                   <input
@@ -471,12 +471,12 @@ export const RateCardsPage: React.FC = () => {
                     min="0.1"
                     value={formData.baseWeightKg}
                     onChange={(e) => setFormData((p) => ({ ...p, baseWeightKg: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     سعر الكيلو الزائد (جنيه)
                   </label>
                   <input
@@ -485,12 +485,12 @@ export const RateCardsPage: React.FC = () => {
                     min="0"
                     value={formData.extraKgPrice}
                     onChange={(e) => setFormData((p) => ({ ...p, extraKgPrice: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     رسوم المرتجع (جنيه)
                   </label>
                   <input
@@ -499,12 +499,12 @@ export const RateCardsPage: React.FC = () => {
                     min="0"
                     value={formData.returnFee}
                     onChange={(e) => setFormData((p) => ({ ...p, returnFee: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     رسوم COD ثابتة (جنيه)
                   </label>
                   <input
@@ -513,12 +513,12 @@ export const RateCardsPage: React.FC = () => {
                     min="0"
                     value={formData.codFeeFixed}
                     onChange={(e) => setFormData((p) => ({ ...p, codFeeFixed: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     رسوم COD نسبة (%)
                   </label>
                   <input
@@ -528,7 +528,7 @@ export const RateCardsPage: React.FC = () => {
                     max="100"
                     value={formData.codFeePercent}
                     onChange={(e) => setFormData((p) => ({ ...p, codFeePercent: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
                   />
                 </div>
 
@@ -538,21 +538,21 @@ export const RateCardsPage: React.FC = () => {
                       type="checkbox"
                       checked={formData.isActive}
                       onChange={(e) => setFormData((p) => ({ ...p, isActive: e.target.checked }))}
-                      className="w-4 h-4 text-blue-600 rounded border-slate-300 dark:border-slate-700"
+                      className="w-4 h-4 text-blue-600 rounded border-border dark:border-border"
                     />
-                    <span className="font-medium text-slate-700 dark:text-slate-300">
+                    <span className="font-medium text-foreground dark:text-muted-foreground">
                       تفعيل بطاقة السعر للاستخدام الفوري
                     </span>
                   </label>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
                   disabled={saving}
-                  className="px-3.5 py-2 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                  className="px-3.5 py-2 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                 >
                   إلغاء
                 </button>

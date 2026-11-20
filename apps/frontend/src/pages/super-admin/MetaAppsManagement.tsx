@@ -183,14 +183,14 @@ export default function MetaAppsManagement() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
               إدارة تطبيقات Meta (Primary & Growth)
             </h1>
             <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
               T13 Architecture
             </Badge>
           </div>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             سجل التطبيقات المعتمدة، عزل المفاتيح عبر الخزنة/البيئة، والويب هوك المزدوج مع دعم التراجع الفوري.
           </p>
         </div>
@@ -210,14 +210,14 @@ export default function MetaAppsManagement() {
       </div>
 
       {/* Security & Architecture Banner */}
-      <div className="bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4 flex items-start gap-3">
-        <Lock className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
+      <div className="bg-emerald-50/80 dark:bg-success/20 border border-success dark:border-success rounded-lg p-4 flex items-start gap-3">
+        <Lock className="h-5 w-5 text-success dark:text-success mt-0.5 shrink-0" />
         <div className="text-xs space-y-1">
-          <p className="font-semibold text-emerald-800 dark:text-emerald-300">
+          <p className="font-semibold text-success dark:text-success">
             أمان مشدد: عدم تخزين أسرار التطبيقات كنصوص في قاعدة البيانات
           </p>
-          <p className="text-emerald-700 dark:text-emerald-400">
-            يتم تخزين مراجع المتغيرات (<code className="bg-emerald-100 dark:bg-emerald-900 px-1 py-0.5 rounded">Ref</code>) فقط ويتم سحب الأسرار لحظياً من بيئة التشغيل الآمنة أو الخزنة المشفرة (Vault). لا يتم تسجيل أي أسرار في اللوجات أو واجهات البرمجة.
+          <p className="text-emerald-700 dark:text-success">
+            يتم تخزين مراجع المتغيرات (<code className="bg-emerald-100 dark:bg-success px-1 py-0.5 rounded">Ref</code>) فقط ويتم سحب الأسرار لحظياً من بيئة التشغيل الآمنة أو الخزنة المشفرة (Vault). لا يتم تسجيل أي أسرار في اللوجات أو واجهات البرمجة.
           </p>
         </div>
       </div>
@@ -233,7 +233,7 @@ export default function MetaAppsManagement() {
               key={app.key}
               className={`border-2 transition-shadow hover:shadow-md ${
                 isGrowth
-                  ? "border-purple-200 dark:border-purple-900 bg-gradient-to-b from-white to-purple-50/20 dark:from-gray-900 dark:to-purple-950/10"
+                  ? "border-purple-200 dark:border-primary bg-gradient-to-b from-white to-primary/20 dark:from-gray-900 dark:to-primary/10"
                   : "border-blue-200 dark:border-blue-900 bg-gradient-to-b from-white to-blue-50/20 dark:from-gray-900 dark:to-blue-950/10"
               }`}
             >
@@ -248,7 +248,7 @@ export default function MetaAppsManagement() {
                         variant="secondary"
                         className={
                           isGrowth
-                            ? "bg-purple-100 text-purple-800 border-purple-200"
+                            ? "bg-purple-100 text-primary border-primary"
                             : "bg-blue-100 text-blue-800 border-blue-200"
                         }
                       >
@@ -271,7 +271,7 @@ export default function MetaAppsManagement() {
                     <Badge
                       variant={app.isActive ? "default" : "destructive"}
                       className={`text-[10px] ${
-                        app.isActive ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                        app.isActive ? "bg-emerald-600 hover:bg-success" : ""
                       }`}
                     >
                       {app.isActive ? "مفعل" : "معطل"}
@@ -282,7 +282,7 @@ export default function MetaAppsManagement() {
 
               <CardContent className="space-y-4 text-xs">
                 {/* Credentials Overview */}
-                <div className="space-y-2 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-md border border-gray-200/60 dark:border-gray-700/60">
+                <div className="space-y-2 bg-muted dark:bg-muted p-3 rounded-md border border-border dark:border-border">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-500 font-medium">معرّف التطبيق (App ID):</span>
                     <div className="flex items-center gap-1.5 font-mono">
@@ -290,7 +290,7 @@ export default function MetaAppsManagement() {
                       {app.appId && (
                         <button
                           onClick={() => copyToClipboard(app.appId, "معرف التطبيق")}
-                          className="text-gray-400 hover:text-gray-600"
+                          className="text-gray-400 hover:text-foreground"
                           title="نسخ"
                         >
                           <Copy className="h-3.5 w-3.5" />
@@ -302,15 +302,15 @@ export default function MetaAppsManagement() {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-500 font-medium">مرجع السر (Secret Ref):</span>
                     <div className="flex items-center gap-1.5">
-                      <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded font-mono text-[11px]">
+                      <code className="bg-gray-200 dark:bg-muted px-1 rounded font-mono text-[11px]">
                         {app.appSecretRef}
                       </code>
                       {app.hasSecretConfigured ? (
-                        <span className="flex items-center text-emerald-600 gap-0.5 text-[10px]" title="تم العثور على السر في البيئة">
+                        <span className="flex items-center text-success gap-0.5 text-[10px]" title="تم العثور على السر في البيئة">
                           <CheckCircle2 className="h-3 w-3" /> متاح
                         </span>
                       ) : (
-                        <span className="flex items-center text-amber-600 gap-0.5 text-[10px]" title="لم يتم العثور على السر في البيئة">
+                        <span className="flex items-center text-warning gap-0.5 text-[10px]" title="لم يتم العثور على السر في البيئة">
                           <AlertTriangle className="h-3 w-3" /> مفقود
                         </span>
                       )}
@@ -320,15 +320,15 @@ export default function MetaAppsManagement() {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-500 font-medium">رمز التحقق (Verify Token Ref):</span>
                     <div className="flex items-center gap-1.5">
-                      <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded font-mono text-[11px]">
+                      <code className="bg-gray-200 dark:bg-muted px-1 rounded font-mono text-[11px]">
                         {app.webhookVerifyTokenRef || "غير محدد"}
                       </code>
                       {app.hasVerifyTokenConfigured ? (
-                        <span className="flex items-center text-emerald-600 gap-0.5 text-[10px]">
+                        <span className="flex items-center text-success gap-0.5 text-[10px]">
                           <CheckCircle2 className="h-3 w-3" /> مضبوط
                         </span>
                       ) : (
-                        <span className="flex items-center text-gray-400 gap-0.5 text-[10px]">
+                        <span className="flex items-center text-muted-foreground gap-0.5 text-[10px]">
                           <XCircle className="h-3 w-3" /> غير مضبوط
                         </span>
                       )}
@@ -338,7 +338,7 @@ export default function MetaAppsManagement() {
                   {app.configId && (
                     <div className="flex items-center justify-between">
                       <span className="text-gray-500 font-medium">معرف الدخول (Config ID):</span>
-                      <span className="font-mono text-gray-700 dark:text-gray-300">
+                      <span className="font-mono text-foreground">
                         {app.configId}
                       </span>
                     </div>
@@ -355,9 +355,9 @@ export default function MetaAppsManagement() {
                     {permissions.map((p) => (
                       <div
                         key={p.name}
-                        className="bg-white dark:bg-gray-800 border rounded px-2 py-1 text-[11px] flex items-center gap-1 text-gray-700 dark:text-gray-300"
+                        className="bg-card border rounded px-2 py-1 text-[11px] flex items-center gap-1 text-foreground"
                       >
-                        <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
+                        <CheckCircle2 className="h-3 w-3 text-success shrink-0" />
                         <span className="truncate" title={p.name}>
                           {p.label}
                         </span>
@@ -422,7 +422,7 @@ export default function MetaAppsManagement() {
 
             <div className="space-y-3 py-4 text-xs">
               <div className="space-y-1">
-                <label className="font-medium text-gray-700 dark:text-gray-300">
+                <label className="font-medium text-foreground">
                   معرّف التطبيق (App ID) *
                 </label>
                 <Input
@@ -435,7 +435,7 @@ export default function MetaAppsManagement() {
               </div>
 
               <div className="space-y-1">
-                <label className="font-medium text-gray-700 dark:text-gray-300">
+                <label className="font-medium text-foreground">
                   مرجع سر التطبيق (App Secret Ref) *
                 </label>
                 <Input
@@ -445,13 +445,13 @@ export default function MetaAppsManagement() {
                   className="font-mono text-xs"
                   required
                 />
-                <p className="text-[11px] text-gray-500">
+                <p className="text-[11px] text-muted-foreground">
                   اسم متغير البيئة الذي يحتوي على سر التطبيق.
                 </p>
               </div>
 
               <div className="space-y-1">
-                <label className="font-medium text-gray-700 dark:text-gray-300">
+                <label className="font-medium text-foreground">
                   معرف تكوين الدخول (Login Config ID - اختياري)
                 </label>
                 <Input
@@ -463,7 +463,7 @@ export default function MetaAppsManagement() {
               </div>
 
               <div className="space-y-1">
-                <label className="font-medium text-gray-700 dark:text-gray-300">
+                <label className="font-medium text-foreground">
                   مرجع رمز التحقق للويب هوك (Webhook Verify Token Ref - اختياري)
                 </label>
                 <Input
@@ -503,7 +503,7 @@ export default function MetaAppsManagement() {
               <DialogTitle className="text-base font-bold flex items-center gap-2">
                 <span>نتائج فحص الاتصال واعتماد الصلاحيات</span>
                 {testResult?.connected ? (
-                  <Badge className="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px]">
+                  <Badge className="bg-emerald-600 hover:bg-success text-white text-[10px]">
                     متصل بنجاح ✓
                   </Badge>
                 ) : (
@@ -528,8 +528,8 @@ export default function MetaAppsManagement() {
               <div
                 className={`p-3 rounded-lg border text-xs leading-relaxed ${
                   testResult.connected
-                    ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200"
-                    : "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200"
+                    ? "bg-emerald-50 dark:bg-success/30 border-success dark:border-success text-success dark:text-success"
+                    : "bg-amber-50 dark:bg-warning/30 border-warning dark:border-warning text-warning dark:text-warning"
                 }`}
               >
                 {testResult.message}
@@ -537,7 +537,7 @@ export default function MetaAppsManagement() {
             )}
 
             <div className="space-y-2">
-              <h4 className="font-semibold text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+              <h4 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-blue-500" />
                 حالة اعتماد صلاحيات Meta (App Review & Scope Access Levels)
               </h4>
@@ -565,12 +565,12 @@ export default function MetaAppsManagement() {
 
                         <div>
                           {isApproved && (
-                            <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 text-[10px]">
+                            <Badge className="bg-emerald-500/10 text-success dark:text-success border-success/20 text-[10px]">
                               معتمد (Advanced Access)
                             </Badge>
                           )}
                           {isStandardOnly && (
-                            <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 text-[10px]">
+                            <Badge className="bg-amber-500/10 text-warning dark:text-warning border-warning/20 text-[10px]">
                               وصول قياسي فقط (Standard Access)
                             </Badge>
                           )}
@@ -590,7 +590,7 @@ export default function MetaAppsManagement() {
                       <p className="text-[11px] text-muted-foreground">{p.description}</p>
 
                       {p.note && (
-                        <p className="text-[10px] text-amber-700 dark:text-amber-300 bg-amber-500/10 p-1.5 rounded border border-amber-500/20 mt-1">
+                        <p className="text-[10px] text-warning dark:text-warning bg-warning/10 p-1.5 rounded border border-warning/20 mt-1">
                           ⚠️ {p.note}
                         </p>
                       )}

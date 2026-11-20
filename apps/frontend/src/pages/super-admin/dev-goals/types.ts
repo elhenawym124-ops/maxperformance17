@@ -9,7 +9,7 @@ export const statusConfig: Record<
 > = {
   ACTIVE: {
     label: "نشط",
-    color: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+    color: "bg-emerald-500/10 text-success dark:text-success",
     border: "border-emerald-500/20",
   },
   COMPLETED: {
@@ -19,7 +19,7 @@ export const statusConfig: Record<
   },
   ON_HOLD: {
     label: "معلق",
-    color: "bg-amber-500/10 text-amber-700 dark:text-amber-400",
+    color: "bg-amber-500/10 text-warning dark:text-warning",
     border: "border-amber-500/20",
   },
   CANCELLED: {

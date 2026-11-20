@@ -44,14 +44,14 @@ export const ShippingServicesPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground dark:text-white tracking-tight">
               {isEn ? 'Extra Services & Change Requests' : 'الخدمات الإضافية والطلبات'}
             </h1>
             <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
               SHIP-T3
             </span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
             {isEn
               ? 'Configure extra billing services, approve package inspection requests, and manage active order changes'
               : 'إدارة تسعير الخدمات الإضافية، واعتماد طلبات معاينة وفتح الشحنات، وإدارة طلبات تعديل الأوردرات'}
@@ -60,9 +60,9 @@ export const ShippingServicesPage: React.FC = () => {
       </div>
 
       {/* Main Single-Surface Chassis */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-xs overflow-hidden">
         {/* Navigation Tabs */}
-        <div className="border-b border-slate-200 dark:border-slate-800 px-4 sm:px-6 pt-3 flex items-center gap-2 overflow-x-auto bg-slate-50/50 dark:bg-slate-800/20">
+        <div className="border-b border-border dark:border-border px-4 sm:px-6 pt-3 flex items-center gap-2 overflow-x-auto bg-muted dark:bg-muted">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -72,8 +72,8 @@ export const ShippingServicesPage: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 text-xs font-medium border-b-2 transition-all whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? 'border-blue-600 text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 rounded-t-lg shadow-2xs font-semibold'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300'
+                    ? 'border-blue-600 text-blue-600 dark:text-blue-400 bg-white dark:bg-muted rounded-t-lg shadow-2xs font-semibold'
+                    : 'border-transparent text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-white hover:border-border'
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`} />

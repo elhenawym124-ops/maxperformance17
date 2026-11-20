@@ -208,7 +208,7 @@ export const CourierBarcodeScannerModal: React.FC<CourierBarcodeScannerModalProp
       {/* Top Header */}
       <div className="w-full max-w-md flex items-center justify-between text-white pt-2 px-2">
         <div className="flex items-center gap-2">
-          <CameraIcon className="w-6 h-6 text-sky-400" />
+          <CameraIcon className="w-6 h-6 text-info" />
           <h2 className="text-sm font-bold">ماسح بوالص الشحن السريع</h2>
         </div>
         <div className="flex items-center gap-2">
@@ -216,7 +216,7 @@ export const CourierBarcodeScannerModal: React.FC<CourierBarcodeScannerModalProp
             onClick={toggleTorch}
             aria-label="الفلاش"
             className={`p-2 rounded-full border transition ${
-              torchOn ? 'bg-amber-400 text-slate-900 border-amber-300' : 'bg-white/10 text-white border-white/20'
+              torchOn ? 'bg-amber-400 text-foreground border-warning' : 'bg-white/10 text-white border-white/20'
             }`}
           >
             <BoltIcon className="w-5 h-5" />
@@ -232,7 +232,7 @@ export const CourierBarcodeScannerModal: React.FC<CourierBarcodeScannerModalProp
       </div>
 
       {/* Viewfinder Target */}
-      <div className="relative w-full max-w-xs aspect-square my-auto rounded-3xl overflow-hidden border-2 border-sky-400/80 shadow-2xl bg-slate-950 flex items-center justify-center">
+      <div className="relative w-full max-w-xs aspect-square my-auto rounded-xl overflow-hidden border-2 border-info/80 shadow-2xl bg-muted flex items-center justify-center">
         {hasCamera ? (
           <video
             ref={videoRef}
@@ -241,30 +241,30 @@ export const CourierBarcodeScannerModal: React.FC<CourierBarcodeScannerModalProp
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="text-center p-6 text-slate-400 flex flex-col items-center">
-            <ExclamationCircleIcon className="w-12 h-12 text-amber-400 mb-2" />
+          <div className="text-center p-6 text-muted-foreground flex flex-col items-center">
+            <ExclamationCircleIcon className="w-12 h-12 text-warning mb-2" />
             <p className="text-xs">{cameraError || 'الكاميرا غير متوفرة'}</p>
           </div>
         )}
 
         {/* Animated Scan Line */}
-        <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-transparent via-sky-400 to-transparent shadow-[0_0_12px_#38bdf8] animate-pulse pointer-events-none" />
+        <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-transparent via-info to-transparent shadow-[0_0_12px_#38bdf8] animate-pulse pointer-events-none" />
 
         {/* Corner Guides */}
-        <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-sky-400 rounded-tr-lg" />
-        <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-sky-400 rounded-tl-lg" />
-        <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-sky-400 rounded-br-lg" />
-        <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-sky-400 rounded-bl-lg" />
+        <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-info rounded-tr-lg" />
+        <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-info rounded-tl-lg" />
+        <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-info rounded-br-lg" />
+        <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-info rounded-bl-lg" />
       </div>
 
       {/* Manual Input Footer */}
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
+      <div className="w-full max-w-md bg-muted border border-border rounded-xl p-4 shadow-xl space-y-3">
         {!supportsBarcodeDetector && (
-          <p className="text-center text-[10px] text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-lg p-1.5">
+          <p className="text-center text-[10px] text-warning bg-warning/40 border border-warning/40 rounded-lg p-1.5">
             المسح الآلي غير مدعوم في هذا المتصفح، يرجى كتابة الرقم يدوياً بالأسفل.
           </p>
         )}
-        <p className="text-center text-[11px] text-slate-400">
+        <p className="text-center text-[11px] text-muted-foreground">
           وجّه كاميرا الهاتف نحو باركود الشحنة للتعرف التلقائي، أو أدخل الرقم يدوياً:
         </p>
         <form onSubmit={handleManualSubmit} className="flex gap-2">
@@ -273,11 +273,11 @@ export const CourierBarcodeScannerModal: React.FC<CourierBarcodeScannerModalProp
             value={manualCode}
             onChange={(e) => setManualCode(e.target.value)}
             placeholder="رقم البوليصة أو كود الطلب..."
-            className="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-700 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono"
+            className="flex-1 px-3 py-2 text-xs rounded-xl border border-border bg-muted text-white focus:outline-none focus:ring-2 focus:ring-info font-mono"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1"
+            className="px-4 py-2 bg-info hover:bg-info text-white rounded-xl text-xs font-bold transition flex items-center gap-1"
           >
             <CheckCircleIcon className="w-4 h-4" />
             تأكيد

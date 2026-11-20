@@ -53,10 +53,10 @@ export const buildBenefitList = (coupon: PlatformSignupCoupon) =>
   ].filter(Boolean) as string[];
 
 export const stateBadgeClassName = (state: PlatformSignupCoupon["state"]) => {
-  if (state === "live") return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
+  if (state === "live") return "border-emerald-500/20 bg-success/10 text-success dark:text-success";
   if (state === "scheduled") return "border-blue-500/20 bg-blue-500/10 text-blue-700 dark:text-blue-400";
   if (state === "expired") return "border-border/60 bg-muted text-muted-foreground";
-  if (state === "depleted") return "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400";
+  if (state === "depleted") return "border-amber-500/20 bg-warning/10 text-warning dark:text-warning";
   return "border-destructive/20 bg-destructive/10 text-destructive";
 };
 

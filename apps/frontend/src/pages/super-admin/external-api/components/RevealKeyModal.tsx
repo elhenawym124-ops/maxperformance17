@@ -26,10 +26,10 @@ export const RevealKeyModal: React.FC<Props> = ({ apiKey, keyName, onClose }) =>
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="w-full max-w-lg rounded-2xl border border-border/80 bg-card p-6 shadow-2xl space-y-6 text-right">
+      <div className="w-full max-w-lg rounded-xl border border-border/80 bg-card p-6 shadow-2xl space-y-6 text-right">
         {/* Header */}
         <div className="flex items-center gap-3 border-b border-border/60 pb-4">
-          <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+          <div className="p-2.5 rounded-xl bg-warning/10 text-warning dark:text-warning">
             <Key className="h-6 w-6" />
           </div>
           <div>
@@ -39,9 +39,9 @@ export const RevealKeyModal: React.FC<Props> = ({ apiKey, keyName, onClose }) =>
         </div>
 
         {/* Severe Warning Notice */}
-        <div className="p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300 space-y-1.5 text-xs">
+        <div className="p-3.5 rounded-xl border border-warning/30 bg-warning/10 text-warning dark:text-warning space-y-1.5 text-xs">
           <div className="flex items-center gap-2 font-bold">
-            <AlertTriangle className="h-4 w-4 shrink-0 text-amber-500" />
+            <AlertTriangle className="h-4 w-4 shrink-0 text-warning" />
             تحذير أمني إلزامي: احفظ المفتاح الآن
           </div>
           <p className="leading-relaxed">
@@ -61,7 +61,7 @@ export const RevealKeyModal: React.FC<Props> = ({ apiKey, keyName, onClose }) =>
               onClick={handleCopy}
               className={`p-2 rounded-lg transition active:scale-[0.97] shrink-0 flex items-center gap-1.5 text-xs font-semibold ${
                 copied
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                  ? 'bg-emerald-500/10 text-success dark:text-success border border-success/30'
                   : 'bg-primary text-primary-foreground hover:opacity-90'
               }`}
             >

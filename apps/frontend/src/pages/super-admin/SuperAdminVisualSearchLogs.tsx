@@ -59,8 +59,8 @@ function fmtTime(iso: string) {
 }
 
 function latencyColor(ms: number) {
-  if (ms < 500) return "text-emerald-600 dark:text-emerald-400";
-  if (ms < 2000) return "text-amber-600 dark:text-amber-400";
+  if (ms < 500) return "text-emerald-600 dark:text-success";
+  if (ms < 2000) return "text-amber-600 dark:text-warning";
   return "text-destructive";
 }
 
@@ -177,10 +177,10 @@ export default function SuperAdminVisualSearchLogs() {
 
           <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-emerald-600 dark:text-emerald-400">عمليات ناجحة</p>
-              <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">{summary.success}</p>
+              <p className="text-[11px] text-success dark:text-success">عمليات ناجحة</p>
+              <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">{summary.success}</p>
             </div>
-            <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+            <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
               <CheckCircle2 className="size-3.5" />
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function SuperAdminVisualSearchLogs() {
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
             <Input
-              className="pr-8 h-8 text-xs font-mono bg-background border-border/60"
+              className="pe-8 h-8 text-xs font-mono bg-background border-border/60"
               placeholder="البحث في الاستعلامات والشركات..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -271,7 +271,7 @@ export default function SuperAdminVisualSearchLogs() {
                             className={cn(
                               "px-1.5 py-0.5 rounded text-[10px] font-medium border",
                               l.wasSuccessful
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                                ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                                 : "bg-destructive/10 text-destructive border-destructive/20",
                             )}
                           >
@@ -329,7 +329,7 @@ export default function SuperAdminVisualSearchLogs() {
                 onClick={() => setPage(page - 1)}
                 className="h-7 text-xs font-mono border-border/70"
               >
-                <ChevronRight className="size-3.5 ml-1" /> السابق
+                <ChevronRight className="size-3.5 ms-1" /> السابق
               </Button>
               <Button
                 variant="outline"
@@ -338,7 +338,7 @@ export default function SuperAdminVisualSearchLogs() {
                 onClick={() => setPage(page + 1)}
                 className="h-7 text-xs font-mono border-border/70"
               >
-                التالي <ChevronLeft className="size-3.5 mr-1" />
+                التالي <ChevronLeft className="size-3.5 me-1" />
               </Button>
             </div>
           </div>

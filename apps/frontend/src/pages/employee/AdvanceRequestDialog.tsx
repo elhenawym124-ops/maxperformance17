@@ -147,7 +147,7 @@ export const AdvanceRequestDialog: React.FC<AdvanceRequestDialogProps> = ({
         </div>
         <DialogFooter>
           <Button onClick={handleSubmit} disabled={submitting} className="w-full h-8 text-xs font-medium">
-            {submitting && <Loader2 className="w-3.5 h-3.5 animate-spin ml-2" />}
+            {submitting && <Loader2 className="w-3.5 h-3.5 animate-spin ms-2" />}
             إرسال الطلب للاعتماد
           </Button>
         </DialogFooter>

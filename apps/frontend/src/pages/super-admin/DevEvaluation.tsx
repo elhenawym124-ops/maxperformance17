@@ -157,9 +157,9 @@ const periodOptions = [
 
 const getScoreBadge = (score: number | null | undefined) => {
   if (score === null || score === undefined) return "bg-muted text-muted-foreground border-border";
-  if (score >= 80) return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
-  if (score >= 60) return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
-  return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20";
+  if (score >= 80) return "bg-emerald-500/10 text-success dark:text-success border-success/20";
+  if (score >= 60) return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
+  return "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20";
 };
 
 const DevEvaluation: React.FC = () => {
@@ -259,7 +259,7 @@ const DevEvaluation: React.FC = () => {
             <select
               value={periodType}
               onChange={(e) => setPeriodType(e.target.value)}
-              className="pr-7 pl-3 py-1.5 border border-border/70 rounded-lg bg-card text-foreground text-xs font-mono focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="pe-7 ps-3 py-1.5 border border-border/70 rounded-lg bg-card text-foreground text-xs font-mono focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
             >
               {periodOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -308,9 +308,9 @@ const DevEvaluation: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">الالتزام بالموعد</span>
-              <Clock className="size-3.5 text-emerald-500" />
+              <Clock className="size-3.5 text-success" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
               {stats.avgOnTime}%
             </div>
           </div>
@@ -318,9 +318,9 @@ const DevEvaluation: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">المهام المكتملة</span>
-              <CheckCircle2 className="size-3.5 text-amber-500" />
+              <CheckCircle2 className="size-3.5 text-warning" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-amber-500 font-mono tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-warning font-mono tabular-nums">
               {stats.totalTasks}
             </div>
           </div>

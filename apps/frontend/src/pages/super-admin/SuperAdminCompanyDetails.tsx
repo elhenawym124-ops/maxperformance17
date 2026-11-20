@@ -242,24 +242,24 @@ const SuperAdminCompanyDetails = () => {
     if (daysUntilRenewal === null) {
       return {
         label: "غير محدد",
-        className: "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300",
+        className: "border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
       };
     }
     if (daysUntilRenewal < 0) {
       return {
         label: "التجديد متأخر",
-        className: "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800/70 dark:bg-rose-950/40 dark:text-rose-300",
+        className: "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/70 dark:bg-destructive/40 dark:text-destructive",
       };
     }
     if (daysUntilRenewal <= 7) {
       return {
         label: "التجديد قريب",
-        className: "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-300",
+        className: "border-amber-200 bg-warning/10 text-warning dark:border-warning/70 dark:bg-warning/40 dark:text-warning",
       };
     }
     return {
       label: formatRelativeDateLabel(nextBillingDate),
-      className: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800/70 dark:bg-emerald-950/40 dark:text-emerald-300",
+      className: "border-emerald-200 bg-success/10 text-success dark:border-success/70 dark:bg-success/40 dark:text-success",
     };
   }, [daysUntilRenewal, nextBillingDate]);
 
@@ -315,21 +315,21 @@ const SuperAdminCompanyDetails = () => {
         label: "الاشتراك الشهري",
         value: formatCurrency(review.subscription?.monthlyFee, reviewCurrency),
         hint: `حالة الاشتراك: ${subStatusMeta.label}`,
-        tone: "border-emerald-200/80 bg-[linear-gradient(135deg,rgba(236,253,245,0.96),rgba(209,250,229,0.78))] text-emerald-900 dark:border-emerald-900/60 dark:bg-[linear-gradient(135deg,rgba(6,78,59,0.52),rgba(4,120,87,0.22))] dark:text-emerald-100",
+        tone: "border-emerald-200/80 bg-[linear-gradient(135deg,rgba(236,253,245,0.96),rgba(209,250,229,0.78))] text-success dark:border-success/60 dark:bg-[linear-gradient(135deg,rgba(6,78,59,0.52),rgba(4,120,87,0.22))] dark:text-success",
       },
       {
         icon: BarChart3,
         label: "إجمالي تكلفة الشهر",
         value: formatCurrency(review.usage?.costs?.total, reviewCurrency),
         hint: `${formatNumber(review.usage?.totalActions)} عملية / ${formatNumber(review.usage?.totalQuantity)} وحدة`,
-        tone: "border-sky-200/80 bg-[linear-gradient(135deg,rgba(239,246,255,0.96),rgba(219,234,254,0.82))] text-sky-900 dark:border-sky-900/60 dark:bg-[linear-gradient(135deg,rgba(7,89,133,0.48),rgba(2,132,199,0.22))] dark:text-sky-100",
+        tone: "border-sky-200/80 bg-[linear-gradient(135deg,rgba(239,246,255,0.96),rgba(219,234,254,0.82))] text-info dark:border-info/60 dark:bg-[linear-gradient(135deg,rgba(7,89,133,0.48),rgba(2,132,199,0.22))] dark:text-info",
       },
       {
         icon: Receipt,
         label: "إيصالات قيد المراجعة",
         value: formatNumber(review.billing?.stats?.pendingReceipts || 0),
         hint: "بانتظار اعتماد السوبر أدمن",
-        tone: "border-rose-200/80 bg-[linear-gradient(135deg,rgba(255,241,242,0.96),rgba(254,205,211,0.82))] text-rose-900 dark:border-rose-900/60 dark:bg-[linear-gradient(135deg,rgba(127,29,29,0.42),rgba(190,24,93,0.18))] dark:text-rose-100",
+        tone: "border-rose-200/80 bg-[linear-gradient(135deg,rgba(255,241,242,0.96),rgba(254,205,211,0.82))] text-destructive dark:border-destructive/60 dark:bg-[linear-gradient(135deg,rgba(127,29,29,0.42),rgba(190,24,93,0.18))] dark:text-destructive",
       },
     ];
   }, [review, reviewCurrency]);
@@ -353,7 +353,7 @@ const SuperAdminCompanyDetails = () => {
         type="button"
         variant="outline"
         data-variant="warning"
-        className="h-9 rounded-xl border-amber-500/60 bg-amber-50/80 text-amber-800 hover:bg-amber-100 hover:text-amber-900 dark:border-amber-700/70 dark:bg-amber-950/30 dark:text-amber-300 dark:hover:bg-amber-950/50 font-bold gap-1.5 text-xs sm:text-sm px-3.5"
+        className="h-9 rounded-xl border-warning/60 bg-warning/80 text-warning hover:bg-warning hover:text-warning dark:border-warning/70 dark:bg-warning/30 dark:text-warning dark:hover:bg-warning/50 font-bold gap-1.5 text-xs sm:text-sm px-3.5"
         onClick={() => {
           setImpersonateReason("");
           setImpersonateModalOpen(true);
@@ -382,7 +382,7 @@ const SuperAdminCompanyDetails = () => {
             onClick={openTopUpModal}
             disabled={!company}
           >
-            <Wallet className="size-3.5 text-emerald-600" />
+            <Wallet className="size-3.5 text-success" />
             <span>شحن المحفظة</span>
           </DropdownMenuItem>
 
@@ -402,7 +402,7 @@ const SuperAdminCompanyDetails = () => {
             >
               <Store className="size-3.5 text-primary" />
               <span>معاينة المتجر الحي</span>
-              <ExternalLink className="size-3 mr-auto opacity-50" />
+              <ExternalLink className="size-3 me-auto opacity-50" />
             </DropdownMenuItem>
           ) : null}
 
@@ -427,7 +427,7 @@ const SuperAdminCompanyDetails = () => {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            className="rounded-lg gap-2 text-xs font-semibold text-amber-700 focus:text-amber-700 dark:text-amber-400"
+            className="rounded-lg gap-2 text-xs font-semibold text-warning focus:text-warning dark:text-warning"
             onClick={() => setTransferOpen(true)}
             disabled={!company}
           >
@@ -441,7 +441,7 @@ const SuperAdminCompanyDetails = () => {
               "rounded-lg gap-2 text-xs font-semibold",
               company.isActive
                 ? "text-destructive focus:text-destructive"
-                : "text-emerald-700 focus:text-emerald-700 dark:text-emerald-400",
+                : "text-emerald-700 focus:text-success dark:text-success",
             )}
             onClick={openStatusConfirmModal}
             disabled={!company}
@@ -476,11 +476,11 @@ const SuperAdminCompanyDetails = () => {
       </div>
 
       {/* 2. Streamlined Company Details Header + Unified 4-KPI Bar */}
-      <header className="rounded-2xl border bg-card p-3.5 sm:p-4 shadow-xs space-y-3.5">
+      <header className="rounded-xl border bg-card p-3.5 sm:p-4 shadow-xs space-y-3.5">
         {loading ? (
-          <Skeleton className="h-52 rounded-2xl" />
+          <Skeleton className="h-52 rounded-xl" />
         ) : error ? (
-          <Alert className="rounded-2xl border-destructive/40 bg-destructive/5 text-right">
+          <Alert className="rounded-xl border-destructive/40 bg-destructive/5 text-right">
             <AlertTriangle className="size-4" />
             <AlertTitle>تعذر تحميل بيانات الشركة</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
@@ -536,7 +536,7 @@ const SuperAdminCompanyDetails = () => {
                 ) : null}
 
                 {trialActive ? (
-                  <Alert className="rounded-xl border-emerald-200 bg-emerald-50/80 text-emerald-900 dark:border-emerald-800/70 dark:bg-emerald-950/30 dark:text-emerald-100">
+                  <Alert className="rounded-xl border-success bg-success/80 text-success dark:border-success/70 dark:bg-success/30 dark:text-success">
                     <Timer className="size-4" />
                     <AlertTitle>الفترة التجريبية مفعّلة</AlertTitle>
                     <AlertDescription>
@@ -596,7 +596,7 @@ const SuperAdminCompanyDetails = () => {
                 </div>
 
                 {/* Distinct Danger Zone Section */}
-                <div className="rounded-2xl border border-destructive/40 bg-destructive/5 p-4 space-y-3">
+                <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-4 space-y-3">
                   <div className="flex items-center gap-2.5 text-destructive">
                     <AlertOctagon className="size-5" />
                     <div>
@@ -732,7 +732,7 @@ const SuperAdminCompanyDetails = () => {
           <aside
             aria-label="صحة الشركة"
             data-testid="company-health-column"
-            className="min-w-0 rounded-2xl border bg-card p-3.5 space-y-3 shadow-xs xl:sticky xl:top-3"
+            className="min-w-0 rounded-xl border bg-card p-3.5 space-y-3 shadow-xs xl:sticky xl:top-3"
           >
             <div className="flex items-center justify-between gap-2 border-b border-border/50 pb-2.5">
               <div className="flex items-center gap-2">
@@ -787,7 +787,7 @@ const SuperAdminCompanyDetails = () => {
                   <span
                     className={cn(
                       "text-sm font-black",
-                      dormantUsersCount > 0 ? "text-amber-600 dark:text-amber-400" : "text-foreground",
+                      dormantUsersCount > 0 ? "text-amber-600 dark:text-warning" : "text-foreground",
                     )}
                   >
                     {formatNumber(dormantUsersCount)}
@@ -812,7 +812,7 @@ const SuperAdminCompanyDetails = () => {
                     data-testid="health-open-tickets-count"
                     className={cn(
                       "text-sm font-black",
-                      openTicketsCount > 0 ? "text-amber-600 dark:text-amber-400" : "text-foreground",
+                      openTicketsCount > 0 ? "text-amber-600 dark:text-warning" : "text-foreground",
                     )}
                   >
                     {formatNumber(openTicketsCount)}
@@ -847,7 +847,7 @@ const SuperAdminCompanyDetails = () => {
       >
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
+            <div className="flex items-center gap-2 text-warning dark:text-warning">
               <KeyRound className="size-5" />
               <DialogTitle className="text-lg font-black">دخول بدعم موثّق كأدمن الشركة</DialogTitle>
             </div>
@@ -870,7 +870,7 @@ const SuperAdminCompanyDetails = () => {
                 disabled={impersonating}
               />
               {!impersonateReason.trim() ? (
-                <p className="text-[11px] text-amber-700 dark:text-amber-400">
+                <p className="text-[11px] text-warning dark:text-warning">
                   يجب كتابة سبب الدخول لتفعيل زر التأكيد وتوثيق العملية في سجل النشاط.
                 </p>
               ) : null}
@@ -888,7 +888,7 @@ const SuperAdminCompanyDetails = () => {
             </Button>
             <Button
               type="button"
-              className="bg-amber-600 hover:bg-amber-700 text-white font-bold shadow-sm gap-1.5"
+              className="bg-amber-600 hover:bg-warning text-white font-bold shadow-sm gap-1.5"
               disabled={impersonating || !impersonateReason.trim()}
               onClick={async () => {
                 if (!impersonateReason.trim()) return;
@@ -916,7 +916,7 @@ const SuperAdminCompanyDetails = () => {
                 "flex items-center gap-2",
                 company?.isActive
                   ? "text-destructive"
-                  : "text-amber-700 dark:text-amber-400",
+                  : "text-amber-700 dark:text-warning",
               )}
             >
               <AlertTriangle className="size-5" />
@@ -937,7 +937,7 @@ const SuperAdminCompanyDetails = () => {
                 "flex items-start gap-2 rounded-xl border p-3 text-xs",
                 company?.isActive
                   ? "border-destructive/30 bg-destructive/10 text-destructive"
-                  : "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-200",
+                  : "border-amber-200 bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning",
               )}
             >
               <AlertOctagon className="size-4 shrink-0 mt-0.5" />
@@ -966,7 +966,7 @@ const SuperAdminCompanyDetails = () => {
                 disabled={statusSaving}
               />
               {!statusReason.trim() ? (
-                <p className="text-[11px] text-amber-700 dark:text-amber-400">
+                <p className="text-[11px] text-warning dark:text-warning">
                   يجب كتابة سبب واضح لتفعيل زر التأكيد وتوثيق العملية في سجل النشاط.
                 </p>
               ) : null}
@@ -1029,7 +1029,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setEditForm((current) => ({ ...current, name: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="البريد الإلكتروني" error={editErrors["email"]} required>
@@ -1039,7 +1039,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setEditForm((current) => ({ ...current, email: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="الهاتف">
@@ -1048,7 +1048,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setEditForm((current) => ({ ...current, phone: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="الموقع الإلكتروني">
@@ -1057,7 +1057,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setEditForm((current) => ({ ...current, website: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
 
@@ -1069,7 +1069,7 @@ const SuperAdminCompanyDetails = () => {
                 setEditForm((current) => ({ ...current, currency: value ?? "" }))
               }
             >
-              <SelectTrigger className="h-11 min-w-0 rounded-2xl">
+              <SelectTrigger className="h-11 min-w-0 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -1093,7 +1093,7 @@ const SuperAdminCompanyDetails = () => {
                 setEditForm((current) => ({ ...current, businessSpecialtyId: value ?? "none" }))
               }
             >
-              <SelectTrigger className="h-11 min-w-0 rounded-2xl">
+              <SelectTrigger className="h-11 min-w-0 rounded-xl">
                 <SelectValue placeholder="اختر تخصص الشركة..." />
               </SelectTrigger>
               <SelectContent>
@@ -1129,8 +1129,8 @@ const SuperAdminCompanyDetails = () => {
             </div>
           </div>
           {company && editForm.isActive !== company.isActive ? (
-            <div className="rounded-xl border border-amber-300 bg-amber-50/70 p-3 space-y-2 dark:border-amber-800/70 dark:bg-amber-950/30">
-              <p className="text-xs font-bold text-amber-900 dark:text-amber-200 flex items-center gap-1.5">
+            <div className="rounded-xl border border-warning bg-warning/70 p-3 space-y-2 dark:border-warning/70 dark:bg-warning/30">
+              <p className="text-xs font-bold text-warning dark:text-warning flex items-center gap-1.5">
                 <AlertTriangle className="size-3.5 shrink-0" />
                 <span>
                   {editForm.isActive
@@ -1158,7 +1158,7 @@ const SuperAdminCompanyDetails = () => {
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
               setEditForm((current) => ({ ...current, notes: event.target.value }))
             }
-            className="h-24 rounded-2xl"
+            className="h-24 rounded-xl"
             placeholder="أي ملاحظات عن الشركة..."
           />
         </FormField>
@@ -1183,7 +1183,7 @@ const SuperAdminCompanyDetails = () => {
           />
         }
       >
-        <Alert className="rounded-xl border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-100">
+        <Alert className="rounded-xl border-warning bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning">
           <AlertTriangle className="size-4" />
           <AlertTitle>خطوة حساسة</AlertTitle>
           <AlertDescription>النقل يبدّل المالك الحالي ويمنح المستخدم المختار صلاحيات كاملة.</AlertDescription>
@@ -1244,7 +1244,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setAddEmployeeForm((current) => ({ ...current, firstName: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="الاسم الأخير" error={addEmployeeErrors["lastName"]} required>
@@ -1253,7 +1253,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setAddEmployeeForm((current) => ({ ...current, lastName: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="البريد الإلكتروني" error={addEmployeeErrors["email"]} required>
@@ -1263,7 +1263,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setAddEmployeeForm((current) => ({ ...current, email: event.target.value }))
               }
-              className="h-11 rounded-2xl md:col-span-2"
+              className="h-11 rounded-xl md:col-span-2"
             />
           </FormField>
           <FormField label="كلمة المرور" error={addEmployeeErrors["password"]} required>
@@ -1273,7 +1273,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setAddEmployeeForm((current) => ({ ...current, password: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="الصلاحية" required>
@@ -1284,7 +1284,7 @@ const SuperAdminCompanyDetails = () => {
                 setAddEmployeeForm((current) => ({ ...current, role: value ?? "" }))
               }
             >
-              <SelectTrigger className="h-11 min-w-0 rounded-2xl">
+              <SelectTrigger className="h-11 min-w-0 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -1327,7 +1327,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setTopUpForm((current) => ({ ...current, amount: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="بونص إضافي" error={topUpErrors["bonus"]} required>
@@ -1339,7 +1339,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setTopUpForm((current) => ({ ...current, bonus: event.target.value }))
               }
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
           </FormField>
           <FormField label="ملاحظات">
@@ -1348,7 +1348,7 @@ const SuperAdminCompanyDetails = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setTopUpForm((current) => ({ ...current, notes: event.target.value }))
               }
-              className="h-11 rounded-2xl md:col-span-2"
+              className="h-11 rounded-xl md:col-span-2"
               placeholder="مثال: شحن يدوي بعد مراجعة الحساب"
             />
           </FormField>
@@ -1371,7 +1371,7 @@ const SuperAdminCompanyDetails = () => {
               reviewCurrency
             )}
             helper="رصيد تقديري بعد الشحن"
-            valueClassName="text-emerald-700 dark:text-emerald-300"
+            valueClassName="text-emerald-700 dark:text-success"
           />
         </div>
       </ResponsiveOverlay>
@@ -1390,14 +1390,14 @@ const SuperAdminCompanyDetails = () => {
               <Button
                 type="button"
                 variant="destructive"
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
                 onClick={() => void handleDeactivateTrial()}
                 disabled={trialDeactivating}
               >
                 {trialDeactivating ? <Loader2 className="size-4 animate-spin" /> : <Timer className="size-4" />}
                 إيقاف التجربة وتجميد الأدوات
               </Button>
-              <Button type="button" variant="outline" className="h-11 rounded-2xl" onClick={() => setTrialOpen(false)}>
+              <Button type="button" variant="outline" className="h-11 rounded-xl" onClick={() => setTrialOpen(false)}>
                 إغلاق
               </Button>
             </div>
@@ -1406,7 +1406,7 @@ const SuperAdminCompanyDetails = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
                 onClick={() => setTrialOpen(false)}
                 disabled={trialSaving}
               >
@@ -1414,7 +1414,7 @@ const SuperAdminCompanyDetails = () => {
               </Button>
               <Button
                 type="button"
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
                 onClick={() => void handleActivateTrial()}
                 disabled={trialSaving}
               >
@@ -1426,7 +1426,7 @@ const SuperAdminCompanyDetails = () => {
         }
       >
         {trialActive ? (
-          <Alert className="rounded-xl border-emerald-200 bg-emerald-50/90 text-emerald-900 dark:border-emerald-800/70 dark:bg-emerald-950/30 dark:text-emerald-100">
+          <Alert className="rounded-xl border-success bg-success/90 text-success dark:border-success/70 dark:bg-success/30 dark:text-success">
             <CheckCircle2 className="size-4" />
             <AlertTitle>الفترة التجريبية مفعّلة</AlertTitle>
             <AlertDescription>
@@ -1436,7 +1436,7 @@ const SuperAdminCompanyDetails = () => {
           </Alert>
         ) : (
           <>
-            <Alert className="rounded-xl border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-100">
+            <Alert className="rounded-xl border-warning bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/30 dark:text-warning">
               <AlertTriangle className="size-4" />
               <AlertTitle>فترة مجانية (تفعيل تجريبي)</AlertTitle>
               <AlertDescription>
@@ -1451,7 +1451,7 @@ const SuperAdminCompanyDetails = () => {
                   step="1"
                   value={trialDuration}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => setTrialDuration(event.target.value)}
-                  className="h-11 rounded-2xl"
+                  className="h-11 rounded-xl"
                   placeholder="مثال: 14"
                 />
               </FormField>
@@ -1492,7 +1492,7 @@ const SuperAdminCompanyDetails = () => {
                 value={partnerCodeInput}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setPartnerCodeInput(e.target.value)}
                 placeholder="مثال: SWA-DC918226"
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
                 disabled={linking}
               />
             </div>

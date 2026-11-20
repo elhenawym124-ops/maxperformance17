@@ -72,7 +72,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
             size="sm"
             onClick={() => onEdit({ feature: "", price: 0, unit: "" })}
           >
-            <Plus className="h-4 w-4 ml-1" />
+            <Plus className="h-4 w-4 ms-1" />
             إضافة قاعدة
           </Button>
         </div>
@@ -121,7 +121,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
                       aria-label="حذف قاعدة التسعير"
                       onClick={() => rule.id && onDelete(rule.id, "pricing-rules")}
                     >
-                      <Trash2 className="h-4 w-4 text-red-500" />
+                      <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -145,7 +145,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
             size="sm"
             onClick={() => onEdit({ name: "", price: 0, apps: [] })}
           >
-            <Plus className="h-4 w-4 ml-1" />
+            <Plus className="h-4 w-4 ms-1" />
             إضافة باقة
           </Button>
         </div>
@@ -162,7 +162,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
                 <Card
                   className={`h-full transition-all ${
                     bundle.isActive ? "" : "opacity-70"
-                  } ${bundle.isFeatured ? "border-2 border-amber-500" : ""}`}
+                  } ${bundle.isFeatured ? "border-2 border-warning" : ""}`}
                 >
                   <CardContent className="p-4">
                     {/* Header */}
@@ -172,7 +172,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
                           <h4 className="text-base font-semibold">{bundle.name}</h4>
                           {bundle.isFeatured && (
                             <Badge variant="default" className="bg-amber-500 text-xs">
-                              <Star className="h-3 w-3 ml-0.5" />
+                              <Star className="h-3 w-3 ms-0.5" />
                               مميزة
                             </Badge>
                           )}
@@ -196,7 +196,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
                       <div className="grid grid-cols-12 gap-2 items-center">
                         <div className="col-span-6">
                           <span className="text-xs text-muted-foreground block">السعر الحالي</span>
-                          <p className="text-xl font-bold text-green-700 dark:text-green-400 tabular-nums font-mono">
+                          <p className="text-xl font-bold text-success dark:text-success tabular-nums font-mono">
                             {bundle.monthlyPrice?.toLocaleString("ar-EG") || 0} ج
                           </p>
                           <span className="text-xs text-muted-foreground">/ شهر</span>
@@ -207,7 +207,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
                               <Badge className="bg-green-500 mb-0.5 tabular-nums font-mono">
                                 توفير {savings}%
                               </Badge>
-                              <span className="text-xs text-green-600 dark:text-green-400 block">
+                              <span className="text-xs text-success dark:text-success block">
                                 خصم على التطبيقات
                               </span>
                             </>
@@ -324,7 +324,7 @@ export const BundlesAndPricingTab: React.FC<BundlesAndPricingTabProps> = ({
                                 aria-label="حذف الباقة"
                                 onClick={() => bundle.id && onDelete(bundle.id, "bundles")}
                               >
-                                <Trash2 className="h-4 w-4 text-red-500" />
+                                <Trash2 className="h-4 w-4 text-destructive" />
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent>حذف</TooltipContent>

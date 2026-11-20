@@ -91,7 +91,7 @@ export const SpecialtyDeleteDialog: React.FC<SpecialtyDeleteDialogProps> = ({
             className="h-8 px-4 text-xs font-semibold rounded-lg"
           >
             {loading ? (
-              <Loader2 className="h-3.5 w-3.5 ml-1 animate-spin" />
+              <Loader2 className="h-3.5 w-3.5 ms-1 animate-spin" />
             ) : null}
             {isLinked ? "تأكيد الإيقاف" : "تأكيد الحذف"}
           </Button>

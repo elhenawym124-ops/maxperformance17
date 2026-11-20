@@ -17,7 +17,7 @@ export function CompanyLimitsSection({ review, limitEntries, directUsersCount }:
       description="استهلاك الشركة الحالي مقابل حدود الخطة والبونصات المطبقة."
       actions={
         review?.limits?.coupon ? (
-          <Badge variant="outline" className="rounded-full border-sky-200 bg-sky-50 px-3 py-1 text-xs text-sky-700 dark:border-sky-800/60 dark:bg-sky-950/30 dark:text-sky-300">
+          <Badge variant="outline" className="rounded-full border-info bg-info/10 px-3 py-1 text-xs text-info dark:border-info/60 dark:bg-info/30 dark:text-info">
             {review.limits.coupon.name || review.limits.coupon.appliedCode}
           </Badge>
         ) : null
@@ -45,7 +45,7 @@ export function CompanyLimitsSection({ review, limitEntries, directUsersCount }:
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-black text-foreground">{displayLabel}</p>
                     {entry.bonus ? (
-                      <Badge variant="outline" className="rounded-full border-sky-200 bg-sky-50 px-2 py-0.5 text-[11px] font-bold text-sky-700 dark:border-sky-800/60 dark:bg-sky-950/30 dark:text-sky-300">
+                      <Badge variant="outline" className="rounded-full border-info bg-info/10 px-2 py-0.5 text-[11px] font-bold text-info dark:border-info/60 dark:bg-info/30 dark:text-info">
                         +{formatNumber(entry.bonus)} بونص
                       </Badge>
                     ) : null}
@@ -82,11 +82,11 @@ export function CompanyLimitsSection({ review, limitEntries, directUsersCount }:
       </div>
 
       {review?.limits?.coupon?.benefitSummary?.length ? (
-        <div className="rounded-xl border border-sky-200/70 bg-sky-50/80 p-4 dark:border-sky-800/50 dark:bg-sky-950/20">
-          <p className="text-sm font-black text-sky-900 dark:text-sky-100">مزايا الكوبون المطبق</p>
+        <div className="rounded-xl border border-info/70 bg-info/80 p-4 dark:border-info/50 dark:bg-info/20">
+          <p className="text-sm font-black text-info dark:text-info">مزايا الكوبون المطبق</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {review.limits.coupon.benefitSummary.map((benefit) => (
-              <Badge key={benefit} variant="outline" className="rounded-full border-sky-300 bg-white/75 px-3 py-1 text-xs text-sky-700 dark:border-sky-700/60 dark:bg-slate-950/40 dark:text-sky-300">
+              <Badge key={benefit} variant="outline" className="rounded-full border-info bg-white/75 px-3 py-1 text-xs text-info dark:border-info/60 dark:bg-muted dark:text-info">
                 {benefit}
               </Badge>
             ))}

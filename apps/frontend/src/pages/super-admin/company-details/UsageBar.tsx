@@ -10,21 +10,21 @@ function getUsageTone(percentage: number): { bar: string; text: string; track: s
   if (percentage >= 100) {
     return {
       bar: "bg-rose-500",
-      text: "text-rose-700 dark:text-rose-300",
-      track: "bg-rose-100 dark:bg-rose-950/40",
+      text: "text-rose-700 dark:text-destructive",
+      track: "bg-rose-100 dark:bg-destructive/40",
     }
   }
   if (percentage >= 80) {
     return {
       bar: "bg-amber-500",
-      text: "text-amber-700 dark:text-amber-300",
-      track: "bg-amber-100 dark:bg-amber-950/40",
+      text: "text-amber-700 dark:text-warning",
+      track: "bg-amber-100 dark:bg-warning/40",
     }
   }
   return {
     bar: "bg-emerald-500",
-    text: "text-emerald-700 dark:text-emerald-300",
-    track: "bg-emerald-100 dark:bg-emerald-950/40",
+    text: "text-emerald-700 dark:text-success",
+    track: "bg-emerald-100 dark:bg-success/40",
   }
 }
 

@@ -84,14 +84,14 @@ const DevLeaderboard: React.FC = () => {
       <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3.5">
         <div className="flex items-center gap-3">
           <div className="size-9 rounded-lg border border-border/80 bg-muted/30 flex items-center justify-center shrink-0 shadow-2xs">
-            <Crown className="size-4.5 text-amber-500" />
+            <Crown className="size-4.5 text-warning" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-base sm:text-lg font-semibold tracking-tight text-foreground">
                 لوحة تميز وإنجازات المطورين
               </h1>
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                 Gamification & XP
               </span>
             </div>
@@ -129,9 +129,9 @@ const DevLeaderboard: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">أعلى نقاط XP</span>
-            <Zap className="size-3.5 text-amber-500" />
+            <Zap className="size-3.5 text-warning" />
           </div>
-          <div className="text-2xl font-bold tracking-tight font-mono text-amber-500 tabular-nums">
+          <div className="text-2xl font-bold tracking-tight font-mono text-warning tabular-nums">
             {stats.topXP.toLocaleString()}
           </div>
           <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">المركز الأول حالياً</p>
@@ -151,9 +151,9 @@ const DevLeaderboard: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">الشارات الممنوحة</span>
-            <Award className="size-3.5 text-emerald-500" />
+            <Award className="size-3.5 text-success" />
           </div>
-          <div className="text-2xl font-bold tracking-tight font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-2xl font-bold tracking-tight font-mono text-success dark:text-success tabular-nums">
             {stats.totalBadges}
           </div>
           <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">إنجاز تقني معتمد</p>
@@ -165,7 +165,7 @@ const DevLeaderboard: React.FC = () => {
         <section className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 shadow-xs">
           <div className="flex items-center justify-between border-b border-border/60 pb-3 mb-4">
             <div className="flex items-center gap-2">
-              <Trophy className="size-4 text-amber-500" />
+              <Trophy className="size-4 text-warning" />
               <h2 className="text-xs font-semibold text-foreground">منصة التتويج الشرفية</h2>
             </div>
             <span className="text-[10px] text-muted-foreground font-mono">Top 3 Contributors</span>
@@ -207,21 +207,21 @@ const DevLeaderboard: React.FC = () => {
 
             {/* 1st Place */}
             {top1 && (
-              <div className="order-1 md:order-2 rounded-xl border-2 border-amber-500/50 bg-amber-500/5 p-5 flex flex-col items-center text-center space-y-3 relative shadow-xs">
-                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500 text-white shadow-2xs">
+              <div className="order-1 md:order-2 rounded-xl border-2 border-warning/50 bg-warning/5 p-5 flex flex-col items-center text-center space-y-3 relative shadow-xs">
+                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-warning text-white shadow-2xs">
                   <Crown className="size-3" />
                   <span>المركز الأول</span>
                 </div>
-                <div className="size-16 rounded-full border-2 border-amber-500 bg-card flex items-center justify-center font-bold text-lg text-foreground shadow-2xs">
+                <div className="size-16 rounded-full border-2 border-warning bg-card flex items-center justify-center font-bold text-lg text-foreground shadow-2xs">
                   {top1.name.charAt(0)}
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-foreground">{top1.name}</h3>
                   <div className="inline-flex items-center gap-2 mt-0.5">
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-warning/10 text-warning dark:text-warning border border-warning/30">
                       Lv. {top1.level}
                     </span>
-                    <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 tabular-nums">
+                    <span className="text-xs font-mono font-bold text-warning dark:text-warning tabular-nums">
                       {top1.xp.toLocaleString()} XP
                     </span>
                   </div>
@@ -229,7 +229,7 @@ const DevLeaderboard: React.FC = () => {
                 {top1.badges && top1.badges.length > 0 && (
                   <div className="flex flex-wrap gap-1 justify-center pt-0.5">
                     {top1.badges.slice(0, 3).map((b, idx) => (
-                      <span key={idx} className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 font-medium">
+                      <span key={idx} className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-warning/10 text-warning dark:text-warning border border-warning/20 font-medium">
                         {b}
                       </span>
                     ))}
@@ -305,7 +305,7 @@ const DevLeaderboard: React.FC = () => {
                       member.rank === 1
                         ? "bg-amber-500 text-white"
                         : member.rank === 2
-                        ? "bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-slate-200"
+                        ? "bg-slate-300 dark:bg-muted text-foreground dark:text-muted-foreground"
                         : member.rank === 3
                         ? "bg-amber-700/60 text-white"
                         : "text-muted-foreground bg-muted"

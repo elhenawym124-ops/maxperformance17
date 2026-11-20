@@ -185,26 +185,26 @@ export default function WholesaleDebts() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-500">إجمالي المديونية القائمة</p>
-            <p className="text-xl font-bold tracking-tight text-amber-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning">إجمالي المديونية القائمة</p>
+            <p className="text-xl font-bold tracking-tight text-warning font-mono tabular-nums mt-0.5">
               {(safeReport.totalOutstanding ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مستحقات قيد التحصيل</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning border border-warning/20">
             <Wallet className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-rose-500">المتأخرات الحرجة</p>
-            <p className="text-xl font-bold tracking-tight text-rose-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-destructive">المتأخرات الحرجة</p>
+            <p className="text-xl font-bold tracking-tight text-destructive font-mono tabular-nums mt-0.5">
               {(safeReport.totalOverdue ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">تجاوزت فترة السداد</p>
           </div>
-          <div className="size-7 rounded-md bg-rose-500/10 flex items-center justify-center text-rose-500 border border-rose-500/20">
+          <div className="size-7 rounded-md bg-destructive/10 flex items-center justify-center text-destructive border border-destructive/20">
             <TrendingDown className="size-3.5" />
           </div>
         </div>
@@ -289,17 +289,17 @@ export default function WholesaleDebts() {
                   <td className="px-4 py-2.5 text-muted-foreground font-mono tabular-nums">
                     {Number(c.creditLimit).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
                   </td>
-                  <td className="px-4 py-2.5 font-mono tabular-nums font-bold text-rose-500">
+                  <td className="px-4 py-2.5 font-mono tabular-nums font-bold text-destructive">
                     {Number(c.currentBalance).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
                   </td>
                   <td className="px-4 py-2.5 text-center">
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono border ${
                         c.daysOverdue > 30
-                          ? "bg-rose-500/10 text-rose-500 border-rose-500/20"
+                          ? "bg-rose-500/10 text-destructive border-destructive/20"
                           : c.daysOverdue > 7
-                          ? "bg-amber-500/10 text-amber-500 border-amber-500/20"
-                          : "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
+                          ? "bg-amber-500/10 text-warning border-warning/20"
+                          : "bg-emerald-500/10 text-success border-success/20"
                       }`}
                     >
                       {c.daysOverdue} يوم

@@ -20,15 +20,15 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
   return (
     <div className="space-y-8">
       {/* Timezone Settings */}
-      <div className="bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-lg border border-indigo-100 dark:border-indigo-900/30">
+      <div className="bg-indigo-50 dark:bg-primary/10 p-4 rounded-lg border border-primary dark:border-primary/30">
         <div className="flex items-center gap-3 mb-4">
-          <ClockIcon className="h-5 w-5 text-indigo-600" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <ClockIcon className="h-5 w-5 text-primary" />
+          <h3 className="text-lg font-semibold text-foreground">
             إعدادات المنطقة الزمنية
           </h3>
         </div>
         <div className="max-w-md">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             المنطقة الزمنية للنظام
           </label>
           <select
@@ -39,7 +39,7 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
             onChange={(e) =>
               setSettings({ ...settings, timezone: e.target.value })
             }
-            className="w-full border rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500"
+            className="w-full border rounded-lg px-3 py-2 text-sm bg-card dark:border-border focus:ring-2 focus:ring-primary"
           >
             <option value="UTC">UTC (Universal Time)</option>
             <option value="Africa/Cairo">القاهرة (EET - UTC+2/3)</option>
@@ -48,7 +48,7 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
             <option value="Europe/London">لندن (GMT - UTC+0/1)</option>
             <option value="America/New_York">نيويورك (EST - UTC-5/4)</option>
           </select>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-muted-foreground mt-2">
             تستخدم هذه المنطقة الزمنية في حسابات الـ "Dashboard" والتقارير
             اليومية لضمان دقة البيانات حسب توقيت شركتك.
           </p>
@@ -58,19 +58,19 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
       {/* Task Statuses */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <h3 className="text-lg font-semibold text-foreground">
             حالات المهام (Statuses)
           </h3>
           <button
             onClick={addStatus}
-            className="text-sm text-indigo-600 hover:text-indigo-700 flex items-center gap-1 font-medium"
+            className="text-sm text-primary hover:text-primary flex items-center gap-1 font-medium"
           >
             <PlusIcon className="h-4 w-4" /> إضافة حالة
           </button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-right">
-            <thead className="text-gray-500 bg-gray-50 dark:bg-gray-700/50 uppercase">
+            <thead className="text-gray-500 bg-muted dark:bg-muted uppercase">
               <tr>
                 <th className="px-4 py-3">الكود (Value)</th>
                 <th className="px-4 py-3">الاسم الظاهر (Label)</th>
@@ -78,7 +78,7 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
                 <th className="px-4 py-3">إجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+            <tbody className="divide-y divide-border dark:divide-border">
               {settings.taskStatuses.map((status, idx) => (
                 <tr key={idx}>
                   <td className="px-4 py-2">
@@ -102,7 +102,7 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
                       onChange={(e) =>
                         updateStatus(idx, "label", e.target.value)
                       }
-                      className="w-full border rounded px-2 py-1 dark:bg-gray-700 dark:border-gray-600 text-xs"
+                      className="w-full border rounded px-2 py-1 dark:bg-muted dark:border-border text-xs"
                     />
                   </td>
                   <td className="px-4 py-2 flex items-center gap-2">
@@ -117,14 +117,14 @@ export const DevTaskGeneralTab: React.FC<DevTaskGeneralTabProps> = ({
                       }
                       className="h-8 w-8 rounded cursor-pointer"
                     />
-                    <span className="text-xs text-gray-400 font-mono">
+                    <span className="text-xs text-muted-foreground font-mono">
                       {getSafeHexColor(status.color)}
                     </span>
                   </td>
                   <td className="px-4 py-2">
                     <button
                       onClick={() => removeStatus(idx)}
-                      className="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 dark:hover:bg-red-950/20"
+                      className="text-red-500 hover:text-destructive p-1 rounded hover:bg-destructive/10 dark:hover:bg-destructive/20"
                       aria-label={`حذف الحالة ${status.label || idx + 1}`}
                     >
                       <TrashIcon className="h-4 w-4" />

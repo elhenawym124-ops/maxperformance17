@@ -68,42 +68,42 @@ export const ROLE_ICONS: Record<string, string> = {
 };
 
 export const ROLE_COLORS: Record<string, string> = {
-  EXECUTIVE_ASSISTANT: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20",
+  EXECUTIVE_ASSISTANT: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
   CEO: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20",
-  SUPPORT: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
-  SALES: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20",
-  SMART_SELLER: "bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20",
-  MARKETING: "bg-pink-500/10 text-pink-700 dark:text-pink-400 border border-pink-500/20",
-  ORDER: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20",
-  ORDER_CONFIRMATION: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
-  VOICE_ORDER_CONFIRMATION: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20",
-  INVENTORY: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border border-slate-500/20",
-  COMPETITOR: "bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20",
-  FACEBOOK_SALES_SUPPORT: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20",
-  SAS_SALES: "bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/20",
-  SALES_REP: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20",
-  SHIPPING: "bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20",
-  STOCK_TARGET_MONITOR: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
-  BROWSER_COPILOT: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20",
-  MEDIA_BUYER: "bg-orange-500/10 text-orange-700 dark:text-orange-400 border border-orange-500/20",
-  STORE_MANAGER: "bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/20",
-  PRODUCT_CREATOR: "bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-400 border border-fuchsia-500/20",
-  AOV_ANALYST: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20",
-  AOV_AUDITOR: "bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20",
-  AOV_EXECUTOR: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20",
-  AOV_SPECIALIST: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20",
-  EDUCATION_CENTER: "bg-lime-500/10 text-lime-700 dark:text-lime-400 border border-lime-500/20",
-  ACADEMY_GRADER: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
+  SUPPORT: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+  SALES: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+  SMART_SELLER: "bg-violet-500/10 text-primary dark:text-primary border border-primary/20",
+  MARKETING: "bg-pink-500/10 text-primary dark:text-primary border border-primary/20",
+  ORDER: "bg-cyan-500/10 text-info dark:text-info border border-info/20",
+  ORDER_CONFIRMATION: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+  VOICE_ORDER_CONFIRMATION: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
+  INVENTORY: "bg-slate-500/10 text-foreground dark:text-muted-foreground border border-border",
+  COMPETITOR: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
+  FACEBOOK_SALES_SUPPORT: "bg-indigo-500/10 text-primary dark:text-primary border border-primary/20",
+  SAS_SALES: "bg-green-500/10 text-success dark:text-success border border-success/20",
+  SALES_REP: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+  SHIPPING: "bg-teal-500/10 text-success dark:text-success border border-success/20",
+  STOCK_TARGET_MONITOR: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+  BROWSER_COPILOT: "bg-indigo-500/10 text-primary dark:text-primary border border-primary/20",
+  MEDIA_BUYER: "bg-orange-500/10 text-warning dark:text-warning border border-warning/20",
+  STORE_MANAGER: "bg-sky-500/10 text-info dark:text-info border border-info/20",
+  PRODUCT_CREATOR: "bg-fuchsia-500/10 text-primary dark:text-primary border border-primary/20",
+  AOV_ANALYST: "bg-indigo-500/10 text-primary dark:text-primary border border-primary/20",
+  AOV_AUDITOR: "bg-teal-500/10 text-success dark:text-success border border-success/20",
+  AOV_EXECUTOR: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
+  AOV_SPECIALIST: "bg-cyan-500/10 text-info dark:text-info border border-info/20",
+  EDUCATION_CENTER: "bg-lime-500/10 text-success dark:text-success border border-success/20",
+  ACADEMY_GRADER: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
   COURSE_COACH: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20",
-  DENTAL: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20",
-  MEDICAL_CENTER: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
-  MEDICAL_CENTER_MANAGER: "bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20",
-  MEDICAL_LAB: "bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20",
-  MENTAL_HEALTH: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20",
-  PHYSIOTHERAPY: "bg-orange-500/10 text-orange-700 dark:text-orange-400 border border-orange-500/20",
-  AESTHETIC: "bg-pink-500/10 text-pink-700 dark:text-pink-400 border border-pink-500/20",
-  HOTEL: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20",
-  HR_ASSISTANT: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border border-slate-500/20",
+  DENTAL: "bg-cyan-500/10 text-info dark:text-info border border-info/20",
+  MEDICAL_CENTER: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+  MEDICAL_CENTER_MANAGER: "bg-teal-500/10 text-success dark:text-success border border-success/20",
+  MEDICAL_LAB: "bg-violet-500/10 text-primary dark:text-primary border border-primary/20",
+  MENTAL_HEALTH: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
+  PHYSIOTHERAPY: "bg-orange-500/10 text-warning dark:text-warning border border-warning/20",
+  AESTHETIC: "bg-pink-500/10 text-primary dark:text-primary border border-primary/20",
+  HOTEL: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+  HR_ASSISTANT: "bg-slate-500/10 text-foreground dark:text-muted-foreground border border-border",
   CUSTOM: "bg-muted text-muted-foreground border border-border/60",
 };
 
@@ -161,14 +161,14 @@ export const ROLES = [
 ];
 
 export const toneColors: Record<string, string> = {
-  empathetic: "text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-400",
-  persuasive: "text-amber-600 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-400",
+  empathetic: "text-pink-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",
+  persuasive: "text-amber-600 bg-warning/10 dark:bg-warning/40 dark:text-warning",
   professional: "text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400",
-  analytical: "text-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-slate-300",
-  creative: "text-violet-600 bg-violet-50 dark:bg-violet-950/40 dark:text-violet-400",
-  strategic: "text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 dark:text-indigo-400",
-  friendly: "text-green-600 bg-green-50 dark:bg-green-950/40 dark:text-green-400",
-  helpful: "text-teal-600 bg-teal-50 dark:bg-teal-950/40 dark:text-teal-400",
+  analytical: "text-slate-600 bg-muted dark:bg-muted dark:text-muted-foreground",
+  creative: "text-violet-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",
+  strategic: "text-indigo-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",
+  friendly: "text-green-600 bg-success/10 dark:bg-success/40 dark:text-success",
+  helpful: "text-teal-600 bg-success/10 dark:bg-success/40 dark:text-success",
 };
 
 export interface FormInputProps extends React.ComponentProps<typeof Input> {
@@ -314,7 +314,7 @@ export const CreateDialog: React.FC<{ onClose: () => void; onCreated: () => void
         <DialogFooter className="mt-4">
           <Button variant="outline" onClick={onClose} disabled={creating}>إلغاء</Button>
           <Button onClick={create} disabled={!form.name.trim() || !form.slug.trim() || !slugValid || creating}>
-            {creating ? <LoadingSpinner size="sm" /> : <Plus className="size-4 ml-1" />} إنشاء القالب
+            {creating ? <LoadingSpinner size="sm" /> : <Plus className="size-4 ms-1" />} إنشاء القالب
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -588,7 +588,7 @@ export const EditDialog: React.FC<{ template: TemplateItem; onClose: () => void;
         </div>
         <DialogFooter className="shrink-0 border-t pt-2">
           <Button variant="outline" onClick={onClose} disabled={saving}>إلغاء</Button>
-          <Button onClick={save} disabled={saving}>{saving ? <LoadingSpinner size="sm" /> : <CheckCircle className="size-4 ml-1" />} حفظ</Button>
+          <Button onClick={save} disabled={saving}>{saving ? <LoadingSpinner size="sm" /> : <CheckCircle className="size-4 ms-1" />} حفظ</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -612,7 +612,7 @@ export const PreviewDialog: React.FC<{ template: TemplateItem; onClose: () => vo
       .finally(() => setLoadingSoul(false));
   }, [t.slug]);
 
-  const toneColor = (tone?: string) => toneColors[tone || ""] || "text-gray-600 bg-gray-50";
+  const toneColor = (tone?: string) => toneColors[tone || ""] || "text-gray-600 bg-muted";
 
   return (
     <Dialog open onOpenChange={o => { if (!o) onClose(); }}>
@@ -700,7 +700,7 @@ export const ApplyDialog: React.FC<{ template: TemplateItem; onClose: () => void
       <DialogContent>
         <DialogHeader><DialogTitle>تطبيق القالب على شركة</DialogTitle></DialogHeader>
         {done ? <>
-          <div className="flex flex-col items-center gap-2 py-4"><CheckCircle className="size-12 text-green-500" /><p className="font-bold">تم تطبيق قالب {t.name} بنجاح!</p><p className="text-xs text-muted-foreground">الوكيل جاهز للعمل على الشركة المحددة.</p></div>
+          <div className="flex flex-col items-center gap-2 py-4"><CheckCircle className="size-12 text-success" /><p className="font-bold">تم تطبيق قالب {t.name} بنجاح!</p><p className="text-xs text-muted-foreground">الوكيل جاهز للعمل على الشركة المحددة.</p></div>
           <DialogFooter><Button onClick={onClose}>إغلاق</Button></DialogFooter>
         </> : <>
           {err && <Alert variant="destructive"><AlertDescription>{err}</AlertDescription></Alert>}
@@ -737,7 +737,7 @@ export const ApplyDialog: React.FC<{ template: TemplateItem; onClose: () => void
           <DialogFooter>
             <Button variant="outline" onClick={onClose} disabled={applying}>إلغاء</Button>
             <Button onClick={apply} disabled={!selectedId || applying}>
-              {applying ? <LoadingSpinner size="sm" /> : <Send className="size-4 ml-1" />}{applying ? "جاري التطبيق..." : "تطبيق القالب"}
+              {applying ? <LoadingSpinner size="sm" /> : <Send className="size-4 ms-1" />}{applying ? "جاري التطبيق..." : "تطبيق القالب"}
             </Button>
           </DialogFooter>
         </>}
@@ -775,7 +775,7 @@ export const DeleteDialog: React.FC<{ template: TemplateItem; onClose: () => voi
         <p className="text-xs text-muted-foreground">لا يمكن التراجع عن هذا. القوالب المرتبطة بوكلاء نشطين لا يمكن حذفها.</p>
         <DialogFooter>
           <Button variant="outline" onClick={onClose} disabled={deleting}>إلغاء</Button>
-          <Button variant="destructive" onClick={doDelete} disabled={deleting}>{deleting ? <LoadingSpinner size="sm" /> : <Trash2 className="size-4 ml-1" />} حذف</Button>
+          <Button variant="destructive" onClick={doDelete} disabled={deleting}>{deleting ? <LoadingSpinner size="sm" /> : <Trash2 className="size-4 ms-1" />} حذف</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -1028,7 +1028,7 @@ export const EditCompanyAgentDialog: React.FC<{
         <DialogFooter className="shrink-0 border-t pt-2">
           <Button variant="outline" onClick={onClose} disabled={saving}>إلغاء</Button>
           <Button onClick={save} disabled={saving}>
-            {saving ? <LoadingSpinner size="sm" /> : <Save className="size-4 ml-1" />} حفظ
+            {saving ? <LoadingSpinner size="sm" /> : <Save className="size-4 ms-1" />} حفظ
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -1094,7 +1094,7 @@ export const DuplicateDialog: React.FC<{ template: TemplateItem; onClose: () => 
         <DialogFooter className="mt-4">
           <Button variant="outline" onClick={onClose} disabled={creating}>إلغاء</Button>
           <Button onClick={doDuplicate} disabled={!newName.trim() || !newSlug.trim() || creating}>
-            {creating ? <LoadingSpinner size="sm" /> : <Copy className="size-4 ml-1" />} نسخ القالب
+            {creating ? <LoadingSpinner size="sm" /> : <Copy className="size-4 ms-1" />} نسخ القالب
           </Button>
         </DialogFooter>
       </DialogContent>

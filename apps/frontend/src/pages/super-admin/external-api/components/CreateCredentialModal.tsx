@@ -73,7 +73,7 @@ export const CreateCredentialModal: React.FC<Props> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-border/80 bg-card p-6 shadow-2xl space-y-6">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl border border-border/80 bg-card p-6 shadow-2xl space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border/60 pb-4">
           <div className="flex items-center gap-2.5">
@@ -97,7 +97,7 @@ export const CreateCredentialModal: React.FC<Props> = ({
         <form onSubmit={handleSubmit} className="space-y-5 text-right">
           {/* High Privilege Warning */}
           {hasHighPrivilege && (
-            <div className="p-3.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400 space-y-1 text-xs">
+            <div className="p-3.5 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive space-y-1 text-xs">
               <div className="flex items-center gap-2 font-bold">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
                 تحذير: صلاحيات عليا محددة (Full Access أو Platform-Wide)
@@ -197,7 +197,7 @@ export const CreateCredentialModal: React.FC<Props> = ({
                     className={`flex items-start gap-2.5 p-2 rounded-lg border transition-all cursor-pointer ${
                       isChecked
                         ? scope.isHighPrivilege
-                          ? 'border-rose-500/50 bg-rose-500/5'
+                          ? 'border-rose-500/50 bg-destructive/5'
                           : 'border-primary/50 bg-primary/5'
                         : 'border-transparent hover:bg-muted/40'
                     }`}
@@ -212,7 +212,7 @@ export const CreateCredentialModal: React.FC<Props> = ({
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
                         {scope.label}
                         {scope.isHighPrivilege && (
-                          <span className="text-[10px] text-rose-500 font-bold px-1 rounded bg-rose-500/10">حساس</span>
+                          <span className="text-[10px] text-destructive font-bold px-1 rounded bg-destructive/10">حساس</span>
                         )}
                       </div>
                       <div className="text-[11px] text-muted-foreground leading-snug line-clamp-1">

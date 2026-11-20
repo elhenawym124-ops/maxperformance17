@@ -151,23 +151,23 @@ const PayoutRequestsPage: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">بانتظار الاعتماد</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
-            <div className="text-2xl font-bold tabular-nums text-amber-500">{stats.pendingCount}</div>
+            <div className="text-2xl font-bold tabular-nums text-warning">{stats.pendingCount}</div>
             <p className="text-[10px] text-muted-foreground">بقيمة {formatPrice(stats.pendingAmount)}</p>
           </div>
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">أرباح معتمدة ومصروفة</span>
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
             </div>
-            <div className="text-2xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">{formatPrice(stats.approvedAmount)}</div>
+            <div className="text-2xl font-bold tabular-nums text-success dark:text-success">{formatPrice(stats.approvedAmount)}</div>
             <p className="text-[10px] text-muted-foreground">تم تحويلها للشريك</p>
           </div>
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">طرق التحويل المدعومة</span>
-              <ShieldCheck className="size-3.5 text-purple-500" />
+              <ShieldCheck className="size-3.5 text-primary" />
             </div>
             <div className="text-xs font-semibold text-foreground mt-1">InstaPay · Cash · Bank</div>
             <p className="text-[10px] text-muted-foreground">تسوية فورية</p>
@@ -180,7 +180,7 @@ const PayoutRequestsPage: React.FC = () => {
         <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
           <Input
-            className="h-8 pr-8 text-xs font-mono bg-muted/20 border-border/70"
+            className="h-8 pe-8 text-xs font-mono bg-muted/20 border-border/70"
             placeholder="بحث باسم الشريك أو رقم الهاتف..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -245,10 +245,10 @@ const PayoutRequestsPage: React.FC = () => {
                     <span
                       className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold border ${
                         payout.status === "APPROVED"
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                           : payout.status === "PENDING"
-                          ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                          ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                          : "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                       }`}
                     >
                       <span className={`size-1.5 rounded-full ${payout.status === "APPROVED" ? "bg-emerald-500" : payout.status === "PENDING" ? "bg-amber-500" : "bg-rose-500"}`} />
@@ -259,15 +259,15 @@ const PayoutRequestsPage: React.FC = () => {
                   <TableCell className="text-left">
                     <div className="flex items-center gap-1 justify-end">
                       <Button variant="ghost" size="sm" onClick={() => setSelectedPayout(payout)} className="h-7 px-2 text-xs font-mono text-muted-foreground hover:text-foreground active:scale-[0.98]">
-                        <Eye className="size-3.5 ml-1" />
+                        <Eye className="size-3.5 ms-1" />
                         <span>تفاصيل</span>
                       </Button>
                       {payout.status === "PENDING" && (
                         <>
-                          <Button variant="default" size="sm" disabled={actionLoading === payout.id} onClick={() => handleReview(payout.id, "APPROVED")} className="h-7 px-2 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white active:scale-[0.98]">
+                          <Button variant="default" size="sm" disabled={actionLoading === payout.id} onClick={() => handleReview(payout.id, "APPROVED")} className="h-7 px-2 text-xs font-mono bg-success hover:bg-success text-white active:scale-[0.98]">
                             <CheckCircle2 className="size-3.5" />
                           </Button>
-                          <Button variant="outline" size="sm" disabled={actionLoading === payout.id} onClick={() => handleReview(payout.id, "REJECTED")} className="h-7 px-2 text-xs font-mono border-rose-500/30 text-rose-600 hover:bg-rose-500/10 active:scale-[0.98]">
+                          <Button variant="outline" size="sm" disabled={actionLoading === payout.id} onClick={() => handleReview(payout.id, "REJECTED")} className="h-7 px-2 text-xs font-mono border-destructive/30 text-destructive hover:bg-destructive/10 active:scale-[0.98]">
                             <XCircle className="size-3.5" />
                           </Button>
                         </>
@@ -305,7 +305,7 @@ const PayoutRequestsPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-2 border-t border-border/40 pt-2">
                 <div>
                   <span className="text-[10px] text-muted-foreground block">المبلغ المطلوب</span>
-                  <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-sm font-bold text-success dark:text-success">
                     {formatPrice(selectedPayout.amount, selectedPayout.currency)}
                   </span>
                 </div>
@@ -331,7 +331,7 @@ const PayoutRequestsPage: React.FC = () => {
                 <Button variant="destructive" size="sm" onClick={() => handleReview(selectedPayout.id, "REJECTED")} className="h-8 text-xs font-mono">
                   رفض
                 </Button>
-                <Button size="sm" onClick={() => handleReview(selectedPayout.id, "APPROVED")} className="h-8 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white">
+                <Button size="sm" onClick={() => handleReview(selectedPayout.id, "APPROVED")} className="h-8 text-xs font-mono bg-success hover:bg-success text-white">
                   اعتماد وصرف
                 </Button>
               </>

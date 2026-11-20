@@ -63,7 +63,7 @@ export function SuperAdminProductEmbeddingsCompanyList({
             placeholder="ابحث باسم الشركة أو المعرف..."
             value={productSearch}
             onChange={(e) => setProductSearch(e.target.value)}
-            className="w-full h-7 rounded border border-border/70 bg-background/50 pr-7 pl-3 text-xs font-mono outline-none focus:ring-1 focus:ring-ring"
+            className="w-full h-7 rounded border border-border/70 bg-background/50 pe-7 ps-3 text-xs font-mono outline-none focus:ring-1 focus:ring-ring"
           />
         </div>
         <Badge variant="outline" className="text-[10px] font-mono border-border/70">
@@ -92,7 +92,7 @@ export function SuperAdminProductEmbeddingsCompanyList({
                   >
                     {c.missing > 0
                       ? (isExpanded ? <ChevronDown className="size-3.5" /> : <ChevronRight className="size-3.5" />)
-                      : <CheckCircle className="size-3.5 text-emerald-500" />
+                      : <CheckCircle className="size-3.5 text-success" />
                     }
                   </button>
                   <div className="w-44 shrink-0">
@@ -115,7 +115,7 @@ export function SuperAdminProductEmbeddingsCompanyList({
                     </div>
                   </div>
                   {c.missing > 0 && (
-                    <Badge variant="outline" className="text-[10px] font-mono border-amber-500/30 text-amber-600 bg-amber-500/10 shrink-0">
+                    <Badge variant="outline" className="text-[10px] font-mono border-warning/30 text-warning bg-warning/10 shrink-0">
                       {c.missing} ناقص
                     </Badge>
                   )}
@@ -131,7 +131,7 @@ export function SuperAdminProductEmbeddingsCompanyList({
                   </Button>
                 </div>
                 {isExpanded && companyMissing.length > 0 && (
-                  <div className="bg-amber-500/5 border-t border-amber-500/20 px-8 py-2 space-y-1">
+                  <div className="bg-amber-500/5 border-t border-warning/20 px-8 py-2 space-y-1">
                     <p className="text-[11px] text-muted-foreground font-medium mb-1.5 flex items-center gap-1">
                       <Info className="size-3" />
                       المنتجات غير المُضَمَّنة ({companyMissing.length})

@@ -55,7 +55,7 @@ function AppItemRow({
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-sm font-bold text-foreground">{app.name}</p>
             {app.isInstalled ? (
-              <Badge variant="outline" className="rounded-full border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:border-emerald-800/70 dark:bg-emerald-950/40 dark:text-emerald-300">مفعل</Badge>
+              <Badge variant="outline" className="rounded-full border-success bg-success/10 px-2 py-0.5 text-[11px] font-bold text-success dark:border-success/70 dark:bg-success/40 dark:text-success">مفعل</Badge>
             ) : null}
             {app.pricingModel ? (
               <Badge variant="outline" className={`rounded-full px-2 py-0.5 text-[11px] ${pricingMeta.className}`}>
@@ -78,7 +78,7 @@ function AppItemRow({
       <Button type="button" variant={app.isInstalled ? "outline" : "default"} size="sm" className="h-9 shrink-0 rounded-lg px-4 text-xs font-semibold"
         onClick={() => onInstall(app)} disabled={app.isInstalled || action === app.slug}
       >
-        {action === app.slug ? <Loader2 className="ml-1.5 size-3.5 animate-spin" /> : app.isInstalled ? <CheckCircle2 className="ml-1.5 size-3.5" /> : <Zap className="ml-1.5 size-3.5" />}
+        {action === app.slug ? <Loader2 className="ms-1.5 size-3.5 animate-spin" /> : app.isInstalled ? <CheckCircle2 className="ms-1.5 size-3.5" /> : <Zap className="ms-1.5 size-3.5" />}
         {app.isInstalled ? "مفعلة" : "تفعيل"}
       </Button>
     </div>
@@ -89,14 +89,14 @@ function BundleItemRow({ bundle, onSubscribe, action }: { bundle: ActivationItem
   return (
     <div className="flex flex-col gap-3 py-3.5 sm:flex-row sm:items-center sm:justify-between border-b border-border/30 last:border-b-0">
       <div className="flex items-start gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-warning text-warning dark:bg-warning/40 dark:text-warning">
           <Layers className="size-4" />
         </div>
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-sm font-bold text-foreground">{bundle.name}</p>
             {bundle.isComplete ? (
-              <Badge variant="outline" className="rounded-full border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:border-emerald-800/70 dark:bg-emerald-950/40 dark:text-emerald-300">مكتملة</Badge>
+              <Badge variant="outline" className="rounded-full border-success bg-success/10 px-2 py-0.5 text-[11px] font-bold text-success dark:border-success/70 dark:bg-success/40 dark:text-success">مكتملة</Badge>
             ) : null}
             <Badge variant="outline" className="rounded-full border-border/50 bg-muted/30 px-2 py-0.5 text-[11px] font-mono">
               {formatNumber(bundle.installedCount ?? 0)}/{formatNumber(bundle.totalApps ?? 0)} أداة
@@ -108,7 +108,7 @@ function BundleItemRow({ bundle, onSubscribe, action }: { bundle: ActivationItem
       <Button type="button" variant={bundle.isComplete ? "outline" : "default"} size="sm" className="h-9 shrink-0 rounded-lg px-4 text-xs font-semibold"
         onClick={() => onSubscribe(bundle.slug)} disabled={bundle.isComplete || action === bundle.slug}
       >
-        {action === bundle.slug ? <Loader2 className="ml-1.5 size-3.5 animate-spin" /> : bundle.isComplete ? <CheckCircle2 className="ml-1.5 size-3.5" /> : <Layers className="ml-1.5 size-3.5" />}
+        {action === bundle.slug ? <Loader2 className="ms-1.5 size-3.5 animate-spin" /> : bundle.isComplete ? <CheckCircle2 className="ms-1.5 size-3.5" /> : <Layers className="ms-1.5 size-3.5" />}
         {bundle.isComplete ? "مشترك" : "اشتراك في الباقة"}
       </Button>
     </div>
@@ -194,7 +194,7 @@ export function CompanyActivationCenter({
 
   return (
     <>
-      <Card className="rounded-2xl border" id="company-activation-center">
+      <Card className="rounded-xl border" id="company-activation-center">
         <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
             <CardTitle className="text-xl font-bold">مركز التفعيل والاشتراكات</CardTitle>
@@ -230,7 +230,7 @@ export function CompanyActivationCenter({
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="ابحث باسم الأداة أو الباقة..."
-                className="h-10 rounded-xl pr-9 text-sm"
+                className="h-10 rounded-xl pe-9 text-sm"
               />
             </div>
             <div className="flex gap-1 rounded-xl bg-muted/60 p-1">
@@ -382,14 +382,14 @@ export function CompanyActivationCenter({
                 disabled={installAllLoading}
               />
               {!bulkReason.trim() ? (
-                <p className="text-[11px] text-amber-700 dark:text-amber-400">
+                <p className="text-[11px] text-warning dark:text-warning">
                   يجب كتابة سبب التفعيل لتفعيل زر التأكيد وتوثيق العملية في سجل النشاط.
                 </p>
               ) : null}
             </div>
 
-            <div className="flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-xs text-amber-900 dark:bg-amber-950/30 dark:text-amber-200 border border-amber-200 dark:border-amber-800/60">
-              <AlertTriangle className="size-4 shrink-0 mt-0.5 text-amber-600" />
+            <div className="flex items-start gap-2 rounded-xl bg-warning/10 p-3 text-xs text-warning dark:bg-warning/30 dark:text-warning border border-warning dark:border-warning/60">
+              <AlertTriangle className="size-4 shrink-0 mt-0.5 text-warning" />
               <p>
                 سيتم تفعيل هذه الأدوات تلقائيًا للشركة، وستبدأ دورات الفوترة بحسب الشروط الخاصة بكل أداة.
               </p>

@@ -57,11 +57,11 @@ const statusConfig: Record<
   },
   ACTIVE: {
     label: "نشط",
-    badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
+    badgeClass: "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success",
   },
   ON_HOLD: {
     label: "معلق",
-    badgeClass: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
+    badgeClass: "bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning",
   },
   COMPLETED: {
     label: "مكتمل",
@@ -69,7 +69,7 @@ const statusConfig: Record<
   },
   CANCELLED: {
     label: "ملغي",
-    badgeClass: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800",
+    badgeClass: "bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive",
   },
 };
 
@@ -215,9 +215,9 @@ const DevProjects: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">المشاريع النشطة</span>
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="size-1.5 rounded-full bg-success animate-pulse" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-success dark:text-success tabular-nums">
             {stats.active}
           </div>
         </div>
@@ -235,9 +235,9 @@ const DevProjects: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">المهام المنجزة</span>
-            <CheckCircle2 className="size-3.5 text-emerald-500" />
+            <CheckCircle2 className="size-3.5 text-success" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-success dark:text-success tabular-nums">
             {stats.completedTasks}
           </div>
         </div>
@@ -252,7 +252,7 @@ const DevProjects: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="البحث باسم المشروع، الوصف، أو التصنيف..."
-            className="w-full pl-3 pr-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full ps-3 pe-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
@@ -261,7 +261,7 @@ const DevProjects: React.FC = () => {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="pr-8 pl-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="pe-8 ps-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
             >
               <option value="">جميع الحالات</option>
               {Object.entries(statusConfig).map(([key, { label }]) => (
@@ -365,7 +365,7 @@ const DevProjects: React.FC = () => {
                           e.stopPropagation();
                           handleDelete(project.id);
                         }}
-                        className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                        className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 transition-colors"
                         title="حذف المشروع"
                       >
                         <Trash2 className="size-3.5" />
@@ -409,7 +409,7 @@ const DevProjects: React.FC = () => {
                       <div className="text-[10px] text-muted-foreground">مهمة</div>
                     </div>
                     <div>
-                      <div className="text-base font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                      <div className="text-base font-bold text-success dark:text-success tabular-nums">
                         {project.completedTasks}
                       </div>
                       <div className="text-[10px] text-muted-foreground">مكتملة</div>
@@ -441,7 +441,7 @@ const DevProjects: React.FC = () => {
                         <span>الموعد:</span>
                         <span
                           className={`font-mono tabular-nums ${
-                            isOverdue ? "text-rose-600 dark:text-rose-400 font-bold" : "text-foreground"
+                            isOverdue ? "text-rose-600 dark:text-destructive font-bold" : "text-foreground"
                           }`}
                         >
                           {new Date(project.endDate).toLocaleDateString("ar-EG")}

@@ -37,7 +37,7 @@ const TemplateSettings: React.FC = () => {
           <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">القالب المطبق حالياً</span>
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
             </div>
             <div className="text-base sm:text-lg font-bold tracking-tight text-foreground font-mono">
               {meta?.name || "Business OS"}
@@ -57,7 +57,7 @@ const TemplateSettings: React.FC = () => {
           <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">نطاق التأثير</span>
-              <ShieldCheck className="size-3.5 text-amber-500" />
+              <ShieldCheck className="size-3.5 text-warning" />
             </div>
             <div className="text-xs font-semibold text-foreground">
               لوحة التحكم لجميع الشركات

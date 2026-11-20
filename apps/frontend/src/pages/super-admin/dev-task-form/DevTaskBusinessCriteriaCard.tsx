@@ -15,7 +15,7 @@ export const DevTaskBusinessCriteriaCard: React.FC<DevTaskBusinessCriteriaCardPr
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="bg-card rounded-xl border border-border p-5 shadow-sm">
         <label className="block text-xs font-semibold text-foreground mb-2 flex items-center gap-1.5">
-          <Lightbulb className="h-4 w-4 text-amber-500" />
+          <Lightbulb className="h-4 w-4 text-warning" />
           <span>القيمة التجارية (Business Value)</span>
         </label>
         <textarea
@@ -30,7 +30,7 @@ export const DevTaskBusinessCriteriaCard: React.FC<DevTaskBusinessCriteriaCardPr
       <div className="bg-card rounded-xl border border-border p-5 shadow-sm">
         <label className="block text-xs font-semibold text-foreground mb-2 flex items-center justify-between">
           <span className="flex items-center gap-1.5">
-            <BadgeCheck className="h-4 w-4 text-emerald-500" />
+            <BadgeCheck className="h-4 w-4 text-success" />
             <span>معايير القبول (Acceptance Criteria)</span>
           </span>
         </label>

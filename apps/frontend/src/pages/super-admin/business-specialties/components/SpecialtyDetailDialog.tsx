@@ -76,7 +76,7 @@ export const SpecialtyDetailDialog: React.FC<SpecialtyDetailDialogProps> = ({
                     variant="outline"
                     className="border-primary/30 bg-primary/5 text-primary text-[0.65rem] px-2 py-0.5"
                   >
-                    <Zap className="h-2.5 w-2.5 ml-0.5" />
+                    <Zap className="h-2.5 w-2.5 ms-0.5" />
                     تثبيت تلقائي عند التسجيل
                   </Badge>
                 )}
@@ -86,7 +86,7 @@ export const SpecialtyDetailDialog: React.FC<SpecialtyDetailDialogProps> = ({
                     variant="outline"
                     className="text-[0.65rem] px-2 py-0.5 font-mono tabular-nums"
                   >
-                    <Building2 className="h-2.5 w-2.5 ml-0.5" />
+                    <Building2 className="h-2.5 w-2.5 ms-0.5" />
                     {specialty.companyCount.toLocaleString("ar-EG")} شركة مسجلة
                   </Badge>
                 )}
@@ -229,7 +229,7 @@ export const SpecialtyDetailDialog: React.FC<SpecialtyDetailDialogProps> = ({
             }}
             className="h-8 px-3 text-xs font-semibold rounded-lg"
           >
-            <Pencil className="h-3.5 w-3.5 ml-1" />
+            <Pencil className="h-3.5 w-3.5 ms-1" />
             تعديل النشاط
           </Button>
         </DialogFooter>

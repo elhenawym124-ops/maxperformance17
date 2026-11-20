@@ -69,12 +69,12 @@ const PRIORITY_ITEMS = [
   {
     key: "URGENT",
     label: "عاجلة (Urgent)",
-    badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    badgeColor: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
   },
   {
     key: "HIGH",
     label: "عالية (High)",
-    badgeColor: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20",
+    badgeColor: "bg-yellow-500/10 text-warning dark:text-warning border-warning/20",
   },
   {
     key: "MEDIUM",
@@ -142,17 +142,17 @@ export const DevTaskLeaderboardTab: React.FC<DevTaskLeaderboardTabProps> = ({
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+        <h3 className="text-lg font-semibold text-foreground mb-2">
           إعدادات لوحة الأبطال
         </h3>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-muted-foreground mb-6">
           حدد نقاط الخبرة (XP) التي يحصل عليها المطور عند إكمال كل نوع من المهام.
         </p>
       </div>
 
       {/* Base XP */}
-      <div className="bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <div className="bg-gray-50 dark:bg-muted p-4 rounded-lg border border-border dark:border-border">
+        <label className="block text-sm font-medium text-foreground mb-2">
           النقاط الأساسية (Base XP)
         </label>
         <input
@@ -160,9 +160,9 @@ export const DevTaskLeaderboardTab: React.FC<DevTaskLeaderboardTabProps> = ({
           min="0"
           value={currentBaseXP}
           onChange={(e) => updateBaseXP(parseInt(e.target.value) || 0)}
-          className="w-32 border rounded px-3 py-2 dark:bg-gray-700 dark:border-gray-600 font-mono text-sm"
+          className="w-32 border rounded px-3 py-2 dark:bg-muted dark:border-border font-mono text-sm"
         />
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-muted-foreground mt-2">
           النقاط الأساسية التي تُضاف لأي مهمة مكتملة
         </p>
       </div>
@@ -223,9 +223,9 @@ export const DevTaskLeaderboardTab: React.FC<DevTaskLeaderboardTabProps> = ({
                   onChange={(e) =>
                     updatePriorityScore(key, parseInt(e.target.value) || 0)
                   }
-                  className="w-20 border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:border-gray-600 font-mono tabular-nums"
+                  className="w-20 border rounded px-2 py-1 text-sm dark:bg-muted dark:border-border font-mono tabular-nums"
                 />
-                <span className="text-xs text-gray-500">نقطة إضافية</span>
+                <span className="text-xs text-muted-foreground">نقطة إضافية</span>
               </div>
             </div>
           ))}

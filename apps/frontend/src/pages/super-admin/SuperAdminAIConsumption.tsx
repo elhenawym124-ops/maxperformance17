@@ -74,7 +74,7 @@ function CostBar({ cost, max }: { cost: number; max: number }) {
   const pct = max > 0 ? (cost / max) * 100 : 0;
   return (
     <div className="w-full bg-muted/60 rounded-full h-1.5 overflow-hidden" dir="ltr">
-      <div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${Math.min(pct, 100)}%` }} />
+      <div className="h-full rounded-full bg-success transition-all" style={{ width: `${Math.min(pct, 100)}%` }} />
     </div>
   );
 }
@@ -179,7 +179,7 @@ const SuperAdminAIConsumption: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">التكلفة التقديرية</span>
-              <DollarSign className="size-3.5 text-emerald-500" />
+              <DollarSign className="size-3.5 text-success" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{formatMoney(summary.totalCost)}</div>
             <p className="text-[10px] text-muted-foreground font-mono">خلال {days} يوماً</p>
@@ -203,7 +203,7 @@ const SuperAdminAIConsumption: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">نسبة الأخطاء</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{summary.errorRate}%</div>
             <p className="text-[10px] text-muted-foreground font-mono">{summary.failedCount} استدعاء فاشل</p>
@@ -245,7 +245,7 @@ const SuperAdminAIConsumption: React.FC = () => {
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setPage(0); }}
               placeholder="البحث باسم الشركة..."
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
             />
           </div>
           <span className="text-[10px] font-mono text-muted-foreground self-end sm:self-auto">

@@ -191,14 +191,14 @@ export const ShippingParcelsList: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Page Header (No nav element) */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
             {t('shippingOps.parcels', 'سجل الشحنات والطرود')}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             {t('shippingOps.subtitle', 'إدارة الطرود المستقلة، تسعير العملاء، ومتابعة حركة الشحنات والتسليم')}
           </p>
         </div>
@@ -206,9 +206,9 @@ export const ShippingParcelsList: React.FC = () => {
           <button
             onClick={loadShipments}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition active:scale-95 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition active:scale-95 disabled:opacity-50"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-600 dark:text-slate-300 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-foreground dark:text-muted-foreground ${loading ? 'animate-spin' : ''}`} />
             <span>{isEn ? 'Refresh' : 'تحديث'}</span>
           </button>
                     <button
@@ -223,7 +223,7 @@ export const ShippingParcelsList: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowImportModal(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 rounded-lg shadow-sm transition active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-success bg-success/10 hover:bg-success dark:text-success dark:bg-success/40 dark:hover:bg-success/60 border border-success dark:border-success rounded-lg shadow-sm transition active:scale-95 cursor-pointer"
             title={isEn ? 'Import Orders & Shipments from Excel' : 'استيراد أوردرات وشحنات كاملة من ملف إكسيل'}
           >
             <FileSpreadsheet className="w-4 h-4" />
@@ -240,13 +240,13 @@ export const ShippingParcelsList: React.FC = () => {
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-xs sm:text-sm">
+        <div className="p-4 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-xs sm:text-sm">
           {error}
         </div>
       )}
 
       {/* Turbo-style Status Tabs Ribbon with Counts */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-2.5 shadow-sm">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
           {TURBO_STATUS_TABS.map((tab) => {
             const isSelected = status === tab.key;
@@ -262,7 +262,7 @@ export const ShippingParcelsList: React.FC = () => {
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer border ${
                   isSelected
                     ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                    : 'bg-slate-50 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    : 'bg-slate-50 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border hover:bg-muted dark:hover:bg-muted'
                 }`}
               >
                 <span>{isEn ? tab.labelEn : tab.labelAr}</span>
@@ -270,7 +270,7 @@ export const ShippingParcelsList: React.FC = () => {
                   className={`px-1.5 py-0.5 rounded-full text-[11px] tabular-nums font-bold ${
                     isSelected
                       ? 'bg-white/20 text-white'
-                      : 'bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                      : 'bg-slate-200/80 dark:bg-muted text-foreground dark:text-muted-foreground'
                   }`}
                 >
                   {count}
@@ -282,11 +282,11 @@ export const ShippingParcelsList: React.FC = () => {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-3 shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 space-y-3 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search Input */}
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder={String(t('shippingOps.list.searchPlaceholder', 'بحث برقم التتبع، المستلم، أو الهاتف...'))}
@@ -295,7 +295,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setSearch(e.target.value);
                 setPage(1);
               }}
-              className="w-full pl-3 pr-9 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full ps-3 pe-9 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -307,7 +307,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setStatus(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">{isEn ? 'All Statuses' : 'جميع الحالات'}</option>
               <option value="INCOMPLETE">{isEn ? 'Incomplete (Draft)' : 'غير مكتملة (مسودة)'}</option>
@@ -336,7 +336,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setGovernorate(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">{t('shippingOps.list.filterAllGov', 'جميع المحافظات')}</option>
               {EGYPT_GOVERNORATES.map((g) => (
@@ -355,7 +355,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setMerchantId(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">{t('shippingOps.list.filterAllMerchants', 'جميع العملاء / التجار')}</option>
               {merchants.map((m) => (
@@ -368,7 +368,7 @@ export const ShippingParcelsList: React.FC = () => {
         </div>
 
         {/* Date Filter & Reset */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-border dark:border-border text-xs">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-slate-500 font-medium">{t('shippingOps.list.dateFrom', 'من')}:</span>
             <DateInput
@@ -378,7 +378,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setFromDate(e.target.value);
                 setPage(1);
               }}
-              className="px-2.5 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg"
+              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg"
             />
             <span className="text-slate-500 font-medium">{t('shippingOps.list.dateTo', 'إلى')}:</span>
             <DateInput
@@ -388,7 +388,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setToDate(e.target.value);
                 setPage(1);
               }}
-              className="px-2.5 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg"
+              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg"
             />
           </div>
 
@@ -401,11 +401,11 @@ export const ShippingParcelsList: React.FC = () => {
               }}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border transition cursor-pointer ${
                 needsRtoReview
-                  ? 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-700'
-                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
+                  ? 'bg-amber-100 text-warning border-warning dark:bg-warning dark:text-warning dark:border-warning'
+                  : 'bg-slate-50 text-foreground border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border'
               }`}
             >
-              <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+              <AlertCircle className="w-3.5 h-3.5 text-warning" />
               <span>{isEn ? 'Needs RTO Review' : 'شحنات بحاجة لمراجعة RTO'}</span>
             </button>
             <button
@@ -417,7 +417,7 @@ export const ShippingParcelsList: React.FC = () => {
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border transition cursor-pointer ${
                 isInternational
                   ? 'bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-700'
-                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
+                  : 'bg-slate-50 text-foreground border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border'
               }`}
             >
               <Globe2 className="w-3.5 h-3.5 text-blue-600" />
@@ -429,7 +429,7 @@ export const ShippingParcelsList: React.FC = () => {
           {(search || status || governorate || merchantId || fromDate || toDate || needsRtoReview) && (
             <button
               onClick={handleResetFilters}
-              className="text-xs text-rose-600 hover:underline font-medium"
+              className="text-xs text-destructive hover:underline font-medium"
             >
               إعادة ضبط الفلاتر
             </button>
@@ -447,19 +447,19 @@ export const ShippingParcelsList: React.FC = () => {
             <button
               type="button"
               onClick={() => setSelectedIds([])}
-              className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 underline mr-1"
+              className="text-xs text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground underline me-1"
             >
               {isEn ? 'Deselect all' : 'إلغاء التحديد'}
             </button>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-2 py-1 rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-white dark:bg-muted px-2 py-1 rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
               <span className="text-slate-500">{isEn ? 'Template:' : 'القالب:'}</span>
               <select
                 value={batchTemplate}
                 onChange={(e) => setBatchTemplate(e.target.value)}
-                className="bg-transparent font-semibold text-slate-800 dark:text-slate-200 cursor-pointer focus:outline-none"
+                className="bg-transparent font-semibold text-foreground dark:text-muted-foreground cursor-pointer focus:outline-none"
               >
                 <option value="WAYBILL">{isEn ? 'Waybill (A6)' : 'بوليصة لصق'}</option>
                 <option value="INVOICE">{isEn ? 'COD Invoice' : 'فاتورة COD'}</option>
@@ -468,12 +468,12 @@ export const ShippingParcelsList: React.FC = () => {
               </select>
             </div>
 
-            <div className="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-2 py-1 rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-white dark:bg-muted px-2 py-1 rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
               <span className="text-slate-500">{isEn ? 'Copies:' : 'النسخ:'}</span>
               <select
                 value={batchCopies}
                 onChange={(e) => setBatchCopies(Number(e.target.value))}
-                className="bg-transparent font-bold text-slate-800 dark:text-slate-200 cursor-pointer focus:outline-none"
+                className="bg-transparent font-bold text-foreground dark:text-muted-foreground cursor-pointer focus:outline-none"
               >
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -499,17 +499,17 @@ export const ShippingParcelsList: React.FC = () => {
       )}
 
       {/* Parcels Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-right rtl:text-right ltr:text-left text-xs sm:text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-slate-50 dark:bg-muted text-muted-foreground dark:text-muted-foreground border-b border-border dark:border-border">
               <tr>
                 <th className="w-10 px-3 py-3 text-center">
                   <input
                     type="checkbox"
                     checked={shipments.length > 0 && selectedIds.length === shipments.length}
                     onChange={handleSelectAll}
-                    className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700 cursor-pointer"
+                    className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border dark:border-border cursor-pointer"
                     title={isEn ? 'Select all on page' : 'تحديد كل الصفحة'}
                   />
                 </th>
@@ -525,17 +525,17 @@ export const ShippingParcelsList: React.FC = () => {
                 <th className="px-4 py-3 font-medium text-center">{t('shippingOps.list.actions', 'إجراء')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading && shipments.length === 0 ? (
                 <tr>
-                  <td colSpan={11} className="px-4 py-12 text-center text-slate-400">
-                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-slate-400" />
+                  <td colSpan={11} className="px-4 py-12 text-center text-muted-foreground">
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-muted-foreground" />
                     <span>{isEn ? 'Loading parcels...' : 'جاري تحميل الشحنات...'}</span>
                   </td>
                 </tr>
               ) : (!shipments || shipments.length === 0) ? (
                 <tr>
-                  <td colSpan={11} className="px-4 py-12 text-center text-slate-400">
+                  <td colSpan={11} className="px-4 py-12 text-center text-muted-foreground">
                     <Boxes className="w-8 h-8 mx-auto mb-2 opacity-40" />
                     <span>{t('shippingOps.list.noParcelsFound', 'لم يتم العثور على أي شحنات')}</span>
                   </td>
@@ -546,13 +546,13 @@ export const ShippingParcelsList: React.FC = () => {
                   const isCancelable = ['PENDING', 'ASSIGNED', 'INCOMPLETE'].includes(s.status);
 
                   return (
-                    <tr key={s.id} className={`hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition ${selectedIds.includes(s.id) ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''}`}>
+                    <tr key={s.id} className={`hover:bg-slate-50/70 dark:hover:bg-muted transition ${selectedIds.includes(s.id) ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''}`}>
                       <td className="w-10 px-3 py-3 text-center">
                         <input
                           type="checkbox"
                           checked={selectedIds.includes(s.id)}
                           onChange={() => handleSelectOne(s.id)}
-                          className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700 cursor-pointer"
+                          className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border dark:border-border cursor-pointer"
                         />
                       </td>
                       <td className="px-4 py-3">
@@ -564,10 +564,10 @@ export const ShippingParcelsList: React.FC = () => {
                             <span
                               className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold border ${
                                 s.intlAckStatus === 'APPROVED'
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300'
+                                  ? 'bg-emerald-50 text-success border-success dark:bg-success/60 dark:text-success'
                                   : s.intlAckStatus === 'REJECTED'
-                                  ? 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/60 dark:text-rose-300'
-                                  : 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 animate-pulse'
+                                  ? 'bg-rose-50 text-destructive border-destructive dark:bg-destructive/60 dark:text-destructive'
+                                  : 'bg-amber-50 text-warning border-warning dark:bg-warning/60 dark:text-warning animate-pulse'
                               }`}
                               title={`شحنة دولية: ${s.destinationCountry || ''} (${s.intlAckStatus || 'معلق'})`}
                             >
@@ -578,14 +578,14 @@ export const ShippingParcelsList: React.FC = () => {
 
                           <button
                             onClick={() => printShipmentLabel(s.id, s.trackingNumber)}
-                            className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                             title={isEn ? 'Print Waybill (A6)' : 'طباعة البوليصة'}
                           >
                             <Printer className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleCopyTracking(s.trackingNumber)}
-                            className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition"
+                            className="p-1 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition"
                             title="نسخ رقم التتبع"
                           >
                             <Copy className="w-3.5 h-3.5" />
@@ -593,22 +593,22 @@ export const ShippingParcelsList: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-slate-900 dark:text-slate-100">{s.recipientName}</div>
-                        <div className="text-xs text-slate-500 font-mono" dir="ltr">{s.recipientPhone}</div>
+                        <div className="font-medium text-foreground dark:text-muted-foreground">{s.recipientName}</div>
+                        <div className="text-xs text-muted-foreground font-mono" dir="ltr">{s.recipientPhone}</div>
                       </td>
                       <td className="px-4 py-3">
-                        <div className="text-slate-900 dark:text-slate-100">{s.destinationGovernorate}</div>
+                        <div className="text-slate-900 dark:text-muted-foreground">{s.destinationGovernorate}</div>
                         {s.destinationCity && (
-                          <div className="text-xs text-slate-500">{s.destinationCity}</div>
+                          <div className="text-xs text-muted-foreground">{s.destinationCity}</div>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
+                      <td className="px-4 py-3 text-foreground dark:text-muted-foreground">
                         {s.merchant?.name || (isEn ? 'Direct' : 'مباشر')}
                       </td>
-                      <td className="px-4 py-3 font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+                      <td className="px-4 py-3 font-semibold tabular-nums text-foreground dark:text-muted-foreground">
                         {formatCurrency(s.codAmount)}
                       </td>
-                      <td className="px-4 py-3 font-medium tabular-nums text-slate-600 dark:text-slate-400">
+                      <td className="px-4 py-3 font-medium tabular-nums text-foreground dark:text-muted-foreground">
                         {formatCurrency(s.cost)}
                       </td>
                       <td className="px-4 py-3">
@@ -617,7 +617,7 @@ export const ShippingParcelsList: React.FC = () => {
                             {badge.label}
                           </span>
                           {Boolean((s as any).isStale) && (
-                            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200 dark:border-rose-800 animate-pulse">
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-destructive text-destructive dark:bg-destructive/60 dark:text-destructive border border-destructive dark:border-destructive animate-pulse">
                               {isEn ? 'Stale (>11d)' : 'متأخرة (تجاوزت المهلة)'}
                             </span>
                           )}
@@ -626,37 +626,37 @@ export const ShippingParcelsList: React.FC = () => {
                       <td className="px-4 py-3">
                         {s.latestEvent ? (
                           <div className="text-xs">
-                            <span className="font-medium text-slate-800 dark:text-slate-200">
+                            <span className="font-medium text-foreground dark:text-muted-foreground">
                               {getStatusBadge(s.latestEvent.toStatus, isEn).label}
                             </span>
                             {s.latestEvent.notes && (
-                              <p className="text-[11px] text-slate-500 truncate max-w-[140px]" title={s.latestEvent.notes}>
+                              <p className="text-[11px] text-muted-foreground truncate max-w-[140px]" title={s.latestEvent.notes}>
                                 {s.latestEvent.notes}
                               </p>
                             )}
-                            <span className="text-[10px] text-slate-400 block font-mono">
+                            <span className="text-[10px] text-muted-foreground block font-mono">
                               {new Date(s.latestEvent.createdAt).toLocaleTimeString(isEn ? 'en-US' : 'ar-EG', { hour: '2-digit', minute: '2-digit' })}
                             </span>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400">—</span>
+                          <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-xs text-slate-500 whitespace-nowrap">
+                      <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">
                         {formatDate(s.createdAt)}
                       </td>
                       <td className="px-4 py-3 text-center">
                         <div className="inline-flex items-center gap-1">
                           <Link
                             to={`/shipping-ops/parcels/${s.id}`}
-                            className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                             title={String(t('shippingOps.list.viewDetails', 'عرض التفاصيل'))}
                           >
                             <Eye className="w-4 h-4" />
                           </Link>
                           <button
                             onClick={() => printShipmentLabel(s.id, s.trackingNumber)}
-                            className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                             title={isEn ? 'Print Waybill (A6)' : 'طباعة البوليصة'}
                           >
                             <Printer className="w-4 h-4" />
@@ -667,7 +667,7 @@ export const ShippingParcelsList: React.FC = () => {
                                 setCancellingShipment(s);
                                 setCancelReason('');
                               }}
-                              className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
+                              className="p-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition"
                               title={String(t('shippingOps.list.cancelShipment', 'إلغاء الشحنة'))}
                             >
                               <XCircle className="w-4 h-4" />
@@ -684,16 +684,16 @@ export const ShippingParcelsList: React.FC = () => {
         </div>
 
         {/* Pagination Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-border dark:border-border text-xs text-muted-foreground">
           <div>
             <span>{t('shippingOps.list.totalRecords', 'إجمالي الشحنات')}: </span>
-            <span className="font-bold text-slate-800 dark:text-slate-200 tabular-nums">{totalCount}</span>
+            <span className="font-bold text-foreground dark:text-muted-foreground tabular-nums">{totalCount}</span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page <= 1 || loading}
-              className="inline-flex items-center gap-1 px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 transition"
+              className="inline-flex items-center gap-1 px-3 py-1.5 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-40 transition"
             >
               <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
               <span>{isEn ? 'Previous' : 'السابق'}</span>
@@ -704,7 +704,7 @@ export const ShippingParcelsList: React.FC = () => {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page >= totalPages || loading}
-              className="inline-flex items-center gap-1 px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 transition"
+              className="inline-flex items-center gap-1 px-3 py-1.5 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-40 transition"
             >
               <span>{isEn ? 'Next' : 'التالي'}</span>
               <ChevronLeft className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -715,23 +715,23 @@ export const ShippingParcelsList: React.FC = () => {
 
       {/* Cancel Confirmation Dialog */}
       {cancellingShipment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 max-w-md w-full space-y-4 shadow-xl">
-            <div className="flex items-center gap-3 text-rose-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 max-w-md w-full space-y-4 shadow-xl">
+            <div className="flex items-center gap-3 text-destructive">
               <XCircle className="w-6 h-6 shrink-0" />
-              <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
+              <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">
                 {t('shippingOps.list.cancelConfirmTitle', 'تأكيد إلغاء الشحنة')}
               </h3>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-foreground dark:text-muted-foreground">
               {t('shippingOps.list.cancelConfirmDesc', 'هل أنت متأكد من رغبتك في إلغاء هذه الشحنة؟ لا يمكن التراجع عن هذا الإجراء.')}
             </p>
-            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-lg text-xs space-y-1">
+            <div className="p-3 bg-muted dark:bg-muted rounded-lg text-xs space-y-1">
               <div><span className="text-slate-400">رقم التتبع:</span> <span className="font-mono font-medium">{cancellingShipment.trackingNumber}</span></div>
               <div><span className="text-slate-400">المستلم:</span> <span className="font-medium">{cancellingShipment.recipientName}</span></div>
             </div>
             <div>
-              <label htmlFor="cancelReason" className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+              <label htmlFor="cancelReason" className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                 سبب الإلغاء (اختياري)
               </label>
               <input
@@ -740,15 +740,15 @@ export const ShippingParcelsList: React.FC = () => {
                 placeholder="طلب العميل، خطأ في العنوان، تكرار..."
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-destructive"
               />
             </div>
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setCancellingShipment(null)}
                 disabled={cancelLoading}
-                className="px-3.5 py-2 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                className="px-3.5 py-2 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
               >
                 {t('shippingOps.list.cancelDismissBtn', 'تراجع')}
               </button>
@@ -756,7 +756,7 @@ export const ShippingParcelsList: React.FC = () => {
                 type="button"
                 onClick={handleConfirmCancel}
                 disabled={cancelLoading}
-                className="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition active:scale-95 disabled:opacity-50"
+                className="px-4 py-2 text-xs font-semibold text-white bg-destructive hover:bg-destructive rounded-lg transition active:scale-95 disabled:opacity-50"
               >
                 {cancelLoading ? 'جاري الإلغاء...' : t('shippingOps.list.confirmCancelBtn', 'تأكيد الإلغاء')}
               </button>

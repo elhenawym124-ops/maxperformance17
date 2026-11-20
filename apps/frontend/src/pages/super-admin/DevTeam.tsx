@@ -68,12 +68,12 @@ const availabilityConfig: Record<
 > = {
   available: {
     label: "متاح للعمل",
-    badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
+    badgeClass: "bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success",
     dotClass: "bg-emerald-500",
   },
   busy: {
     label: "مشغول بمهام",
-    badgeClass: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
+    badgeClass: "bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning",
     dotClass: "bg-amber-500",
   },
   away: {
@@ -262,9 +262,9 @@ const DevTeam: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">أعضاء متاحون</span>
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="size-1.5 rounded-full bg-success animate-pulse" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-success dark:text-success tabular-nums">
             {stats.available}
           </div>
         </div>
@@ -282,9 +282,9 @@ const DevTeam: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">المهام الموزعة</span>
-            <Clock className="size-3.5 text-amber-500" />
+            <Clock className="size-3.5 text-warning" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-amber-500 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-warning tabular-nums">
             {stats.totalTasks}
           </div>
         </div>
@@ -299,7 +299,7 @@ const DevTeam: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="البحث بالاسم، البريد، القسم، أو المهارة..."
-            className="w-full pl-3 pr-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full ps-3 pe-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
@@ -308,7 +308,7 @@ const DevTeam: React.FC = () => {
             <select
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
-              className="pr-8 pl-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="pe-8 ps-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
             >
               <option value="">جميع الأدوار</option>
               {Object.entries(roleLabels).map(([key, label]) => (
@@ -324,7 +324,7 @@ const DevTeam: React.FC = () => {
             <select
               value={filterAvailability}
               onChange={(e) => setFilterAvailability(e.target.value)}
-              className="pr-8 pl-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="pe-8 ps-3 py-2 border border-border rounded-lg bg-background text-foreground text-xs focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
             >
               <option value="">جميع حالات الجاهزية</option>
               {Object.entries(availabilityConfig).map(([key, { label }]) => (
@@ -412,7 +412,7 @@ const DevTeam: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleDelete(member.id)}
-                      className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                      className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 transition-colors"
                       title="حذف العضو"
                     >
                       <Trash2 className="size-3.5" />
@@ -429,7 +429,7 @@ const DevTeam: React.FC = () => {
                     </span>
                   </div>
                   {member.department && (
-                    <div className="text-[11px] text-muted-foreground pr-5">
+                    <div className="text-[11px] text-muted-foreground pe-5">
                       {member.department}
                     </div>
                   )}
@@ -444,7 +444,7 @@ const DevTeam: React.FC = () => {
                     <span>{availabilityInfo.label}</span>
                   </span>
                   {!member.isActive && (
-                    <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300">
+                    <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-destructive/10 text-destructive border border-destructive dark:bg-destructive/40 dark:text-destructive">
                       غير نشط
                     </span>
                   )}

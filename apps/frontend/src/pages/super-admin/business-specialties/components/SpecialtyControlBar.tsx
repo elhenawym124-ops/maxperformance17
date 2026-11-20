@@ -70,7 +70,7 @@ export const SpecialtyControlBar: React.FC<SpecialtyControlBarProps> = ({
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="ابحث بالاسم، الرابط، أو الوصف..."
-            className="h-9 pr-9 pl-8 text-xs sm:text-sm rounded-lg"
+            className="h-9 pe-9 ps-8 text-xs sm:text-sm rounded-lg"
           />
           {search && (
             <button
@@ -140,7 +140,7 @@ export const SpecialtyControlBar: React.FC<SpecialtyControlBarProps> = ({
             aria-label="تحديث"
           >
             <RefreshCw className={cn("h-3.5 w-3.5", loading && "animate-spin")} />
-            <span className="hidden md:inline mr-1">تحديث</span>
+            <span className="hidden md:inline me-1">تحديث</span>
           </Button>
 
           {/* Create button */}
@@ -151,7 +151,7 @@ export const SpecialtyControlBar: React.FC<SpecialtyControlBarProps> = ({
             onClick={onCreate}
             className="h-9 px-3 rounded-lg text-xs font-semibold shadow-xs"
           >
-            <Plus className="h-3.5 w-3.5 ml-1" />
+            <Plus className="h-3.5 w-3.5 ms-1" />
             إنشاء نشاط
           </Button>
         </div>

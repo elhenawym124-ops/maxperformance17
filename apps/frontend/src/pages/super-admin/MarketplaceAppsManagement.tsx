@@ -116,35 +116,35 @@ export const MarketplaceAppsManagement: React.FC<MarketplaceAppsManagementProps>
               value="1"
               className="h-9 rounded-t-lg border-b-2 border-transparent px-3 text-sm data-active:border-primary data-active:bg-transparent data-active:text-primary"
             >
-              <ShoppingBag className="size-4 ml-1" />
+              <ShoppingBag className="size-4 ms-1" />
               تطبيقات المتجر
             </TabsTrigger>
             <TabsTrigger
               value="2"
               className="h-9 rounded-t-lg border-b-2 border-transparent px-3 text-sm data-active:border-primary data-active:bg-transparent data-active:text-primary"
             >
-              <Package className="size-4 ml-1" />
+              <Package className="size-4 ms-1" />
               حزم الأدوات والأسعار
             </TabsTrigger>
             <TabsTrigger
               value="4"
               className="h-9 rounded-t-lg border-b-2 border-transparent px-3 text-sm data-active:border-primary data-active:bg-transparent data-active:text-primary"
             >
-              <Store className="size-4 ml-1" />
+              <Store className="size-4 ms-1" />
               قوالب المتجر
             </TabsTrigger>
             <TabsTrigger
               value="5"
               className="h-9 rounded-t-lg border-b-2 border-transparent px-3 text-sm data-active:border-primary data-active:bg-transparent data-active:text-primary"
             >
-              <CreditCard className="size-4 ml-1" />
+              <CreditCard className="size-4 ms-1" />
               إعدادات الدفع
             </TabsTrigger>
             <TabsTrigger
               value="6"
               className="h-9 rounded-t-lg border-b-2 border-transparent px-3 text-sm data-active:border-primary data-active:bg-transparent data-active:text-primary"
             >
-              <DollarSign className="size-4 ml-1" />
+              <DollarSign className="size-4 ms-1" />
               أسعار التطبيقات
             </TabsTrigger>
           </TabsList>

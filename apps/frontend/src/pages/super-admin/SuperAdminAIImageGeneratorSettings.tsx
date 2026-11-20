@@ -27,9 +27,9 @@ const MODEL_OPTIONS = [
 ];
 
 const getTierBadgeClass = (tier: string) => {
-  if (tier === "fast") return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+  if (tier === "fast") return "bg-emerald-500/10 text-success dark:text-success border-success/20";
   if (tier === "balanced") return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
-  return "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20";
+  return "bg-purple-500/10 text-primary dark:text-primary border-primary/20";
 };
 
 const getAuthHeaders = () => {
@@ -166,11 +166,11 @@ export default function SuperAdminAIImageGeneratorSettings() {
           <p className="text-xl md:text-2xl font-bold font-mono tabular-nums text-foreground">{companies.length}</p>
         </div>
         <div className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+          <div className="flex items-center justify-between text-xs text-success dark:text-success font-medium">
             <span>الشركات المفعّلة</span>
             <ToggleRight className="size-3.5" />
           </div>
-          <p className="text-xl md:text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{activeCompaniesCount}</p>
+          <p className="text-xl md:text-2xl font-bold font-mono tabular-nums text-success dark:text-success">{activeCompaniesCount}</p>
         </div>
         <div className="p-4 space-y-1">
           <div className="flex items-center justify-between text-xs text-primary font-medium">
@@ -301,7 +301,7 @@ export default function SuperAdminAIImageGeneratorSettings() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث عن شركة..."
-              className="w-full pr-8 pl-3 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:ring-1 focus:ring-primary"
+              className="w-full pe-8 ps-3 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:ring-1 focus:ring-primary"
             />
           </div>
         </div>
@@ -330,7 +330,7 @@ export default function SuperAdminAIImageGeneratorSettings() {
                     <button
                       onClick={() => toggleCompany(company.id, !company.enabled)}
                       className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
-                        company.enabled ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                        company.enabled ? "bg-emerald-50 text-success dark:bg-success/40 dark:text-success border-success dark:border-success"
                           : "bg-destructive/10 text-destructive border-destructive/20"
                       }`}
                     >

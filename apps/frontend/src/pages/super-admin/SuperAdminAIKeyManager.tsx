@@ -236,7 +236,7 @@ function KeyManagerContent() {
           <div className="relative flex-1">
             <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
             <Input
-              className="pr-8 h-8 text-xs bg-muted/20 border-border/60"
+              className="pe-8 h-8 text-xs bg-muted/20 border-border/60"
               placeholder="بحث باسم المفتاح..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -296,10 +296,10 @@ function KeyManagerContent() {
           <Button size="sm" variant="ghost" onClick={() => handleBulkToggle(false)} className="h-7 text-background hover:bg-background/15 px-2 text-xs gap-1">
             <ToggleLeft className="size-3.5" /> إيقاف
           </Button>
-          <Button size="sm" variant="ghost" onClick={handleBulkDelete} className="h-7 text-red-400 hover:bg-red-500/20 px-2 text-xs gap-1">
+          <Button size="sm" variant="ghost" onClick={handleBulkDelete} className="h-7 text-destructive hover:bg-destructive/20 px-2 text-xs gap-1">
             <Trash2 className="size-3.5" /> حذف
           </Button>
-          <button onClick={() => setSelectedIds(new Set())} className="p-1 rounded hover:bg-background/15 mr-1">
+          <button onClick={() => setSelectedIds(new Set())} className="p-1 rounded hover:bg-background/15 me-1">
             <X className="size-3.5" />
           </button>
         </div>

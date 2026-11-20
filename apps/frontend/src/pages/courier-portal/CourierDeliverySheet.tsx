@@ -130,7 +130,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
           ...payload,
         });
         toast.info('تم حفظ العملية بدون إنترنت — سيتم المزامنة تلقائياً عند استعادة الاتصال', {
-          icon: <CloudArrowUpIcon className="w-5 h-5 text-amber-500" />,
+          icon: <CloudArrowUpIcon className="w-5 h-5 text-warning" />,
         });
         onActionComplete({
           status: actionType,
@@ -174,7 +174,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
           ...payload,
         });
         toast.info('تم حفظ العملية بدون إنترنت وسيتم إعادة المحاولة تلقائياً', {
-          icon: <CloudArrowUpIcon className="w-5 h-5 text-amber-500" />,
+          icon: <CloudArrowUpIcon className="w-5 h-5 text-warning" />,
         });
         onActionComplete({
           status: actionType,
@@ -195,25 +195,25 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
   const customerName = shipment.order?.customerName || 'عميل';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm p-0 sm:p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-muted backdrop-blur-sm p-0 sm:p-4">
       <div
-        className="w-full sm:max-w-md bg-white dark:bg-slate-900 border-t sm:border border-slate-200 dark:border-slate-800 rounded-t-3xl sm:rounded-2xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col"
+        className="w-full sm:max-w-md bg-white dark:bg-muted border-t sm:border border-border dark:border-border rounded-t-3xl sm:rounded-xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col"
         dir="rtl"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 sticky top-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur z-10">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border sticky top-0 bg-white/95 dark:bg-muted backdrop-blur z-10">
           <div>
-            <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
+            <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">
               تحديث حالة الشحنة
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">
               طلب <span className="font-mono font-semibold">{orderNum}</span> — {customerName}
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -221,14 +221,14 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
 
         {/* Action Type Segmented Tabs */}
         <div className="p-4 pb-2">
-          <div className="grid grid-cols-3 gap-1.5 bg-slate-100 dark:bg-slate-800/70 p-1 rounded-xl">
+          <div className="grid grid-cols-3 gap-1.5 bg-muted dark:bg-muted p-1 rounded-xl">
             <button
               type="button"
               onClick={() => setActionType('DELIVERED')}
               className={`flex items-center justify-center gap-1.5 py-2 px-1 text-xs font-semibold rounded-lg transition ${
                 actionType === 'DELIVERED'
                   ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
+                  : 'text-slate-600 dark:text-muted-foreground hover:bg-white/50 dark:hover:bg-muted'
               }`}
             >
               <CheckCircleIcon className="w-4 h-4" />
@@ -240,7 +240,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
               className={`flex items-center justify-center gap-1.5 py-2 px-1 text-xs font-semibold rounded-lg transition ${
                 actionType === 'DELAYED'
                   ? 'bg-amber-600 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
+                  : 'text-slate-600 dark:text-muted-foreground hover:bg-white/50 dark:hover:bg-muted'
               }`}
             >
               <ClockIcon className="w-4 h-4" />
@@ -252,7 +252,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
               className={`flex items-center justify-center gap-1.5 py-2 px-1 text-xs font-semibold rounded-lg transition ${
                 actionType === 'FAILED'
                   ? 'bg-rose-600 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
+                  : 'text-slate-600 dark:text-muted-foreground hover:bg-white/50 dark:hover:bg-muted'
               }`}
             >
               <XCircleIcon className="w-4 h-4" />
@@ -266,7 +266,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
           {actionType === 'DELIVERED' && (
             <div className="space-y-3.5">
               <div>
-                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                   المبلغ المحصل نقداً (COD)
                 </label>
                 <div className="relative">
@@ -276,19 +276,19 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
                     step="0.5"
                     value={collectedAmount}
                     onChange={(e) => setCollectedAmount(parseFloat(e.target.value) || 0)}
-                    className="w-full px-3.5 py-2.5 text-base font-mono font-bold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3.5 py-2.5 text-base font-mono font-bold rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-success"
                     placeholder="0.00"
                   />
-                  <span className="absolute left-3 top-3 text-xs text-slate-400 font-mono">ج.م</span>
+                  <span className="absolute left-3 top-3 text-xs text-muted-foreground font-mono">ج.م</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-1">
+                <p className="text-[11px] text-muted-foreground mt-1">
                   المبلغ المطلوب طبقاً للمانيفست: <span className="font-mono font-semibold">{shipment.order?.total ?? 0}</span> ج.م
                 </p>
               </div>
 
               {otpRequired && (
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                     كود تسليم العميل (OTP) <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -298,10 +298,10 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
                     maxLength={4}
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
-                    className="w-full px-3.5 py-2.5 text-center text-lg font-mono tracking-widest font-bold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3.5 py-2.5 text-center text-lg font-mono tracking-widest font-bold rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-success"
                     placeholder="••••"
                   />
-                  <p className="text-[11px] text-slate-500 mt-1">
+                  <p className="text-[11px] text-muted-foreground mt-1">
                     الكود المكون من 4 أرقام المرسل للعميل عبر واتساب أو الرسائل النصية
                   </p>
                 </div>
@@ -312,13 +312,13 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
           {actionType === 'FAILED' && (
             <div className="space-y-3.5">
               <div>
-                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                   سبب تعذر التسليم <span className="text-rose-500">*</span>
                 </label>
                 <select
                   value={failureReasonCode}
                   onChange={(e) => setFailureReasonCode(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-rose-500"
+                  className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-destructive"
                 >
                   {failureReasons.map((r) => (
                     <option key={r.code} value={r.code}>
@@ -329,14 +329,14 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                   تاريخ المحاولة القادمة (اختياري)
                 </label>
                 <DateInput
                   
                   value={nextAttemptDate}
                   onChange={(e) => setNextAttemptDate(e.target.value)}
-                  className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-rose-500"
+                  className="w-full px-3.5 py-2 text-sm rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-destructive"
                 />
               </div>
             </div>
@@ -345,14 +345,14 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
           {actionType === 'DELAYED' && (
             <div className="space-y-3.5">
               <div>
-                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
                   الموعد البديل المتفق عليه <span className="text-rose-500">*</span>
                 </label>
                 <DateInput
                   
                   value={nextAttemptDate}
                   onChange={(e) => setNextAttemptDate(e.target.value)}
-                  className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3.5 py-2 text-sm rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-warning"
                 />
               </div>
             </div>
@@ -360,7 +360,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
 
           {/* Notes field for all options */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+            <label className="block text-xs font-medium text-foreground dark:text-muted-foreground mb-1">
               ملاحظات المندوب (اختياري)
             </label>
             <textarea
@@ -368,7 +368,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="أي تفاصيل تخص العميل، التوقيت، أو العنوان..."
-              className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -379,10 +379,10 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
               disabled={submitting}
               className={`w-full py-3 px-4 rounded-xl font-bold text-sm text-white shadow transition flex items-center justify-center gap-2 active:scale-[0.98] ${
                 actionType === 'DELIVERED'
-                  ? 'bg-emerald-600 hover:bg-emerald-700'
+                  ? 'bg-emerald-600 hover:bg-success'
                   : actionType === 'DELAYED'
-                  ? 'bg-amber-600 hover:bg-amber-700'
-                  : 'bg-rose-600 hover:bg-rose-700'
+                  ? 'bg-amber-600 hover:bg-warning'
+                  : 'bg-rose-600 hover:bg-destructive'
               } disabled:opacity-50`}
             >
               {submitting ? (

@@ -139,9 +139,9 @@ const MyAdvances: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>تمت الموافقة</span>
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-500">
+          <div className="text-xl font-bold font-mono tabular-nums text-success">
             {stats.approved}
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">سلفة معتمدة ومصروفة</div>
@@ -150,9 +150,9 @@ const MyAdvances: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>قيد المراجعة</span>
-            <Clock className="h-3.5 w-3.5 text-amber-500" />
+            <Clock className="h-3.5 w-3.5 text-warning" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-amber-500">
+          <div className="text-xl font-bold font-mono tabular-nums text-warning">
             {stats.pending}
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">بانتظار قرار الإدارة</div>
@@ -165,7 +165,7 @@ const MyAdvances: React.FC = () => {
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">
             {stats.totalAmount.toLocaleString()}
-            <span className="text-xs font-normal text-muted-foreground mr-1">ج.م</span>
+            <span className="text-xs font-normal text-muted-foreground me-1">ج.م</span>
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">إجمالي قيمة السلف</div>
         </div>
@@ -252,10 +252,10 @@ const MyAdvances: React.FC = () => {
                         variant="outline"
                         className={`text-[10px] px-2 py-0.5 font-medium ${
                           advance.status === "APPROVED"
-                            ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success border-success/20"
                             : advance.status === "REJECTED"
-                              ? "bg-rose-500/10 text-rose-500 border-rose-500/20"
-                              : "bg-amber-500/10 text-amber-500 border-amber-500/20"
+                              ? "bg-rose-500/10 text-destructive border-destructive/20"
+                              : "bg-amber-500/10 text-warning border-warning/20"
                         }`}
                       >
                         {advance.status === "APPROVED"

@@ -30,22 +30,22 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
   const isReturned = ['RETURNED', 'FAILED', 'CANCELLED'].includes(shipment.status);
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 shadow-xs space-y-3">
+    <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-xs space-y-3">
       {/* Top Row: Order # and Status */}
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100">
+            <span className="font-mono font-bold text-sm text-foreground dark:text-muted-foreground">
               {orderNum}
             </span>
             {isDelivered && (
-              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-success/10 text-success dark:bg-success/60 dark:text-success border border-success">
                 <CheckCircleIcon className="w-3 h-3" />
                 تم التسليم
               </span>
             )}
             {isReturned && (
-              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-destructive/10 text-destructive dark:bg-destructive/60 dark:text-destructive border border-destructive">
                 <XCircleIcon className="w-3 h-3" />
                 تعذر / مرتجع
               </span>
@@ -57,23 +57,23 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
               </span>
             )}
           </div>
-          <h3 className="font-bold text-xs text-slate-800 dark:text-slate-200 mt-1">
+          <h3 className="font-bold text-xs text-foreground dark:text-muted-foreground mt-1">
             {customerName}
           </h3>
         </div>
 
         {/* COD Tag */}
         <div className="text-left">
-          <span className="text-[10px] text-slate-400 block">المبلغ المطلوب</span>
-          <span className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100 tabular-nums">
+          <span className="text-[10px] text-muted-foreground block">المبلغ المطلوب</span>
+          <span className="font-mono font-bold text-sm text-foreground dark:text-muted-foreground tabular-nums">
             {totalCod.toLocaleString()} ج.م
           </span>
         </div>
       </div>
 
       {/* Address */}
-      <div className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/40 p-2 rounded-lg">
-        <MapPinIcon className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+      <div className="flex items-start gap-1.5 text-xs text-foreground dark:text-muted-foreground bg-muted dark:bg-muted p-2 rounded-lg">
+        <MapPinIcon className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
         <span className="line-clamp-2">
           {address} {city ? `(${city})` : ''}
         </span>
@@ -81,8 +81,8 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
 
       {/* Items preview if available */}
       {shipment.order?.items && shipment.order.items.length > 0 && (
-        <div className="text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5">
-          <span className="font-semibold text-slate-700 dark:text-slate-300">محتويات الطرد: </span>
+        <div className="text-[11px] text-muted-foreground dark:text-muted-foreground border-t border-border dark:border-border pt-1.5">
+          <span className="font-semibold text-foreground dark:text-muted-foreground">محتويات الطرد: </span>
           {shipment.order.items.map((it: any) => `${it.name} (×${it.quantity})`).join(', ')}
         </div>
       )}
@@ -94,7 +94,7 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
           {customerPhone && (
             <a
               href={`tel:${customerPhone}`}
-              className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition flex items-center justify-center"
+              className="p-2 rounded-xl border border-border dark:border-border text-blue-600 hover:bg-blue-50 dark:hover:bg-muted transition flex items-center justify-center"
               title="اتصال هاتفي بالعميل"
             >
               <PhoneIcon className="w-4 h-4" />
@@ -110,7 +110,7 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
               )}
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded-xl border border-emerald-200 dark:border-emerald-800 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-800 transition flex items-center justify-center"
+              className="p-2 rounded-xl border border-success dark:border-success text-success hover:bg-success/10 dark:hover:bg-muted transition flex items-center justify-center"
               title="محادثة واتساب"
             >
               <span className="text-xs font-bold font-mono">WA</span>
@@ -122,7 +122,7 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
             href={getMapUrl(address, city)}
             target="_blank"
             rel="noreferrer"
-            className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center justify-center"
+            className="p-2 rounded-xl border border-border dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition flex items-center justify-center"
             title="فتح على خرائط جوجل"
           >
             <MapPinIcon className="w-4 h-4" />

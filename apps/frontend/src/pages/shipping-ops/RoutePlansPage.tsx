@@ -337,26 +337,26 @@ export const RoutePlansPage: React.FC = () => {
   const getStatusBadge = (status: RoutePlan['status']) => {
     switch (status) {
       case 'DRAFT':
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">مسودة</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">مسودة</span>;
       case 'READY':
         return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">جاهز للإسناد</span>;
       case 'ASSIGNED':
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-amber-50 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">مسند لمندوب</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning">مسند لمندوب</span>;
       case 'DISPATCHED':
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">تم التوزيع (رحلة)</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-success/10 text-success dark:bg-success/40 dark:text-success">تم التوزيع (رحلة)</span>;
       case 'COMPLETED':
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-purple-50 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">مكتمل</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary">مكتمل</span>;
       case 'CANCELLED':
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-rose-50 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">ملغي</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive">ملغي</span>;
       default:
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700">{status}</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-muted text-foreground">{status}</span>;
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 p-3 sm:p-6 space-y-4">
+    <div className="min-h-screen bg-muted dark:bg-muted text-foreground dark:text-muted-foreground p-3 sm:p-6 space-y-4">
       {/* Top Header Control Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 shadow-sm">
         <div>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
@@ -364,7 +364,7 @@ export const RoutePlansPage: React.FC = () => {
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">{isEn ? 'Planned Routes' : 'خطط السير المسبقة (Route Plans)'}</h1>
-              <p className="text-xs text-slate-500">{isEn ? 'Pre-plan multi-stop delivery routes prior to courier dispatch' : 'تخطيط وترتيب مسارات التوزيع مسبقاً قبل إسنادها للمناديب'}</p>
+              <p className="text-xs text-muted-foreground">{isEn ? 'Pre-plan multi-stop delivery routes prior to courier dispatch' : 'تخطيط وترتيب مسارات التوزيع مسبقاً قبل إسنادها للمناديب'}</p>
             </div>
           </div>
         </div>
@@ -373,10 +373,10 @@ export const RoutePlansPage: React.FC = () => {
           <button
             onClick={fetchPlans}
             disabled={loading}
-            className="p-2 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             title="تحديث البيانات"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-600 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-foreground dark:text-muted-foreground ${loading ? 'animate-spin' : ''}`} />
           </button>
           <button
             onClick={() => setShowCreateModal(true)}
@@ -389,9 +389,9 @@ export const RoutePlansPage: React.FC = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap items-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm text-sm">
+      <div className="flex flex-wrap items-center gap-3 bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 shadow-sm text-sm">
         <div className="flex items-center gap-2 min-w-[200px]">
-          <Search className="w-4 h-4 text-slate-400" />
+          <Search className="w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             value={search}
@@ -401,8 +401,8 @@ export const RoutePlansPage: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center gap-2 border-r border-slate-200 dark:border-slate-800 pr-3">
-          <Calendar className="w-4 h-4 text-slate-400" />
+        <div className="flex items-center gap-2 border-r border-border dark:border-border pe-3">
+          <Calendar className="w-4 h-4 text-muted-foreground" />
           <DateInput
             value={dateFilter}
             onChange={(val) => setDateFilter(val)}
@@ -411,11 +411,11 @@ export const RoutePlansPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-slate-400" />
+          <Filter className="w-4 h-4 text-muted-foreground" />
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-transparent border border-slate-200 dark:border-slate-800 rounded-lg px-2 py-1 text-xs outline-none"
+            className="bg-transparent border border-border dark:border-border rounded-lg px-2 py-1 text-xs outline-none"
           >
             <option value="">جميع الحالات</option>
             <option value="DRAFT">مسودة</option>
@@ -428,10 +428,10 @@ export const RoutePlansPage: React.FC = () => {
       </div>
 
       {/* Plans Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs sm:text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500">
+            <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-semibold">رقم الخطة</th>
                 <th className="px-4 py-3 font-semibold">الاسم والمحافظة</th>
@@ -442,17 +442,17 @@ export const RoutePlansPage: React.FC = () => {
                 <th className="px-4 py-3 font-semibold text-center">الإجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading && plans.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-slate-400">
+                  <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
                     <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-blue-500" />
                     جاري تحميل خطط السير...
                   </td>
                 </tr>
               ) : plans.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-slate-400">
+                  <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
                     لا توجد خطط سير مسجلة حتى الآن. انقر على «خطة سير جديدة» للبدء.
                   </td>
                 </tr>
@@ -460,29 +460,29 @@ export const RoutePlansPage: React.FC = () => {
                 plans
                   .filter((p) => !search || p.planNumber.includes(search) || p.name.includes(search))
                   .map((plan) => (
-                    <tr key={plan.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition">
+                    <tr key={plan.id} className="hover:bg-slate-50/60 dark:hover:bg-muted transition">
                       <td className="px-4 py-3 font-mono font-medium text-blue-600 dark:text-blue-400">
                         {plan.planNumber}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-semibold text-slate-900 dark:text-slate-100">{plan.name}</div>
-                        <div className="text-xs text-slate-400">{plan.governorate || 'محافظات متعددة'}</div>
+                        <div className="font-semibold text-foreground dark:text-muted-foreground">{plan.name}</div>
+                        <div className="text-xs text-muted-foreground">{plan.governorate || 'محافظات متعددة'}</div>
                       </td>
-                      <td className="px-4 py-3 font-mono text-slate-600 dark:text-slate-400">
+                      <td className="px-4 py-3 font-mono text-foreground dark:text-muted-foreground">
                         {formatDate(plan.planDate)}
                       </td>
                       <td className="px-4 py-3">
-                        <span className="font-semibold text-slate-900 dark:text-slate-100 font-mono tabular-nums">{plan.totalStops}</span> وقفة
-                        <span className="text-slate-400 text-xs mr-2 font-mono tabular-nums">({plan.totalShipments} شحنة)</span>
+                        <span className="font-semibold text-foreground dark:text-muted-foreground font-mono tabular-nums">{plan.totalStops}</span> وقفة
+                        <span className="text-slate-400 text-xs me-2 font-mono tabular-nums">({plan.totalShipments} شحنة)</span>
                       </td>
                       <td className="px-4 py-3">
                         {plan.courier ? (
                           <div>
-                            <div className="font-semibold text-slate-800 dark:text-slate-200">{plan.courier.name}</div>
-                            <div className="text-xs text-slate-400 font-mono">{plan.courier.phone}</div>
+                            <div className="font-semibold text-foreground dark:text-muted-foreground">{plan.courier.name}</div>
+                            <div className="text-xs text-muted-foreground font-mono">{plan.courier.phone}</div>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400 italic">غير مسند</span>
+                          <span className="text-xs text-muted-foreground italic">غير مسند</span>
                         )}
                       </td>
                       <td className="px-4 py-3">
@@ -492,7 +492,7 @@ export const RoutePlansPage: React.FC = () => {
                         <div className="flex items-center justify-center gap-1.5">
                           <button
                             onClick={() => loadPlanDetail(plan.id)}
-                            className="p-1.5 text-slate-600 hover:text-blue-600 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                            className="p-1.5 text-foreground hover:text-blue-600 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                             title="عرض الوقفات والترتيب"
                           >
                             <Eye className="w-4 h-4" />
@@ -505,7 +505,7 @@ export const RoutePlansPage: React.FC = () => {
                                   setAssigningPlan(plan);
                                   setSelectedCourierId(plan.courierId || '');
                                 }}
-                                className="p-1.5 text-slate-600 hover:text-amber-600 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                                className="p-1.5 text-foreground hover:text-warning border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                                 title="إسناد مندوب"
                               >
                                 <UserCheck className="w-4 h-4" />
@@ -516,8 +516,8 @@ export const RoutePlansPage: React.FC = () => {
                                 disabled={!plan.courierId || plan.totalShipments === 0}
                                 className={`flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
                                   plan.courierId && plan.totalShipments > 0
-                                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                                    : 'bg-slate-100 text-slate-400 cursor-not-allowed dark:bg-slate-800'
+                                    ? 'bg-emerald-600 hover:bg-success text-white'
+                                    : 'bg-slate-100 text-muted-foreground cursor-not-allowed dark:bg-muted'
                                 }`}
                                 title={!plan.courierId ? 'أسند مندوباً أولاً' : 'تحويل لرحلة توزيع رسمية'}
                               >
@@ -528,7 +528,7 @@ export const RoutePlansPage: React.FC = () => {
                           )}
 
                           {plan.deliveryRun && (
-                            <span className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">
+                            <span className="text-xs font-mono font-semibold text-success dark:text-success bg-success/10 dark:bg-success/40 px-2 py-0.5 rounded">
                               {plan.deliveryRun.runNumber}
                             </span>
                           )}
@@ -545,30 +545,30 @@ export const RoutePlansPage: React.FC = () => {
       {/* Plan Detail Drawer */}
       {selectedPlan && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-2xl bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col p-4 sm:p-6 overflow-hidden">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+          <div className="w-full max-w-2xl bg-white dark:bg-muted h-full shadow-2xl flex flex-col p-4 sm:p-6 overflow-hidden">
+            <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">{selectedPlan.planNumber}</span>
                   {getStatusBadge(selectedPlan.status)}
                 </div>
-                <h2 className="text-base font-bold mt-1 text-slate-900 dark:text-slate-100">{selectedPlan.name}</h2>
-                <div className="text-xs text-slate-400">
+                <h2 className="text-base font-bold mt-1 text-foreground dark:text-muted-foreground">{selectedPlan.name}</h2>
+                <div className="text-xs text-muted-foreground">
                   {selectedPlan.governorate} · {formatDate(selectedPlan.planDate)}
                   {selectedPlan.courier && ` · المندوب: ${selectedPlan.courier.name}`}
                 </div>
               </div>
               <button
                 onClick={() => setSelectedPlan(null)}
-                className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="p-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Action Buttons in Drawer */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-200 dark:border-slate-800 gap-2">
-              <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <div className="flex items-center justify-between py-3 border-b border-border dark:border-border gap-2">
+              <div className="text-xs font-semibold text-foreground dark:text-muted-foreground">
                 الوقفات مرتبة تسلسلياً ({selectedPlan.stops?.length || 0})
               </div>
               <div className="flex items-center gap-2">
@@ -588,8 +588,8 @@ export const RoutePlansPage: React.FC = () => {
                       disabled={!selectedPlan.courierId || selectedPlan.totalShipments === 0}
                       className={`flex items-center gap-1 px-3 py-1 text-xs font-bold rounded-lg transition ${
                         selectedPlan.courierId && selectedPlan.totalShipments > 0
-                          ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm'
-                          : 'bg-slate-200 text-slate-400 cursor-not-allowed dark:bg-slate-800'
+                          ? 'bg-emerald-600 hover:bg-success text-white shadow-sm'
+                          : 'bg-slate-200 text-muted-foreground cursor-not-allowed dark:bg-muted'
                       }`}
                     >
                       <Send className="w-3.5 h-3.5" />
@@ -601,23 +601,23 @@ export const RoutePlansPage: React.FC = () => {
             </div>
 
             {/* Stops List */}
-            <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800 py-2">
+            <div className="flex-1 overflow-y-auto divide-y divide-border dark:divide-border py-2">
               {(!selectedPlan.stops || selectedPlan.stops.length === 0) ? (
-                <div className="text-center py-12 text-slate-400 text-xs">
+                <div className="text-center py-12 text-muted-foreground text-xs">
                   لا توجد وقفات في خط السير هذا بعد.
                 </div>
               ) : (
                 selectedPlan.stops.map((stop, idx) => (
                   <div key={stop.id} className="py-2.5 flex items-start justify-between gap-3 text-xs">
                     <div className="flex items-start gap-2.5">
-                      <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-mono font-bold text-slate-700 dark:text-slate-300 text-xs flex-shrink-0">
+                      <div className="w-6 h-6 rounded-full bg-muted dark:bg-muted flex items-center justify-center font-mono font-bold text-foreground dark:text-muted-foreground text-xs flex-shrink-0">
                         {stop.seq}
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900 dark:text-slate-100">
+                        <div className="font-semibold text-foreground dark:text-muted-foreground">
                           {stop.contactName} {stop.contactPhone ? `(${stop.contactPhone})` : ''}
                         </div>
-                        <div className="text-slate-600 dark:text-slate-400 mt-0.5">
+                        <div className="text-slate-600 dark:text-muted-foreground mt-0.5">
                           {stop.address} {stop.city ? `· ${stop.city}` : ''} ({stop.governorate})
                         </div>
                         {stop.shipmentId && (
@@ -634,18 +634,18 @@ export const RoutePlansPage: React.FC = () => {
                         <button
                           onClick={() => handleMoveStop(idx, 'UP')}
                           disabled={idx === 0}
-                          className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded disabled:opacity-30"
+                          className="p-1 hover:bg-muted dark:hover:bg-muted rounded disabled:opacity-30"
                           title="تحريك لأعلى"
                         >
-                          <ArrowUp className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
+                          <ArrowUp className="w-3.5 h-3.5 text-foreground dark:text-muted-foreground" />
                         </button>
                         <button
                           onClick={() => handleMoveStop(idx, 'DOWN')}
                           disabled={idx === (selectedPlan.stops?.length || 0) - 1}
-                          className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded disabled:opacity-30"
+                          className="p-1 hover:bg-muted dark:hover:bg-muted rounded disabled:opacity-30"
                           title="تحريك لأسفل"
                         >
-                          <ArrowDown className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
+                          <ArrowDown className="w-3.5 h-3.5 text-foreground dark:text-muted-foreground" />
                         </button>
                       </div>
                     )}
@@ -656,15 +656,15 @@ export const RoutePlansPage: React.FC = () => {
 
             {/* Quick Add Stop Form in Drawer */}
             {selectedPlan.status !== 'DISPATCHED' && selectedPlan.status !== 'COMPLETED' && (
-              <form onSubmit={handleAddManualStop} className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">إضافة وقفة يدوية للخطة:</div>
+              <form onSubmit={handleAddManualStop} className="pt-3 border-t border-border dark:border-border space-y-2">
+                <div className="text-xs font-semibold text-foreground dark:text-muted-foreground">إضافة وقفة يدوية للخطة:</div>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <input
                     type="text"
                     placeholder="اسم المسؤول / العميل *"
                     value={manualContactName}
                     onChange={(e) => setManualContactName(e.target.value)}
-                    className="border border-slate-200 dark:border-slate-700 rounded-lg p-2 bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="border border-border dark:border-border rounded-lg p-2 bg-muted dark:bg-muted outline-none"
                     required
                   />
                   <input
@@ -672,7 +672,7 @@ export const RoutePlansPage: React.FC = () => {
                     placeholder="الهاتف"
                     value={manualContactPhone}
                     onChange={(e) => setManualContactPhone(e.target.value)}
-                    className="border border-slate-200 dark:border-slate-700 rounded-lg p-2 bg-slate-50 dark:bg-slate-800/60 outline-none font-mono"
+                    className="border border-border dark:border-border rounded-lg p-2 bg-muted dark:bg-muted outline-none font-mono"
                   />
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-xs">
@@ -681,7 +681,7 @@ export const RoutePlansPage: React.FC = () => {
                     placeholder="العنوان التفصيلي *"
                     value={manualAddress}
                     onChange={(e) => setManualAddress(e.target.value)}
-                    className="col-span-2 border border-slate-200 dark:border-slate-700 rounded-lg p-2 bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="col-span-2 border border-border dark:border-border rounded-lg p-2 bg-muted dark:bg-muted outline-none"
                     required
                   />
                   <input
@@ -689,12 +689,12 @@ export const RoutePlansPage: React.FC = () => {
                     placeholder="المدينة / المنطقة"
                     value={manualCity}
                     onChange={(e) => setManualCity(e.target.value)}
-                    className="border border-slate-200 dark:border-slate-700 rounded-lg p-2 bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="border border-border dark:border-border rounded-lg p-2 bg-muted dark:bg-muted outline-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 text-xs font-semibold rounded-lg transition"
+                  className="w-full py-1.5 bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-white text-white dark:text-foreground text-xs font-semibold rounded-lg transition"
                 >
                   إضافة الوقفة
                 </button>
@@ -707,34 +707,34 @@ export const RoutePlansPage: React.FC = () => {
       {/* Modal: Create Route Plan */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">إنشاء خط سير مسبق (Route Plan)</h3>
-              <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-slate-600">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
+              <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">إنشاء خط سير مسبق (Route Plan)</h3>
+              <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-foreground">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleCreatePlan} className="space-y-3.5 text-sm">
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">اسم خط السير *</label>
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">اسم خط السير *</label>
                 <input
                   type="text"
                   required
                   placeholder="مثال: خط وسط البلد والمعادي - صباحي"
                   value={createForm.name}
                   onChange={(e) => setCreateForm({ ...createForm, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">المحافظة المستهدفة</label>
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">المحافظة المستهدفة</label>
                   <select
                     value={createForm.governorate}
                     onChange={(e) => setCreateForm({ ...createForm, governorate: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm"
                   >
                     {EGYPT_GOVERNORATES.map((gov) => (
                       <option key={gov} value={gov}>{gov}</option>
@@ -743,7 +743,7 @@ export const RoutePlansPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">تاريخ الخطة *</label>
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">تاريخ الخطة *</label>
                   <DateInput
                     value={createForm.planDate}
                     onChange={(val) => setCreateForm({ ...createForm, planDate: val })}
@@ -754,11 +754,11 @@ export const RoutePlansPage: React.FC = () => {
 
               {branches.length > 0 && (
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">الفرع (اختياري)</label>
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">الفرع (اختياري)</label>
                   <select
                     value={createForm.branchId}
                     onChange={(e) => setCreateForm({ ...createForm, branchId: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none text-xs sm:text-sm"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none text-xs sm:text-sm"
                   >
                     <option value="">جميع الفروع / غير محدد</option>
                     {branches.map((b) => (
@@ -769,7 +769,7 @@ export const RoutePlansPage: React.FC = () => {
               )}
 
               <div className="pt-2">
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-800 dark:text-slate-200">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-foreground dark:text-muted-foreground">
                   <input
                     type="checkbox"
                     checked={createForm.suggestShipments}
@@ -780,11 +780,11 @@ export const RoutePlansPage: React.FC = () => {
                 </label>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
+              <div className="pt-3 border-t border-border dark:border-border flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 text-xs font-semibold"
+                  className="px-4 py-2 border border-border dark:border-border rounded-lg text-foreground text-xs font-semibold"
                 >
                   إلغاء
                 </button>
@@ -804,25 +804,25 @@ export const RoutePlansPage: React.FC = () => {
       {/* Modal: Assign Courier */}
       {assigningPlan && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">إسناد مندوب لخط السير</h3>
-              <button onClick={() => setAssigningPlan(null)} className="text-slate-400 hover:text-slate-600">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
+              <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">إسناد مندوب لخط السير</h3>
+              <button onClick={() => setAssigningPlan(null)} className="text-slate-400 hover:text-foreground">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="text-xs text-slate-500">
-              الخطة: <span className="font-semibold text-slate-800 dark:text-slate-200">{assigningPlan.name}</span> ({assigningPlan.governorate})
+            <div className="text-xs text-muted-foreground">
+              الخطة: <span className="font-semibold text-foreground dark:text-muted-foreground">{assigningPlan.name}</span> ({assigningPlan.governorate})
               <div className="mt-1">شحنات الخطة: <span className="font-bold font-mono">{assigningPlan.totalShipments}</span> شحنة</div>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">اختر المندوب (المتاح والمغطي للمحافظة):</label>
+              <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground">اختر المندوب (المتاح والمغطي للمحافظة):</label>
               <select
                 value={selectedCourierId}
                 onChange={(e) => setSelectedCourierId(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none text-xs sm:text-sm font-medium"
+                className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none text-xs sm:text-sm font-medium"
               >
                 <option value="">-- اختر المندوب --</option>
                 {couriers.map((c) => {
@@ -836,11 +836,11 @@ export const RoutePlansPage: React.FC = () => {
               </select>
             </div>
 
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
+            <div className="pt-3 border-t border-border dark:border-border flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setAssigningPlan(null)}
-                className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 text-xs font-semibold"
+                className="px-4 py-2 border border-border dark:border-border rounded-lg text-foreground text-xs font-semibold"
               >
                 إلغاء
               </button>
@@ -848,7 +848,7 @@ export const RoutePlansPage: React.FC = () => {
                 type="button"
                 onClick={handleAssignCourier}
                 disabled={submitting || !selectedCourierId}
-                className="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold transition shadow-sm disabled:opacity-40"
+                className="px-5 py-2 bg-warning hover:bg-warning text-white rounded-lg text-xs font-bold transition shadow-sm disabled:opacity-40"
               >
                 {submitting ? 'جاري الإسناد...' : 'تأكيد الإسناد'}
               </button>

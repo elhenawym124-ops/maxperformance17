@@ -150,32 +150,32 @@ export const BranchesPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
             <Building2 className="w-6 h-6 text-blue-600" />
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
               {isEn ? 'Shipping Branches & Hubs' : 'فروع ومراكز الشحن (Hubs)'}
             </h1>
-            <span className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2.5 py-0.5 rounded-full font-semibold">
+            <span className="text-xs bg-muted dark:bg-muted text-foreground dark:text-muted-foreground px-2.5 py-0.5 rounded-full font-semibold">
               {branches.length}
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
             {isEn ? 'Manage sorting hubs and local delivery branches' : 'إدارة مراكز الفرز، الاستلام، ونقاط توزيع الشحنات'}
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+          <div className="flex items-center bg-muted dark:bg-muted p-1 rounded-xl">
             <button
               onClick={() => setActiveTab('custody')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'custody'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  ? 'bg-white dark:bg-muted text-blue-600 shadow-sm'
+                  : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
               }`}
             >
               {isEn ? 'Branch Custody' : 'عهدة الفرع والتحويل'}
@@ -184,8 +184,8 @@ export const BranchesPage: React.FC = () => {
               onClick={() => setActiveTab('branches')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'branches'
-                  ? 'bg-white dark:bg-slate-900 text-blue-600 shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  ? 'bg-white dark:bg-muted text-blue-600 shadow-sm'
+                  : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
               }`}
             >
               {isEn ? 'Branches' : 'إدارة الفروع'}
@@ -209,21 +209,21 @@ export const BranchesPage: React.FC = () => {
       ) : (
         <>
       {/* Search Toolbar */}
-      <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="flex items-center gap-3 bg-white dark:bg-muted p-3 rounded-xl border border-border dark:border-border">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 absolute top-3 rtl:right-3 ltr:left-3 text-slate-400" />
+          <Search className="w-4 h-4 absolute top-3 rtl:right-3 ltr:left-3 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={isEn ? 'Search branches by name, code, governorate...' : 'البحث باسم الفرع، الكود، أو المحافظة...'}
-            className="w-full rtl:pr-9 ltr:pl-9 py-2 text-sm bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rtl:pe-9 ltr:ps-9 py-2 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
         </div>
 
         <button
           onClick={fetchBranches}
-          className="p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300"
+          className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition text-foreground dark:text-muted-foreground"
           title="تحديث"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -231,10 +231,10 @@ export const BranchesPage: React.FC = () => {
       </div>
 
       {/* Branches Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 text-xs text-slate-500 font-semibold">
+            <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-xs text-muted-foreground font-semibold">
               <tr>
                 <th className="px-4 py-3">{isEn ? 'Branch Name' : 'اسم الفرع'}</th>
                 <th className="px-4 py-3">{isEn ? 'Code' : 'الكود'}</th>
@@ -244,45 +244,45 @@ export const BranchesPage: React.FC = () => {
                 <th className="px-4 py-3 text-center">{isEn ? 'Actions' : 'إجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading && branches.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
-                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-slate-400" />
+                  <td colSpan={6} className="py-12 text-center text-muted-foreground">
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-muted-foreground" />
                     <span>{isEn ? 'Loading branches...' : 'جاري تحميل الفروع...'}</span>
                   </td>
                 </tr>
               ) : branches.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                  <td colSpan={6} className="py-12 text-center text-muted-foreground">
                     <Building2 className="w-8 h-8 mx-auto mb-2 opacity-40" />
                     <span>{isEn ? 'No branches found' : 'لا توجد فروع مسجلة حالياً'}</span>
                   </td>
                 </tr>
               ) : (
                 branches.map((b) => (
-                  <tr key={b.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition">
-                    <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
+                  <tr key={b.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition">
+                    <td className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">
                       {b.name}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
                       {b.code}
                     </td>
-                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
+                    <td className="px-4 py-3 text-foreground dark:text-muted-foreground">
                       {b.governorate}
                     </td>
-                    <td className="px-4 py-3 text-xs text-slate-500">
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
                       <div>{b.address || '—'}</div>
-                      {b.phone && <div className="font-mono text-slate-400 mt-0.5">{b.phone}</div>}
+                      {b.phone && <div className="font-mono text-muted-foreground mt-0.5">{b.phone}</div>}
                     </td>
                     <td className="px-4 py-3">
                       {b.isActive ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success border border-success dark:bg-success/40 dark:text-success dark:border-success">
                           <CheckCircle2 className="w-3 h-3" />
                           <span>نشط</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-400">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-muted text-foreground border border-border dark:bg-muted dark:text-muted-foreground">
                           <XCircle className="w-3 h-3" />
                           <span>غير نشط</span>
                         </span>
@@ -292,14 +292,14 @@ export const BranchesPage: React.FC = () => {
                       <div className="inline-flex items-center gap-1">
                         <button
                           onClick={() => handleOpenEdit(b)}
-                          className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                          className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                           title="تعديل"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(b.id)}
-                          className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
+                          className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition"
                           title="حذف"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -320,9 +320,9 @@ export const BranchesPage: React.FC = () => {
 
       {/* Add / Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <div className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-blue-600" />
                 <h2 className="text-lg font-bold">
@@ -331,7 +331,7 @@ export const BranchesPage: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground"
               >
                 ✕
               </button>
@@ -339,7 +339,7 @@ export const BranchesPage: React.FC = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4 text-sm">
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   اسم الفرع أو الهاَب *
                 </label>
                 <input
@@ -347,32 +347,32 @@ export const BranchesPage: React.FC = () => {
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="مثال: هاَب القاهرة المركزي"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     كود الفرع
                   </label>
                   <input
                     type="text"
                     value={form.code}
                     onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none font-mono uppercase"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none font-mono uppercase"
                     placeholder="مثال: CAI-MAIN"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     المحافظة *
                   </label>
                   <select
                     value={form.governorate}
                     onChange={(e) => setForm({ ...form, governorate: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none"
                   >
                     {EGYPT_GOVERNORATES.map((g) => (
                       <option key={g.id} value={g.nameAr}>
@@ -384,27 +384,27 @@ export const BranchesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   العنوان التفصيلي
                 </label>
                 <input
                   type="text"
                   value={form.address}
                   onChange={(e) => setForm({ ...form, address: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none"
                   placeholder="مثال: المنطقة الصناعية، بلوك 4..."
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   رقم الهاتف
                 </label>
                 <input
                   type="text"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/60 outline-none font-mono"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none font-mono"
                   placeholder="مثال: 022334455"
                 />
               </div>
@@ -415,18 +415,18 @@ export const BranchesPage: React.FC = () => {
                   id="branchIsActive"
                   checked={form.isActive}
                   onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
-                  className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                  className="rounded border-border text-blue-600 focus:ring-blue-500 w-4 h-4"
                 />
                 <label htmlFor="branchIsActive" className="text-xs font-medium cursor-pointer">
                   الفرع نشط ومتاح لعمليات الاستلام والتوزيع
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium"
+                  className="px-4 py-2 border border-border dark:border-border rounded-xl hover:bg-muted dark:hover:bg-muted text-xs font-medium"
                 >
                   إلغاء
                 </button>

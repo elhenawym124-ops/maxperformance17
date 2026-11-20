@@ -268,7 +268,7 @@ const SuperAdminAITemplates: React.FC = () => {
           </div>
           <div className="p-3 flex flex-col justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">القوالب النشطة</span>
-            <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums mt-1">{stats.activeCount}</div>
+            <div className="text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums mt-1">{stats.activeCount}</div>
           </div>
           <div className="p-3 flex flex-col justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">الأدوات المركزية</span>
@@ -276,7 +276,7 @@ const SuperAdminAITemplates: React.FC = () => {
           </div>
           <div className="p-3 flex flex-col justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">المهارات المسجلة</span>
-            <div className="text-2xl font-bold tracking-tight text-amber-500 tabular-nums mt-1">{stats.totalSkills}</div>
+            <div className="text-2xl font-bold tracking-tight text-warning tabular-nums mt-1">{stats.totalSkills}</div>
           </div>
           <div className="p-3 flex flex-col justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">الأدوار المعتمدة</span>
@@ -293,7 +293,7 @@ const SuperAdminAITemplates: React.FC = () => {
             value={search}
             onChange={(e) => setFilter("search", e.target.value)}
             placeholder="البحث بالاسم، المعرف، أو الدور..."
-            className="pr-8 h-8 text-xs bg-muted/20 border-border/70 font-mono"
+            className="pe-8 h-8 text-xs bg-muted/20 border-border/70 font-mono"
           />
         </div>
         <select
@@ -341,7 +341,7 @@ const SuperAdminAITemplates: React.FC = () => {
           </Button>
         )}
 
-        <span className="text-[11px] text-muted-foreground mr-auto tabular-nums font-mono">
+        <span className="text-[11px] text-muted-foreground me-auto tabular-nums font-mono">
           {filtered.length} من {templates.length}
         </span>
       </div>
@@ -410,7 +410,7 @@ const SuperAdminAITemplates: React.FC = () => {
                     <td className="px-3 py-3"><div className="h-4 bg-muted/60 rounded w-10" /></td>
                     <td className="px-3 py-3"><div className="h-4 bg-muted/60 rounded w-24" /></td>
                     <td className="px-3 py-3"><div className="h-4 bg-muted/60 rounded w-20" /></td>
-                    <td className="px-3 py-3 text-left"><div className="h-6 bg-muted/60 rounded w-24 ml-auto" /></td>
+                    <td className="px-3 py-3 text-left"><div className="h-6 bg-muted/60 rounded w-24 ms-auto" /></td>
                   </tr>
                 ))
               ) : filtered.length === 0 ? (
@@ -458,7 +458,7 @@ const SuperAdminAITemplates: React.FC = () => {
                                 <span className="text-xs font-semibold text-foreground group-hover/title:text-primary transition-colors font-sans inline-flex items-center gap-1.5">
                                   {t.name}
                                   {isDefault && (
-                                    <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono font-medium">
+                                    <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20 font-mono font-medium">
                                       افتراضي
                                     </span>
                                   )}
@@ -475,13 +475,13 @@ const SuperAdminAITemplates: React.FC = () => {
                           </span>
                         </td>
                         <td className="px-3 py-3">
-                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${t.isActive !== false ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20" : "bg-destructive/10 text-destructive border border-destructive/20"}`}>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${t.isActive !== false ? "bg-emerald-500/10 text-success dark:text-success border border-success/20" : "bg-destructive/10 text-destructive border border-destructive/20"}`}>
                             {t.isActive !== false ? "نشط" : "مخفي"}
                           </span>
                         </td>
                         <td className="px-3 py-3 tabular-nums">
                           <span className="font-bold text-foreground">{t.companiesCount ?? 0}</span>
-                          <span className="text-[10px] text-muted-foreground mr-1">شركة</span>
+                          <span className="text-[10px] text-muted-foreground me-1">شركة</span>
                         </td>
                         <td className="px-3 py-3 text-muted-foreground tabular-nums">v{t.version}</td>
                         <td className="px-3 py-3">
@@ -541,7 +541,7 @@ const SuperAdminAITemplates: React.FC = () => {
                               className="h-7 w-7 p-0"
                               title="تطبيق على شركة"
                             >
-                              <Send className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                              <Send className="size-3.5 text-success dark:text-success" />
                             </Button>
                             <Button
                               variant="ghost"
@@ -597,7 +597,7 @@ const SuperAdminAITemplates: React.FC = () => {
                                 )}
 
                                 {t.budget?.dailyUsd && (
-                                  <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono font-medium mr-auto">
+                                  <span className="text-[10px] px-2 py-0.5 rounded bg-warning/10 text-warning dark:text-warning border border-warning/20 font-mono font-medium me-auto">
                                     ميزانية: ${t.budget.dailyUsd}/يوم
                                   </span>
                                 )}
@@ -622,7 +622,7 @@ const SuperAdminAITemplates: React.FC = () => {
                                       size="sm"
                                       disabled={defaultUpdating === t.slug}
                                       onClick={() => handleSetDefault(t.slug)}
-                                      className="h-7 text-xs gap-1 text-amber-600 dark:text-amber-400 border-amber-500/30 hover:bg-amber-500/5"
+                                      className="h-7 text-xs gap-1 text-warning dark:text-warning border-warning/30 hover:bg-warning/5"
                                     >
                                       <Star className="size-3" />
                                       <span>تعيين كافتراضي للشركات الجديدة</span>
@@ -644,7 +644,7 @@ const SuperAdminAITemplates: React.FC = () => {
                                     variant="ghost"
                                     size="sm"
                                     onClick={() => setApplyTarget(t)}
-                                    className="h-7 text-xs gap-1 text-emerald-600 dark:text-emerald-400"
+                                    className="h-7 text-xs gap-1 text-success dark:text-success"
                                   >
                                     <Send className="size-3" />
                                     <span>تطبيق على شركة</span>

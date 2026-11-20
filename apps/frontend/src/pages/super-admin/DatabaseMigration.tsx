@@ -213,7 +213,7 @@ const DatabaseMigration: React.FC = () => {
         )}
 
         {success && (
-          <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-xs font-mono">
+          <div className="p-2.5 bg-success/10 border border-success/20 rounded-lg flex items-center gap-2 text-success dark:text-success text-xs font-mono">
             <CheckCircle2 className="size-4 shrink-0" />
             <p>{success}</p>
           </div>
@@ -273,11 +273,11 @@ const DatabaseMigration: React.FC = () => {
             </div>
             <div className="flex gap-1">
               <div className="size-2 rounded-full bg-destructive/60" />
-              <div className="size-2 rounded-full bg-amber-500/60" />
-              <div className="size-2 rounded-full bg-emerald-500/60" />
+              <div className="size-2 rounded-full bg-warning/60" />
+              <div className="size-2 rounded-full bg-success/60" />
             </div>
           </div>
-          <div className="flex-1 overflow-y-auto font-mono text-xs space-y-1 pr-1 bg-muted/20 p-2.5 rounded-lg border border-border/40" dir="ltr">
+          <div className="flex-1 overflow-y-auto font-mono text-xs space-y-1 pe-1 bg-muted/20 p-2.5 rounded-lg border border-border/40" dir="ltr">
             {logs.map((log, i) => (
               <div
                 key={i}
@@ -331,12 +331,12 @@ const StatBox: React.FC<StatBoxProps> = ({ label, stats, icon }) => (
       </div>
       <div className="h-6 w-px bg-border/60" />
       <div className="text-center">
-        <p className="text-sm font-bold tabular-nums text-emerald-500">{stats?.imported || 0}</p>
+        <p className="text-sm font-bold tabular-nums text-success">{stats?.imported || 0}</p>
         <p className="text-[10px] text-muted-foreground uppercase">تم</p>
       </div>
       <div className="h-6 w-px bg-border/60" />
       <div className="text-center">
-        <p className="text-sm font-bold tabular-nums text-amber-500">{stats?.skipped || 0}</p>
+        <p className="text-sm font-bold tabular-nums text-warning">{stats?.skipped || 0}</p>
         <p className="text-[10px] text-muted-foreground uppercase">تخطي</p>
       </div>
     </div>

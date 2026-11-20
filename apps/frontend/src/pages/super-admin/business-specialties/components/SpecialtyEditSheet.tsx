@@ -198,19 +198,19 @@ export const SpecialtyEditSheet: React.FC<SpecialtyEditSheetProps> = ({
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="h-9 w-full justify-start rounded-lg bg-muted/50 p-1">
                 <TabsTrigger value="general" className="h-7 text-xs rounded-md">
-                  <Briefcase className="h-3 w-3 ml-1.5" />
+                  <Briefcase className="h-3 w-3 ms-1.5" />
                   البيانات الأساسية
                 </TabsTrigger>
                 <TabsTrigger value="description" className="h-7 text-xs rounded-md">
-                  <Pencil className="h-3 w-3 ml-1.5" />
+                  <Pencil className="h-3 w-3 ms-1.5" />
                   الوصف
                 </TabsTrigger>
                 <TabsTrigger value="apps" className="h-7 text-xs rounded-md">
-                  <Package className="h-3 w-3 ml-1.5" />
+                  <Package className="h-3 w-3 ms-1.5" />
                   التطبيقات المرتبطة
                   <Badge
                     variant="secondary"
-                    className="mr-1.5 h-4 px-1 text-[0.65rem] font-mono tabular-nums"
+                    className="me-1.5 h-4 px-1 text-[0.65rem] font-mono tabular-nums"
                   >
                     {form.appSlugs.length}
                   </Badge>
@@ -396,7 +396,7 @@ export const SpecialtyEditSheet: React.FC<SpecialtyEditSheetProps> = ({
                     value={appSearch}
                     onChange={(e) => setAppSearch(e.target.value)}
                     placeholder="ابحث عن تطبيق لربطه..."
-                    className="h-8 pr-8 text-xs rounded-lg"
+                    className="h-8 pe-8 text-xs rounded-lg"
                   />
                 </div>
 
@@ -484,9 +484,9 @@ export const SpecialtyEditSheet: React.FC<SpecialtyEditSheetProps> = ({
               className="h-9 px-4 rounded-lg text-xs font-semibold"
             >
               {saving ? (
-                <Loader2 className="h-3.5 w-3.5 ml-1 animate-spin" />
+                <Loader2 className="h-3.5 w-3.5 ms-1 animate-spin" />
               ) : (
-                <Save className="h-3.5 w-3.5 ml-1" />
+                <Save className="h-3.5 w-3.5 ms-1" />
               )}
               {saving ? "جارٍ الحفظ..." : "حفظ التغييرات"}
             </Button>

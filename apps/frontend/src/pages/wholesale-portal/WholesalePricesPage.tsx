@@ -73,9 +73,9 @@ export const WholesalePricesPage: React.FC = () => {
   return (
     <div dir="rtl" className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-border shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
             <Tag className="text-indigo-600" size={26} />
             قائمة أسعاري ومنتجات الجملة
           </h1>
@@ -87,7 +87,7 @@ export const WholesalePricesPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/wholesale-portal/new-order')}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-semibold transition-colors shadow-sm"
           >
             <ShoppingCart size={16} />
             إنشاء طلب جديد
@@ -95,7 +95,7 @@ export const WholesalePricesPage: React.FC = () => {
           <button
             onClick={fetchPrices}
             disabled={loading}
-            className="p-2.5 text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors disabled:opacity-50"
+            className="p-2.5 text-foreground hover:text-foreground bg-muted hover:bg-muted rounded-xl transition-colors disabled:opacity-50"
             title="تحديث الأسعار"
           >
             <RotateCw size={18} className={loading ? 'animate-spin' : ''} />
@@ -104,37 +104,37 @@ export const WholesalePricesPage: React.FC = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+      <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
         <div className="relative">
-          <Search size={18} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={18} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="ابحث بالاسم أو الرمز (SKU)..."
-            className="w-full pr-10 pl-4 py-2 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pe-10 ps-4 py-2 text-sm border border-border rounded-xl bg-muted focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
       </div>
 
       {/* Products Grid */}
       {loading ? (
-        <div className="flex justify-center items-center py-20 bg-white rounded-2xl border border-gray-200">
-          <div className="text-center text-gray-500">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-indigo-600 mb-2" />
+        <div className="flex justify-center items-center py-20 bg-white rounded-xl border border-border">
+          <div className="text-center text-muted-foreground">
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary mb-2" />
             <p className="text-sm">جاري تحميل قائمة الأسعار المخصصة...</p>
           </div>
         </div>
       ) : error ? (
-        <div className="p-6 bg-red-50 text-red-700 rounded-2xl border border-red-200 flex items-center gap-3">
+        <div className="p-6 bg-destructive/10 text-destructive rounded-xl border border-destructive flex items-center gap-3">
           <AlertCircle size={20} />
           <span>{error}</span>
         </div>
       ) : filteredItems.length === 0 ? (
-        <div className="p-12 text-center bg-white rounded-2xl border border-gray-200">
-          <Package className="mx-auto text-gray-400 mb-3" size={48} />
-          <h3 className="text-lg font-bold text-gray-800">لا توجد منتجات مطابقة</h3>
-          <p className="text-sm text-gray-500 mt-1">
+        <div className="p-12 text-center bg-white rounded-xl border border-border">
+          <Package className="mx-auto text-muted-foreground mb-3" size={48} />
+          <h3 className="text-lg font-bold text-foreground">لا توجد منتجات مطابقة</h3>
+          <p className="text-sm text-muted-foreground mt-1">
             لم يتم العثور على أي منتجات في قائمة أسعار الجملة المعتمدة لحسابك.
           </p>
         </div>
@@ -149,11 +149,11 @@ export const WholesalePricesPage: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
+                className="bg-white rounded-xl border border-border shadow-sm hover:border-primary hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
               >
                 <div className="p-5 space-y-4">
                   {/* Image & Badges */}
-                  <div className="relative aspect-video rounded-xl bg-gray-50 overflow-hidden flex items-center justify-center border border-gray-100">
+                  <div className="relative aspect-video rounded-xl bg-muted overflow-hidden flex items-center justify-center border border-border">
                     {item.productImage ? (
                       <img
                         src={item.productImage}
@@ -165,7 +165,7 @@ export const WholesalePricesPage: React.FC = () => {
                     )}
 
                     {savingsPercent > 0 && (
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-lg bg-emerald-600 text-white text-xs font-bold font-mono">
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-lg bg-success text-white text-xs font-bold font-mono">
                         وفر {savingsPercent}%
                       </span>
                     )}
@@ -179,32 +179,32 @@ export const WholesalePricesPage: React.FC = () => {
 
                   {/* Info */}
                   <div>
-                    <h3 className="font-bold text-base text-gray-900 line-clamp-1">
+                    <h3 className="font-bold text-base text-foreground line-clamp-1">
                       {item.productName}
                     </h3>
                     {item.variantName && (
-                      <span className="inline-block text-xs font-medium text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md mt-1">
+                      <span className="inline-block text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-md mt-1">
                         النوع: {item.variantName}
                       </span>
                     )}
-                    <div className="text-xs text-gray-400 font-mono mt-1">
+                    <div className="text-xs text-muted-foreground font-mono mt-1">
                       SKU: {item.productSku || '—'}
                     </div>
                   </div>
 
                   {/* Pricing Box */}
-                  <div className="p-3 bg-gray-50 rounded-xl flex items-baseline justify-between">
+                  <div className="p-3 bg-muted rounded-xl flex items-baseline justify-between">
                     <div>
-                      <span className="text-xs text-gray-500 block">سعر الجملة</span>
-                      <div className="text-xl font-bold text-indigo-600 font-mono">
+                      <span className="text-xs text-muted-foreground block">سعر الجملة</span>
+                      <div className="text-xl font-bold text-primary font-mono">
                         {item.wholesalePrice.toLocaleString('ar-EG')} <span className="text-xs font-normal">ج.م</span>
                       </div>
                     </div>
 
                     {hasDiscount && (
                       <div className="text-left">
-                        <span className="text-xs text-gray-400 block">سعر التجزئة</span>
-                        <span className="text-sm text-gray-400 line-through font-mono">
+                        <span className="text-xs text-muted-foreground block">سعر التجزئة</span>
+                        <span className="text-sm text-muted-foreground line-through font-mono">
                           {item.regularPrice.toLocaleString('ar-EG')} ج.م
                         </span>
                       </div>
@@ -213,13 +213,13 @@ export const WholesalePricesPage: React.FC = () => {
                 </div>
 
                 {/* Footer Action */}
-                <div className="p-4 bg-gray-50/50 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs text-gray-500">
+                <div className="p-4 bg-muted border-t border-border flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">
                     الحد الأدنى: <strong>{item.minQuantity}</strong>
                   </span>
                   <button
                     onClick={() => handleOrderProduct(item)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-600 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-primary bg-primary/10 hover:bg-primary hover:text-white transition-colors"
                   >
                     <ShoppingCart size={14} />
                     إضافة للطلب

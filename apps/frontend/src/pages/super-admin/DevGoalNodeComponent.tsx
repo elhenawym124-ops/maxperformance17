@@ -20,10 +20,10 @@ export interface GoalNode {
 }
 
 export const statusColors: Record<string, string> = {
-  ACTIVE: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+  ACTIVE: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
   COMPLETED: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
-  ON_HOLD: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
-  CANCELLED: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
+  ON_HOLD: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+  CANCELLED: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
 };
 
 export const confidenceColors: Record<string, string> = {
@@ -139,7 +139,7 @@ export const DevGoalNodeComponent: React.FC<DevGoalNodeComponentProps> = ({
       </div>
 
       {expanded && hasChildren && (
-        <div className="relative border-r border-border/50 mr-2 pr-2 my-1">
+        <div className="relative border-r border-border/50 me-2 pe-2 my-1">
           {goal.children.map((child) => (
             <DevGoalNodeComponent key={child.id} goal={child} level={level + 1} navigate={navigate} />
           ))}

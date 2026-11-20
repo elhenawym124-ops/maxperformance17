@@ -208,13 +208,13 @@ export default function DevGoalAlignmentTree() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-600 dark:text-emerald-400">متوسط التقدم الإجمالي</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success dark:text-success">متوسط التقدم الإجمالي</p>
+            <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">
               {avgProgress}%
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">نسبة الإنجاز المحققة</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
             <span className="text-xs font-mono font-bold">AVG</span>
           </div>
         </div>

@@ -84,7 +84,7 @@ export const MyAttendanceModals: React.FC<MyAttendanceModalsProps> = ({
         <DialogContent className="sm:max-w-2xl" dir="rtl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5 text-indigo-600" />
+              <Target className="h-5 w-5 text-primary" />
               {t("employee.attendance.updateGoalsBeforeCheckout")}
             </DialogTitle>
           </DialogHeader>
@@ -97,7 +97,7 @@ export const MyAttendanceModals: React.FC<MyAttendanceModalsProps> = ({
             {todayGoals.map((goal) => (
               <div
                 key={goal.id}
-                className="rounded-2xl border border-border/70 bg-muted/15 p-4"
+                className="rounded-xl border border-border/70 bg-muted/15 p-4"
               >
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
@@ -163,8 +163,8 @@ export const MyAttendanceModals: React.FC<MyAttendanceModalsProps> = ({
           <div className="space-y-4">
             {selectedLocation && (
               <>
-                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-mono tabular-nums">
+                <div className="bg-gray-50 dark:bg-muted p-3 rounded-lg">
+                  <p className="text-sm text-foreground dark:text-muted-foreground font-mono tabular-nums">
                     <strong>{t("employee.attendance.coordinates")}</strong>{" "}
                     {selectedLocation.latitude.toFixed(6)},{" "}
                     {selectedLocation.longitude.toFixed(6)}

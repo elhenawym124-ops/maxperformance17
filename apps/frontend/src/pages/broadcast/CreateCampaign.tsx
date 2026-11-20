@@ -48,7 +48,7 @@ const CreateCampaign: React.FC = () => {
 
   return (
     <div className="w-full p-6">
-      <div className="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+      <div className="bg-card shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <CreateCampaignHeader
             previewMode={previewMode}
@@ -56,11 +56,11 @@ const CreateCampaign: React.FC = () => {
           />
 
           {error && (
-            <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
+            <div className="mb-6 bg-destructive/10 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-md p-4">
               <div className="flex">
-                <ExclamationTriangleIcon className="h-5 w-5 text-red-400" />
-                <div className="mr-3">
-                  <p className="text-sm text-red-800 dark:text-red-200">
+                <ExclamationTriangleIcon className="h-5 w-5 text-destructive" />
+                <div className="me-3">
+                  <p className="text-sm text-destructive dark:text-destructive">
                     {error}
                   </p>
                 </div>

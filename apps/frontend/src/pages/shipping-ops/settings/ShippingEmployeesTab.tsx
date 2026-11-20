@@ -191,20 +191,20 @@ export const ShippingEmployeesTab: React.FC = () => {
       {/* Top action bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="relative flex-1 max-w-sm">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-slate-400" />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={isEn ? 'Search employees by name, code, phone...' : 'بحث بالاسم، الكود، الهاتف، أو المسمى...'}
-            className="w-full pr-9 pl-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-lg bg-transparent focus:ring-1 focus:ring-blue-500"
+            className="w-full pe-9 ps-3 py-2 text-xs sm:text-sm border border-border dark:border-border rounded-lg bg-transparent focus:ring-1 focus:ring-blue-500"
           />
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-2 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground"
             title="تحديث"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -220,25 +220,25 @@ export const ShippingEmployeesTab: React.FC = () => {
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-xs flex items-center gap-2">
+        <div className="p-3 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-xs flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {successMsg && (
-        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs flex items-center gap-2">
+        <div className="p-3 bg-success/10 dark:bg-success/40 border border-success dark:border-success text-success dark:text-success rounded-xl text-xs flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
           <span>{successMsg}</span>
         </div>
       )}
 
       {/* Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-xs sm:text-sm text-right border-collapse">
             <thead>
-              <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-semibold">
+              <tr className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-foreground dark:text-muted-foreground font-semibold">
                 <th className="px-4 py-3 text-center w-12">#</th>
                 <th className="px-4 py-3">{isEn ? 'Employee' : 'الموظف'}</th>
                 <th className="px-4 py-3">{isEn ? 'Code' : 'الكود'}</th>
@@ -249,10 +249,10 @@ export const ShippingEmployeesTab: React.FC = () => {
                 <th className="px-4 py-3 text-center">{isEn ? 'Actions' : 'إجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {employees.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-slate-400">
+                  <td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">
                     {loading ? (isEn ? 'Loading...' : 'جاري التحميل...') : (isEn ? 'No employees found' : 'لا يوجد موظفون مسجلون حالياً')}
                   </td>
                 </tr>
@@ -260,37 +260,37 @@ export const ShippingEmployeesTab: React.FC = () => {
                 employees.map((emp, idx) => {
                   const linkedUser = teamUsers.find((u) => u.id === emp.userId);
                   return (
-                    <tr key={emp.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition">
-                      <td className="px-4 py-3 text-center font-mono text-slate-400">{idx + 1}</td>
+                    <tr key={emp.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition">
+                      <td className="px-4 py-3 text-center font-mono text-muted-foreground">{idx + 1}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
                           {emp.photoUrl ? (
-                            <img src={emp.photoUrl} alt={emp.fullName} className="w-8 h-8 rounded-full object-cover border border-slate-200" />
+                            <img src={emp.photoUrl} alt={emp.fullName} className="w-8 h-8 rounded-full object-cover border border-border" />
                           ) : (
                             <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
                               {emp.fullName.slice(0, 2)}
                             </div>
                           )}
-                          <span className="font-semibold text-slate-900 dark:text-slate-100">{emp.fullName}</span>
+                          <span className="font-semibold text-foreground dark:text-muted-foreground">{emp.fullName}</span>
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold">
+                        <span className="font-mono text-xs px-2 py-0.5 rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-bold">
                           {emp.employeeCode}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{emp.jobTitle}</td>
-                      <td className="px-4 py-3 font-mono text-xs text-slate-600 dark:text-slate-300">
+                      <td className="px-4 py-3 text-foreground dark:text-muted-foreground">{emp.jobTitle}</td>
+                      <td className="px-4 py-3 font-mono text-xs text-foreground dark:text-muted-foreground">
                         {emp.workPhone || emp.personalPhone || '—'}
                       </td>
                       <td className="px-4 py-3">
                         {emp.userId ? (
-                          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-success/10 dark:bg-success/50 text-success dark:text-success border border-success dark:border-success">
                             <UserCheck className="w-3 h-3" />
                             <span>{linkedUser?.name || linkedUser?.email || 'مربوط'}</span>
                             <button
                               onClick={() => handleUnlinkUser(emp)}
-                              className="text-slate-400 hover:text-red-500 mr-1"
+                              className="text-slate-400 hover:text-destructive me-1"
                               title="إلغاء الربط"
                             >
                               <Unlink className="w-3 h-3" />
@@ -313,8 +313,8 @@ export const ShippingEmployeesTab: React.FC = () => {
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
                             emp.isActive
-                              ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
-                              : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                              ? 'bg-emerald-100 text-success dark:bg-success/60 dark:text-success'
+                              : 'bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground'
                           }`}
                         >
                           {emp.isActive ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
@@ -325,14 +325,14 @@ export const ShippingEmployeesTab: React.FC = () => {
                         <div className="inline-flex items-center gap-2">
                           <button
                             onClick={() => openEdit(emp)}
-                            className="p-1 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition"
+                            className="p-1 text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition"
                             title="تعديل"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(emp.id)}
-                            className="p-1 text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition"
+                            className="p-1 text-muted-foreground hover:text-destructive dark:hover:text-destructive transition"
                             title="حذف"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -351,13 +351,13 @@ export const ShippingEmployeesTab: React.FC = () => {
       {/* Add / Edit Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 w-full max-w-lg shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 w-full max-w-lg shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
+              <h3 className="text-sm sm:text-base font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
                 <Users className="w-4 h-4 text-blue-600" />
                 <span>{editingEmployee ? (isEn ? 'Edit Employee' : 'تعديل بيانات الموظف') : (isEn ? 'New Employee' : 'إضافة موظف جديد')}</span>
               </h3>
-              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-foreground">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -365,7 +365,7 @@ export const ShippingEmployeesTab: React.FC = () => {
             <form onSubmit={handleSave} className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Employee Code *' : 'كود الموظف *'}
                   </label>
                   <input
@@ -374,11 +374,11 @@ export const ShippingEmployeesTab: React.FC = () => {
                     value={formData.employeeCode}
                     onChange={(e) => setFormData({ ...formData, employeeCode: e.target.value.toUpperCase() })}
                     placeholder="EMP-001"
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono font-bold"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono font-bold"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Full Name *' : 'الاسم بالكامل *'}
                   </label>
                   <input
@@ -387,13 +387,13 @@ export const ShippingEmployeesTab: React.FC = () => {
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="أحمد محمد علي"
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   {isEn ? 'Job Title *' : 'المسمى الوظيفي *'}
                 </label>
                 <input
@@ -402,13 +402,13 @@ export const ShippingEmployeesTab: React.FC = () => {
                   value={formData.jobTitle}
                   onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
                   placeholder="مسؤول استلام / مندوب تسليم / مدير فرع"
-                  className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
+                  className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Work Phone' : 'هاتف العمل'}
                   </label>
                   <input
@@ -416,11 +416,11 @@ export const ShippingEmployeesTab: React.FC = () => {
                     value={formData.workPhone}
                     onChange={(e) => setFormData({ ...formData, workPhone: e.target.value })}
                     placeholder="01012345678"
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Personal Phone' : 'الهاتف الشخصي'}
                   </label>
                   <input
@@ -428,14 +428,14 @@ export const ShippingEmployeesTab: React.FC = () => {
                     value={formData.personalPhone}
                     onChange={(e) => setFormData({ ...formData, personalPhone: e.target.value })}
                     placeholder="01112345678"
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Photo URL' : 'رابط الصورة'}
                   </label>
                   <input
@@ -443,18 +443,18 @@ export const ShippingEmployeesTab: React.FC = () => {
                     value={formData.photoUrl}
                     onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })}
                     placeholder="https://..."
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     {isEn ? 'Hire Date' : 'تاريخ التعيين'}
                   </label>
                   <input
                     type="date"
                     value={formData.hireDate}
                     onChange={(e) => setFormData({ ...formData, hireDate: e.target.value })}
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm"
                   />
                 </div>
               </div>
@@ -467,17 +467,17 @@ export const ShippingEmployeesTab: React.FC = () => {
                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                     className="rounded text-blue-600"
                   />
-                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span className="text-xs font-semibold text-foreground dark:text-muted-foreground">
                     {isEn ? 'Active Employee' : 'حساب الموظف نشط'}
                   </span>
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-3.5 py-1.5 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
+                  className="px-3.5 py-1.5 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   {isEn ? 'Cancel' : 'إلغاء'}
                 </button>
@@ -497,25 +497,25 @@ export const ShippingEmployeesTab: React.FC = () => {
       {/* Link Account Modal */}
       {linkingEmployee && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 w-full max-w-md shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 w-full max-w-md shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
+              <h3 className="text-sm font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
                 <Link2 className="w-4 h-4 text-blue-600" />
                 <span>{isEn ? 'Link User Account' : `ربط الموظف: ${linkingEmployee.fullName}`}</span>
               </h3>
-              <button onClick={() => setLinkingEmployee(null)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setLinkingEmployee(null)} className="text-slate-400 hover:text-foreground">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-2 text-slate-700 dark:text-slate-300">
+              <label className="block text-xs font-semibold mb-2 text-foreground dark:text-muted-foreground">
                 {isEn ? 'Select Team Member' : 'اختر حساب المستخدم التابع للشركة'}
               </label>
               <select
                 value={selectedUserId}
                 onChange={(e) => setSelectedUserId(e.target.value)}
-                className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-xs sm:text-sm"
+                className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-xs sm:text-sm"
               >
                 <option value="">{isEn ? '-- Select user --' : '-- اختر حساب المستخدم --'}</option>
                 {teamUsers.map((u) => (
@@ -526,10 +526,10 @@ export const ShippingEmployeesTab: React.FC = () => {
               </select>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 onClick={() => setLinkingEmployee(null)}
-                className="px-3.5 py-1.5 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
+                className="px-3.5 py-1.5 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
               >
                 {isEn ? 'Cancel' : 'إلغاء'}
               </button>

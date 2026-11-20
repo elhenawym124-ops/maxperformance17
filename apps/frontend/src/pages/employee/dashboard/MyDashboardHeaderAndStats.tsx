@@ -29,14 +29,14 @@ export const MyDashboardHeaderAndStats: React.FC<
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-5">
           <div className="relative">
-            <Avatar className="h-20 w-20 ring-4 ring-white dark:ring-gray-800 shadow-xl border-2 border-primary/20">
+            <Avatar className="h-20 w-20 ring-4 ring-white dark:ring-border shadow-xl border-2 border-primary/20">
               <AvatarImage src={employee.avatar} className="object-cover" />
               <AvatarFallback className="bg-primary/5 text-primary text-2xl font-bold">
                 {employee.firstName?.[0]}
                 {employee.lastName?.[0]}
               </AvatarFallback>
             </Avatar>
-            <div className="absolute -bottom-1 -right-1 h-6 w-6 bg-green-500 border-4 border-background rounded-full shadow-lg"></div>
+            <div className="absolute -bottom-1 -right-1 h-6 w-6 bg-success border-4 border-background rounded-full shadow-lg"></div>
           </div>
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -44,12 +44,12 @@ export const MyDashboardHeaderAndStats: React.FC<
                 {t("employee.dashboard.welcome", { name: employee.firstName })}
               </h1>
             </div>
-            <p className="text-gray-500 dark:text-gray-400 font-medium flex items-center gap-2">
+            <p className="text-muted-foreground font-medium flex items-center gap-2">
               <span className="bg-primary/10 text-primary px-3 py-0.5 rounded-full text-sm">
                 {employee.position?.title || t("employee.dashboard.employee")}
               </span>
               <span>•</span>
-              <span className="text-gray-400 dark:text-gray-500">
+              <span className="text-muted-foreground/80">
                 {employee.department?.name ||
                   t("employee.dashboard.noDepartment")}
               </span>
@@ -59,7 +59,7 @@ export const MyDashboardHeaderAndStats: React.FC<
 
         <div className="flex flex-wrap items-center gap-3">
           <div className="bg-card px-4 py-2 rounded-xl shadow-xs border border-border/70 flex flex-col items-center min-w-[110px]">
-            <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">
+            <span className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">
               {t("employee.dashboard.employeeNumber")}
             </span>
             <span className="text-lg font-black font-mono tabular-nums text-primary">
@@ -68,10 +68,10 @@ export const MyDashboardHeaderAndStats: React.FC<
           </div>
           <Button
             variant="outline"
-            className="rounded-2xl h-14 px-6 border-gray-200 hover:border-primary hover:text-primary transition-all duration-300"
+            className="rounded-xl h-14 px-6 border-border hover:border-primary hover:text-primary transition-all duration-300"
             onClick={() => onNavigate("/profile")}
           >
-            <Users className="ml-2 h-5 w-5" />
+            <Users className="ms-2 h-5 w-5" />
             {t("employee.dashboard.profile")}
           </Button>
         </div>
@@ -79,7 +79,7 @@ export const MyDashboardHeaderAndStats: React.FC<
 
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         <Card
-          className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden relative group cursor-pointer hover:border-border transition-colors"
+          className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden relative group cursor-pointer hover:border-border transition-colors"
           onClick={() => onNavigate("/my-attendance")}
         >
           <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
@@ -118,29 +118,29 @@ export const MyDashboardHeaderAndStats: React.FC<
         </Card>
 
         <Card
-          className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden relative group cursor-pointer hover:border-border transition-colors"
+          className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden relative group cursor-pointer hover:border-border transition-colors"
           onClick={() => onNavigate("/my-leaves")}
         >
           <CardContent className="p-6">
             <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-2xl text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform duration-300">
+              <div className="p-3 bg-success/10 dark:bg-success/20 rounded-xl text-success dark:text-success group-hover:scale-110 transition-transform duration-300">
                 <Calendar className="h-6 w-6" />
               </div>
               <Badge
                 variant="outline"
-                className="rounded-lg text-[10px] font-bold text-gray-400 border-gray-100"
+                className="rounded-lg text-[10px] font-bold text-muted-foreground border-border"
               >
                 {t("employee.dashboard.annualBalance")}
               </Badge>
             </div>
-            <p className="text-sm text-gray-500 font-medium mb-1">
+            <p className="text-sm text-muted-foreground font-medium mb-1">
               {t("employee.dashboard.leaveBalance")}
             </p>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-foreground">
                 {employee.annualLeaveBalance}
               </span>
-              <span className="text-sm text-gray-400 font-bold">
+              <span className="text-sm text-muted-foreground font-bold">
                 {t("employee.dashboard.day")}
               </span>
             </div>
@@ -148,17 +148,17 @@ export const MyDashboardHeaderAndStats: React.FC<
         </Card>
 
         <Card
-          className="border-none shadow-sm bg-white dark:bg-gray-900 overflow-hidden relative group cursor-pointer"
+          className="border-none shadow-sm bg-white dark:bg-muted overflow-hidden relative group cursor-pointer"
           onClick={() => onNavigate("/my-payroll")}
         >
           <CardContent className="p-6">
             <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-2xl text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300">
+              <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-xl text-primary dark:text-primary group-hover:scale-110 transition-transform duration-300">
                 <CreditCard className="h-6 w-6" />
               </div>
               <Badge
                 variant="outline"
-                className="rounded-lg text-[10px] font-bold text-gray-400 border-gray-100"
+                className="rounded-lg text-[10px] font-bold text-muted-foreground border-border"
               >
                 {lastPayroll
                   ? format(
@@ -169,38 +169,38 @@ export const MyDashboardHeaderAndStats: React.FC<
                   : "--"}
               </Badge>
             </div>
-            <p className="text-sm text-gray-500 font-medium mb-1">
+            <p className="text-sm text-muted-foreground font-medium mb-1">
               {t("employee.dashboard.lastNetSalary")}
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-black font-mono tabular-nums text-gray-900 dark:text-white">
+              <span className="text-3xl font-black font-mono tabular-nums text-foreground">
                 {lastPayroll ? lastPayroll.netSalary.toLocaleString() : "0"}
               </span>
-              <span className="text-sm text-gray-400 font-bold">
+              <span className="text-sm text-muted-foreground font-bold">
                 {t("employee.dashboard.egp")}
               </span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-sm bg-white dark:bg-gray-900 overflow-hidden relative group cursor-pointer">
+        <Card className="border-none shadow-sm bg-white dark:bg-muted overflow-hidden relative group cursor-pointer">
           <CardContent className="p-6">
             <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-2xl text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform duration-300">
+              <div className="p-3 bg-warning/10 dark:bg-warning/20 rounded-xl text-warning dark:text-warning group-hover:scale-110 transition-transform duration-300">
                 <Briefcase className="h-6 w-6" />
               </div>
               <Badge
                 variant="outline"
-                className="rounded-lg text-[10px] font-bold text-gray-400 border-gray-100"
+                className="rounded-lg text-[10px] font-bold text-muted-foreground border-border"
               >
                 {t("employee.dashboard.careerTimeline")}
               </Badge>
             </div>
-            <p className="text-sm text-gray-500 font-medium mb-1">
+            <p className="text-sm text-muted-foreground font-medium mb-1">
               {t("employee.dashboard.serviceDuration")}
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-black font-mono tabular-nums text-gray-900 dark:text-white">
+              <span className="text-3xl font-black font-mono tabular-nums text-foreground">
                 {Math.max(
                   0,
                   Math.floor(
@@ -210,7 +210,7 @@ export const MyDashboardHeaderAndStats: React.FC<
                   ),
                 )}
               </span>
-              <span className="text-sm text-gray-400 font-bold">
+              <span className="text-sm text-muted-foreground font-bold">
                 {t("employee.dashboard.year")}
               </span>
             </div>

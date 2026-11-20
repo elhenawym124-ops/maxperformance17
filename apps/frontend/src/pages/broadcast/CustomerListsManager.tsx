@@ -190,7 +190,7 @@ const CustomerListsManager: React.FC = () => {
   if (loading && !selectedList) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -198,8 +198,8 @@ const CustomerListsManager: React.FC = () => {
   return (
     <div className="space-y-6 p-6">
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-sm text-red-800">{error}</p>
+        <div className="bg-red-50 border border-destructive rounded-lg p-4">
+          <p className="text-sm text-destructive">{error}</p>
         </div>
       )}
 
@@ -208,32 +208,32 @@ const CustomerListsManager: React.FC = () => {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
+              <h3 className="text-lg leading-6 font-medium text-foreground">
                 إدارة قوائم العملاء
               </h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-muted-foreground">
                 إنشاء وإدارة قوائم العملاء للحملات المستهدفة
               </p>
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90"
             >
-              <PlusIcon className="h-4 w-4 ml-2" />
+              <PlusIcon className="h-4 w-4 ms-2" />
               قائمة جديدة
             </button>
           </div>
 
           {/* Search */}
           <div className="relative">
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+            <div className="absolute inset-y-0 right-0 pe-3 flex items-center pointer-events-none">
+              <MagnifyingGlassIcon className="h-5 w-5 text-muted-foreground" />
             </div>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pr-10 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full pe-10 border-border rounded-md focus:ring-primary focus:border-primary sm:text-sm"
               placeholder="البحث في القوائم..."
             />
           </div>
@@ -248,8 +248,8 @@ const CustomerListsManager: React.FC = () => {
                 <div className="p-5">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center">
-                      <UserGroupIcon className="h-6 w-6 text-indigo-500 ml-2" />
-                      <h3 className="text-lg font-medium text-gray-900">
+                      <UserGroupIcon className="h-6 w-6 text-primary ms-2" />
+                      <h3 className="text-lg font-medium text-foreground">
                         {list.name}
                       </h3>
                     </div>
@@ -260,27 +260,27 @@ const CustomerListsManager: React.FC = () => {
                     )}
                   </div>
 
-                  <p className="text-sm text-gray-500 mb-3">
+                  <p className="text-sm text-muted-foreground mb-3">
                     {list.description}
                   </p>
 
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                     <span>{list.count.toLocaleString()} عميل</span>
                     <span>
                       {list.updatedAt ? formatDate(list.updatedAt) : "غير محدد"}
                     </span>
                   </div>
 
-                  <div className="text-xs text-gray-400 mb-4">
+                  <div className="text-xs text-muted-foreground mb-4">
                     المعايير: {getCriteriaText(list.criteria)}
                   </div>
 
                   <div className="flex items-center justify-between">
                     <button
                       onClick={() => handleViewList(list)}
-                      className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50"
+                      className="inline-flex items-center px-3 py-1.5 border border-border shadow-sm text-xs font-medium rounded text-foreground bg-white hover:bg-muted"
                     >
-                      <EyeIcon className="h-4 w-4 ml-1" />
+                      <EyeIcon className="h-4 w-4 ms-1" />
                       عرض
                     </button>
 
@@ -290,14 +290,14 @@ const CustomerListsManager: React.FC = () => {
                           setSelectedList(list);
                           setShowEditModal(true);
                         }}
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="text-indigo-600 hover:text-primary"
                       >
                         <PencilIcon className="h-4 w-4" />
                       </button>
                       {!list.isDefault && (
                         <button
                           onClick={() => handleDeleteList(list.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="text-red-600 hover:text-destructive"
                         >
                           <TrashIcon className="h-4 w-4" />
                         </button>
@@ -311,11 +311,11 @@ const CustomerListsManager: React.FC = () => {
 
           {filteredLists.length === 0 && !loading && (
             <div className="text-center py-12">
-              <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">
+              <UserGroupIcon className="mx-auto h-12 w-12 text-muted-foreground" />
+              <h3 className="mt-2 text-sm font-medium text-foreground">
                 لا توجد قوائم
               </h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {searchTerm
                   ? "لم يتم العثور على قوائم تطابق البحث"
                   : "ابدأ بإنشاء قائمة عملاء جديدة"}
@@ -334,27 +334,27 @@ const CustomerListsManager: React.FC = () => {
                   setSelectedList(null);
                   setCustomers([]);
                 }}
-                className="ml-4 text-gray-400 hover:text-gray-600"
+                className="ms-4 text-muted-foreground hover:text-foreground"
               >
                 ←
               </button>
               <div>
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                <h3 className="text-lg leading-6 font-medium text-foreground">
                   {selectedList.name}
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {selectedList.count.toLocaleString()} عميل •{" "}
                   {getCriteriaText(selectedList.criteria)}
                 </p>
               </div>
             </div>
             <div className="flex items-center space-x-2 space-x-reverse">
-              <button className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50">
-                <ArrowDownTrayIcon className="h-4 w-4 ml-2" />
+              <button className="inline-flex items-center px-3 py-2 border border-border shadow-sm text-sm font-medium rounded text-foreground bg-white hover:bg-muted">
+                <ArrowDownTrayIcon className="h-4 w-4 ms-2" />
                 تصدير
               </button>
-              <button className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50">
-                <FunnelIcon className="h-4 w-4 ml-2" />
+              <button className="inline-flex items-center px-3 py-2 border border-border shadow-sm text-sm font-medium rounded text-foreground bg-white hover:bg-muted">
+                <FunnelIcon className="h-4 w-4 ms-2" />
                 تصفية
               </button>
             </div>
@@ -363,12 +363,12 @@ const CustomerListsManager: React.FC = () => {
           {/* Loading state for customers */}
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : customers.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-lg shadow">
-              <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">
+              <UserGroupIcon className="mx-auto h-12 w-12 text-muted-foreground" />
+              <h3 className="mt-2 text-sm font-medium text-foreground">
                 لا يوجد عملاء في هذه القائمة
               </h3>
             </div>
@@ -376,70 +376,70 @@ const CustomerListsManager: React.FC = () => {
             /* Customers Table */
             <div className="bg-white shadow overflow-hidden sm:rounded-md">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="min-w-full divide-y divide-border">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         العميل
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         البريد الإلكتروني
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         الهاتف
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         آخر نشاط
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         إجمالي المشتريات
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         الموقع
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                         الحالة
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white divide-y divide-border">
                     {customers.map((customer) => (
                       <tr key={customer.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="h-8 w-8 bg-indigo-600 rounded-full flex items-center justify-center">
+                            <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center">
                               <span className="text-xs font-medium text-white">
                                 {customer.name.charAt(0)}
                               </span>
                             </div>
-                            <div className="mr-3">
-                              <div className="text-sm font-medium text-gray-900">
+                            <div className="me-3">
+                              <div className="text-sm font-medium text-foreground">
                                 {customer.name}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                           {customer.email}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                           {customer.phone || "غير متوفر"}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
                           {formatDate(customer.lastActivity)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                           {formatPrice(customer.totalSpent)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                           {customer.location}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                               customer.status === "active"
-                                ? "text-green-800 bg-green-100"
-                                : "text-gray-800 bg-gray-100"
+                                ? "text-green-800 bg-success"
+                                : "text-gray-800 bg-muted"
                             }`}
                           >
                             {customer.status === "active" ? "نشط" : "غير نشط"}
@@ -465,13 +465,13 @@ const CustomerListsManager: React.FC = () => {
 
       {/* Edit Modal */}
       {showEditModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-muted bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
           <div className="relative p-5 border w-96 shadow-lg rounded-md bg-white">
             <div className="mt-3 text-center">
-              <h3 className="text-lg font-medium text-gray-900">
+              <h3 className="text-lg font-medium text-foreground">
                 تعديل القائمة
               </h3>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 هذه الميزة قيد التطوير
               </p>
               <div className="mt-4">
@@ -480,7 +480,7 @@ const CustomerListsManager: React.FC = () => {
                     setShowEditModal(false);
                     setSelectedList(null);
                   }}
-                  className="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-600"
+                  className="px-4 py-2 bg-muted text-white text-base font-medium rounded-md shadow-sm hover:bg-muted"
                 >
                   إغلاق
                 </button>

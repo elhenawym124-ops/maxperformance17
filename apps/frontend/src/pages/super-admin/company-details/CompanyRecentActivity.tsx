@@ -139,7 +139,7 @@ export function CompanyRecentActivity({ activities, loading }: {
             value={query}
             onChange={(event) => { setQuery(event.target.value); setVisible(PAGE_SIZE); }}
             placeholder="ابحث في النشاط (الحدث، المستخدم، الفئة)..."
-            className="h-10 rounded-xl pr-9 text-sm"
+            className="h-10 rounded-xl pe-9 text-sm"
           />
         </div>
         <div className="flex flex-wrap gap-1 rounded-xl bg-muted/60 p-1">

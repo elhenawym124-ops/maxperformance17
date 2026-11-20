@@ -149,7 +149,7 @@ export const SpecialtyTableView: React.FC<SpecialtyTableViewProps> = ({
                         variant="outline"
                         className="border-primary/30 bg-primary/5 text-primary text-[0.65rem] font-medium"
                       >
-                        <Zap className="h-2.5 w-2.5 ml-0.5" />
+                        <Zap className="h-2.5 w-2.5 ms-0.5" />
                         نعم
                       </Badge>
                     ) : (

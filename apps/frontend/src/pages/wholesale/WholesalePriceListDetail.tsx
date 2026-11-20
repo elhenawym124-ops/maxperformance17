@@ -353,7 +353,7 @@ export default function WholesalePriceListDetail() {
                 <Badge
                   variant="secondary"
                   className={`text-[10px] font-mono ${
-                    isEditing ? "bg-amber-500/10 text-amber-600 border-amber-500/20" : "bg-muted text-muted-foreground"
+                    isEditing ? "bg-amber-500/10 text-warning border-warning/20" : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {isEditing ? "وضع التعديل" : "وضع العرض (قراءة فقط)"}
@@ -449,14 +449,14 @@ export default function WholesalePriceListDetail() {
         </div>
 
         {error && (
-          <div className="rounded-md border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-500 flex items-center gap-2 font-mono">
+          <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive flex items-center gap-2 font-mono">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {successMessage && (
-          <div className="rounded-md border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-600 flex items-center gap-2 font-mono">
+          <div className="rounded-md border border-success/30 bg-success/10 p-3 text-xs text-success flex items-center gap-2 font-mono">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{successMessage}</span>
           </div>
@@ -636,7 +636,7 @@ export default function WholesalePriceListDetail() {
                       <button
                         type="button"
                         onClick={() => removeItem(i)}
-                        className="p-1.5 text-muted-foreground hover:text-red-500 hover:bg-muted/40 rounded transition-colors"
+                        className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-muted/40 rounded transition-colors"
                         title="حذف هذا الصنف"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -675,7 +675,7 @@ export default function WholesalePriceListDetail() {
 
             {loadingAudits ? (
               <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-                <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+                <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
                 <span>جاري تحميل طلبات الأسعار وسجل التدقيق...</span>
               </div>
             ) : relevantChangeRequests.length === 0 ? (
@@ -713,10 +713,10 @@ export default function WholesalePriceListDetail() {
                             variant="outline"
                             className={`text-[10px] font-bold ${
                               cr.status === "PENDING"
-                                ? "bg-amber-500/10 text-amber-600 border-amber-500/30"
+                                ? "bg-amber-500/10 text-warning border-warning/30"
                                 : cr.status === "APPROVED"
-                                ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
-                                : "bg-red-500/10 text-red-600 border-red-500/30"
+                                ? "bg-emerald-500/10 text-success border-success/30"
+                                : "bg-red-500/10 text-destructive border-destructive/30"
                             }`}
                           >
                             {cr.status === "PENDING" ? "معلق" : cr.status === "APPROVED" ? "معتمد" : "مرفوض"}
@@ -729,7 +729,7 @@ export default function WholesalePriceListDetail() {
                                 size="sm"
                                 disabled={actionProcessingId === cr.id}
                                 onClick={() => handleApproveRequest(cr.id)}
-                                className="h-6 px-2.5 text-[11px] font-mono bg-emerald-600 hover:bg-emerald-700 text-white gap-1"
+                                className="h-6 px-2.5 text-[11px] font-mono bg-success hover:bg-success text-white gap-1"
                                 title="موافقة وتحديث سعر الصنف فوراً"
                               >
                                 <Check className="size-3" />
@@ -740,7 +740,7 @@ export default function WholesalePriceListDetail() {
                                 variant="outline"
                                 disabled={actionProcessingId === cr.id}
                                 onClick={() => openRejectModal(cr.id)}
-                                className="h-6 px-2.5 text-[11px] font-mono text-red-600 hover:bg-red-500/10 border-red-500/30 gap-1"
+                                className="h-6 px-2.5 text-[11px] font-mono text-destructive hover:bg-destructive/10 border-destructive/30 gap-1"
                               >
                                 <X className="size-3" />
                                 <span>رفض</span>
@@ -858,7 +858,7 @@ export default function WholesalePriceListDetail() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <div className="bg-card border border-border/80 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <div className="flex items-center gap-2 text-red-600">
+              <div className="flex items-center gap-2 text-destructive">
                 <X className="size-4" />
                 <h3 className="font-semibold text-foreground text-sm">رفض طلب تعديل السعر</h3>
               </div>
@@ -874,7 +874,7 @@ export default function WholesalePriceListDetail() {
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="اكتب سبب رفض الطلب..."
-                  className="w-full h-20 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-red-500"
+                  className="w-full h-20 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-destructive"
                   autoFocus
                 />
               </div>
@@ -893,7 +893,7 @@ export default function WholesalePriceListDetail() {
                   type="submit"
                   disabled={actionProcessingId !== null}
                   size="sm"
-                  className="h-8 text-xs font-mono bg-red-600 hover:bg-red-700 text-white gap-1"
+                  className="h-8 text-xs font-mono bg-destructive hover:bg-destructive text-white gap-1"
                 >
                   <X className="size-3.5" />
                   <span>تأكيد الرفض</span>

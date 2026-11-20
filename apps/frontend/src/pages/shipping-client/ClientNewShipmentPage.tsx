@@ -147,12 +147,12 @@ export default function ClientNewShipmentPage() {
 
   if (createdSuccess) {
     return (
-      <div className="max-w-xl mx-auto bg-white rounded-lg border border-gray-200 p-6 text-center space-y-4">
-        <div className="w-12 h-12 mx-auto rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold">
+      <div className="max-w-xl mx-auto bg-white rounded-lg border border-border p-6 text-center space-y-4">
+        <div className="w-12 h-12 mx-auto rounded-full bg-success/10 text-success flex items-center justify-center text-xl font-bold">
           ✓
         </div>
-        <h2 className="text-lg font-bold text-gray-900">تم إنشاء الشحنة بنجاح</h2>
-        <div className="bg-gray-50 border border-gray-200 rounded p-3 text-sm">
+        <h2 className="text-lg font-bold text-foreground">تم إنشاء الشحنة بنجاح</h2>
+        <div className="bg-gray-50 border border-border rounded p-3 text-sm">
           <span className="text-gray-500">رقم البوليصة: </span>
           <span className="font-mono font-bold text-blue-600">{createdSuccess.trackingNumber}</span>
         </div>
@@ -172,7 +172,7 @@ export default function ClientNewShipmentPage() {
           </button>
           <button
             onClick={() => navigate(`/client-portal/shipping/shipments/${createdSuccess.id}`)}
-            className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded text-xs font-medium hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 bg-white border border-border text-foreground rounded text-xs font-medium hover:bg-muted transition-colors"
           >
             عرض التفاصيل
           </button>
@@ -183,68 +183,68 @@ export default function ClientNewShipmentPage() {
 
   return (
     <div className="w-full max-w-[1800px] mx-auto space-y-6">
-      <div className="pb-3 border-b border-gray-200 flex items-center justify-between">
+      <div className="pb-3 border-b border-border flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-gray-900">إنشاء شحنة جديدة</h1>
-          <p className="text-xs text-gray-500 mt-0.5">تسجيل طرد جديد مع تسعير فوري ومباشر وفق بطاقتك</p>
+          <h1 className="text-lg font-bold text-foreground">إنشاء شحنة جديدة</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">تسجيل طرد جديد مع تسعير فوري ومباشر وفق بطاقتك</p>
         </div>
       </div>
 
       {error && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-700 text-xs font-medium">
+        <div className="p-3 bg-destructive/10 border border-destructive rounded text-destructive text-xs font-medium">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Form Fields (2 Cols) */}
-        <div className="md:col-span-2 bg-white rounded-lg border border-gray-200 p-5 space-y-4">
-          <h2 className="text-sm font-semibold text-gray-900 pb-2 border-b border-gray-100">
+        <div className="md:col-span-2 bg-white rounded-lg border border-border p-5 space-y-4">
+          <h2 className="text-sm font-semibold text-foreground pb-2 border-b border-border">
             بيانات المستلم والتسليم
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">اسم المستلم *</label>
+              <label className="block text-xs font-medium text-foreground mb-1">اسم المستلم *</label>
               <input
                 type="text"
                 required
                 value={recipientName}
                 onChange={(e) => setRecipientName(e.target.value)}
                 placeholder="أحمد محمد"
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">رقم الهاتف الأساسي *</label>
+              <label className="block text-xs font-medium text-foreground mb-1">رقم الهاتف الأساسي *</label>
               <input
                 type="tel"
                 required
                 value={recipientPhone}
                 onChange={(e) => setRecipientPhone(e.target.value)}
                 placeholder="010XXXXXXXX"
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">رقم هاتف بديل (اختياري)</label>
+              <label className="block text-xs font-medium text-foreground mb-1">رقم هاتف بديل (اختياري)</label>
               <input
                 type="tel"
                 value={recipientPhone2}
                 onChange={(e) => setRecipientPhone2(e.target.value)}
                 placeholder="011XXXXXXXX"
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">المحافظة *</label>
+              <label className="block text-xs font-medium text-foreground mb-1">المحافظة *</label>
               <select
                 value={destinationGovernorate}
                 onChange={(e) => setDestinationGovernorate(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
               >
                 {GOVERNORATES.map((gov) => (
                   <option key={gov} value={gov}>
@@ -257,147 +257,147 @@ export default function ClientNewShipmentPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">المدينة / المنطقة</label>
+              <label className="block text-xs font-medium text-foreground mb-1">المدينة / المنطقة</label>
               <input
                 type="text"
                 value={destinationCity}
                 onChange={(e) => setDestinationCity(e.target.value)}
                 placeholder="مدينة نصر / الدقي"
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">العنوان التفصيلي *</label>
+              <label className="block text-xs font-medium text-foreground mb-1">العنوان التفصيلي *</label>
               <input
                 type="text"
                 required
                 value={destinationAddress}
                 onChange={(e) => setDestinationAddress(e.target.value)}
                 placeholder="الشارع، رقم العمارة، الشقة"
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
           </div>
 
-          <h2 className="text-sm font-semibold text-gray-900 pt-3 pb-2 border-b border-gray-100">
+          <h2 className="text-sm font-semibold text-foreground pt-3 pb-2 border-b border-border">
             مواصفات الطرد والتحصيل
           </h2>
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">عدد القطع</label>
+              <label className="block text-xs font-medium text-foreground mb-1">عدد القطع</label>
               <input
                 type="number"
                 min="1"
                 value={pieces}
                 onChange={(e) => setPieces(Math.max(1, parseInt(e.target.value, 10) || 1))}
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded tabular-nums"
+                className="w-full text-xs px-3 py-2 border border-border rounded tabular-nums"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">الوزن (كجم)</label>
+              <label className="block text-xs font-medium text-foreground mb-1">الوزن (كجم)</label>
               <input
                 type="number"
                 step="0.1"
                 min="0.1"
                 value={weight}
                 onChange={(e) => setWeight(parseFloat(e.target.value) || 1)}
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded tabular-nums"
+                className="w-full text-xs px-3 py-2 border border-border rounded tabular-nums"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">مبلغ COD (ج.م)</label>
+              <label className="block text-xs font-medium text-foreground mb-1">مبلغ COD (ج.م)</label>
               <input
                 type="number"
                 min="0"
                 value={codAmount}
                 onChange={(e) => setCodAmount(e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded tabular-nums font-semibold"
+                className="w-full text-xs px-3 py-2 border border-border rounded tabular-nums font-semibold"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">وصف المحتوى</label>
+            <label className="block text-xs font-medium text-foreground mb-1">وصف المحتوى</label>
             <input
               type="text"
               value={contentDescription}
               onChange={(e) => setContentDescription(e.target.value)}
               placeholder="ملابس، إلكترونيات، مستحضرات..."
-              className="w-full text-xs px-3 py-2 border border-gray-300 rounded"
+              className="w-full text-xs px-3 py-2 border border-border rounded"
             />
           </div>
 
           <div className="flex items-center gap-6 pt-1">
-            <label className="inline-flex items-center gap-2 text-xs text-gray-700 cursor-pointer">
+            <label className="inline-flex items-center gap-2 text-xs text-foreground cursor-pointer">
               <input
                 type="checkbox"
                 checked={isFragile}
                 onChange={(e) => setIsFragile(e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="rounded border-border text-blue-600 focus:ring-blue-500"
               />
               <span>طرد قابل للكسر</span>
             </label>
-            <label className="inline-flex items-center gap-2 text-xs text-gray-700 cursor-pointer">
+            <label className="inline-flex items-center gap-2 text-xs text-foreground cursor-pointer">
               <input
                 type="checkbox"
                 checked={allowOpenPackage}
                 onChange={(e) => setAllowOpenPackage(e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="rounded border-border text-blue-600 focus:ring-blue-500"
               />
               <span>السماح بفتح الشحنة للمعاينة</span>
             </label>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">ملاحظات للمندوب</label>
+            <label className="block text-xs font-medium text-foreground mb-1">ملاحظات للمندوب</label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="الاتصال قبل الوصول، مواعيد محددة..."
-              className="w-full text-xs px-3 py-2 border border-gray-300 rounded"
+              className="w-full text-xs px-3 py-2 border border-border rounded"
             />
           </div>
         </div>
 
         {/* Live Rate Card Preview (1 Col) */}
         <div className="space-y-4">
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <h3 className="text-xs font-bold text-gray-900 pb-2 border-b border-gray-100">
+          <div className="bg-white rounded-lg border border-border p-4">
+            <h3 className="text-xs font-bold text-foreground pb-2 border-b border-border">
               تسعير لحظي (بطاقة الأسعار)
             </h3>
 
             {loadingCards ? (
-              <div className="text-xs text-gray-400 py-4 text-center">جاري جلب الأسعار...</div>
+              <div className="text-xs text-muted-foreground py-4 text-center">جاري جلب الأسعار...</div>
             ) : livePriceQuote ? (
               <div className="mt-3 space-y-2 text-xs">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-foreground">
                   <span>سعر الشحن الأساسي:</span>
                   <span className="tabular-nums font-medium">{livePriceQuote.basePrice} ج.م</span>
                 </div>
                 {livePriceQuote.extraFee > 0 && (
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-foreground">
                     <span>رسوم وزن إضافي:</span>
                     <span className="tabular-nums font-medium">+{livePriceQuote.extraFee} ج.م</span>
                   </div>
                 )}
                 {livePriceQuote.codFee > 0 && (
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-foreground">
                     <span>رسوم تحصيل COD:</span>
                     <span className="tabular-nums font-medium">+{livePriceQuote.codFee} ج.م</span>
                   </div>
                 )}
-                <div className="pt-2 border-t border-gray-100 flex justify-between items-baseline font-bold text-sm text-gray-900">
+                <div className="pt-2 border-t border-border flex justify-between items-baseline font-bold text-sm text-foreground">
                   <span>إجمالي تكلفة الشحن:</span>
                   <span className="text-blue-600 tabular-nums text-base">{livePriceQuote.total} ج.م</span>
                 </div>
-                <div className="text-[11px] text-gray-400 pt-1">
+                <div className="text-[11px] text-muted-foreground pt-1">
                   البطاقة المطبقة: {livePriceQuote.cardName}
                 </div>
               </div>
             ) : (
-              <div className="text-xs text-gray-400 py-3 text-center">
+              <div className="text-xs text-muted-foreground py-3 text-center">
                 يتم احتساب السعر تلقائياً وفق سياسة الشركة
               </div>
             )}

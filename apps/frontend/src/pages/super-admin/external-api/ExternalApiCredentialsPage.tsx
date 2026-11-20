@@ -201,9 +201,9 @@ export const ExternalApiCredentialsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 shadow-sm space-y-1">
-          <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">المفاتيح النشطة</span>
-          <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+        <div className="p-4 rounded-xl border border-success/20 bg-success/5 shadow-sm space-y-1">
+          <span className="text-xs text-success dark:text-success font-medium">المفاتيح النشطة</span>
+          <div className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums">
             {activeCount}
           </div>
         </div>
@@ -215,9 +215,9 @@ export const ExternalApiCredentialsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 shadow-sm space-y-1">
-          <span className="text-xs text-rose-600 dark:text-rose-400 font-medium">المفاتيح الملغاة (Kill Switch)</span>
-          <div className="text-2xl font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+        <div className="p-4 rounded-xl border border-destructive/20 bg-destructive/5 shadow-sm space-y-1">
+          <span className="text-xs text-destructive dark:text-destructive font-medium">المفاتيح الملغاة (Kill Switch)</span>
+          <div className="text-2xl font-bold text-destructive dark:text-destructive font-mono tabular-nums">
             {revokedCount}
           </div>
         </div>

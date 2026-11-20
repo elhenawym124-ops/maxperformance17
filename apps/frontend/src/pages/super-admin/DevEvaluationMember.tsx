@@ -133,15 +133,15 @@ const getScoreColor = (score: number) => {
 };
 
 const getScoreTextClass = (score: number) => {
-  if (score >= 80) return "text-emerald-600 dark:text-emerald-400";
-  if (score >= 60) return "text-amber-600 dark:text-amber-400";
-  return "text-rose-600 dark:text-rose-400";
+  if (score >= 80) return "text-emerald-600 dark:text-success";
+  if (score >= 60) return "text-amber-600 dark:text-warning";
+  return "text-rose-600 dark:text-destructive";
 };
 
 const getScoreBadgeClass = (score: number) => {
-  if (score >= 80) return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20";
-  if (score >= 60) return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20";
-  return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20";
+  if (score >= 80) return "bg-emerald-500/10 text-success dark:text-success border border-success/20";
+  if (score >= 60) return "bg-amber-500/10 text-warning dark:text-warning border border-warning/20";
+  return "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20";
 };
 
 const DevEvaluationMember: React.FC = () => {
@@ -330,7 +330,7 @@ const DevEvaluationMember: React.FC = () => {
             </div>
 
             <div className="p-3.5 flex items-center gap-3 hover:bg-muted/10 transition-colors">
-              <div className="size-8 rounded-lg border border-border/80 bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+              <div className="size-8 rounded-lg border border-border/80 bg-success/10 text-success flex items-center justify-center shrink-0">
                 <Clock className="size-4" />
               </div>
               <div>
@@ -342,7 +342,7 @@ const DevEvaluationMember: React.FC = () => {
             </div>
 
             <div className="p-3.5 flex items-center gap-3 hover:bg-muted/10 transition-colors">
-              <div className="size-8 rounded-lg border border-border/80 bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+              <div className="size-8 rounded-lg border border-border/80 bg-warning/10 text-warning flex items-center justify-center shrink-0">
                 <BarChart3 className="size-4" />
               </div>
               <div>
@@ -354,12 +354,12 @@ const DevEvaluationMember: React.FC = () => {
             </div>
 
             <div className="p-3.5 flex items-center gap-3 hover:bg-muted/10 transition-colors">
-              <div className="size-8 rounded-lg border border-border/80 bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0">
+              <div className="size-8 rounded-lg border border-border/80 bg-destructive/10 text-destructive flex items-center justify-center shrink-0">
                 <AlertTriangle className="size-4" />
               </div>
               <div>
                 <p className="text-[10px] text-muted-foreground font-mono">المهام المعاد فتحها</p>
-                <p className="text-base font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+                <p className="text-base font-bold text-destructive dark:text-destructive font-mono tabular-nums">
                   {current.reopenedTasks}
                 </p>
               </div>
@@ -390,7 +390,7 @@ const DevEvaluationMember: React.FC = () => {
                     <tr key={ev.id} className="hover:bg-muted/20 transition-colors">
                       <td className="px-3.5 py-2.5 font-medium text-foreground">
                         {periodLabels[ev.periodType] || ev.periodType}
-                        <span className="text-[10px] font-mono text-muted-foreground mr-2 tabular-nums">
+                        <span className="text-[10px] font-mono text-muted-foreground me-2 tabular-nums">
                           {new Date(ev.periodStart).toLocaleDateString("ar-EG")}
                         </span>
                       </td>

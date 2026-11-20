@@ -14,22 +14,22 @@ export const statusConfig: Record<
 > = {
   PRESENT: {
     labelKey: "employee.attendance.statusPresent",
-    color: "bg-green-100 text-green-800",
+    color: "bg-green-100 text-success",
     icon: CheckCircle,
   },
   ABSENT: {
     labelKey: "employee.attendance.statusAbsent",
-    color: "bg-red-100 text-red-800",
+    color: "bg-red-100 text-destructive",
     icon: XCircle,
   },
   LATE: {
     labelKey: "employee.attendance.statusLate",
-    color: "bg-yellow-100 text-yellow-800",
+    color: "bg-yellow-100 text-warning",
     icon: AlertCircle,
   },
   ON_LEAVE: {
     labelKey: "employee.attendance.statusOnLeave",
-    color: "bg-purple-100 text-purple-800",
+    color: "bg-purple-100 text-primary",
     icon: Calendar,
   },
 };

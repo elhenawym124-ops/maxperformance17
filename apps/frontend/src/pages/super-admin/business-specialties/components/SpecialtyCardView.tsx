@@ -62,7 +62,7 @@ export const SpecialtyCardView: React.FC<SpecialtyCardViewProps> = ({
           onClick={onCreate}
           className="mt-4 rounded-lg text-xs"
         >
-          <Plus className="h-3.5 w-3.5 ml-1" />
+          <Plus className="h-3.5 w-3.5 ms-1" />
           إنشاء نشاط جديد
         </Button>
       </div>
@@ -160,7 +160,7 @@ export const SpecialtyCardView: React.FC<SpecialtyCardViewProps> = ({
                     variant="outline"
                     className="border-primary/30 bg-primary/5 text-primary text-[0.65rem] px-1.5 py-0 h-4 font-medium"
                   >
-                    <Zap className="h-2.5 w-2.5 ml-0.5" />
+                    <Zap className="h-2.5 w-2.5 ms-0.5" />
                     تثبيت تلقائي
                   </Badge>
                 )}
@@ -169,7 +169,7 @@ export const SpecialtyCardView: React.FC<SpecialtyCardViewProps> = ({
                     variant="outline"
                     className="border-border/60 bg-muted/40 text-muted-foreground text-[0.65rem] px-1.5 py-0 h-4 font-medium font-mono tabular-nums"
                   >
-                    <Building2 className="h-2.5 w-2.5 ml-0.5" />
+                    <Building2 className="h-2.5 w-2.5 ms-0.5" />
                     {specialty.companyCount.toLocaleString("ar-EG")} شركة
                   </Badge>
                 ) : (
@@ -243,7 +243,7 @@ export const SpecialtyCardView: React.FC<SpecialtyCardViewProps> = ({
                 onClick={() => onViewDetails(specialty)}
                 className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
               >
-                <Eye className="h-3.5 w-3.5 ml-1" />
+                <Eye className="h-3.5 w-3.5 ms-1" />
                 التفاصيل
               </Button>
 

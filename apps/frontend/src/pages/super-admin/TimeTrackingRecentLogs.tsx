@@ -66,8 +66,8 @@ export function TimeTrackingRecentLogs({ timeLogs }: TimeTrackingRecentLogsProps
                     {formatDuration(log.duration)}
                   </p>
                   {log.isBillable && (
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-                      <DollarSign className="size-2.5 mr-0.5" />
+                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] bg-success/10 text-success dark:text-success border border-success/20">
+                      <DollarSign className="size-2.5 me-0.5" />
                       فوترة
                     </span>
                   )}

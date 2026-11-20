@@ -97,7 +97,7 @@ export const PlatformOperationsPulse: React.FC = () => {
 
   if (isLoading && !pulse) {
     return (
-      <div className="rounded-2xl border border-border/50 bg-card/60 p-5 shadow-sm backdrop-blur-xl">
+      <div className="rounded-xl border border-border/50 bg-card/60 p-5 shadow-sm backdrop-blur-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="size-2.5 rounded-full bg-primary animate-ping" />
@@ -116,13 +116,13 @@ export const PlatformOperationsPulse: React.FC = () => {
   if (!pulse) return null;
 
   return (
-    <div className="rounded-2xl border border-border/50 bg-card/75 p-5 shadow-sm backdrop-blur-xl space-y-4">
+    <div className="rounded-xl border border-border/50 bg-card/75 p-5 shadow-sm backdrop-blur-xl space-y-4">
       {/* Control / Title Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/40 pb-3">
         <div className="flex items-center gap-2.5">
           <div className="relative flex size-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full size-2.5 bg-emerald-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+            <span className="relative inline-flex rounded-full size-2.5 bg-success" />
           </div>
           <div>
             <h2 className="text-base font-bold text-foreground">
@@ -142,7 +142,7 @@ export const PlatformOperationsPulse: React.FC = () => {
             disabled={isFetching}
             className="h-8 px-2.5 text-xs text-muted-foreground hover:text-foreground"
           >
-            <RefreshCw className={cn("size-3.5 ml-1.5", isFetching && "animate-spin text-primary")} />
+            <RefreshCw className={cn("size-3.5 ms-1.5", isFetching && "animate-spin text-primary")} />
             تحديث
           </Button>
 
@@ -178,9 +178,9 @@ export const PlatformOperationsPulse: React.FC = () => {
               </span>
               <span className="text-xs text-muted-foreground">طلب اليوم</span>
             </div>
-            <p className="mt-1 text-xs text-emerald-600 dark:text-emerald-400 font-semibold tabular-nums">
+            <p className="mt-1 text-xs text-success dark:text-success font-semibold tabular-nums">
               {pulse.orders.todayGMV.toLocaleString()} ج.م
-              <span className="text-[10px] text-muted-foreground mr-1 font-normal">
+              <span className="text-[10px] text-muted-foreground me-1 font-normal">
                 (متوسط {pulse.orders.avgOrderValue.toLocaleString()} ج.م)
               </span>
             </p>
@@ -207,8 +207,8 @@ export const PlatformOperationsPulse: React.FC = () => {
               className={cn(
                 "flex size-7 items-center justify-center rounded-lg",
                 pulse.whatsapp.hasDisconnectedAlert
-                  ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                  : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  ? "bg-amber-500/10 text-warning dark:text-warning"
+                  : "bg-emerald-500/10 text-success dark:text-success"
               )}
             >
               <MessageSquare className="size-3.5" />
@@ -225,12 +225,12 @@ export const PlatformOperationsPulse: React.FC = () => {
             </div>
 
             {pulse.whatsapp.hasDisconnectedAlert ? (
-              <div className="mt-1 flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 font-medium">
+              <div className="mt-1 flex items-center gap-1 text-xs text-warning dark:text-warning font-medium">
                 <AlertTriangle className="size-3 shrink-0" />
                 <span>{pulse.whatsapp.disconnected} أرقام مفصولة تحتاج فحص</span>
               </div>
             ) : (
-              <div className="mt-1 flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+              <div className="mt-1 flex items-center gap-1 text-xs text-success dark:text-success font-medium">
                 <CheckCircle2 className="size-3 shrink-0" />
                 <span>جميع أجهزة واتساب نشطة</span>
               </div>
@@ -245,7 +245,7 @@ export const PlatformOperationsPulse: React.FC = () => {
             <span className="text-xs font-medium text-muted-foreground">
               السلال المتروكة اليوم
             </span>
-            <div className="flex size-7 items-center justify-center rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400">
+            <div className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-primary dark:text-primary">
               <ShoppingCart className="size-3.5" />
             </div>
           </div>
@@ -265,7 +265,7 @@ export const PlatformOperationsPulse: React.FC = () => {
           </div>
           <div className="mt-2 pt-2 border-t border-border/40 text-[11px] flex items-center justify-between text-muted-foreground">
             <span>تم استردادها:</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-semibold tabular-nums">
+            <span className="text-emerald-600 dark:text-success font-semibold tabular-nums">
               {pulse.abandonedCarts.todayRecovered} سلة ({pulse.abandonedCarts.recoveryRatePercent}%)
             </span>
           </div>
@@ -309,9 +309,9 @@ export const PlatformOperationsPulse: React.FC = () => {
 
       {/* Actionable Banner (Only appears if there are disconnected sessions or expiring trials) */}
       {(pulse.whatsapp.hasDisconnectedAlert || pulse.trials.hasExpiringAlert) && (
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-3.5 text-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-amber-700 dark:text-amber-300">
-            <AlertTriangle className="size-4 shrink-0 text-amber-500" />
+        <div className="rounded-xl border border-warning/30 bg-warning/5 p-3.5 text-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-warning dark:text-warning">
+            <AlertTriangle className="size-4 shrink-0 text-warning" />
             <span>
               <strong>تنبيه تشغيلي مباشر:</strong>{" "}
               {pulse.whatsapp.hasDisconnectedAlert && (
@@ -333,9 +333,9 @@ export const PlatformOperationsPulse: React.FC = () => {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 text-xs border-amber-500/40 text-amber-800 dark:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20"
+                  className="h-7 text-xs border-warning/40 text-warning dark:text-warning bg-warning/10 hover:bg-warning/20"
                 >
-                  <Phone className="size-3 ml-1" />
+                  <Phone className="size-3 ms-1" />
                   متابعة الاشتراكات
                 </Button>
               </Link>

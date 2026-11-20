@@ -217,8 +217,8 @@ export default function PlatformPartnerManagement() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-600 dark:text-amber-400">سحوبات قيد الانتظار</p>
-            <p className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning dark:text-warning">سحوبات قيد الانتظار</p>
+            <p className="text-xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums mt-0.5">
               {formatPrice(stats?.totalPendingPayouts || 0)}
             </p>
           </div>

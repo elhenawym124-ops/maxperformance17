@@ -209,10 +209,10 @@ export const ClientsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground dark:text-white">
             {isEn ? 'Shipping Clients' : 'عملاء الشحن'}
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             {isEn
               ? 'Manage shipping client (merchant) portal accounts, temporary passwords, and scoping.'
               : 'إدارة حسابات عملاء الشحن (التجار) وصلاحيات بوابة الخدمة الذاتية'}
@@ -223,7 +223,7 @@ export const ClientsPage: React.FC = () => {
             onClick={() => fetchClients()}
             disabled={loading}
             aria-label={isEn ? 'Refresh' : 'تحديث'}
-            className="p-2 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -239,43 +239,43 @@ export const ClientsPage: React.FC = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl">
-          <span className="text-xs text-slate-500 font-medium">{isEn ? 'Total Clients' : 'إجمالي العملاء'}</span>
-          <div className="text-2xl font-bold mt-1 text-slate-900 dark:text-white tabular-nums">{totalClients}</div>
+        <div className="bg-white dark:bg-muted border border-border dark:border-border p-4 rounded-xl">
+          <span className="text-xs text-muted-foreground font-medium">{isEn ? 'Total Clients' : 'إجمالي العملاء'}</span>
+          <div className="text-2xl font-bold mt-1 text-foreground dark:text-white tabular-nums">{totalClients}</div>
         </div>
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl">
-          <span className="text-xs text-slate-500 font-medium">{isEn ? 'Active Portals' : 'بوابات مفعّلة'}</span>
-          <div className="text-2xl font-bold mt-1 text-emerald-600 dark:text-emerald-400 tabular-nums">{activeAccounts}</div>
+        <div className="bg-white dark:bg-muted border border-border dark:border-border p-4 rounded-xl">
+          <span className="text-xs text-muted-foreground font-medium">{isEn ? 'Active Portals' : 'بوابات مفعّلة'}</span>
+          <div className="text-2xl font-bold mt-1 text-success dark:text-success tabular-nums">{activeAccounts}</div>
         </div>
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl">
-          <span className="text-xs text-slate-500 font-medium">{isEn ? 'Month Shipments' : 'شحنات الشهر'}</span>
-          <div className="text-2xl font-bold mt-1 text-slate-900 dark:text-white tabular-nums">{monthShipments}</div>
+        <div className="bg-white dark:bg-muted border border-border dark:border-border p-4 rounded-xl">
+          <span className="text-xs text-muted-foreground font-medium">{isEn ? 'Month Shipments' : 'شحنات الشهر'}</span>
+          <div className="text-2xl font-bold mt-1 text-foreground dark:text-white tabular-nums">{monthShipments}</div>
         </div>
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl">
-          <span className="text-xs text-slate-500 font-medium">{isEn ? 'Pending COD' : 'COD معلّق'}</span>
-          <div className="text-2xl font-bold mt-1 text-amber-600 dark:text-amber-400 tabular-nums">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border p-4 rounded-xl">
+          <span className="text-xs text-muted-foreground font-medium">{isEn ? 'Pending COD' : 'COD معلّق'}</span>
+          <div className="text-2xl font-bold mt-1 text-warning dark:text-warning tabular-nums">
             {formatCurrency(totalPendingCod)}
           </div>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-2 rounded-xl">
-        <Search className="w-4 h-4 text-slate-400 ms-2" />
+      <div className="flex items-center gap-2 bg-white dark:bg-muted border border-border dark:border-border p-2 rounded-xl">
+        <Search className="w-4 h-4 text-muted-foreground ms-2" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={isEn ? 'Search by name, email, or phone...' : 'البحث بالاسم، البريد الإلكتروني، أو الهاتف...'}
-          className="flex-1 bg-transparent border-0 text-sm focus:outline-none text-slate-900 dark:text-white placeholder-slate-400"
+          className="flex-1 bg-transparent border-0 text-sm focus:outline-none text-foreground dark:text-white placeholder-muted"
         />
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-start">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 font-medium">
+            <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-muted-foreground font-medium">
               <tr>
                 <th className="px-4 py-3 text-start">{isEn ? 'Client' : 'العميل'}</th>
                 <th className="px-4 py-3 text-start">{isEn ? 'Email' : 'البريد الإلكتروني'}</th>
@@ -287,18 +287,18 @@ export const ClientsPage: React.FC = () => {
                 <th className="px-4 py-3 text-end">{isEn ? 'Actions' : 'الإجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">
-                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-slate-400" />
+                  <td colSpan={8} className="text-center py-10 text-muted-foreground">
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-muted-foreground" />
                     <span>{isEn ? 'Loading clients...' : 'جاري تحميل العملاء...'}</span>
                   </td>
                 </tr>
               ) : clients.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-slate-400">
-                    <Users className="w-8 h-8 mx-auto mb-2 text-slate-300 dark:text-slate-600" />
+                  <td colSpan={8} className="text-center py-12 text-muted-foreground">
+                    <Users className="w-8 h-8 mx-auto mb-2 text-muted-foreground dark:text-foreground" />
                     <p>{isEn ? 'No clients found' : 'لا يوجد عملاء شحن مسجلين'}</p>
                   </td>
                 </tr>

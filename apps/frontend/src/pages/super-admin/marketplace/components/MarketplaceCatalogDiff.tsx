@@ -48,10 +48,10 @@ export const MarketplaceCatalogDiff: React.FC<MarketplaceCatalogDiffProps> = ({
 
   return (
     <div
-      className={`rounded-2xl border bg-card text-card-foreground shadow-sm p-4 ${
+      className={`rounded-xl border bg-card text-card-foreground shadow-sm p-4 ${
         (catalogDiff?.totals?.diffEntries || 0) > 0
-          ? "border-yellow-500/60 dark:border-yellow-500/40"
-          : "border-green-500/60 dark:border-green-500/40"
+          ? "border-yellow-500/60 dark:border-warning/40"
+          : "border-green-500/60 dark:border-success/40"
       }`}
     >
       <div className="flex justify-between items-start md:items-center flex-col md:flex-row gap-2 mb-3">
@@ -70,7 +70,7 @@ export const MarketplaceCatalogDiff: React.FC<MarketplaceCatalogDiffProps> = ({
             onClick={onRefreshCatalogDiff}
             disabled={catalogDiffLoading}
           >
-            <RefreshCw className="h-4 w-4 ml-1" />
+            <RefreshCw className="h-4 w-4 ms-1" />
             {catalogDiffLoading ? "جارٍ التحديث..." : "تحديث"}
           </Button>
           <Button
@@ -87,7 +87,7 @@ export const MarketplaceCatalogDiff: React.FC<MarketplaceCatalogDiffProps> = ({
       {catalogDiffError && (
         <Alert
           variant="default"
-          className="mb-3 border-yellow-500/50 text-yellow-700 dark:border-yellow-500/40 dark:text-yellow-400"
+          className="mb-3 border-warning/50 text-warning dark:border-warning/40 dark:text-warning"
         >
           {catalogDiffError}
         </Alert>

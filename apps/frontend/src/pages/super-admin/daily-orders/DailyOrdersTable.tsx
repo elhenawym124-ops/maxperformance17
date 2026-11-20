@@ -189,7 +189,7 @@ export const DailyOrdersTable: React.FC<DailyOrdersTableProps> = ({
                 setPage(1);
               }}
               placeholder="بحث بالاسم أو الهاتف..."
-              className="h-8 pr-8 text-xs bg-background/50"
+              className="h-8 pe-8 text-xs bg-background/50"
             />
           </div>
 
@@ -363,7 +363,7 @@ export const DailyOrdersTable: React.FC<DailyOrdersTableProps> = ({
                       {hasOrders ? (
                         <div className="flex flex-wrap items-center gap-1 text-[10px] tabular-nums">
                           {c.statusBreakdown.pending > 0 && (
-                            <span className="bg-amber-500/10 text-amber-600 dark:text-amber-400 px-1.5 py-0.5 rounded">
+                            <span className="bg-amber-500/10 text-warning dark:text-warning px-1.5 py-0.5 rounded">
                               {c.statusBreakdown.pending} معلق
                             </span>
                           )}
@@ -373,17 +373,17 @@ export const DailyOrdersTable: React.FC<DailyOrdersTableProps> = ({
                             </span>
                           )}
                           {c.statusBreakdown.inDelivery > 0 && (
-                            <span className="bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded">
+                            <span className="bg-purple-500/10 text-primary dark:text-primary px-1.5 py-0.5 rounded">
                               {c.statusBreakdown.inDelivery} شحن
                             </span>
                           )}
                           {c.statusBreakdown.delivered > 0 && (
-                            <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded">
+                            <span className="bg-emerald-500/10 text-success dark:text-success px-1.5 py-0.5 rounded">
                               {c.statusBreakdown.delivered} تم
                             </span>
                           )}
                           {c.statusBreakdown.cancelled > 0 && (
-                            <span className="bg-rose-500/10 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded">
+                            <span className="bg-rose-500/10 text-destructive dark:text-destructive px-1.5 py-0.5 rounded">
                               {c.statusBreakdown.cancelled} ملغي
                             </span>
                           )}

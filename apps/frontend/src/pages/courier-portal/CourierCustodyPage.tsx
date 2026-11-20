@@ -48,7 +48,7 @@ export const CourierCustodyPage: React.FC = () => {
 
   if (loading && !custody) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4">
         <ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600" />
       </div>
     );
@@ -60,23 +60,23 @@ export const CourierCustodyPage: React.FC = () => {
   const runs = custody?.runs || [];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-16" dir="rtl">
+    <div className="min-h-screen bg-muted dark:bg-muted text-foreground dark:text-muted-foreground pb-16" dir="rtl">
       {/* Top Header */}
-      <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20 px-4 py-3 shadow-xs">
+      <header className="bg-white dark:bg-muted border-b border-border dark:border-border sticky top-0 z-20 px-4 py-3 shadow-xs">
         <div className="w-full max-w-[1800px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link
               to="/courier-portal"
               aria-label="الرجوع للرئيسية"
-              className="p-1.5 -mr-1.5 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="p-1.5 -me-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted"
             >
               <ArrowRightIcon className="w-5 h-5" />
             </Link>
             <div>
-              <h1 className="font-bold text-sm text-slate-900 dark:text-slate-100">
+              <h1 className="font-bold text-sm text-foreground dark:text-muted-foreground">
                 العهدة المالية والنقدية
               </h1>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-muted-foreground">
                 متابعة المبالغ المحصلة والتوريد للخزينة
               </p>
             </div>
@@ -85,7 +85,7 @@ export const CourierCustodyPage: React.FC = () => {
           <button
             onClick={() => loadCustody()}
             aria-label="تحديث"
-            className="p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            className="p-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             <ArrowPathIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -95,7 +95,7 @@ export const CourierCustodyPage: React.FC = () => {
       {/* Main Content */}
       <main className="w-full max-w-[1800px] mx-auto p-3.5 sm:p-6 space-y-4">
         {/* Total Cash in Custody Hero Card */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl p-4 shadow-md space-y-3">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl p-4 shadow-md space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-blue-100">
               المبلغ الواجب توريده للخزينة الآن
@@ -119,11 +119,11 @@ export const CourierCustodyPage: React.FC = () => {
         </div>
 
         {/* Remittance Instructions Banner */}
-        <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-xl p-3 flex items-start gap-2.5 text-xs text-amber-900 dark:text-amber-200">
-          <ExclamationTriangleIcon className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+        <div className="bg-amber-50 dark:bg-warning/40 border border-warning dark:border-warning rounded-xl p-3 flex items-start gap-2.5 text-xs text-warning dark:text-warning">
+          <ExclamationTriangleIcon className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
           <div className="space-y-0.5">
             <p className="font-bold">تعليمات التوريد اليومي:</p>
-            <p className="text-[11px] text-amber-800 dark:text-amber-300 leading-relaxed">
+            <p className="text-[11px] text-warning dark:text-warning leading-relaxed">
               يجب تسليم النقدية المحصلة إلى مسؤول الخزينة في نهاية اليوم للحصول على سند التوريد وتصفية مأمورياتك.
             </p>
           </div>
@@ -132,13 +132,13 @@ export const CourierCustodyPage: React.FC = () => {
         {/* Runs Breakdown Section */}
         <section className="space-y-2.5">
           <div className="flex items-center justify-between px-1">
-            <h2 className="text-xs font-bold text-slate-700 dark:text-slate-300">
+            <h2 className="text-xs font-bold text-foreground dark:text-muted-foreground">
               تفاصيل الرحلات والمأموريات ({runs.length})
             </h2>
           </div>
 
           {runs.length === 0 ? (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8 text-center text-xs text-slate-400">
+            <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-8 text-center text-xs text-muted-foreground">
               لا توجد مأموريات مسجلة اليوم
             </div>
           ) : (
@@ -149,16 +149,16 @@ export const CourierCustodyPage: React.FC = () => {
               return (
                 <div
                   key={r.id}
-                  className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 shadow-xs space-y-2.5"
+                  className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-xs space-y-2.5"
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-sm text-slate-900 dark:text-slate-100">
+                        <span className="font-mono font-bold text-sm text-foreground dark:text-muted-foreground">
                           {r.runNumber}
                         </span>
                         {isSettled ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-success/10 text-success dark:bg-success/60 dark:text-success border border-success">
                             <CheckBadgeIcon className="w-3.5 h-3.5" />
                             تم التوريد للخزينة
                           </span>
@@ -169,7 +169,7 @@ export const CourierCustodyPage: React.FC = () => {
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-slate-400 mt-0.5">
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
                         {r.totalShipments} طرد
                       </p>
                     </div>
@@ -182,16 +182,16 @@ export const CourierCustodyPage: React.FC = () => {
                     </Link>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-100 dark:border-slate-800">
-                    <div className="bg-slate-50 dark:bg-slate-800/40 p-2 rounded-lg">
-                      <span className="text-[11px] text-slate-400 block">المبلغ المطلوب (COD):</span>
-                      <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
+                  <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-border dark:border-border">
+                    <div className="bg-slate-50 dark:bg-muted p-2 rounded-lg">
+                      <span className="text-[11px] text-muted-foreground block">المبلغ المطلوب (COD):</span>
+                      <span className="font-mono font-bold text-foreground dark:text-muted-foreground">
                         {r.totalCODExpected.toLocaleString()} ج.م
                       </span>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-800/40 p-2 rounded-lg">
-                      <span className="text-[11px] text-slate-400 block">المبلغ المحصل فعلياً:</span>
-                      <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                    <div className="bg-slate-50 dark:bg-muted p-2 rounded-lg">
+                      <span className="text-[11px] text-muted-foreground block">المبلغ المحصل فعلياً:</span>
+                      <span className="font-mono font-bold text-success dark:text-success">
                         {runDiff.toLocaleString()} ج.م
                       </span>
                     </div>

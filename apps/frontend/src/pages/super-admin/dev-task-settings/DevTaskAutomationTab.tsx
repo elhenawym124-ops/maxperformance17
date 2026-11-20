@@ -46,10 +46,10 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
     <div className="space-y-8">
       {/* Component Mappings */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           أقسام العمل والمسؤولين
         </h3>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-muted-foreground mb-6">
           قم بتعريف الأقسام (مثل: Frontend, Mobile) وتعيين مسؤول لكل قسم. <br />
           عند اختيار القسم في المهمة، سيتم تعيين المسؤول تلقائياً.
         </p>
@@ -61,7 +61,7 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
             aria-label="اسم القسم الجديد"
             ref={newComponentNameRef}
             placeholder="اسم القسم (مثال: Mobile App)"
-            className="border rounded px-3 py-2 dark:bg-gray-700 dark:border-gray-600 text-sm"
+            className="border rounded px-3 py-2 dark:bg-muted dark:border-border text-sm"
           />
           <div className="flex gap-2">
             <select
@@ -69,7 +69,7 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
               name="newComponentOwner"
               aria-label="المسؤول عن القسم الجديد"
               ref={newComponentOwnerRef}
-              className="border rounded px-3 py-2 flex-1 dark:bg-gray-700 dark:border-gray-600 text-sm"
+              className="border rounded px-3 py-2 flex-1 dark:bg-muted dark:border-border text-sm"
             >
               <option value="">اختر المسؤول...</option>
               {teamMembers.map((m) => (
@@ -80,7 +80,7 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
             </select>
             <button
               onClick={handleAddComponentMapping}
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm font-medium transition-colors"
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-success text-sm font-medium transition-colors"
             >
               إضافة
             </button>
@@ -93,20 +93,20 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
             return (
               <li
                 key={comp}
-                className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 p-3 rounded border border-gray-100 dark:border-gray-600"
+                className="flex items-center justify-between bg-muted dark:bg-muted p-3 rounded border border-border dark:border-border"
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-medium text-gray-800 dark:text-gray-200">
+                  <span className="font-medium text-foreground dark:text-muted-foreground">
                     {comp}
                   </span>
                   <span className="text-gray-400">→</span>
-                  <span className="text-indigo-600 dark:text-indigo-400 text-sm">
+                  <span className="text-primary text-sm">
                     {member ? member.name : "Unknown Member"}
                   </span>
                 </div>
                 <button
                   onClick={() => handleRemoveComponentMapping(comp)}
-                  className="text-red-500 hover:text-red-700 p-1 rounded"
+                  className="text-red-500 hover:text-destructive p-1 rounded"
                   aria-label={`حذف قسم ${comp}`}
                 >
                   <TrashIcon className="h-4 w-4" />
@@ -118,12 +118,12 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
       </div>
 
       {/* Auto-Creation Setting */}
-      <div className="pt-8 border-t border-gray-100 dark:border-gray-700">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+      <div className="pt-8 border-t border-border dark:border-border">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           التشغيل الآلي للمهام
         </h3>
 
-        <div className="bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
+        <div className="bg-gray-50 dark:bg-muted p-4 rounded-lg border border-border dark:border-border">
           <label className="flex items-start gap-3 cursor-pointer">
             <div className="relative inline-flex items-center cursor-pointer">
               <input
@@ -137,13 +137,13 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
                   })
                 }
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+              <div className="w-11 h-6 bg-muted peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-muted peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-border peer-checked:bg-indigo-600"></div>
             </div>
             <div>
-              <span className="block font-medium text-gray-900 dark:text-gray-100">
+              <span className="block font-medium text-foreground">
                 إنشاء مهمة اختبار تلقائياً عند الاكتمال
               </span>
-              <span className="block text-sm text-gray-500 mt-1">
+              <span className="block text-sm text-muted-foreground mt-1">
                 عند تحويل حالة أي مهمة إلى "DONE" (مكتمل)، سيقوم النظام
                 تلقائياً بإنشاء مهمة فرعية جديدة من نوع "TESTING" للمراجعة.
               </span>
@@ -152,8 +152,8 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
 
           {/* Assignee Selector */}
           {settings.autoTestingSubtask && (
-            <div className="mt-4 mr-14">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <div className="mt-4 me-14">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 تعيين تلقائي إلى:
               </label>
               <select
@@ -167,7 +167,7 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
                     autoTestingAssigneeId: e.target.value || null,
                   })
                 }
-                className="border rounded px-3 py-2 text-sm w-full max-w-sm dark:bg-gray-700 dark:border-gray-600"
+                className="border rounded px-3 py-2 text-sm w-full max-w-sm dark:bg-muted dark:border-border"
               >
                 <option value="">(بدون تعيين محدد)</option>
                 {teamMembers.map((m) => (
@@ -176,7 +176,7 @@ export const DevTaskAutomationTab: React.FC<DevTaskAutomationTabProps> = ({
                   </option>
                 ))}
               </select>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 سيتم إسناد المهمة الفرعية لهذا الشخص تلقائياً.
               </p>
             </div>

@@ -28,9 +28,9 @@ export const RevokeKeyModal: React.FC<Props> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="w-full max-w-md rounded-2xl border border-rose-500/30 bg-card p-6 shadow-2xl space-y-5 text-right">
+      <div className="w-full max-w-md rounded-xl border border-destructive/30 bg-card p-6 shadow-2xl space-y-5 text-right">
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
-          <div className="flex items-center gap-2.5 text-rose-600 dark:text-rose-400">
+          <div className="flex items-center gap-2.5 text-destructive dark:text-destructive">
             <ShieldAlert className="h-6 w-6" />
             <h2 className="text-base font-bold">تأكيد إلغاء المفتاح فورًا</h2>
           </div>
@@ -45,7 +45,7 @@ export const RevokeKeyModal: React.FC<Props> = ({
 
         <p className="text-xs text-muted-foreground leading-relaxed">
           هل أنت متأكد من رغبتك في إلغاء المفتاح <span className="font-bold text-foreground">«{credential.name}»</span> ({credential.keyPrefixMasked})؟
-          سيتم رفض جميع الطلبات القادمة باستخدامه بكود <code className="font-mono text-rose-500 font-bold">401 Unauthorized</code> على الفور بدون أي تأخير.
+          سيتم رفض جميع الطلبات القادمة باستخدامه بكود <code className="font-mono text-destructive font-bold">401 Unauthorized</code> على الفور بدون أي تأخير.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,7 +57,7 @@ export const RevokeKeyModal: React.FC<Props> = ({
               placeholder="مثال: انتهاء مشروع الحملة / اشتباه تسريب..."
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-border/60 bg-background focus:ring-2 focus:ring-rose-500/40 focus:outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-border/60 bg-background focus:ring-2 focus:ring-destructive/40 focus:outline-none"
             />
           </div>
 
@@ -72,7 +72,7 @@ export const RevokeKeyModal: React.FC<Props> = ({
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2 text-sm font-semibold rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition active:scale-[0.98] disabled:opacity-50"
+              className="px-5 py-2 text-sm font-semibold rounded-xl bg-destructive text-white hover:bg-destructive transition active:scale-[0.98] disabled:opacity-50"
             >
               {submitting ? 'جاري الإلغاء...' : 'تأكيد الإلغاء الفوري'}
             </button>

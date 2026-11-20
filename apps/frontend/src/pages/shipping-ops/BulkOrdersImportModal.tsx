@@ -131,26 +131,26 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
+            <FileSpreadsheet className="w-5 h-5 text-success dark:text-success" />
+            <h2 className="text-base sm:text-lg font-bold text-foreground dark:text-muted-foreground">
               {isEn ? 'Import Orders & Shipments via Excel' : 'استيراد أوردرات وشحنات من Excel / CSV'}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-5 overflow-y-auto flex-1 text-slate-800 dark:text-slate-200 text-xs sm:text-sm">
+        <div className="p-6 space-y-5 overflow-y-auto flex-1 text-foreground dark:text-muted-foreground text-xs sm:text-sm">
           {/* Download Template Banner */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/60 rounded-xl">
             <div className="space-y-1">
@@ -166,7 +166,7 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
             <button
               type="button"
               onClick={downloadOrdersImportTemplate}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-blue-700 bg-white dark:bg-slate-900 dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-950 transition shrink-0 active:scale-95"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-blue-700 bg-white dark:bg-muted dark:text-blue-300 border border-blue-300 dark:border-blue-700 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-950 transition shrink-0 active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>{isEn ? 'Download .XLSX' : 'تحميل النموذج (.XLSX)'}</span>
@@ -186,17 +186,17 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
               />
               <label
                 htmlFor="excel-file-input"
-                className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer transition text-center group"
+                className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-border dark:border-border rounded-xl hover:border-success dark:hover:border-success bg-muted dark:bg-muted cursor-pointer transition text-center group"
               >
-                <Upload className="w-10 h-10 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 mb-2 transition" />
-                <span className="font-semibold text-slate-700 dark:text-slate-300">
+                <Upload className="w-10 h-10 text-muted-foreground group-hover:text-success dark:group-hover:text-success mb-2 transition" />
+                <span className="font-semibold text-foreground dark:text-muted-foreground">
                   {selectedFile
                     ? selectedFile.name
                     : isEn
                     ? 'Click to select Excel or CSV file'
                     : 'اضغط هنا لاختيار ملف إكسيل (.xlsx, .csv)'}
                 </span>
-                <span className="text-xs text-slate-400 mt-1">
+                <span className="text-xs text-muted-foreground mt-1">
                   {selectedFile
                     ? `${(selectedFile.size / 1024).toFixed(1)} KB`
                     : isEn
@@ -206,10 +206,10 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
               </label>
 
               {selectedFile && (
-                <div className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                <div className="flex items-center justify-between p-3 bg-muted dark:bg-muted rounded-lg text-xs">
                   <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-emerald-600" />
-                    <span className="font-medium text-slate-800 dark:text-slate-200">{selectedFile.name}</span>
+                    <FileText className="w-4 h-4 text-success" />
+                    <span className="font-medium text-foreground dark:text-muted-foreground">{selectedFile.name}</span>
                   </div>
                   <button
                     type="button"
@@ -226,17 +226,17 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
             <div className="space-y-4">
               {/* Stats Strip */}
               <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-                  <div className="text-xs text-slate-500">{isEn ? 'Total Rows' : 'إجمالي الصفوف'}</div>
-                  <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{result.total}</div>
+                <div className="p-3 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border">
+                  <div className="text-xs text-muted-foreground">{isEn ? 'Total Rows' : 'إجمالي الصفوف'}</div>
+                  <div className="text-lg font-bold text-foreground dark:text-muted-foreground">{result.total}</div>
                 </div>
-                <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800">
-                  <div className="text-xs text-emerald-600 dark:text-emerald-400">{isEn ? 'Successful' : 'تم الاستيراد'}</div>
-                  <div className="text-lg font-bold text-emerald-700 dark:text-emerald-300">{result.successful}</div>
+                <div className="p-3 bg-success/10 dark:bg-success/40 rounded-xl border border-success dark:border-success">
+                  <div className="text-xs text-success dark:text-success">{isEn ? 'Successful' : 'تم الاستيراد'}</div>
+                  <div className="text-lg font-bold text-success dark:text-success">{result.successful}</div>
                 </div>
-                <div className="p-3 bg-rose-50 dark:bg-rose-950/40 rounded-xl border border-rose-200 dark:border-rose-800">
-                  <div className="text-xs text-rose-600 dark:text-rose-400">{isEn ? 'Failed' : 'صفوف بها أخطاء'}</div>
-                  <div className="text-lg font-bold text-rose-700 dark:text-rose-300">{result.failed.length}</div>
+                <div className="p-3 bg-destructive/10 dark:bg-destructive/40 rounded-xl border border-destructive dark:border-destructive">
+                  <div className="text-xs text-destructive dark:text-destructive">{isEn ? 'Failed' : 'صفوف بها أخطاء'}</div>
+                  <div className="text-lg font-bold text-destructive dark:text-destructive">{result.failed.length}</div>
                 </div>
               </div>
 
@@ -244,7 +244,7 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
               {result.failed.length > 0 && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-rose-600 text-xs">
+                    <span className="font-semibold text-destructive text-xs">
                       {isEn ? 'Rows requiring review:' : 'الصفوف التي تعذر استيرادها وأسبابها:'}
                     </span>
                     <button
@@ -257,9 +257,9 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
                     </button>
                   </div>
 
-                  <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden max-h-48 overflow-y-auto">
+                  <div className="border border-border dark:border-border rounded-xl overflow-hidden max-h-48 overflow-y-auto">
                     <table className="w-full text-right rtl:text-right ltr:text-left text-xs">
-                      <thead className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 sticky top-0">
+                      <thead className="bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground sticky top-0">
                         <tr>
                           <th className="px-3 py-2"># الصف</th>
                           <th className="px-3 py-2">رقم الطلب/المرجع</th>
@@ -267,15 +267,15 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
                           <th className="px-3 py-2">التفاصيل</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      <tbody className="divide-y divide-border dark:divide-border">
                         {result.failed.map((f, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                            <td className="px-3 py-2 font-mono font-bold text-slate-700 dark:text-slate-300">{f.row}</td>
-                            <td className="px-3 py-2 font-mono text-slate-600 dark:text-slate-400">
+                          <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-muted">
+                            <td className="px-3 py-2 font-mono font-bold text-foreground dark:text-muted-foreground">{f.row}</td>
+                            <td className="px-3 py-2 font-mono text-foreground dark:text-muted-foreground">
                               {f.orderNumber || f.clientReference || '—'}
                             </td>
-                            <td className="px-3 py-2 font-semibold text-rose-600">{f.reason}</td>
-                            <td className="px-3 py-2 text-slate-500">{f.message}</td>
+                            <td className="px-3 py-2 font-semibold text-destructive">{f.reason}</td>
+                            <td className="px-3 py-2 text-muted-foreground">{f.message}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -288,12 +288,12 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-border dark:border-border bg-muted dark:bg-muted">
           {result ? (
             <button
               type="button"
               onClick={handleReset}
-              className="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              className="px-4 py-2 text-xs font-medium text-foreground dark:text-muted-foreground border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             >
               {isEn ? 'Import Another File' : 'استيراد ملف آخر'}
             </button>
@@ -302,7 +302,7 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
               type="button"
               onClick={onClose}
               disabled={uploading}
-              className="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              className="px-4 py-2 text-xs font-medium text-foreground dark:text-muted-foreground border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             >
               {isEn ? 'Cancel' : 'إلغاء'}
             </button>
@@ -321,7 +321,7 @@ export const BulkOrdersImportModal: React.FC<BulkOrdersImportModalProps> = ({
               type="button"
               onClick={handleUpload}
               disabled={!selectedFile || uploading}
-              className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-success hover:bg-success rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {uploading ? (
                 <>

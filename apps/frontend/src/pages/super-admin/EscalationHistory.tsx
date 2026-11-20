@@ -196,13 +196,13 @@ export default function EscalationHistory() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-600 dark:text-amber-400">مهام تم تصعيدها</p>
-            <p className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning dark:text-warning">مهام تم تصعيدها</p>
+            <p className="text-xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums mt-0.5">
               {uniqueTasksCount}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">مهام فريدة خضعت للتصعيد</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-600">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning">
             <span className="text-xs font-mono font-bold">TASK</span>
           </div>
         </div>
@@ -315,7 +315,7 @@ export default function EscalationHistory() {
                 onClick={() => setPage((p) => p - 1)}
                 className="h-7 text-xs font-mono"
               >
-                <ChevronRight className="size-3.5 ml-1" /> السابق
+                <ChevronRight className="size-3.5 ms-1" /> السابق
               </Button>
               <Button
                 variant="outline"
@@ -324,7 +324,7 @@ export default function EscalationHistory() {
                 onClick={() => setPage((p) => p + 1)}
                 className="h-7 text-xs font-mono"
               >
-                التالي <ChevronLeft className="size-3.5 mr-1" />
+                التالي <ChevronLeft className="size-3.5 me-1" />
               </Button>
             </div>
           </div>

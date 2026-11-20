@@ -95,19 +95,19 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-lg shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border">
           <div className="flex items-center gap-2">
             <div className="p-2 bg-blue-50 dark:bg-blue-950/50 rounded-xl text-blue-600">
               <ArrowLeftRight className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+              <h2 className="text-base font-bold text-foreground dark:text-muted-foreground">
                 {isEn ? 'Inter-Branch Custody Transfer' : 'تحويل عهدة بين الفروع'}
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted-foreground">
                 {isEn
                   ? `Transfer ${selectedShipmentIds.length} parcel(s) from ${sourceBranch.name}`
                   : `تحويل ${selectedShipmentIds.length} شحنة من ${sourceBranch.name}`}
@@ -116,7 +116,7 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
           </div>
           <button
             onClick={handleClose}
-            className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted"
           >
             <X className="w-5 h-5" />
           </button>
@@ -125,9 +125,9 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
         {/* Manifest Result View */}
         {resultManifest ? (
           <div className="p-6 space-y-4">
-            <div className="p-4 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl text-emerald-900 dark:text-emerald-300 space-y-2">
+            <div className="p-4 bg-success/10 dark:bg-success/30 border border-success dark:border-success rounded-xl text-success dark:text-success space-y-2">
               <div className="flex items-center gap-2 font-bold text-sm">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                <CheckCircle2 className="w-5 h-5 text-success" />
                 <span>{isEn ? 'Transfer Manifest Created' : 'تم إصدار مانيفست التحويل بنجاح'}</span>
               </div>
               <div className="text-xs space-y-1 font-mono">
@@ -140,16 +140,16 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
 
             {/* If any failed */}
             {resultManifest.failed && resultManifest.failed.length > 0 && (
-              <div className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl text-xs text-amber-900 dark:text-amber-300 space-y-2">
+              <div className="p-3 bg-warning/10 dark:bg-warning/30 border border-warning dark:border-warning rounded-xl text-xs text-warning dark:text-warning space-y-2">
                 <div className="flex items-center gap-1.5 font-bold">
-                  <AlertCircle className="w-4 h-4 text-amber-600" />
+                  <AlertCircle className="w-4 h-4 text-warning" />
                   <span>شحنات تعذر تحويلها ({resultManifest.failed.length}):</span>
                 </div>
                 <div className="max-h-28 overflow-y-auto space-y-1">
                   {resultManifest.failed.map((f: any, idx: number) => (
-                    <div key={idx} className="flex items-center justify-between border-b border-amber-200/50 pb-1">
+                    <div key={idx} className="flex items-center justify-between border-b border-warning/50 pb-1">
                       <span className="font-mono">{f.trackingNumber || f.id}</span>
-                      <span className="text-amber-700 dark:text-amber-400">{f.message || f.reason}</span>
+                      <span className="text-amber-700 dark:text-warning">{f.message || f.reason}</span>
                     </div>
                   ))}
                 </div>
@@ -160,7 +160,7 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-5 py-2 bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 rounded-xl text-xs font-semibold"
+                className="px-5 py-2 bg-muted text-white hover:bg-muted dark:bg-muted dark:text-foreground rounded-xl text-xs font-semibold"
               >
                 {isEn ? 'Close' : 'إغلاق ومتابعة العهدة'}
               </button>
@@ -170,21 +170,21 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
           /* Transfer Form */
           <form onSubmit={handleTransfer} className="p-6 space-y-4">
             {/* Source Branch context */}
-            <div className="p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-between text-xs">
+            <div className="p-3 bg-muted dark:bg-muted border border-border dark:border-border rounded-xl flex items-center justify-between text-xs">
               <span className="text-slate-500 font-medium">الفرع المصدر:</span>
-              <span className="font-bold text-slate-800 dark:text-slate-200">{sourceBranch.name} ({sourceBranch.code})</span>
+              <span className="font-bold text-foreground dark:text-muted-foreground">{sourceBranch.name} ({sourceBranch.code})</span>
             </div>
 
             {/* Target Branch Picker */}
             <div>
-              <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+              <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                 {isEn ? 'Target Branch' : 'الفرع المحول إليه *'}
               </label>
               <select
                 value={toBranchId}
                 onChange={(e) => setToBranchId(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/60 outline-none text-xs"
+                className="w-full px-3 py-2 border border-border dark:border-border rounded-xl bg-muted dark:bg-muted outline-none text-xs"
               >
                 <option value="">{isEn ? '-- Select target branch --' : '-- اختر الفرع الهدف --'}</option>
                 {availableBranches.map((b) => (
@@ -203,7 +203,7 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
 
             {/* Transfer Notes */}
             <div>
-              <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+              <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                 {isEn ? 'Transfer Notes / Courier Ref' : 'ملاحظات التحويل أو إشارة المندوب الناقل'}
               </label>
               <textarea
@@ -211,16 +211,16 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}
                 placeholder="مثال: تم التسليم لمندوب التحويلات، شحنات خاصة بمنطقة الدقي..."
-                className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/60 outline-none text-xs"
+                className="w-full px-3 py-2 border border-border dark:border-border rounded-xl bg-muted dark:bg-muted outline-none text-xs"
               />
             </div>
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium"
+                className="px-4 py-2 border border-border dark:border-border rounded-xl hover:bg-muted dark:hover:bg-muted text-xs font-medium"
               >
                 {isEn ? 'Cancel' : 'إلغاء'}
               </button>

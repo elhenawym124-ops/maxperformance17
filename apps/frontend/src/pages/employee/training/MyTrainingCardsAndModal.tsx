@@ -38,27 +38,27 @@ const TrainingSkeleton = () => (
         key={i}
         className="border-none shadow-md overflow-hidden bg-white/40 animate-pulse"
       >
-        <div className="h-1.5 w-full bg-gray-200" />
+        <div className="h-1.5 w-full bg-muted" />
         <CardHeader className="space-y-3">
           <div className="flex justify-between">
-            <div className="w-12 h-12 bg-gray-200 rounded-2xl" />
-            <div className="w-20 h-5 bg-gray-200 rounded-lg" />
+            <div className="w-12 h-12 bg-muted rounded-xl" />
+            <div className="w-20 h-5 bg-muted rounded-lg" />
           </div>
-          <div className="w-3/4 h-6 bg-gray-200 rounded-md" />
-          <div className="w-1/2 h-4 bg-gray-200 rounded-md" />
+          <div className="w-3/4 h-6 bg-muted rounded-md" />
+          <div className="w-1/2 h-4 bg-muted rounded-md" />
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="w-full h-3 bg-gray-100 rounded" />
-              <div className="w-2/3 h-4 bg-gray-200 rounded" />
+              <div className="w-full h-3 bg-muted rounded" />
+              <div className="w-2/3 h-4 bg-muted rounded" />
             </div>
             <div className="space-y-2">
-              <div className="w-full h-3 bg-gray-100 rounded" />
-              <div className="w-2/3 h-4 bg-gray-200 rounded" />
+              <div className="w-full h-3 bg-muted rounded" />
+              <div className="w-2/3 h-4 bg-muted rounded" />
             </div>
           </div>
-          <div className="h-20 bg-gray-50 rounded-xl" />
+          <div className="h-20 bg-muted rounded-xl" />
         </CardContent>
       </Card>
     ))}
@@ -85,7 +85,7 @@ export const MyTrainingCardsAndModal: React.FC<
       ) : filteredTrainings.length === 0 ? (
         <Card className="border-none shadow-2xl bg-white/50 backdrop-blur-md p-16 animate-in zoom-in-95 duration-500">
           <CardContent className="flex flex-col items-center text-center space-y-6">
-            <div className="w-24 h-24 bg-purple-50 rounded-full flex items-center justify-center text-purple-200">
+            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center text-primary">
               {searchTerm || statusFilter !== "ALL" ? (
                 <Search className="h-12 w-12" />
               ) : (
@@ -94,7 +94,7 @@ export const MyTrainingCardsAndModal: React.FC<
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
-                <h3 className="text-2xl font-black text-gray-800">
+                <h3 className="text-2xl font-black text-foreground">
                   {searchTerm || statusFilter !== "ALL"
                     ? t("employee.training.noSearchResults")
                     : t("employee.training.noTrainings")}
@@ -109,14 +109,14 @@ export const MyTrainingCardsAndModal: React.FC<
               {searchTerm || statusFilter !== "ALL" ? (
                 <Button
                   variant="outline"
-                  className="border-purple-200 text-purple-700 hover:bg-purple-50"
+                  className="border-purple-200 text-primary hover:bg-primary/10"
                   onClick={onResetFilters}
                 >
                   {t("employee.training.resetSearch")}
                 </Button>
               ) : (
                 <Button
-                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold"
+                  className="bg-primary hover:bg-primary/90 text-white font-bold"
                   onClick={onRefresh}
                 >
                   {t("employee.training.refreshData")}
@@ -130,20 +130,20 @@ export const MyTrainingCardsAndModal: React.FC<
           {filteredTrainings.map((training) => {
             const status = trainingStatusConfig[training.status] ?? {
               labelKey: training.status,
-              color: "bg-gray-100 text-gray-700",
+              color: "bg-gray-100 text-foreground",
               icon: null,
             };
 
             return (
               <Card
                 key={training.id}
-                className="group border-none shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden bg-white/70 backdrop-blur-sm ring-1 ring-purple-100/50"
+                className="group border-none shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden bg-white/70 backdrop-blur-sm ring-1 ring-primary/50"
               >
-                <div className="h-1.5 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 opacity-60 group-hover:opacity-100 transition-opacity" />
+                <div className="h-1.5 w-full bg-gradient-to-r from-primary via-primary to-primary opacity-60 group-hover:opacity-100 transition-opacity" />
 
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between">
-                    <div className="p-3 bg-purple-50 rounded-2xl text-purple-600 group-hover:scale-110 transition-transform">
+                    <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:scale-110 transition-transform">
                       <GraduationCap className="h-6 w-6" />
                     </div>
                     <span
@@ -153,17 +153,17 @@ export const MyTrainingCardsAndModal: React.FC<
                       {t(status.labelKey)}
                     </span>
                   </div>
-                  <CardTitle className="text-xl font-black mt-4 leading-tight group-hover:text-purple-700 transition-colors">
+                  <CardTitle className="text-xl font-black mt-4 leading-tight group-hover:text-primary transition-colors">
                     {training.trainingName}
                   </CardTitle>
                   {training.provider && (
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-muted-foreground font-medium">
                       {training.provider}
                     </p>
                   )}
                   <Badge
                     variant="outline"
-                    className="w-fit text-[10px] font-bold border-purple-100 text-purple-600 mt-1"
+                    className="w-fit text-[10px] font-bold border-primary text-primary mt-1"
                   >
                     {t(
                       trainingTypeLabels[training.type] ??
@@ -175,11 +175,11 @@ export const MyTrainingCardsAndModal: React.FC<
                 <CardContent className="space-y-4 pt-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1">
+                      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
                         <Calendar className="h-3 w-3" />{" "}
                         {t("employee.training.startDate")}
                       </p>
-                      <p className="text-xs font-bold text-gray-700">
+                      <p className="text-xs font-bold text-foreground">
                         {new Date(training.startDate).toLocaleDateString(
                           "ar-EG",
                           {
@@ -193,11 +193,11 @@ export const MyTrainingCardsAndModal: React.FC<
 
                     {training.duration ? (
                       <div className="space-y-1">
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1">
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
                           <Clock className="h-3 w-3" />{" "}
                           {t("employee.training.duration")}
                         </p>
-                        <p className="text-xs font-bold font-mono tabular-nums text-gray-700">
+                        <p className="text-xs font-bold font-mono tabular-nums text-foreground">
                           {t("employee.training.hours", {
                             hours: training.duration,
                           })}
@@ -208,11 +208,11 @@ export const MyTrainingCardsAndModal: React.FC<
 
                   {training.endDate && (
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1">
+                      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
                         <Calendar className="h-3 w-3" />{" "}
                         {t("employee.training.endDate")}
                       </p>
-                      <p className="text-xs font-bold text-gray-700">
+                      <p className="text-xs font-bold text-foreground">
                         {new Date(training.endDate).toLocaleDateString(
                           "ar-EG",
                           {
@@ -225,14 +225,14 @@ export const MyTrainingCardsAndModal: React.FC<
                     </div>
                   )}
 
-                  <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
+                  <div className="pt-4 border-t border-border flex items-center justify-between">
                     {training.cost ? (
                       <div className="flex flex-col">
-                        <p className="text-[10px] font-bold text-gray-400 uppercase flex items-center gap-1">
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase flex items-center gap-1">
                           <DollarSign className="h-3 w-3" />{" "}
                           {t("employee.training.cost")}
                         </p>
-                        <p className="text-sm font-black font-mono tabular-nums text-purple-600">
+                        <p className="text-sm font-black font-mono tabular-nums text-primary">
                           {training.cost.toLocaleString()}{" "}
                           <span className="text-[10px] font-bold opacity-60">
                             EGP
@@ -245,11 +245,11 @@ export const MyTrainingCardsAndModal: React.FC<
 
                     {training.score ? (
                       <div className="flex flex-col items-end">
-                        <p className="text-[10px] font-bold text-gray-400 uppercase flex items-center gap-1">
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase flex items-center gap-1">
                           <Award className="h-3 w-3" />{" "}
                           {t("employee.training.rating")}
                         </p>
-                        <p className="text-sm font-black font-mono tabular-nums text-amber-500">
+                        <p className="text-sm font-black font-mono tabular-nums text-warning">
                           %{training.score}
                         </p>
                       </div>
@@ -257,15 +257,15 @@ export const MyTrainingCardsAndModal: React.FC<
                   </div>
 
                   {training.description && (
-                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 border-t border-gray-50 pt-3 mt-3">
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 border-t border-border pt-3 mt-3">
                       {training.description}
                     </p>
                   )}
 
-                  <div className="pt-4 mt-4 border-t border-gray-50">
+                  <div className="pt-4 mt-4 border-t border-border">
                     <Button
                       variant="ghost"
-                      className="w-full text-purple-600 hover:text-purple-700 hover:bg-purple-50 font-bold gap-2"
+                      className="w-full text-primary hover:text-primary hover:bg-primary/10 font-bold gap-2"
                       onClick={() => onSelectTraining(training)}
                     >
                       <Eye className="w-4 h-4" />{" "}

@@ -680,8 +680,8 @@ export default function WholesaleCustomerDetail() {
                   variant="outline"
                   className={`text-[11px] font-mono ${
                     form.isActive
-                      ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
-                      : "bg-red-500/10 text-red-600 border-red-500/30 font-bold"
+                      ? "bg-emerald-500/10 text-success border-success/30"
+                      : "bg-red-500/10 text-destructive border-destructive/30 font-bold"
                   }`}
                 >
                   {form.isActive ? "مفعل ونشط" : "موقوف مؤقتاً"}
@@ -692,7 +692,7 @@ export default function WholesaleCustomerDetail() {
                 <Badge
                   variant="secondary"
                   className={`text-[10px] font-mono ${
-                    isEditing ? "bg-amber-500/10 text-amber-600 border-amber-500/20" : "bg-muted text-muted-foreground"
+                    isEditing ? "bg-amber-500/10 text-warning border-warning/20" : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {isEditing ? "وضع التعديل" : "وضع العرض (قراءة فقط)"}
@@ -740,7 +740,7 @@ export default function WholesaleCustomerDetail() {
                   variant="outline"
                   size="sm"
                   onClick={() => setIsSuspendModalOpen(true)}
-                  className="h-8 px-2.5 text-xs font-mono gap-1.5 text-red-600 hover:text-red-700 hover:bg-red-500/10 border-red-500/30 active:scale-[0.98]"
+                  className="h-8 px-2.5 text-xs font-mono gap-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/30 active:scale-[0.98]"
                   title="إيقاف حساب التاجر مع سبب إلزامي"
                 >
                   <Ban className="size-3.5" />
@@ -752,7 +752,7 @@ export default function WholesaleCustomerDetail() {
                   variant="outline"
                   size="sm"
                   onClick={() => setIsResumeModalOpen(true)}
-                  className="h-8 px-2.5 text-xs font-mono gap-1.5 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-500/10 border-emerald-500/30 active:scale-[0.98]"
+                  className="h-8 px-2.5 text-xs font-mono gap-1.5 text-success hover:text-success hover:bg-success/10 border-success/30 active:scale-[0.98]"
                   title="إعادة تفعيل حساب التاجر"
                 >
                   <CheckCircle2 className="size-3.5" />
@@ -769,7 +769,7 @@ export default function WholesaleCustomerDetail() {
                 >
                   <Button
                     size="sm"
-                    className="h-8 px-3 text-xs font-mono gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs"
+                    className="h-8 px-3 text-xs font-mono gap-1.5 bg-success hover:bg-success text-white shadow-xs"
                   >
                     <PlusCircle className="size-3.5" />
                     <span>أوردر جديد للموزع</span>
@@ -785,7 +785,7 @@ export default function WholesaleCustomerDetail() {
                 onClick={() => setIsPaymentModalOpen(true)}
                 className="h-8 px-3 text-xs font-mono gap-1.5 border-border/70 active:scale-[0.98]"
               >
-                <DollarSign className="size-3.5 text-emerald-600" />
+                <DollarSign className="size-3.5 text-success" />
                 <span>تسجيل دفعة</span>
               </Button>
             </>
@@ -808,9 +808,9 @@ export default function WholesaleCustomerDetail() {
 
       {/* Prominent Alert Banner when Account is Suspended */}
       {!form.isActive && !isNew && (
-        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3.5 text-xs text-red-600 flex items-center justify-between gap-3 font-mono">
+        <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3.5 text-xs text-destructive flex items-center justify-between gap-3 font-mono">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="size-5 shrink-0 text-red-600" />
+            <ShieldAlert className="size-5 shrink-0 text-destructive" />
             <div>
               <span className="font-bold">تنبيه: حساب هذا التاجر موقوف حالياً (Suspended).</span>
               <p className="text-[11px] opacity-90 mt-0.5">
@@ -822,7 +822,7 @@ export default function WholesaleCustomerDetail() {
             size="sm"
             variant="outline"
             onClick={() => setIsResumeModalOpen(true)}
-            className="shrink-0 h-7 text-xs border-red-500/40 bg-card hover:bg-red-50 text-red-700"
+            className="shrink-0 h-7 text-xs border-destructive/40 bg-card hover:bg-destructive/10 text-destructive"
           >
             إعادة تفعيل الحساب
           </Button>
@@ -837,8 +837,8 @@ export default function WholesaleCustomerDetail() {
       )}
 
       {successMessage && (
-        <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-600 flex items-center gap-2 font-mono">
-          <CheckCircle2 className="size-4 shrink-0 text-emerald-600" />
+        <div className="rounded-lg border border-success/30 bg-success/10 p-3 text-xs text-success flex items-center gap-2 font-mono">
+          <CheckCircle2 className="size-4 shrink-0 text-success" />
           <span>{successMessage}</span>
         </div>
       )}
@@ -923,7 +923,7 @@ export default function WholesaleCustomerDetail() {
             <ShieldCheck className="size-3.5" />
             <span>الموافقات وسجل التدقيق</span>
             {changeRequests.filter((cr) => cr.status === "PENDING").length > 0 && (
-              <span className="inline-flex size-4 items-center justify-center rounded-full bg-amber-500 text-[9px] font-bold text-white">
+              <span className="inline-flex size-4 items-center justify-center rounded-full bg-warning text-[9px] font-bold text-white">
                 {changeRequests.filter((cr) => cr.status === "PENDING").length}
               </span>
             )}
@@ -964,7 +964,7 @@ export default function WholesaleCustomerDetail() {
                       value={searchQuery}
                       onChange={(e) => void searchCustomers(e.target.value)}
                       placeholder="ابحث باسم العميل أو رقم الهاتف للربط..."
-                      className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+                      className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
                     />
                   </div>
                   {searchResults.length > 0 && (
@@ -977,7 +977,7 @@ export default function WholesaleCustomerDetail() {
                           className="block w-full px-3 py-2 text-right text-xs text-foreground hover:bg-muted/40 transition-colors"
                         >
                           <span className="font-semibold">{r.firstName} {r.lastName}</span>
-                          {r.phone && <span className="text-muted-foreground mr-2 font-mono">({r.phone})</span>}
+                          {r.phone && <span className="text-muted-foreground me-2 font-mono">({r.phone})</span>}
                         </button>
                       ))}
                     </div>
@@ -1143,7 +1143,7 @@ export default function WholesaleCustomerDetail() {
               </label>
 
               {!isNew && !form.isActive && (
-                <span className="text-[11px] text-red-600 font-mono font-semibold">
+                <span className="text-[11px] text-destructive font-mono font-semibold">
                   (موقوف — يتطلب سبب إلزامي وسجل تدقيق)
                 </span>
               )}
@@ -1170,7 +1170,7 @@ export default function WholesaleCustomerDetail() {
                 }`}
               >
                 <Button size="sm" variant="outline" className="h-7 text-xs font-mono gap-1">
-                  <PlusCircle className="size-3.5 text-emerald-600" />
+                  <PlusCircle className="size-3.5 text-success" />
                   <span>أوردر جديد للموزع</span>
                 </Button>
               </Link>
@@ -1179,7 +1179,7 @@ export default function WholesaleCustomerDetail() {
 
           {loadingOrders ? (
             <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-              <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+              <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
               <span>جاري تحميل الطلبيات...</span>
             </div>
           ) : orders.length === 0 ? (
@@ -1258,7 +1258,7 @@ export default function WholesaleCustomerDetail() {
               size="sm"
               variant="outline"
               onClick={() => setIsPaymentModalOpen(true)}
-              className="h-7 text-xs font-mono gap-1 text-emerald-600 border-emerald-500/30"
+              className="h-7 text-xs font-mono gap-1 text-success border-success/30"
             >
               <DollarSign className="size-3.5" />
               <span>تسجيل دفعة</span>
@@ -1267,7 +1267,7 @@ export default function WholesaleCustomerDetail() {
 
           {loadingTransactions ? (
             <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-              <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+              <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
               <span>جاري تحميل الحركات المالية...</span>
             </div>
           ) : transactions.length === 0 ? (
@@ -1296,9 +1296,9 @@ export default function WholesaleCustomerDetail() {
                           variant="outline"
                           className={`text-[10px] ${
                             tx.type === "INVOICE"
-                              ? "bg-red-500/10 text-red-600 border-red-500/30"
+                              ? "bg-red-500/10 text-destructive border-destructive/30"
                               : tx.type === "PAYMENT"
-                              ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
+                              ? "bg-emerald-500/10 text-success border-success/30"
                               : "bg-blue-500/10 text-blue-600 border-blue-500/30"
                           }`}
                         >
@@ -1359,7 +1359,7 @@ export default function WholesaleCustomerDetail() {
 
           {loadingStatement ? (
             <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-              <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+              <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
               <span>جاري استخراج كشف الحساب...</span>
             </div>
           ) : !statement ? (
@@ -1375,15 +1375,15 @@ export default function WholesaleCustomerDetail() {
                     {Number(statement.openingBalance).toLocaleString()} ج.م
                   </strong>
                 </div>
-                <div className="p-3 bg-red-500/5 border border-red-500/20 rounded-lg">
-                  <span className="text-[10px] text-red-600 block">إجمالي المسحوبات (فواتير)</span>
-                  <strong className="text-sm text-red-600">
+                <div className="p-3 bg-destructive/5 border border-destructive/20 rounded-lg">
+                  <span className="text-[10px] text-destructive block">إجمالي المسحوبات (فواتير)</span>
+                  <strong className="text-sm text-destructive">
                     {Number(statement.totalInvoiced).toLocaleString()} ج.م
                   </strong>
                 </div>
-                <div className="p-3 bg-emerald-500/5 border border-emerald-500/20 rounded-lg">
-                  <span className="text-[10px] text-emerald-600 block">إجمالي السدادات (دفعات)</span>
-                  <strong className="text-sm text-emerald-600">
+                <div className="p-3 bg-success/5 border border-success/20 rounded-lg">
+                  <span className="text-[10px] text-success block">إجمالي السدادات (دفعات)</span>
+                  <strong className="text-sm text-success">
                     {Number(statement.totalPaid).toLocaleString()} ج.م
                   </strong>
                 </div>
@@ -1452,14 +1452,14 @@ export default function WholesaleCustomerDetail() {
                 placeholder="ابحث بالاسم أو كود SKU..."
                 value={priceSearch}
                 onChange={(e) => setPriceSearch(e.target.value)}
-                className="h-7 pr-8 text-xs font-mono"
+                className="h-7 pe-8 text-xs font-mono"
               />
             </div>
           </div>
 
           {loadingPrices ? (
             <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-              <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+              <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
               <span>جاري تحميل قائمة أسعار التاجر...</span>
             </div>
           ) : filteredPrices.length === 0 ? (
@@ -1493,12 +1493,12 @@ export default function WholesaleCustomerDetail() {
                         <td className="p-2.5 text-left text-muted-foreground line-through">
                           {Number(item.regularPrice).toLocaleString()} ج.م
                         </td>
-                        <td className="p-2.5 text-left font-bold text-emerald-600">
+                        <td className="p-2.5 text-left font-bold text-success">
                           {Number(item.wholesalePrice).toLocaleString()} ج.م
                         </td>
                         <td className="p-2.5 text-center">
                           {discount > 0 ? (
-                            <Badge variant="outline" className="text-[10px] bg-emerald-500/10 text-emerald-600">
+                            <Badge variant="outline" className="text-[10px] bg-success/10 text-success">
                               -{discount}%
                             </Badge>
                           ) : (
@@ -1550,7 +1550,7 @@ export default function WholesaleCustomerDetail() {
 
             {loadingAudits ? (
               <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-                <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+                <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
                 <span>جاري تحميل طلبات التعديل...</span>
               </div>
             ) : changeRequests.length === 0 ? (
@@ -1593,10 +1593,10 @@ export default function WholesaleCustomerDetail() {
                             variant="outline"
                             className={`text-[10px] font-bold ${
                               cr.status === "PENDING"
-                                ? "bg-amber-500/10 text-amber-600 border-amber-500/30"
+                                ? "bg-amber-500/10 text-warning border-warning/30"
                                 : cr.status === "APPROVED"
-                                ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
-                                : "bg-red-500/10 text-red-600 border-red-500/30"
+                                ? "bg-emerald-500/10 text-success border-success/30"
+                                : "bg-red-500/10 text-destructive border-destructive/30"
                             }`}
                           >
                             {cr.status === "PENDING" ? "معلق" : cr.status === "APPROVED" ? "معتمد" : "مرفوض"}
@@ -1609,7 +1609,7 @@ export default function WholesaleCustomerDetail() {
                                 size="sm"
                                 disabled={actionProcessingId === cr.id}
                                 onClick={() => handleApproveRequest(cr.id)}
-                                className="h-6 px-2.5 text-[11px] font-mono bg-emerald-600 hover:bg-emerald-700 text-white gap-1"
+                                className="h-6 px-2.5 text-[11px] font-mono bg-success hover:bg-success text-white gap-1"
                                 title="موافقة وتطبيق القيمة فوراً داخل معاملة مؤمنة"
                               >
                                 <Check className="size-3" />
@@ -1620,7 +1620,7 @@ export default function WholesaleCustomerDetail() {
                                 variant="outline"
                                 disabled={actionProcessingId === cr.id}
                                 onClick={() => openRejectModal(cr.id)}
-                                className="h-6 px-2.5 text-[11px] font-mono text-red-600 hover:bg-red-500/10 border-red-500/30 gap-1"
+                                className="h-6 px-2.5 text-[11px] font-mono text-destructive hover:bg-destructive/10 border-destructive/30 gap-1"
                               >
                                 <X className="size-3" />
                                 <span>رفض</span>
@@ -1670,7 +1670,7 @@ export default function WholesaleCustomerDetail() {
 
             {loadingAudits ? (
               <div className="flex justify-center p-8 text-xs font-mono text-muted-foreground">
-                <RefreshCw className="size-4 animate-spin ml-2 text-primary" />
+                <RefreshCw className="size-4 animate-spin ms-2 text-primary" />
                 <span>جاري تحميل سجل التدقيق...</span>
               </div>
             ) : auditLogs.length === 0 ? (
@@ -1702,9 +1702,9 @@ export default function WholesaleCustomerDetail() {
                             variant="outline"
                             className={`text-[10px] font-bold ${
                               log.action === "APPROVE" || log.action === "ACTIVATE"
-                                ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
+                                ? "bg-emerald-500/10 text-success border-success/30"
                                 : log.action === "SUSPEND" || log.action === "REJECT"
-                                ? "bg-red-500/10 text-red-600 border-red-500/30"
+                                ? "bg-red-500/10 text-destructive border-destructive/30"
                                 : "bg-blue-500/10 text-blue-600 border-blue-500/30"
                             }`}
                           >
@@ -1735,9 +1735,9 @@ export default function WholesaleCustomerDetail() {
       {/* Suspend Customer Modal */}
       {isSuspendModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="bg-card border border-red-500/40 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
+          <div className="bg-card border border-destructive/40 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <div className="flex items-center gap-2 text-red-600">
+              <div className="flex items-center gap-2 text-destructive">
                 <Ban className="size-4" />
                 <h3 className="font-semibold text-foreground text-sm">إيقاف حساب التاجر (Suspend)</h3>
               </div>
@@ -1746,7 +1746,7 @@ export default function WholesaleCustomerDetail() {
               </Button>
             </div>
 
-            <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-700 rounded-lg text-[11px] space-y-1">
+            <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-lg text-[11px] space-y-1">
               <p className="font-bold">⚠️ تنبيه هام:</p>
               <p>
                 إيقاف حساب التاجر سيمنعه من إصدار أي طلبيات جديدة أو استخدام رصيده الائتماني. سبب الإيقاف إلزامي وسيتم
@@ -1767,7 +1767,7 @@ export default function WholesaleCustomerDetail() {
                   value={suspendReason}
                   onChange={(e) => setSuspendReason(e.target.value)}
                   placeholder="اكتب سبب إيقاف الحساب (مثال: تأخر في السداد لمدة 45 يوماً، شيك مرتد...)"
-                  className="w-full h-24 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-red-500"
+                  className="w-full h-24 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-destructive"
                   required
                   autoFocus
                 />
@@ -1787,7 +1787,7 @@ export default function WholesaleCustomerDetail() {
                   type="submit"
                   disabled={suspending || !suspendReason.trim()}
                   size="sm"
-                  className="h-8 text-xs font-mono bg-red-600 hover:bg-red-700 text-white gap-1"
+                  className="h-8 text-xs font-mono bg-destructive hover:bg-destructive text-white gap-1"
                 >
                   <Ban className="size-3.5" />
                   <span>{suspending ? "جاري الإيقاف..." : "تأكيد إيقاف الحساب"}</span>
@@ -1801,9 +1801,9 @@ export default function WholesaleCustomerDetail() {
       {/* Resume Customer Modal */}
       {isResumeModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="bg-card border border-emerald-500/40 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
+          <div className="bg-card border border-success/40 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <div className="flex items-center gap-2 text-emerald-600">
+              <div className="flex items-center gap-2 text-success">
                 <CheckCircle2 className="size-4" />
                 <h3 className="font-semibold text-foreground text-sm">إعادة تفعيل حساب التاجر</h3>
               </div>
@@ -1819,7 +1819,7 @@ export default function WholesaleCustomerDetail() {
                   value={resumeReason}
                   onChange={(e) => setResumeReason(e.target.value)}
                   placeholder="مثال: تم تسوية الديون المعلقة وتحديث الضمانات..."
-                  className="w-full h-20 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full h-20 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-success"
                   autoFocus
                 />
               </div>
@@ -1838,7 +1838,7 @@ export default function WholesaleCustomerDetail() {
                   type="submit"
                   disabled={resuming}
                   size="sm"
-                  className="h-8 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white gap-1"
+                  className="h-8 text-xs font-mono bg-success hover:bg-success text-white gap-1"
                 >
                   <CheckCircle2 className="size-3.5" />
                   <span>{resuming ? "جاري التفعيل..." : "تأكيد إعادة التفعيل"}</span>
@@ -1937,7 +1937,7 @@ export default function WholesaleCustomerDetail() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <div className="bg-card border border-border/80 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <div className="flex items-center gap-2 text-red-600">
+              <div className="flex items-center gap-2 text-destructive">
                 <Ban className="size-4" />
                 <h3 className="font-semibold text-foreground text-sm">رفض طلب التعديل</h3>
               </div>
@@ -1953,7 +1953,7 @@ export default function WholesaleCustomerDetail() {
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="اكتب سبب رفض الطلب..."
-                  className="w-full h-20 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-red-500"
+                  className="w-full h-20 p-2.5 border border-border/80 rounded-md bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-1 focus:ring-destructive"
                   autoFocus
                 />
               </div>
@@ -1972,7 +1972,7 @@ export default function WholesaleCustomerDetail() {
                   type="submit"
                   disabled={actionProcessingId !== null}
                   size="sm"
-                  className="h-8 text-xs font-mono bg-red-600 hover:bg-red-700 text-white gap-1"
+                  className="h-8 text-xs font-mono bg-destructive hover:bg-destructive text-white gap-1"
                 >
                   <X className="size-3.5" />
                   <span>تأكيد الرفض</span>
@@ -1989,7 +1989,7 @@ export default function WholesaleCustomerDetail() {
           <div className="bg-card border border-border/80 rounded-xl p-5 shadow-2xl max-w-md w-full space-y-4 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <div className="flex items-center gap-2">
-                <DollarSign className="size-4 text-emerald-600" />
+                <DollarSign className="size-4 text-success" />
                 <h3 className="font-semibold text-foreground text-sm">تسجيل دفعة سداد جديدة</h3>
               </div>
               <Button size="icon" variant="ghost" className="size-7" onClick={() => setIsPaymentModalOpen(false)}>
@@ -2066,7 +2066,7 @@ export default function WholesaleCustomerDetail() {
                   type="submit"
                   disabled={recordingPayment}
                   size="sm"
-                  className="h-8 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white gap-1"
+                  className="h-8 text-xs font-mono bg-success hover:bg-success text-white gap-1"
                 >
                   <CheckCircle2 className="size-3.5" />
                   <span>{recordingPayment ? "جاري التسجيل..." : "تأكيد واستلام الدفعة"}</span>

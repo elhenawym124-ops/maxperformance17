@@ -165,13 +165,13 @@ const ScheduledCampaigns: React.FC = () => {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "high":
-        return "text-red-600 bg-red-100";
+        return "text-red-600 bg-destructive";
       case "medium":
-        return "text-yellow-600 bg-yellow-100";
+        return "text-yellow-600 bg-warning";
       case "low":
-        return "text-green-600 bg-green-100";
+        return "text-green-600 bg-success";
       default:
-        return "text-gray-600 bg-gray-100";
+        return "text-gray-600 bg-muted";
     }
   };
 
@@ -180,11 +180,11 @@ const ScheduledCampaigns: React.FC = () => {
       case "scheduled":
         return "text-blue-600 bg-blue-100";
       case "paused":
-        return "text-yellow-600 bg-yellow-100";
+        return "text-yellow-600 bg-warning";
       case "cancelled":
-        return "text-red-600 bg-red-100";
+        return "text-red-600 bg-destructive";
       default:
-        return "text-gray-600 bg-gray-100";
+        return "text-gray-600 bg-muted";
     }
   };
 
@@ -217,7 +217,7 @@ const ScheduledCampaigns: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -226,23 +226,23 @@ const ScheduledCampaigns: React.FC = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+        <h3 className="text-lg leading-6 font-medium text-foreground">
           الحملات المجدولة ({filteredCampaigns.length})
         </h3>
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="bg-card p-4 rounded-lg shadow-sm border border-border dark:border-border">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Search */}
           <div className="relative">
-            <MagnifyingGlassIcon className="h-5 w-5 absolute right-3 top-3 text-gray-400" />
+            <MagnifyingGlassIcon className="h-5 w-5 absolute right-3 top-3 text-muted-foreground" />
             <input
               type="text"
               placeholder="البحث في الحملات..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pr-10 pl-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+              className="w-full pe-10 ps-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
             />
           </div>
 
@@ -250,7 +250,7 @@ const ScheduledCampaigns: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           >
             <option value="all">جميع الحالات</option>
             <option value="scheduled">مجدولة</option>
@@ -261,7 +261,7 @@ const ScheduledCampaigns: React.FC = () => {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value as any)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           >
             <option value="all">جميع الأولويات</option>
             <option value="high">عالية</option>
@@ -272,9 +272,9 @@ const ScheduledCampaigns: React.FC = () => {
           {/* Refresh Button */}
           <button
             onClick={loadScheduledCampaigns}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center justify-center"
+            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary flex items-center justify-center"
           >
-            <FunnelIcon className="h-4 w-4 ml-2" />
+            <FunnelIcon className="h-4 w-4 ms-2" />
             تحديث
           </button>
         </div>
@@ -283,21 +283,21 @@ const ScheduledCampaigns: React.FC = () => {
       {/* Campaigns List */}
       {filteredCampaigns.length === 0 ? (
         <div className="text-center py-12">
-          <CalendarIcon className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
+          <CalendarIcon className="mx-auto h-12 w-12 text-muted-foreground" />
+          <h3 className="mt-2 text-sm font-medium text-foreground">
             لا توجد حملات مجدولة
           </h3>
-          <p className="mt-1 text-sm text-gray-500">ابدأ بإنشاء حملة جديدة</p>
+          <p className="mt-1 text-sm text-muted-foreground">ابدأ بإنشاء حملة جديدة</p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700">
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="bg-card shadow-sm rounded-lg border border-border dark:border-border">
+          <ul className="divide-y divide-border dark:divide-border">
             {filteredCampaigns.map((campaign) => (
               <li key={campaign.id} className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 space-x-reverse">
-                      <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                      <h4 className="text-lg font-medium text-foreground">
                         {campaign.name}
                       </h4>
                       <span
@@ -312,13 +312,13 @@ const ScheduledCampaigns: React.FC = () => {
                       </span>
                     </div>
 
-                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                    <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
                       {campaign.message}
                     </p>
 
-                    <div className="mt-3 flex items-center space-x-6 space-x-reverse text-sm text-gray-500">
+                    <div className="mt-3 flex items-center space-x-6 space-x-reverse text-sm text-muted-foreground">
                       <div className="flex items-center">
-                        <CalendarIcon className="h-4 w-4 ml-1" />
+                        <CalendarIcon className="h-4 w-4 ms-1" />
                         {new Date(campaign.scheduledAt).toLocaleString(
                           "ar-EG",
                           {
@@ -333,7 +333,7 @@ const ScheduledCampaigns: React.FC = () => {
                         )}
                       </div>
                       <div className="flex items-center">
-                        <ClockIcon className="h-4 w-4 ml-1" />
+                        <ClockIcon className="h-4 w-4 ms-1" />
                         {campaign.estimatedDeliveryTime}
                       </div>
                       <div>
@@ -349,7 +349,7 @@ const ScheduledCampaigns: React.FC = () => {
                           {campaign.tags.map((tag, index) => (
                             <span
                               key={index}
-                              className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
+                              className="px-2 py-1 text-xs bg-muted text-foreground rounded"
                             >
                               {tag}
                             </span>
@@ -361,7 +361,7 @@ const ScheduledCampaigns: React.FC = () => {
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <button
                       onClick={() => handlePreview(campaign)}
-                      className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                      className="p-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                       title="معاينة"
                     >
                       <EyeIcon className="h-5 w-5" />
@@ -370,7 +370,7 @@ const ScheduledCampaigns: React.FC = () => {
                     {campaign.canEdit && (
                       <button
                         onClick={() => handleEdit(campaign)}
-                        className="p-2 text-indigo-400 hover:text-indigo-600"
+                        className="p-2 text-primary hover:text-primary"
                         title="تعديل"
                       >
                         <PencilIcon className="h-5 w-5" />
@@ -379,7 +379,7 @@ const ScheduledCampaigns: React.FC = () => {
 
                     <button
                       onClick={() => togglePause(campaign)}
-                      className="p-2 text-yellow-400 hover:text-yellow-600"
+                      className="p-2 text-warning hover:text-warning"
                       title={
                         campaign.status === "scheduled"
                           ? "إيقاف مؤقت"
@@ -396,7 +396,7 @@ const ScheduledCampaigns: React.FC = () => {
                     {campaign.canCancel && (
                       <button
                         onClick={() => handleCancel(campaign)}
-                        className="p-2 text-red-400 hover:text-red-600"
+                        className="p-2 text-destructive hover:text-destructive"
                         title="إلغاء"
                       >
                         <TrashIcon className="h-5 w-5" />
@@ -412,15 +412,15 @@ const ScheduledCampaigns: React.FC = () => {
 
       {/* Preview Modal */}
       {showPreview && selectedCampaign && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-muted bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-card">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+              <h3 className="text-lg font-medium text-foreground">
                 معاينة الحملة: {selectedCampaign.name}
               </h3>
               <button
                 onClick={() => setShowPreview(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-foreground"
               >
                 <XMarkIcon className="h-6 w-6" />
               </button>
@@ -428,11 +428,11 @@ const ScheduledCampaigns: React.FC = () => {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium text-foreground">
                   الرسالة:
                 </label>
-                <div className="mt-1 p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700">
-                  <p className="text-sm text-gray-900 dark:text-white whitespace-pre-wrap">
+                <div className="mt-1 p-3 border border-border rounded-md bg-muted dark:bg-muted">
+                  <p className="text-sm text-foreground whitespace-pre-wrap">
                     {selectedCampaign.message}
                   </p>
                 </div>
@@ -440,18 +440,18 @@ const ScheduledCampaigns: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium text-foreground">
                     الجمهور المستهدف:
                   </label>
-                  <p className="mt-1 text-sm text-gray-900 dark:text-white">
+                  <p className="mt-1 text-sm text-foreground">
                     {selectedCampaign.targetAudience}
                   </p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium text-foreground">
                     عدد المستلمين:
                   </label>
-                  <p className="mt-1 text-sm text-gray-900 dark:text-white">
+                  <p className="mt-1 text-sm text-foreground">
                     {selectedCampaign.recipientCount.toLocaleString()}
                   </p>
                 </div>
@@ -463,27 +463,27 @@ const ScheduledCampaigns: React.FC = () => {
 
       {/* Cancel Confirmation Modal */}
       {showCancelModal && selectedCampaign && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div className="fixed inset-0 bg-muted bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-card">
             <div className="mt-3 text-center">
-              <ExclamationTriangleIcon className="mx-auto h-12 w-12 text-red-600" />
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mt-2">
+              <ExclamationTriangleIcon className="mx-auto h-12 w-12 text-destructive" />
+              <h3 className="text-lg font-medium text-foreground mt-2">
                 تأكيد إلغاء الحملة
               </h3>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 هل أنت متأكد من إلغاء حملة "{selectedCampaign.name}"؟ لا يمكن
                 التراجع عن هذا الإجراء.
               </p>
               <div className="flex justify-center space-x-4 space-x-reverse mt-4">
                 <button
                   onClick={() => setShowCancelModal(false)}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                  className="px-4 py-2 bg-muted text-foreground rounded-md hover:bg-muted"
                 >
                   إلغاء
                 </button>
                 <button
                   onClick={confirmCancel}
-                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                  className="px-4 py-2 bg-destructive text-white rounded-md hover:bg-destructive"
                 >
                   تأكيد الإلغاء
                 </button>

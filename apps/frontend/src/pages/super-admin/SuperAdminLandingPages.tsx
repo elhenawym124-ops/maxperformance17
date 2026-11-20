@@ -157,17 +157,17 @@ const SuperAdminLandingPages: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">الصفحات النشطة</span>
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">{stats.active}</div>
+            <div className="text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">{stats.active}</div>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">متاحة للزيارة الآن</p>
           </div>
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">الصفحات المعطلة</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums">{stats.hidden}</div>
+            <div className="text-2xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums">{stats.hidden}</div>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">مسودات ومخفية</p>
           </div>
           <div className="p-3.5 flex flex-col justify-between">
@@ -191,7 +191,7 @@ const SuperAdminLandingPages: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="البحث بالاسم أو المسار..."
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
             />
           </div>
 
@@ -284,14 +284,14 @@ const SuperAdminLandingPages: React.FC = () => {
                       onClick={() => void toggleActive(page)}
                       className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono font-semibold border transition-all active:scale-[0.98] cursor-pointer ${
                         page.isActive
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                           : "bg-muted text-muted-foreground border-border/60"
                       }`}
                     >
                       {toggling === page.id ? (
                         <RefreshCw className="size-3 animate-spin" />
                       ) : page.isActive ? (
-                        <Eye className="size-3 text-emerald-500" />
+                        <Eye className="size-3 text-success" />
                       ) : (
                         <EyeOff className="size-3 text-muted-foreground" />
                       )}

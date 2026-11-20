@@ -79,7 +79,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
       <div className="space-y-1 text-xs font-mono tabular-nums">
         {checkInLoc && (
           <div
-            className="flex items-center gap-1 text-green-600 hover:text-green-800 cursor-pointer hover:bg-green-50 p-1 rounded transition-colors"
+            className="flex items-center gap-1 text-success hover:text-success cursor-pointer hover:bg-success/10 p-1 rounded transition-colors"
             onClick={() =>
               onOpenLocationInMap(
                 checkInLoc.latitude,
@@ -130,7 +130,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
               <CardTitle className="text-sm font-medium">
                 {t("employee.attendance.attendanceRate")}
               </CardTitle>
-              <TrendingUp className="h-4 w-4 text-green-600" />
+              <TrendingUp className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold font-mono tabular-nums">
@@ -151,13 +151,13 @@ export const MyAttendanceStatsAndLogTable: React.FC<
               <CardTitle className="text-sm font-medium">
                 {t("employee.attendance.daysPresent")}
               </CardTitle>
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold font-mono tabular-nums">
                 {stats.presentDays}
               </div>
-              <p className="text-xs text-gray-500 mt-1 font-mono tabular-nums">
+              <p className="text-xs text-muted-foreground mt-1 font-mono tabular-nums">
                 {t("employee.attendance.ofTotalDays", {
                   total: stats.totalDays,
                 })}
@@ -170,13 +170,13 @@ export const MyAttendanceStatsAndLogTable: React.FC<
               <CardTitle className="text-sm font-medium">
                 {t("employee.attendance.lateDays")}
               </CardTitle>
-              <AlertCircle className="h-4 w-4 text-yellow-600" />
+              <AlertCircle className="h-4 w-4 text-warning" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold font-mono tabular-nums">
                 {stats.lateDays}
               </div>
-              <p className="text-xs text-gray-500 mt-1 font-mono tabular-nums">
+              <p className="text-xs text-muted-foreground mt-1 font-mono tabular-nums">
                 {stats.totalDays
                   ? ((stats.lateDays / stats.totalDays) * 100).toFixed(1)
                   : "0.0"}
@@ -196,7 +196,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
               <div className="text-2xl font-bold font-mono tabular-nums">
                 {Number(stats.totalWorkHours || 0).toFixed(1)}
               </div>
-              <p className="text-xs text-gray-500 mt-1 font-mono tabular-nums">
+              <p className="text-xs text-muted-foreground mt-1 font-mono tabular-nums">
                 {t("employee.attendance.overtime", {
                   hours: Number(stats.totalOvertimeHours || 0).toFixed(1),
                 })}
@@ -220,7 +220,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
         </CardHeader>
         <CardContent>
           {recentAttendance.length === 0 ? (
-            <div className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+            <div className="py-10 text-center text-sm text-muted-foreground">
               {t("employee.attendance.noAttendanceYet")}
             </div>
           ) : (
@@ -292,7 +292,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
                         </TableCell>
                         <TableCell>
                           {record.workMode === "HOME" ? (
-                            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-100 text-[10px] font-bold w-fit">
+                            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary text-[10px] font-bold w-fit">
                               <Home className="h-3 w-3" />
                               <span>{t("employee.attendance.home")}</span>
                             </div>
@@ -337,7 +337,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
                           <Badge
                             className={statusConfig[record.status]?.color || ""}
                           >
-                            <StatusIcon className="h-3 w-3 ml-1" />
+                            <StatusIcon className="h-3 w-3 ms-1" />
                             {t(
                               statusConfig[record.status]?.labelKey ||
                                 record.status,
@@ -354,7 +354,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
 
           {recentAttendance.length > 0 && (
             <div className="flex items-center justify-between px-4 py-3 border-t">
-              <p className="text-sm text-gray-500 font-mono tabular-nums">
+              <p className="text-sm text-muted-foreground font-mono tabular-nums">
                 {t("employee.attendance.showingRecords", {
                   count: recentAttendance.length,
                 })}

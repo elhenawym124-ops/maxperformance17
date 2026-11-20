@@ -29,7 +29,7 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
       <div>
         <label
           htmlFor="priority"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+          className="block text-sm font-medium text-foreground"
         >
           أولوية الحملة
         </label>
@@ -38,7 +38,7 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
           id="priority"
           value={formData.priority}
           onChange={onInputChange}
-          className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
         >
           <option value="low">منخفضة</option>
           <option value="medium">متوسطة</option>
@@ -48,7 +48,7 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-foreground">
           العلامات (Tags)
         </label>
         <div className="mt-1 flex items-center space-x-2 space-x-reverse">
@@ -59,14 +59,14 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
             onKeyPress={(e) =>
               e.key === "Enter" && (e.preventDefault(), onAddTag())
             }
-            className="flex-1 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="flex-1 border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
             placeholder="أضف علامة جديدة"
           />
           <button
             type="button"
             onClick={onAddTag}
             aria-label="إضافة علامة"
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
           >
             <PlusIcon className="h-4 w-4" />
           </button>
@@ -78,14 +78,14 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
               {formData.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300"
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary dark:bg-primary/60 text-primary dark:text-primary"
                 >
                   {tag}
                   <button
                     type="button"
                     onClick={() => onRemoveTag(tag)}
                     aria-label={`حذف علامة ${tag}`}
-                    className="mr-1 h-3 w-3 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200"
+                    className="me-1 h-3 w-3 text-primary hover:text-primary dark:hover:text-primary"
                   >
                     <XMarkIcon className="h-3 w-3" />
                   </button>
@@ -104,11 +104,11 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
             type="checkbox"
             checked={formData.trackClicks}
             onChange={onInputChange}
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="trackClicks"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             تتبع النقرات والتفاعل
           </label>
@@ -120,11 +120,11 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
             type="checkbox"
             checked={formData.includeImages}
             onChange={onInputChange}
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="includeImages"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             تضمين صور في الرسالة
           </label>
@@ -136,11 +136,11 @@ export const CampaignSettings: React.FC<CampaignSettingsProps> = ({
             type="checkbox"
             checked={formData.autoResend}
             onChange={onInputChange}
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="autoResend"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             إعادة الإرسال للذين لم يقرؤوا (بعد 6 ساعات)
           </label>

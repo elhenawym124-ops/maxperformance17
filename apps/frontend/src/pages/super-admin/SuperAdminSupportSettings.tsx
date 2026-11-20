@@ -136,7 +136,7 @@ export default function SuperAdminSupportSettings() {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">نطاق التغطية</span>
-              <span className="size-1.5 rounded-full bg-sky-500" />
+              <span className="size-1.5 rounded-full bg-info" />
             </div>
             <div className="text-xs font-semibold text-foreground">
               كافة المتاجر ولوحات التحكم
@@ -159,7 +159,7 @@ export default function SuperAdminSupportSettings() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="2010XXXXXXXX"
-              className="pr-9 pl-3 h-8.5 text-xs font-mono text-left bg-background border-border/70"
+              className="pe-9 ps-3 h-8.5 text-xs font-mono text-left bg-background border-border/70"
               dir="ltr"
             />
           </div>

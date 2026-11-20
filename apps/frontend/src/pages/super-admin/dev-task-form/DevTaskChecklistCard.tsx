@@ -65,7 +65,7 @@ export const DevTaskChecklistCard: React.FC<DevTaskChecklistCardProps> = ({
                 className="flex items-center justify-between p-2.5 bg-muted/30 border border-border/50 rounded-lg group text-xs"
               >
                 <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-success shrink-0" />
                   <span className="text-foreground truncate">{item}</span>
                 </div>
                 <button

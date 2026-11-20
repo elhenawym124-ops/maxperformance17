@@ -139,9 +139,9 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">النسخة المنشورة الآن</span>
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="size-1.5 rounded-full bg-success animate-pulse" />
             </div>
-            <div className="text-base sm:text-lg font-bold tracking-tight text-emerald-600 dark:text-emerald-400 truncate font-mono">
+            <div className="text-base sm:text-lg font-bold tracking-tight text-success dark:text-success truncate font-mono">
               {activeVariant.label}
             </div>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">الظاهرة على الجذر /</p>
@@ -161,7 +161,7 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">النسخة المحددة</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
             <div className="text-base sm:text-lg font-bold tracking-tight text-foreground truncate font-mono">
               {selectedVariant.label}
@@ -174,7 +174,7 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">آخر اعتماد</span>
-              <span className="size-1.5 rounded-full bg-slate-400" />
+              <span className="size-1.5 rounded-full bg-muted" />
             </div>
             <div className="text-xs font-semibold text-foreground font-mono truncate mt-1">
               {formatDateTime(settings.updatedAt)}
@@ -198,7 +198,7 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
               </span>
             </div>
 
-            <div className="space-y-1.5 max-h-[460px] overflow-y-auto pr-0.5 font-mono">
+            <div className="space-y-1.5 max-h-[460px] overflow-y-auto pe-0.5 font-mono">
               {availableVariants.map((variant, index) => {
                 const isSelected = variant.id === selectedVariant.id;
                 const isActive = variant.id === settings.activeLandingId;
@@ -219,7 +219,7 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
                         <div className="flex items-center gap-1.5">
                           <span className="font-bold text-foreground truncate">{variant.label}</span>
                           {isActive && (
-                            <span className="rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.2 text-[9px] font-mono font-bold">
+                            <span className="rounded-full bg-success/20 text-success dark:text-success px-1.5 py-0.2 text-[9px] font-mono font-bold">
                               LIVE
                             </span>
                           )}
@@ -255,8 +255,8 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
                 <span
                   className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-semibold border ${
                     isSelectionActive
-                      ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
-                      : "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20"
+                      ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                      : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                   }`}
                 >
                   {isSelectionActive ? "منشورة حالياً" : "قيد المراجعة"}
@@ -280,13 +280,13 @@ const PlatformSiteHomepageTemplates: React.FC = () => {
                   onClick={() => void handleActivateVariant(selectedVariant.id)}
                   className={`h-8 px-3 text-xs font-mono gap-1.5 shadow-2xs active:scale-[0.98] ${
                     isSelectionActive
-                      ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 cursor-default"
+                      ? "bg-emerald-500/10 border border-success/30 text-success dark:text-success hover:bg-success/10 cursor-default"
                       : "bg-primary hover:bg-primary/90 text-primary-foreground"
                   }`}
                 >
                   {isSelectionActive ? (
                     <>
-                      <CheckCircle2 className="size-3.5 text-emerald-600" />
+                      <CheckCircle2 className="size-3.5 text-success" />
                       <span>منشورة</span>
                     </>
                   ) : isSavingSelection ? (

@@ -27,10 +27,10 @@ export const MyDashboardFinancialTabContent: React.FC<
 > = ({ t, advances, rewards, onNavigate }) => {
   return (
     <div className="grid gap-6">
-      <Card className="border-none shadow-sm bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-900 dark:to-purple-900/5">
+      <Card className="border-none shadow-sm bg-gradient-to-br from-white to-primary/30 dark:from-gray-900 dark:to-primary/5">
         <CardHeader>
           <CardTitle className="text-md font-bold flex items-center gap-2">
-            <Award className="h-5 w-5 text-purple-600" />
+            <Award className="h-5 w-5 text-primary" />
             {t("sidebar.rewards.title")}
           </CardTitle>
         </CardHeader>
@@ -39,13 +39,13 @@ export const MyDashboardFinancialTabContent: React.FC<
             {rewards.slice(0, 3).map((r) => (
               <div
                 key={r.id}
-                className="flex items-center justify-between p-4 bg-white/80 dark:bg-gray-900/40 rounded-2xl shadow-sm border border-purple-100 dark:border-purple-900/20"
+                className="flex items-center justify-between p-4 bg-white/80 dark:bg-muted rounded-xl shadow-sm border border-primary dark:border-primary/20"
               >
                 <div>
-                  <p className="font-bold text-gray-900 dark:text-gray-100">
+                  <p className="font-bold text-foreground">
                     {r.rewardName}
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     {format(
                       new Date(r.appliedAt || r.createdAt),
                       "dd MMMM yyyy",
@@ -54,13 +54,13 @@ export const MyDashboardFinancialTabContent: React.FC<
                   </p>
                 </div>
                 <div className="text-left">
-                  <p className="text-lg font-black font-mono tabular-nums text-purple-600">
+                  <p className="text-lg font-black font-mono tabular-nums text-primary">
                     +{r.calculatedValue}{" "}
                     <span className="text-xs">
                       {t("employee.dashboard.egp")}
                     </span>
                   </p>
-                  <Badge className="bg-purple-100 text-purple-700 border-none rounded-full text-[10px]">
+                  <Badge className="bg-purple-100 text-primary border-none rounded-full text-[10px]">
                     {r.rewardCategory ||
                       t("employee.dashboard.performanceBonus")}
                   </Badge>
@@ -68,7 +68,7 @@ export const MyDashboardFinancialTabContent: React.FC<
               </div>
             ))}
             {rewards.length === 0 && (
-              <div className="text-center py-6 text-gray-400">
+              <div className="text-center py-6 text-muted-foreground">
                 <Award className="h-10 w-10 mx-auto opacity-20 mb-2" />
                 <p className="text-sm">
                   {t("employee.dashboard.earnFirstReward")}
@@ -82,7 +82,7 @@ export const MyDashboardFinancialTabContent: React.FC<
       <Card className="border-none shadow-sm">
         <CardHeader>
           <CardTitle className="text-md font-bold flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-green-600" />
+            <DollarSign className="h-5 w-5 text-success" />
             {t("employee.dashboard.activeAdvances")}
           </CardTitle>
         </CardHeader>
@@ -93,19 +93,19 @@ export const MyDashboardFinancialTabContent: React.FC<
               .map((a) => (
                 <div
                   key={a.id}
-                  className="p-4 bg-gray-50 dark:bg-gray-800/20 rounded-2xl"
+                  className="p-4 bg-muted dark:bg-muted rounded-xl"
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <p className="text-xs text-gray-400 font-bold mb-1 uppercase tracking-tight">
+                      <p className="text-xs text-muted-foreground font-bold mb-1 uppercase tracking-tight">
                         {t("employee.dashboard.totalAdvance")}
                       </p>
-                      <p className="text-xl font-black font-mono tabular-nums text-gray-900 dark:text-gray-100">
+                      <p className="text-xl font-black font-mono tabular-nums text-foreground">
                         {a.amount.toLocaleString()}{" "}
                         {t("employee.dashboard.egp")}
                       </p>
                     </div>
-                    <Badge className="bg-green-100 text-green-700 border-none">
+                    <Badge className="bg-green-100 text-success border-none">
                       {t("employee.dashboard.active")}
                     </Badge>
                   </div>
@@ -123,9 +123,9 @@ export const MyDashboardFinancialTabContent: React.FC<
                       value={
                         ((a.amount - a.remainingBalance) / a.amount) * 100
                       }
-                      className="h-2 bg-gray-200"
+                      className="h-2 bg-muted"
                     />
-                    <p className="text-[10px] text-gray-400 text-left mt-2">
+                    <p className="text-[10px] text-muted-foreground text-left mt-2">
                       {t("employee.dashboard.installmentPlan", {
                         count: a.installmentsCount,
                       })}
@@ -139,7 +139,7 @@ export const MyDashboardFinancialTabContent: React.FC<
 
       <Card className="border-none shadow-sm">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-md font-bold text-gray-900 dark:text-gray-100">
+          <CardTitle className="text-md font-bold text-foreground">
             {t("employee.dashboard.recentAdvances")}
           </CardTitle>
           <Button
@@ -155,18 +155,18 @@ export const MyDashboardFinancialTabContent: React.FC<
             {advances.slice(0, 3).map((a) => (
               <div
                 key={a.id}
-                className="flex items-center justify-between p-4 bg-gray-50/50 dark:bg-gray-800/20 rounded-2xl border border-gray-100 dark:border-gray-800"
+                className="flex items-center justify-between p-4 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border"
               >
                 <div className="flex items-center gap-4">
                   <div className="h-10 w-10 bg-blue-100 dark:bg-blue-900/20 rounded-xl flex items-center justify-center">
                     <DollarSign className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-bold font-mono tabular-nums text-gray-900 dark:text-gray-100">
+                    <p className="font-bold font-mono tabular-nums text-foreground">
                       {a.amount.toLocaleString()}{" "}
                       {t("employee.dashboard.egp")}
                     </p>
-                    <p className="text-xs font-mono tabular-nums text-gray-400">
+                    <p className="text-xs font-mono tabular-nums text-muted-foreground">
                       {format(new Date(a.createdAt), "dd/MM/yyyy")}
                     </p>
                   </div>
@@ -189,7 +189,7 @@ export const MyDashboardFinancialTabContent: React.FC<
               </div>
             ))}
             {advances.length === 0 && (
-              <p className="text-center text-gray-400 py-4 text-sm">
+              <p className="text-center text-muted-foreground py-4 text-sm">
                 {t("employee.dashboard.noAdvances")}
               </p>
             )}
@@ -205,7 +205,7 @@ export const MyDashboardGoalsAndFooterSection: React.FC<{ t: TFunction }> = ({
 }) => {
   return (
     <>
-      <Card className="border-none shadow-md bg-white dark:bg-gray-900 border-t-4 border-primary lg:col-span-3">
+      <Card className="border-none shadow-md bg-white dark:bg-muted border-t-4 border-primary lg:col-span-3">
         <CardHeader>
           <CardTitle className="text-lg font-bold flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-primary" />
@@ -214,16 +214,16 @@ export const MyDashboardGoalsAndFooterSection: React.FC<{ t: TFunction }> = ({
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-2xl border border-blue-100/50 dark:border-blue-900/20">
+            <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-xl border border-blue-100/50 dark:border-blue-900/20">
               <div className="flex items-center gap-3 mb-3">
                 <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600">
                   <Target className="h-5 w-5" />
                 </div>
-                <h5 className="font-bold text-gray-900 dark:text-gray-100">
+                <h5 className="font-bold text-foreground">
                   {t("employee.dashboard.improvePerformance")}
                 </h5>
               </div>
-              <p className="text-xs text-gray-500 mb-4 line-clamp-2">
+              <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
                 {t("employee.dashboard.improvePerformanceDesc")}
               </p>
               <div className="flex items-center justify-between text-[10px] font-bold font-mono tabular-nums text-blue-600 mb-1">
@@ -236,31 +236,31 @@ export const MyDashboardGoalsAndFooterSection: React.FC<{ t: TFunction }> = ({
               />
             </div>
 
-            <div className="p-4 bg-purple-50/50 dark:bg-purple-900/10 rounded-2xl border border-purple-100/50 dark:border-purple-900/20">
+            <div className="p-4 bg-primary/50 dark:bg-primary/10 rounded-xl border border-primary/50 dark:border-primary/20">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg text-purple-600">
+                <div className="p-2 bg-primary dark:bg-primary/30 rounded-lg text-primary">
                   <Award className="h-5 w-5" />
                 </div>
-                <h5 className="font-bold text-gray-900 dark:text-gray-100">
+                <h5 className="font-bold text-foreground">
                   {t("employee.dashboard.professionalTraining")}
                 </h5>
               </div>
-              <p className="text-xs text-gray-500 mb-4 line-clamp-2">
+              <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
                 {t("employee.dashboard.professionalTrainingDesc")}
               </p>
-              <div className="flex items-center justify-between text-[10px] font-bold font-mono tabular-nums text-purple-600 mb-1">
+              <div className="flex items-center justify-between text-[10px] font-bold font-mono tabular-nums text-primary mb-1">
                 <span>{t("employee.dashboard.completionRate")}</span>
                 <span>40%</span>
               </div>
               <Progress
                 value={40}
-                className="h-1.5 bg-purple-100 dark:bg-purple-900/30"
+                className="h-1.5 bg-primary dark:bg-primary/30"
               />
             </div>
 
-            <div className="p-4 bg-gray-50/50 dark:bg-gray-800/40 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center">
-              <Plus className="h-8 w-8 text-gray-300 mb-2 cursor-pointer hover:text-primary transition-colors" />
-              <p className="text-xs text-gray-400 font-medium">
+            <div className="p-4 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border flex flex-col items-center justify-center text-center">
+              <Plus className="h-8 w-8 text-muted-foreground mb-2 cursor-pointer hover:text-primary transition-colors" />
+              <p className="text-xs text-muted-foreground font-medium">
                 {t("employee.dashboard.addPersonalGoal")}
               </p>
             </div>
@@ -268,26 +268,26 @@ export const MyDashboardGoalsAndFooterSection: React.FC<{ t: TFunction }> = ({
         </CardContent>
       </Card>
 
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-8 border-t border-gray-100 dark:border-gray-900 lg:col-span-3">
-        <p className="text-sm text-gray-400">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-8 border-t border-border dark:border-border lg:col-span-3">
+        <p className="text-sm text-muted-foreground">
           {t("employee.dashboard.footer")}
         </p>
         <div className="flex items-center gap-6">
           <Button
             variant="link"
-            className="text-sm text-gray-400 hover:text-primary p-0 h-auto"
+            className="text-sm text-muted-foreground hover:text-primary p-0 h-auto"
           >
             {t("employee.dashboard.helpCenter")}
           </Button>
           <Button
             variant="link"
-            className="text-sm text-gray-400 hover:text-primary p-0 h-auto"
+            className="text-sm text-muted-foreground hover:text-primary p-0 h-auto"
           >
             {t("employee.dashboard.companyPolicy")}
           </Button>
           <Button
             variant="link"
-            className="text-sm text-gray-400 hover:text-primary p-0 h-auto"
+            className="text-sm text-muted-foreground hover:text-primary p-0 h-auto"
           >
             {t("employee.dashboard.reportIssue")}
           </Button>

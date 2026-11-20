@@ -84,7 +84,7 @@ export const StaffCompanyAccessDialog: React.FC<StaffCompanyAccessDialogProps> =
               <Search className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               <Input
                 type="text"
-                className="h-8 pr-8 text-xs font-mono"
+                className="h-8 pe-8 text-xs font-mono"
                 placeholder="بحث عن اسم أو Slug..."
                 value={companySearch}
                 onChange={(e) => onCompanySearchChange(e.target.value)}

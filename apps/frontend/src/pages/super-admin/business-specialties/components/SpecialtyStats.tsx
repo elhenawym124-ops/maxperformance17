@@ -28,9 +28,9 @@ export const SpecialtyStats: React.FC<SpecialtyStatsProps> = ({ specialties }) =
       <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">النشاطات المفعلة</span>
-          <span className="size-1.5 rounded-full bg-emerald-500" />
+          <span className="size-1.5 rounded-full bg-success" />
         </div>
-        <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+        <div className="text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
           {activeCount}
         </div>
         <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">
@@ -41,7 +41,7 @@ export const SpecialtyStats: React.FC<SpecialtyStatsProps> = ({ specialties }) =
       <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">تثبيت تلقائي للتطبيقات</span>
-          <span className="size-1.5 rounded-full bg-purple-500" />
+          <span className="size-1.5 rounded-full bg-primary" />
         </div>
         <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
           {autoInstallCount}
@@ -52,7 +52,7 @@ export const SpecialtyStats: React.FC<SpecialtyStatsProps> = ({ specialties }) =
       <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">الشركات المرتبطة</span>
-          <span className="size-1.5 rounded-full bg-sky-500" />
+          <span className="size-1.5 rounded-full bg-info" />
         </div>
         <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
           {totalCompanies}

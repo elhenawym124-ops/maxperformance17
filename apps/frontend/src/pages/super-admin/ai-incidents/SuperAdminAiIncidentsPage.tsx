@@ -110,23 +110,23 @@ export default function SuperAdminAiIncidentsPage() {
   }, [incidents, selectedIncident]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-50 dark:bg-slate-950 font-sans" dir="rtl">
+    <div className="flex flex-col h-[calc(100vh-64px)] w-full overflow-hidden bg-muted dark:bg-muted font-sans" dir="rtl">
       {/* 2026 SaaS Telemetry Bar (Single Surface Command Header) */}
-      <header className="flex flex-wrap items-center justify-between px-5 py-3 border-b border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md z-20">
+      <header className="flex flex-wrap items-center justify-between px-5 py-3 border-b border-border dark:border-border bg-white/95 dark:bg-muted backdrop-blur-md z-20">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200/80 dark:border-rose-900/40 text-rose-600 dark:text-rose-400 shadow-2xs">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-destructive/10 dark:bg-destructive/50 border border-destructive/80 dark:border-destructive/40 text-destructive dark:text-destructive shadow-2xs">
             <ShieldAlert className="h-4.5 w-4.5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+              <h1 className="text-sm font-bold text-foreground dark:text-white tracking-tight">
                 مركز تتبع أعطال أدوات الوكلاء
               </h1>
-              <span className="font-mono text-[10px] text-slate-500 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md">
+              <span className="font-mono text-[10px] text-muted-foreground bg-muted dark:bg-muted border border-border dark:border-border px-2 py-0.5 rounded-md">
                 Telemetry 2026
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-[11px] text-muted-foreground dark:text-muted-foreground mt-0.5">
               رصد حي للأعطال واستثناءات الاستدعاء ومفاتيح الربط للشركات على المنصة
             </p>
           </div>
@@ -134,32 +134,32 @@ export default function SuperAdminAiIncidentsPage() {
 
         {/* Telemetry Metrics & Time Horizon */}
         <div className="flex items-center gap-4 text-xs font-mono">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100/70 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80">
-            <Activity className="h-3.5 w-3.5 text-rose-500" />
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
+            <Activity className="h-3.5 w-3.5 text-destructive" />
             <span className="text-slate-500 font-sans">الأعطال:</span>
-            <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+            <span className="font-bold tabular-nums text-foreground dark:text-white">
               {telemetry.totalIncidents}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100/70 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80">
-            <Zap className="h-3.5 w-3.5 text-amber-500" />
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
+            <Zap className="h-3.5 w-3.5 text-warning" />
             <span className="text-slate-500 font-sans">P95:</span>
-            <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+            <span className="font-bold tabular-nums text-foreground dark:text-white">
               {telemetry.p95LatencyMs}ms
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100/70 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80">
-            <Layers className="h-3.5 w-3.5 text-indigo-500" />
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border">
+            <Layers className="h-3.5 w-3.5 text-primary" />
             <span className="text-slate-500 font-sans">أدوات متأثرة:</span>
-            <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+            <span className="font-bold tabular-nums text-foreground dark:text-white">
               {telemetry.degradedToolsCount}
             </span>
           </div>
 
           {/* Time Horizon Selector */}
-          <div className="flex items-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-0.5 shadow-2xs">
+          <div className="flex items-center rounded-lg border border-border dark:border-border bg-white dark:bg-muted p-0.5 shadow-2xs">
             {['1h', '24h', '7d', '30d'].map((hz) => (
               <button
                 key={hz}
@@ -167,8 +167,8 @@ export default function SuperAdminAiIncidentsPage() {
                 onClick={() => setTimeHorizon(hz)}
                 className={`px-2.5 py-1 text-[11px] rounded-md font-mono transition-all cursor-pointer ${
                   timeHorizon === hz
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-semibold shadow-2xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-foreground font-semibold shadow-2xs'
+                    : 'text-slate-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white'
                 }`}
               >
                 {hz}
@@ -179,7 +179,7 @@ export default function SuperAdminAiIncidentsPage() {
       </header>
 
       {/* Main Split-Pane Surface (60:40 Master-Detail Chassis) */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-12 min-h-0 overflow-hidden bg-white dark:bg-slate-900">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-12 min-h-0 overflow-hidden bg-white dark:bg-muted">
         {/* Left Master Stream Pane (7 cols ~ 58%) */}
         <div className="md:col-span-6 lg:col-span-7 h-full overflow-hidden min-h-0">
           <IncidentStreamPane

@@ -75,42 +75,42 @@ export const SettlementPayModal: React.FC<SettlementPayModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl w-full max-w-md border border-slate-200 dark:border-slate-800 flex flex-col">
+      <div className="bg-white dark:bg-muted rounded-xl shadow-xl w-full max-w-md border border-border dark:border-border flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border">
           <div className="flex items-center gap-2">
-            <DollarSign className="w-5 h-5 text-teal-600" />
-            <h3 className="font-bold text-slate-900 dark:text-white text-base">
+            <DollarSign className="w-5 h-5 text-success" />
+            <h3 className="font-bold text-foreground dark:text-white text-base">
               تسجيل توريد وصرف الكشف
             </h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+          <button onClick={onClose} className="text-slate-400 hover:text-foreground">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form Body */}
         <form onSubmit={handlePay} className="p-5 space-y-4 text-xs">
-          <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 rounded-lg p-3 text-center">
-            <span className="text-slate-600 dark:text-slate-400 block text-[11px]">
+          <div className="bg-teal-50 dark:bg-success/30 border border-success dark:border-success rounded-lg p-3 text-center">
+            <span className="text-slate-600 dark:text-muted-foreground block text-[11px]">
               صافي التوريد المستحق لـ {settlement.merchant?.name || 'العميل'}
             </span>
-            <span className="text-xl font-bold text-teal-700 dark:text-teal-300 tabular-nums">
+            <span className="text-xl font-bold text-success dark:text-success tabular-nums">
               {formatEgp(settlement.netPayout)}
             </span>
-            <span className="text-[10px] text-slate-400 block mt-0.5 font-mono">
+            <span className="text-[10px] text-muted-foreground block mt-0.5 font-mono">
               {settlement.settlementNumber}
             </span>
           </div>
 
           <div>
-            <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+            <label className="block font-medium text-foreground dark:text-muted-foreground mb-1">
               طريقة التوريد *
             </label>
             <select
               value={method}
               onChange={(e) => setMethod(e.target.value)}
-              className="w-full text-xs border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+              className="w-full text-xs border border-border dark:border-border rounded-lg px-3 py-2 bg-white dark:bg-muted text-foreground dark:text-white"
             >
               <option value="BANK_TRANSFER">تحويل بنكي (Bank Wire)</option>
               <option value="INSTAPAY">إنستاباي (InstaPay)</option>
@@ -121,7 +121,7 @@ export const SettlementPayModal: React.FC<SettlementPayModalProps> = ({
           </div>
 
           <div>
-            <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+            <label className="block font-medium text-foreground dark:text-muted-foreground mb-1">
               مرجع التحويل / الإيصال *
             </label>
             <input
@@ -130,19 +130,19 @@ export const SettlementPayModal: React.FC<SettlementPayModalProps> = ({
               placeholder="مثال: رقم التحويل البنكي أو إيصال الصرف"
               value={reference}
               onChange={(e) => setReference(e.target.value)}
-              className="w-full text-xs border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+              className="w-full text-xs border border-border dark:border-border rounded-lg px-3 py-2 bg-white dark:bg-muted text-foreground dark:text-white"
             />
           </div>
 
           {accounts.length > 0 && (
             <div>
-              <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block font-medium text-foreground dark:text-muted-foreground mb-1">
                 حساب الخزينة (اختياري للصرف المالي المباشر)
               </label>
               <select
                 value={treasuryAccountId}
                 onChange={(e) => setTreasuryAccountId(e.target.value)}
-                className="w-full text-xs border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                className="w-full text-xs border border-border dark:border-border rounded-lg px-3 py-2 bg-white dark:bg-muted text-foreground dark:text-white"
               >
                 <option value="">-- بدون ربط خزينة مباشرة --</option>
                 {accounts.map((acc) => (
@@ -155,18 +155,18 @@ export const SettlementPayModal: React.FC<SettlementPayModalProps> = ({
           )}
 
           {/* Footer */}
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
+          <div className="pt-3 border-t border-border dark:border-border flex justify-end gap-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100"
+              className="px-4 py-2 border border-border dark:border-border rounded-lg text-foreground dark:text-muted-foreground hover:bg-muted"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-medium flex items-center gap-1.5 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-success hover:bg-success text-white rounded-lg font-medium flex items-center gap-1.5 disabled:opacity-50 transition-colors"
             >
               <Check className="w-4 h-4" />
               {loading ? 'جارٍ التسجيل...' : 'تأكيد التوريد والصرف'}

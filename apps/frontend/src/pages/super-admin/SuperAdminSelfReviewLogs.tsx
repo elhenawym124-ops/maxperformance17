@@ -225,14 +225,14 @@ export function SuperAdminSelfReviewLogs() {
               </div>
               <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400">نسبة الاعتماد</p>
-                  <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">{s.approval_rate}%</p>
+                  <p className="text-[11px] text-success dark:text-success">نسبة الاعتماد</p>
+                  <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">{s.approval_rate}%</p>
                 </div>
               </div>
               <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] text-amber-600 dark:text-amber-400">نسبة التصحيح</p>
-                  <p className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums mt-0.5">
+                  <p className="text-[11px] text-warning dark:text-warning">نسبة التصحيح</p>
+                  <p className="text-xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums mt-0.5">
                     {s.total > 0 ? `${((s.corrected / s.total) * 100).toFixed(1)}%` : "0%"}
                   </p>
                 </div>
@@ -251,7 +251,7 @@ export function SuperAdminSelfReviewLogs() {
           {/* Filters Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 p-2 rounded-lg border border-border/70 bg-card">
             <div className="flex items-center gap-2 flex-wrap">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground pl-1">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground ps-1">
                 <Filter className="size-3.5" />
                 <span>التصفية:</span>
               </div>
@@ -353,8 +353,8 @@ export function SuperAdminSelfReviewLogs() {
             </div>
             {replyDialog?.corrected ? (
               <div>
-                <p className="font-semibold text-amber-600 dark:text-amber-400 mb-1">الرد المصحح بعد التدقيق:</p>
-                <div className="bg-amber-500/10 border border-amber-500/30 rounded-md p-2.5 whitespace-pre-wrap font-mono text-amber-800 dark:text-amber-200 leading-relaxed" dir="auto">
+                <p className="font-semibold text-warning dark:text-warning mb-1">الرد المصحح بعد التدقيق:</p>
+                <div className="bg-amber-500/10 border border-warning/30 rounded-md p-2.5 whitespace-pre-wrap font-mono text-warning dark:text-warning leading-relaxed" dir="auto">
                   {replyDialog.corrected}
                 </div>
               </div>

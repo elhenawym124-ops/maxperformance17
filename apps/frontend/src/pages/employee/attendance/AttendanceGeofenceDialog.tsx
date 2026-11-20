@@ -127,10 +127,10 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg" dir="rtl">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-red-600 dark:text-red-400">
+          <DialogTitle className="flex items-center gap-2 text-destructive dark:text-destructive">
             {isState3LocationRequired && (
               <>
-                <MapPinOff className="h-5 w-5 text-amber-500" />
+                <MapPinOff className="h-5 w-5 text-warning" />
                 <span>
                   {t(
                     "employee.attendance.geofenceModalTitleLocationRequired",
@@ -141,7 +141,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
             )}
             {isState2WeakAccuracy && (
               <>
-                <Radio className="h-5 w-5 text-amber-500" />
+                <Radio className="h-5 w-5 text-warning" />
                 <span>
                   {t(
                     "employee.attendance.geofenceModalTitleWeakAccuracy",
@@ -152,7 +152,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
             )}
             {isState1OutOfRange && (
               <>
-                <Navigation className="h-5 w-5 text-red-500" />
+                <Navigation className="h-5 w-5 text-destructive" />
                 <span>
                   {t(
                     "employee.attendance.geofenceModalTitleOutOfRange",
@@ -167,14 +167,14 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
         {submitted ? (
           /* Confirmation body after successful submission */
           <div className="py-6 flex flex-col items-center text-center space-y-3">
-            <CheckCircle2 className="h-14 w-14 text-emerald-500 animate-bounce" />
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+            <CheckCircle2 className="h-14 w-14 text-success animate-bounce" />
+            <h3 className="text-lg font-bold text-foreground">
               {t(
                 "employee.attendance.geofenceExceptionSuccess",
                 "تم إرسال الطلب للمدير — هيظهر في طلبات استثناء البصمة"
               )}
             </h3>
-            <p className="text-sm text-gray-500 max-w-sm">
+            <p className="text-sm text-muted-foreground max-w-sm">
               سيقوم المدير أو مسؤول الموارد البشرية بمراجعة طلبك واعتماد البصمة إذا تمت الموافقة.
             </p>
           </div>
@@ -183,7 +183,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
             {/* STATE 3: LOCATION REQUIRED */}
             {isState3LocationRequired && (
               <div className="space-y-3">
-                <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:border-amber-900/50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-200 text-sm leading-relaxed">
+                <div className="p-4 rounded-xl border border-warning bg-warning/10 dark:border-warning/50 dark:bg-warning/20 text-warning dark:text-warning text-sm leading-relaxed">
                   <p className="font-semibold mb-1">
                     {t(
                       "employee.attendance.locationRequired",
@@ -212,11 +212,11 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
             {/* STATE 2: WEAK ACCURACY */}
             {isState2WeakAccuracy && (
               <div className="space-y-3">
-                <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 dark:border-amber-900/50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-200 text-sm">
+                <div className="p-4 rounded-xl border border-warning bg-warning/10 dark:border-warning/50 dark:bg-warning/20 text-warning dark:text-warning text-sm">
                   <p className="font-semibold mb-1">
                     دقة الموقع المسجلة للجهاز تقريبية (±{data.accuracy || 500} متر)
                   </p>
-                  <p className="text-xs leading-relaxed text-amber-800 dark:text-amber-300">
+                  <p className="text-xs leading-relaxed text-warning dark:text-warning">
                     {t(
                       "employee.attendance.geofenceWeakAccuracyReason",
                       "قد يكون الجهاز مكتبيًا بدون GPS أو خدمة الموقع مقفولة أو غير دقيقة."
@@ -243,7 +243,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
                     <span className="block text-xs text-muted-foreground">
                       {t("employee.attendance.geofenceCurrentDistance", "المسافة الحالية")}
                     </span>
-                    <span className="text-lg font-bold font-mono text-red-600 dark:text-red-400">
+                    <span className="text-lg font-bold font-mono text-destructive dark:text-destructive">
                       {effectiveDistance} م
                     </span>
                   </div>
@@ -251,7 +251,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
                     <span className="block text-xs text-muted-foreground">
                       {t("employee.attendance.geofenceAllowedRadius", "النطاق المسموح")}
                     </span>
-                    <span className="text-lg font-bold font-mono text-emerald-600 dark:text-emerald-400">
+                    <span className="text-lg font-bold font-mono text-success dark:text-success">
                       {allowedRadius} م
                     </span>
                   </div>
@@ -259,7 +259,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
                     <span className="block text-xs text-muted-foreground">
                       {t("employee.attendance.geofenceDifference", "فرق المسافة المطلوب الاقتراب به")}
                     </span>
-                    <span className="text-lg font-bold font-mono text-amber-600 dark:text-amber-400">
+                    <span className="text-lg font-bold font-mono text-warning dark:text-warning">
                       {distanceDiff} م
                     </span>
                   </div>
@@ -297,7 +297,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
                   disabled={submitting}
                 />
                 {errorMessage && (
-                  <div className="flex items-center gap-1.5 text-xs text-red-600 dark:text-red-400 font-medium">
+                  <div className="flex items-center gap-1.5 text-xs text-destructive dark:text-destructive font-medium">
                     <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
@@ -323,7 +323,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
                   onClick={handleOpenExceptionForm}
                   className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs font-semibold"
                 >
-                  <Send className="h-4 w-4 ml-1.5" />
+                  <Send className="h-4 w-4 ms-1.5" />
                   {t("employee.attendance.geofenceRequestException", "طلب استثناء")}
                 </Button>
               )}
@@ -338,7 +338,7 @@ export const AttendanceGeofenceDialog: React.FC<AttendanceGeofenceDialogProps> =
                     t("employee.attendance.geofenceSending", "جاري الإرسال...")
                   ) : (
                     <>
-                      <Send className="h-4 w-4 ml-1.5" />
+                      <Send className="h-4 w-4 ms-1.5" />
                       {t("employee.attendance.geofenceSubmitException", "إرسال طلب الاستثناء")}
                     </>
                   )}

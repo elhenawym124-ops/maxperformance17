@@ -161,26 +161,26 @@ export default function WholesalePriceLists() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-500">القوائم النشطة</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success">القوائم النشطة</p>
+            <p className="text-xl font-bold tracking-tight text-success font-mono tabular-nums mt-0.5">
               {stats.active}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">سارية المفعول حالياً</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success border border-success/20">
             <CheckCircle2 className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-purple-500">التجار المرتبطين</p>
-            <p className="text-xl font-bold tracking-tight text-purple-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary">التجار المرتبطين</p>
+            <p className="text-xl font-bold tracking-tight text-primary font-mono tabular-nums mt-0.5">
               {stats.totalAssignedCustomers}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">تاجر معين لقوائم</p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <Users className="size-3.5" />
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function WholesalePriceLists() {
             <Search className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <Input
               type="text"
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
               placeholder="بحث في قوائم الأسعار..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -266,7 +266,7 @@ export default function WholesalePriceLists() {
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono border ${
                           list.isActive
-                            ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success border-success/20"
                             : "bg-muted/60 text-muted-foreground border-border/60"
                         }`}
                       >

@@ -153,7 +153,7 @@ const SuperAdminDefaultSidebar: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">الخيارات المتاحة</span>
-              <span className="size-1.5 rounded-full bg-sky-500" />
+              <span className="size-1.5 rounded-full bg-info" />
             </div>
             <div className="text-xl sm:text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
               {SIDEBAR_LAYOUT_OPTIONS.length}
@@ -164,7 +164,7 @@ const SuperAdminDefaultSidebar: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">نطاق التطبيق</span>
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
             </div>
             <div className="text-xs font-semibold text-foreground mt-1">
               التسجيل التلقائي للمتاجر

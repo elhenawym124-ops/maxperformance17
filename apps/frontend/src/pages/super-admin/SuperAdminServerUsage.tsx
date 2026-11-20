@@ -108,7 +108,7 @@ const SuperAdminServerUsage: React.FC = () => {
             <div className="flex items-center gap-2">
               <h1 className="text-base sm:text-lg font-bold tracking-tight text-foreground">تحليل استهلاك موارد السيرفر</h1>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border border-border/80 bg-muted/30">
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-success" />
                 مراقبة لحظية
               </span>
             </div>
@@ -139,7 +139,7 @@ const SuperAdminServerUsage: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">إجمالي سعة التخزين</span>
-            <span className="size-1.5 rounded-full bg-indigo-500" />
+            <span className="size-1.5 rounded-full bg-primary" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
             {formatSize(currentStats.total || currentStats.disk?.total)}
@@ -150,7 +150,7 @@ const SuperAdminServerUsage: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">المساحة المستخدمة</span>
-            <span className="size-1.5 rounded-full bg-sky-500" />
+            <span className="size-1.5 rounded-full bg-info" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
             {formatSize(currentStats.used || currentStats.disk?.used)}
@@ -161,9 +161,9 @@ const SuperAdminServerUsage: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">المساحة المتاحة</span>
-            <span className="size-1.5 rounded-full bg-emerald-500" />
+            <span className="size-1.5 rounded-full bg-success" />
           </div>
-          <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <div className="text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
             {formatSize(currentStats.free || currentStats.disk?.free)}
           </div>
           <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">جاهزة للرفع والتخزين</p>
@@ -174,7 +174,7 @@ const SuperAdminServerUsage: React.FC = () => {
             <span className="font-medium text-[11px]">نسبة استهلاك القرص</span>
             <span className={cn("size-1.5 rounded-full", usagePercentage > 80 ? "bg-rose-500" : "bg-emerald-500")} />
           </div>
-          <div className={cn("text-2xl font-bold tracking-tight font-mono tabular-nums", usagePercentage > 80 ? "text-rose-600 dark:text-rose-400" : "text-foreground")}>
+          <div className={cn("text-2xl font-bold tracking-tight font-mono tabular-nums", usagePercentage > 80 ? "text-rose-600 dark:text-destructive" : "text-foreground")}>
             {usagePercentage}%
           </div>
           <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">مؤشر أمان القرص</p>
@@ -227,8 +227,8 @@ const SuperAdminServerUsage: React.FC = () => {
             </div>
             <Separator orientation="vertical" className="h-6" />
             <div className="text-center">
-              <p className="text-xs font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{formatSize(currentStats.free || currentStats.disk?.free)}</p>
-              <p className="text-[10px] text-emerald-600 dark:text-emerald-400">المتاح</p>
+              <p className="text-xs font-bold font-mono tabular-nums text-success dark:text-success">{formatSize(currentStats.free || currentStats.disk?.free)}</p>
+              <p className="text-[10px] text-success dark:text-success">المتاح</p>
             </div>
           </div>
         </div>
@@ -328,11 +328,11 @@ const SuperAdminServerUsage: React.FC = () => {
 
       {/* Critical Warning if > 80% */}
       {usagePercentage > 80 && (
-        <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 p-3.5 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-3">
-          <AlertTriangle className="size-5 shrink-0 text-rose-600" />
+        <div className="rounded-xl border border-destructive/20 bg-destructive/10 p-3.5 text-xs text-destructive dark:text-destructive flex items-center gap-3">
+          <AlertTriangle className="size-5 shrink-0 text-destructive" />
           <div>
             <p className="font-semibold">تنبيه: مساحة التخزين تقترب من الحد الأقصى ({usagePercentage}%)</p>
-            <p className="text-[11px] text-rose-600/90 dark:text-rose-400/90 mt-0.5">يوصى بأرشفة مقاطع الفيديو القديمة أو الصور غير المستخدمة لضمان استقرار الخادم.</p>
+            <p className="text-[11px] text-destructive/90 dark:text-destructive/90 mt-0.5">يوصى بأرشفة مقاطع الفيديو القديمة أو الصور غير المستخدمة لضمان استقرار الخادم.</p>
           </div>
         </div>
       )}

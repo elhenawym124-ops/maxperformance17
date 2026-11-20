@@ -190,7 +190,7 @@ export default function StaffCompanyAccess() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث بالاسم أو البريد..."
-              className="h-8 text-xs pr-8 font-mono bg-card border-border/70"
+              className="h-8 text-xs pe-8 font-mono bg-card border-border/70"
             />
           </div>
 
@@ -226,7 +226,7 @@ export default function StaffCompanyAccess() {
             <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">{companies.length}</p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">كيانات ومتاجر</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
             <Building2 className="size-3.5" />
           </div>
         </div>
@@ -237,7 +237,7 @@ export default function StaffCompanyAccess() {
             <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">{totalLinks}</p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">تصريح وصول نشط</p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-600">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary">
             <ShieldCheck className="size-3.5" />
           </div>
         </div>
@@ -283,7 +283,7 @@ export default function StaffCompanyAccess() {
                           {user.email}
                         </span>
                         {user.company && user.company.id !== systemCompanyId && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded w-fit mt-0.5">
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 bg-warning/10 text-warning dark:text-warning border border-warning/20 rounded w-fit mt-0.5">
                             الشركة الأساسية ليست شركة النظام
                           </span>
                         )}
@@ -316,7 +316,7 @@ export default function StaffCompanyAccess() {
                                   <span className="text-muted-foreground">({link.role})</span>
                                   <button
                                     onClick={() => handleRemoveAccess(user.id, link.companyId)}
-                                    className="text-muted-foreground hover:text-destructive transition-colors ml-0.5 cursor-pointer"
+                                    className="text-muted-foreground hover:text-destructive transition-colors ms-0.5 cursor-pointer"
                                     title="إزالة الوصول"
                                   >
                                     <Trash2 className="size-2.5" />
@@ -352,7 +352,7 @@ export default function StaffCompanyAccess() {
                             onClick={() =>
                               handleSetPrimaryCompany(user.id, `${user.firstName} ${user.lastName}`)
                             }
-                            className="h-7 px-2 text-xs font-mono text-amber-600 dark:text-amber-400 border-amber-500/30 hover:bg-amber-500/10 active:scale-[0.98]"
+                            className="h-7 px-2 text-xs font-mono text-warning dark:text-warning border-warning/30 hover:bg-warning/10 active:scale-[0.98]"
                             title="تعيين شركة النظام كشركة أساسية"
                           >
                             <span>تصحيح</span>

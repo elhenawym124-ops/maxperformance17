@@ -79,10 +79,10 @@ const MyAttendance: React.FC = () => {
     <div className="space-y-6 w-full" dir="rtl">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-foreground">
             {t("employee.attendance.myAttendance")}
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             {t("employee.attendance.myAttendanceDesc")}
           </p>
           {user && (
@@ -93,13 +93,13 @@ const MyAttendance: React.FC = () => {
             </p>
           )}
         </div>
-        <p className="text-gray-500 dark:text-gray-400 sm:mt-0">
+        <p className="text-muted-foreground sm:mt-0">
           {formatDate(currentTime)}
         </p>
       </div>
 
       {errorMessages.length > 0 && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+        <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive">
           <div className="flex items-start gap-2">
             <AlertCircle className="h-5 w-5 mt-0.5" />
             <div className="space-y-1">
@@ -114,15 +114,15 @@ const MyAttendance: React.FC = () => {
       )}
 
       {isNotAnEmployee && (
-        <div className="rounded-xl border-2 border-amber-300 bg-amber-50 dark:border-amber-700/60 dark:bg-amber-950/30 p-6 text-center space-y-3 shadow-sm">
-          <div className="mx-auto w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-700 dark:text-amber-300">
+        <div className="rounded-xl border-2 border-warning bg-warning/10 dark:border-warning/60 dark:bg-warning/30 p-6 text-center space-y-3 shadow-sm">
+          <div className="mx-auto w-12 h-12 rounded-full bg-warning dark:bg-warning/50 flex items-center justify-center text-warning dark:text-warning">
             <UserX className="h-6 w-6" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-amber-900 dark:text-amber-200">
+            <h3 className="text-lg font-bold text-warning dark:text-warning">
               أنت غير مسجل كموظف في الشركة
             </h3>
-            <p className="text-sm text-amber-800 dark:text-amber-300/90 mt-1 max-w-xl mx-auto">
+            <p className="text-sm text-warning dark:text-warning/90 mt-1 max-w-xl mx-auto">
               حسابك الحالي مسجل في النظام بدور ({user?.role || "مستخدم"}) لكنه غير مقيد في سجل الموظفين (HR Employees).
               لذلك لا يمكن تسجيل الحضور والانصراف حتى يتم ربط ملفك الوظيفي أو اعتماد طلبك من قِبل إدارة الشركة.
             </p>
@@ -132,7 +132,7 @@ const MyAttendance: React.FC = () => {
               type="button"
               onClick={handleRequestEmployeeLink}
               disabled={requestingLink}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm transition shadow-sm disabled:opacity-50 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-warning hover:bg-warning text-white font-medium text-sm transition shadow-sm disabled:opacity-50 cursor-pointer"
             >
               <UserCheck className="h-4 w-4" />
               {requestingLink ? "جاري إرسال الطلب للإدارة..." : "طلب ربط حسابي كموظف في الشركة"}

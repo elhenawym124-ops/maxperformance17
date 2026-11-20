@@ -173,12 +173,12 @@ export default function TimeTrackingDashboard() {
             onClick={() => setAutoRefresh(!autoRefresh)}
             className={`h-8 px-2.5 text-xs font-mono gap-1 border-border/70 active:scale-[0.98] ${
               autoRefresh
-                ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30"
+                ? "bg-emerald-500/10 text-success dark:text-success border-success/30"
                 : ""
             }`}
           >
             <RefreshCw
-              className={`size-3.5 ${autoRefresh ? "animate-spin text-emerald-600" : ""}`}
+              className={`size-3.5 ${autoRefresh ? "animate-spin text-success" : ""}`}
             />
             <span>{autoRefresh ? "تحديث تلقائي: نشط" : "تحديث تلقائي: معطل"}</span>
           </Button>
@@ -293,9 +293,9 @@ export default function TimeTrackingDashboard() {
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="text-[11px] font-mono">الأعضاء النشطون</span>
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="size-1.5 rounded-full bg-success animate-pulse" />
           </div>
-          <div className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <div className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
             {stats?.activeMembers}/{stats?.totalMembers}
           </div>
           <span className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">
@@ -306,7 +306,7 @@ export default function TimeTrackingDashboard() {
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="text-[11px] font-mono">المهام المكتملة</span>
-            <span className="size-1.5 rounded-full bg-purple-500" />
+            <span className="size-1.5 rounded-full bg-primary" />
           </div>
           <div className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums">
             {stats?.tasksCompleted || 0}
@@ -317,9 +317,9 @@ export default function TimeTrackingDashboard() {
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="text-[11px] font-mono">متوسط وقت المهمة</span>
-            <span className="size-1.5 rounded-full bg-amber-500" />
+            <span className="size-1.5 rounded-full bg-warning" />
           </div>
-          <div className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+          <div className="text-xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums">
             {(stats?.avgTimePerTask ?? 0).toFixed(1)}h
           </div>
           <span className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">لكل مهمة منجزة</span>

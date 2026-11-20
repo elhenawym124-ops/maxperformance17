@@ -41,7 +41,7 @@ export function SuperAdminSelfReviewAnalyticsTab({ stats, statsLoading, statsErr
               <div key={i} className="flex items-center justify-between text-xs py-1.5 border-b border-border/40 last:border-0">
                 <span className="text-muted-foreground truncate max-w-[240px]">{v.violation}</span>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-warning/10 text-warning dark:text-warning border border-warning/20">
                     {v.count}
                   </span>
                   <Badge variant="outline" className="text-[10px] font-mono border-border/60">
@@ -76,9 +76,9 @@ export function SuperAdminSelfReviewAnalyticsTab({ stats, statsLoading, statsErr
                 <TableRow className="border-b border-border/60">
                   <TableHead className="text-[10px] font-mono text-muted-foreground">الوكيل</TableHead>
                   <TableHead className="text-center text-[10px] font-mono text-muted-foreground">الكل</TableHead>
-                  <TableHead className="text-center text-[10px] font-mono text-emerald-600">معتمد</TableHead>
-                  <TableHead className="text-center text-[10px] font-mono text-amber-600">مصحح</TableHead>
-                  <TableHead className="text-center text-[10px] font-mono text-rose-600">مرفوض</TableHead>
+                  <TableHead className="text-center text-[10px] font-mono text-success">معتمد</TableHead>
+                  <TableHead className="text-center text-[10px] font-mono text-warning">مصحح</TableHead>
+                  <TableHead className="text-center text-[10px] font-mono text-destructive">مرفوض</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -86,9 +86,9 @@ export function SuperAdminSelfReviewAnalyticsTab({ stats, statsLoading, statsErr
                   <TableRow key={a.agent_id} className="border-b border-border/40 hover:bg-muted/20">
                     <TableCell className="font-medium text-xs font-mono text-foreground">{a.agent_slug || a.agent_id.slice(0, 10)}</TableCell>
                     <TableCell className="text-center text-xs font-mono tabular-nums">{a.total}</TableCell>
-                    <TableCell className="text-center text-xs font-mono tabular-nums text-emerald-600 font-semibold">{a.approved}</TableCell>
-                    <TableCell className="text-center text-xs font-mono tabular-nums text-amber-600 font-semibold">{a.corrected}</TableCell>
-                    <TableCell className="text-center text-xs font-mono tabular-nums text-rose-600 font-semibold">{a.rejected}</TableCell>
+                    <TableCell className="text-center text-xs font-mono tabular-nums text-success font-semibold">{a.approved}</TableCell>
+                    <TableCell className="text-center text-xs font-mono tabular-nums text-warning font-semibold">{a.corrected}</TableCell>
+                    <TableCell className="text-center text-xs font-mono tabular-nums text-destructive font-semibold">{a.rejected}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

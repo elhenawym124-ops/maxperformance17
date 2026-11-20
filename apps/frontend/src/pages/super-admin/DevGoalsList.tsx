@@ -170,13 +170,13 @@ export default function DevGoalsList() {
 
           <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-emerald-600 dark:text-emerald-400">متوسط التقدم</p>
-              <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">
+              <p className="text-[11px] text-success dark:text-success">متوسط التقدم</p>
+              <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">
                 {stats.avgProgress}%
               </p>
               <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">إنجاز كلي</p>
             </div>
-            <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+            <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
               <TrendingUp className="size-3.5" />
             </div>
           </div>
@@ -196,13 +196,13 @@ export default function DevGoalsList() {
 
           <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-rose-600 dark:text-rose-400">في دائرة الخطر</p>
-              <p className="text-xl font-bold tracking-tight text-rose-600 dark:text-rose-400 font-mono tabular-nums mt-0.5">
+              <p className="text-[11px] text-destructive dark:text-destructive">في دائرة الخطر</p>
+              <p className="text-xl font-bold tracking-tight text-destructive dark:text-destructive font-mono tabular-nums mt-0.5">
                 {stats.atRiskCount}
               </p>
               <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">بحاجة لتدخل</p>
             </div>
-            <div className="size-7 rounded-md bg-rose-500/10 flex items-center justify-center text-rose-600">
+            <div className="size-7 rounded-md bg-destructive/10 flex items-center justify-center text-destructive">
               <AlertTriangle className="size-3.5" />
             </div>
           </div>

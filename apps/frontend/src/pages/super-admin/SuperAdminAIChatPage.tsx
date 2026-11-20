@@ -89,7 +89,7 @@ const SuperAdminAIChatPage: React.FC = () => {
           </div>
 
           {activeCompany && (
-            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-success/10 text-success dark:text-success border border-success/20">
               ID: {activeCompany.id}
             </span>
           )}

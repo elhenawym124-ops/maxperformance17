@@ -152,7 +152,7 @@ export default function QueueMonitor() {
             size="sm"
             onClick={handleExport}
             disabled={recentJobs.length === 0}
-            className="h-8 px-2.5 text-xs font-mono gap-1 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 active:scale-[0.98]"
+            className="h-8 px-2.5 text-xs font-mono gap-1 border-success/30 text-success dark:text-success hover:bg-success/10 active:scale-[0.98]"
           >
             <Download className="size-3.5" />
             <span>تصدير Excel</span>
@@ -174,10 +174,10 @@ export default function QueueMonitor() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
           {[
             { label: "قيد المعالجة", value: stats.active, color: "text-blue-600 dark:text-blue-400", dot: "bg-blue-500 animate-pulse" },
-            { label: "في الانتظار", value: stats.waiting, color: "text-amber-600 dark:text-amber-400", dot: "bg-amber-500" },
-            { label: "مكتملة بنجاح", value: stats.completed, color: "text-emerald-600 dark:text-emerald-400", dot: "bg-emerald-500" },
-            { label: "فاشلة", value: stats.failed, color: "text-rose-600 dark:text-rose-400", dot: "bg-rose-500" },
-            { label: "مؤجلة", value: stats.delayed, color: "text-orange-600 dark:text-orange-400", dot: "bg-orange-500" },
+            { label: "في الانتظار", value: stats.waiting, color: "text-amber-600 dark:text-warning", dot: "bg-amber-500" },
+            { label: "مكتملة بنجاح", value: stats.completed, color: "text-emerald-600 dark:text-success", dot: "bg-emerald-500" },
+            { label: "فاشلة", value: stats.failed, color: "text-rose-600 dark:text-destructive", dot: "bg-rose-500" },
+            { label: "مؤجلة", value: stats.delayed, color: "text-orange-600 dark:text-warning", dot: "bg-orange-500" },
             { label: "متوقفة مؤقتاً", value: stats.paused, color: "text-muted-foreground", dot: "bg-muted-foreground" },
           ].map((item) => (
             <div
@@ -214,7 +214,7 @@ export default function QueueMonitor() {
 
       {data?.timestamp && (
         <div className="flex items-center justify-center gap-1.5 py-1">
-          <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="size-1.5 rounded-full bg-success animate-pulse" />
           <p className="text-[11px] font-mono text-muted-foreground">
             آخر مزامنة للطابور: {new Date(data.timestamp).toLocaleString("ar-EG")}
           </p>

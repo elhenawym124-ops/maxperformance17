@@ -84,7 +84,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
 }) => {
   return (
     <>
-      <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
+      <Card className="bg-gradient-to-r from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 border-blue-200 dark:border-blue-800">
         <CardContent className="p-3.5 sm:p-6 md:p-8">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center">
@@ -95,30 +95,30 @@ export const MyAttendanceClockAndActionsCard: React.FC<
               <div className="text-3xl sm:text-5xl md:text-6xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
                 {formatTime(currentTime, timezone)}
               </div>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {t("employee.attendance.currentTime")}
               </p>
             </div>
 
             {todayAttendance && (
-              <div className="mt-4 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+              <div className="mt-4 p-3 sm:p-4 bg-card rounded-xl border border-border dark:border-border">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-2">
                     <AlertCircle
                       className={`h-5 w-5 ${
                         showOvernightWarning
                           ? "text-amber-600"
-                          : "text-green-500 dark:text-green-400"
+                          : "text-green-500 dark:text-success"
                       }`}
                     />
-                    <span className="font-medium text-gray-900 dark:text-white">
+                    <span className="font-medium text-foreground">
                       {t("employee.attendance.todayStatus")}
                     </span>
                   </div>
                   <Badge
                     className={
                       showOvernightWarning
-                        ? "bg-amber-100 text-amber-800"
+                        ? "bg-amber-100 text-warning"
                         : statusConfig[todayAttendance.status]?.color || ""
                     }
                   >
@@ -131,7 +131,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                   </Badge>
                 </div>
                 {recordDateLabel && (
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     {t("employee.attendance.linkedToDate", {
                       date: recordDateLabel,
                     })}
@@ -140,18 +140,18 @@ export const MyAttendanceClockAndActionsCard: React.FC<
 
                 <div className="grid grid-cols-2 gap-4 mt-3">
                   <div className="text-center">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       {t("employee.attendance.checkIn")}
                     </p>
-                    <p className="font-bold font-mono tabular-nums text-lg text-gray-900 dark:text-white">
+                    <p className="font-bold font-mono tabular-nums text-lg text-foreground">
                       {formattedCheckIn}
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       {t("employee.attendance.checkOut")}
                     </p>
-                    <p className="font-bold font-mono tabular-nums text-lg text-gray-900 dark:text-white">
+                    <p className="font-bold font-mono tabular-nums text-lg text-foreground">
                       {formattedCheckOut}
                     </p>
                   </div>
@@ -161,13 +161,13 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                   <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
                     {!todayAttendance.checkOut && todayAttendance.checkIn && (
                       <Badge className="bg-blue-100 text-blue-800 font-mono tabular-nums">
-                        <Clock className="h-3.5 w-3.5 ml-1 inline" />
+                        <Clock className="h-3.5 w-3.5 ms-1 inline" />
                         {t("employee.attendance.shiftDuration", { duration })}
                       </Badge>
                     )}
                     {todayAttendance.lateMinutes !== null &&
                       todayAttendance.lateMinutes > 0 && (
-                        <Badge className="bg-yellow-100 text-yellow-800 font-mono tabular-nums">
+                        <Badge className="bg-yellow-100 text-warning font-mono tabular-nums">
                           {t("employee.attendance.lateMinutes", {
                             minutes: todayAttendance.lateMinutes,
                           })}
@@ -175,7 +175,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                       )}
                     {todayAttendance.earlyLeaveMinutes !== null &&
                       todayAttendance.earlyLeaveMinutes > 0 && (
-                        <Badge className="bg-amber-100 text-amber-800 font-mono tabular-nums">
+                        <Badge className="bg-amber-100 text-warning font-mono tabular-nums">
                           {t("employee.attendance.earlyLeave", {
                             minutes: todayAttendance.earlyLeaveMinutes,
                           })}
@@ -199,15 +199,15 @@ export const MyAttendanceClockAndActionsCard: React.FC<
             )}
 
             {showOvernightWarning && (
-              <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900 text-right">
+              <div className="mt-4 rounded-lg border border-warning bg-warning/10 p-4 text-warning text-right">
                 <div className="flex items-start gap-2">
-                  <AlertCircle className="h-5 w-5 mt-0.5 text-amber-600" />
+                  <AlertCircle className="h-5 w-5 mt-0.5 text-warning" />
                   <div className="space-y-1">
                     <p className="text-sm font-semibold">
                       {t("employee.attendance.openShiftWarning")}
                     </p>
                     {checkInDate && (
-                      <p className="text-xs text-amber-800 font-mono tabular-nums">
+                      <p className="text-xs text-warning font-mono tabular-nums">
                         {t("employee.attendance.checkinTime")}{" "}
                         {formatTimeWithTZ(checkInDate, timezone)} •{" "}
                         {formatDateWithTZ(checkInDate, timezone)}
@@ -217,7 +217,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                           })}`}
                       </p>
                     )}
-                    <p className="text-xs text-amber-800">
+                    <p className="text-xs text-warning">
                       {t("employee.attendance.closeShiftFirst")}
                     </p>
                   </div>
@@ -228,7 +228,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                     variant="destructive"
                     onClick={onCheckOut}
                     disabled={checkingOut}
-                    className="bg-amber-600 hover:bg-amber-700 text-white"
+                    className="bg-amber-600 hover:bg-warning text-white"
                   >
                     {checkingOut
                       ? t("employee.attendance.closing")
@@ -240,28 +240,28 @@ export const MyAttendanceClockAndActionsCard: React.FC<
 
             {/* بنر طابور البصمات المعلقة (Queue & Retry) */}
             {queuedPunches.length > 0 && (
-              <div className="mt-4 p-4 rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-950/40 dark:border-amber-700 text-amber-900 dark:text-amber-200 text-right space-y-2">
+              <div className="mt-4 p-4 rounded-xl border border-warning bg-warning/10 dark:bg-warning/40 dark:border-warning text-warning dark:text-warning text-right space-y-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-amber-200 text-amber-900 font-bold">بصمات معلقة ({queuedPunches.length})</Badge>
-                  <div className="flex items-center gap-1.5 text-xs text-amber-800 dark:text-amber-300">
-                    <AlertTriangle className="h-4 w-4 text-amber-600" />
+                  <Badge className="bg-amber-200 text-warning font-bold">بصمات معلقة ({queuedPunches.length})</Badge>
+                  <div className="flex items-center gap-1.5 text-xs text-warning dark:text-warning">
+                    <AlertTriangle className="h-4 w-4 text-warning" />
                     <span>تم حفظ البصمة محلياً على جهازك لضمان عدم ضياعها وسيتم إرسالها تلقائياً</span>
                   </div>
                 </div>
                 {queuedPunches.map((item) => (
                   <div
                     key={item.id}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-lg bg-white/80 dark:bg-gray-800/80 border border-amber-200 text-xs"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-lg bg-white/80 dark:bg-muted border border-warning text-xs"
                   >
                     <div>
-                      <span className="font-semibold text-gray-900 dark:text-white">
+                      <span className="font-semibold text-foreground">
                         {item.action === "CHECK_IN" ? "بصمة حضور" : "بصمة انصراف"}
                       </span>
-                      <span className="mx-2 text-gray-600 dark:text-gray-300 font-mono">
+                      <span className="mx-2 text-muted-foreground font-mono">
                         الوقت الأصلي: {formatTimeArabic(item.originalTimestamp)}
                       </span>
                       {item.lastError && (
-                        <p className="text-red-600 dark:text-red-400 mt-0.5 font-medium">السبب: {item.lastError}</p>
+                        <p className="text-red-600 dark:text-destructive mt-0.5 font-medium">السبب: {item.lastError}</p>
                       )}
                     </div>
                     <div className="flex items-center gap-2">
@@ -271,7 +271,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                         variant="outline"
                         disabled={retryingQueue}
                         onClick={onRetryQueue}
-                        className="text-xs h-8 gap-1 bg-white hover:bg-amber-50"
+                        className="text-xs h-8 gap-1 bg-white hover:bg-warning/10"
                       >
                         <RefreshCw className={`h-3.5 w-3.5 ${retryingQueue ? "animate-spin" : ""}`} />
                         إعادة المحاولة الآن
@@ -293,13 +293,13 @@ export const MyAttendanceClockAndActionsCard: React.FC<
 
             {(canCheckIn || canCheckOut) && (
               <div className="flex justify-center mb-6">
-                <div className="inline-flex p-1 bg-gray-100 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-inner">
+                <div className="inline-flex p-1 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border shadow-inner">
                   <button
                     onClick={() => onWorkModeChange("OFFICE")}
                     className={`flex items-center gap-2 px-6 py-2.5 rounded-lg transition-all duration-300 ${
                       workMode === "OFFICE"
-                        ? "bg-white dark:bg-gray-700 text-blue-600 shadow-md scale-105"
-                        : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                        ? "bg-card text-blue-600 shadow-md scale-105"
+                        : "text-gray-500 hover:text-foreground dark:hover:text-muted-foreground"
                     }`}
                   >
                     <MapPin
@@ -315,8 +315,8 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                     onClick={() => onWorkModeChange("HOME")}
                     className={`flex items-center gap-2 px-6 py-2.5 rounded-lg transition-all duration-300 ${
                       workMode === "HOME"
-                        ? "bg-white dark:bg-gray-700 text-purple-600 shadow-md scale-105"
-                        : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                        ? "bg-card text-primary shadow-md scale-105"
+                        : "text-gray-500 hover:text-foreground dark:hover:text-muted-foreground"
                     }`}
                   >
                     <Home
@@ -337,18 +337,18 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                 <Button
                   data-testid="attendance-checkin-button"
                   size="lg"
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-6 text-lg w-full sm:w-auto"
+                  className="bg-green-600 hover:bg-success text-white px-6 py-6 text-lg w-full sm:w-auto"
                   onClick={onCheckIn}
                   disabled={checkingIn}
                 >
                   {checkingIn ? (
                     <>
-                      <div className="mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="me-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       {t("employee.attendance.registering")}
                     </>
                   ) : (
                     <>
-                      <LogIn className="mr-2 h-6 w-6" />
+                      <LogIn className="me-2 h-6 w-6" />
                       {t("employee.attendance.login")}
                     </>
                   )}
@@ -365,12 +365,12 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                 >
                   {checkingOut ? (
                     <>
-                      <div className="mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="me-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       {t("employee.attendance.registering")}
                     </>
                   ) : (
                     <>
-                      <LogOut className="mr-2 h-6 w-6" />
+                      <LogOut className="me-2 h-6 w-6" />
                       {t("employee.attendance.checkOut")}
                     </>
                   )}
@@ -379,8 +379,8 @@ export const MyAttendanceClockAndActionsCard: React.FC<
 
               {!canCheckIn && !canCheckOut && (
                 <div className="text-center">
-                  <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-2" />
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <CheckCircle className="h-12 w-12 text-success mx-auto mb-2" />
+                  <p className="text-lg font-semibold text-foreground">
                     {t("employee.attendance.alreadyChecked")}
                   </p>
                 </div>
@@ -393,14 +393,14 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                 variant="outline"
                 size="sm"
                 onClick={() => onOpenRegularize?.()}
-                className="gap-2 text-xs font-semibold border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
+                className="gap-2 text-xs font-semibold border-primary dark:border-primary text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/40"
               >
-                <FileCheck className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <FileCheck className="h-4 w-4 text-primary" />
                 طلب بصمة معتمدة (اعتماد يدوي للمالك)
               </Button>
             </div>
 
-            <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4" />
               <span>{t("employee.attendance.locationAuto")}</span>
             </div>
@@ -409,19 +409,19 @@ export const MyAttendanceClockAndActionsCard: React.FC<
       </Card>
 
       {todayGoals.length > 0 && (
-        <Card className="border-indigo-200 bg-indigo-50/60 dark:border-indigo-800 dark:bg-indigo-900/10">
+        <Card className="border-indigo-200 bg-primary/60 dark:border-primary dark:bg-primary/10">
           <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <CardTitle className="flex items-center gap-2 text-indigo-900 dark:text-indigo-100">
+              <CardTitle className="flex items-center gap-2 text-primary dark:text-primary">
                 <Target className="h-5 w-5" />
                 {t("employee.attendance.dailyGoals")}
               </CardTitle>
-              <p className="text-sm text-indigo-800/80 dark:text-indigo-200/80">
+              <p className="text-sm text-primary/80 dark:text-primary/80">
                 {t("employee.attendance.dailyGoalsDesc")}
               </p>
             </div>
             {canCheckOut ? (
-              <Badge className="bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-100">
+              <Badge className="bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary">
                 {t("employee.attendance.reviewBeforeCheckout")}
               </Badge>
             ) : null}
@@ -430,14 +430,14 @@ export const MyAttendanceClockAndActionsCard: React.FC<
             {todayGoals.map((goal) => (
               <div
                 key={goal.id}
-                className="rounded-2xl border border-indigo-200/70 bg-white/80 p-4 dark:border-indigo-800/60 dark:bg-slate-950/40"
+                className="rounded-xl border border-primary/70 bg-white/80 p-4 dark:border-primary/60 dark:bg-muted"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <div className="font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="font-semibold text-foreground dark:text-muted-foreground">
                       {goal.title}
                     </div>
-                    <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                    <div className="mt-1 text-sm text-foreground dark:text-muted-foreground">
                       {goal.parentGoal?.title
                         ? t("employee.attendance.belongsTo", {
                             title: goal.parentGoal.title,
@@ -446,7 +446,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                       {goal.project?.name ? ` • ${goal.project.name}` : ""}
                     </div>
                   </div>
-                  <div className="text-sm font-mono tabular-nums text-slate-700 dark:text-slate-200">
+                  <div className="text-sm font-mono tabular-nums text-foreground dark:text-muted-foreground">
                     {Number(goal.currentValue || 0).toLocaleString("ar-EG")} /{" "}
                     {Number(goal.targetValue || 0).toLocaleString("ar-EG")}{" "}
                     {goal.unit || ""}

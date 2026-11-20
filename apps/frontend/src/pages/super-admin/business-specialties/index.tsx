@@ -236,7 +236,7 @@ export const BusinessSpecialtiesPage: React.FC = () => {
                 الأنشطة التجارية والتطبيقات الافتراضية
               </h1>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border border-border/80 bg-muted/30">
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="size-1.5 rounded-full bg-success animate-pulse" />
                 {specialties.length} نشاط مسجل
               </span>
             </div>

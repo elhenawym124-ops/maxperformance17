@@ -99,9 +99,9 @@ const BroadcastDashboard: React.FC = () => {
       case "scheduled":
         return "text-blue-600 dark:text-blue-400 border-blue-500/20 bg-blue-500/10";
       case "sent":
-        return "text-emerald-600 dark:text-emerald-400 border-emerald-500/20 bg-emerald-500/10";
+        return "text-emerald-600 dark:text-success border-success/20 bg-success/10";
       case "cancelled":
-        return "text-rose-600 dark:text-rose-400 border-rose-500/20 bg-rose-500/10";
+        return "text-rose-600 dark:text-destructive border-destructive/20 bg-destructive/10";
       default:
         return "text-muted-foreground border-border/70 bg-muted/40";
     }
@@ -168,7 +168,7 @@ const BroadcastDashboard: React.FC = () => {
                 لوحة البرودكاست
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/40 px-2 py-0.5 text-[11px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-success" />
                 {stats?.activeCampaigns ?? 0} حملة نشطة
               </span>
             </div>
@@ -235,10 +235,10 @@ const BroadcastDashboard: React.FC = () => {
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">حملات نشطة</span>
-                    <span className="size-1.5 rounded-full bg-emerald-500" />
+                    <span className="size-1.5 rounded-full bg-success" />
                   </div>
                   <div className="mt-2">
-                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
+                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-success dark:text-success">
                       {stats.activeCampaigns}
                     </span>
                   </div>
@@ -247,7 +247,7 @@ const BroadcastDashboard: React.FC = () => {
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">إجمالي المستلمين</span>
-                    <span className="size-1.5 rounded-full bg-purple-500" />
+                    <span className="size-1.5 rounded-full bg-primary" />
                   </div>
                   <div className="mt-2">
                     <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-foreground">
@@ -259,10 +259,10 @@ const BroadcastDashboard: React.FC = () => {
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">معدل الفتح</span>
-                    <span className="size-1.5 rounded-full bg-indigo-500" />
+                    <span className="size-1.5 rounded-full bg-primary" />
                   </div>
                   <div className="mt-2">
-                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">
+                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-primary">
                       {stats.averageOpenRate}%
                     </span>
                   </div>
@@ -271,10 +271,10 @@ const BroadcastDashboard: React.FC = () => {
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">معدل النقر</span>
-                    <span className="size-1.5 rounded-full bg-teal-500" />
+                    <span className="size-1.5 rounded-full bg-success" />
                   </div>
                   <div className="mt-2">
-                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-teal-600 dark:text-teal-400">
+                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-success dark:text-success">
                       {stats.averageClickRate}%
                     </span>
                   </div>
@@ -283,10 +283,10 @@ const BroadcastDashboard: React.FC = () => {
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">حملات هذا الشهر</span>
-                    <span className="size-1.5 rounded-full bg-amber-500" />
+                    <span className="size-1.5 rounded-full bg-warning" />
                   </div>
                   <div className="mt-2">
-                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-amber-600 dark:text-amber-400">
+                    <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-warning dark:text-warning">
                       {stats.campaignsThisMonth}
                     </span>
                   </div>

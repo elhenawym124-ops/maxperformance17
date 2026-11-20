@@ -8,15 +8,15 @@ import { cn } from "@/lib/utils";
 
 export const statusStyles: Record<string, { bg: string; dot: string; text: string; label: string }> = {
   approved: {
-    bg: "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-300",
+    bg: "bg-emerald-500/10 border-success/20 text-success dark:text-success",
     dot: "bg-emerald-500",
-    text: "text-emerald-700 dark:text-emerald-300",
+    text: "text-emerald-700 dark:text-success",
     label: "معتمد",
   },
   corrected: {
-    bg: "bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-300",
+    bg: "bg-amber-500/10 border-warning/20 text-warning dark:text-warning",
     dot: "bg-amber-500",
-    text: "text-amber-700 dark:text-amber-300",
+    text: "text-amber-700 dark:text-warning",
     label: "مصحح",
   },
   rejected: {
@@ -151,7 +151,7 @@ export function SuperAdminSelfReviewLogsTable({
                       })}
                       title="عرض الرد"
                     >
-                      <MessagesSquare className="size-3.5 ml-1" />
+                      <MessagesSquare className="size-3.5 ms-1" />
                       <span>عرض</span>
                     </Button>
                   </TableCell>
@@ -174,7 +174,7 @@ export function SuperAdminSelfReviewLogsTable({
             onClick={() => setPage(page - 1)}
             className="h-7 px-2.5 text-xs font-mono border-border/70"
           >
-            <ChevronRight className="size-3.5 ml-1" /> السابق
+            <ChevronRight className="size-3.5 ms-1" /> السابق
           </Button>
           <Button
             variant="outline"
@@ -183,7 +183,7 @@ export function SuperAdminSelfReviewLogsTable({
             onClick={() => setPage(page + 1)}
             className="h-7 px-2.5 text-xs font-mono border-border/70"
           >
-            التالي <ChevronLeft className="size-3.5 mr-1" />
+            التالي <ChevronLeft className="size-3.5 me-1" />
           </Button>
         </div>
       </div>

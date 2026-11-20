@@ -141,34 +141,34 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative flex-1 min-w-[200px] max-w-sm">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={isEn ? 'Search barcode or requester...' : 'ابحث بالباركود أو صاحب الطلب...'}
-              className="w-full pr-9 pl-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none"
+              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none"
             />
           </div>
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300"
+            className="text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg px-2.5 py-1.5 text-foreground dark:text-muted-foreground"
           >
             <option value="ALL">{isEn ? 'All Types' : 'كافة أنواع التعديل'}</option>
             <option value="ADDRESS">{isEn ? 'Address' : 'تعديل العنوان'}</option>
             <option value="AMOUNT">{isEn ? 'COD Amount' : 'تعديل مبلغ COD'}</option>
             <option value="RECIPIENT">{isEn ? 'Recipient' : 'بيانات المستلم'}</option>
           </select>
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs">
+          <div className="flex items-center gap-1 bg-muted dark:bg-muted p-0.5 rounded-lg border border-border dark:border-border text-xs">
             {(['ALL', 'PENDING', 'APPROVED', 'REJECTED'] as const).map((st) => (
               <button
                 key={st}
                 onClick={() => setStatusFilter(st)}
                 className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                   statusFilter === st
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                    ? 'bg-white dark:bg-muted text-foreground dark:text-white shadow-xs'
+                    : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {st === 'ALL' ? (isEn ? 'All' : 'الكل') : st === 'PENDING' ? (isEn ? 'Pending' : 'قيد المراجعة') : st === 'APPROVED' ? (isEn ? 'Approved' : 'المعتمدة') : (isEn ? 'Rejected' : 'المرفوضة')}
@@ -177,7 +177,7 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
           </div>
           <button
             onClick={() => fetchRequests()}
-            className="p-1.5 text-slate-500 hover:text-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground border border-border dark:border-border rounded-lg hover:bg-muted transition-colors"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -185,10 +185,10 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
       </div>
 
       {/* Table */}
-      <div className="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+      <div className="border border-border dark:border-border rounded-lg overflow-hidden bg-white dark:bg-muted">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-slate-50 dark:bg-muted text-muted-foreground border-b border-border dark:border-border">
               <tr>
                 <th className="p-2.5 font-medium">{isEn ? 'Shipment' : 'الباركود / الشحنة'}</th>
                 <th className="p-2.5 font-medium">{isEn ? 'Type' : 'نوع التعديل'}</th>
@@ -199,20 +199,20 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
                 <th className="p-2.5 font-medium text-center">{isEn ? 'Actions' : 'إجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading ? (
-                <tr><td colSpan={7} className="text-center py-8 text-slate-400">{isEn ? 'Loading...' : 'جارٍ التحميل...'}</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-muted-foreground">{isEn ? 'Loading...' : 'جارٍ التحميل...'}</td></tr>
               ) : filtered.length === 0 ? (
-                <tr><td colSpan={7} className="text-center py-8 text-slate-400">{isEn ? 'No requests' : 'لا توجد طلبات تعديل'}</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-muted-foreground">{isEn ? 'No requests' : 'لا توجد طلبات تعديل'}</td></tr>
               ) : (
                 filtered.map((req) => (
-                  <tr key={req.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                  <tr key={req.id} className="hover:bg-slate-50 dark:hover:bg-muted transition-colors">
                     <td className="p-2.5">
-                      <div className="font-mono font-medium text-slate-900 dark:text-white">
+                      <div className="font-mono font-medium text-foreground dark:text-white">
                         {req.shipment?.barcode || req.shipment?.trackingNumber || req.shipmentId}
                       </div>
                       {req.shipment?.recipientName && (
-                        <div className="text-[11px] text-slate-400">{req.shipment.recipientName}</div>
+                        <div className="text-[11px] text-muted-foreground">{req.shipment.recipientName}</div>
                       )}
                     </td>
                     <td className="p-2.5">
@@ -223,28 +223,28 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
                     <td className="p-2.5">
                       <div className="flex flex-col gap-0.5 max-w-sm">
                         {req.oldValue && (
-                          <div className="text-[11px] text-slate-400 line-through">
+                          <div className="text-[11px] text-muted-foreground line-through">
                             {formatValueSnippet(req.oldValue)}
                           </div>
                         )}
-                        <div className="text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
+                        <div className="text-[11px] font-medium text-success dark:text-success">
                           {formatValueSnippet(req.newValue)}
                         </div>
-                        {req.reason && <div className="text-[10px] text-slate-500">{isEn ? 'Reason:' : 'السبب:'} {req.reason}</div>}
-                        {req.rejectionReason && <div className="text-[10px] text-rose-500">{isEn ? 'Rejected:' : 'سبب الرفض:'} {req.rejectionReason}</div>}
+                        {req.reason && <div className="text-[10px] text-muted-foreground">{isEn ? 'Reason:' : 'السبب:'} {req.reason}</div>}
+                        {req.rejectionReason && <div className="text-[10px] text-destructive">{isEn ? 'Rejected:' : 'سبب الرفض:'} {req.rejectionReason}</div>}
                       </div>
                     </td>
                     <td className="p-2.5">
-                      <div className="font-medium text-slate-800 dark:text-slate-200">{req.requestedBy}</div>
-                      <span className="text-[10px] text-slate-400">
+                      <div className="font-medium text-foreground dark:text-muted-foreground">{req.requestedBy}</div>
+                      <span className="text-[10px] text-muted-foreground">
                         {req.requestedByType === 'CLIENT' ? (isEn ? 'Merchant' : 'العميل') : req.requestedByType === 'COURIER' ? (isEn ? 'Courier' : 'المندوب') : (isEn ? 'Admin' : 'الإدارة')}
                       </span>
                     </td>
                     <td className="p-2.5">
                       <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${
-                        req.status === 'PENDING' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                        req.status === 'APPROVED' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                        'bg-rose-50 text-rose-700 border-rose-200'
+                        req.status === 'PENDING' ? 'bg-amber-50 text-warning border-warning' :
+                        req.status === 'APPROVED' ? 'bg-emerald-50 text-success border-success' :
+                        'bg-rose-50 text-destructive border-destructive'
                       }`}>
                         {req.status === 'PENDING' ? <Clock className="w-3 h-3" /> : req.status === 'APPROVED' ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
                         {req.status === 'PENDING' ? (isEn ? 'Pending' : 'قيد المراجعة') : req.status === 'APPROVED' ? (isEn ? 'Approved' : 'معتمد') : (isEn ? 'Rejected' : 'مرفوض')}
@@ -253,8 +253,8 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
                     <td className="p-2.5">
                       {req.reviewedBy ? (
                         <div>
-                          <div className="text-slate-800 dark:text-slate-200 font-medium">{req.reviewedBy}</div>
-                          <div className="text-[10px] text-slate-400">{formatDateTime(req.reviewedAt)}</div>
+                          <div className="text-slate-800 dark:text-muted-foreground font-medium">{req.reviewedBy}</div>
+                          <div className="text-[10px] text-muted-foreground">{formatDateTime(req.reviewedAt)}</div>
                         </div>
                       ) : (
                         <span className="text-slate-400 text-[11px]">{formatDateTime(req.createdAt)}</span>
@@ -265,14 +265,14 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
                         <div className="inline-flex items-center gap-1.5">
                           <button
                             onClick={() => setApprovingItem(req)}
-                            className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[11px] font-medium flex items-center gap-1 shadow-xs"
+                            className="px-2 py-1 bg-success hover:bg-success text-white rounded text-[11px] font-medium flex items-center gap-1 shadow-xs"
                           >
                             <Check className="w-3 h-3" />
                             <span>{isEn ? 'Approve' : 'موافقة'}</span>
                           </button>
                           <button
                             onClick={() => setRejectingItem(req)}
-                            className="px-2 py-1 border border-rose-200 text-rose-600 hover:bg-rose-50 rounded text-[11px] font-medium flex items-center gap-1"
+                            className="px-2 py-1 border border-destructive text-destructive hover:bg-destructive/10 rounded text-[11px] font-medium flex items-center gap-1"
                           >
                             <Ban className="w-3 h-3" />
                             <span>{isEn ? 'Reject' : 'رفض'}</span>

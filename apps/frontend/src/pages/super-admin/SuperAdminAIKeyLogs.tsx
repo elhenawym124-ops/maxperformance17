@@ -25,11 +25,11 @@ const STATUS_LABELS: Record<string, string> = { success: "نجاح", ok: "نجا
 const statusColor = (status?: string) => {
   if (!status) return "bg-muted text-muted-foreground border-border/60";
   const s = status.toLowerCase();
-  if (s === "success" || s === "ok") return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
-  return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20";
+  if (s === "success" || s === "ok") return "bg-emerald-500/10 text-success dark:text-success border-success/20";
+  return "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20";
 };
 
-const latencyColor = (ms: number) => ms < 1000 ? "text-emerald-600 dark:text-emerald-400" : ms < 5000 ? "text-amber-600 dark:text-amber-400" : "text-rose-600 dark:text-rose-400";
+const latencyColor = (ms: number) => ms < 1000 ? "text-emerald-600 dark:text-success" : ms < 5000 ? "text-amber-600 dark:text-warning" : "text-rose-600 dark:text-destructive";
 
 function formatTime(iso: string) {
   const d = new Date(iso);
@@ -181,9 +181,9 @@ function SuperAdminAIKeyLogs() {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="text-[11px] uppercase">الطلبات الناجحة</span>
-            <span className="size-1.5 rounded-full bg-emerald-500" />
+            <span className="size-1.5 rounded-full bg-success" />
           </div>
-          <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums">
             {stats.success.toLocaleString()}{" "}
             <span className="text-xs font-normal text-muted-foreground">({total > 0 ? ((stats.success / total) * 100).toFixed(1) : 0}%)</span>
           </div>
@@ -192,9 +192,9 @@ function SuperAdminAIKeyLogs() {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="text-[11px] uppercase">الطلبات الفاشلة</span>
-            <span className="size-1.5 rounded-full bg-rose-500" />
+            <span className="size-1.5 rounded-full bg-destructive" />
           </div>
-          <div className="text-2xl font-bold tracking-tight text-rose-600 dark:text-rose-400 tabular-nums">
+          <div className="text-2xl font-bold tracking-tight text-destructive dark:text-destructive tabular-nums">
             {stats.failed.toLocaleString()}{" "}
             <span className="text-xs font-normal text-muted-foreground">({total > 0 ? ((stats.failed / total) * 100).toFixed(1) : 0}%)</span>
           </div>
@@ -203,9 +203,9 @@ function SuperAdminAIKeyLogs() {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="text-[11px] uppercase">متوسط الاستجابة</span>
-            <span className="size-1.5 rounded-full bg-amber-500" />
+            <span className="size-1.5 rounded-full bg-warning" />
           </div>
-          <div className="text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-400 tabular-nums">
+          <div className="text-2xl font-bold tracking-tight text-warning dark:text-warning tabular-nums">
             {stats.avgLatency.toLocaleString()} <span className="text-xs font-normal text-muted-foreground">ms</span>
           </div>
           <p className="text-[10px] text-muted-foreground">زمن معالجة الطلبات</p>
@@ -245,7 +245,7 @@ function SuperAdminAIKeyLogs() {
           <AlertDescription className="flex items-center justify-between text-xs font-mono">
             <span>فشل تحميل سجل المفاتيح. يرجى المحاولة لاحقاً.</span>
             <Button variant="outline" size="sm" onClick={() => refetch()} className="h-7 text-xs font-mono">
-              <RefreshCw className="size-3 ml-1" /> إعادة المحاولة
+              <RefreshCw className="size-3 ms-1" /> إعادة المحاولة
             </Button>
           </AlertDescription>
         </Alert>
@@ -315,10 +315,10 @@ function SuperAdminAIKeyLogs() {
           <span className="text-muted-foreground">صفحة {page + 1} من {totalPages} ({total.toLocaleString()} سجل)</span>
           <div className="flex items-center gap-1.5">
             <Button variant="outline" size="sm" disabled={page === 0} onClick={() => setPage(page - 1)} className="h-7 text-xs font-mono">
-              <ChevronRight className="size-3.5 ml-1" /> السابق
+              <ChevronRight className="size-3.5 ms-1" /> السابق
             </Button>
             <Button variant="outline" size="sm" disabled={page >= totalPages - 1} onClick={() => setPage(page + 1)} className="h-7 text-xs font-mono">
-              التالي <ChevronLeft className="size-3.5 mr-1" />
+              التالي <ChevronLeft className="size-3.5 me-1" />
             </Button>
           </div>
         </div>
@@ -349,7 +349,7 @@ function SuperAdminAIKeyLogs() {
                 <span className="col-span-2 font-semibold text-foreground">{selectedLog.latency_ms != null ? `${selectedLog.latency_ms}ms` : "—"} ({STATUS_LABELS[selectedLog.status] || selectedLog.status})</span>
               </div>
               {selectedLog.error && (
-                <div className="border-t border-border/40 pt-2 text-rose-600 bg-rose-500/10 p-2 rounded text-[11px] font-mono" dir="ltr">
+                <div className="border-t border-border/40 pt-2 text-destructive bg-destructive/10 p-2 rounded text-[11px] font-mono" dir="ltr">
                   {selectedLog.error}
                 </div>
               )}

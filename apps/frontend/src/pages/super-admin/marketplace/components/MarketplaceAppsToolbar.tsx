@@ -92,7 +92,7 @@ export const MarketplaceAppsToolbar: React.FC<MarketplaceAppsToolbarProps> = ({
     <>
       {/* Statistics Dashboard */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-5 text-white shadow-lg shadow-blue-900/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 via-blue-700 to-primary p-5 text-white shadow-lg shadow-blue-900/20 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute -right-6 -top-8 h-28 w-28 rounded-full bg-white opacity-10 blur-2xl" />
           <div className="relative z-10 mb-3 inline-flex rounded-xl bg-white/20 p-2.5 backdrop-blur-md">
             <ShoppingBag className="h-5 w-5" />
@@ -103,52 +103,52 @@ export const MarketplaceAppsToolbar: React.FC<MarketplaceAppsToolbarProps> = ({
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 via-purple-700 to-fuchsia-800 p-5 text-white shadow-lg shadow-purple-900/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary to-primary p-5 text-white shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute -right-6 -top-8 h-28 w-28 rounded-full bg-white opacity-10 blur-2xl" />
           <div className="relative z-10 mb-3 inline-flex rounded-xl bg-white/20 p-2.5 backdrop-blur-md">
             <Download className="h-5 w-5" />
           </div>
-          <p className="relative z-10 text-sm font-medium text-purple-100">إجمالي التثبيتات</p>
+          <p className="relative z-10 text-sm font-medium text-primary">إجمالي التثبيتات</p>
           <p className="relative z-10 mt-0.5 text-2xl font-extrabold tabular-nums font-mono">
             {totalInstallations.toLocaleString("ar-EG")}
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 p-5 text-white shadow-lg shadow-emerald-900/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-success via-success to-success p-5 text-white shadow-lg shadow-success/20 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute -right-6 -top-8 h-28 w-28 rounded-full bg-white opacity-10 blur-2xl" />
           <div className="relative z-10 mb-3 inline-flex rounded-xl bg-white/20 p-2.5 backdrop-blur-md">
             <DollarSign className="h-5 w-5" />
           </div>
-          <p className="relative z-10 text-sm font-medium text-emerald-100">إيرادات شهرية</p>
+          <p className="relative z-10 text-sm font-medium text-success">إيرادات شهرية</p>
           <p className="relative z-10 mt-0.5 text-2xl font-extrabold tabular-nums font-mono">
             {totalMonthlyRevenue.toLocaleString("ar-EG")} ج.م
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-rose-500 via-rose-600 to-red-700 p-5 text-white shadow-lg shadow-rose-900/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-destructive via-destructive to-destructive p-5 text-white shadow-lg shadow-destructive/20 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute -right-6 -top-8 h-28 w-28 rounded-full bg-white opacity-10 blur-2xl" />
           <div className="relative z-10 mb-3 inline-flex rounded-xl bg-white/20 p-2.5 backdrop-blur-md">
             <Star className="h-5 w-5" />
           </div>
-          <p className="relative z-10 text-sm font-medium text-rose-100">التطبيقات النشطة</p>
+          <p className="relative z-10 text-sm font-medium text-destructive">التطبيقات النشطة</p>
           <p className="relative z-10 mt-0.5 text-2xl font-extrabold tabular-nums font-mono">
             {activeApps}
           </p>
-          <p className="relative z-10 text-xs font-medium text-rose-200/90 tabular-nums font-mono">
+          <p className="relative z-10 text-xs font-medium text-destructive/90 tabular-nums font-mono">
             {featuredApps} مميز
           </p>
         </div>
       </div>
 
       {/* Filters, Search & View Controls */}
-      <div className="rounded-2xl border bg-card text-card-foreground shadow-sm p-4 space-y-3.5">
+      <div className="rounded-xl border bg-card text-card-foreground shadow-sm p-4 space-y-3.5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-1 flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
             <div className="relative flex-1 min-w-[220px]">
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 id="apps-search"
-                className="w-full pr-9 pl-8"
+                className="w-full pe-9 ps-8"
                 placeholder="البحث بالاسم، المعرّف (slug)، الفئة، أو المسار..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -264,16 +264,16 @@ export const MarketplaceAppsToolbar: React.FC<MarketplaceAppsToolbarProps> = ({
 
             <div className="flex items-center gap-1.5">
               <Button size="sm" variant="default" onClick={onAddNewApp}>
-                <Plus className="h-4 w-4 ml-1" />
+                <Plus className="h-4 w-4 ms-1" />
                 إضافة
               </Button>
               <Button variant="outline" size="sm" onClick={onExport}>
-                <Download className="h-4 w-4 ml-1" />
+                <Download className="h-4 w-4 ms-1" />
                 تصدير
               </Button>
               <label className="inline-flex items-center gap-1 cursor-pointer">
                 <Button variant="outline" size="sm" render={<span />}>
-                  <Upload className="h-4 w-4 ml-1" />
+                  <Upload className="h-4 w-4 ms-1" />
                   استيراد
                 </Button>
                 <input type="file" hidden accept=".json" onChange={onImport} />
@@ -294,7 +294,7 @@ export const MarketplaceAppsToolbar: React.FC<MarketplaceAppsToolbarProps> = ({
         {/* Status Quick Filters */}
         <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border/50">
           <div className="flex flex-wrap items-center gap-1">
-            <span className="text-xs font-medium text-muted-foreground ml-1 hidden sm:inline">
+            <span className="text-xs font-medium text-muted-foreground ms-1 hidden sm:inline">
               الحالة:
             </span>
             {[
@@ -332,7 +332,7 @@ export const MarketplaceAppsToolbar: React.FC<MarketplaceAppsToolbarProps> = ({
             })}
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mr-auto sm:mr-0">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground me-auto sm:me-0">
             <span>
               عرض{" "}
               <strong className="text-foreground tabular-nums font-mono">

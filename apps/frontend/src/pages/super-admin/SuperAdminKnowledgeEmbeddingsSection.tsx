@@ -59,7 +59,7 @@ export function SuperAdminKnowledgeEmbeddingsSection({
     <div className="rounded-lg border border-border/70 bg-card p-4 space-y-3.5">
       <div className="flex items-center justify-between border-b border-border/60 pb-2.5">
         <div className="flex items-center gap-2">
-          <BookOpen className="size-4 text-purple-600 dark:text-purple-400" />
+          <BookOpen className="size-4 text-primary dark:text-primary" />
           <h2 className="text-xs font-semibold text-foreground">تضمينات المعرفة والسياسات (Knowledge Embeddings)</h2>
         </div>
         <Button
@@ -91,7 +91,7 @@ export function SuperAdminKnowledgeEmbeddingsSection({
             <p className="text-[10px] text-muted-foreground mt-0.5">إجمالي الأسئلة</p>
           </div>
           <div className="rounded-md border border-border/60 bg-muted/20 p-2">
-            <p className="text-base font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{kSummary.embedded_faqs.toLocaleString()}</p>
+            <p className="text-base font-bold font-mono tabular-nums text-success dark:text-success">{kSummary.embedded_faqs.toLocaleString()}</p>
             <p className="text-[10px] text-muted-foreground mt-0.5">أسئلة مُضَمَّنة</p>
           </div>
           <div className="rounded-md border border-border/60 bg-muted/20 p-2">
@@ -99,7 +99,7 @@ export function SuperAdminKnowledgeEmbeddingsSection({
             <p className="text-[10px] text-muted-foreground mt-0.5">إجمالي السياسات</p>
           </div>
           <div className="rounded-md border border-border/60 bg-muted/20 p-2">
-            <p className="text-base font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{kSummary.embedded_policies.toLocaleString()}</p>
+            <p className="text-base font-bold font-mono tabular-nums text-success dark:text-success">{kSummary.embedded_policies.toLocaleString()}</p>
             <p className="text-[10px] text-muted-foreground mt-0.5">سياسات مُضَمَّنة</p>
           </div>
         </div>
@@ -114,7 +114,7 @@ export function SuperAdminKnowledgeEmbeddingsSection({
               placeholder="ابحث باسم الشركة أو المعرف..."
               value={knowledgeSearch}
               onChange={(e) => setKnowledgeSearch(e.target.value)}
-              className="w-full h-7 rounded border border-border/70 bg-background/50 pr-7 pl-3 text-xs font-mono outline-none focus:ring-1 focus:ring-ring"
+              className="w-full h-7 rounded border border-border/70 bg-background/50 pe-7 ps-3 text-xs font-mono outline-none focus:ring-1 focus:ring-ring"
             />
           </div>
           <Badge variant="outline" className="text-[10px] font-mono border-border/70">
@@ -138,9 +138,9 @@ export function SuperAdminKnowledgeEmbeddingsSection({
                 <div key={c.company_id} className="p-2.5 flex items-center gap-3 hover:bg-muted/20 transition-colors">
                   <div className="text-muted-foreground">
                     {missingK === 0 ? (
-                      <CheckCircle className="size-3.5 text-emerald-500" />
+                      <CheckCircle className="size-3.5 text-success" />
                     ) : (
-                      <AlertCircle className="size-3.5 text-amber-500" />
+                      <AlertCircle className="size-3.5 text-warning" />
                     )}
                   </div>
                   <div className="w-44 shrink-0">
@@ -165,7 +165,7 @@ export function SuperAdminKnowledgeEmbeddingsSection({
                     </div>
                   </div>
                   {missingK > 0 && (
-                    <Badge variant="outline" className="text-[10px] font-mono border-amber-500/30 text-amber-600 bg-amber-500/10 shrink-0">
+                    <Badge variant="outline" className="text-[10px] font-mono border-warning/30 text-warning bg-warning/10 shrink-0">
                       {missingK} ناقص
                     </Badge>
                   )}

@@ -21,7 +21,7 @@ export const WholesalePortalHub: React.FC = () => {
   return (
     <div dir="rtl" className="space-y-6">
       {/* Top Wholesale Portal Navigation Bar */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-2 shadow-sm">
+      <div className="bg-white rounded-xl border border-border p-2 shadow-sm">
         <div className="flex items-center gap-2 overflow-x-auto">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -34,7 +34,7 @@ export const WholesalePortalHub: React.FC = () => {
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
                   isActive
                     ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-gray-600 hover:text-foreground hover:bg-muted'
                 }`}
               >
                 <Icon size={18} />

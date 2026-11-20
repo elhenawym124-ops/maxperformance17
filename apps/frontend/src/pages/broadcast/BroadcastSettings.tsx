@@ -199,26 +199,26 @@ const BroadcastSettings: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+          <h3 className="text-lg leading-6 font-medium text-foreground">
             إعدادات البرودكاست
           </h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             إدارة إعدادات نظام الإرسال الجماعي والتحكم في سلوك النظام
           </p>
         </div>
         <button
           onClick={handleSave}
           disabled={loading}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (
             <>
-              <ClockIcon className="h-4 w-4 ml-2 animate-spin" />
+              <ClockIcon className="h-4 w-4 ms-2 animate-spin" />
               جاري الحفظ...
             </>
           ) : (
             <>
-              <CheckCircleIcon className="h-4 w-4 ml-2" />
+              <CheckCircleIcon className="h-4 w-4 ms-2" />
               حفظ الإعدادات
             </>
           )}
@@ -227,31 +227,31 @@ const BroadcastSettings: React.FC = () => {
 
       {/* Success/Error Messages */}
       {success && (
-        <div className="bg-green-50 border border-green-200 rounded-md p-4">
+        <div className="bg-green-50 border border-success rounded-md p-4">
           <div className="flex">
-            <CheckCircleIcon className="h-5 w-5 text-green-400" />
-            <div className="mr-3">
-              <p className="text-sm text-green-800">تم حفظ الإعدادات بنجاح!</p>
+            <CheckCircleIcon className="h-5 w-5 text-success" />
+            <div className="me-3">
+              <p className="text-sm text-success">تم حفظ الإعدادات بنجاح!</p>
             </div>
           </div>
         </div>
       )}
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-md p-4">
+        <div className="bg-red-50 border border-destructive rounded-md p-4">
           <div className="flex">
-            <ExclamationTriangleIcon className="h-5 w-5 text-red-400" />
-            <div className="mr-3">
-              <p className="text-sm text-red-800">{error}</p>
+            <ExclamationTriangleIcon className="h-5 w-5 text-destructive" />
+            <div className="me-3">
+              <p className="text-sm text-destructive">{error}</p>
             </div>
           </div>
         </div>
       )}
 
-      <div className="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+      <div className="bg-card shadow sm:rounded-lg">
         <div className="flex">
           {/* Sidebar */}
-          <div className="w-64 bg-gray-50 dark:bg-gray-700 rounded-r-lg">
+          <div className="w-64 bg-muted dark:bg-muted rounded-r-lg">
             <nav className="p-4 space-y-2">
               {sections.map((section) => {
                 const Icon = section.icon;
@@ -261,11 +261,11 @@ const BroadcastSettings: React.FC = () => {
                     onClick={() => setActiveSection(section.id as any)}
                     className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-md ${
                       activeSection === section.id
-                        ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-200"
-                        : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600"
+                        ? "bg-indigo-100 text-primary dark:bg-primary dark:text-primary"
+                        : "text-gray-600 hover:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                     }`}
                   >
-                    <Icon className="h-5 w-5 ml-3" />
+                    <Icon className="h-5 w-5 ms-3" />
                     {section.name}
                   </button>
                 );
@@ -277,13 +277,13 @@ const BroadcastSettings: React.FC = () => {
           <div className="flex-1 p-6">
             {activeSection === "general" && (
               <div className="space-y-6">
-                <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h4 className="text-lg font-medium text-foreground">
                   الإعدادات العامة
                 </h4>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       وقت الإرسال الافتراضي
                     </label>
                     <input
@@ -291,19 +291,19 @@ const BroadcastSettings: React.FC = () => {
                       name="defaultSendTime"
                       value={settings.defaultSendTime}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       المنطقة الزمنية
                     </label>
                     <select
                       name="timezone"
                       value={settings.timezone}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     >
                       <option value="Asia/Riyadh">الرياض (GMT+3)</option>
                       <option value="Asia/Dubai">دبي (GMT+4)</option>
@@ -312,7 +312,7 @@ const BroadcastSettings: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       الحد الأقصى للمستلمين لكل حملة
                     </label>
                     <input
@@ -320,12 +320,12 @@ const BroadcastSettings: React.FC = () => {
                       name="maxRecipientsPerCampaign"
                       value={settings.maxRecipientsPerCampaign}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       الحد الأقصى للحملات يومياً
                     </label>
                     <input
@@ -333,7 +333,7 @@ const BroadcastSettings: React.FC = () => {
                       name="maxCampaignsPerDay"
                       value={settings.maxCampaignsPerDay}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
                 </div>
@@ -342,7 +342,7 @@ const BroadcastSettings: React.FC = () => {
 
             {activeSection === "delivery" && (
               <div className="space-y-6">
-                <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h4 className="text-lg font-medium text-foreground">
                   إعدادات التسليم
                 </h4>
 
@@ -354,11 +354,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.enableDeliveryReports}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="enableDeliveryReports"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       تفعيل تقارير التسليم
                     </label>
@@ -371,11 +371,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.enableOpenTracking}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="enableOpenTracking"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       تتبع فتح الرسائل
                     </label>
@@ -388,11 +388,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.enableClickTracking}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="enableClickTracking"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       تتبع النقرات
                     </label>
@@ -405,11 +405,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.enableUnsubscribeTracking}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="enableUnsubscribeTracking"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       تتبع إلغاء الاشتراك
                     </label>
@@ -417,12 +417,12 @@ const BroadcastSettings: React.FC = () => {
                 </div>
 
                 <div className="border-t pt-6">
-                  <h5 className="text-md font-medium text-gray-900 dark:text-white mb-4">
+                  <h5 className="text-md font-medium text-foreground mb-4">
                     حدود معدل الإرسال
                   </h5>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="block text-sm font-medium text-foreground">
                         رسائل في الدقيقة
                       </label>
                       <input
@@ -430,11 +430,11 @@ const BroadcastSettings: React.FC = () => {
                         name="messagesPerMinute"
                         value={settings.messagesPerMinute}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="block text-sm font-medium text-foreground">
                         رسائل في الساعة
                       </label>
                       <input
@@ -442,11 +442,11 @@ const BroadcastSettings: React.FC = () => {
                         name="messagesPerHour"
                         value={settings.messagesPerHour}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label className="block text-sm font-medium text-foreground">
                         رسائل في اليوم
                       </label>
                       <input
@@ -454,7 +454,7 @@ const BroadcastSettings: React.FC = () => {
                         name="messagesPerDay"
                         value={settings.messagesPerDay}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       />
                     </div>
                   </div>
@@ -464,12 +464,12 @@ const BroadcastSettings: React.FC = () => {
 
             {activeSection === "notifications" && (
               <div className="space-y-6">
-                <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h4 className="text-lg font-medium text-foreground">
                   إعدادات التنبيهات
                 </h4>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium text-foreground">
                     البريد الإلكتروني للمدير
                   </label>
                   <input
@@ -477,7 +477,7 @@ const BroadcastSettings: React.FC = () => {
                     name="adminEmail"
                     value={settings.adminEmail}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                   />
                 </div>
 
@@ -489,11 +489,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.notifyOnCampaignSent}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="notifyOnCampaignSent"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       إشعار عند إرسال الحملة
                     </label>
@@ -506,11 +506,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.notifyOnHighUnsubscribeRate}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="notifyOnHighUnsubscribeRate"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       إشعار عند ارتفاع معدل إلغاء الاشتراك
                     </label>
@@ -523,11 +523,11 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.notifyOnLowDeliveryRate}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="notifyOnLowDeliveryRate"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       إشعار عند انخفاض معدل التسليم
                     </label>
@@ -538,7 +538,7 @@ const BroadcastSettings: React.FC = () => {
 
             {activeSection === "security" && (
               <div className="space-y-6">
-                <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h4 className="text-lg font-medium text-foreground">
                   إعدادات الأمان
                 </h4>
 
@@ -550,18 +550,18 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.requireApprovalForHighVolume}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="requireApprovalForHighVolume"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       طلب موافقة للحملات عالية الحجم
                     </label>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       حد الحجم العالي (عدد المستلمين)
                     </label>
                     <input
@@ -569,7 +569,7 @@ const BroadcastSettings: React.FC = () => {
                       name="highVolumeThreshold"
                       value={settings.highVolumeThreshold}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
@@ -580,18 +580,18 @@ const BroadcastSettings: React.FC = () => {
                       type="checkbox"
                       checked={settings.enableContentFiltering}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
                     />
                     <label
                       htmlFor="enableContentFiltering"
-                      className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+                      className="me-2 block text-sm text-foreground dark:text-muted-foreground"
                     >
                       تفعيل تصفية المحتوى
                     </label>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       الكلمات المحظورة
                     </label>
                     <div className="mt-1 flex items-center space-x-2 space-x-reverse">
@@ -603,13 +603,13 @@ const BroadcastSettings: React.FC = () => {
                           e.key === "Enter" &&
                           (e.preventDefault(), addBlockedWord())
                         }
-                        className="flex-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="flex-1 border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                         placeholder="أضف كلمة محظورة"
                       />
                       <button
                         type="button"
                         onClick={addBlockedWord}
-                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary hover:bg-primary/90"
                       >
                         إضافة
                       </button>
@@ -619,13 +619,13 @@ const BroadcastSettings: React.FC = () => {
                         {settings.blockedWords.map((word, index) => (
                           <span
                             key={index}
-                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800"
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive text-destructive"
                           >
                             {word}
                             <button
                               type="button"
                               onClick={() => removeBlockedWord(word)}
-                              className="mr-1 h-3 w-3 text-red-600 hover:text-red-800"
+                              className="me-1 h-3 w-3 text-destructive hover:text-destructive"
                             >
                               ×
                             </button>
@@ -640,13 +640,13 @@ const BroadcastSettings: React.FC = () => {
 
             {activeSection === "templates" && (
               <div className="space-y-6">
-                <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h4 className="text-lg font-medium text-foreground">
                   قوالب الرسائل
                 </h4>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       اسم الشركة
                     </label>
                     <input
@@ -654,12 +654,12 @@ const BroadcastSettings: React.FC = () => {
                       name="companyName"
                       value={settings.companyName}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       عنوان الشركة
                     </label>
                     <input
@@ -667,12 +667,12 @@ const BroadcastSettings: React.FC = () => {
                       name="companyAddress"
                       value={settings.companyAddress}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       التذييل الافتراضي
                     </label>
                     <textarea
@@ -680,12 +680,12 @@ const BroadcastSettings: React.FC = () => {
                       rows={3}
                       value={settings.defaultFooter}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-foreground">
                       نص إلغاء الاشتراك
                     </label>
                     <input
@@ -693,7 +693,7 @@ const BroadcastSettings: React.FC = () => {
                       name="unsubscribeText"
                       value={settings.unsubscribeText}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
                 </div>

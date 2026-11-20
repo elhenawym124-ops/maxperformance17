@@ -45,8 +45,8 @@ export function nextScheduledTime(hour: number, minute: number): string {
 const STATUS_CONFIG = {
   idle:    { label: "في الانتظار",  color: "bg-muted text-muted-foreground border-border/60", icon: <Clock className="size-3" /> },
   running: { label: "جارٍ الآن",   color: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/20", icon: <RefreshCw className="size-3 animate-spin" /> },
-  done:    { label: "اكتمل",        color: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20", icon: <CheckCircle className="size-3" /> },
-  error:   { label: "خطأ",          color: "bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/20", icon: <AlertCircle className="size-3" /> },
+  done:    { label: "اكتمل",        color: "bg-emerald-500/10 text-success dark:text-success border-success/20", icon: <CheckCircle className="size-3" /> },
+  error:   { label: "خطأ",          color: "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20", icon: <AlertCircle className="size-3" /> },
 };
 
 export function JobCard({
@@ -92,7 +92,7 @@ export function JobCard({
           <p className="font-mono text-xs text-foreground truncate mt-0.5">
             {fmtTs(job?.finished_at ?? null, null)}
             {job?.started_at && job?.finished_at ? (
-              <span className="text-muted-foreground mr-1 text-[10px]">
+              <span className="text-muted-foreground me-1 text-[10px]">
                 ({fmtDuration(job.started_at, job.finished_at)})
               </span>
             ) : null}

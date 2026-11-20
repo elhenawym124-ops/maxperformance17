@@ -98,17 +98,17 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
   handleDeleteTimeLog,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm min-h-[600px]">
+    <div className="bg-card rounded-xl border border-border dark:border-border overflow-hidden shadow-sm min-h-[600px]">
       {/* Tabs Header */}
-      <div className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 overflow-x-auto">
+      <div className="border-b border-border dark:border-border bg-muted dark:bg-muted overflow-x-auto">
         <div className="flex">
           <button
             type="button"
             onClick={() => setActiveTab("details")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "details"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             <DocumentDuplicateIcon className="h-5 w-5" />
@@ -119,8 +119,8 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
             onClick={() => setActiveTab("subtasks")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "subtasks"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             <ClipboardDocumentListIcon className="h-5 w-5" />
@@ -131,8 +131,8 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
             onClick={() => setActiveTab("checklists")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "checklists"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             <CheckCircleIcon className="h-5 w-5" />
@@ -143,8 +143,8 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
             onClick={() => setActiveTab("comments")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "comments"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             <ChatBubbleLeftIcon className="h-5 w-5" />
@@ -155,8 +155,8 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
             onClick={() => setActiveTab("attachments")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "attachments"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             <PaperClipIcon className="h-5 w-5" />
@@ -167,8 +167,8 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
             onClick={() => setActiveTab("time")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "time"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             <ClockIcon className="h-5 w-5" />
@@ -179,8 +179,8 @@ export const DevTaskTabsContent: React.FC<DevTaskTabsContentProps> = ({
             onClick={() => setActiveTab("activities")}
             className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 flex items-center gap-2 ${
               activeTab === "activities"
-                ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-gray-800"
-                : "text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "text-primary border-primary dark:border-primary bg-card"
+                : "text-muted-foreground border-transparent hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted"
             }`}
           >
             يوميات النظام

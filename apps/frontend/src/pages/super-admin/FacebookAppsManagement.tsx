@@ -188,9 +188,9 @@ export const FacebookAppsManagement: React.FC = () => {
       </div>
 
       {/* Security Banner */}
-      <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-start gap-3">
-        <ShieldAlert className="size-5 text-amber-500 shrink-0 mt-0.5" />
-        <div className="text-xs sm:text-sm leading-relaxed text-amber-800 dark:text-amber-300">
+      <div className="bg-amber-500/10 border border-warning/20 rounded-xl p-4 flex items-start gap-3">
+        <ShieldAlert className="size-5 text-warning shrink-0 mt-0.5" />
+        <div className="text-xs sm:text-sm leading-relaxed text-warning dark:text-warning">
           <strong>مبدأ الأمان الإلزامي:</strong> يتم تخزين <em>مراجع الأسرار فقط (Ref)</em> في قاعدة البيانات. لا يتم حفظ أو عرض أسرار التطبيقات كنص خام في السجل أو اللوج نهائيًا، وتُقرأ عند الاستدعاء مباشرة من متغيرات البيئة الآمنة (process.env / Vault).
         </div>
       </div>
@@ -224,7 +224,7 @@ export const FacebookAppsManagement: React.FC = () => {
                         className={`size-8 rounded-lg flex items-center justify-center ${
                           isPrimary
                             ? "bg-blue-500/10 text-blue-500 border border-blue-500/20"
-                            : "bg-purple-500/10 text-purple-500 border border-purple-500/20"
+                            : "bg-purple-500/10 text-primary border border-primary/20"
                         }`}
                       >
                         <Lock className="size-4" />
@@ -237,8 +237,8 @@ export const FacebookAppsManagement: React.FC = () => {
                           <span
                             className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
                               app.isActive
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                                : "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border-zinc-500/20"
+                                ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                                : "bg-zinc-500/10 text-foreground dark:text-muted-foreground border-border"
                             }`}
                           >
                             {app.isActive ? "نشط" : "معطّل"}
@@ -269,11 +269,11 @@ export const FacebookAppsManagement: React.FC = () => {
                       <div className="flex items-center gap-1.5">
                         <span className="text-foreground">{app.appSecretRef}</span>
                         {app.hasSecretConfigured ? (
-                          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                          <span className="inline-flex items-center gap-1 text-[10px] text-success bg-success/10 px-1.5 py-0.5 rounded border border-success/20">
                             <Check className="size-2.5" /> مضبوط بالبيئة
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-[10px] text-amber-600 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">
+                          <span className="inline-flex items-center gap-1 text-[10px] text-warning bg-warning/10 px-1.5 py-0.5 rounded border border-warning/20">
                             <AlertCircle className="size-2.5" /> ناقص
                           </span>
                         )}
@@ -290,7 +290,7 @@ export const FacebookAppsManagement: React.FC = () => {
                       <div className="flex items-center gap-1.5">
                         <span className="text-foreground">{app.webhookVerifyTokenRef}</span>
                         {app.hasVerifyTokenConfigured && (
-                          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                          <span className="inline-flex items-center gap-1 text-[10px] text-success bg-success/10 px-1.5 py-0.5 rounded border border-success/20">
                             <Check className="size-2.5" /> مضبوط
                           </span>
                         )}
@@ -324,8 +324,8 @@ export const FacebookAppsManagement: React.FC = () => {
                       disabled={actionLoading === app.key}
                       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                         app.isActive
-                          ? "border border-red-500/20 bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                          : "border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                          ? "border border-destructive/20 bg-destructive/10 text-destructive hover:bg-destructive/20"
+                          : "border border-success/20 bg-success/10 text-success hover:bg-success/20"
                       }`}
                     >
                       <Power className="size-3.5" />
@@ -342,7 +342,7 @@ export const FacebookAppsManagement: React.FC = () => {
       {/* Feature Gating Information Card */}
       <div className="rounded-xl border border-border/70 bg-card p-5 space-y-3">
         <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-          <ShieldCheck className="size-4 text-emerald-500" />
+          <ShieldCheck className="size-4 text-success" />
           ميزات تتطلب تطبيق Growth (Gating Protocol)
         </h3>
         <p className="text-xs text-muted-foreground leading-relaxed">
@@ -397,7 +397,7 @@ export const FacebookAppsManagement: React.FC = () => {
                   placeholder="مثال: FACEBOOK_APP_SECRET"
                   className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-blue-500 outline-none"
                 />
-                <span className="text-[10px] text-amber-500 mt-1 block">
+                <span className="text-[10px] text-warning mt-1 block">
                   * أدخل اسم متغير البيئة فقط، ممنوع إدخال السر الفعلي هنا.
                 </span>
               </div>
@@ -468,11 +468,11 @@ export const FacebookAppsManagement: React.FC = () => {
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-sm">نتائج فحص الاتصال واعتماد الصلاحيات</h3>
                 {testResult.connected ? (
-                  <span className="text-[10px] bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold">
+                  <span className="text-[10px] bg-success/10 text-success border border-success/20 px-2 py-0.5 rounded-full font-bold">
                     متصل بنجاح ✓
                   </span>
                 ) : (
-                  <span className="text-[10px] bg-rose-500/10 text-rose-600 border border-rose-500/20 px-2 py-0.5 rounded-full font-bold">
+                  <span className="text-[10px] bg-destructive/10 text-destructive border border-destructive/20 px-2 py-0.5 rounded-full font-bold">
                     فشل الاتصال ✕
                   </span>
                 )}
@@ -505,8 +505,8 @@ export const FacebookAppsManagement: React.FC = () => {
                 <div
                   className={`p-3 rounded-lg border leading-relaxed ${
                     testResult.connected
-                      ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-800 dark:text-emerald-300"
-                      : "bg-amber-500/10 border-amber-500/20 text-amber-800 dark:text-amber-300"
+                      ? "bg-emerald-500/10 border-success/20 text-success dark:text-success"
+                      : "bg-amber-500/10 border-warning/20 text-warning dark:text-warning"
                   }`}
                 >
                   {testResult.message}
@@ -542,12 +542,12 @@ export const FacebookAppsManagement: React.FC = () => {
 
                           <div>
                             {isApproved && (
-                              <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-medium">
+                              <span className="bg-emerald-500/10 text-success dark:text-success border border-success/20 px-2 py-0.5 rounded text-[10px] font-medium">
                                 معتمد (Advanced Access)
                               </span>
                             )}
                             {isStandardOnly && (
-                              <span className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded text-[10px] font-medium">
+                              <span className="bg-amber-500/10 text-warning dark:text-warning border border-warning/20 px-2 py-0.5 rounded text-[10px] font-medium">
                                 وصول قياسي فقط (Standard Access)
                               </span>
                             )}
@@ -557,7 +557,7 @@ export const FacebookAppsManagement: React.FC = () => {
                               </span>
                             )}
                             {!isApproved && !isStandardOnly && !isPending && (
-                              <span className="bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border border-zinc-500/20 px-2 py-0.5 rounded text-[10px]">
+                              <span className="bg-zinc-500/10 text-foreground dark:text-muted-foreground border border-border px-2 py-0.5 rounded text-[10px]">
                                 غير مطلوب
                               </span>
                             )}
@@ -567,7 +567,7 @@ export const FacebookAppsManagement: React.FC = () => {
                         <p className="text-[11px] text-muted-foreground">{p.description}</p>
 
                         {p.note && (
-                          <p className="text-[10px] text-amber-700 dark:text-amber-300 bg-amber-500/10 p-1.5 rounded border border-amber-500/20 mt-1">
+                          <p className="text-[10px] text-warning dark:text-warning bg-warning/10 p-1.5 rounded border border-warning/20 mt-1">
                             ⚠️ {p.note}
                           </p>
                         )}

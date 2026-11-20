@@ -179,23 +179,23 @@ export default function ClientBulkUploadPage() {
   return (
     <div className="space-y-5 w-full max-w-[1800px] mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-2 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-2 border-b border-border">
         <div>
-          <h1 className="text-lg font-bold text-gray-900">الرفع المجمّع للشحنات (CSV)</h1>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <h1 className="text-lg font-bold text-foreground">الرفع المجمّع للشحنات (CSV)</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             استيراد عشرات الطرود دفعة واحدة بملف إكسل/CSV مع المعاينة والتحقق قبل الإرسال
           </p>
         </div>
         <button
           onClick={downloadTemplate}
-          className="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 text-xs font-medium rounded hover:bg-gray-50 transition-colors self-start sm:self-auto"
+          className="px-3 py-1.5 bg-white border border-border text-foreground text-xs font-medium rounded hover:bg-muted transition-colors self-start sm:self-auto"
         >
           تحميل النموذج الجاهز (CSV Template)
         </button>
       </div>
 
       {/* Upload Box */}
-      <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-6 text-center space-y-3">
+      <div className="bg-white rounded-lg border-2 border-dashed border-border p-6 text-center space-y-3">
         <div className="text-gray-500 text-xs">
           اختر ملف CSV يحتوي على شحناتك وفق النموذج المعتمد
         </div>
@@ -209,14 +209,14 @@ export default function ClientBulkUploadPage() {
             className="hidden"
           />
         </label>
-        {fileName && <div className="text-xs font-mono text-gray-700 font-medium">الملف المحدد: {fileName}</div>}
+        {fileName && <div className="text-xs font-mono text-foreground font-medium">الملف المحدد: {fileName}</div>}
       </div>
 
       {/* Controls & Summary */}
       {rows.length > 0 && (
-        <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="bg-white rounded-lg border border-border p-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-4 text-xs">
-            <span className="font-semibold text-gray-900">إجمالي الصفوف: {rows.length}</span>
+            <span className="font-semibold text-foreground">إجمالي الصفوف: {rows.length}</span>
             <span className="text-emerald-600 font-medium">صالح: {validCount}</span>
             {rows.length - validCount > 0 && (
               <span className="text-rose-600 font-medium">بحاجة للتصحيح: {rows.length - validCount}</span>
@@ -232,7 +232,7 @@ export default function ClientBulkUploadPage() {
           <button
             onClick={handleStartProcessing}
             disabled={isProcessing || validCount === 0}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded shadow-sm transition-colors"
+            className="px-4 py-2 bg-success hover:bg-success disabled:opacity-50 text-white text-xs font-semibold rounded shadow-sm transition-colors"
           >
             {isProcessing
               ? `جاري الإرسال (${progress.current}/${progress.total})...`
@@ -243,10 +243,10 @@ export default function ClientBulkUploadPage() {
 
       {/* Table Preview */}
       {rows.length > 0 && (
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-lg border border-border overflow-hidden">
           <div className="overflow-x-auto max-h-[500px]">
             <table className="w-full text-right text-xs">
-              <thead className="bg-gray-50 text-gray-500 border-b border-gray-200 sticky top-0">
+              <thead className="bg-gray-50 text-muted-foreground border-b border-border sticky top-0">
                 <tr>
                   <th className="px-3 py-2 font-medium">#</th>
                   <th className="px-3 py-2 font-medium">المستلم</th>
@@ -259,7 +259,7 @@ export default function ClientBulkUploadPage() {
                   <th className="px-3 py-2 font-medium">النتيجة</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-border">
                 {rows.map((r) => (
                   <tr
                     key={r.index}
@@ -267,13 +267,13 @@ export default function ClientBulkUploadPage() {
                       !r.isValid ? 'bg-rose-50/50' : r.status === 'SUCCESS' ? 'bg-emerald-50/50' : 'hover:bg-gray-50'
                     }`}
                   >
-                    <td className="px-3 py-2 font-mono text-gray-400">{r.index}</td>
-                    <td className="px-3 py-2 font-medium text-gray-900">{r.recipientName || '—'}</td>
-                    <td className="px-3 py-2 font-mono text-gray-600">{r.recipientPhone || '—'}</td>
-                    <td className="px-3 py-2 text-gray-700">{r.destinationGovernorate}</td>
-                    <td className="px-3 py-2 text-gray-600 truncate max-w-[180px]">{r.destinationAddress || '—'}</td>
-                    <td className="px-3 py-2 tabular-nums font-semibold text-gray-900">{r.codAmount}</td>
-                    <td className="px-3 py-2 tabular-nums text-gray-500">
+                    <td className="px-3 py-2 font-mono text-muted-foreground">{r.index}</td>
+                    <td className="px-3 py-2 font-medium text-foreground">{r.recipientName || '—'}</td>
+                    <td className="px-3 py-2 font-mono text-foreground">{r.recipientPhone || '—'}</td>
+                    <td className="px-3 py-2 text-foreground">{r.destinationGovernorate}</td>
+                    <td className="px-3 py-2 text-foreground truncate max-w-[180px]">{r.destinationAddress || '—'}</td>
+                    <td className="px-3 py-2 tabular-nums font-semibold text-foreground">{r.codAmount}</td>
+                    <td className="px-3 py-2 tabular-nums text-muted-foreground">
                       {r.pieces} ق / {r.weight} كجم
                     </td>
                     <td className="px-3 py-2">

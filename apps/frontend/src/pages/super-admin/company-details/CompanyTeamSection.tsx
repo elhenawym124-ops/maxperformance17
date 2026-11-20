@@ -177,7 +177,7 @@ export function CompanyTeamSection({
               {dormant ? (
                 <Badge
                   variant="outline"
-                  className="inline-flex items-center gap-1 rounded-full border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold text-amber-800 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-300"
+                  className="inline-flex items-center gap-1 rounded-full border-warning bg-warning/10 px-2.5 py-0.5 text-[11px] font-bold text-warning dark:border-warning/70 dark:bg-warning/40 dark:text-warning"
                 >
                   <AlertCircle className="size-3" />
                   خامل &gt; {formatNumber(30)} يوم
@@ -185,7 +185,7 @@ export function CompanyTeamSection({
               ) : !user.lastLoginAt ? (
                 <Badge
                   variant="outline"
-                  className="rounded-full border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[11px] text-slate-700 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300"
+                  className="rounded-full border-border bg-muted px-2.5 py-0.5 text-[11px] text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
                   لم يسجل دخول
                 </Badge>
@@ -213,7 +213,7 @@ export function CompanyTeamSection({
               <DropdownMenuContent align="end" className="rounded-xl">
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="rounded-lg">
-                    <Shield className="ml-2 size-4" /> تغيير الصلاحية
+                    <Shield className="ms-2 size-4" /> تغيير الصلاحية
                   </DropdownMenuSubTrigger>
                   <DropdownMenuSubContent className="rounded-xl">
                     {ROLE_OPTIONS.filter((opt) => opt.value !== user.role).map((opt) => (
@@ -226,14 +226,14 @@ export function CompanyTeamSection({
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
                 <DropdownMenuItem className="rounded-lg" onClick={() => void handleToggleUserStatus(user.id)}>
-                  {user.isActive ? <UserRoundX className="ml-2 size-4 text-amber-600" /> : <UserPlus className="ml-2 size-4 text-emerald-600" />}
+                  {user.isActive ? <UserRoundX className="ms-2 size-4 text-warning" /> : <UserPlus className="ms-2 size-4 text-success" />}
                   {user.isActive ? "إيقاف حساب العضو" : "تفعيل حساب العضو"}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="rounded-lg text-destructive focus:text-destructive"
                   onClick={() => setDeleteConfirmUserId(user.id)}
                 >
-                  <Trash2 className="ml-2 size-4" /> حذف العضو نهائياً
+                  <Trash2 className="ms-2 size-4" /> حذف العضو نهائياً
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -246,7 +246,7 @@ export function CompanyTeamSection({
   return (
     <>
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)]">
-        <Card className="rounded-2xl border">
+        <Card className="rounded-xl border">
           <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pb-3">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
@@ -284,7 +284,7 @@ export function CompanyTeamSection({
                   aria-label="بحث في أعضاء الفريق"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="h-10 pr-9 rounded-xl text-xs"
+                  className="h-10 pe-9 rounded-xl text-xs"
                 />
               </div>
 
@@ -363,15 +363,15 @@ export function CompanyTeamSection({
 
                 {/* Separated System Accounts Group */}
                 <div
-                  className="rounded-xl border border-sky-200/70 bg-sky-50/40 p-3.5 space-y-2 dark:border-sky-800/50 dark:bg-sky-950/15"
+                  className="rounded-xl border border-info/70 bg-info/40 p-3.5 space-y-2 dark:border-info/50 dark:bg-info/15"
                   data-testid="system-accounts-section"
                 >
-                  <div className="flex items-center justify-between gap-2 pb-1 border-b border-sky-200/60 dark:border-sky-800/40">
+                  <div className="flex items-center justify-between gap-2 pb-1 border-b border-info/60 dark:border-info/40">
                     <div className="flex items-center gap-2">
-                      <Bot className="size-4 text-sky-600 dark:text-sky-400" />
+                      <Bot className="size-4 text-info dark:text-info" />
                       <h4 className="text-sm font-black text-foreground">حسابات النظام</h4>
                     </div>
-                    <Badge variant="outline" className="rounded-full border-sky-200 bg-background/80 px-2.5 py-0.5 text-[11px] text-sky-700 dark:border-sky-800 dark:text-sky-300">
+                    <Badge variant="outline" className="rounded-full border-info bg-background/80 px-2.5 py-0.5 text-[11px] text-info dark:border-info dark:text-info">
                       مجموعة منفصلة
                     </Badge>
                   </div>
@@ -429,7 +429,7 @@ export function CompanyTeamSection({
         </Card>
 
         {/* Channels Card */}
-        <Card className="rounded-2xl border">
+        <Card className="rounded-xl border">
           <CardHeader className="space-y-1 pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-black">قنوات الربط</CardTitle>
@@ -470,7 +470,7 @@ export function CompanyTeamSection({
       </div>
 
       <AlertDialog open={deleteConfirmUserId !== null} onOpenChange={(open) => { if (!open) setDeleteConfirmUserId(null); }}>
-        <AlertDialogContent className="rounded-2xl">
+        <AlertDialogContent className="rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle>حذف العضو نهائياً</AlertDialogTitle>
             <AlertDialogDescription>

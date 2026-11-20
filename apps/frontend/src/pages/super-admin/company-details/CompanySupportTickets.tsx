@@ -51,7 +51,7 @@ export function CompanySupportTickets({ tickets, companyId, loading }: {
           value={query}
           onChange={(event) => { setQuery(event.target.value); setVisible(PAGE_SIZE); }}
           placeholder="ابحث برقم التذكرة أو الموضوع أو مقدّم التذكرة..."
-          className="h-10 rounded-xl pr-9 text-sm"
+          className="h-10 rounded-xl pe-9 text-sm"
         />
       </div>
 
@@ -94,7 +94,7 @@ export function CompanySupportTickets({ tickets, companyId, loading }: {
               title="فتح التذكرة"
               className={cn(
                 buttonVariants({ variant: "ghost", size: "sm" }),
-                "mr-2 shrink-0 rounded-lg hover:bg-primary/10 hover:text-primary",
+                "me-2 shrink-0 rounded-lg hover:bg-primary/10 hover:text-primary",
               )}
             >
               <MessageSquare className="size-4" />

@@ -80,19 +80,19 @@ const DevTaskDetails: React.FC = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 dark:border-indigo-400" />
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary dark:border-primary" />
       </div>
     );
   }
 
   if (error || !task) {
     return (
-      <div className="p-8 text-center text-red-600 dark:text-red-400">
+      <div className="p-8 text-center text-destructive dark:text-destructive">
         <p>{error || "المهمة غير موجودة"}</p>
         <button
           type="button"
           onClick={() => navigate("/super-admin/dev-tasks")}
-          className="mt-4 px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600"
+          className="mt-4 px-4 py-2 bg-destructive dark:bg-destructive text-white rounded-lg hover:bg-destructive dark:hover:bg-destructive"
         >
           العودة للقائمة
         </button>

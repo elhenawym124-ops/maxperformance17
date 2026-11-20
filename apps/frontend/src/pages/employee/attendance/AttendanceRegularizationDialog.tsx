@@ -119,10 +119,10 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
               <FileCheck className="h-5 w-5" />
             </div>
             <div>
-              <DialogTitle className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+              <DialogTitle className="text-base sm:text-lg font-bold text-foreground">
                 طلب بصمة معتمدة (اعتماد حضور يدوي)
               </DialogTitle>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 سجل وقت وصولك الفعلي والسبب ليقوم المالك أو الإدارة باعتماده بضغطة زر بدلاً من المراسلات اليدوية.
               </p>
             </div>
@@ -131,15 +131,15 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
 
         <form onSubmit={handleSubmit} className="space-y-4 py-2">
           {errorMessage && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-700 dark:text-red-300">
-              <AlertCircle className="h-4 w-4 shrink-0 text-red-600" />
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-xs text-destructive dark:text-destructive">
+              <AlertCircle className="h-4 w-4 shrink-0 text-destructive" />
               <span>{errorMessage}</span>
             </div>
           )}
 
           {/* نوع البصمة */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-foreground mb-1.5">
               نوع البصمة
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -149,7 +149,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
                 className={`py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
                   action === "CHECK_IN"
                     ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                    : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300"
+                    : "bg-gray-50 dark:bg-muted border-border dark:border-border text-foreground"
                 }`}
               >
                 بصمة حضور (وصول)
@@ -160,7 +160,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
                 className={`py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
                   action === "CHECK_OUT"
                     ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                    : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300"
+                    : "bg-gray-50 dark:bg-muted border-border dark:border-border text-foreground"
                 }`}
               >
                 بصمة انصراف (مغادرة)
@@ -171,7 +171,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
           {/* التاريخ ووقت البصمة */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 تاريخ اليوم
               </label>
               <div className="relative">
@@ -186,7 +186,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 وقت البصمة الفعلي
               </label>
               <div className="relative">
@@ -204,10 +204,10 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
           {/* سبب الطلب واقتراحات سريعة */}
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <label className="text-xs font-semibold text-foreground">
                 سبب الطلب
               </label>
-              <span className="text-[11px] text-gray-400">اختر سبباً شائعاً أو اكتب سبباً مخصصاً</span>
+              <span className="text-[11px] text-muted-foreground">اختر سبباً شائعاً أو اكتب سبباً مخصصاً</span>
             </div>
 
             <div className="flex flex-wrap gap-1.5 mb-2">
@@ -216,7 +216,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
                   key={idx}
                   type="button"
                   onClick={() => setReason(cr)}
-                  className="text-[11px] px-2 py-1 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
+                  className="text-[11px] px-2 py-1 rounded-md bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground transition-colors"
                 >
                   + {cr}
                 </button>

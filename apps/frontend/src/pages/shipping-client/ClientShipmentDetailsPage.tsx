@@ -9,12 +9,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { shippingClientApi } from './useShippingClientApi';
 
 const STATUS_LABELS: Record<string, { label: string; className: string }> = {
-  PENDING: { label: 'قيد المراجعة', className: 'bg-amber-50 text-amber-700 border-amber-200' },
+  PENDING: { label: 'قيد المراجعة', className: 'bg-amber-50 text-warning border-warning' },
   ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-blue-700 border-blue-200' },
-  OUT_FOR_DELIVERY: { label: 'خرج للتوصيل', className: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  DELIVERED: { label: 'تم التسليم', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  RETURNED: { label: 'مرتجع', className: 'bg-rose-50 text-rose-700 border-rose-200' },
-  CANCELLED: { label: 'ملغي', className: 'bg-gray-100 text-gray-700 border-gray-200' },
+  OUT_FOR_DELIVERY: { label: 'خرج للتوصيل', className: 'bg-indigo-50 text-primary border-primary' },
+  DELIVERED: { label: 'تم التسليم', className: 'bg-emerald-50 text-success border-success' },
+  RETURNED: { label: 'مرتجع', className: 'bg-rose-50 text-destructive border-destructive' },
+  CANCELLED: { label: 'ملغي', className: 'bg-gray-100 text-foreground border-border' },
 };
 
 export default function ClientShipmentDetailsPage() {
@@ -42,7 +42,7 @@ export default function ClientShipmentDetailsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[300px]">
-        <div className="text-sm text-gray-500 font-medium">جاري تحميل بيانات الشحنة...</div>
+        <div className="text-sm text-muted-foreground font-medium">جاري تحميل بيانات الشحنة...</div>
       </div>
     );
   }
@@ -50,7 +50,7 @@ export default function ClientShipmentDetailsPage() {
   if (error || !shipment) {
     return (
       <div className="max-w-xl mx-auto space-y-4 pt-8">
-        <div className="p-4 bg-rose-50 border border-rose-200 rounded text-rose-700 text-sm">
+        <div className="p-4 bg-destructive/10 border border-destructive rounded text-destructive text-sm">
           {error || 'الشحنة غير موجودة أو غير مصرح بالوصول إليها'}
         </div>
         <button
@@ -65,31 +65,31 @@ export default function ClientShipmentDetailsPage() {
 
   const statusInfo = STATUS_LABELS[shipment.status] || {
     label: shipment.status,
-    className: 'bg-gray-50 text-gray-700 border-gray-200',
+    className: 'bg-gray-50 text-foreground border-border',
   };
 
   return (
     <div className="w-full max-w-[1800px] mx-auto space-y-5">
       {/* Top Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-gray-200">
+      <div className="flex items-center justify-between pb-3 border-b border-border">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/client-portal/shipping/shipments')}
-            className="p-1.5 border border-gray-200 rounded hover:bg-gray-100 text-gray-600 transition-colors"
+            className="p-1.5 border border-border rounded hover:bg-muted text-foreground transition-colors"
             title="رجوع"
           >
             &rarr;
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base font-bold text-gray-900 font-mono">
+              <h1 className="text-base font-bold text-foreground font-mono">
                 {shipment.trackingNumber}
               </h1>
               <span className={`px-2 py-0.5 rounded text-[11px] font-medium border ${statusInfo.className}`}>
                 {statusInfo.label}
               </span>
             </div>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               تاريخ الإنشاء: {new Date(shipment.createdAt).toLocaleString('ar-EG')}
             </p>
           </div>
@@ -100,8 +100,8 @@ export default function ClientShipmentDetailsPage() {
         {/* Main Details (2 Cols) */}
         <div className="md:col-span-2 space-y-5">
           {/* Recipient & Destination Card */}
-          <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-3">
-            <h2 className="text-xs font-bold text-gray-900 pb-2 border-b border-gray-100">
+          <div className="bg-white rounded-lg border border-border p-4 space-y-3">
+            <h2 className="text-xs font-bold text-foreground pb-2 border-b border-border">
               بيانات المستلم والتوصيل
             </h2>
             <div className="grid grid-cols-2 gap-3 text-xs">
@@ -126,15 +126,15 @@ export default function ClientShipmentDetailsPage() {
                 </span>
               </div>
             </div>
-            <div className="pt-2 border-t border-gray-100 text-xs">
+            <div className="pt-2 border-t border-border text-xs">
               <span className="text-gray-400 block mb-0.5">العنوان التفصيلي:</span>
               <span className="text-gray-900">{shipment.destinationAddress}</span>
             </div>
           </div>
 
           {/* Shipment Specs Card */}
-          <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-3">
-            <h2 className="text-xs font-bold text-gray-900 pb-2 border-b border-gray-100">
+          <div className="bg-white rounded-lg border border-border p-4 space-y-3">
+            <h2 className="text-xs font-bold text-foreground pb-2 border-b border-border">
               مواصفات الطرد
             </h2>
             <div className="grid grid-cols-3 gap-3 text-xs">
@@ -166,22 +166,22 @@ export default function ClientShipmentDetailsPage() {
           </div>
 
           {/* Timeline Events */}
-          <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-3">
-            <h2 className="text-xs font-bold text-gray-900 pb-2 border-b border-gray-100">
+          <div className="bg-white rounded-lg border border-border p-4 space-y-3">
+            <h2 className="text-xs font-bold text-foreground pb-2 border-b border-border">
               سجل التتبع والمحطات (Timeline)
             </h2>
             {(!shipment.events || shipment.events.length === 0) ? (
-              <div className="text-xs text-gray-400 py-4 text-center">لا توجد محطات مسجلة بعد</div>
+              <div className="text-xs text-muted-foreground py-4 text-center">لا توجد محطات مسجلة بعد</div>
             ) : (
-              <div className="relative border-r-2 border-gray-100 mr-2 space-y-4 py-2">
+              <div className="relative border-r-2 border-border me-2 space-y-4 py-2">
                 {shipment.events.map((ev: any, idx: number) => (
-                  <div key={ev.id || idx} className="relative pr-4">
+                  <div key={ev.id || idx} className="relative pe-4">
                     <div className="absolute -right-[7px] top-1 w-2.5 h-2.5 rounded-full bg-blue-500 ring-4 ring-white" />
-                    <div className="text-xs font-semibold text-gray-900">
+                    <div className="text-xs font-semibold text-foreground">
                       {STATUS_LABELS[ev.toStatus]?.label || ev.toStatus || 'تحديث'}
                     </div>
-                    {ev.notes && <div className="text-xs text-gray-600 mt-0.5">{ev.notes}</div>}
-                    <div className="text-[10px] text-gray-400 mt-0.5 tabular-nums">
+                    {ev.notes && <div className="text-xs text-foreground mt-0.5">{ev.notes}</div>}
+                    <div className="text-[10px] text-muted-foreground mt-0.5 tabular-nums">
                       {new Date(ev.createdAt).toLocaleString('ar-EG')}
                     </div>
                   </div>
@@ -193,20 +193,20 @@ export default function ClientShipmentDetailsPage() {
 
         {/* COD & Summary Side Card (1 Col) */}
         <div className="space-y-4">
-          <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-3">
-            <h2 className="text-xs font-bold text-gray-900 pb-2 border-b border-gray-100">
+          <div className="bg-white rounded-lg border border-border p-4 space-y-3">
+            <h2 className="text-xs font-bold text-foreground pb-2 border-b border-border">
               التحصيل المالي (COD)
             </h2>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between items-baseline">
                 <span className="text-gray-500">المبلغ المطلوب تحصيله:</span>
-                <span className="text-base font-bold text-gray-900 tabular-nums">
+                <span className="text-base font-bold text-foreground tabular-nums">
                   {shipment.codAmount ? `${shipment.codAmount.toLocaleString('en-US')} ج.م` : 'بدون تحصيل'}
                 </span>
               </div>
               <div className="flex justify-between items-baseline">
                 <span className="text-gray-500">المبلغ المحصّل فعلياً:</span>
-                <span className="text-sm font-semibold text-emerald-600 tabular-nums">
+                <span className="text-sm font-semibold text-success tabular-nums">
                   {shipment.collectedAmount ? `${shipment.collectedAmount.toLocaleString('en-US')} ج.م` : '—'}
                 </span>
               </div>

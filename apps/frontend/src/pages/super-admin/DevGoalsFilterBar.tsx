@@ -41,7 +41,7 @@ export function DevGoalsFilterBar({
             placeholder="بحث في الأهداف والمسؤولين..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="h-8 pl-3 pr-8 text-xs font-mono bg-background border-border/70"
+            className="h-8 ps-3 pe-8 text-xs font-mono bg-background border-border/70"
           />
         </div>
 

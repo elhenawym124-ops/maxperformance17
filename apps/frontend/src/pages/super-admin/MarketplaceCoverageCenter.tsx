@@ -210,16 +210,16 @@ const MarketplaceCoverageCenter: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">تحتاج مراجعة</span>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-amber-500 tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-warning tabular-nums">
               {totals.riskCompanies}
             </div>
           </div>
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">Fallback قديم</span>
-              <span className="size-1.5 rounded-full bg-orange-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
               {totals.fallbackCompanies}
@@ -228,9 +228,9 @@ const MarketplaceCoverageCenter: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">نظيفة ومكتملة</span>
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
             </div>
-            <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <div className="text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums">
               {totals.cleanCompanies}
             </div>
           </div>
@@ -260,7 +260,7 @@ const MarketplaceCoverageCenter: React.FC = () => {
             </SelectContent>
           </Select>
 
-          <div className="space-y-1 max-h-[500px] overflow-auto pr-0.5 divide-y divide-border/40">
+          <div className="space-y-1 max-h-[500px] overflow-auto pe-0.5 divide-y divide-border/40">
             {filteredCoverage.map((summary) => {
               const active = selectedCoverage?.company.id === summary.company.id;
               const hasRisk = summary.counts.risk > 0;
@@ -284,8 +284,8 @@ const MarketplaceCoverageCenter: React.FC = () => {
                     <span
                       className={`px-1.5 py-0.5 rounded text-[10px] font-bold tabular-nums border ${
                         hasRisk
-                          ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                          : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                          ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                          : "bg-emerald-500/10 text-success dark:text-success border-success/20"
                       }`}
                     >
                       {summary.coverageScore}%
@@ -311,13 +311,13 @@ const MarketplaceCoverageCenter: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex gap-1.5 font-mono text-[10px]">
-                  <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span className="px-2 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20">
                     مثبت: {selectedCoverage.counts.exact}
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  <span className="px-2 py-0.5 rounded bg-warning/10 text-warning dark:text-warning border border-warning/20">
                     Fallback: {selectedCoverage.counts.fallback}
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                  <span className="px-2 py-0.5 rounded bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
                     ناقص: {selectedCoverage.counts.missing}
                   </span>
                 </div>
@@ -361,8 +361,8 @@ const MarketplaceCoverageCenter: React.FC = () => {
                               <span
                                 className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border ${
                                   entry.coverageStatus === "fallback"
-                                    ? "bg-amber-500/10 text-amber-600 border-amber-500/20"
-                                    : "bg-rose-500/10 text-rose-600 border-rose-500/20"
+                                    ? "bg-amber-500/10 text-warning border-warning/20"
+                                    : "bg-rose-500/10 text-destructive border-destructive/20"
                                 }`}
                               >
                                 {entry.coverageStatus === "fallback" ? <AlertTriangle className="size-3" /> : <AlertCircle className="size-3" />}

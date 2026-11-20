@@ -138,11 +138,11 @@ export const ShippingIntegrationsTab: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-sm sm:text-base font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
             <Globe className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             <span>{isEn ? 'E-Commerce Integrations' : 'تكاملات المتاجر الخارجية (WooCommerce & Shopify)'}</span>
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">
             {isEn
               ? 'Receive orders directly from your online stores via Webhooks into the shipping pipeline (with idempotency).'
               : 'استقبال أوردرات متاجرك الخارجية تلقائياً عبر Webhooks مع تشفير المفاتيح ومنع التكرار (Idempotency).'}
@@ -152,7 +152,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-2 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground"
             title="تحديث"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -168,14 +168,14 @@ export const ShippingIntegrationsTab: React.FC = () => {
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-xs flex items-center gap-2">
+        <div className="p-3 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-xs flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {successMsg && (
-        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs flex items-center gap-2">
+        <div className="p-3 bg-success/10 dark:bg-success/40 border border-success dark:border-success text-success dark:text-success rounded-xl text-xs flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
           <span>{successMsg}</span>
         </div>
@@ -184,7 +184,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
       {/* Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {integrations.length === 0 ? (
-          <div className="col-span-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8 text-center text-slate-400">
+          <div className="col-span-full bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-8 text-center text-muted-foreground">
             {loading ? (isEn ? 'Loading stores...' : 'جاري تحميل المتاجر...') : (isEn ? 'No store integrations connected' : 'لا توجد متاجر مربوطة حالياً. اضغط "ربط متجر جديد" للبدء.')}
           </div>
         ) : (
@@ -193,10 +193,10 @@ export const ShippingIntegrationsTab: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className={`bg-white dark:bg-slate-900 border rounded-xl p-4 sm:p-5 shadow-sm space-y-3 transition ${
+                className={`bg-white dark:bg-muted border rounded-xl p-4 sm:p-5 shadow-sm space-y-3 transition ${
                   item.isActive
-                    ? 'border-slate-200 dark:border-slate-800'
-                    : 'border-slate-200 dark:border-slate-800 opacity-60'
+                    ? 'border-slate-200 dark:border-border'
+                    : 'border-slate-200 dark:border-border opacity-60'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -204,19 +204,19 @@ export const ShippingIntegrationsTab: React.FC = () => {
                     <div
                       className={`p-2 rounded-lg font-bold text-xs ${
                         isWoo
-                          ? 'bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300'
-                          : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
+                          ? 'bg-purple-100 text-primary dark:bg-primary/60 dark:text-primary'
+                          : 'bg-emerald-100 text-success dark:bg-success/60 dark:text-success'
                       }`}
                     >
                       <ShoppingBag className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="font-bold text-sm text-slate-900 dark:text-slate-100">{item.platform}</span>
+                      <span className="font-bold text-sm text-foreground dark:text-muted-foreground">{item.platform}</span>
                       <span
-                        className={`mr-2 px-2 py-0.2 rounded-full text-[10px] font-semibold ${
+                        className={`me-2 px-2 py-0.2 rounded-full text-[10px] font-semibold ${
                           item.isActive
-                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
-                            : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                            ? 'bg-emerald-50 text-success dark:bg-success dark:text-success'
+                            : 'bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground'
                         }`}
                       >
                         {item.isActive ? (isEn ? 'Active' : 'نشط') : (isEn ? 'Inactive' : 'معطل')}
@@ -229,8 +229,8 @@ export const ShippingIntegrationsTab: React.FC = () => {
                       onClick={() => handleToggle(item)}
                       className={`p-1.5 rounded-lg border text-xs transition ${
                         item.isActive
-                          ? 'border-emerald-200 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40'
-                          : 'border-slate-300 text-slate-400 hover:bg-slate-100'
+                          ? 'border-emerald-200 text-success hover:bg-success/10 dark:hover:bg-success/40'
+                          : 'border-slate-300 text-muted-foreground hover:bg-muted'
                       }`}
                       title={item.isActive ? 'تعطيل' : 'تفعيل'}
                     >
@@ -238,7 +238,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
                     </button>
                     <button
                       onClick={() => handleDelete(item.id)}
-                      className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-red-600 transition"
+                      className="p-1.5 rounded-lg border border-border dark:border-border text-muted-foreground hover:text-destructive transition"
                       title="حذف"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -246,9 +246,9 @@ export const ShippingIntegrationsTab: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                <div className="text-xs text-foreground dark:text-muted-foreground space-y-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-medium text-slate-400">{isEn ? 'Store URL:' : 'رابط المتجر:'}</span>
+                    <span className="font-medium text-muted-foreground">{isEn ? 'Store URL:' : 'رابط المتجر:'}</span>
                     <a
                       href={item.storeUrl}
                       target="_blank"
@@ -260,14 +260,14 @@ export const ShippingIntegrationsTab: React.FC = () => {
                     </a>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-1">
                     <span className="flex items-center gap-1">
                       <KeyRound className="w-3 h-3" />
                       <span>{isEn ? 'Credentials Encrypted (AES-256)' : 'المفاتيح مشفّرة بأمان'}</span>
                     </span>
                     <span>
                       {isEn ? 'Last Sync:' : 'آخر مزامنة:'}{' '}
-                      <span className="font-mono text-slate-500">
+                      <span className="font-mono text-muted-foreground">
                         {item.lastSyncAt ? new Date(item.lastSyncAt).toLocaleString('ar-EG') : (isEn ? 'Never' : 'لم تتم بعد')}
                       </span>
                     </span>
@@ -275,8 +275,8 @@ export const ShippingIntegrationsTab: React.FC = () => {
                 </div>
 
                 {/* Webhook copy box */}
-                <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-                  <label className="block text-[11px] font-semibold text-slate-500 mb-1">
+                <div className="pt-2 border-t border-border dark:border-border">
+                  <label className="block text-[11px] font-semibold text-muted-foreground mb-1">
                     {isEn ? 'Webhook URL (Copy to store settings):' : 'رابط الويب هوك (الصقه في إعدادات المتجر):'}
                   </label>
                   <div className="flex items-center gap-1.5">
@@ -284,13 +284,13 @@ export const ShippingIntegrationsTab: React.FC = () => {
                       type="text"
                       readOnly
                       value={`${window.location.origin}/api/v1/webhooks/store/${item.id}/order`}
-                      className="flex-1 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1 text-[11px] font-mono text-slate-600 dark:text-slate-300 select-all"
+                      className="flex-1 bg-muted dark:bg-muted border border-border dark:border-border rounded px-2.5 py-1 text-[11px] font-mono text-foreground dark:text-muted-foreground select-all"
                     />
                     <button
                       onClick={() => copyWebhookUrl(item.id)}
-                      className="px-2.5 py-1 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1"
+                      className="px-2.5 py-1 text-xs font-medium border border-border dark:border-border rounded hover:bg-muted dark:hover:bg-muted flex items-center gap-1"
                     >
-                      {copiedId === item.id ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                      {copiedId === item.id ? <Check className="w-3 h-3 text-success" /> : <Copy className="w-3 h-3" />}
                       <span>{copiedId === item.id ? (isEn ? 'Copied' : 'تم النسخ') : (isEn ? 'Copy' : 'نسخ')}</span>
                     </button>
                   </div>
@@ -316,20 +316,20 @@ export const ShippingIntegrationsTab: React.FC = () => {
       {/* Add Store Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 w-full max-w-lg shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 w-full max-w-lg shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
+              <h3 className="text-sm sm:text-base font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
                 <Globe className="w-4 h-4 text-blue-600" />
                 <span>{isEn ? 'Connect New Store' : 'ربط متجر إلكتروني جديد'}</span>
               </h3>
-              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-foreground">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleCreate} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   {isEn ? 'Platform *' : 'المنصة *'}
                 </label>
                 <div className="grid grid-cols-2 gap-3">
@@ -338,8 +338,8 @@ export const ShippingIntegrationsTab: React.FC = () => {
                     onClick={() => setFormData({ ...formData, platform: 'WOOCOMMERCE' })}
                     className={`p-2.5 border rounded-lg text-xs font-bold text-center transition ${
                       formData.platform === 'WOOCOMMERCE'
-                        ? 'border-purple-600 bg-purple-50 dark:bg-purple-950/40 text-purple-700 ring-1 ring-purple-600'
-                        : 'border-slate-200 dark:border-slate-800'
+                        ? 'border-purple-600 bg-primary/10 dark:bg-primary/40 text-primary ring-1 ring-primary'
+                        : 'border-slate-200 dark:border-border'
                     }`}
                   >
                     WooCommerce
@@ -349,8 +349,8 @@ export const ShippingIntegrationsTab: React.FC = () => {
                     onClick={() => setFormData({ ...formData, platform: 'SHOPIFY' })}
                     className={`p-2.5 border rounded-lg text-xs font-bold text-center transition ${
                       formData.platform === 'SHOPIFY'
-                        ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 ring-1 ring-emerald-600'
-                        : 'border-slate-200 dark:border-slate-800'
+                        ? 'border-emerald-600 bg-success/10 dark:bg-success/40 text-success ring-1 ring-success'
+                        : 'border-slate-200 dark:border-border'
                     }`}
                   >
                     Shopify
@@ -359,7 +359,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                   {isEn ? 'Store URL *' : 'رابط المتجر *'}
                 </label>
                 <input
@@ -368,14 +368,14 @@ export const ShippingIntegrationsTab: React.FC = () => {
                   value={formData.storeUrl}
                   onChange={(e) => setFormData({ ...formData, storeUrl: e.target.value })}
                   placeholder="https://my-store.com"
-                  className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
+                  className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
                 />
               </div>
 
               {formData.platform === 'WOOCOMMERCE' ? (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                    <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                       Consumer Key (ck_...)
                     </label>
                     <input
@@ -383,11 +383,11 @@ export const ShippingIntegrationsTab: React.FC = () => {
                       value={formData.consumerKey}
                       onChange={(e) => setFormData({ ...formData, consumerKey: e.target.value })}
                       placeholder="ck_xxxxxxxxxxxxxxxxxxxxxxxx"
-                      className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
+                      className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                    <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                       Consumer Secret (cs_...)
                     </label>
                     <input
@@ -395,13 +395,13 @@ export const ShippingIntegrationsTab: React.FC = () => {
                       value={formData.consumerSecret}
                       onChange={(e) => setFormData({ ...formData, consumerSecret: e.target.value })}
                       placeholder="cs_xxxxxxxxxxxxxxxxxxxxxxxx"
-                      className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
+                      className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
                     />
                   </div>
                 </>
               ) : (
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold mb-1 text-foreground dark:text-muted-foreground">
                     Admin API Access Token (shpat_...)
                   </label>
                   <input
@@ -409,22 +409,22 @@ export const ShippingIntegrationsTab: React.FC = () => {
                     value={formData.accessToken}
                     onChange={(e) => setFormData({ ...formData, accessToken: e.target.value })}
                     placeholder="shpat_xxxxxxxxxxxxxxxxxxxxxxxx"
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-1.5 text-xs sm:text-sm font-mono"
                   />
                 </div>
               )}
 
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
+              <p className="text-[11px] text-muted-foreground dark:text-muted-foreground bg-muted dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
                 {isEn
                   ? 'All sensitive credentials are encrypted with AES-256-GCM before saving into the database and are masked from responses.'
                   : 'تنويه أمان: يتم تشفير المفاتيح تلقائياً بمفتاح مشفر خاص ولن تظهر ثانية في واجهة المستخدم لحماية متجرك.'}
               </p>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-3.5 py-1.5 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
+                  className="px-3.5 py-1.5 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted"
                 >
                   {isEn ? 'Cancel' : 'إلغاء'}
                 </button>

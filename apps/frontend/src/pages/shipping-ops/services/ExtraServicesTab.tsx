@@ -94,19 +94,19 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative flex-1 min-w-[200px] max-w-sm">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={isEn ? 'Search service code or name...' : 'ابحث بالاسم أو كود الخدمة...'}
-              className="w-full pr-9 pl-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
           <select
             value={appliesFilter}
             onChange={(e) => setAppliesFilter(e.target.value)}
-            className="text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300"
+            className="text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg px-2.5 py-1.5 text-foreground dark:text-muted-foreground"
           >
             <option value="ALL">{isEn ? 'All Applications' : 'كافة النطاقات'}</option>
             <option value="SHIPMENT">{isEn ? 'Per Shipment' : 'على الشحنة'}</option>
@@ -115,7 +115,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300"
+            className="text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg px-2.5 py-1.5 text-foreground dark:text-muted-foreground"
           >
             <option value="ALL">{isEn ? 'All Statuses' : 'جميع الحالات'}</option>
             <option value="ACTIVE">{isEn ? 'Active Only' : 'المفعلة فقط'}</option>
@@ -123,7 +123,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
           </select>
           <button
             onClick={() => fetchServices()}
-            className="p-1.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
             title={isEn ? 'Refresh' : 'تحديث'}
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -142,10 +142,10 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
       </div>
 
       {/* Services Table */}
-      <div className="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+      <div className="border border-border dark:border-border rounded-lg overflow-hidden bg-white dark:bg-muted">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-slate-50 dark:bg-muted text-muted-foreground border-b border-border dark:border-border">
               <tr>
                 <th className="p-2.5 font-medium">{isEn ? 'Code' : 'كود الخدمة'}</th>
                 <th className="p-2.5 font-medium">{isEn ? 'Service Name' : 'اسم الخدمة'}</th>
@@ -156,41 +156,41 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
                 <th className="p-2.5 font-medium text-center">{isEn ? 'Actions' : 'إجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-8 text-slate-400">
+                  <td colSpan={7} className="text-center py-8 text-muted-foreground">
                     {isEn ? 'Loading services...' : 'جارٍ تحميل الخدمات الإضافية...'}
                   </td>
                 </tr>
               ) : services.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-8 text-slate-400">
+                  <td colSpan={7} className="text-center py-8 text-muted-foreground">
                     {isEn ? 'No extra services configured' : 'لا توجد خدمات إضافية مطابقة'}
                   </td>
                 </tr>
               ) : (
                 services.map((svc) => (
-                  <tr key={svc.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                  <tr key={svc.id} className="hover:bg-slate-50 dark:hover:bg-muted transition-colors">
                     <td className="p-2.5">
-                      <span className="font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-semibold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
+                      <span className="font-mono px-2 py-0.5 rounded bg-muted dark:bg-muted text-[11px] font-semibold text-foreground dark:text-muted-foreground border border-border dark:border-border">
                         {svc.code}
                       </span>
                     </td>
                     <td className="p-2.5">
-                      <div className="font-medium text-slate-900 dark:text-white">{svc.name}</div>
+                      <div className="font-medium text-foreground dark:text-white">{svc.name}</div>
                       {svc.description && (
-                        <div className="text-[11px] text-slate-400 line-clamp-1">{svc.description}</div>
+                        <div className="text-[11px] text-muted-foreground line-clamp-1">{svc.description}</div>
                       )}
                     </td>
                     <td className="p-2.5">
-                      <span className="px-2 py-0.5 rounded text-[11px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                      <span className="px-2 py-0.5 rounded text-[11px] bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
                         {svc.pricingMode === 'PERCENT'
                           ? isEn ? 'Percentage %' : 'نسبة مئوية'
                           : isEn ? 'Fixed Amount' : 'قيمة ثابتة'}
                       </span>
                     </td>
-                    <td className="p-2.5 text-left font-bold tabular-nums text-slate-900 dark:text-white">
+                    <td className="p-2.5 text-left font-bold tabular-nums text-foreground dark:text-white">
                       {formatServiceAmount(svc.pricingMode, svc.amount)}
                     </td>
                     <td className="p-2.5">
@@ -204,18 +204,18 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${
                           svc.isActive
-                            ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700'
+                            ? 'bg-emerald-50 dark:bg-success/30 text-success dark:text-success border-success dark:border-success'
+                            : 'bg-slate-100 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border'
                         }`}
                       >
                         {svc.isActive ? (
                           <>
-                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                            <CheckCircle2 className="w-3 h-3 text-success" />
                             {isEn ? 'Active' : 'مفعلة'}
                           </>
                         ) : (
                           <>
-                            <XCircle className="w-3 h-3 text-slate-400" />
+                            <XCircle className="w-3 h-3 text-muted-foreground" />
                             {isEn ? 'Inactive' : 'معطلة'}
                           </>
                         )}
@@ -228,7 +228,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
                             setSelectedService(svc);
                             setIsModalOpen(true);
                           }}
-                          className="p-1 text-slate-600 dark:text-slate-300 hover:text-blue-600 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                          className="p-1 text-foreground dark:text-muted-foreground hover:text-blue-600 rounded hover:bg-muted dark:hover:bg-muted transition-colors"
                           title={isEn ? 'Edit' : 'تعديل'}
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -237,8 +237,8 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
                           onClick={() => handleToggleActive(svc)}
                           className={`p-1 rounded transition-colors ${
                             svc.isActive
-                              ? 'text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/20'
-                              : 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/20'
+                              ? 'text-slate-400 hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/20'
+                              : 'text-slate-400 hover:text-success hover:bg-success/10 dark:hover:bg-success/20'
                           }`}
                           title={svc.isActive ? (isEn ? 'Deactivate' : 'تعطيل') : (isEn ? 'Activate' : 'تفعيل')}
                         >

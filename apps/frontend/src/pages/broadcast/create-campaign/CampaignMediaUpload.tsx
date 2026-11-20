@@ -14,17 +14,17 @@ export const CampaignMediaUpload: React.FC<CampaignMediaUploadProps> = ({
 }) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-        <PhotoIcon className="h-5 w-5 inline ml-1" />
+      <label className="block text-sm font-medium text-foreground mb-2">
+        <PhotoIcon className="h-5 w-5 inline ms-1" />
         إرفاق صور (اختياري)
       </label>
-      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
+      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-border border-dashed rounded-md hover:border-border dark:hover:border-border transition-colors">
         <div className="space-y-1 text-center">
-          <PhotoIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
-          <div className="flex text-sm text-gray-600 dark:text-gray-400">
+          <PhotoIcon className="mx-auto h-12 w-12 text-muted-foreground/80" />
+          <div className="flex text-sm text-foreground dark:text-muted-foreground">
             <label
               htmlFor="images"
-              className="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300"
+              className="relative cursor-pointer bg-card rounded-md font-medium text-primary hover:text-primary dark:hover:text-primary"
             >
               <span>اختر الصور</span>
               <input
@@ -37,9 +37,9 @@ export const CampaignMediaUpload: React.FC<CampaignMediaUploadProps> = ({
                 className="sr-only"
               />
             </label>
-            <p className="pr-1">أو اسحب الصور هنا</p>
+            <p className="pe-1">أو اسحب الصور هنا</p>
           </div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-muted-foreground">
             PNG, JPG, GIF حتى 10MB
           </p>
         </div>
@@ -47,7 +47,7 @@ export const CampaignMediaUpload: React.FC<CampaignMediaUploadProps> = ({
 
       {images.length > 0 && (
         <div className="mt-4">
-          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <h4 className="text-sm font-medium text-foreground mb-2">
             الصور المرفقة ({images.length})
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -62,7 +62,7 @@ export const CampaignMediaUpload: React.FC<CampaignMediaUploadProps> = ({
                   type="button"
                   onClick={() => onRemoveImage(index)}
                   aria-label={`حذف صورة ${index + 1}`}
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                  className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 hover:bg-destructive transition-colors"
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>

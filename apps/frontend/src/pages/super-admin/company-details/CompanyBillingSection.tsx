@@ -64,7 +64,7 @@ export function CompanyBillingSection({
             <Button
               type="button"
               variant="outline"
-              className="rounded-2xl"
+              className="rounded-xl"
               onClick={() => navigate("/super-admin/invoices")}
             >
               <Receipt className="size-4" />
@@ -73,7 +73,7 @@ export function CompanyBillingSection({
             <Button
               type="button"
               variant="outline"
-              className="rounded-2xl"
+              className="rounded-xl"
               onClick={() => navigate("/super-admin/payments")}
             >
               <CreditCard className="size-4" />
@@ -173,7 +173,7 @@ export function CompanyBillingSection({
                         {getPaymentReferenceLabel(payment) || "بدون مرجع دفع إضافي"}
                       </p>
                       {payment.failureReason ? (
-                        <p className="text-[11px] text-rose-600 dark:text-rose-300">
+                        <p className="text-[11px] text-destructive dark:text-destructive">
                           {payment.failureReason}
                         </p>
                       ) : null}
@@ -204,7 +204,7 @@ export function CompanyBillingSection({
             <Button
               type="button"
               variant="outline"
-              className="rounded-2xl"
+              className="rounded-xl"
               onClick={() => navigate("/super-admin/pending-receipts")}
             >
               <History className="size-4" />

@@ -35,11 +35,11 @@ const SIMULATION_LABELS: Record<AdminSettings["simulationMode"], string> = {
 };
 
 const KEY_STATE: Record<KeyTestResult["state"], { label: string; cls: string }> = {
-  accepted: { label: "المفتاح مقبول", cls: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
+  accepted: { label: "المفتاح مقبول", cls: "bg-emerald-500/10 text-success dark:text-success" },
   rejected: { label: "مرفوض من المزود", cls: "bg-destructive/10 text-destructive" },
   invalid_format: { label: "صيغة المفتاح غلط (لازم KeyID:Secret)", cls: "bg-destructive/10 text-destructive" },
-  reachable: { label: "السيرفر واصل لكن الحالة غير متوقعة", cls: "bg-amber-500/10 text-amber-700 dark:text-amber-400" },
-  unreachable: { label: "تعذر الوصول للمزود", cls: "bg-amber-500/10 text-amber-700 dark:text-amber-400" },
+  reachable: { label: "السيرفر واصل لكن الحالة غير متوقعة", cls: "bg-amber-500/10 text-warning dark:text-warning" },
+  unreachable: { label: "تعذر الوصول للمزود", cls: "bg-amber-500/10 text-warning dark:text-warning" },
   no_key: { label: "لا يوجد مفتاح — المحاكاة شغالة", cls: "bg-muted text-muted-foreground" },
 };
 

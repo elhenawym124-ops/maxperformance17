@@ -42,18 +42,18 @@ export const DEDUCTION_STATUS: Record<
   PENDING: {
     labelKey: "employee.deductions.pendingStatus",
     color:
-      "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+      "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning",
     icon: Clock,
   },
   APPROVED: {
     labelKey: "employee.deductions.approvedStatus",
     color:
-      "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+      "bg-green-100 text-success dark:bg-success/30 dark:text-success",
     icon: CheckCircle,
   },
   REJECTED: {
     labelKey: "employee.deductions.rejectedStatus",
-    color: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+    color: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
     icon: XCircle,
   },
   APPLIED: {
@@ -63,7 +63,7 @@ export const DEDUCTION_STATUS: Record<
   },
   CANCELLED: {
     labelKey: "employee.deductions.cancelledStatus",
-    color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+    color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground",
     icon: XCircle,
   },
 };

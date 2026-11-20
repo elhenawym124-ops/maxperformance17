@@ -134,7 +134,7 @@ export const CourierLoginPage: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center px-4 py-8 sm:px-6 lg:px-8 text-slate-900 dark:text-slate-100"
+      className="min-h-screen bg-muted dark:bg-muted flex flex-col justify-center px-4 py-8 sm:px-6 lg:px-8 text-foreground dark:text-muted-foreground"
       dir="rtl"
       style={{ '--portal-primary': accentColor, '--auth-accent': accentColor } as React.CSSProperties}
     >
@@ -145,11 +145,11 @@ export const CourierLoginPage: React.FC = () => {
               src={resolvedLogo}
               alt={branding.name || 'بوابة كابتن التوصيل'}
               onError={() => setLogoError(true)}
-              className="w-14 h-14 rounded-2xl object-contain bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 shadow-sm"
+              className="w-14 h-14 rounded-xl object-contain bg-white dark:bg-muted border border-border dark:border-border p-1 shadow-sm"
             />
           ) : (
             <div
-              className="w-14 h-14 rounded-2xl text-white flex items-center justify-center shadow-lg"
+              className="w-14 h-14 rounded-xl text-white flex items-center justify-center shadow-lg"
               style={{ backgroundColor: accentColor }}
             >
               <TruckIcon className="w-8 h-8" />
@@ -157,22 +157,22 @@ export const CourierLoginPage: React.FC = () => {
           )}
         </div>
         {branding.name ? (
-          <p className="text-center text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1 truncate">
+          <p className="text-center text-xs font-semibold text-foreground dark:text-muted-foreground mb-1 truncate">
             {branding.name}
           </p>
         ) : null}
-        <h2 className="text-center text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+        <h2 className="text-center text-xl sm:text-2xl font-bold tracking-tight text-foreground dark:text-muted-foreground">
           بوابة كابتن التوصيل
         </h2>
-        <p className="mt-1 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-center text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground">
           سجل دخولك برقم الهاتف والـ PIN لمتابعة مأمورياتك اليومية
         </p>
       </div>
 
       <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-slate-900 py-6 px-5 sm:px-8 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+        <div className="bg-white dark:bg-muted py-6 px-5 sm:px-8 border border-border dark:border-border rounded-xl shadow-sm">
           {errorMessage ? (
-            <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
+            <div className="mb-4 p-3 rounded-xl bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive text-xs flex items-center gap-2">
               <ExclamationCircleIcon className="w-5 h-5 flex-shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -192,12 +192,12 @@ export const CourierLoginPage: React.FC = () => {
               <div>
                 <label
                   htmlFor="courier-phone"
-                  className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1"
+                  className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1"
                 >
                   رقم الهاتف المحمول
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 right-0 pe-3.5 flex items-center pointer-events-none text-muted-foreground">
                     <PhoneIcon className="w-4 h-4" />
                   </div>
                   <input
@@ -210,7 +210,7 @@ export const CourierLoginPage: React.FC = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="01012345678"
-                    className="w-full min-h-[44px] pr-10 pl-3.5 py-2.5 text-sm font-mono rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                    className="w-full min-h-[44px] pe-10 ps-3.5 py-2.5 text-sm font-mono rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                     required
                   />
                 </div>
@@ -219,12 +219,12 @@ export const CourierLoginPage: React.FC = () => {
               <div>
                 <label
                   htmlFor="courier-pin"
-                  className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1"
+                  className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1"
                 >
                   رمز الـ PIN الميداني
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 right-0 pe-3.5 flex items-center pointer-events-none text-muted-foreground">
                     <KeyIcon className="w-4 h-4" />
                   </div>
                   <input
@@ -238,19 +238,19 @@ export const CourierLoginPage: React.FC = () => {
                     value={pin}
                     onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
                     placeholder="••••"
-                    className="w-full min-h-[44px] pr-10 pl-11 py-2.5 text-sm font-mono tracking-widest rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                    className="w-full min-h-[44px] pe-10 ps-11 py-2.5 text-sm font-mono tracking-widest rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPin(!showPin)}
-                    className="absolute inset-y-0 left-0 pl-2 pr-2 flex min-w-[44px] items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
+                    className="absolute inset-y-0 left-0 ps-2 pe-2 flex min-w-[44px] items-center justify-center text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
                     aria-label="تبديل إظهار رمز PIN"
                   >
                     {showPin ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="mt-1 text-[11px] text-slate-400">
+                <p className="mt-1 text-[11px] text-muted-foreground">
                   رمز الـ PIN الخاص بك المسجل لدى إدارة العمليات
                 </p>
               </div>
@@ -275,8 +275,8 @@ export const CourierLoginPage: React.FC = () => {
             </form>
           )}
 
-          <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
-            <p className="text-[11px] text-slate-400">
+          <div className="mt-5 pt-4 border-t border-border dark:border-border text-center">
+            <p className="text-[11px] text-muted-foreground">
               في حال فقدان رمز PIN، يرجى مراجعة مشرف الحركة أو مسؤول الأسطول.
             </p>
           </div>

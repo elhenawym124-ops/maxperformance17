@@ -137,7 +137,7 @@ const PendingReceipts: React.FC = () => {
                 مراجعة وتدقيق إيصالات شحن الرصيد
               </h1>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border border-border/80 bg-muted/30">
-                <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
+                <span className="size-1.5 rounded-full bg-warning animate-pulse" />
                 {receipts.length} إيصال معلق
               </span>
             </div>
@@ -164,7 +164,7 @@ const PendingReceipts: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">إجمالي الإيصالات المعلقة</span>
-            <span className="size-1.5 rounded-full bg-amber-500" />
+            <span className="size-1.5 rounded-full bg-warning" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
             {receipts.length}
@@ -175,9 +175,9 @@ const PendingReceipts: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">قيمة الشحن المطلوب</span>
-            <span className="size-1.5 rounded-full bg-emerald-500" />
+            <span className="size-1.5 rounded-full bg-success" />
           </div>
-          <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <div className="text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
             {totalPendingAmount.toLocaleString()} ج.م
           </div>
           <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">تُودع في المحافظ عند القبول</p>
@@ -186,7 +186,7 @@ const PendingReceipts: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">نظام الاعتماد</span>
-            <span className="size-1.5 rounded-full bg-purple-500" />
+            <span className="size-1.5 rounded-full bg-primary" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono">
             فوري
@@ -202,7 +202,7 @@ const PendingReceipts: React.FC = () => {
           <div className="relative w-full sm:w-72">
             <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
             <Input
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
               placeholder="بحث بالمرجع أو اسم الشركة..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -238,7 +238,7 @@ const PendingReceipts: React.FC = () => {
                 <TableRow>
                   <TableCell colSpan={7} className="text-center py-12">
                     <div className="flex flex-col items-center justify-center gap-1.5 text-muted-foreground">
-                      <CheckCircle2 className="size-7 text-emerald-500/70" />
+                      <CheckCircle2 className="size-7 text-success/70" />
                       <p className="text-xs font-semibold text-foreground">لا توجد إيصالات معلقة حالياً</p>
                       <p className="text-[11px] text-muted-foreground font-mono">تمت مراجعة واعتماد جميع طلبات الشحن بنجاح</p>
                     </div>
@@ -301,7 +301,7 @@ const PendingReceipts: React.FC = () => {
                           size="sm"
                           onClick={() => handleReview(receipt.id, 'APPROVED')}
                           disabled={actionLoading !== null}
-                          className="h-7 px-2.5 text-xs font-mono bg-emerald-600 hover:bg-emerald-700 text-white gap-1 active:scale-[0.98]"
+                          className="h-7 px-2.5 text-xs font-mono bg-success hover:bg-success text-white gap-1 active:scale-[0.98]"
                         >
                           {actionLoading === receipt.id ? <LoadingSpinner size="sm" /> : <CheckCircle2 className="size-3.5" />}
                           <span>قبول</span>
@@ -311,7 +311,7 @@ const PendingReceipts: React.FC = () => {
                           size="sm"
                           onClick={() => handleReview(receipt.id, 'REJECTED')}
                           disabled={actionLoading !== null}
-                          className="h-7 px-2.5 text-xs font-mono border-rose-500/30 text-rose-600 hover:bg-rose-500/10 gap-1 active:scale-[0.98]"
+                          className="h-7 px-2.5 text-xs font-mono border-destructive/30 text-destructive hover:bg-destructive/10 gap-1 active:scale-[0.98]"
                         >
                           <XCircle className="size-3.5" />
                           <span>رفض</span>

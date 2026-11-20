@@ -33,7 +33,7 @@ const CustomTooltip = ({ active, payload }: any) => {
           </div>
           <div className="flex items-center justify-between gap-4">
             <span className="text-muted-foreground">قيمة المبيعات:</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <span className="font-bold text-success dark:text-success tabular-nums">
               {data.gmv.toLocaleString()} ج.م
             </span>
           </div>

@@ -24,7 +24,7 @@ export function CompanyHeroCard({ company, review, ownerUser, actions }: {
     <Card className="rounded-none border-0 bg-transparent shadow-none">
       <CardContent className="space-y-3.5 p-0 sm:p-0">
         <div className="flex flex-col gap-3.5 sm:flex-row sm:items-start">
-          <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 via-primary/10 to-amber-200/60 text-2xl font-black text-primary dark:to-amber-500/20">
+          <div className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 via-primary/10 to-warning/60 text-2xl font-black text-primary dark:to-warning/20">
             {company.name?.charAt(0) || "ش"}
           </div>
           <div className="min-w-0 flex-1 space-y-2.5">
@@ -100,7 +100,7 @@ export function CompanyHeroCard({ company, review, ownerUser, actions }: {
                 </Badge>
               ) : null}
               {review?.limits?.coupon?.appliedCode ? (
-                <Badge variant="outline" className="rounded-full border-sky-200 bg-sky-50 px-2.5 py-1 text-xs text-sky-700 dark:border-sky-800/60 dark:bg-sky-950/30 dark:text-sky-300">
+                <Badge variant="outline" className="rounded-full border-info bg-info/10 px-2.5 py-1 text-xs text-info dark:border-info/60 dark:bg-info/30 dark:text-info">
                   كوبون: {review.limits.coupon.appliedCode}
                 </Badge>
               ) : null}

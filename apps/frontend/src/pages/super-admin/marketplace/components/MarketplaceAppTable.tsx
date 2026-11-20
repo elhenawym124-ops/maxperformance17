@@ -46,7 +46,7 @@ export const MarketplaceAppTable: React.FC<MarketplaceAppTableProps> = ({
   onQuickToggle,
 }) => {
   return (
-    <div className="rounded-2xl border bg-card text-card-foreground shadow-sm overflow-hidden">
+    <div className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <Table>
           <TableHeader className="bg-muted/60">
@@ -88,7 +88,7 @@ export const MarketplaceAppTable: React.FC<MarketplaceAppTableProps> = ({
                             {app.name}
                           </span>
                           {app.isFeatured && (
-                            <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-500 shrink-0" />
+                            <Star className="h-3.5 w-3.5 fill-warning text-warning shrink-0" />
                           )}
                         </div>
                         <div className="flex items-center gap-1 mt-0.5">
@@ -145,7 +145,7 @@ export const MarketplaceAppTable: React.FC<MarketplaceAppTableProps> = ({
                           {installs.toLocaleString("ar-EG")} تثبيت
                         </span>
                       </div>
-                      <div className="text-emerald-600 dark:text-emerald-400 font-bold tabular-nums font-mono">
+                      <div className="text-emerald-600 dark:text-success font-bold tabular-nums font-mono">
                         {monthlyRevenue > 0
                           ? `${monthlyRevenue.toLocaleString("ar-EG")} ج/ش`
                           : "0 ج/ش"}
@@ -170,7 +170,7 @@ export const MarketplaceAppTable: React.FC<MarketplaceAppTableProps> = ({
                         <span
                           className={
                             app.isActive
-                              ? "text-emerald-600 dark:text-emerald-400 font-medium"
+                              ? "text-emerald-600 dark:text-success font-medium"
                               : "text-muted-foreground"
                           }
                         >
@@ -274,9 +274,9 @@ export const MarketplaceAppTable: React.FC<MarketplaceAppTableProps> = ({
                               size="icon"
                               aria-label="حذف التطبيق"
                               onClick={() => app.id && onDelete(app.id)}
-                              className="h-8 w-8 text-muted-foreground hover:text-red-500"
+                              className="h-8 w-8 text-muted-foreground hover:text-destructive"
                             >
-                              <Trash2 className="h-3.5 w-3.5 text-red-500" />
+                              <Trash2 className="h-3.5 w-3.5 text-destructive" />
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent>حذف</TooltipContent>

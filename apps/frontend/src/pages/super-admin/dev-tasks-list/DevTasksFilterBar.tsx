@@ -69,7 +69,7 @@ export const DevTasksFilterBar: React.FC<DevTasksFilterBarProps> = ({
               onChange={(e) =>
                 setFilters((prev) => ({ ...prev, search: e.target.value }))
               }
-              className="w-full h-8 rounded-lg border border-border bg-background py-1.5 pr-9 pl-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full h-8 rounded-lg border border-border bg-background py-1.5 pe-9 ps-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
         </form>

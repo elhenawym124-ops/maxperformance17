@@ -162,9 +162,9 @@ export const AppEditScreen: React.FC<AppEditScreenProps> = ({
             disabled={saving}
           >
             {saving ? (
-              <Loader2 className="h-3.5 w-3.5 animate-spin ml-1" />
+              <Loader2 className="h-3.5 w-3.5 animate-spin ms-1" />
             ) : (
-              <Save className="h-3.5 w-3.5 ml-1" />
+              <Save className="h-3.5 w-3.5 ms-1" />
             )}
             {saving ? "جارٍ الحفظ..." : "حفظ"}
           </Button>
@@ -182,7 +182,7 @@ export const AppEditScreen: React.FC<AppEditScreenProps> = ({
                 value={section.id}
                 className="h-9 rounded-lg px-3 text-sm data-active:bg-primary data-active:text-primary-foreground"
               >
-                <SectionIcon className="size-4 ml-1" />
+                <SectionIcon className="size-4 ms-1" />
                 {section.label}
               </TabsTrigger>
             );
@@ -378,7 +378,7 @@ export const AppEditScreen: React.FC<AppEditScreenProps> = ({
             </div>
             <div className="col-span-12">
               <p className="text-xs text-muted-foreground">
-                <Tags className="inline h-3.5 w-3.5 ml-1" />
+                <Tags className="inline h-3.5 w-3.5 ms-1" />
                 المسارات تُستخدم لفتح التطبيق من متجر التطبيقات وصفحات الإدارة.
               </p>
             </div>

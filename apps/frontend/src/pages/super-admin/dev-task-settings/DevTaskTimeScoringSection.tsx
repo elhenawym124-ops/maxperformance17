@@ -91,8 +91,8 @@ export const DevTaskTimeScoringSection: React.FC<DevTaskTimeScoringSectionProps>
         {timeScoring?.enabled && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             {/* Early Completion Bonus */}
-            <div className="bg-emerald-500/5 p-4 rounded-lg border border-emerald-500/20">
-              <label className="block text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-1">
+            <div className="bg-emerald-500/5 p-4 rounded-lg border border-success/20">
+              <label className="block text-sm font-medium text-success dark:text-success mb-1">
                 مكافأة الإنجاز المبكر
               </label>
               <p className="text-xs text-muted-foreground mb-3">
@@ -223,11 +223,11 @@ export const DevTaskTimeScoringSection: React.FC<DevTaskTimeScoringSectionProps>
       </div>
 
       {/* Info Box */}
-      <div className="bg-amber-500/10 p-4 rounded-lg border border-amber-500/20">
-        <p className="text-xs text-amber-700 dark:text-amber-300">
+      <div className="bg-amber-500/10 p-4 rounded-lg border border-warning/20">
+        <p className="text-xs text-warning dark:text-warning">
           <strong>ملاحظة هامة:</strong> بعد تغيير هذه الإعدادات، يمكنك إعادة
           حساب النقاط لجميع المهام المكتملة سابقاً باستخدام سكريبت{" "}
-          <code className="bg-amber-500/15 text-amber-800 dark:text-amber-200 px-1.5 py-0.5 rounded font-mono">
+          <code className="bg-amber-500/15 text-warning dark:text-warning px-1.5 py-0.5 rounded font-mono">
             npm run fix:xp
           </code>
         </p>

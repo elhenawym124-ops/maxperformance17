@@ -66,10 +66,10 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
 
   return (
     <div>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+      <h3 className="text-lg font-semibold text-foreground mb-4">
         صلاحيات الأدوار
       </h3>
-      <p className="text-sm text-gray-500 mb-6">
+      <p className="text-sm text-muted-foreground mb-6">
         حدد ما يمكن لكل دور القيام به في نظام المهام.
       </p>
 
@@ -95,16 +95,16 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
           return (
             <div
               key={role}
-              className="border rounded-lg p-4 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/30"
+              className="border rounded-lg p-4 dark:border-border bg-muted dark:bg-muted"
             >
-              <h4 className="font-bold text-indigo-600 mb-3 capitalize text-lg">
+              <h4 className="font-bold text-primary mb-3 capitalize text-lg">
                 {role}
               </h4>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Task Actions */}
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     صلاحيات المهام
                   </p>
                   <div className="grid grid-cols-2 gap-2">
@@ -119,7 +119,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                     ].map(({ key, label }) => (
                       <label
                         key={key}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 p-1 rounded"
+                        className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded"
                       >
                         <input
                           type="checkbox"
@@ -127,9 +127,9 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                           onChange={(e) =>
                             handlePermissionChange(role, key, e.target.checked)
                           }
-                          className="rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer h-4 w-4 border-gray-300"
+                          className="rounded text-primary focus:ring-primary cursor-pointer h-4 w-4 border-border"
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
+                        <span className="text-sm text-foreground">
                           {label}
                         </span>
                       </label>
@@ -139,7 +139,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
 
                 {/* Project & Reports */}
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     المشاريع والتقارير
                   </p>
                   <div className="grid grid-cols-2 gap-2">
@@ -153,7 +153,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                     ].map(({ key, label }) => (
                       <label
                         key={key}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 p-1 rounded"
+                        className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded"
                       >
                         <input
                           type="checkbox"
@@ -161,9 +161,9 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                           onChange={(e) =>
                             handlePermissionChange(role, key, e.target.checked)
                           }
-                          className="rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer h-4 w-4 border-gray-300"
+                          className="rounded text-primary focus:ring-primary cursor-pointer h-4 w-4 border-border"
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
+                        <span className="text-sm text-foreground">
                           {label}
                         </span>
                       </label>
@@ -173,7 +173,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
 
                 {/* Settings Access */}
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     الوصول للإعدادات والمستخدمين
                   </p>
                   <div className="grid grid-cols-2 gap-2">
@@ -193,7 +193,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                     ].map(({ key, label }) => (
                       <label
                         key={key}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 p-1 rounded"
+                        className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded"
                       >
                         <input
                           type="checkbox"
@@ -201,9 +201,9 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                           onChange={(e) =>
                             handlePermissionChange(role, key, e.target.checked)
                           }
-                          className="rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer h-4 w-4 border-gray-300"
+                          className="rounded text-primary focus:ring-primary cursor-pointer h-4 w-4 border-border"
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
+                        <span className="text-sm text-foreground">
                           {label}
                         </span>
                       </label>
@@ -213,7 +213,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
 
                 {/* Scope */}
                 <div>
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                     نطاق الرؤية
                   </p>
                   <select
@@ -228,7 +228,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                         e.target.value as PermissionRule["viewScope"],
                       )
                     }
-                    className="w-full border rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border rounded-lg px-3 py-2 text-sm bg-card dark:border-border focus:ring-2 focus:ring-primary"
                   >
                     <option value="all">
                       الكل (جميع المشاريع والمهام)
@@ -238,7 +238,7 @@ export const DevTaskPermissionsTab: React.FC<DevTaskPermissionsTabProps> = ({
                       مهامي فقط (المسندة لي)
                     </option>
                   </select>
-                  <p className="text-xs text-gray-400 mt-2">
+                  <p className="text-xs text-muted-foreground mt-2">
                     يحدد هذا الخيار المهام التي يمكن للمستخدم رؤيتها في
                     القائمة.
                   </p>

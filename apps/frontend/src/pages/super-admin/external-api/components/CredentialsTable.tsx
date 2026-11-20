@@ -50,21 +50,21 @@ export const CredentialsTable: React.FC<Props> = ({
     switch (status) {
       case 'ACTIVE':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success dark:text-success border border-success/20">
+            <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
             نشط
           </span>
         );
       case 'REVOKED':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
             <XCircle className="h-3 w-3" />
             ملغي (REVOKED)
           </span>
         );
       case 'EXPIRED':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
             <Clock className="h-3 w-3" />
             منتهي الصلاحية
           </span>
@@ -85,7 +85,7 @@ export const CredentialsTable: React.FC<Props> = ({
             placeholder="بحث بالاسم أو البادئة أو الوسم..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-3 pr-9 py-2 text-sm rounded-lg border border-border/60 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+            className="w-full ps-3 pe-9 py-2 text-sm rounded-lg border border-border/60 bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
           />
         </div>
 
@@ -139,7 +139,7 @@ export const CredentialsTable: React.FC<Props> = ({
                       <div className="font-semibold text-foreground flex items-center gap-1.5">
                         {cred.name}
                         {cred.scopes.includes('*') && (
-                          <span title="صلاحية كاملة" className="p-0.5 rounded bg-rose-500/10 text-rose-500 text-[10px] font-bold">
+                          <span title="صلاحية كاملة" className="p-0.5 rounded bg-destructive/10 text-destructive text-[10px] font-bold">
                             *
                           </span>
                         )}
@@ -173,7 +173,7 @@ export const CredentialsTable: React.FC<Props> = ({
                             key={scope}
                             className={`inline-block px-1.5 py-0.5 rounded text-[11px] font-mono ${
                               scope === '*' || scope === 'platform:read'
-                                ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold border border-rose-500/30'
+                                ? 'bg-rose-500/10 text-destructive dark:text-destructive font-bold border border-destructive/30'
                                 : 'bg-primary/10 text-primary border border-primary/20'
                             }`}
                           >
@@ -191,7 +191,7 @@ export const CredentialsTable: React.FC<Props> = ({
                     <td className="px-4 py-3">
                       {getStatusBadge(cred.status)}
                       {cred.revokedReason && (
-                        <div className="text-[10px] text-rose-500 mt-1 max-w-[120px] truncate" title={cred.revokedReason}>
+                        <div className="text-[10px] text-destructive mt-1 max-w-[120px] truncate" title={cred.revokedReason}>
                           {cred.revokedReason}
                         </div>
                       )}
@@ -236,7 +236,7 @@ export const CredentialsTable: React.FC<Props> = ({
                             type="button"
                             onClick={() => onRevoke(cred)}
                             title="إلغاء فوري للمفتاح"
-                            className="p-1.5 rounded-lg border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 text-rose-600 dark:text-rose-400 transition active:scale-[0.98]"
+                            className="p-1.5 rounded-lg border border-destructive/30 bg-destructive/5 hover:bg-destructive/10 text-destructive dark:text-destructive transition active:scale-[0.98]"
                           >
                             <ShieldAlert className="h-4 w-4" />
                           </button>

@@ -188,13 +188,13 @@ export default function PlatformSignupCoupons() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-600 dark:text-emerald-400">إجمالي الاستخدامات</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success dark:text-success">إجمالي الاستخدامات</p>
+            <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">
               {summary.totalRedemptions}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">اشتراك مسجل بكود</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
             <Users className="size-3.5" />
           </div>
         </div>
@@ -214,13 +214,13 @@ export default function PlatformSignupCoupons() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-600 dark:text-amber-400">مستهلك أو منتهي</p>
-            <p className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-warning dark:text-warning">مستهلك أو منتهي</p>
+            <p className="text-xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums mt-0.5">
               {summary.expiredCoupons + summary.depletedCoupons}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">غير متاح حالياً</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-600">
+          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning">
             <Gift className="size-3.5" />
           </div>
         </div>
@@ -233,7 +233,7 @@ export default function PlatformSignupCoupons() {
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
             <Input
-              className="h-8 pr-8 text-xs font-mono bg-background border-border/70"
+              className="h-8 pe-8 text-xs font-mono bg-background border-border/70"
               placeholder="بحث باسم أو كود الكوبون..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}

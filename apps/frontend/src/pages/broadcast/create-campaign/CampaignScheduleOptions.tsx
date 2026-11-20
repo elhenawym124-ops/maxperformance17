@@ -25,13 +25,13 @@ export const CampaignScheduleOptions: React.FC<
           id="sendNow"
           checked={formData.sendNow}
           onChange={(e) => onSendNowChange(e.target.checked)}
-          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+          className="h-4 w-4 text-primary focus:ring-primary border-border rounded"
         />
         <label
           htmlFor="sendNow"
-          className="mr-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          className="me-2 block text-sm font-medium text-foreground"
         >
-          <PaperAirplaneIcon className="h-5 w-5 inline ml-1" />
+          <PaperAirplaneIcon className="h-5 w-5 inline ms-1" />
           إرسال فوري (الآن)
         </label>
       </div>
@@ -42,7 +42,7 @@ export const CampaignScheduleOptions: React.FC<
           <div>
             <label
               htmlFor="scheduledAt"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              className="block text-sm font-medium text-foreground"
             >
               تاريخ الإرسال *
             </label>
@@ -57,14 +57,14 @@ export const CampaignScheduleOptions: React.FC<
                   .toISOString()
                   .split("T")[0]
               }
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
               required={!formData.sendNow}
             />
           </div>
           <div>
             <label
               htmlFor="scheduledTime"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              className="block text-sm font-medium text-foreground"
             >
               وقت الإرسال *
             </label>
@@ -74,7 +74,7 @@ export const CampaignScheduleOptions: React.FC<
               id="scheduledTime"
               value={formData.scheduledTime}
               onChange={onInputChange}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
               required={!formData.sendNow}
             />
           </div>

@@ -15,9 +15,9 @@ export const getPartnerStatusBadge = (status: string) => {
   switch (status) {
     case "ACTIVE":
     case "COMPLETED":
-      return "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30";
+      return "bg-emerald-500/10 text-success dark:text-success border-success/30";
     case "PENDING":
-      return "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30";
+      return "bg-amber-500/10 text-warning dark:text-warning border-warning/30";
     case "REJECTED":
       return "bg-destructive/10 text-destructive border-destructive/30";
     default:

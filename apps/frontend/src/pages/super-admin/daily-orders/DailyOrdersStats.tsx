@@ -60,8 +60,8 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
             className={cn(
               "flex items-center gap-0.5 text-[11px] font-mono font-semibold tabular-nums px-1.5 py-0.5 rounded-md",
               isPositiveOrders
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                : "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                ? "bg-emerald-500/10 text-success dark:text-success"
+                : "bg-rose-500/10 text-destructive dark:text-destructive"
             )}
             title={`الفترة السابقة: ${summary.prevTotalOrders.toLocaleString()} طلب`}
           >
@@ -88,7 +88,7 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
           <span className="text-[11px] font-medium text-muted-foreground">
             إجمالي المبيعات (GMV)
           </span>
-          <span className="size-1.5 rounded-full bg-emerald-500" />
+          <span className="size-1.5 rounded-full bg-success" />
         </div>
         <div className="mt-2 flex items-baseline justify-between">
           <div className="flex items-baseline gap-1">
@@ -101,8 +101,8 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
             className={cn(
               "flex items-center gap-0.5 text-[11px] font-mono font-semibold tabular-nums px-1.5 py-0.5 rounded-md",
               isPositiveGmv
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                : "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                ? "bg-emerald-500/10 text-success dark:text-success"
+                : "bg-rose-500/10 text-destructive dark:text-destructive"
             )}
           >
             {isPositiveGmv ? (
@@ -128,7 +128,7 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
           <span className="text-[11px] font-medium text-muted-foreground">
             المتاجر النشطة
           </span>
-          <span className="size-1.5 rounded-full bg-purple-500" />
+          <span className="size-1.5 rounded-full bg-primary" />
         </div>
         <div className="mt-2 flex items-baseline justify-between">
           <div className="flex items-baseline gap-1.5">
@@ -158,7 +158,7 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
           <span className="text-[11px] font-medium text-muted-foreground">
             المتجر المتصدر
           </span>
-          <span className="size-1.5 rounded-full bg-amber-500" />
+          <span className="size-1.5 rounded-full bg-warning" />
         </div>
         <div className="mt-2">
           {summary.topMerchant ? (
@@ -173,7 +173,7 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
                 <span className="tabular-nums font-semibold text-foreground">
                   {summary.topMerchant.ordersCount.toLocaleString()} طلب
                 </span>
-                <span className="tabular-nums font-medium text-emerald-600 dark:text-emerald-400">
+                <span className="tabular-nums font-medium text-success dark:text-success">
                   {summary.topMerchant.ordersGMV.toLocaleString()} ج.م
                 </span>
               </div>

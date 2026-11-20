@@ -115,7 +115,7 @@ export function SuperAdminSelfReviewSettingsTab({
               disabled={!ctrlAgent || ctrlSaving}
               className="w-full h-8 text-xs font-mono mt-1 active:scale-[0.98]"
             >
-              <Save className="size-3.5 ml-1.5" />
+              <Save className="size-3.5 ms-1.5" />
               {ctrlSaved ? "تم الحفظ" : "حفظ إعدادات الوكيل"}
             </Button>
           </div>
@@ -152,7 +152,7 @@ export function SuperAdminSelfReviewSettingsTab({
                 disabled={globalSaving}
                 className="w-full h-8 text-xs font-mono active:scale-[0.98]"
               >
-                <Save className="size-3.5 ml-1.5" />
+                <Save className="size-3.5 ms-1.5" />
                 حفظ النموذج العام
               </Button>
             </div>

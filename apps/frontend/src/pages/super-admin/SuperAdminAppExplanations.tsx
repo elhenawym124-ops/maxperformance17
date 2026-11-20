@@ -239,7 +239,7 @@ const SuperAdminAppExplanations: React.FC = () => {
     return (
       <div className="w-full p-6" dir="rtl">
         <div className="max-w-md mx-auto mt-16 text-center space-y-3">
-          <div className="p-3 rounded-2xl bg-destructive/10 text-destructive border border-destructive/20 w-fit mx-auto">
+          <div className="p-3 rounded-xl bg-destructive/10 text-destructive border border-destructive/20 w-fit mx-auto">
             <Lock className="size-6" />
           </div>
           <h1 className="text-lg font-bold text-foreground">هذه الصفحة متاحة لمدير النظام فقط</h1>
@@ -300,11 +300,11 @@ const SuperAdminAppExplanations: React.FC = () => {
         </div>
 
         <div className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+          <div className="flex items-center justify-between text-xs text-success dark:text-success font-medium">
             <span>الشروحات النشطة</span>
             <CheckCircle2 className="size-3.5" />
           </div>
-          <p className="text-xl md:text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <p className="text-xl md:text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
             {activeCount}
           </p>
         </div>
@@ -390,7 +390,7 @@ const SuperAdminAppExplanations: React.FC = () => {
                     <td className="px-4 py-3">
                       {exp.videoUrl ? (
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300 border border-red-200 dark:border-red-800">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive dark:border-destructive">
                             <Video className="size-3" /> فيديو
                           </span>
                           {exp.videoUrlMobile && (
@@ -412,7 +412,7 @@ const SuperAdminAppExplanations: React.FC = () => {
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${
                           exp.isActive
-                            ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                            ? "bg-emerald-50 text-success dark:bg-success/40 dark:text-success border-success dark:border-success"
                             : "bg-muted text-muted-foreground border-border"
                         }`}
                       >

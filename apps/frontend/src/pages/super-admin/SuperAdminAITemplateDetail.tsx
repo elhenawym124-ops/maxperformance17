@@ -67,7 +67,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
 
   useEffect(() => { fetchTemplate(); }, [fetchTemplate]);
 
-  const color = (role?: string) => ROLE_COLORS[role || ""] || "bg-gray-100 text-gray-700";
+  const color = (role?: string) => ROLE_COLORS[role || ""] || "bg-gray-100 text-foreground";
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const copyText = useCallback(async (text: string, id: string) => {
     try { await navigator.clipboard.writeText(text); setCopiedId(id); setTimeout(() => setCopiedId(null), 1500); } catch { }
@@ -103,7 +103,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
       <div className="px-4 py-2 border-b border-border/80 bg-card/80 backdrop-blur-sm shrink-0">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" onClick={() => navigate("/super-admin/ai-templates")}>
-            <ArrowRight className="size-4 ml-1" /> العودة
+            <ArrowRight className="size-4 ms-1" /> العودة
           </Button>
           <span className="text-3xl">{icon}</span>
           <div className="flex-1">
@@ -114,10 +114,10 @@ const SuperAdminAITemplateDetail: React.FC = () => {
               <span className="text-[0.65rem] font-mono text-muted-foreground">{t.slug}</span>
             </div>
           </div>
-          <Button variant="outline" size="sm" onClick={() => setEditOpen(true)}><Pencil className="size-3.5 ml-1" /> تعديل</Button>
-          <Button variant="outline" size="sm" onClick={() => setDuplicateOpen(true)}><Copy className="size-3.5 ml-1" /> نسخ</Button>
-          <Button variant="outline" size="sm" onClick={() => setApplyOpen(true)}><Send className="size-3.5 ml-1" /> تطبيق</Button>
-          <Button variant="destructive" size="sm" onClick={() => setDeleteOpen(true)}><Trash2 className="size-3.5 ml-1" /> حذف</Button>
+          <Button variant="outline" size="sm" onClick={() => setEditOpen(true)}><Pencil className="size-3.5 ms-1" /> تعديل</Button>
+          <Button variant="outline" size="sm" onClick={() => setDuplicateOpen(true)}><Copy className="size-3.5 ms-1" /> نسخ</Button>
+          <Button variant="outline" size="sm" onClick={() => setApplyOpen(true)}><Send className="size-3.5 ms-1" /> تطبيق</Button>
+          <Button variant="destructive" size="sm" onClick={() => setDeleteOpen(true)}><Trash2 className="size-3.5 ms-1" /> حذف</Button>
         </div>
       </div>
 
@@ -157,7 +157,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
             <Section title="الشخصية (Soul)" icon={Brain}>
               <div className="relative">
                 {t.instructions_soul && <button onClick={() => copyText(t.instructions_soul, "soul")} className="absolute top-2 left-2 opacity-50 hover:opacity-100 transition-opacity z-10">
-                  {copiedId === "soul" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                  {copiedId === "soul" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                 </button>}
                 <div className="bg-muted/30 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-wrap font-mono dir-rtl" dir={i18n.dir()}>
                   {t.instructions_soul || "لا توجد شخصية محددة"}
@@ -182,7 +182,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
             <Section title="قواعد الوكيل (AGENTS.md)" icon={BookOpen}>
               <div className="relative">
                 {t.instructions_agents && <button onClick={() => copyText(t.instructions_agents, "agents")} className="absolute top-2 left-2 opacity-50 hover:opacity-100 transition-opacity z-10">
-                  {copiedId === "agents" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                  {copiedId === "agents" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                 </button>}
                 <div className="bg-muted/30 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-wrap font-mono dir-rtl max-h-[300px] overflow-auto" dir={i18n.dir()}>
                   {t.instructions_agents || "لا توجد قواعد محددة"}
@@ -192,7 +192,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
             <Section title="تعليمات الأدوات (TOOLS.md)" icon={Wrench}>
               <div className="relative">
                 {t.instructions_tools && <button onClick={() => copyText(t.instructions_tools, "tools")} className="absolute top-2 left-2 opacity-50 hover:opacity-100 transition-opacity z-10">
-                  {copiedId === "tools" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                  {copiedId === "tools" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                 </button>}
                 <div className="bg-muted/30 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-wrap font-mono dir-rtl max-h-[300px] overflow-auto" dir={i18n.dir()}>
                   {t.instructions_tools || "لا توجد تعليمات أدوات"}
@@ -202,7 +202,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
             <Section title="تعليمات الشخصية (PERSONA.md)" icon={Globe}>
               <div className="relative">
                 {t.instructions_persona && <button onClick={() => copyText(t.instructions_persona, "persona")} className="absolute top-2 left-2 opacity-50 hover:opacity-100 transition-opacity z-10">
-                  {copiedId === "persona" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                  {copiedId === "persona" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                 </button>}
                 <div className="bg-muted/30 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-wrap font-mono dir-rtl max-h-[300px] overflow-auto" dir={i18n.dir()}>
                   {t.instructions_persona || "لا توجد تعليمات شخصية"}
@@ -296,7 +296,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
               <Section title={`التسليم (Handoffs) — ${t.handoffs.length}`} icon={Share2}>
                 <div className="relative">
                   <button onClick={() => copyText(JSON.stringify(t.handoffs, null, 2), "handoffs")} className="absolute top-1 left-1 opacity-50 hover:opacity-100 transition-opacity z-10">
-                    {copiedId === "handoffs" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                    {copiedId === "handoffs" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                   </button>
                   <div className="space-y-2">
                     {t.handoffs.map((h: any, i: number) => (
@@ -312,7 +312,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
               <Section title={`خوادم MCP — ${t.mcp_servers.length}`} icon={Server}>
                 <div className="relative">
                   <button onClick={() => copyText(JSON.stringify(t.mcp_servers, null, 2), "mcp")} className="absolute top-1 left-1 opacity-50 hover:opacity-100 transition-opacity z-10">
-                    {copiedId === "mcp" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                    {copiedId === "mcp" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                   </button>
                   <div className="space-y-2">
                     {t.mcp_servers.map((m: any, i: number) => (
@@ -329,7 +329,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
               <Section title="مخطط الإخراج (Output Schema)" icon={Split}>
                 <div className="relative">
                   <button onClick={() => copyText(JSON.stringify(t.output_schema, null, 2), "schema")} className="absolute top-1 left-1 opacity-50 hover:opacity-100 transition-opacity z-10">
-                    {copiedId === "schema" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                    {copiedId === "schema" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                   </button>
                   <div className="bg-muted/30 rounded-lg p-3 text-xs">
                     <pre className="whitespace-pre-wrap font-mono max-h-[300px] overflow-auto">{JSON.stringify(t.output_schema, null, 2)}</pre>
@@ -341,7 +341,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
               <Section title="إعدادات إضافية (Config)" icon={Edit3}>
                 <div className="relative">
                   <button onClick={() => copyText(JSON.stringify(t.config, null, 2), "config")} className="absolute top-1 left-1 opacity-50 hover:opacity-100 transition-opacity z-10">
-                    {copiedId === "config" ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                    {copiedId === "config" ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
                   </button>
                   <div className="bg-muted/30 rounded-lg p-3 text-xs">
                     <pre className="whitespace-pre-wrap font-mono max-h-[300px] overflow-auto">{JSON.stringify(t.config, null, 2)}</pre>
@@ -409,7 +409,7 @@ const SuperAdminAITemplateDetail: React.FC = () => {
             <DialogFooter>
               <Button variant="outline" onClick={() => { setReconcileOpen(false); setReconcileTarget(null); }}>إلغاء</Button>
               <Button variant="destructive" onClick={doReconcile}>
-                <RotateCcw className="size-4 ml-1" /> إعادة تعيين
+                <RotateCcw className="size-4 ms-1" /> إعادة تعيين
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -437,9 +437,9 @@ const MetaCard: React.FC<{ label: string; value: string; className?: string }> =
 );
 
 const DIFF_BADGES: Record<string, { label: string; className: string }> = {
-  modified: { label: "معدل", className: "bg-amber-100 text-amber-700" },
-  added: { label: "مضاف", className: "bg-green-100 text-green-700" },
-  removed: { label: "محذوف", className: "bg-red-100 text-red-700" },
+  modified: { label: "معدل", className: "bg-amber-100 text-warning" },
+  added: { label: "مضاف", className: "bg-green-100 text-success" },
+  removed: { label: "محذوف", className: "bg-red-100 text-destructive" },
 };
 
 const DIFF_FIELD_LABELS: Record<string, string> = {
@@ -517,14 +517,14 @@ const CompaniesTab: React.FC<{ slug: string; onEditAgent: (a: any) => void; onRe
                     <span className="text-[0.6rem] px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">{c.agent_role}</span>
                   </td>
                   <td className="p-3">
-                    <span className={`text-[0.65rem] px-1.5 py-0.5 rounded-full font-medium ${c.agent_status === "ACTIVE" ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-700"}`}>
+                    <span className={`text-[0.65rem] px-1.5 py-0.5 rounded-full font-medium ${c.agent_status === "ACTIVE" ? "bg-green-100 text-success" : "bg-slate-100 text-foreground"}`}>
                       {c.agent_status === "ACTIVE" ? "نشط" : "غير نشط"}
                     </span>
                   </td>
                   <td className="p-3 text-xs text-muted-foreground">{c.agent_version}</td>
                   <td className="p-3 text-center">
                     {c.diff_count > 0 ? (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">{c.diff_count} تعديل</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-warning text-warning font-medium">{c.diff_count} تعديل</span>
                     ) : (
                       <span className="text-xs text-muted-foreground">بدون تعديلات</span>
                     )}
@@ -582,8 +582,8 @@ const CompaniesTab: React.FC<{ slug: string; onEditAgent: (a: any) => void; onRe
                                 <FieldCard icon={CreditCard} label="الميزانية" value={JSON.stringify(a.budget)} />
                               )}
                               {a.custom_instructions && (a.custom_instructions.soul || a.custom_instructions.agents || a.custom_instructions.tools || a.custom_instructions.persona) && (
-                                <div className="md:col-span-2 border rounded-lg border-dashed border-amber-300 bg-amber-50/40 p-3">
-                                  <p className="text-[0.65rem] font-bold text-amber-700 mb-2">📄 ملف إضافات العميل — يضاف إلى إعدادات القالب دون تعديلها</p>
+                                <div className="md:col-span-2 border rounded-lg border-dashed border-warning bg-warning/40 p-3">
+                                  <p className="text-[0.65rem] font-bold text-warning mb-2">📄 ملف إضافات العميل — يضاف إلى إعدادات القالب دون تعديلها</p>
                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     {a.custom_instructions.soul && <FieldCard icon={BookOpen} label="إضافة للشخصية (Soul)" value={a.custom_instructions.soul} mono />}
                                     {a.custom_instructions.agents && <FieldCard icon={FileText} label="إضافة لقواعد الوكيل" value={a.custom_instructions.agents} mono />}
@@ -598,10 +598,10 @@ const CompaniesTab: React.FC<{ slug: string; onEditAgent: (a: any) => void; onRe
 
                         <div className="flex items-center gap-2 pt-2 border-t">
                           <Button variant="outline" size="sm" onClick={() => onEditAgent(c)}>
-                            <Pencil className="size-3.5 ml-1" /> تعديل نسخة الشركة
+                            <Pencil className="size-3.5 ms-1" /> تعديل نسخة الشركة
                           </Button>
                           <Button variant="destructive" size="sm" onClick={() => onReconcile(c)}>
-                            <RotateCcw className="size-3.5 ml-1" /> إعادة تعيين
+                            <RotateCcw className="size-3.5 ms-1" /> إعادة تعيين
                           </Button>
                         </div>
                       </div>
@@ -682,7 +682,7 @@ const ModelPolicyEditor = ({ slug, policy, onSaved }: {
   if (!open) {
     return (
       <Button variant="outline" size="sm" className="mt-3" onClick={() => setOpen(true)}>
-        <Braces className="size-3.5 ml-1" /> تعديل سلسلة النماذج ومستوى التفكير
+        <Braces className="size-3.5 ms-1" /> تعديل سلسلة النماذج ومستوى التفكير
       </Button>
     );
   }
@@ -711,7 +711,7 @@ const ModelPolicyEditor = ({ slug, policy, onSaved }: {
         <input className="mt-1 w-full h-8 rounded-md border bg-background px-2 text-sm" value={fallbackText}
           onChange={(e) => setFallbackText(e.target.value)} placeholder="gemini-2.5-flash, groq/openai/gpt-oss-120b" />
       </label>
-      {err && <p className="text-xs text-red-600">{err}</p>}
+      {err && <p className="text-xs text-destructive">{err}</p>}
       <div className="flex gap-2 justify-end">
         <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>إلغاء</Button>
         <Button size="sm" disabled={saving || !defaultModel.trim()} onClick={save}>

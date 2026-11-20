@@ -120,15 +120,15 @@ export const ShippingSettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1200px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1200px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
             <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             <span>{isEn ? 'Shipping Operations Settings' : 'إعدادات وتشغيل الشحن'}</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             {isEn
               ? 'Configure delivery policy, remittance schedule, employees, and store integrations (Turbo standard)'
               : 'تهيئة جدول التوريد، سياسة التوصيل والرسوم، موظفي الشحن، وتكاملات المتاجر الخارجية (معايير Turbo)'}
@@ -136,13 +136,13 @@ export const ShippingSettingsPage: React.FC = () => {
         </div>
 
         {/* Tab switchers */}
-        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl self-start sm:self-auto">
+        <div className="flex items-center gap-1 bg-muted dark:bg-muted p-1 rounded-xl self-start sm:self-auto">
           <button
             onClick={() => setActiveTab('policy')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
               activeTab === 'policy'
-                ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+                : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
             }`}
           >
             {isEn ? 'Policy & Remittance' : 'السياسات والتوريد'}
@@ -151,8 +151,8 @@ export const ShippingSettingsPage: React.FC = () => {
             onClick={() => setActiveTab('employees')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition ${
               activeTab === 'employees'
-                ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+                : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
             }`}
           >
             <Users className="w-3.5 h-3.5" />
@@ -162,8 +162,8 @@ export const ShippingSettingsPage: React.FC = () => {
             onClick={() => setActiveTab('integrations')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition ${
               activeTab === 'integrations'
-                ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+                : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
             }`}
           >
             <Globe className="w-3.5 h-3.5" />
@@ -178,14 +178,14 @@ export const ShippingSettingsPage: React.FC = () => {
       {activeTab === 'policy' && (
         <>
           {error && (
-            <div className="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-xs sm:text-sm flex items-center gap-2">
+            <div className="p-4 bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive rounded-xl text-xs sm:text-sm flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs sm:text-sm flex items-center gap-2">
+            <div className="p-4 bg-success/10 dark:bg-success/40 border border-success dark:border-success text-success dark:text-success rounded-xl text-xs sm:text-sm flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMsg}</span>
             </div>
@@ -193,9 +193,9 @@ export const ShippingSettingsPage: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Section 1: Remittance Schedule & Max Delivery Days (SHIP-T5) */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-                <Calendar className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
+              <div className="flex items-center gap-2 border-b border-border dark:border-border pb-3">
+                <Calendar className="w-5 h-5 text-primary" />
                 <h2 className="text-sm sm:text-base font-bold">
                   {isEn ? 'Remittance Schedule & Max Delivery Window (Turbo)' : 'جدول أيام التوريد وأقصى فترة تسليم (معايير Turbo)'}
                 </h2>
@@ -204,10 +204,10 @@ export const ShippingSettingsPage: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Remittance Days */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground">
                     {isEn ? 'Weekly Remittance Days' : 'أيام التوريد الأسبوعية'}
                   </label>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-muted-foreground">
                     {isEn ? 'Select the days when COD remittances are generated for merchants' : 'الأيام المعتمدة لصرف وتوريد متحصلات الشحن للتجار'}
                   </p>
                   <div className="flex flex-wrap gap-2 pt-1">
@@ -220,8 +220,8 @@ export const ShippingSettingsPage: React.FC = () => {
                           onClick={() => toggleDay(d.key)}
                           className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition ${
                             selected
-                              ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 ring-1 ring-indigo-500'
-                              : 'bg-transparent border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50'
+                              ? 'bg-indigo-50 border-primary text-primary dark:bg-primary/50 dark:text-primary ring-1 ring-primary'
+                              : 'bg-transparent border-border dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted'
                           }`}
                         >
                           {isEn ? d.labelEn : d.labelAr}
@@ -233,10 +233,10 @@ export const ShippingSettingsPage: React.FC = () => {
 
                 {/* Max Delivery Days */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground">
                     {isEn ? 'Max Delivery Days (SLA)' : 'أقصى فترة توصيل مسموحة (أيام)'}
                   </label>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-muted-foreground">
                     {isEn
                       ? 'Shipments exceeding this threshold from creation without delivery will trigger stale alerts'
                       : 'أي شحنة تتجاوز هذه الفترة منذ إنشائها دون تسليم تظهر في تنبيه الشحنات المتأخرة'}
@@ -248,18 +248,18 @@ export const ShippingSettingsPage: React.FC = () => {
                       max="60"
                       value={maxDeliveryDays}
                       onChange={(e) => setMaxDeliveryDays(e.target.value)}
-                      className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-sm font-bold tabular-nums"
+                      className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-bold tabular-nums"
                       placeholder="11"
                     />
-                    <span className="absolute left-3 top-3 text-xs text-slate-400 font-medium">يوم</span>
+                    <span className="absolute left-3 top-3 text-xs text-muted-foreground font-medium">يوم</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Section 2: Print Fee */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
+              <div className="flex items-center gap-2 border-b border-border dark:border-border pb-3">
                 <Printer className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <h2 className="text-sm sm:text-base font-bold">
                   {isEn ? 'Waybill Printing Fee Policy' : 'رسوم طباعة البوالص للعميل (Print Fee)'}
@@ -267,7 +267,7 @@ export const ShippingSettingsPage: React.FC = () => {
               </div>
 
               <div className="max-w-xs">
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                   {isEn ? 'Fee per Waybill (EGP)' : 'رسوم طباعة البوليصة للشحنة الواحدة (ج.م)'}
                 </label>
                 <div className="relative">
@@ -277,25 +277,25 @@ export const ShippingSettingsPage: React.FC = () => {
                     min="0"
                     value={printFee}
                     onChange={(e) => setPrintFee(e.target.value)}
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-sm font-bold tabular-nums focus:ring-1 focus:ring-blue-500"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-bold tabular-nums focus:ring-1 focus:ring-blue-500"
                     placeholder="1.50"
                   />
-                  <span className="absolute left-3 top-2.5 text-xs text-slate-400 font-medium">ج.م</span>
+                  <span className="absolute left-3 top-2.5 text-xs text-muted-foreground font-medium">ج.م</span>
                 </div>
               </div>
             </div>
 
             {/* Section 3: Open Package Policy */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-                <PackageOpen className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
+              <div className="flex items-center gap-2 border-b border-border dark:border-border pb-3">
+                <PackageOpen className="w-5 h-5 text-warning dark:text-warning" />
                 <h2 className="text-sm sm:text-base font-bold">
                   {isEn ? 'Package Inspection Policy & Fees' : 'سياسة فتح ومعاينة الشحنات بالرسوم'}
                 </h2>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-2">
                   {isEn ? 'Policy Mode' : 'وضع سياسة الفتح الافتراضي'}
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -303,11 +303,11 @@ export const ShippingSettingsPage: React.FC = () => {
                     className={`p-3.5 border rounded-xl cursor-pointer flex flex-col justify-between transition ${
                       openMode === 'ALWAYS_ALLOW'
                         ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-1 ring-blue-500'
-                        : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                        : 'border-slate-200 dark:border-border hover:bg-muted dark:hover:bg-muted'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                      <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
                         {isEn ? 'Always Allow' : 'سماح دائم (ALWAYS_ALLOW)'}
                       </span>
                       <input
@@ -319,7 +319,7 @@ export const ShippingSettingsPage: React.FC = () => {
                         className="text-blue-600"
                       />
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                       {isEn
                         ? 'All shipments marked allowOpenPackage=true and fee deducted once upon creation.'
                         : 'كل شحنة تسمح بالفتح تلقائياً وتُخصم الرسوم مرة واحدة عند الإنشاء.'}
@@ -330,11 +330,11 @@ export const ShippingSettingsPage: React.FC = () => {
                     className={`p-3.5 border rounded-xl cursor-pointer flex flex-col justify-between transition ${
                       openMode === 'ASK_EACH'
                         ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-1 ring-blue-500'
-                        : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                        : 'border-slate-200 dark:border-border hover:bg-muted dark:hover:bg-muted'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                      <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
                         {isEn ? 'Ask Each Shipment' : 'سؤال لكل شحنة (ASK_EACH)'}
                       </span>
                       <input
@@ -346,7 +346,7 @@ export const ShippingSettingsPage: React.FC = () => {
                         className="text-blue-600"
                       />
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                       {isEn
                         ? 'Default prohibited. Fee deducted only when courier confirms client approval.'
                         : 'افتراضياً ممنوع؛ وتُخصم رسوم الطلب فقط عند تأكيد الفتح بطلب العميل.'}
@@ -357,11 +357,11 @@ export const ShippingSettingsPage: React.FC = () => {
                     className={`p-3.5 border rounded-xl cursor-pointer flex flex-col justify-between transition ${
                       openMode === 'ALWAYS_DENY'
                         ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-1 ring-blue-500'
-                        : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                        : 'border-slate-200 dark:border-border hover:bg-muted dark:hover:bg-muted'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                      <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
                         {isEn ? 'Always Deny' : 'إغلاق دائم (ALWAYS_DENY)'}
                       </span>
                       <input
@@ -373,7 +373,7 @@ export const ShippingSettingsPage: React.FC = () => {
                         className="text-blue-600"
                       />
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                       {isEn ? 'Inspections strictly prohibited for all shipments.' : 'ممنوع فتح ومعاينة الشحنات نهائياً بدون استثناء.'}
                     </p>
                   </label>
@@ -383,7 +383,7 @@ export const ShippingSettingsPage: React.FC = () => {
               {/* Pricing per mode */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                     {isEn ? 'Always Allow Fee (EGP)' : 'رسوم السماح الدائم (ج.م)'}
                   </label>
                   <input
@@ -392,13 +392,13 @@ export const ShippingSettingsPage: React.FC = () => {
                     min="0"
                     value={feeAlways}
                     onChange={(e) => setFeeAlways(e.target.value)}
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-sm font-semibold tabular-nums"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-semibold tabular-nums"
                     placeholder="2.00"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                     {isEn ? 'Ask Each Fee (EGP)' : 'رسوم تأكيد الفتح (ج.م)'}
                   </label>
                   <input
@@ -407,13 +407,13 @@ export const ShippingSettingsPage: React.FC = () => {
                     min="0"
                     value={feeAsk}
                     onChange={(e) => setFeeAsk(e.target.value)}
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-sm font-semibold tabular-nums"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-semibold tabular-nums"
                     placeholder="5.00"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                     {isEn ? 'Deny Mode Fee (EGP)' : 'رسوم الإغلاق الدائم (ج.م)'}
                   </label>
                   <input
@@ -422,7 +422,7 @@ export const ShippingSettingsPage: React.FC = () => {
                     min="0"
                     value={feeDeny}
                     onChange={(e) => setFeeDeny(e.target.value)}
-                    className="w-full border border-slate-300 dark:border-slate-700 bg-transparent rounded-lg px-3 py-2 text-sm font-semibold tabular-nums"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-semibold tabular-nums"
                     placeholder="0.00"
                   />
                 </div>

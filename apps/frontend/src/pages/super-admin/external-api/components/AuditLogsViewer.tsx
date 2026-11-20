@@ -33,27 +33,27 @@ export const AuditLogsViewer: React.FC<Props> = ({
   const getStatusBadge = (code: number) => {
     if (code >= 200 && code < 300) {
       return (
-        <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+        <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-success/10 text-success dark:text-success border border-success/20">
           {code} OK
         </span>
       );
     }
     if (code === 401 || code === 403) {
       return (
-        <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+        <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
           {code} FORBIDDEN
         </span>
       );
     }
     if (code === 429) {
       return (
-        <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+        <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-primary/10 text-primary dark:text-primary border border-primary/20">
           {code} RATE LIMITED
         </span>
       );
     }
     return (
-      <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+      <span className="px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-warning/10 text-warning dark:text-warning border border-warning/20">
         {code}
       </span>
     );
@@ -61,7 +61,7 @@ export const AuditLogsViewer: React.FC<Props> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl border border-border/80 bg-card shadow-2xl overflow-hidden text-right">
+      <div className="w-full max-w-4xl max-h-[90vh] flex flex-col rounded-xl border border-border/80 bg-card shadow-2xl overflow-hidden text-right">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border/60">
           <div className="flex items-center gap-3">
@@ -169,7 +169,7 @@ export const AuditLogsViewer: React.FC<Props> = ({
                       <span className="text-[10px] text-muted-foreground block font-mono">{log.keyPrefixMasked}</span>
                     </td>
                     <td className="px-4 py-2.5">
-                      <span className="inline-block px-1.5 py-0.5 rounded bg-muted text-[10px] font-bold mr-1">
+                      <span className="inline-block px-1.5 py-0.5 rounded bg-muted text-[10px] font-bold me-1">
                         {log.method}
                       </span>
                       <span className="text-foreground text-[11px] dir-ltr text-left inline-block">

@@ -114,14 +114,14 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl w-full max-w-[1200px] max-h-[90vh] flex flex-col border border-slate-200 dark:border-slate-800">
+      <div className="bg-white dark:bg-muted rounded-xl shadow-xl w-full max-w-[1200px] max-h-[90vh] flex flex-col border border-border dark:border-border">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border">
           <div className="flex items-center gap-3">
             <FileText className="w-5 h-5 text-blue-600" />
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-slate-900 dark:text-white text-base">
+                <h3 className="font-bold text-foreground dark:text-white text-base">
                   {settlement?.settlementNumber || 'تفاصيل كشف التسوية'}
                 </h3>
                 {settlement && (
@@ -130,7 +130,7 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted-foreground">
                 العميل: {settlement?.merchant?.name || 'غير محدد'}
               </p>
             </div>
@@ -139,12 +139,12 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
             <button
               onClick={handleExportCsv}
               disabled={!settlement}
-              className="px-3 py-1.5 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5 text-slate-700 dark:text-slate-300 transition-colors"
+              className="px-3 py-1.5 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted flex items-center gap-1.5 text-foreground dark:text-muted-foreground transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
               تصدير CSV
             </button>
-            <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+            <button onClick={onClose} className="text-slate-400 hover:text-foreground">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -153,48 +153,48 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
         {/* Content */}
         <div className="flex-1 overflow-auto p-4 space-y-4">
           {loading ? (
-            <div className="text-center py-12 text-slate-500">جارٍ تحميل البيانات...</div>
+            <div className="text-center py-12 text-muted-foreground">جارٍ تحميل البيانات...</div>
           ) : settlement ? (
             <>
               {/* Metrics */}
               <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-6 gap-2 text-center">
-                <div className="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
-                  <span className="text-[11px] text-slate-500 block">إجمالي المحصّل</span>
-                  <span className="font-bold text-slate-900 dark:text-white text-sm tabular-nums">
+                <div className="bg-slate-50 dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+                  <span className="text-[11px] text-muted-foreground block">إجمالي المحصّل</span>
+                  <span className="font-bold text-foreground dark:text-white text-sm tabular-nums">
                     {formatEgp(settlement.grossCOD)}
                   </span>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
-                  <span className="text-[11px] text-slate-500 block">رسوم الشحن</span>
-                  <span className="font-bold text-rose-600 text-sm tabular-nums">
+                <div className="bg-slate-50 dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+                  <span className="text-[11px] text-muted-foreground block">رسوم الشحن</span>
+                  <span className="font-bold text-destructive text-sm tabular-nums">
                     -{formatEgp(settlement.shippingFeesTotal)}
                   </span>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
-                  <span className="text-[11px] text-slate-500 block">رسوم COD</span>
-                  <span className="font-bold text-rose-600 text-sm tabular-nums">
+                <div className="bg-slate-50 dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+                  <span className="text-[11px] text-muted-foreground block">رسوم COD</span>
+                  <span className="font-bold text-destructive text-sm tabular-nums">
                     -{formatEgp(settlement.codFeesTotal)}
                   </span>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
-                  <span className="text-[11px] text-slate-500 block">رسوم المرتجع</span>
-                  <span className="font-bold text-rose-600 text-sm tabular-nums">
+                <div className="bg-slate-50 dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+                  <span className="text-[11px] text-muted-foreground block">رسوم المرتجع</span>
+                  <span className="font-bold text-destructive text-sm tabular-nums">
                     -{formatEgp(settlement.returnFeesTotal)}
                   </span>
                 </div>
                 {(settlement.extraFeesTotal != null && settlement.extraFeesTotal > 0) && (
-                  <div className="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
-                    <span className="text-[11px] text-slate-500 block">رسوم إضافية</span>
-                    <span className="font-bold text-rose-600 text-sm tabular-nums">
+                  <div className="bg-slate-50 dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+                    <span className="text-[11px] text-muted-foreground block">رسوم إضافية</span>
+                    <span className="font-bold text-destructive text-sm tabular-nums">
                       -{formatEgp(settlement.extraFeesTotal)}
                     </span>
                   </div>
                 )}
-                <div className="col-span-2 sm:col-span-1 bg-emerald-50 dark:bg-emerald-950/30 p-2.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
-                  <span className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium block">
+                <div className="col-span-2 sm:col-span-1 bg-success/10 dark:bg-success/30 p-2.5 rounded-lg border border-success dark:border-success">
+                  <span className="text-[11px] text-success dark:text-success font-medium block">
                     صافي التوريد
                   </span>
-                  <span className="font-bold text-emerald-700 dark:text-emerald-300 text-base tabular-nums">
+                  <span className="font-bold text-success dark:text-success text-base tabular-nums">
                     {formatEgp(settlement.netPayout)}
                   </span>
                 </div>
@@ -202,18 +202,18 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
 
               {/* Payment Details if Paid */}
               {settlement.status === 'PAID' && (
-                <div className="bg-teal-50 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-800 rounded-lg p-3 text-xs flex flex-wrap gap-4 text-teal-900 dark:text-teal-300">
+                <div className="bg-teal-50 dark:bg-success/20 border border-success dark:border-success rounded-lg p-3 text-xs flex flex-wrap gap-4 text-success dark:text-success">
                   <div>
-                    <span className="font-medium text-teal-700 dark:text-teal-400">طريقة التوريد: </span>
+                    <span className="font-medium text-success dark:text-success">طريقة التوريد: </span>
                     {settlement.paymentMethod || 'نقدي'}
                   </div>
                   <div>
-                    <span className="font-medium text-teal-700 dark:text-teal-400">المرجع: </span>
+                    <span className="font-medium text-success dark:text-success">المرجع: </span>
                     <span className="font-mono">{settlement.paymentReference || '—'}</span>
                   </div>
                   {settlement.paidAt && (
                     <div>
-                      <span className="font-medium text-teal-700 dark:text-teal-400">تاريخ الصرف: </span>
+                      <span className="font-medium text-success dark:text-success">تاريخ الصرف: </span>
                       {new Date(settlement.paidAt).toLocaleDateString('ar-EG')}
                     </div>
                   )}
@@ -221,13 +221,13 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
               )}
 
               {/* Lines Table */}
-              <div className="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
-                <div className="bg-slate-100 dark:bg-slate-800 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300">
+              <div className="border border-border dark:border-border rounded-lg overflow-hidden">
+                <div className="bg-slate-100 dark:bg-muted px-3 py-2 text-xs font-medium text-foreground dark:text-muted-foreground">
                   أسطر الشحنات المدرجة ({settlement.lines?.length || 0} شحنة)
                 </div>
                 <div className="max-h-64 overflow-auto">
                   <table className="w-full text-right text-xs">
-                    <thead className="bg-slate-50 dark:bg-slate-800/50 sticky top-0 text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <thead className="bg-slate-50 dark:bg-muted sticky top-0 text-muted-foreground border-b border-border dark:border-border">
                       <tr>
                         <th className="p-2">الباركود / التتبع</th>
                         <th className="p-2">المستلم / المحافظة</th>
@@ -241,17 +241,17 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
                         <th className="p-2 text-left font-bold">الصافي</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    <tbody className="divide-y divide-border dark:divide-border">
                       {(settlement.lines || []).map((l) => {
                         const lineExtra = l.extraFees ?? l.shipment?.extraFees ?? 0;
                         return (
-                          <tr key={l.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                          <tr key={l.id} className="hover:bg-slate-50 dark:hover:bg-muted">
                             <td className="p-2 font-mono text-[11px]">
                               {l.shipment?.barcode || l.shipment?.trackingNumber || l.shipmentId}
                             </td>
                             <td className="p-2">
                               <div>{l.shipment?.recipientName || '—'}</div>
-                              <div className="text-[10px] text-slate-400">
+                              <div className="text-[10px] text-muted-foreground">
                                 {l.shipment?.destinationGovernorate || '—'}
                               </div>
                             </td>
@@ -259,8 +259,8 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
                               <span
                                 className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
                                   l.shipment?.status === 'DELIVERED'
-                                    ? 'bg-emerald-50 text-emerald-700'
-                                    : 'bg-rose-50 text-rose-700'
+                                    ? 'bg-emerald-50 text-success'
+                                    : 'bg-rose-50 text-destructive'
                                 }`}
                               >
                                 {l.shipment?.status === 'DELIVERED' ? 'مسلمة' : 'مرتجع'}
@@ -268,21 +268,21 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
                             </td>
                             <td className="p-2 text-left tabular-nums">{formatEgp(l.codAmount)}</td>
                             <td className="p-2 text-left tabular-nums">{formatEgp(l.collectedAmount)}</td>
-                            <td className="p-2 text-left tabular-nums text-rose-600">
+                            <td className="p-2 text-left tabular-nums text-destructive">
                               {l.shippingFee > 0 ? `-${formatEgp(l.shippingFee)}` : '0.00'}
                             </td>
-                            <td className="p-2 text-left tabular-nums text-rose-600">
+                            <td className="p-2 text-left tabular-nums text-destructive">
                               {l.codFee > 0 ? `-${formatEgp(l.codFee)}` : '0.00'}
                             </td>
-                            <td className="p-2 text-left tabular-nums text-rose-600">
+                            <td className="p-2 text-left tabular-nums text-destructive">
                               {l.returnFee > 0 ? `-${formatEgp(l.returnFee)}` : '0.00'}
                             </td>
                             {hasExtraFees && (
-                              <td className="p-2 text-left tabular-nums text-rose-600">
+                              <td className="p-2 text-left tabular-nums text-destructive">
                                 {lineExtra > 0 ? `-${formatEgp(lineExtra)}` : '0.00'}
                               </td>
                             )}
-                            <td className="p-2 text-left tabular-nums font-bold text-slate-900 dark:text-white">
+                            <td className="p-2 text-left tabular-nums font-bold text-foreground dark:text-white">
                               {formatEgp(l.net)}
                             </td>
                           </tr>
@@ -297,13 +297,13 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-6 py-3 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center">
+        <div className="px-6 py-3 bg-muted dark:bg-muted border-t border-border dark:border-border flex justify-between items-center">
           <div className="flex gap-2">
             {(settlement?.status === 'ISSUED' || settlement?.status === 'DRAFT') && (
               <button
                 onClick={handleApprove}
                 disabled={actionLoading}
-                className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-1.5 bg-success hover:bg-success text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
               >
                 <CheckCircle className="w-3.5 h-3.5" />
                 اعتماد الكشف
@@ -313,7 +313,7 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
               <button
                 onClick={() => onOpenPayModal(settlement)}
                 disabled={actionLoading}
-                className="px-3.5 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-1.5 bg-success hover:bg-success text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
               >
                 <DollarSign className="w-3.5 h-3.5" />
                 تسجيل التوريد والصرف
@@ -323,7 +323,7 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
               <button
                 onClick={handleReject}
                 disabled={actionLoading}
-                className="px-3.5 py-1.5 border border-rose-300 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-1.5 border border-destructive text-destructive hover:bg-destructive/10 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
               >
                 <XCircle className="w-3.5 h-3.5" />
                 رفض
@@ -332,7 +332,7 @@ export const SettlementDetailModal: React.FC<SettlementDetailModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 border border-slate-300 dark:border-slate-700 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100"
+            className="px-4 py-1.5 border border-border dark:border-border rounded-lg text-xs text-foreground dark:text-muted-foreground hover:bg-muted"
           >
             إغلاق
           </button>

@@ -465,7 +465,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "danger",
       label: "خطر: الشركة متوقفة",
       className:
-        "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800/70 dark:bg-rose-950/40 dark:text-rose-300",
+        "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/70 dark:bg-destructive/40 dark:text-destructive",
     };
   }
   const subStatus = String(review?.subscription?.status || "").toUpperCase();
@@ -474,7 +474,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "danger",
       label: "خطر: الاشتراك غير نشط",
       className:
-        "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800/70 dark:bg-rose-950/40 dark:text-rose-300",
+        "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/70 dark:bg-destructive/40 dark:text-destructive",
     };
   }
   if ((review?.subscription?.failedAttempts || 0) > 0) {
@@ -482,7 +482,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "danger",
       label: "خطر: فشل في التحصيل",
       className:
-        "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800/70 dark:bg-rose-950/40 dark:text-rose-300",
+        "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/70 dark:bg-destructive/40 dark:text-destructive",
     };
   }
   if ((review?.billing?.stats?.overdueInvoices || 0) > 0) {
@@ -490,7 +490,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "danger",
       label: "خطر: فواتير متأخرة",
       className:
-        "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800/70 dark:bg-rose-950/40 dark:text-rose-300",
+        "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/70 dark:bg-destructive/40 dark:text-destructive",
     };
   }
 
@@ -500,7 +500,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "warning",
       label: daysUntilBilling < 0 ? "تحذير: متأخر عن السداد" : "تحتاج متابعة: موعد الفوترة",
       className:
-        "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-300",
+        "border-amber-200 bg-warning/10 text-warning dark:border-warning/70 dark:bg-warning/40 dark:text-warning",
     };
   }
   const balance = Number(review?.wallet?.balance || 0);
@@ -510,7 +510,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "warning",
       label: "تحذير: رصيد غير كافٍ",
       className:
-        "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-300",
+        "border-amber-200 bg-warning/10 text-warning dark:border-warning/70 dark:bg-warning/40 dark:text-warning",
     };
   }
   const highUsage = (review?.limits?.entries || []).some(
@@ -521,7 +521,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
       level: "warning",
       label: "تحذير: اقتراب من الحد",
       className:
-        "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-300",
+        "border-amber-200 bg-warning/10 text-warning dark:border-warning/70 dark:bg-warning/40 dark:text-warning",
     };
   }
 
@@ -529,7 +529,7 @@ export function getCompanyRiskInfo(company: any, review: any): {
     level: "ok",
     label: "مستقرة",
     className:
-      "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800/70 dark:bg-emerald-950/40 dark:text-emerald-300",
+      "border-emerald-200 bg-success/10 text-success dark:border-success/70 dark:bg-success/40 dark:text-success",
   };
 }
 

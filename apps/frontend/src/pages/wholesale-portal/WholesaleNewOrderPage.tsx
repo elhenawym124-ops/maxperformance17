@@ -174,33 +174,33 @@ export const WholesaleNewOrderPage: React.FC = () => {
   // Order Success Screen
   if (createdOrderResult) {
     return (
-      <div dir="rtl" className="max-w-2xl mx-auto my-8 p-8 bg-white rounded-2xl shadow-sm border border-gray-200 text-center space-y-6">
-        <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+      <div dir="rtl" className="max-w-2xl mx-auto my-8 p-8 bg-white rounded-xl shadow-sm border border-border text-center space-y-6">
+        <div className="w-16 h-16 rounded-full bg-success text-success flex items-center justify-center mx-auto">
           <CheckCircle size={36} />
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">تم تسجيل طلب الجملة بنجاح!</h2>
+          <h2 className="text-2xl font-bold text-foreground">تم تسجيل طلب الجملة بنجاح!</h2>
           <p className="text-gray-500 text-sm mt-1">
             الطلب قيد المراجعة في مركز التأكيد برقم{' '}
-            <strong className="font-mono text-indigo-600">#{createdOrderResult.orderNumber}</strong>
+            <strong className="font-mono text-primary">#{createdOrderResult.orderNumber}</strong>
           </p>
         </div>
 
-        <div className="p-4 bg-gray-50 rounded-xl text-sm border border-gray-100 space-y-2 text-right">
+        <div className="p-4 bg-muted rounded-xl text-sm border border-border space-y-2 text-right">
           <div className="flex justify-between">
             <span className="text-gray-500">حالة الطلب الأولية:</span>
-            <span className="font-semibold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full text-xs">
+            <span className="font-semibold text-warning bg-warning/10 px-2.5 py-0.5 rounded-full text-xs">
               قيد المراجعة (PENDING)
             </span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">إجمالي الفاتورة:</span>
-            <span className="font-bold font-mono text-gray-900">
+            <span className="font-bold font-mono text-foreground">
               {createdOrderResult.total.toLocaleString('ar-EG')} ج.م
             </span>
           </div>
-          <div className="text-xs text-indigo-700 bg-indigo-50/70 p-2.5 rounded-lg mt-3">
+          <div className="text-xs text-primary bg-primary/70 p-2.5 rounded-lg mt-3">
             ℹ️ <strong>ملاحظة مالية:</strong> لم يتم تعديل رصيدك المالي حالياً، وسيتم إضافة الفاتورة لرصيدك عند مراجعة وتأكيد الطلب من قِبل الشركة.
           </div>
         </div>
@@ -211,13 +211,13 @@ export const WholesaleNewOrderPage: React.FC = () => {
               setCreatedOrderResult(null);
               navigate('/wholesale-portal/orders');
             }}
-            className="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-xl transition-colors"
+            className="w-full sm:w-auto px-6 py-2.5 bg-primary hover:bg-primary/90 text-white font-medium text-sm rounded-xl transition-colors"
           >
             عرض في «طلباتي»
           </button>
           <button
             onClick={() => setCreatedOrderResult(null)}
-            className="w-full sm:w-auto px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium text-sm rounded-xl transition-colors"
+            className="w-full sm:w-auto px-6 py-2.5 bg-muted hover:bg-muted text-foreground font-medium text-sm rounded-xl transition-colors"
           >
             إنشاء طلب آخر
           </button>
@@ -229,9 +229,9 @@ export const WholesaleNewOrderPage: React.FC = () => {
   return (
     <div dir="rtl" className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-border shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
             <ShoppingCart className="text-indigo-600" size={26} />
             طلب جملة جديد
           </h1>
@@ -241,10 +241,10 @@ export const WholesaleNewOrderPage: React.FC = () => {
         </div>
 
         {/* Credit Limit Badge in Header */}
-        <div className="flex items-center gap-4 bg-gray-50 px-4 py-2.5 rounded-xl border border-gray-200 text-xs">
+        <div className="flex items-center gap-4 bg-muted px-4 py-2.5 rounded-xl border border-border text-xs">
           <div>
             <span className="text-gray-400 block">الحد الائتماني:</span>
-            <span className="font-bold text-gray-800 font-mono">
+            <span className="font-bold text-foreground font-mono">
               {creditLimit.toLocaleString('ar-EG')} ج.م
             </span>
           </div>
@@ -259,7 +259,7 @@ export const WholesaleNewOrderPage: React.FC = () => {
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 text-red-700 rounded-2xl border border-red-200 flex items-center gap-3 text-sm">
+        <div className="p-4 bg-destructive/10 text-destructive rounded-xl border border-destructive flex items-center gap-3 text-sm">
           <AlertTriangle size={20} className="shrink-0" />
           <span>{error}</span>
         </div>
@@ -267,11 +267,11 @@ export const WholesaleNewOrderPage: React.FC = () => {
 
       {/* Credit Exceeded Warning Banner */}
       {exceedsCredit && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 text-red-800 text-sm">
+        <div className="p-4 bg-destructive/10 border border-destructive rounded-xl flex items-start gap-3 text-destructive text-sm">
           <ShieldAlert size={22} className="text-red-600 shrink-0 mt-0.5" />
           <div>
             <h4 className="font-bold">تجاوز الحد الائتماني المسموح به</h4>
-            <p className="text-xs text-red-700 mt-0.5">
+            <p className="text-xs text-destructive mt-0.5">
               إجمالي هذا الطلب ({orderTotal.toLocaleString('ar-EG')} ج.م) بالإضافة إلى رصيدك الحالي ({currentBalance.toLocaleString('ar-EG')} ج.م) يتجاوز الحد المسموح به ({creditLimit.toLocaleString('ar-EG')} ج.م). يرجى تقليل الكميات لتناسب الحد المتاح ({availableCredit.toLocaleString('ar-EG')} ج.م).
             </p>
           </div>
@@ -282,20 +282,20 @@ export const WholesaleNewOrderPage: React.FC = () => {
         {/* Left Column: Cart & Checkout Form */}
         <div className="lg:col-span-2 space-y-6">
           {/* Cart Table */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-              <h3 className="font-bold text-gray-900 text-sm">سلة منتجات الطلب</h3>
-              <span className="text-xs text-gray-400">{cart.length} أصناف مضافة</span>
+          <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+            <div className="p-4 border-b border-border flex items-center justify-between">
+              <h3 className="font-bold text-foreground text-sm">سلة منتجات الطلب</h3>
+              <span className="text-xs text-muted-foreground">{cart.length} أصناف مضافة</span>
             </div>
 
             {cart.length === 0 ? (
-              <div className="p-12 text-center text-gray-400">
-                <Package className="mx-auto mb-2 text-gray-300" size={40} />
+              <div className="p-12 text-center text-muted-foreground">
+                <Package className="mx-auto mb-2 text-muted-foreground" size={40} />
                 <p className="text-sm font-medium">السلة فارغة حالياً</p>
-                <p className="text-xs text-gray-400 mt-1">اختر الأصناف من القائمة على اليسار لإضافتها للطلب</p>
+                <p className="text-xs text-muted-foreground mt-1">اختر الأصناف من القائمة على اليسار لإضافتها للطلب</p>
               </div>
             ) : (
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-border">
                 {cart.map((ci) => {
                   const item = ci.item;
                   const itemTotal = item.wholesalePrice * ci.quantity;
@@ -304,16 +304,16 @@ export const WholesaleNewOrderPage: React.FC = () => {
                   return (
                     <div
                       key={item.id}
-                      className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-gray-50/50 transition-colors"
+                      className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-muted transition-colors"
                     >
                       <div className="space-y-1">
-                        <div className="font-bold text-sm text-gray-900">{item.productName}</div>
+                        <div className="font-bold text-sm text-foreground">{item.productName}</div>
                         {item.variantName && (
-                          <span className="text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">
+                          <span className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-md">
                             {item.variantName}
                           </span>
                         )}
-                        <div className="text-xs text-gray-400 font-mono">
+                        <div className="text-xs text-muted-foreground font-mono">
                           سعر القطعة: {item.wholesalePrice.toLocaleString('ar-EG')} ج.م
                           {item.minQuantity > 1 && ` (أقل كمية: ${item.minQuantity})`}
                         </div>
@@ -321,12 +321,12 @@ export const WholesaleNewOrderPage: React.FC = () => {
 
                       {/* Quantity Controls & Total */}
                       <div className="flex items-center justify-between sm:justify-end gap-4">
-                        <div className="flex items-center gap-1.5 border border-gray-200 rounded-xl p-1 bg-gray-50">
+                        <div className="flex items-center gap-1.5 border border-border rounded-xl p-1 bg-muted">
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.id, ci.quantity - 1)}
                             disabled={isMin}
-                            className="p-1 hover:bg-white rounded-lg text-gray-600 disabled:opacity-30 disabled:hover:bg-transparent"
+                            className="p-1 hover:bg-white rounded-lg text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
                             title={isMin ? `الحد الأدنى هو ${item.minQuantity}` : 'تقليل'}
                           >
                             <Minus size={14} />
@@ -343,21 +343,21 @@ export const WholesaleNewOrderPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.id, ci.quantity + 1)}
-                            className="p-1 hover:bg-white rounded-lg text-gray-600"
+                            className="p-1 hover:bg-white rounded-lg text-foreground"
                             title="زيادة"
                           >
                             <Plus size={14} />
                           </button>
                         </div>
 
-                        <div className="w-24 text-left font-bold font-mono text-sm text-gray-900">
+                        <div className="w-24 text-left font-bold font-mono text-sm text-foreground">
                           {itemTotal.toLocaleString('ar-EG')} ج.م
                         </div>
 
                         <button
                           type="button"
                           onClick={() => removeFromCart(item.id)}
-                          className="p-1.5 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-lg hover:bg-destructive/10 transition-colors"
                           title="حذف"
                         >
                           <Trash2 size={16} />
@@ -371,12 +371,12 @@ export const WholesaleNewOrderPage: React.FC = () => {
           </div>
 
           {/* Shipping & Notes Form */}
-          <form onSubmit={handleSubmitOrder} className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
-            <h3 className="font-bold text-gray-900 text-sm">بيانات التسليم والملاحظات</h3>
+          <form onSubmit={handleSubmitOrder} className="bg-white p-6 rounded-xl border border-border shadow-sm space-y-4">
+            <h3 className="font-bold text-foreground text-sm">بيانات التسليم والملاحظات</h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-foreground mb-1">
                   المدينة / المركز
                 </label>
                 <input
@@ -384,12 +384,12 @@ export const WholesaleNewOrderPage: React.FC = () => {
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="مثال: القاهرة / مدينة نصر"
-                  className="w-full px-3.5 py-2 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3.5 py-2 text-sm border border-border rounded-xl bg-muted focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-foreground mb-1">
                   عنوان المستودع أو الاستلام
                 </label>
                 <input
@@ -397,13 +397,13 @@ export const WholesaleNewOrderPage: React.FC = () => {
                   value={shippingAddress}
                   onChange={(e) => setShippingAddress(e.target.value)}
                   placeholder="شارع المخازن - مستودع الموزع"
-                  className="w-full px-3.5 py-2 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3.5 py-2 text-sm border border-border rounded-xl bg-muted focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 ملاحظات خاصة بالطلب (اختياري)
               </label>
               <textarea
@@ -411,15 +411,15 @@ export const WholesaleNewOrderPage: React.FC = () => {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="أي تعليمات خاصة بالتحميل أو أوقات الاستلام..."
-                className="w-full px-3.5 py-2 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3.5 py-2 text-sm border border-border rounded-xl bg-muted focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
 
             {/* Total and Submit */}
-            <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <span className="text-xs text-gray-400 block">إجمالي قيمة الطلب</span>
-                <div className="text-2xl font-bold text-indigo-600 font-mono">
+                <span className="text-xs text-muted-foreground block">إجمالي قيمة الطلب</span>
+                <div className="text-2xl font-bold text-primary font-mono">
                   {orderTotal.toLocaleString('ar-EG')} <span className="text-sm font-normal">ج.م</span>
                 </div>
               </div>
@@ -427,7 +427,7 @@ export const WholesaleNewOrderPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={submitting || cart.length === 0 || exceedsCredit}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all shadow-sm disabled:opacity-50 disabled:hover:bg-indigo-600 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-bold transition-all shadow-sm disabled:opacity-50 disabled:hover:bg-primary disabled:cursor-not-allowed"
               >
                 {submitting ? (
                   <>
@@ -447,37 +447,37 @@ export const WholesaleNewOrderPage: React.FC = () => {
 
         {/* Right Column: Catalog Quick Selector */}
         <div className="space-y-4">
-          <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
-            <h3 className="font-bold text-gray-900 text-sm mb-3 flex items-center justify-between">
+          <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+            <h3 className="font-bold text-foreground text-sm mb-3 flex items-center justify-between">
               <span>قائمة منتجاتك بالجملة</span>
-              <span className="text-xs text-gray-400">{catalog.length} صنف</span>
+              <span className="text-xs text-muted-foreground">{catalog.length} صنف</span>
             </h3>
 
             {loading ? (
-              <div className="text-center py-8 text-xs text-gray-500">
-                <div className="mx-auto h-5 w-5 animate-spin rounded-full border-b-2 border-indigo-600 mb-2" />
+              <div className="text-center py-8 text-xs text-muted-foreground">
+                <div className="mx-auto h-5 w-5 animate-spin rounded-full border-b-2 border-primary mb-2" />
                 جاري التحميل...
               </div>
             ) : catalog.length === 0 ? (
-              <p className="text-xs text-gray-400 text-center py-6">لا توجد منتجات مسجلة في قائمتك.</p>
+              <p className="text-xs text-muted-foreground text-center py-6">لا توجد منتجات مسجلة في قائمتك.</p>
             ) : (
-              <div className="space-y-2.5 max-h-[550px] overflow-y-auto pr-1">
+              <div className="space-y-2.5 max-h-[550px] overflow-y-auto pe-1">
                 {catalog.map((item) => {
                   const inCart = cart.some((ci) => ci.item.id === item.id);
 
                   return (
                     <div
                       key={item.id}
-                      className="p-3 rounded-xl border border-gray-100 hover:border-indigo-200 bg-gray-50/60 transition-all flex items-center justify-between gap-3 text-xs"
+                      className="p-3 rounded-xl border border-border hover:border-primary bg-muted transition-all flex items-center justify-between gap-3 text-xs"
                     >
                       <div className="space-y-0.5 overflow-hidden">
-                        <div className="font-bold text-gray-900 truncate">{item.productName}</div>
+                        <div className="font-bold text-foreground truncate">{item.productName}</div>
                         {item.variantName && (
                           <div className="text-gray-500">{item.variantName}</div>
                         )}
-                        <div className="font-mono text-indigo-600 font-semibold">
+                        <div className="font-mono text-primary font-semibold">
                           {item.wholesalePrice.toLocaleString('ar-EG')} ج.م
-                          <span className="text-gray-400 font-normal mr-1">
+                          <span className="text-gray-400 font-normal me-1">
                             (أقل كمية: {item.minQuantity})
                           </span>
                         </div>
@@ -488,8 +488,8 @@ export const WholesaleNewOrderPage: React.FC = () => {
                         onClick={() => addToCart(item)}
                         className={`px-2.5 py-1.5 rounded-lg font-medium transition-colors shrink-0 ${
                           inCart
-                            ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                            ? 'bg-emerald-50 text-success hover:bg-success'
+                            : 'bg-indigo-600 text-white hover:bg-primary'
                         }`}
                       >
                         {inCart ? 'تمت الإضافة +' : 'إضافة'}

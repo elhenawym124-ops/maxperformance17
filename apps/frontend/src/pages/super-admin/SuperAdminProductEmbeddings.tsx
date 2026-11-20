@@ -204,26 +204,26 @@ export default function SuperAdminProductEmbeddings() {
 
           <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-emerald-600 dark:text-emerald-400">منتجات مُضَمَّنة</p>
-              <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">
+              <p className="text-[11px] text-success dark:text-success">منتجات مُضَمَّنة</p>
+              <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">
                 {summary.total_embedded.toLocaleString()}
               </p>
               <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">جاهزة للبحث البصري</p>
             </div>
-            <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+            <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
               <CheckCircle className="size-3.5" />
             </div>
           </div>
 
           <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-amber-600 dark:text-amber-400">مفقودة التضمين</p>
-              <p className={cn("text-xl font-bold tracking-tight font-mono tabular-nums mt-0.5", summary.total_missing > 0 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400")}>
+              <p className="text-[11px] text-warning dark:text-warning">مفقودة التضمين</p>
+              <p className={cn("text-xl font-bold tracking-tight font-mono tabular-nums mt-0.5", summary.total_missing > 0 ? "text-amber-600 dark:text-warning" : "text-emerald-600 dark:text-success")}>
                 {summary.total_missing.toLocaleString()}
               </p>
               <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">تتطلب مزامنة</p>
             </div>
-            <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-600">
+            <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning">
               <Clock className="size-3.5" />
             </div>
           </div>

@@ -117,22 +117,22 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
     switch (status) {
       case 'PENDING':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
-            <Clock className="w-3 h-3 text-amber-600" />
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-warning/10 dark:bg-warning/30 text-warning dark:text-warning border border-warning dark:border-warning">
+            <Clock className="w-3 h-3 text-warning" />
             {isEn ? 'Pending Review' : 'قيد المراجعة'}
           </span>
         );
       case 'APPROVED':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900">
-            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-success/10 dark:bg-success/30 text-success dark:text-success border border-success dark:border-success">
+            <CheckCircle2 className="w-3 h-3 text-success" />
             {isEn ? 'Approved' : 'تمت الموافقة'}
           </span>
         );
       case 'REJECTED':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900">
-            <XCircle className="w-3 h-3 text-rose-600" />
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive">
+            <XCircle className="w-3 h-3 text-destructive" />
             {isEn ? 'Rejected' : 'مرفوض'}
           </span>
         );
@@ -155,24 +155,24 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative flex-1 min-w-[220px] max-w-sm">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={isEn ? 'Search barcode or requester...' : 'ابحث بالباركود أو صاحب الطلب...'}
-              className="w-full pr-9 pl-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs">
+          <div className="flex items-center gap-1 bg-muted dark:bg-muted p-0.5 rounded-lg border border-border dark:border-border text-xs">
             {(['ALL', 'PENDING', 'APPROVED', 'REJECTED'] as const).map((st) => (
               <button
                 key={st}
                 onClick={() => setStatusFilter(st)}
                 className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                   statusFilter === st
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                    ? 'bg-white dark:bg-muted text-foreground dark:text-white shadow-xs'
+                    : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {st === 'ALL'
@@ -187,7 +187,7 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
           </div>
           <button
             onClick={() => fetchRequests()}
-            className="p-1.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
             title={isEn ? 'Refresh' : 'تحديث'}
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -196,10 +196,10 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
       </div>
 
       {/* Requests Table */}
-      <div className="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+      <div className="border border-border dark:border-border rounded-lg overflow-hidden bg-white dark:bg-muted">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 border-b border-slate-200 dark:border-slate-800">
+            <thead className="bg-slate-50 dark:bg-muted text-muted-foreground border-b border-border dark:border-border">
               <tr>
                 <th className="p-2.5 font-medium">{isEn ? 'Barcode / Shipment' : 'الباركود / الشحنة'}</th>
                 <th className="p-2.5 font-medium">{isEn ? 'Requested By' : 'مقدم الطلب'}</th>
@@ -210,33 +210,33 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
                 <th className="p-2.5 font-medium text-center">{isEn ? 'Actions' : 'إجراءات'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-8 text-slate-400">
+                  <td colSpan={7} className="text-center py-8 text-muted-foreground">
                     {isEn ? 'Loading package open requests...' : 'جارٍ تحميل طلبات فتح الشحنة...'}
                   </td>
                 </tr>
               ) : filteredRequests.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-8 text-slate-400">
+                  <td colSpan={7} className="text-center py-8 text-muted-foreground">
                     {isEn ? 'No requests found' : 'لا توجد طلبات فتح شحنة'}
                   </td>
                 </tr>
               ) : (
                 filteredRequests.map((req) => (
-                  <tr key={req.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                  <tr key={req.id} className="hover:bg-slate-50 dark:hover:bg-muted transition-colors">
                     <td className="p-2.5">
-                      <div className="font-mono font-medium text-slate-900 dark:text-white">
+                      <div className="font-mono font-medium text-foreground dark:text-white">
                         {req.shipment?.barcode || req.shipment?.trackingNumber || req.shipmentId}
                       </div>
                       {req.shipment?.recipientName && (
-                        <div className="text-[11px] text-slate-400">{req.shipment.recipientName}</div>
+                        <div className="text-[11px] text-muted-foreground">{req.shipment.recipientName}</div>
                       )}
                     </td>
                     <td className="p-2.5">
-                      <div className="font-medium text-slate-800 dark:text-slate-200">{req.requestedBy}</div>
-                      <span className="text-[10px] text-slate-400">
+                      <div className="font-medium text-foreground dark:text-muted-foreground">{req.requestedBy}</div>
+                      <span className="text-[10px] text-muted-foreground">
                         {req.requestedByType === 'CLIENT'
                           ? isEn ? 'Merchant' : 'عميل الشحن'
                           : req.requestedByType === 'COURIER'
@@ -245,24 +245,24 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
                       </span>
                     </td>
                     <td className="p-2.5">
-                      <div className="text-slate-700 dark:text-slate-300 line-clamp-2 max-w-xs">
+                      <div className="text-slate-700 dark:text-muted-foreground line-clamp-2 max-w-xs">
                         {req.reason || '—'}
                       </div>
                       {req.rejectionReason && (
-                        <div className="text-[11px] text-rose-500 mt-0.5 line-clamp-1">
+                        <div className="text-[11px] text-destructive mt-0.5 line-clamp-1">
                           {isEn ? 'Reason:' : 'سبب الرفض:'} {req.rejectionReason}
                         </div>
                       )}
                     </td>
                     <td className="p-2.5">{renderStatusBadge(req.status)}</td>
-                    <td className="p-2.5 text-left font-bold tabular-nums text-slate-900 dark:text-white">
+                    <td className="p-2.5 text-left font-bold tabular-nums text-foreground dark:text-white">
                       {req.fee != null ? `${Number(req.fee).toFixed(2)} ج.م` : '—'}
                     </td>
                     <td className="p-2.5">
                       {req.reviewedBy ? (
                         <div>
-                          <div className="text-slate-800 dark:text-slate-200 font-medium">{req.reviewedBy}</div>
-                          <div className="text-[10px] text-slate-400">{formatDateTime(req.reviewedAt)}</div>
+                          <div className="text-slate-800 dark:text-muted-foreground font-medium">{req.reviewedBy}</div>
+                          <div className="text-[10px] text-muted-foreground">{formatDateTime(req.reviewedAt)}</div>
                         </div>
                       ) : (
                         <span className="text-slate-400 text-[11px]">{formatDateTime(req.createdAt)}</span>
@@ -273,14 +273,14 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
                         <div className="inline-flex items-center gap-1.5">
                           <button
                             onClick={() => setApprovingItem(req)}
-                            className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[11px] font-medium flex items-center gap-1 shadow-xs transition-colors"
+                            className="px-2 py-1 bg-success hover:bg-success text-white rounded text-[11px] font-medium flex items-center gap-1 shadow-xs transition-colors"
                           >
                             <Check className="w-3 h-3" />
                             <span>{isEn ? 'Approve' : 'موافقة'}</span>
                           </button>
                           <button
                             onClick={() => setRejectingItem(req)}
-                            className="px-2 py-1 border border-rose-200 dark:border-rose-900 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded text-[11px] font-medium flex items-center gap-1 transition-colors"
+                            className="px-2 py-1 border border-destructive dark:border-destructive text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/20 rounded text-[11px] font-medium flex items-center gap-1 transition-colors"
                           >
                             <Ban className="w-3 h-3" />
                             <span>{isEn ? 'Reject' : 'رفض'}</span>

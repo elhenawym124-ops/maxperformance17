@@ -241,9 +241,9 @@ export function SuperAdminCompanyActivity() {
             <div className="p-3 sm:p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span className="font-medium text-[11px]">نشطة (≤7 أيام)</span>
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-success" />
               </div>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums">
                 {summary?.active ?? "—"}
               </div>
               <p className="mt-0.5 text-[10px] font-mono text-muted-foreground">تفاعل منتظم</p>
@@ -252,9 +252,9 @@ export function SuperAdminCompanyActivity() {
             <div className="p-3 sm:p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span className="font-medium text-[11px]">خاملة (≤30 يوم)</span>
-                <span className="size-1.5 rounded-full bg-amber-500" />
+                <span className="size-1.5 rounded-full bg-warning" />
               </div>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold tracking-tight text-warning dark:text-warning font-mono tabular-nums">
                 {summary?.dormant ?? "—"}
               </div>
               <p className="mt-0.5 text-[10px] font-mono text-muted-foreground">تحتاج متابعة</p>
@@ -263,7 +263,7 @@ export function SuperAdminCompanyActivity() {
             <div className="p-3 sm:p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span className="font-medium text-[11px]">غير متفاعلة</span>
-                <span className="size-1.5 rounded-full bg-slate-500" />
+                <span className="size-1.5 rounded-full bg-muted" />
               </div>
               <div className="text-xl sm:text-2xl font-bold tracking-tight text-muted-foreground font-mono tabular-nums">
                 {summary?.dead ?? "—"}
@@ -274,9 +274,9 @@ export function SuperAdminCompanyActivity() {
             <div className="p-3 sm:p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span className="font-medium text-[11px]">نشاط اليوم</span>
-                <span className="size-1.5 rounded-full bg-indigo-500" />
+                <span className="size-1.5 rounded-full bg-primary" />
               </div>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-indigo-600 dark:text-indigo-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold tracking-tight text-primary font-mono tabular-nums">
                 {summary?.workedToday ?? "—"}
               </div>
               <p className="mt-0.5 text-[10px] font-mono text-muted-foreground">نبضات اليوم</p>
@@ -285,9 +285,9 @@ export function SuperAdminCompanyActivity() {
             <div className="p-3 sm:p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span className="font-medium text-[11px]">دخول اليوم</span>
-                <span className="size-1.5 rounded-full bg-cyan-500" />
+                <span className="size-1.5 rounded-full bg-info" />
               </div>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-cyan-600 dark:text-cyan-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold tracking-tight text-info dark:text-info font-mono tabular-nums">
                 {summary?.loggedInToday ?? "—"}
               </div>
               <p className="mt-0.5 text-[10px] font-mono text-muted-foreground">تسجيل دخول مسجل</p>
@@ -302,7 +302,7 @@ export function SuperAdminCompanyActivity() {
                 <div className="relative flex-1 min-w-[200px] max-w-sm">
                   <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
                   <Input
-                    className="h-8 pr-8 text-xs font-mono bg-background"
+                    className="h-8 pe-8 text-xs font-mono bg-background"
                     placeholder="بحث بالاسم أو البريد أو الهاتف..."
                     value={searchTerm}
                     onChange={(e) => {
@@ -380,10 +380,10 @@ export function SuperAdminCompanyActivity() {
                             <span
                               className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border w-fit ${
                                 c.status === "active"
-                                  ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
+                                  ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                                   : c.status === "dormant"
-                                    ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20"
-                                    : "bg-slate-500/10 text-slate-500 border-slate-500/20"
+                                    ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
+                                    : "bg-slate-500/10 text-muted-foreground border-border"
                               }`}
                             >
                               <span
@@ -408,7 +408,7 @@ export function SuperAdminCompanyActivity() {
                               className="flex flex-col items-center"
                               title={(c.today.apps || []).map((a) => APP_LABELS[a] || a).join(" · ")}
                             >
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 text-[10px] font-mono font-medium">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/10 text-success dark:text-success border border-success/20 text-[10px] font-mono font-medium">
                                 {c.today.actions} نبضة
                               </span>
                               <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">
@@ -488,7 +488,7 @@ export function SuperAdminCompanyActivity() {
                     onClick={() => setPage(page - 1)}
                     className="h-7 px-2.5 text-xs font-mono"
                   >
-                    <ChevronRight className="size-3.5 ml-1" /> السابق
+                    <ChevronRight className="size-3.5 ms-1" /> السابق
                   </Button>
                   <Button
                     variant="outline"
@@ -497,7 +497,7 @@ export function SuperAdminCompanyActivity() {
                     onClick={() => setPage(page + 1)}
                     className="h-7 px-2.5 text-xs font-mono"
                   >
-                    التالي <ChevronLeft className="size-3.5 mr-1" />
+                    التالي <ChevronLeft className="size-3.5 me-1" />
                   </Button>
                 </div>
               </div>

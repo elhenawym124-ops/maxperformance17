@@ -179,7 +179,7 @@ export default function SuperAdminAppVersionSettings() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20 shadow-xs">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20 shadow-xs">
             <Smartphone className="w-6 h-6" />
           </div>
           <div>
@@ -229,8 +229,8 @@ export default function SuperAdminAppVersionSettings() {
               <span
                 className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border ${
                   source === "db"
-                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
+                    : "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                 }`}
               >
                 {source === "db" ? "قاعدة البيانات (مخصص)" : "القيم الافتراضية للكود"}
@@ -248,7 +248,7 @@ export default function SuperAdminAppVersionSettings() {
               <span className="text-xs text-muted-foreground">(كود {formData.latestVersionCode})</span>
             </div>
           </div>
-          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+          <CheckCircle2 className="w-5 h-5 text-success" />
         </div>
 
         <div className="p-4 rounded-xl border border-border bg-card shadow-2xs flex items-center justify-between">
@@ -256,7 +256,7 @@ export default function SuperAdminAppVersionSettings() {
             <span className="text-xs text-muted-foreground block">وضع التحديث الإلزامي</span>
             <div className="flex items-center gap-1.5 mt-1">
               {formData.forceUpdate ? (
-                <span className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1">
+                <span className="text-xs font-bold text-destructive dark:text-destructive flex items-center gap-1">
                   <ShieldAlert className="w-4 h-4" />
                   مفعل (يمنع استخدام التطبيق دون تحديث)
                 </span>
@@ -273,12 +273,12 @@ export default function SuperAdminAppVersionSettings() {
 
       {/* Validation Errors Box */}
       {errors.length > 0 && (
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 space-y-2">
+        <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/30 text-destructive dark:text-destructive space-y-2">
           <div className="flex items-center gap-2 font-bold text-sm">
-            <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
             <span>تعذر نشر الإعدادات بسبب الأخطاء التالية:</span>
           </div>
-          <ul className="list-disc list-inside text-xs space-y-1 pr-2">
+          <ul className="list-disc list-inside text-xs space-y-1 pe-2">
             {errors.map((err, idx) => (
               <li key={idx}>{err}</li>
             ))}
@@ -289,7 +289,7 @@ export default function SuperAdminAppVersionSettings() {
       {/* Settings Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Core Version Identifiers */}
-        <div className="p-6 rounded-2xl border border-border bg-card shadow-2xs space-y-5">
+        <div className="p-6 rounded-xl border border-border bg-card shadow-2xs space-y-5">
           <div className="border-b border-border/60 pb-3">
             <h2 className="text-base font-bold text-foreground">أرقام وإصدارات الحزمة</h2>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -382,7 +382,7 @@ export default function SuperAdminAppVersionSettings() {
         </div>
 
         {/* Enforcement & System Flags */}
-        <div className="p-6 rounded-2xl border border-border bg-card shadow-2xs space-y-5">
+        <div className="p-6 rounded-xl border border-border bg-card shadow-2xs space-y-5">
           <div className="border-b border-border/60 pb-3">
             <h2 className="text-base font-bold text-foreground">قواعد الإلزام والتفعيل</h2>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -392,7 +392,7 @@ export default function SuperAdminAppVersionSettings() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-center justify-between p-4 rounded-xl border border-border/60 bg-muted/20">
-              <div className="space-y-0.5 pr-1">
+              <div className="space-y-0.5 pe-1">
                 <Label htmlFor="forceUpdate" className="text-sm font-semibold cursor-pointer">
                   فرض التحديث الإلزامي (forceUpdate)
                 </Label>
@@ -408,7 +408,7 @@ export default function SuperAdminAppVersionSettings() {
             </div>
 
             <div className="flex items-center justify-between p-4 rounded-xl border border-border/60 bg-muted/20">
-              <div className="space-y-0.5 pr-1">
+              <div className="space-y-0.5 pe-1">
                 <Label htmlFor="isEnabled" className="text-sm font-semibold cursor-pointer">
                   تفعيل نظام التنبيهات (isEnabled)
                 </Label>
@@ -426,7 +426,7 @@ export default function SuperAdminAppVersionSettings() {
         </div>
 
         {/* Download URLs */}
-        <div className="p-6 rounded-2xl border border-border bg-card shadow-2xs space-y-5">
+        <div className="p-6 rounded-xl border border-border bg-card shadow-2xs space-y-5">
           <div className="border-b border-border/60 pb-3">
             <h2 className="text-base font-bold text-foreground">روابط التحميل والتوزيع</h2>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -481,7 +481,7 @@ export default function SuperAdminAppVersionSettings() {
         </div>
 
         {/* Release Notes & Changelog */}
-        <div className="p-6 rounded-2xl border border-border bg-card shadow-2xs space-y-5">
+        <div className="p-6 rounded-xl border border-border bg-card shadow-2xs space-y-5">
           <div className="border-b border-border/60 pb-3">
             <h2 className="text-base font-bold text-foreground">ملاحظات الإصدار والميزات الجديدة</h2>
             <p className="text-xs text-muted-foreground mt-0.5">

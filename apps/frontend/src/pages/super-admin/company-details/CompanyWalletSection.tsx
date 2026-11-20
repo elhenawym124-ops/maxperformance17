@@ -24,13 +24,13 @@ export function CompanyWalletSection({ review, reviewCurrency, openTopUpModal, n
       description="رصيد الشركة، حركة الشحن، وآخر العمليات المالية على المحفظة."
       actions={
         <>
-          <Button type="button" variant="outline" className="rounded-2xl"
+          <Button type="button" variant="outline" className="rounded-xl"
             onClick={() => navigate("/super-admin/wallet-management")}
           >
             <WalletIcon className="size-4" />
             إدارة المحافظ
           </Button>
-          <Button type="button" className="rounded-2xl" onClick={openTopUpModal}>
+          <Button type="button" className="rounded-xl" onClick={openTopUpModal}>
             <ArrowUpCircle className="size-4" />
             شحن المحفظة
           </Button>
@@ -39,7 +39,7 @@ export function CompanyWalletSection({ review, reviewCurrency, openTopUpModal, n
     >
       <div className="grid gap-3 sm:grid-cols-3">
         <MiniStat label="الرصيد الحالي" value={formatCurrency(review?.wallet?.balance, reviewCurrency)}
-          helper="المتاح الآن للتغطية والدفع" valueClassName="text-emerald-700 dark:text-emerald-300" />
+          helper="المتاح الآن للتغطية والدفع" valueClassName="text-emerald-700 dark:text-success" />
         <MiniStat label="إجمالي الإيداعات" value={formatCurrency(review?.wallet?.totalDeposited, reviewCurrency)}
           helper="كل ما تم شحنه تاريخيًا" />
         <MiniStat label="إجمالي المصروف" value={formatCurrency(review?.wallet?.totalSpent, reviewCurrency)}

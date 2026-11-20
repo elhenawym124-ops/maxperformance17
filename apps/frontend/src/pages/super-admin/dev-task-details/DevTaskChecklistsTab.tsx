@@ -50,12 +50,12 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
             value={newChecklistTitle}
             onChange={(e) => setNewChecklistTitle(e.target.value)}
             placeholder="عنوان القائمة الجديدة..."
-            className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-gray-100"
+            className="flex-1 px-4 py-2 border border-border rounded-lg dark:bg-muted dark:text-muted-foreground"
           />
           <button
             type="button"
             onClick={handleCreateChecklist}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
           >
             <PlusIcon className="h-5 w-5" />
           </button>
@@ -66,7 +66,7 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
             type="button"
             onClick={handleExportChecklists}
             title="تصدير القوائم"
-            className="p-2 text-gray-600 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg transition-colors"
+            className="p-2 text-foreground bg-muted hover:bg-muted dark:text-muted-foreground dark:bg-muted dark:hover:bg-muted rounded-lg transition-colors"
           >
             <ArrowDownTrayIcon className="h-5 w-5" />
           </button>
@@ -75,7 +75,7 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
             onClick={() => fileInputRef.current?.click()}
             disabled={isImporting}
             title="استيراد قوائم"
-            className={`p-2 text-gray-600 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg transition-colors ${
+            className={`p-2 text-foreground bg-muted hover:bg-muted dark:text-muted-foreground dark:bg-muted dark:hover:bg-muted rounded-lg transition-colors ${
               isImporting ? "opacity-60 cursor-wait" : ""
             }`}
           >
@@ -94,10 +94,10 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
       {checklists?.map((checklist) => (
         <div
           key={checklist.id}
-          className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+          className="bg-gray-50 dark:bg-muted rounded-lg p-4 border border-border dark:border-border"
         >
-          <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
-            <CheckCircleIcon className="h-5 w-5 text-indigo-500" />
+          <h4 className="font-bold text-foreground mb-3 flex items-center gap-2">
+            <CheckCircleIcon className="h-5 w-5 text-primary" />
             {checklist.title}
           </h4>
           <div className="space-y-2 mb-3">
@@ -107,13 +107,13 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
                   type="checkbox"
                   checked={item.isCompleted}
                   onChange={() => handleToggleItem(item.id, item.isCompleted)}
-                  className="h-4 w-4 text-indigo-600 rounded border-gray-300 cursor-pointer dark:bg-gray-700 dark:border-gray-600 focus:ring-indigo-500"
+                  className="h-4 w-4 text-primary rounded border-border cursor-pointer dark:bg-muted dark:border-border focus:ring-primary"
                 />
                 <span
                   className={`flex-1 transition-all ${
                     item.isCompleted
-                      ? "line-through text-gray-400"
-                      : "text-gray-700 dark:text-gray-300"
+                      ? "line-through text-muted-foreground"
+                      : "text-foreground"
                   }`}
                 >
                   {item.content}
@@ -127,7 +127,7 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
                       onConfirm: () => handleDeleteChecklistItem(item.id),
                     })
                   }
-                  className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-opacity"
+                  className="opacity-0 group-hover:opacity-100 p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded transition-opacity"
                 >
                   <TrashIcon className="h-4 w-4" />
                 </button>
@@ -145,7 +145,7 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
                 })
               }
               placeholder="إضافة عنصر..."
-              className="flex-1 px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-gray-200 focus:ring-1 focus:ring-indigo-500"
+              className="flex-1 px-3 py-1.5 text-sm border border-border rounded-lg dark:bg-muted dark:text-muted-foreground focus:ring-1 focus:ring-primary"
               onKeyDown={(e) =>
                 e.key === "Enter" && handleAddItem(checklist.id)
               }
@@ -153,7 +153,7 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
             <button
               type="button"
               onClick={() => handleAddItem(checklist.id)}
-              className="p-1.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors"
+              className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition-colors"
             >
               <PlusIcon className="h-5 w-5" />
             </button>
@@ -161,8 +161,8 @@ export const DevTaskChecklistsTab: React.FC<DevTaskChecklistsTabProps> = ({
         </div>
       ))}
       {(!checklists || checklists.length === 0) && !newChecklistTitle && (
-        <div className="text-center py-12 text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-          <CheckCircleIcon className="h-12 w-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
+        <div className="text-center py-12 text-muted-foreground bg-muted dark:bg-muted rounded-xl border border-dashed border-border dark:border-border">
+          <CheckCircleIcon className="h-12 w-12 mx-auto mb-3 text-muted-foreground dark:text-foreground" />
           <p>لا توجد قوائم مرجعية</p>
         </div>
       )}

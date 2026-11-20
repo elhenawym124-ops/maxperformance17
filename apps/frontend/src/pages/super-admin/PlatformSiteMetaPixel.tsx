@@ -124,14 +124,14 @@ export default function PlatformSiteMetaPixel() {
     if (settings.isEnabled && hasValidPixelId) {
       return {
         title: "مفعّل ونشط",
-        tone: "text-emerald-600 dark:text-emerald-400",
+        tone: "text-emerald-600 dark:text-success",
         dot: "bg-emerald-500",
       };
     }
     if (!settings.isEnabled && hasValidPixelId) {
       return {
         title: "جاهز للتفعيل",
-        tone: "text-amber-600 dark:text-amber-400",
+        tone: "text-amber-600 dark:text-warning",
         dot: "bg-amber-500",
       };
     }
@@ -249,13 +249,13 @@ export default function PlatformSiteMetaPixel() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-600 dark:text-emerald-400">الأحداث النشطة</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-success dark:text-success">الأحداث النشطة</p>
+            <p className="text-xl font-bold tracking-tight text-success dark:text-success font-mono tabular-nums mt-0.5">
               {liveEventsCount}
             </p>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">مزامنة فعلية</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+          <div className="size-7 rounded-md bg-success/10 flex items-center justify-center text-success">
             <CheckCircle2 className="size-3.5" />
           </div>
         </div>
@@ -390,7 +390,7 @@ export default function PlatformSiteMetaPixel() {
                   <span>الضغط على زر التسجيل يرسل حدث <strong>Lead</strong></span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="size-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                  <span className="size-1.5 rounded-full bg-success mt-1.5 shrink-0" />
                   <span>إتمام الحساب يرسل <strong>CompleteRegistration</strong></span>
                 </li>
               </ul>

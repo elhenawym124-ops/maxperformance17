@@ -1,14 +1,14 @@
 const severityClasses: Record<string, string> = {
   success:
-    "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800/70 dark:bg-emerald-950/40 dark:text-emerald-300",
+    "border-emerald-200 bg-success/10 text-success dark:border-success/70 dark:bg-success/40 dark:text-success",
   warning:
-    "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800/70 dark:bg-amber-950/40 dark:text-amber-300",
+    "border-amber-200 bg-warning/10 text-warning dark:border-warning/70 dark:bg-warning/40 dark:text-warning",
   danger:
-    "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800/70 dark:bg-rose-950/40 dark:text-rose-300",
+    "border-rose-200 bg-destructive/10 text-destructive dark:border-destructive/70 dark:bg-destructive/40 dark:text-destructive",
   info:
-    "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-800/70 dark:bg-sky-950/40 dark:text-sky-300",
+    "border-sky-200 bg-info/10 text-info dark:border-info/70 dark:bg-info/40 dark:text-info",
   neutral:
-    "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-300",
+    "border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
   blue:
     "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800/70 dark:bg-blue-950/40 dark:text-blue-300",
 };
